@@ -63,6 +63,7 @@ for key,color in manifest['colors'].items():
     mat=u.load_asset(mat_path)
     if mat:L.delete_all_material_expressions(mat)
     else:mat=A.create_asset('M_'+key,BASE+'/Materials',u.Material,u.MaterialFactoryNew())
+    mat.set_editor_property('used_with_nanite',True)
     def node(cls):return L.create_material_expression(mat,getattr(u,'MaterialExpression'+cls))
     def link(a,pin,b,input_name):
         if not L.connect_material_expressions(a,pin,b,input_name):

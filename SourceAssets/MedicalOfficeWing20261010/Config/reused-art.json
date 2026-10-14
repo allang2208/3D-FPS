@@ -1,0 +1,4990 @@
+{
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Body": {
+    "min": [
+      -25.900001525878906,
+      -10.89999771118164,
+      5.587935447692871e-07
+    ],
+    "max": [
+      25.0,
+      11.20000171661377,
+      64.00000762939453
+    ],
+    "materials": [
+      {
+        "slot": "RS_White",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Blue",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      {
+        "slot": "RS_Lining",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_FirstAid_Door": {
+    "min": [
+      4.189171249890933e-07,
+      -6.403502941131592,
+      0.7999986410140991
+    ],
+    "max": [
+      50.0,
+      0.20000037550926208,
+      63.19999694824219
+    ],
+    "materials": [
+      {
+        "slot": "RS_White",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      {
+        "slot": "RS_Glass",
+        "path": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Red",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Body": {
+    "min": [
+      -19.000001907348633,
+      -14.500001907348633,
+      -9.313225746154785e-08
+    ],
+    "max": [
+      19.000001907348633,
+      13.700002670288086,
+      12.700000762939453
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Lining",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_InstrumentBox_Lid": {
+    "min": [
+      -19.700002670288086,
+      -25.700000762939453,
+      -0.10000038892030716
+    ],
+    "max": [
+      19.69999885559082,
+      0.70000159740448,
+      2.799999237060547
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Body": {
+    "min": [
+      -34.5,
+      -24.500003814697266,
+      0.299999862909317
+    ],
+    "max": [
+      34.500003814697266,
+      30.01453399658203,
+      101.87629699707031
+    ],
+    "materials": [
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Lining",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      },
+      {
+        "slot": "RS_White",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_MedicalCart_Drawer": {
+    "min": [
+      -31.100000381469727,
+      -31.494976043701172,
+      64.10000610351562
+    ],
+    "max": [
+      31.09999656677246,
+      19.950002670288086,
+      83.0999984741211
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_White",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      {
+        "slot": "RS_Lining",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Body": {
+    "min": [
+      -26.706314086914062,
+      -20.191926956176758,
+      5.587935447692871e-07
+    ],
+    "max": [
+      26.706314086914062,
+      17.200002670288086,
+      33.19999694824219
+    ],
+    "materials": [
+      {
+        "slot": "RS_Blue",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      },
+      {
+        "slot": "RS_Lining",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid": {
+    "min": [
+      -22.700002670288086,
+      -32.70000076293945,
+      -0.09999964386224747
+    ],
+    "max": [
+      22.700000762939453,
+      0.7000018358230591,
+      3.900000810623169
+    ],
+    "materials": [
+      {
+        "slot": "RS_Blue",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Body": {
+    "min": [
+      -33.70631408691406,
+      -24.291927337646484,
+      -1.862645149230957e-07
+    ],
+    "max": [
+      33.70631408691406,
+      21.200002670288086,
+      45.20000076293945
+    ],
+    "materials": [
+      {
+        "slot": "RS_White",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      {
+        "slot": "RS_Blue",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      {
+        "slot": "RS_Lining",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Lining"
+      },
+      {
+        "slot": "RS_Glass",
+        "path": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      },
+      {
+        "slot": "RS_Red",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_SpecimenCase_Lid": {
+    "min": [
+      -29.700002670288086,
+      -40.70000457763672,
+      -0.09999964386224747
+    ],
+    "max": [
+      29.69999885559082,
+      0.7000024914741516,
+      9.394973754882812
+    ],
+    "materials": [
+      {
+        "slot": "RS_Blue",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body": {
+    "min": [
+      -33.70631408691406,
+      -19.39192771911621,
+      -9.313225746154785e-08
+    ],
+    "max": [
+      33.70631408691406,
+      16.200002670288086,
+      29.19999885559082
+    ],
+    "materials": [
+      {
+        "slot": "RS_Green",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid": {
+    "min": [
+      -29.700002670288086,
+      -30.70000457763672,
+      -0.09999964386224747
+    ],
+    "max": [
+      29.69999885559082,
+      0.7000024914741516,
+      9.394973754882812
+    ],
+    "materials": [
+      {
+        "slot": "RS_Green",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Green"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Office_RecordsDesktop": {
+    "min": [
+      -45.60000228881836,
+      -16.849998474121094,
+      -5.587935447692871e-07
+    ],
+    "max": [
+      30.5,
+      18.299999237060547,
+      7.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paper",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookPaper"
+      },
+      {
+        "slot": "RS_Green",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookGreen"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Blue",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookBlue"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_HeadwallServices": {
+    "min": [
+      -2154.999755859375,
+      -1236.2501220703125,
+      118.49999237060547
+    ],
+    "max": [
+      554.9999389648438,
+      1236.250244140625,
+      137.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_PanelWhite",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_PanelBlue",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      {
+        "slot": "RS_PanelRed",
+        "path": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Red"
+      },
+      {
+        "slot": "RS_ServiceHardware",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_WallRails": {
+    "min": [
+      -3294.19970703125,
+      -1694.2001953125,
+      79.75
+    ],
+    "max": [
+      3294.19970703125,
+      1244.2003173828125,
+      92.29999542236328
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_ServiceHardware",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/HospitalDoctorOffice20261003/Meshes/SM_Ward_Wayfinding": {
+    "min": [
+      -2585.0,
+      -433.0002136230469,
+      311.0
+    ],
+    "max": [
+      2435.0,
+      433.000244140625,
+      438.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Yellow",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      }
+    ]
+  },
+  "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_DoorPaneV5": {
+    "min": [
+      -0.6000062227249146,
+      -71.0,
+      -125.0
+    ],
+    "max": [
+      0.6000062227249146,
+      71.0,
+      125.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Glass",
+        "path": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      }
+    ]
+  },
+  "/Game/Dungeons/IsolationWard20260929/Meshes/SM_Ward_GlassDoorMetalV5": {
+    "min": [
+      -8.299993515014648,
+      -79.74999237060547,
+      -147.5
+    ],
+    "max": [
+      8.300006866455078,
+      79.75,
+      147.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_HospitalBed": {
+    "min": [
+      -139.98475646972656,
+      -92.02204895019531,
+      0.0
+    ],
+    "max": [
+      139.9847412109375,
+      92.02204132080078,
+      208.96945190429688
+    ],
+    "materials": [
+      {
+        "slot": "Frame",
+        "path": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Frame"
+      },
+      {
+        "slot": "Linen",
+        "path": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Linen"
+      },
+      {
+        "slot": "Pillow",
+        "path": "/Game/Props/HospitalBed20260929/Materials/M_HospitalBed_Pillow"
+      }
+    ]
+  },
+  "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_IVDripCrutch": {
+    "min": [
+      -43.80211639404297,
+      -28.947586059570312,
+      0.0
+    ],
+    "max": [
+      43.8021125793457,
+      28.947589874267578,
+      205.00001525878906
+    ],
+    "materials": [
+      {
+        "slot": "Crutch",
+        "path": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Crutch"
+      },
+      {
+        "slot": "Drip",
+        "path": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Drip"
+      },
+      {
+        "slot": "Stand",
+        "path": "/Game/Props/IVDripCrutch20260929/Materials/M_HospitalIV_Stand"
+      }
+    ]
+  },
+  "/Game/Dungeons/IsolationWard20260929/Props/SM_Ward_MedicalCart": {
+    "min": [
+      -46.64238357543945,
+      -26.310840606689453,
+      0.0
+    ],
+    "max": [
+      46.64238357543945,
+      26.310840606689453,
+      111.50101470947266
+    ],
+    "materials": [
+      {
+        "slot": "Cart_C",
+        "path": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_C"
+      },
+      {
+        "slot": "Cart_A",
+        "path": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_A"
+      },
+      {
+        "slot": "Cart_B",
+        "path": "/Game/Props/MedicalCart20260929/Materials/M_HospitalCart_Cart_B"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_BilliardTable": {
+    "min": [
+      -136.00001525878906,
+      -77.00000762939453,
+      0.0
+    ],
+    "max": [
+      136.00001525878906,
+      77.00000762939453,
+      93.25
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Felt",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Felt"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_Yellow",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_BunkBed": {
+    "min": [
+      -106.0,
+      -50.00000762939453,
+      0.0
+    ],
+    "max": [
+      106.0,
+      56.200008392333984,
+      203.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Chair": {
+    "min": [
+      -24.500001907348633,
+      -25.738218307495117,
+      -0.1365581899881363
+    ],
+    "max": [
+      24.500001907348633,
+      23.287166595458984,
+      92.17124938964844
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingBench": {
+    "min": [
+      -120.00000762939453,
+      -26.000009536743164,
+      0.0
+    ],
+    "max": [
+      120.00000762939453,
+      26.000009536743164,
+      48.54999923706055
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Beams": {
+    "min": [
+      -814.0001220703125,
+      -1080.0001220703125,
+      414.0
+    ],
+    "max": [
+      814.0001220703125,
+      1080.0001220703125,
+      460.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_FloorFinish": {
+    "min": [
+      -1200.0001220703125,
+      -1100.0001220703125,
+      -1.7999999523162842
+    ],
+    "max": [
+      1200.0001220703125,
+      1100.0001220703125,
+      0.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Floors": {
+    "min": [
+      -1400.0,
+      -1100.0001220703125,
+      -30.000001907348633
+    ],
+    "max": [
+      1400.0,
+      1100.0001220703125,
+      -1.7999999523162842
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Frames": {
+    "min": [
+      -1417.0,
+      -197.00006103515625,
+      0.0
+    ],
+    "max": [
+      1417.0,
+      197.0000457763672,
+      288.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Paving": {
+    "min": [
+      -1399.5499267578125,
+      -199.5501251220703,
+      -3.4000000953674316
+    ],
+    "max": [
+      1399.5499267578125,
+      199.5501251220703,
+      0.20000000298023224
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Roof": {
+    "min": [
+      -1414.0,
+      -1100.0001220703125,
+      340.0
+    ],
+    "max": [
+      1414.0,
+      1100.0001220703125,
+      490.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Services": {
+    "min": [
+      -1165.0,
+      -937.7001953125,
+      327.29998779296875
+    ],
+    "max": [
+      1165.0,
+      130.70008850097656,
+      456.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PipeEnamel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_ShowerHardware": {
+    "min": [
+      -1181.7999267578125,
+      648.1998901367188,
+      239.00001525878906
+    ],
+    "max": [
+      1181.800048828125,
+      1071.800048828125,
+      247.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Signs": {
+    "min": [
+      -1082.5,
+      -165.1999053955078,
+      244.0
+    ],
+    "max": [
+      1382.0,
+      1080.7000732421875,
+      310.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Tiles": {
+    "min": [
+      -1416.511474609375,
+      -1100.0001220703125,
+      15.5
+    ],
+    "max": [
+      1400.0,
+      1100.0001220703125,
+      159.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_V2_WallReliefBed",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicAtlas",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas"
+      },
+      {
+        "slot": "RS_V2_CeramicFractureCore",
+        "path": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      },
+      {
+        "slot": "RS_V2_WallReliefFinish",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicCore",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_Walls": {
+    "min": [
+      -1414.0,
+      -1114.0001220703125,
+      0.0
+    ],
+    "max": [
+      1414.0,
+      1114.0001220703125,
+      460.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_WetGrout": {
+    "min": [
+      -1175.0,
+      229.99989318847656,
+      0.0
+    ],
+    "max": [
+      1175.0001220703125,
+      1050.0001220703125,
+      0.4000000059604645
+    ],
+    "materials": [
+      {
+        "slot": "RS_Mortar",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_ExposedMortar"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ChangingShowers_WetThresholds": {
+    "min": [
+      -1163.0,
+      646.9998779296875,
+      -0.05000000074505806
+    ],
+    "max": [
+      1153.0,
+      653.0001220703125,
+      4.450000286102295
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_CoffeeTable": {
+    "min": [
+      -75.0,
+      -34.00000762939453,
+      0.0
+    ],
+    "max": [
+      75.0,
+      34.00000762939453,
+      49.95000076293945
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_CueRack": {
+    "min": [
+      -45.0,
+      -4.000003814697266,
+      4.992088794708252
+    ],
+    "max": [
+      45.0,
+      10.299983024597168,
+      155.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Desk": {
+    "min": [
+      -60.000003814697266,
+      -29.000003814697266,
+      0.0
+    ],
+    "max": [
+      60.000003814697266,
+      30.799997329711914,
+      78.25
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_DiningTable": {
+    "min": [
+      -92.50000762939453,
+      -40.00000762939453,
+      0.0
+    ],
+    "max": [
+      92.50000762939453,
+      40.00000762939453,
+      78.25
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Beams": {
+    "min": [
+      -1113.0,
+      -177.50010681152344,
+      407.0000305175781
+    ],
+    "max": [
+      1213.0,
+      177.50009155273438,
+      448.9999694824219
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_BedroomCeilings": {
+    "min": [
+      -1387.5001220703125,
+      -986.0000610351562,
+      340.0
+    ],
+    "max": [
+      1387.5001220703125,
+      986.0000610351562,
+      362.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_FloorFinish": {
+    "min": [
+      -1400.0001220703125,
+      -1000.0001220703125,
+      -1.7999999523162842
+    ],
+    "max": [
+      1400.0001220703125,
+      1000.0001220703125,
+      0.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Linoleum",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Linoleum"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Floors": {
+    "min": [
+      -1600.0,
+      -1000.0001220703125,
+      -30.000001907348633
+    ],
+    "max": [
+      1600.0,
+      1000.0001220703125,
+      -1.7999999523162842
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Frames": {
+    "min": [
+      -1617.0,
+      -217.00009155273438,
+      0.0
+    ],
+    "max": [
+      1617.0,
+      217.00009155273438,
+      288.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Paving": {
+    "min": [
+      -1599.5499267578125,
+      -199.55014038085938,
+      -3.4000000953674316
+    ],
+    "max": [
+      1599.5499267578125,
+      199.55014038085938,
+      0.20000000298023224
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Roof": {
+    "min": [
+      -1614.0,
+      -1000.0001220703125,
+      340.0
+    ],
+    "max": [
+      1614.0,
+      1000.0001220703125,
+      480.0000305175781
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Services": {
+    "min": [
+      -1365.0,
+      -130.7001190185547,
+      407.0000305175781
+    ],
+    "max": [
+      1365.0,
+      130.7001190185547,
+      446.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PipeEnamel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Signs": {
+    "min": [
+      -1255.0,
+      -184.70008850097656,
+      188.0
+    ],
+    "max": [
+      1582.0,
+      184.7000732421875,
+      310.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Tiles": {
+    "min": [
+      -1616.527587890625,
+      -1000.0001220703125,
+      15.5
+    ],
+    "max": [
+      1600.0,
+      1000.0001220703125,
+      159.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_V2_WallReliefBed",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicAtlas",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas"
+      },
+      {
+        "slot": "RS_V2_CeramicFractureCore",
+        "path": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      },
+      {
+        "slot": "RS_V2_WallReliefFinish",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicCore",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Dormitory_Walls": {
+    "min": [
+      -1614.0,
+      -1014.0001831054688,
+      0.0
+    ],
+    "max": [
+      1614.0,
+      1014.0001831054688,
+      450.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_FloorDrain": {
+    "min": [
+      -20.250001907348633,
+      -21.000001907348633,
+      -2.299999952316284
+    ],
+    "max": [
+      20.250001907348633,
+      21.000001907348633,
+      2.4000000953674316
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_KitchenCounter": {
+    "min": [
+      -180.0,
+      -37.50001525878906,
+      2.0
+    ],
+    "max": [
+      180.0,
+      37.600013732910156,
+      129.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LampFixture": {
+    "min": [
+      -64.60000610351562,
+      -12.500005722045898,
+      -6.849999904632568
+    ],
+    "max": [
+      64.60000610351562,
+      12.500005722045898,
+      4.25
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_LampGlass",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_LampGlass"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LaundryBasket": {
+    "min": [
+      -36.250003814697266,
+      -30.250003814697266,
+      0.0
+    ],
+    "max": [
+      36.250003814697266,
+      30.250003814697266,
+      79.25
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Link_Floors": {
+    "min": [
+      -1.7440845113014802e-05,
+      -200.00003051757812,
+      -26.0
+    ],
+    "max": [
+      400.0000305175781,
+      200.0,
+      -2.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Link_Paving": {
+    "min": [
+      0.44998252391815186,
+      -199.55003356933594,
+      -3.4000000953674316
+    ],
+    "max": [
+      399.5500183105469,
+      199.5500030517578,
+      0.20000000298023224
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Link_Roof": {
+    "min": [
+      -1.8664763047127053e-05,
+      -214.0000457763672,
+      340.0
+    ],
+    "max": [
+      400.0000305175781,
+      214.00001525878906,
+      368.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Link_Tiles": {
+    "min": [
+      -1.6244774087681435e-05,
+      -185.88658142089844,
+      15.5
+    ],
+    "max": [
+      400.0000305175781,
+      185.91696166992188,
+      159.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_V2_WallReliefBed",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicCore",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicAtlas",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas"
+      },
+      {
+        "slot": "RS_V2_WallReliefFinish",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish"
+      },
+      {
+        "slot": "RS_V2_CeramicFractureCore",
+        "path": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Link_Walls": {
+    "min": [
+      -1.8664763047127053e-05,
+      -214.0000457763672,
+      0.0
+    ],
+    "max": [
+      400.0000305175781,
+      214.00001525878906,
+      340.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Locker": {
+    "min": [
+      -33.250003814697266,
+      -27.500003814697266,
+      0.0
+    ],
+    "max": [
+      33.250003814697266,
+      34.79428482055664,
+      196.49998474121094
+    ],
+    "materials": [
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_LockerOpen": {
+    "min": [
+      -33.250003814697266,
+      -27.500003814697266,
+      0.0
+    ],
+    "max": [
+      33.250003814697266,
+      83.11224365234375,
+      196.49998474121094
+    ],
+    "materials": [
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Mirror": {
+    "min": [
+      -39.0,
+      -1.7500033378601074,
+      0.0
+    ],
+    "max": [
+      39.0,
+      2.3500030040740967,
+      84.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Mirror",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Mirror"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Noticeboard": {
+    "min": [
+      -90.0,
+      -3.0000076293945312,
+      0.0
+    ],
+    "max": [
+      90.0,
+      4.100006580352783,
+      110.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_SofaFabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_SofaFabric"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_PersonalBox": {
+    "min": [
+      -25.000001907348633,
+      -17.000001907348633,
+      0.0
+    ],
+    "max": [
+      25.000001907348633,
+      18.600000381469727,
+      18.899999618530273
+    ],
+    "materials": [
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Beams": {
+    "min": [
+      -1215.0,
+      -775.0001220703125,
+      498.0
+    ],
+    "max": [
+      1215.0001220703125,
+      1175.0001220703125,
+      550.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Columns": {
+    "min": [
+      -1351.5001220703125,
+      -881.4999389648438,
+      45.0
+    ],
+    "max": [
+      -448.5000915527344,
+      -858.4998779296875,
+      401.0000305175781
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_DiningCanopy": {
+    "min": [
+      -275.0000915527344,
+      -1200.0001220703125,
+      354.0
+    ],
+    "max": [
+      874.9999389648438,
+      -750.0,
+      376.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_FloorFinish": {
+    "min": [
+      -1500.0001220703125,
+      -1200.0001220703125,
+      -1.7999999523162842
+    ],
+    "max": [
+      1500.0001220703125,
+      1200.0001220703125,
+      0.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Linoleum",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Linoleum"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Floors": {
+    "min": [
+      -1700.0,
+      -1200.043701171875,
+      -30.000001907348633
+    ],
+    "max": [
+      1700.0001220703125,
+      1200.0001220703125,
+      -1.7999999523162842
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Frames": {
+    "min": [
+      -1717.0,
+      442.9998474121094,
+      0.0
+    ],
+    "max": [
+      1717.0001220703125,
+      757.0001831054688,
+      288.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_LoungeCanopy": {
+    "min": [
+      -1400.0001220703125,
+      -1150.0,
+      403.0000305175781
+    ],
+    "max": [
+      -400.00006103515625,
+      -589.9998779296875,
+      427.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_LoungeTrim": {
+    "min": [
+      -1395.0001220703125,
+      -1141.5,
+      42.5
+    ],
+    "max": [
+      -405.00006103515625,
+      -598.4998779296875,
+      49.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Nosing": {
+    "min": [
+      -1028.5,
+      -552.3999633789062,
+      15.000000953674316
+    ],
+    "max": [
+      -771.5000610351562,
+      -480.5999450683594,
+      45.599998474121094
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Paving": {
+    "min": [
+      -1699.550048828125,
+      400.4498291015625,
+      -3.4000000953674316
+    ],
+    "max": [
+      1699.5501708984375,
+      799.5501708984375,
+      0.20000000298023224
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_PlatformFinish": {
+    "min": [
+      -1399.0001220703125,
+      -1149.0,
+      44.0
+    ],
+    "max": [
+      -401.00006103515625,
+      -590.9998779296875,
+      45.20000076293945
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Platforms": {
+    "min": [
+      -1400.0001220703125,
+      -1150.0,
+      0.0
+    ],
+    "max": [
+      -400.00006103515625,
+      -479.99993896484375,
+      45.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Roof": {
+    "min": [
+      -1713.9998779296875,
+      -1200.043701171875,
+      340.0
+    ],
+    "max": [
+      1714.0,
+      1200.0001220703125,
+      580.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Services": {
+    "min": [
+      -1464.9998779296875,
+      469.29986572265625,
+      507.0000305175781
+    ],
+    "max": [
+      1465.0,
+      730.7001342773438,
+      546.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PipeEnamel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeEnamel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Signs": {
+    "min": [
+      -1282.4998779296875,
+      -1179.199951171875,
+      189.99998474121094
+    ],
+    "max": [
+      1682.0,
+      1184.2000732421875,
+      310.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Tiles": {
+    "min": [
+      -1716.4954833984375,
+      -1200.0001220703125,
+      15.5
+    ],
+    "max": [
+      1700.0001220703125,
+      1200.0001220703125,
+      159.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_V2_WallReliefBed",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicCore",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore"
+      },
+      {
+        "slot": "RS_V2_NaturalCeramicAtlas",
+        "path": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas"
+      },
+      {
+        "slot": "RS_V2_WallReliefFinish",
+        "path": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish"
+      },
+      {
+        "slot": "RS_V2_CeramicFractureCore",
+        "path": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Recreation_Walls": {
+    "min": [
+      -1713.9998779296875,
+      -1214.0001220703125,
+      0.0
+    ],
+    "max": [
+      1714.0,
+      1214.0001220703125,
+      550.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Concrete",
+        "path": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Refrigerator": {
+    "min": [
+      -39.500003814697266,
+      -36.000003814697266,
+      0.0
+    ],
+    "max": [
+      39.500003814697266,
+      45.88775634765625,
+      172.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_ShowerFittings": {
+    "min": [
+      -50.599998474121094,
+      -2.2000014781951904,
+      40.0
+    ],
+    "max": [
+      51.0,
+      47.79999923706055,
+      212.71218872070312
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Sofa": {
+    "min": [
+      -125.0,
+      -47.5000114440918,
+      0.0
+    ],
+    "max": [
+      125.0,
+      47.5000114440918,
+      118.49999237060547
+    ],
+    "materials": [
+      {
+        "slot": "RS_SofaFabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_SofaFabric"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_TableTennis": {
+    "min": [
+      -137.0,
+      -78.69999694824219,
+      7.0
+    ],
+    "max": [
+      137.0,
+      78.69999694824219,
+      91.8899917602539
+    ],
+    "materials": [
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_Television": {
+    "min": [
+      -87.5,
+      -24.985898971557617,
+      10.5
+    ],
+    "max": [
+      87.5,
+      10.349992752075195,
+      115.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Screen",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Screen"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_TowelRack": {
+    "min": [
+      -51.0,
+      -5.250004291534424,
+      -20.200000762939453
+    ],
+    "max": [
+      51.0,
+      20.599321365356445,
+      38.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Fabric",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Fabric"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_WashBasin": {
+    "min": [
+      -36.0,
+      -25.5,
+      39.79999923706055
+    ],
+    "max": [
+      36.0,
+      25.5,
+      118.49999237060547
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/Meshes/SM_Staff_WaterDispenser": {
+    "min": [
+      -19.5,
+      -20.000001907348633,
+      0.0
+    ],
+    "max": [
+      19.5,
+      27.100000381469727,
+      149.49998474121094
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_Yellow",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_CoffeeMachine_V5": {
+    "min": [
+      -21.500001907348633,
+      -20.000001907348633,
+      0.0
+    ],
+    "max": [
+      21.500003814697266,
+      30.500001907348633,
+      57.150001525878906
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_FreshPlastic",
+        "path": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Materials/M_Staff_FreshPlastic_V5"
+      },
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_Coffee",
+        "path": "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Materials/M_Staff_Coffee_V5"
+      },
+      {
+        "slot": "RS_Screen",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Screen"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_ElectricKettle_V5": {
+    "min": [
+      -9.199999809265137,
+      -18.10533905029297,
+      0.0
+    ],
+    "max": [
+      16.28089714050293,
+      16.369871139526367,
+      28.099998474121094
+    ],
+    "materials": [
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_PoolIvory",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolIvory_V4"
+      },
+      {
+        "slot": "RS_BookRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookRed"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BilliardTable_V4": {
+    "min": [
+      -138.0,
+      -82.25000762939453,
+      0.0
+    ],
+    "max": [
+      138.0,
+      82.25000762939453,
+      92.5999984741211
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Felt",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Felt"
+      },
+      {
+        "slot": "RS_PoolIvory",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolIvory_V4"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_CueGrip",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CueGrip_V4"
+      },
+      {
+        "slot": "RS_PoolBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolBlue_V4"
+      },
+      {
+        "slot": "RS_PoolRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolRed_V4"
+      },
+      {
+        "slot": "RS_Yellow",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      {
+        "slot": "RS_CueTip",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CueTip_V4"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookcaseBody_V4": {
+    "min": [
+      -48.0,
+      -20.000003814697266,
+      -0.05000000074505806
+    ],
+    "max": [
+      48.0,
+      22.500003814697266,
+      197.75
+    ],
+    "materials": [
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BookPaper",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookPaper"
+      },
+      {
+        "slot": "RS_BookBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookBlue"
+      },
+      {
+        "slot": "RS_BookRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookRed"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_BookGreen",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookGreen"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookshelfBody_V4": {
+    "min": [
+      -44.0,
+      -17.000003814697266,
+      0.0
+    ],
+    "max": [
+      44.0,
+      17.000003814697266,
+      184.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      },
+      {
+        "slot": "RS_BookPaper",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookPaper"
+      },
+      {
+        "slot": "RS_BookRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookRed"
+      },
+      {
+        "slot": "RS_BookBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookBlue"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_BookGreen",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookGreen"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BookshelfDrawer_V4": {
+    "min": [
+      -39.19999694824219,
+      -13.200002670288086,
+      16.5
+    ],
+    "max": [
+      39.20000076293945,
+      23.789350509643555,
+      49.900001525878906
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_BookPaper",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookPaper"
+      },
+      {
+        "slot": "RS_BookRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookRed"
+      },
+      {
+        "slot": "RS_BookBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookBlue"
+      },
+      {
+        "slot": "RS_BookGreen",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookGreen"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BunkBedMessy0_V4": {
+    "min": [
+      -106.0,
+      -50.00000762939453,
+      0.0
+    ],
+    "max": [
+      106.0,
+      56.200008392333984,
+      203.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Hem",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Hem_V3"
+      },
+      {
+        "slot": "RS_Linen",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Linen_V3"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BunkBedMessy1_V4": {
+    "min": [
+      -106.0,
+      -50.00000762939453,
+      0.0
+    ],
+    "max": [
+      106.0,
+      56.200008392333984,
+      203.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Hem",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Hem_V3"
+      },
+      {
+        "slot": "RS_Linen",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Linen_V3"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BunkBedMessy2_V4": {
+    "min": [
+      -106.0,
+      -50.00000762939453,
+      0.0
+    ],
+    "max": [
+      106.0,
+      56.200008392333984,
+      203.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Hem",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Hem_V3"
+      },
+      {
+        "slot": "RS_Linen",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Linen_V3"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_BunkBedMessy3_V4": {
+    "min": [
+      -106.0,
+      -50.00000762939453,
+      0.0
+    ],
+    "max": [
+      106.0,
+      56.200008392333984,
+      203.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_Hem",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Hem_V3"
+      },
+      {
+        "slot": "RS_Linen",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/M_Staff_Linen_V3"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_CueRack_V4": {
+    "min": [
+      -49.0,
+      -7.050004005432129,
+      19.5
+    ],
+    "max": [
+      49.0,
+      19.500001907348633,
+      178.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_ServiceHardware",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_BookRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookRed"
+      },
+      {
+        "slot": "RS_CueGrip",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CueGrip_V4"
+      },
+      {
+        "slot": "RS_CueMaple",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CueMaple_V4"
+      },
+      {
+        "slot": "RS_PoolIvory",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolIvory_V4"
+      },
+      {
+        "slot": "RS_CueTip",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CueTip_V4"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_Link_CarpetEdges_V4": {
+    "min": [
+      -0.40001749992370605,
+      -200.00003051757812,
+      -0.10000000149011612
+    ],
+    "max": [
+      400.4000244140625,
+      200.07998657226562,
+      2.5968801975250244
+    ],
+    "materials": [
+      {
+        "slot": "RS_Carpet",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/MI_Staff_NavyCarpet_V3"
+      },
+      {
+        "slot": "RS_CarpetBinding",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CarpetBinding_V4"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_Mirror_V4": {
+    "min": [
+      -39.0,
+      -8.00000286102295,
+      0.0
+    ],
+    "max": [
+      39.0,
+      4.700003147125244,
+      84.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_Mirror",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Mirror"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_StaffDormitory_CarpetEdges_V4": {
+    "min": [
+      -1600.4000244140625,
+      -200.00013732910156,
+      -0.10000000149011612
+    ],
+    "max": [
+      1600.4000244140625,
+      200.0801239013672,
+      2.5968801975250244
+    ],
+    "materials": [
+      {
+        "slot": "RS_Carpet",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/MI_Staff_NavyCarpet_V3"
+      },
+      {
+        "slot": "RS_CarpetBinding",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CarpetBinding_V4"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_StaffRecreation_CarpetEdges_V4": {
+    "min": [
+      -1700.39990234375,
+      -602.4000854492188,
+      -0.10000000149011612
+    ],
+    "max": [
+      1700.4000244140625,
+      800.0801391601562,
+      2.5997517108917236
+    ],
+    "materials": [
+      {
+        "slot": "RS_Carpet",
+        "path": "/Game/Dungeons/StaffLiving20261002/RefinementV3/Materials/MI_Staff_NavyCarpet_V3"
+      },
+      {
+        "slot": "RS_CarpetBinding",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_CarpetBinding_V4"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_Television_V4": {
+    "min": [
+      -170.0,
+      -11.800003051757812,
+      -13.249999046325684
+    ],
+    "max": [
+      170.0,
+      7.250006675720215,
+      192.625
+    ],
+    "materials": [
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_TVGlass",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_TVGlass_V4"
+      },
+      {
+        "slot": "RS_PaintedSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_ServiceHardware",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      {
+        "slot": "RS_PoolBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolBlue_V4"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_WashBasin_V4": {
+    "min": [
+      -38.0,
+      -24.700000762939453,
+      40.500003814697266
+    ],
+    "max": [
+      37.999996185302734,
+      29.499998092651367,
+      114.3499984741211
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_ServiceHardware",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PipeCutSteel"
+      },
+      {
+        "slot": "RS_Yellow",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint"
+      },
+      {
+        "slot": "RS_OlivePaint",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_OlivePaint"
+      }
+    ]
+  },
+  "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Meshes/SM_Staff_WaterDispenser_V4": {
+    "min": [
+      -21.000001907348633,
+      -22.100000381469727,
+      0.0
+    ],
+    "max": [
+      21.000001907348633,
+      31.700000762939453,
+      162.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Ceramic",
+        "path": "/Game/Dungeons/StaffLiving20261002/Materials/M_Staff_Ceramic"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      {
+        "slot": "RS_BareSteel",
+        "path": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      {
+        "slot": "RS_PoolBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_PoolBlue_V4"
+      },
+      {
+        "slot": "RS_JugPlastic",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_JugPlastic_V4"
+      },
+      {
+        "slot": "RS_JugWater",
+        "path": "/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_JugWater_V4"
+      },
+      {
+        "slot": "RS_BookBlue",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookBlue"
+      },
+      {
+        "slot": "RS_BookRed",
+        "path": "/Game/Dungeons/StaffLiving20261002/DormitoryVariantsV2/Materials/M_Dorm_BookRed"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_CartEquipment": {
+    "min": [
+      1079.0,
+      221.00010681152344,
+      14.500001907348633
+    ],
+    "max": [
+      1148.0999755859375,
+      260.5000915527344,
+      82.38890838623047
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Copper",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchElectronics": {
+    "min": [
+      529.0499877929688,
+      6.999956130981445,
+      59.500003814697266
+    ],
+    "max": [
+      700.0849609375,
+      105.699951171875,
+      126.30000305175781
+    ],
+    "materials": [
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Screen",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Screen"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Keycaps",
+        "path": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Keycaps"
+      },
+      {
+        "slot": "RS_Legends",
+        "path": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Legends"
+      },
+      {
+        "slot": "RS_Lamp",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Lamp"
+      },
+      {
+        "slot": "RS_Display",
+        "path": "/Game/Dungeons/StationWorkshop20261003/RefineV2/Materials/M_Office_Display"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Body": {
+    "min": [
+      -25.000001907348633,
+      -34.353553771972656,
+      0.0
+    ],
+    "max": [
+      25.000001907348633,
+      29.000001907348633,
+      66.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchFiles_Drawer": {
+    "min": [
+      -23.5,
+      -5.353555679321289,
+      -0.9999990463256836
+    ],
+    "max": [
+      23.5,
+      55.500003814697266,
+      17.000001907348633
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_DispatchPaper": {
+    "min": [
+      -16.0,
+      -11.500001907348633,
+      0.0
+    ],
+    "max": [
+      16.0,
+      11.500001907348633,
+      1.5499999523162842
+    ],
+    "materials": [
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_Electrical": {
+    "min": [
+      38.00006103515625,
+      6.999941349029541,
+      78.16000366210938
+    ],
+    "max": [
+      962.5000610351562,
+      693.2499389648438,
+      306.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_MotorService": {
+    "min": [
+      424.7999572753906,
+      529.7999877929688,
+      76.0
+    ],
+    "max": [
+      515.9999389648438,
+      574.5,
+      114.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Copper",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+      },
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_NoticeSigns": {
+    "min": [
+      238.00001525878906,
+      -13.60004711151123,
+      154.00001525878906
+    ],
+    "max": [
+      945.9999389648438,
+      691.4999389648438,
+      296.9999694824219
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_OperatorMat": {
+    "min": [
+      -50.000003814697266,
+      -65.0,
+      0.0
+    ],
+    "max": [
+      50.000003814697266,
+      65.0,
+      1.350000023841858
+    ],
+    "materials": [
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_PersonnelLeaf": {
+    "min": [
+      -7.749997615814209,
+      -55.5,
+      0.0
+    ],
+    "max": [
+      7.750002861022949,
+      55.5,
+      240.00001525878906
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_0": {
+    "min": [
+      690.5109252929688,
+      621.6715087890625,
+      131.5
+    ],
+    "max": [
+      840.6497802734375,
+      665.74169921875,
+      195.95001220703125
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      {
+        "slot": "RS_Copper",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_1": {
+    "min": [
+      684.2906494140625,
+      625.3023681640625,
+      131.5
+    ],
+    "max": [
+      841.2892456054688,
+      665.77001953125,
+      195.95001220703125
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      {
+        "slot": "RS_Copper",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_RackSpares_2": {
+    "min": [
+      682.463134765625,
+      622.8734741210938,
+      131.5
+    ],
+    "max": [
+      844.03857421875,
+      667.211669921875,
+      195.95001220703125
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Print"
+      },
+      {
+        "slot": "RS_Copper",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_Copper"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_ServiceLeaf": {
+    "min": [
+      -7.749997615814209,
+      -52.499996185302734,
+      0.0
+    ],
+    "max": [
+      7.750002384185791,
+      52.499996185302734,
+      271.0
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/StationWorkshop20261003/Materials/M_Workshop_OfficePlastic"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowFractureV5": {
+    "min": [
+      -0.3250066339969635,
+      -75.81527709960938,
+      -71.47735595703125
+    ],
+    "max": [
+      0.3250066339969635,
+      75.814208984375,
+      71.48139190673828
+    ],
+    "materials": [
+      {
+        "slot": "RS_Glass",
+        "path": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_SW_WindowPaneV5": {
+    "min": [
+      -0.3250066339969635,
+      -75.83499908447266,
+      -71.5
+    ],
+    "max": [
+      0.3250066339969635,
+      75.83499908447266,
+      71.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Glass",
+        "path": "/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_MetalCase_Body_TextV2": {
+    "min": [
+      -51.05000305175781,
+      -38.4919319152832,
+      0.09999983012676239
+    ],
+    "max": [
+      54.77040100097656,
+      35.850006103515625,
+      64.20000457763672
+    ],
+    "materials": [
+      {
+        "slot": "RS_Case",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_CasePaint"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolCabinet_Door_TextV2": {
+    "min": [
+      1.0000019073486328,
+      -7.438011169433594,
+      0.5000025033950806
+    ],
+    "max": [
+      84.0,
+      1.7499988079071045,
+      89.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_ToolDrawer_Tray_TextV2": {
+    "min": [
+      -41.250003814697266,
+      -34.96569061279297,
+      113.5
+    ],
+    "max": [
+      41.249996185302734,
+      24.050006866455078,
+      142.5
+    ],
+    "materials": [
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Paint",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_ToolPaint"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_Tote_Body_TextV2": {
+    "min": [
+      -32.15000534057617,
+      -24.95000457763672,
+      0.0
+    ],
+    "max": [
+      32.15000534057617,
+      23.20000457763672,
+      42.20000076293945
+    ],
+    "materials": [
+      {
+        "slot": "RS_Plastic",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_PolymerGreen"
+      },
+      {
+        "slot": "RS_Rubber",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      }
+    ]
+  },
+  "/Game/Dungeons/StationWorkshop20261003/RefineV2/Meshes/SM_Warehouse_WoodCrate_Body_TextV2": {
+    "min": [
+      -54.35000228881836,
+      -43.0919303894043,
+      0.0
+    ],
+    "max": [
+      58.07040023803711,
+      40.20000457763672,
+      77.20000457763672
+    ],
+    "materials": [
+      {
+        "slot": "RS_Wood",
+        "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/Abandoned/MI_WBK_WSBench_BenchWood_R3"
+      },
+      {
+        "slot": "RS_Steel",
+        "path": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_Stainless_V6"
+      },
+      {
+        "slot": "RS_Labels",
+        "path": "/Game/Dungeons/WarehouseContainers20261002/Materials/M_Warehouse_Labels"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_FireExtinguisher_01": {
+    "min": [
+      -11.322497367858887,
+      -18.00318717956543,
+      1.52587890625e-05
+    ],
+    "max": [
+      11.322498321533203,
+      11.150484085083008,
+      83.57939147949219
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_FireExtinguisher_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_FireExtinguisher_01_Stand": {
+    "min": [
+      -13.221399307250977,
+      -1.9013948440551758,
+      -0.9876781702041626
+    ],
+    "max": [
+      11.822498321533203,
+      23.917457580566406,
+      56.148109436035156
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_FireExtinguisher_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_GlassLamps_01_A": {
+    "min": [
+      -3.588009834289551,
+      -9.024490356445312,
+      -3.55049204826355
+    ],
+    "max": [
+      3.5586886405944824,
+      3.2600040435791016,
+      3.5504910945892334
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_GlassLamp_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_GlassLamps_01_B": {
+    "min": [
+      -2.780397415161133,
+      -52.05017852783203,
+      -2.780400276184082
+    ],
+    "max": [
+      2.780397415161133,
+      52.05017852783203,
+      2.780400276184082
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_GlassLamp_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalBench_01": {
+    "min": [
+      -94.01714324951172,
+      -41.434974670410156,
+      0.0
+    ],
+    "max": [
+      94.0081787109375,
+      30.020713806152344,
+      121.26183319091797
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalBench_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_01": {
+    "min": [
+      0.0,
+      -10.791122436523438,
+      1.9999923706054688
+    ],
+    "max": [
+      96.00004577636719,
+      9.169090270996094,
+      208.0
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_01_Frame": {
+    "min": [
+      -59.99999237060547,
+      -9.166458129882812,
+      0.0
+    ],
+    "max": [
+      59.99999237060547,
+      9.166458129882812,
+      220.00003051757812
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_02": {
+    "min": [
+      -9.694554847783365e-08,
+      -9.82588005065918,
+      2.0595359802246094
+    ],
+    "max": [
+      96.00000762939453,
+      9.759809494018555,
+      208.05938720703125
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_02_Frame": {
+    "min": [
+      -59.99999237060547,
+      -7.916787147521973,
+      -1.430511474609375e-06
+    ],
+    "max": [
+      59.99999237060547,
+      7.9167890548706055,
+      220.00001525878906
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_03_A": {
+    "min": [
+      -1.0568810182576271e-07,
+      -9.75339126586914,
+      2.0
+    ],
+    "max": [
+      88.0,
+      9.753384590148926,
+      208.0
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_03"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_03_B": {
+    "min": [
+      -88.00000762939453,
+      -4.733654022216797,
+      2.0
+    ],
+    "max": [
+      1.056874339155911e-07,
+      7.13985013961792,
+      208.0
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_03"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_03_Frame": {
+    "min": [
+      -100.00000762939453,
+      -7.040553569793701,
+      -7.62939453125e-06
+    ],
+    "max": [
+      100.00000762939453,
+      7.040538787841797,
+      220.0
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_03"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_04_A": {
+    "min": [
+      -1.0568810182576271e-07,
+      -9.75339126586914,
+      2.0
+    ],
+    "max": [
+      88.0,
+      9.753384590148926,
+      208.0
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_04"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_04_B": {
+    "min": [
+      -88.00000762939453,
+      -4.733638763427734,
+      2.0
+    ],
+    "max": [
+      1.0568810182576271e-07,
+      4.733646392822266,
+      208.0
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_04"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_04_Frame": {
+    "min": [
+      -140.00003051757812,
+      -7.040551662445068,
+      -3.814697265625e-06
+    ],
+    "max": [
+      140.00001525878906,
+      7.040521144866943,
+      219.99998474121094
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalDoor_04"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_04_Frame_Glass": {
+    "min": [
+      -125.10063934326172,
+      -0.20996931195259094,
+      70.70709991455078
+    ],
+    "max": [
+      125.10063171386719,
+      0.21000586450099945,
+      196.9109649658203
+    ],
+    "materials": [
+      {
+        "slot": "WorldGridMaterial",
+        "path": "/Game/HospitalCorridor/Materials/Glass/M_WindowGlass_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalDoor_04_Glass": {
+    "min": [
+      19.548095703125,
+      -0.20995499193668365,
+      121.5
+    ],
+    "max": [
+      68.451904296875,
+      0.2100054919719696,
+      188.49996948242188
+    ],
+    "materials": [
+      {
+        "slot": "WorldGridMaterial",
+        "path": "/Game/HospitalCorridor/Materials/Glass/M_WindowGlass_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_A01": {
+    "min": [
+      -17.886795043945312,
+      -17.100000381469727,
+      -5.3882598876953125e-05
+    ],
+    "max": [
+      17.93096923828125,
+      17.100000381469727,
+      5.878302574157715
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_A02": {
+    "min": [
+      -17.55285930633545,
+      -17.100000381469727,
+      -0.002109527587890625
+    ],
+    "max": [
+      17.21543598175049,
+      17.404605865478516,
+      9.205635070800781
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_A03": {
+    "min": [
+      -20.43084716796875,
+      -19.984588623046875,
+      -0.00647735595703125
+    ],
+    "max": [
+      20.03062629699707,
+      20.43600845336914,
+      13.865583419799805
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_B01": {
+    "min": [
+      -10.000030517578125,
+      -64.99999237060547,
+      5.245208740234375e-06
+    ],
+    "max": [
+      10.00006103515625,
+      54.99999237060547,
+      11.005324363708496
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_B02": {
+    "min": [
+      -10.000045776367188,
+      -63.02452850341797,
+      -1.1920928955078125e-05
+    ],
+    "max": [
+      10.000045776367188,
+      53.02448272705078,
+      9.228078842163086
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_C01": {
+    "min": [
+      -8.105146408081055,
+      -54.918827056884766,
+      -2.384185791015625e-06
+    ],
+    "max": [
+      8.105146408081055,
+      54.9188117980957,
+      8.549872398376465
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_C02": {
+    "min": [
+      -8.466880798339844,
+      -54.918827056884766,
+      -4.291534423828125e-06
+    ],
+    "max": [
+      7.743415832519531,
+      54.9188117980957,
+      5.0042948722839355
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_D01": {
+    "min": [
+      -40.00004577636719,
+      -40.0,
+      -5.3882598876953125e-05
+    ],
+    "max": [
+      39.99995422363281,
+      40.0,
+      7.342230796813965
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_D02": {
+    "min": [
+      -39.99999237060547,
+      -40.0,
+      -1.9073486328125e-06
+    ],
+    "max": [
+      40.00001525878906,
+      40.0,
+      5.544111251831055
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalLamps_01_E": {
+    "min": [
+      -20.0,
+      -4.440892098500626e-16,
+      -10.449623107910156
+    ],
+    "max": [
+      20.0,
+      7.919975280761719,
+      10.44962215423584
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalLamps_01_A"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_A": {
+    "min": [
+      -26.250030517578125,
+      0.11091665923595428,
+      -37.187469482421875
+    ],
+    "max": [
+      26.249969482421875,
+      0.11095772683620453,
+      37.187530517578125
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_B": {
+    "min": [
+      -13.125001907348633,
+      0.11094310879707336,
+      -18.7499942779541
+    ],
+    "max": [
+      13.125000953674316,
+      0.11096751689910889,
+      18.750009536743164
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_C": {
+    "min": [
+      -13.125,
+      0.1109284907579422,
+      -18.750001907348633
+    ],
+    "max": [
+      13.125,
+      0.11094668507575989,
+      18.7500057220459
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_D": {
+    "min": [
+      -18.749980926513672,
+      0.11094452440738678,
+      -13.124991416931152
+    ],
+    "max": [
+      18.750017166137695,
+      0.11095595359802246,
+      13.125020027160645
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_E": {
+    "min": [
+      -18.74998664855957,
+      0.11096307635307312,
+      -13.124999046325684
+    ],
+    "max": [
+      18.750024795532227,
+      0.11097115278244019,
+      13.125018119812012
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_F": {
+    "min": [
+      -18.75000762939453,
+      0.11094716191291809,
+      -26.25
+    ],
+    "max": [
+      18.75000762939453,
+      0.11096327006816864,
+      26.25001335144043
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_G": {
+    "min": [
+      -18.749996185302734,
+      0.11095300316810608,
+      -26.249984741210938
+    ],
+    "max": [
+      18.75000762939453,
+      0.11097025871276855,
+      26.250024795532227
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_H": {
+    "min": [
+      -37.18751907348633,
+      0.11095961928367615,
+      -26.250001907348633
+    ],
+    "max": [
+      37.18748474121094,
+      0.11098244786262512,
+      26.250015258789062
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_I": {
+    "min": [
+      -26.250038146972656,
+      0.11094062030315399,
+      -37.18748474121094
+    ],
+    "max": [
+      26.249977111816406,
+      0.11096395552158356,
+      37.18751525878906
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_J": {
+    "min": [
+      -13.124988555908203,
+      0.11093875765800476,
+      -18.74997901916504
+    ],
+    "max": [
+      13.125007629394531,
+      0.1109505295753479,
+      18.750017166137695
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_K": {
+    "min": [
+      -18.749996185302734,
+      0.11097249388694763,
+      -13.124964714050293
+    ],
+    "max": [
+      18.75000762939453,
+      0.11098054051399231,
+      13.125042915344238
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_L": {
+    "min": [
+      -18.75002670288086,
+      0.11095356941223145,
+      -26.249971389770508
+    ],
+    "max": [
+      18.749969482421875,
+      0.110969677567482,
+      26.250041961669922
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_M": {
+    "min": [
+      -13.124988555908203,
+      0.11093392968177795,
+      -18.749975204467773
+    ],
+    "max": [
+      13.125007629394531,
+      0.1109457015991211,
+      18.75004768371582
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_N": {
+    "min": [
+      -13.125003814697266,
+      0.11093392968177795,
+      -18.749975204467773
+    ],
+    "max": [
+      13.125007629394531,
+      0.1109457015991211,
+      18.75004768371582
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_O": {
+    "min": [
+      -18.74999237060547,
+      0.11096049845218658,
+      -26.249969482421875
+    ],
+    "max": [
+      18.750015258789062,
+      0.11097775399684906,
+      26.250036239624023
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_01_P": {
+    "min": [
+      -26.25002098083496,
+      0.11092658340930939,
+      -37.18746566772461
+    ],
+    "max": [
+      26.249982833862305,
+      0.11094988882541656,
+      37.187530517578125
+    ],
+    "materials": [
+      {
+        "slot": "Material #192",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_A": {
+    "min": [
+      -17.701139450073242,
+      0.11092668771743774,
+      -6.685519695281982
+    ],
+    "max": [
+      17.701141357421875,
+      0.11093583703041077,
+      6.6853837966918945
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_B": {
+    "min": [
+      -17.701129913330078,
+      0.11092668771743774,
+      -6.685519695281982
+    ],
+    "max": [
+      17.70114517211914,
+      0.11093583703041077,
+      6.685373783111572
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_C": {
+    "min": [
+      -17.70113182067871,
+      0.11092668771743774,
+      -6.685534477233887
+    ],
+    "max": [
+      17.70114517211914,
+      0.11093583703041077,
+      6.685378551483154
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_D": {
+    "min": [
+      -8.813957214355469,
+      0.11092793941497803,
+      -6.169844627380371
+    ],
+    "max": [
+      8.813971519470215,
+      0.11093299090862274,
+      6.169703006744385
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_E": {
+    "min": [
+      -8.813960075378418,
+      0.11092793941497803,
+      -6.169834613800049
+    ],
+    "max": [
+      8.813966751098633,
+      0.11093299090862274,
+      6.169708251953125
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_F": {
+    "min": [
+      -8.813960075378418,
+      0.11092793941497803,
+      -6.169846057891846
+    ],
+    "max": [
+      8.813977241516113,
+      0.11093299090862274,
+      6.169708251953125
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_G": {
+    "min": [
+      -8.813960075378418,
+      0.11092793941497803,
+      -6.169846057891846
+    ],
+    "max": [
+      8.813966751098633,
+      0.11093299090862274,
+      6.169708251953125
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_H": {
+    "min": [
+      -17.87322425842285,
+      0.11092759668827057,
+      -12.511334419250488
+    ],
+    "max": [
+      17.87323760986328,
+      0.11093783378601074,
+      12.51119327545166
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_I": {
+    "min": [
+      -25.022520065307617,
+      0.11092156171798706,
+      -17.8732967376709
+    ],
+    "max": [
+      25.022533416748047,
+      0.11093494296073914,
+      17.873167037963867
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_K": {
+    "min": [
+      -25.022518157958984,
+      0.11092156171798706,
+      -17.8732967376709
+    ],
+    "max": [
+      25.022533416748047,
+      0.11093494296073914,
+      17.873167037963867
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_L": {
+    "min": [
+      -25.022520065307617,
+      0.11092156171798706,
+      -17.873300552368164
+    ],
+    "max": [
+      25.022533416748047,
+      0.11093494296073914,
+      17.873167037963867
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_M": {
+    "min": [
+      -25.02251434326172,
+      0.11092156171798706,
+      -17.8732967376709
+    ],
+    "max": [
+      25.022533416748047,
+      0.11093494296073914,
+      17.8731632232666
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_N": {
+    "min": [
+      -17.701128005981445,
+      0.11092668771743774,
+      -6.685525417327881
+    ],
+    "max": [
+      17.701147079467773,
+      0.11093583703041077,
+      6.685378551483154
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_O": {
+    "min": [
+      -19.584972381591797,
+      0.11093065142631531,
+      -7.397041320800781
+    ],
+    "max": [
+      19.58498764038086,
+      0.11094078421592712,
+      7.396872520446777
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_P": {
+    "min": [
+      -6.235609531402588,
+      0.11093243956565857,
+      -6.220088005065918
+    ],
+    "max": [
+      6.235611438751221,
+      0.11093637347221375,
+      6.219963550567627
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_R": {
+    "min": [
+      -19.584962844848633,
+      0.11093065142631531,
+      -7.397018909454346
+    ],
+    "max": [
+      19.58499526977539,
+      0.11094078421592712,
+      7.396883487701416
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_S": {
+    "min": [
+      -19.584962844848633,
+      0.11093065142631531,
+      -7.397007942199707
+    ],
+    "max": [
+      19.584985733032227,
+      0.11094078421592712,
+      7.396899700164795
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_T": {
+    "min": [
+      -19.584962844848633,
+      0.11093065142631531,
+      -7.397035121917725
+    ],
+    "max": [
+      19.584985733032227,
+      0.11094078421592712,
+      7.396877765655518
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_U": {
+    "min": [
+      -6.235604286193848,
+      0.11093243956565857,
+      -6.220093727111816
+    ],
+    "max": [
+      6.235614776611328,
+      0.11093637347221375,
+      6.219958305358887
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalPosters_02_V": {
+    "min": [
+      -6.2356157302856445,
+      0.11093243956565857,
+      -6.220098972320557
+    ],
+    "max": [
+      6.235625267028809,
+      0.11093637347221375,
+      6.219958305358887
+    ],
+    "materials": [
+      {
+        "slot": "Material #196",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_HospitalPosters_02"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_InformationStand_01": {
+    "min": [
+      -80.14591979980469,
+      -0.00011452470789663494,
+      -50.145912170410156
+    ],
+    "max": [
+      80.14591979980469,
+      5.372778415679932,
+      50.145912170410156
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_InformationStand_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_Radiator_03": {
+    "min": [
+      -2.5274124145507812,
+      -3.3599095344543457,
+      -1.52587890625e-05
+    ],
+    "max": [
+      158.9671401977539,
+      15.215356349945068,
+      279.99998474121094
+    ],
+    "materials": [
+      {
+        "slot": "lambert1",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_Radiator_03"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_Registry_01": {
+    "min": [
+      -103.00003051757812,
+      -22.032995223999023,
+      -1.1841476407425944e-05
+    ],
+    "max": [
+      103.00001525878906,
+      25.000011444091797,
+      73.00001525878906
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_Registry_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_Registry_01_Glass": {
+    "min": [
+      -89.49999237060547,
+      4.596982479095459,
+      10.499998092651367
+    ],
+    "max": [
+      89.4999771118164,
+      5.4030022621154785,
+      59.50000190734863
+    ],
+    "materials": [
+      {
+        "slot": "WorldGridMaterial",
+        "path": "/Game/HospitalCorridor/Materials/Glass/M_WindowGlass_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_A": {
+    "min": [
+      -10.487044334411621,
+      -4.031872776977252e-06,
+      -12.00063705444336
+    ],
+    "max": [
+      10.512955665588379,
+      11.329503059387207,
+      11.890827178955078
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_B": {
+    "min": [
+      -13.987044334411621,
+      -6.975476935622282e-06,
+      -13.855806350708008
+    ],
+    "max": [
+      14.012955665588379,
+      14.484230995178223,
+      14.144194602966309
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_C": {
+    "min": [
+      -13.987044334411621,
+      -7.496194484701846e-06,
+      -17.35580825805664
+    ],
+    "max": [
+      14.012955665588379,
+      14.48422908782959,
+      17.644193649291992
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_D": {
+    "min": [
+      -10.541336059570312,
+      -7.110452770575648e-06,
+      -14.484992980957031
+    ],
+    "max": [
+      12.683484077453613,
+      17.681652069091797,
+      16.931276321411133
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_E": {
+    "min": [
+      -20.947534561157227,
+      -6.164569185784785e-06,
+      -12.344975471496582
+    ],
+    "max": [
+      20.97343635559082,
+      14.755840301513672,
+      12.121615409851074
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_F": {
+    "min": [
+      -10.953020095825195,
+      -6.552557806571713e-06,
+      -10.821773529052734
+    ],
+    "max": [
+      10.97893238067627,
+      9.293903350830078,
+      11.11015796661377
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_G": {
+    "min": [
+      -11.885377883911133,
+      -6.395996024366468e-06,
+      -11.754156112670898
+    ],
+    "max": [
+      11.911290168762207,
+      15.264196395874023,
+      12.042536735534668
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_H": {
+    "min": [
+      -3.220485210418701,
+      -6.3001757553138305e-06,
+      -3.0715346336364746
+    ],
+    "max": [
+      3.246397018432617,
+      4.26970100402832,
+      3.3599190711975098
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_I": {
+    "min": [
+      -3.220485210418701,
+      -6.3001757553138305e-06,
+      -3.0715346336364746
+    ],
+    "max": [
+      3.246397018432617,
+      7.285212516784668,
+      3.3599190711975098
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_K": {
+    "min": [
+      -4.469048023223877,
+      -6.884058166178875e-06,
+      -4.337821006774902
+    ],
+    "max": [
+      4.494959831237793,
+      4.537978649139404,
+      4.626228332519531
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_L": {
+    "min": [
+      -4.687509536743164,
+      -5.4907850426388904e-06,
+      -4.5562744140625
+    ],
+    "max": [
+      4.7134318351745605,
+      8.185749053955078,
+      4.84466028213501
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_M": {
+    "min": [
+      -4.687509536743164,
+      -6.80564517097082e-06,
+      -4.5562744140625
+    ],
+    "max": [
+      4.71342134475708,
+      8.114683151245117,
+      4.84466028213501
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_N": {
+    "min": [
+      -9.477066040039062,
+      -6.424579623853788e-06,
+      -6.519632816314697
+    ],
+    "max": [
+      9.502978324890137,
+      4.352118492126465,
+      6.808016777038574
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_O": {
+    "min": [
+      -4.2113542556762695,
+      -6.938556907698512e-06,
+      -6.192272186279297
+    ],
+    "max": [
+      4.2372660636901855,
+      4.395483493804932,
+      6.480658531188965
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_P": {
+    "min": [
+      -1.5368952751159668,
+      -1.4090737104415894,
+      -1.9147591590881348
+    ],
+    "max": [
+      1.5628018379211426,
+      3.4692673683166504,
+      5.7916741371154785
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_R": {
+    "min": [
+      -1.5369006395339966,
+      -1.4090710878372192,
+      -5.503284454345703
+    ],
+    "max": [
+      1.5628018379211426,
+      3.4692673683166504,
+      5.791668891906738
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_S": {
+    "min": [
+      -1.5368952751159668,
+      -1.4090677499771118,
+      -9.804865837097168
+    ],
+    "max": [
+      1.5628018379211426,
+      3.4692680835723877,
+      10.093255996704102
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  },
+  "/Game/HospitalCorridor/Meshes/Objects/SM_UtilityElectronics_01_T": {
+    "min": [
+      -7.219636917114258,
+      -1.300977349281311,
+      -8.879687309265137
+    ],
+    "max": [
+      7.245548725128174,
+      1.300965428352356,
+      9.459671020507812
+    ],
+    "materials": [
+      {
+        "slot": "Material #25",
+        "path": "/Game/HospitalCorridor/Materials/Objects/MI_UtilityElectronics_01"
+      }
+    ]
+  }
+}

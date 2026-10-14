@@ -1,38 +1,36 @@
 {
   "map": "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
   "sequence": [
-    "Drainage",
+    "MedicalDoctorOffice",
     "AbandonedIsolationWard",
     "AbandonedAnatomyTheatre"
   ],
   "placements": [
     {
-      "id": "Drainage",
+      "id": "MedicalDoctorOffice",
       "position": [
         0,
         0,
         0
       ],
-      "yaw": 0,
-      "scene_recipe_id": "pump_service",
-      "scene_state_id": "maintenance"
+      "yaw": 0
     },
     {
       "id": "Transit",
-      "name": "DrainageWardLink",
+      "name": "OfficeWardLink",
       "position": [
-        1021.8158998759463,
-        -1221.8158998759463,
-        0
+        2000.0,
+        -1100.0,
+        0.0
       ],
       "yaw": 90
     },
     {
       "id": "AbandonedIsolationWard",
       "position": [
-        4721.815899875946,
-        -1221.8158998759463,
-        0
+        5700.0,
+        -1100.0,
+        0.0
       ],
       "yaw": 0
     },
@@ -40,25 +38,25 @@
       "id": "Transit",
       "name": "WardTheatreLink",
       "position": [
-        8021.815899875946,
-        -1221.8158998759463,
-        0
+        9000.0,
+        -1100.0,
+        0.0
       ],
       "yaw": 90
     },
     {
       "id": "AbandonedAnatomyTheatre",
       "position": [
-        10021.815899875946,
-        -2221.8158998759463,
-        0
+        11000.0,
+        -2100.0,
+        0.0
       ],
       "yaw": 0
     }
   ],
   "player_start": [
-    68.96054997341707,
-    -140.0,
+    0,
+    -160,
     105
   ],
   "source_map": "/Game/GameMaps/L_Dungeon_Randomized",
@@ -94,5 +92,6 @@
   "hospital_doctor_office_revision": 1,
   "hospital_office_container_count": 3,
   "hospital_office_furniture_count": 10,
-  "hospital_ward_detail_revision": 1
+  "hospital_ward_detail_revision": 1,
+  "office_revision": "doctor_office_and_intertheme_transitions_20261010"
 }

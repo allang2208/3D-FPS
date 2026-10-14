@@ -1,0 +1,34 @@
+{
+  "stage": "maps_saved",
+  "revision": "medical_office_dimmed_downlights_20261010",
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeLighting20261010\\Backups\\20261010-192221",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true,
+      "lights": 22
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_MedicalDoctorOffice_Subject",
+      "saved": true,
+      "lights": 22,
+      "local_exposure_saved": true
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+      "saved": true,
+      "lights": 22,
+      "local_exposure_saved": true
+    }
+  ],
+  "tests_run": false,
+  "game_run": false,
+  "rendered": false,
+  "light_type": "rect",
+  "direct_scale_after_conversion": 0.55,
+  "corridor_lumens": 99.0,
+  "room_lumens": 126.5,
+  "exposure_ev": 1.2,
+  "exposure_bias": -0.35,
+  "layout_entries_preserved": 120
+}

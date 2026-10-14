@@ -405,7 +405,7 @@ bool ConnectCompactBranch(int32 Count,const FSocket& Lead,const FSocket& Top,con
 {
     LastBridgeDepth=0;LastBridgeDistance=(Lead.P-Top.P).Size();
     const TArray<FPlaced> Base=Pieces;
-    if(bPairedFacility&&Count==6)
+    if(bPairedFacility&&(Count==6||Count==7))
     {
         // Close between the two themes, where the authored bridge is allowed.
         // Reserving only room six forced the exact solve inside the second
@@ -425,7 +425,7 @@ bool ConnectCompactBranch(int32 Count,const FSocket& Lead,const FSocket& Top,con
             const int32 HalfQuota=FMath::Min(Available,1800);
             CompactBudget=HalfQuota;
             TArray<FCompactBeam> Halves;
-            const bool HalfReady=GrowCompactRooms(3,Near,Far,Route,Halves,false,{},Reverse?5:0,Reverse?-1:1,3);
+            const bool HalfReady=GrowCompactRooms(3,Near,Far,Route,Halves,false,{},Reverse?Count-1:0,Reverse?-1:1,Count-3);
             CompactBudget=Available-(HalfQuota-FMath::Max(0,CompactBudget));
             if(!HalfReady){CompactBudget+=OtherDirectionReserve;continue;}
             for(auto& Half:Halves)
@@ -449,7 +449,7 @@ bool ConnectCompactBranch(int32 Count,const FSocket& Lead,const FSocket& Top,con
                     RetiredQuota+=Left-CompactBudget;
                     return Done;
                 };
-                const bool Connected=BridgeRooms(3,Far,Half.End,Route,Finish,Reverse?0:5,Reverse?1:-1);
+                const bool Connected=BridgeRooms(Count-3,Far,Half.End,Route,Finish,Reverse?0:Count-1,Reverse?1:-1);
                 CompactBudget=FMath::Max(0,BranchAvailable-(TrialQuota-FMath::Max(0,CompactBudget)-RetiredQuota)-ContinuationSpent);
                 if(Connected){CompactBudget+=OtherDirectionReserve;return true;}
             }

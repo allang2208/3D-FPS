@@ -23,7 +23,7 @@ def make_layouts(cfg):
                     pose('Bookshelf','Bookshelf',wall_x(shelfwall,.34),5.70-dy,facing(shelfwall)),
                     pose('Desk','Desk',deskx,deskq,facing(other)),
                     pose('Chair','Chair',chairx,deskq,facing(other)+180),
-                    pose('Bedside0','Bedside',cx-2.07,9.20+dy,0 if side>0 else 180),
+                    pose('Bedside0','Bedside',-.65 if rid=='105' else cx-2.07,9.20+dy,0 if side>0 else 180),
                     pose('Bedside1','Bedside',cx+2.07,9.20-dy,0 if side>0 else 180)]
                 items[0]['id']='Locker_'+rid+'_0';items[1]['id']='Locker_'+rid+'_1'
                 variants.append(dict(id=index,name=('储物靠西','储物靠东','书柜换侧','书架换侧')[index],placements=items))

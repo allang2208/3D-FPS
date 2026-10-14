@@ -1,0 +1,955 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Receipts\\doorways-before.json",
+  "doorway_count": 24,
+  "doorways": [
+    {
+      "id": "Office.Consult01",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.755
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7728.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.793
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.757
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.0
+        }
+      ],
+      "overlap_area_cm2": 45409.906
+    },
+    {
+      "id": "Office.Consult02",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.757
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7728.001
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.795
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.755
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 83.999
+        }
+      ],
+      "overlap_area_cm2": 45409.907
+    },
+    {
+      "id": "Office.Records",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.755
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7728.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.793
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.805
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.757
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.002
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.002
+        }
+      ],
+      "overlap_area_cm2": 45409.912
+    },
+    {
+      "id": "Office.TeamHall",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.755
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7728.003
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.796
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.805
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.757
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.0
+        }
+      ],
+      "overlap_area_cm2": 45409.916
+    },
+    {
+      "id": "Office.TeamWaiting",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.753
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7727.992
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.78
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.782
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.753
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 83.98
+        }
+      ],
+      "overlap_area_cm2": 45409.839
+    },
+    {
+      "id": "Office.Chief",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.753
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7728.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.788
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.753
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.0
+        }
+      ],
+      "overlap_area_cm2": 45409.893
+    },
+    {
+      "id": "Office.Support",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 7236.753
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 161.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7728.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 300.0, -1)",
+          "area_cm2": 7856.769
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7180.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 7236.753
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -161.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.0
+        }
+      ],
+      "overlap_area_cm2": 45409.874
+    },
+    {
+      "id": "Office.Entry",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 6700.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 6748.76
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 280.0, -1)",
+          "area_cm2": 7200.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 280.0, -1)",
+          "area_cm2": 7320.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 6700.8
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 6748.76
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 83.982
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 83.991
+        }
+      ],
+      "overlap_area_cm2": 42409.093
+    },
+    {
+      "id": "Office.Exit",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 6700.834
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 6748.752
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 280.0, -1)",
+          "area_cm2": 7200.053
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 280.0, -1)",
+          "area_cm2": 7319.988
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 6700.868
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 6748.755
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 410.998
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.001
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.001
+        }
+      ],
+      "overlap_area_cm2": 42409.251
+    },
+    {
+      "id": "Office.SleeveJunction",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 440.0, 1)",
+          "area_cm2": 635.999
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 440.0, 1)",
+          "area_cm2": 640.798
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 220.0, -1)",
+          "area_cm2": 10540.854
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 220.0, -1)",
+          "area_cm2": 10652.756
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 220.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -220.0, 1)",
+          "area_cm2": 10540.907
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -220.0, 1)",
+          "area_cm2": 10652.739
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -220.0, 1)",
+          "area_cm2": 410.998
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 83.994
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 83.995
+        }
+      ],
+      "overlap_area_cm2": 44654.04
+    },
+    {
+      "id": "Ward.N01",
+      "coincident_faces": [
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:16",
+          "plane": "(0, 160.0, -1)",
+          "area_cm2": 8099.438
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:16",
+          "plane": "(0, -160.0, 1)",
+          "area_cm2": 8099.438
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:16",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:16",
+          "plane": "(1, -24.0, 1)",
+          "area_cm2": 2997.784
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:16",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:16",
+          "plane": "(1, 24.0, -1)",
+          "area_cm2": 2997.784
+        }
+      ],
+      "overlap_area_cm2": 22194.444
+    },
+    {
+      "id": "Ward.N02",
+      "coincident_faces": [
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:17",
+          "plane": "(0, 160.0, -1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:17",
+          "plane": "(0, -160.0, 1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:17",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:17",
+          "plane": "(1, -24.0, 1)",
+          "area_cm2": 2997.784
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:17",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:17",
+          "plane": "(1, 24.0, -1)",
+          "area_cm2": 2997.784
+        }
+      ],
+      "overlap_area_cm2": 22194.462
+    },
+    {
+      "id": "Ward.N03",
+      "coincident_faces": [
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:18",
+          "plane": "(0, 160.0, -1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:18",
+          "plane": "(0, -160.0, 1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:18",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:18",
+          "plane": "(1, -24.0, 1)",
+          "area_cm2": 2997.784
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:18",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:18",
+          "plane": "(1, 24.0, -1)",
+          "area_cm2": 2997.784
+        }
+      ],
+      "overlap_area_cm2": 22194.462
+    },
+    {
+      "id": "Ward.S01",
+      "coincident_faces": [
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:19",
+          "plane": "(0, 160.0, -1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:19",
+          "plane": "(0, -160.0, 1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:19",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:19",
+          "plane": "(1, -24.0, 1)",
+          "area_cm2": 2997.784
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:19",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:19",
+          "plane": "(1, 24.0, -1)",
+          "area_cm2": 2997.784
+        }
+      ],
+      "overlap_area_cm2": 22194.462
+    },
+    {
+      "id": "Ward.S02",
+      "coincident_faces": [
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:20",
+          "plane": "(0, 160.0, -1)",
+          "area_cm2": 8099.438
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:20",
+          "plane": "(0, -160.0, 1)",
+          "area_cm2": 8099.438
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:20",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:20",
+          "plane": "(1, -24.0, 1)",
+          "area_cm2": 2997.784
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:20",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:20",
+          "plane": "(1, 24.0, -1)",
+          "area_cm2": 2997.784
+        }
+      ],
+      "overlap_area_cm2": 22194.444
+    },
+    {
+      "id": "Ward.Decon",
+      "coincident_faces": [
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:21",
+          "plane": "(0, 160.0, -1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_Walls:3",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:21",
+          "plane": "(0, -160.0, 1)",
+          "area_cm2": 8099.447
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:21",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:21",
+          "plane": "(1, -24.0, 1)",
+          "area_cm2": 2997.784
+        },
+        {
+          "a": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:21",
+          "b": "AbandonedIsolationWard/SM_Ward_GlassDoorFrame:21",
+          "plane": "(1, 24.0, -1)",
+          "area_cm2": 2997.784
+        }
+      ],
+      "overlap_area_cm2": 22194.462
+    },
+    {
+      "id": "AbandonedIsolationWard.MainHallWest",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    },
+    {
+      "id": "AbandonedIsolationWard.MainHallEast",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    },
+    {
+      "id": "AbandonedAnatomyTheatre.Entry",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    },
+    {
+      "id": "AbandonedAnatomyTheatre.Service",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    },
+    {
+      "id": "MedicalJoin.0",
+      "coincident_faces": [
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 6700.834
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 6748.752
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, 150.0, -1)",
+          "area_cm2": 411.0
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 280.0, -1)",
+          "area_cm2": 7200.053
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(2, 280.0, -1)",
+          "area_cm2": 7319.988
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Walls:3",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 6700.868
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_WallFinish:4",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 6748.755
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(0, -150.0, 1)",
+          "area_cm2": 410.998
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, 14.5, -1)",
+          "area_cm2": 84.001
+        },
+        {
+          "a": "MedicalDoctorOffice/SM_MedicalOffice_Trim:5",
+          "b": "MedicalDoctorOffice/SM_MedicalOffice_Frames:6",
+          "plane": "(1, -14.5, 1)",
+          "area_cm2": 84.001
+        }
+      ],
+      "overlap_area_cm2": 42409.251
+    },
+    {
+      "id": "MedicalJoin.1",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    },
+    {
+      "id": "MedicalJoin.2",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    },
+    {
+      "id": "MedicalJoin.3",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0
+    }
+  ],
+  "swing_minimum_clearance_cm": {
+    "320": -2.4731,
+    "322": -1.4731,
+    "326": 0.5269
+  },
+  "interpretation": "same-facing coplanar triangle overlaps near doorways; mesh-space sweep only; no rendering or live physics",
+  "gameplay_tested": false,
+  "rendered": false
+}

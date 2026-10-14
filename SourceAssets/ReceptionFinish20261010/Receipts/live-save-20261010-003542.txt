@@ -1,0 +1,2 @@
+[node] 1C4AFC29463E0EEB7C462FBA143240AA  success=False
+[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/SourceAssets/ReceptionFinish20261010/save_concrete.py", line 9, in <module>'}, {'type': 'Error', 'output': "    raise RuntimeError('Preserve active gameplay or unsaved maps')"}, {'type': 'Error', 'output': 'RuntimeError: Preserve active gameplay or unsaved maps'}]

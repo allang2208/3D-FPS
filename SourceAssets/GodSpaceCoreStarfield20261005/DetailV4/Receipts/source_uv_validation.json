@@ -1,0 +1,160 @@
+{
+  "old": {
+    "file": "/workspace/scratch/8a392ae60ecf/globe-refine/work/BaselineV2/Authored/SM_GodSpaceCore_Starfield_V2.fbx",
+    "sha256": "201c4d290f9bc17e88e993bc74f89b7ea9d95804976c69a8d32b96f4bc05e559",
+    "materials": {
+      "Core_Starfield": {
+        "triangles": 25280,
+        "uv_degenerate": 0,
+        "geometry_degenerate": 0,
+        "uv_min": [
+          0.00624888576567173,
+          0.0
+        ],
+        "uv_max": [
+          1.006250262260437,
+          1.0
+        ],
+        "density_ratios_p05_p50_p95": [],
+        "min_px_per_meter_p05_p50_p95": [],
+        "geometry_triangle_hash_1um": "2ff1e26557ca4933ac00437df89d48c0d1300eacfaa96b4842fd02ae9dd76b6b",
+        "geometry_and_uv_hash": "bb43ef7412ddb31e7d12e4a5b1d190de6344fa200e77f249dc684cffba0edeba"
+      },
+      "Core_EngravedGold": {
+        "triangles": 24576,
+        "uv_degenerate": 9216,
+        "geometry_degenerate": 0,
+        "uv_min": [
+          0.0,
+          0.0
+        ],
+        "uv_max": [
+          8.0,
+          1.0
+        ],
+        "density_ratios_p05_p50_p95": [
+          4.595883639643356,
+          6.852926465563542,
+          10.12269010895207
+        ],
+        "min_px_per_meter_p05_p50_p95": [
+          549.5071864814156,
+          579.0059201382329,
+          615.6579249923052
+        ],
+        "geometry_triangle_hash_1um": "760aded68a1ef16ed13d0dc04ac54834764522098f8380e98e3aed6ee2737c49",
+        "geometry_and_uv_hash": "bbbcdc2c43fec248699e43f4a1d6fe4aa80f63eb8a8e481e99114e662be1fe07"
+      },
+      "Core_Sapphire": {
+        "triangles": 4032,
+        "uv_degenerate": 4031,
+        "geometry_degenerate": 1,
+        "uv_min": [
+          0.5,
+          0.5
+        ],
+        "uv_max": [
+          0.5,
+          0.5
+        ],
+        "density_ratios_p05_p50_p95": [],
+        "min_px_per_meter_p05_p50_p95": [],
+        "geometry_triangle_hash_1um": "7ed04b32ec49625142bca686aeb11d8a4b0730f3af5999e12094ebdca64c81a3",
+        "geometry_and_uv_hash": "7904b1f85cc60b2fb430446e451575e44d5e4f2f69569214e109e49213ba3cd8"
+      }
+    },
+    "bounds_cm": {
+      "min": [
+        -231.79166316986084,
+        -3068.630790710449,
+        281.82904720306396
+      ],
+      "max": [
+        231.79216384887695,
+        -2651.369285583496,
+        718.1709289550781
+      ]
+    }
+  },
+  "new": {
+    "file": "/workspace/scratch/8a392ae60ecf/globe-refine/work/V4/Authored/SM_GodSpaceCore_Starfield_V4.fbx",
+    "sha256": "379daf91b176dccdaef56bbba23cc9b19f36e084cb892221cf06e5116d7b4bd9",
+    "materials": {
+      "Core_Starfield": {
+        "triangles": 25280,
+        "uv_degenerate": 0,
+        "geometry_degenerate": 0,
+        "uv_min": [
+          0.00624888576567173,
+          0.0
+        ],
+        "uv_max": [
+          1.006250262260437,
+          1.0
+        ],
+        "density_ratios_p05_p50_p95": [],
+        "min_px_per_meter_p05_p50_p95": [],
+        "geometry_triangle_hash_1um": "2ff1e26557ca4933ac00437df89d48c0d1300eacfaa96b4842fd02ae9dd76b6b",
+        "geometry_and_uv_hash": "bb43ef7412ddb31e7d12e4a5b1d190de6344fa200e77f249dc684cffba0edeba"
+      },
+      "Core_EngravedGold": {
+        "triangles": 24576,
+        "uv_degenerate": 0,
+        "geometry_degenerate": 0,
+        "uv_min": [
+          0.0,
+          0.0
+        ],
+        "uv_max": [
+          32.0,
+          2.7931582927703857
+        ],
+        "density_ratios_p05_p50_p95": [
+          1.624597594938579,
+          2.483304236709857,
+          8.507998832231939
+        ],
+        "min_px_per_meter_p05_p50_p95": [
+          2070.217486922896,
+          4482.810969776996,
+          4925.287754029674
+        ],
+        "geometry_triangle_hash_1um": "760aded68a1ef16ed13d0dc04ac54834764522098f8380e98e3aed6ee2737c49",
+        "geometry_and_uv_hash": "c307fd44f73f7661c60ded9ae596411cc1cd453b875ae055c67454f45db5d3b1"
+      },
+      "Core_Sapphire": {
+        "triangles": 4032,
+        "uv_degenerate": 4031,
+        "geometry_degenerate": 1,
+        "uv_min": [
+          0.5,
+          0.5
+        ],
+        "uv_max": [
+          0.5,
+          0.5
+        ],
+        "density_ratios_p05_p50_p95": [],
+        "min_px_per_meter_p05_p50_p95": [],
+        "geometry_triangle_hash_1um": "7ed04b32ec49625142bca686aeb11d8a4b0730f3af5999e12094ebdca64c81a3",
+        "geometry_and_uv_hash": "7904b1f85cc60b2fb430446e451575e44d5e4f2f69569214e109e49213ba3cd8"
+      }
+    },
+    "bounds_cm": {
+      "min": [
+        -231.79166316986084,
+        -3068.630790710449,
+        281.82904720306396
+      ],
+      "max": [
+        231.79216384887695,
+        -2651.369285583496,
+        718.1709289550781
+      ]
+    }
+  },
+  "same_material_triangle_geometry_at_1um": true,
+  "new_gold_all_triangles_have_uv_area": true,
+  "sphere_uv_unchanged": true,
+  "actual_ue_readback": false
+}

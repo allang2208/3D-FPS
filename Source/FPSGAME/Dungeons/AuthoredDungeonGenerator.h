@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "AuthoredDungeonLighting.h"
+#include "DungeonSharedProgress.h"
 #include "AuthoredDungeonGenerator.generated.h"
 
 struct FAuthoredDungeonBuildState;
@@ -14,6 +15,14 @@ class FPSGAME_API AAuthoredDungeonGenerator : public AActor
     GENERATED_BODY()
 public:
     AAuthoredDungeonGenerator();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
+    UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) FString NetworkRunId;
+    UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) int32 NetworkSeed=0;
+    UFUNCTION() void OnRep_NetworkRun();
+    // Small, always-relevant progress replication is independent of bulk world snapshots.
+    UPROPERTY(ReplicatedUsing=OnRep_SharedProgress) FDungeonSharedProgress SharedProgress;
+    UFUNCTION() void OnRep_SharedProgress();
+    TMap<FString,int32> NetworkActorCounts;
     UPROPERTY(EditAnywhere, Category="Dungeon") int32 PreviewSeed=92247;
     UPROPERTY(EditAnywhere, Category="Dungeon") bool bRandomizeOnEntry=true;
     UPROPERTY(EditAnywhere, Category="Dungeon", meta=(MultiLine=true)) FString ModuleCatalogJson;
@@ -40,6 +49,7 @@ private:
     TArray<TWeakObjectPtr<UCharacterMovementComponent>> HeldMovement;
     uint64 GenerationSerial = 0;
     FString LastGenerationMetricsJson;
+    FString RequestedNetworkRunId;
     void PrepareAssembly();
     void PumpAssembly(bool bSynchronous);
     void FinishAssembly(bool bSynchronous);
@@ -62,7 +72,7 @@ private:
     int32 RoomHideCursor = 0;
     void UpdateRoomRendering(const TArray<bool>& Wanted, const FVector* Eye, double Now);
     void ResetRoomRendering();
-    bool PumpGenerationResources();
+    bool PumpGenerationResources(double Deadline, int32 MaxInFlight);
     void CancelGenerationResources();
 public:
     /** Cook dependencies without eagerly loading every possible room with the map. */

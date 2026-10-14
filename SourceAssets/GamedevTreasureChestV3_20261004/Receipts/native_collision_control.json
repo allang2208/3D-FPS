@@ -1,0 +1,27 @@
+{
+  "test": "Native player capsule sweep; same path, native chest collision enabled vs disabled",
+  "start": [
+    -1265.5729413881645,
+    -663.4114646974776,
+    145.7000007629394
+  ],
+  "target": [
+    -1314.492204874185,
+    -448.9192605035132,
+    145.7000007629394
+  ],
+  "with_collision": [
+    -1290.2727225969725,
+    -555.1123993180522,
+    145.7000007629394
+  ],
+  "blocked_distance_cm": 108.91999840736395,
+  "without_collision": [
+    -1314.492204874185,
+    -448.9192605035132,
+    145.7000007629394
+  ],
+  "free_distance_cm": 0.0,
+  "passed": true,
+  "restored_collision": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>"
+}

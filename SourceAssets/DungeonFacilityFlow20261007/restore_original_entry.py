@@ -28,6 +28,9 @@ def restore_scene(world, generator, catalog, report):
     report['restored_actors']=[]
     for item in original['actors']:
         name=item['label'];a=actors.get(name)
+        if a and item.get('light') and a.get_class().get_name()!=item['class_name']:
+            if not aa.destroy_actor(a):raise RuntimeError('Cannot replace restored light '+name)
+            a=None
         if not a:a=aa.spawn_actor_from_class(getattr(u,item['class_name']),u.Vector(*item['position']))
         if not a:raise RuntimeError('Cannot restore '+name)
         a.modify();a.set_actor_label(name);a.set_folder_path('DungeonStart/OriginalEntry')

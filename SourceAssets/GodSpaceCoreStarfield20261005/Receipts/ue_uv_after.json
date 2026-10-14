@@ -1,0 +1,111 @@
+{
+  "mesh": "/Game/Props/GodSpaceCoreStarfield20261005/Meshes/SM_GodSpaceCore_Starfield_V2",
+  "readbacks": [
+    {
+      "lod_type": "<GeometryScriptLODType.SOURCE_MODEL: 2>",
+      "outcome": "<GeometryScriptOutcomePins.SUCCESS: 1>",
+      "uv_channels": 1,
+      "triangles": 53407,
+      "channels": {
+        "0": {
+          "0": {
+            "samples": 2299,
+            "min": [
+              0.007499880902469159,
+              0.006249845027923584
+            ],
+            "max": [
+              1.0050001740455627,
+              0.9900002479553223
+            ],
+            "unique_pairs": 2299
+          },
+          "1": {
+            "samples": 2235,
+            "min": [
+              0.002500000037252903,
+              0.0
+            ],
+            "max": [
+              7.996250057220459,
+              1.0
+            ],
+            "unique_pairs": 1863
+          },
+          "2": {
+            "samples": 322,
+            "min": [
+              0.5,
+              0.5
+            ],
+            "max": [
+              0.5,
+              0.5
+            ],
+            "unique_pairs": 1
+          }
+        }
+      }
+    },
+    {
+      "lod_type": "<GeometryScriptLODType.RENDER_DATA: 3>",
+      "outcome": "<GeometryScriptOutcomePins.SUCCESS: 1>",
+      "uv_channels": 1,
+      "triangles": 53407,
+      "channels": {
+        "0": {
+          "0": {
+            "samples": 2299,
+            "min": [
+              0.0074981689453125,
+              0.00624847412109375
+            ],
+            "max": [
+              1.0046875,
+              0.98984375
+            ],
+            "unique_pairs": 2299
+          },
+          "1": {
+            "samples": 2234,
+            "min": [
+              0.0024993896484375,
+              0.0
+            ],
+            "max": [
+              7.99765625,
+              1.0
+            ],
+            "unique_pairs": 1858
+          },
+          "2": {
+            "samples": 323,
+            "min": [
+              0.5,
+              0.5
+            ],
+            "max": [
+              0.5,
+              0.5
+            ],
+            "unique_pairs": 1
+          }
+        }
+      }
+    }
+  ],
+  "materials": [
+    {
+      "slot": "Core_Starfield",
+      "material": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_Starfield_V2.MI_Core_Starfield_V2"
+    },
+    {
+      "slot": "Core_EngravedGold",
+      "material": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_EngravedGold_V2.MI_Core_EngravedGold_V2"
+    },
+    {
+      "slot": "Core_Sapphire",
+      "material": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_Sapphire_V2.MI_Core_Sapphire_V2"
+    }
+  ]
+}

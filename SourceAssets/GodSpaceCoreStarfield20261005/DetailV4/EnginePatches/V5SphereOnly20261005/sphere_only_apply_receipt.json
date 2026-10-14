@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-06T03:21:55.283756+00:00",
+  "material": "/Game/Props/GodSpaceCoreStarfield20261005/DetailV4/Materials/M_CoreStarfield_V4.M_CoreStarfield_V4",
+  "custom_node": "/Game/Props/GodSpaceCoreStarfield20261005/DetailV4/Materials/M_CoreStarfield_V4.M_CoreStarfield_V4:MaterialExpressionCustom_0",
+  "hlsl_sha256": "de2902d028284ca23d357982760f4d747bc94d04ea69a104dcfc2e35fe0dcca8",
+  "input_names": [
+    "Tex",
+    "Stars",
+    "Detail",
+    "P",
+    "C",
+    "V",
+    "Strength",
+    "StarStrength",
+    "Depth",
+    "Rim",
+    "DetailStrength"
+  ],
+  "slots_unchanged": true,
+  "sphere_model": "UNLIT",
+  "new_glow_defaults": {
+    "BlueGlowStrength": 2.8,
+    "BlueRimStrength": 2.4
+  },
+  "gold_modified": false,
+  "mesh_reimported": false,
+  "textures_modified": false,
+  "map_saved": false,
+  "PIE": false,
+  "engine_visual_acceptance": false
+}

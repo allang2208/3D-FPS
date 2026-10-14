@@ -1,0 +1,41 @@
+{
+  "saved": [],
+  "compile_results": {},
+  "revision": "V4 candidate; not yet formal",
+  "engine_parity": "Unlit sphere; gold clamp(ORM.G + .18, .38, .62)",
+  "candidate_mesh": "/Game/Props/GodSpaceCoreStarfield20261005/DetailV4/Meshes/SM_GodSpaceCore_Starfield_V4.SM_GodSpaceCore_Starfield_V4",
+  "bounds": "<Struct 'BoxSphereBounds' (0x000002684A7E0600) {origin: {x: 0.000252, y: 2860.000122, z: 500.000015}, box_extent: {x: 231.824974, y: 208.630737, z: 218.494186}, sphere_radius: 380.800883}>",
+  "materials": {
+    "Core_Starfield": "/Game/Props/GodSpaceCoreStarfield20261005/DetailV4/Materials/MI_Core_Starfield_V4.MI_Core_Starfield_V4",
+    "Core_EngravedGold": "/Game/Props/GodSpaceCoreStarfield20261005/DetailV4/Materials/MI_Core_EngravedGold_V4.MI_Core_EngravedGold_V4",
+    "Core_Sapphire": "/Game/Props/GodSpaceCoreStarfield20261005/DetailV4/Materials/MI_Core_Sapphire_V4.MI_Core_Sapphire_V4"
+  },
+  "texture_sizes": {
+    "detail": [
+      512,
+      512
+    ],
+    "star": [
+      4096,
+      2048
+    ],
+    "stars": [
+      4096,
+      2048
+    ],
+    "gold": [
+      2048,
+      512
+    ],
+    "orm": [
+      2048,
+      512
+    ],
+    "normal": [
+      2048,
+      512
+    ]
+  },
+  "production_mesh_modified": false,
+  "source_sha256": "379daf91b176dccdaef56bbba23cc9b19f36e084cb892221cf06e5116d7b4bd9"
+}

@@ -47,8 +47,12 @@ floor_brass=runpy.run_path(str(ROOT/'build_floor_trim_material.py'))['build']()
 dark=material('M_GodSpaceBlueStone',(.055,.085,.11),.52,.06)
 carpet_builder=runpy.run_path(str(ROOT/'build_navy_carpet.py'))
 carpet=carpet_builder['build'](apply_binding=False)
-orb=material('M_GodSpaceCore',(.44,.80,.92),.28,.05,(.8,1.7,2.1))
 for entry in DATA['new_meshes']:
+    if entry['name']=='SM_GodSpaceCore':
+        core_script=ROOT.parents[1]/'GodSpaceCoreStarfield20261005/DetailV4/Scripts/install_formal.py'
+        core_result=runpy.run_path(str(core_script))
+        report['saved'].extend(core_result['receipt']['saved'])
+        continue
     if entry['name']=='SM_GodSpaceDistantOcean':continue
     opt=u.FbxImportUI();opt.automated_import_should_detect_type=False
     opt.mesh_type_to_import=u.FBXImportType.FBXIT_STATIC_MESH
@@ -64,7 +68,7 @@ for entry in DATA['new_meshes']:
     for i,slot in enumerate(mesh.get_editor_property('static_materials')):
         # FBX preserves this source order; import material names are normalized by UE.
         name=entry['materials'][i].lower()
-        mat=floor_brass if name=='floor satin brass' else gold if 'brass' in name else (carpet if entry['name']=='SM_GodSpaceStructure' else dark) if 'inlay' in name else orb if 'deity' in name else white
+        mat=floor_brass if name=='floor satin brass' else gold if 'brass' in name else (carpet if entry['name']=='SM_GodSpaceStructure' else dark) if 'inlay' in name else white
         mesh.set_material(i,mat)
     if entry['name']=='SM_GodSpaceStructure':
         mesh.get_editor_property('body_setup').set_editor_property('collision_trace_flag',u.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)

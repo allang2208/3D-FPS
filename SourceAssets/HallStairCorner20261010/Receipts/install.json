@@ -1,0 +1,392 @@
+{
+  "stage": "maps_saved",
+  "revision": "hall_stair_corner_20261010",
+  "saved_assets": [
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairTreads",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairNosings",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairCarriages",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_Balustrades",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_GalleryFascia",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Steps",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Nosings",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_StairSupport",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Rails",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerHousings",
+    "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers"
+  ],
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_ReceptionHall_Subject",
+      "saved": true,
+      "changed": {
+        "meshes": [
+          "Reception_SM_Reception_GalleryFascia",
+          "Reception_SM_Reception_Balustrades",
+          "Reception_SM_Reception_StairTreads",
+          "Reception_SM_Reception_StairNosings",
+          "Reception_SM_Reception_StairCarriages"
+        ],
+        "lights": []
+      }
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "changed": {
+        "meshes": [
+          "Reception_SM_Reception_GalleryFascia",
+          "Reception_SM_Reception_Balustrades",
+          "Reception_SM_Reception_StairTreads",
+          "Reception_SM_Reception_StairNosings",
+          "Reception_SM_Reception_StairCarriages",
+          "FacilityTransit_SM_FT_Hall_Rails",
+          "FacilityTransit_SM_FT_Hall_Steps",
+          "FacilityTransit_SM_FT_Hall_Nosings",
+          "FacilityTransit_SM_FT_Hall_StairSupport",
+          "FacilityTransit_CornerHousings",
+          "FacilityTransit_CornerDiffusers"
+        ],
+        "lights": [
+          "FacilityTransit_CornerMinimum_WestGround_S",
+          "FacilityTransit_CornerMinimum_WestGallery_S",
+          "FacilityTransit_CornerMinimum_EastGround_S",
+          "FacilityTransit_CornerMinimum_WestGround_N",
+          "FacilityTransit_CornerMinimum_WestGallery_N",
+          "FacilityTransit_CornerMinimum_EastGround_N"
+        ]
+      }
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "changed": {
+        "meshes": [
+          "Reception_SM_Reception_GalleryFascia",
+          "Reception_SM_Reception_Balustrades",
+          "Reception_SM_Reception_StairTreads",
+          "Reception_SM_Reception_StairNosings",
+          "Reception_SM_Reception_StairCarriages",
+          "FacilityTransit_SM_FT_Hall_Rails",
+          "FacilityTransit_SM_FT_Hall_Steps",
+          "FacilityTransit_SM_FT_Hall_Nosings",
+          "FacilityTransit_SM_FT_Hall_StairSupport",
+          "FacilityTransit_CornerHousings",
+          "FacilityTransit_CornerDiffusers"
+        ],
+        "lights": [
+          "FacilityTransit_CornerMinimum_WestGround_S",
+          "FacilityTransit_CornerMinimum_WestGallery_S",
+          "FacilityTransit_CornerMinimum_EastGround_S",
+          "FacilityTransit_CornerMinimum_WestGround_N",
+          "FacilityTransit_CornerMinimum_WestGallery_N",
+          "FacilityTransit_CornerMinimum_EastGround_N"
+        ]
+      }
+    }
+  ],
+  "game_run": false,
+  "rendered": false,
+  "runtime_tested": false,
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Backups\\20261010-132207",
+  "replacements": {
+    "FacilityReceptionHall": [
+      {
+        "before": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryFascia",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_GalleryFascia"
+      },
+      {
+        "before": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Balustrades",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_Balustrades"
+      },
+      {
+        "before": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairTreads",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairTreads"
+      },
+      {
+        "before": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairNosings",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairNosings"
+      },
+      {
+        "before": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairCarriages",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairCarriages"
+      }
+    ],
+    "FacilityTransit": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Rails",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Rails"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Steps",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Steps"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Nosings",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Nosings"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_StairSupport",
+        "after": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_StairSupport"
+      }
+    ]
+  },
+  "original_lights_preserved": true,
+  "added_corner_lights": [
+    {
+      "id": "CornerMinimum_WestGround_S",
+      "type": "rect",
+      "position": [
+        -2240,
+        -1560,
+        367
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 380,
+      "radius": 760,
+      "optimized_radius_cm": 760,
+      "color": [
+        0.9,
+        0.82,
+        0.65
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 94,
+      "source_height_cm": 26,
+      "indirect_lighting_intensity": 0.25,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 6500,
+      "fade_range_cm": 700,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        -2240,
+        -1560,
+        368
+      ],
+      "fixture_mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "corner_floor_z_cm": 0,
+      "minimum_illumination_steady": true,
+      "hall_stair_corner_revision": "hall_stair_corner_20261010"
+    },
+    {
+      "id": "CornerMinimum_WestGallery_S",
+      "type": "rect",
+      "position": [
+        -2240,
+        -1560,
+        765
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 280,
+      "radius": 700,
+      "optimized_radius_cm": 700,
+      "color": [
+        0.9,
+        0.82,
+        0.65
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 94,
+      "source_height_cm": 26,
+      "indirect_lighting_intensity": 0.25,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 6500,
+      "fade_range_cm": 700,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        -2240,
+        -1560,
+        766
+      ],
+      "fixture_mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "corner_floor_z_cm": 420,
+      "minimum_illumination_steady": true,
+      "hall_stair_corner_revision": "hall_stair_corner_20261010"
+    },
+    {
+      "id": "CornerMinimum_EastGround_S",
+      "type": "rect",
+      "position": [
+        2353,
+        -1560,
+        347
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 360,
+      "radius": 780,
+      "optimized_radius_cm": 780,
+      "color": [
+        0.9,
+        0.82,
+        0.65
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 32,
+      "source_height_cm": 94,
+      "indirect_lighting_intensity": 0.25,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 6500,
+      "fade_range_cm": 700,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        2353,
+        -1560,
+        348
+      ],
+      "fixture_mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "corner_floor_z_cm": 0,
+      "minimum_illumination_steady": true,
+      "hall_stair_corner_revision": "hall_stair_corner_20261010"
+    },
+    {
+      "id": "CornerMinimum_WestGround_N",
+      "type": "rect",
+      "position": [
+        -2240,
+        1560,
+        367
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 380,
+      "radius": 760,
+      "optimized_radius_cm": 760,
+      "color": [
+        0.9,
+        0.82,
+        0.65
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 94,
+      "source_height_cm": 26,
+      "indirect_lighting_intensity": 0.25,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 6500,
+      "fade_range_cm": 700,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        -2240,
+        1560,
+        368
+      ],
+      "fixture_mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "corner_floor_z_cm": 0,
+      "minimum_illumination_steady": true,
+      "hall_stair_corner_revision": "hall_stair_corner_20261010"
+    },
+    {
+      "id": "CornerMinimum_WestGallery_N",
+      "type": "rect",
+      "position": [
+        -2240,
+        1560,
+        765
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 280,
+      "radius": 700,
+      "optimized_radius_cm": 700,
+      "color": [
+        0.9,
+        0.82,
+        0.65
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 94,
+      "source_height_cm": 26,
+      "indirect_lighting_intensity": 0.25,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 6500,
+      "fade_range_cm": 700,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        -2240,
+        1560,
+        766
+      ],
+      "fixture_mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "corner_floor_z_cm": 420,
+      "minimum_illumination_steady": true,
+      "hall_stair_corner_revision": "hall_stair_corner_20261010"
+    },
+    {
+      "id": "CornerMinimum_EastGround_N",
+      "type": "rect",
+      "position": [
+        2353,
+        1560,
+        347
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 360,
+      "radius": 780,
+      "optimized_radius_cm": 780,
+      "color": [
+        0.9,
+        0.82,
+        0.65
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 32,
+      "source_height_cm": 94,
+      "indirect_lighting_intensity": 0.25,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 6500,
+      "fade_range_cm": 700,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        2353,
+        1560,
+        348
+      ],
+      "fixture_mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "corner_floor_z_cm": 0,
+      "minimum_illumination_steady": true,
+      "hall_stair_corner_revision": "hall_stair_corner_20261010"
+    }
+  ]
+}

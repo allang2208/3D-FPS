@@ -13,6 +13,10 @@ def build_materials(root,base):
         if not mat:
             folder,name=path.rsplit('/',1);E.make_directory(folder)
             mat=A.create_asset(name,folder,u.Material,u.MaterialFactoryNew())
+            if key not in ('JugPlastic','JugWater'):
+                mat.set_editor_property('used_with_nanite',True)
+            if key in ('CueMaple','CueGrip','CueTip','PoolIvory','PoolBlue','PoolRed'):
+                mat.set_editor_property('used_with_instanced_static_meshes',True)
             if key in ('JugPlastic','JugWater'):
                 mat.set_editor_property('blend_mode',u.BlendMode.BLEND_TRANSLUCENT)
                 mat.set_editor_property('translucency_lighting_mode',u.TranslucencyLightingMode.TLM_SURFACE_PER_PIXEL_LIGHTING)

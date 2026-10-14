@@ -1,0 +1,66 @@
+{
+  "results": [
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/TreasureChest_V3_UE_Closed.png",
+      "file_id": "file_00000000e34881f5a0a43ec50f20100e",
+      "library_file_id": "libfile_f9f10995722481919b35508662e5e735",
+      "file_name": "TreasureChest_V3_UE_Closed.png",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "libdir_91670ae9d8208191856aee3b4b4832ef",
+      "mime_type": "image/png",
+      "library_artifact_type": "image",
+      "file_size_bytes": 2244875
+    },
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/TreasureChest_V3_UE_Open.png",
+      "file_id": "file_000000008acc81f6b973070be2a2274b",
+      "library_file_id": "libfile_02907bbe8598819199d42a8fa8c83b5c",
+      "file_name": "TreasureChest_V3_UE_Open.png",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "libdir_91670ae9d8208191856aee3b4b4832ef",
+      "mime_type": "image/png",
+      "library_artifact_type": "image",
+      "file_size_bytes": 2244875
+    },
+    {
+      "operation": "create_library_file",
+      "status": "succeeded",
+      "path": "/TreasureChest_V3_UE_Interior.png",
+      "file_id": "file_000000001b9881f59d2366cf9c3b4c7d",
+      "library_file_id": "libfile_1cee071a4c008191af97a7d926745f02",
+      "file_name": "TreasureChest_V3_UE_Interior.png",
+      "current_version_number": 0,
+      "restored_from_version_number": null,
+      "xattrs": [
+        {
+          "name": "user.library-file-version",
+          "value": "0"
+        }
+      ],
+      "directory_id": "libdir_91670ae9d8208191856aee3b4b4832ef",
+      "mime_type": "image/png",
+      "library_artifact_type": "image",
+      "file_size_bytes": 3090912
+    }
+  ],
+  "warnings": [],
+  "external_connectors_accessed": false
+}

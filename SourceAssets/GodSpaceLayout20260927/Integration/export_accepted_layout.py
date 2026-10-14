@@ -86,10 +86,19 @@ def export_combined(objects,name):
     bpy.data.objects.remove(o,do_unlink=True)
     return result
 
-records=[export_combined(structure,'SM_GodSpaceStructure'),export_combined(core,'SM_GodSpaceCore')]
+records=[export_combined(structure,'SM_GodSpaceStructure')]
 # The accepted below-hub backdrop is now a visual-only curved ocean.
 import runpy
 ocean_author=runpy.run_path(str(ROOT/'author_distant_ocean.py'))
 records.append(ocean_author['author']())
+# Use the cloud-authored, approved V4 export verbatim. Art authoring stays in cloud.
+import shutil,hashlib
+core_root=SOURCE.parent/'GodSpaceCoreStarfield20261005/DetailV4'
+core_fbx=core_root/'Authored/SM_GodSpaceCore_Starfield_V4.fbx'
+assert hashlib.sha256(core_fbx.read_bytes()).hexdigest()=='379daf91b176dccdaef56bbba23cc9b19f36e084cb892221cf06e5116d7b4bd9'
+core_export=OUT/'SM_GodSpaceCore.fbx'
+shutil.copy2(core_fbx,core_export)
+records.insert(1,dict(name='SM_GodSpaceCore',file=str(core_export),materials=['Core_Starfield','Core_EngravedGold','Core_Sapphire'],triangles=53888,authoring_source=str(core_root/'Authored/GodSpaceCore_Starfield_V4_Editable.blend'),revision='20261005-V4-EngineParity'))
+
 (ROOT/'placements.json').write_text(json.dumps(dict(world_offset_cm=WORLD_OFFSET_CM,placements=placements,new_meshes=records,portal_local_m=[22,-29,.5],warehouse_world_cm=[500,-500,20],cloud_bottom_km=.62,cloud_height_km=.70,atmosphere_ground_z_cm=-150000,retired_maps=['/Game/Clearwater/L_ClearwaterWater','/Game/GameMaps/L_GrassDeformDenseTest']),ensure_ascii=False,indent=2),encoding='utf8')
 print('GODSPACE_GEOMETRY_EXPORTED '+json.dumps({'placements':len(placements),'meshes':records},ensure_ascii=False))

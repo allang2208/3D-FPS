@@ -14,6 +14,7 @@ class UInstancedStaticMeshComponent;
 class UStaticMesh;
 class AVoxelBuildPrefabActor;
 class AVoxelBuildWorld;
+class AColdSteelCampfire;
 struct FVoxelSmeltingJob;
 struct FStreamableHandle;
 
@@ -37,6 +38,8 @@ public:
     bool MoveMist(FVector& Position,FVector& Velocity,const FVector& Previous,float Radius);
     void EmitColdImpact(const FVector& Position,const FVector& Normal);
     void RegisterWaterBody(UPrimitiveComponent* Body);
+    void RegisterCampfire(AColdSteelCampfire* Fire);
+    void UnregisterCampfire(AColdSteelCampfire* Fire);
 protected:
     virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;
 private:
@@ -143,4 +146,6 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> CastingRackPool;
     uint64 GustFrame=MAX_uint64;
     FVector SharedRainGust=FVector::ZeroVector;
+    TArray<TWeakObjectPtr<AColdSteelCampfire>> Campfires;
+    void UpdateCampfires();
 };

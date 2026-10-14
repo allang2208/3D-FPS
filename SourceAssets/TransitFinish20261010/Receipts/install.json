@@ -1,0 +1,330 @@
+{
+  "stage": "maps_saved",
+  "revision": "transit_connections_arrival_20261010",
+  "saved_assets": [
+    "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_ArrivalFrameV2",
+    "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_FixtureHousings",
+    "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_FixtureDiffusers",
+    "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_VentConnection",
+    "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_VentMounts"
+  ],
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "original_lights_preserved": 60,
+      "changes": {
+        "changed": [
+          "FacilityTransit_Finish_ArrivalFrame",
+          "FacilityTransit_Finish_FixtureHousings",
+          "FacilityTransit_Finish_FixtureDiffusers",
+          "FacilityTransit_TransitFinish_GalleryGap",
+          "FacilityTransit_TransitFinish_Arrival"
+        ],
+        "production_vent_present": false
+      }
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "original_lights_preserved": 60,
+      "changes": {
+        "changed": [
+          "FacilityTransit_Finish_ArrivalFrame",
+          "FacilityTransit_Finish_FixtureHousings",
+          "FacilityTransit_Finish_FixtureDiffusers",
+          "FacilityTransit_TransitFinish_GalleryGap",
+          "FacilityTransit_TransitFinish_Arrival"
+        ],
+        "production_vent_present": false
+      }
+    }
+  ],
+  "runtime_tested": false,
+  "rendered": false,
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitFinish20261010\\Backups\\20261010-011004",
+  "original_lights_preserved": true,
+  "original_light_count": 30,
+  "original_lights_sha256": "5178e6011364724dfa1f24524d1910d8bbb7f7a2a0c0d63d8ef3512de85086e7",
+  "reception_and_other_modules_preserved": true,
+  "ports_cells_and_interactions_preserved": true,
+  "layout_entries_preserved": true,
+  "added_lights": [
+    {
+      "id": "TransitFinish_GalleryGap",
+      "type": "rect",
+      "position": [
+        -2000,
+        0,
+        367.9
+      ],
+      "pitch": -90,
+      "yaw": 0,
+      "roll": 90,
+      "intensity": 260,
+      "radius": 650,
+      "optimized_radius_cm": 650,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 122.0,
+      "source_height_cm": 24.0,
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        -2000,
+        0,
+        368.9
+      ],
+      "fixture_mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_FixtureDiffusers",
+      "transit_finish_revision": "transit_connections_arrival_20261010"
+    },
+    {
+      "id": "TransitFinish_Arrival",
+      "type": "rect",
+      "position": [
+        -2300,
+        0,
+        367.9
+      ],
+      "pitch": -90,
+      "yaw": 90,
+      "roll": 90,
+      "intensity": 280,
+      "radius": 520,
+      "optimized_radius_cm": 520,
+      "color": [
+        0.91,
+        0.82,
+        0.64
+      ],
+      "cast_shadows": true,
+      "source_width_cm": 122.0,
+      "source_height_cm": 24.0,
+      "indirect_lighting_intensity": 0.32,
+      "volumetric_scattering_intensity": 0.0,
+      "max_draw_distance_cm": 3200,
+      "fade_range_cm": 650,
+      "role": "local",
+      "fixture_normal": [
+        0,
+        0,
+        -1
+      ],
+      "fixture_face_center_cm": [
+        -2300,
+        0,
+        368.9
+      ],
+      "fixture_mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_FixtureDiffusers",
+      "transit_finish_revision": "transit_connections_arrival_20261010"
+    }
+  ],
+  "fixtures": [
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorBody",
+      "position": [
+        -2090.0,
+        1802.0,
+        3.814697265625e-06
+      ],
+      "yaw": 270,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.service.00"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorLeaf",
+      "position": [
+        -2180.0,
+        1652.0,
+        3.814697265625e-06
+      ],
+      "yaw": 270,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.service.00"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorLeafRight",
+      "position": [
+        -2000.0,
+        1652.0,
+        3.814697265625e-06
+      ],
+      "yaw": 270,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.service.00"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorBody",
+      "position": [
+        1390.0,
+        1802.0,
+        3.814697265625e-06
+      ],
+      "yaw": 270,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.service.01"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorLeaf",
+      "position": [
+        1300.0,
+        1652.0,
+        3.814697265625e-06
+      ],
+      "yaw": 270,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.service.01"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_DoorLeafRight",
+      "position": [
+        1480.0,
+        1652.0,
+        3.814697265625e-06
+      ],
+      "yaw": 270,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": true,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.service.01"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_HatchBody",
+      "position": [
+        2290.0,
+        -650.0,
+        0.0
+      ],
+      "yaw": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.hatch.02"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_HatchLeaf",
+      "position": [
+        2290.0,
+        -723.0,
+        3.0
+      ],
+      "yaw": 90,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.hatch.02"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentBody",
+      "position": [
+        1450.0,
+        -1708.0,
+        540.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.vent.03"
+    },
+    {
+      "mesh": "/Game/Dungeons/SpawnEntries20261009/Meshes/SM_Entry_VentLeaf",
+      "position": [
+        1372.0,
+        -1708.0,
+        364.0
+      ],
+      "yaw": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "materials": [],
+      "collision": false,
+      "cast_shadow": true,
+      "fixture_revision": "room_closed_fixtures_20261009",
+      "fixture_id": "FacilityTransit.vent.03"
+    }
+  ]
+}

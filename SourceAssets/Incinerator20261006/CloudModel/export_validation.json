@@ -1,0 +1,74 @@
+[
+  {
+    "lod": 0,
+    "objects": 1,
+    "triangles": 40152,
+    "material_slots": 13,
+    "uv_layers": 1,
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_min": [
+      -0.5710000395774841,
+      -0.612000048160553,
+      0.0
+    ],
+    "bounds_max": [
+      0.6220000982284546,
+      0.4899113178253174,
+      2.0789999961853027
+    ],
+    "nonfinite_vertices": 0,
+    "zero_area_triangles": 0
+  },
+  {
+    "lod": 1,
+    "objects": 1,
+    "triangles": 20076,
+    "material_slots": 13,
+    "uv_layers": 1,
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_min": [
+      -0.5709211826324463,
+      -0.612000048160553,
+      0.0
+    ],
+    "bounds_max": [
+      0.6218964457511902,
+      0.4898366630077362,
+      2.0789999961853027
+    ],
+    "nonfinite_vertices": 0,
+    "zero_area_triangles": 0
+  },
+  {
+    "lod": 2,
+    "objects": 1,
+    "triangles": 8029,
+    "material_slots": 13,
+    "uv_layers": 1,
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_min": [
+      -0.5705257058143616,
+      -0.6116858720779419,
+      0.00015713604807388037
+    ],
+    "bounds_max": [
+      0.6218258142471313,
+      0.4898366630077362,
+      2.0789058208465576
+    ],
+    "nonfinite_vertices": 0,
+    "zero_area_triangles": 0
+  }
+]

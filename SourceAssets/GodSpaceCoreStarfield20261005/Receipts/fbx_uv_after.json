@@ -1,0 +1,52 @@
+[
+  {
+    "object": "SM_GodSpaceCore_Starfield_V2",
+    "materials": {
+      "Core_Starfield": [
+        {
+          "index": 0,
+          "name": "SurfaceUV",
+          "min": [
+            0.00624888576567173,
+            0.0
+          ],
+          "max": [
+            1.006250262260437,
+            1.0
+          ],
+          "unique_rounded_pairs": 12721
+        }
+      ],
+      "Core_EngravedGold": [
+        {
+          "index": 0,
+          "name": "SurfaceUV",
+          "min": [
+            0.0,
+            0.0
+          ],
+          "max": [
+            8.0,
+            1.0
+          ],
+          "unique_rounded_pairs": 3847
+        }
+      ],
+      "Core_Sapphire": [
+        {
+          "index": 0,
+          "name": "SurfaceUV",
+          "min": [
+            0.5,
+            0.5
+          ],
+          "max": [
+            0.5,
+            0.5
+          ],
+          "unique_rounded_pairs": 1
+        }
+      ]
+    }
+  }
+]

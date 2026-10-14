@@ -69,5 +69,10 @@ for row in rows:
     actors.append(a)
 result=dict(revision='original_workshop_shrine_entry_20261008',actors=actors,
     omitted_retired_labels=sorted(hidden),source='Sources/fixed-actors.json and original authoring manifests',tests_run=False)
+fixture_recipe=SOURCE/'DungeonFixtureLighting20261009/recipe.py'
+if fixture_recipe.exists():
+    import runpy
+    fixture=runpy.run_path(str(fixture_recipe))
+    if fixture['installed']():fixture['apply_fixed_config'](result)
 (ROOT/'Config/original-entry-actors.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf8')
 print('ORIGINAL_ENTRY_AUTHORING_READY',len(actors),'actors')

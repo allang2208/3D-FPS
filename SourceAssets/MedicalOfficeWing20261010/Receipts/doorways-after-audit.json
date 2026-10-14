@@ -1,0 +1,278 @@
+{
+  "source": "SourceAssets\\MedicalOfficeWing20261010\\Receipts\\doorways-after.json",
+  "doorway_count": 24,
+  "doorways": [
+    {
+      "id": "Office.Consult01",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.Consult02",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.Records",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.TeamHall",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.TeamWaiting",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.Chief",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.Support",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.0
+    },
+    {
+      "id": "Office.Entry",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "Office.Exit",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "Office.SleeveJunction",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        null,
+        null
+      ],
+      "measured_clear_width_cm": null,
+      "measured_header_height_cm": null
+    },
+    {
+      "id": "Ward.N01",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.2
+    },
+    {
+      "id": "Ward.N02",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.2
+    },
+    {
+      "id": "Ward.N03",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.2
+    },
+    {
+      "id": "Ward.S01",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.2
+    },
+    {
+      "id": "Ward.S02",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.2
+    },
+    {
+      "id": "Ward.Decon",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -163.0,
+        163.0
+      ],
+      "measured_clear_width_cm": 326.0,
+      "measured_header_height_cm": 300.2
+    },
+    {
+      "id": "AbandonedIsolationWard.MainHallWest",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "AbandonedIsolationWard.MainHallEast",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "AbandonedAnatomyTheatre.Entry",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "AbandonedAnatomyTheatre.Service",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "MedicalJoin.0",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "MedicalJoin.1",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "MedicalJoin.2",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    },
+    {
+      "id": "MedicalJoin.3",
+      "coincident_faces": [],
+      "overlap_area_cm2": 0,
+      "measured_jambs_cm": [
+        -150.0,
+        150.0
+      ],
+      "measured_clear_width_cm": 300.0,
+      "measured_header_height_cm": 280.0
+    }
+  ],
+  "swing_minimum_clearance_cm": {
+    "320": -2.4731,
+    "322": -1.4731,
+    "326": 0.5269
+  },
+  "interpretation": "same-facing coplanar triangle overlaps near doorways; mesh-space sweep only; no rendering or live physics",
+  "gameplay_tested": false,
+  "rendered": false
+}

@@ -1,0 +1,80 @@
+Using bundled DotNet SDK version: 10.0 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" FPSGAME Win64 Development -Project=D:/FPS3D/FPSGAME/FPSGAME.uproject -NoHotReload -NoHotReloadFromIDE -MaxParallelActions=4 -Log=D:\FPS3D\FPSGAME\SourceAssets\FacilityDetailRepair20261010\Receipts\build_FPSGAME_20261010-165416.log
+Log file: D:\FPS3D\FPSGAME\SourceAssets\FacilityDetailRepair20261010\Receipts\build_FPSGAME_20261010-165416.log
+Executing up to 4 actions based on MaxProcessorCount override
+Using 'git status' to determine working set for adaptive non-unity build (D:\FPS3D\FPSGAME).
+UbaServer - Listening on 0.0.0.0:1345
+Waiting for 'git status' command to complete
+Invalidating makefile for FPSGAME (working set of source files changed)
+UHT compiled-in object format Default
+Building FPSGAME...
+===== Toolchain Information =====
+Using ISPC compiler (E:\Program Files (x86)\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
+  Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) 
+Using Visual Studio 14.44.35228 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+[Adaptive Build] Excluded from FPSGAME unity file: AKMIntegrationAudit.cpp, ASH12IntegrationAudit.cpp, BallisticPresentationAudit.cpp, DrumGripAudit.cpp, ForegripAudit.cpp, FPSGAMECharacter.cpp, FPSGAMECharacterActionPriority.cpp, FPSGAMECharacterAmmo.cpp, FPSGAMECharacterCombatFeedback.cpp, FPSGAMECharacterProfile.cpp, FPSGAMECharacterReload.cpp, FPSGAMECharacterSuper90.cpp, FPSGAMEConsumableUse.cpp, FPSGAMEEquipAudit.cpp, FPSGAMEGameMenu.cpp, FPSGAMEGunplayAudit.cpp, FPSGAMEPlayerController.cpp, FPSGAMEQuickCombatAudit.cpp, FPSGAMERifleSprintAudit.cpp, InfiniteAmmoAudit.cpp, MuzzleMigrationAudit.cpp, QBZ191IntegrationAudit.cpp, ReloadTimingAudit.cpp, SlideCombatAudit.cpp, WeaponHandlingAudit.cpp, WeaponWheelAudit.cpp, BronzeTorch.cpp, ColdSteelRevolvingDoor.cpp, VoxelBuildPersistence.cpp, VoxelBuildPrefabActor.cpp, VoxelBuildWorld.cpp, VoxelBuildWorldCasting.cpp, VoxelBuildWorldCollapse.cpp, VoxelBuildWorldDamage.cpp, VoxelBuildWorldMesh.cpp, VoxelBuildWorldPrefab.cpp, VoxelBuildWorldSave.cpp, VoxelBuildWorldStructure.cpp, WoodworkingMask.cpp, WoodworkingSawVisualComponent.cpp, WoodworkingStockGeometry.cpp, WoodworkingSystem.cpp, WoodworkingWorldView.cpp, FPSBodyGrounding.cpp, FPSBodyRifleHold.cpp, FPSOutfitSecondaryMotion.cpp, FPSPlayerBodyActions.cpp, FPSPlayerBodyAnimInstance.cpp, FPSPlayerBodyAppearance.cpp, FPSPlayerBodyBow.cpp, FPSPlayerBodyCamera.cpp, FPSPlayerBodyComponent.cpp, FPSPlayerBodyConsumable.cpp, FPSPlayerBodyDeath.cpp, FPSPlayerBodyEquipment.cpp, FPSPlayerBodyMotion.cpp, FPSPlayerBodyNetwork.cpp, FPSPlayerBodyPoseDiagnosis.cpp, FPSPlayerBodyReactions.cpp, FPSPlayerBodyToolGrip.cpp, FPSPlayerFirstPersonBody.cpp, FPSPlayerHeadAnimInstance.cpp, FPSPlayerReactionCamera.cpp, FPSStaffPoseDiagnosis.cpp, ColdSteelFormulaBonuses.cpp, ColdSteelDevelopmentTools.cpp, EcologyWindowDiagnosisCommandlet.cpp, AuthoredDungeonGenerator.cpp, DungeonBossEncounter.cpp, DungeonRoomEncounter.cpp, DungeonRunSubsystem.cpp, DungeonShrine.cpp, DungeonSpawnDirector.cpp, WardBreakableGlass.cpp, FPSPotionUseComponent.cpp, BlindSupplicantMonster.cpp, BoundCongregate.cpp, BoundCongregateAuthoring.cpp, BoundCongregateCaptureReview.cpp, BoundCongregateMelee.cpp, BoundCongregateMeleeReview.cpp, BoundCongregateMovementReview.cpp, BoundCongregateTentacle.cpp, BoundCongregateTentacleHealth.cpp, BoundCongregateTentacleReview.cpp, BoundCongregateWhipReview.cpp, FPSCombatHealthComponent.cpp, LurkerM08Monster.cpp, M09Gaze.cpp, M10BiteLunge.cpp, M10CombatSurface.cpp, M10Howl.cpp, M10Mawcrawler.cpp, M10MawcrawlerNavigation.cpp, M10MawcrawlerPhysics.cpp, M10RearGas.cpp, M10SurfaceRig.cpp, M25Damage.cpp, M25HitSurface.cpp, M25Navigation.cpp, MantisM27Monster.cpp, MonsterAPSMigration.cpp, MonsterArcPathing.cpp, MonsterCombatComponent.cpp, MonsterCoreStats.cpp, MonsterToughnessProfiles.cpp, Mutant3.cpp, NurseZombie.cpp, VortexCofferM25.cpp, WitchRebuiltAuthoring.cpp, WolfHunting.cpp, WolfMonster.cpp, DoorPushPoseLayer.cpp, FPSDoorPushComponent.cpp, FPSPlayerDodge.cpp, FPSPlayerSlide.cpp, FPSStaminaModel.cpp, ColdSteelPlayerState.cpp, DungeonLightDirectionCommandlet.cpp, ProductionAxeContact.cpp, ProductionAxeLocomotion.cpp, ProductionToolComponent.cpp, ProductionToolMotion.cpp, ColdSteelAdditionalMasteries.cpp, ColdSteelBlizzardModel.cpp, ColdSteelDashAttackModel.cpp, ColdSteelElectricMagicModel.cpp, ColdSteelFireballModel.cpp, ColdSteelFireMagicModel.cpp, ColdSteelHeavyStrikeModel.cpp, ColdSteelIceWallModel.cpp, ColdSteelSkillModel.cpp, ColdSteelSkillRules.cpp, ColdSteelWhirlwindModel.cpp, FPSCastingMeshComponent.cpp, FPSFireballProjectile.cpp, FPSFireMagicComponent.cpp, FPSMeteorStrike.cpp, FPSQuickCombatComponent.cpp, CantedForegripAudit.cpp, ColdSteelAmmoPouchNavigation.cpp, ColdSteelAmmoPouchWidget.cpp, ColdSteelAmmoPresentation.cpp, ColdSteelAmmoReadout.cpp, ColdSteelAmmoRuntime.cpp, ColdSteelAreaPickup.cpp, ColdSteelBows.cpp, ColdSteelCharacterSheet.cpp, ColdSteelCodexPage.cpp, ColdSteelCompartmentRules.cpp, ColdSteelCrosshair.cpp, ColdSteelCurrency.cpp, ColdSteelDropHitchAudit.cpp, ColdSteelDualPistolRuntime.cpp, ColdSteelDungeonRewards.cpp, ColdSteelEnhancementBackdrop.cpp, ColdSteelEnhancementController.cpp, ColdSteelEnhancementLayout.cpp, ColdSteelEnhancementMaterials.cpp, ColdSteelEnhancementSystem.cpp, ColdSteelEnhancementWidget.cpp, ColdSteelEquipmentIcon.cpp, ColdSteelEventTimeline.cpp, ColdSteelExpeditionController.cpp, ColdSteelExpeditionDetails.cpp, ColdSteelExpHUD.cpp, ColdSteelFireballHUD.cpp, ColdSteelForgingHUD.cpp, ColdSteelGameMenuWidget.cpp, ColdSteelHotbarDrag.cpp, ColdSteelHotbarLayout.cpp, ColdSteelHUDMeters.cpp, ColdSteelHUDNavigation.cpp, ColdSteelHUDWidget.cpp, ColdSteelIconResources.cpp, ColdSteelIncineration.cpp, ColdSteelIncineratorAmmoDrag.cpp, ColdSteelIncineratorAuditCommandlet.cpp, ColdSteelIncineratorStorage.cpp, ColdSteelIncineratorUIAudit.cpp, ColdSteelIncineratorWidget.cpp, ColdSteelInventoryAudit.cpp, ColdSteelInventoryDragAudit.cpp, ColdSteelInventoryGlassAudit.cpp, ColdSteelInventoryPopup.cpp, ColdSteelInventoryPresentation.cpp, ColdSteelInventoryRules.cpp, ColdSteelInventoryTheme.cpp, ColdSteelInventoryVisualAudit.cpp, ColdSteelInventoryWidget.cpp, ColdSteelItemTooltipAudit.cpp, ColdSteelItemTooltipData.cpp, ColdSteelItemTooltipHUD.cpp, ColdSteelItemTooltipSummary.cpp, ColdSteelPanelNavigation.cpp, ColdSteelPickupConsumable.cpp, ColdSteelPickupWeapon.cpp, ColdSteelProductionDrops.cpp, ColdSteelProductionTools.cpp, ColdSteelProfileRuntime.cpp, ColdSteelQuickBarModel.cpp, ColdSteelQuickDrag.cpp, ColdSteelQuickSlot.cpp, ColdSteelResourceMeter.cpp, ColdSteelRetiredWeaponsAudit.cpp, ColdSteelSkillPage.cpp, ColdSteelSmeltingHUD.cpp, ColdSteelSmeltingVisualAudit.cpp, ColdSteelSoulCounter.cpp, ColdSteelSoulHUD.cpp, ColdSteelStaffs.cpp, ColdSteelStaminaHUD.cpp, ColdSteelStatusModel.cpp, ColdSteelTopVitals.cpp, ColdSteelTopVitalsAudit.cpp, ColdSteelTreeGrowth.cpp, ColdSteelUpgradeAudit.cpp, ColdSteelWarehouseAudit.cpp, ColdSteelWarehouseGlassAudit.cpp, ColdSteelWarehouseHUD.cpp, ColdSteelWarehouseModel.cpp, ColdSteelWarehouseRules.cpp, ColdSteelWarehouseWidget.cpp, ColdSteelWeaponIconAudit.cpp, ColdSteelWeaponIcons.cpp, ColdSteelWoodworkingController.cpp, ColdSteelWoodworkingWidget.cpp, ColdSteelWorkbenchHUD.cpp, ColdSteelWorldInteraction.cpp, ColdSteelWorldInteractionAudit.cpp, GunsmithLayoutAudit.cpp, GunsmithWorkbenchAudit.cpp, LPVOScopeWidget.cpp, M4DrumAudit.cpp, M4GunsmithAudit.cpp, M4GunsmithController.cpp, M4GunsmithLayout.cpp, M4GunsmithOverview.cpp, M4GunsmithSelectedDetails.cpp, M4StandalonePreview.cpp, PrismHandstopAudit.cpp, SColdSteelArcaneSeal.cpp, SColdSteelCooldownMask.cpp, StatusEffectIconPainter.cpp, StatusEffectsHUD.cpp, VerticalForegripAudit.cpp, WoodworkingPresentation.cpp, ColdSteelEnchantmentCombat.cpp, DanWesson715AttachmentVisual.cpp, DealerEnchantmentComponent.cpp, DealerPokerTypes.cpp, FPSGAMECharacterCrouchPose.cpp, FPSGAMECharacterJumpPose.cpp, FPSGAMECharacterLocomotion.cpp, FPSGAMECharacterPistolLocomotion.cpp, FPSGAMECharacterVisualRecoil.cpp, FPSGunplayAnimInstance.cpp, FPSImpactFXSubsystem.cpp, FPSWeaponFXComponent.cpp, FullAutoTrigger.cpp, GunsmithSystem.cpp, M1911DevelopmentAudit.cpp, M4GunsmithVisual.cpp, M4MuzzleVisual.cpp, MeleeGunsmith.cpp, MeleeWeaponStats.cpp, PistolDualWieldAim.cpp, PistolDualWieldCombat.cpp, PistolDualWieldComponent.cpp, RSH12OpticVisual.cpp, RSH12Presentation.cpp, RuneSwordAzureDragon.cpp, RuneSwordClovenGuard.cpp, RuneSwordComponent.cpp, RuneSwordGuard.cpp, RuneSwordHitQuery.cpp, RuneSwordSprint.cpp, RuneSwordWhirlwindFocus.cpp, ScopeOpticalPresentation.cpp, SkeletonStockAudit.cpp, Super90OpticVisual.cpp, Super90SpeedloaderVisual.cpp, Super90SupportArmNode.cpp, SVDFirstReloadCapture.cpp, SVDGripProfiles.cpp, TacticalDeviceComponent.cpp, ThermalScopeVisual.cpp, ThermalTargetSubsystem.cpp, WeaponActionCameraComponent.cpp, WeaponAnimationAuthoring.cpp, WeaponStatEvaluation.cpp, WeaponVolumeAudit.cpp, BowSightCapture.cpp, BowWeaponComponent.cpp, SpellbookComponent.cpp, SpellbookFocus.cpp, SpellbookFocusGold.cpp, SpellbookFocusPose.cpp, StaffArmsMeshComponent.cpp, StaffQuickCombat.cpp, StaffWeaponComponent.cpp, FPSUnarmedIdleComponent.cpp, FPSUnarmedPunchPose.cpp
+=================================
+Using Unreal Build Accelerator local executor to run 49 action(s)
+  CPU 16 physical cores, 16 logical cores
+  Memory 31.75 GB physical, 39.9 GB/63.49 GB committed
+  UBA Storage capacity 40 GB
+[1/49] Compile [x64] BoundCongregate.cpp
+[2/49] Compile [x64] BoundCongregateAuthoring.cpp
+[3/49] Compile [x64] BlindSupplicantMonster.cpp
+[4/49] Compile [x64] BoundCongregateCaptureReview.cpp
+[5/49] Compile [x64] BoundCongregateMelee.cpp
+[6/49] Compile [x64] BoundCongregateMeleeReview.cpp
+[7/49] Compile [x64] BoundCongregateMovementReview.cpp
+[8/49] Compile [x64] BoundCongregateTentacleHealth.cpp
+[9/49] Compile [x64] BoundCongregateTentacle.cpp
+[10/49] Compile [x64] BoundCongregateTentacleReview.cpp
+[11/49] Compile [x64] BoundCongregateWhipReview.cpp
+[12/49] Compile [x64] ColdSteelEnchantmentCombat.cpp
+[13/49] Compile [x64] ColdSteelSkillModel.cpp
+[14/49] Compile [x64] ColdSteelSkillRules.cpp
+[15/49] Compile [x64] FPSImpactFXSubsystem.cpp
+[16/49] Compile [x64] FPSPlayerBodyPoseDiagnosis.cpp
+[17/49] Compile [x64] AuthoredDungeonGenerator.cpp
+[18/49] Compile [x64] LurkerM08Monster.cpp
+[19/49] Compile [x64] M10BiteLunge.cpp
+[20/49] Compile [x64] M10CombatSurface.cpp
+[21/49] Compile [x64] M10Howl.cpp
+[22/49] Compile [x64] M10Mawcrawler.cpp
+[23/49] Compile [x64] M10MawcrawlerNavigation.cpp
+[24/49] Compile [x64] M10RearGas.cpp
+[25/49] Compile [x64] M10MawcrawlerPhysics.cpp
+[26/49] Compile [x64] M10SurfaceRig.cpp
+[27/49] Compile [x64] M25Damage.cpp
+[28/49] Compile [x64] M25HitSurface.cpp
+[29/49] Compile [x64] M25Navigation.cpp
+[30/49] Compile [x64] FPSPlayerBodyEquipment.cpp
+[31/49] Compile [x64] MantisM27Monster.cpp
+[32/49] Compile [x64] Module.FPSGAME.1.cpp
+[33/49] Compile [x64] FPSQuickCombatComponent.cpp
+[34/49] Compile [x64] Module.FPSGAME.10.cpp
+[35/49] Compile [x64] Module.FPSGAME.3.cpp
+[36/49] Compile [x64] Module.FPSGAME.11.cpp
+D:\FPS3D\FPSGAME\Source\FPSGAME\Monsters\M07MagicAttack.cpp(61,5): warning C4996: 'AActor::NetUpdateFrequency': Public access to NetUpdateFrequency has been deprecated. Use SetNetUpdateFrequency() and GetNetUpdateFrequency() instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+    NetUpdateFrequency = 30.f;
+    ^
+[37/49] Compile [x64] MonsterCombatComponent.cpp
+[38/49] Compile [x64] Module.FPSGAME.12.cpp
+[39/49] Compile [x64] MonsterCoreStats.cpp
+[40/49] Compile [x64] MonsterToughnessProfiles.cpp
+[41/49] Compile [x64] Module.FPSGAME.9.cpp
+[42/49] Compile [x64] Module.FPSGAME.4.cpp
+[43/49] Compile [x64] SpellbookFocusGold.cpp
+[44/49] Compile [x64] VortexCofferM25.cpp
+[45/49] Compile [x64] SpellbookFocus.cpp
+[46/49] Compile [x64] SpellbookComponent.cpp
+[47/49] Compile [x64] SpellbookFocusPose.cpp
+[48/49] Link [x64] FPSGAME.exe
+  正在创建库 D:\FPS3D\FPSGAME\Binaries\Win64\FPSGAME.lib 和对象 D:\FPS3D\FPSGAME\Binaries\Win64\FPSGAME.exp
+[49/49] WriteMetadata FPSGAME.target [NoUba]
+
+Total time in Unreal Build Accelerator local executor: 81.47 seconds
+Output binary: D:\FPS3D\FPSGAME\Binaries\Win64\FPSGAME.exe
+
+Result: Succeeded
+Total execution time: 88.17 seconds
+Trace written to file C:\Users\allan\AppData\Local\UnrealBuildTool\Trace.uba with size 26.3kb

@@ -1,0 +1,1757 @@
+{
+  "kind": "v3_fbx",
+  "blender": "5.1.2",
+  "units": 1.0,
+  "fps": 30,
+  "bounds": [
+    [
+      -0.5177250504493713,
+      -0.6912750601768494,
+      -1.0918128623416123e-07
+    ],
+    [
+      0.5278000235557556,
+      0.6912749409675598,
+      1.0419501066207886
+    ]
+  ],
+  "parts": [
+    {
+      "name": "SK_GamedevTreasureChest",
+      "triangles": 158044,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "uv": [
+        "UV0_Physical",
+        "UV1_ComponentWear"
+      ],
+      "colors": [
+        {
+          "name": "Color",
+          "type": "BYTE_COLOR",
+          "domain": "CORNER"
+        }
+      ],
+      "weights": [
+        "Root",
+        "Lid"
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "name": "GamedevTreasureChestRig",
+      "transform": [
+        [
+          0.009999999776482582,
+          -8.742277457507441e-10,
+          0.0,
+          0.0
+        ],
+        [
+          8.742277457507441e-10,
+          0.009999999776482582,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.009999999776482582,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bones": [
+        {
+          "name": "Root",
+          "parent": null,
+          "head": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tail": [
+            0.0,
+            0.0,
+            81.12510681152344
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Lid",
+          "parent": "Root",
+          "head": [
+            -49.400001525878906,
+            0.0,
+            64.3499984741211
+          ],
+          "tail": [
+            -49.400001525878906,
+            0.0,
+            145.47509765625
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -49.400001525878906
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              64.3499984741211
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      ],
+      "action": "GamedevTreasureChestRig|Scene"
+    }
+  ],
+  "materials": [
+    {
+      "name": "Treasure_AntiqueGold",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.9700000286102295,
+            "Roughness": 0.44999998807907104,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Base Color",
+              "enabled": true,
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Metallic",
+              "enabled": true,
+              "value": 0.9700000286102295
+            },
+            {
+              "index": 2,
+              "name": "Roughness",
+              "enabled": true,
+              "value": 0.44999998807907104
+            },
+            {
+              "index": 3,
+              "name": "IOR",
+              "enabled": true,
+              "value": 1.5
+            },
+            {
+              "index": 4,
+              "name": "Alpha",
+              "enabled": true,
+              "value": 1.0
+            },
+            {
+              "index": 5,
+              "name": "Normal",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 6,
+              "name": "Weight",
+              "enabled": false,
+              "value": 0.0
+            },
+            {
+              "index": 7,
+              "name": "Diffuse Roughness",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 8,
+              "name": "Subsurface Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 9,
+              "name": "Subsurface Radius",
+              "enabled": true,
+              "value": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ]
+            },
+            {
+              "index": 10,
+              "name": "Subsurface Scale",
+              "enabled": true,
+              "value": 0.05000000074505806
+            },
+            {
+              "index": 11,
+              "name": "Subsurface IOR",
+              "enabled": false,
+              "value": 1.399999976158142
+            },
+            {
+              "index": 12,
+              "name": "Subsurface Anisotropy",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 13,
+              "name": "Specular IOR Level",
+              "enabled": true,
+              "value": 0.5
+            },
+            {
+              "index": 14,
+              "name": "Specular Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 15,
+              "name": "Anisotropic",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 16,
+              "name": "Anisotropic Rotation",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 17,
+              "name": "Tangent",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 18,
+              "name": "Transmission Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 19,
+              "name": "Coat Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 20,
+              "name": "Coat Roughness",
+              "enabled": true,
+              "value": 0.029999999329447746
+            },
+            {
+              "index": 21,
+              "name": "Coat IOR",
+              "enabled": true,
+              "value": 1.5
+            },
+            {
+              "index": 22,
+              "name": "Coat Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 23,
+              "name": "Coat Normal",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 24,
+              "name": "Sheen Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 25,
+              "name": "Sheen Roughness",
+              "enabled": true,
+              "value": 0.5
+            },
+            {
+              "index": 26,
+              "name": "Sheen Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 27,
+              "name": "Emission Color",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 28,
+              "name": "Emission Strength",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 29,
+              "name": "Thin Film Thickness",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 30,
+              "name": "Thin Film IOR",
+              "enabled": true,
+              "value": 1.3300000429153442
+            }
+          ],
+          "outputs_indexed": [],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "inputs_indexed": [
+            {
+              "index": 2,
+              "name": "Displacement",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 3,
+              "name": "Thickness",
+              "enabled": true,
+              "value": 0.0
+            }
+          ],
+          "outputs_indexed": [],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "label": "Normal/Map",
+          "operation": null,
+          "uv_map": "",
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Strength",
+              "enabled": true,
+              "value": 1.0
+            },
+            {
+              "index": 1,
+              "name": "Color",
+              "enabled": true,
+              "value": [
+                0.5,
+                0.5,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Normal",
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\Textures\\T_TreasureV2_Gold_BaseColor.png",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Vector",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Color",
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Alpha",
+              "value": 0.0
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\Textures\\T_TreasureV2_Gold_NormalGL.png",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Vector",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Color",
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Alpha",
+              "value": 0.0
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF",
+          "output": "BSDF",
+          "to": "Material Output",
+          "input": "Surface"
+        },
+        {
+          "from": "Normal Map",
+          "output": "Normal",
+          "to": "Principled BSDF",
+          "input": "Normal"
+        },
+        {
+          "from": "Image Texture",
+          "output": "Color",
+          "to": "Principled BSDF",
+          "input": "Base Color"
+        },
+        {
+          "from": "Image Texture.001",
+          "output": "Color",
+          "to": "Normal Map",
+          "input": "Color"
+        }
+      ]
+    },
+    {
+      "name": "Treasure_BlackIron",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.9399999976158142,
+            "Roughness": 0.44999998807907104,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Base Color",
+              "enabled": true,
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Metallic",
+              "enabled": true,
+              "value": 0.9399999976158142
+            },
+            {
+              "index": 2,
+              "name": "Roughness",
+              "enabled": true,
+              "value": 0.44999998807907104
+            },
+            {
+              "index": 3,
+              "name": "IOR",
+              "enabled": true,
+              "value": 1.5
+            },
+            {
+              "index": 4,
+              "name": "Alpha",
+              "enabled": true,
+              "value": 1.0
+            },
+            {
+              "index": 5,
+              "name": "Normal",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 6,
+              "name": "Weight",
+              "enabled": false,
+              "value": 0.0
+            },
+            {
+              "index": 7,
+              "name": "Diffuse Roughness",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 8,
+              "name": "Subsurface Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 9,
+              "name": "Subsurface Radius",
+              "enabled": true,
+              "value": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ]
+            },
+            {
+              "index": 10,
+              "name": "Subsurface Scale",
+              "enabled": true,
+              "value": 0.05000000074505806
+            },
+            {
+              "index": 11,
+              "name": "Subsurface IOR",
+              "enabled": false,
+              "value": 1.399999976158142
+            },
+            {
+              "index": 12,
+              "name": "Subsurface Anisotropy",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 13,
+              "name": "Specular IOR Level",
+              "enabled": true,
+              "value": 0.5
+            },
+            {
+              "index": 14,
+              "name": "Specular Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 15,
+              "name": "Anisotropic",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 16,
+              "name": "Anisotropic Rotation",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 17,
+              "name": "Tangent",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 18,
+              "name": "Transmission Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 19,
+              "name": "Coat Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 20,
+              "name": "Coat Roughness",
+              "enabled": true,
+              "value": 0.029999999329447746
+            },
+            {
+              "index": 21,
+              "name": "Coat IOR",
+              "enabled": true,
+              "value": 1.5
+            },
+            {
+              "index": 22,
+              "name": "Coat Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 23,
+              "name": "Coat Normal",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 24,
+              "name": "Sheen Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 25,
+              "name": "Sheen Roughness",
+              "enabled": true,
+              "value": 0.5
+            },
+            {
+              "index": 26,
+              "name": "Sheen Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 27,
+              "name": "Emission Color",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 28,
+              "name": "Emission Strength",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 29,
+              "name": "Thin Film Thickness",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 30,
+              "name": "Thin Film IOR",
+              "enabled": true,
+              "value": 1.3300000429153442
+            }
+          ],
+          "outputs_indexed": [],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "inputs_indexed": [
+            {
+              "index": 2,
+              "name": "Displacement",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 3,
+              "name": "Thickness",
+              "enabled": true,
+              "value": 0.0
+            }
+          ],
+          "outputs_indexed": [],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "label": "Normal/Map",
+          "operation": null,
+          "uv_map": "",
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Strength",
+              "enabled": true,
+              "value": 1.0
+            },
+            {
+              "index": 1,
+              "name": "Color",
+              "enabled": true,
+              "value": [
+                0.5,
+                0.5,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Normal",
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\Textures\\T_TreasureV2_Iron_BaseColor.png",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Vector",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Color",
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Alpha",
+              "value": 0.0
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\Textures\\T_TreasureV2_Iron_NormalGL.png",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Vector",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Color",
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Alpha",
+              "value": 0.0
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF",
+          "output": "BSDF",
+          "to": "Material Output",
+          "input": "Surface"
+        },
+        {
+          "from": "Normal Map",
+          "output": "Normal",
+          "to": "Principled BSDF",
+          "input": "Normal"
+        },
+        {
+          "from": "Image Texture",
+          "output": "Color",
+          "to": "Principled BSDF",
+          "input": "Base Color"
+        },
+        {
+          "from": "Image Texture.001",
+          "output": "Color",
+          "to": "Normal Map",
+          "input": "Color"
+        }
+      ]
+    },
+    {
+      "name": "Treasure_Interior",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.699999988079071,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Base Color",
+              "enabled": true,
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Metallic",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 2,
+              "name": "Roughness",
+              "enabled": true,
+              "value": 0.699999988079071
+            },
+            {
+              "index": 3,
+              "name": "IOR",
+              "enabled": true,
+              "value": 1.5
+            },
+            {
+              "index": 4,
+              "name": "Alpha",
+              "enabled": true,
+              "value": 1.0
+            },
+            {
+              "index": 5,
+              "name": "Normal",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 6,
+              "name": "Weight",
+              "enabled": false,
+              "value": 0.0
+            },
+            {
+              "index": 7,
+              "name": "Diffuse Roughness",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 8,
+              "name": "Subsurface Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 9,
+              "name": "Subsurface Radius",
+              "enabled": true,
+              "value": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ]
+            },
+            {
+              "index": 10,
+              "name": "Subsurface Scale",
+              "enabled": true,
+              "value": 0.05000000074505806
+            },
+            {
+              "index": 11,
+              "name": "Subsurface IOR",
+              "enabled": false,
+              "value": 1.399999976158142
+            },
+            {
+              "index": 12,
+              "name": "Subsurface Anisotropy",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 13,
+              "name": "Specular IOR Level",
+              "enabled": true,
+              "value": 0.30000001192092896
+            },
+            {
+              "index": 14,
+              "name": "Specular Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 15,
+              "name": "Anisotropic",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 16,
+              "name": "Anisotropic Rotation",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 17,
+              "name": "Tangent",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 18,
+              "name": "Transmission Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 19,
+              "name": "Coat Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 20,
+              "name": "Coat Roughness",
+              "enabled": true,
+              "value": 0.029999999329447746
+            },
+            {
+              "index": 21,
+              "name": "Coat IOR",
+              "enabled": true,
+              "value": 1.5
+            },
+            {
+              "index": 22,
+              "name": "Coat Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 23,
+              "name": "Coat Normal",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 24,
+              "name": "Sheen Weight",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 25,
+              "name": "Sheen Roughness",
+              "enabled": true,
+              "value": 0.5
+            },
+            {
+              "index": 26,
+              "name": "Sheen Tint",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 27,
+              "name": "Emission Color",
+              "enabled": true,
+              "value": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 28,
+              "name": "Emission Strength",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 29,
+              "name": "Thin Film Thickness",
+              "enabled": true,
+              "value": 0.0
+            },
+            {
+              "index": 30,
+              "name": "Thin Film IOR",
+              "enabled": true,
+              "value": 1.3300000429153442
+            }
+          ],
+          "outputs_indexed": [],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "inputs_indexed": [
+            {
+              "index": 2,
+              "name": "Displacement",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "index": 3,
+              "name": "Thickness",
+              "enabled": true,
+              "value": 0.0
+            }
+          ],
+          "outputs_indexed": [],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "label": "Normal/Map",
+          "operation": null,
+          "uv_map": "",
+          "attribute_name": null,
+          "layer_name": null,
+          "image": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Strength",
+              "enabled": true,
+              "value": 1.0
+            },
+            {
+              "index": 1,
+              "name": "Color",
+              "enabled": true,
+              "value": [
+                0.5,
+                0.5,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Normal",
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\Textures\\T_TreasureV2_Wood_BaseColor.png",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Vector",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Color",
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Alpha",
+              "value": 0.0
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "label": "",
+          "operation": null,
+          "uv_map": null,
+          "attribute_name": null,
+          "layer_name": null,
+          "image": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\Textures\\T_TreasureV2_Wood_NormalGL.png",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "inputs_indexed": [
+            {
+              "index": 0,
+              "name": "Vector",
+              "enabled": true,
+              "value": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "outputs_indexed": [
+            {
+              "index": 0,
+              "name": "Color",
+              "value": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Alpha",
+              "value": 0.0
+            }
+          ],
+          "use_clamp": null,
+          "clamp": null
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF",
+          "output": "BSDF",
+          "to": "Material Output",
+          "input": "Surface"
+        },
+        {
+          "from": "Normal Map",
+          "output": "Normal",
+          "to": "Principled BSDF",
+          "input": "Normal"
+        },
+        {
+          "from": "Image Texture",
+          "output": "Color",
+          "to": "Principled BSDF",
+          "input": "Base Color"
+        },
+        {
+          "from": "Image Texture.001",
+          "output": "Color",
+          "to": "Normal Map",
+          "input": "Color"
+        }
+      ]
+    }
+  ],
+  "triangles": 158044
+}

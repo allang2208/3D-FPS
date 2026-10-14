@@ -1,0 +1,31 @@
+{
+  "revision": "V4-cloud-refined",
+  "original_new_art": true,
+  "old_images_resampled": false,
+  "starfield_dimensions": [
+    4096,
+    2048
+  ],
+  "stars_dimensions": [
+    4096,
+    2048
+  ],
+  "stars_linear_grayscale_BC4": true,
+  "star_count": 18000,
+  "hero_stars": 72,
+  "detail_tile": [
+    512,
+    512
+  ],
+  "ring_atlas": [
+    2048,
+    512
+  ],
+  "ring_u_repeats": 32,
+  "old_ring_u_repeats": 8,
+  "sphere_diameter_cm": 300,
+  "estimated_full_chain_texture_mib_before": 22.333572387695312,
+  "estimated_full_chain_texture_mib_after": 20.333580017089844,
+  "estimate_assumption": "BC7 RGB, BC4 stars, BC5 normal, conservative BC3 ORM, all mip levels resident; excludes engine bookkeeping",
+  "actual_residency_measured": false
+}

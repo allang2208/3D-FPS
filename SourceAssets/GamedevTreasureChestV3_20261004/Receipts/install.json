@@ -1,0 +1,86 @@
+{
+  "stage": "saved",
+  "saved": [
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Iron_BaseColor.T_TreasureV2_Iron_BaseColor",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Iron_ORM.T_TreasureV2_Iron_ORM",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Iron_NormalGL.T_TreasureV2_Iron_NormalGL",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Gold_BaseColor.T_TreasureV2_Gold_BaseColor",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Gold_ORM.T_TreasureV2_Gold_ORM",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Gold_NormalGL.T_TreasureV2_Gold_NormalGL",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Wood_BaseColor.T_TreasureV2_Wood_BaseColor",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Wood_ORM.T_TreasureV2_Wood_ORM",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Textures/T_TreasureV2_Wood_NormalGL.T_TreasureV2_Wood_NormalGL",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Iron.M_TreasureV3_Iron",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Gold.M_TreasureV3_Gold",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Wood.M_TreasureV3_Wood",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SM_TreasureChest_Closed.SM_TreasureChest_Closed",
+    "/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SM_TreasureChest_Open.SM_TreasureChest_Open",
+    "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+    "/Game/Props/GamedevTreasureChest20260922/SM_TreasureChest_Closed.SM_TreasureChest_Closed",
+    "/Game/Props/GamedevTreasureChest20260922/SM_TreasureChest_Open.SM_TreasureChest_Open"
+  ],
+  "formal_paths_preserved": true,
+  "geometry": "Cloud V3 only",
+  "authoritative_blend_version": "5.2.2; original file retained unchanged",
+  "portable_texture_names": "T_TreasureV2_* names are intentional V3 bundle payloads",
+  "normal_policy": "Delivered OpenGL Y+ normal maps; flip green once in UE, strength 1",
+  "material_policy": "Portable tinted/AO-baked PBR plus UV1/vertex-color selective edge polish reconstructed from source nodes",
+  "preexisting_dirty_content": [],
+  "preexisting_dirty_maps": [],
+  "imported_slots": {
+    "SK_GamedevTreasureChest": [
+      "Treasure_BlackIron",
+      "Treasure_AntiqueGold",
+      "Treasure_Interior"
+    ],
+    "SM_TreasureChest_Closed": [
+      "Treasure_BlackIron",
+      "Treasure_AntiqueGold",
+      "Treasure_Interior"
+    ],
+    "SM_TreasureChest_Open": [
+      "Treasure_BlackIron",
+      "Treasure_AntiqueGold",
+      "Treasure_Interior"
+    ]
+  },
+  "revision_triangles": {
+    "SK_GamedevTreasureChest": 158044,
+    "SM_TreasureChest_Closed": 158044,
+    "SM_TreasureChest_Open": 158044
+  },
+  "closed_dimensions_cm": [
+    104.5525016784668,
+    138.25498962402344,
+    104.19499969482422
+  ],
+  "meshes": {
+    "SK_GamedevTreasureChest": {
+      "path": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+      "source": "/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+      "triangles": 158044
+    },
+    "SM_TreasureChest_Closed": {
+      "path": "/Game/Props/GamedevTreasureChest20260922/SM_TreasureChest_Closed.SM_TreasureChest_Closed",
+      "source": "/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SM_TreasureChest_Closed.SM_TreasureChest_Closed",
+      "triangles": 158044
+    },
+    "SM_TreasureChest_Open": {
+      "path": "/Game/Props/GamedevTreasureChest20260922/SM_TreasureChest_Open.SM_TreasureChest_Open",
+      "source": "/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SM_TreasureChest_Open.SM_TreasureChest_Open",
+      "triangles": 158044
+    }
+  },
+  "unchanged_skeleton_and_clips": [
+    "Content/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.uasset",
+    "Content/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.uasset",
+    "Content/Props/GamedevTreasureChest20260922/A_TreasureChest_OpenPose.uasset",
+    "Content/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest_Skeleton.uasset"
+  ],
+  "materials": {
+    "Treasure_BlackIron": "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Iron.M_TreasureV3_Iron",
+    "Treasure_AntiqueGold": "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Gold.M_TreasureV3_Gold",
+    "Treasure_Interior": "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Wood.M_TreasureV3_Wood"
+  }
+}

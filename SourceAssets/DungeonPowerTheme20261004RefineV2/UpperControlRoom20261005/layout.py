@@ -31,7 +31,7 @@ def apply(scene):
             move(p,[x+(.307 if name.endswith('_Door') else 0),19.58-(.233 if name.endswith('_Door') else 0),z+(.09 if name.endswith('_Door') else 0)],180)
         elif name.startswith('Records_02_'):
             height=0 if name.endswith('Carcass') else [.11,.45,.79][int(name.split('Drawer')[1][0])-1]
-            move(p,[-4.4,19.5,z+height],0)
+            move(p,[-4.4,19.5,z+height],180)  # Open toward the room, away from the rear wall.
         elif name.startswith('Fixture_ControlRoom'):
             i=int(name[-2:]);move(p,[-5+5*i,16.8,z+3.13]);p['ceiling_m']=z+3.4
         elif name in ('ControlRecordsDesk','ControlRecordsElectronics'):
@@ -47,7 +47,7 @@ def apply(scene):
         if name in ('PPE_03','PPE_04'):
             p['position_m']=[-6.8 if name=='PPE_03' else 6.8,19.58,z];p['yaw_deg']=180
         elif name.startswith('Records_02_Drawer'):
-            p['position_m']=[-4.4,19.5,z+[.11,.45,.79][int(name[-1])-1]];p['yaw_deg']=0
+            p['position_m']=[-4.4,19.5,z+[.11,.45,.79][int(name[-1])-1]];p['yaw_deg']=180
     for p in room['lights']:
         if p['id'].startswith('ControlRoom'):
             i=int(p['id'][-2:]);p['position_m']=[-5+5*i,16.8,z+3]

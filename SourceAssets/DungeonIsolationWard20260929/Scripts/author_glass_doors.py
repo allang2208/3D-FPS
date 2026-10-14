@@ -1,10 +1,10 @@
 """Fitted glazed double door skins, installed as two independent ColdSteelDoor actors.
 
-Local X is thickness, Y is width, Z is height. Frame members are 8 cm;
+Local X is thickness, Y is width, Z is height. Jambs are 5 cm, headers 8 cm;
 leaf panel thickness is 5 cm, matching the existing hinge contract exactly.
 No rendering, simulation, or interaction-system replacement.
 """
-import json,math
+import json,math,os
 from pathlib import Path
 import bpy,bmesh
 from mathutils import Vector
@@ -19,6 +19,8 @@ paths={
  'Glass':'/Game/Dungeons/IsolationWard20260929/Materials/M_WardGlassV2'}
 materials={k:bpy.data.materials.new('RS_'+k) for k in paths}
 records=[]
+EXPORT_KINDS={s for s in os.environ.get('WARD_DOOR_EXPORT_KINDS','').split(',') if s}
+previous_records={i['kind']:i for i in json.loads((OUT/'door-manifest.json').read_text('utf8'))['objects']} if EXPORT_KINDS else {}
 
 def block(name,c,size,mat,bevel=.002):
  bpy.ops.mesh.primitive_cube_add(size=1,location=c)
@@ -41,6 +43,8 @@ def cylinder(name,a,b,r,mat):
  return obj
 
 def export(kind,parts,boxes):
+ if EXPORT_KINDS and kind not in EXPORT_KINDS:
+  records.append(previous_records[kind]);return
  name='SM_Ward_'+kind
  bpy.ops.object.select_all(action='DESELECT')
  for o in parts:o.select_set(True)
@@ -75,17 +79,28 @@ def export(kind,parts,boxes):
                      nanite=kind=='GlassDoorFrame',sample_only=False,assembly_only=True))
  print('WARD_DOOR_AUTHORED',name,len(obj.data.polygons),flush=True)
 
-# Total 336 x 312 cm. The 8 cm bottom rail is recessed below the finished floor.
-frame=[];frame_boxes=[]
-for y in (-1.64,1.64):
- c=(0,y,0);size=(.48,.08,2.96)
- frame.append(block('Jamb',c,size,'PaintedSteel'));frame_boxes.append((c,size))
-for z in (-1.52,1.52):
- c=(0,0,z);size=(.48,3.36,.08)
- frame.append(block('Threshold' if z<0 else 'Header',c,size,'BareSteel'));frame_boxes.append((c,size))
-# Inset cover strips remain inside frame bounds, avoiding ceramic and wall coplanarity.
-for x in (-.239,.239):
- for y in (-1.646,1.646):frame.append(block('JambFace', (x,y,0),(.002,.052,2.94),'BareSteel',.0005))
+# Preserve the 336 x 312 x 48 cm outer fit and recessed sill. A 326 cm
+# throat leaves 3 cm beside each hinge for the 5 cm leaf's swept thickness.
+# One closed ring replaces overlapping face strips and touching box end caps.
+outer=[(-1.68,-1.56),(1.68,-1.56),(1.68,1.56),(-1.68,1.56)]
+inner=[(-1.63,-1.485),(1.63,-1.485),(1.63,1.48),(-1.63,1.48)]
+vs=[(x,y,z) for x in (-.24,.24) for ring in (outer,inner) for y,z in ring]
+faces=[];roles=[]
+for i in range(4):
+ j=(i+1)%4
+ faces.extend(((i,j,j+4,i+4),(i+8,i+12,j+12,j+8),(i,i+8,j+8,j),(i+4,j+4,j+12,i+12)))
+ roles.extend([i%2]*4)
+mesh=bpy.data.meshes.new('ContinuousDoorFrame');mesh.from_pydata(vs,[],faces);mesh.update()
+obj=bpy.data.objects.new('ContinuousDoorFrame',mesh);bpy.context.collection.objects.link(obj)
+mesh.materials.append(materials['BareSteel']);mesh.materials.append(materials['PaintedSteel'])
+for polygon,role in zip(mesh.polygons,roles):polygon.material_index=role
+bpy.context.view_layer.objects.active=obj;obj.select_set(True)
+mod=obj.modifiers.new('Soft manufactured edges','BEVEL');mod.width=.002;mod.segments=3
+bpy.ops.object.modifier_apply(modifier=mod.name)
+frame=[obj]
+frame_boxes=[((0,y,-.0025),(.48,.05,2.965)) for y in (-1.655,1.655)]
+# The old sill top shared z=4.2 cm with the finished floor. Embed it 5 mm.
+frame_boxes += [((0,0,-1.5225),(.48,3.36,.075)),((0,0,1.52),(.48,3.36,.08))]
 export('GlassDoorFrame',frame,frame_boxes)
 
 # One symmetric leaf serves both hinges; right leaf is rotated 180 by the existing actor.
@@ -114,4 +129,4 @@ for z in (-1.15,0,1.15):
 export('GlassDoorLeaf',leaf,[((0,0,0),(.05,1.595,2.95))])
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'WardGlassDoors.blend'))
 (OUT/'door-manifest.json').write_text(json.dumps(dict(objects=records,actor_class='/Script/FPSGAME.ColdSteelDoor',independent_leaves=True,
- frame_member_cm=8,leaf_half_thickness_cm=2.5,tests_run=False,rendered=False),indent=2),encoding='utf-8')
+ frame_member_cm=5,header_member_cm=8,finished_clear_width_cm=326,leaf_half_thickness_cm=2.5,tests_run=False,rendered=False),indent=2),encoding='utf-8')

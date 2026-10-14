@@ -1,0 +1,23 @@
+{
+  "log": "build_FPSGAMEEditor_shared_1646.log",
+  "origin": "Existing completed conventional Editor build includes both source changes",
+  "result": "Succeeded",
+  "binary": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+  "sources": [
+    {
+      "object_time": "2026-10-10T16:21:04.0001199+08:00",
+      "source_time": "2026-10-10T16:17:06.2690740+08:00",
+      "source": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Dungeons\\WardBreakableGlass.cpp",
+      "source_sha256": "144AF48BD3B14407D59AB451F0ABD5FC9E02969945530F0B674D59BE3B8A9E66"
+    },
+    {
+      "object_time": "2026-10-10T16:44:23.4567966+08:00",
+      "source_time": "2026-10-10T16:32:01.5024387+08:00",
+      "source": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Weapons\\FPSImpactFXSubsystem.cpp",
+      "source_sha256": "C2423FD0709AF115D2715C8641DFAA5481CFCC84A9C562011C0E7E545A4E5BD4"
+    }
+  ],
+  "binary_time": "2026-10-10T16:56:11.6956367+08:00",
+  "target": "FPSGAMEEditor",
+  "tested": false
+}

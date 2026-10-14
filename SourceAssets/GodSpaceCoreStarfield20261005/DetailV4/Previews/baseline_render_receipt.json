@@ -1,0 +1,23 @@
+{
+  "blender_version": "5.2.2 LTS",
+  "camera_position": [
+    0.44999998807907104,
+    37.099998474121094,
+    2.0
+  ],
+  "camera_lens_mm": 46.0,
+  "resolution": [
+    1203,
+    912
+  ],
+  "resolution_percentage": 100,
+  "render": "Blender Cycles CPU, not UE",
+  "geometry_modified": false,
+  "materials_implemented": [
+    "world-direction inner sphere projection",
+    "separate linear stars emissive",
+    "triplanar nebula detail",
+    "gold BC ORM and tangent normal"
+  ],
+  "runtime_verification": false
+}

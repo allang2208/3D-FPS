@@ -312,13 +312,13 @@ def main():
         modules = {m['id']: m for m in catalog['modules']}
         route = next(r for r in catalog['themed_routes']['routes'] if r['id'] == 'medical')
         sequence = route['sequence']
-        if sequence != ['Drainage', 'AbandonedIsolationWard', 'AbandonedAnatomyTheatre']:
+        if sequence not in (['Drainage', 'AbandonedIsolationWard', 'AbandonedAnatomyTheatre'], ['MedicalDoctorOffice', 'AbandonedIsolationWard', 'AbandonedAnatomyTheatre']):
             raise RuntimeError('Medical route changed; preserve latest descriptors before adapting placement')
-        drainage = modules['Drainage']
+        drainage = modules[sequence[0]]
         end = next(p for p in drainage['ports'] if p['id'] == 'exit')['position']
         x, y, z = end
-        placements = [dict(id='Drainage', position=[0, 0, 0], yaw=0),
-                      dict(id='Transit', name='DrainageWardLink', position=[x, y, z], yaw=90),
+        placements = [dict(id=sequence[0], position=[0, 0, 0], yaw=0),
+                      dict(id='Transit', name='OfficeWardLink' if sequence[0]=='MedicalDoctorOffice' else 'DrainageWardLink', position=[x, y, z], yaw=90),
                       dict(id='AbandonedIsolationWard', position=[x + 400 + 3300, y, z], yaw=0),
                       dict(id='Transit', name='WardTheatreLink', position=[x + 400 + 6600, y, z], yaw=90),
                       dict(id='AbandonedAnatomyTheatre', position=[x + 800 + 6600 + 1600, y - 1000, z], yaw=0)]
@@ -353,7 +353,12 @@ def main():
                 hospital_selections[pose['id']] = len(selected)
                 for index, spec in enumerate(selected):
                     runtime(spec, pose, prefix + '_Search_' + str(index))
-            if module.get('props') or module.get('progression_gate'):
+            treasure = runpy.run_path(str(PROJECT / 'SourceAssets/ThemeThirdRoomTreasure20261007/treasure.py'))
+            for prop in module.get('props', []):
+                if not treasure['is_treasure'](prop):
+                    raise RuntimeError('Unsupported medical prop: ' + pose['id'])
+                treasure['spawn_subject'](actors, asset, prop, pose, TARGET, 'HospitalLine.Subject')
+            if module.get('progression_gate'):
                 raise RuntimeError('Medical module gained progression/prop requirements: ' + pose['id'])
         environment = dict(id='Environment', position=[0, 0, 0], yaw=0)
         entry = next(p for p in drainage['ports'] if p['id'] == 'entry')['position']

@@ -1,0 +1,34 @@
+{
+  "stage": "assets_saved",
+  "saved_assets": [
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Textures/T_MedicalOffice_Print.T_MedicalOffice_Print",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Textures/T_MedicalOffice_Screen.T_MedicalOffice_Screen",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Graphite.M_MedOffice_Graphite",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Fabric.M_MedOffice_Fabric",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Print.M_MedOffice_Print",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Screen.M_MedOffice_Screen",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_ExecutiveDesk.SM_MedOffice_ExecutiveDesk",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_ErgonomicChair.SM_MedOffice_ErgonomicChair",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_VisitorChair.SM_MedOffice_VisitorChair",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_ClinicalElectronics.SM_MedOffice_ClinicalElectronics",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_DesktopDetails0.SM_MedOffice_DesktopDetails0",
+    "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_DesktopDetails1.SM_MedOffice_DesktopDetails1"
+  ],
+  "reused_materials": [
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Plastic",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Leather",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Keycaps",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Legends",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Lamp",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Display",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+    "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Blue"
+  ],
+  "tests_run": false,
+  "rendered": false,
+  "game_run": false
+}

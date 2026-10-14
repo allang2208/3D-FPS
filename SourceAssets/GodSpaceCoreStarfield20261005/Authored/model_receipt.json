@@ -1,0 +1,42 @@
+{
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceCoreStarfield20261005\\Authored\\SM_GodSpaceCore_Starfield_V2.fbx",
+  "sphere_diameter_cm": 300,
+  "ring_count": 2,
+  "ring_uniform_fit": 0.9998700830371638,
+  "bounds_cm_before_export_reflection": {
+    "min": [
+      -231.79190158843994,
+      2651.369285583496,
+      281.82904720306396
+    ],
+    "max": [
+      231.79190158843994,
+      3068.630790710449,
+      718.1709289550781
+    ]
+  },
+  "legacy_pivot_cm": [
+    0,
+    0,
+    0
+  ],
+  "legacy_center_cm": [
+    0,
+    2860,
+    500
+  ],
+  "legacy_extent_cm": [
+    231.82496643066406,
+    208.63072204589844,
+    218.49417114257812
+  ],
+  "material_triangles": {
+    "Core_Starfield": 25280,
+    "Core_EngravedGold": 24576,
+    "Core_Sapphire": 4032
+  },
+  "triangles": 53888,
+  "objects_before_merge": 35,
+  "sapphire_markers": 16,
+  "concept_added_supports": false
+}

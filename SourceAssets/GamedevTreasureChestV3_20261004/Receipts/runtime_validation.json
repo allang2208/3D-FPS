@@ -1,0 +1,52 @@
+{
+  "status": "directed_runtime_checks_passed",
+  "profile": "TreasureV3Audit_20261004",
+  "world": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting",
+  "spawn_path": "Existing AFPSGAMEPlayerController::SpawnHubTestChest",
+  "passed": [
+    "Native E opens the existing hub test chest with V3 mesh/materials",
+    "Original 1-second animation ends at fully open and freezes",
+    "Native loot container appears; Tab closes it; E reopens it",
+    "Native player capsule is blocked by chest collider; identical sweep succeeds with collider temporarily disabled; collider restored",
+    "Runtime final/locked tag rejects E; simulated unlock permits E opening and container UI"
+  ],
+  "collision": {
+    "test": "Native player capsule sweep; same path, native chest collision enabled vs disabled",
+    "start": [
+      -1265.5729413881645,
+      -663.4114646974776,
+      145.7000007629394
+    ],
+    "target": [
+      -1314.492204874185,
+      -448.9192605035132,
+      145.7000007629394
+    ],
+    "with_collision": [
+      -1290.2727225969725,
+      -555.1123993180522,
+      145.7000007629394
+    ],
+    "blocked_distance_cm": 108.91999840736395,
+    "without_collision": [
+      -1314.492204874185,
+      -448.9192605035132,
+      145.7000007629394
+    ],
+    "free_distance_cm": 0.0,
+    "passed": true,
+    "restored_collision": "<CollisionEnabled.QUERY_AND_PHYSICS: 3>"
+  },
+  "not_tested": [
+    "Complete randomized dungeon generation and traversal",
+    "Boss defeat actually triggering final reward unlock",
+    "Loot transfer/persistence reload after taking items",
+    "Multiplayer",
+    "Performance benchmark"
+  ],
+  "final_lock_scope": "Existing native hub chest with runtime final/locked tags, isolated claim ID; no boss fight or production actor edits",
+  "runtime_screenshot": "TreasureChest_V3_Runtime_Container.png",
+  "observed_warning": "Hub displayed ray-tracing always-resident geometry over-budget warning (3183.77 MiB / 400 MiB). No attribution to this mesh established; no global performance settings changed.",
+  "production_code_changes": false,
+  "production_map_saved": false
+}

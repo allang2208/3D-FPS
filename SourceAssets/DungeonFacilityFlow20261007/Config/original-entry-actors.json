@@ -31,16 +31,16 @@
     },
     {
       "label": "DGN_A_AV2_Light_Entry",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        130.0,
-        -200.0,
-        330.0
+        129.99440383911133,
+        -200.0243148803711,
+        341.16900634765625
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -53,17 +53,18 @@
         "SourceLabel:DGN_AV2_Light_Entry"
       ],
       "light": {
-        "intensity": 2900,
+        "intensity": 725.0,
         "attenuation_radius": 540,
         "color": [
           0.71,
           0.83,
           1
         ],
-        "source_radius": 7,
-        "source_length": 65,
-        "cast_shadows": true
-      }
+        "cast_shadows": true,
+        "source_width": 77.75682830810547,
+        "source_height": 14.735153198242188
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_Corridor_North",
@@ -720,16 +721,16 @@
     },
     {
       "label": "DGN_A_AV2_Light_Breach",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        1710.0000000000002,
-        -310.0,
-        325.0
+        1709.8348388671875,
+        -310.021728515625,
+        336.1615295410156
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -742,19 +743,20 @@
         "SourceLabel:DGN_AV2_Light_Breach"
       ],
       "light": {
-        "intensity": 450,
-        "attenuation_radius": 500,
+        "intensity": 112.5,
+        "attenuation_radius": 600.0,
         "color": [
           1,
           1,
           1
         ],
-        "source_radius": 7,
-        "source_length": 65,
         "cast_shadows": true,
         "use_temperature": true,
-        "temperature": 4400
-      }
+        "temperature": 4400,
+        "source_width": 77.7119140625,
+        "source_height": 14.7310791015625
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_Natural_Decal_Dust",
@@ -1090,13 +1092,14 @@
         "attenuation_radius": 400,
         "use_temperature": true,
         "temperature": 3400,
-        "source_radius": 7,
+        "source_radius": 3.0,
         "cast_shadows": true,
         "color": [
           1,
           1,
           1
-        ]
+        ],
+        "source_length": 0.0
       }
     },
     {
@@ -1252,14 +1255,14 @@
       "label": "DGN_A_WSTools_CeilingArea",
       "class_name": "RectLight",
       "position": [
-        600.0,
-        180.0,
-        295.0
+        600.2549133300781,
+        179.44905853271484,
+        294.40960693359375
       ],
       "rotation": {
         "pitch": -90.0,
-        "yaw": 90.0,
-        "roll": 0.0
+        "yaw": 0.0,
+        "roll": 90
       },
       "scale": [
         1,
@@ -1276,11 +1279,12 @@
         "use_temperature": true,
         "cast_shadows": true,
         "attenuation_radius": 475.0,
-        "source_width": 118.19999694824219,
-        "source_height": 18.299999237060547,
+        "source_width": 118.62567138671875,
+        "source_height": 20.340957641601562,
         "barn_door_angle": 72.0,
         "barn_door_length": 8.0
-      }
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_ShrineV2_Niche",
@@ -1480,16 +1484,16 @@
     },
     {
       "label": "DGN_A_AV2_Light_Recess",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        1520.0,
-        135.0,
-        250.0
+        1519.8673706054688,
+        135.0044059753418,
+        261.16180419921875
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -1502,17 +1506,18 @@
         "SourceLabel:DGN_AV2_Light_Recess"
       ],
       "light": {
-        "intensity": 1450,
-        "attenuation_radius": 320,
+        "intensity": 362.5,
+        "attenuation_radius": 500.0,
         "color": [
           1,
           0.59,
           0.29
         ],
-        "source_radius": 7,
-        "source_length": 65,
-        "cast_shadows": true
-      }
+        "cast_shadows": true,
+        "source_width": 77.7696533203125,
+        "source_height": 14.668006896972656
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_ShrineV2_Pedestal",
@@ -1623,13 +1628,14 @@
         "attenuation_radius": 400,
         "use_temperature": true,
         "temperature": 3400,
-        "source_radius": 7,
+        "source_radius": 3.0,
         "cast_shadows": true,
         "color": [
           1,
           1,
           1
-        ]
+        ],
+        "source_length": 0.0
       }
     },
     {
@@ -1690,14 +1696,14 @@
       "label": "DGN_A_WSTools_BenchArea",
       "class_name": "RectLight",
       "position": [
-        840.0,
-        310.0,
-        304.5
+        840.126220703125,
+        309.9985046386719,
+        304.2654724121094
       ],
       "rotation": {
         "pitch": -90.0,
-        "yaw": 90.0,
-        "roll": 0.0
+        "yaw": 0.0,
+        "roll": 90
       },
       "scale": [
         1,
@@ -1713,12 +1719,13 @@
         "temperature": 4300.0,
         "use_temperature": true,
         "cast_shadows": true,
-        "attenuation_radius": 345.0,
-        "source_width": 90.19999694824219,
-        "source_height": 18.299999237060547,
+        "attenuation_radius": 550.0,
+        "source_width": 90.2999267578125,
+        "source_height": 19.28729248046875,
         "barn_door_angle": 72.0,
         "barn_door_length": 8.0
-      }
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_ServiceRecess",
@@ -1995,16 +2002,16 @@
     },
     {
       "label": "DGN_A_AV2_Light_Corridor",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        840.0,
-        -200.0,
-        325.0
+        839.902099609375,
+        -199.99788665771484,
+        336.1500244140625
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -2017,17 +2024,18 @@
         "SourceLabel:DGN_AV2_Light_Corridor"
       ],
       "light": {
-        "intensity": 3600,
+        "intensity": 900.0,
         "attenuation_radius": 580,
         "color": [
           0.71,
           0.83,
           1
         ],
-        "source_radius": 7,
-        "source_length": 65,
-        "cast_shadows": true
-      }
+        "cast_shadows": true,
+        "source_width": 77.7425537109375,
+        "source_height": 14.640182495117188
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_Corridor_South",
@@ -2250,16 +2258,16 @@
     },
     {
       "label": "DGN_A_AV2_Light_Exit",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        2400.0,
-        -1350.0,
-        359.99999999999994
+        2399.7509765625,
+        -1349.9963989257812,
+        371.13543701171875
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -2272,30 +2280,31 @@
         "SourceLabel:DGN_AV2_Light_Exit"
       ],
       "light": {
-        "intensity": 2300,
-        "attenuation_radius": 440,
+        "intensity": 575.0,
+        "attenuation_radius": 650.0,
         "color": [
           1,
           0.59,
           0.29
         ],
-        "source_radius": 7,
-        "source_length": 65,
-        "cast_shadows": true
-      }
+        "cast_shadows": true,
+        "source_width": 77.82763671875,
+        "source_height": 14.6312255859375
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_Light_MachineBay",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        1070.0,
-        -660.0,
-        334.99999999999994
+        1069.9266967773438,
+        -660.0224304199219,
+        346.15716552734375
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -2308,17 +2317,18 @@
         "SourceLabel:DGN_AV2_Light_MachineBay"
       ],
       "light": {
-        "intensity": 3100,
-        "attenuation_radius": 450,
+        "intensity": 775.0,
+        "attenuation_radius": 650.0,
         "color": [
           0.71,
           0.83,
           1
         ],
-        "source_radius": 7,
-        "source_length": 65,
-        "cast_shadows": true
-      }
+        "cast_shadows": true,
+        "source_width": 77.6722412109375,
+        "source_height": 14.70233154296875
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_Dogleg_Tiles",
@@ -2383,16 +2393,16 @@
     },
     {
       "label": "DGN_Link_InspectionLight",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        2400.0,
+        2399.99999332428,
         -1480.0,
-        308.0
+        312.5
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -2401,16 +2411,18 @@
       ],
       "tags": [],
       "light": {
-        "intensity": 350,
+        "intensity": 87.5,
         "attenuation_radius": 360,
         "color": [
           0.78,
           0.87,
           1
         ],
-        "source_radius": 5,
-        "cast_shadows": false
-      }
+        "cast_shadows": false,
+        "source_width": 46.00000190734863,
+        "source_height": 12.0
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_Dogleg",
@@ -2955,16 +2967,16 @@
     },
     {
       "label": "DGN_A_AV2_Light_Turn",
-      "class_name": "PointLight",
+      "class_name": "RectLight",
       "position": [
-        2380.0,
-        -520.0,
-        357.99999999999994
+        2379.7999267578125,
+        -520.0265808105469,
+        369.14300537109375
       ],
       "rotation": {
-        "pitch": 0.0,
+        "pitch": -90.0,
         "yaw": 0.0,
-        "roll": 0.0
+        "roll": 90
       },
       "scale": [
         1,
@@ -2977,17 +2989,18 @@
         "SourceLabel:DGN_AV2_Light_Turn"
       ],
       "light": {
-        "intensity": 3000,
+        "intensity": 750.0,
         "attenuation_radius": 570,
         "color": [
           0.71,
           0.83,
           1
         ],
-        "source_radius": 7,
-        "source_length": 65,
-        "cast_shadows": true
-      }
+        "cast_shadows": true,
+        "source_width": 77.750244140625,
+        "source_height": 14.74688720703125
+      },
+      "fixture_lighting_revision": "dungeon_fixture_faces_20261009"
     },
     {
       "label": "DGN_A_AV2_TilePolish_Leak_3",

@@ -1,0 +1,95 @@
+{
+  "scope": "Offline source pixels and Python syntax only; not UE sampling, compilation, residency or visual acceptance",
+  "files": [
+    {
+      "name": "T_CoreGold_BaseColor.png",
+      "size": [
+        2048,
+        512
+      ],
+      "mode": "RGB",
+      "bytes": 398634,
+      "sha256": "037d25edb34f3060db0a720322008b6ba2806a03135b47be3dcfa99f1ce264dc"
+    },
+    {
+      "name": "T_CoreGold_Normal.png",
+      "size": [
+        2048,
+        512
+      ],
+      "mode": "RGB",
+      "bytes": 284366,
+      "sha256": "61c0299ee5c45cd04995f749a925c72cf9ea8b693f29d6ea1f560ca117f34b4a"
+    },
+    {
+      "name": "T_CoreGold_ORM.png",
+      "size": [
+        2048,
+        512
+      ],
+      "mode": "RGB",
+      "bytes": 367192,
+      "sha256": "ed078b6e5db554fb80c6159325933bf81ce0a618e5fc601e54250e3970635d19"
+    },
+    {
+      "name": "T_CoreNebula_Detail.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB",
+      "bytes": 625337,
+      "sha256": "4f909027091d19245dc3f4140775beb588c76e4ed2b0431e78ad9a3aa66fbd00"
+    },
+    {
+      "name": "T_CoreStarfield_BaseColor.png",
+      "size": [
+        4096,
+        2048
+      ],
+      "mode": "RGB",
+      "bytes": 3259812,
+      "sha256": "be3f430a4bf6b16934c5faba8b96773da784b6ee93039309a120054c5a88be80",
+      "seam_max_byte_delta": 0,
+      "north_pole_spread": 0,
+      "south_pole_spread": 0
+    },
+    {
+      "name": "T_CoreStars_Emissive.png",
+      "size": [
+        4096,
+        2048
+      ],
+      "mode": "L",
+      "bytes": 310821,
+      "sha256": "a666418e9f4f7e408def89727a9d9b6ce94f12c5ee365f5edd4f88e4dd1c7bb9",
+      "seam_max_byte_delta": 0,
+      "north_pole_spread": 0,
+      "south_pole_spread": 0
+    }
+  ],
+  "comparisons": {
+    "nebula_same_source_region": {
+      "V2": {
+        "mean_gray": 0.09150612354278564,
+        "highpass_rms_over_mean": 0.03983166441321373,
+        "any_channel_clipped_255_fraction": 0.00024127960205078125
+      },
+      "V4": {
+        "mean_gray": 0.05577122047543526,
+        "highpass_rms_over_mean": 0.24449919164180756,
+        "any_channel_clipped_255_fraction": 0.0
+      }
+    }
+  },
+  "syntax_checked": [
+    "author_core.py",
+    "finish_package.py",
+    "generate_textures.py",
+    "import_candidate.py",
+    "render_baseline_comparison.py",
+    "render_refinement.py",
+    "verify_fbx_uv.py",
+    "verify_textures.py"
+  ]
+}

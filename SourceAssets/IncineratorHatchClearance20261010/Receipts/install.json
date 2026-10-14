@@ -1,0 +1,62 @@
+{
+  "stage": "maps_saved",
+  "revision": "incinerator_hatch_clearance_20261010",
+  "game_run": false,
+  "tested": false,
+  "rendered": false,
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true,
+      "cabinet_bays_changed": 1
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Incinerator_Theme_Subject",
+      "saved": true,
+      "moved_containers": []
+    }
+  ],
+  "mirrors": [
+    "SourceAssets\\DungeonFacilityFlow20261007\\Config\\catalog.json",
+    "SourceAssets\\DungeonFacilityFlow20261007\\Config\\layout-bank-v1.json",
+    "SourceAssets\\IncineratorContainers20261003\\Config\\layout.json",
+    "SourceAssets\\DungeonIncineratorLine20261003\\Config\\source-modules.json",
+    "SourceAssets\\DungeonIncineratorHall20260929\\Pool20260930\\Config\\module.json",
+    "SourceAssets\\IncineratorContainers20261003\\Config\\catalog.json"
+  ],
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\IncineratorHatchClearance20261010\\Backups\\20261010-155058",
+  "bay": {
+    "revision": "incinerator_hatch_clearance_20261010",
+    "module": "AbandonedIncineratorHall",
+    "slot": "Treatment.AbandonedIncineratorHall.HeatCabinet.1",
+    "previous_position": [
+      1350.5,
+      -610.0,
+      0.3
+    ],
+    "position": [
+      540.0,
+      -1000.5,
+      0.3
+    ],
+    "yaw": 180,
+    "clearance_cm": {
+      "min": [
+        487.9999972970645,
+        -1029.0,
+        1.3
+      ],
+      "max": [
+        615.3808996886812,
+        -876.9999960612209,
+        113.29999237060547
+      ]
+    },
+    "floor_z": 0.0,
+    "authoring": "Existing FBX surfaces, full cabinet opening envelope, 90cm access, all fixture and container reservations",
+    "game_run": false,
+    "rendered": false,
+    "tested": false
+  },
+  "bank_contract_sha1": "96d2cad0e0cbff8807dc1c538a889e060ee7d0ab"
+}

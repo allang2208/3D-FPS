@@ -11,6 +11,6 @@ namespace WardRoomAssembly
 {
     AActor* Spawn(UWorld* World, AActor* Owner, const TSharedPtr<FJsonObject>& Spec,
         const FTransform& Room, AActor* Frame, FName ReceiverTag,
-        TFunctionRef<UObject*(const FString&)> Resolve);
+        TFunctionRef<UObject*(const FString&)> Resolve, bool bMonsterDoors=false);
     void Populate(AActor* Actor, int32 Seed);
 }

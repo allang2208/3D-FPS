@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $taskRoot=Split-Path -Parent $PSScriptRoot
 $taskMutex=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000')
 $taskHeld=$false

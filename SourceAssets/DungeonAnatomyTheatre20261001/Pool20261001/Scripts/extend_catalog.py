@@ -1,9 +1,11 @@
 """Reapply the accepted theatre without recreating its retired sample map."""
-import copy,json
+import copy,json,runpy
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def extend(catalog,module=None):
     module=module or json.loads((ROOT/'Config/module.json').read_text(encoding='utf-8'))
+    treasure=runpy.run_path(str(ROOT.parents[1]/'ThemeThirdRoomTreasure20261007/treasure.py'))
+    module=treasure['extend_module'](module)
     result=copy.deepcopy(catalog);rid=module['id']
     result['modules']=[m for m in result['modules'] if m['id']!=rid]+[module]
     result['room_ids']=list(dict.fromkeys(result['room_ids']+[rid]))

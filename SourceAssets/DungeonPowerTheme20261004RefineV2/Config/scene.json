@@ -2711,7 +2711,7 @@
             19.5,
             3.84
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true
         },
@@ -2724,7 +2724,7 @@
             19.5,
             3.9499999999999997
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true,
           "container_id": "Records_02_Drawer1"
@@ -2738,7 +2738,7 @@
             19.5,
             3.9499999999999997
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true,
           "container_id": "Records_02_Drawer1",
@@ -2759,7 +2759,7 @@
             19.5,
             4.29
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true,
           "container_id": "Records_02_Drawer2"
@@ -2773,7 +2773,7 @@
             19.5,
             4.29
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true,
           "container_id": "Records_02_Drawer2",
@@ -2794,7 +2794,7 @@
             19.5,
             4.63
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true,
           "container_id": "Records_02_Drawer3"
@@ -2808,7 +2808,7 @@
             19.5,
             4.63
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "collision": true,
           "cast_shadow": true,
           "container_id": "Records_02_Drawer3",
@@ -3589,7 +3589,7 @@
             19.5,
             3.9499999999999997
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "caption": "总控室检修记录 1",
           "source_assembly": "References/ReuseBundle/SourceAssets/IncineratorContainers20261003/Config/assemblies.json",
           "rewards_deferred": true,
@@ -3609,7 +3609,7 @@
             19.5,
             4.29
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "caption": "总控室检修记录 2",
           "source_assembly": "References/ReuseBundle/SourceAssets/IncineratorContainers20261003/Config/assemblies.json",
           "rewards_deferred": true,
@@ -3629,7 +3629,7 @@
             19.5,
             4.63
           ],
-          "yaw_deg": 0,
+          "yaw_deg": 180,
           "caption": "总控室检修记录 3",
           "source_assembly": "References/ReuseBundle/SourceAssets/IncineratorContainers20261003/Config/assemblies.json",
           "rewards_deferred": true,

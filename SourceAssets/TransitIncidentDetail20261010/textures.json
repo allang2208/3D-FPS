@@ -1,0 +1,28 @@
+{
+  "atlas_size": [
+    2048,
+    2048
+  ],
+  "surface_tiles": [
+    "Plastic",
+    "Steel",
+    "Rubber",
+    "Cotton"
+  ],
+  "packed_channels": {
+    "R": "ambient occlusion",
+    "G": "roughness",
+    "B": "metallic"
+  },
+  "normal": "DirectX tangent space",
+  "artwork_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDressing20261010\\Authored\\Textures",
+  "files": [
+    "T_IncidentDetail_Caution_BC.png",
+    "T_IncidentDetail_Forms_BC.png",
+    "T_IncidentDetail_Forms_NormalDX.png",
+    "T_IncidentDetail_Forms_ORM.png",
+    "T_IncidentDetail_Surfaces_BC.png",
+    "T_IncidentDetail_Surfaces_NormalDX.png",
+    "T_IncidentDetail_Surfaces_ORM.png"
+  ]
+}

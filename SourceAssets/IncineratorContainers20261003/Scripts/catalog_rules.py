@@ -3,13 +3,18 @@ import copy
 import hashlib
 import json
 import random
+import runpy
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 PREFIX='Treatment.'
 
 
-def read_layout():return json.loads((ROOT/'Config/layout.json').read_text('utf8'))
+def read_layout():
+    layout=json.loads((ROOT/'Config/layout.json').read_text('utf8'))
+    clearance=ROOT.parent/'IncineratorHatchClearance20261010/recipe.py'
+    if clearance.exists():runpy.run_path(str(clearance))['apply_layout'](layout)
+    return layout
 
 
 def paths(value):

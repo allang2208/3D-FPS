@@ -210,12 +210,13 @@ void UFluidPresentationSubsystem::Tick(float Delta)
             SmokeCursor%=Smoke.Num();UpdateSmokeGeometry(Smoke[SmokeCursor++],2);
         }
     }
-    if(FurnaceClock>=.2f){FurnaceClock=0;UpdateFurnaceSmoke();}
+    if(FurnaceClock>=.2f){FurnaceClock=0;UpdateFurnaceSmoke();UpdateCampfires();}
 }
 
 void UFluidPresentationSubsystem::Deinitialize()
 {
     bReady=false;
+    Campfires.Reset();
     if(GetWorld())GetWorld()->RemoveOnActorSpawnedHandler(SpawnHandle);
     FWorldDelegates::LevelAddedToWorld.Remove(LevelHandle);
     if(ColdLoad){ColdLoad->CancelHandle();ColdLoad.Reset();}

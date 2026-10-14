@@ -1,0 +1,25 @@
+{
+  "stage": "maps_saved",
+  "maps": [
+    "/Game/GameMaps/L_Dungeon_Randomized",
+    "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+    "/Game/GameMaps/Design/L_MedicalDoctorOffice_Subject"
+  ],
+  "game_run": false,
+  "tested": false,
+  "rendered": false,
+  "revision": "doctor_office_and_intertheme_transitions_20261010",
+  "bank_entries": 120,
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Backups\\20261010-165912",
+  "medical_sequence": [
+    "MedicalDoctorOffice",
+    "AbandonedIsolationWard",
+    "AbandonedAnatomyTheatre"
+  ],
+  "transition_families": [
+    "Distribution",
+    "Drainage",
+    "VentilationLoop"
+  ],
+  "parts": 96
+}

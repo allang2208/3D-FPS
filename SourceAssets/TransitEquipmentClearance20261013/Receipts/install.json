@@ -1,0 +1,85 @@
+{
+  "stage": "maps_saved",
+  "revision": "transit_equipment_clearance_20261013",
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitEquipmentClearance20261013\\Backups\\20261013-223814",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true,
+      "changes": [
+        {
+          "id": "FacilityTransit.PPE5",
+          "before": [
+            100.0,
+            -1748.0,
+            0
+          ],
+          "after": [
+            190.0,
+            -1748.0,
+            0.0
+          ]
+        },
+        {
+          "id": "Incident_CleaningMop",
+          "before": [
+            -2035,
+            -907,
+            0
+          ],
+          "after": [
+            -1985.0,
+            -907.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "changes": [
+        {
+          "actor": "FacilityTransit_Incident_CleaningMop",
+          "room_position": [
+            -1985.0,
+            -907.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_PPE5",
+          "room_position": [
+            190.0,
+            -1748.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "changes": [
+        {
+          "actor": "FacilityTransit_Incident_CleaningMop",
+          "room_position": [
+            -1985.0,
+            -907.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_PPE5",
+          "room_position": [
+            190.0,
+            -1748.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "existing_game_running": false,
+  "tested": false
+}

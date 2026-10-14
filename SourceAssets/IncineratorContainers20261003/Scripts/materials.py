@@ -33,6 +33,7 @@ def create(root,base,report):
         if not material:
             material=assets.create_asset(path.rsplit('/',1)[1],base+'/Materials',u.Material,u.MaterialFactoryNew())
             material.set_editor_property('used_with_nanite',True)
+            if key in ('Gray','Charcoal'):material.set_editor_property('used_with_instanced_static_meshes',True)
             uv=edit.create_material_expression(material,u.MaterialExpressionTextureCoordinate,-900,0)
             wear=edit.create_material_expression(material,u.MaterialExpressionVertexColor,-900,160)
             tint=edit.create_material_expression(material,u.MaterialExpressionConstant3Vector,-900,300)

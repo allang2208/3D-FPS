@@ -1,0 +1,35 @@
+{
+  "saved": [],
+  "compile_results": {},
+  "candidate_mesh": "/Game/Props/GodSpaceCoreStarfield20261005/Meshes/SM_GodSpaceCore_Starfield_V2.SM_GodSpaceCore_Starfield_V2",
+  "bounds": "<Struct 'BoxSphereBounds' (0x000002B0B4F7AE80) {origin: {x: 0.000252, y: 2860.000122, z: 500.000015}, box_extent: {x: 231.824974, y: 208.630737, z: 218.494186}, sphere_radius: 380.800883}>",
+  "materials": {
+    "Core_Starfield": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_Starfield_V2.MI_Core_Starfield_V2",
+    "Core_EngravedGold": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_EngravedGold_V2.MI_Core_EngravedGold_V2",
+    "Core_Sapphire": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_Sapphire_V2.MI_Core_Sapphire_V2"
+  },
+  "texture_sizes": {
+    "star": [
+      4096,
+      2048
+    ],
+    "stars": [
+      4096,
+      2048
+    ],
+    "gold": [
+      1024,
+      256
+    ],
+    "orm": [
+      1024,
+      256
+    ],
+    "normal": [
+      1024,
+      256
+    ]
+  },
+  "production_mesh_modified": false,
+  "source_sha256": "201c4d290f9bc17e88e993bc74f89b7ea9d95804976c69a8d32b96f4bc05e559"
+}

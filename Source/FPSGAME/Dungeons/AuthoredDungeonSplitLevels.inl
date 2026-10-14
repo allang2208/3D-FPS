@@ -25,7 +25,9 @@ void ConfigureThemeLevels(int32 Attempt,double FloorZ)
 
 double ThemeRoomFloor(const FString& Route,int32 Ordinal)const
 {
-    return ThemeFloorZ+(ThemeRequirement(Route,Ordinal)>=0?ThemeCoreLevels.FindRef(Route):0.);
+    const auto* Slots=ThemeSlots.Find(Route);
+    const bool InPairedBranch=bPairedFacility&&Slots&&Slots->IsValidIndex(Ordinal);
+    return ThemeFloorZ+((InPairedBranch||ThemeRequirement(Route,Ordinal)>=0)?ThemeCoreLevels.FindRef(Route):0.);
 }
 
 int32 RampEntryForDelta(int32 Ramp,double Delta)const

@@ -1,0 +1,83 @@
+{
+  "meshes": [
+    {
+      "name": "SM_ReceptionFinish_BreachConcrete",
+      "kind": "BreachConcrete",
+      "mesh": "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_BreachConcrete",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Authored\\SM_ReceptionFinish_BreachConcrete.fbx",
+      "sha256": "6456e18734e0a46e6dc7680b84f2844076682431aed123d4679715842b89f980",
+      "materials": {
+        "Concrete": "/Game/Dungeons/AtmosphereV2/Materials/M_Concrete",
+        "FractureConcrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_BrokenConcrete"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 2154,
+      "previous_sha256": "96fd9a368fcc1a1260a52ca7736b5b6427058ad94827b8180829d45a90d767b4"
+    },
+    {
+      "name": "SM_ReceptionFinish_BreachRebar",
+      "kind": "BreachRebar",
+      "mesh": "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_BreachRebar",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Authored\\SM_ReceptionFinish_BreachRebar.fbx",
+      "sha256": "bc5723459bd0e95c7a6f7729f795c3ca8968cad0df7aed93db8fd55633cc1b28",
+      "materials": {
+        "ServicePaint": "/Game/Dungeons/AtmosphereV2/Services/Materials/M_Service_Paint",
+        "ServiceHardware": "/Game/Dungeons/CombatExpansion20260922/Materials/M_PipeCutSteel"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 35528
+    },
+    {
+      "name": "SM_ReceptionFinish_OuterWalls",
+      "kind": "OuterWalls",
+      "mesh": "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_OuterWalls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Authored\\SM_ReceptionFinish_OuterWalls.fbx",
+      "sha256": "b74fc15cb2340e660f011e91c34e45d4a547a439db349f03aadcdaaa39fb1f32",
+      "materials": {
+        "RF_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 120
+    },
+    {
+      "name": "SM_ReceptionFinish_GalleryMounts",
+      "kind": "GalleryMounts",
+      "mesh": "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_GalleryMounts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Authored\\SM_ReceptionFinish_GalleryMounts.fbx",
+      "sha256": "ea963c806a02cdf2d22f6e54fada9cb28c84ea8c674d16a6077e89553ba63b55",
+      "materials": {
+        "RF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 144
+    },
+    {
+      "name": "SM_ReceptionFinish_VentMounts",
+      "kind": "VentMounts",
+      "mesh": "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_VentMounts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Authored\\SM_ReceptionFinish_VentMounts.fbx",
+      "sha256": "f7c8e2a59e5c3e8856fda3b5e89025154256e40db279ba44a5ff51b573c4e843",
+      "materials": {
+        "RF_BareSteel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "RF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "RF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 480
+    }
+  ],
+  "shrine_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonShrineV2_20260927\\Authored\\ShrineRoomV2_Editable.blend",
+  "breach_width_m": 4.7,
+  "breach_height_m": 3.55,
+  "source_wall_thickness_m": 0.55
+}

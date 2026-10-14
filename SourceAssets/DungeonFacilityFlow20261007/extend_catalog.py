@@ -1,4 +1,4 @@
-"""Production facility flow; merge into the current recipe, never a stale catalog."""
+﻿"""Production facility flow; merge into the current recipe, never a stale catalog."""
 from pathlib import Path
 import json, copy, math, runpy
 ROOT=Path(__file__).resolve().parent; SOURCE=ROOT.parent
@@ -180,13 +180,54 @@ def extend(catalog):
     if dungeon_lights.exists():
         result=runpy.run_path(str(dungeon_lights))['reapply_catalog'](result,
             runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    # Retain the saved six-room interior corrections when rebuilding from the
+    # earlier facility source snapshot; keep room topology and bank entries.
+    spatial=ROOT/'SpatialClearanceFix20261009/recipe.py'
+    if spatial.exists():
+        result=runpy.run_path(str(spatial))['reapply_if_installed'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
     coverage=SOURCE/'DungeonLightCoverage20261009/recipe.py'
     if coverage.exists():
         result=runpy.run_path(str(coverage))['reapply_catalog'](result,
             runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    spawn_reset=SOURCE/'DungeonSpawnReset20261009/recipe.py'
+    if spawn_reset.exists():
+        result=runpy.run_path(str(spawn_reset))['reapply_if_installed'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
     ground_lighting=SOURCE/'ReceptionGroundLighting20261009/recipe.py'
     if ground_lighting.exists():
         result=runpy.run_path(str(ground_lighting))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    reception_finish=SOURCE/'ReceptionFinish20261010/recipe.py'
+    if reception_finish.exists():
+        result=runpy.run_path(str(reception_finish))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    transit_finish=SOURCE/'TransitFinish20261010/recipe.py'
+    if transit_finish.exists():
+        result=runpy.run_path(str(transit_finish))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    incident=SOURCE/'TransitIncidentDressing20261010/recipe.py'
+    if incident.exists():
+        result=runpy.run_path(str(incident))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    incident_detail=SOURCE/'TransitIncidentDetail20261010/recipe.py'
+    if incident_detail.exists():
+        result=runpy.run_path(str(incident_detail))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    stair_corner=SOURCE/'HallStairCorner20261010/recipe.py'
+    if stair_corner.exists():
+        result=runpy.run_path(str(stair_corner))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    incinerator_clearance=SOURCE/'IncineratorHatchClearance20261010/recipe.py'
+    if incinerator_clearance.exists():
+        result=runpy.run_path(str(incinerator_clearance))['reapply_catalog'](result,
+            runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
+    medical_office=SOURCE/'MedicalOfficeWing20261010/recipe.py'
+    if medical_office.exists():
+        result=runpy.run_path(str(medical_office))['reapply_catalog'](result)
+    facility_detail=SOURCE/'FacilityDetailRepair20261010/recipe.py'
+    if facility_detail.exists():
+        result=runpy.run_path(str(facility_detail))['reapply_catalog'](result,
             runpy.run_path(str(ROOT/'restore_entry_recipe.py'))['contract_hash'])
     door_veil=SOURCE/'ReceptionDoorVeil20261012/recipe.py'
     if door_veil.exists():

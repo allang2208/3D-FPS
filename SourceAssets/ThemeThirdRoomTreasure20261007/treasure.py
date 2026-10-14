@@ -8,8 +8,11 @@ ROOT = Path(__file__).resolve().parent
 PROJECT = ROOT.parents[1]
 BLUEPRINT = '/Game/Dungeons/StationWorkshop20261003/RefineV2/Blueprints/BP_StationUpperTreasure'
 PLACEMENTS = {
-    'AbandonedAnatomyTheatre': dict(position=[0, -1075, 216.3], yaw=90,
-        identity='hospital_rear_gallery_treasure', role='hospital_rear_gallery'),
+    # Upper gallery behind the outer seating block, away from both stair exits.
+    # UE reflects the author's Y axis: polar radius 12.70 m at 25 degrees.
+    'AbandonedAnatomyTheatre': dict(position=[1151.011, -336.725, 216.3], yaw=155,
+        identity='hospital_rear_gallery_treasure', role='hospital_rear_gallery',
+        interaction_enabled=False),
     'AccumulatorControl': dict(position=[0, 2100, 384.3], yaw=270,
         identity='power_outer_gallery_treasure', role='power_outer_gallery'),
 }
@@ -33,7 +36,16 @@ def asset_paths(prop):
 
 def extend_module(module):
     result = copy.deepcopy(module)
-    if result['id'] not in PLACEMENTS or any(is_treasure(p) for p in result.get('props', [])):
+    if result['id'] not in PLACEMENTS:
+        return result
+    # Reapply this medical chest's placement without duplicating the earlier
+    # rear-centre chest or replacing unrelated props/material customizations.
+    if result['id'] == 'AbandonedAnatomyTheatre':
+        for prop in result.get('props', []):
+            if prop.get('identity') == PLACEMENTS[result['id']]['identity']:
+                prop.update(copy.deepcopy(PLACEMENTS[result['id']]))
+                return result
+    if any(is_treasure(p) for p in result.get('props', [])):
         return result
     chest = spec(result['id'])
     result.setdefault('props', []).append(chest)

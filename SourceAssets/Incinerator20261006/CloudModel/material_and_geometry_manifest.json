@@ -1,0 +1,319 @@
+{
+  "units": "meters",
+  "up": "Z",
+  "front": "-Y",
+  "origin": "floor origin (0,0,0)",
+  "bounds": {
+    "min": [
+      -0.5710000395774841,
+      -0.6119999885559082,
+      0.0
+    ],
+    "max": [
+      0.621999979019165,
+      0.4899112284183502,
+      2.0789999961853027
+    ]
+  },
+  "objects": 137,
+  "notes": [
+    "Fictional game prop exterior; no real engineering dimensions or functionality.",
+    "Cloud model, separate independent incinerator; no output or recipe designed.",
+    "Game physical destruction is a separate UI/runtime implementation."
+  ],
+  "materials": [
+    {
+      "name": "Aged brass small fittings",
+      "base_color": [
+        0.46000000834465027,
+        0.30000001192092896,
+        0.10000000149011612,
+        1.0
+      ],
+      "metallic": 0.8500000238418579,
+      "roughness": 0.3400000035762787,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Amber safety accents",
+      "base_color": [
+        0.8199999928474426,
+        0.23999999463558197,
+        0.04500000178813934,
+        1.0
+      ],
+      "metallic": 0.3499999940395355,
+      "roughness": 0.4000000059604645,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Brushed steel",
+      "base_color": [
+        0.3799999952316284,
+        0.4300000071525574,
+        0.4699999988079071,
+        1.0
+      ],
+      "metallic": 0.8999999761581421,
+      "roughness": 0.27000001072883606,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Graphite anodized frames",
+      "base_color": [
+        0.026000000536441803,
+        0.03500000014901161,
+        0.04100000113248825,
+        1.0
+      ],
+      "metallic": 0.7200000286102295,
+      "roughness": 0.3199999928474426,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Incinerator grey green powdercoat",
+      "base_color": [
+        0.23999999463558197,
+        0.30000001192092896,
+        0.30000001192092896,
+        1.0
+      ],
+      "metallic": 0.550000011920929,
+      "roughness": 0.41999998688697815,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "LED cyan",
+      "base_color": [
+        0.019999999552965164,
+        0.699999988079071,
+        0.8500000238418579,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.3499999940395355,
+      "emission_color": [
+        0.019999999552965164,
+        0.699999988079071,
+        0.8500000238418579,
+        1.0
+      ],
+      "emission_strength": 0.6499999761581421
+    },
+    {
+      "name": "LED green",
+      "base_color": [
+        0.07999999821186066,
+        0.800000011920929,
+        0.33000001311302185,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.3499999940395355,
+      "emission_color": [
+        0.07999999821186066,
+        0.800000011920929,
+        0.33000001311302185,
+        1.0
+      ],
+      "emission_strength": 0.6499999761581421
+    },
+    {
+      "name": "Low amber chamber glow",
+      "base_color": [
+        0.41999998688697815,
+        0.054999999701976776,
+        0.003000000026077032,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.550000011920929,
+      "emission_color": [
+        1.0,
+        0.1599999964237213,
+        0.009999999776482582,
+        1.0
+      ],
+      "emission_strength": 1.7999999523162842
+    },
+    {
+      "name": "Press blue-grey enamel",
+      "base_color": [
+        0.054999999701976776,
+        0.14000000059604645,
+        0.20000000298023224,
+        1.0
+      ],
+      "metallic": 0.44999998807907104,
+      "roughness": 0.41999998688697815,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Printer ceramic powdercoat",
+      "base_color": [
+        0.3700000047683716,
+        0.4300000071525574,
+        0.4300000071525574,
+        1.0
+      ],
+      "metallic": 0.550000011920929,
+      "roughness": 0.4000000059604645,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Refractory ceramic dark",
+      "base_color": [
+        0.10999999940395355,
+        0.0949999988079071,
+        0.07500000298023224,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8799999952316284,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Rubber and belts",
+      "base_color": [
+        0.012000000104308128,
+        0.017999999225139618,
+        0.019999999552965164,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.7200000286102295,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Safety red",
+      "base_color": [
+        0.5,
+        0.027000000700354576,
+        0.014000000432133675,
+        1.0
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.5,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Screen dark glass",
+      "base_color": [
+        0.007000000216066837,
+        0.02500000037252903,
+        0.03999999910593033,
+        1.0
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.23000000417232513,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Smoked safety glazing",
+      "base_color": [
+        0.4300000071525574,
+        0.6600000262260437,
+        0.7099999785423279,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.07000000029802322,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    },
+    {
+      "name": "Warm white labels",
+      "base_color": [
+        0.699999988079071,
+        0.7200000286102295,
+        0.6700000166893005,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.699999988079071,
+      "emission_color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emission_strength": 0.0
+    }
+  ],
+  "triangles_lod0": 40152,
+  "material_slots": 13,
+  "triangles_lod1": 20076,
+  "triangles_lod2": 8029,
+  "removed_degenerate_triangles": 416
+}

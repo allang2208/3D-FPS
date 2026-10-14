@@ -1,0 +1,398 @@
+{
+  "stage": "maps_saved",
+  "revision": "reception_entry_gallery_vent_finish_20261010",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_ReceptionHall_Subject",
+      "saved": true,
+      "changes": {
+        "lights": [
+          {
+            "id": "GroundContinuity_South_arrival",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              -1400.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_South_stair_approach",
+            "intensity": 300.0,
+            "radius": 750.0,
+            "position": [
+              -200.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_South_east_gallery",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              1200.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_arrival",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              -1400.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_stair_approach",
+            "intensity": 300.0,
+            "radius": 750.0,
+            "position": [
+              -200.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_east_gallery",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              1200.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_MainDoor",
+            "intensity": 400.0,
+            "radius": 650.0,
+            "position": [
+              -2290.0,
+              0.0,
+              379.5
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          }
+        ],
+        "added": [
+          "Reception_Finish_GalleryMounts"
+        ],
+        "production_breach_present": false,
+        "vent_present": false
+      }
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "changes": {
+        "lights": [
+          {
+            "id": "GroundContinuity_South_arrival",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              -1400.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_South_stair_approach",
+            "intensity": 300.0,
+            "radius": 750.0,
+            "position": [
+              -200.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_South_east_gallery",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              1200.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_arrival",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              -1400.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_stair_approach",
+            "intensity": 300.0,
+            "radius": 750.0,
+            "position": [
+              -200.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_east_gallery",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              1200.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_MainDoor",
+            "intensity": 400.0,
+            "radius": 650.0,
+            "position": [
+              -2290.0,
+              0.0,
+              379.5
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          }
+        ],
+        "added": [
+          "Reception_Finish_GalleryMounts"
+        ],
+        "production_breach_present": false,
+        "vent_present": false
+      }
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "changes": {
+        "lights": [
+          {
+            "id": "GroundContinuity_South_arrival",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              -1400.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_South_stair_approach",
+            "intensity": 300.0,
+            "radius": 750.0,
+            "position": [
+              -200.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_South_east_gallery",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              1200.0,
+              -1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_arrival",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              -1400.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_stair_approach",
+            "intensity": 300.0,
+            "radius": 750.0,
+            "position": [
+              -200.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_North_east_gallery",
+            "intensity": 350.0,
+            "radius": 800.0,
+            "position": [
+              1200.0,
+              1325.0,
+              377.8
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          },
+          {
+            "id": "GroundContinuity_MainDoor",
+            "intensity": 400.0,
+            "radius": 650.0,
+            "position": [
+              -2290.0,
+              0.0,
+              379.5
+            ],
+            "forward": [
+              -4.440892098500626e-16,
+              2.220446049250313e-16,
+              -1.0000000000000004
+            ]
+          }
+        ],
+        "added": [
+          "Reception_Finish_GalleryMounts"
+        ],
+        "production_breach_present": false,
+        "vent_present": false
+      }
+    }
+  ],
+  "saved_assets": [
+    "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_BreachConcrete",
+    "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_BreachRebar",
+    "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_OuterWalls",
+    "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_GalleryMounts",
+    "/Game/Dungeons/ReceptionFinish20261010/Meshes/SM_ReceptionFinish_VentMounts"
+  ],
+  "runtime_tested": false,
+  "rendered": false,
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Backups\\20261010-002912",
+  "protected_lamps": 23,
+  "original_lights_preserved": true,
+  "protected_light_sha256": "0490a816cd59713157ac016c9ca3e1a84fc1e488a012e66def7c4cef3a2846c1",
+  "other_rooms_preserved": true,
+  "layout_entries_preserved": true,
+  "bank_contract_sha1": "1f5321b81c8d6c7dc9ee301a24d4f365ecb3179e",
+  "gallery_lamps_aligned": 6,
+  "main_door_lights_added": 1,
+  "vent_body_position_cm": [
+    -540,
+    -1581,
+    412
+  ],
+  "vent_lid_position_cm": [
+    -598.5,
+    -1581,
+    280
+  ],
+  "concrete_tangent_repair": {
+    "saved": true,
+    "triangles": 2154,
+    "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReceptionFinish20261010\\Backups\\concrete-asset-20261010-003729",
+    "source_sha256": "6456e18734e0a46e6dc7680b84f2844076682431aed123d4679715842b89f980"
+  }
+}

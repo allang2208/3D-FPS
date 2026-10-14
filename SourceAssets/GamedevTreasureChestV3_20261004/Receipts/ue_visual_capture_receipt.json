@@ -1,0 +1,382 @@
+{
+  "initial_dirty_content": [],
+  "initial_dirty_maps": [
+    "/Engine/Maps/Entry"
+  ],
+  "mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+  "revision": "CloudV3_158044_20261004",
+  "skeleton": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest_Skeleton.SK_GamedevTreasureChest_Skeleton",
+  "opening_seconds": 1.0,
+  "mesh_readback": {
+    "triangles": 158044,
+    "bounds_cm": [
+      [
+        -51.77250289916992,
+        -69.12749481201172,
+        0.0
+      ],
+      [
+        52.779998779296875,
+        69.12749481201172,
+        104.19499969482422
+      ]
+    ],
+    "uv_channels": 2,
+    "vertex_colors": true,
+    "triangle_normals": true
+  },
+  "materials": [
+    {
+      "slot": "Treasure_BlackIron",
+      "material": "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Iron.M_TreasureV3_Iron"
+    },
+    {
+      "slot": "Treasure_AntiqueGold",
+      "material": "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Gold.M_TreasureV3_Gold"
+    },
+    {
+      "slot": "Treasure_Interior",
+      "material": "/Game/Props/GamedevTreasureChestV3_20261004/Materials/M_TreasureV3_Wood.M_TreasureV3_Wood"
+    }
+  ],
+  "animation_samples": [
+    {
+      "time": 0.0,
+      "bones": [
+        "GamedevTreasureChestRig",
+        "Root",
+        "Lid"
+      ],
+      "root": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_xyzw": [
+          0.7071067811865476,
+          0.0,
+          0.0,
+          -0.7071067811865476
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "lid": {
+        "translation": [
+          -49.400001525878906,
+          0.0,
+          64.3499984741211
+        ],
+        "rotation_xyzw": [
+          -0.7071067811865476,
+          0.0,
+          -0.0,
+          0.7071067811865476
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "time": 0.25,
+      "bones": [
+        "GamedevTreasureChestRig",
+        "Root",
+        "Lid"
+      ],
+      "root": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_xyzw": [
+          0.7071067811865476,
+          0.0,
+          0.0,
+          -0.7071067811865476
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "lid": {
+        "translation": [
+          -49.400001525878906,
+          2.842170943040401e-14,
+          64.3499984741211
+        ],
+        "rotation_xyzw": [
+          0.7049511541017885,
+          0.05517128175560645,
+          0.05517128175560645,
+          -0.7049511541017885
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "time": 0.5,
+      "bones": [
+        "GamedevTreasureChestRig",
+        "Root",
+        "Lid"
+      ],
+      "root": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_xyzw": [
+          0.7071067811865476,
+          0.0,
+          0.0,
+          -0.7071067811865476
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "lid": {
+        "translation": [
+          -49.400001525878906,
+          2.842170943040401e-14,
+          64.3499984741211
+        ],
+        "rotation_xyzw": [
+          0.6667950395025602,
+          0.23533885207245123,
+          0.23533885207245123,
+          -0.6667950395025602
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "time": 0.75,
+      "bones": [
+        "GamedevTreasureChestRig",
+        "Root",
+        "Lid"
+      ],
+      "root": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_xyzw": [
+          0.7071067811865476,
+          0.0,
+          0.0,
+          -0.7071067811865476
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "lid": {
+        "translation": [
+          -49.400001525878906,
+          2.842170943040401e-14,
+          64.3499984741211
+        ],
+        "rotation_xyzw": [
+          0.6136471966398653,
+          0.3513361895052011,
+          0.3513361895052011,
+          -0.6136471966398653
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "time": 1.0,
+      "bones": [
+        "GamedevTreasureChestRig",
+        "Root",
+        "Lid"
+      ],
+      "root": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_xyzw": [
+          0.7071067811865476,
+          0.0,
+          0.0,
+          -0.7071067811865476
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "lid": {
+        "translation": [
+          -49.400001525878906,
+          2.842170943040401e-14,
+          64.3499984741211
+        ],
+        "rotation_xyzw": [
+          0.6184495829379026,
+          0.3428120671212355,
+          0.3428120671212355,
+          -0.6184495829379026
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    }
+  ],
+  "stage": "ready",
+  "captures": [
+    {
+      "name": "closed_front",
+      "time": 0.0,
+      "component_time": 0.0,
+      "lid_transform": "<Struct 'Transform' (0x000001BD954F6E80) {rotation: {x: 0.707107, y: 0.000000, z: 0.000000, w: -0.707107}, translation: {x: -49.400002, y: 0.000000, z: 64.349998}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\ue_preview\\final\\closed_front.png",
+      "camera_cm": [
+        350,
+        -280,
+        215
+      ],
+      "target_cm": [
+        0,
+        0,
+        60
+      ],
+      "actual_ue_render": true,
+      "formal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"
+    },
+    {
+      "name": "closed_back",
+      "time": 0.0,
+      "component_time": 0.0,
+      "lid_transform": "<Struct 'Transform' (0x000001BD954F6D60) {rotation: {x: 0.707107, y: 0.000000, z: 0.000000, w: -0.707107}, translation: {x: -49.400002, y: 0.000000, z: 64.349998}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\ue_preview\\final\\closed_back.png",
+      "camera_cm": [
+        -350,
+        280,
+        210
+      ],
+      "target_cm": [
+        0,
+        0,
+        60
+      ],
+      "actual_ue_render": true,
+      "formal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"
+    },
+    {
+      "name": "half_open",
+      "time": 0.5,
+      "component_time": 0.5,
+      "lid_transform": "<Struct 'Transform' (0x000001BD954F6E80) {rotation: {x: 0.666937, y: 0.234937, z: 0.234937, w: -0.666937}, translation: {x: -49.400002, y: 0.000000, z: 64.349998}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\ue_preview\\final\\half_open.png",
+      "camera_cm": [
+        350,
+        -280,
+        240
+      ],
+      "target_cm": [
+        0,
+        0,
+        75
+      ],
+      "actual_ue_render": true,
+      "formal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"
+    },
+    {
+      "name": "open_front",
+      "time": 1.0,
+      "component_time": 1.0,
+      "lid_transform": "<Struct 'Transform' (0x000001BD954F6D60) {rotation: {x: 0.618777, y: 0.342220, z: 0.342220, w: -0.618777}, translation: {x: -49.400002, y: 0.000000, z: 64.349998}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\ue_preview\\final\\open_front.png",
+      "camera_cm": [
+        350,
+        -280,
+        260
+      ],
+      "target_cm": [
+        0,
+        0,
+        80
+      ],
+      "actual_ue_render": true,
+      "formal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"
+    },
+    {
+      "name": "open_interior",
+      "time": 1.0,
+      "component_time": 1.0,
+      "lid_transform": "<Struct 'Transform' (0x000001BD954F6E80) {rotation: {x: 0.618777, y: 0.342220, z: 0.342220, w: -0.618777}, translation: {x: -49.400002, y: 0.000000, z: 64.349998}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\ue_preview\\final\\open_interior.png",
+      "camera_cm": [
+        230,
+        -140,
+        320
+      ],
+      "target_cm": [
+        0,
+        0,
+        70
+      ],
+      "actual_ue_render": true,
+      "formal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"
+    },
+    {
+      "name": "front_detail",
+      "time": 0.0,
+      "component_time": 0.0,
+      "lid_transform": "<Struct 'Transform' (0x000001BD954F6D60) {rotation: {x: 0.707107, y: 0.000000, z: 0.000000, w: -0.707107}, translation: {x: -49.400002, y: 0.000000, z: 64.349998}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\ue_preview\\final\\front_detail.png",
+      "camera_cm": [
+        215,
+        -100,
+        135
+      ],
+      "target_cm": [
+        48,
+        0,
+        57
+      ],
+      "actual_ue_render": true,
+      "formal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest"
+    }
+  ],
+  "capture_complete": true
+}

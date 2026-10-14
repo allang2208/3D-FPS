@@ -124,7 +124,8 @@ bool BuildFacility(int32 Seed,const FSocket& Start)
     // Keep part of the existing 12 s window for validating a fallback, even if
     // candidate search meets its time bound on a slow machine.
     const double FullDeadline=PlanningDeadline;
-    PlanningDeadline=FMath::Min(FullDeadline,FPlatformTime::Seconds()+8.);
+    const bool bBakingLayout=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"));
+    PlanningDeadline=bBakingLayout?FullDeadline:FMath::Min(FullDeadline,FPlatformTime::Seconds()+8.);
     const bool Generated=BuildJointFacility(Seed,Start);
     PlanningDeadline=FullDeadline;bSearchExpired=false;
     if(Generated)return true;

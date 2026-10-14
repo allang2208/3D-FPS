@@ -6,6 +6,7 @@ bool bUseJointFacilityLayout=false;
 int32 FacilityEntrance=INDEX_NONE,FacilityReception=INDEX_NONE;
 TMap<FString,TArray<FString>> RouteThemePairs;
 int32 SharedArchive=INDEX_NONE;
+int32 InterThemeTransitions=0;
 TMap<FString,TArray<int32>> ThemeSlots;
 TMap<FString,FString> RouteThemes;
 TSet<FString> TransitionFamilies;
@@ -86,6 +87,8 @@ bool ConfigureThemedRoutes(int32 Seed,const JObject& Catalog)
     if(!Combat.Contains(SharedArchive)){CompactFailure=TEXT("缺少共用数据档案中心");return false;}
     auto& Archive=Modules[SharedArchive];Archive.bRunEligible=true;Archive.SelectionRoute=TEXT("Archive");Archive.MaxPerRun=1;
     for(const auto& V:(*Rules)->GetArrayField(TEXT("transition_families")))TransitionFamilies.Add(V->AsString());
+    (*Rules)->TryGetNumberField(TEXT("inter_theme_transition_count"),InterThemeTransitions);
+    InterThemeTransitions=FMath::Clamp(InterThemeTransitions,0,1);
     const auto& Cores=(*Rules)->GetArrayField(TEXT("routes"));
     if(Cores.Num()<3||TransitionFamilies.IsEmpty()){CompactFailure=TEXT("主题路线至少需要三个完整组合与过渡房池");return false;}
     FRandomStream Draw(int32(HashCombineFast(uint32(Seed),0x5448454Du)));
@@ -143,6 +146,7 @@ bool ConfigureThemedRoutes(int32 Seed,const JObject& Catalog)
         for(int32 I=0;I<Before;++I)Slots.Add(INDEX_NONE);
         for(int32 Block=0;Block<(bPairedFacility?2:1);++Block)
         {
+            if(bPairedFacility&&Block>0)for(int32 I=0;I<InterThemeTransitions;++I)Slots.Add(INDEX_NONE);
             const auto Core=Cores[Order[bPairedFacility?(R-1)*2+Block:R-1]]->AsObject();
             const FString ThemeId=Core->GetStringField(TEXT("id"));
             const auto& Sequence=Core->GetArrayField(TEXT("sequence"));
@@ -216,13 +220,21 @@ double ThemeDistanceCost(double Distance,double RemainingSpan,int32 RemainingRoo
     return FMath::Abs(Distance-Target);
 }
 
+int32 ThemeCoreIndex(const FString& Route,int32 Ordinal)const
+{
+    if(ThemeRequirement(Route,Ordinal)<0)return INDEX_NONE;
+    int32 CoreOrdinal=0;
+    for(int32 I=0;I<Ordinal;++I)if(ThemeRequirement(Route,I)>=0)++CoreOrdinal;
+    return CoreOrdinal/3;
+}
+
 bool ThemeGapAllowsBridge(const FString& Route,int32 A,int32 B)const
 {
     // A connector can precede/follow a core or join its transition rooms, but
     // never insert a detour inside the three mandatory themed rooms.
     return bThemedRoutes&&bThemeBridgeSearch&&ThemeSlots.Contains(Route)&&
         (ThemeRequirement(Route,A)<0||ThemeRequirement(Route,B)<0||
-         (bPairedFacility&&A/3!=B/3));
+         (bPairedFacility&&ThemeCoreIndex(Route,A)!=ThemeCoreIndex(Route,B)));
 }
 
 bool CloseThemedGap(const FSocket& Start,const FSocket& Goal,const FString& Route,bool AllowBridge)

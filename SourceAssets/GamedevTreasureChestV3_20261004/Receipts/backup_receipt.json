@@ -1,0 +1,331 @@
+{
+  "utc": "20261004T101716Z",
+  "project": "D:\\FPS3D\\FPSGAME",
+  "backup_root": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z",
+  "files": [
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\A_TreasureChest_ClosedPose.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\A_TreasureChest_ClosedPose.uasset",
+      "bytes": 18174,
+      "sha256": "d636cac5a674c755163e46b4a0471882eaa9dda5acf3b43271fef61448ab53c4"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\A_TreasureChest_Opening.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\A_TreasureChest_Opening.uasset",
+      "bytes": 19894,
+      "sha256": "bee353c261c2fb29cf1aa1800ee7286c4f456f4e99a55317068135f4f6984167"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\A_TreasureChest_OpenPose.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/A_TreasureChest_OpenPose.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\A_TreasureChest_OpenPose.uasset",
+      "bytes": 18933,
+      "sha256": "8094778868f7fc070c09ace537260a62ac60d534cda829341df8fdbde4df9830"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Materials\\M_Treasure_AntiqueGold.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Materials/M_Treasure_AntiqueGold.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Materials\\M_Treasure_AntiqueGold.uasset",
+      "bytes": 17931,
+      "sha256": "64d95444d8936c6ff3756238d2d50b1a29906b9f9e605491fcfda925a6d11743"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Materials\\M_Treasure_BlackIron.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Materials/M_Treasure_BlackIron.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Materials\\M_Treasure_BlackIron.uasset",
+      "bytes": 16172,
+      "sha256": "33180b94835d88529205ad1e0056c292ce6a7b1725462683b4b152d469c761e5"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Materials\\M_Treasure_Interior.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Materials/M_Treasure_Interior.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Materials\\M_Treasure_Interior.uasset",
+      "bytes": 14987,
+      "sha256": "d8a938eb3978cf491782f39fc21614e778a6685b442d9d2f216232999641164c"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\SK_GamedevTreasureChest.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\SK_GamedevTreasureChest.uasset",
+      "bytes": 35900815,
+      "sha256": "e6fddc1e255c6c5091c8a766769f40bf0903aabfa972c4865e9574f7b1f4ddee"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\SK_GamedevTreasureChest_Skeleton.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest_Skeleton.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\SK_GamedevTreasureChest_Skeleton.uasset",
+      "bytes": 8805,
+      "sha256": "e5d9f9c77bd56ac12b6a8550f9758f945d06d2badfb2ddc8655021e9de855b33"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\SM_TreasureChest_Closed.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/SM_TreasureChest_Closed.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\SM_TreasureChest_Closed.uasset",
+      "bytes": 7727299,
+      "sha256": "bcfdfe405d71862b90ced824b0590c8d26a3c3d0e8eee5715235fd0a62fa9674"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\SM_TreasureChest_Open.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/SM_TreasureChest_Open.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\SM_TreasureChest_Open.uasset",
+      "bytes": 7828283,
+      "sha256": "97474fc274b64cec78eb6bb5699d7713e5430916e5aac4f1e13ff5a03a9c49ee"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Gold_Normal.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Textures/T_Treasure_Gold_Normal.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Gold_Normal.uasset",
+      "bytes": 1639401,
+      "sha256": "86ef0dcfc83ce4fb178d3006dcded2d85864b65d8bc52527a9153fe370416f33"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Gold_Surface.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Textures/T_Treasure_Gold_Surface.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Gold_Surface.uasset",
+      "bytes": 2204671,
+      "sha256": "f3e5eb7cb08a70203a7e1df1ac59eb181438be8da945dd71b7353427b53e097e"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Iron_Normal.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Textures/T_Treasure_Iron_Normal.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Iron_Normal.uasset",
+      "bytes": 1858326,
+      "sha256": "9a4bed041517ef2ed638a777887eada7641a94549efdb55ce1a5df69f6ab2908"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Iron_Surface.uasset",
+      "relative": "Content/Props/GamedevTreasureChest20260922/Textures/T_Treasure_Iron_Surface.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\Props\\GamedevTreasureChest20260922\\Textures\\T_Treasure_Iron_Surface.uasset",
+      "bytes": 2187488,
+      "sha256": "d41f34ea735f8f8ca1fcf0fc8b4ad9feb92cac2f371220cca0792ecc545ca145"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\SK_GamedevTreasureChest.fbx",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/SK_GamedevTreasureChest.fbx",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\SK_GamedevTreasureChest.fbx",
+      "bytes": 29519148,
+      "sha256": "73f3ac1933851684529b3b7ebfa5ed5293b5ad0e21c699c873348233e70e5fbe"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\SM_TreasureChest_Closed.fbx",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/SM_TreasureChest_Closed.fbx",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\SM_TreasureChest_Closed.fbx",
+      "bytes": 29370124,
+      "sha256": "8ff57784d462dbb2e86eb62e43f9f203736f0181a2e42333877a23e62d55a3ba"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\SM_TreasureChest_Open.fbx",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/SM_TreasureChest_Open.fbx",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\SM_TreasureChest_Open.fbx",
+      "bytes": 29627004,
+      "sha256": "85695a58b1c6c15176c4e226a20b49d5152ca8793678b1a622afc7e4dcdd90ff"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\TreasureChest_Detail.blend",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail.blend",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\TreasureChest_Detail.blend",
+      "bytes": 6598741,
+      "sha256": "821c8669bcebb05e10d33e5e2a4e216573d1df51c7ff33977f09f5452b5755b8"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\TreasureChest_Detail_Components.blend",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail_Components.blend",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\TreasureChest_Detail_Components.blend",
+      "bytes": 3113166,
+      "sha256": "81e55fedfac28891f027cecbfac38f7ac8c9d0222104a00af0d96af7dc72e574"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\TreasureChest_Detail_Opening.blend",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Authored/TreasureChest_Detail_Opening.blend",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Authored\\TreasureChest_Detail_Opening.blend",
+      "bytes": 6600589,
+      "sha256": "02f4411248857288466924ae03627470d2eab0708dc6e729f9e702491f313476"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\BeforeRepair\\SK_GamedevTreasureChest.uasset",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/BeforeRepair/SK_GamedevTreasureChest.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\BeforeRepair\\SK_GamedevTreasureChest.uasset",
+      "bytes": 38759476,
+      "sha256": "19ad1f61cc332a275d618947607193d01d8436e7e715eb3e53b7f251af92489b"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\BeforeRepair\\SM_TreasureChest_Closed.uasset",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/BeforeRepair/SM_TreasureChest_Closed.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\BeforeRepair\\SM_TreasureChest_Closed.uasset",
+      "bytes": 2493590,
+      "sha256": "c577392fd2bbe17b3ab5dab8460b0d3a7c598c299425bc1ca160d248f9b8ae87"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\BeforeRepair\\SM_TreasureChest_Open.uasset",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/BeforeRepair/SM_TreasureChest_Open.uasset",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\BeforeRepair\\SM_TreasureChest_Open.uasset",
+      "bytes": 2539162,
+      "sha256": "d60545dcefac0165fd1595205b2a6d72e4ba269fa42d9e4487c0cc0d77d93f2e"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\PLAN.md",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/PLAN.md",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\PLAN.md",
+      "bytes": 2189,
+      "sha256": "a6b863cf6f1fa0f700bc923b28574bd639d9625706b3f94d8ab156928e8bade9"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\README.md",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/README.md",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\README.md",
+      "bytes": 3832,
+      "sha256": "3bfae7274c021a286bfbf5ffbe4e4436b5c528318c53ec5f4e734b3e911b6075"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\authoring.json",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/authoring.json",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\authoring.json",
+      "bytes": 85643,
+      "sha256": "0aaabfd720bdffea7badbe04b6904f8c1013a87408cd22073f20905a985d23fa"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\blender.log",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/blender.log",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\blender.log",
+      "bytes": 976,
+      "sha256": "5088e6b2cb111f07e1a0cfb82c0b4c8defe863e873a0f6c0e1b1072632678ec0"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\install-engine.log",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/install-engine.log",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\install-engine.log",
+      "bytes": 312166,
+      "sha256": "5bbe4a1ef3330a6d926abe4ab70553a890fd0698ea74849cc856b3e182c1f6ce"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\install-engine.log.stdout",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/install-engine.log.stdout",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\install-engine.log.stdout",
+      "bytes": 45968,
+      "sha256": "b64e47090fce184a2aadaf8a1038bbc0a2ded98d0fe0a870a7563b9a39292a73"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\install.json",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/install.json",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\install.json",
+      "bytes": 3391,
+      "sha256": "76cae373308bf470f89d3383c8ce0b16bdadf2d3a2a90cceb114fdd8aa99303c"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\published.json",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/published.json",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\published.json",
+      "bytes": 3391,
+      "sha256": "76cae373308bf470f89d3383c8ce0b16bdadf2d3a2a90cceb114fdd8aa99303c"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\surfaces.json",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/surfaces.json",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\surfaces.json",
+      "bytes": 803,
+      "sha256": "136ad5258550a81d2010a3a0b985eeb6bb5b0cefe5c7c0c0e0e949fb5133b47b"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\textures.log",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Receipts/textures.log",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Receipts\\textures.log",
+      "bytes": 34,
+      "sha256": "e4692ea575a97c31a2f228f7586dbe77e98db9739af034b9ade169695054c0ac"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\author_chest.py",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Scripts/author_chest.py",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\author_chest.py",
+      "bytes": 23787,
+      "sha256": "ae24687b8f17498e26edcf064ae98b8452d40e1299b22d86b49ce9dcde70535a"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\geometry_helpers.py",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Scripts/geometry_helpers.py",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\geometry_helpers.py",
+      "bytes": 9808,
+      "sha256": "d3c36856195eed995c4c8951805cabd2cbc666cf73dd7cffd89c07b7d8f2c0a8"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\install_detail.py",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Scripts/install_detail.py",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\install_detail.py",
+      "bytes": 15431,
+      "sha256": "5e0a954a87f813238c57e1f5116431ae39968d0dae5e7876f16fd51027752424"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\make_surface_maps.py",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Scripts/make_surface_maps.py",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\make_surface_maps.py",
+      "bytes": 4211,
+      "sha256": "a5a699d3d3e42a6fa5c729eb8c0dc2b37d99e76a739df9e92557115f779b64d4"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\run_background.ps1",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Scripts/run_background.ps1",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Scripts\\run_background.ps1",
+      "bytes": 2125,
+      "sha256": "49dbe50387309780a584eec88056cf343908328d5c3df02704c91adad6e76f66"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Gold_BaseColor.png",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Textures/T_TreasureDetail_Gold_BaseColor.png",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Gold_BaseColor.png",
+      "bytes": 2648341,
+      "sha256": "25c4a44a17778a978eb56d77a798fd47b7a02982ca05da55c1d683bd2ad040fd"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Gold_Normal.png",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Textures/T_TreasureDetail_Gold_Normal.png",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Gold_Normal.png",
+      "bytes": 2669361,
+      "sha256": "fcc51655c084cf865d9a54b50d41f80b9728779fa633fe8c44acf97630b4fb21"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Gold_ORM.png",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Textures/T_TreasureDetail_Gold_ORM.png",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Gold_ORM.png",
+      "bytes": 3215871,
+      "sha256": "0f968363ebde33ecb9d379b5ab1d06648bc26954b059bb2a672c01a040a6caa0"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Iron_BaseColor.png",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Textures/T_TreasureDetail_Iron_BaseColor.png",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Iron_BaseColor.png",
+      "bytes": 1887024,
+      "sha256": "2cf19302a695b3191658796562fb1b033bcf8c0f64bc67f60da46546d9bab6cb"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Iron_Normal.png",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Textures/T_TreasureDetail_Iron_Normal.png",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Iron_Normal.png",
+      "bytes": 3905680,
+      "sha256": "0deec112b8c643410b5dc163657aeff1e8f4943f6d50e34e2dad80dcac3f7632"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Iron_ORM.png",
+      "relative": "SourceAssets/GamedevTreasureChestDetail20261003/Textures/T_TreasureDetail_Iron_ORM.png",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\GamedevTreasureChestDetail20261003\\Textures\\T_TreasureDetail_Iron_ORM.png",
+      "bytes": 4218757,
+      "sha256": "70c83cb3b74dc685a3234236cddf02034b6d66377f6395d4edcb876f28e16794"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\treasure_chest_assets.json",
+      "relative": "Content/ColdSteelData/treasure_chest_assets.json",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\Content\\ColdSteelData\\treasure_chest_assets.json",
+      "bytes": 731,
+      "sha256": "82e3cc431b9bca08541f5532f09e683b92c976b381051f711f2588260c8349c5"
+    },
+    {
+      "original": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonRoutes20260922\\Config\\catalog.json",
+      "relative": "SourceAssets/DungeonRoutes20260922/Config/catalog.json",
+      "backup": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\backups\\20261004T101716Z\\SourceAssets\\DungeonRoutes20260922\\Config\\catalog.json",
+      "bytes": 1355582,
+      "sha256": "95136df6dc6d8a7068116c4f0a4d4b0111b3db5d6344e73f4e1d28c93b6857b0"
+    }
+  ],
+  "scope": "Disk snapshot only. Recheck original hashes and editor dirty packages immediately before promotion.",
+  "rollback": "Close the editor safely after saving unrelated work. Restore only changed formal treasure mesh packages from this backup. Do not restore catalog/config or other source files unless this task changed them. New V3 revision assets may remain unreferenced; original animations and skeleton must keep their original hashes."
+}

@@ -52,10 +52,12 @@ def wall(a,b,height=4.5,holes=(),both=False,tiles=True):
  # All fixed frames (windows AND doors) need clearance from the concrete
  # reveal on every edge. V7 excluded glass windows and left all four inner
  # planes coplanar. Bury masonry 5 mm inside the continuous metal frame;
- # finished openings and the separate interactive door assemblies stay put.
+ # fixed openings stay put. Interactive doors keep their leaf/actor positions,
+ # but reserve a 326 cm throat, a buried 5 mm side lip and 5 mm above the
+ # existing frame's 300.2 cm soffit for the swept leaf thickness.
  masonry_cuts=[dict(h,lo=h['lo']-.005,hi=h['hi']+.005,
                     bottom=max(0,h['bottom']-.005),top=h['top']+.005)
-               if not h['interactive'] else h for h in cuts]
+               if not h['interactive'] else dict(h,lo=h['lo']-.035,hi=h['hi']+.035,top=h['top']+.007) for h in cuts]
  xs=sorted(set([0,length]+[v for h in masonry_cuts for v in (h['lo'],h['hi'])]))
  def fill(lo,hi,z0,z1,kind='Walls',mat='Concrete',depth=.28,offset=0):
   if hi-lo<.001 or z1-z0<.001:return

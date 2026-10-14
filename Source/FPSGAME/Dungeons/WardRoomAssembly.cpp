@@ -27,7 +27,7 @@ namespace
 }
 
 AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
-    const FTransform& Room,AActor* Frame,FName ReceiverTag,TFunctionRef<UObject*(const FString&)> Resolve)
+    const FTransform& Room,AActor* Frame,FName ReceiverTag,TFunctionRef<UObject*(const FString&)> Resolve,bool bMonsterDoors)
 {
     const FString Type=S->GetStringField(TEXT("type"));
     double Pitch=0,Roll=0;S->TryGetNumberField(TEXT("pitch"),Pitch);S->TryGetNumberField(TEXT("roll"),Roll);
@@ -75,6 +75,7 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
         if(!Door)return nullptr;
         Door->ConfigureStandaloneLeaf(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("leaf")))),
             S->GetBoolField(TEXT("positive_hinge")),S->GetNumberField(TEXT("open_seconds")),S->GetNumberField(TEXT("auto_close_seconds")));
+        if(bMonsterDoors)Door->EnableMonsterAccess();
         Result=Door;
     }
     else if(Type==TEXT("glass_door"))
@@ -83,6 +84,7 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
         if(!Door)return nullptr;
         Door->ConfigureStandaloneLeaf(Cast<UStaticMesh>(Resolve(S->GetStringField(TEXT("leaf")))),
             S->GetBoolField(TEXT("positive_hinge")),S->GetNumberField(TEXT("open_seconds")),S->GetNumberField(TEXT("auto_close_seconds")));
+        if(bMonsterDoors)Door->EnableMonsterAccess();
         Result=Door;Pane=Door->GlassPane;
     }
     else if(Type==TEXT("glass_window"))

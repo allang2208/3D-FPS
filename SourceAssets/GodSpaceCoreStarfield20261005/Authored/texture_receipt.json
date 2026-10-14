@@ -1,0 +1,20 @@
+{
+  "revision": "V2",
+  "original_procedural_art": true,
+  "seed": 20261005,
+  "starfield_dimensions": [
+    4096,
+    2048
+  ],
+  "seam_max_byte_delta": 0,
+  "north_pole_max_channel_spread": 0,
+  "south_pole_max_channel_spread": 0,
+  "star_count": 10500,
+  "independent_stars_emission": true,
+  "ring_atlas_dimensions": [
+    1024,
+    256
+  ],
+  "gold_normal_mean_z": 0.9996749549035657,
+  "concept_image_used_as_texture": false
+}

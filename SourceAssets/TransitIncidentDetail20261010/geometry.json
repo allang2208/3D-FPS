@@ -1,0 +1,256 @@
+{
+  "meshes": [
+    {
+      "name": "SM_IncidentDetail_Bucket",
+      "kind": "Bucket",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Bucket",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Bucket.fbx",
+      "sha256": "51b860f8130c05d7a8b9b092f1d42476b6f35d3f0b7ca4ffd9142a1489d99f01",
+      "materials": {
+        "ID2_Yellow": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Yellow",
+        "ID2_Steel": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Steel",
+        "ID2_Rubber": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Rubber",
+        "ID2_Caution": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Caution"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 36110,
+      "bounds_blender_m": [
+        [
+          -0.25277912616729736,
+          -0.004768533166497946,
+          0.0010000000474974513
+        ],
+        [
+          0.2527643144130707,
+          0.5518192052841187,
+          0.441736102104187
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_Mop",
+      "kind": "Mop",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Mop",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Mop.fbx",
+      "sha256": "b1085335ea211203a0c87de7e5f47efa833a3240b53140f46533fa486c696e5b",
+      "materials": {
+        "ID2_Steel": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Steel",
+        "ID2_Teal": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Teal",
+        "ID2_Rubber": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Rubber",
+        "ID2_Cotton": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Cotton"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 40118,
+      "bounds_blender_m": [
+        [
+          -0.9236331582069397,
+          -0.17717039585113525,
+          0.0010000000474974513
+        ],
+        [
+          0.8293540477752686,
+          0.18594489991664886,
+          0.06337834894657135
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_WarningSign",
+      "kind": "WarningSign",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_WarningSign",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_WarningSign.fbx",
+      "sha256": "c6aaf416468c3ceac9ddb49a04f324d9d15faefd81f3b6c8f136eb4c9d5980f7",
+      "materials": {
+        "ID2_Yellow": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Yellow",
+        "ID2_Rubber": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Rubber",
+        "ID2_Steel": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Steel",
+        "ID2_Caution": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Caution"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 3850,
+      "bounds_blender_m": [
+        [
+          -0.1594800055027008,
+          -1.1364961194360035e-09,
+          0.0010000000474974513
+        ],
+        [
+          0.1594800055027008,
+          0.6034999489784241,
+          0.05900000035762787
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_Paper0",
+      "kind": "Paper0",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Paper0.fbx",
+      "sha256": "4b5a446f7a900324cf8e10ed3c4bcfa8bf52242d5a856c09345283b45ede85a1",
+      "materials": {
+        "ID2_Forms": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Forms"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 1560,
+      "bounds_blender_m": [
+        [
+          -0.10480000823736191,
+          -0.148499995470047,
+          0.0010000000474974513
+        ],
+        [
+          0.10485567152500153,
+          0.148499995470047,
+          0.01763998158276081
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_Paper1",
+      "kind": "Paper1",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Paper1.fbx",
+      "sha256": "429d56c046c5abf65d453ceb75897aed40b4d001847466a349df5f8cdf03b117",
+      "materials": {
+        "ID2_Forms": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Forms"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 1560,
+      "bounds_blender_m": [
+        [
+          -0.10480000078678131,
+          -0.148499995470047,
+          0.0010000000474974513
+        ],
+        [
+          0.10480000078678131,
+          0.14850550889968872,
+          0.08688895404338837
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_Paper2",
+      "kind": "Paper2",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Paper2.fbx",
+      "sha256": "5deba61e96a42b2df81cd17c5351b29c9541c22350ef090971439e372c693091",
+      "materials": {
+        "ID2_Forms": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Forms"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 1560,
+      "bounds_blender_m": [
+        [
+          -0.10480000078678131,
+          -0.148499995470047,
+          0.0010000000474974513
+        ],
+        [
+          0.10480000078678131,
+          0.148499995470047,
+          0.018138984218239784
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_Paper3",
+      "kind": "Paper3",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Paper3.fbx",
+      "sha256": "d4224915292ff3150b673b2c73bc8b94884639d1e6d5cea1c5b9b362f5202a3b",
+      "materials": {
+        "ID2_Forms": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Forms"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 1560,
+      "bounds_blender_m": [
+        [
+          -0.10482317209243774,
+          -0.148499995470047,
+          0.0010000000474974513
+        ],
+        [
+          0.10484708100557327,
+          0.148499995470047,
+          0.04003481566905975
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_Folder",
+      "kind": "Folder",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Folder",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_Folder.fbx",
+      "sha256": "402e57d093c4b0a51e2dc90133e5e069f6b3fcf390a2c736069b58ba7a8cbafd",
+      "materials": {
+        "ID2_Board": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Board",
+        "ID2_Paper": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Paper",
+        "ID2_Forms": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Forms",
+        "ID2_Steel": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Steel"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 1910,
+      "bounds_blender_m": [
+        [
+          -0.3540000021457672,
+          -0.1665000021457672,
+          0.0010000000474974513
+        ],
+        [
+          0.12549999356269836,
+          0.18250000476837158,
+          0.02160000056028366
+        ]
+      ]
+    },
+    {
+      "name": "SM_IncidentDetail_WasteBasket",
+      "kind": "WasteBasket",
+      "mesh": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_WasteBasket",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Authored\\SM_IncidentDetail_WasteBasket.fbx",
+      "sha256": "bb1f65b5fe0cd1e6f306cef38acee9f2bbad9763852686dfbcab084349919fb4",
+      "materials": {
+        "ID2_Steel": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Steel",
+        "ID2_Rubber": "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Rubber"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 16056,
+      "bounds_blender_m": [
+        [
+          -0.1589999943971634,
+          0.001999995205551386,
+          0.0010000000474974513
+        ],
+        [
+          0.1582290381193161,
+          0.3038042485713959,
+          0.3189998269081116
+        ]
+      ]
+    }
+  ],
+  "wear_channels": [
+    "dirt",
+    "edge wear",
+    "wet cotton"
+  ]
+}

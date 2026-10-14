@@ -1,0 +1,562 @@
+{
+  "stage": "maps_saved",
+  "revision": "transit_incident_detail_20261010",
+  "saved_assets": [
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Caution_BC",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Forms_BC",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Forms_NormalDX",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Forms_ORM",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Surfaces_BC",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Surfaces_NormalDX",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Textures/T_IncidentDetail_Surfaces_ORM",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Yellow",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Steel",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Rubber",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Cotton",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Teal",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Board",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Paper",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Forms",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Materials/M_IncidentDetail_Caution",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Bucket",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Mop",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_WarningSign",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Folder",
+    "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_WasteBasket"
+  ],
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "changed": [
+        "FacilityTransit_Incident_CleaningBucket",
+        "FacilityTransit_Incident_CleaningMop",
+        "FacilityTransit_Incident_CleaningWarning",
+        "FacilityTransit_Incident_DutyFolder",
+        "FacilityTransit_Incident_DutyBasket",
+        "FacilityTransit_Incident_LowerFolder",
+        "FacilityTransit_Incident_ServiceFolder",
+        "FacilityTransit_Incident_DutyPaper0",
+        "FacilityTransit_Incident_DutyPaper1",
+        "FacilityTransit_Incident_DutyPaper2",
+        "FacilityTransit_Incident_DutyPaper3",
+        "FacilityTransit_Incident_DutyPaper4",
+        "FacilityTransit_Incident_DutyPaper5",
+        "FacilityTransit_Incident_DutyPaper6",
+        "FacilityTransit_Incident_DutyPaper7",
+        "FacilityTransit_Incident_DutyPaper8",
+        "FacilityTransit_Incident_DutyPaper9",
+        "FacilityTransit_Incident_DutyPaper10",
+        "FacilityTransit_Incident_DutyPaper11",
+        "FacilityTransit_Incident_DutyPaper12",
+        "FacilityTransit_Incident_DutyPaper13",
+        "FacilityTransit_Incident_DutyPaper14",
+        "FacilityTransit_Incident_DutyPaper15",
+        "FacilityTransit_Incident_DutyPaper16",
+        "FacilityTransit_Incident_LowerPaper0",
+        "FacilityTransit_Incident_LowerPaper1",
+        "FacilityTransit_Incident_LowerPaper2",
+        "FacilityTransit_Incident_LowerPaper3",
+        "FacilityTransit_Incident_LowerPaper4",
+        "FacilityTransit_Incident_LowerPaper5",
+        "FacilityTransit_Incident_LowerPaper6",
+        "FacilityTransit_Incident_LowerPaper7",
+        "FacilityTransit_Incident_LowerPaper8",
+        "FacilityTransit_Incident_LowerPaper9",
+        "FacilityTransit_Incident_LowerPaper10",
+        "FacilityTransit_Incident_LowerPaper11",
+        "FacilityTransit_Incident_LowerPaper12",
+        "FacilityTransit_Incident_PPEPaper0",
+        "FacilityTransit_Incident_PPEPaper1",
+        "FacilityTransit_Incident_PPEPaper2",
+        "FacilityTransit_Incident_PPEPaper3",
+        "FacilityTransit_Incident_PPEPaper4",
+        "FacilityTransit_Incident_PPEPaper5",
+        "FacilityTransit_Incident_PPEPaper6",
+        "FacilityTransit_Incident_PPEPaper7",
+        "FacilityTransit_Incident_PPEPaper8",
+        "FacilityTransit_Incident_PPEPaper9",
+        "FacilityTransit_Incident_PPEPaper10",
+        "FacilityTransit_Incident_PPEPaper11",
+        "FacilityTransit_Incident_PPEPaper12",
+        "FacilityTransit_Incident_ServicePaper0",
+        "FacilityTransit_Incident_ServicePaper1",
+        "FacilityTransit_Incident_ServicePaper2",
+        "FacilityTransit_Incident_ServicePaper3",
+        "FacilityTransit_Incident_ServicePaper4",
+        "FacilityTransit_Incident_ServicePaper5",
+        "FacilityTransit_Incident_ServicePaper6",
+        "FacilityTransit_Incident_ServicePaper7",
+        "FacilityTransit_Incident_ServicePaper8",
+        "FacilityTransit_Incident_ServicePaper9",
+        "FacilityTransit_Incident_ServicePaper10",
+        "FacilityTransit_Incident_ServicePaper11",
+        "FacilityTransit_Incident_TrailPaper0",
+        "FacilityTransit_Incident_TrailPaper1",
+        "FacilityTransit_Incident_TrailPaper2",
+        "FacilityTransit_Incident_TrailPaper3",
+        "FacilityTransit_Incident_TrailPaper4",
+        "FacilityTransit_Incident_TrailPaper5",
+        "FacilityTransit_Incident_TrailPaper6",
+        "FacilityTransit_Incident_TrailPaper7",
+        "FacilityTransit_Incident_TrailPaper8",
+        "FacilityTransit_Incident_TrailPaper9"
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "changed": [
+        "FacilityTransit_Incident_CleaningBucket",
+        "FacilityTransit_Incident_CleaningMop",
+        "FacilityTransit_Incident_CleaningWarning",
+        "FacilityTransit_Incident_DutyFolder",
+        "FacilityTransit_Incident_DutyBasket",
+        "FacilityTransit_Incident_LowerFolder",
+        "FacilityTransit_Incident_ServiceFolder",
+        "FacilityTransit_Incident_DutyPaper0",
+        "FacilityTransit_Incident_DutyPaper1",
+        "FacilityTransit_Incident_DutyPaper2",
+        "FacilityTransit_Incident_DutyPaper3",
+        "FacilityTransit_Incident_DutyPaper4",
+        "FacilityTransit_Incident_DutyPaper5",
+        "FacilityTransit_Incident_DutyPaper6",
+        "FacilityTransit_Incident_DutyPaper7",
+        "FacilityTransit_Incident_DutyPaper8",
+        "FacilityTransit_Incident_DutyPaper9",
+        "FacilityTransit_Incident_DutyPaper10",
+        "FacilityTransit_Incident_DutyPaper11",
+        "FacilityTransit_Incident_DutyPaper12",
+        "FacilityTransit_Incident_DutyPaper13",
+        "FacilityTransit_Incident_DutyPaper14",
+        "FacilityTransit_Incident_DutyPaper15",
+        "FacilityTransit_Incident_DutyPaper16",
+        "FacilityTransit_Incident_LowerPaper0",
+        "FacilityTransit_Incident_LowerPaper1",
+        "FacilityTransit_Incident_LowerPaper2",
+        "FacilityTransit_Incident_LowerPaper3",
+        "FacilityTransit_Incident_LowerPaper4",
+        "FacilityTransit_Incident_LowerPaper5",
+        "FacilityTransit_Incident_LowerPaper6",
+        "FacilityTransit_Incident_LowerPaper7",
+        "FacilityTransit_Incident_LowerPaper8",
+        "FacilityTransit_Incident_LowerPaper9",
+        "FacilityTransit_Incident_LowerPaper10",
+        "FacilityTransit_Incident_LowerPaper11",
+        "FacilityTransit_Incident_LowerPaper12",
+        "FacilityTransit_Incident_PPEPaper0",
+        "FacilityTransit_Incident_PPEPaper1",
+        "FacilityTransit_Incident_PPEPaper2",
+        "FacilityTransit_Incident_PPEPaper3",
+        "FacilityTransit_Incident_PPEPaper4",
+        "FacilityTransit_Incident_PPEPaper5",
+        "FacilityTransit_Incident_PPEPaper6",
+        "FacilityTransit_Incident_PPEPaper7",
+        "FacilityTransit_Incident_PPEPaper8",
+        "FacilityTransit_Incident_PPEPaper9",
+        "FacilityTransit_Incident_PPEPaper10",
+        "FacilityTransit_Incident_PPEPaper11",
+        "FacilityTransit_Incident_PPEPaper12",
+        "FacilityTransit_Incident_ServicePaper0",
+        "FacilityTransit_Incident_ServicePaper1",
+        "FacilityTransit_Incident_ServicePaper2",
+        "FacilityTransit_Incident_ServicePaper3",
+        "FacilityTransit_Incident_ServicePaper4",
+        "FacilityTransit_Incident_ServicePaper5",
+        "FacilityTransit_Incident_ServicePaper6",
+        "FacilityTransit_Incident_ServicePaper7",
+        "FacilityTransit_Incident_ServicePaper8",
+        "FacilityTransit_Incident_ServicePaper9",
+        "FacilityTransit_Incident_ServicePaper10",
+        "FacilityTransit_Incident_ServicePaper11",
+        "FacilityTransit_Incident_TrailPaper0",
+        "FacilityTransit_Incident_TrailPaper1",
+        "FacilityTransit_Incident_TrailPaper2",
+        "FacilityTransit_Incident_TrailPaper3",
+        "FacilityTransit_Incident_TrailPaper4",
+        "FacilityTransit_Incident_TrailPaper5",
+        "FacilityTransit_Incident_TrailPaper6",
+        "FacilityTransit_Incident_TrailPaper7",
+        "FacilityTransit_Incident_TrailPaper8",
+        "FacilityTransit_Incident_TrailPaper9"
+      ]
+    }
+  ],
+  "game_run": false,
+  "rendered": false,
+  "tested": false,
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitIncidentDetail20261010\\Backups\\20261010-115922",
+  "replacements": [
+    {
+      "id": "Incident_CleaningBucket",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Bucket",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Bucket"
+    },
+    {
+      "id": "Incident_CleaningMop",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Mop",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Mop"
+    },
+    {
+      "id": "Incident_CleaningWarning",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_WarningSign",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_WarningSign"
+    },
+    {
+      "id": "Incident_DutyFolder",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Folder",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Folder"
+    },
+    {
+      "id": "Incident_DutyBasket",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_WasteBasket",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_WasteBasket"
+    },
+    {
+      "id": "Incident_LowerFolder",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Folder",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Folder"
+    },
+    {
+      "id": "Incident_ServiceFolder",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Folder",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Folder"
+    },
+    {
+      "id": "Incident_DutyPaper0",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_DutyPaper1",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_DutyPaper2",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_DutyPaper3",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_DutyPaper4",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_DutyPaper5",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_DutyPaper6",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_DutyPaper7",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_DutyPaper8",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_DutyPaper9",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_DutyPaper10",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_DutyPaper11",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_DutyPaper12",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_DutyPaper13",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_DutyPaper14",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_DutyPaper15",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_DutyPaper16",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_LowerPaper0",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_LowerPaper1",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_LowerPaper2",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_LowerPaper3",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_LowerPaper4",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_LowerPaper5",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_LowerPaper6",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_LowerPaper7",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_LowerPaper8",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_LowerPaper9",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_LowerPaper10",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_LowerPaper11",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_LowerPaper12",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_PPEPaper0",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_PPEPaper1",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_PPEPaper2",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_PPEPaper3",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_PPEPaper4",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_PPEPaper5",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_PPEPaper6",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_PPEPaper7",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_PPEPaper8",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_PPEPaper9",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_PPEPaper10",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_PPEPaper11",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_PPEPaper12",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_ServicePaper0",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_ServicePaper1",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_ServicePaper2",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_ServicePaper3",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_ServicePaper4",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_ServicePaper5",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_ServicePaper6",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_ServicePaper7",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_ServicePaper8",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_ServicePaper9",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_ServicePaper10",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_ServicePaper11",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_TrailPaper0",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_TrailPaper1",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_TrailPaper2",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_TrailPaper3",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_TrailPaper4",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_TrailPaper5",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    },
+    {
+      "id": "Incident_TrailPaper6",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper3"
+    },
+    {
+      "id": "Incident_TrailPaper7",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper0"
+    },
+    {
+      "id": "Incident_TrailPaper8",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper1"
+    },
+    {
+      "id": "Incident_TrailPaper9",
+      "before": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+      "after": "/Game/Dungeons/TransitIncidentDetail20261010/Meshes/SM_IncidentDetail_Paper2"
+    }
+  ],
+  "existing_light_count": 32,
+  "poses_preserved": true,
+  "blood_and_interactions_preserved": true
+}

@@ -1,4 +1,5 @@
 #include "DungeonRoomGate.h"
+#include "Net/UnrealNetwork.h"
 #include "DungeonRoomGateDimensions.h"
 #include "DungeonRunSubsystem.h"
 #include "Components/BoxComponent.h"
@@ -8,6 +9,10 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
 
 TArray<FString> ADungeonRoomGate::AssetPaths()
@@ -22,8 +27,11 @@ TArray<FString> ADungeonRoomGate::AssetPaths()
 
 ADungeonRoomGate::ADungeonRoomGate()
 {
+    bReplicates=true;bAlwaysRelevant=true;
     RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("GrilleRoot"));
-    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bStartWithTickEnabled = false;
+    PrimaryActorTick.TickGroup = TG_PrePhysics;
     Panels = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("TelescopicPanels"));
     GuideLeft = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GuideLeft"));
     GuideRight = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GuideRight"));
@@ -88,6 +96,7 @@ bool ADungeonRoomGate::Configure(const FDungeonRunDoor& Door)
         !FMath::IsFinite(Door.Width) || !FMath::IsFinite(Door.Height) || Door.Width <= 0. || Door.Height <= 0. ||
         !Panels->GetStaticMesh() || !GuideLeft->GetStaticMesh() || !GuideRight->GetStaticMesh() || !Head->GetStaticMesh())
         return false;
+    if(HasAuthority()){NetFloor=Door.FloorCenter;NetNormal=Door.OutwardNormal;NetSize=FVector2D(Door.Width,Door.Height);ForceNetUpdate();}
     ClearWidth = Door.Width;
     ClearHeight = Door.Height;
     PanelHeight = ClearHeight / PanelCount + PanelOverlap;
@@ -134,6 +143,7 @@ void ADungeonRoomGate::SetOpenFraction(float Fraction)
 {
     using namespace DungeonRoomGateDimensions;
     Fraction = FMath::Clamp(Fraction, 0.f, 1.f);
+    if(HasAuthority())NetOpen=Fraction;
     if (ClearHeight <= 0. || Fraction == LastOpenFraction) return;
     LastOpenFraction = Fraction;
     const double Lift = FMath::SmoothStep(0.f, 1.f, Fraction);
@@ -156,8 +166,91 @@ void ADungeonRoomGate::SetOpenFraction(float Fraction)
 
 void ADungeonRoomGate::SetEncounterLocked(bool bLocked)
 {
+    if(HasAuthority()){NetLocked=bLocked;ForceNetUpdate();}
+    const bool bStartingLock=bLocked && EncounterBarrier->GetCollisionEnabled()==ECollisionEnabled::NoCollision;
     const auto Collision=bLocked?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision;
     if(EncounterBarrier->GetCollisionEnabled()!=Collision)EncounterBarrier->SetCollisionEnabled(Collision);
+    SetActorTickEnabled(bLocked && NetEntryOnly);
+    if (!bLocked) ClearInboundAccess();
+    else if (NetEntryOnly) UpdateInboundAccess(bStartingLock);
+}
+
+void ADungeonRoomGate::SetEntryOnly(bool bEnabled)
+{
+    if (!HasAuthority()) return;
+    NetEntryOnly=bEnabled; ForceNetUpdate();
+    SetActorTickEnabled(NetLocked && NetEntryOnly);
+    if (!bEnabled) ClearInboundAccess();
+}
+
+void ADungeonRoomGate::SetInboundAccess(UPrimitiveComponent* Capsule,bool bAllowed)
+{
+    if (!Capsule) return;
+    // Exempt this player's movement from the directional barrier only. The
+    // physical grille remains solid until its normal lift clears the opening.
+    Capsule->IgnoreComponentWhenMoving(EncounterBarrier,bAllowed);
+    if (const auto* Character=Cast<ACharacter>(Capsule->GetOwner()))
+        if (auto* Movement=Character->GetCharacterMovement())
+        {
+            if (bAllowed) Movement->AddTickPrerequisiteActor(this);
+            else Movement->RemoveTickPrerequisiteActor(this);
+        }
+}
+
+void ADungeonRoomGate::ClearInboundAccess()
+{
+    for (const auto& Capsule:InboundCapsules) SetInboundAccess(Capsule.Get(),false);
+    InboundCapsules.Reset();
+}
+
+void ADungeonRoomGate::UpdateInboundAccess(bool bStartingLock)
+{
+    using namespace DungeonRoomGateDimensions;
+    if (!NetEntryOnly || !NetLocked || ClearWidth<=0.) { ClearInboundAccess(); return; }
+    const double OuterFace=FirstTrack-PanelThickness*.5;
+    const double InnerFace=FirstTrack+(PanelCount-1)*TrackPitch+PanelThickness*.5;
+    TSet<TWeakObjectPtr<UPrimitiveComponent>> Allowed;
+    for (auto It=GetWorld()->GetPlayerControllerIterator(); It; ++It)
+    {
+        APawn* Pawn=It->Get() ? It->Get()->GetPawn().Get() : nullptr;
+        if (!IsValid(Pawn) || (!HasAuthority() && !Pawn->IsLocallyControlled())) continue;
+        const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
+        if (Health && Health->IsDead()) continue;
+        auto* Capsule=Cast<UPrimitiveComponent>(Pawn->GetRootComponent());
+        if (!Capsule) continue;
+        const FVector Local=GetActorTransform().InverseTransformPosition(Pawn->GetActorLocation());
+        const double Radius=Pawn->GetSimpleCollisionRadius(), HalfHeight=Pawn->GetSimpleCollisionHalfHeight();
+        const bool NearOpening=FMath::Abs(Local.X)<ClearWidth*.5+Radius+40.
+            && Local.Y>-450. && Local.Z+HalfHeight>0. && Local.Z-HalfHeight<ClearHeight;
+        if (!NearOpening) continue;
+        const bool AlreadyAdmitted=InboundCapsules.Contains(Capsule);
+        // A teammate already crossing when the fight starts can finish entering.
+        // Later admissions originate outside. End the exception once the entire
+        // capsule is inside, then block any return immediately.
+        // Match IsSweepOccupied's inner clearance so the player who starts the
+        // encounter is already outside this temporary admission allowance.
+        const bool MayEnter=(AlreadyAdmitted || bStartingLock) ? Local.Y-Radius<InnerFace+2. : Local.Y<OuterFace-3.;
+        if (!MayEnter) continue;
+        Allowed.Add(Capsule);
+        if (!AlreadyAdmitted) SetInboundAccess(Capsule,true);
+    }
+    for (const auto& Capsule:InboundCapsules)
+        if (!Allowed.Contains(Capsule)) SetInboundAccess(Capsule.Get(),false);
+    InboundCapsules=MoveTemp(Allowed);
+}
+
+void ADungeonRoomGate::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    // The server enforces admission. The owning client makes the same local
+    // movement exception from replicated gate policy, avoiding prediction stalls.
+    UpdateInboundAccess();
+}
+
+void ADungeonRoomGate::EndPlay(const EEndPlayReason::Type Reason)
+{
+    ClearInboundAccess();
+    Super::EndPlay(Reason);
 }
 
 bool ADungeonRoomGate::IsSweepOccupied(const APawn* Pawn) const
@@ -177,4 +270,15 @@ bool ADungeonRoomGate::IsSweepOccupied(const APawn* Pawn) const
         Local.Y > -Radius - 200. &&
         Local.Y < LastTrack + PanelThickness * .5 + Radius + 2. &&
         Local.Z + HalfHeight > -PanelOverlap * .5 && Local.Z - HalfHeight < ClearHeight + OpenClearance + PanelHeight;
+}
+
+void ADungeonRoomGate::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ADungeonRoomGate,NetFloor);DOREPLIFETIME(ADungeonRoomGate,NetNormal);DOREPLIFETIME(ADungeonRoomGate,NetSize);DOREPLIFETIME(ADungeonRoomGate,NetOpen);DOREPLIFETIME(ADungeonRoomGate,NetLocked);DOREPLIFETIME(ADungeonRoomGate,NetEntryOnly);}
+void ADungeonRoomGate::OnRep_GateShape()
+{if(NetSize.X<=0||NetSize.Y<=0||NetNormal.IsNearlyZero())return;FDungeonRunDoor D;D.FloorCenter=NetFloor;D.OutwardNormal=NetNormal;D.Width=NetSize.X;D.Height=NetSize.Y;Configure(D);OnRep_GateState();}
+void ADungeonRoomGate::OnRep_GateState()
+{
+    SetOpenFraction(NetOpen);SetEncounterLocked(NetLocked);
+    if (NetLocked && NetEntryOnly) UpdateInboundAccess();
+    else ClearInboundAccess();
 }

@@ -1,0 +1,63 @@
+{
+  "stage": "maps_saved",
+  "revision": "medical_doorway_reveals_and_swing_20261010",
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Backups\\DoorwayInstall-20261010-174925",
+  "maps": [
+    "/Game/GameMaps/L_Dungeon_Randomized",
+    "/Game/GameMaps/Design/L_MedicalDoctorOffice_Subject",
+    "/Game/GameMaps/Design/L_Hospital_Theme_Subject"
+  ],
+  "leaf_updates": {
+    "/Game/GameMaps/Design/L_MedicalDoctorOffice_Subject": [
+      "MedicalOffice_MedicalOffice.Door.Consult01-1",
+      "MedicalOffice_MedicalOffice.Door.Consult011",
+      "MedicalOffice_MedicalOffice.Door.Consult02-1",
+      "MedicalOffice_MedicalOffice.Door.Consult021",
+      "MedicalOffice_MedicalOffice.Door.Records-1",
+      "MedicalOffice_MedicalOffice.Door.Records1",
+      "MedicalOffice_MedicalOffice.Door.TeamHall-1",
+      "MedicalOffice_MedicalOffice.Door.TeamHall1",
+      "MedicalOffice_MedicalOffice.Door.TeamWaiting-1",
+      "MedicalOffice_MedicalOffice.Door.TeamWaiting1",
+      "MedicalOffice_MedicalOffice.Door.Chief-1",
+      "MedicalOffice_MedicalOffice.Door.Chief1",
+      "MedicalOffice_MedicalOffice.Door.Support-1",
+      "MedicalOffice_MedicalOffice.Door.Support1"
+    ],
+    "/Game/GameMaps/Design/L_Hospital_Theme_Subject": [
+      "HospitalLine_Office_MedicalOffice.Door.Consult01-1",
+      "HospitalLine_Office_MedicalOffice.Door.Consult011",
+      "HospitalLine_Office_MedicalOffice.Door.Consult02-1",
+      "HospitalLine_Office_MedicalOffice.Door.Consult021",
+      "HospitalLine_Office_MedicalOffice.Door.Records-1",
+      "HospitalLine_Office_MedicalOffice.Door.Records1",
+      "HospitalLine_Office_MedicalOffice.Door.TeamHall-1",
+      "HospitalLine_Office_MedicalOffice.Door.TeamHall1",
+      "HospitalLine_Office_MedicalOffice.Door.TeamWaiting-1",
+      "HospitalLine_Office_MedicalOffice.Door.TeamWaiting1",
+      "HospitalLine_Office_MedicalOffice.Door.Chief-1",
+      "HospitalLine_Office_MedicalOffice.Door.Chief1",
+      "HospitalLine_Office_MedicalOffice.Door.Support-1",
+      "HospitalLine_Office_MedicalOffice.Door.Support1"
+    ]
+  },
+  "gameplay_tested": false,
+  "rendered": false,
+  "office_leaves": 14,
+  "saved_meshes": 7,
+  "route_geometry_changed": false,
+  "layout_entries_preserved": 120,
+  "interior_clear_width_cm": 326,
+  "office_door_floor_gap_cm": 1,
+  "ward_sill_below_floor_cm": 0.5,
+  "geometry_review": {
+    "source": "fresh UE process saved LOD0 triangles",
+    "unique_positions": 20,
+    "checks": 24,
+    "coincident_frame_surface_area_cm2": 0,
+    "minimum_swept_side_clearance_cm": 0.5269,
+    "report": "Receipts/doorways-after-audit.json",
+    "gameplay_tested": false,
+    "rendered": false
+  }
+}

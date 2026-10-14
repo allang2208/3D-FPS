@@ -32,6 +32,7 @@ def create(root,base,report):
         if not mat:
             mat=A.create_asset(path.rsplit('/',1)[1],base+'/Materials',u.Material,u.MaterialFactoryNew())
             mat.set_editor_property('used_with_nanite',True)
+            if key=='ToolPaint':mat.set_editor_property('used_with_instanced_static_meshes',True)
             uv=M.create_material_expression(mat,u.MaterialExpressionTextureCoordinate,-900,0)
             wear=M.create_material_expression(mat,u.MaterialExpressionCustom,-650,0)
             inp=u.CustomInput();inp.set_editor_property('input_name','UV');wear.set_editor_property('inputs',[inp])

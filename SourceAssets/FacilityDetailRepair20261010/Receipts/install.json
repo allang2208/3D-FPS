@@ -1,0 +1,600 @@
+{
+  "stage": "maps_saved",
+  "revision": "facility_detail_repair_20261010",
+  "saved_assets": [
+    "/Game/Dungeons/FacilityDetailRepair20261010/Textures/T_FacilityDetail_Plates",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Materials/M_FacilityDetail_Plates",
+    "/Game/Dungeons/FacilityDetailRepair20261010/FX/NS_GlassShatter_NoMarks",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_EquipmentLabels",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_EquipmentLabels",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Walls",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Approach",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ApproachTrim",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Signs",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ArrivalFrame",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_MailSlots",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_DetailPlates",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_KeyRail",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconcePlate",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconceShade",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_DetailPlates",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_HandleBezel",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_PorcelainBushings",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_MaintenancePanel",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_DetailPlates",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ServiceBench"
+  ],
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "changed": {
+        "meshes": [
+          "FacilityTransit_SM_FT_Hall_Walls",
+          "FacilityTransit_SM_FT_Hall_Approach",
+          "FacilityTransit_SM_FT_Hall_ApproachTrim",
+          "FacilityTransit_SM_FT_Hall_Signs",
+          "FacilityTransit_SM_FT_Hall_ServiceBench",
+          "FacilityTransit_SM_FT_Hall_MaintenancePanel",
+          "FacilityTransit_Finish_ArrivalFrame",
+          "FacilityDetail_Hall_DetailPlates_5900_0"
+        ],
+        "removed": [
+          "FacilityTransit_SM_FT_Hall_PanelIndicators"
+        ],
+        "moved_toolboxes": [
+          "FacilityTransit20261007.Tool0",
+          "FacilityTransit20261007.Tool1"
+        ],
+        "glass": [
+          "Reception_OfficeGlass_-1_0",
+          "Reception_OfficeGlass_-1_1",
+          "Reception_OfficeGlass_-1_2",
+          "Reception_OfficeGlass_-1_3",
+          "Reception_OfficeGlass_-1_4",
+          "Reception_OfficeGlass_-1_5",
+          "Reception_OfficeGlass_1_6",
+          "Reception_OfficeGlass_1_7",
+          "Reception_OfficeGlass_1_8",
+          "Reception_OfficeGlass_1_9",
+          "Reception_OfficeGlass_1_10",
+          "Reception_OfficeGlass_1_11",
+          "FacilityTransit_DutyGlass0",
+          "FacilityTransit_DutyGlass1",
+          "FacilityTransit_DutyGlass2",
+          "FacilityTransit_Botanical_DisplayGlass_00",
+          "FacilityTransit_Botanical_DisplayGlass_01",
+          "FacilityTransit_Botanical_DisplayGlass_02",
+          "FacilityTransit_Botanical_DisplayGlass_03",
+          "FacilityTransit_Botanical_DisplayGlass_04",
+          "FacilityTransit_Botanical_DisplayGlass_05",
+          "FacilityTransit_Botanical_DisplayGlass_06",
+          "FacilityTransit_Botanical_DisplayGlass_07",
+          "FacilityTransit_Botanical_DisplayGlass_08",
+          "FacilityTransit_Botanical_DisplayGlass_09",
+          "FacilityTransit_Botanical_DisplayGlass_10",
+          "FacilityTransit_Botanical_DisplayGlass_11"
+        ]
+      }
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "changed": {
+        "meshes": [
+          "FacilityTransit_SM_FT_Hall_Walls",
+          "FacilityTransit_SM_FT_Hall_Approach",
+          "FacilityTransit_SM_FT_Hall_ApproachTrim",
+          "FacilityTransit_SM_FT_Hall_Signs",
+          "FacilityTransit_SM_FT_Hall_ServiceBench",
+          "FacilityTransit_SM_FT_Hall_MaintenancePanel",
+          "FacilityTransit_Route1_SM_FT2_staff_living_EquipmentLabels",
+          "FacilityTransit_Route1_SM_FT2_staff_living_SconcePlate",
+          "FacilityTransit_Route1_SM_FT2_staff_living_SconceShade",
+          "FacilityTransit_Route1_SM_FT2_staff_living_MailSlots",
+          "FacilityTransit_Route1_SM_FT2_staff_living_KeyRail",
+          "FacilityTransit_Route3_SM_FT2_power_EquipmentLabels",
+          "FacilityTransit_Route3_SM_FT2_power_IsolatorCabinet",
+          "FacilityTransit_Route3_SM_FT2_power_HandleBezel",
+          "FacilityTransit_Route3_SM_FT2_power_PorcelainBushings",
+          "FacilityTransit_Finish_ArrivalFrame",
+          "FacilityDetail_Hall_DetailPlates_5900_0",
+          "FacilityDetail_staff_living_DetailPlates_8300_0",
+          "FacilityDetail_power_DetailPlates_6700_1800"
+        ],
+        "removed": [
+          "FacilityTransit_SM_FT_Hall_PanelIndicators",
+          "FacilityTransit_Route1_SM_FT2_staff_living_SconceArms",
+          "FacilityTransit_Route1_SM_FT2_staff_living_SconceCaps",
+          "FacilityTransit_Route1_SM_FT2_staff_living_CaseRims",
+          "FacilityTransit_Route1_SM_FT2_staff_living_HingeMounts",
+          "FacilityTransit_Route1_SM_FT2_staff_living_HingePins",
+          "FacilityTransit_Route1_SM_FT2_staff_living_QuarterTurns",
+          "FacilityTransit_Route1_SM_FT2_staff_living_QuarterTurnSlots",
+          "FacilityTransit_Route1_SM_FT2_staff_living_MailSlotRecess",
+          "FacilityTransit_Route1_SM_FT2_staff_living_MailSlotBrow",
+          "FacilityTransit_Route1_SM_FT2_staff_living_MailLock",
+          "FacilityTransit_Route1_SM_FT2_staff_living_KeyHooks",
+          "FacilityTransit_Route1_SM_FT2_staff_living_KeyRings",
+          "FacilityTransit_Route1_SM_FT2_staff_living_KeyTags",
+          "FacilityTransit_Route3_SM_FT2_power_CaseRims",
+          "FacilityTransit_Route3_SM_FT2_power_HingeMounts",
+          "FacilityTransit_Route3_SM_FT2_power_HingePins",
+          "FacilityTransit_Route3_SM_FT2_power_QuarterTurns",
+          "FacilityTransit_Route3_SM_FT2_power_QuarterTurnSlots",
+          "FacilityTransit_Route3_SM_FT2_power_InstrumentFaces",
+          "FacilityTransit_Route3_SM_FT2_power_HandleHub",
+          "FacilityTransit_Route3_SM_FT2_power_MouldedGrip",
+          "FacilityTransit_Route3_SM_FT2_power_GripInset",
+          "FacilityTransit_Route3_SM_FT2_power_BushingFoot",
+          "FacilityTransit_Route3_SM_FT2_power_CableGlands",
+          "FacilityTransit_Route3_SM_FT2_power_GlandBoot",
+          "FacilityTransit_Route3_SM_FT2_power_TerminalClamp",
+          "FacilityTransit_Route3_SM_FT2_power_TerminalBolts"
+        ],
+        "moved_toolboxes": [
+          "FacilityTransit20261007.Tool0",
+          "FacilityTransit20261007.Tool1"
+        ],
+        "glass": [
+          "Reception_OfficeGlass_-1_0",
+          "Reception_OfficeGlass_-1_1",
+          "Reception_OfficeGlass_-1_2",
+          "Reception_OfficeGlass_-1_3",
+          "Reception_OfficeGlass_-1_4",
+          "Reception_OfficeGlass_-1_5",
+          "Reception_OfficeGlass_1_6",
+          "Reception_OfficeGlass_1_7",
+          "Reception_OfficeGlass_1_8",
+          "Reception_OfficeGlass_1_9",
+          "Reception_OfficeGlass_1_10",
+          "Reception_OfficeGlass_1_11",
+          "FacilityTransit_DutyGlass0",
+          "FacilityTransit_DutyGlass1",
+          "FacilityTransit_DutyGlass2",
+          "FacilityTransit_Botanical_DisplayGlass_00",
+          "FacilityTransit_Botanical_DisplayGlass_01",
+          "FacilityTransit_Botanical_DisplayGlass_02",
+          "FacilityTransit_Botanical_DisplayGlass_03",
+          "FacilityTransit_Botanical_DisplayGlass_04",
+          "FacilityTransit_Botanical_DisplayGlass_05",
+          "FacilityTransit_Botanical_DisplayGlass_06",
+          "FacilityTransit_Botanical_DisplayGlass_07",
+          "FacilityTransit_Botanical_DisplayGlass_08",
+          "FacilityTransit_Botanical_DisplayGlass_09",
+          "FacilityTransit_Botanical_DisplayGlass_10",
+          "FacilityTransit_Botanical_DisplayGlass_11"
+        ]
+      }
+    }
+  ],
+  "game_run": false,
+  "rendered": false,
+  "runtime_tested": false,
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Backups\\20261010-165759",
+  "replacements": {
+    "default_parts": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Walls",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Walls"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Approach",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Approach"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_ApproachTrim",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ApproachTrim"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Signs",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Signs"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_ServiceBench",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ServiceBench"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_MaintenancePanel",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_MaintenancePanel"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_PanelIndicators"
+      },
+      {
+        "before": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_ArrivalFrameV2",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ArrivalFrame"
+      }
+    ],
+    "Route1.staff_living": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_EquipmentLabels",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_EquipmentLabels"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconcePlate",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconcePlate"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceArms"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceShade",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconceShade"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceCaps"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlots",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_MailSlots"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_CaseRims"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingeMounts"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingePins"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurns"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurnSlots"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotRecess"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotBrow"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailLock"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRail",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_KeyRail"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyHooks"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRings"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyTags"
+      }
+    ],
+    "Route1.power": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_EquipmentLabels",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_EquipmentLabels"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_IsolatorCabinet",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CaseRims"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingeMounts"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingePins"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurns"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurnSlots"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleBezel",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_HandleBezel"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_InstrumentFaces"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleHub"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_MouldedGrip"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GripInset"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_BushingFoot"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CableGlands"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GlandBoot"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_PorcelainBushings",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_PorcelainBushings"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalClamp"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalBolts"
+      }
+    ],
+    "Route2.staff_living": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_EquipmentLabels",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_EquipmentLabels"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconcePlate",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconcePlate"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceArms"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceShade",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconceShade"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceCaps"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlots",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_MailSlots"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_CaseRims"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingeMounts"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingePins"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurns"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurnSlots"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotRecess"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotBrow"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailLock"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRail",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_KeyRail"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyHooks"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRings"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyTags"
+      }
+    ],
+    "Route2.power": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_EquipmentLabels",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_EquipmentLabels"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_IsolatorCabinet",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CaseRims"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingeMounts"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingePins"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurns"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurnSlots"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleBezel",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_HandleBezel"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_InstrumentFaces"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleHub"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_MouldedGrip"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GripInset"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_BushingFoot"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CableGlands"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GlandBoot"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_PorcelainBushings",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_PorcelainBushings"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalClamp"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalBolts"
+      }
+    ],
+    "Route3.staff_living": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_EquipmentLabels",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_EquipmentLabels"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconcePlate",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconcePlate"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceArms"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceShade",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconceShade"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceCaps"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlots",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_MailSlots"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_CaseRims"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingeMounts"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingePins"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurns"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurnSlots"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotRecess"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotBrow"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailLock"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRail",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_KeyRail"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyHooks"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRings"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyTags"
+      }
+    ],
+    "Route3.power": [
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_EquipmentLabels",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_EquipmentLabels"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_IsolatorCabinet",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CaseRims"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingeMounts"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingePins"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurns"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurnSlots"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleBezel",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_HandleBezel"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_InstrumentFaces"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleHub"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_MouldedGrip"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GripInset"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_BushingFoot"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CableGlands"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GlandBoot"
+      },
+      {
+        "before": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_PorcelainBushings",
+        "after": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_PorcelainBushings"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalClamp"
+      },
+      {
+        "removed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalBolts"
+      }
+    ],
+    "glass_definitions": 61
+  },
+  "original_lights_preserved": true,
+  "refined_uv_assets": [
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_MaintenancePanel",
+    "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ServiceBench"
+  ],
+  "uv_source": [
+    {
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet",
+      "refined_uv_faces": 0
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_MaintenancePanel",
+      "refined_uv_faces": 0
+    },
+    {
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ServiceBench",
+      "refined_uv_faces": 0
+    }
+  ],
+  "equipment_tangents": "Authored MikkTSpace with double-precision UV derivative fallback for zero corners; full-precision import"
+}

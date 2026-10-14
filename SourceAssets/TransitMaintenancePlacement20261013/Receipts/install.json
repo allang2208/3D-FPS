@@ -1,0 +1,147 @@
+{
+  "stage": "maps_saved",
+  "revision": "transit_maintenance_clearance_20261013",
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitMaintenancePlacement20261013\\Backups\\20261013-222516",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true,
+      "changes": [
+        {
+          "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ServiceBench",
+          "position": [
+            200,
+            0,
+            0
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_MaintenancePanel",
+          "position": [
+            200,
+            0,
+            0
+          ]
+        },
+        {
+          "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_DetailPlates",
+          "position": [
+            200,
+            0,
+            0
+          ]
+        },
+        {
+          "container_id": "FacilityTransit.Tool0",
+          "position": [
+            -380,
+            1720,
+            85
+          ]
+        },
+        {
+          "container_id": "FacilityTransit.Tool1",
+          "position": [
+            -5,
+            1720,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Subject",
+      "saved": true,
+      "changes": [
+        {
+          "actor": "FacilityTransit_SM_FT_Hall_ServiceBench",
+          "position": [
+            6100.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_SM_FT_Hall_MaintenancePanel",
+          "position": [
+            6100.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityDetail_Hall_DetailPlates_5900_0",
+          "position": [
+            6100.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_Tool0",
+          "position": [
+            5520.0,
+            1720.0,
+            85.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_Tool1",
+          "position": [
+            5895.0,
+            1720.0,
+            85.0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_FacilityTransit_Alternate_Subject",
+      "saved": true,
+      "changes": [
+        {
+          "actor": "FacilityTransit_SM_FT_Hall_ServiceBench",
+          "position": [
+            6100.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_SM_FT_Hall_MaintenancePanel",
+          "position": [
+            6100.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityDetail_Hall_DetailPlates_5900_0",
+          "position": [
+            6100.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_Tool0",
+          "position": [
+            5520.0,
+            1720.0,
+            85.0
+          ]
+        },
+        {
+          "actor": "FacilityTransit_Tool1",
+          "position": [
+            5895.0,
+            1720.0,
+            85.0
+          ]
+        }
+      ]
+    }
+  ],
+  "existing_game_running": true,
+  "tested": false
+}

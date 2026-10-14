@@ -1,0 +1,40 @@
+{
+  "stage": "maps_saved",
+  "revision": "medical_waiting_benches_and_mid_rail_20261010",
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWaitingFinish20261010\\Backups\\20261010-191738",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true,
+      "benches": 4
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_MedicalDoctorOffice_Subject",
+      "saved": true,
+      "benches": 4
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+      "saved": true,
+      "benches": 4
+    }
+  ],
+  "tests_run": false,
+  "game_run": false,
+  "rendered": false,
+  "reimported_meshes": [
+    "SM_MedicalOffice_Trim",
+    "SM_MedicalOffice_Tiles"
+  ],
+  "reused_bench": "/Game/Props/HospitalWaitingBench20260929/SM_Hospital_Waiting_Bench",
+  "retained_previous_bench": "/Game/HospitalCorridor/Meshes/Objects/SM_HospitalBench_01",
+  "layout_entries_preserved": 120,
+  "rail_profile": {
+    "tile_band_removed_cm": [
+      91,
+      98
+    ],
+    "tiled_face_cm": 15.011361920833588,
+    "revision": "waiting_finish_20261010"
+  }
+}

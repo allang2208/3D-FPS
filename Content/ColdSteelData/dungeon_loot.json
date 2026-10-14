@@ -6,7 +6,7 @@
       "min_depth": 0,
       "rolls": 2,
       "entries": [
-        { "id": "gold", "weight": 30, "count": [20, 60] },
+        { "id": "souls", "weight": 30, "count": [20, 60] },
         { "id": "ammo_9", "weight": 12, "count": [15, 40] },
         { "id": "ammo_556", "weight": 12, "count": [15, 40] },
         { "id": "ammo_762", "weight": 12, "count": [15, 40] },
@@ -19,7 +19,7 @@
       "min_depth": 4,
       "rolls": 2,
       "entries": [
-        { "id": "gold", "weight": 22, "count": [40, 120] },
+        { "id": "souls", "weight": 22, "count": [40, 120] },
         { "id": "ammo_556", "weight": 8, "count": [30, 60] },
         { "id": "ammo_762", "weight": 8, "count": [30, 60] },
         { "id": "ammo_58", "weight": 6, "count": [30, 60] },
@@ -38,7 +38,7 @@
       "min_depth": 8,
       "rolls": 3,
       "entries": [
-        { "id": "gold", "weight": 18, "count": [80, 250] },
+        { "id": "souls", "weight": 18, "count": [80, 250] },
         { "id": "ammo_556", "weight": 6, "count": [40, 90] },
         { "id": "ammo_762", "weight": 6, "count": [40, 90] },
         { "id": "ammo_pkm_762x54r", "weight": 4, "count": [30, 80] },
@@ -61,6 +61,7 @@
         { "id": "enchant_scroll_cowboy", "weight": 1, "count": [1, 1] },
         { "id": "enchant_scroll_berserk", "weight": 1, "count": [1, 1] },
         { "id": "enchant_scroll_big_blind", "weight": 1, "count": [1, 1] },
+        { "id": "enchant_scroll_dealer", "weight": 1, "count": [1, 1] },
         { "id": "enchant_scroll_azure_dragon", "weight": 1, "count": [1, 1] },
         { "id": "enchant_scroll_heavy", "weight": 2, "count": [1, 1] },
         { "id": "enchant_scroll_sharp", "weight": 2, "count": [1, 1] }

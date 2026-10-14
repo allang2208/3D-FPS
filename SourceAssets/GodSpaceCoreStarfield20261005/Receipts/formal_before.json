@@ -1,0 +1,38 @@
+{
+  "formal_mesh": "/Game/Props/GodSpaceLayout20260927/Meshes/SM_GodSpaceCore.SM_GodSpaceCore",
+  "body_setup": "/Game/Props/GodSpaceLayout20260927/Meshes/SM_GodSpaceCore.SM_GodSpaceCore:BodySetup_0",
+  "agg_geom": "<Struct 'KAggregateGeom' (0x000002AD5BDFA440) {}>",
+  "trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>",
+  "double_sided": false,
+  "bounds": "<Struct 'BoxSphereBounds' (0x000002B0B4F76E80) {origin: {x: 0.000252, y: 2860.000122, z: 500.000015}, box_extent: {x: 231.824974, y: 208.630737, z: 218.494186}, sphere_radius: 237.500181}>",
+  "positive_extension": "<Struct 'Vector' (0x000002AD19772658) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+  "negative_extension": "<Struct 'Vector' (0x000002AD19772670) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+  "import_data": [
+    "D:/FPS3D/FPSGAME/SourceAssets/GodSpaceLayout20260927/Integration/Exported/SM_GodSpaceCore.fbx"
+  ],
+  "baseline_state_keys": [
+    "world",
+    "core",
+    "altar",
+    "original_mesh",
+    "original_component_materials",
+    "before",
+    "spawned",
+    "capture",
+    "cap",
+    "rt",
+    "shots",
+    "index",
+    "frames",
+    "captures",
+    "started",
+    "tick",
+    "neutral_v2",
+    "neutral_restore",
+    "view_started"
+  ],
+  "component_before": "{'world': '/Game/GameMaps/DayNight_Lighting.DayNight_Lighting', 'core_actor': '/Game/GameMaps/DayNight_Lighting.DayNight_Lighting:PersistentLevel.StaticMeshActor_481', 'core_location_cm': [-2400.0, -1300.0, 0.0], 'core_rotation': \"<Struct 'Rotator' (0x000002AF4DC7B1C0) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>\", 'core_scale': [1.0, 1.0, 1.0], 'mesh': '/Game/Props/GodSpaceLayout20260927/Meshes/SM_GodSpaceCore.SM_GodSpaceCore', 'bounds': \"<Struct 'BoxSphereBounds' (0x000002AFEEEDCA80) {origin: {x: 0.000252, y: 2860.000122, z: 500.000015}, box_extent: {x: 231.824974, y: 208.630737, z: 218.494186}, sphere_radius: 237.500181}>\", 'materials': ['/Game/Props/GodSpaceLayout20260927/Materials/M_GodSpaceCore.M_GodSpaceCore', '/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/M_PavilionAgedGold.M_PavilionAgedGold'], 'nanite': \"<Struct 'MeshNaniteSettings' (0x000002AD197723A0) {enabled: False, explicit_tangents: False, lerp_u_vs: True, separable: False, voxel_ndf: True, voxel_opacity: False, shape_preservation: None, position_precision: -2147483648, normal_precision: -1, tangent_precision: -1, bone_weight_precision: -1, keep_percent_triangles: 1.000000, trim_relative_error: 0.000000, generate_fallback: PlatformDefault, fallback_target: Auto, fallback_percent_triangles: 1.000000, fallback_relative_error: 1.000000, max_edge_length_factor: 0.000000, num_rays: 64, voxel_level: 0, ray_back_up: 0.000000, displacement_uv_channel: 0}>\", 'collision_trace': '<CollisionTraceFlag.CTF_USE_DEFAULT: 0>', 'component_collision_profile': 'NoCollision', 'altar_actor': '/Game/GameMaps/DayNight_Lighting.DayNight_Lighting:PersistentLevel.StaticMeshActor_0', 'altar_tags': ['ColdSteel.ExpeditionAltar', 'GodSpace.LayoutV1'], 'altar_transform': \"<Struct 'Transform' (0x000002AF4DC655C0) {rotation: {x: 0.000000, y: -0.000000, z: 1.000000, w: 0.000000}, translation: {x: -2400.000000, y: 1150.000000, z: 113.000000}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>\", 'dirty_content': [], 'dirty_maps': []}",
+  "metadata": {
+    "GodSpaceLayout": "20260927-V1-Accepted"
+  }
+}

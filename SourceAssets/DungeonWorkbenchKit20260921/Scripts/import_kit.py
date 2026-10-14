@@ -28,6 +28,7 @@ def custom(m,code,ins,width=3):
 def channel(m,prop):
     p=getattr(u.MaterialProperty,'MP_'+prop);return (L.get_material_property_input_node(m,p),L.get_material_property_input_node_output_name(m,p))
 def finish(m):
+    m.set_editor_property('used_with_instanced_static_meshes',True)
     E.set_metadata_tag(m,'WorkbenchKitCompleted','1');L.layout_material_expressions(m);L.recompile_material(m);save(m);return m
 def usage_layer(m):
     tint=vector(m,'SurfaceTint',[1,1,1]);dust=scalar(m,'DustAmount',0);bias=scalar(m,'SurfaceRoughnessBias',0);normal=node(m,u.MaterialExpressionVertexNormalWS)

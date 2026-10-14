@@ -93,9 +93,20 @@ def books(x0,y,z,count,seed):
         box('Body',(cx,y-.080,zz),(.240,.004,.014),color)
 
 def bookcase_v4():
-    for x in (-.465,.465):solid((x,0,1.0),(.03,.40,1.94),'OlivePaint')
-    solid((0,.185,1.0),(.90,.03,1.94),'OlivePaint')
-    for z in (.11,.82,1.20,1.57,1.96):solid((0,0,z),(.96,.40,.035))
+    # Shelves fit BETWEEN the 30mm sides. Using the 960mm outer width
+    # made their wood end caps coplanar with the painted outer side faces.
+    # The top is a separate cap; side/back panels stop at its underside.
+    outer_width,side_thickness=.96,.03
+    inner_width=outer_width-2*side_thickness
+    cap_z,board_thickness=1.96,.035
+    panel_bottom,panel_top=.03,cap_z-board_thickness/2
+    panel_center=(panel_bottom+panel_top)/2
+    for x in (-.465,.465):solid((x,0,panel_center),(.03,.40,panel_top-panel_bottom),'OlivePaint')
+    solid((0,.185,panel_center),(inner_width,.03,panel_top-panel_bottom),'OlivePaint')
+    # Front edge is recessed 6mm beyond the side bevel; rear ends at the
+    # back panel's inner face (Y=0.17), with no exposed coplanar overlap.
+    for z in (.11,.82,1.20,1.57):solid((0,-.012,z),(inner_width,.364,board_thickness))
+    solid((0,0,cap_z),(outer_width,.40,board_thickness))
     for x in (-.37,.37):solid((x,0,.052),(.065,.32,.105),'PaintedSteel')
     for i,z in enumerate((.84,1.22,1.59)):books(-.405,-.015,z,9-i*2,41+i)
     for z in (.26,.68):cylinder((-.439,-.215,z),(0,0,1),.010,.067,'BareSteel')

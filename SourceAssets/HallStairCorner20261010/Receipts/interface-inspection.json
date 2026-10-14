@@ -1,0 +1,119 @@
+{
+  "post_count": {
+    "Reception": 178,
+    "Transit": 85
+  },
+  "unsupported_plates": [],
+  "minimum_stair_side_margin_cm": {
+    "Reception": 8.0,
+    "Transit": 10.0
+  },
+  "corner_sources": [
+    {
+      "id": "CornerMinimum_WestGround_S",
+      "sample": [
+        -2360,
+        -1720.0,
+        0
+      ],
+      "source_distance_cm": 417.96,
+      "radius_cm": 760,
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "steady": true,
+      "inside_attenuation": true
+    },
+    {
+      "id": "CornerMinimum_WestGallery_S",
+      "sample": [
+        -2360,
+        -1720.0,
+        420
+      ],
+      "source_distance_cm": 398.78,
+      "radius_cm": 700,
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "steady": true,
+      "inside_attenuation": true
+    },
+    {
+      "id": "CornerMinimum_EastGround_S",
+      "sample": [
+        2360,
+        -1720.0,
+        0
+      ],
+      "source_distance_cm": 382.18,
+      "radius_cm": 780,
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "steady": true,
+      "inside_attenuation": true
+    },
+    {
+      "id": "CornerMinimum_WestGround_N",
+      "sample": [
+        -2360,
+        1720.0,
+        0
+      ],
+      "source_distance_cm": 417.96,
+      "radius_cm": 760,
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "steady": true,
+      "inside_attenuation": true
+    },
+    {
+      "id": "CornerMinimum_WestGallery_N",
+      "sample": [
+        -2360,
+        1720.0,
+        420
+      ],
+      "source_distance_cm": 398.78,
+      "radius_cm": 700,
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "steady": true,
+      "inside_attenuation": true
+    },
+    {
+      "id": "CornerMinimum_EastGround_N",
+      "sample": [
+        2360,
+        1720.0,
+        0
+      ],
+      "source_distance_cm": 382.18,
+      "radius_cm": 780,
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "steady": true,
+      "inside_attenuation": true
+    }
+  ],
+  "existing_hanging_lamps_modified": false,
+  "rendered": false,
+  "runtime_tested": false,
+  "note": "Dimensional source inspection requested by user. Radius reach does not measure rendered illuminance or occlusion."
+}

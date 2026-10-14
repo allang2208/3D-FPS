@@ -79,7 +79,7 @@ for j,x in enumerate((-2,1)):
  part('PPEBench'+str(j),furniture+'SM_Staff_ChangingBench',[x,15.7,0])
 part('Water','/Game/Dungeons/StaffLiving20261002/RoomDetailsV5/Meshes/SM_Staff_WaterDispenser_V5',[-23.35,12.8,4.2],90)
 proto=json.loads((PROJECT/'SourceAssets/IncineratorContainers20261003/Config/assemblies.json').read_text('utf8'))
-for j,x in enumerate((-3.5,-2.6,-1.7,-.8,.1,1.0)):
+for j,x in enumerate((-3.5,-2.6,-1.7,-.8,.1,1.9)):
  p=dict(proto['prototypes']['PPELocker']);p.update(id='PPE'+str(j),caption='中转厅 · 防护用品 '+str(j+1),position_m=[x,17.48,0],yaw_deg=0);containers.append(p)
 for j,y in enumerate((-9.2,-1.4)):
  pos=[-23.4,y,4.2];part('RecordsBody'+str(j),proto['assemblies']['RecordsCabinet']['static_parts'][0]['mesh'],pos,-90)

@@ -20,7 +20,10 @@ def create(root,base,report):
         path=base+'/Materials/M_Workshop_'+key;mat=u.load_asset(path)
         if mat:return path,mat,False
         mat=A.create_asset('M_Workshop_'+key,base+'/Materials',u.Material,u.MaterialFactoryNew())
-        mat.set_editor_property('used_with_nanite',key!='Glass');return path,mat,True
+        mat.set_editor_property('used_with_nanite',key!='Glass')
+        if key in ('OfficePlastic','Screen','Print','Lamp'):
+            mat.set_editor_property('used_with_instanced_static_meshes',True)
+        return path,mat,True
     def scalar(mat,value,prop):
         n=M.create_material_expression(mat,u.MaterialExpressionConstant);n.set_editor_property('r',value)
         M.connect_material_property(n,'',prop)

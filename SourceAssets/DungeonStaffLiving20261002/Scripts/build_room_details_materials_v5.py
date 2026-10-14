@@ -29,6 +29,7 @@ def build_materials(root,base):
         if not mat:
             mat=A.create_asset(path.rsplit('/',1)[1],base+'/Materials',u.Material,u.MaterialFactoryNew())
             mat.set_editor_property('used_with_nanite',True)
+            if key.startswith('Paddle'):mat.set_editor_property('used_with_instanced_static_meshes',True)
             n=M.create_material_expression(mat,u.MaterialExpressionConstant3Vector,-240,0)
             n.set_editor_property('constant',u.LinearColor(*color,1));M.connect_material_property(n,'',u.MaterialProperty.MP_BASE_COLOR)
             n=M.create_material_expression(mat,u.MaterialExpressionConstant,-240,100);n.set_editor_property('r',rough)

@@ -1,0 +1,51 @@
+{
+  "utc": "2026-10-05T12:03:12.504346+00:00",
+  "saved": [
+    "/Game/Props/GodSpaceLayout20260927/Meshes/SM_GodSpaceCore.SM_GodSpaceCore"
+  ],
+  "source_file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceLayout20260927\\Integration\\Exported\\SM_GodSpaceCore.fbx",
+  "source_sha256": "201c4d290f9bc17e88e993bc74f89b7ea9d95804976c69a8d32b96f4bc05e559",
+  "formal_path": "/Game/Props/GodSpaceLayout20260927/Meshes/SM_GodSpaceCore",
+  "map_saved": false,
+  "shared_materials_modified": false,
+  "collision_before": {
+    "simple_count": 0,
+    "trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>",
+    "double_sided": false
+  },
+  "collision_after": {
+    "simple_count": 0,
+    "trace": "<CollisionTraceFlag.CTF_USE_DEFAULT: 0>",
+    "double_sided": false
+  },
+  "materials": [
+    {
+      "slot": "Core_Starfield",
+      "path": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_Starfield_V2.MI_Core_Starfield_V2"
+    },
+    {
+      "slot": "Core_EngravedGold",
+      "path": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_EngravedGold_V2.MI_Core_EngravedGold_V2"
+    },
+    {
+      "slot": "Core_Sapphire",
+      "path": "/Game/Props/GodSpaceCoreStarfield20261005/Materials/MI_Core_Sapphire_V2.MI_Core_Sapphire_V2"
+    }
+  ],
+  "bounds": {
+    "origin_cm": [
+      0.00025177001953125,
+      2860.0001220703125,
+      500.00001525878906
+    ],
+    "half_extent_cm": [
+      231.8249740600586,
+      208.6307373046875,
+      218.4941864013672
+    ],
+    "culling_sphere_radius_cm": 380.8008831888915,
+    "previous_culling_sphere_radius_cm": 237.500181
+  },
+  "nanite": false,
+  "complete": true
+}

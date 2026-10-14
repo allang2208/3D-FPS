@@ -1,4 +1,7 @@
 #include "WardBreakableGlass.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "GameFramework/PlayerController.h"
+#include "Net/UnrealNetwork.h"
 
 #include "Components/AudioComponent.h"
 #include "../Weapons/FPSImpactFXSubsystem.h"
@@ -10,10 +13,12 @@
 #include "NiagaraSystem.h"
 #include "Sound/SoundAttenuation.h"
 #include "TimerManager.h"
+#include "UObject/ConstructorHelpers.h"
 
 UWardBreakableGlass::UWardBreakableGlass()
 {
     PrimaryComponentTick.bCanEverTick=false;
+    SetIsReplicatedByDefault(true);
     SetMobility(EComponentMobility::Movable);
     SetCollisionProfileName(TEXT("BlockAllDynamic"));
     SetCanEverAffectNavigation(false);
@@ -49,8 +54,22 @@ void UWardBreakableGlass::HandleDamage(float DamageAmount,const FDamageEvent& Ev
 
 bool UWardBreakableGlass::BreakAt(const FVector& HitPoint,const FVector& Direction)
 {
-    if(bBroken || !GetOwner() || !GetOwner()->HasAuthority())return false;
-    bBroken=true;
+    if(bBroken || GetNetMode()==NM_Client || !GetOwner() || !GetOwner()->HasAuthority())return false;
+    bBroken=true;BreakPoint=HitPoint;BreakDirection=Direction.GetSafeNormal(SMALL_NUMBER,GetForwardVector());
+    GetOwner()->ForceNetUpdate();OnRep_Broken();
+    if(!GetOwner()->GetIsReplicated())for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+        if(auto* PC=It->Get();PC&&!PC->IsLocalController())
+            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGlassBroken(GetOwner()->GetName(),BreakPoint,BreakDirection);
+    return true;
+}
+void UWardBreakableGlass::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(UWardBreakableGlass,BreakPoint);DOREPLIFETIME(UWardBreakableGlass,BreakDirection);DOREPLIFETIME(UWardBreakableGlass,bBroken);
+}
+void UWardBreakableGlass::OnRep_Broken()
+{
+    if(!bBroken)return;
     ComponentTags.AddUnique(TEXT("Glass.Broken"));
     if(auto* Impacts=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())Impacts->ClearImpactDecalsForComponent(this);
     SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -58,8 +77,7 @@ bool UWardBreakableGlass::BreakAt(const FVector& HitPoint,const FVector& Directi
     SetVisibility(false,true);
     if(UWorld* World=GetWorld())
         if(auto* FX=World->GetSubsystem<UWardGlassFXSubsystem>())
-            FX->BreakPane(this,HitPoint,Direction.GetSafeNormal(SMALL_NUMBER,GetForwardVector()));
-    return true;
+            FX->BreakPane(this,BreakPoint,BreakDirection);
 }
 
 bool UWardBreakableGlass::BreakHit(const FHitResult& Hit,const FVector& Direction)
@@ -137,6 +155,7 @@ void AWardGlassDoor::Tick(float DeltaSeconds)
 
 AWardGlassWindow::AWardGlassWindow()
 {
+    bReplicates=true;
     PrimaryActorTick.bCanEverTick=false;
     SetCanBeDamaged(true);
     GlassPane=CreateDefaultSubobject<UWardBreakableGlass>(TEXT("BreakableGlass"));
@@ -167,6 +186,9 @@ AWardGlassBurst::AWardGlassBurst()
     Glints->SetupAttachment(Fragments);
     Glints->SetAutoActivate(false);
     Glints->SetCanEverAffectNavigation(false);
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> CleanShatter(
+        TEXT("/Game/Dungeons/FacilityDetailRepair20261010/FX/NS_GlassShatter_NoMarks.NS_GlassShatter_NoMarks"));
+    Glints->SetAsset(CleanShatter.Object);
     Audio=CreateDefaultSubobject<UAudioComponent>(TEXT("ShatterAudio"));
     Audio->SetupAttachment(Fragments);
     Audio->bAutoActivate=false;
@@ -209,13 +231,16 @@ void AWardGlassBurst::Play(const UWardBreakableGlass* Pane,const FVector& HitPoi
     Material->SetVectorParameterValue(TEXT("HitPoint"),FLinearColor(HitPoint));
     Material->SetVectorParameterValue(TEXT("ShotDirection"),FLinearColor(ShotDirection.GetSafeNormal()));
     SetActorHiddenInGame(false);
-    if(Pane->ImpactParticles)
+    UNiagaraSystem* ImpactSystem=Pane->ImpactParticles;
+    if(!ImpactSystem || ImpactSystem->GetFName()==TEXT("NS_Impact_Glass"))
+        ImpactSystem=GetDefault<AWardGlassBurst>()->Glints->GetAsset();
+    if(ImpactSystem)
     {
-        Glints->SetAsset(Pane->ImpactParticles);
-        // This shared impact asset also contains bullet-hole emitters. Disable
-        // them only on the shatter component, before activation, on every reuse.
-        for(const auto& Emitter:Pane->ImpactParticles->GetEmitterHandles())
-            if(Emitter.GetName().ToString().Contains(TEXT("Decal")))Glints->SetEmitterEnable(Emitter.GetName(),false);
+        // The shared gun-impact system contains an emitter-source crack sprite:
+        // stopping particle emission does not remove that renderer. The dedicated
+        // shatter asset disables both mark renderers, retaining debris and flash.
+        // All damage paths (including staff/sword/tool melee) reach this same pool.
+        Glints->SetAsset(ImpactSystem);
         Glints->SetWorldLocationAndRotation(HitPoint,FRotationMatrix::MakeFromZ(ShotDirection).Rotator());
         Glints->Activate(true);
     }

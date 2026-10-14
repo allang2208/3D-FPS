@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "Incident_CleaningBucket",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Bucket",
+    "position": [
+      -2110,
+      -810,
+      0
+    ],
+    "yaw": 27,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_CleaningMop",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Mop",
+    "position": [
+      -1985,
+      -907,
+      0
+    ],
+    "yaw": -59,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_CleaningWarning",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_WarningSign",
+    "position": [
+      -2140,
+      -1047,
+      0
+    ],
+    "yaw": -22,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyFolder",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Folder",
+    "position": [
+      -2175,
+      998,
+      420
+    ],
+    "yaw": -41,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyBasket",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_WasteBasket",
+    "position": [
+      -2310,
+      1100,
+      420
+    ],
+    "yaw": 138,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerFolder",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Folder",
+    "position": [
+      -2108,
+      835,
+      0
+    ],
+    "yaw": 23,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerClipboard",
+    "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+    "position": [
+      -2055,
+      760,
+      0
+    ],
+    "yaw": -53,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEChair",
+    "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_Staff_Chair",
+    "position": [
+      -210,
+      -1380,
+      23.40717
+    ],
+    "yaw": 31,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010",
+    "roll": 90,
+    "pitch": 0
+  },
+  {
+    "id": "Incident_PPEExtinguisher",
+    "mesh": "/Game/Dungeons/ArtPass20260922/Meshes/SM_Prop_Extinguisher",
+    "position": [
+      -66,
+      -1460,
+      8.61537
+    ],
+    "yaw": -36,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010",
+    "roll": 90,
+    "pitch": 0
+  },
+  {
+    "id": "Incident_ServiceClipboard",
+    "mesh": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Meshes/SM_SW_DispatchPaper",
+    "position": [
+      155,
+      1567,
+      0
+    ],
+    "yaw": 121,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServiceFolder",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Folder",
+    "position": [
+      12,
+      1460,
+      0
+    ],
+    "yaw": -143,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": true,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper0",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2208.86,
+      1221.68,
+      420
+    ],
+    "yaw": -164.81511157560604,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper1",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2134.64,
+      1018.25,
+      420
+    ],
+    "yaw": -35.495443957191014,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper2",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2130.49,
+      1202.84,
+      420
+    ],
+    "yaw": -16.85543327834702,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper3",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2143.71,
+      970.81,
+      420
+    ],
+    "yaw": -62.06804544711481,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper4",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2193.29,
+      1053.23,
+      420
+    ],
+    "yaw": -55.758173281823545,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper5",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2186.93,
+      1253.44,
+      420
+    ],
+    "yaw": 64.6763502144131,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper6",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2110.47,
+      1153.24,
+      420
+    ],
+    "yaw": 130.47956018124881,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper7",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2225.74,
+      1193.94,
+      420
+    ],
+    "yaw": -16.421576893288375,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper8",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2102.42,
+      1219.79,
+      420
+    ],
+    "yaw": 21.970257131018172,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper9",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2085.23,
+      1082.75,
+      420
+    ],
+    "yaw": -115.24361597033096,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper10",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2232.59,
+      1001.63,
+      420
+    ],
+    "yaw": 109.27480073481308,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper11",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2188.83,
+      992.44,
+      420
+    ],
+    "yaw": -104.43232921305712,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper12",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2222.85,
+      1072.03,
+      420
+    ],
+    "yaw": -143.93792425552894,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper13",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2089.14,
+      1109.47,
+      420
+    ],
+    "yaw": 82.18020969756901,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper14",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2163.1,
+      1129.59,
+      420
+    ],
+    "yaw": 79.7155188821755,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper15",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2125.3,
+      1135.5,
+      420
+    ],
+    "yaw": 14.887551308661926,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_DutyPaper16",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2169.29,
+      961.69,
+      420
+    ],
+    "yaw": 18.098256866602895,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper0",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2135.3,
+      693.72,
+      0
+    ],
+    "yaw": -72.18284365004683,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper1",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2075.66,
+      899.11,
+      0
+    ],
+    "yaw": -83.32621958851709,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper2",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2119.12,
+      739.13,
+      0
+    ],
+    "yaw": 49.1636356471289,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper3",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2081.22,
+      783.23,
+      0
+    ],
+    "yaw": -101.97698017742603,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper4",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2020.19,
+      629.43,
+      0
+    ],
+    "yaw": 145.61258810396959,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper5",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2070.79,
+      722.13,
+      0
+    ],
+    "yaw": 105.68699648110822,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper6",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2069.12,
+      852.41,
+      0
+    ],
+    "yaw": 98.07185737350187,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper7",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2095.3,
+      628.17,
+      0
+    ],
+    "yaw": -90.43388477674179,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper8",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -1984.1,
+      785.92,
+      0
+    ],
+    "yaw": 145.32834596966842,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper9",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -2040.01,
+      599.93,
+      0
+    ],
+    "yaw": 100.3363401477896,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper10",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -2107.15,
+      781.79,
+      0
+    ],
+    "yaw": 171.15150549709995,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper11",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -2076.37,
+      757.07,
+      0
+    ],
+    "yaw": 94.91058174797882,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_LowerPaper12",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -2063.32,
+      612.66,
+      0
+    ],
+    "yaw": 152.52653381707592,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper0",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -119.44,
+      -1344.68,
+      0
+    ],
+    "yaw": 36.96992640406836,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper1",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -233.81,
+      -1369.8,
+      0
+    ],
+    "yaw": -98.25535264999485,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper2",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -202.4,
+      -1293.06,
+      0
+    ],
+    "yaw": -139.58283851427507,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper3",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -126.19,
+      -1383.92,
+      0
+    ],
+    "yaw": -110.13804486393492,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper4",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -17.69,
+      -1345.67,
+      0
+    ],
+    "yaw": 81.67492137582383,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper5",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      1.16,
+      -1374.59,
+      0
+    ],
+    "yaw": 88.4150322706945,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper6",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      28.29,
+      -1339.13,
+      0
+    ],
+    "yaw": -162.36347178257697,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper7",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -272.42,
+      -1308.96,
+      0
+    ],
+    "yaw": -97.88983119720807,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper8",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -185.43,
+      -1367.46,
+      0
+    ],
+    "yaw": 86.17311740030965,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper9",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -251.09,
+      -1294.13,
+      0
+    ],
+    "yaw": -113.39711454441327,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper10",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -222.33,
+      -1342.89,
+      0
+    ],
+    "yaw": 134.94155402388884,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper11",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -48.04,
+      -1319.37,
+      0
+    ],
+    "yaw": 12.456815946941106,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_PPEPaper12",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -83.78,
+      -1369.53,
+      0
+    ],
+    "yaw": 131.64754431283427,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper0",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -23.23,
+      1483.31,
+      0
+    ],
+    "yaw": -50.01072787383194,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper1",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      23.55,
+      1409.61,
+      0
+    ],
+    "yaw": -32.27986506525906,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper2",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -150.49,
+      1473.31,
+      0
+    ],
+    "yaw": -69.74847817435037,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper3",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -72.19,
+      1524.35,
+      0
+    ],
+    "yaw": -176.58721038751327,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper4",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -103.55,
+      1510.32,
+      0
+    ],
+    "yaw": 37.589365964963065,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper5",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      174.18,
+      1460.35,
+      0
+    ],
+    "yaw": 81.37277955614553,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper6",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -55.77,
+      1417.84,
+      0
+    ],
+    "yaw": 85.04193058152282,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper7",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -7.1,
+      1396.67,
+      0
+    ],
+    "yaw": 110.2997000959594,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper8",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      165.33,
+      1537.96,
+      0
+    ],
+    "yaw": 17.196835153621777,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper9",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      149.6,
+      1517.77,
+      0
+    ],
+    "yaw": 112.8898135107483,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper10",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -107.8,
+      1455.47,
+      0
+    ],
+    "yaw": 168.42528015337103,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_ServicePaper11",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      69.15,
+      1399.83,
+      0
+    ],
+    "yaw": -42.610011977212594,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper0",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -1895,
+      677,
+      0
+    ],
+    "yaw": -139.61686628685277,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper1",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -1790,
+      620,
+      0
+    ],
+    "yaw": 147.88692809687922,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper2",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -1650,
+      560,
+      0
+    ],
+    "yaw": -141.180925282526,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper3",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -1455,
+      518,
+      0
+    ],
+    "yaw": -117.55472869866298,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper4",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      -1265,
+      485,
+      0
+    ],
+    "yaw": -19.885981321197107,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper5",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      -232,
+      -1080,
+      0
+    ],
+    "yaw": -8.492748798513048,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper6",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper3",
+    "position": [
+      -132,
+      -939,
+      0
+    ],
+    "yaw": -119.01169572364296,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper7",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper0",
+    "position": [
+      -84,
+      -769,
+      0
+    ],
+    "yaw": -144.9665614529368,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper8",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper1",
+    "position": [
+      202,
+      1380,
+      0
+    ],
+    "yaw": 80.65784875750586,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  },
+  {
+    "id": "Incident_TrailPaper9",
+    "mesh": "/Game/Dungeons/TransitIncidentDressing20261010/Meshes/SM_Incident_Paper2",
+    "position": [
+      272,
+      1225,
+      0
+    ],
+    "yaw": 25.167650590583037,
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "materials": [],
+    "fluid": false,
+    "collision": false,
+    "cast_shadow": false,
+    "instanced": true,
+    "incident_revision": "transit_incident_20261010"
+  }
+]

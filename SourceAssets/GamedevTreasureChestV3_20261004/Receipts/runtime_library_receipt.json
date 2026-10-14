@@ -1,0 +1,21 @@
+{
+  "operation": "create_library_file",
+  "status": "succeeded",
+  "path": "/TreasureChest_V3_Runtime_Container.png",
+  "file_id": "file_0000000068a081f5847cdbddc5136a16",
+  "library_file_id": "libfile_f52298199e348191a6c3efdbce556607",
+  "file_name": "TreasureChest_V3_Runtime_Container.png",
+  "current_version_number": 0,
+  "restored_from_version_number": null,
+  "xattrs": [
+    {
+      "name": "user.library-file-version",
+      "value": "0"
+    }
+  ],
+  "directory_id": "libdir_91670ae9d8208191856aee3b4b4832ef",
+  "mime_type": "image/png",
+  "library_artifact_type": "image",
+  "file_size_bytes": 231555,
+  "external_connectors_accessed": false
+}

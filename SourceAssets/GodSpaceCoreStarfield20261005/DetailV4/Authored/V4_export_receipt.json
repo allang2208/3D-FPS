@@ -1,0 +1,19 @@
+{
+  "triangles": 53888,
+  "material_triangles": {
+    "Core_Starfield": 25280,
+    "Core_EngravedGold": 24576,
+    "Core_Sapphire": 4032
+  },
+  "mesh_parts": 35,
+  "reflection_count": 1,
+  "pivot": [
+    0,
+    0,
+    0
+  ],
+  "sphere_diameter_m": 3,
+  "ring_count": 2,
+  "geometry_changed": false,
+  "blender": "5.2.2 LTS"
+}

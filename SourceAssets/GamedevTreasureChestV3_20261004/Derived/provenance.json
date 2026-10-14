@@ -1,0 +1,55 @@
+{
+  "source": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\input\\TreasureChest_v3\\exports\\TreasureChest_v3.fbx",
+  "blender": "5.1.2",
+  "source_blend_saved": false,
+  "poses": [
+    {
+      "name": "SM_TreasureChest_Closed",
+      "frame": 1,
+      "triangles": 158044,
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\derived\\SM_TreasureChest_Closed.fbx",
+      "bounds_m": [
+        [
+          -0.5177250504493713,
+          -0.6912750005722046,
+          -1.0918128623416123e-07
+        ],
+        [
+          0.5277999639511108,
+          0.691274881362915,
+          1.0419501066207886
+        ]
+      ],
+      "lid_rotation": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_TreasureChest_Open",
+      "frame": 31,
+      "triangles": 158044,
+      "file": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\chest_v3_import\\derived\\SM_TreasureChest_Open.fbx",
+      "bounds_m": [
+        [
+          -0.6579463481903076,
+          -0.6912750005722046,
+          -1.0918128623416123e-07
+        ],
+        [
+          0.5277999639511108,
+          0.691274881362915,
+          1.5335174798965454
+        ]
+      ],
+      "lid_rotation": [
+        0.8740953207015991,
+        0.0,
+        0.0,
+        0.48575448989868164
+      ]
+    }
+  ]
+}

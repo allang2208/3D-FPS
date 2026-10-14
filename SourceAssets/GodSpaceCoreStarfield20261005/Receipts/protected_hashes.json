@@ -1,0 +1,130 @@
+[
+  {
+    "path": "SourceAssets/GodSpaceLayout20260927/GodSpace_Layout_V1.blend",
+    "before_sha256": "afb1a31a841bb5c7d5033835e7a6f114cf44fee26c9f604e2d75dec82f103ba3",
+    "after_sha256": "afb1a31a841bb5c7d5033835e7a6f114cf44fee26c9f604e2d75dec82f103ba3",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": false
+  },
+  {
+    "path": "SourceAssets/GodSpaceLayout20260927/author_layout_preview.py",
+    "before_sha256": "9904a1656e4a9bae1ff16f59e1a6c72038951290ec490f2a1824783c71cdf6de",
+    "after_sha256": "9904a1656e4a9bae1ff16f59e1a6c72038951290ec490f2a1824783c71cdf6de",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": false
+  },
+  {
+    "path": "SourceAssets/GodSpaceLayout20260927/Integration/export_accepted_layout.py",
+    "before_sha256": "4baf8ebcfecc5a38da753d2ce74eb15f9db52191f1911434c2116dc05719c5fa",
+    "after_sha256": "c19708792ced03e2459bf2764cb1a4be23abba3251afd6ae7ab01a1838588710",
+    "unchanged": false,
+    "expected_install_change": true,
+    "protected": false
+  },
+  {
+    "path": "SourceAssets/GodSpaceLayout20260927/Integration/import_assets.py",
+    "before_sha256": "0664824b924ecae74e0bd94ddd06a0dc52ff7219c4d93b8c4c4c6c9776778ca8",
+    "after_sha256": "6dbc5c056f0855ea6fb2ab7b9c0f49c64aed6ba580c289b03577d2e00f533f51",
+    "unchanged": false,
+    "expected_install_change": true,
+    "protected": false
+  },
+  {
+    "path": "SourceAssets/GodSpaceLayout20260927/Integration/placements.json",
+    "before_sha256": "ed59ac072e00fab98567a807b2a329361f46dbf7b8b8baef94d4e40d9640316e",
+    "after_sha256": "764e5af2e270108d7b19ab9c9ad8e1f92fe297eea2f9af778192f313802e5e0c",
+    "unchanged": false,
+    "expected_install_change": true,
+    "protected": false
+  },
+  {
+    "path": "SourceAssets/GodSpaceLayout20260927/Integration/Exported/SM_GodSpaceCore.fbx",
+    "before_sha256": "bc751fb665f62ead267b36a4ee2aaa18d448a42b0f6aa0a16af5a7cf87caf5e4",
+    "after_sha256": "201c4d290f9bc17e88e993bc74f89b7ea9d95804976c69a8d32b96f4bc05e559",
+    "unchanged": false,
+    "expected_install_change": true,
+    "protected": false
+  },
+  {
+    "path": "Content/Props/GodSpaceLayout20260927/Meshes/SM_GodSpaceCore.uasset",
+    "before_sha256": "491af1d295c8a2a0454b2b38d6c90494c6d0b9430cdff8fbaec42eac65076aa1",
+    "after_sha256": "8f7bd87ce71ee072179f9b0c03b028a49fb9988675b0354c3bf431cc6b047e39",
+    "unchanged": false,
+    "expected_install_change": true,
+    "protected": false
+  },
+  {
+    "path": "Content/GameMaps/DayNight_Lighting.umap",
+    "before_sha256": "0df7e2f30477db6476e9957ff1bacc78ef67b55072210730a6f5404ddc47354f",
+    "after_sha256": "0df7e2f30477db6476e9957ff1bacc78ef67b55072210730a6f5404ddc47354f",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Content/Props/GodSpaceLayout20260927/Materials/M_GodSpaceCore.uasset",
+    "before_sha256": "1c354f6a8a62b2a786646e32d591e833c5c6c0e6126006385a67fdee0e57105b",
+    "after_sha256": "1c354f6a8a62b2a786646e32d591e833c5c6c0e6126006385a67fdee0e57105b",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Content/Props/RomanPavilionRoof20260919/WhiteCelestial/M_PavilionAgedGold.uasset",
+    "before_sha256": "f3908a93d34f9e47914f65f008c5549797b380b1dd209fdcfcafc008b8d75a53",
+    "after_sha256": "f3908a93d34f9e47914f65f008c5549797b380b1dd209fdcfcafc008b8d75a53",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Content/Props/SquareAltar20260922/SM_SquareAltar.uasset",
+    "before_sha256": "23e1dad3b41adc21b14ffd2aaee8ca525d7034fe4f88cb1e00c88901d6e60171",
+    "after_sha256": "23e1dad3b41adc21b14ffd2aaee8ca525d7034fe4f88cb1e00c88901d6e60171",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Content/ColdSteelData/crafting-recipes.json",
+    "before_sha256": "24f54554548652668d5a09a5ab1ba5ded75c82f9feb494787c345082e9c75fa9",
+    "after_sha256": "24f54554548652668d5a09a5ab1ba5ded75c82f9feb494787c345082e9c75fa9",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Saved/SaveGames/ColdSteelPlayer_A.sav",
+    "before_sha256": "ecf9dcb4e8bd1886aaa781a4c61733f7c9ed1ef5a14056ec9afca4452ee58fef",
+    "after_sha256": "ecf9dcb4e8bd1886aaa781a4c61733f7c9ed1ef5a14056ec9afca4452ee58fef",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Saved/SaveGames/ColdSteelPlayer_A.sha1",
+    "before_sha256": "d4fbc632d008e7b42bed64ec761fb17e49ce54c4c2aad60509c131702bb365eb",
+    "after_sha256": "d4fbc632d008e7b42bed64ec761fb17e49ce54c4c2aad60509c131702bb365eb",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Saved/SaveGames/ColdSteelPlayer_B.sav",
+    "before_sha256": "be3f6a76802f2cffcb962c7794e2d995ec7e4e646ef82ac68744eda55e6f4518",
+    "after_sha256": "be3f6a76802f2cffcb962c7794e2d995ec7e4e646ef82ac68744eda55e6f4518",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  },
+  {
+    "path": "Saved/SaveGames/ColdSteelPlayer_B.sha1",
+    "before_sha256": "4c31fc208c2dbefc6e1457bdb4d96525c424c39456a75f27ce5dc3a1f10edf7a",
+    "after_sha256": "4c31fc208c2dbefc6e1457bdb4d96525c424c39456a75f27ce5dc3a1f10edf7a",
+    "unchanged": true,
+    "expected_install_change": false,
+    "protected": true
+  }
+]

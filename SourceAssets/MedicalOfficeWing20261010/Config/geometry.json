@@ -1,0 +1,189 @@
+{
+  "meshes": [
+    {
+      "name": "SM_MedicalOffice_FloorSlabs",
+      "kind": "FloorSlabs",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_FloorSlabs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_FloorSlabs.fbx",
+      "materials": {
+        "MO_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "collision_boxes": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 24
+    },
+    {
+      "name": "SM_MedicalOffice_Roof",
+      "kind": "Roof",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Roof",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Roof.fbx",
+      "materials": {
+        "MO_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "collision_boxes": 2,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 24
+    },
+    {
+      "name": "SM_MedicalOffice_FloorFinish",
+      "kind": "FloorFinish",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_FloorFinish",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_FloorFinish.fbx",
+      "materials": {
+        "MO_Floor": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Floor"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 9288
+    },
+    {
+      "name": "SM_MedicalOffice_Walls",
+      "kind": "Walls",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Walls.fbx",
+      "materials": {
+        "MO_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "collision_boxes": 34,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 408
+    },
+    {
+      "name": "SM_MedicalOffice_WallFinish",
+      "kind": "WallFinish",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_WallFinish",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_WallFinish.fbx",
+      "materials": {
+        "MO_Paint": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White",
+        "MO_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 708
+    },
+    {
+      "name": "SM_MedicalOffice_Trim",
+      "kind": "Trim",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Trim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Trim.fbx",
+      "materials": {
+        "MO_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "MO_Rubber": "/Game/Dungeons/AtmosphereV2/RoomInteriors/Materials/M_Room_Rubber"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 600
+    },
+    {
+      "name": "SM_MedicalOffice_Frames",
+      "kind": "Frames",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Frames",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Frames.fbx",
+      "materials": {
+        "MO_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "collision": true,
+      "collision_boxes": 27,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 252
+    },
+    {
+      "name": "SM_MedicalOffice_Tiles",
+      "kind": "Tiles",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Tiles",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Tiles.fbx",
+      "materials": {
+        "RS_V2_WallReliefBed": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Bed.MI_WallMortar_Bed",
+        "RS_V2_NaturalCeramicAtlas": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicAtlas.M_NaturalCeramicAtlas",
+        "RS_V2_NaturalCeramicCore": "/Game/Dungeons/AtmosphereV2/NaturalPass/Materials/M_NaturalCeramicCore.M_NaturalCeramicCore",
+        "RS_V2_WallReliefFinish": "/Game/Dungeons/AtmosphereV2/WallRelief/Materials/MI_WallMortar_Finish.MI_WallMortar_Finish",
+        "RS_V2_CeramicFractureCore": "/Game/Dungeons/AtmosphereV2/TileFracture/Materials/M_CeramicFractureCore"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 127644
+    },
+    {
+      "name": "SM_MedicalOffice_CeilingGrid",
+      "kind": "CeilingGrid",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_CeilingGrid",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_CeilingGrid.fbx",
+      "materials": {
+        "MO_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 696
+    },
+    {
+      "name": "SM_MedicalOffice_Services",
+      "kind": "Services",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Services",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Services.fbx",
+      "materials": {
+        "MO_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": true,
+      "triangles": 24
+    },
+    {
+      "name": "SM_MedicalOffice_FloorWayfinding",
+      "kind": "FloorWayfinding",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_FloorWayfinding",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_FloorWayfinding.fbx",
+      "materials": {
+        "MO_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "triangles": 24
+    },
+    {
+      "name": "SM_MedicalOffice_Signs",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/MedicalOfficeWing20261010/Meshes/SM_MedicalOffice_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalOfficeWing20261010\\Authored\\SM_MedicalOffice_Signs.fbx",
+      "materials": {
+        "MO_Blue": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_Blue",
+        "MO_Text": "/Game/Dungeons/HospitalContainers20261003/Materials/M_Hospital_White"
+      },
+      "collision": false,
+      "collision_boxes": 0,
+      "nanite": true,
+      "cast_shadow": false,
+      "triangles": 14332
+    }
+  ],
+  "area_m2": 611.2,
+  "source_surfaces": "DungeonTileFracture20260922",
+  "mid_rail": {
+    "tile_band_removed_cm": [
+      91,
+      98
+    ],
+    "tiled_face_cm": 15.011361920833588,
+    "revision": "waiting_finish_20261010"
+  }
+}

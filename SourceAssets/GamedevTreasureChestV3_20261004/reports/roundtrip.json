@@ -1,0 +1,98 @@
+[
+  {
+    "file": "TreasureChest_v3.fbx",
+    "meshes": 1,
+    "material_slots": [
+      [
+        "Treasure_BlackIron",
+        "Treasure_AntiqueGold",
+        "Treasure_Interior"
+      ]
+    ],
+    "unit_scale": 1.0,
+    "dimensions_scene_units": [
+      1.045525074005127,
+      1.3825500011444092,
+      1.0419502158020748
+    ],
+    "armatures": [
+      {
+        "name": "GamedevTreasureChestRig",
+        "bones": [
+          "Root",
+          "Lid"
+        ],
+        "actions": "GamedevTreasureChestRig|Scene"
+      }
+    ],
+    "actions": [
+      {
+        "name": "GamedevTreasureChestRig|Scene",
+        "range": [
+          1.0,
+          31.0
+        ]
+      }
+    ],
+    "open_frame31_bounds_m": {
+      "min": [
+        -0.65725177526474,
+        -0.6912750601768494,
+        -1.0918128623416123e-07
+      ],
+      "max": [
+        0.5278000235557556,
+        0.6912749409675598,
+        1.5327733755111694
+      ]
+    }
+  },
+  {
+    "file": "TreasureChest_v3.glb",
+    "meshes": 1,
+    "material_slots": [
+      [
+        "Treasure_BlackIron",
+        "Treasure_AntiqueGold",
+        "Treasure_Interior"
+      ]
+    ],
+    "unit_scale": 1.0,
+    "dimensions_scene_units": [
+      1.0455250144004822,
+      1.3825498819351196,
+      1.041949987411499
+    ],
+    "armatures": [
+      {
+        "name": "GamedevTreasureChestRig",
+        "bones": [
+          "Root",
+          "Lid"
+        ],
+        "actions": "A_TreasureChest_Opening"
+      }
+    ],
+    "actions": [
+      {
+        "name": "A_TreasureChest_Opening",
+        "range": [
+          1.0,
+          31.0
+        ]
+      }
+    ],
+    "open_frame31_bounds_m": {
+      "min": [
+        -0.6572509407997131,
+        -0.6912749409675598,
+        0.0
+      ],
+      "max": [
+        0.5277999639511108,
+        0.6912749409675598,
+        1.532773733139038
+      ]
+    }
+  }
+]

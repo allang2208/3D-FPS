@@ -25,6 +25,7 @@ for name,color,roughness in [('BookPaper',(.70,.66,.49),.91),('BookGreen',(.09,.
         folder,asset_name=path.rsplit('/',1);E.make_directory(folder)
         mat=AT.create_asset(asset_name,folder,u.Material,u.MaterialFactoryNew())
         mat.set_editor_property('used_with_nanite',True)
+        mat.set_editor_property('used_with_instanced_static_meshes',True)
         node=ML.create_material_expression(mat,u.MaterialExpressionConstant3Vector,-300,0)
         node.set_editor_property('constant',u.LinearColor(*color,1.));ML.connect_material_property(node,'',u.MaterialProperty.MP_BASE_COLOR)
         node=ML.create_material_expression(mat,u.MaterialExpressionConstant,-300,140)

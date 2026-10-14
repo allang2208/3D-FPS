@@ -1,0 +1,2294 @@
+{
+  "meshes": [
+    {
+      "room": "Reception",
+      "kind": "StairTreads",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairTreads",
+      "old": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairTreads",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Reception_StairTreads.fbx",
+      "sha256": "05d6260f38b4fc096cc6ac607b52da780367af1f20cbd7467e10910e993416b3",
+      "materials": {
+        "HSC_Reception_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone"
+      },
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 17920
+    },
+    {
+      "room": "Reception",
+      "kind": "StairNosings",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairNosings",
+      "old": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairNosings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Reception_StairNosings.fbx",
+      "sha256": "f19487ad129aead73865096be74b2bc73431d86aaa237ac7a80bacc514148105",
+      "materials": {
+        "HSC_Reception_Dark": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Dark"
+      },
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 6048
+    },
+    {
+      "room": "Reception",
+      "kind": "StairCarriages",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_StairCarriages",
+      "old": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_StairCarriages",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Reception_StairCarriages.fbx",
+      "sha256": "4df0fe07868fedd3bb72449d2278b84bf9baed46b3eff585c1a36ca0df7c4ebc",
+      "materials": {
+        "HSC_Reception_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "collision_hulls": 4,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 464
+    },
+    {
+      "room": "Reception",
+      "kind": "Balustrades",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_Balustrades",
+      "old": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_Balustrades",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Reception_Balustrades.fbx",
+      "sha256": "b094e4412ff79d2c15728fde674a338de8bb7ca4916640ffd3354ded9c272495",
+      "materials": {
+        "HSC_Reception_Yellow": "/Game/Dungeons/SeamMetal20260923/Materials/MI_Room_YellowPaint",
+        "HSC_Reception_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel",
+        "HSC_Reception_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": true,
+      "collision_hulls": 26,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 52512
+    },
+    {
+      "room": "Reception",
+      "kind": "GalleryFascia",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Reception_GalleryFascia",
+      "old": "/Game/Dungeons/ReceptionHall20261006/Meshes/SM_Reception_GalleryFascia",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Reception_GalleryFascia.fbx",
+      "sha256": "bfd879a54cafd75da9bcf994b03afd55a03f57c2329e9b7dff9b714fbcd9602c",
+      "materials": {
+        "HSC_Reception_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "HSC_Reception_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass"
+      },
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 120
+    },
+    {
+      "room": "Transit",
+      "kind": "Steps",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Steps",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Steps",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Transit_Steps.fbx",
+      "sha256": "8bcc71b84e5383b9557f7bf454b056de712c96e1bc1bd7828beb4245bdf6bc18",
+      "materials": {
+        "HSC_Transit_Stone": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Stone"
+      },
+      "collision": true,
+      "collision_hulls": 56,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 17920
+    },
+    {
+      "room": "Transit",
+      "kind": "Nosings",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Nosings",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Nosings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Transit_Nosings.fbx",
+      "sha256": "316d8a1e162dec3a7d6dbc339cf3ade690357997d42a6f2c11fda0a0cf2d153e",
+      "materials": {
+        "HSC_Transit_Dark": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 6048
+    },
+    {
+      "room": "Transit",
+      "kind": "StairSupport",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_StairSupport",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_StairSupport",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Transit_StairSupport.fbx",
+      "sha256": "964aafbad72e1826cae2ae5b46229ba993b73cfba4dcf021df58aa8e4ca477b0",
+      "materials": {
+        "HSC_Transit_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "collision": true,
+      "collision_hulls": 4,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 464
+    },
+    {
+      "room": "Transit",
+      "kind": "Rails",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_Rails",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV3/Meshes/SM_FT3_Hall_Rails",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Transit_Rails.fbx",
+      "sha256": "ae359813744ea0fc34e426958c652da5c139fd63989a8d9c4fbf6878c95cfb9e",
+      "materials": {
+        "HSC_Transit_Yellow": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyYellow",
+        "HSC_Transit_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "HSC_Transit_Paint": "/Game/Dungeons/SeamMetal20260923/Materials/MI_PaintedSteel"
+      },
+      "collision": true,
+      "collision_hulls": 19,
+      "cast_shadow": true,
+      "nanite": false,
+      "triangles": 25888
+    },
+    {
+      "room": "Transit",
+      "kind": "CornerHousings",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerHousings",
+      "old": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Transit_CornerHousings.fbx",
+      "sha256": "b083767b4738aba10dffe2ae3e81a6f33405460cba346f87048b532a218cf2bf",
+      "materials": {
+        "HSC_Transit_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "HSC_Transit_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 1160
+    },
+    {
+      "room": "Transit",
+      "kind": "CornerDiffusers",
+      "mesh": "/Game/Dungeons/HallStairCorner20261010/Meshes/SM_HSC_Transit_CornerDiffusers",
+      "old": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HallStairCorner20261010\\Authored\\SM_HSC_Transit_CornerDiffusers.fbx",
+      "sha256": "0bd1015361b981b192e74196ead9a99246c55189a483fa1495de9c1129c24042",
+      "materials": {
+        "HSC_Transit_Glow": "/Game/Dungeons/HallLighting20261007/Materials/M_SteadyDiffuser"
+      },
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false,
+      "triangles": 72
+    }
+  ],
+  "posts": [
+    {
+      "room": "Reception",
+      "x": -7.829999923706055,
+      "y": 10.140000343322754,
+      "foot": 0.16071428571428573,
+      "top": 1.2607142835855485,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.809999942779541,
+      "y": 10.140000343322754,
+      "foot": 0.6428571428571429,
+      "top": 1.742857074737549,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.130000114440918,
+      "y": 10.140000343322754,
+      "foot": 0.9642857142857143,
+      "top": 2.0642856121063233,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -5.110000133514404,
+      "y": 10.140000343322754,
+      "foot": 1.4464285714285714,
+      "top": 2.546428418159485,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -4.430000305175781,
+      "y": 10.140000343322754,
+      "foot": 1.7678571428571428,
+      "top": 2.8678569555282594,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -3.4100000858306885,
+      "y": 10.140000343322754,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -2.6100001335144043,
+      "y": 10.140000343322754,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.809999942779541,
+      "y": 10.140000343322754,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.1299999952316284,
+      "y": 10.140000343322754,
+      "foot": 2.5714285714285716,
+      "top": 3.6714285373687745,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -0.11000001430511475,
+      "y": 10.140000343322754,
+      "foot": 3.053571428571429,
+      "top": 4.153571462631225,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 0.5699999332427979,
+      "y": 10.140000343322754,
+      "foot": 3.375,
+      "top": 4.475,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 1.249999761581421,
+      "y": 10.140000343322754,
+      "foot": 3.696428571428571,
+      "top": 4.796428298950195,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.2699999809265137,
+      "y": 10.140000343322754,
+      "foot": 4.178571428571429,
+      "top": 5.278571224212646,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.950000047683716,
+      "y": 10.140000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 3.259999990463257,
+      "y": 10.140000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 3.259999990463257,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.240952491760254,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 1.2219047546386719,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 0.20285725593566895,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -0.8161904811859131,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.8352382183074951,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -2.854285478591919,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -3.873333215713501,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -4.892380714416504,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -5.911428451538086,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.930476188659668,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -7.94952392578125,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -8.968570709228516,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -9.987617492675781,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -11.00666618347168,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -12.025713920593262,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -13.044761657714844,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -14.06380844116211,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -15.082857131958008,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -16.101905822753906,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -17.120952606201172,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 9.626667022705078,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 8.613333702087402,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 7.600000381469727,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 6.586666584014893,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 5.573333740234375,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 4.559999942779541,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 3.5466666221618652,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 2.5333328247070312,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 1.5199995040893555,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": 0.5066671371459961,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -0.5066661834716797,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -1.5200004577636719,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -2.5333337783813477,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -3.5466670989990234,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -4.560000419616699,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -5.573334693908691,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -6.586667060852051,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -7.600001335144043,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -8.613333702087402,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -9.626666069030762,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -18.139999389648438,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -17.120952606201172,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -16.101903915405273,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -15.082857131958008,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -14.06380844116211,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -13.044761657714844,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -12.025713920593262,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -11.00666618347168,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -9.987618446350098,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -8.968570709228516,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -7.949522972106934,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.930475234985352,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -5.911428451538086,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -4.8923797607421875,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -3.873332977294922,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -2.85428524017334,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.8352375030517578,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -0.8161907196044922,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 0.20285797119140625,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 1.2219066619873047,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.2409534454345703,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 3.259999990463257,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 3.259999990463257,
+      "y": -10.140000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.950000047683716,
+      "y": -10.140000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.2699999809265137,
+      "y": -10.140000343322754,
+      "foot": 4.178571428571429,
+      "top": 5.278571224212646,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 1.2500001192092896,
+      "y": -10.140000343322754,
+      "foot": 3.696428571428571,
+      "top": 4.796428537368774,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 0.5699999332427979,
+      "y": -10.140000343322754,
+      "foot": 3.375,
+      "top": 4.475,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -0.1100001335144043,
+      "y": -10.140000343322754,
+      "foot": 3.053571428571429,
+      "top": 4.153571462631225,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.1299998760223389,
+      "y": -10.140000343322754,
+      "foot": 2.5714285714285716,
+      "top": 3.6714287757873536,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.809999942779541,
+      "y": -10.140000343322754,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -2.6100001335144043,
+      "y": -10.140000343322754,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -3.4100000858306885,
+      "y": -10.140000343322754,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -4.429999828338623,
+      "y": -10.140000343322754,
+      "foot": 1.7678571428571428,
+      "top": 2.8678571939468385,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -5.110000133514404,
+      "y": -10.140000343322754,
+      "foot": 1.4464285714285714,
+      "top": 2.546428656578064,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.130000114440918,
+      "y": -10.140000343322754,
+      "foot": 0.9642857142857143,
+      "top": 2.0642858505249024,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.809999942779541,
+      "y": -10.140000343322754,
+      "foot": 0.6428571428571429,
+      "top": 1.742857313156128,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -7.829999923706055,
+      "y": -10.140000343322754,
+      "foot": 0.16071428571428573,
+      "top": 1.260714626312256,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -7.829999923706055,
+      "y": 7.460000038146973,
+      "foot": 0.16071428571428573,
+      "top": 1.2607142835855485,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.809999942779541,
+      "y": 7.460000038146973,
+      "foot": 0.6428571428571429,
+      "top": 1.742857074737549,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.130000114440918,
+      "y": 7.460000038146973,
+      "foot": 0.9642857142857143,
+      "top": 2.0642856121063233,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -5.110000133514404,
+      "y": 7.460000038146973,
+      "foot": 1.4464285714285714,
+      "top": 2.546428418159485,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -4.430000305175781,
+      "y": 7.460000038146973,
+      "foot": 1.7678571428571428,
+      "top": 2.8678569555282594,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -3.4100000858306885,
+      "y": 7.460000038146973,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -2.6100001335144043,
+      "y": 7.460000038146973,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.809999942779541,
+      "y": 7.460000038146973,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.1299999952316284,
+      "y": 7.460000038146973,
+      "foot": 2.5714285714285716,
+      "top": 3.6714285373687745,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -0.11000001430511475,
+      "y": 7.460000038146973,
+      "foot": 3.053571428571429,
+      "top": 4.153571462631225,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 0.5699999332427979,
+      "y": 7.460000038146973,
+      "foot": 3.375,
+      "top": 4.475,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 1.249999761581421,
+      "y": 7.460000038146973,
+      "foot": 3.696428571428571,
+      "top": 4.796428298950195,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.2699999809265137,
+      "y": 7.460000038146973,
+      "foot": 4.178571428571429,
+      "top": 5.278571224212646,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.950000047683716,
+      "y": 7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 3.760000228881836,
+      "y": 7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 4.570000171661377,
+      "y": 7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": 7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": 8.255000114440918,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": 9.050000190734863,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": 9.845000267028809,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 6.358181953430176,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 7.336363792419434,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 8.314545631408691,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 9.29272747039795,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 10.27090835571289,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 11.249092102050781,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 12.227272033691406,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 13.205453872680664,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 14.183636665344238,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 15.16181755065918,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 9.626667022705078,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 8.613333702087402,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 7.600000381469727,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 6.586666584014893,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 5.573333740234375,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 4.559999942779541,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 3.5466666221618652,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 2.5333328247070312,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 1.5199995040893555,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": 0.5066671371459961,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -0.5066661834716797,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -1.5200004577636719,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -2.5333337783813477,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -3.5466670989990234,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -4.560000419616699,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -5.573334693908691,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -6.586667060852051,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -7.600001335144043,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -8.613333702087402,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -9.626666069030762,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 16.139999389648438,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 15.16181755065918,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 14.183635711669922,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 13.205453872680664,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 12.227272033691406,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 11.249090194702148,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 10.27090835571289,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 9.292726516723633,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 8.314544677734375,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 7.336362838745117,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 6.358181953430176,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": -10.640000343322754,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": -9.845000267028809,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": -9.050000190734863,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": -8.255000114440918,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 5.380000114440918,
+      "y": -7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 4.570000171661377,
+      "y": -7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 3.759999990463257,
+      "y": -7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.950000047683716,
+      "y": -7.460000038146973,
+      "foot": 4.5,
+      "top": 5.6,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 2.2699999809265137,
+      "y": -7.460000038146973,
+      "foot": 4.178571428571429,
+      "top": 5.278571224212646,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 1.2500001192092896,
+      "y": -7.460000038146973,
+      "foot": 3.696428571428571,
+      "top": 4.796428537368774,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": 0.5699999332427979,
+      "y": -7.460000038146973,
+      "foot": 3.375,
+      "top": 4.475,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -0.1100001335144043,
+      "y": -7.460000038146973,
+      "foot": 3.053571428571429,
+      "top": 4.153571462631225,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.1299998760223389,
+      "y": -7.460000038146973,
+      "foot": 2.5714285714285716,
+      "top": 3.6714287757873536,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -1.809999942779541,
+      "y": -7.460000038146973,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -2.6100001335144043,
+      "y": -7.460000038146973,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -3.4100000858306885,
+      "y": -7.460000038146973,
+      "foot": 2.25,
+      "top": 3.35,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -4.429999828338623,
+      "y": -7.460000038146973,
+      "foot": 1.7678571428571428,
+      "top": 2.8678571939468385,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -5.110000133514404,
+      "y": -7.460000038146973,
+      "foot": 1.4464285714285714,
+      "top": 2.546428656578064,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.130000114440918,
+      "y": -7.460000038146973,
+      "foot": 0.9642857142857143,
+      "top": 2.0642858505249024,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -6.809999942779541,
+      "y": -7.460000038146973,
+      "foot": 0.6428571428571429,
+      "top": 1.742857313156128,
+      "base_half": 0.08
+    },
+    {
+      "room": "Reception",
+      "x": -7.829999923706055,
+      "y": -7.460000038146973,
+      "foot": 0.16071428571428573,
+      "top": 1.260714626312256,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -5.1678571701049805,
+      "y": 14.5,
+      "foot": 0.15,
+      "top": 1.2300000059604645,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.175000190734863,
+      "y": 14.5,
+      "foot": 0.6,
+      "top": 1.680000023841858,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.846428394317627,
+      "y": 14.5,
+      "foot": 0.8999999999999999,
+      "top": 1.9799999761581422,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -7.85357141494751,
+      "y": 14.5,
+      "foot": 1.3499999999999999,
+      "top": 2.430000023841858,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -8.524999618530273,
+      "y": 14.5,
+      "foot": 1.65,
+      "top": 2.729999976158142,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -9.532142639160156,
+      "y": 14.5,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -10.33214282989502,
+      "y": 14.5,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -11.132143020629883,
+      "y": 14.5,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -12.139286041259766,
+      "y": 14.5,
+      "foot": 2.55,
+      "top": 3.629999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.146429061889648,
+      "y": 14.5,
+      "foot": 3.0,
+      "top": 4.079999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.817856788635254,
+      "y": 14.5,
+      "foot": 3.3,
+      "top": 4.379999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -14.824999809265137,
+      "y": 14.5,
+      "foot": 3.75,
+      "top": 4.829999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -15.83214282989502,
+      "y": 14.5,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 14.5,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 13.464285850524902,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 12.428571701049805,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 11.39285659790039,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 10.357142448425293,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 9.321428298950195,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 8.285714149475098,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 7.249999523162842,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 6.214284896850586,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 5.178570747375488,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 4.142856597900391,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 3.107142448425293,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 2.0714282989501953,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 1.0357141494750977,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -9.5367431640625e-07,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -1.035715103149414,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -2.071430206298828,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -3.1071434020996094,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -4.142858505249023,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -5.178571701049805,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -6.214286804199219,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -7.250001907348633,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -8.285715103149414,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -9.321430206298828,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -10.35714340209961,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -11.392858505249023,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -12.428571701049805,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -13.464286804199219,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -14.5,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -15.83214282989502,
+      "y": -14.5,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -14.824999809265137,
+      "y": -14.5,
+      "foot": 3.75,
+      "top": 4.829999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.81785774230957,
+      "y": -14.5,
+      "foot": 3.3,
+      "top": 4.379999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.146429061889648,
+      "y": -14.5,
+      "foot": 3.0,
+      "top": 4.079999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -12.139286041259766,
+      "y": -14.5,
+      "foot": 2.55,
+      "top": 3.629999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -11.132143020629883,
+      "y": -14.5,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -10.33214282989502,
+      "y": -14.5,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -9.532142639160156,
+      "y": -14.5,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -8.524999618530273,
+      "y": -14.5,
+      "foot": 1.65,
+      "top": 2.729999976158142,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -7.85357141494751,
+      "y": -14.5,
+      "foot": 1.3499999999999999,
+      "top": 2.4299999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.846428871154785,
+      "y": -14.5,
+      "foot": 0.8999999999999999,
+      "top": 1.9799999761581422,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.175000190734863,
+      "y": -14.5,
+      "foot": 0.6,
+      "top": 1.6799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -5.1678571701049805,
+      "y": -14.5,
+      "foot": 0.15,
+      "top": 1.2299999761581422,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -5.1678571701049805,
+      "y": -17.299999237060547,
+      "foot": 0.15,
+      "top": 1.2300000059604645,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.175000190734863,
+      "y": -17.299999237060547,
+      "foot": 0.6,
+      "top": 1.680000023841858,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.846428394317627,
+      "y": -17.299999237060547,
+      "foot": 0.8999999999999999,
+      "top": 1.9799999761581422,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -7.85357141494751,
+      "y": -17.299999237060547,
+      "foot": 1.3499999999999999,
+      "top": 2.430000023841858,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -8.524999618530273,
+      "y": -17.299999237060547,
+      "foot": 1.65,
+      "top": 2.729999976158142,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -9.532142639160156,
+      "y": -17.299999237060547,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -10.33214282989502,
+      "y": -17.299999237060547,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -11.132143020629883,
+      "y": -17.299999237060547,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -12.139286041259766,
+      "y": -17.299999237060547,
+      "foot": 2.55,
+      "top": 3.629999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.146429061889648,
+      "y": -17.299999237060547,
+      "foot": 3.0,
+      "top": 4.079999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.817856788635254,
+      "y": -17.299999237060547,
+      "foot": 3.3,
+      "top": 4.379999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -14.824999809265137,
+      "y": -17.299999237060547,
+      "foot": 3.75,
+      "top": 4.829999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -15.83214282989502,
+      "y": -17.299999237060547,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -17.299999237060547,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": -17.860000610351562,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -5.1678571701049805,
+      "y": 17.299999237060547,
+      "foot": 0.15,
+      "top": 1.2300000059604645,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.175000190734863,
+      "y": 17.299999237060547,
+      "foot": 0.6,
+      "top": 1.680000023841858,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -6.846428394317627,
+      "y": 17.299999237060547,
+      "foot": 0.8999999999999999,
+      "top": 1.9799999761581422,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -7.85357141494751,
+      "y": 17.299999237060547,
+      "foot": 1.3499999999999999,
+      "top": 2.430000023841858,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -8.524999618530273,
+      "y": 17.299999237060547,
+      "foot": 1.65,
+      "top": 2.729999976158142,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -9.532142639160156,
+      "y": 17.299999237060547,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -10.33214282989502,
+      "y": 17.299999237060547,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -11.132143020629883,
+      "y": 17.299999237060547,
+      "foot": 2.1,
+      "top": 3.1799999046325684,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -12.139286041259766,
+      "y": 17.299999237060547,
+      "foot": 2.55,
+      "top": 3.629999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.146429061889648,
+      "y": 17.299999237060547,
+      "foot": 3.0,
+      "top": 4.079999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -13.817856788635254,
+      "y": 17.299999237060547,
+      "foot": 3.3,
+      "top": 4.379999713897705,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -14.824999809265137,
+      "y": 17.299999237060547,
+      "foot": 3.75,
+      "top": 4.829999761581421,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -15.83214282989502,
+      "y": 17.299999237060547,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 17.299999237060547,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    },
+    {
+      "room": "Transit",
+      "x": -16.139999389648438,
+      "y": 17.860000610351562,
+      "foot": 4.2,
+      "top": 5.279999809265137,
+      "base_half": 0.08
+    }
+  ],
+  "game_run": false,
+  "rendered": false
+}

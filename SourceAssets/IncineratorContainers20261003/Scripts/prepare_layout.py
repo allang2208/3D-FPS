@@ -220,6 +220,28 @@ for identity,plan in plans.items():
             box=(np.array(candidate['box'][0]),np.array(candidate['box'][1]))
             if any(overlaps(box,other) for other in reserved):continue
             sid='Treatment.'+identity+'.'+family+'.'+str(len(slots)+1)
+            # Approved service-door clearance: move the complete PPE bay before
+            # reserving it, so later candidates also avoid its opening/access box.
+            if sid=='Treatment.ShoredBreach.PPELocker.1':
+                candidate=copy.deepcopy(candidate)
+                if abs(candidate['position'][0]-452)>0.002 and abs(candidate['position'][0]-670)>0.002:
+                    raise RuntimeError('PPE bay source geometry changed; preserve the authored clearance fix')
+                delta=670.0-candidate['position'][0]
+                candidate['position'][0]=670.0
+                box=(box[0].copy(),box[1].copy())
+                box[0][0]+=delta;box[1][0]+=delta
+                candidate['box']=[box[0].tolist(),box[1].tolist()]
+                if any(overlaps(box,other) for other in reserved):
+                    raise RuntimeError('Moved PPE bay conflicts with another authored bay')
+            if sid=='Treatment.AbandonedIncineratorHall.HeatCabinet.1':
+                # Keep the complete cabinet and drawer in the authored rear-wall
+                # bay, outside the closed floor hatch beside the observation stair.
+                replacement=read(ROOT.parent/'IncineratorHatchClearance20261010/bay.json')
+                candidate=dict(position=replacement['position'],yaw=replacement['yaw'],
+                    floor_z=replacement['floor_z'])
+                box=box_at(family,np.array(candidate['position']),candidate['yaw'])
+                if intersects(geometry[0],*box) or any(overlaps(box,other) for other in reserved):
+                    raise RuntimeError('Preserve the heat-cabinet bay after source geometry changes')
             slots.append(dict(id=sid,variants=[variant(family,sid,candidate['position'],candidate['yaw'])],
                 clearance_cm=dict(min=box[0].tolist(),max=box[1].tolist()),floor_z=candidate['floor_z']))
             reserved.append(box)

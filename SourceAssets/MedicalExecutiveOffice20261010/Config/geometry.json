@@ -1,0 +1,167 @@
+{
+  "meshes": [
+    {
+      "name": "SM_MedOffice_ExecutiveDesk",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Authored\\SM_MedOffice_ExecutiveDesk.fbx",
+      "materials": {
+        "RS_Wood": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+        "RS_Paint": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Graphite",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Plastic": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Plastic"
+      },
+      "triangles": 18540,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ],
+      "kind": "ExecutiveDesk",
+      "mesh": "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_ExecutiveDesk",
+      "collision_boxes": 6,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_MedOffice_ErgonomicChair",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Authored\\SM_MedOffice_ErgonomicChair.fbx",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Paint": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Graphite",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+        "RS_Fabric": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Fabric",
+        "RS_Seam": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam",
+        "RS_Leather": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Leather"
+      },
+      "triangles": 62380,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ],
+      "kind": "ErgonomicChair",
+      "mesh": "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_ErgonomicChair",
+      "collision_boxes": 4,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_MedOffice_VisitorChair",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Authored\\SM_MedOffice_VisitorChair.fbx",
+      "materials": {
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+        "RS_Leather": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Leather",
+        "RS_Seam": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam",
+        "RS_Fabric": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Fabric"
+      },
+      "triangles": 12616,
+      "nanite": true,
+      "collision": true,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ],
+      "kind": "VisitorChair",
+      "mesh": "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_VisitorChair",
+      "collision_boxes": 2,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_MedOffice_ClinicalElectronics",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Authored\\SM_MedOffice_ClinicalElectronics.fbx",
+      "materials": {
+        "RS_Plastic": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Plastic",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber",
+        "RS_Screen": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Screen",
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Keycaps": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Keycaps",
+        "RS_Legends": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Legends",
+        "RS_Lamp": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Lamp",
+        "RS_Display": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Display",
+        "RS_Paint": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Graphite",
+        "RS_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+        "RS_Print": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Print"
+      },
+      "triangles": 53958,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ],
+      "kind": "ClinicalElectronics",
+      "mesh": "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_ClinicalElectronics",
+      "collision_boxes": 0,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_MedOffice_DesktopDetails0",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Authored\\SM_MedOffice_DesktopDetails0.fbx",
+      "materials": {
+        "RS_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+        "RS_Blue": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Blue",
+        "RS_Print": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Print",
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Seam": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam",
+        "RS_Leather": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Leather",
+        "RS_Paint": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Graphite",
+        "RS_Lamp": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Lamp",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber"
+      },
+      "triangles": 34784,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ],
+      "kind": "DesktopDetails0",
+      "mesh": "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_DesktopDetails0",
+      "collision_boxes": 0,
+      "cast_shadow": true
+    },
+    {
+      "name": "SM_MedOffice_DesktopDetails1",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Authored\\SM_MedOffice_DesktopDetails1.fbx",
+      "materials": {
+        "RS_Paper": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Paper",
+        "RS_Blue": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Blue",
+        "RS_Print": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Print",
+        "RS_Steel": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Steel",
+        "RS_Seam": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Seam",
+        "RS_Leather": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Leather",
+        "RS_Paint": "/Game/Dungeons/MedicalExecutiveOffice20261010/Materials/M_MedOffice_Graphite",
+        "RS_Lamp": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Lamp",
+        "RS_Rubber": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Office_Rubber"
+      },
+      "triangles": 31776,
+      "nanite": true,
+      "collision": false,
+      "pivot_blender_m": [
+        0,
+        0,
+        0
+      ],
+      "kind": "DesktopDetails1",
+      "mesh": "/Game/Dungeons/MedicalExecutiveOffice20261010/Meshes/SM_MedOffice_DesktopDetails1",
+      "collision_boxes": 0,
+      "cast_shadow": true
+    }
+  ],
+  "desk_top_cm": 77.5,
+  "desk_footprint_cm": [
+    300,
+    110
+  ],
+  "sources": {
+    "equipment": "StationWorkshop20261003/RefineV2/Scripts/author_refine.py",
+    "surface_materials": "ReceptionHall20261006/Refine20261007"
+  },
+  "rendered": false
+}

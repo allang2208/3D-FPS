@@ -18,6 +18,7 @@ def create(root,base,report):
         path=base+'/Materials/M_Office_'+key;mat=u.load_asset(path)
         if not mat:
             mat=A.create_asset('M_Office_'+key,base+'/Materials',u.Material,u.MaterialFactoryNew());mat.set_editor_property('used_with_nanite',True)
+            mat.set_editor_property('used_with_instanced_static_meshes',True)
             if key=='Legends':
                 n=M.create_material_expression(mat,u.MaterialExpressionTextureSample);n.set_editor_property('texture',texture)
                 n.set_editor_property('sampler_type',u.MaterialSamplerType.SAMPLERTYPE_COLOR);M.connect_material_property(n,'RGB',u.MaterialProperty.MP_BASE_COLOR)

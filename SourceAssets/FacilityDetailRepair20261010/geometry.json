@@ -1,0 +1,381 @@
+{
+  "meshes": [
+    {
+      "room": "staff_living",
+      "kind": "EquipmentLabels",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_EquipmentLabels",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_EquipmentLabels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_staff_living_EquipmentLabels.fbx",
+      "sha256": "4036dbcce3ecf3dad8f103393788edbe077e67f0a0c2ca7fd723334ce4a288b1",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_TechLabels": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_TechLabels"
+      },
+      "triangles": 12,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "power",
+      "kind": "EquipmentLabels",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_EquipmentLabels",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_EquipmentLabels",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_power_EquipmentLabels.fbx",
+      "sha256": "7e9617d5c7c6821f86c4bb32374995819791c48c0bacacea00fd6a9608d92f10",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_TechLabels": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_TechLabels"
+      },
+      "triangles": 12,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "Hall",
+      "kind": "Walls",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Walls",
+      "old": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Walls",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_Walls.fbx",
+      "sha256": "c3cf64bbfbb004a5e048db21bd4c5eee0fa7a623020d707637ef327cb56e88b5",
+      "materials": {
+        "FDR_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 144,
+      "collision": true,
+      "collision_hulls": 12,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "Hall",
+      "kind": "Approach",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Approach",
+      "old": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Approach",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_Approach.fbx",
+      "sha256": "4e73ca41a6f4e24db63eda7369bf491147f92b3f02156245246321a744fb9024",
+      "materials": {
+        "FDR_Concrete": "/Game/Dungeons/WallUpgrade20260924/Materials/MI_WallConcrete"
+      },
+      "triangles": 84,
+      "collision": true,
+      "collision_hulls": 7,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "Hall",
+      "kind": "ApproachTrim",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ApproachTrim",
+      "old": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_ApproachTrim",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_ApproachTrim.fbx",
+      "sha256": "593a96e5b318973f1894ba884c5598c753308de39576272f1a065db08c5521b1",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 24,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "Hall",
+      "kind": "Signs",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_Signs",
+      "old": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_Signs",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_Signs.fbx",
+      "sha256": "f6088d956041129de4f089b91edb7db6005dd398fe7f5aaddf0ddb0dca06c541",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Labels": "/Game/Dungeons/FacilityTransit20261007/Materials/M_FT_Labels"
+      },
+      "triangles": 156,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "Hall",
+      "kind": "ArrivalFrame",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ArrivalFrame",
+      "old": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_ArrivalFrameV2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_ArrivalFrame.fbx",
+      "sha256": "61d64f24ae7b45206a2c45cfd6d47e779b27ee8bc32ef1d4e0c3136161883e99",
+      "materials": {
+        "FDR_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 468,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "staff_living",
+      "kind": "MailSlots",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_MailSlots",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlots",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_staff_living_MailSlots.fbx",
+      "sha256": "95c51ddbb2ae4adda753d4ace3a7595adc65144fb8774000510d163622fa135c",
+      "materials": {
+        "FDR_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite",
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 55536,
+      "collision": true,
+      "collision_hulls": 3,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "staff_living",
+      "kind": "DetailPlates",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_DetailPlates",
+      "old": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_staff_living_DetailPlates.fbx",
+      "sha256": "dc24486ed420eba4e408b9d375321012df665d16dd33ded161f7c0c664679052",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_DetailPrint": "/Game/Dungeons/FacilityDetailRepair20261010/Materials/M_FacilityDetail_Plates"
+      },
+      "triangles": 48,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "staff_living",
+      "kind": "KeyRail",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_KeyRail",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRail",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_staff_living_KeyRail.fbx",
+      "sha256": "4ca4d3226557f990c4f2f355ba145749b4d04dd8cf70a14307620ddb87972ce9",
+      "materials": {
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Brass": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Brass",
+        "FDR_Ivory": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory",
+        "FDR_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 13132,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": false
+    },
+    {
+      "room": "staff_living",
+      "kind": "SconcePlate",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconcePlate",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconcePlate",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_staff_living_SconcePlate.fbx",
+      "sha256": "ed186f08edcb0527aa8e5b0af5c44ca014a717fcf09636c59aa5ff76b82dbe77",
+      "materials": {
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 6120,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "staff_living",
+      "kind": "SconceShade",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_staff_living_SconceShade",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceShade",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_staff_living_SconceShade.fbx",
+      "sha256": "417f1b72b6fad4903a600f79a7becc69cac6f17b1f145026d896158ba96742b4",
+      "materials": {
+        "FDR_Glow": "/Game/Dungeons/HallLighting20261007/Materials/M_SteadyDiffuser"
+      },
+      "triangles": 3072,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "power",
+      "kind": "IsolatorCabinet",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_IsolatorCabinet",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_IsolatorCabinet",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_power_IsolatorCabinet.fbx",
+      "sha256": "3a7f0a01550c26d5091d4bc8ca5c45d02802c391601392f78c1a016c8c07495c",
+      "materials": {
+        "FDR_PW": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_PW",
+        "FDR_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed"
+      },
+      "triangles": 26748,
+      "collision": true,
+      "collision_hulls": 1,
+      "cast_shadow": true,
+      "nanite": true,
+      "previous_sha256": "6e7cc480790746a1cfa13e954d429bd681a3cfedf3862ea9e0f68d4345772167",
+      "authored_tangents": true
+    },
+    {
+      "room": "power",
+      "kind": "DetailPlates",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_DetailPlates",
+      "old": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_power_DetailPlates.fbx",
+      "sha256": "e3a24cfe337ccbed8be26b3dbbd54e977e3a35b9e61b6874a011cf3212078b0c",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_DetailPrint": "/Game/Dungeons/FacilityDetailRepair20261010/Materials/M_FacilityDetail_Plates"
+      },
+      "triangles": 48,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "power",
+      "kind": "HandleBezel",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_HandleBezel",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleBezel",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_power_HandleBezel.fbx",
+      "sha256": "9bc45554ca31117dc1141f9edfda940cdbb58b0a7fc2b0c62e53fbbd41108865",
+      "materials": {
+        "FDR_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite",
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Ivory": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory",
+        "FDR_SafetyRed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyRed",
+        "FDR_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket"
+      },
+      "triangles": 17380,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "power",
+      "kind": "PorcelainBushings",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_power_PorcelainBushings",
+      "old": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_PorcelainBushings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_power_PorcelainBushings.fbx",
+      "sha256": "d92f4c9bb7ff18a04ac5efa4dcc50fa5bd4d534421a5bef7bf118488c7a7f80e",
+      "materials": {
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Porcelain": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Porcelain",
+        "FDR_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "FDR_SafetyRed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyRed",
+        "FDR_SafetyYellow": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyYellow",
+        "FDR_EC": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_EC"
+      },
+      "triangles": 85080,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true
+    },
+    {
+      "room": "Hall",
+      "kind": "MaintenancePanel",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_MaintenancePanel",
+      "old": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_MaintenancePanel",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_MaintenancePanel.fbx",
+      "sha256": "3d9a943f7ebdd75d1d7e5d3bbba1597ab2fb755f9953d301148fa64d25502feb",
+      "materials": {
+        "FDR_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "FDR_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite",
+        "FDR_Ivory": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Ivory",
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Gasket": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Gasket",
+        "FDR_SafetyRed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_SafetyRed"
+      },
+      "triangles": 78308,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": true,
+      "nanite": true,
+      "previous_sha256": "0c6dd6cce5084c6b6ae39b68b4e00f4d39233df53a55d819b7add177d58c9092",
+      "authored_tangents": true
+    },
+    {
+      "room": "Hall",
+      "kind": "DetailPlates",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_DetailPlates",
+      "old": null,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_DetailPlates.fbx",
+      "sha256": "a3d8b264441411bbb1e502a677aed4a17d577c4ab75152cacfa77b85853c8b3e",
+      "materials": {
+        "FDR_Steel": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_DetailPrint": "/Game/Dungeons/FacilityDetailRepair20261010/Materials/M_FacilityDetail_Plates"
+      },
+      "triangles": 36,
+      "collision": false,
+      "collision_hulls": 0,
+      "cast_shadow": false,
+      "nanite": false
+    },
+    {
+      "room": "Hall",
+      "kind": "ServiceBench",
+      "mesh": "/Game/Dungeons/FacilityDetailRepair20261010/Meshes/SM_FDR_Hall_ServiceBench",
+      "old": "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_ServiceBench",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FacilityDetailRepair20261010\\Authored\\SM_FDR_Hall_ServiceBench.fbx",
+      "sha256": "c17d39f27f8312eea4ceaa0cde93c374ee4c1b13f0f4997bce29ba06bda26b8f",
+      "materials": {
+        "FDR_Wood": "/Game/Dungeons/ReceptionHall20261006/Refine20261007/Materials/M_RH2_Wood",
+        "FDR_Brushed": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Brushed",
+        "FDR_Graphite": "/Game/Dungeons/FacilityTransit20261007/RefineV2/Materials/M_FT2_Graphite"
+      },
+      "triangles": 1880,
+      "collision": true,
+      "collision_hulls": 10,
+      "cast_shadow": true,
+      "nanite": true,
+      "previous_sha256": "04aa5a74ed7aaaa4a415b706faf40e0d7b2385a39265dd70c1236460d46c6eed",
+      "authored_tangents": true
+    }
+  ],
+  "remove": [
+    "/Game/Dungeons/FacilityTransit20261007/Meshes/SM_FT_Hall_PanelIndicators",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceArms",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_SconceCaps",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_CaseRims",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingeMounts",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_HingePins",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurns",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_QuarterTurnSlots",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotRecess",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailSlotBrow",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_MailLock",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyHooks",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyRings",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_staff_living_KeyTags",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CaseRims",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingeMounts",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HingePins",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurns",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_QuarterTurnSlots",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_InstrumentFaces",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_HandleHub",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_MouldedGrip",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GripInset",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_BushingFoot",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_CableGlands",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_GlandBoot",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalClamp",
+    "/Game/Dungeons/FacilityTransit20261007/RefineV2/Meshes/SM_FT2_power_TerminalBolts"
+  ],
+  "rendered": false
+}

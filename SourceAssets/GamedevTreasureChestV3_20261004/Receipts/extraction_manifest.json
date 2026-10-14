@@ -1,0 +1,218 @@
+[
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/TreasureChest_v3.blend",
+    "bytes": 2234881,
+    "sha256": "6b0d5930a7a61491af3b7e98ef9cf139c8a57c55512e5626a60911aa973c313c"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/README_先读.txt",
+    "bytes": 2473,
+    "sha256": "2f96377a1315f9924cf21bd4b60c5685eea9b5b2faa691977efaf460c1f5f96a"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/scripts/render_final_v3.py",
+    "bytes": 1914,
+    "sha256": "f427f614fc48756248f3bd1720967a6d173bc34f8ad05842ef46042914404651"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/scripts/refine_ornament_v3.py",
+    "bytes": 7661,
+    "sha256": "ff20b27fdd481a49931509c6936f5c01c3d08bdfd1aefa488b6157f256a1b3ce"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/scripts/audit_v3.py",
+    "bytes": 1967,
+    "sha256": "a1606186a15f21d52e6feba7bc1e7a26ef4d7701ee9549d0ce1c7ef5426ecb83"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/scripts/roundtrip_v3.py",
+    "bytes": 1797,
+    "sha256": "46a3faed968bf99e10caf9361a04166675df2df319405ffeb9a87c370bbc7194"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/scripts/export_materials_v3.py",
+    "bytes": 11424,
+    "sha256": "ebad229b675cbdceefe855fe493b80ab69c239ad8ac2a51bca6b5a21dec4b06c"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/scripts/export_v3.py",
+    "bytes": 3510,
+    "sha256": "2644d97ba24a4c76228b0992e216f8fe9a28a409f515c61d6d3e9efaa3180414"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/reports/roundtrip.json",
+    "bytes": 1851,
+    "sha256": "043ba20d9fbbcc8b974dea2605672ff1ba3bfeb421e09bbc497da83641002697"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/reports/validation_v3.json",
+    "bytes": 161274,
+    "sha256": "8e7642ae6cae37f73aee211829214587644e00aad7ce0997057bddaee634f4ee"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/reports/loose_textures.json",
+    "bytes": 1433,
+    "sha256": "c92b74f6521db3c9bf4ffa6aea9b970544ec1c0c0ac762e2a48a252c2c419702"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/reports/validation.json",
+    "bytes": 161274,
+    "sha256": "8e7642ae6cae37f73aee211829214587644e00aad7ce0997057bddaee634f4ee"
+  },
+  {
+    "archive": "TreasureChest_v3_Core.zip",
+    "path": "TreasureChest_v3/reports/ornament_changes.json",
+    "bytes": 4819,
+    "sha256": "30c00e4bd830e4ada93c50df46ab05bc3976c811c7915dc0988473d27c929d0d"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/Textures/T_TreasureDetail_Iron_BaseColor.png",
+    "bytes": 1887024,
+    "sha256": "2cf19302a695b3191658796562fb1b033bcf8c0f64bc67f60da46546d9bab6cb"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/Textures/T_TreasureDetail_Iron_ORM.png",
+    "bytes": 4218757,
+    "sha256": "70c83cb3b74dc685a3234236cddf02034b6d66377f6395d4edcb876f28e16794"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/Textures/T_TreasureDetail_Gold_BaseColor.png",
+    "bytes": 2648341,
+    "sha256": "25c4a44a17778a978eb56d77a798fd47b7a02982ca05da55c1d683bd2ad040fd"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/Textures/T_TreasureDetail_Gold_Normal.png",
+    "bytes": 2669361,
+    "sha256": "fcc51655c084cf865d9a54b50d41f80b9728779fa633fe8c44acf97630b4fb21"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/Textures/T_TreasureDetail_Iron_Normal.png",
+    "bytes": 3905680,
+    "sha256": "0deec112b8c643410b5dc163657aeff1e8f4943f6d50e34e2dad80dcac3f7632"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/Textures/T_TreasureDetail_Gold_ORM.png",
+    "bytes": 3215871,
+    "sha256": "0f968363ebde33ecb9d379b5ab1d06648bc26954b059bb2a672c01a040a6caa0"
+  },
+  {
+    "archive": "TreasureChest_v3_Metal_Textures.zip",
+    "path": "TreasureChest_v3/README_先读.txt",
+    "bytes": 2473,
+    "sha256": "2f96377a1315f9924cf21bd4b60c5685eea9b5b2faa691977efaf460c1f5f96a"
+  },
+  {
+    "archive": "TreasureChest_v3_Wood_BaseColor.zip",
+    "path": "TreasureChest_v3/Textures/T_WoodSurface_00A_BaseColor.png",
+    "bytes": 9009626,
+    "sha256": "c9611871e5ffd0a39851f90c0d0f5a1febc2a5700f6f9235c5bbd604753fb055"
+  },
+  {
+    "archive": "TreasureChest_v3_Wood_Normal.zip",
+    "path": "TreasureChest_v3/Textures/T_WoodSurface_00A_Normal.png",
+    "bytes": 6638293,
+    "sha256": "6df0d36d94370202996da37a0cfd111f3d27dcfbe974b2c7d7cd98d6ba8cb414"
+  },
+  {
+    "archive": "TreasureChest_v3_Wood_RHAOM(1).zip",
+    "path": "TreasureChest_v3/Textures/T_WoodSurface_00A_RHAOM.png",
+    "bytes": 20811579,
+    "sha256": "a3554fb8e33c75fe3a369014444a385b818d28f1fff682c387b0500e66a5f715"
+  },
+  {
+    "archive": "TreasureChest_v3_FBX.zip",
+    "path": "TreasureChest_v3/exports/TreasureChest_v3.fbx",
+    "bytes": 16737180,
+    "sha256": "3f0003e8289299a07b9977b5cee7c48e1779b00041bdee6db018db1e588227d7"
+  },
+  {
+    "archive": "TreasureChest_v3_FBX.zip",
+    "path": "TreasureChest_v3/README_先读.txt",
+    "bytes": 2473,
+    "sha256": "2f96377a1315f9924cf21bd4b60c5685eea9b5b2faa691977efaf460c1f5f96a"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Iron_NormalGL.png",
+    "bytes": 1990494,
+    "sha256": "89e89d1265a812947e00dc0d475b21a727a1fb5435b961811816fad7800eb12a"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Gold_ORM.png",
+    "bytes": 1017194,
+    "sha256": "4cb2ca3f2296777816464a693de000a9dd6aba61175bb81cf03563e6ee0d6122"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Wood_BaseColor.png",
+    "bytes": 6364587,
+    "sha256": "f0dae3f5724d4e3f2bed4e7195c91b5973f258b1bfe9cca9bda36840063d018b"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Gold_BaseColor.png",
+    "bytes": 1872829,
+    "sha256": "e1359d9693b9c38f160f2046134d288f204415b12769676bd193c8afb35d71e8"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Iron_BaseColor.png",
+    "bytes": 1083675,
+    "sha256": "7150dcdf1300c927245c62e18b1de6286ff519f871f2eb4e5b991447e4819ea6"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/texture_manifest.json",
+    "bytes": 1960,
+    "sha256": "74124779b187568a4c343ca816419e8c3c4e3c3cdd752e6d2ec527010b08ee36"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Wood_NormalGL.png",
+    "bytes": 4398706,
+    "sha256": "2aa489c6c40a64050047dbc3aa488f943a37609f8115f7237c86461041b9348e"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Iron_ORM.png",
+    "bytes": 1985281,
+    "sha256": "ef997800b69b445fc3c2981f74c1ecf04b05de1eb41ca2f10d4536c3f97fe8d1"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Gold_NormalGL.png",
+    "bytes": 1546414,
+    "sha256": "ad583c475b933bb8e799d56a277bcc05951dd9cf0169db2ce19c26d63544db1e"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/exports/Textures/T_TreasureV2_Wood_ORM.png",
+    "bytes": 3130816,
+    "sha256": "1c76a155d976a868fc911d56f25d3e70b8534af1877cc9d408c8d2c0db28b3d6"
+  },
+  {
+    "archive": "TreasureChest_v3_PortablePBR.zip",
+    "path": "TreasureChest_v3/README_先读.txt",
+    "bytes": 2473,
+    "sha256": "2f96377a1315f9924cf21bd4b60c5685eea9b5b2faa691977efaf460c1f5f96a"
+  }
+]

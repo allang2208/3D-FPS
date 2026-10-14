@@ -68,7 +68,7 @@ for item in MAN['objects']:
  settings.fallback_percent_triangles=1.;settings.fallback_relative_error=0
  mesh.set_editor_property('nanite_settings',settings)
  if item.get('full_precision_uvs'):
-  editor=u.get_editor_subsystem(u.StaticMeshEditorSubsystem)
+  editor=u.get_editor_subsystem(u.StaticMeshEditorSubsystem) or u.new_object(u.StaticMeshEditorSubsystem)
   build=editor.get_lod_build_settings(mesh,0);build.set_editor_property('use_full_precision_u_vs',True)
   editor.set_lod_build_settings(mesh,0,build)
  if item['nanite'] and not u.PlazaInstanceTools.build_nanite_data(mesh):raise RuntimeError('Ward Nanite build failed '+path)

@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $taskRoot=Split-Path -Parent $PSScriptRoot
 $taskReport=[ordered]@{stage='waiting_for_existing_build';targets=@();tests_run=$false}
 $taskReceipt=Join-Path $taskRoot 'Receipts/native-build.json'

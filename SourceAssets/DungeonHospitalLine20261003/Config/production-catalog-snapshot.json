@@ -26266,7 +26266,10 @@
         "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_PatientBox_Lid",
         "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Body",
         "/Game/Dungeons/HospitalContainers20261003/Meshes/SM_Hospital_ToolBox_Lid",
-        "/Game/Dungeons/HospitalPolish20261003/Meshes/SM_Hospital_ScrubSink_V2"
+        "/Game/Dungeons/HospitalPolish20261003/Meshes/SM_Hospital_ScrubSink_V2",
+        "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+        "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+        "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening"
       ],
       "warehouse_containers": {
         "groups": [
@@ -26826,7 +26829,38 @@
         "rewards_deferred": true
       },
       "hospital_container_revision": 2,
-      "hospital_fixture_revision": 2
+      "hospital_fixture_revision": 2,
+      "props": [
+        {
+          "skeletal_mesh": "/Game/Props/GamedevTreasureChest20260922/SK_GamedevTreasureChest.SK_GamedevTreasureChest",
+          "closed_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_ClosedPose.A_TreasureChest_ClosedPose",
+          "opening_animation": "/Game/Props/GamedevTreasureChest20260922/A_TreasureChest_Opening.A_TreasureChest_Opening",
+          "material_overrides": {},
+          "collision_extent": [
+            59.47500228881836,
+            74.26250076293945,
+            55.087501525878906
+          ],
+          "collision_center": [
+            6.174999237060547,
+            5.167499542236328,
+            55.087501525878906
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "position": [
+            0,
+            -1075,
+            216.3
+          ],
+          "yaw": 90,
+          "identity": "hospital_rear_gallery_treasure",
+          "role": "hospital_rear_gallery"
+        }
+      ]
     },
     {
       "id": "AbandonedFlueGasStation",

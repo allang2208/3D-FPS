@@ -1,0 +1,1150 @@
+{
+  "bounds": [
+    {
+      "key": "part:29",
+      "label": "part:29  SM_FDR_Hall_ServiceBench",
+      "min": [
+        -442.4998779296875,
+        1675.4998779296875,
+        0.0
+      ],
+      "max": [
+        62.500152587890625,
+        1770.5,
+        85.0
+      ]
+    },
+    {
+      "key": "part:30",
+      "label": "part:30  SM_FDR_Hall_MaintenancePanel",
+      "min": [
+        -389.9998779296875,
+        1756.0,
+        121.0
+      ],
+      "max": [
+        9.000167846679688,
+        1797.0,
+        239.00001525878906
+      ]
+    },
+    {
+      "key": "part:36",
+      "label": "part:36  SM_SW_DispatchDesk",
+      "min": [
+        -2345.0000610351562,
+        615.0,
+        420.0
+      ],
+      "max": [
+        -2265.000045776367,
+        824.9999694824219,
+        497.5
+      ]
+    },
+    {
+      "key": "part:37",
+      "label": "part:37  SM_SW_DispatchElectronics",
+      "min": [
+        -2377.0000438690186,
+        629.9150390625,
+        479.50000381469727
+      ],
+      "max": [
+        -2278.300048828125,
+        800.9500122070312,
+        546.3000030517578
+      ]
+    },
+    {
+      "key": "part:38",
+      "label": "part:38  SM_SW_DispatchPaper",
+      "min": [
+        -2388.5000019073486,
+        1314.0,
+        420.0
+      ],
+      "max": [
+        -2365.4999980926514,
+        1346.0,
+        421.5499999523163
+      ]
+    },
+    {
+      "key": "part:39",
+      "label": "part:39  SM_Staff_Chair",
+      "min": [
+        -2203.287166595459,
+        695.4999980926514,
+        419.86344181001186
+      ],
+      "max": [
+        -2154.261781692505,
+        744.5000019073486,
+        512.1712493896484
+      ]
+    },
+    {
+      "key": "part:40",
+      "label": "part:40  SM_SW_DispatchDesk",
+      "min": [
+        -2345.0000610351562,
+        254.9999999999999,
+        420.0
+      ],
+      "max": [
+        -2265.000045776367,
+        464.99996948242176,
+        497.5
+      ]
+    },
+    {
+      "key": "part:41",
+      "label": "part:41  SM_SW_DispatchElectronics",
+      "min": [
+        -2377.0000438690186,
+        269.9150390624999,
+        479.50000381469727
+      ],
+      "max": [
+        -2278.300048828125,
+        440.95001220703114,
+        546.3000030517578
+      ]
+    },
+    {
+      "key": "part:42",
+      "label": "part:42  SM_SW_DispatchPaper",
+      "min": [
+        -2388.5000019073486,
+        953.9999999999999,
+        420.0
+      ],
+      "max": [
+        -2365.4999980926514,
+        985.9999999999999,
+        421.5499999523163
+      ]
+    },
+    {
+      "key": "part:43",
+      "label": "part:43  SM_Staff_Chair",
+      "min": [
+        -2203.287166595459,
+        335.49999809265137,
+        419.86344181001186
+      ],
+      "max": [
+        -2154.261781692505,
+        384.50000190734863,
+        512.1712493896484
+      ]
+    },
+    {
+      "key": "part:44",
+      "label": "part:44  SM_RH2_Sofa",
+      "min": [
+        -2347.500011444092,
+        -625.0,
+        420.0
+      ],
+      "max": [
+        -2252.499988555908,
+        -375.0,
+        538.5000076293945
+      ]
+    },
+    {
+      "key": "part:45",
+      "label": "part:45  SM_Staff_CoffeeTable",
+      "min": [
+        -2189.0000076293945,
+        -575.0,
+        420.0
+      ],
+      "max": [
+        -2120.9999923706055,
+        -425.0,
+        469.95000076293945
+      ]
+    },
+    {
+      "key": "part:46",
+      "label": "part:46  SM_RH2_Sofa",
+      "min": [
+        -2347.500011444092,
+        -1025.0,
+        420.0
+      ],
+      "max": [
+        -2252.499988555908,
+        -775.0,
+        538.5000076293945
+      ]
+    },
+    {
+      "key": "part:47",
+      "label": "part:47  SM_Staff_CoffeeTable",
+      "min": [
+        -2189.0000076293945,
+        -975.0,
+        420.0
+      ],
+      "max": [
+        -2120.9999923706055,
+        -825.0,
+        469.95000076293945
+      ]
+    },
+    {
+      "key": "part:48",
+      "label": "part:48  SM_Staff_ChangingBench",
+      "min": [
+        -2321.000009536743,
+        979.9999923706055,
+        0.0
+      ],
+      "max": [
+        -2268.999990463257,
+        1220.0000076293945,
+        48.54999923706055
+      ]
+    },
+    {
+      "key": "part:49",
+      "label": "part:49  SM_Staff_ChangingBench",
+      "min": [
+        -2321.000009536743,
+        579.9999923706055,
+        0.0
+      ],
+      "max": [
+        -2268.999990463257,
+        820.0000076293945,
+        48.54999923706055
+      ]
+    },
+    {
+      "key": "part:50",
+      "label": "part:50  SM_Staff_ChangingBench",
+      "min": [
+        -2321.000009536743,
+        -820.0000076293945,
+        0.0
+      ],
+      "max": [
+        -2268.999990463257,
+        -579.9999923706055,
+        48.54999923706055
+      ]
+    },
+    {
+      "key": "part:51",
+      "label": "part:51  SM_Staff_ChangingBench",
+      "min": [
+        -2321.000009536743,
+        -1220.0000076293945,
+        0.0
+      ],
+      "max": [
+        -2268.999990463257,
+        -979.9999923706055,
+        48.54999923706055
+      ]
+    },
+    {
+      "key": "part:52",
+      "label": "part:52  SM_Staff_ChangingBench",
+      "min": [
+        -320.00000762939453,
+        -1596.0000095367432,
+        0.0
+      ],
+      "max": [
+        -79.99999237060547,
+        -1543.9999904632568,
+        48.54999923706055
+      ]
+    },
+    {
+      "key": "part:53",
+      "label": "part:53  SM_Staff_ChangingBench",
+      "min": [
+        -20.00000762939453,
+        -1596.0000095367432,
+        0.0
+      ],
+      "max": [
+        220.00000762939453,
+        -1543.9999904632568,
+        48.54999923706055
+      ]
+    },
+    {
+      "key": "part:54",
+      "label": "part:54  SM_Staff_WaterDispenser_V5",
+      "min": [
+        -2357.1000003814697,
+        -1301.0000019073486,
+        420.0
+      ],
+      "max": [
+        -2303.2999992370605,
+        -1258.9999980926514,
+        578.5
+      ]
+    },
+    {
+      "key": "part:55",
+      "label": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "min": [
+        -2363.0000038146973,
+        882.9999961853026,
+        420.0
+      ],
+      "max": [
+        -2314.9999961853027,
+        957.0000038146972,
+        536.0000076293945
+      ]
+    },
+    {
+      "key": "part:56",
+      "label": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "min": [
+        -2363.0000038146973,
+        102.99999618530273,
+        420.0
+      ],
+      "max": [
+        -2314.9999961853027,
+        177.00000381469727,
+        536.0000076293945
+      ]
+    },
+    {
+      "key": "part:109",
+      "label": "part:109 FacilityTransit.service.00 SM_Entry_DoorBody",
+      "min": [
+        -2203.000015258789,
+        1638.8999938964844,
+        3.814697265625e-06
+      ],
+      "max": [
+        -1977.000015258789,
+        1800.0000095367432,
+        300.00000381469727
+      ]
+    },
+    {
+      "key": "part:110",
+      "label": "part:110 FacilityTransit.service.00 SM_Entry_DoorLeaf",
+      "min": [
+        -2179.500000268221,
+        1635.8999938964844,
+        2.0000038146972656
+      ],
+      "max": [
+        -2090.5,
+        1655.0999999046326,
+        282.00000381469727
+      ]
+    },
+    {
+      "key": "part:111",
+      "label": "part:111 FacilityTransit.service.00 SM_Entry_DoorLeafRight",
+      "min": [
+        -2089.5,
+        1635.9000053405762,
+        2.0000038146972656
+      ],
+      "max": [
+        -2000.499999731779,
+        1655.1000077724457,
+        282.00000381469727
+      ]
+    },
+    {
+      "key": "part:112",
+      "label": "part:112 FacilityTransit.service.01 SM_Entry_DoorBody",
+      "min": [
+        1276.999984741211,
+        1638.8999938964844,
+        3.814697265625e-06
+      ],
+      "max": [
+        1502.999984741211,
+        1800.0000095367432,
+        300.00000381469727
+      ]
+    },
+    {
+      "key": "part:113",
+      "label": "part:113 FacilityTransit.service.01 SM_Entry_DoorLeaf",
+      "min": [
+        1300.499999731779,
+        1635.8999938964844,
+        2.0000038146972656
+      ],
+      "max": [
+        1389.5,
+        1655.0999999046326,
+        282.00000381469727
+      ]
+    },
+    {
+      "key": "part:114",
+      "label": "part:114 FacilityTransit.service.01 SM_Entry_DoorLeafRight",
+      "min": [
+        1390.5,
+        1635.9000053405762,
+        2.0000038146972656
+      ],
+      "max": [
+        1479.500000268221,
+        1655.1000077724457,
+        282.00000381469727
+      ]
+    },
+    {
+      "key": "part:115",
+      "label": "part:115 FacilityTransit.hatch.02 SM_Entry_HatchBody",
+      "min": [
+        2208.0,
+        -732.0,
+        -23.5
+      ],
+      "max": [
+        2372.0,
+        -568.0,
+        7.500000476837158
+      ]
+    },
+    {
+      "key": "part:116",
+      "label": "part:116 FacilityTransit.hatch.02 SM_Entry_HatchLeaf",
+      "min": [
+        2218.5016174316406,
+        -721.4983848333359,
+        1.2999999523162842
+      ],
+      "max": [
+        2361.4983978271484,
+        -578.5016174316406,
+        11.699999809265137
+      ]
+    },
+    {
+      "key": "part:117",
+      "label": "part:117 FacilityTransit.vent.03 SM_Entry_VentBody",
+      "min": [
+        1357.9999923706055,
+        -1800.0000076293945,
+        360.1999969482422
+      ],
+      "max": [
+        1542.0000076293945,
+        -1615.9999923706055,
+        540.0
+      ]
+    },
+    {
+      "key": "part:118",
+      "label": "part:118 FacilityTransit.vent.03 SM_Entry_VentLeaf",
+      "min": [
+        1371.3999935388565,
+        -1786.6000137329102,
+        356.0999994277954
+      ],
+      "max": [
+        1528.6000061035156,
+        -1629.400001525879,
+        365.75
+      ]
+    },
+    {
+      "key": "part:124",
+      "label": "part:124 Incident_CleaningBucket SM_IncidentDetail_Bucket",
+      "min": [
+        -2126.649338016976,
+        -866.6188827801212,
+        0.10000000149011612
+      ],
+      "max": [
+        -2068.861076895639,
+        -801.7141651648136,
+        44.17361068725586
+      ]
+    },
+    {
+      "key": "part:125",
+      "label": "part:125 Incident_CleaningMop SM_IncidentDetail_Mop",
+      "min": [
+        -2086.3853627814424,
+        -987.2658149306732,
+        0.10000000149011612
+      ],
+      "max": [
+        -2005.9159892828836,
+        -825.7784637680185,
+        6.33783483505249
+      ]
+    },
+    {
+      "key": "part:126",
+      "label": "part:126 Incident_CleaningWarning SM_IncidentDetail_WarningSign",
+      "min": [
+        -2176.657764302594,
+        -1108.4060641762858,
+        0.10000000149011612
+      ],
+      "max": [
+        -2125.6946742314185,
+        -1041.2872481089155,
+        5.900000095367432
+      ]
+    },
+    {
+      "key": "part:128",
+      "label": "part:128 Incident_DutyBasket SM_IncidentDetail_WasteBasket",
+      "min": [
+        -2318.583171924534,
+        1092.3420043391259,
+        420.1000000014901
+      ],
+      "max": [
+        -2278.0095269982776,
+        1133.0055447525976,
+        451.8999824523926
+      ]
+    },
+    {
+      "key": "part:131",
+      "label": "part:131 Incident_PPEChair SM_Staff_Chair",
+      "min": [
+        -277.4008442239399,
+        -1392.4614021826633,
+        0.12000340454101632
+      ],
+      "max": [
+        -189.2895944532297,
+        -1289.0191846990392,
+        49.14538830749512
+      ]
+    },
+    {
+      "key": "part:132",
+      "label": "part:132 Incident_PPEExtinguisher SM_Prop_Extinguisher",
+      "min": [
+        -69.10477347825594,
+        -1465.2544689677031,
+        0.48924275695800823
+      ],
+      "max": [
+        -28.748776002115626,
+        -1415.6741222700698,
+        16.74149724304199
+      ]
+    },
+    {
+      "key": "actor:0:body",
+      "label": "actor:0:body FacilityTransit.PPE0 SM_FT3_PPELocker_Body",
+      "min": [
+        -382.00000381469727,
+        -1769.5000038146973,
+        0.0
+      ],
+      "max": [
+        -316.75,
+        -1723.8000030517578,
+        170.0
+      ]
+    },
+    {
+      "key": "actor:0:door",
+      "label": "actor:0:door FacilityTransit.PPE0 SM_Treatment_PPELocker_Door",
+      "min": [
+        -380.15000228881837,
+        -1727.1499995708466,
+        11.499997615814209
+      ],
+      "max": [
+        -319.8500018000603,
+        -1715.7947437286377,
+        168.34999084472656
+      ]
+    },
+    {
+      "key": "actor:1:body",
+      "label": "actor:1:body FacilityTransit.PPE1 SM_FT3_PPELocker_Body",
+      "min": [
+        -292.00000381469727,
+        -1769.5000038146973,
+        0.0
+      ],
+      "max": [
+        -226.75,
+        -1723.8000030517578,
+        170.0
+      ]
+    },
+    {
+      "key": "actor:1:door",
+      "label": "actor:1:door FacilityTransit.PPE1 SM_Treatment_PPELocker_Door",
+      "min": [
+        -290.15000228881837,
+        -1727.1499995708466,
+        11.499997615814209
+      ],
+      "max": [
+        -229.85000180006028,
+        -1715.7947437286377,
+        168.34999084472656
+      ]
+    },
+    {
+      "key": "actor:2:body",
+      "label": "actor:2:body FacilityTransit.PPE2 SM_FT3_PPELocker_Body",
+      "min": [
+        -202.00000381469727,
+        -1769.5000038146973,
+        0.0
+      ],
+      "max": [
+        -136.75,
+        -1723.8000030517578,
+        170.0
+      ]
+    },
+    {
+      "key": "actor:2:door",
+      "label": "actor:2:door FacilityTransit.PPE2 SM_Treatment_PPELocker_Door",
+      "min": [
+        -200.15000228881837,
+        -1727.1499995708466,
+        11.499997615814209
+      ],
+      "max": [
+        -139.85000180006028,
+        -1715.7947437286377,
+        168.34999084472656
+      ]
+    },
+    {
+      "key": "actor:3:body",
+      "label": "actor:3:body FacilityTransit.PPE3 SM_FT3_PPELocker_Body",
+      "min": [
+        -112.00000381469727,
+        -1769.5000038146973,
+        0.0
+      ],
+      "max": [
+        -46.75,
+        -1723.8000030517578,
+        170.0
+      ]
+    },
+    {
+      "key": "actor:3:door",
+      "label": "actor:3:door FacilityTransit.PPE3 SM_Treatment_PPELocker_Door",
+      "min": [
+        -110.15000228881837,
+        -1727.1499995708466,
+        11.499997615814209
+      ],
+      "max": [
+        -49.85000180006029,
+        -1715.7947437286377,
+        168.34999084472656
+      ]
+    },
+    {
+      "key": "actor:4:body",
+      "label": "actor:4:body FacilityTransit.PPE4 SM_FT3_PPELocker_Body",
+      "min": [
+        -22.000003814697266,
+        -1769.5000038146973,
+        0.0
+      ],
+      "max": [
+        43.25,
+        -1723.8000030517578,
+        170.0
+      ]
+    },
+    {
+      "key": "actor:4:door",
+      "label": "actor:4:door FacilityTransit.PPE4 SM_Treatment_PPELocker_Door",
+      "min": [
+        -20.150002288818378,
+        -1727.1499995708466,
+        11.499997615814209
+      ],
+      "max": [
+        40.14999819993971,
+        -1715.7947437286377,
+        168.34999084472656
+      ]
+    },
+    {
+      "key": "actor:5:body",
+      "label": "actor:5:body FacilityTransit.PPE5 SM_FT3_PPELocker_Body",
+      "min": [
+        67.99999618530273,
+        -1769.5000038146973,
+        0.0
+      ],
+      "max": [
+        133.25,
+        -1723.8000030517578,
+        170.0
+      ]
+    },
+    {
+      "key": "actor:5:door",
+      "label": "actor:5:door FacilityTransit.PPE5 SM_Treatment_PPELocker_Door",
+      "min": [
+        69.84999771118163,
+        -1727.1499995708466,
+        11.499997615814209
+      ],
+      "max": [
+        130.14999819993972,
+        -1715.7947437286377,
+        168.34999084472656
+      ]
+    },
+    {
+      "key": "actor:6:body",
+      "label": "actor:6:body FacilityTransit.Records00 SM_Treatment_RecordsDrawer_Frame",
+      "min": [
+        -2361.1500034332275,
+        886.4999961853026,
+        431.00000000000006
+      ],
+      "max": [
+        -2318.8499965667725,
+        953.4999999999999,
+        459.3999977111817
+      ]
+    },
+    {
+      "key": "actor:6:door",
+      "label": "actor:6:door FacilityTransit.Records00 SM_Treatment_RecordsDrawer_Tray",
+      "min": [
+        -2359.7500038146973,
+        885.9999961853026,
+        430.599998831749
+      ],
+      "max": [
+        -2310.155023574829,
+        953.9999999999999,
+        460.39999961853033
+      ]
+    },
+    {
+      "key": "actor:7:body",
+      "label": "actor:7:body FacilityTransit.Records01 SM_Treatment_RecordsDrawer_Frame",
+      "min": [
+        -2361.1500034332275,
+        886.4999961853026,
+        465.00000000000006
+      ],
+      "max": [
+        -2318.8499965667725,
+        953.4999999999999,
+        493.3999977111817
+      ]
+    },
+    {
+      "key": "actor:7:door",
+      "label": "actor:7:door FacilityTransit.Records01 SM_Treatment_RecordsDrawer_Tray",
+      "min": [
+        -2359.7500038146973,
+        885.9999961853026,
+        464.599998831749
+      ],
+      "max": [
+        -2310.155023574829,
+        953.9999999999999,
+        494.39999961853033
+      ]
+    },
+    {
+      "key": "actor:8:body",
+      "label": "actor:8:body FacilityTransit.Records02 SM_Treatment_RecordsDrawer_Frame",
+      "min": [
+        -2361.1500034332275,
+        886.4999961853026,
+        499.0
+      ],
+      "max": [
+        -2318.8499965667725,
+        953.4999999999999,
+        527.3999977111816
+      ]
+    },
+    {
+      "key": "actor:8:door",
+      "label": "actor:8:door FacilityTransit.Records02 SM_Treatment_RecordsDrawer_Tray",
+      "min": [
+        -2359.7500038146973,
+        885.9999961853026,
+        498.59999883174896
+      ],
+      "max": [
+        -2310.155023574829,
+        953.9999999999999,
+        528.3999996185303
+      ]
+    },
+    {
+      "key": "actor:9:body",
+      "label": "actor:9:body FacilityTransit.Records10 SM_Treatment_RecordsDrawer_Frame",
+      "min": [
+        -2361.1500034332275,
+        106.49999618530273,
+        431.00000000000006
+      ],
+      "max": [
+        -2318.8499965667725,
+        173.5,
+        459.3999977111817
+      ]
+    },
+    {
+      "key": "actor:9:door",
+      "label": "actor:9:door FacilityTransit.Records10 SM_Treatment_RecordsDrawer_Tray",
+      "min": [
+        -2359.7500038146973,
+        105.99999618530273,
+        430.599998831749
+      ],
+      "max": [
+        -2310.155023574829,
+        174.0,
+        460.39999961853033
+      ]
+    },
+    {
+      "key": "actor:10:body",
+      "label": "actor:10:body FacilityTransit.Records11 SM_Treatment_RecordsDrawer_Frame",
+      "min": [
+        -2361.1500034332275,
+        106.49999618530273,
+        465.00000000000006
+      ],
+      "max": [
+        -2318.8499965667725,
+        173.5,
+        493.3999977111817
+      ]
+    },
+    {
+      "key": "actor:10:door",
+      "label": "actor:10:door FacilityTransit.Records11 SM_Treatment_RecordsDrawer_Tray",
+      "min": [
+        -2359.7500038146973,
+        105.99999618530273,
+        464.599998831749
+      ],
+      "max": [
+        -2310.155023574829,
+        174.0,
+        494.39999961853033
+      ]
+    },
+    {
+      "key": "actor:11:body",
+      "label": "actor:11:body FacilityTransit.Records12 SM_Treatment_RecordsDrawer_Frame",
+      "min": [
+        -2361.1500034332275,
+        106.49999618530273,
+        499.0
+      ],
+      "max": [
+        -2318.8499965667725,
+        173.5,
+        527.3999977111816
+      ]
+    },
+    {
+      "key": "actor:11:door",
+      "label": "actor:11:door FacilityTransit.Records12 SM_Treatment_RecordsDrawer_Tray",
+      "min": [
+        -2359.7500038146973,
+        105.99999618530273,
+        498.59999883174896
+      ],
+      "max": [
+        -2310.155023574829,
+        174.0,
+        528.3999996185303
+      ]
+    },
+    {
+      "key": "actor:12:body",
+      "label": "actor:12:body FacilityTransit.Tool0 SM_Treatment_ToolBox_Body",
+      "min": [
+        -420.6703987121582,
+        1700.7999954223633,
+        85.0
+      ],
+      "max": [
+        -345.0,
+        1742.2919273376465,
+        118.19999694824219
+      ]
+    },
+    {
+      "key": "actor:12:door",
+      "label": "actor:12:door FacilityTransit.Tool0 SM_Treatment_ToolBox_Lid",
+      "min": [
+        -415.5,
+        1701.4999974370003,
+        117.05000084638596
+      ],
+      "max": [
+        -344.49999618530273,
+        1738.5000038146973,
+        127.56568622589111
+      ]
+    },
+    {
+      "key": "actor:13:body",
+      "label": "actor:13:body FacilityTransit.Tool1 SM_Treatment_ToolBox_Body",
+      "min": [
+        -45.6703987121582,
+        1700.7999954223633,
+        85.0
+      ],
+      "max": [
+        30.0,
+        1742.2919273376465,
+        118.19999694824219
+      ]
+    },
+    {
+      "key": "actor:13:door",
+      "label": "actor:13:door FacilityTransit.Tool1 SM_Treatment_ToolBox_Lid",
+      "min": [
+        -40.49999999999997,
+        1701.4999974370003,
+        117.05000084638596
+      ],
+      "max": [
+        30.50000381469721,
+        1738.5000038146973,
+        127.56568622589111
+      ]
+    }
+  ],
+  "structure_candidates": [
+    {
+      "prop": "actor:5:body FacilityTransit.PPE5 SM_FT3_PPELocker_Body",
+      "structure": "part:6  SM_FT_Hall_Structure",
+      "triangles": 86,
+      "intersection_min": [
+        67.99999618530273,
+        -1769.5000038146973,
+        0.07322327792644501
+      ],
+      "intersection_max": [
+        133.25,
+        -1739.0,
+        170.0
+      ]
+    }
+  ],
+  "prop_candidates": [
+    {
+      "a": "part:36  SM_SW_DispatchDesk",
+      "b": "part:37  SM_SW_DispatchElectronics",
+      "overlap": [
+        66.70001220703125,
+        171.03497314453125,
+        17.999996185302734
+      ]
+    },
+    {
+      "a": "part:40  SM_SW_DispatchDesk",
+      "b": "part:41  SM_SW_DispatchElectronics",
+      "overlap": [
+        66.70001220703125,
+        171.03497314453125,
+        17.999996185302734
+      ]
+    },
+    {
+      "a": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:6:body FacilityTransit.Records00 SM_Treatment_RecordsDrawer_Frame",
+      "overlap": [
+        42.30000686645508,
+        67.00000381469727,
+        28.39999771118164
+      ]
+    },
+    {
+      "a": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:6:door FacilityTransit.Records00 SM_Treatment_RecordsDrawer_Tray",
+      "overlap": [
+        44.75000762939453,
+        68.00000381469727,
+        29.80000078678131
+      ]
+    },
+    {
+      "a": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:7:body FacilityTransit.Records01 SM_Treatment_RecordsDrawer_Frame",
+      "overlap": [
+        42.30000686645508,
+        67.00000381469727,
+        28.39999771118164
+      ]
+    },
+    {
+      "a": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:7:door FacilityTransit.Records01 SM_Treatment_RecordsDrawer_Tray",
+      "overlap": [
+        44.75000762939453,
+        68.00000381469727,
+        29.80000078678131
+      ]
+    },
+    {
+      "a": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:8:body FacilityTransit.Records02 SM_Treatment_RecordsDrawer_Frame",
+      "overlap": [
+        42.30000686645508,
+        67.00000381469727,
+        28.39999771118164
+      ]
+    },
+    {
+      "a": "part:55  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:8:door FacilityTransit.Records02 SM_Treatment_RecordsDrawer_Tray",
+      "overlap": [
+        44.75000762939453,
+        68.00000381469727,
+        29.80000078678131
+      ]
+    },
+    {
+      "a": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:9:body FacilityTransit.Records10 SM_Treatment_RecordsDrawer_Frame",
+      "overlap": [
+        42.30000686645508,
+        67.00000381469727,
+        28.39999771118164
+      ]
+    },
+    {
+      "a": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:9:door FacilityTransit.Records10 SM_Treatment_RecordsDrawer_Tray",
+      "overlap": [
+        44.75000762939453,
+        68.00000381469727,
+        29.80000078678131
+      ]
+    },
+    {
+      "a": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:10:body FacilityTransit.Records11 SM_Treatment_RecordsDrawer_Frame",
+      "overlap": [
+        42.30000686645508,
+        67.00000381469727,
+        28.39999771118164
+      ]
+    },
+    {
+      "a": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:10:door FacilityTransit.Records11 SM_Treatment_RecordsDrawer_Tray",
+      "overlap": [
+        44.75000762939453,
+        68.00000381469727,
+        29.80000078678131
+      ]
+    },
+    {
+      "a": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:11:body FacilityTransit.Records12 SM_Treatment_RecordsDrawer_Frame",
+      "overlap": [
+        42.30000686645508,
+        67.00000381469727,
+        28.39999771118164
+      ]
+    },
+    {
+      "a": "part:56  SM_Treatment_RecordsCabinet_Carcass",
+      "b": "actor:11:door FacilityTransit.Records12 SM_Treatment_RecordsDrawer_Tray",
+      "overlap": [
+        44.75000762939453,
+        68.00000381469727,
+        29.80000078678131
+      ]
+    },
+    {
+      "a": "part:109 FacilityTransit.service.00 SM_Entry_DoorBody",
+      "b": "part:110 FacilityTransit.service.00 SM_Entry_DoorLeaf",
+      "overlap": [
+        89.0000002682209,
+        16.200006008148193,
+        280.0
+      ]
+    },
+    {
+      "a": "part:109 FacilityTransit.service.00 SM_Entry_DoorBody",
+      "b": "part:111 FacilityTransit.service.00 SM_Entry_DoorLeafRight",
+      "overlap": [
+        89.0000002682209,
+        16.200013875961304,
+        280.0
+      ]
+    },
+    {
+      "a": "part:112 FacilityTransit.service.01 SM_Entry_DoorBody",
+      "b": "part:113 FacilityTransit.service.01 SM_Entry_DoorLeaf",
+      "overlap": [
+        89.0000002682209,
+        16.200006008148193,
+        280.0
+      ]
+    },
+    {
+      "a": "part:112 FacilityTransit.service.01 SM_Entry_DoorBody",
+      "b": "part:114 FacilityTransit.service.01 SM_Entry_DoorLeafRight",
+      "overlap": [
+        89.0000002682209,
+        16.200013875961304,
+        280.0
+      ]
+    },
+    {
+      "a": "part:115 FacilityTransit.hatch.02 SM_Entry_HatchBody",
+      "b": "part:116 FacilityTransit.hatch.02 SM_Entry_HatchLeaf",
+      "overlap": [
+        142.9967803955078,
+        142.99676740169525,
+        6.200000524520874
+      ]
+    },
+    {
+      "a": "part:117 FacilityTransit.vent.03 SM_Entry_VentBody",
+      "b": "part:118 FacilityTransit.vent.03 SM_Entry_VentLeaf",
+      "overlap": [
+        157.20001256465912,
+        157.20001220703125,
+        5.5500030517578125
+      ]
+    },
+    {
+      "a": "part:124 Incident_CleaningBucket SM_IncidentDetail_Bucket",
+      "b": "part:125 Incident_CleaningMop SM_IncidentDetail_Mop",
+      "overlap": [
+        17.524285885803238,
+        40.84041901210276,
+        6.237834833562374
+      ]
+    }
+  ]
+}

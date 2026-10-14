@@ -304,7 +304,7 @@
                     "storage_pages": 2,
                     "type": "scene_container",
                     "position": [
-                      452.0,
+                      670.0,
                       -1194.791,
                       0.3
                     ],
@@ -316,12 +316,12 @@
             ],
             "clearance_cm": {
               "min": [
-                407.99999589040283,
+                625.9999958904028,
                 -1220.29052734375,
                 1.3
               ],
               "max": [
-                517.4017903052126,
+                735.4017903052126,
                 -1074.5405242235622,
                 175.3000047683716
               ]
@@ -695,11 +695,11 @@
                     "storage_pages": 2,
                     "type": "scene_container",
                     "position": [
-                      1350.5,
-                      -610.0,
+                      540.0,
+                      -1000.5,
                       0.3
                     ],
-                    "yaw": -90,
+                    "yaw": -180,
                     "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.0"
                   },
                   {
@@ -720,11 +720,11 @@
                     "storage_pages": 1,
                     "type": "scene_container",
                     "position": [
-                      1350.5,
-                      -610.0,
+                      540.0,
+                      -1000.5,
                       0.3
                     ],
-                    "yaw": -90,
+                    "yaw": -180,
                     "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.1"
                   }
                 ]
@@ -732,17 +732,18 @@
             ],
             "clearance_cm": {
               "min": [
-                1226.9998739909083,
-                -662.0000027029355,
-                1.3000019073486329
+                487.9999972970645,
+                -1029.0,
+                1.3
               ],
               "max": [
-                1378.9998779296875,
-                -534.6191003113188,
-                113.2999942779541
+                615.3808996886812,
+                -876.9999960612209,
+                113.29999237060547
               ]
             },
-            "floor_z": 1.9073486328125e-06
+            "floor_z": 0.0,
+            "placement_revision": "incinerator_hatch_clearance_20261010"
           },
           {
             "id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2",

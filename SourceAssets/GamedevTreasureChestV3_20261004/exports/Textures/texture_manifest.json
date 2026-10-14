@@ -1,0 +1,60 @@
+{
+  "recipe_version": "v2-final-20261004-iron026-gold032",
+  "families": {
+    "Iron": {
+      "files": {
+        "base_color": "T_TreasureV2_Iron_BaseColor.png",
+        "orm": "T_TreasureV2_Iron_ORM.png",
+        "normal": "T_TreasureV2_Iron_NormalGL.png"
+      },
+      "size": [
+        2048,
+        2048
+      ],
+      "normal_strength_baked": 0.26,
+      "roughness_min": 0.4207843244075775,
+      "roughness_max": 0.5117647051811218,
+      "metallic_min": 0.8081568479537964,
+      "metallic_max": 0.9455686211585999
+    },
+    "Gold": {
+      "files": {
+        "base_color": "T_TreasureV2_Gold_BaseColor.png",
+        "orm": "T_TreasureV2_Gold_ORM.png",
+        "normal": "T_TreasureV2_Gold_NormalGL.png"
+      },
+      "size": [
+        2048,
+        2048
+      ],
+      "normal_strength_baked": 0.32,
+      "roughness_min": 0.39952942728996277,
+      "roughness_max": 0.5021960735321045,
+      "metallic_min": 0.8978431224822998,
+      "metallic_max": 0.9849019646644592
+    },
+    "Wood": {
+      "files": {
+        "base_color": "T_TreasureV2_Wood_BaseColor.png",
+        "orm": "T_TreasureV2_Wood_ORM.png",
+        "normal": "T_TreasureV2_Wood_NormalGL.png"
+      },
+      "size": [
+        2048,
+        2048
+      ],
+      "normal_strength_baked": 0.68,
+      "roughness_min": 0.397678405046463,
+      "roughness_max": 0.913599967956543,
+      "metallic_min": 0.0,
+      "metallic_max": 0.0
+    }
+  },
+  "original_images_modified": false,
+  "base_color": "sRGB encoded; tint/contrast compression and gentle AO baked",
+  "orm": "Linear/non-color: R=1 (AO already in BaseColor), G=roughness, B=metallic",
+  "normal": "OpenGL tangent Y+; final normal strength baked; runtime strength 1.0",
+  "geometry_dependent_edge_wear": "Not baked; authoritative Blender material only",
+  "export_vertex_colors": "Disabled for glTF; existing Color is wear metadata",
+  "portability": "Texture-only approximation of broad finish; engine import not validated"
+}

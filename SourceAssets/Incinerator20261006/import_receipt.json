@@ -1,0 +1,510 @@
+{
+  "palette_entries_before": [
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"roman_column\", display_name: INVTEXT(\"罗马柱\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed\", footprint: {x: 4, y: 4, z: 13}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"baluster_small\", display_name: INVTEXT(\"矮栏杆罗马柱\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small\", footprint: {x: 2, y: 2, z: 5}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_rail_100\", display_name: INVTEXT(\"罗马栏杆顶梁 1米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanRail_100.SM_RomanRail_100\", footprint: {x: 5, y: 2, z: 2}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_rail_200\", display_name: INVTEXT(\"罗马栏杆顶梁 2米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200\", footprint: {x: 10, y: 2, z: 2}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_rail_300\", display_name: INVTEXT(\"罗马栏杆顶梁 3米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanRail_300.SM_RomanRail_300\", footprint: {x: 15, y: 2, z: 2}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_segment\", display_name: INVTEXT(\"罗马栏杆整体段 2米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_BalustradeSegment_20.SM_BalustradeSegment_20\", footprint: {x: 10, y: 2, z: 8}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"pavilion_full\", display_name: INVTEXT(\"罗马凉亭（整体）\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanPavilionFull_20.SM_RomanPavilionFull_20\", footprint: {x: 48, y: 48, z: 47}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"roman_column_round\", display_name: INVTEXT(\"圆底罗马柱\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20\", footprint: {x: 5, y: 5, z: 13}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"roman_fountain\", display_name: INVTEXT(\"罗马喷泉（蛋糕塔·自带水效）\"), mesh: \"/Game/Props/RomanFountain20260917/PolishV9/SM_FountainPolishedV9.SM_FountainPolishedV9\", footprint: {x: 48, y: 48, z: 36}, mount: Free, surface: \"/Game/Props/RomanFountain20260917/PolishV9/MIC_FountainStoneV9.MIC_FountainStoneV9\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelFountain\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"window_wood\", display_name: INVTEXT(\"木窗（E 键开关·100×100）\"), mesh: \"/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100\", footprint: {x: 1, y: 5, z: 5}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelWindow\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"window_stone\", display_name: INVTEXT(\"石窗（E 键开关·100×100）\"), mesh: \"/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100\", footprint: {x: 1, y: 5, z: 5}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Stone.M_Voxel_Stone\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelWindow\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"stone\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"window_marble\", display_name: INVTEXT(\"大理石窗（E 键开关·100×100）\"), mesh: \"/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100\", footprint: {x: 1, y: 5, z: 5}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_RomanStone_V2.M_RomanStone_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelWindow\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_wood\", display_name: INVTEXT(\"木门（E 键开关）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_stone\", display_name: INVTEXT(\"石门（E 键开关）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Stone.M_Voxel_Stone\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"stone\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_marble\", display_name: INVTEXT(\"大理石门（E 键开关）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_RomanStone_V2.M_RomanStone_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_physics\", display_name: INVTEXT(\"铁门（撞开）\"), mesh: \"/Game/DoorSystem/Demo/StarterContent/Props/SM_Door.SM_Door\", footprint: {x: 2, y: 6, z: 11}, mount: Free, surface: \"/Game/DoorSystem/Demo/StarterContent/Props/Materials/M_Door.M_Door\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Game/DoorSystem/Blueprints/Doors/BP_PhysicsDoor.BP_PhysicsDoor_C\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"double_door_wood\", display_name: INVTEXT(\"木双开门（E 键开关·2×2.4 m）\"), mesh: \"/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200.SM_DoubleDoorFrame_200\", footprint: {x: 2, y: 10, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoubleDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"double_door_stone\", display_name: INVTEXT(\"石双开门（E 键开关·2×2.4 m）\"), mesh: \"/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200.SM_DoubleDoorFrame_200\", footprint: {x: 2, y: 10, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Stone.M_Voxel_Stone\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoubleDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"stone\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"double_door_marble\", display_name: INVTEXT(\"大理石双开门（E 键开关·2×2.4 m）\"), mesh: \"/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200.SM_DoubleDoorFrame_200\", footprint: {x: 2, y: 10, z: 12}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_RomanStone_V2.M_RomanStone_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoubleDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"bronze_torch\", display_name: INVTEXT(\"青铜火把 · 贴墙\"), mesh: \"/Game/Props/RomanColumn20260915/SM_BronzeTorch.SM_BronzeTorch\", footprint: {x: 3, y: 2, z: 5}, mount: Wall, surface: \"/Game/Props/RomanColumn20260915/M_Bronze.M_Bronze\", pivot_offset_cm: {x: -9.750000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.BronzeTorch\", actor_offset_cm: {x: -51.000000, y: 0.000000, z: 44.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"square_altar\", display_name: INVTEXT(\"白金方形祭坛\"), mesh: \"/Game/Props/SquareAltar20260922/SM_SquareAltar.SM_SquareAltar\", footprint: {x: 11, y: 10, z: 8}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -9.492638}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"blast_furnace\", display_name: INVTEXT(\"冶炼高炉\"), mesh: \"/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace\", footprint: {x: 6, y: 5, z: 11}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"workbench_table\", display_name: INVTEXT(\"工作台\"), mesh: \"/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench\", footprint: {x: 13, y: 14, z: 8}, mount: Free, surface: \"/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_wood\", display_name: INVTEXT(\"木箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T1_Wood_v2.SM_WarehouseCrate_T1_Wood_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_stonewood\", display_name: INVTEXT(\"石饰木箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T2_StoneWood_v2.SM_WarehouseCrate_T2_StoneWood_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_iron\", display_name: INVTEXT(\"铁箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T3_Iron_v2.SM_WarehouseCrate_T3_Iron_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_irongold\", display_name: INVTEXT(\"金纹铁箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T4_IronGold_v2.SM_WarehouseCrate_T4_IronGold_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_silvergem\", display_name: INVTEXT(\"宝石银箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T5_SilverGem_v2.SM_WarehouseCrate_T5_SilverGem_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"casting_station\", display_name: INVTEXT(\"铸造台\"), mesh: \"/Game/Props/CastingStation20260926/SM_CastingStation.SM_CastingStation\", footprint: {x: 9, y: 6, z: 5}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"gun_workbench_table\", display_name: INVTEXT(\"枪械工作台\"), mesh: \"/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench\", footprint: {x: 13, y: 13, z: 8}, mount: Free, surface: \"/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 6.586639}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_key\", display_name: INVTEXT(\"键门（需钥匙）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelKeyDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"key_pickup\", display_name: INVTEXT(\"门钥匙\"), mesh: \"/Engine/BasicShapes/Cube.Cube\", footprint: {x: 1, y: 1, z: 1}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelKeyPickup\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_slide\", display_name: INVTEXT(\"滑动门（双扇对滑）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelSlidingDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_drag\", display_name: INVTEXT(\"拖拽门（任意开角）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDragDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_revolving\", display_name: INVTEXT(\"旋转门（三扇）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 5, y: 5, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelRevolvingDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>"
+  ],
+  "created_or_saved": [
+    "/Game/Building/Incinerator20261006/Materials/M_Rubber_and_belts.M_Rubber_and_belts",
+    "/Game/Building/Incinerator20261006/Materials/M_Brushed_steel.M_Brushed_steel",
+    "/Game/Building/Incinerator20261006/Materials/M_Graphite_anodized_frames.M_Graphite_anodized_frames",
+    "/Game/Building/Incinerator20261006/Materials/M_Incinerator_grey_green_powdercoat.M_Incinerator_grey_green_powdercoat",
+    "/Game/Building/Incinerator20261006/Materials/M_Press_blue_grey_enamel.M_Press_blue_grey_enamel",
+    "/Game/Building/Incinerator20261006/Materials/M_Refractory_ceramic_dark.M_Refractory_ceramic_dark",
+    "/Game/Building/Incinerator20261006/Materials/M_Low_amber_chamber_glow.M_Low_amber_chamber_glow",
+    "/Game/Building/Incinerator20261006/Materials/M_Warm_white_labels.M_Warm_white_labels",
+    "/Game/Building/Incinerator20261006/Materials/M_Screen_dark_glass.M_Screen_dark_glass",
+    "/Game/Building/Incinerator20261006/Materials/M_LED_cyan.M_LED_cyan",
+    "/Game/Building/Incinerator20261006/Materials/M_LED_green.M_LED_green",
+    "/Game/Building/Incinerator20261006/Materials/M_Amber_safety_accents.M_Amber_safety_accents",
+    "/Game/Building/Incinerator20261006/Materials/M_Safety_red.M_Safety_red",
+    "/Game/Building/Incinerator20261006/SM_Incinerator.SM_Incinerator",
+    "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette"
+  ],
+  "source_zip_sha256": "27b74670d2316aef31d06cb89e27b5a3e6028dde435add3179162453a42af521",
+  "imported_slot_names": [
+    "Rubber and belts",
+    "Brushed steel",
+    "Graphite anodized frames",
+    "Incinerator grey green powdercoat",
+    "Press blue-grey enamel",
+    "Refractory ceramic dark",
+    "Low amber chamber glow",
+    "Warm white labels",
+    "Screen dark glass",
+    "LED cyan",
+    "LED green",
+    "Amber safety accents",
+    "Safety red",
+    "Rubber_and_belts",
+    "Brushed_steel",
+    "Graphite_anodized_frames",
+    "Incinerator_grey_green_powdercoat",
+    "Press_blue-grey_enamel",
+    "Refractory_ceramic_dark",
+    "Low_amber_chamber_glow",
+    "Warm_white_labels",
+    "Screen_dark_glass",
+    "LED_cyan",
+    "LED_green",
+    "Amber_safety_accents",
+    "Safety_red"
+  ],
+  "materials": [
+    {
+      "index": 0,
+      "slot": "Rubber and belts",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Rubber_and_belts.M_Rubber_and_belts",
+      "source": {
+        "name": "Rubber and belts",
+        "base_color": [
+          0.012000000104308128,
+          0.017999999225139618,
+          0.019999999552965164,
+          1.0
+        ],
+        "metallic": 0.0,
+        "roughness": 0.7200000286102295,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 1,
+      "slot": "Brushed steel",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Brushed_steel.M_Brushed_steel",
+      "source": {
+        "name": "Brushed steel",
+        "base_color": [
+          0.3799999952316284,
+          0.4300000071525574,
+          0.4699999988079071,
+          1.0
+        ],
+        "metallic": 0.8999999761581421,
+        "roughness": 0.27000001072883606,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 2,
+      "slot": "Graphite anodized frames",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Graphite_anodized_frames.M_Graphite_anodized_frames",
+      "source": {
+        "name": "Graphite anodized frames",
+        "base_color": [
+          0.026000000536441803,
+          0.03500000014901161,
+          0.04100000113248825,
+          1.0
+        ],
+        "metallic": 0.7200000286102295,
+        "roughness": 0.3199999928474426,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 3,
+      "slot": "Incinerator grey green powdercoat",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Incinerator_grey_green_powdercoat.M_Incinerator_grey_green_powdercoat",
+      "source": {
+        "name": "Incinerator grey green powdercoat",
+        "base_color": [
+          0.23999999463558197,
+          0.30000001192092896,
+          0.30000001192092896,
+          1.0
+        ],
+        "metallic": 0.550000011920929,
+        "roughness": 0.41999998688697815,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 4,
+      "slot": "Press blue-grey enamel",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Press_blue_grey_enamel.M_Press_blue_grey_enamel",
+      "source": {
+        "name": "Press blue-grey enamel",
+        "base_color": [
+          0.054999999701976776,
+          0.14000000059604645,
+          0.20000000298023224,
+          1.0
+        ],
+        "metallic": 0.44999998807907104,
+        "roughness": 0.41999998688697815,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 5,
+      "slot": "Refractory ceramic dark",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Refractory_ceramic_dark.M_Refractory_ceramic_dark",
+      "source": {
+        "name": "Refractory ceramic dark",
+        "base_color": [
+          0.10999999940395355,
+          0.0949999988079071,
+          0.07500000298023224,
+          1.0
+        ],
+        "metallic": 0.0,
+        "roughness": 0.8799999952316284,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 6,
+      "slot": "Low amber chamber glow",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Low_amber_chamber_glow.M_Low_amber_chamber_glow",
+      "source": {
+        "name": "Low amber chamber glow",
+        "base_color": [
+          0.41999998688697815,
+          0.054999999701976776,
+          0.003000000026077032,
+          1.0
+        ],
+        "metallic": 0.0,
+        "roughness": 0.550000011920929,
+        "emission_color": [
+          1.0,
+          0.1599999964237213,
+          0.009999999776482582,
+          1.0
+        ],
+        "emission_strength": 1.7999999523162842
+      }
+    },
+    {
+      "index": 7,
+      "slot": "Warm white labels",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Warm_white_labels.M_Warm_white_labels",
+      "source": {
+        "name": "Warm white labels",
+        "base_color": [
+          0.699999988079071,
+          0.7200000286102295,
+          0.6700000166893005,
+          1.0
+        ],
+        "metallic": 0.0,
+        "roughness": 0.699999988079071,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 8,
+      "slot": "Screen dark glass",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Screen_dark_glass.M_Screen_dark_glass",
+      "source": {
+        "name": "Screen dark glass",
+        "base_color": [
+          0.007000000216066837,
+          0.02500000037252903,
+          0.03999999910593033,
+          1.0
+        ],
+        "metallic": 0.10000000149011612,
+        "roughness": 0.23000000417232513,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 9,
+      "slot": "LED cyan",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_LED_cyan.M_LED_cyan",
+      "source": {
+        "name": "LED cyan",
+        "base_color": [
+          0.019999999552965164,
+          0.699999988079071,
+          0.8500000238418579,
+          1.0
+        ],
+        "metallic": 0.0,
+        "roughness": 0.3499999940395355,
+        "emission_color": [
+          0.019999999552965164,
+          0.699999988079071,
+          0.8500000238418579,
+          1.0
+        ],
+        "emission_strength": 0.6499999761581421
+      }
+    },
+    {
+      "index": 10,
+      "slot": "LED green",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_LED_green.M_LED_green",
+      "source": {
+        "name": "LED green",
+        "base_color": [
+          0.07999999821186066,
+          0.800000011920929,
+          0.33000001311302185,
+          1.0
+        ],
+        "metallic": 0.0,
+        "roughness": 0.3499999940395355,
+        "emission_color": [
+          0.07999999821186066,
+          0.800000011920929,
+          0.33000001311302185,
+          1.0
+        ],
+        "emission_strength": 0.6499999761581421
+      }
+    },
+    {
+      "index": 11,
+      "slot": "Amber safety accents",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Amber_safety_accents.M_Amber_safety_accents",
+      "source": {
+        "name": "Amber safety accents",
+        "base_color": [
+          0.8199999928474426,
+          0.23999999463558197,
+          0.04500000178813934,
+          1.0
+        ],
+        "metallic": 0.3499999940395355,
+        "roughness": 0.4000000059604645,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    },
+    {
+      "index": 12,
+      "slot": "Safety red",
+      "path": "/Game/Building/Incinerator20261006/Materials/M_Safety_red.M_Safety_red",
+      "source": {
+        "name": "Safety red",
+        "base_color": [
+          0.5,
+          0.027000000700354576,
+          0.014000000432133675,
+          1.0
+        ],
+        "metallic": 0.10000000149011612,
+        "roughness": 0.5,
+        "emission_color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "emission_strength": 0.0
+      }
+    }
+  ],
+  "mesh": "/Game/Building/Incinerator20261006/SM_Incinerator.SM_Incinerator",
+  "bounds_origin_cm": [
+    2.5500011444091797,
+    6.104434967041016,
+    103.94999694824219
+  ],
+  "dimensions_cm": [
+    119.29999923706055,
+    110.19112396240234,
+    207.89999389648438
+  ],
+  "footprint": [
+    6,
+    6,
+    11
+  ],
+  "pivot_offset_cm": [
+    0,
+    0,
+    -6.0500030517578125
+  ],
+  "triangles": [
+    40152,
+    20076,
+    8029
+  ],
+  "lod_screen_sizes": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "collision": "<CollisionTraceFlag.CTF_USE_SIMPLE_AND_COMPLEX: 1>",
+  "collision_count": 1,
+  "nanite_enabled": false,
+  "palette_entries_after": [
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"roman_column\", display_name: INVTEXT(\"罗马柱\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed.SM_RomanColumn_Detailed\", footprint: {x: 4, y: 4, z: 13}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"baluster_small\", display_name: INVTEXT(\"矮栏杆罗马柱\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanBaluster_Small.SM_RomanBaluster_Small\", footprint: {x: 2, y: 2, z: 5}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_rail_100\", display_name: INVTEXT(\"罗马栏杆顶梁 1米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanRail_100.SM_RomanRail_100\", footprint: {x: 5, y: 2, z: 2}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_rail_200\", display_name: INVTEXT(\"罗马栏杆顶梁 2米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanRail_200.SM_RomanRail_200\", footprint: {x: 10, y: 2, z: 2}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_rail_300\", display_name: INVTEXT(\"罗马栏杆顶梁 3米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanRail_300.SM_RomanRail_300\", footprint: {x: 15, y: 2, z: 2}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"balustrade_segment\", display_name: INVTEXT(\"罗马栏杆整体段 2米\"), mesh: \"/Game/Props/RomanColumn20260915/SM_BalustradeSegment_20.SM_BalustradeSegment_20\", footprint: {x: 10, y: 2, z: 8}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"pavilion_full\", display_name: INVTEXT(\"罗马凉亭（整体）\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanPavilionFull_20.SM_RomanPavilionFull_20\", footprint: {x: 48, y: 48, z: 47}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"roman_column_round\", display_name: INVTEXT(\"圆底罗马柱\"), mesh: \"/Game/Props/RomanColumn20260915/SM_RomanColumn_Round_20.SM_RomanColumn_Round_20\", footprint: {x: 5, y: 5, z: 13}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"roman_fountain\", display_name: INVTEXT(\"罗马喷泉（蛋糕塔·自带水效）\"), mesh: \"/Game/Props/RomanFountain20260917/PolishV9/SM_FountainPolishedV9.SM_FountainPolishedV9\", footprint: {x: 48, y: 48, z: 36}, mount: Free, surface: \"/Game/Props/RomanFountain20260917/PolishV9/MIC_FountainStoneV9.MIC_FountainStoneV9\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelFountain\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"window_wood\", display_name: INVTEXT(\"木窗（E 键开关·100×100）\"), mesh: \"/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100\", footprint: {x: 1, y: 5, z: 5}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelWindow\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"window_stone\", display_name: INVTEXT(\"石窗（E 键开关·100×100）\"), mesh: \"/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100\", footprint: {x: 1, y: 5, z: 5}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Stone.M_Voxel_Stone\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelWindow\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"stone\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"window_marble\", display_name: INVTEXT(\"大理石窗（E 键开关·100×100）\"), mesh: \"/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100\", footprint: {x: 1, y: 5, z: 5}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_RomanStone_V2.M_RomanStone_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelWindow\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_wood\", display_name: INVTEXT(\"木门（E 键开关）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_stone\", display_name: INVTEXT(\"石门（E 键开关）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Stone.M_Voxel_Stone\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"stone\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_marble\", display_name: INVTEXT(\"大理石门（E 键开关）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_RomanStone_V2.M_RomanStone_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_physics\", display_name: INVTEXT(\"铁门（撞开）\"), mesh: \"/Game/DoorSystem/Demo/StarterContent/Props/SM_Door.SM_Door\", footprint: {x: 2, y: 6, z: 11}, mount: Free, surface: \"/Game/DoorSystem/Demo/StarterContent/Props/Materials/M_Door.M_Door\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Game/DoorSystem/Blueprints/Doors/BP_PhysicsDoor.BP_PhysicsDoor_C\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"double_door_wood\", display_name: INVTEXT(\"木双开门（E 键开关·2×2.4 m）\"), mesh: \"/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200.SM_DoubleDoorFrame_200\", footprint: {x: 2, y: 10, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoubleDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"double_door_stone\", display_name: INVTEXT(\"石双开门（E 键开关·2×2.4 m）\"), mesh: \"/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200.SM_DoubleDoorFrame_200\", footprint: {x: 2, y: 10, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Stone.M_Voxel_Stone\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoubleDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"stone\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"double_door_marble\", display_name: INVTEXT(\"大理石双开门（E 键开关·2×2.4 m）\"), mesh: \"/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200.SM_DoubleDoorFrame_200\", footprint: {x: 2, y: 10, z: 12}, mount: Free, surface: \"/Game/Props/RomanColumn20260915/M_RomanStone_V2.M_RomanStone_V2\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDoubleDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"bronze_torch\", display_name: INVTEXT(\"青铜火把 · 贴墙\"), mesh: \"/Game/Props/RomanColumn20260915/SM_BronzeTorch.SM_BronzeTorch\", footprint: {x: 3, y: 2, z: 5}, mount: Wall, surface: \"/Game/Props/RomanColumn20260915/M_Bronze.M_Bronze\", pivot_offset_cm: {x: -9.750000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.BronzeTorch\", actor_offset_cm: {x: -51.000000, y: 0.000000, z: 44.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"square_altar\", display_name: INVTEXT(\"白金方形祭坛\"), mesh: \"/Game/Props/SquareAltar20260922/SM_SquareAltar.SM_SquareAltar\", footprint: {x: 11, y: 10, z: 8}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -9.492638}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"marble\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"blast_furnace\", display_name: INVTEXT(\"冶炼高炉\"), mesh: \"/Game/Props/BlastFurnace20260923/SM_BlastFurnace.SM_BlastFurnace\", footprint: {x: 6, y: 5, z: 11}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"workbench_table\", display_name: INVTEXT(\"工作台\"), mesh: \"/Game/Building/Workbench/Meshes/SM_WBStandalone_Workbench.SM_WBStandalone_Workbench\", footprint: {x: 13, y: 14, z: 8}, mount: Free, surface: \"/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_wood\", display_name: INVTEXT(\"木箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T1_Wood_v2.SM_WarehouseCrate_T1_Wood_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_stonewood\", display_name: INVTEXT(\"石饰木箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T2_StoneWood_v2.SM_WarehouseCrate_T2_StoneWood_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_iron\", display_name: INVTEXT(\"铁箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T3_Iron_v2.SM_WarehouseCrate_T3_Iron_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_irongold\", display_name: INVTEXT(\"金纹铁箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T4_IronGold_v2.SM_WarehouseCrate_T4_IronGold_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"warehouse_crate_silvergem\", display_name: INVTEXT(\"宝石银箱\"), mesh: \"/Game/Props/WarehouseCrateTiers20260924/SM_WarehouseCrate_T5_SilverGem_v2.SM_WarehouseCrate_T5_SilverGem_v2\", footprint: {x: 8, y: 6, z: 7}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -8.350000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"casting_station\", display_name: INVTEXT(\"铸造台\"), mesh: \"/Game/Props/CastingStation20260926/SM_CastingStation.SM_CastingStation\", footprint: {x: 9, y: 6, z: 5}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"gun_workbench_table\", display_name: INVTEXT(\"枪械工作台\"), mesh: \"/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench\", footprint: {x: 13, y: 13, z: 8}, mount: Free, surface: \"/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 6.586639}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_key\", display_name: INVTEXT(\"键门（需钥匙）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelKeyDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"key_pickup\", display_name: INVTEXT(\"门钥匙\"), mesh: \"/Engine/BasicShapes/Cube.Cube\", footprint: {x: 1, y: 1, z: 1}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelKeyPickup\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_slide\", display_name: INVTEXT(\"滑动门（双扇对滑）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelSlidingDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_drag\", display_name: INVTEXT(\"拖拽门（任意开角）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 2, y: 6, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelDragDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"door_revolving\", display_name: INVTEXT(\"旋转门（三扇）\"), mesh: \"/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40\", footprint: {x: 5, y: 5, z: 12}, mount: Free, surface: \"/Game/Building/Voxels/Rounded/M_Voxel_Wood.M_Voxel_Wood\", pivot_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, actor_class: \"/Script/FPSGAME.ColdSteelRevolvingDoor\", actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"wood\"}>",
+    "<Struct 'VoxelBuildPrefab' (POINTER) {id: \"incinerator\", display_name: INVTEXT(\"焚化炉\"), mesh: \"/Game/Building/Incinerator20261006/SM_Incinerator.SM_Incinerator\", footprint: {x: 6, y: 6, z: 11}, mount: Free, surface: None, pivot_offset_cm: {x: 0.000000, y: 0.000000, z: -6.050003}, actor_class: None, actor_offset_cm: {x: 0.000000, y: 0.000000, z: 0.000000}, material: \"\"}>"
+  ],
+  "maps_saved": false,
+  "gameplay_tested": false,
+  "verified_saved_reload": true,
+  "simple_primitive_count": 0,
+  "convex_collision_count": 1,
+  "lod_section_material_indices": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ]
+  ]
+}

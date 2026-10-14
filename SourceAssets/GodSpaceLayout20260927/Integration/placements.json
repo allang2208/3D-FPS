@@ -6338,11 +6338,13 @@
       "name": "SM_GodSpaceCore",
       "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceLayout20260927\\Integration\\Exported\\SM_GodSpaceCore.fbx",
       "materials": [
-        "Proposed main deity core - blockout",
-        "Aged champagne brass"
+        "Core_Starfield",
+        "Core_EngravedGold",
+        "Core_Sapphire"
       ],
-      "vertices": 2642,
-      "triangles": 5280
+      "triangles": 53888,
+      "authoring_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GodSpaceCoreStarfield20261005\\DetailV4\\Authored\\GodSpaceCore_Starfield_V4_Editable.blend",
+      "revision": "20261005-V4-EngineParity"
     },
     {
       "name": "SM_GodSpaceDistantOcean",

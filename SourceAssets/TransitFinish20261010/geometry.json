@@ -1,0 +1,78 @@
+{
+  "meshes": [
+    {
+      "name": "SM_TransitFinish_ArrivalFrameV2",
+      "kind": "ArrivalFrame",
+      "mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_ArrivalFrameV2",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitFinish20261010\\Authored\\SM_TransitFinish_ArrivalFrameV2.fbx",
+      "sha256": "fc192b7dd02ffbea73fd1d162b76d6ded0055dd7c79deab9c21e2c9b5ec15382",
+      "materials": {
+        "TF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "TF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 4788
+    },
+    {
+      "name": "SM_TransitFinish_FixtureHousings",
+      "kind": "FixtureHousings",
+      "mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_FixtureHousings",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitFinish20261010\\Authored\\SM_TransitFinish_FixtureHousings.fbx",
+      "sha256": "acc3fa2cbb5da96dd897503241c298b40494e7afa44594c5e4e52f2d99cdd40f",
+      "materials": {
+        "TF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal",
+        "TF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "TF_Dark": "/Game/Dungeons/StaffLiving20261002/WallInsetV6/Materials/M_Staff_KettleRubber_V6"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 864
+    },
+    {
+      "name": "SM_TransitFinish_FixtureDiffusers",
+      "kind": "FixtureDiffusers",
+      "mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_FixtureDiffusers",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitFinish20261010\\Authored\\SM_TransitFinish_FixtureDiffusers.fbx",
+      "sha256": "6dad4d27c14c05b5e105360e8d07ad600ec14acb80dc72e4024db88710498d4d",
+      "materials": {
+        "TF_Glow": "/Game/Dungeons/HallLighting20261007/Materials/M_SteadyDiffuser"
+      },
+      "collision": false,
+      "cast_shadow": false,
+      "nanite": false,
+      "triangles": 24
+    },
+    {
+      "name": "SM_TransitFinish_VentConnection",
+      "kind": "VentConnection",
+      "mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_VentConnection",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitFinish20261010\\Authored\\SM_TransitFinish_VentConnection.fbx",
+      "sha256": "63022c954a742c7ed4c917c4bb9b14ae02f4543eb31d82565d5f66391444a982",
+      "materials": {
+        "TF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 112
+    },
+    {
+      "name": "SM_TransitFinish_VentMounts",
+      "kind": "VentMounts",
+      "mesh": "/Game/Dungeons/TransitFinish20261010/Meshes/SM_TransitFinish_VentMounts",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TransitFinish20261010\\Authored\\SM_TransitFinish_VentMounts.fbx",
+      "sha256": "306bea27e933930899b876ea7d54906fd90b7c9b0f0180e8a6aedcf8ade7b916",
+      "materials": {
+        "TF_Steel": "/Game/Dungeons/SeamMetal20260923/Materials/MI_BareSteel",
+        "TF_Teal": "/Game/Dungeons/ReceptionHall20261006/Materials/M_Reception_Teal"
+      },
+      "collision": false,
+      "cast_shadow": true,
+      "nanite": true,
+      "triangles": 4552
+    }
+  ]
+}

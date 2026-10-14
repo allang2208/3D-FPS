@@ -62,7 +62,8 @@ bool GrowJointRoute(const FSocket& Lead,const FSocket& Guide,const FString& Rout
     const auto Base=Pieces;
     TArray<FCompactBeam> Beam;
     bJointRouteCandidates=true;
-    const bool Grown=GrowCompactRooms(6,Lead,Guide,Route,Beam,true);
+    const int32 RoomCount=ThemeSlots.FindChecked(Route).Num();
+    const bool Grown=GrowCompactRooms(RoomCount,Lead,Guide,Route,Beam,true);
     bJointRouteCandidates=false;
     Out.Reset();
     if(!Grown){Pieces=Base;return false;}
@@ -76,7 +77,7 @@ bool GrowJointRoute(const FSocket& Lead,const FSocket& Guide,const FString& Rout
         }
         // Include the return ramp before comparing frontiers. Its walking
         // length and bends remain part of this one room-to-terminal join.
-        auto Links=RoomLinks(State.End);ThemeRoomLinks(Links,State.End,Route,6,1);
+        auto Links=RoomLinks(State.End);ThemeRoomLinks(Links,State.End,Route,RoomCount,1);
         for(const auto& Link:Links)
         {
             if(Link.Ramp<0)continue;
@@ -222,7 +223,8 @@ bool FitJointRoutes(const TArray<FJointRoute> (&Routes)[3],const FJointTerminal&
 
 bool BuildJointFacility(int32 Seed,const FSocket& Start)
 {
-    constexpr int32 Profiles=42;
+    const bool bBakingLayout=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"));
+    const int32 Profiles=bBakingLayout?294:42;
     int32 ReadyProfiles=0,TerminalTrials=0,Most=0;
     FString FinalReject;
     for(int32 Attempt=0;Attempt<Profiles&&CanSearch();++Attempt)
@@ -249,10 +251,17 @@ bool BuildJointFacility(int32 Seed,const FSocket& Start)
         CompactLeads=Leads;
         const auto Prefix=Pieces;
         TArray<double> Spans;
-        for(int32 R=1;R<=3;++R)Spans.Add(ThemeSpanRange(FString::Printf(TEXT("Route%d"),R),0,6).X);
+        for(int32 R=1;R<=3;++R){const FString Route=FString::Printf(TEXT("Route%d"),R);Spans.Add(ThemeSpanRange(Route,0,ThemeSlots.FindChecked(Route).Num()).X);}
         Spans.Sort();
-        const double GuideDistance=Spans[1]*(Attempt<21?.65:.9);
-        FSocket Guide{Leads[0].P+LaneForward*GuideDistance,LaneForward,-2,300,280};
+        // A seven-room route can finish off the original central guide axis.
+        // Offline bank construction explores those targets as well. Every pose
+        // retains the same collision, turn and corridor limits used in a run.
+        const int32 Sweep=Attempt/42;
+        static constexpr double BakeReach[]={0.,.45,1.10,.65,.65,.90,.90};
+        static constexpr double BakeSide[]={0.,0.,0.,6000.,-6000.,6000.,-6000.};
+        const double GuideDistance=Spans[1]*(Sweep?BakeReach[Sweep]:(Attempt%42<21?.65:.9));
+        const FVector GuideSide(-LaneForward.Y,LaneForward.X,0.);
+        FSocket Guide{Leads[0].P+LaneForward*GuideDistance+GuideSide*BakeSide[Sweep],LaneForward,-2,300,280};
         const auto GuideTops=JointTerminalTops(Guide);
         TArray<FJointRoute> Routes[3];bool Ready=true;
         for(int32 R=0;R<3;++R)

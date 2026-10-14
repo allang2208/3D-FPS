@@ -1,0 +1,36 @@
+{
+  "stage": "maps_saved",
+  "revision": "medical_executive_workstations_20261010",
+  "backup": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MedicalExecutiveOffice20261010\\Backups\\20261010-185134",
+  "maps": [
+    {
+      "path": "/Game/GameMaps/L_Dungeon_Randomized",
+      "saved": true,
+      "workstations": 9
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_MedicalDoctorOffice_Subject",
+      "saved": true,
+      "workstations": 9,
+      "replaced": 23,
+      "created": 19,
+      "removed": 9
+    },
+    {
+      "path": "/Game/GameMaps/Design/L_Hospital_Theme_Subject",
+      "saved": true,
+      "workstations": 9,
+      "replaced": 23,
+      "created": 19,
+      "removed": 9
+    }
+  ],
+  "tests_run": false,
+  "game_run": false,
+  "rendered": false,
+  "workstations": 9,
+  "mesh_assets": 6,
+  "materials": 4,
+  "textures": 2,
+  "layout_entries_preserved": 120
+}

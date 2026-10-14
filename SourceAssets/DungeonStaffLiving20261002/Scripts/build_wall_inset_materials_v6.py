@@ -38,6 +38,7 @@ def build_materials(root,base):
         if not mat:
             mat=A.create_asset(path.rsplit('/',1)[1],base+'/Materials',u.Material,u.MaterialFactoryNew())
             mat.set_editor_property('used_with_nanite',True)
+            mat.set_editor_property('used_with_instanced_static_meshes',True)
             c=M.create_material_expression(mat,u.MaterialExpressionConstant3Vector,-450,0);c.set_editor_property('constant',u.LinearColor(*color,1))
             M.connect_material_property(c,'',u.MaterialProperty.MP_BASE_COLOR)
             for value,prop,yy in ((roughness,u.MaterialProperty.MP_ROUGHNESS,160),(metallic,u.MaterialProperty.MP_METALLIC,240)):

@@ -1,0 +1,70 @@
+{
+  "utc": "2026-10-05T12:10:28.421788+00:00",
+  "formal_install_saved": true,
+  "formal_asset_sha256": "8f7bd87ce71ee072179f9b0c03b028a49fb9988675b0354c3bf431cc6b047e39",
+  "passed": [
+    "Candidate final FBX and UE render data use UV0 for gold atlas",
+    "Candidate actual Hub and neutral-light visual review accepted by parent",
+    "Three dedicated parent materials compile without errors",
+    "Formal original asset path saved with three accepted material slots",
+    "Collision mode/simple-shape count and Nanite state preserved",
+    "Formal AABB center and half extents match original",
+    "Authoring/export/import chain synchronized; other placement records identical",
+    "All nine protected files including map, shared materials, altar and four default save files unchanged"
+  ],
+  "not_completed": [
+    "Reload original map and confirm disk-loaded runtime binding",
+    "Formal post-install overall screenshot",
+    "Formal seam and north/south pole visual checks",
+    "Isolated-profile native E altar interaction"
+  ],
+  "not_tested": [
+    "Full expedition",
+    "Long performance test",
+    "Full layout regeneration/import"
+  ],
+  "blocker": {
+    "owned_editor_pid": 43368,
+    "owned_editor_process_present": false,
+    "any_unreal_editor_process_present": false,
+    "last_editor_log_utc": "2026-10-05T12:03:14Z",
+    "reload_bridge_result": "No connectable editor node found",
+    "reload_receipt_created": false,
+    "cause_of_editor_exit": "Unknown; no claim of graceful shutdown or crash",
+    "verification_stopped_as_requested": true,
+    "editor_restarted": false
+  },
+  "formal_postinstall_preview_library_id": null,
+  "culling_bound_note": {
+    "original_sphere_radius_cm": 237.500181,
+    "installed_sphere_radius_cm": 380.8008831888915,
+    "note": "UE recalculated a conservative culling sphere after matching the original AABB with bounds extensions; physical sphere stays 300 cm diameter and footprint/AABB unchanged."
+  },
+  "source_triangles": 53888,
+  "candidate_ue_triangles": 53407,
+  "triangle_count_difference": 481,
+  "triangle_difference_scope": "Difference occurs in sapphire section; exact importer cause not investigated.",
+  "git_commit_or_push": false,
+  "candidate_preview_library": [
+    {
+      "file_name": "CoreStarfield_UE_V2_Overall.png",
+      "library_file_id": "libfile_ff96779bbab88191a1f90cf29c4f24d9",
+      "file_id": "file_0000000058e481f9b6e07008c0cfbb04"
+    },
+    {
+      "file_name": "CoreStarfield_UE_V2_Ring.png",
+      "library_file_id": "libfile_c0774bebdb348191ace59f91b123ec53",
+      "file_id": "file_00000000f17881f6929aa202dda41cae"
+    },
+    {
+      "file_name": "CoreStarfield_UE_V2_NeutralOverall.png",
+      "library_file_id": "libfile_e2784c33d4648191993643fd368ef30e",
+      "file_id": "file_00000000f06c81f59a2a2bbf41300ed5"
+    },
+    {
+      "file_name": "CoreStarfield_UE_V2_NeutralRing.png",
+      "library_file_id": "libfile_875ef966f3508191ba958eadefe35edc",
+      "file_id": "file_00000000cca081f5876a67b3bb4ab97f"
+    }
+  ]
+}
