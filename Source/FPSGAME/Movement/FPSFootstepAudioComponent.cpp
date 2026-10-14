@@ -9,6 +9,11 @@
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 #include "Sound/SoundBase.h"
+#include "Sound/SoundAttenuation.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/PlayerController.h"
+#include "Camera/PlayerCameraManager.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
 #include "EngineUtils.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 
@@ -22,6 +27,13 @@ UFPSFootstepAudioComponent::UFPSFootstepAudioComponent()
 void UFPSFootstepAudioComponent::BeginPlay()
 {
     Super::BeginPlay();
+    if(GetNetMode()==NM_DedicatedServer){SetComponentTickEnabled(false);return;}
+    RemoteAttenuation=NewObject<USoundAttenuation>(this);
+    RemoteAttenuation->Attenuation.bAttenuate=true;
+    RemoteAttenuation->Attenuation.bSpatialize=true;
+    RemoteAttenuation->Attenuation.AttenuationShape=EAttenuationShape::Sphere;
+    RemoteAttenuation->Attenuation.AttenuationShapeExtents=FVector(80.f);
+    RemoteAttenuation->Attenuation.FalloffDistance=2000.f;
     Context = NewObject<UAutoFootstepEffectContext>(this);
     auto Add = [&](FName Name, std::initializer_list<const TCHAR*> Files)
     {
@@ -54,7 +66,14 @@ void UFPSFootstepAudioComponent::Play(FName Name, const FVector& Position, float
     FAutoFootstepSoundParams Params;
     Params.VolumeMultiplier=Volume*Gain*FMath::FRandRange(.94f,1.0f);
     Params.PitchMultiplier=FMath::FRandRange(.96f,1.04f);
-    Context->PlayEffectBySurfaceType(this,SurfaceType_Default,Position,FRotator::ZeroRotator,FAutoFootstepNiagaraParams(),Params);
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    if(Pawn&&!Pawn->IsLocallyControlled())
+    {
+        UAutoFootstepEffectContext::OnFootstepPlayed.Broadcast(this,SurfaceType_Default,Position,FRotator::ZeroRotator);
+        UGameplayStatics::PlaySoundAtLocation(this,Bank->Sounds[Index],Position,FRotator::ZeroRotator,
+            Params.VolumeMultiplier,Params.PitchMultiplier,0.f,RemoteAttenuation);
+    }
+    else Context->PlayEffectBySurfaceType(this,SurfaceType_Default,Position,FRotator::ZeroRotator,FAutoFootstepNiagaraParams(),Params);
 }
 
 FName UFPSFootstepAudioComponent::GroundBank(const FHitResult& Hit) const
@@ -102,7 +121,15 @@ void UFPSFootstepAudioComponent::TickComponent(float Dt,ELevelTick Type,FActorCo
 {
     Super::TickComponent(Dt,Type,Fn);
     ACharacter* Pawn=Cast<ACharacter>(GetOwner());
-    if(!Pawn||!Pawn->IsLocallyControlled())return;
+    if(!Pawn||GetNetMode()==NM_DedicatedServer)return;
+    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
+    {bInitialized=false;return;}
+    if(!Pawn->IsLocallyControlled())
+    {
+        const auto* PC=GetWorld()->GetFirstPlayerController();
+        if(!PC||!PC->PlayerCameraManager||FVector::DistSquared(PC->PlayerCameraManager->GetCameraLocation(),Pawn->GetActorLocation())>FMath::Square(2400.f))
+        {bInitialized=false;return;}
+    }
     UCharacterMovementComponent* Move=Pawn->GetCharacterMovement();
     if(!Move)return;
     const FVector P=Pawn->GetActorLocation();

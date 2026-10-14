@@ -135,9 +135,11 @@ public:
     UFUNCTION(BlueprintCallable) int32 CleanseDebuffs(int32 Count);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)override;
 private:
+    friend class UFPSStatusReplicationComponent;
     TArray<TWeakObjectPtr<UZhenmoRuneComponent>> ZhenmoSources;
     void InterruptOwnerActions(float Seconds);
     bool bImmune=false;
+    float NetworkZhenmoMovement=1.f;
     int32 ElectrifiedStacks=0;
     float ElectrifiedTime=0,ElectrifiedBonus=.03f;
     int32 ChillStacks=0,HasteStacks=0,ChainStacks=0;

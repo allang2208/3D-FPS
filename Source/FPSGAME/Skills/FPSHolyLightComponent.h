@@ -28,6 +28,7 @@ public:
     float HandNoticeRise() const;
     // ── 联机 ──
     bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FHolyLightCast& Spell);
+    void NetCastAccepted(uint8 Phase);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
 protected:
@@ -44,6 +45,8 @@ private:
     bool bQueued=false,bCommitted=false,bQueuedSelf=false;
     /** 联机客人：扣账后等待服务端结算回执的窗口。 */
     bool bNetPaid=false;
+    bool bNetResultPending=false;
+    float NetPaidMana=0.f;
     FString Message;
     double MessageUntil=0;
     UColdSteelStatusModel* Model() const;

@@ -1,4 +1,5 @@
 #include "FPSPracticeTarget.h"
+#include "Net/UnrealNetwork.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "Engine/StaticMesh.h"
@@ -39,7 +40,7 @@ AFPSPracticeTarget::AFPSPracticeTarget()
     DpsSign->SetTextRenderColor(SignColor);
     DpsSign->SetText(FText::FromString(TEXT("PRACTICE TARGET")));
     SetCanBeDamaged(true);
-    SetReplicates(false);
+    bReplicates=true;SetReplicateMovement(false);SetNetUpdateFrequency(4.f);SetMinNetUpdateFrequency(2.f);
 }
 
 void AFPSPracticeTarget::BeginPlay()
@@ -48,20 +49,20 @@ void AFPSPracticeTarget::BeginPlay()
     if(MeshOverride)TargetMesh->SetStaticMesh(MeshOverride);
     else if(!TargetMesh->GetStaticMesh())
         if(auto* Mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Props/PracticeTarget20261002/SM_PracticeTarget.SM_PracticeTarget")))TargetMesh->SetStaticMesh(Mesh);
+    if(GetNetMode()!=NM_Client)
+    {
+    SetReplicates(true);
     OnTakePointDamage.AddDynamic(this,&AFPSPracticeTarget::OnPointDamage);
     OnTakeRadialDamage.AddDynamic(this,&AFPSPracticeTarget::OnRadialDamage);
     OnTakeAnyDamage.AddDynamic(this,&AFPSPracticeTarget::OnAnyDamage);
+    }
     UpdateSign();
 }
 
 void AFPSPracticeTarget::OnPointDamage(AActor*,float Damage,AController*,FVector HitLocation,UPrimitiveComponent*,FName,FVector ShotFromDirection,const UDamageType*,AActor*)
 {
     LastTypedDamageFrame=GFrameCounter;
-    RecordHit(Damage,HitLocation,IsBullseyeLocation(HitLocation));
-    const FVector ToHit=(HitLocation-GetActorLocation()).GetSafeNormal();
-    RockSign=FVector::DotProduct(ToHit,GetActorForwardVector())>=0.f?-1.f:1.f;
-    RockAmplitude=FMath::Min(7.f,1.5f+Damage*.06f);
-    RockPhase=0.f;
+    RecordHit(Damage,HitLocation,IsBullseyeLocation(HitLocation),true);
 }
 
 void AFPSPracticeTarget::OnRadialDamage(AActor*,float Damage,const UDamageType*,FVector Origin,const FHitResult& HitInfo,AController*,AActor*)
@@ -91,18 +92,35 @@ bool AFPSPracticeTarget::IsBullseyeLocation(const FVector& WorldPoint) const
 bool AFPSPracticeTarget::IsBullseyeHit(const FHitResult& Hit) const
 { return IsBullseyeLocation(Hit.ImpactPoint); }
 
-void AFPSPracticeTarget::RecordHit(float Damage,const FVector& Point,bool bBullseye)
+void AFPSPracticeTarget::RecordHit(float Damage,const FVector& Point,bool bBullseye,bool bRock)
 {
-    if(Damage<=0.f)return;
+    if(GetNetMode()==NM_Client||!HasAuthority()||Damage<=0.f)return;
     const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.;
     if(LastHitTime<0.||Now-LastHitTime>IdleResetSeconds)
-    {TotalDamage=0.f;HitCount=0;SessionStart=Now;} // 空闲超时后重新开节
+    {TotalDamage=0.f;HitCount=0;SessionStart=Now;RecentHits.Reset();} // 空闲超时后重新开节
     LastHitTime=Now;
     TotalDamage+=Damage;++HitCount;
     RecentHits.Add({Now,Damage});
     while(RecentHits.Num()&&Now-RecentHits[0].Time>WindowSeconds)RecentHits.RemoveAt(0,1,EAllowShrinking::No);
+    MulticastPracticeHit(Damage,Point,bBullseye,bRock);
+    UpdateSign();ForceNetUpdate();
+}
+
+void AFPSPracticeTarget::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSPracticeTarget,Statistics);
+}
+void AFPSPracticeTarget::OnRep_Statistics(){UpdateSign();}
+void AFPSPracticeTarget::MulticastPracticeHit_Implementation(float Damage,FVector Point,bool bBullseye,bool bRock)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
     SpawnDamageText(Damage,Point,bBullseye);
-    UpdateSign();
+    if(bRock)
+    {
+        RockSign=FVector::DotProduct((Point-GetActorLocation()).GetSafeNormal(),GetActorForwardVector())>=0.f?-1.f:1.f;
+        RockAmplitude=FMath::Min(7.f,1.5f+Damage*.06f);RockPhase=0.f;
+    }
 }
 
 void AFPSPracticeTarget::SpawnDamageText(float Damage,const FVector& Point,bool bBullseye)
@@ -127,13 +145,16 @@ void AFPSPracticeTarget::SpawnDamageText(float Damage,const FVector& Point,bool 
 
 void AFPSPracticeTarget::UpdateSign()
 {
-    const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.;
-    if(HitCount==0||SessionStart<0.){DpsSign->SetText(FText::FromString(TEXT("PRACTICE TARGET")));return;}
-    const float Elapsed=FMath::Max(.25f,float(Now-SessionStart));
-    const float Window=FMath::Min(WindowSeconds,Elapsed);
-    float Sum=0;for(const auto& H:RecentHits)Sum+=H.Damage;
-    const float Dps=Sum/FMath::Max(.1f,Window);
-    DpsSign->SetText(FText::FromString(FString::Printf(TEXT("DPS %.0f  |  TOTAL %.0f  |  HITS %d"),Dps,TotalDamage,HitCount)));
+    if(GetNetMode()!=NM_Client)
+    {
+        const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.;
+        while(!RecentHits.IsEmpty()&&Now-RecentHits[0].Time>WindowSeconds)RecentHits.RemoveAt(0,1,EAllowShrinking::No);
+        float Sum=0;for(const auto& H:RecentHits)Sum+=H.Damage;
+        const float Window=FMath::Min(WindowSeconds,FMath::Max(.25f,float(Now-SessionStart)));
+        Statistics.Total=TotalDamage;Statistics.Hits=HitCount;
+        Statistics.Dps=HitCount>0?Sum/FMath::Max(.1f,Window):0.f;
+    }
+    DpsSign->SetText(Statistics.Hits>0?FText::FromString(FString::Printf(TEXT("DPS %.0f  |  TOTAL %.0f  |  HITS %d"),Statistics.Dps,Statistics.Total,Statistics.Hits)):FText::FromString(TEXT("PRACTICE TARGET")));
 }
 
 void AFPSPracticeTarget::FaceCamera(USceneComponent* Component) const
@@ -182,9 +203,10 @@ void AFPSPracticeTarget::Tick(float DeltaTime)
 
 void AFPSPracticeTarget::ResetSession()
 {
+    if(GetNetMode()==NM_Client)return;
     SessionStart=-1.;LastHitTime=-1.;TotalDamage=0.f;HitCount=0;RecentHits.Reset();
     for(auto& F:Floating)if(F.Text)F.Text->DestroyComponent();
     Floating.Reset();
     RockAmplitude=0.f;TargetMesh->SetRelativeRotation(FRotator::ZeroRotator);
-    UpdateSign();
+    UpdateSign();ForceNetUpdate();
 }

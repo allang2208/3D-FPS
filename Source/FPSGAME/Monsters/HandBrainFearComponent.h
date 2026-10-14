@@ -17,6 +17,7 @@ public:
  /** 净化通道（旧 SUPPORT_CLEANSE_TYPES 含 fear）：有层数才结算释放。 */
  void Cleanse(){if(Stacks>0)Release();}
 private:
+    friend class UFPSStatusReplicationComponent;
  void Release();
  TWeakObjectPtr<AActor> Threat;
  TWeakObjectPtr<AController> LockedController;

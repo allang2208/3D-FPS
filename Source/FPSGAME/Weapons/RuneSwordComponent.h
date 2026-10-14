@@ -55,6 +55,8 @@ class FPSGAME_API URuneSwordComponent : public UActorComponent
     GENERATED_BODY()
 public:
     URuneSwordComponent();
+    void SpawnAuthoritySlashWave(const FTransform& Aim,float WaveDamage,float Range,float Speed,const FColdSteelSkillShot& Shot);
+    uint32 RiftReleaseSerial=0;
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick) override;
@@ -71,6 +73,11 @@ public:
     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsGuarding() const { return bGuarding; }
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginGuard();
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseGuard();
+    UFUNCTION(Server,Reliable) void ServerSetSwordGuard(const FString& Weapon,bool Raised);
+    UFUNCTION(Client,Reliable) void ClientSwordGuardResult(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt);
+    UFUNCTION(Server,Reliable) void ServerBeginClovenAttack(const FString& Weapon,uint32 Serial);
+    bool ApplyNetworkClovenAttack(FColdSteelSkillShot& Shot);
+    void PresentGuardBreak();
     float ResolveGuardDamage(float IncomingDamage,const class UDamageType* Type,class AController* Instigator,AActor* Causer);
     float EquippedDamage() const { return Damage; }
     float AttackSeconds() const { return RuneSwordRhythm::AttackEnd/AttackRate; }
@@ -111,6 +118,7 @@ public:
     /** Online: another player's claws on this machine, from their replicated body state (source seconds). */
     void PresentAzureDragonRemote(uint8 Flags,float Source,float StrikeContactStart,float StrikeContactEnd,float Entry,float Held);
 private:
+    void InitializePresentation();
     friend class URuneSwordAuditCommandlet;
     friend class UFPSConsumableAuditCommandlet;
     friend class UFPSPlayerBodyComponent;
@@ -236,6 +244,14 @@ private:
     double ClovenReadyUntil=0.,ClovenGrantedAt=-100.;
     float ClovenGlow=0.f;
     void GrantClovenCounter();
+    void SendGuardIntent(bool Raised);
+    bool CanMaintainNetworkGuard() const;
+    void TickNetworkGuard();
+    bool ClaimNetworkClovenAttack(uint32 Serial);
+    uint32 NetworkBladeSerial=0,ConsumedClovenSerial=0;
+    double ClovenAttackUntil=0.;
+    FString ClovenAttackWeapon;
+    float ClovenAttackPhysical=1.f,ClovenAttackToughness=1.f;
     bool TryClovenCounter();
     void TickClovenCounter(float Delta);
     void ClearClovenCounter();

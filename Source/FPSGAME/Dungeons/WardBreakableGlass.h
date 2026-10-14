@@ -19,6 +19,10 @@ class FPSGAME_API UWardBreakableGlass : public UStaticMeshComponent
     GENERATED_BODY()
 public:
     UWardBreakableGlass();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    UFUNCTION() void OnRep_Broken();
+    UPROPERTY(Replicated) FVector_NetQuantize BreakPoint;
+    UPROPERTY(Replicated) FVector_NetQuantizeNormal BreakDirection;
     virtual void ReceiveComponentDamage(float DamageAmount, const FDamageEvent& DamageEvent,
         AController* EventInstigator, AActor* DamageCauser) override;
     void HandleDamage(float DamageAmount,const FDamageEvent& DamageEvent,AActor* DamageCauser);
@@ -33,7 +37,7 @@ public:
     UPROPERTY(EditAnywhere, Category="Glass") TObjectPtr<USoundBase> BreakSound;
     /** Width, height, thickness in centimetres. The pane normal is local X. */
     UPROPERTY(EditAnywhere, Category="Glass") FVector PaneDimensions=FVector(142.f,250.f,1.2f);
-    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="Glass") bool bBroken=false;
+    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="Glass", ReplicatedUsing=OnRep_Broken) bool bBroken=false;
 };
 
 UCLASS()

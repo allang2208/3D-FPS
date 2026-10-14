@@ -1,4 +1,6 @@
 #include "SceneTestPortal.h"
+#include "Multiplayer/ColdSteelPlayerState.h"
+#include "Net/UnrealNetwork.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "Components/InputComponent.h"
@@ -30,6 +32,7 @@ namespace ScenePortalMaps
 
 ASceneTestPortal::ASceneTestPortal()
 {
+    bReplicates=true;bAlwaysRelevant=true;
     PrimaryActorTick.bCanEverTick = false;
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("Root")));
     static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(TEXT("/Engine/BasicShapes/Cube.Cube"));
@@ -87,10 +90,13 @@ void ASceneTestPortal::Configure(const FString& Map, const FString& Label, const
     }
 }
 
+void ASceneTestPortal::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ASceneTestPortal,Destination);DOREPLIFETIME(ASceneTestPortal,DestinationOptions);DOREPLIFETIME(ASceneTestPortal,DestinationLabel);}
+void ASceneTestPortal::OnRep_Destination(){if(!Destination.IsEmpty())Configure(Destination,DestinationLabel,DestinationOptions);}
 void ASceneTestPortal::BeginPlay()
 {
     Super::BeginPlay();
-    if (GetNetMode() == NM_Client) return;
+
     EnableInput(UGameplayStatics::GetPlayerController(this, 0));
     if (InputComponent)
     {
@@ -110,7 +116,7 @@ void ASceneTestPortal::UsePortal()
 {
     APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
     APawn* Pawn = PC ? PC->GetPawn() : nullptr;
-    if (bTravelling || !Pawn || PC->bShowMouseCursor || GetNetMode() == NM_Client) return;
+    if (bTravelling || !Pawn || PC->bShowMouseCursor) return;
     if (!IsWithinInteractionRange(Pawn)) return;
     if (!FPackageName::DoesPackageExist(Destination))
     {
@@ -118,6 +124,8 @@ void ASceneTestPortal::UsePortal()
         UE_LOG(LogTemp, Error, TEXT("ScenePortal: Missing destination %s"), *Destination);
         return;
     }
+    if(GetNetMode()!=NM_Standalone)
+    {if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->RequestTeamTravel(this);return;}
     bTravelling = true;
     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
         Loading->BeginTransition(Destination,FSimpleDelegate::CreateUObject(this,&ASceneTestPortal::CancelLoading));

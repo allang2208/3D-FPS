@@ -18,6 +18,15 @@ struct FSpitterAttackVariant
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attack", meta=(ClampMin="0")) float RecoveryTime = .35f;
 };
 
+USTRUCT()
+struct FSpitterNetworkAttack
+{
+    GENERATED_BODY()
+    UPROPERTY() FSpitterAttackVariant Variant;
+    UPROPERTY() int32 Index = INDEX_NONE;
+    UPROPERTY() double StartedAt = -1.;
+};
+
 /** Green Meshy zombie with a lifetime locomotion choice and library melee attack. */
 UCLASS(Blueprintable)
 class FPSGAME_API ASpitterZombie : public ANurseZombie
@@ -35,9 +44,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Spitter|Animation") TArray<TObjectPtr<UAnimSequence>> MovementClips;
     /** Authored stride speeds in cm/s; the chosen entry also sets this actor's WalkSpeed at spawn. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Spitter|Animation") TArray<float> MovementReferenceSpeeds;
-    UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Spitter|Runtime") int32 SelectedMovementIndex = INDEX_NONE;
+    UPROPERTY(ReplicatedUsing=OnRep_MovementChoice, VisibleAnywhere, BlueprintReadOnly, Category="Spitter|Runtime") int32 SelectedMovementIndex = INDEX_NONE;
     UFUNCTION(BlueprintCallable, Category="Spitter|Authoring") static bool PreparePhysics(USkeletalMesh* InMesh);
 protected:
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void StartStateAnimation(UAnimSequence* Clip, bool bLoop) override;
     virtual void SetAttackAnimationTime(float Seconds) override;
     virtual void SetWalkAnimationRate(float Rate) override;
@@ -59,6 +69,11 @@ public:
     UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Spitter|Runtime") int32 SelectedAttackIndex = INDEX_NONE;
 private:
     void SelectAttackVariant();
+    void ApplyMovementChoice();
+    void ApplyNetworkAttack();
+    UFUNCTION() void OnRep_MovementChoice();
+    UFUNCTION() void OnRep_AttackChoice();
+    UPROPERTY(ReplicatedUsing=OnRep_AttackChoice) FSpitterNetworkAttack NetworkAttack;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> PreviousAttackClip;
     FVector DeathTravelVelocity = FVector::ZeroVector;
     FVector DeathHitDirection = FVector::ZeroVector;

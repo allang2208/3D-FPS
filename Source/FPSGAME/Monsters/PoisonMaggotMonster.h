@@ -31,7 +31,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Assets") TObjectPtr<UAnimSequence> DeathClip;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Assets") TObjectPtr<UMaterialInterface> VenomMaterial;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Assets") TObjectPtr<USoundBase> SpitSound;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MaxHealth=1500;
+ UPROPERTY(Replicated, EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MaxHealth=1500;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float MagicAttack=24;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") float WalkSpeed=120;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Stats") int32 Level=4;
@@ -49,7 +49,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death",meta=(ToolTip="Fallback without a death clip; configured death clips hand off at 60%.")) float RagdollStartSeconds=1.65f;
  /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime",ReplicatedUsing=OnRep_State) EPoisonMaggotState State=EPoisonMaggotState::Idle;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float Health=800;
+ UPROPERTY(Replicated, VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float Health=800;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float StateSeconds=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float CooldownLeft=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") FVector Home;
@@ -63,6 +63,7 @@ public:
  UFUNCTION(BlueprintCallable,Category="Maggot") void InterruptAttack(float Seconds=.45f);
  void SetState(EPoisonMaggotState NewState);
  virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UPROPERTY(Replicated) double NetworkStateStarted=0.;
  UFUNCTION() void OnRep_State();
  void SetTarget(APawn* Victim) {Target=Victim;}
  FVector Mouth() const;

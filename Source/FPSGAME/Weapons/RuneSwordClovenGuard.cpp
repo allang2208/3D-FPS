@@ -1,4 +1,5 @@
 #include "RuneSwordComponent.h"
+#include "RuneSwordGuardTuning.h"
 #include "ModularSwordVisual.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -39,6 +40,8 @@ bool URuneSwordComponent::TryClovenCounter()
     // The guard grants the release itself; mastery still supplies its current multiplier.
     ChargedMultiplier=Profile->MasteryEffect(TEXT("heavyStrike")).HeavyMultiplier;
     if(!StartSwing(TEXT("HeavyRelease"),true))return true;
+    SwingSkills.AttackMeta=RuneSwordGuardTuning::ClovenAttackMeta;
+    if(!Character->HasAuthority())ServerBeginClovenAttack(InstanceId,SwingSkills.GuardAttackSerial);
     ClearGuard();bInspecting=false;
     // Scale the physical channels and total together, preserving the magic amount
     // when ApplyWeaponHit reconstructs damage parts from this swing's snapshot.

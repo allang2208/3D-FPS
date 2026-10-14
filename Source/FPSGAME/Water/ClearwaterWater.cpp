@@ -31,6 +31,9 @@ namespace ClearwaterWaterDefaults
 
 AClearwaterWater::AClearwaterWater()
 {
+    bReplicates = true;
+    bAlwaysRelevant = true;
+    SetReplicateMovement(false);
     PrimaryActorTick.bCanEverTick = true;
     // The effects are smooth and slow, so a low rate is invisible and keeps the actor off
     // the hot path; the project's performance rules ask for exactly this.
@@ -55,6 +58,7 @@ AClearwaterWater::AClearwaterWater()
 void AClearwaterWater::BeginPlay()
 {
     Super::BeginPlay();
+    if (GetNetMode() != NM_Client) SetReplicates(true);
     Configure();
 
     // Automated capture hook, used by Tools/Fluids/run_clearwater_capture.ps1.

@@ -27,6 +27,32 @@ enum class EFPSWeatherState : uint8
     Storm
 };
 
+USTRUCT()
+struct FFPSWeatherNetworkState
+{
+    GENERATED_BODY()
+    UPROPERTY() double SampledAt=0.;
+    UPROPERTY() float DayTime=.25f;
+    UPROPERTY() int32 Day=0;
+    UPROPERTY() float DaySeconds=2160.f;
+    UPROPERTY() int32 Seed=122;
+    UPROPERTY() EFPSWeatherState Weather=EFPSWeatherState::Clear;
+    UPROPERTY() EFPSWeatherState Pending=EFPSWeatherState::Clear;
+    UPROPERTY() bool Automatic=true;
+    UPROPERTY() bool RainPending=false;
+    UPROPERTY() float CloudyElapsed=0.f;
+};
+USTRUCT()
+struct FFPSLightningNetworkEvent
+{
+    GENERATED_BODY()
+    UPROPERTY() int32 Serial=0;
+    UPROPERTY() double StartedAt=0.;
+    UPROPERTY() float Peak=1.f;
+    UPROPERTY() float ThunderDelay=0.f;
+    UPROPERTY() int32 Sound=INDEX_NONE;
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFPSWeatherChanged, EFPSWeatherState, PreviousState, EFPSWeatherState, NewState);
 
 UCLASS(Blueprintable)
@@ -36,6 +62,7 @@ class FPSGAME_API AFPSWeatherManager : public AActor
 
 public:
     AFPSWeatherManager();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void Tick(float DeltaSeconds) override;
 
     UFUNCTION(BlueprintCallable, Category="Weather")
@@ -172,6 +199,15 @@ protected:
 
 private:
     friend struct FWeatherWorldAudit;
+    UPROPERTY(ReplicatedUsing=OnRep_Weather) FFPSWeatherNetworkState NetworkWeather;
+    UPROPERTY(ReplicatedUsing=OnRep_Lightning) FFPSLightningNetworkEvent NetworkLightning;
+    UFUNCTION() void OnRep_Weather();
+    UFUNCTION() void OnRep_Lightning();
+    void UpdateNetworkWeather(float Delta);
+    float NetworkPublishLeft=0.f;
+    double SkyResolveAfter=0.;
+    int32 LastNetworkLightning=0;
+
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<USceneComponent> SceneRoot;
 

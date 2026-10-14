@@ -145,3 +145,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 - F6 面板固定动作观察镜头：[对应流程](references/fixed-third-person-observation.md)。
 
 - 已支付工件、评分品质与联机结算：[工件品质契约](references/paid-workpiece-quality.md)。
+
+- FPSGAME 联机归属、事务中断与重连／重生／换图：[生命周期与覆盖记录](references/multiplayer-lifecycle-and-coverage.md)。

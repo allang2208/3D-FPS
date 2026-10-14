@@ -5,10 +5,13 @@
 #include "VoxelBuildGeometry.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Engine/DamageEvents.h"
+#include "Net/UnrealNetwork.h"
 
 AVoxelCollapseFragment::AVoxelCollapseFragment()
 {
     PrimaryActorTick.bCanEverTick=false;
+    bReplicates=true;SetReplicateMovement(true);bAlwaysRelevant=true;
+    SetNetUpdateFrequency(15.f);SetMinNetUpdateFrequency(2.f);
     Body=CreateDefaultSubobject<UDynamicMeshComponent>(TEXT("CompoundDebris"));SetRootComponent(Body);
     Body->SetMobility(EComponentMobility::Movable);Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Body->SetCanEverAffectNavigation(false);Body->SetGenerateOverlapEvents(false);
@@ -24,13 +27,34 @@ AVoxelCollapseFragment::AVoxelCollapseFragment()
 void AVoxelCollapseFragment::Initialize(AVoxelBuildWorld* OwnerWorld,const FVoxelFragmentSave& InState,
     TSharedPtr<FVoxelGeometry> Geometry,const TArray<TObjectPtr<UMaterialInterface>>& Materials)
 {
-    Building=OwnerWorld;State=InState;SetActorTransform(State.Transform);
+    Building=OwnerWorld;State=InState;
+    if(HasAuthority()){NetworkId=State.Id;SetActorTransform(State.Transform);}
     Body->SetPhysMaterialOverride(OwnerWorld->ContactMaterial());
     Mass=Geometry->MassKg;Shapes=Geometry->Collision.BoxElems.Num();DesiredCenter=Geometry->MassCenter;
     for(int32 I=0;I<Materials.Num();++I)Body->SetMaterial(I,Materials[I]);
     Body->SetMesh(MoveTemp(Geometry->Mesh));Body->SetSimpleCollisionShapes(Geometry->Collision,true);
     Body->SetMassOverrideInKg(NAME_None,Mass,true);
-    SetActorHiddenInGame(true);
+    if(HasAuthority())SetActorHiddenInGame(true);else OnRep_Physics();
+}
+
+void AVoxelCollapseFragment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(AVoxelCollapseFragment,NetworkId,COND_InitialOnly);
+    DOREPLIFETIME(AVoxelCollapseFragment,bStarted);DOREPLIFETIME(AVoxelCollapseFragment,bReplacing);
+}
+
+void AVoxelCollapseFragment::OnRep_Physics()
+{
+    // Geometry still comes through the existing bounded world snapshot/worker.
+    if(HasAuthority()||!HasGeometry())return;
+    EnableWaitingCollision();Body->SetSimulatePhysics(bStarted&&!bReplacing);
+    if(Body->IsSimulatingPhysics())
+    {
+        Body->SetMassOverrideInKg(NAME_None,Mass,true);
+        Body->SetCenterOfMass(DesiredCenter-GetActorTransform().InverseTransformPosition(Body->GetCenterOfMass()));
+        OnRep_ReplicatedMovement();
+    }
 }
 
 void AVoxelCollapseFragment::EnableWaitingCollision()
@@ -42,13 +66,13 @@ void AVoxelCollapseFragment::EnableWaitingCollision()
 
 void AVoxelCollapseFragment::Activate()
 {
-    if(bReplacing||bStarted)return;
+    if(!HasAuthority()||bReplacing||bStarted)return;
     EnableWaitingCollision();Body->SetSimulatePhysics(true);
     if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Fluid->RegisterWaterBody(Body);
     Body->SetMassOverrideInKg(NAME_None,Mass,true);
     Body->SetCenterOfMass(DesiredCenter-GetActorTransform().InverseTransformPosition(Body->GetCenterOfMass()));
     Body->SetPhysicsLinearVelocity(State.Velocity);Body->SetPhysicsAngularVelocityInRadians(State.AngularVelocity);
-    PreviousVelocity=State.Velocity;bStarted=true;
+    PreviousVelocity=State.Velocity;bStarted=true;ForceNetUpdate();
     if(State.bSleeping)Body->PutAllRigidBodiesToSleep();else Body->WakeAllRigidBodies();
 }
 
@@ -77,12 +101,12 @@ void AVoxelCollapseFragment::UpdateCellDamage(TArray<FVoxelDebrisCell> Cells)
 
 void AVoxelCollapseFragment::FreezeForReplacement()
 {
-    State=Snapshot();bReplacing=true;Body->SetSimulatePhysics(false);
+    State=Snapshot();bReplacing=true;Body->SetSimulatePhysics(false);ForceNetUpdate();
 }
 
 float AVoxelCollapseFragment::TakeDamage(float Amount,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
 {
-    if(!Building.IsValid()||bReplacing||Amount<=0)return 0;
+    if(GetNetMode()==NM_Client||!Building.IsValid()||bReplacing||Amount<=0)return 0;
     if(Event.IsOfType(FPointDamageEvent::ClassID))
     {
         const auto& Point=static_cast<const FPointDamageEvent&>(Event);
@@ -99,7 +123,7 @@ float AVoxelCollapseFragment::TakeDamage(float Amount,const FDamageEvent& Event,
 
 void AVoxelCollapseFragment::OnCollision(UPrimitiveComponent* Component,AActor* Other,UPrimitiveComponent* OtherComponent,FVector Impulse,const FHitResult& Hit)
 {
-    if(!Building.IsValid()||bReplacing||!bStarted)return;
+    if(!HasAuthority()||!Building.IsValid()||bReplacing||!bStarted)return;
     // A failed placement must not wear the structure down: its debris falls and stops, and only
     // characters/fragments it hits still take the impact. Without this the same wall lost 179 damage
     // points (36% of its strength) every time a player retried a placement it refused.

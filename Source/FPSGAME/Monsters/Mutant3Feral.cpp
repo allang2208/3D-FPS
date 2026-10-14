@@ -172,6 +172,7 @@ void AMutant3::BeginFeralPhase(EMutant3FeralPhase Phase, UAnimSequence* Clip, fl
     bFeralHitConsumed = false;
     // The common parry presentation needs the currently attacking clip to rewind it.
     AttackClip = Clip;
+    PublishFeralPhase(Clip, BlendSeconds);
     if (auto* Animation = GetBlendedAnimation())
     {
         FMonsterClipTransition Settings;
@@ -265,8 +266,8 @@ void AMutant3::TryPounceImpact(const FVector& LandingPoint)
                     Stun->RegisterComponent();
                 }
                 Stun->Apply(PounceStunSeconds);
-                if (auto* PC=Cast<APlayerController>(Victim->GetController()); PC && PC->IsLocalController() && PC->PlayerCameraManager)
-                    PC->PlayerCameraManager->StartCameraShake(UMutant3PounceCameraShake::StaticClass());
+                if (auto* PC=Cast<APlayerController>(Victim->GetController()))
+                    PC->ClientStartCameraShake(UMutant3PounceCameraShake::StaticClass());
             }
         }
         // A successful parry cancels the remaining impact and owns the reaction.
@@ -281,6 +282,7 @@ void AMutant3::BeginFeralRecovery(float Seconds)
     FeralRecoveryDuration = FMath::Max(0.f, Seconds);
     bFeralHitConsumed = true;
     TransitionFeralLocomotion(IdleClip, 1.f, .24f);
+    PublishFeralPhase(IdleClip, .24f);
 }
 
 void AMutant3::RestoreFeralMovement()
@@ -299,6 +301,7 @@ void AMutant3::FinishFeralAction()
     FeralTarget.Reset();
     bFeralHitConsumed = true;
     if (State == ENurseState::Attack) State = ENurseState::Recovery;
+    PublishFeralPhase(nullptr, 0.f);
 }
 
 void AMutant3::CancelFeralAction()
@@ -312,10 +315,17 @@ void AMutant3::CancelFeralAction()
     FeralTarget.Reset();
     bFeralHitConsumed = true;
     NextFeralAttackAt = GetWorld()->GetTimeSeconds()+.6;
+    PublishFeralPhase(nullptr, 0.f);
 }
 
 void AMutant3::Tick(float DeltaSeconds)
 {
+    if (!HasAuthority() && State == ENurseState::Attack && NetworkFeral.Phase != EMutant3FeralPhase::None)
+    {
+        ACharacter::Tick(DeltaSeconds);
+        TickNetworkFeralPhase();
+        return;
+    }
     if (!HasAuthority() || FeralPhase == EMutant3FeralPhase::None || State != ENurseState::Attack)
     {
         if (HasAuthority() && FeralPhase != EMutant3FeralPhase::None) CancelFeralAction();
@@ -390,10 +400,8 @@ void AMutant3::Landed(const FHitResult& Hit)
     if (!HasAuthority() || State != ENurseState::Attack || FeralPhase != EMutant3FeralPhase::Flight) return;
     // Physical contact is audible/visible even when the player evades damage.
     // Cosmetic pool limits never affect the authoritative attack result below.
-    if (auto* FX=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())
-        if (auto* Player=UGameplayStatics::GetPlayerPawn(this,0))
-            if (auto* Camera=Player->FindComponentByClass<UCameraComponent>())
-                FX->SpawnPounceLanding(Hit,GetActorForwardVector(),PounceImpactRadius,PounceImpactAngle,Camera,this);
+    MulticastPounceLanding(Hit.ImpactPoint,Hit.ImpactNormal,GetActorForwardVector(),
+        PounceImpactRadius,PounceImpactAngle,true,GetWorld()->GetTimeSeconds());
     // Center the sector below the actual capsule, using the contacted floor's Z.
     TryPounceImpact(FVector(GetActorLocation().X, GetActorLocation().Y, Hit.ImpactPoint.Z));
     if (State != ENurseState::Attack || FeralPhase != EMutant3FeralPhase::Flight) return;

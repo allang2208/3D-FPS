@@ -30,6 +30,8 @@ class FPSGAME_API UGunAssemblySystem : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
 public:
+    UGunAssemblySystem* CreateNetworkSession(class UColdSteelStatusModel* M);
+    UPROPERTY() TObjectPtr<class UColdSteelStatusModel> NetworkModel;
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     const FGunAssemblyRecipe& Recipe() const;
     const TArray<FGunAssemblyRecipe>& Catalog() const {return Recipes;}
@@ -46,6 +48,7 @@ public:
     bool GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refund,FString& Reason) const;
     bool Discard(FString& Reason);
     bool Pause(FString& Reason);
+    void NetworkSessionEnded(){CalibrationAccum=CalibrationErrorAccum=0.f;CalibrationPawn.Reset();CalibrationJob.Reset();}
     bool Assembled() const;
     bool Installed(int32 Part) const;
     int32 InstalledCount() const;
@@ -56,4 +59,7 @@ private:
     UColdSteelStatusModel* Model() const;
     TArray<FGunAssemblyRecipe> Recipes;
     FName SelectedRecipe;
+    float CalibrationAccum=0,CalibrationErrorAccum=0;
+    TWeakObjectPtr<class APawn> CalibrationPawn;
+    FString CalibrationJob;
 };

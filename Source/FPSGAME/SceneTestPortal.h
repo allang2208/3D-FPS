@@ -14,6 +14,10 @@ class FPSGAME_API ASceneTestPortal : public AActor
 public:
     ASceneTestPortal();
     void Configure(const FString& Map, const FString& Label, const FString& Options = FString(), FColor Color = FColor::Cyan);
+    const FString& DestinationMap() const {return Destination;}
+    const FString& TravelOptions() const {return DestinationOptions;}
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
+    UFUNCTION() void OnRep_Destination();
     bool IsWithinInteractionRange(const APawn* Pawn) const;
     /** 0 = wait for pawn, 1 = installed or already present, 2 = skip this map. */
     static int32 InstallHillsLink(UWorld* World);
@@ -26,9 +30,9 @@ private:
     void FinishLoading();
     void OpenDestination();
     UPROPERTY() TObjectPtr<UTextRenderComponent> Sign;
-    UPROPERTY() FString Destination;
-    UPROPERTY() FString DestinationOptions;
-    FString DestinationLabel;
+    UPROPERTY(ReplicatedUsing=OnRep_Destination) FString Destination;
+    UPROPERTY(Replicated) FString DestinationOptions;
+    UPROPERTY(ReplicatedUsing=OnRep_Destination) FString DestinationLabel;
     TSharedPtr<FStreamableHandle> PreloadHandle;
     FTimerHandle DungeonTravelTimer;
     bool bTravelling = false;

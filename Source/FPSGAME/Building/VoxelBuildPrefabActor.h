@@ -17,6 +17,10 @@ class FPSGAME_API AVoxelBuildPrefabActor : public AActor
     GENERATED_BODY()
 public:
     AVoxelBuildPrefabActor();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
+    UFUNCTION() void OnRep_Configuration();
+    UPROPERTY(ReplicatedUsing=OnRep_Configuration) TObjectPtr<UStaticMesh> NetMesh;
+    UPROPERTY(ReplicatedUsing=OnRep_Configuration) TObjectPtr<UMaterialInterface> NetSurface;
     void Configure(FName InId,FIntVector InCell,int32 InYaw,UStaticMesh* Mesh,UMaterialInterface* Surface,UPhysicalMaterial* Contact);
     FName PrefabId() const {return Id;}
     FIntVector AnchorCell() const {return Cell;}
@@ -48,11 +52,13 @@ public:
     /** Bounds-centred transform so a rotated piece keeps filling its snapped cell box. */
     static FTransform ComputeTransform(const FVoxelBuildPrefab& Definition,UStaticMesh* Mesh,FIntVector Cell,int32 QuarterTurns);
 private:
+    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> MeshComponent;
-    UPROPERTY(Transient) TObjectPtr<AActor> LogicActor;
-    FName Id;
-    FIntVector Cell=FIntVector::ZeroValue;
-    int32 QuarterTurns=0;
+    UPROPERTY(ReplicatedUsing=OnRep_Falling) TObjectPtr<AActor> LogicActor;
+    UPROPERTY(ReplicatedUsing=OnRep_Configuration) FName Id;
+    UPROPERTY(ReplicatedUsing=OnRep_Configuration) FIntVector Cell=FIntVector::ZeroValue;
+    UPROPERTY(ReplicatedUsing=OnRep_Configuration) int32 QuarterTurns=0;
     /** 见 IsFalling()。BeginFall 成功后置位；落体件不再占用 Prefabs 记录。 */
-    bool bFalling=false;
+    UPROPERTY(ReplicatedUsing=OnRep_Falling) bool bFalling=false;
+    UFUNCTION() void OnRep_Falling();
 };

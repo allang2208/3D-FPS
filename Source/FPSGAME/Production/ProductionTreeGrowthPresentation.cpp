@@ -1,4 +1,5 @@
 #include "ProductionHarvestSubsystem.h"
+#include "ProductionObservers.h"
 #include "ProductionHarvestAssets.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Components/InstancedSkinnedMeshComponent.h"
@@ -41,9 +42,11 @@ void UProductionHarvestSubsystem::UpdateGrowingTrees(const FVector& Eye,double N
     if(Now<State.NextUpdate)return;State.NextUpdate=Now+1;
     TArray<FTemperatePlacement> Wanted;
     constexpr double Radius=25600; // bounded local presentation for recurrent trees
-    Hills->GetRegrowingTrees(FBox(Eye-FVector(Radius,Radius,50000),Eye+FVector(Radius,Radius,50000)),Wanted);
-    Wanted.RemoveAll([&](const auto& P){return FVector::DistSquared2D(P.Transform.GetLocation(),Eye)>Radius*Radius;});
-    Wanted.Sort([&](const auto& A,const auto& B){return FVector::DistSquared2D(A.Transform.GetLocation(),Eye)<FVector::DistSquared2D(B.Transform.GetLocation(),Eye);});
+    const auto Observers=ProductionObservers::Gather(GetWorld(),Eye);TSet<uint64> Seen;
+    for(const auto& View:Observers){TArray<FTemperatePlacement> Near;Hills->GetRegrowingTrees(FBox(View-FVector(Radius,Radius,50000),View+FVector(Radius,Radius,50000)),Near);
+        for(const auto& P:Near)if(!Seen.Contains(P.CandidateId)){Seen.Add(P.CandidateId);Wanted.Add(P);}}
+    Wanted.RemoveAll([&](const auto& P){return ProductionObservers::Distance(Observers,P.Transform.GetLocation())>Radius*Radius;});
+    Wanted.Sort([&](const auto& A,const auto& B){return ProductionObservers::Distance(Observers,A.Transform.GetLocation())<ProductionObservers::Distance(Observers,B.Transform.GetLocation());});
     TSet<uint64> Keys;for(const auto& P:Wanted)Keys.Add(P.CandidateId);
     for(auto It=State.Instances.CreateIterator();It;++It)
         if(!Keys.Contains(It.Key())){GrowthMeshes[It.Value().Variant]->RemoveInstance(It.Value().Id);It.RemoveCurrent();}
@@ -90,7 +93,7 @@ void UProductionHarvestSubsystem::UpdateGrowingTrees(const FVector& Eye,double N
     for(const auto& Pair:State.Instances)
     {
         const auto& T=Pair.Value.Transform;const double Scale=T.GetScale3D().X;
-        if(Scale<.12 || FVector::DistSquared2D(T.GetLocation(),Eye)>FMath::Square(9600.0))continue;
+        if(Scale<.12 || ProductionObservers::Distance(Observers,T.GetLocation())>FMath::Square(9600.0))continue;
         CollisionKeys.Add(Pair.Key);
         const FTransform Collision(T.GetRotation(),T.GetLocation()+FVector(0,0,300*Scale),FVector(.42*Scale,.42*Scale,6*Scale));
         if(auto* Entry=State.CollisionIds.Find(Pair.Key))

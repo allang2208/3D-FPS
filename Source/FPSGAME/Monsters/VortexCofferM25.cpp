@@ -1,4 +1,5 @@
 #include "VortexCofferM25.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "MonsterCorpseRagdollComponent.h"
 #include "M25AnimInstance.h"
 #include "M25BackElectricComponent.h"
@@ -22,7 +23,7 @@ AVortexCofferM25::AVortexCofferM25(const FObjectInitializer& Initializer)
     // Shared BT pursuit also uses this as the actor's enabled/disabled gate.
     PrimaryActorTick.bCanEverTick = true;
     bReplicates = true;
-    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     CorpseRagdoll = CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
     CorpseRagdoll->Rig = EMonsterCorpseRig::Mawcrawler;
     BackElectric = CreateDefaultSubobject<UM25BackElectricComponent>(TEXT("BackElectric"));

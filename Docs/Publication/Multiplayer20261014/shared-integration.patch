@@ -1,0 +1,3246 @@
+diff --git a/Source/FPSGAME/Building/ColdSteelDoor.cpp b/Source/FPSGAME/Building/ColdSteelDoor.cpp
+--- a/Source/FPSGAME/Building/ColdSteelDoor.cpp
++++ b/Source/FPSGAME/Building/ColdSteelDoor.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -260 +261 @@
+-    if(!HasAuthority())return;
++    if(GetNetMode()==NM_Client||!HasAuthority())return;
+@@ -287 +288 @@
+-    if(!HasAuthority()||bOpen)return bOpen;
++    if(GetNetMode()==NM_Client||!HasAuthority()||bOpen)return bOpen;
+@@ -324 +325 @@
+-    if(!HasAuthority()||!bOpen)return;
++    if(GetNetMode()==NM_Client||!HasAuthority()||!bOpen)return;
+@@ -335 +336 @@
+-    if(!HasAuthority())CurrentAngle=NetSwing.Angle(GetWorld());
++    if(GetNetMode()==NM_Client)CurrentAngle=NetSwing.Angle(GetWorld());
+@@ -338 +339 @@
+-    if(HasAuthority()&&bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
++    if(GetNetMode()!=NM_Client&&HasAuthority()&&bOpen&&AutoCloseSeconds>0.f&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.5f))
+@@ -356 +357 @@
+-    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,HasAuthority()?DeltaSeconds:0.f,Step);
++    CurrentAngle=FMath::FInterpConstantTo(CurrentAngle,TargetAngle,GetNetMode()!=NM_Client&&HasAuthority()?DeltaSeconds:0.f,Step);
+@@ -370,0 +372 @@
++    if(GetNetMode()==NM_Client)return;
+@@ -374,0 +377,12 @@
++    if(GetNetMode()!=NM_Client&&!GetIsReplicated())
++        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if(auto* PC=It->Get();PC&&!PC->IsLocalController())
++                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedDoorSwing(GetName(),NetSwing);
++}
++
++void AColdSteelDoor::ApplyNetworkSwing(const FColdSteelDoorNetState& State,bool bSound)
++{
++    if(GetNetMode()!=NM_Client||State.StartedAt<NetSwing.StartedAt)return;
++    const bool Changed=State.StartedAt!=NetSwing.StartedAt||State.To!=NetSwing.To;
++    NetSwing=State;OnRep_Swing();
++    if(bSound&&Changed)MulticastDoorSound_Implementation(State.bOpen);
+diff --git a/Source/FPSGAME/Building/ColdSteelDoor.h b/Source/FPSGAME/Building/ColdSteelDoor.h
+--- a/Source/FPSGAME/Building/ColdSteelDoor.h
++++ b/Source/FPSGAME/Building/ColdSteelDoor.h
+@@ -33,0 +34,2 @@
++    const FColdSteelDoorNetState& NetworkSwing() const { return NetSwing; }
++    void ApplyNetworkSwing(const FColdSteelDoorNetState& State,bool bSound=false);
+diff --git a/Source/FPSGAME/Building/SmeltingSystem.cpp b/Source/FPSGAME/Building/SmeltingSystem.cpp
+--- a/Source/FPSGAME/Building/SmeltingSystem.cpp
++++ b/Source/FPSGAME/Building/SmeltingSystem.cpp
+@@ -1,0 +2,2 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelStationNetwork.h"
+@@ -144 +146 @@
+-    return GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
++    return ColdSteelAuthority::Model(this);
+@@ -172,0 +175 @@
++    if(!World||!World->HasAuthority())return false;
+@@ -288,0 +292 @@
++    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.start"),Recipe,Batch,World,Cell);}
+@@ -310 +314 @@
+-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
++    auto* Model=ColdSteelAuthority::Model(this);
+@@ -369,0 +374 @@
++    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.fuel"),NAME_None,1,World,Cell);}
+@@ -377 +382 @@
+-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
++    auto* Model=ColdSteelAuthority::Model(this);
+@@ -407,0 +413 @@
++    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.collect"),NAME_None,1,World,Cell);}
+@@ -450 +456 @@
+-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
++    auto* Model=ColdSteelAuthority::Model(this);
+@@ -472 +478 @@
+-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
++    auto* Model=ColdSteelAuthority::Model(this);
+@@ -508,0 +515 @@
++    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("smelt.upgrade"),NAME_None,Axis,World,Cell);}
+@@ -514 +521 @@
+-    auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
++    auto* Model=ColdSteelAuthority::Model(this);
+diff --git a/Source/FPSGAME/Building/VoxelBuildComponent.cpp b/Source/FPSGAME/Building/VoxelBuildComponent.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -158 +159 @@
+-    if(GetNetMode()==NM_Client){InitializationMessage=TEXT("体素初版仅用于单机世界");bInitializeFailed=true;return;}
++
+@@ -173,2 +174,5 @@
+-    BuildWorld=GetWorld()->SpawnActor<AVoxelBuildWorld>();
+-    if(!BuildWorld||!BuildWorld->Initialize(Key,Palette))
++    if(GetNetMode()==NM_Client)
++    {for(TActorIterator<AVoxelBuildWorld> It(GetWorld());It;++It)if(It->IsReady()){BuildWorld=*It;break;}
++     if(!BuildWorld){InitializationMessage=TEXT("正在同步队伍建筑");return;}}
++    else BuildWorld=GetWorld()->SpawnActor<AVoxelBuildWorld>();
++    if(!BuildWorld||(GetNetMode()!=NM_Client&&!BuildWorld->Initialize(Key,Palette)))
+@@ -1150,0 +1155,3 @@
++            if(GetNetMode()!=NM_Standalone)
++            {FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Building;R.Mode=TEXT("undo");
++             if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->RequestInventoryAction(R);return true;}
+@@ -1163,0 +1171,15 @@
++            if(GetNetMode()!=NM_Standalone)
++            {
++                FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Building;
++                R.ContainerRevision=int64(BuildWorld->StructureRevision());
++                if(Key==EKeys::LeftMouseButton)
++                {
++                    if(const auto* P=SelectedPrefab()){if(!bPrefabValid)return true;R.Mode=TEXT("prefab");R.Definition=P->Id;R.Anchor=PrefabCell;R.Orientation=ComponentYaw;}
++                    else {if(!bCanPlace)return true;R.Mode=bPlacementSnap?TEXT("place"):TEXT("free");R.Definition=PlacementMaterial;R.Volume=PlacementVolume;R.Origin=PlacementOrigin;R.Cells=Placement;}
++                }
++                else if(auto* P=Cast<AVoxelBuildPrefabActor>(AimedPrefab.Get())){R.Mode=TEXT("removePrefab");R.Target=P;R.Anchor=P->AnchorCell();}
++                else if(!Removal.IsEmpty()){R.Mode=TEXT("remove");R.Volume=HitCell.Volume;R.Cells=Removal;}
++                else {R.Mode=TEXT("debris");R.Target=Hit.GetActor();}
++                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->RequestInventoryAction(R);
++                return true;
++            }
+diff --git a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+@@ -167,3 +167,5 @@
+-bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
+-{
+-    TArray<uint8> Bytes;FMemoryWriter Writer(Bytes,true);uint32 Tag=Magic,Size=0,Crc=0;
++UVoxelBuildSave* VoxelPersistence::Decode(TArray<uint8> Bytes)
++{ELoadResult Result;return LoadBytes(Bytes,Result,false);}
++bool VoxelPersistence::Encode(FVoxelDiskSnapshot Snapshot,TArray<uint8>& Bytes)
++{
++    Bytes.Reset();FMemoryWriter Writer(Bytes,true);uint32 Tag=Magic,Size=0,Crc=0;
+@@ -172,0 +175,5 @@
++    return !Ar.IsError();
++}
++bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
++{
++    TArray<uint8> Bytes;if(!Encode(Snapshot,Bytes))return false;
+diff --git a/Source/FPSGAME/Building/VoxelBuildPersistence.h b/Source/FPSGAME/Building/VoxelBuildPersistence.h
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.h
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.h
+@@ -64,0 +65,2 @@
++    bool Encode(FVoxelDiskSnapshot Snapshot,TArray<uint8>& Bytes);
++    UVoxelBuildSave* Decode(TArray<uint8> Bytes);
+diff --git a/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp b/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp
+@@ -1,0 +2 @@
++#include "Net/UnrealNetwork.h"
+@@ -10,0 +12 @@
++    bReplicates=true;SetReplicateMovement(true);
+@@ -12 +14 @@
+-    SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("PrefabRoot")));
++    // Actor movement replication follows the simulated root, including detached prefabs.
+@@ -14 +16 @@
+-    MeshComponent->SetupAttachment(GetRootComponent());
++    SetRootComponent(MeshComponent);
+@@ -20,0 +23,7 @@
++void AVoxelBuildPrefabActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(AVoxelBuildPrefabActor,Id);DOREPLIFETIME(AVoxelBuildPrefabActor,Cell);DOREPLIFETIME(AVoxelBuildPrefabActor,QuarterTurns);
++    DOREPLIFETIME(AVoxelBuildPrefabActor,NetMesh);DOREPLIFETIME(AVoxelBuildPrefabActor,NetSurface);DOREPLIFETIME(AVoxelBuildPrefabActor,LogicActor);DOREPLIFETIME(AVoxelBuildPrefabActor,bFalling);
++}
++void AVoxelBuildPrefabActor::OnRep_Configuration(){if(!Id.IsNone())Configure(Id,Cell,QuarterTurns,NetMesh,NetSurface,nullptr);OnRep_Falling();}
+@@ -39 +48 @@
+-    Id=InId;Cell=InCell;QuarterTurns=InYaw;
++    Id=InId;Cell=InCell;QuarterTurns=InYaw;NetMesh=Mesh;NetSurface=Surface;
+@@ -61 +70,2 @@
+-    if(MeshComponent&&!MeshComponent->GetStaticMesh()&&FallbackMesh)MeshComponent->SetStaticMesh(FallbackMesh);
++    if(!HasAuthority()||bFalling)return false;
++    if(MeshComponent&&!MeshComponent->GetStaticMesh()&&FallbackMesh){NetMesh=FallbackMesh;MeshComponent->SetStaticMesh(FallbackMesh);}
+@@ -85 +95 @@
+-    bFalling=true;
++    bFalling=true;OnRep_Falling();ForceNetUpdate();
+@@ -87,0 +98,26 @@
++
++void AVoxelBuildPrefabActor::OnRep_Falling()
++{
++    if(!bFalling||!MeshComponent)return;
++    Tags.AddUnique(TEXT("VoxelDetached"));
++    if(NetMesh)MeshComponent->SetStaticMesh(NetMesh);
++    if(MeshComponent->GetStaticMesh())
++    {
++        MeshComponent->SetCollisionProfileName(TEXT("BlockAll"));
++        MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
++        if(!HasAuthority())MeshComponent->SetSimulatePhysics(true);
++    }
++    if(!IsValid(LogicActor))return;
++    LogicActor->AttachToComponent(MeshComponent,FAttachmentTransformRules::KeepWorldTransform);
++    LogicActor->Tags.AddUnique(TEXT("VoxelDetached"));LogicActor->SetActorTickEnabled(false);
++    TInlineComponentArray<UPrimitiveComponent*> Primitives;LogicActor->GetComponents(Primitives);
++    for(auto* Primitive:Primitives)Primitive->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    MeshComponent->SetVisibility(false);
++}
++
++void AVoxelBuildPrefabActor::EndPlay(const EEndPlayReason::Type Reason)
++{
++    // Includes falling-piece lifespan and direct parent destruction, not only RemovePrefab.
++    if(HasAuthority()&&Reason==EEndPlayReason::Destroyed&&IsValid(LogicActor))LogicActor->Destroy();
++    Super::EndPlay(Reason);
++}
+diff --git a/Source/FPSGAME/Building/VoxelBuildRuntime.h b/Source/FPSGAME/Building/VoxelBuildRuntime.h
+--- a/Source/FPSGAME/Building/VoxelBuildRuntime.h
++++ b/Source/FPSGAME/Building/VoxelBuildRuntime.h
+@@ -71,0 +72 @@
++    TMap<FGuid,double> RecycleRetryAt;
+@@ -86,0 +88,2 @@
++    // World time must not survive this world or leak into another PIE instance.
++    double LastSaveStartedSeconds=0;
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorld.cpp b/Source/FPSGAME/Building/VoxelBuildWorld.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+@@ -60,0 +62 @@
++    bReplicates=true;bAlwaysRelevant=true;
+@@ -110 +112 @@
+-    if(GetNetMode()==NM_Client||bReady||!InPalette)return false;
++    if(bReady||!InPalette)return false;
+@@ -131 +133 @@
+-    if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
++    if(HasAuthority()&&UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
+@@ -321 +323 @@
+-    if(UGameInstance* GI=GetGameInstance())
++    if(UGameInstance* GI=HasAuthority()?GetGameInstance():nullptr)
+@@ -322,0 +325,2 @@
++    if(HasAuthority()&&GetNetMode()!=NM_Standalone)
++        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())Shared->RestoreBuilding(this);
+@@ -531,0 +536,9 @@
++    // A removed/replaced cell is no longer the instance recorded in any player's undo batch.
++    // Compare edit keys, not only materials: another player may rebuild the same material here.
++    TSet<FVoxelBuildKey> Touched;for(const auto& E:Edit)Touched.Add({E.Volume,E.Position});
++    const auto Invalidate=[&](TArray<TArray<FVoxelEditCell>>& Batches)
++    {
++        for(auto& Batch:Batches)Batch.RemoveAll([&](const FVoxelEditCell& E){return Touched.Contains({E.Volume,E.Position});});
++        Batches.RemoveAll([](const auto& Batch){return Batch.IsEmpty();});
++    };
++    Invalidate(History);for(auto& Entry:PlayerHistory)Invalidate(Entry.Value);
+@@ -627,0 +641 @@
++    if(!HasAuthority()){TickMeshes();TickFragments();return;}
+@@ -652 +666 @@
+-    if(bReady)
++    if(bReady&&HasAuthority())
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorld.h b/Source/FPSGAME/Building/VoxelBuildWorld.h
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.h
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.h
+@@ -65,0 +66,6 @@
++    bool MakeNetworkSnapshot(TArray<uint8>& Out) const;
++    bool ApplyNetworkSnapshot(const TArray<uint8>& Bytes);
++    uint64 NetworkRevision=1;
++    bool bNetworkTransaction=false;
++    bool ExecuteNetworkEdit(const struct FColdSteelInventoryRequest& Request,class UColdSteelStatusModel* Model,FString& Reason);
++    TMap<TWeakObjectPtr<class APlayerState>,TArray<TArray<FVoxelEditCell>>> PlayerHistory;
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorldCollapse.cpp b/Source/FPSGAME/Building/VoxelBuildWorldCollapse.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildWorldCollapse.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldCollapse.cpp
+@@ -5,0 +6 @@
++#include "EngineUtils.h"
+@@ -25 +26 @@
+-    TMap<FGuid,double> RecycleRetryAt;
++
+@@ -53,0 +55,4 @@
++    TMap<FGuid,AVoxelCollapseFragment*> Replicas;
++    if(!HasAuthority()&&!Runtime->PendingFragments.IsEmpty())
++        for(TActorIterator<AVoxelCollapseFragment> It(GetWorld());It;++It)
++            if(It->GetOwner()==this&&It->Id().IsValid())Replicas.Add(It->Id(),*It);
+@@ -94 +99,3 @@
+-            auto* Actor=GetWorld()->SpawnActor<AVoxelCollapseFragment>(AVoxelCollapseFragment::StaticClass(),Ready.State.Transform,Parameters);
++            auto* Actor=HasAuthority()
++                ?GetWorld()->SpawnActor<AVoxelCollapseFragment>(AVoxelCollapseFragment::StaticClass(),Ready.State.Transform,Parameters)
++                :Replicas.FindRef(Ready.State.Id);
+@@ -126,0 +134 @@
++    if(!HasAuthority()){Runtime->Activation.Reset();return;}
+@@ -147 +155 @@
+-        if(const double* RetryAt=RecycleRetryAt.Find(E.Key))if(NowSeconds<*RetryAt)continue;
++        if(const double* RetryAt=Runtime->RecycleRetryAt.Find(E.Key))if(NowSeconds<*RetryAt)continue;
+@@ -155,2 +163,2 @@
+-        {Recycled.Add(E.Key);RecycleRetryAt.Remove(E.Key);}
+-        else RecycleRetryAt.Add(E.Key,NowSeconds+RecycleRetrySeconds);
++        {Recycled.Add(E.Key);Runtime->RecycleRetryAt.Remove(E.Key);}
++        else Runtime->RecycleRetryAt.Add(E.Key,NowSeconds+RecycleRetrySeconds);
+@@ -160 +168 @@
+-        RecycleRetryAt.Remove(Id);
++        Runtime->RecycleRetryAt.Remove(Id);
+@@ -165 +173 @@
+-    for(const FGuid Id:OutsideWorld){RecycleRetryAt.Remove(Id);Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
++    for(const FGuid Id:OutsideWorld){Runtime->RecycleRetryAt.Remove(Id);Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -12 +12,4 @@
+-#include "Engine/GameInstance.h"
++#include "EngineUtils.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "GameFramework/PlayerController.h"
+@@ -331,0 +335 @@
++            Logic->SetReplicates(true);Logic->SetReplicateMovement(true);
+@@ -368 +372 @@
+-    if(!bReady||GetNetMode()==NM_Client||!Target){Message=TEXT("只能拆除自己放置的构件");return false;}
++    if(!bReady||GetNetMode()==NM_Client||!IsValid(Target)||Target->GetOwner()!=this){Message=TEXT("只能拆除自己放置的构件");return false;}
+@@ -381,0 +386 @@
++    if(PrefabActorAt(Cell)!=Target){Message=TEXT("构件已被替换，请重新选择");return false;}
+diff --git a/Source/FPSGAME/Building/VoxelBuildWorldSave.cpp b/Source/FPSGAME/Building/VoxelBuildWorldSave.cpp
+--- a/Source/FPSGAME/Building/VoxelBuildWorldSave.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldSave.cpp
+@@ -22,2 +22 @@
+-    /** 上一次存档**开始**的时刻（用开始时刻，保证间隔是 开始→开始）。 */
+-    double LastSaveStartedSeconds=0.0;
++
+@@ -27,0 +27,2 @@
++    if(!HasAuthority())return;
++    ++NetworkRevision;
+@@ -37 +38 @@
+-        Runtime->SaveAt=FMath::Max(Now+.75,LastSaveStartedSeconds+SaveIntervalSeconds);
++        Runtime->SaveAt=FMath::Max(Now+.75,Runtime->LastSaveStartedSeconds+SaveIntervalSeconds);
+@@ -44 +45 @@
+-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
++    if(!bReady||!HasAuthority())return false;
+@@ -49 +50,2 @@
+-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
++    if(bNetworkTransaction)return true;
++    if(!bReady||!HasAuthority())return false;
+@@ -79,0 +82 @@
++    if(!HasAuthority())return;
+@@ -95 +98 @@
+-    LastSaveStartedSeconds=GetWorld()->GetTimeSeconds();
++    Runtime->LastSaveStartedSeconds=GetWorld()->GetTimeSeconds();
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1,0 +2 @@
++#include "Net/UnrealNetwork.h"
+@@ -435,0 +437 @@
++    bReplicates=true;bAlwaysRelevant=true;
+@@ -459 +461 @@
+-    Super::BeginPlay();if(GetNetMode()==NM_Client)return;
++    Super::BeginPlay();if(GetNetMode()==NM_Client){OnRep_NetworkRun();return;}
+@@ -468,0 +471,11 @@
++void AAuthoredDungeonGenerator::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(AAuthoredDungeonGenerator,NetworkRunId);
++    DOREPLIFETIME(AAuthoredDungeonGenerator,NetworkSeed);
++}
++void AAuthoredDungeonGenerator::OnRep_NetworkRun()
++{
++    if(HasActorBegunPlay()&&!NetworkRunId.IsEmpty()&&RequestedNetworkRunId!=NetworkRunId)
++    {RequestedNetworkRunId=NetworkRunId;Generate(NetworkSeed);}
++}
+@@ -472 +485,6 @@
+-    CancelAssembly();
++    if(GetWorld()->IsGameWorld()&&HasAuthority())
++    {
++        NetworkSeed=Seed;NetworkRunId=FGuid::NewGuid().ToString(EGuidFormats::Digits);
++        ForceNetUpdate();
++    }
++    CancelAssembly();NetworkActorCounts.Reset();
+@@ -921 +939 @@
+-    if(RequireNavigation)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
++    if(RequireNavigation&&GetNetMode()!=NM_Client)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
+@@ -1378,0 +1397,8 @@
++    if(Actor&&GetWorld()->IsGameWorld())
++    {
++        const FString Key=FString::Printf(TEXT("DGN_%d_%s_%08x"),ModuleIndex,*Actor->GetClass()->GetName(),FCrc::StrCrc32(*Actor->GetActorTransform().ToString()));
++        const FString Name=FString::Printf(TEXT("%s_%d"),*Key,NetworkActorCounts.FindOrAdd(Key)++);
++        Actor->Rename(*Name,nullptr,REN_DontCreateRedirectors|REN_NonTransactional);
++        Actor->SetReplicates(false);Actor->SetNetAddressable();
++    }
++
+@@ -1665,0 +1692 @@
++    RequireNavigation&=GetNetMode()!=NM_Client;
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h
+@@ -16,0 +17,5 @@
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
++    UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) FString NetworkRunId;
++    UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) int32 NetworkSeed=0;
++    UFUNCTION() void OnRep_NetworkRun();
++    TMap<FString,int32> NetworkActorCounts;
+@@ -42,0 +48 @@
++    FString RequestedNetworkRunId;
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp b/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRoomGate.cpp
+@@ -1,0 +2 @@
++#include "Net/UnrealNetwork.h"
+@@ -24,0 +26 @@
++    bReplicates=true;bAlwaysRelevant=true;
+@@ -90,0 +93 @@
++    if(HasAuthority()){NetFloor=Door.FloorCenter;NetNormal=Door.OutwardNormal;NetSize=FVector2D(Door.Width,Door.Height);ForceNetUpdate();}
+@@ -136,0 +140 @@
++    if(HasAuthority())NetOpen=Fraction;
+@@ -158,0 +163 @@
++    if(HasAuthority()){NetLocked=bLocked;ForceNetUpdate();}
+@@ -180,0 +186,7 @@
++
++void ADungeonRoomGate::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ADungeonRoomGate,NetFloor);DOREPLIFETIME(ADungeonRoomGate,NetNormal);DOREPLIFETIME(ADungeonRoomGate,NetSize);DOREPLIFETIME(ADungeonRoomGate,NetOpen);DOREPLIFETIME(ADungeonRoomGate,NetLocked);}
++void ADungeonRoomGate::OnRep_GateShape()
++{if(NetSize.X<=0||NetSize.Y<=0||NetNormal.IsNearlyZero())return;FDungeonRunDoor D;D.FloorCenter=NetFloor;D.OutwardNormal=NetNormal;D.Width=NetSize.X;D.Height=NetSize.Y;Configure(D);OnRep_GateState();}
++void ADungeonRoomGate::OnRep_GateState()
++{SetOpenFraction(NetOpen);SetEncounterLocked(NetLocked);}
+diff --git a/Source/FPSGAME/Dungeons/DungeonRoomGate.h b/Source/FPSGAME/Dungeons/DungeonRoomGate.h
+--- a/Source/FPSGAME/Dungeons/DungeonRoomGate.h
++++ b/Source/FPSGAME/Dungeons/DungeonRoomGate.h
+@@ -20,0 +21,8 @@
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
++    UFUNCTION() void OnRep_GateShape();
++    UFUNCTION() void OnRep_GateState();
++    UPROPERTY(ReplicatedUsing=OnRep_GateShape) FVector NetFloor=FVector::ZeroVector;
++    UPROPERTY(ReplicatedUsing=OnRep_GateShape) FVector NetNormal=FVector::ZeroVector;
++    UPROPERTY(ReplicatedUsing=OnRep_GateShape) FVector2D NetSize=FVector2D::ZeroVector;
++    UPROPERTY(ReplicatedUsing=OnRep_GateState) float NetOpen=1.f;
++    UPROPERTY(ReplicatedUsing=OnRep_GateState) bool NetLocked=false;
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+@@ -0,0 +1,102 @@
++#include "DungeonRunSubsystem.h"
++#include "WardBreakableGlass.h"
++#include "../UI/ColdSteelSceneContainer.h"
++#include "../Multiplayer/ColdSteelSharedChestVisual.h"
++#include "../Building/ColdSteelDoor.h"
++#include "AuthoredDungeonGenerator.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelWorldSnapshot.h"
++#include "Engine/World.h"
++#include "Engine/Level.h"
++#include "UObject/Package.h"
++#include "EngineUtils.h"
++
++namespace
++{
++FString SharedSceneKey(const AActor* Actor)
++{
++    // Actor names are only unique within a level. Preserve the sublevel/instance
++    // package, while removing each PIE world's different package prefix. The
++    // persistent level is already identified by the enclosing snapshot's Map.
++    if(Actor->GetLevel()==Actor->GetWorld()->PersistentLevel)return Actor->GetName();
++    return UWorld::RemovePIEPrefix(Actor->GetLevel()->GetOutermost()->GetName())
++        +TEXT(":")+Actor->GetName();
++}
++}
++
++void UDungeonRunSubsystem::FillNetworkState(UColdSteelWorldSnapshot* Out) const
++{
++    if (!Out) return;
++    Out->RunId.Reset();
++    Out->Cleared.Reset();
++    Out->Explored.Reset();
++    Out->bCompleted = false;
++    if (!GetWorld() || GetWorld()->GetNetMode() == NM_Client) return;
++    // Shared scene visuals also exist in the hub and authored maps. A dungeon
++    // run scopes generated names, but must not gate late-join chest/door state.
++
++    for(TActorIterator<AActor> It(GetWorld());It;++It)
++    {
++        const FString Key=SharedSceneKey(*It);
++        if(auto* Container=Cast<AColdSteelSceneContainer>(*It);Container&&Container->bSearched)Out->OpenedContainers.Add(Key);
++        if(It->ActorHasTag(TEXT("DungeonTreasure.Opened")))Out->OpenedChests.Add(Key);
++        if(auto* Glass=It->FindComponentByClass<UWardBreakableGlass>();Glass&&Glass->bBroken)Out->BrokenGlass.Add(Key);
++        if(auto* Door=Cast<AColdSteelDoor>(*It);Door&&!Door->GetIsReplicated())Out->DoorSwings.Add(Key,Door->NetworkSwing());
++        if(It->Tags.ContainsByPredicate([](const FName& Tag){return Tag.ToString().StartsWith(TEXT("DungeonHallDoor."));}))
++            Out->SceneTransforms.Add(Key,It->GetActorTransform());
++    }
++    if(bActive)Out->RunId = CurrentRunId;
++    // Task progress travels on the generator's small replicated state, not this bulk transfer.
++}
++
++bool UDungeonRunSubsystem::ApplyNetworkState(UColdSteelWorldSnapshot* State)
++{
++    if (!State || !GetWorld() || GetWorld()->GetNetMode() != NM_Client)return false;
++    if(!State->RunId.IsEmpty()&&(!bActive||CurrentRunId.IsEmpty()||State->RunId!=CurrentRunId))return false;
++    const auto Complete=[State]()
++    {
++        return State->OpenedContainers.IsEmpty()&&State->OpenedChests.IsEmpty()
++            &&State->BrokenGlass.IsEmpty()&&State->SceneTransforms.IsEmpty()&&State->DoorSwings.IsEmpty();
++    };
++    if(Complete())return true;
++
++    // Apply presentation only. MarkRoomCleared/CommitProfileRunState can grant
++    // rewards and save; those authority operations do not belong in this mirror.
++    for(TActorIterator<AActor> It(GetWorld());It;++It)
++    {
++        const FString Name=SharedSceneKey(*It);
++        if(State->OpenedContainers.Contains(Name))
++            if(auto* Container=Cast<AColdSteelSceneContainer>(*It))
++            {Container->OpenSharedVisual(true);State->OpenedContainers.Remove(Name);}
++        if(State->OpenedChests.Contains(Name))
++            if(It->ActorHasTag(TEXT("DungeonTreasure.Opened"))||ColdSteelSharedChest::Open(*It,true))State->OpenedChests.Remove(Name);
++        if(const auto* Transform=State->SceneTransforms.Find(Name))
++        {It->SetActorTransform(*Transform);State->SceneTransforms.Remove(Name);}
++        if(auto* Door=Cast<AColdSteelDoor>(*It))if(const auto* Swing=State->DoorSwings.Find(Name))
++        {Door->ApplyNetworkSwing(*Swing);State->DoorSwings.Remove(Name);}
++        if(State->BrokenGlass.Contains(Name))
++            if(auto* G=It->FindComponentByClass<UWardBreakableGlass>())
++            {
++                if(!G->bBroken){G->bBroken=true;G->SetCollisionEnabled(ECollisionEnabled::NoCollision);G->SetVisibility(false,true);}
++                State->BrokenGlass.Remove(Name);
++            }
++    }
++    // An actor channel or streamed level can arrive after this reliable snapshot.
++    // Only unresolved entries remain. Waiting for one late actor must not replay
++    // old transforms or animations on actors which have already caught up.
++    // Delayed scene snapshots must never roll newer team objective progress backwards.
++    return Complete();
++}
++
++void UDungeonRunSubsystem::EnsurePlayerRun(UColdSteelStatusModel* M)
++{
++    if(!bActive||!M||GetWorld()->GetNetMode()==NM_Client)return;
++    if(M->Snapshot().DungeonRun.RunId!=CurrentRunId)
++    {
++        M->SyncRuntime();auto P=M->Snapshot();P.DungeonRun={};auto& R=P.DungeonRun;
++        R.RunId=CurrentRunId;R.Seed=Seed;R.GeneratorVersion=5;
++        if(Generator.IsValid())R.LayoutManifestJson=Generator->LayoutManifestJson;
++        if(!M->CommitState(MoveTemp(P)))return;
++    }
++    SyncPlayerRun(M);
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -5,0 +6,2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "GameFramework/PlayerController.h"
+@@ -86 +88 @@
+-    CurrentRunId = FString::Printf(TEXT("%d-%08X"), Seed, (uint32)(FDateTime::UtcNow().GetTicks() >> 20));
++    CurrentRunId = InGenerator->NetworkRunId.IsEmpty()?FString::Printf(TEXT("%d-%08X"),Seed,(uint32)(FDateTime::UtcNow().GetTicks()>>20)):InGenerator->NetworkRunId;
+@@ -281,0 +284 @@
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)return;
+@@ -292,0 +296 @@
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)return;
+@@ -302,0 +307 @@
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)return;
+@@ -488,0 +494,2 @@
++    // Guest profiles are synchronized by their server-owned shadow model.
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client||GetWorld()->GetNetMode()==NM_DedicatedServer)return;
+@@ -507,0 +515,5 @@
++void UDungeonRunSubsystem::RecordRoomDefeat(int32 NodeId)
++{
++    if(bActive&&GetWorld()->GetNetMode()!=NM_Client&&NodeById(NodeId))RoomsWithDefeats.Add(RoomKey(NodeId));
++}
++
+@@ -510 +522,9 @@
+-    UColdSteelStatusModel* Model = StatusModel();
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client||CurrentRunId.IsEmpty())return;
++    if(GetWorld()->GetNetMode()!=NM_DedicatedServer)EnsurePlayerRun(StatusModel());
++    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(auto* PC=It->Get();PC&&!PC->IsLocalController())
++            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())EnsurePlayerRun(PS->GetShadowModel());
++}
++
++void UDungeonRunSubsystem::SyncPlayerRun(UColdSteelStatusModel* Model)
++{
+@@ -515,0 +536 @@
++    bool Changed=P.DungeonRun.Cleared.Num()!=Cleared.Num()||P.DungeonRun.Explored.Num()!=Explored.Num()||P.DungeonRun.bCompleted!=bCompleted;
+@@ -521,3 +542,4 @@
+-        const FString Key=RoomKey(Node.Id).ToString();bool HadKill=false;
+-        for(FName Enemy:P.DungeonRun.DefeatedEnemies)if(Enemy.ToString().StartsWith(Key+TEXT("."))){HadKill=true;break;}
+-        if(!HadKill)continue; // Failed spawn placement must never mint a risk reward.
++        const FString Key=RoomKey(Node.Id).ToString();
++        if(!RoomsWithDefeats.Contains(RoomKey(Node.Id)))continue;
++        const FName Claim(*(Key+TEXT(".clear_reward")));
++        if(P.DungeonRun.Claimed.Contains(Claim))continue;
+@@ -525,3 +547,4 @@
+-        if(!Model->AppendDungeonReward(P,FName(*(Key+TEXT(".clear_reward"))),{{TEXT("gold"),Gold}},Node.Origin))return;
+-    }
+-    Model->CommitState(MoveTemp(P));
++        if(!Model->AppendDungeonReward(P,Claim,{{TEXT("souls"),Gold}},Node.Origin))return;
++        Changed=true;
++    }
++    if(Changed)Model->CommitState(MoveTemp(P));
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -93,0 +94,4 @@
++    void EnsurePlayerRun(UColdSteelStatusModel* Model);
++    void RecordRoomDefeat(int32 NodeId);
++    void FillNetworkState(class UColdSteelWorldSnapshot* Out) const;
++    bool ApplyNetworkState(class UColdSteelWorldSnapshot* State);
+@@ -135 +139 @@
+-    bool CanClaimShrine() const { return bActive && !bShrineClaimed && ShrineActor.IsValid(); }
++    bool CanClaimShrine() const { return bActive && !HasShrineBlessing() && ShrineActor.IsValid(); }
+@@ -138,2 +142,3 @@
+-    double ShrineEffect(FName Key) const;
+-    FName ActiveShrineBlessing() const { return bActive && bShrineClaimed ? ShrineBlessing : NAME_None; }
++    double ShrineEffect(FName Key,const APawn* Viewer=nullptr) const;
++    bool HasShrineBlessing(const APawn* Viewer=nullptr) const;
++    FName ActiveShrineBlessing(const APawn* Viewer=nullptr) const { return HasShrineBlessing(Viewer) ? ShrineBlessing : NAME_None; }
+@@ -147,0 +153,2 @@
++    void SyncPlayerRun(UColdSteelStatusModel* Model);
++    TSet<FName> RoomsWithDefeats;
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -302 +302 @@
+-    if (bStopping || !Actor) return;
++    if (bStopping || !HasAuthority() || !Actor) return;
+diff --git a/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp b/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+--- a/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
++++ b/Source/FPSGAME/Dungeons/WardBreakableGlass.cpp
+@@ -1,0 +2,3 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "GameFramework/PlayerController.h"
++#include "Net/UnrealNetwork.h"
+@@ -16,0 +20 @@
++    SetIsReplicatedByDefault(true);
+@@ -52,2 +56,16 @@
+-    if(bBroken || !GetOwner() || !GetOwner()->HasAuthority())return false;
+-    bBroken=true;
++    if(bBroken || GetNetMode()==NM_Client || !GetOwner() || !GetOwner()->HasAuthority())return false;
++    bBroken=true;BreakPoint=HitPoint;BreakDirection=Direction.GetSafeNormal(SMALL_NUMBER,GetForwardVector());
++    GetOwner()->ForceNetUpdate();OnRep_Broken();
++    if(!GetOwner()->GetIsReplicated())for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(auto* PC=It->Get();PC&&!PC->IsLocalController())
++            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGlassBroken(GetOwner()->GetName(),BreakPoint,BreakDirection);
++    return true;
++}
++void UWardBreakableGlass::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(UWardBreakableGlass,BreakPoint);DOREPLIFETIME(UWardBreakableGlass,BreakDirection);DOREPLIFETIME(UWardBreakableGlass,bBroken);
++}
++void UWardBreakableGlass::OnRep_Broken()
++{
++    if(!bBroken)return;
+@@ -61,2 +79 @@
+-            FX->BreakPane(this,HitPoint,Direction.GetSafeNormal(SMALL_NUMBER,GetForwardVector()));
+-    return true;
++            FX->BreakPane(this,BreakPoint,BreakDirection);
+@@ -139,0 +157 @@
++    bReplicates=true;
+diff --git a/Source/FPSGAME/FPSGAME.Build.cs b/Source/FPSGAME/FPSGAME.Build.cs
+--- a/Source/FPSGAME/FPSGAME.Build.cs
++++ b/Source/FPSGAME/FPSGAME.Build.cs
+@@ -56 +56 @@
+-        if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[] { "UnrealEd", "EditorScriptingUtilities", "AssetRegistry" });
++        if (Target.bBuildEditor) PrivateDependencyModuleNames.AddRange(new[] { "UnrealEd", "EditorScriptingUtilities", "AssetRegistry", "Projects" });
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1,0 +2 @@
++#include "Multiplayer/FPSStatusReplicationComponent.h"
+diff --git a/Source/FPSGAME/FPSGAMECharacter.h b/Source/FPSGAME/FPSGAMECharacter.h
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -119,2 +119,2 @@
+-    void GrantDoorKey(FName KeyId) { if (!KeyId.IsNone()) DoorKeys.AddUnique(KeyId); }
+-    bool HasDoorKey(FName KeyId) const { return !KeyId.IsNone() && DoorKeys.Contains(KeyId); }
++    void GrantDoorKey(FName KeyId);
++    bool HasDoorKey(FName KeyId) const;
+@@ -136 +136,2 @@
+-    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false);
++    UFUNCTION(Client,Unreliable) void ClientWeaponHitFeedback(AActor* Target,float AppliedDamage,bool Critical,bool Killed,bool Firearm);
++    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false,bool bForwardToOwner=true);
+diff --git a/Source/FPSGAME/FPSGAMECharacterProfile.cpp b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -28,0 +29,15 @@
++void AFPSGAMECharacter::GrantDoorKey(FName KeyId)
++{
++    if(!HasAuthority()||KeyId.IsNone())return;
++    DoorKeys.AddUnique(KeyId);
++    if(auto* State=GetPlayerState<AColdSteelPlayerState>())State->GrantSessionDoorKey(KeyId);
++    ForceNetUpdate();
++}
++
++bool AFPSGAMECharacter::HasDoorKey(FName KeyId) const
++{
++    if(KeyId.IsNone())return false;
++    const auto* State=GetPlayerState<AColdSteelPlayerState>();
++    return DoorKeys.Contains(KeyId)||(State&&State->HasSessionDoorKey(KeyId));
++}
++
+@@ -86 +101 @@
+-    if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
++    if(HasAuthority())if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
+diff --git a/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp b/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
+--- a/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
++++ b/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
+@@ -203,0 +204,8 @@
++    NetworkAttack.Kind=static_cast<uint8>(ActiveAttack);
++    NetworkAttack.Clip=IsMagicAttack()?MagicGatherClip:AttackClip;
++    NetworkAttack.Duration=ActiveAttackDuration;
++    NetworkAttack.GatherDuration=ActiveGatherDuration;
++    NetworkAttack.MeleeRate=ActiveMeleePlaybackRate;
++    NetworkAttack.StartedAt=GetWorld()->GetTimeSeconds();
++    NetworkAttack.bChargeStopped=false;
++    ForceNetUpdate();
+@@ -257 +265 @@
+-    if (!IsMagicAttack() || GetNetMode() == NM_DedicatedServer) return;
++    if (!IsMagicAttack() || GetNetMode() == NM_DedicatedServer || (!HasAuthority() && NetworkAttack.bChargeStopped)) return;
+@@ -295,0 +304,2 @@
++    if (HasAuthority() && !NetworkAttack.bChargeStopped)
++    { NetworkAttack.bChargeStopped=true; ForceNetUpdate(); }
+@@ -344,0 +355 @@
++    NetworkAttack.bChargeStopped=true; ForceNetUpdate();
+diff --git a/Source/FPSGAME/Monsters/BoundCongregate.cpp b/Source/FPSGAME/Monsters/BoundCongregate.cpp
+--- a/Source/FPSGAME/Monsters/BoundCongregate.cpp
++++ b/Source/FPSGAME/Monsters/BoundCongregate.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -32 +33 @@
+-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -261,2 +262 @@
+-        if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
+-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -20,0 +22 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -232,2 +233,0 @@
+-    if (GEngine) GEngine->AddOnScreenDebugMessage(91401, 3.f, FColor::Red,
+-        FString::Printf(TEXT("HP %.0f / %.0f%s"), Health, MaxHealth, IsDead() ? TEXT(" - Respawning...") : TEXT("")));
+@@ -236,2 +235,0 @@
+-    if (PC && PC->PlayerCameraManager)
+-        PC->PlayerCameraManager->StartCameraFade(.3f, 0.f, .3f, FLinearColor(.6f,0,0), false, false);
+@@ -254 +252 @@
+-            if(GEngine) GEngine->AddOnScreenDebugMessage(91402, 3.f, FColor(255, 215, 0), TEXT("蟠桃续命：原地复活"));
++            Actor->ForceNetUpdate();ClientDamageFeedback(Health);ClientPeachRevive();
+@@ -262,0 +261 @@
++    if(PC)ClientDamageFeedback(Health);
+@@ -291,0 +291,16 @@
++void UFPSCombatHealthComponent::ClientDamageFeedback_Implementation(float RemainingHealth)
++{
++    const auto* Pawn=Cast<APawn>(GetOwner());
++    auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
++    if(!PC||!PC->IsLocalController())return;
++    if(PC->PlayerCameraManager)PC->PlayerCameraManager->StartCameraFade(.3f,0.f,.3f,FLinearColor(.6f,0,0),false,false);
++    if(GEngine)GEngine->AddOnScreenDebugMessage(91401,3.f,FColor::Red,
++        FString::Printf(TEXT("HP %.0f / %.0f%s"),RemainingHealth,MaxHealth,RemainingHealth<=0?TEXT(" - Respawning..."):TEXT("")));
++}
++
++void UFPSCombatHealthComponent::ClientPeachRevive_Implementation()
++{
++    const auto* Pawn=Cast<APawn>(GetOwner());if(!Pawn||!Pawn->IsLocallyControlled())return;
++    if(auto* Model=ColdSteelAuthority::ForPawn(Pawn))Model->PostNotice(TEXT("蟠桃续命"),TEXT("已原地复活"));
++}
++
+@@ -297,0 +313,5 @@
++    // Checkpoint paid work while its original authority pawn still exists.
++    if(auto* State=Pawn->GetPlayerState<AColdSteelPlayerState>())State->CloseStationSessions();
++    // Capture the final dead state before destroying the old pawn. The new
++    // attachment then performs the normal health/stamina/survival reset once.
++    if(auto* Model=ColdSteelAuthority::ForPawn(Pawn))Model->SyncRuntime();
+diff --git a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.h b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.h
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.h
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.h
+@@ -32,0 +33,2 @@
++    UFUNCTION(Client,Unreliable) void ClientDamageFeedback(float RemainingHealth);
++    UFUNCTION(Client,Reliable) void ClientPeachRevive();
+diff --git a/Source/FPSGAME/Monsters/HandBrainMonster.cpp b/Source/FPSGAME/Monsters/HandBrainMonster.cpp
+--- a/Source/FPSGAME/Monsters/HandBrainMonster.cpp
++++ b/Source/FPSGAME/Monsters/HandBrainMonster.cpp
+@@ -1,0 +2,2 @@
++#include "GameFramework/GameStateBase.h"
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -50 +52 @@
+- Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -75 +77 @@
+- Super::BeginPlay();MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
++ Super::BeginPlay();if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
+@@ -79 +81 @@
+- SetState(EHandBrainState::Idle);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_READY hp=%.0f home=%s physics=%s"),Health,*Home.ToString(),*GetMesh()->GetPhysicsAsset()->GetName());
++ SetState(HasAuthority()?EHandBrainState::Idle:State);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_READY hp=%.0f home=%s physics=%s"),Health,*Home.ToString(),*GetMesh()->GetPhysicsAsset()->GetName());
+@@ -83,2 +85,3 @@
+-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+-    DOREPLIFETIME(AHandBrainMonster, State);
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AHandBrainMonster,NetworkStateStarted);
++    DOREPLIFETIME(AHandBrainMonster,Health);DOREPLIFETIME(AHandBrainMonster,MaxHealth);
++    DOREPLIFETIME(AHandBrainMonster, State);DOREPLIFETIME(AHandBrainMonster,SlamCenter);
+@@ -93 +96,3 @@
+- State=New;StateSeconds=0;SlamRing->SetVisibility(false);HowlRing->SetVisibility(false);
++ if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
++ State=New;StateSeconds=0;if(!HasAuthority()&&New==EHandBrainState::Slam)bSlamConsumed=false;
++ if(!HasAuthority()&&New==EHandBrainState::Howl){Voice->SetSound(HowlSound);Voice->Play();}SlamRing->SetVisibility(false);HowlRing->SetVisibility(false);
+@@ -183 +188,16 @@
+- Super::Tick(Dt);if(!HasAuthority())return;StateSeconds+=Dt;SlamLeft=FMath::Max(0.f,SlamLeft-Dt);HowlLeft=FMath::Max(0.f,HowlLeft-Dt);
++ Super::Tick(Dt);if(!HasAuthority())
++ {
++  const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
++  if(State==EHandBrainState::Slam)
++  {
++   if(SlamClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,2.f),false);
++   ShowRing(SlamRing,SlamCenter,SlamRadius,StateSeconds<1?FLinearColor(1,.12f,.015f):FLinearColor(1,.75f,.2f),StateSeconds<1?.8f:FMath::Max(0.f,1-(StateSeconds-1)*3));
++   if(!bSlamConsumed&&StateSeconds>=1.f){bSlamConsumed=true;if(SlamSound)UGameplayStatics::PlaySoundAtLocation(this,SlamSound,SlamCenter,.9f);}
++  }
++  else if(State==EHandBrainState::Howl)
++  {
++   if(HowlClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,3.f),false);
++   const float Pulse=FMath::Fmod(StateSeconds,.5f)/.5f;ShowRing(HowlRing,GroundPoint(GetActorLocation()),HowlRadius*FMath::Max(.02f,Pulse),FLinearColor(.65f,.05f,1),1-Pulse);
++  }
++  return;
++ }StateSeconds+=Dt;SlamLeft=FMath::Max(0.f,SlamLeft-Dt);HowlLeft=FMath::Max(0.f,HowlLeft-Dt);
+@@ -230 +250 @@
+-  if(auto* PC=Cast<APlayerController>(DamageInstigator))if(PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++  ColdSteelSkills::AwardKillByOwner(GetGameInstance(),DamageInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/HangingBellM09.cpp b/Source/FPSGAME/Monsters/HangingBellM09.cpp
+--- a/Source/FPSGAME/Monsters/HangingBellM09.cpp
++++ b/Source/FPSGAME/Monsters/HangingBellM09.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -67 +68 @@
+- Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -653,2 +654 @@
+-   if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
+-    GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++   ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp b/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp
+--- a/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp
++++ b/Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp
+@@ -1,0 +2,2 @@
++#include "GameFramework/GameStateBase.h"
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -48 +50 @@
+-    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -160,2 +162,2 @@
+-    MaxHealth *= static_cast<float>(MonsterCoreStats::HealthMultiplier());
+-    Health = FMath::Max(1.f, MaxHealth);
++    if(HasAuthority()){MaxHealth *= static_cast<float>(MonsterCoreStats::HealthMultiplier());
++    Health = FMath::Max(1.f, MaxHealth);}
+@@ -176 +178 @@
+-    EnterState(ESlagState::Idle);
++    EnterState(HasAuthority()?ESlagState::Idle:State);
+@@ -224,0 +227 @@
++    DOREPLIFETIME(AHundredEyedSlagMonster,Health);DOREPLIFETIME(AHundredEyedSlagMonster,MaxHealth);
+@@ -225,0 +229,3 @@
++    DOREPLIFETIME(AHundredEyedSlagMonster,StateStartedAt);
++    DOREPLIFETIME(AHundredEyedSlagMonster,LaserDirection);
++    DOREPLIFETIME(AHundredEyedSlagMonster,LaserEnd);
+@@ -234 +240 @@
+-    if (State != Next) ClearLaserFX();
++    ClearLaserFX();
+@@ -235,0 +242,5 @@
++    if(HasAuthority())
++    {
++        StateStartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        ForceNetUpdate();
++    }
+@@ -376 +387 @@
+-    if (!HasAuthority()) return;
++    if (!HasAuthority()){TickRemotePresentation();return;}
+@@ -575,2 +586 @@
+-            if (auto* PC = Cast<APlayerController>(EventInstigator))
+-                if (PC->IsLocalController() && GetGameInstance()) GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this, ExperienceReward);
++            ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp b/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp
+--- a/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp
++++ b/Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp
+@@ -1,0 +2 @@
++#include "GameFramework/GameStateBase.h"
+@@ -170,0 +172,18 @@
++    }
++}
++
++void AHundredEyedSlagMonster::TickRemotePresentation()
++{
++    const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++    StateSeconds=float(FMath::Max(0.,Now-StateStartedAt));
++    float Duration=0.f;
++    if(State==ESlagState::EyeLaserWindup)Duration=FMath::Max(1.5f,LaserWindupSeconds);
++    else if(State==ESlagState::EyeLaserFire)Duration=FMath::Max(.1f,LaserFireSeconds);
++    else if(State==ESlagState::EyeLaserRecover)Duration=FMath::Max(.1f,LaserRecoverSeconds);
++    if(Duration<=0.f)return;
++    if(auto* Asset=Clip(CurrentClip))SampleClip(CurrentClip,Asset->GetPlayLength()*FMath::Clamp(StateSeconds/Duration,0.f,1.f));
++    if(StateSeconds>=Duration){ClearLaserFX();return;}
++    if(State==ESlagState::EyeLaserWindup||State==ESlagState::EyeLaserFire)
++    {
++        GetMesh()->TickAnimation(0.f,false);GetMesh()->RefreshBoneTransforms();
++        UpdateLaserFX(State==ESlagState::EyeLaserFire?1.f:StateSeconds/Duration,State==ESlagState::EyeLaserFire);
+diff --git a/Source/FPSGAME/Monsters/M10Mawcrawler.cpp b/Source/FPSGAME/Monsters/M10Mawcrawler.cpp
+--- a/Source/FPSGAME/Monsters/M10Mawcrawler.cpp
++++ b/Source/FPSGAME/Monsters/M10Mawcrawler.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -36 +37 @@
+-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -344,2 +345 @@
+-        if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
+-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/Mutant3.cpp b/Source/FPSGAME/Monsters/Mutant3.cpp
+--- a/Source/FPSGAME/Monsters/Mutant3.cpp
++++ b/Source/FPSGAME/Monsters/Mutant3.cpp
+@@ -131,0 +132,3 @@
++    // State and the action record can arrive in either RepNotify order.
++    if (!HasAuthority() && State == ENurseState::Attack && NetworkFeral.Phase != EMutant3FeralPhase::None)
++    { PresentNetworkFeralPhase(); return; }
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.cpp b/Source/FPSGAME/Monsters/NurseZombie.cpp
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -1,0 +2,2 @@
++#include "GameFramework/GameStateBase.h"
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -50 +52 @@
+-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -83,2 +85,2 @@
+-    MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
+-    Health = MaxHealth;
++    if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
++    Health = MaxHealth;}
+@@ -93 +95 @@
+-    SetState(ENurseState::Idle);
++    SetState(HasAuthority()?ENurseState::Idle:State);
+@@ -99 +101,2 @@
+-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ANurseZombie,NetworkStateStarted);
++    DOREPLIFETIME(ANurseZombie,Health);DOREPLIFETIME(ANurseZombie,MaxHealth);
+@@ -105 +108 @@
+-    if(!HasAuthority())SetState(State);
++    if(!HasAuthority()){SetState(State);if(State==ENurseState::Dead){GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);StartDeathPresentation();}}
+@@ -108,0 +112 @@
++    if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
+@@ -251 +255,10 @@
+-    if (!HasAuthority() || State == ENurseState::Dead || (Knockdown && Knockdown->IsControlling())) return;
++    if(!HasAuthority())
++    {
++        const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        StateTime=FMath::Max(0.,Now-NetworkStateStarted);
++        if(Knockdown&&Knockdown->IsControlling())return;
++        if(State==ENurseState::Attack)SetAttackAnimationTime(FMath::Min(StateTime,GetAttackDuration()));
++        else if(State==ENurseState::Chase)SetWalkAnimationRate(FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f));
++        return;
++    }
++    if (State == ENurseState::Dead || (Knockdown && Knockdown->IsControlling())) return;
+@@ -320,3 +333 @@
+-        if(auto* PlayerController=Cast<APlayerController>(EventInstigator))
+-            if(PlayerController->IsLocalController()&&GetGameInstance())
+-                GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/NurseZombie.h b/Source/FPSGAME/Monsters/NurseZombie.h
+--- a/Source/FPSGAME/Monsters/NurseZombie.h
++++ b/Source/FPSGAME/Monsters/NurseZombie.h
+@@ -3,0 +4 @@
++#include "Engine/NetSerialization.h"
+@@ -35 +36 @@
+-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 250.f;
++    UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 250.f;
+@@ -49 +50 @@
+-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 250.f;
++    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 250.f;
+@@ -59,0 +61,3 @@
++    UFUNCTION(NetMulticast, Unreliable)
++    void MulticastPounceLanding(FVector_NetQuantize Location, FVector_NetQuantizeNormal Normal,
++        FVector_NetQuantizeNormal Forward, float Radius, float Angle, bool bPlaySound, double StartedAt);
+@@ -76 +80,2 @@
+-    UFUNCTION() void OnRep_State();
++    UPROPERTY(Replicated) double NetworkStateStarted=0.;
++ UFUNCTION() void OnRep_State();
+diff --git a/Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp b/Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp
+--- a/Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp
++++ b/Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp
+@@ -1,0 +2,2 @@
++#include "GameFramework/GameStateBase.h"
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -42 +44 @@
+- PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++ PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -57 +59 @@
+- Super::BeginPlay();MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
++ Super::BeginPlay();if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}Home=GetActorLocation();if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
+@@ -60 +62 @@
+- SetState(EPoisonMaggotState::Idle);UE_LOG(LogTemp,Display,TEXT("MAGGOT_READY mesh=%s home=%s"),*VisualMesh->GetPathName(),*Home.ToString());
++ SetState(HasAuthority()?EPoisonMaggotState::Idle:State);UE_LOG(LogTemp,Display,TEXT("MAGGOT_READY mesh=%s home=%s"),*VisualMesh->GetPathName(),*Home.ToString());
+@@ -64 +66,2 @@
+-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(APoisonMaggotMonster,NetworkStateStarted);
++    DOREPLIFETIME(APoisonMaggotMonster,Health);DOREPLIFETIME(APoisonMaggotMonster,MaxHealth);
+@@ -73,0 +77 @@
++ if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
+@@ -108 +112,7 @@
+- Super::Tick(Dt);if(!HasAuthority())return;StateSeconds+=Dt;CooldownLeft=FMath::Max(0.f,CooldownLeft-Dt);
++ Super::Tick(Dt);if(!HasAuthority())
++ {
++  const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
++  if(State==EPoisonMaggotState::Spitting&&SpitClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,Duration),false);
++  else if(State==EPoisonMaggotState::Chase||State==EPoisonMaggotState::Returning)GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/WalkSpeed,0.f,1.5f));
++  return;
++ }StateSeconds+=Dt;CooldownLeft=FMath::Max(0.f,CooldownLeft-Dt);
+@@ -148 +158 @@
+-  if(auto* PC=Cast<APlayerController>(EventInstigator))if(PC->IsLocalController()&&GetGameInstance()){GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);++RewardCount;}
++  if(Cast<APlayerController>(EventInstigator)){ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);++RewardCount;}
+diff --git a/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp b/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
+--- a/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
++++ b/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
+@@ -1,0 +2 @@
++#include "Net/UnrealNetwork.h"
+@@ -19 +20 @@
+- PrimaryActorTick.bCanEverTick=true;
++ PrimaryActorTick.bCanEverTick=true;bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(20.f);
+@@ -68 +69,5 @@
+- Super::Tick(Dt);if(!HasAuthority())return;
++ Super::Tick(Dt);if(!HasAuthority())
++ {
++  const FVector Now=GetActorLocation();if(!bHasVisualLocation){LastVisualLocation=Now;bHasVisualLocation=true;}
++  UpdateLiquidVisual(Dt,LastVisualLocation,Now);LastVisualLocation=Now;return;
++ }
+@@ -88 +93 @@
+-  if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddImpact(Hit,Velocity);
++  MulticastImpact(Hit,Velocity);
+@@ -147,0 +153,5 @@
++
++void APoisonMaggotProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(APoisonMaggotProjectile,Velocity);}
++void APoisonMaggotProjectile::MulticastImpact_Implementation(const FHitResult& Hit,FVector_NetQuantize Incoming)
++{if(GetNetMode()!=NM_DedicatedServer)if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddImpact(Hit,Incoming);}
+diff --git a/Source/FPSGAME/Monsters/SpiralPillarM14.cpp b/Source/FPSGAME/Monsters/SpiralPillarM14.cpp
+--- a/Source/FPSGAME/Monsters/SpiralPillarM14.cpp
++++ b/Source/FPSGAME/Monsters/SpiralPillarM14.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -37 +38 @@
+-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -366,2 +367 @@
+-        if(auto* PC=Cast<APlayerController>(EventInstigator);PC&&PC->IsLocalController()&&GetGameInstance())
+-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
++        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/WitchMonster.cpp b/Source/FPSGAME/Monsters/WitchMonster.cpp
+--- a/Source/FPSGAME/Monsters/WitchMonster.cpp
++++ b/Source/FPSGAME/Monsters/WitchMonster.cpp
+@@ -1,0 +2 @@
++#include "Net/UnrealNetwork.h"
+@@ -192 +193 @@
+-        bThrowing = Now < NextMagicAt && Now >= NextBottleAt;
++        if(HasAuthority())bThrowing = Now < NextMagicAt && Now >= NextBottleAt;
+@@ -212 +213 @@
+-        bReleased = true; ReleaseSpell();
++        bReleased = true;if(bThrowing&&Bottle)Bottle->SetVisibility(false); ReleaseSpell();
+@@ -302,0 +304,5 @@
++
++void AWitchMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWitchMonster,bThrowing);}
++void AWitchMonster::OnRep_Throwing()
++{if(!HasAuthority()&&State==ENurseState::Attack){StartStateAnimation(bThrowing?ThrowClip:CastClip,false);}}
+diff --git a/Source/FPSGAME/Monsters/WitchProjectile.cpp b/Source/FPSGAME/Monsters/WitchProjectile.cpp
+--- a/Source/FPSGAME/Monsters/WitchProjectile.cpp
++++ b/Source/FPSGAME/Monsters/WitchProjectile.cpp
+@@ -1,0 +2,3 @@
++#include "GameFramework/PlayerController.h"
++#include "Net/UnrealNetwork.h"
++#include "GameFramework/GameStateBase.h"
+@@ -23,0 +27 @@
++    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(20.f);
+@@ -63 +67,2 @@
+-        if (auto* Target = UGameplayStatics::GetPlayerPawn(this, 0)) Query.AddIgnoredActor(Target);
++        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if(const auto* PC=It->Get())if(const APawn* Target=PC->GetPawn())Query.AddIgnoredActor(Target);
+@@ -97,0 +103 @@
++    PublishPresentation();
+@@ -130 +136 @@
+-    if (auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddBottleImpact(Position,Normal,IncomingVelocity,PoolRadius);
++    MulticastImpact(Contact,IncomingVelocity,true);
+@@ -142,0 +149,7 @@
++    NetworkPresentation.PoolStarted=GetWorld()->GetTimeSeconds();
++    BuildPoolVisual(Position,Normal);PublishPresentation();ForceNetUpdate();
++    SetLifeSpan(6.65f);
++}
++void AWitchProjectile::BuildPoolVisual(const FVector& Position,const FVector& Normal)
++{
++    if(PoolSurface)return;
+@@ -157 +170 @@
+-        Material->SetScalarParameterValue(TEXT("PoolStartTime"),GetWorld()->GetTimeSeconds());
++        Material->SetScalarParameterValue(TEXT("PoolStartTime"),GetWorld()->GetTimeSeconds()-Age);
+@@ -163,2 +176 @@
+-    // Six seconds of damage, then a cosmetic-only drying tail.
+-    SetLifeSpan(6.65f);
++    // Lifetime is owned by the authority; late joins use the original start time.
+@@ -220 +232 @@
+-    if(Changed)PushPoolFootprint(); // Publish the same values damage uses, in the same frame.
++    if(Changed){PushPoolFootprint();NetworkPresentation.Reach.Reset();NetworkPresentation.Reach.Append(PoolReach,16);} // Publish the same values damage uses, in the same frame.
+@@ -260 +272,16 @@
+-    Super::Tick(Delta); if (!HasAuthority()) return;
++    Super::Tick(Delta);
++    if(!HasAuthority())
++    {
++        const FVector Now=GetActorLocation();if(!bHasVisualLocation){LastVisualLocation=Now;bHasVisualLocation=true;}
++        if(!bPool&&!bBottle)UpdateLiquidVisual(Delta,LastVisualLocation,Now);
++        if(bPool)
++        {
++            const auto* GS=GetWorld()->GetGameState();Age=FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())-NetworkPresentation.PoolStarted);
++            if(Age>=NextPoolVapor&&Age<5.8f)
++            {
++                if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddPoolVapor(GetActorLocation(),PoolSlope,0);
++                NextPoolVapor=Age+.7f;
++            }
++        }
++        LastVisualLocation=Now;return;
++    }
+@@ -326 +353 @@
+-            if (auto* FX = GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>()) FX->AddImpact(*First, Velocity);
++            MulticastImpact(*First,Velocity,false);
+@@ -337,0 +365,32 @@
++
++void AWitchProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWitchProjectile,NetworkPresentation);}
++void AWitchProjectile::PublishPresentation()
++{
++    NetworkPresentation.Mesh=Visual->GetStaticMesh();NetworkPresentation.Materials.Reset();
++    for(int32 I=0;I<Visual->GetNumMaterials();++I)NetworkPresentation.Materials.Add(Visual->GetMaterial(I));
++    NetworkPresentation.VisualTransform=Visual->GetRelativeTransform();NetworkPresentation.Bottle=bBottle;
++    NetworkPresentation.Pool=bPool;NetworkPresentation.Radius=PoolRadius;NetworkPresentation.Phase=LiquidPhase;
++    NetworkPresentation.Velocity=Velocity;NetworkPresentation.Normal=PoolSlope;NetworkPresentation.Point=GetActorLocation();
++    if(bPool){NetworkPresentation.Reach.Reset();NetworkPresentation.Reach.Append(PoolReach,16);}
++}
++void AWitchProjectile::OnRep_Presentation()
++{
++    bBottle=NetworkPresentation.Bottle;bPool=NetworkPresentation.Pool;PoolRadius=NetworkPresentation.Radius;
++    LiquidPhase=NetworkPresentation.Phase;Velocity=NetworkPresentation.Velocity;PoolSlope=NetworkPresentation.Normal;
++    Visual->SetStaticMesh(NetworkPresentation.Mesh);Visual->SetRelativeTransform(NetworkPresentation.VisualTransform);
++    for(int32 I=0;I<NetworkPresentation.Materials.Num();++I)Visual->SetMaterial(I,NetworkPresentation.Materials[I]);
++    Visual->SetVisibility(!bPool,true);LiquidCore->SetVisibility(!bBottle&&!bPool);
++    if(bPool)
++    {
++        for(int32 I=0;I<16;++I)PoolReach[I]=NetworkPresentation.Reach.IsValidIndex(I)?NetworkPresentation.Reach[I]:0.f;
++        const auto* GS=GetWorld()->GetGameState();Age=FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())-NetworkPresentation.PoolStarted);
++        SetActorLocation(NetworkPresentation.Point);BuildPoolVisual(NetworkPresentation.Point-PoolSlope*2.f,PoolSlope);PushPoolFootprint();
++    }
++}
++void AWitchProjectile::MulticastImpact_Implementation(const FHitResult& Hit,FVector_NetQuantize Incoming,bool BottleImpact)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())
++    {if(BottleImpact)FX->AddBottleImpact(Hit.ImpactPoint,Hit.ImpactNormal,Incoming,PoolRadius);else FX->AddImpact(Hit,Incoming);}
++}
+diff --git a/Source/FPSGAME/Monsters/WolfMonster.cpp b/Source/FPSGAME/Monsters/WolfMonster.cpp
+--- a/Source/FPSGAME/Monsters/WolfMonster.cpp
++++ b/Source/FPSGAME/Monsters/WolfMonster.cpp
+@@ -1,0 +2,2 @@
++#include "GameFramework/GameStateBase.h"
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -37 +39 @@
+-    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
++    Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
+@@ -92 +94 @@
+-    Home = GetActorLocation(); MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier()); Health = FMath::Max(1.f, MaxHealth); // 全局生命成长层；归巢回血读取的也是放大后的 MaxHealth
++    Home = GetActorLocation(); if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier()); Health = FMath::Max(1.f, MaxHealth);} // 全局生命成长层；归巢回血读取的也是放大后的 MaxHealth
+@@ -104 +106 @@
+-    EnterState(EWolfState::Idle);
++    EnterState(HasAuthority()?EWolfState::Idle:State);
+@@ -183,2 +185,3 @@
+-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+-    DOREPLIFETIME(AWolfMonster, State);
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AWolfMonster,NetworkStateStarted);
++    DOREPLIFETIME(AWolfMonster,Health);DOREPLIFETIME(AWolfMonster,MaxHealth);
++    DOREPLIFETIME(AWolfMonster, State);DOREPLIFETIME(AWolfMonster,ActivePounceFlightSeconds);
+@@ -193,0 +197 @@
++    if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
+@@ -420,0 +425,15 @@
++        const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
++        if(State==EWolfState::Howl)SampleAction(TEXT("Howl"),FMath::Min(StateSeconds,ClipLength(TEXT("Howl"))));
++        if(State==EWolfState::Bite||State==EWolfState::Pounce)
++        {
++            const FName Action=State==EWolfState::Pounce?TEXT("AttackPounce"):TEXT("AttackBite");
++            const float Windup=State==EWolfState::Pounce?PounceWindup:BiteWindup;
++            if(StateSeconds>=Windup)
++            {
++                if(!bAttackAnimationStarted){bAttackAnimationStarted=true;if(auto* Anim=Animation())Anim->PlayTemplateAction(Action,true);}
++                float T=StateSeconds-Windup;
++                if(State==EWolfState::Pounce&&ActivePounceFlightSeconds>0.f&&T>PounceTravelStart)
++                {const float Flight=T-PounceTravelStart;T=Flight<ActivePounceFlightSeconds?PounceTravelStart+Flight/ActivePounceFlightSeconds*(PounceTravelEnd-PounceTravelStart):PounceTravelEnd+Flight-ActivePounceFlightSeconds;}
++                SampleAction(Action,FMath::Min(T,ClipLength(Action)));
++            }
++        }
+@@ -535,3 +554 @@
+-    if (auto* Player = Cast<APlayerController>(Killer))
+-        if (Player->IsLocalController() && GetGameInstance())
+-            GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this, ExperienceReward);
++    ColdSteelSkills::AwardKillByOwner(GetGameInstance(),Killer,this,ExperienceReward);
+diff --git a/Source/FPSGAME/Monsters/WolfMonster.h b/Source/FPSGAME/Monsters/WolfMonster.h
+--- a/Source/FPSGAME/Monsters/WolfMonster.h
++++ b/Source/FPSGAME/Monsters/WolfMonster.h
+@@ -34 +34 @@
+-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MaxHealth = 220.f;
++    UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MaxHealth = 220.f;
+@@ -80 +80 @@
+-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float Health = 220.f;
++    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Wolf") float Health = 220.f;
+@@ -121 +121,2 @@
+-    UFUNCTION() void OnRep_State();
++    UPROPERTY(Replicated) double NetworkStateStarted=0.;
++ UFUNCTION() void OnRep_State();
+@@ -143 +144 @@
+-    float ActivePounceFlightSeconds = 0.f;
++    UPROPERTY(Replicated) float ActivePounceFlightSeconds = 0.f;
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -1,0 +2,8 @@
++#include "ColdSteelNetWorldSubsystem.h"
++#include "ColdSteelNetSessionSubsystem.h"
++#include "../Combat/ProgressiveInfectionComponent.h"
++#include "ColdSteelProfileTransfer.h"
++#include "ColdSteelProfileMerge.h"
++#include "../Building/WoodworkingQuality.h"
++#include "../UI/ColdSteelProfileRecovery.h"
++#include "../Dungeons/WardBreakableGlass.h"
+@@ -8,0 +17 @@
++#include "../Monsters/MonsterCombatComponent.h"
+@@ -13,0 +23 @@
++#include "../Skills/MagicOcclusion.h"
+@@ -31,0 +42 @@
++#include "../UI/ColdSteelCurrency.h"
+@@ -51,0 +63 @@
++#include "Engine/NetConnection.h"
+@@ -60,3 +71,0 @@
+-#include "Serialization/MemoryWriter.h"
+-#include "Serialization/MemoryReader.h"
+-#include "Serialization/ObjectAndNameAsStringProxyArchive.h"
+@@ -67,20 +76,2 @@
+-    // 与 UGameplayStatics::SaveGameToSlot 相同的序列化口径：FObjectAndNameAsStringProxyArchive + ArNoDelta。
+-    void SaveToBlob(USaveGame* Save, TArray<uint8>& OutBlob)
+-    {
+-        OutBlob.Reset();
+-        FMemoryWriter Writer(OutBlob);
+-        FObjectAndNameAsStringProxyArchive Ar(Writer, true);
+-        Ar.ArNoDelta = true;
+-        Save->Serialize(Ar);
+-    }
+-
+-    UColdSteelProfileSave* BlobToSave(const TArray<uint8>& Blob)
+-    {
+-        UColdSteelProfileSave* Save = Cast<UColdSteelProfileSave>(
+-            UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));
+-        FMemoryReader Reader(Blob);
+-        FObjectAndNameAsStringProxyArchive Ar(Reader, true);
+-        Ar.ArNoDelta = true;
+-        Save->Serialize(Ar);
+-        return Save;
+-    }
++    using ColdSteelProfileTransfer::SaveToBlob;
++    using ColdSteelProfileTransfer::BlobToSave;
+@@ -103 +94 @@
+-    DOREPLIFETIME_CONDITION(AColdSteelPlayerState, MirrorBlob, COND_OwnerOnly);
++    DOREPLIFETIME_CONDITION(AColdSteelPlayerState,SessionDoorKeys,COND_OwnerOnly);
+@@ -110,0 +102,7 @@
++    if(const auto* PC=Cast<APlayerController>(GetOwner());PC&&PC->IsLocalController())bWasLocalOwner=true;
++    TickSuper90Recovery();
++    TickContainerRefresh();
++    TickTeamTravel();
++    TickWorldNetwork(DeltaSeconds);
++    TickStations(DeltaSeconds);
++    TickWoodNetwork();
+@@ -125,7 +123,30 @@
+-        // 施法看门狗：凝聚球在外部消亡（悬停超时/世界清理）而 Phase 未落地——回收占用并退款。
+-        if (PendingCastSkill == FireballSkillId && !PendingCastOrb.IsValid())
+-        {
+-            if (ShadowModel) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, TEXT("fireball"));
+-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+-        }
+-        TickShadowMirror(DeltaSeconds);
++        if(!PendingCastSkill.IsNone())
++        {
++            const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++            const bool MissingOrb=(PendingCastSkill==FireballSkillId||PendingCastSkill==TEXT("iceSpike"))&&!PendingCastOrb.IsValid();
++            if(!Pawn||PendingCastPawn.Get()!=Pawn||(Health&&Health->IsDead())||MissingOrb)
++            {const FName Cancelled=PendingCastSkill;auto* CastPawn=PendingCastPawn.Get();CancelPendingNetworkCast();ClientCastResult(Cancelled,1,5,CastPawn,ProcessedCastSequence);}
++        }
++        if (PendingCastSkill == TEXT("blizzard"))
++        {
++            const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++            const auto* Hands=Pawn?Pawn->FindComponentByClass<UFPSFireballComponent>():nullptr;
++            const double Lifetime=35.0+(Hands?Hands->RaiseDuration+Hands->ReleaseEntryDuration+Hands->ReleaseDuration:1.55f)/FMath::Max(.1f,PendingBlizzardStats.CastSpeed);
++            if(!Pawn||(Health&&Health->IsDead())||World->GetTimeSeconds()-PendingCastAt>Lifetime)
++            {
++                if(ShadowModel)ShadowModel->RefundUnreleasedCast(PendingCastPaidMana,TEXT("blizzard"));
++                PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;
++                ClientCastResult(TEXT("blizzard"),1,5,PendingCastPawn.Get(),ProcessedCastSequence);
++            }
++        }
++        TickInventoryReply();
++        if(PendingCastSkill==TEXT("dragonBreath"))
++        {
++            const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++            if(!Pawn||(Health&&Health->IsDead())||!ShadowModel||!ShadowModel->HasEquippedStaff()||World->GetTimeSeconds()-PendingCastAt>10.)
++            {
++                if(ShadowModel)ShadowModel->RefundUnreleasedCast(PendingCastPaidMana,TEXT("dragonBreath"));
++                PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;ClientCastResult(TEXT("dragonBreath"),1,5,PendingCastPawn.Get(),ProcessedCastSequence);
++            }
++        }
++        if(InventoryReplyOutgoing.IsEmpty())TickShadowMirror(DeltaSeconds);
+@@ -139,2 +160 @@
+-                bServerDirty = false;
+-                SaveShadowToHostDisk();
++                bServerDirty = !SaveShadowToHostDisk();
+@@ -145,0 +166 @@
++        if(bMirrorReady)OnRep_MirrorBlob();
+@@ -243,0 +265,10 @@
++void AColdSteelPlayerState::InitializeHostSession()
++{
++    const auto* PC=Cast<APlayerController>(GetOwner());
++    if(!HasAuthority()||!PC||!PC->IsLocalController())return;
++    if(const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())BoundProfileId=Model->Snapshot().NetworkProfileId;
++    if(const auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())
++        for(FName Key:Session->RestoreGuestKeys(BoundProfileId))SessionDoorKeys.AddUnique(Key);
++    ForceNetUpdate();
++}
++
+@@ -249,13 +280,55 @@
+-    // 客人档案的载回兜底：上传因故没到，也能用主机磁盘里的旧档开局（单机档案文件名制）。
+-    if (USaveGame* Loaded = UGameplayStatics::LoadGameFromSlot(SlotName, 0))
+-    {
+-        if (UColdSteelProfileSave* Save = Cast<UColdSteelProfileSave>(Loaded))
+-        {
+-            UE_LOG(LogTemp, Warning, TEXT("MPTEST guest slot found on host disk: %s"), *SlotName);
+-            ApplyGuestProfile(Save->Profile);
+-        }
+-    }
+-}
+-
+-void AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProfile)
+-{
++    // Wait for the saved profile identity before loading a host-side guest slot.
++    // PIE display names are temporary and can otherwise bind another client's save.
++}
++
++bool AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProfile)
++{
++    if(GuestProfile.NetworkProfileId.IsValid())
++    {
++        if(BoundProfileId.IsValid()&&BoundProfileId!=GuestProfile.NetworkProfileId)return false;
++        if(!BoundProfileId.IsValid())
++        {
++            // One live player per durable profile. Otherwise two shadow models overwrite one save slot.
++            for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)
++            {
++                if(*It==this||It->IsActorBeingDestroyed())continue;
++                const auto* OtherPC=Cast<APlayerController>(It->GetOwner());
++                if(!OtherPC||OtherPC->PlayerState!=*It)continue;
++                FGuid OtherId=It->BoundProfileId;
++                if(OtherPC->IsLocalController())
++                    if(const auto* Host=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())OtherId=Host->Snapshot().NetworkProfileId;
++                if(OtherId==GuestProfile.NetworkProfileId)
++                {ClientProfileSyncRejected(TEXT("此角色档案已被房间内另一名玩家使用，请切换档案后重新加入"));return false;}
++            }
++            BoundProfileId=GuestProfile.NetworkProfileId;
++            if(const auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())
++                for(FName Key:Session->RestoreGuestKeys(BoundProfileId))SessionDoorKeys.AddUnique(Key);
++            SlotName=TEXT("ColdSteelMP_Profile_")+BoundProfileId.ToString(EGuidFormats::Digits);
++            // Null-subsystem PIE player names change on reconnect. Bind durable
++            // receipts to the isolated saved profile, never that temporary name.
++            if(ShadowModel&&ShadowModel->Snapshot().NetworkProfileId!=BoundProfileId)ShadowModel=nullptr;
++            auto* Session=GetGameInstance()->GetSubsystem<UColdSteelNetSessionSubsystem>();
++            if(auto* Cached=Session?Session->RestoreGuestProfile(GetWorld(),BoundProfileId):nullptr)
++            {
++                // Never discard the last live state merely because logout could not write it.
++                if(Cached->HasUnconfirmedTransactionSave())
++                {BoundProfileId.Invalidate();ClientProfileSyncRejected(TEXT("此档案的交易保存结果待恢复，请主机保留存档并重启后再加入"));return false;}
++                ShadowModel=Cached;bRestoreGuestAmmo=true;
++                // Restore the saved resources before the upload merge reads the new pawn's components.
++                ApplyShadowToServerPawn();
++            }
++            else if(UGameplayStatics::DoesSaveGameExist(SlotName,0))
++            {
++                auto* Stored=Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromSlot(SlotName,0));
++                if(!Stored||Stored->Profile.NetworkProfileId!=BoundProfileId)
++                {
++                    // An existing unreadable/mismatched host slot is evidence, not a new guest.
++                    BoundProfileId.Invalidate();ClientProfileSyncRejected(TEXT("主机已有客机档案无法读取或身份不符，已保留文件，未用上传档案覆盖"));return false;
++                }
++                if(!ApplyGuestProfile(Stored->Profile)){BoundProfileId.Invalidate();return false;}
++                bRestoreGuestAmmo=ShadowModel!=nullptr;
++            }
++        }
++    }
++    if(ShadowModel&&ShadowModel->HasUnconfirmedTransactionSave())
++    {ClientProfileSyncRejected(TEXT("交易保存结果待恢复，已停止覆盖主机档案"));return false;}
+@@ -264 +337 @@
+-    if (!HostModel) return;
++    if (!HostModel) return false;
+@@ -269 +342 @@
+-        ServerPointsBaseline = GuestProfile.Points; // 差分基线对齐首个采纳值
++        if(!ShadowModel)return false;
+@@ -275,3 +348,2 @@
+-        // 双写收口：库存/装备客户端权威；修行字段两边都可能合法增长
+-        // （服务端击杀/训练授予 vs 客户端装填经验等本地结算）——取单调 max 合并，
+-        // 任一侧的增量都不会被对方旧快照回滚。
++        // Preserve server transactions; merge progression as coherent level/XP
++        // pairs and cumulative attribute entitlement. Repeated uploads are idempotent.
+@@ -280 +352,20 @@
+-        if(!RebaseSuper90Upload(Adopted,Prev)){SendSuper90Ammo(true);return;}
++        Adopted.Health=Prev.Health;
++        // Uploads carry inventory intent, not authority health. An old upload
++        // must neither heal a wounded pawn nor revive a pawn awaiting respawn.
++        if(const auto* Pawn=GetPawn())
++            if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Adopted.Health=Health->Health;
++        const bool KeepServerPouch=bRestoreGuestAmmo||Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision;
++        if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision)
++        {
++            Adopted.Items=Prev.Items;
++            Adopted.ActiveWeaponSlot=Prev.ActiveWeaponSlot;Adopted.ActiveProductionTool=Prev.ActiveProductionTool;
++            Adopted.AmmoPouch=Prev.AmmoPouch;
++            Adopted.Mana=Prev.Mana;Adopted.Stamina=Prev.Stamina;
++            Adopted.CampfireInventoryRevision=Prev.CampfireInventoryRevision;
++        }
++        ColdSteelProfileRecovery::NetworkSpells(Adopted,Prev);
++        ColdSteelProfileRecovery::MartialCooldowns(Adopted,Prev);
++        Adopted.CampfireWorldReceipts=Prev.CampfireWorldReceipts;
++        Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.WoodworkingJob=Prev.WoodworkingJob;Adopted.DungeonRun=Prev.DungeonRun;
++        ColdSteelWoodQuality::PreserveAuthoritative(Adopted.Items,Prev.Items);
++        if(!RebaseSuper90Upload(Adopted,Prev,KeepServerPouch)){SendSuper90Ammo(true);return false;}
+@@ -282,0 +374,2 @@
++        bool CurrencyChanged=false;FString CurrencyReason;
++        if(!ColdSteelCurrency::Normalize(Adopted,CurrencyChanged,CurrencyReason) || !ColdSteelCurrency::MergeServerCredits(Adopted,Prev))return false;
+@@ -283,0 +377,2 @@
++        Adopted.Infection=Prev.Infection;
++        if(const auto* Pawn=GetPawn())if(const auto* I=Pawn->FindComponentByClass<UProgressiveInfectionComponent>())Adopted.Infection=I->GetState();
+@@ -287,15 +382,10 @@
+-        Adopted.Level      = FMath::Max(Adopted.Level, Prev.Level);
+-        Adopted.Experience = FMath::Max(Adopted.Experience, Prev.Experience);
+-        Adopted.Kills      = FMath::Max(Adopted.Kills, Prev.Kills);
+-        // Points 有双向合法写：服务端升级授予(+)与客户端属性花费(-)。
+-        // 基线差分：只把"自上次采纳以来服务端授予的增量"加回客户端申报值——
+-        // 既不丢服务端授予，也不回滚客户端花费（纯 max 会把花费回滚成免费加点）。
+-        const int32 ServerGranted = FMath::Max(0, Prev.Points - ServerPointsBaseline);
+-        Adopted.Points = FMath::Max(0, Adopted.Points + ServerGranted);
+-        ServerPointsBaseline = Adopted.Points;
+-        for (const auto& Pair : Prev.Skills)
+-        {
+-            FColdSteelSkillProgress& S = Adopted.Skills.FindOrAdd(Pair.Key);
+-            S.Level = FMath::Max(S.Level, Pair.Value.Level);
+-            S.Experience = FMath::Max(S.Experience, Pair.Value.Experience);
+-        }
++        ColdSteelProfileMerge::Progression(Adopted,Prev);
++        ColdSteelProfileMerge::OfferingUsage(Adopted,Prev);
++        if(const auto* Pawn=GetPawn())
++            if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())
++            {
++                const float Maximum=float(UColdSteelStatusModel::ResourceMaximum(Adopted,false));
++                // Equipment/attribute growth preserves missing HP, exactly as
++                // local PersistState does, without trusting uploaded health.
++                Adopted.Health=Health->IsDead()?0.f:FMath::Clamp(Health->Health+Maximum-Health->MaxHealth,0.f,Maximum);
++            }
+@@ -303,0 +394 @@
++    bRestoreGuestAmmo=false;
+@@ -307,0 +399,12 @@
++    return true;
++}
++
++void AColdSteelPlayerState::GrantSessionDoorKey(FName Key)
++{
++    if(!HasAuthority()||Key.IsNone())return;
++    SessionDoorKeys.AddUnique(Key);ForceNetUpdate();
++    if(auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())Session->RememberGuestKeys(BoundProfileId,SessionDoorKeys);
++}
++void AColdSteelPlayerState::ClientProfileSyncRejected_Implementation(const FString& Reason)
++{
++    if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->PostNotice(TEXT("角色档案未接入"),Reason);
+@@ -318,2 +421,9 @@
+-    ShadowModel->AttachPawn(Character);
+-    Character->ApplyColdSteelProfile(ShadowModel);
++    if(ShadowModel->RuntimePawn()!=Character)
++    {
++        ShadowModel->AttachPawn(Character);
++        // An unfinished download belongs to the old pawn. Publish the new life promptly.
++        PendingMirrorBlob.Reset();LastMirrorBlob.Reset();ShadowMirrorTimer=3.f;
++        WoodOutgoing.Reset();bWoodDirty=bStationDirty=true;
++        Super90Reload.Active=false;SendSuper90Ammo();
++    }
++    else Character->ApplyColdSteelProfile(ShadowModel);
+@@ -320,0 +431 @@
++    InitializeStations(ShadowModel);
+@@ -324,3 +435,4 @@
+-void AColdSteelPlayerState::SaveShadowToHostDisk()
+-{
+-    if (!ShadowModel || SlotName.IsEmpty()) return;
++bool AColdSteelPlayerState::SaveShadowToHostDisk()
++{
++    if (!ShadowModel || SlotName.IsEmpty() || ShadowModel->HasUnconfirmedTransactionSave()) return false;
++    ShadowModel->SyncRuntime();
+@@ -334 +446,4 @@
+-    }
++        return true;
++    }
++    UE_LOG(LogTemp,Error,TEXT("Guest profile save failed: %s"),*SlotName);
++    return false;
+@@ -339 +454 @@
+-    if (!ShadowModel) return;
++    if (!ShadowModel || !GetPawn() || ShadowModel->RuntimePawn()!=GetPawn()) return;
+@@ -341,11 +456,61 @@
+-    if (ShadowMirrorTimer < 3.f) return;
+-    ShadowMirrorTimer = 0.f;
+-    UColdSteelProfileSave* Save = Cast<UColdSteelProfileSave>(
+-        UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));
+-    Save->Profile = ShadowModel->Snapshot();
+-    TArray<uint8> Blob;
+-    SaveToBlob(Save, Blob);
+-    // 服务端没写过影子（与客人上行一致）或镜像没变 → 不重复下发。
+-    if (Blob == LastAppliedBlob || Blob == LastMirrorBlob) return;
+-    LastMirrorBlob = Blob;
+-    MirrorBlob = Blob;
++    if (PendingMirrorBlob.IsEmpty())
++    {
++        if (ShadowMirrorTimer < 3.f) return;
++        ShadowMirrorTimer = 0.f;
++        auto* Save = NewObject<UColdSteelProfileSave>();
++        Save->Profile = ShadowModel->Snapshot();
++        TArray<uint8> Blob;
++        if (!SaveToBlob(Save, Blob) || Blob == LastAppliedBlob || Blob == LastMirrorBlob) return;
++        PendingMirrorBlob = MoveTemp(Blob);
++        PendingMirrorPawn=GetPawn();PendingMirrorCastSequence=ProcessedCastSequence;
++        const auto* GS=GetWorld()->GetGameState();
++        PendingMirrorCapturedAt=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        NextMirrorChunk = 0;
++        ++MirrorTransferId;
++        if (!MirrorTransferId) ++MirrorTransferId;
++    }
++
++    // A replicated TArray adds per-element delta headers: even a compressed
++    // 57 KB profile exceeded the engine's 64 KB bunch limit. Send bounded RPCs.
++    auto* PC = Cast<APlayerController>(GetOwner());
++    UNetConnection* Connection = PC ? PC->GetNetConnection() : nullptr;
++    if (!Connection || !Connection->IsNetReady()) return;
++    const double Now = GetWorld()->GetRealTimeSeconds();
++    const double BytesPerSecond = FMath::Min(16.0 * 1024.0, double(Connection->CurrentNetSpeed) * .2);
++    if (BytesPerSecond <= 0.0 || Now - LastMirrorChunkAt < (ProfileChunkSize + 256.0) / BytesPerSecond) return;
++    const int32 Total = FMath::DivideAndRoundUp(PendingMirrorBlob.Num(), ProfileChunkSize);
++    const int32 Start = NextMirrorChunk * ProfileChunkSize;
++    TArray<uint8> Chunk;
++    Chunk.Append(PendingMirrorBlob.GetData() + Start, FMath::Min(ProfileChunkSize, PendingMirrorBlob.Num() - Start));
++    ClientReceiveProfileChunk(MirrorTransferId, NextMirrorChunk, Total, Chunk,PendingMirrorPawn.Get(),PendingMirrorCastSequence,PendingMirrorCapturedAt);
++    LastMirrorChunkAt = Now;
++    if (++NextMirrorChunk == Total)
++    {
++        LastMirrorBlob = MoveTemp(PendingMirrorBlob);
++        PendingMirrorBlob.Reset();
++    }
++}
++
++void AColdSteelPlayerState::ClientReceiveProfileChunk_Implementation(uint32 TransferId, int32 ChunkIndex,
++    int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt)
++{
++    const auto* PC = Cast<APlayerController>(GetOwner());
++    if (!PC || !PC->IsLocalController() || TotalChunks <= 0 || TotalChunks > ColdSteelProfileTransfer::MaxChunks ||
++        ChunkIndex < 0 || ChunkIndex >= TotalChunks || Chunk.IsEmpty() || Chunk.Num() > ProfileChunkSize) return;
++    if (ChunkIndex == 0)
++    {
++        ReceivingMirrorId = TransferId;
++        ReceivingMirrorTotal = TotalChunks;
++        ReceivingMirrorPawn=SourcePawn;bMirrorReady=false;
++        ReceivingMirrorCastSequence=CastSequence;ReceivingMirrorCapturedAt=CapturedAt;
++        MirrorBlob.Reset();
++    }
++    if (TransferId != ReceivingMirrorId || TotalChunks != ReceivingMirrorTotal || ReceivingMirrorPawn.Get()!=SourcePawn ||
++        ChunkIndex * ProfileChunkSize != MirrorBlob.Num()) return;
++    MirrorBlob.Append(Chunk);
++    if (ChunkIndex + 1 == TotalChunks)
++    {
++        bMirrorReady=true;
++        ReceivingMirrorTotal = 0;
++        OnRep_MirrorBlob();
++    }
+@@ -387,0 +553,2 @@
++    P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
++    P.bDragonBreathReserved=false;
+@@ -390,0 +558 @@
++    P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};
+@@ -398,0 +567,9 @@
++void AColdSteelPlayerState::AcknowledgeInventoryProfile()
++{
++    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!M)return;
++    if(!ScratchSave)ScratchSave=NewObject<UColdSteelProfileSave>();
++    ScratchSave->Profile=M->Snapshot();ConfirmedSouls=ScratchSave->Profile.Souls;ConfirmedSoulCredits=ScratchSave->Profile.ServerSoulCredits;ConfirmedSoulDebits=ScratchSave->Profile.ServerSoulDebits;
++    if(!SaveToBlob(ScratchSave,LastSentBlob))return;
++    NormalizeProfileForCompare(ScratchSave->Profile);if(!SaveToBlob(ScratchSave,LastSentNormBlob))return;
++    bHasLastSent=true;LastUploadAt=GetWorld()->GetRealTimeSeconds();HeartbeatTimer=2.f;
++}
+@@ -402 +579,4 @@
+-    if (!PC || !PC->IsLocalController()) return;
++    if (!PC || !PC->IsLocalController() || !PC->GetPawn()) return;
++    if(const auto* Health=PC->GetPawn()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
++    if(bInventoryRequestPending&&!bInventoryWaitingUpload)return;
++    if(bCampfirePending&&!bCampfireWaitingUpload)return;
+@@ -409 +589 @@
+-    if (HeartbeatTimer <= 0.f)
++    if (HeartbeatTimer <= 0.f&&!bCampfirePending&&!bInventoryRequestPending&&PendingUpload.IsEmpty())
+@@ -413 +593 @@
+-        if (const UColdSteelStatusModel* Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr)
++        if (UColdSteelStatusModel* Model = GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr)
+@@ -419,0 +600,2 @@
++            if(Model->RuntimePawn()!=PC->GetPawn())return;
++            Model->SyncRuntime();
+@@ -422 +604,5 @@
+-            SaveToBlob(ScratchSave, Blob);
++            if (!SaveToBlob(ScratchSave, Blob))
++            {
++                UE_LOG(LogTemp, Warning, TEXT("ProfileTransfer: profile exceeds compressed upload capacity"));
++                return;
++            }
+@@ -427 +613 @@
+-            SaveToBlob(ScratchSave, NormBlob);
++            if (!SaveToBlob(ScratchSave, NormBlob)) return;
+@@ -429 +615 @@
+-            const double Now = GetWorld()->GetTimeSeconds();
++            const double Now = GetWorld()->GetRealTimeSeconds();
+@@ -437,0 +624 @@
++                PendingUploadPawn=PC->GetPawn();
+@@ -448 +635,2 @@
+-    // 限速分片上行：每 tick ≤2 片（1KB），避免灌爆 reliable 窗口。
++    // Reliable profile traffic shares the connection with unreliable ServerMove.
++    // Pace by real time and negotiated bandwidth, with no catch-up burst after a stall.
+@@ -451,2 +639,6 @@
+-        int32 SentThisTick = 0;
+-        while (NextChunkIndex < PendingTotalChunks && SentThisTick < 2)
++        UNetConnection* Connection = PC->GetNetConnection();
++        if (!Connection || !Connection->IsNetReady()) return;
++        const double Now = GetWorld()->GetRealTimeSeconds();
++        const double BytesPerSecond = FMath::Min(16.0 * 1024.0, double(Connection->CurrentNetSpeed) * .2);
++        if (BytesPerSecond <= 0.0 || Now - LastUploadAt < (ProfileChunkSize + 256.0) / BytesPerSecond) return;
++        if (NextChunkIndex < PendingTotalChunks)
+@@ -458 +650 @@
+-            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision);
++            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision,PendingUploadPawn.Get());
+@@ -460 +652 @@
+-            ++SentThisTick;
++            LastUploadAt = Now;
+@@ -467 +659 @@
+-            LastUploadAt = GetWorld()->GetTimeSeconds();
++            LastUploadAt = Now;
+@@ -469,2 +661,12 @@
+-        }
+-    }
++            DispatchCampfireAfterUpload();
++            DispatchInventoryAfterUpload();
++        }
++    }
++}
++
++void AColdSteelPlayerState::ClientRetryProfileUpload_Implementation(int32 UploadId)
++{
++    // The client keeps its local inventory intent and captures it again on the new pawn.
++    // Do not cancel a newer upload that already superseded the rejected one.
++    if(UploadId!=PendingUploadId)return;
++    PendingUpload.Reset();PendingNormBlob.Reset();bHasLastSent=false;HeartbeatTimer=0.f;
+@@ -474,0 +677,4 @@
++    if(!bMirrorReady)return;
++    if(!ReceivingMirrorPawn.IsValid()){bMirrorReady=false;MirrorBlob.Reset();return;}
++    // The actor may arrive before possession/profile attachment. Defer until both are ready.
++    if(ReceivingMirrorPawn.Get()!=GetPawn())return;
+@@ -480,2 +686,6 @@
+-    UColdSteelProfileSave* Save = Model && MirrorBlob.Num() > 0 ? BlobToSave(MirrorBlob) : nullptr;
+-    if (!Model || !Save) return;
++    if(!Model||Model->RuntimePawn()!=ReceivingMirrorPawn.Get())return;
++    UColdSteelProfileSave* Save = MirrorBlob.Num() > 0 ? BlobToSave(MirrorBlob) : nullptr;
++    bMirrorReady=false;
++    if (!Save){MirrorBlob.Reset();return;}
++    // A paced older mirror can finish after an immediate item receipt.
++    // Never let it restore consumed items or undo a completed transaction.
+@@ -482,0 +693,54 @@
++    const auto CurrentInventory=Model->Snapshot();
++    // Bindings belong to the local profile, including deliberate clearing/reordering.
++    Save->Profile.QuickBarVersion=CurrentInventory.QuickBarVersion;
++    Save->Profile.QuickBindings=CurrentInventory.QuickBindings;
++    Save->Profile.Hotbar=CurrentInventory.Hotbar;Save->Profile.HotbarDefinitions=CurrentInventory.HotbarDefinitions;
++    Save->Profile.bQuickCombatReserved=CurrentInventory.bQuickCombatReserved;
++    Save->Profile.QuickCombatCooldown=CurrentInventory.QuickCombatCooldown;
++    Save->Profile.QuickCombatCooldownDuration=CurrentInventory.QuickCombatCooldownDuration;
++    // A slow full mirror is not a new owner-side shot or magazine reload.
++    if(Save->Profile.CampfireInventoryRevision==CurrentInventory.CampfireInventoryRevision)
++        Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
++    for(auto& I:Save->Profile.Items)
++        if(const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==I.InstanceId;}))
++        ColdSteelProfileRecovery::LoadedAmmo(I,*Local);
++    for(const auto& Item:CurrentInventory.Items)if(Item.Container.StartsWith(TEXT("NetView.")))Save->Profile.Items.Add(Item);
++    for(const auto& Page:CurrentInventory.StoragePages)if(Page.Key.StartsWith(TEXT("NetView.")))Save->Profile.StoragePages.Add(Page.Key,Page.Value);
++    if(bInventoryRequestPending||Save->Profile.CampfireInventoryRevision<CurrentInventory.CampfireInventoryRevision)
++    {
++        Save->Profile.Items=CurrentInventory.Items;
++        Save->Profile.ActiveWeaponSlot=CurrentInventory.ActiveWeaponSlot;Save->Profile.ActiveProductionTool=CurrentInventory.ActiveProductionTool;
++        Save->Profile.ForgeJob=CurrentInventory.ForgeJob;Save->Profile.GunAssemblyJob=CurrentInventory.GunAssemblyJob;
++        Save->Profile.WoodworkingJob=CurrentInventory.WoodworkingJob;Save->Profile.DungeonRun=CurrentInventory.DungeonRun;
++        Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
++        Save->Profile.CampfireInventoryRevision=CurrentInventory.CampfireInventoryRevision;
++        Save->Profile.CampfireWorldReceipts=CurrentInventory.CampfireWorldReceipts;
++        Save->Profile.Health=CurrentInventory.Health;Save->Profile.Mana=CurrentInventory.Mana;
++        Save->Profile.Stamina=CurrentInventory.Stamina;Save->Profile.Survival=CurrentInventory.Survival;
++    }
++    Model->SyncRuntime();
++    ColdSteelProfileRecovery::StationProgress(Save->Profile,CurrentInventory);
++    // A newer local cast must keep its prediction until this snapshot acknowledges it.
++    if(ReceivingMirrorCastSequence==LocalCastSequence)
++    {
++        const auto* GS=GetWorld()->GetGameState();
++        const double Now=GS?GS->GetServerWorldTimeSeconds():ReceivingMirrorCapturedAt;
++        ColdSteelProfileRecovery::NetworkSpells(Save->Profile,Save->Profile,float(FMath::Max(0.,Now-ReceivingMirrorCapturedAt)));
++    }
++    else ColdSteelProfileRecovery::NetworkSpells(Save->Profile,Model->Snapshot());
++
++    const auto* MartialGS=GetWorld()->GetGameState();
++    const float MartialAge=MartialGS?float(FMath::Max(0.,MartialGS->GetServerWorldTimeSeconds()-ReceivingMirrorCapturedAt)):0.f;
++    auto MartialState=Model->Snapshot();ColdSteelProfileRecovery::MartialCooldowns(MartialState,Save->Profile,MartialAge);
++    Save->Profile.MartialCooldownRevision=MartialState.MartialCooldownRevision;
++    Save->Profile.WhirlwindCooldown=MartialState.WhirlwindCooldown;Save->Profile.WhirlwindCooldownDuration=MartialState.WhirlwindCooldownDuration;
++    Save->Profile.SwordUppercutCooldown=MartialState.SwordUppercutCooldown;Save->Profile.SwordUppercutCooldownDuration=MartialState.SwordUppercutCooldownDuration;
++
++    auto CurrencyState=Model->Snapshot();
++    if(!ColdSteelCurrency::MergeServerCredits(CurrencyState,Save->Profile))return;
++    Save->Profile.Souls=CurrencyState.Souls;
++    Save->Profile.ServerSoulCredits=CurrencyState.ServerSoulCredits;
++    Save->Profile.ServerSoulDebits=CurrencyState.ServerSoulDebits;
++    Save->Profile.SoulCurrencyVersion=CurrencyState.SoulCurrencyVersion;
++    ColdSteelProfileMerge::Progression(Save->Profile,CurrencyState);
++    ColdSteelProfileMerge::OfferingUsage(Save->Profile,CurrencyState);
+@@ -498 +762,2 @@
+-    if (bLocalClean&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
++    const bool bCampfireInventoryChanged=Save->Profile.CampfireInventoryRevision!=Model->Snapshot().CampfireInventoryRevision;
++    if (bLocalClean&&!bInventoryRequestPending&&!bCampfireInventoryChanged&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())
+@@ -501 +766 @@
+-        Model->AdoptNetMirror(Save->Profile);
++        Model->AdoptNetMirror(Save->Profile,true);
+@@ -505,0 +771,13 @@
++        if(bCampfireInventoryChanged)
++        {
++            auto ServerItems=Save->Profile.Items;
++            // Campfire materials never modify loaded ammunition. Preserve firing since upload.
++            for(auto& I:ServerItems)if(const auto* Local=Merged.Items.FindByPredicate([&](const auto& E){return E.InstanceId==I.InstanceId;}))
++            ColdSteelProfileRecovery::LoadedAmmo(I,*Local);
++            Merged.Items=MoveTemp(ServerItems);Merged.CampfireInventoryRevision=Save->Profile.CampfireInventoryRevision;
++            Merged.ActiveWeaponSlot=Save->Profile.ActiveWeaponSlot;Merged.ActiveProductionTool=Save->Profile.ActiveProductionTool;
++            Merged.AmmoPouch=Save->Profile.AmmoPouch;
++            Merged.CampfireWorldReceipts=Save->Profile.CampfireWorldReceipts;
++        }
++        ColdSteelProfileRecovery::NetworkSpells(Merged,Save->Profile);
++        ColdSteelProfileRecovery::MartialCooldowns(Merged,Save->Profile);
+@@ -506,0 +785,9 @@
++        Merged.Souls=CurrencyState.Souls;
++        Merged.ServerSoulCredits=CurrencyState.ServerSoulCredits;
++        Merged.ServerSoulDebits=CurrencyState.ServerSoulDebits;
++        Merged.SoulCurrencyVersion=CurrencyState.SoulCurrencyVersion;
++        if(!bInventoryRequestPending&&Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
++        {
++            Merged.ForgeJob=Save->Profile.ForgeJob;Merged.GunAssemblyJob=Save->Profile.GunAssemblyJob;Merged.WoodworkingJob=Save->Profile.WoodworkingJob;Merged.DungeonRun=Save->Profile.DungeonRun;
++            ColdSteelWoodQuality::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
++        }
+@@ -508,5 +795,2 @@
+-        Merged.Level = Save->Profile.Level;
+-        Merged.Experience = Save->Profile.Experience;
+-        Merged.Points = Save->Profile.Points;
+-        Merged.Kills = Save->Profile.Kills;
+-        Merged.Skills = Save->Profile.Skills;
++        ColdSteelProfileMerge::Progression(Merged,Save->Profile);
++        ColdSteelProfileMerge::OfferingUsage(Merged,Save->Profile);
+@@ -514,2 +798,9 @@
+-        Model->AdoptNetMirror(Merged);
+-    }
++        Model->AdoptNetMirror(Merged,true);
++    }
++    if(bCampfireInventoryChanged)
++        if(auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn()))Pawn->ApplyColdSteelProfile(Model);
++    if(bCampfireInventoryChanged||
++        !FColdSteelForgeJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.ForgeJob,&Save->Profile.ForgeJob,0)||
++        !FColdSteelGunAssemblyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.GunAssemblyJob,&Save->Profile.GunAssemblyJob,0)||
++        !FColdSteelWoodworkingJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.WoodworkingJob,&Save->Profile.WoodworkingJob,0))
++        Model->NotifyChanged();
+@@ -517,5 +808,8 @@
+-}
+-
+-void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision)
+-{
+-    if (GetLocalRole() != ROLE_Authority || TotalChunks <= 0 || TotalChunks > 512 ||
++    TickSuper90Recovery();
++    FinishCampfireReceipt();
++    MirrorBlob.Reset();
++}
++
++void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn)
++{
++    if (GetLocalRole() != ROLE_Authority || TotalChunks <= 0 || TotalChunks > ColdSteelProfileTransfer::MaxChunks ||
+@@ -527,0 +822 @@
++        InvalidateTeamTravelReady();
+@@ -532 +827 @@
+-        IncomingSuper90Revision=AmmoRevision;
++        IncomingSuper90Revision=AmmoRevision;IncomingUploadPawn=SourcePawn;
+@@ -535 +830 @@
+-    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision)
++    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision||IncomingUploadPawn.Get()!=SourcePawn)
+@@ -547,2 +842,4 @@
+-        if (Completed == LastAppliedBlob) return;
+-        LastAppliedBlob = Completed;
++        const auto* Health=GetPawn()?GetPawn()->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
++        if(!SourcePawn||SourcePawn!=GetPawn()||(Health&&Health->IsDead()))
++        {ClientRetryProfileUpload(UploadId);return;}
++        if (Completed == LastAppliedBlob) {LastAcceptedUploadId=UploadId;SendInventoryBaseline();return;}
+@@ -552 +849 @@
+-            ApplyGuestProfile(Save->Profile);
++            if(ApplyGuestProfile(Save->Profile)){LastAcceptedUploadId=UploadId;LastAppliedBlob=MoveTemp(Completed);SendInventoryBaseline();}
+@@ -564,0 +862 @@
++    if(Report.AttackMeta&0x40){OutReason=TEXT("rift slash is server simulated");return false;}
+@@ -575,0 +874,9 @@
++    if(Report.AttackMeta&0x80)
++    {
++        if(!Report.QuickCombatSerial||Report.QuickCombatSerial!=QuickCombatServerSequence
++            ||QuickCombatPawn.Get()!=Shooter||GetWorld()->GetTimeSeconds()>QuickCombatUntil
++            ||QuickCombatTargets.Contains(Report.Target.Get()))
++        {OutReason=TEXT("quick combat not authorized or duplicate contact");return false;}
++        if(!ShadowModel->QuickCombatStats().bAreaHit&&!QuickCombatTargets.IsEmpty())
++        {OutReason=TEXT("quick combat single target");return false;}
++    }
+@@ -587,0 +895 @@
++    if(!OutDeclaredItem)if(const auto* Tool=ShadowModel->ActiveProductionTool();Tool&&Tool->Definition==Report.ItemDefinition)OutDeclaredItem=Tool;
+@@ -622,0 +931 @@
++    if(Report.AttackMeta&0x80)MaxRange=ShadowModel->QuickCombatStats().RangeCM+120.f;
+@@ -709,0 +1019,2 @@
++
++    if (Item && ColdSteelInventory::IsTwoHandedBlunt(*Item))return Panel;
+@@ -778,0 +1090,5 @@
++    if(Report.AttackMeta&0x80)
++    {
++        QuickCombatTargets.Add(Report.Target.Get());
++        Shot.ToughnessDamageMultiplier=ShadowModel->QuickCombatStats().ToughnessMultiplier;
++    }
+@@ -791 +1107,2 @@
+-    if (Report.AttackForm != 0) Shot.AttackForm = static_cast<EMonsterAttackForm>(Report.AttackForm);
++    if(Declared&&ColdSteelInventory::IsTwoHandedBlunt(*Declared))Shot.AttackForm=EMonsterAttackForm::Blunt;
++    else if (Report.AttackForm != 0) Shot.AttackForm = static_cast<EMonsterAttackForm>(Report.AttackForm);
+@@ -801,0 +1119,5 @@
++    if(Report.AttackMeta==0x15)
++    {
++        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(!Sword||!Sword->ApplyNetworkClovenAttack(Shot))return;
++    }
+@@ -822,0 +1145,16 @@
++    Hit.TraceStart=Report.AimOrigin;Hit.TraceEnd=Report.ImpactPoint;
++    if(Report.Target)
++    {
++        // Resolve the named pane on the authority actor; never accept an arbitrary
++        // component pointer or allow a frame hit to shatter another pane.
++        TInlineComponentArray<UWardBreakableGlass*> Panes(Report.Target);
++        for(auto* Pane:Panes)if(Pane->GetFName()==Report.HitComponent)
++        {
++            FHitResult Verified;
++            const FVector Direction=(FVector(Report.ImpactPoint)-FVector(Report.AimOrigin)).GetSafeNormal();
++            FCollisionQueryParams Query(SCENE_QUERY_STAT(NetGlassHit),true);
++            if(!Pane->LineTraceComponent(Verified,Report.AimOrigin,FVector(Report.ImpactPoint)+Direction*20.f,Query)
++                ||FVector::DistSquared(Verified.ImpactPoint,Report.ImpactPoint)>FMath::Square(30.f))return;
++            Hit=Verified;break;
++        }
++    }
+@@ -833 +1171,7 @@
+-    const float Applied = Model->ApplySkillWeaponHit(Shooter, Hit, Damage, FVector(Report.Direction), Shot, &Receipt);
++    const float Applied = ColdSteelSkills::ApplyHit(Shooter, Hit, Damage, FVector(Report.Direction), Shot, &Receipt);
++    if((Report.AttackMeta&0x80)&&Applied>0.f)
++    {
++        if(auto* Combat=Report.Target?Report.Target->FindComponentByClass<UMonsterCombatComponent>():nullptr)
++            Combat->ReceiveMeleeKnockback(Shooter,Model->QuickCombatStats().KnockbackCM);
++        if(Receipt.bKilled)Model->TrainQuickCombat(Model->QuickCombatDefinition().KillExperience);
++    }
+@@ -847 +1191 @@
+-    Out.bKilled = Receipt.bKilled;
++    Out.bKilled = Receipt.bKilled;Out.bFirearm=bFiredRound;
+@@ -860 +1204 @@
+-    LocalChar->NotifyConfirmedWeaponHit(Receipt.Target, Receipt.Applied, &Result, true);
++    LocalChar->NotifyConfirmedWeaponHit(Receipt.Target, Receipt.Applied, &Result, Receipt.bFirearm);
+@@ -896,0 +1241,18 @@
++void AColdSteelPlayerState::CancelPendingNetworkCast()
++{
++    if(!HasAuthority()||PendingCastSkill.IsNone())return;
++    const FName Skill=PendingCastSkill;const float Paid=PendingCastPaidMana;
++    PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;PendingCastPawn.Reset();
++    if(PendingCastOrb.IsValid())PendingCastOrb->Destroy();
++    PendingCastOrb.Reset();
++    if(ShadowModel)ShadowModel->RefundUnreleasedCast(Paid,Skill);
++    bServerDirty=true;
++}
++
++void AColdSteelPlayerState::RequestCastSpell(FColdSteelNetCastRequest Request)
++{
++    Request.SourcePawn=GetPawn();Request.Sequence=++LocalCastSequence;
++    if(!Request.Sequence)Request.Sequence=++LocalCastSequence;
++    ServerCastSpell(Request);
++}
++
+@@ -901 +1263,4 @@
+-    // 防抖：施法相位切换的最小合理间隔远大于 150ms。
++    if(!Request.Sequence||Request.Sequence<=ProcessedCastSequence)return;
++    ProcessedCastSequence=Request.Sequence;bServerDirty=true;
++    if(!Request.SourcePawn||Request.SourcePawn!=GetPawn()){ShadowMirrorTimer=3.f;return;}
++    // Limit new reservations only. Reliable release/cancel transitions must always settle.
+@@ -903,2 +1268,5 @@
+-    if (Now - LastCastRequestAt < 0.15) return;
+-    LastCastRequestAt = Now;
++    if(Request.Phase==0)
++    {
++        if(Now-LastCastRequestAt<.15){ClientCastResult(Request.SkillId,Request.Phase,4,Request.SourcePawn,Request.Sequence);return;}
++        LastCastRequestAt=Now;
++    }
+@@ -914 +1282 @@
+-    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") },
++    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("dragonBreath") },
+@@ -928,4 +1296,8 @@
+-    const auto Reject = [&](uint8 Code) { ClientCastResult(Request.SkillId, Request.Phase, Code); };
+-    const auto Accept = [&]() { ClientCastResult(Request.SkillId, Request.Phase, 0); };
+-    if (!ShadowModel || !Pawn) { Reject(1); return; }
+-    if (!IsNetCastSkill(Request.SkillId)) { Reject(2); return; }
++    const auto Reject = [&](uint8 Code)
++    {
++        if(Request.Phase==1&&PendingCastSkill==Request.SkillId)CancelPendingNetworkCast();
++        ClientCastResult(Request.SkillId, Request.Phase, Code,Request.SourcePawn,Request.Sequence);
++    };
++    const auto Accept = [&]() { ClientCastResult(Request.SkillId, Request.Phase, 0,Request.SourcePawn,Request.Sequence); };
++    if (!ShadowModel) { Reject(1); return; }
++    if (!IsNetCastSkill(Request.SkillId)||Request.Phase>3) { Reject(2); return; }
+@@ -937 +1308,0 @@
+-        if (PendingCastOrb.IsValid()) { PendingCastOrb->Destroy(); PendingCastOrb.Reset(); }
+@@ -940 +1311,2 @@
+-            if (Request.Phase == 2) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
++            if (PendingCastOrb.IsValid()) { PendingCastOrb->Destroy(); PendingCastOrb.Reset(); }
++            if (Request.Phase == 2||Request.SkillId==TEXT("blizzard")) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
+@@ -952,2 +1324,2 @@
+-        }
+-        PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
++            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
++        }
+@@ -956,0 +1329,3 @@
++    if(!Pawn){Reject(1);return;}
++    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Reject(5);return;}
++    if(Request.Phase==1&&PendingCastPawn.Get()!=Pawn){Reject(5);return;}
+@@ -1034,0 +1410 @@
++    if(const auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();Fire&&Fire->IsDragonBreathActive()){Reject(4);return;}
+@@ -1097 +1473 @@
+-    PendingCastSkill = Request.SkillId; PendingCastAt = Now;
++    PendingCastSkill = Request.SkillId; PendingCastAt = Now; PendingCastPawn=Pawn;
+@@ -1103 +1479 @@
+-void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8 Phase, uint8 Code)
++void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence)
+@@ -1107 +1483 @@
+-    if (!Pawn) return;
++    if (!Pawn||Pawn!=SourcePawn||Sequence<LocalCastSequence) return;
+@@ -1118,4 +1494,22 @@
+-    else if (SkillId == TEXT("blizzard")) Receipt(Pawn->FindComponentByClass<UFPSBlizzardComponent>());
+-    else if (SkillId == TEXT("holyLight")) Receipt(Pawn->FindComponentByClass<UFPSHolyLightComponent>());
+-    else if (SkillId == TEXT("lightning")) Receipt(Pawn->FindComponentByClass<UFPSLightningComponent>());
+-    else if (FireMagic::IsSkill(SkillId)) Receipt(Pawn->FindComponentByClass<UFPSFireMagicComponent>());
++    else if (SkillId == TEXT("blizzard"))
++    {
++        auto* Blizzard=Pawn->FindComponentByClass<UFPSBlizzardComponent>();
++        if(Blizzard&&Code==0&&Phase<2)Blizzard->NetCastAccepted(Phase);
++        else Receipt(Blizzard);
++    }
++    else if (SkillId == TEXT("holyLight"))
++    {
++        auto* C=Pawn->FindComponentByClass<UFPSHolyLightComponent>();
++        if(C&&Code==0&&Phase<2)C->NetCastAccepted(Phase);else Receipt(C);
++    }
++    else if (SkillId == TEXT("lightning"))
++    {
++        auto* C=Pawn->FindComponentByClass<UFPSLightningComponent>();
++        if(C&&Code==0&&Phase<2)C->NetCastAccepted(Phase);else Receipt(C);
++    }
++    else if (FireMagic::IsSkill(SkillId))
++    {
++        auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();
++        if(Fire&&SkillId==TEXT("dragonBreath")&&Code==0&&Phase<2)Fire->NetCastAccepted(Phase);
++        else Receipt(Fire);
++    }
+@@ -1140,0 +1535 @@
++    if(const auto* Component=Hit.GetComponent())Report.HitComponent=Component->GetFName();
+@@ -1147,0 +1543 @@
++    if(Shot.AttackMeta&0x80)Report.QuickCombatSerial=PS->QuickCombatSequence;
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp b/Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp
+@@ -39 +39 @@
+-    ServerSuper90Shot(Sequence,Weapon,Eye,Muzzle,Aim,Aiming,Super90Net::Clock(GetWorld()));
++    ServerSuper90Shot(Sequence,Weapon,Eye,Muzzle,Aim,Aiming,Super90Net::Clock(GetWorld()),GetPawn());
+@@ -45 +45 @@
+-    ServerSuper90Reload(++Super90LocalSequence,Weapon,Ammo);
++    ServerSuper90Reload(++Super90LocalSequence,Weapon,Ammo,GetPawn());
+@@ -51 +51 @@
+-    ServerSuper90Cancel(++Super90LocalSequence,Soft);
++    ServerSuper90Cancel(++Super90LocalSequence,Soft,GetPawn());
+@@ -72 +72 @@
+-    FVector_NetQuantize Eye,FVector_NetQuantize Muzzle,FVector_NetQuantizeNormal Aim,bool Aiming,double FiredAt)
++    FVector_NetQuantize Eye,FVector_NetQuantize Muzzle,FVector_NetQuantizeNormal Aim,bool Aiming,double FiredAt,APawn* SourcePawn)
+@@ -75,0 +76 @@
++    if(!SourcePawn||SourcePawn!=GetPawn()){SendSuper90Ammo(true);return;}
+@@ -80 +81 @@
+-    const bool BadGeometry=!Pawn||Eye.ContainsNaN()||Muzzle.ContainsNaN()||Direction.ContainsNaN()||Direction.IsNearlyZero()
++    const bool BadGeometry=!Pawn||!SourcePawn||SourcePawn!=Pawn||Eye.ContainsNaN()||Muzzle.ContainsNaN()||Direction.ContainsNaN()||Direction.IsNearlyZero()
+@@ -137 +138 @@
+-void AColdSteelPlayerState::ServerSuper90Reload_Implementation(uint32 Sequence,const FString& Weapon,const FString& Ammo)
++void AColdSteelPlayerState::ServerSuper90Reload_Implementation(uint32 Sequence,const FString& Weapon,const FString& Ammo,APawn* SourcePawn)
+@@ -140,0 +142 @@
++    if(!SourcePawn||SourcePawn!=GetPawn()){SendSuper90Ammo(true);return;}
+@@ -142 +144 @@
+-    if(!Pawn||Super90Reload.Active||Pawn->IsTraversing()||Pawn->IsCastBlockingLeftHandAction())
++    if(!Pawn||!SourcePawn||SourcePawn!=Pawn||Super90Reload.Active||Pawn->IsTraversing()||Pawn->IsCastBlockingLeftHandAction())
+@@ -148 +150 @@
+-    FSuper90ServerReload R;R.Weapon=Weapon;R.Ammo=Ammo;R.Started=GetWorld()->GetTimeSeconds();
++    FSuper90ServerReload R;R.Pawn=Pawn;R.Weapon=Weapon;R.Ammo=Ammo;R.Started=GetWorld()->GetTimeSeconds();
+@@ -174 +176 @@
+-void AColdSteelPlayerState::ServerSuper90Cancel_Implementation(uint32 Sequence,bool Soft)
++void AColdSteelPlayerState::ServerSuper90Cancel_Implementation(uint32 Sequence,bool Soft,APawn* SourcePawn)
+@@ -178 +180 @@
+-    if(Super90Reload.Active)
++    if(Super90Reload.Active&&SourcePawn&&SourcePawn==Super90Reload.Pawn.Get()&&SourcePawn==GetPawn())
+@@ -203 +205 @@
+-    if(!Pawn||!Gun||Pawn->ActiveInventoryWeapon!=R.Weapon||(Health&&Health->IsDead())||Pawn->IsTraversing()||Pawn->IsCastBlockingLeftHandAction())
++    if(!Pawn||R.Pawn.Get()!=Pawn||!Gun||Pawn->ActiveInventoryWeapon!=R.Weapon||(Health&&Health->IsDead())||Pawn->IsTraversing()||Pawn->IsCastBlockingLeftHandAction())
+@@ -252 +254 @@
+-bool AColdSteelPlayerState::RebaseSuper90Upload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous) const
++bool AColdSteelPlayerState::RebaseSuper90Upload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous,bool KeepServerPouch) const
+@@ -256 +258 @@
+-    if(!Base)return false; // An expired upload cannot restore spent ammunition.
++    if(!KeepServerPouch&&!Base)return false; // An expired upload cannot restore spent ammunition.
+@@ -260 +262 @@
+-        Count=FMath::Clamp<int64>(Count+Super90PouchDelta[I]-(*Base)[I],0,ColdSteelAmmo::MaxCount);
++        Count=KeepServerPouch?Previous.AmmoPouch.FindRef(Super90Net::AmmoIds[I]):FMath::Clamp<int64>(Count+Super90PouchDelta[I]-(*Base)[I],0,ColdSteelAmmo::MaxCount);
+@@ -269,0 +272,2 @@
++    State.SourcePawn=GetPawn();State.InventoryRevision=ShadowModel->InventoryRevision();
++    for(const auto* Id:Super90Net::AmmoIds)State.PouchCounts.Add(ShadowModel->PouchCount(Id));
+@@ -281,0 +286,14 @@
++void AColdSteelPlayerState::TickSuper90Recovery()
++{
++    if(GetNetMode()!=NM_Client)return;
++    if(Super90ClientPawn.Get()!=GetPawn())
++    {
++        Super90ClientPawn=GetPawn();Super90PredictedShots.Reset();
++        bSuper90ReloadPending=bSuper90SoftCancelSent=false;
++    }
++    if(!bPendingSuper90State)return;
++    auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Model||!GetPawn()||Model->RuntimePawn()!=GetPawn()||PendingSuper90State.InventoryRevision>Model->InventoryRevision())return;
++    const auto Receipt=PendingSuper90State;bPendingSuper90State=false;
++    ClientSuper90Ammo_Implementation(Receipt);
++}
+@@ -286 +304,5 @@
+-    if(!Pawn||!Pawn->IsLocallyControlled()||!Model||Receipt.PouchDelta.Num()!=3)return;
++    if(!Model||Receipt.PouchDelta.Num()!=3||Receipt.PouchCounts.Num()!=3)return;
++    if(!Pawn||!Pawn->IsLocallyControlled()||Model->RuntimePawn()!=Pawn||Receipt.InventoryRevision>Model->InventoryRevision())
++    {PendingSuper90State=Receipt;bPendingSuper90State=true;return;}
++    if(Super90ClientPawn.Get()!=Pawn)
++    {Super90ClientPawn=Pawn;Super90PredictedShots.Reset();bSuper90ReloadPending=bSuper90SoftCancelSent=false;}
+@@ -288 +310 @@
+-    Model->SyncRuntime();auto State=Model->Snapshot();
++    bPendingSuper90State=false;Model->SyncRuntime();auto State=Model->Snapshot();
+@@ -292 +314,3 @@
+-        Count=FMath::Clamp<int64>(Count+Receipt.PouchDelta[I]-Super90AppliedPouchDelta[I],0,ColdSteelAmmo::MaxCount);
++        // Counts are tied to the inventory revision; an old receipt cannot undo a newer pickup/trade.
++        if(Receipt.InventoryRevision==State.CampfireInventoryRevision)
++            Count=FMath::Clamp<int64>(Receipt.PouchCounts[I],0,ColdSteelAmmo::MaxCount);
+@@ -307 +331 @@
+-    if(Receipt.Acknowledged==Super90LocalSequence)
++    if(Receipt.SourcePawn==Pawn&&Receipt.Acknowledged==Super90LocalSequence)
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -461,0 +463,2 @@
++                Shot.Dealer=ColdSteelCombat::Dealer(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
++                if(Shot.Dealer.Enabled)Shot.DealerSourceInstance=I->InstanceId;
+diff --git a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+@@ -1,0 +2 @@
++#include "GameFramework/GameStateBase.h"
+@@ -187 +188,6 @@
+-    if(GetOwner()->HasAuthority()){NetArmorCast=ArmorSnapshot;bNetArmor=true;} // 远端副本 OnRep 播同款火环
++    if(GetOwner()->HasAuthority())
++    {
++        NetArmor.Cast=ArmorSnapshot;NetArmor.bActive=true;++NetArmor.Serial;
++        NetArmor.StartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        GetOwner()->ForceNetUpdate();
++    }
+@@ -204,5 +210,10 @@
+-    // 远端副本：焰甲激活——播 FX；伤害 tick 只在服务端跑（ApplyFireMagicHit 自带权威门）。
+-    const auto* OwnerPawn=Cast<APawn>(GetOwner());
+-    if(!bNetArmor||ArmorTime>0||!OwnerPawn||OwnerPawn->IsLocallyControlled())return;
+-    EndArmor(false);ArmorSnapshot=NetArmorCast;ArmorTime=ArmorSnapshot.Duration;AuraTimer=0;
+-    SpawnArmorFX();
++    const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++    const float Remaining=FMath::Max(0.,NetArmor.StartedAt+NetArmor.Cast.Duration-Now);
++    if(!NetArmor.bActive||Remaining<=0.f){EndArmor(false);AppliedArmorSerial=NetArmor.Serial;return;}
++    if(AppliedArmorSerial!=NetArmor.Serial||ArmorTime<=0.f)
++    {
++        EndArmor(false);ArmorSnapshot=NetArmor.Cast;SpawnArmorFX();
++        AppliedArmorSerial=NetArmor.Serial;
++    }
++    ArmorTime=Remaining;AuraTimer=0;
++    TickArmor(0.f);
+@@ -214 +225 @@
+-    if(ArmorTime<=0)return;
++    if(ArmorTime<=0||!GetOwner()->HasAuthority())return;
+@@ -221 +232,4 @@
+-    auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* M=NetCast::AuthorityModel(Player,GetWorld()?GetWorld()->GetGameInstance():nullptr);if(!Player||!M){EndArmor(false);return;}
++    auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    const bool Authority=GetOwner()->HasAuthority();
++    auto* M=Authority?NetCast::AuthorityModel(Player,GetWorld()?GetWorld()->GetGameInstance():nullptr):nullptr;
++    if(!Player||(Authority&&!M)){EndArmor(false);return;}
+@@ -224 +238 @@
+-    while(AuraTimer+UE_KINDA_SMALL_NUMBER>=ArmorSnapshot.TickSeconds)
++    while(Authority&&AuraTimer+UE_KINDA_SMALL_NUMBER>=ArmorSnapshot.TickSeconds)
+@@ -264 +278,2 @@
+-    if(bTrain)if(auto* M=NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()?GetWorld()->GetGameInstance():nullptr))M->FinishFireMagicCast(TEXT("flameArmor"),ArmorRewards);
++    if(GetOwner()->HasAuthority()&&NetArmor.bActive){NetArmor.bActive=false;GetOwner()->ForceNetUpdate();}
++    if(bTrain&&GetOwner()->HasAuthority())if(auto* M=NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()?GetWorld()->GetGameInstance():nullptr))M->FinishFireMagicCast(TEXT("flameArmor"),ArmorRewards);
+@@ -280,2 +295 @@
+-    DOREPLIFETIME(UFPSFireMagicComponent,bNetArmor);
+-    DOREPLIFETIME(UFPSFireMagicComponent,NetArmorCast);
++    DOREPLIFETIME(UFPSFireMagicComponent,NetArmor);
+@@ -310,2 +324,3 @@
+-void UFPSFireMagicComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
+-{
++void UFPSFireMagicComponent::NetCastRejected(uint8 Phase,uint8 /*Code*/)
++{
++    if(Phase==1&&CastSnapshot.Skill==TEXT("flameArmor"))EndArmor(false);
+diff --git a/Source/FPSGAME/Skills/FPSFireMagicComponent.h b/Source/FPSGAME/Skills/FPSFireMagicComponent.h
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.h
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.h
+@@ -78,2 +78,2 @@
+-    UPROPERTY(ReplicatedUsing=OnRep_Armor) bool bNetArmor=false;
+-    UPROPERTY(Replicated) FFireMagicCast NetArmorCast;
++    UPROPERTY(ReplicatedUsing=OnRep_Armor) FFlameArmorNetState NetArmor;
++    uint32 AppliedArmorSerial=0;
+diff --git a/Source/FPSGAME/Skills/FPSFireballComponent.cpp b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireballComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+@@ -240,2 +240,2 @@
+-    const ENetMode NM=GetWorld()->GetNetMode();
+-    if(NM!=NM_Standalone&&NM!=NM_Client)return;
++    // IsLocallyControlled above admits the listen host as well as the owning
++    // client. The existing cast/release branches already separate their authority.
+@@ -529 +529 @@
+-        PS->ServerCastSpell(R);
++        PS->RequestCastSpell(R);
+diff --git a/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp b/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSHolyLightComponent.cpp
+@@ -124 +124 @@
+-    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(Player,TEXT("holyLight"),0,FVector::ZeroVector,FVector::UpVector,Target==Player?1:0);}
++    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;bNetResultPending=true;NetPaidMana=FMath::Max(0.f,BeforeMana-M->Snapshot().Mana);NetCast::Send(Player,TEXT("holyLight"),0,FVector::ZeroVector,FVector::UpVector,Target==Player?1:0);}
+@@ -132 +132,6 @@
+-    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));Feedback(TEXT("目标已失效或被遮挡"));return;}
++    {
++        if(GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("holyLight"),2);
++        bNetPaid=false;bNetResultPending=false;NetPaidMana=0;
++        if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));
++        Feedback(TEXT("目标已失效或被遮挡"));return;
++    }
+@@ -163 +168 @@
+-    bNetPaid=false;
++    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
+@@ -170 +175 @@
+-    bNetPaid=false;
++    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
+@@ -200,0 +206,2 @@
++void UFPSHolyLightComponent::NetCastAccepted(uint8 Phase)
++{if(Phase==1){NetPaidMana=0.f;bNetResultPending=false;}}
+@@ -204 +211,7 @@
+-    if(bCommitted){bCommitted=false;LockedTarget.Reset();if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("holyLight"));}
++    // A release has already cleared bCommitted. Keep its exact local payment
++    // until the receipt so server target rejection also refunds the owning UI.
++    const bool HadPayment=bNetResultPending;
++    if(bCommitted&&Hands())Hands()->TakeGesturePayment();
++    bCommitted=false;LockedTarget.Reset();
++    if(HadPayment)if(auto* M=Model())M->RefundUnreleasedCast(NetPaidMana,TEXT("holyLight"));
++    NetPaidMana=0.f;bNetResultPending=false;
+@@ -210 +223 @@
+-    bNetPaid=false;
++    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
+diff --git a/Source/FPSGAME/Skills/FPSIceWall.cpp b/Source/FPSGAME/Skills/FPSIceWall.cpp
+--- a/Source/FPSGAME/Skills/FPSIceWall.cpp
++++ b/Source/FPSGAME/Skills/FPSIceWall.cpp
+@@ -23,0 +24 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -198 +198,0 @@
+-    auto* M=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+@@ -199,0 +200 @@
++    auto* M=ColdSteelAuthority::ForPawn(Shooter);
+@@ -408 +409 @@
+-    Health-=Applied;
++    Health-=Applied;NetHealth=Health;ForceNetUpdate();
+@@ -445 +446 @@
+-            if(auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())M->ApplyIceWallChill(GetInstigator(),Plan,Tuning);
++            if(auto* M=ColdSteelAuthority::ForPawn(GetInstigator()))M->ApplyIceWallChill(GetInstigator(),Plan,Tuning);
+@@ -544,0 +546,3 @@
++void AFPSIceWall::OnRep_Health()
++{Health=NetHealth;}
++
+diff --git a/Source/FPSGAME/Skills/FPSLightningComponent.cpp b/Source/FPSGAME/Skills/FPSLightningComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSLightningComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSLightningComponent.cpp
+@@ -122 +122 @@
+-    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(Player,TEXT("lightning"),0);}
++    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;bNetResultPending=true;NetPaidMana=FMath::Max(0.f,BeforeMana-M->Snapshot().Mana);NetCast::Send(Player,TEXT("lightning"),0);}
+@@ -133,3 +133,3 @@
+-void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards)
+-{
+-    auto* Player=Cast<APawn>(GetOwner());auto* M=Model();if(!Origin||!Player||!M)return;
++void UFPSLightningComponent::Overload(AActor* Origin,FLightningRewards& Rewards,UColdSteelStatusModel* M)
++{
++    auto* Player=Cast<APawn>(GetOwner());if(!Origin||!Player||!M)return;
+@@ -149 +149 @@
+-            if(!S->IsImmune()&&S->AddElectrified(1,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
++            if(!S->IsImmune()&&S->AddElectrified(1,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards,M);
+@@ -158 +158,6 @@
+-    {if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));Feedback(TEXT("目标已失效或被遮挡"));return;}
++    {
++        if(GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),TEXT("lightning"),2);
++        bNetPaid=false;bNetResultPending=false;NetPaidMana=0;
++        if(M)M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));
++        Feedback(TEXT("目标已失效或被遮挡"));return;
++    }
+@@ -213 +218 @@
+-                    if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards);
++                    if(Status->AddElectrified(CastSnapshot.ElectrifyStacks,CastSnapshot.ElectrifyDuration,CastSnapshot.OverloadStacks,CastSnapshot.ElectricBonusPerStack))Overload(Target,Rewards,M);
+@@ -235,0 +241,2 @@
++void UFPSLightningComponent::NetCastAccepted(uint8 Phase)
++{if(Phase==1){NetPaidMana=0.f;bNetResultPending=false;}}
+@@ -239 +246,7 @@
+-    if(bCommitted){bCommitted=false;LockedTarget.Reset();if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,TEXT("lightning"));}
++    // A release has already cleared bCommitted. Keep its exact local payment
++    // until the receipt so server target rejection also refunds the owning UI.
++    const bool HadPayment=bNetResultPending;
++    if(bCommitted&&Hands())Hands()->TakeGesturePayment();
++    bCommitted=false;LockedTarget.Reset();
++    if(HadPayment)if(auto* M=Model())M->RefundUnreleasedCast(NetPaidMana,TEXT("lightning"));
++    NetPaidMana=0.f;bNetResultPending=false;
+@@ -245 +258 @@
+-    bNetPaid=false;
++    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
+@@ -251 +264 @@
+-    bNetPaid=false;
++    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
+@@ -260 +273 @@
+-    bNetPaid=false;
++    bNetPaid=false;NetPaidMana=0.f;bNetResultPending=false;
+diff --git a/Source/FPSGAME/Skills/FireMagicTypes.h b/Source/FPSGAME/Skills/FireMagicTypes.h
+--- a/Source/FPSGAME/Skills/FireMagicTypes.h
++++ b/Source/FPSGAME/Skills/FireMagicTypes.h
+@@ -38,0 +39,10 @@
++USTRUCT()
++struct FFlameArmorNetState
++{
++    GENERATED_BODY()
++    UPROPERTY() FFireMagicCast Cast;
++    UPROPERTY() double StartedAt=0;
++    UPROPERTY() uint32 Serial=0;
++    UPROPERTY() bool bActive=false;
++};
++
+diff --git a/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp b/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
+--- a/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
++++ b/Source/FPSGAME/Survival/FPSSurvivalComponent.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -87,2 +88 @@
+-    if(auto* Instance=GetWorld()->GetGameInstance())
+-        if(auto* Model=Instance->GetSubsystem<UColdSteelStatusModel>())Model->SetSurvivalState(State,GetOwner());
++    if(auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner())))Model->SetSurvivalState(State,GetOwner());
+diff --git a/Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp b/Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp
+--- a/Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp
++++ b/Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp
+@@ -72 +72 @@
+-    if(N<0)return false;
++    if(N<0||State.Items[N].Place!=4||State.Items[N].Container!=ActiveContainer)return false;
+diff --git a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp
+@@ -95 +95 @@
+-double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem& I,FName Key)const
++double UColdSteelEnhancementSystem::AttackFormulaAttribute(const FColdSteelItem& I,FName Key,const UColdSteelStatusModel* Profile)const
+@@ -98 +98 @@
+-    const auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+@@ -106 +106 @@
+-double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack,double MeleeDamageMultiplier)const
++double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,double Base,double Attack,double MeleeDamageMultiplier,const UColdSteelStatusModel* Profile)const
+@@ -115 +115 @@
+-        const auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+@@ -120 +120 @@
+-            Terms.push_back({AttackFormulaAttribute(I,Key),Num(T,TEXT("base")),Num(T,TEXT("perEnhance"))});
++            Terms.push_back({AttackFormulaAttribute(I,Key,P),Num(T,TEXT("base")),Num(T,TEXT("perEnhance"))});
+@@ -138 +138,2 @@
+-        Result=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AdditionalWeaponDamage(I,Result);
++        const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        Result=P->AdditionalWeaponDamage(I,Result);
+diff --git a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.h b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.h
+--- a/Source/FPSGAME/UI/ColdSteelEnhancementSystem.h
++++ b/Source/FPSGAME/UI/ColdSteelEnhancementSystem.h
+@@ -6,0 +7,2 @@
++
++class UColdSteelStatusModel;
+@@ -31 +33 @@
+-    double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack,double MeleeDamageMultiplier=-1) const;
++    double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack,double MeleeDamageMultiplier=-1,const UColdSteelStatusModel* Profile=nullptr) const;
+@@ -33 +35 @@
+-    double AttackFormulaAttribute(const FColdSteelItem&,FName Key) const;
++    double AttackFormulaAttribute(const FColdSteelItem&,FName Key,const UColdSteelStatusModel* Profile=nullptr) const;
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -93,2 +93,5 @@
+-    // 运行时一次性标记（与旧 _worldPeachReviveUsed 同寿命：重新献祭才刷新）：
+-    bool bPeachUsed=false,bMoonshadowUsed=false;
++    // Persistent per-offering identity. Legacy offerings use the invalid GUID until replaced.
++    UPROPERTY() int32 UsageVersion=1;
++    UPROPERTY() FGuid OfferingId;
++    UPROPERTY() bool bPeachUsed=false;
++    UPROPERTY() bool bMoonshadowUsed=false;
+@@ -222,0 +226,2 @@
++    // Owner martial commits survive an older profile upload or reconnect mirror.
++    UPROPERTY() int64 MartialCooldownRevision = 0;
+@@ -273,0 +279,2 @@
++    /** Stable save identity; PIE copies receive their own identity once. */
++    UPROPERTY() FGuid NetworkProfileId;
+diff --git a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -3,0 +4 @@
++#include "ColdSteelProfileRecovery.h"
+@@ -9,0 +11,2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+@@ -24,0 +28 @@
++#include "Engine/Engine.h"
+@@ -128,0 +133,26 @@
++    // Every PIE GameInstance gets its own durable sandbox, even when all
++    // windows share one process/command line. Seed once without writing the source.
++    if(const FWorldContext* Context=GetGameInstance()->GetWorldContext();Context&&Context->WorldType==EWorldType::PIE)
++    {
++        const FString SourceSlot=SaveSlot;
++        SaveSlot+=FString::Printf(TEXT("_PIE_%d"),Context->PIEInstance);
++        const bool HasSandbox=UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_A"),0)
++            ||UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_B"),0);
++        if(!HasSandbox)
++        {
++            bool HasSource=false,Seeded=false;
++            const FGuid SandboxIdentity=FGuid::NewGuid();
++            for(const TCHAR* S:{TEXT("_A"),TEXT("_B")})
++            {
++                const FString From=SourceSlot+S,To=SaveSlot+S;
++                HasSource|=UGameplayStatics::DoesSaveGameExist(From,0);
++                auto* Source=ReadCheckedProfile(From);if(!Source)continue;
++                Source->Profile.NetworkProfileId=SandboxIdentity;
++                TArray<uint8> Bytes;
++                if(UGameplayStatics::SaveGameToMemory(Source,Bytes)&&UGameplayStatics::SaveDataToSlot(Bytes,To,0)
++                    &&FFileHelper::SaveStringToFile(HashBytes(Bytes),*ChecksumPath(To)))Seeded=true;
++            }
++            if(HasSource&&!Seeded){bPersistenceBlocked=true;Message=TEXT("测试档案复制失败，原存档未修改");return;}
++        }
++        UE_LOG(LogTemp,Display,TEXT("NET_PROFILE_SANDBOX instance=%d slot=%s"),Context->PIEInstance,*SaveSlot);
++    }
+@@ -129,0 +160 @@
++    Current.NetworkProfileId=FGuid::NewGuid();
+@@ -171,0 +203 @@
++    ColdSteelProfileRecovery::InterruptedSpells(Migrated,float(ResourceMaximum(Migrated,true)));
+@@ -186,0 +219,9 @@
++bool UColdSteelStatusModel::CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot)
++{
++    if(bNetShadowProfile&&GuestSlot.IsEmpty())return false;
++    TGuardValue<FString> SlotGuard(CampfireGuestSaveSlot,GuestSlot);
++    TGuardValue<bool> TransactionGuard(bSavingTransaction,true);
++    State.CampfireInventoryRevision=Current.CampfireInventoryRevision+1;
++    State.CampfireWorldReceipts.FindOrAdd(WorldKey)=State.CampfireInventoryRevision;
++    return PersistState(MoveTemp(State),true);
++}
+@@ -195,0 +237,2 @@
++    if(bTransactionSaveUnconfirmed){Message=TEXT("交易保存结果待恢复，请保留存档并重启主机后恢复");return false;}
++    if(bCampfireInventoryPending){Message=TEXT("联机物品操作正在同步，请稍候");return false;}
+@@ -222,0 +266 @@
++    if(bStagingNetworkContainer){Publish(State);return true;}
+@@ -227,0 +272,6 @@
++        if(!CampfireGuestSaveSlot.IsEmpty())
++        {
++            auto* Saved=NewObject<UColdSteelProfileSave>();Saved->Profile=State;StripNetworkContainerView(Saved->Profile);
++            if(!UGameplayStatics::SaveGameToSlot(Saved,CampfireGuestSaveSlot,0))
++            {bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("客机交易写入未确认，已保留原存档等待恢复");return false;}
++        }
+@@ -232,0 +283 @@
++    StripNetworkContainerView(Save->Profile);
+@@ -234 +285 @@
+-    if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){Message=TEXT("保存失败，操作未提交");return false;}
++    if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("保存失败，操作未提交");return false;}
+@@ -236 +287 @@
+-    if(!UGameplayStatics::LoadDataFromSlot(Written,Slot,0)||!FFileHelper::SaveStringToFile(HashBytes(Written),*ChecksumPath(Slot))){Message=TEXT("完整性记录写入失败，操作未提交");return false;}
++    if(!UGameplayStatics::LoadDataFromSlot(Written,Slot,0)||!FFileHelper::SaveStringToFile(HashBytes(Written),*ChecksumPath(Slot))){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("完整性记录写入失败，操作未提交");return false;}
+@@ -238 +289 @@
+-    if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){Message=TEXT("存档写入校验失败，操作未提交");return false;}
++    if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("存档写入校验失败，操作未提交");return false;}
+@@ -312,26 +363,2 @@
+-    const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
+-    const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
+-    const bool AbandonedIceWall=Clean.bIceWallReserved;Clean.bIceWallReserved=false;
+-    if(AbandonedIceWall)
+-    {
+-        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Clean.IceWallReservedMana);
+-        Clean.IceWallCooldown=Clean.IceWallCooldownDuration=0;
+-    }
+-    Clean.IceWallReservedMana=0;
+-    const bool AbandonedBlizzard=Clean.bBlizzardReserved;Clean.bBlizzardReserved=false;
+-    if(AbandonedBlizzard)
+-    {
+-        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Clean.BlizzardReservedMana);
+-        Clean.BlizzardCooldown=Clean.BlizzardCooldownDuration=0;
+-    }
+-    Clean.BlizzardReservedMana=0;
+-    const bool AbandonedElectric=!Clean.ElectricReservedMana.IsEmpty();
+-    for(const auto& Reserved:Clean.ElectricReservedMana)
+-    {
+-        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Reserved.Value);
+-        Clean.ElectricCooldowns.Add(Reserved.Key,0);Clean.ElectricCooldownDurations.Add(Reserved.Key,0);
+-    }
+-    Clean.ElectricReservedMana.Reset();
+-    const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
+-    Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
+-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
++    const bool Interrupted=ColdSteelProfileRecovery::InterruptedSpells(Clean,float(ResourceMaximum(Clean,true)));
++    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||Interrupted||AmmoMigrated||BestFootprintMigrated;
+@@ -675,0 +703 @@
++    if(!Clean.NetworkProfileId.IsValid()){Clean.NetworkProfileId=FGuid::NewGuid();Removed=true;}
+@@ -779,0 +808,2 @@
++    if(HasNetworkContainerView()&&(Place==4||(FindItem(Id)&&FindItem(Id)->Place==4)))
++        return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerMove),Id,Place,Cell,Orientation);
+@@ -788,0 +819,2 @@
++    if(HasNetworkContainerView()&&FindItem(Id)&&FindItem(Id)->Place==4)
++        return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerSplit),Id,0,-1,-1,Count);
+@@ -852,0 +885,5 @@
++    if(CurrentPawn->GetNetMode()==NM_Client)
++    {
++        auto* State=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++        return State&&State->RequestInventoryAction(EColdSteelInventoryAction::Consume,Id);
++    }
+@@ -871,0 +909,6 @@
++    if(CurrentPawn->GetNetMode()!=NM_Standalone)
++    {
++        const auto* State=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++        const FString GuestSlot=bNetShadowProfile&&State?State->CampfireGuestSlot():FString();
++        return CommitCampfireState(P,TEXT("Inventory"),GuestSlot);
++    }
+@@ -910 +953,2 @@
+-    for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
++    // Guest shadow inventories do not own the host's local drop actors.
++    if(!bNetShadowProfile)for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
+@@ -915 +959,4 @@
+-    CurrentPawn=Pawn;
++    if(!Pawn)return;
++    if(CurrentPawn.Get()==Pawn){ApplyToPawn();return;}
++    CurrentPawn=Pawn;AimPreviewIndex=INDEX_NONE;AimPreviewPawn.Reset();AimPreviewSkill=NAME_None;
++    Current.bQuickCombatReserved=false;Current.QuickCombatCooldown=Current.QuickCombatCooldownDuration=0.f;
+@@ -944,0 +992 @@
++    SyncMartialCooldowns();
+@@ -974,0 +1023 @@
++    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=Health->Health;
+@@ -977 +1026 @@
+-        Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
++        if(Pawn->HasAuthority())Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
+@@ -980 +1029 @@
+-            Health->Health=FMath::Min(Health->MaxHealth,Health->Health+KillProcHp*Step);Current.Health=Health->Health;
++            if(Pawn->HasAuthority())Health->Health=FMath::Min(Health->MaxHealth,Health->Health+KillProcHp*Step);Current.Health=Health->Health;
+@@ -1045,0 +1095,10 @@
++    if(CurrentPawn.IsValid()&&GetWorld()->GetNetMode()!=NM_Standalone)
++    {
++        if(GetWorld()->GetNetMode()==NM_Client)
++        {
++            auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++            return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::Drop,Id);
++        }
++        auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
++        return Shared&&Shared->Drop(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Id,Message);
++    }
+@@ -1075 +1134,12 @@
+-    if(!Target)return false;SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
++    if(!Target)return false;
++    if(GetWorld()->GetNetMode()!=NM_Standalone&&Target->IsSharedPickup())
++    {
++        if(GetWorld()->GetNetMode()==NM_Client)
++        {
++            auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++            return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::Pickup,Id,Target);
++        }
++        auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
++        return Shared&&Shared->Pickup(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Target,false,Message);
++    }
++    SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
+@@ -1081 +1151,9 @@
+-    if(!GetWorld()||!CurrentPawn.IsValid())return;TSet<FString> Existing;
++    if(!GetWorld()||!CurrentPawn.IsValid())return;
++    if(GetWorld()->GetNetMode()!=NM_Standalone)
++    {
++        if(GetWorld()->GetNetMode()!=NM_Client)
++            if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
++                Shared->ImportPlayerDrops(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr);
++        return;
++    }
++    if(bNetShadowProfile)return;TSet<FString> Existing;
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -169 +169 @@
+-    if(Skill==TEXT("thunderLance")){auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);if(!CanBindQuickSkill(Skill)||!Pawn)return false;if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);return true;}return false;}
++    if(Skill==TEXT("thunderLance")){auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);if(!CanBindQuickSkill(Skill)||!Pawn)return false;if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);AimPreviewIndex=Index;AimPreviewPawn=Cast<AFPSGAMECharacter>(Pawn);AimPreviewSkill=Skill;return true;}return false;}
+@@ -194 +194 @@
+-    AimPreviewIndex=Index;
++    AimPreviewIndex=Index;AimPreviewPawn=Player;AimPreviewSkill=Skill;
+@@ -200 +199,0 @@
+-    if(QuickBinding(Index).Skill==TEXT("thunderLance")){if(auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0))if(auto* Ability=Pawn->FindComponentByClass<UFPSElectricMagicComponent>())Ability->ReleaseLance();return true;}
+@@ -202,4 +201,5 @@
+-    AimPreviewIndex=INDEX_NONE;
+-    auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+-    if(!Player)return true;
+-    const FName Skill=QuickBinding(Index).Skill;
++    const auto ExpectedPawn=AimPreviewPawn;const FName Skill=AimPreviewSkill;
++    AimPreviewIndex=INDEX_NONE;AimPreviewPawn.Reset();AimPreviewSkill=NAME_None;
++    auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
++    if(!Player||ExpectedPawn.Get()!=Player)return true;
++    if(Skill==TEXT("thunderLance")){if(auto* Ability=Player->FindComponentByClass<UFPSElectricMagicComponent>())Ability->ReleaseLance();return true;}
+@@ -228 +228 @@
+-    AimPreviewIndex=INDEX_NONE;
++    AimPreviewIndex=INDEX_NONE;AimPreviewPawn.Reset();AimPreviewSkill=NAME_None;
+diff --git a/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp b/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
+--- a/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSceneContainer.cpp
+@@ -9,0 +10,2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "Net/UnrealNetwork.h"
+@@ -13,0 +16 @@
++    bReplicates=true;
+@@ -45,0 +49 @@
++    FRandomStream InitialPose(GetTypeHash(RuntimeStorageKey));
+@@ -58 +62 @@
+-    else if(OpeningMotion==EColdSteelContainerMotion::Swing&&ActorHasTag(TEXT("ColdSteel.SceneContainer.RandomOpen"))&&FMath::FRand()<.32f)
++    else if(OpeningMotion==EColdSteelContainerMotion::Swing&&ActorHasTag(TEXT("ColdSteel.SceneContainer.RandomOpen"))&&InitialPose.FRand()<.32f)
+@@ -61 +65 @@
+-        Initial.Yaw+=FMath::FRandRange(38.f,78.f);
++        Initial.Yaw+=InitialPose.FRandRange(38.f,78.f);
+@@ -64,0 +69 @@
++    bVisualInitialized=true;if(bSearched)OnRep_Searched();
+@@ -92 +97 @@
+-    return Pawn&&Pawn->GetWorld()==GetWorld()&&Pawn->GetNetMode()!=NM_Client
++    return Pawn&&Pawn->GetWorld()==GetWorld()
+@@ -108,0 +114,5 @@
++    if(GetNetMode()!=NM_Standalone)
++    {
++        auto* PS=Controller->GetPlayerState<AColdSteelPlayerState>();
++        return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::ContainerOpen,FString(),this);
++    }
+@@ -110 +120,15 @@
+-    bSearched=true;
++    OpeningController=Controller;OpenSharedVisual();return true;
++}
++void AColdSteelSceneContainer::OpenSharedVisual(bool bInstant)
++{
++    if(bSearched)return;
++    bSearched=true;OnRep_Searched();ForceNetUpdate();
++    if(bInstant&&bOpening)Tick(OpeningDuration);
++    if(GetNetMode()!=NM_Client&&GetNetMode()!=NM_Standalone&&!GetIsReplicated())
++        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if(auto* PC=It->Get();PC&&!PC->IsLocalController())
++                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedContainerOpened(GetName());
++}
++void AColdSteelSceneContainer::OnRep_Searched()
++{
++    if(!bSearched||bOpening||!bVisualInitialized)return;
+@@ -134 +157,0 @@
+-    OpeningController=Controller;
+@@ -136 +159,4 @@
+-    return true;
++}
++void AColdSteelSceneContainer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AColdSteelSceneContainer,bSearched);
+diff --git a/Source/FPSGAME/UI/ColdSteelSceneContainer.h b/Source/FPSGAME/UI/ColdSteelSceneContainer.h
+--- a/Source/FPSGAME/UI/ColdSteelSceneContainer.h
++++ b/Source/FPSGAME/UI/ColdSteelSceneContainer.h
+@@ -35,0 +36,4 @@
++    const FString& StorageKey() const {return RuntimeStorageKey;}
++    bool IsWithinPanelReach(const APlayerController* Controller) const;
++    void OpenSharedVisual(bool bInstant=false);
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+@@ -46 +50 @@
+-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Transient, Category="Container") bool bSearched=false;
++    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Transient, ReplicatedUsing=OnRep_Searched, Category="Container") bool bSearched=false;
+@@ -51 +55,2 @@
+-    bool IsWithinPanelReach(const APlayerController* Controller) const;
++    UFUNCTION() void OnRep_Searched();
++    bool bVisualInitialized=false;
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -387,0 +388 @@
++    void SyncMartialCooldowns(bool Immediate=false);
+@@ -430,0 +432,7 @@
++    bool ApplyNetworkInventoryReply(const class UColdSteelInventoryReply* Reply,APawn* ExpectedPawn);
++    static void StripNetworkContainerView(FColdSteelProfile& Profile);
++    bool HasNetworkContainerView() const;
++    /** True while a shared transaction owns staging and the eventual durable commit. */
++    bool IsStagingNetworkContainer() const { return bStagingNetworkContainer; }
++    bool RequestContainerOperation(uint8 Action,const FString& Item=FString(),int32 Place=0,int32 Cell=-1,int32 Orientation=-1,int64 Count=0,const FString& Mode=FString());
++    void ApplyNetworkContainerView(const class UColdSteelInventoryReply* Reply,AActor* Anchor);
+@@ -434,0 +443 @@
++    int64 InventoryRevision() const {return Current.CampfireInventoryRevision;}
+@@ -438,0 +448,5 @@
++    /** Narrow durable write used by campfire escrow; guest slots belong to PlayerState. */
++    bool CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot=FString());
++    bool IsCampfireInventoryPending() const {return bCampfireInventoryPending;}
++    bool HasUnconfirmedTransactionSave() const {return bTransactionSaveUnconfirmed;}
++    void SetCampfireInventoryPending(bool Pending) { bCampfireInventoryPending=Pending; }
+@@ -450,0 +465,3 @@
++    TWeakObjectPtr<AActor> NetworkContainerAnchor;
++    int64 NetworkContainerRevision=0;
++    bool bStagingNetworkContainer=false;
+@@ -452,0 +470,2 @@
++    friend class AColdSteelPlayerState;
++    friend class UColdSteelSharedInventorySubsystem;
+@@ -461,0 +481,2 @@
++    TWeakObjectPtr<AFPSGAMECharacter> AimPreviewPawn;
++    FName AimPreviewSkill;
+@@ -495,0 +517,4 @@
++    bool bCampfireInventoryPending=false;
++    FString CampfireGuestSaveSlot;
++    bool bSavingTransaction=false;
++    bool bTransactionSaveUnconfirmed=false;
+diff --git a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -20,0 +21 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -31,0 +33 @@
++#include "Components/CapsuleComponent.h"
+@@ -62 +64 @@
+-            return PC->GetNetMode()==NM_Client?nullptr:Hit.GetActor();
++            return Hit.GetActor();
+@@ -67,2 +69,6 @@
+-            // 直接用同一套 IsNativeDoor 口径，避免新增门子类时这条白名单漏项。
+-            return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)?Target:nullptr;
++            // 直接用同一个 IsNativeDoor 口径，避免新增门子类时这条白名单漏项。
++            return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)
++                ||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
++                ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
++                ||Cast<AVoxelBuildPrefabActor>(Target)
++                ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
+@@ -76,0 +83,13 @@
++bool ColdSteelWorldInteraction::CanReachPickup(const UWorld* World,const APawn* Pawn,const AActor* Target,const FVector& Position)
++{
++    if(!World||!Pawn)return false;
++    const auto* Capsule=Pawn->FindComponentByClass<UCapsuleComponent>();
++    const float HalfHeight=Capsule?Capsule->GetScaledCapsuleHalfHeight():88.f;
++    const FVector Feet=Pawn->GetActorLocation()-FVector(0,0,HalfHeight);
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(SharedAreaPickup),false,Pawn);
++    if(Target)Query.AddIgnoredActor(Target);
++    TArray<FHitResult> Hits;
++    World->LineTraceMultiByChannel(Hits,Feet+FVector(0,0,HalfHeight*.6f),Position+FVector(0,0,10),ECC_Visibility,Query);
++    for(const auto& Hit:Hits)if(Hit.GetActor()&&Hit.ImpactPoint.Z-Feet.Z>40.f)return false;
++    return true;
++}
+@@ -79 +98 @@
+-    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||PC->GetNetMode()==NM_Client)return nullptr;
++    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor)return nullptr;
+@@ -136 +155,6 @@
+-    if(!Pawn||!Pawn->HasAuthority())return false;
++    if(!Pawn)return false;
++    if(!Pawn->HasAuthority())
++    {
++        auto* State=Pawn->GetPlayerState<AColdSteelPlayerState>();
++        return State&&State->RequestInventoryAction(EColdSteelInventoryAction::Fountain,FString(),Target);
++    }
+@@ -254,0 +279,5 @@
++    if(PC->GetNetMode()!=NM_Standalone)
++    {
++        auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();
++        return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::ContainerOpen,FString(),Target);
++    }
+diff --git a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+@@ -1,0 +2 @@
++#include "ColdSteelStatusModel.h"
+@@ -201 +202,6 @@
+-            [this](UWorld* W,UNetDriver*,ENetworkFailure::Type,const FString& Err){OnNetFailure(W,Err);});
++            [this](UWorld* W,UNetDriver*,ENetworkFailure::Type,const FString& Err)
++            {
++                // A guest timing out must not put the listen host back into startup mode.
++                if(W&&(W->GetNetMode()==NM_ListenServer||W->GetNetMode()==NM_DedicatedServer))return;
++                OnNetFailure(W,Err);
++            });
+@@ -299 +305,4 @@
+-    if(Context.OwningGameInstance!=GetGameInstance())return;
++    // LoadMap broadcasts its matching PostLoadMap with null on failure. That
++    // event has no world to filter; remember the latest global load's owner.
++    bOwnsCurrentMapLoad=Context.OwningGameInstance==GetGameInstance();
++    if(!bOwnsCurrentMapLoad)return;
+@@ -322 +331,2 @@
+-        bMapLoading=false;
++        if(!bOwnsCurrentMapLoad)return;
++        bOwnsCurrentMapLoad=false;bMapLoading=false;
+@@ -326 +336,2 @@
+-    if(!World||World->GetGameInstance()!=GetGameInstance())return;
++    if(World->GetGameInstance()!=GetGameInstance())return;
++    bOwnsCurrentMapLoad=false;
+@@ -405 +416,2 @@
+-        RestoreGameplayInput();
++        RestoreGameplayInput();ReleasePreparedPlayer();
++        ResourcePreparation.Reset();CancelAction.Unbind();
+@@ -787,0 +800,12 @@
++    if(World->GetNetMode()==NM_ListenServer||World->GetNetMode()==NM_DedicatedServer)
++    {
++        // Server travel failure leaves room ownership with the host; the
++        // PlayerState travel coordinator releases the team preparation.
++        CancelTransition();
++        if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++            Model->PostNotice(TEXT("地图切换失败"),ErrorString);
++        return;
++    }
++    // Release the old world's input/preparation before waiting for the return map.
++    RemoveStartupMenu();
++    CancelTransition();
+@@ -849 +873 @@
+-bool UTransitLoadingSubsystem::IsTickable() const { return !IsTemplate()&&(View.IsValid()||StartupView.IsValid()); }
++bool UTransitLoadingSubsystem::IsTickable() const { return !IsTemplate()&&(bPendingMenuError||View.IsValid()||StartupView.IsValid()); }
+diff --git a/Source/FPSGAME/UI/TransitLoadingSubsystem.h b/Source/FPSGAME/UI/TransitLoadingSubsystem.h
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.h
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.h
+@@ -67,0 +68 @@
++    bool bOwnsCurrentMapLoad = false;
+diff --git a/Source/FPSGAME/Weapons/Bow/BowArrow.cpp b/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+@@ -18,0 +19,2 @@
++#include "../../Multiplayer/ColdSteelPlayerState.h"
++#include "Net/UnrealNetwork.h"
+@@ -22,0 +25 @@
++    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
+@@ -69,0 +73,2 @@
++    if(HasAuthority())
++    {Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;ForceNetUpdate();}
+@@ -118,0 +124 @@
++    if(!HasAuthority())return;
+@@ -189 +195,5 @@
+-                Character->NotifyConfirmedWeaponHit(Target, Applied, &Result, true);
++            {
++                Character->NotifyConfirmedWeaponHit(Target, Applied, &Result, true,false);
++                if(HasAuthority()&&!Character->IsLocallyControlled())if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
++                {FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=Result.bCritical;Receipt.bKilled=Result.bKilled;PS->ClientConfirmHit(Receipt);}
++            }
+@@ -226 +236 @@
+-    if(bStuck&&!IsActorBeingDestroyed()&&HasAuthority()&&GetNetMode()==NM_Standalone&&Pawn&&Pawn->IsPlayerControlled()&&
++    if(bStuck&&!IsActorBeingDestroyed()&&Pawn&&Pawn->IsPlayerControlled()&&
+@@ -239 +249 @@
+-    if(!bStuck||IsActorBeingDestroyed()||!HasAuthority()||GetNetMode()!=NM_Standalone)
++    if(!bStuck||IsActorBeingDestroyed())
+@@ -246,0 +257 @@
++        if(GetNetMode()!=NM_Standalone&&bRecoverable&&!Pawn->IsLocallyControlled())continue;
+@@ -254 +265,12 @@
+-        if(bRecoverable)RecoverIntoPouch(Pawn);
++        if(bRecoverable)
++        {
++            if(GetNetMode()==NM_Client)
++            {
++                if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())
++                {
++                    if(PS->InventoryRequestPending())continue;
++                    PS->RequestInventoryAction(EColdSteelInventoryAction::RecoverArrow,FString(),this);
++                }
++            }
++            else RecoverIntoPouch(Pawn);
++        }
+@@ -259,3 +281 @@
+-            bStuck=false;
+-            SetActorEnableCollision(false);
+-            Destroy();
++            if(HasAuthority()){bStuck=false;SetActorEnableCollision(false);Destroy();}
+@@ -278 +298,10 @@
+-    return ColdSteelWorldInteraction::IsFocused(Pawn,this)&&RecoverIntoPouch(Pawn);
++    if(!Pawn||FVector::DistSquared(Pawn->GetActorLocation(),AutoRecovery->GetComponentLocation())>FMath::Square(250.f))return false;
++    const bool Near=FVector::DistSquared(Pawn->GetActorLocation(),AutoRecovery->GetComponentLocation())<=FMath::Square(125.f)
++        &&ColdSteelWorldInteraction::CanReachPickup(GetWorld(),Pawn,this,AutoRecovery->GetComponentLocation());
++    if(!Near&&!ColdSteelWorldInteraction::IsFocused(Pawn,this))return false;
++    if(GetNetMode()==NM_Client)
++    {
++        auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
++        return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::RecoverArrow,FString(),this);
++    }
++    return RecoverIntoPouch(Pawn);
+@@ -283,2 +312,3 @@
+-    if(!Pawn||!Pawn->IsPlayerControlled()||!CanRecover()||!HasAuthority()||GetNetMode()!=NM_Standalone)return false;
+-    auto* Profile = Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Pawn||!Pawn->IsPlayerControlled()||!CanRecover()||!HasAuthority())return false;
++    auto* Player=Cast<AFPSGAMECharacter>(Pawn);
++    auto* Profile=Player&&Player->GetNetShadowProfile()?Player->GetNetShadowProfile():Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+@@ -292 +322,6 @@
+-    if (!Profile->GrantAmmo(AmmoId, 1))
++    auto After=Profile->Snapshot();
++    auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
++    const bool Added=Profile->AddAmmoToState(After,AmmoId,1);
++    const bool Saved=Added&&(GetNetMode()==NM_Standalone?Profile->CommitState(After)
++        :Profile->CommitCampfireState(After,TEXT("Inventory"),Player&&Player->GetNetShadowProfile()&&PS?PS->CampfireGuestSlot():FString()));
++    if (!Saved)
+@@ -302,0 +338,20 @@
++void ABowArrow::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME_CONDITION(ABowArrow,Presentation,COND_InitialOnly);
++    DOREPLIFETIME(ABowArrow,bStuck);DOREPLIFETIME(ABowArrow,bRecoverable);
++}
++void ABowArrow::OnRep_Presentation()
++{
++    Configure(1,600,0,400,FColdSteelSkillShot{},Presentation.Shaft,Presentation.Head,
++        Presentation.Radius,Presentation.Length,Presentation.Ammo,bRecoverable,120);
++    OnRep_Stuck();
++}
++void ABowArrow::OnRep_Stuck()
++{
++    if(HasAuthority())return;
++    SetActorEnableCollision(bStuck);
++    RecoveryShape->SetCollisionEnabled(bStuck&&bRecoverable?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
++    AutoRecovery->SetCollisionEnabled(bStuck?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
++    SetActorTickEnabled(false);
++}
+diff --git a/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp b/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp
+--- a/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp
++++ b/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp
+@@ -1,0 +2 @@
++#include "../UI/StatusEffectsComponent.h"
+@@ -111,0 +113 @@
++    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("poison"),5.f,Stacks);
+@@ -121 +123,6 @@
+-    if(--TicksLeft<=0){--Stacks;TicksLeft=5;if(Stacks<=0)GetWorld()->GetTimerManager().ClearTimer(Timer);}
++    if(--TicksLeft<=0)
++    {
++        --Stacks;TicksLeft=5;
++        if(Stacks<=0){GetWorld()->GetTimerManager().ClearTimer(Timer);UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("poison"));}
++        else UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("poison"),5.f,Stacks);
++    }
+@@ -123,0 +131,3 @@
++
++void UColdSteelPoisonComponent::ClearPoison()
++{Stacks=TicksLeft=0;GetWorld()->GetTimerManager().ClearTimer(Timer);UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("poison"));}
+diff --git a/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h b/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h
+--- a/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h
++++ b/Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h
+@@ -61,0 +62 @@
++    void ClearPoison();
+diff --git a/Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp b/Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp
+--- a/Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp
+@@ -87 +87 @@
+-                    Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
++                    Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true,false);
+@@ -91 +91 @@
+-                            FColdSteelNetHitReceipt Receipt;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;
++                            FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;
+diff --git a/Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp b/Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp
+--- a/Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp
+@@ -1,0 +2 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -39 +40,2 @@
+-    Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(const auto* Pawn=Cast<APawn>(GetOwner());Pawn&&Pawn->IsLocallyControlled())
++        Profile=ColdSteelAuthority::ForPawn(Pawn);
+@@ -63 +65 @@
+-    auto* M=Profile.Get();const auto* Pawn=Cast<APawn>(GetOwner());
++    const auto* Pawn=Cast<APawn>(GetOwner());auto* M=ColdSteelAuthority::ForPawn(Pawn);
+@@ -103 +105 @@
+-    auto* M=Profile.Get();auto* Pawn=Cast<APawn>(GetOwner());if(!M||!Pawn||!Wave.Chain)return;
++    auto* Pawn=Cast<APawn>(GetOwner());auto* M=ColdSteelAuthority::ForPawn(Pawn);if(!M||!Pawn||!Pawn->HasAuthority()||!Wave.Chain)return;
+@@ -142 +144 @@
+-    if(!ChainSystem)return;
++    if(!ChainSystem&&GetNetMode()!=NM_DedicatedServer)return;
+diff --git a/Source/FPSGAME/Weapons/FPSRiftSlashProjectile.cpp b/Source/FPSGAME/Weapons/FPSRiftSlashProjectile.cpp
+--- a/Source/FPSGAME/Weapons/FPSRiftSlashProjectile.cpp
++++ b/Source/FPSGAME/Weapons/FPSRiftSlashProjectile.cpp
+@@ -1,0 +2,5 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "GameFramework/GameStateBase.h"
++#include "Net/UnrealNetwork.h"
+@@ -2,0 +8 @@
++#include "JingangRuneComponent.h"
+@@ -20,0 +27 @@
++    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
+@@ -36,0 +44,4 @@
++    if(!HasAuthority())return;
++    bInitialized=true;
++    NetFlight.Aim=Aim;NetFlight.Range=RangeCM;NetFlight.Speed=SpeedCM;
++    NetFlight.StartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+@@ -43,0 +55,8 @@
++    SetupVisuals(Mesh,Material,Particles);
++    if((!Mesh||!Material||!Particles)&&GetNetMode()!=NM_DedicatedServer)LoadVisuals();
++    SetLifeSpan(RangeCM/FMath::Max(1.f,SpeedCM)+.3f);ForceNetUpdate();
++}
++
++void AFPSRiftSlashProjectile::SetupVisuals(UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles)
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
+@@ -55,4 +74,30 @@
+-    if(Particles){Motes->SetAsset(Particles);Motes->Activate(true);}
+-    SetLifeSpan(RangeCM/FMath::Max(1.f,SpeedCM)+.3f);
+-    // The first flight tick sweeps from the aim origin, so a nearby wall is
+-    // never skipped. Damage also stays outside the sword's release callback.
++    if(Particles&&!bFinished){Motes->SetAsset(Particles);Motes->Activate(true);}
++}
++
++void AFPSRiftSlashProjectile::LoadVisuals()
++{
++    const FSoftObjectPath Mesh(TEXT("/Game/Weapons/RiftSlash20260930/SM_RiftSlash.SM_RiftSlash"));
++    const FSoftObjectPath Material(TEXT("/Game/Weapons/RiftSlash20260930/M_RiftSlash.M_RiftSlash"));
++    const FSoftObjectPath Particles(TEXT("/Game/Weapons/RiftSlash20260930/NS_RiftSlashMotes.NS_RiftSlashMotes"));
++    VisualLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(TArray<FSoftObjectPath>{Mesh,Material,Particles},
++        FStreamableDelegate::CreateWeakLambda(this,[this,Mesh,Material,Particles]()
++        {SetupVisuals(Cast<UStaticMesh>(Mesh.ResolveObject()),Cast<UMaterialInterface>(Material.ResolveObject()),Cast<UNiagaraSystem>(Particles.ResolveObject()));}));
++}
++
++void AFPSRiftSlashProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AFPSRiftSlashProjectile,NetFlight);
++}
++
++void AFPSRiftSlashProjectile::OnRep_Flight()
++{
++    if(NetFlight.Range<=0.f)return;
++    const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++    Age=float(FMath::Max(0.,Now-NetFlight.StartedAt));
++    if(!bInitialized){bInitialized=true;LoadVisuals();}
++    if(NetFlight.FinishedAt>=0.){bFinished=true;FadeAge=float(FMath::Max(0.,Now-NetFlight.FinishedAt));Motes->Deactivate();}
++}
++
++void AFPSRiftSlashProjectile::EndPlay(EEndPlayReason::Type Reason)
++{
++    if(VisualLoad)VisualLoad->CancelHandle();VisualLoad.Reset();Super::EndPlay(Reason);
+@@ -103 +148,8 @@
+-                Character->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
++            {
++                if(Character->IsLocallyControlled())Character->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
++                else if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
++                {
++                    if(auto* Rune=Character->FindComponentByClass<UJingangRuneComponent>())Rune->ConfirmAttack(Target,Applied);
++                    FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;PS->ClientConfirmHit(Receipt);
++                }
++            }
+@@ -113,0 +166,2 @@
++    if(HasAuthority())
++    {NetFlight.FinishedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();ForceNetUpdate();}
+@@ -119 +173,2 @@
+-    if(!IsValid(GetOwner())){Destroy();return;}
++    if(!bInitialized)return;
++    if(!IsValid(GetOwner())){if(HasAuthority())Destroy();return;}
+@@ -121,2 +176,2 @@
+-    if(!bFinished)Advance(FMath::Min(Remaining,Speed*DeltaSeconds));
+-    else FadeAge+=DeltaSeconds;
++    if(!bFinished&&HasAuthority())Advance(FMath::Min(Remaining,Speed*DeltaSeconds));
++    if(bFinished)FadeAge+=DeltaSeconds;
+diff --git a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -35 +35 @@
+-    const double BaseDamage=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage):Base*R.Modifiers.Damage+Attack;
++    const double BaseDamage=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
+diff --git a/Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp b/Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp
+--- a/Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp
++++ b/Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp
+@@ -21,0 +22,2 @@
++#include "Net/UnrealNetwork.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -32,0 +35 @@
++    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
+@@ -80,0 +84,3 @@
++    NetworkMesh=Mesh;
++    if(GetNetMode()!=NM_Standalone&&GetNetMode()!=NM_Client&&InOwner&&!InOwner->IsLocallyControlled())
++    {Blade->SetOwnerNoSee(true);Wake->SetOwnerNoSee(true);ImpactWisps->SetOwnerNoSee(true);}
+@@ -94,0 +101 @@
++    NetworkPhase=1;ForceNetUpdate();
+@@ -103,0 +111 @@
++    NetworkPhase=2;ForceNetUpdate();
+@@ -110,2 +118,2 @@
+-    UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal());
+-    if (auto* Target = Hit.GetActor())
++    if(GetNetMode()!=NM_Client)UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal());
++    if (auto* Target = Hit.GetActor();Target&&GetNetMode()!=NM_Client)
+@@ -120 +128,2 @@
+-                if (auto* Profile = Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
++                if (auto* Profile = Cast<AFPSGAMECharacter>(Shooter.Get())&&CastChecked<AFPSGAMECharacter>(Shooter.Get())->GetNetShadowProfile()
++                    ?CastChecked<AFPSGAMECharacter>(Shooter.Get())->GetNetShadowProfile():Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+@@ -138 +147,5 @@
+-                    Player->NotifyConfirmedWeaponHit(Target, Applied);
++                {
++                    Player->NotifyConfirmedWeaponHit(Target, Applied,nullptr,false,false);
++                    if(!Player->IsLocallyControlled())if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>())
++                    {FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=bCritical;Receipt.bKilled=Combat->IsDead();PS->ClientConfirmHit(Receipt);}
++                }
+@@ -220,0 +234 @@
++    if(GetNetMode()!=NM_Client){NetworkPhase=3;ForceNetUpdate();MulticastImpact(Hit);}
+@@ -256,0 +271 @@
++    if(GetNetMode()==NM_Client&&GetLocalRole()!=ROLE_Authority)return;
+@@ -290,0 +306,19 @@
++void ARuneOrbBlade::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME_CONDITION(ARuneOrbBlade,NetworkMesh,COND_InitialOnly);
++    DOREPLIFETIME(ARuneOrbBlade,NetworkPhase);
++}
++void ARuneOrbBlade::OnRep_Visual()
++{
++    if(NetworkMesh)Blade->SetStaticMesh(NetworkMesh);
++    // The owning client already has immediate gesture-driven cosmetic blades.
++    Blade->SetOwnerNoSee(true);Wake->SetOwnerNoSee(true);ImpactWisps->SetOwnerNoSee(true);
++    if(GetInstigator()&&GetInstigator()->IsLocallyControlled())Light->SetVisibility(false);
++    if(NetworkPhase==1)Wake->SetVisibility(true);
++    else if(NetworkPhase>=2){Blade->SetVisibility(false);Wake->SetVisibility(false);Light->SetIntensity(0.f);}
++}
++void ARuneOrbBlade::MulticastImpact_Implementation(const FHitResult& Hit)
++{
++    if(GetNetMode()==NM_Client&&GetLocalRole()!=ROLE_Authority)ApplyHit(Hit);
++}
+diff --git a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -1,0 +2,2 @@
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -54,0 +57 @@
++    SetIsReplicatedByDefault(true);
+@@ -95 +98 @@
+-    if(!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()==NM_Client)
++    if(!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE))
+@@ -96,0 +100,11 @@
++    // Client possession can arrive after BeginPlay. RefreshEquipment will create
++    // the local presentation when OnRep_Controller attaches the owner's profile.
++    if(Pawn->HasAuthority() || Pawn->IsLocallyControlled())InitializePresentation();
++    if(Pawn->IsLocallyControlled())RefreshEquipment(GameInstance->GetSubsystem<UColdSteelStatusModel>());
++    else if(Pawn->HasAuthority())RefreshEquipment(Pawn->GetNetShadowProfile());
++}
++
++void URuneSwordComponent::InitializePresentation()
++{
++    auto* Pawn=Character.Get();
++    if(!Pawn || Viewmodel)return;
+@@ -133 +146,0 @@
+-    RefreshEquipment(GameInstance->GetSubsystem<UColdSteelStatusModel>());
+@@ -138 +151,3 @@
+-    if(!Profile || !Viewmodel)return;
++    if(!Profile || !Character.IsValid() || (!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
++    if(!Viewmodel)InitializePresentation();
++    if(!Viewmodel)return;
+@@ -506,0 +522,2 @@
++    if(!SwingSkills.GuardAttackSerial){if(++NetworkBladeSerial==0)++NetworkBladeSerial;SwingSkills.GuardAttackSerial=NetworkBladeSerial;}
++    SwingSkills.GuardSourceInstance=InstanceId;
+@@ -527,0 +545,13 @@
++    if(!Character->HasAuthority())
++    {
++        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
++            PS->ServerReleaseRiftSlash(++RiftReleaseSerial,InstanceId,Aim.GetLocation(),Aim.GetUnitAxis(EAxis::X),SwingSkills.GuardAttackSerial,SwingSkills.AzureDragonPhysicalMultiplier>1.f,SwingSkills.AttackMeta==0x15);
++        return;
++    }
++    auto WaveSkills=SwingSkills;WaveSkills.AttackMeta|=0x40;
++    SpawnAuthoritySlashWave(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,WaveSkills);
++}
++
++void URuneSwordComponent::SpawnAuthoritySlashWave(const FTransform& Aim,float WaveDamage,float Range,float Speed,const FColdSteelSkillShot& Shot)
++{
++    if(!GetOwner()->HasAuthority()||!Character.IsValid())return;
+@@ -531,5 +561 @@
+-    {
+-        // 裂斩波命中也要服务端复算：在挥砍语义上叠加"波"位，服务端再乘附魔缩放。
+-        auto WaveSkills = SwingSkills; WaveSkills.AttackMeta |= 0x40;
+-        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,WaveSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
+-    }
++        Wave->Launch(Aim,WaveDamage,Range,Speed,Shot,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
+@@ -802 +828 @@
+-    if(auto* Profile=GetWorld()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
++    if(auto* Profile=ColdSteelAuthority::ForPawn(Character.Get()))
+@@ -1312,0 +1339,2 @@
++    // Remote first-person rigs do not advance local combat/input state.
++    if(Character.IsValid()&&!Character->IsLocallyControlled()){bEquipping=false;TickNetworkGuard();return;}
+@@ -1546 +1574 @@
+-    if(auto* Profile=GetWorld()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)Profile->FinishQuickCombatCast();
++    if(auto* Profile=ColdSteelAuthority::ForPawn(Character.Get()))Profile->FinishQuickCombatCast();
+diff --git a/Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp b/Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp
+--- a/Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp
++++ b/Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp
+@@ -22 +22 @@
+-    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
++    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack,-1,Model):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
+diff --git a/Source/FPSGAME/Weapons/Bow/BowArrow.h b/Source/FPSGAME/Weapons/Bow/BowArrow.h
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.h
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.h
+@@ -16,0 +17,11 @@
++
++USTRUCT()
++struct FBowArrowPresentation
++{
++    GENERATED_BODY()
++    UPROPERTY() TObjectPtr<UStaticMesh> Shaft=nullptr;
++    UPROPERTY() TObjectPtr<UStaticMesh> Head=nullptr;
++    UPROPERTY() FString Ammo;
++    UPROPERTY() float Radius=.3f;
++    UPROPERTY() float Length=76.f;
++};
+@@ -38,0 +50 @@
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+@@ -56 +68,5 @@
+-    bool bResolved = false, bStuck = false;
++    bool bResolved = false;
++    UPROPERTY(ReplicatedUsing=OnRep_Stuck) bool bStuck = false;
++    UPROPERTY(ReplicatedUsing=OnRep_Presentation) FBowArrowPresentation Presentation;
++    UFUNCTION() void OnRep_Presentation();
++    UFUNCTION() void OnRep_Stuck();
+@@ -65 +81 @@
+-    bool bRecoverable = false;
++    UPROPERTY(ReplicatedUsing=OnRep_Stuck) bool bRecoverable = false;
+diff --git a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp
+@@ -16,0 +17 @@
++#include "../../Multiplayer/ColdSteelPlayerState.h"
+@@ -1037 +1038,8 @@
+-    if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
++    if(Pawn->GetNetMode()==NM_Client)
++    {
++        auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
++        FColdSteelInventoryRequest Request;Request.Action=EColdSteelInventoryAction::BowShot;
++        Request.Item=InstanceId;Request.Eye=CameraOrigin;Request.Origin=Muzzle;Request.Direction=LaunchDirection;Request.Charge=Ratio;
++        if(!PS||!PS->RequestInventoryAction(Request)){ShowFeedback(TEXT("物品操作正在同步，请稍候"));return false;}
++    }
++    else if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
+@@ -1066 +1074 @@
+-    Profile->SpendStamina(Cost);
++    if(Pawn->GetNetMode()!=NM_Client)Profile->SpendStamina(Cost);
+diff --git a/Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp b/Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp
+--- a/Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp
+@@ -23,0 +24 @@
++    SetIsReplicatedByDefault(true);
+@@ -31,5 +32,9 @@
+-    const auto* Owner = Cast<APawn>(GetOwner());
+-    const auto* Profile = Owner && Owner->GetGameInstance()
+-        ? Owner->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+-    const auto* Item = Profile ? Profile->Equipped() : nullptr;
+-    return Item && !Profile->ActiveProductionTool() && Item->Definition == TEXT("ue_rune_sword");
++    const auto* Model=Profile();const auto* Item=Model?Model->Equipped():nullptr;
++    return Item&&!Model->ActiveProductionTool()&&Item->Definition==TEXT("ue_rune_sword");
++}
++UColdSteelStatusModel* URuneOrbBladesComponent::Profile() const
++{
++    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
++    if(!Player||!Player->GetGameInstance())return nullptr;
++    if(Player->HasAuthority()&&!Player->IsLocallyControlled())return Player->GetNetShadowProfile();
++    return Player->IsLocallyControlled()?Player->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+@@ -40,4 +45 @@
+-    const auto* Owner = Cast<APawn>(GetOwner());
+-    const auto* Profile = Owner && Owner->GetGameInstance()
+-        ? Owner->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+-    return Profile && Profile->HasNoAbilityCooldown();
++    const auto* Model=Profile();return Model&&Model->HasNoAbilityCooldown();
+@@ -59 +61 @@
+-    return Player && Player->IsLocallyControlled() && GetWorld()->GetNetMode() != NM_Client && PC &&
++    return Player && Player->IsLocallyControlled() && PC &&
+@@ -127 +129 @@
+-    auto* Profile = Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* Profile = this->Profile();
+@@ -128,0 +131 @@
++    if(GetNetMode()==NM_Client)ServerOrbitIntent(0,0,FVector::ZeroVector);
+@@ -178 +181,2 @@
+-    const FRotationMatrix ViewBasis(Camera->GetComponentRotation());
++    if(!Character->IsLocallyControlled())Eye=Character->GetPawnViewLocation();
++    const FRotationMatrix ViewBasis(Character->IsLocallyControlled()?Camera->GetComponentRotation():Character->GetBaseAimRotation());
+@@ -208,0 +213 @@
++    if(GetNetMode()==NM_Client)ServerOrbitIntent(1,Pick,Target);
+@@ -229,0 +235 @@
++    if(GetNetMode()==NM_Client&&bActive)ServerOrbitIntent(2,0,FVector::ZeroVector);
+@@ -246,3 +252,2 @@
+-    if (auto* Owner = Cast<APawn>(GetOwner()); Owner && Owner->GetGameInstance())
+-        if (auto* Profile = Owner->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+-            Profile->ReduceAllAbilityCooldowns(.5f);
++    if(auto* Model=Profile())Model->ReduceAllAbilityCooldowns(.5f);
++    if(auto* Owner=Cast<APawn>(GetOwner());Owner&&Owner->HasAuthority()&&!Owner->IsLocallyControlled())ClientBladeKill();
+@@ -268,0 +274 @@
++    if(Character&&!Character->HasAuthority()&&!Character->IsLocallyControlled())return;
+diff --git a/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp b/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
+--- a/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
+@@ -4,0 +5,2 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+@@ -109,0 +112,10 @@
++    if(GetWorld()->GetNetMode()!=NM_Standalone)
++    {
++        if(GetWorld()->GetNetMode()==NM_Client)
++        {
++            auto* PS=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
++            return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::PickupNearby)?1:0;
++        }
++        auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
++        return Shared&&Shared->PickupNearby(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Message)?1:0;
++    }
+diff --git a/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp b/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
+@@ -3,0 +4 @@
++#include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
+@@ -16 +17,5 @@
+-void UColdSteelStatusModel::EndStorageSession(){ActiveContainer.Empty();ActiveStorageCaption.Empty();WarehousePage=0;}
++void UColdSteelStatusModel::EndStorageSession()
++{
++    if(HasNetworkContainerView()){auto State=Snapshot();StripNetworkContainerView(State);AdoptNetMirror(State);NetworkContainerAnchor.Reset();}
++    ActiveContainer.Empty();ActiveStorageCaption.Empty();WarehousePage=0;
++}
+@@ -22,0 +28 @@
++    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerMove),Id,Place,Cell,Orientation);
+@@ -43 +49 @@
+-    for (const TCHAR* Definition : {TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue")})
++    for (const TCHAR* Definition : {TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue"), TEXT("ue_steel_warhammer")})
+@@ -105,0 +112 @@
++    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerBatch),FString(),0,-1,-1,bMatching?1:0);
+@@ -117,0 +125 @@
++    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerStoreMatching));
+@@ -186,0 +195 @@
++    if(ColdSteelCurrency::IsCurrency(Item.Definition))return ColdSteelCurrency::MaxSouls-SoulBalance();
+diff --git a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+@@ -7,0 +8 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -21,0 +23 @@
++#include "Engine/World.h"
+@@ -39,0 +42 @@
++    if(auto* PS=GetOwningPlayerPawn()->GetPlayerState<AColdSteelPlayerState>())PS->ServerWarehouseOpen(Chest,true);
+@@ -42,0 +46,6 @@
++    if(GetWorld()->GetNetMode()!=NM_Standalone&&!ContainerKey.StartsWith(TEXT("NetView.")))
++    {
++        if(auto* Pawn=GetOwningPlayerPawn())if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())
++            PS->RequestInventoryAction(EColdSteelInventoryAction::ContainerOpen,FString(),Anchor);
++        return;
++    }
+@@ -57,0 +67,2 @@
++    if(WarehouseChest.IsValid()&&GetOwningPlayerPawn())
++        if(auto* PS=GetOwningPlayerPawn()->GetPlayerState<AColdSteelPlayerState>())PS->ServerWarehouseOpen(WarehouseChest.Get(),false);
+@@ -93 +104 @@
+-            if(!Pawn||Pawn->GetNetMode()==NM_Client
++            if(!Pawn
+@@ -105 +116 @@
+-    if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid())WarehouseChest->SetOpen(false);WarehouseChest.Reset();WarehouseAnchor.Reset();}
++    if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid()&&GetWorld()->GetNetMode()==NM_Standalone)WarehouseChest->SetOpen(false);WarehouseChest.Reset();WarehouseAnchor.Reset();}

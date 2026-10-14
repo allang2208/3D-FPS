@@ -35,13 +35,14 @@ class FPSGAME_API AFatZombiePusPool : public AActor
     GENERATED_BODY()
 public:
     AFatZombiePusPool();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     void InitializeFrom(APawn* Source, const FFatZombiePusSettings& Settings);
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pus") TObjectPtr<UDynamicMeshComponent> Surface;
     UPROPERTY(EditDefaultsOnly, Category="Pus") TObjectPtr<UMaterialInterface> PusMaterial;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pus") int32 Seed = 0;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pus", Replicated) int32 Seed = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pus") int32 DamagePulses = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pus") int32 SuccessfulHits = 0;
 private:
@@ -52,12 +53,13 @@ private:
         FVector Arrival; // Matches vertex-color B: when the spreading front reaches each corner.
     };
     TArray<FGroundTriangle> GroundTriangles;
-    FFatZombiePusSettings Tuning;
+    UPROPERTY(Replicated) FFatZombiePusSettings Tuning;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> Liquid;
     TWeakObjectPtr<AController> DamageInstigator;
     TWeakObjectPtr<APawn> SourcePawn;
     FName SourceFaction;
     uint8 SourceTeam = 255;
+    UPROPERTY(Replicated) double NetworkStartTime = 0.;
     double StartTime = 0;
     float QueryRadius = 200.f;
     FTimerHandle DamageTimer;

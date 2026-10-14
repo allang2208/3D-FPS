@@ -4,6 +4,7 @@
 #include "RiverPilotFXSubsystem.h"
 #include "NiagaraSystem.h"
 #include "../UI/TransitLoadingSubsystem.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
 #include "Async/Async.h"
 #include "Algo/AllOf.h"
 #include "Components/DynamicMeshComponent.h"
@@ -182,7 +183,13 @@ struct FTemperateHillsStreamingState
     TArray<TWeakObjectPtr<UTexture2D>> GroundTextures;
     TArray<HillsStreaming::FCVarOverride> CVars;
     TMap<int32,TWeakObjectPtr<AActor>> Fog;
-    TWeakObjectPtr<ACharacter> HeldPawn;
+    struct FSurfaceHold
+    {
+        EMovementMode ResumeMode=MOVE_Falling;
+        FIntPoint WaitCell;
+        FIntPoint PawnCell;
+    };
+    TMap<TWeakObjectPtr<ACharacter>,FSurfaceHold> HeldPawns;
     FText Status=FText::FromString(TEXT("正在准备出生区域…"));
     bool GroundReady=false;
     bool LoadingAssets=false;
@@ -389,11 +396,16 @@ void ATemperateHillsWorld::TickStreaming()
     const double Half=SizeMeters*50;
     auto* Pawn=UGameplayStatics::GetPlayerCharacter(this,0);
     const FVector Center=Pawn?Pawn->GetActorLocation():GetStartLocation();
+    TArray<FVector> ViewCenters{Center};
+    if(HasAuthority())for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+        if(APawn* Player=It->Get()->GetPawn())ViewCenters.AddUnique(Player->GetActorLocation());
     auto CellOrigin=[&](FIntPoint K){return FVector(-Half+K.X*Size,-Half+K.Y*Size,0);};
     auto DistanceSquared=[&](FIntPoint K)
     {
         const FVector O=CellOrigin(K);
-        return FMath::Square(FMath::Max(0.0,FMath::Abs(Center.X-O.X-Size*.5)-Size*.5))+FMath::Square(FMath::Max(0.0,FMath::Abs(Center.Y-O.Y-Size*.5)-Size*.5));
+        double Nearest=DBL_MAX;for(const auto& View:ViewCenters)
+            Nearest=FMath::Min(Nearest,FMath::Square(FMath::Max(0.0,FMath::Abs(View.X-O.X-Size*.5)-Size*.5))+FMath::Square(FMath::Max(0.0,FMath::Abs(View.Y-O.Y-Size*.5)-Size*.5)));
+        return Nearest;
     };
     auto IsStart=[&](FIntPoint K){return FMath::Abs(K.X-S.StartCell.X)<=1&&FMath::Abs(K.Y-S.StartCell.Y)<=1;};
     auto Wanted=[&](FIntPoint K,bool& Detailed)
@@ -508,19 +520,53 @@ void ATemperateHillsWorld::TickStreaming()
         return;
     }
     if(!bReady)TickPreparation();
-    // Guard an uncooked frontier or a teleport while its local collision catches up.
-    if(Pawn)
+    // Collision is streamed for all server pawns, so each needs its own frontier hold.
+    // Clients only hold their autonomous pawn; simulated proxies follow server movement.
+    TSet<TWeakObjectPtr<ACharacter>> Guarded;
+    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
     {
-        const FVector Probe=Pawn->GetActorLocation()+Pawn->GetVelocity()*.35;
+        auto* Player=Cast<ACharacter>(It->Get()->GetPawn());
+        if(!Player||(!HasAuthority()&&!Player->IsLocallyControlled()))continue;
+        if(const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
+        {S.HeldPawns.Remove(Player);continue;}
+        Guarded.Add(Player);
+        auto* Move=Player->GetCharacterMovement();
+        const FVector Probe=Player->GetActorLocation()+Player->GetVelocity()*.35;
         const FIntPoint K(FMath::FloorToInt((Probe.X+Half)/Size),FMath::FloorToInt((Probe.Y+Half)/Size));
-        const auto* Cell=S.Cells.Find(K);
+        const FVector Position=Player->GetActorLocation();
+        const FIntPoint PawnCell(FMath::FloorToInt((Position.X+Half)/Size),FMath::FloorToInt((Position.Y+Half)/Size));
+        auto* Held=S.HeldPawns.Find(Player);
+        // Stopping zeroes velocity. Keep waiting for the original frontier cell,
+        // otherwise the next tick would release on the already-cooked current cell.
+        if(Held&&Held->PawnCell!=PawnCell){Held->WaitCell=K;Held->PawnCell=PawnCell;}
+        const auto* Cell=S.Cells.Find(Held?Held->WaitCell:K);
         const bool Ready=bReady&&Cell&&Cell->Detailed&&Cell->Mesh.IsValid();
-        auto* Move=Pawn->GetCharacterMovement();
-        if(!Ready&&!S.HeldPawn.IsValid())
-        {Move->StopMovementImmediately();Move->DisableMovement();S.HeldPawn=Pawn;}
-        else if(Ready&&S.HeldPawn.IsValid())
-        {Move->SetMovementMode(MOVE_Falling);S.HeldPawn.Reset();}
-        if(S.HeldPawn.IsValid())S.Status=FText::FromString(TEXT("正在准备前方地面，请稍候…"));
+        if(Held)
+        {
+            if(Ready)
+            {
+                // Walking resumes through a fresh floor query; preserve swimming.
+                if(Move->MovementMode==MOVE_None)Move->SetMovementMode(Held->ResumeMode==MOVE_Swimming?MOVE_Swimming:MOVE_Falling);
+                S.HeldPawns.Remove(Player);Player->ForceNetUpdate();
+            }
+        }
+        else if(!Ready&&(Move->IsMovingOnGround()||Move->IsFalling()||Move->IsSwimming()))
+        {
+            S.HeldPawns.Add(Player,{Move->MovementMode,K,PawnCell});
+            Move->StopMovementImmediately();Move->DisableMovement();Player->ForceNetUpdate();
+        }
+        if(Player->IsLocallyControlled()&&S.HeldPawns.Contains(Player))
+            S.Status=FText::FromString(TEXT("正在准备前方地面，请稍候…"));
+    }
+    for(auto It=S.HeldPawns.CreateIterator();It;++It)if(!Guarded.Contains(It.Key()))
+    {
+        if(auto* Player=It.Key().Get())
+        {
+            const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
+            if(auto* Move=Player->GetCharacterMovement();Move->MovementMode==MOVE_None&&(!Health||!Health->IsDead()))
+                Move->SetMovementMode(It.Value().ResumeMode==MOVE_Swimming?MOVE_Swimming:MOVE_Falling);
+        }
+        It.RemoveCurrent();
     }
     // Only nearby tree trunks own physics, one cell added/removed each frame.
     if(S.TreesActive&&Assets->TrunkCollisionMesh.IsValid())for(auto& Pair:S.Cells)
@@ -899,6 +945,14 @@ void ATemperateHillsWorld::EndStreaming()
     EndBackdrop();
     if(!Streaming)return;
     auto& S=*Streaming;S.Stopping=true;
+    for(const auto& Held:S.HeldPawns)if(auto* Player=Held.Key.Get())
+    {
+        const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
+        if(Health&&Health->IsDead())continue;
+        if(auto* Move=Player->GetCharacterMovement();Move->MovementMode==MOVE_None)
+            Move->SetMovementMode(Held.Value.ResumeMode==MOVE_Swimming?MOVE_Swimming:MOVE_Falling);
+    }
+    S.HeldPawns.Reset();
     // Ground residency requests expire naturally after five seconds. Do not
     // clear global flags on textures another world/preview may also be using.
     // Completed handles transferred to the GameInstance keep the curated biome cached.

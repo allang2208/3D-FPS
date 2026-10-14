@@ -4,6 +4,7 @@
 #include "Tickable.h"
 #include "CraftingSystem.h"
 #include "../UI/ColdSteelInventoryTypes.h"
+#include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "ForgingSystem.generated.h"
 
 class UColdSteelStatusModel;
@@ -21,6 +22,8 @@ class FPSGAME_API UColdSteelForgingSystem : public UGameInstanceSubsystem, publi
 {
     GENERATED_BODY()
 public:
+    UColdSteelForgingSystem* CreateNetworkSession(class UColdSteelStatusModel* M);
+    UPROPERTY() TObjectPtr<class UColdSteelStatusModel> NetworkModel;
     static constexpr int32 TargetCount=20;
     static constexpr double Preparation=3.0;
     static constexpr double HitWindowMin=2.2;
@@ -43,6 +46,9 @@ public:
     bool GetPaidMaterials(TMap<FString,int64>& Paid) const;
     bool GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refund,FString& Reason) const;
     bool Discard(FString& Reason);
+    FColdSteelForgeNetState NetworkState() const;
+    void ApplyNetworkState(const FColdSteelForgeNetState& State);
+    void NetworkSessionEnded();
     bool Active() const {return bActive;}
     double Elapsed() const;
     double PhaseRemaining() const;

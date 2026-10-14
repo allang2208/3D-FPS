@@ -1,4 +1,5 @@
 #include "WoodworkingWorldView.h"
+#include "WorkstationViewRestore.h"
 #include "WoodworkingStockGeometry.h"
 #include "WoodworkingSystem.h"
 #include "Async/Async.h"
@@ -148,10 +149,7 @@ void AWoodworkingWorldView::RestorePlayer()
     if(auto* Player=PC.Get())
     {
         if(bHiddenPawn)Player->HiddenActors.Remove(WorkingPawn.Get());
-        if(Player->GetViewTarget()==this||(Player->PlayerCameraManager&&Player->PlayerCameraManager->PendingViewTarget.Target==this))
-        {
-            AActor* Return=PreviousView.IsValid()?PreviousView.Get():Player->GetPawn();if(Return)Player->SetViewTarget(Return);
-        }
+        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),0.f);
     }
     bHiddenPawn=false;
 }

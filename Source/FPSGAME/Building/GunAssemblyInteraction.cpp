@@ -1,4 +1,5 @@
 #include "GunAssemblyInteraction.h"
+#include "WorkstationViewRestore.h"
 #include "GunAssemblySystem.h"
 #include "ForgeArmsMeshComponent.h"
 #include "VoxelBuildPrefabActor.h"
@@ -236,7 +237,7 @@ void AGunAssemblyInteraction::RestorePlayer()
     {
         if(bInputLocked){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bInputLocked=false;Player->FlushPressedKeys();}
         if(bHiddenPawn){Player->HiddenActors.Remove(WorkingPawn.Get());bHiddenPawn=false;}
-        if(Player->GetViewTarget()==this)Player->SetViewTargetWithBlend(PreviousView.IsValid()?PreviousView.Get():Player->GetPawn(),.25f,VTBlend_Cubic);
+        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),.25f);
         Player->bShowMouseCursor=false;Player->SetInputMode(FInputModeGameOnly());
     }
     if(Prompt){Prompt->RemoveFromParent();Prompt=nullptr;}

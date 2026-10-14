@@ -19,6 +19,8 @@ public:
     bool CanInteract(const APawn* Pawn) const;
     bool IsWithinReach(const APawn* Pawn) const;
     void SetOpen(bool Open);
+    void SetOpenFor(APawn* Pawn,bool Open);
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     bool IsOpen()const{return bIsOpen;}
     bool IsAnimating()const{return bAnimating;}
     /** ---- 储物会话接口：本 Actor 交互时面板绑定的存储容器 ----
@@ -44,6 +46,9 @@ public:
 protected:
     UPROPERTY() TObjectPtr<class UBoxComponent> Collision; // 子类按自身外形调整交互碰撞体
 private:
+    UPROPERTY(ReplicatedUsing=OnRep_SharedOpen) bool bSharedOpen=false;
+    UFUNCTION() void OnRep_SharedOpen();
+    TSet<TWeakObjectPtr<APawn>> OpenUsers;
     bool bDesiredOpen=false,bIsOpen=false,bAnimating=false,bPlayingOpen=false;
     float Elapsed=0;
 };

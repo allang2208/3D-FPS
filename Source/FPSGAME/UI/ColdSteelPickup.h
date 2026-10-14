@@ -25,11 +25,16 @@ public:
     /** 准星小浮窗统一读取（不再挂世界空间名牌）：形如"拾取 铁锭 ×12"。 */
     const FString& GetPromptText()const{return PromptCaption;}
     void InitializeItem(const FColdSteelItem& Item);
+    void InitializeSharedItem(const FColdSteelItem& Item);
+    bool IsSharedPickup() const {return !SharedItem.InstanceId.IsEmpty();}
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void Tick(float DeltaSeconds) override;
     bool CanInteract(const APawn* Pawn) const;
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UBoxComponent> Body;
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UPoseableMeshComponent> Weapon;
 private:
+    UPROPERTY(ReplicatedUsing=OnRep_SharedItem) FColdSteelItem SharedItem;
+    UFUNCTION() void OnRep_SharedItem();
     friend class UColdSteelPickupStudio;
     bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);

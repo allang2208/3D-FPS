@@ -1,4 +1,10 @@
 #include "ProductionFallingTree.h"
+#include "Net/UnrealNetwork.h"
+#include "GameFramework/GameStateBase.h"
+#include "Components/InstancedSkinnedMeshComponent.h"
+#include "Components/InstancedStaticMeshComponent.h"
+#include "UObject/UObjectIterator.h"
+#include "../WorldGeneration/TemperateHillsWorld.h"
 #include "ProductionResource.h"
 #include "ProductionHarvestAssets.h"
 #include "ProductionHarvestSubsystem.h"
@@ -57,7 +63,7 @@ static void LogNaniteAssemblyDiag(const TCHAR* Label,const USkeletalMesh* Mesh)
 
 AProductionFallingTree::AProductionFallingTree()
 {
-    PrimaryActorTick.bCanEverTick=true;
+    PrimaryActorTick.bCanEverTick=true;bReplicates=true;SetReplicateMovement(false);
     Tree=CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CutUpperTree"));
     Tree->SetMobility(EComponentMobility::Movable);
     RootComponent=Tree;Tree->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -110,7 +116,15 @@ static constexpr float StubZMaxCm[4]={210.f,210.f,0.f,210.f};
 void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,const FVector& Direction)
 {
     FProductionResource Target=Resource;Target.Direction=Direction;
-    Plan=FProductionTreeFallPlan::Make(Target);
+    Plan=HasAuthority()?FProductionTreeFallPlan::Make(Target):NetFall.Plan;
+    if(HasAuthority())
+    {
+        NetFall.Plan=Plan;NetFall.Mesh=Resource.Mesh;NetFall.Transform=Resource.Transform;NetFall.Seed=Resource.Seed;
+        NetFall.StartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        NetFall.Valid=true;ForceNetUpdate();
+    }
+    bFallReady=true;
+    if(GetNetMode()==NM_DedicatedServer){SetActorTickEnabled(false);SetLifeSpan(Plan.ReleaseSeconds()+Plan.FadeSeconds+.1f);return;}
     const int32 Variant=ProductionHarvestAssets::TreeVariant(Resource.Mesh);
     // 2026-09-29 用户第五轮反馈（"要从树干中截断倒下，不是整树倒下再放树桩"）：默认改回重制的
     // SK_CutUpper_* 真切断网格——它就是 42 cm 以上的上半段（自带年轮断面封盖），树桩留在原地，
@@ -211,13 +225,21 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
         if(const USkeletalMesh* Authored=FindObject<USkeletalMesh>(nullptr,*AuthoredPath))
             LogNaniteAssemblyDiag(TEXT("authored"),Authored);
     }
-    if(auto* Sound=Cast<USoundBase>(ProductionHarvestAssets::TreeSound(false).ResolveObject()))
+    if(Elapsed<.2f)if(auto* Sound=Cast<USoundBase>(ProductionHarvestAssets::TreeSound(false).ResolveObject()))
         UGameplayStatics::PlaySoundAtLocation(this,Sound,Plan.Pivot,.7f,.94f+(EffectSeed%13)*.01f);
-    SetLifeSpan(Plan.ReleaseSeconds()+Plan.FadeSeconds+.1f);
+    if(HasAuthority())SetLifeSpan(Plan.ReleaseSeconds()+Plan.FadeSeconds+.1f);
 }
 void AProductionFallingTree::Tick(float Delta)
 {
-    Super::Tick(Delta);Elapsed+=Delta;
+    Super::Tick(Delta);
+    if(!bFallReady)
+    {
+        NetworkLoadCountdown-=Delta;
+        if(!HasAuthority()&&NetFall.Valid&&NetworkLoadCountdown<=0.f){NetworkLoadCountdown=.1f;TryNetworkFall();}
+        if(!bFallReady)return;
+    }
+    const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+    Elapsed=NetFall.Valid?float(FMath::Max(0.,Now-NetFall.StartedAt)):Elapsed+Delta;
     const float FallTime=Elapsed-Plan.AnticipationSeconds;
     float Angle=0;
     if(FallTime<0)

@@ -92,8 +92,8 @@ TArray<FStatusEffectView> UStatusEffectsComponent::Snapshot() const
   {auto V=Definition(TEXT("sanityCollapse"));V.Persistent=true;V.DurationText=TEXT("恢复 SAN 后解除");Result.Add(V);}
  }
  if(const auto* Pawn=Cast<APawn>(GetOwner());Pawn&&Pawn->IsPlayerControlled())
-  if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&!Run->ActiveShrineBlessing().IsNone())
-  {auto V=Definition(Run->ActiveShrineBlessing());V.Persistent=true;V.DurationText=TEXT("本次地牢");Result.Add(V);}
+  if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&!Run->ActiveShrineBlessing(Pawn).IsNone())
+  {auto V=Definition(Run->ActiveShrineBlessing(Pawn));V.Persistent=true;V.DurationText=TEXT("本次地牢");Result.Add(V);}
  if(auto* P=GetOwner()->FindComponentByClass<UMaggotPoisonComponent>())if(P->Stacks>0){auto V=Definition(TEXT("poison"));V.Stacks=P->Stacks;V.Duration=5;V.Remaining=P->GetDecayRemaining();V.Description+=TEXT(" 每 5 秒消退 1 层；倒计时为下一次减层时间。");Result.Add(V);}
  if(auto* F=GetOwner()->FindComponentByClass<UHandBrainFearComponent>())if(F->Stacks>0){auto V=Definition(TEXT("fear"));V.Stacks=F->Stacks;V.Duration=3;V.Remaining=F->GetRemainingSeconds();Result.Add(V);}
  if(const auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>();Infection&&Infection->GetState().bActive)

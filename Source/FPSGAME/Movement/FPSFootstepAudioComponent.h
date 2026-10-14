@@ -15,7 +15,7 @@ struct FFPSFootstepBank
     int32 Last = INDEX_NONE;
 };
 
-/** Local first-person foley. Uses distance, not viewmodel animation notifies. */
+/** Player foley from local or replicated movement. Uses distance, not viewmodel animation notifies. */
 UCLASS(ClassGroup=(Audio), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSFootstepAudioComponent : public UActorComponent
 {
@@ -37,6 +37,7 @@ private:
     FName GroundBank(const FHitResult& Hit) const;
     float GetStepDistanceCm(const ACharacter* Pawn) const;
     UPROPERTY() TObjectPtr<UAutoFootstepEffectContext> Context;
+    UPROPERTY() TObjectPtr<class USoundAttenuation> RemoteAttenuation;
     TWeakObjectPtr<ATemperateHillsWorld> Hills;
     FVector Previous = FVector::ZeroVector;
     float Distance = 0;

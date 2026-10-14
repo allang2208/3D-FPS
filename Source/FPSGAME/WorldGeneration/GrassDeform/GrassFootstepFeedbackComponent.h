@@ -113,8 +113,8 @@ public:
  * decals plus one loop over at most PuffMaxActive puff records, and the component ticks only while
  * a decal or a puff is still alive.
  *
- * Single-player presentation only: no replication, no authority checks, and a dedicated server
- * skips it entirely.
+ * Local presentation for each replicated pawn: filter the emitting actor and world.
+ * Movement supplies remote contacts; dedicated servers skip the presentation entirely.
  */
 UCLASS(ClassGroup = (Grass), meta = (BlueprintSpawnableComponent))
 class FPSGAME_API UGrassFootstepFeedbackComponent : public UActorComponent
@@ -240,7 +240,7 @@ private:
     void Unsubscribe();
 
     /** Handle one broadcast. Filters the surface whitelist, throttles and drives all three effects. */
-    void HandleFootstep(EPhysicalSurface Surface, const FVector& Location, const FRotator& Rotation);
+    void HandleFootstep(const UObject* SourceContext, EPhysicalSurface Surface, const FVector& Location, const FRotator& Rotation);
 
     /** Resolve the config and both soft assets once. Returns false while they are unavailable. */
     bool ResolveAssets();

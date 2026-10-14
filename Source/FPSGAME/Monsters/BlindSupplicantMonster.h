@@ -11,6 +11,19 @@ class USoundAttenuation;
 class UNiagaraComponent;
 enum class EM07MagicElement : uint8;
 
+USTRUCT()
+struct FBlindSupplicantNetworkAttack
+{
+    GENERATED_BODY()
+    UPROPERTY() uint8 Kind = 0;
+    UPROPERTY() TObjectPtr<UAnimSequence> Clip;
+    UPROPERTY() float Duration = 0.f;
+    UPROPERTY() float GatherDuration = 0.f;
+    UPROPERTY() float MeleeRate = 1.f;
+    UPROPERTY() double StartedAt = -1.;
+    UPROPERTY() bool bChargeStopped = false;
+};
+
 /** M-07, a 3.1 m sensory experiment. AI decisions use the shared monster tree. */
 UCLASS(Blueprintable, Placeable)
 class FPSGAME_API ABlindSupplicantMonster : public ANurseZombie
@@ -98,6 +111,13 @@ protected:
 private:
     enum class EAttack : uint8 { None, SweepLeft, SweepRight, Fireball, IceColumn, Lightning };
     EAttack ActiveAttack = EAttack::None;
+    UPROPERTY(ReplicatedUsing=OnRep_AttackPresentation) FBlindSupplicantNetworkAttack NetworkAttack;
+    UFUNCTION() void OnRep_AttackPresentation();
+    void ApplyNetworkAttack();
+    double PresentedNetworkAttackAt = -1.;
+    UPROPERTY(ReplicatedUsing=OnRep_WallListening) bool bNetworkWallListening = false;
+    UFUNCTION() void OnRep_WallListening();
+    UFUNCTION(NetMulticast, Unreliable) void MulticastWallMimic(double StartedAt);
     TWeakObjectPtr<APawn> LockedAttackTarget;
     FVector LockedAimPoint = FVector::ZeroVector;
     FVector LockedAttackDirection = FVector::ForwardVector;

@@ -1,0 +1,5923 @@
+{
+  "base_commit": "f9172d3af09d1e7865e0c317a49e61acb0b829ea",
+  "patch_base": "the named public Git commit; selected edits only; dependencies listed separately",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoor.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "0347af39c240769465f30358ff87c58ff2c4c62f5497734651c3f1785fb4bbf5",
+      "published_sha256": "b0f12685d2cc85914aae030cf1a9be2e3210e20c6750bd5b47c95e622d555eb2",
+      "worktree_sha256": "b60c5dfb7c4e5d3cface27b456831455ab9caab0aed471f2c51cce70e52874b5",
+      "selected_edits": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/ColdSteelDoor.h",
+      "delivery": "integration_patch",
+      "base_sha256": "a7a262314cca439e4563eeee4279a4c296e6a356b1e0277ca83370dbb2a11735",
+      "published_sha256": "46f0db230a9bafbecc1f811b8112f2d77d8403cca48eac439052baf7acd62551",
+      "worktree_sha256": "152a0eb6e5f1ceefcd19650b886c5a585a76e2e2f6abbe9d8f37458dbc1afb7f",
+      "selected_edits": [
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/CraftingSystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "8658144051476e396bfa82758cbe1ed908a70a44bfb2f1b95bc91fc3c7fac028",
+      "published_sha256": "0de9cb6fa4762a2921673791877e31d471f097f7fb4cfc1a82e4af787a70726a",
+      "worktree_sha256": "0de9cb6fa4762a2921673791877e31d471f097f7fb4cfc1a82e4af787a70726a",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgeInteraction.cpp",
+      "delivery": "direct",
+      "base_sha256": "74401478bda90e2b6fa20dc3384c4fef59ff0d2d05396344bbf233f1f6604029",
+      "published_sha256": "96c9d9ff0a3c9f0b3e68714b21c384061d0a7e76ba6a4003a0c89938e8710d74",
+      "worktree_sha256": "96c9d9ff0a3c9f0b3e68714b21c384061d0a7e76ba6a4003a0c89938e8710d74",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingSystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "5e01153965df2f09fc7e0d22ecef90eb84828b05c967b05224286b6bf360f7d2",
+      "published_sha256": "3d572aa00ab9f7c7f45b4b24e2c51e0a48c54f468d99953d6d081088b74b3fe6",
+      "worktree_sha256": "3d572aa00ab9f7c7f45b4b24e2c51e0a48c54f468d99953d6d081088b74b3fe6",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence": [
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/ForgingSystem.h",
+      "delivery": "direct",
+      "base_sha256": "6cff159e358ec4eb456fe1e1897ac7f82fc01206a5426fd8453e4224417082ab",
+      "published_sha256": "d31b5f77ba09597eb2fc859815acd7eebd9a6a72cbf78b201e81752866a9f6e8",
+      "worktree_sha256": "d31b5f77ba09597eb2fc859815acd7eebd9a6a72cbf78b201e81752866a9f6e8",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblyInteraction.cpp",
+      "delivery": "direct",
+      "base_sha256": "85ac894d32dc31c482951f3b548c66590ffbc2656f71718476a8c994d432ec86",
+      "published_sha256": "b776fda6649ed1bc0180447363853590788eac18e9806f7b36900797784a7a99",
+      "worktree_sha256": "b776fda6649ed1bc0180447363853590788eac18e9806f7b36900797784a7a99",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblySystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "601cd2a35bbc7ac1ac5c986049d646856660d4dce84b655c619a2acdf6366cff",
+      "published_sha256": "32892423df9513eba7ac0aaac6e54d3fa07258ac183e114720da08d83caaefbb",
+      "worktree_sha256": "32892423df9513eba7ac0aaac6e54d3fa07258ac183e114720da08d83caaefbb",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/GunAssemblySystem.h",
+      "delivery": "direct",
+      "base_sha256": "b38cfe4b5b93987d34a5879a32a361e67f5b6061826554b3b355d117d136c845",
+      "published_sha256": "3b27bb59bbdb03270c21c4fdf18e598b3e143fca30aa44eb4ab50a85ea3863fb",
+      "worktree_sha256": "3b27bb59bbdb03270c21c4fdf18e598b3e143fca30aa44eb4ab50a85ea3863fb",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/SmeltingCasting.cpp",
+      "delivery": "direct",
+      "base_sha256": "1113efca587031d17a1175689935ecace2e56c38aa5628f8181709aa31cb3685",
+      "published_sha256": "0e7376d20707c9e4cb7072cd2d25d46f2e839408e3d9b3f18ea9a4bfae3e802b",
+      "worktree_sha256": "0e7376d20707c9e4cb7072cd2d25d46f2e839408e3d9b3f18ea9a4bfae3e802b",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/SmeltingSystem.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "b818f45a23d6e9357a9784b8427e0e2f06e88fbc7099b17ff1a1abe5377b732e",
+      "published_sha256": "61676c19d6001e7e65315e43990417064e80e1203af6bff8dc2a9b5eb5529075",
+      "worktree_sha256": "fa596a2d5ad3f8fbff1e05db5d6da10948d21132be0ab37103a0d430959c8f9e",
+      "selected_edits": [
+        0,
+        2,
+        5,
+        7,
+        12,
+        14,
+        16,
+        19,
+        21,
+        23,
+        24,
+        25
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "1bafe866c59823628dac7d2d39165c6767efb86b2fd48f368d382df68cbbb8ad",
+      "published_sha256": "acddee48fabfea58d57982928b574d5e2f2abc037a7e3982ea13ee457c9fba98",
+      "worktree_sha256": "0e7c508ac2b6afe0717971db47e6fdd270bcbf2a6b43b126ad7d8ca0ad9a835f",
+      "selected_edits": [
+        0,
+        6,
+        7,
+        14,
+        15
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "499628f546beb8c39ed0c466180bb6b9e60c7e46ac6a7f76ea69758dde053f72",
+      "worktree_sha256": "dd6bd6c7fab618b2a5ae3114790e4fe24b02344c0c14599c29473b2eb44d0e07",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "9e3e04c09a5d0940d2dd51d4221f93027098996ab8ec239152acf5656671c527",
+      "published_sha256": "f1e1bd48f5be0ca5244886f92d415f0969cedad2a2fc2cf1972e00bd1a204789",
+      "worktree_sha256": "60b3c7b4043251ba1db90b7a29dce896749e132f00b33bdeaf2a780719dbd2fb",
+      "selected_edits": [
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+      "delivery": "integration_patch",
+      "base_sha256": "aed332eba038dbecab1529d31cff143f11f60f08d6f05134aba43c4e72bbed78",
+      "published_sha256": "b99fcab145e959e0c155f9a1b234e2eee4595c26e4395ead9c7d467a116497ef",
+      "worktree_sha256": "569f920ca36a85190684662ef3ccbf4735c0421ece73b6cea3d2de78d91f32e4",
+      "selected_edits": [
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "e7ecb0c588df46541b19a06c0bcdcea7cb60f55668af01398623b1c9ec93a801",
+      "published_sha256": "3b2b47503ee6fcbe67f9de8bb8dda1daa0e0880b49f6dd8b49e85f347557e3b0",
+      "worktree_sha256": "8444c77840320509cc05681a5b25fe68ef7c6d0e0db37d65d1f63678cca38648",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+      "delivery": "direct",
+      "base_sha256": "23948d192b9cf5b2600bf20ca7f0dee4a66aafd62515a29d49c8c680782de49b",
+      "published_sha256": "bdddb8a92f75db4392b9b4151334add976e5be861fe4fd786c9e681e749ed84c",
+      "worktree_sha256": "bdddb8a92f75db4392b9b4151334add976e5be861fe4fd786c9e681e749ed84c",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildRuntime.h",
+      "delivery": "integration_patch",
+      "base_sha256": "4d054c721b362aa064156dd1d0c141a7e90175a7a2a674c2c69766c79ce8af7a",
+      "published_sha256": "4f0bceb23b426a2fc6996f4e04469044776a965d9627066ad2f3af4420f865fc",
+      "worktree_sha256": "ef66567e4a520d3a726819cf1cbe3677e3da9fe34e6fc82f60e3dfe2459b455e",
+      "selected_edits": [
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "5dd9542e5de30d943732c88d01d4571b9c798447dff716fd79f341190b5a9a59",
+      "published_sha256": "520a93d86f476d8aed36314b8b30336e3739d0af3d71a73787e48bb15aa029c3",
+      "worktree_sha256": "82036ba16eb82a39d0e25dad72340e703c5856d39a5ed2bb029dbd4566471135",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        15,
+        17,
+        18
+      ],
+      "evidence": [
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "delivery": "integration_patch",
+      "base_sha256": "fce1fceb782599a20d90ad8cdcc081f8fb65b460de35c52c267979b1470dc19a",
+      "published_sha256": "c2bfa65e22f66719e092ef6a1e6946fe73d3b85370f6127e44a3abea95806565",
+      "worktree_sha256": "e0bfd18eebebf0cbef7d2f2837ba70c59e0ed72bc8a2765ade315e9358189ed3",
+      "selected_edits": [
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+      "delivery": "direct",
+      "base_sha256": "1d2768f70c303b9937a70b3013837ae4647b726a4a452bfb07eaa17600108ff4",
+      "published_sha256": "a9875e36eea7a327c2f413b504a9fe5e08b2b1b2fcac6e46be2cc1be7328dcdf",
+      "worktree_sha256": "a9875e36eea7a327c2f413b504a9fe5e08b2b1b2fcac6e46be2cc1be7328dcdf",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldCollapse.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "60fc11424c49904fb58ffc5cb0e13dfb58f1c38f86920bff9ba5cd292329c5da",
+      "published_sha256": "f781eae5aa7a7c1b29c52f7207051cc8253df5206e5235e4addba4f97c2abc50",
+      "worktree_sha256": "2f68de42d8e39911a8315866a1547309884b7dea47f15716eb1ccefc7ef0fa9d",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldDamage.cpp",
+      "delivery": "direct",
+      "base_sha256": "bce284c24d8295c258b3923d31a3669b7d148ce0e48bda98159a2615030a8af6",
+      "published_sha256": "5f5e598b30a0b5ef6047e86500a83107d8a4e73c7c5f3a3d853f3c8ce9ed67a4",
+      "worktree_sha256": "5f5e598b30a0b5ef6047e86500a83107d8a4e73c7c5f3a3d853f3c8ce9ed67a4",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "14423552b950c0c8b043b93540875c476a44526d39b7473ce2673b47be4c726a",
+      "published_sha256": "d367850dd871a7d732d4ebdf5e0d0012596dcd3ac7fd8d7670a644fc160a498f",
+      "worktree_sha256": "d850c5b64e16a859a35b45697063d6d181bdeb327a29e56dc9112cf852bcdfcb",
+      "selected_edits": [
+        3,
+        13,
+        17,
+        18
+      ],
+      "evidence": [
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorldSave.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "025465a9192f62c558aaf6c9f33b4779e2c68fc497f041e0ee53719a63d21896",
+      "published_sha256": "f671fd1285fff15a315eb0384d324c780baab76cbcdc231599b3949bf3dea0f3",
+      "worktree_sha256": "90cde0357e1867181a475ad37449841a07dea116212b917a4b0974fa7d73cd1d",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelCollapseFragment.cpp",
+      "delivery": "direct",
+      "base_sha256": "95c3a513c4b78f44f23043257c49f9cc35be8d261a5a419d79cd4eec302fe11e",
+      "published_sha256": "fe6c4105ae6cb49dc64f455bf1bab50c0c0a8ef1f5b7ea7123c08e92f52ec8ca",
+      "worktree_sha256": "fe6c4105ae6cb49dc64f455bf1bab50c0c0a8ef1f5b7ea7123c08e92f52ec8ca",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelCollapseFragment.h",
+      "delivery": "direct",
+      "base_sha256": "baf75f4a67597f025579256b214ae661b96b5ec9de6bd947dbdf28a3a3d6db63",
+      "published_sha256": "88ea6d778c0d6a0f0109863062e24fea208bcb378bdb51c523443de840272e4c",
+      "worktree_sha256": "88ea6d778c0d6a0f0109863062e24fea208bcb378bdb51c523443de840272e4c",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/WoodworkingWorldView.cpp",
+      "delivery": "direct",
+      "base_sha256": "8240d42093918f601e73320bb575df13df1ff5ede543537eeae7124dad250c80",
+      "published_sha256": "05de2edeaecab3ffbb1a4fe70ba2f407678333d5493efb502270f29ca68150d3",
+      "worktree_sha256": "05de2edeaecab3ffbb1a4fe70ba2f407678333d5493efb502270f29ca68150d3",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Building/WorkstationViewRestore.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "9b6731c2d086f525541d8a012152366f4f68ea57ff54b62ea5944f1c27a06fc5",
+      "worktree_sha256": "9b6731c2d086f525541d8a012152366f4f68ea57ff54b62ea5944f1c27a06fc5",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "delivery": "direct",
+      "base_sha256": "c0571db0958a1aba29a20749a05d7f21b932b1cdc1280ef4f89a95bac1aeec58",
+      "published_sha256": "91814f9e1fc407e8a0a900fad913bd3cd1b629fe23c42d2dd5ed0a61210d6f8d",
+      "worktree_sha256": "91814f9e1fc407e8a0a900fad913bd3cd1b629fe23c42d2dd5ed0a61210d6f8d",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+      "delivery": "direct",
+      "base_sha256": "f0b467ec619a08bdd61f7cda83cb2d0f64f8262cd9a37708abcb9b43b7e73568",
+      "published_sha256": "45a245e4eeca1543c796c4d1b04833bc6493e6c6cc4b9c3d19b84ff8d42b656b",
+      "worktree_sha256": "45a245e4eeca1543c796c4d1b04833bc6493e6c6cc4b9c3d19b84ff8d42b656b",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "delivery": "direct",
+      "base_sha256": "df0fe693d97c661cea5edb4b521bbca9a8f26da1ce271e59eaf08d66ad2a6387",
+      "published_sha256": "355dbf2e537cd3282e9d20725c80acf1d610ba343902abbdbab38342282a7ec5",
+      "worktree_sha256": "355dbf2e537cd3282e9d20725c80acf1d610ba343902abbdbab38342282a7ec5",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "delivery": "direct",
+      "base_sha256": "f253c143a5b6f5fe74cda4c493241b74342d09ff9a4696d83cc7ee6e352cd5e5",
+      "published_sha256": "c3bbac30cc231734b1409da90020b4b7067326fcc9f74dab5b37d287d99615fe",
+      "worktree_sha256": "c3bbac30cc231734b1409da90020b4b7067326fcc9f74dab5b37d287d99615fe",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ProgressiveInfectionComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "c3546267b5fdc074739fdc6b49ddb252f99419d912636b3e9a64cee192f50ab9",
+      "published_sha256": "7b9c59e81232da7ab26c872270e955aeb4802f9ad864ecd065cb065ae8a7b804",
+      "worktree_sha256": "7b9c59e81232da7ab26c872270e955aeb4802f9ad864ecd065cb065ae8a7b804",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ProgressiveInfectionComponent.h",
+      "delivery": "direct",
+      "base_sha256": "a2a353eaafae93e9cbd9cf5fd45757de830a326d723c5fc15a0fcc097438958d",
+      "published_sha256": "9aade550c728f8cc21e683a56e6078b0775a9000374843ec53f099eb50cc61da",
+      "worktree_sha256": "9aade550c728f8cc21e683a56e6078b0775a9000374843ec53f099eb50cc61da",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "f25e847dbbf0f9000602de288ce57e46f95e6bfc8ededeb3969b2e0c41e8da73",
+      "published_sha256": "d370e1d57cdc6954f36ba691771cae08ec65d8856aa0619b685ec2d34d4ff934",
+      "worktree_sha256": "c30918d31e6cd7edc19596eb3f79de38bbc77d35bb481f3989e6bd1ae2685afe",
+      "selected_edits": [
+        0,
+        19,
+        20,
+        21,
+        22,
+        32,
+        55,
+        89
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "delivery": "integration_patch",
+      "base_sha256": "bc841602fec91259a9392034b535fd695c9bf6a80c9211e809f92bbf89f7e65b",
+      "published_sha256": "eea9b964b2e5cf52b15bcec769916f0dbf32931fdb3a00e5d37655c528fa9591",
+      "worktree_sha256": "34915ff070bfa58c0f7df94346374a3fa81ba5bcabb83f44cf2543df20ebc23a",
+      "selected_edits": [
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonPusChannel.cpp",
+      "delivery": "direct",
+      "base_sha256": "f1ef9db767472f0bacdae1ff7f9b8c0ebf567b55ae2965a0f076f1d6b185c94d",
+      "published_sha256": "814915b080a682ccaa3d11a0d5b20668ba184590f4b39abfee4e74aa4556c741",
+      "worktree_sha256": "814915b080a682ccaa3d11a0d5b20668ba184590f4b39abfee4e74aa4556c741",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "e563f3fe1ec10b33ab81e50d6a39818b069007e3e400a309378101f432cf8102",
+      "published_sha256": "6b3bd15a6909bdd699efe539f3040f5f07859a82701c480ca13020db8024c302",
+      "worktree_sha256": "025fcefc0439e99ce2e776296e71082a0831d7c4f6395b79afb1069f0841fc2f",
+      "selected_edits": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRoomGate.h",
+      "delivery": "integration_patch",
+      "base_sha256": "c5482d10ebc168b050a6139d3e7b566c71c1f716a83e8e1ce322b9b2abde5078",
+      "published_sha256": "4771ca47628443e20bcb57f153053653eb35a52b75edeaa4b897c23ba2073803",
+      "worktree_sha256": "778d4d17dd44a7b9d56db80ccab6ccb91cdc9b4d4f7af5a5dc717621144a0bce",
+      "selected_edits": [
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "b44dea14a84eab79df0b3b8cbd0ee8b3024dd2852e4611680b44f91d604373bb",
+      "worktree_sha256": "41c9ad894456529925c50b0ce58d841dee9fe531d458eb395dc91a4c94843623",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "3c1acfdf8da5d4792bbd6a6116579c2b27ed4a9db8f3808d15504a35704602be",
+      "published_sha256": "0ae5fd4474d773004117b63fcda928047447fd232f91f98d90b30d2b022a5b74",
+      "worktree_sha256": "b9b3e401d50eb6c355e4ea1e5d09678a95e5be7a6969dbff74108a87dc10389d",
+      "selected_edits": [
+        2,
+        8,
+        19,
+        20,
+        21,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "delivery": "integration_patch",
+      "base_sha256": "8e5c615c8f38b45fd8d77c65d7d603e6d29d0aac188129b2ab0774fb88f5e16e",
+      "published_sha256": "77c779507c2d11977fb83f419e537b79ac0d5def6bfc57638dfe147aaad13e3a",
+      "worktree_sha256": "21522ac95a7e481e40221260f7c7cca3c6b73166dbeda7132b1edf3904438a7b",
+      "selected_edits": [
+        3,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonShrine.cpp",
+      "delivery": "direct",
+      "base_sha256": "23d7705d33aac66c000b532a0eb50417030a8c74e5a3d9bb041ce244a5f95f72",
+      "published_sha256": "49b629d7ba3b257697f95ccf807a036fa3bd7de563a722ce6efdae96ea2bd059",
+      "worktree_sha256": "49b629d7ba3b257697f95ccf807a036fa3bd7de563a722ce6efdae96ea2bd059",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "0fbb375d5947187fb26fb3429ca2dad99c82455038b7da84286d044d7f62add9",
+      "published_sha256": "297a1558031b18e0e9c4c341010444e3f005fb514b075a67f10fd07832e029d4",
+      "worktree_sha256": "a6051f3595bb3973e68fa0c380bb6eaa035fc93e50c827233815a0cfa16fa6e1",
+      "selected_edits": [
+        31
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "d839856db09ed50180c3f0ba5e591e478dfae31fcfb5d5be453d24681beb8329",
+      "published_sha256": "3d50e120d0787bbbe7b57e68e6aab2b5555ac83457c896ce548c2233083c8dce",
+      "worktree_sha256": "3f1923ce09e48e998aae23614e09158745014218889ce6cfb5b82dc505383f69",
+      "selected_edits": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/WardBreakableGlass.h",
+      "delivery": "direct",
+      "base_sha256": "6ac0fec4f881c7a7f7fde226ba18836ac77e43913ed40e784a545e3985a26a64",
+      "published_sha256": "91a131547ddedd4a3c055ff05873285f9cb287753062f37c35cfa361b853990c",
+      "worktree_sha256": "91a131547ddedd4a3c055ff05873285f9cb287753062f37c35cfa361b853990c",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.Build.cs",
+      "delivery": "integration_patch",
+      "base_sha256": "a350210442bd608ed2d4643439477914184707de1e18830ee4223912d26144e6",
+      "published_sha256": "4e55c419cdb687b7fd8422b75e05e6a4bf8a9a3a77c26fa4d445ad810c82335f",
+      "worktree_sha256": "d719700f646495e3f0c2befb8f8bff0b42433864a0f671deb79687c2455642ba",
+      "selected_edits": [
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "856864ec1a629623ff0ab8a1f02e8a35abfc6ff1c0e867872fe691b20f18d1b9",
+      "published_sha256": "0a124bd35319baac1a21ad373ae6e9cc0f615c8ebe1d04a6cbe875e0f79743c5",
+      "worktree_sha256": "f4dc808ea4f5fc2a05bbd9dece63676577d1aebdd380614150f855794d06d57b",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "delivery": "integration_patch",
+      "base_sha256": "86b2a566bebd87024c203b4d671b91b0c403d1f10cf572af95f52ef284021e16",
+      "published_sha256": "c312e8fce6cebe8ba3d0eafdd6892d1c093bed03c959019f8434e0c31fb8ae07",
+      "worktree_sha256": "5fa21ba4e6201a8dda0ac85455eb41d4f224a4136d140923673286832c7a815e",
+      "selected_edits": [
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp",
+      "delivery": "direct",
+      "base_sha256": "06fa7197cc1b0e34e11ef1c4a694ccb4d832ac74a971f778ff0d600400c036c8",
+      "published_sha256": "a1e4557993d43c38dc4829b732651f80f99c9d4c920c4a3b9844a33ea8011410",
+      "worktree_sha256": "a1e4557993d43c38dc4829b732651f80f99c9d4c920c4a3b9844a33ea8011410",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "7865daf2fd36e2cae95eb81c866c6e168c155bfff0fc1355486ff98445028100",
+      "published_sha256": "4b578234c82e0cebcd2e24103a811bd704fe600222f509ebd43e75ae966526c5",
+      "worktree_sha256": "ae8f9f29d04ec7a724c2c504cf696e01810ab0a002dd238574e9b0be1c1a9651",
+      "selected_edits": [
+        2,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+      "delivery": "direct",
+      "base_sha256": "6be50817ccc2a5aaee462da7fa1ec76343873aea9e26864216f8ca4e83e1c659",
+      "published_sha256": "6acddc7dcc8b96cb7f5015bf58efb8ce9279a4d9a0b2ad252a201a49f77b04da",
+      "worktree_sha256": "6acddc7dcc8b96cb7f5015bf58efb8ce9279a4d9a0b2ad252a201a49f77b04da",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSWeatherManager.h",
+      "delivery": "direct",
+      "base_sha256": "830ad3d10ac73bc1bceb0411c14207a4143adf5d7f121fa7166c2ac8f40f263a",
+      "published_sha256": "2b2c90f3f951f8c720a82c8ad20ca6f47c1fd330601050427cda33f2c76510ed",
+      "worktree_sha256": "2b2c90f3f951f8c720a82c8ad20ca6f47c1fd330601050427cda33f2c76510ed",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "d3b7a5c3063672d2a704e3d43d112d1f6beed731bec4a251d53e3774b9f3d426",
+      "published_sha256": "e45faed78d87df6ee21478b80937f5e6ebdc5856b5b95feb4e70aa6df528c1d5",
+      "worktree_sha256": "1d27a6ff63fbcd89cfbc0ff89074839c2753c42e4a9c39d13e8fbb1cffbe532d",
+      "selected_edits": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantMonster.cpp",
+      "delivery": "direct",
+      "base_sha256": "678f7a08891a57c3bcc44df38de7ddf53ec088b0dbf16d29414b659dd36d246c",
+      "published_sha256": "2083ebe93ff158635d11e4e2de6abab221346d1b47636ddb29c214af6c1304c0",
+      "worktree_sha256": "2083ebe93ff158635d11e4e2de6abab221346d1b47636ddb29c214af6c1304c0",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantMonster.h",
+      "delivery": "direct",
+      "base_sha256": "1668cd5f243f59e4fb8f227ecf88392d2b574634e6a36e88231a4208f151bc3d",
+      "published_sha256": "9a178373184d589898e3feba1e6717565c547c377c8a542aa04f69226384ad9c",
+      "worktree_sha256": "9a178373184d589898e3feba1e6717565c547c377c8a542aa04f69226384ad9c",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "3213a7c436041765d7a0d33b6c3275fb8a9a8007e025711753f046a4a785289f",
+      "worktree_sha256": "3213a7c436041765d7a0d33b6c3275fb8a9a8007e025711753f046a4a785289f",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregate.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "44e5736421bd706a4189c88402d1c6f639e679f921a0d213b1a67c09345ae4b8",
+      "published_sha256": "ceecb015b7471d67cb9b8a1b4ca55e77b2876ebe16cc92a9bbd39efcfe7077f0",
+      "worktree_sha256": "89ad1d57b84a68fa056245c6f4c4897ce244468bee49b4526749bdd413ae050a",
+      "selected_edits": [
+        0,
+        1,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "395c03c54db1b295b7dd61a3ce99d0f75d3bb9e68f6458987330e43d09ae7dcb",
+      "published_sha256": "54a1e4fcc61258b61a31ff41091d584217367f0a73091681625bbc49af65b874",
+      "worktree_sha256": "d6b85a399758c9006d0965c332e9a57d4c31a95a2efd6e854e4bfb103a89bbfa",
+      "selected_edits": [
+        0,
+        2,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+      "delivery": "integration_patch",
+      "base_sha256": "958af75c97f258a829d736b787d5fda6b43a9c7aa3840ac31149e2a17a40bc6b",
+      "published_sha256": "2bb431d705a1966c7d3b7f5f172dfe3c41828db6565cdce68d42f3d5a4451347",
+      "worktree_sha256": "06cdca7fdc17d94202da3ac6779df443119ca9b5b024ecb46e37b25e395b4415",
+      "selected_edits": [
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombiePusPool.cpp",
+      "delivery": "direct",
+      "base_sha256": "39b21aef59b47aa044f4c721ca9fab660320a995d3b4916eb759416b22ead85d",
+      "published_sha256": "23aca90a0843fcb3cc64ad063e6fce0c759aafd4c91f503e98b06183f46788a1",
+      "worktree_sha256": "23aca90a0843fcb3cc64ad063e6fce0c759aafd4c91f503e98b06183f46788a1",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombiePusPool.h",
+      "delivery": "direct",
+      "base_sha256": "82c17af91ea15a8e14d988efe06a8cc526e76d9d1bd58ae40af6bcf396a638a9",
+      "published_sha256": "1482f1598bb45abcc6cb71e24e0dd3ba94653e12c37df0504972f9e371da0388",
+      "worktree_sha256": "1482f1598bb45abcc6cb71e24e0dd3ba94653e12c37df0504972f9e371da0388",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "delivery": "direct",
+      "base_sha256": "a1ccad1e81ff30e6679503ab352a8e821d166bf20592e534816d531d318f05ed",
+      "published_sha256": "196605a2105ef82842dc46791473f7158b1a618f1d88251cb4eea3295c76fd0e",
+      "worktree_sha256": "196605a2105ef82842dc46791473f7158b1a618f1d88251cb4eea3295c76fd0e",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.h",
+      "delivery": "direct",
+      "base_sha256": "4f69bc27f4a2e5422274fd0ae6ef63974db6973c91da6d79efcee1aa4a3bab51",
+      "published_sha256": "ffdd8aae3b3e741db0caacf79c5cd3fa829a19faea8b68dc50bfe07048f3bef3",
+      "worktree_sha256": "ffdd8aae3b3e741db0caacf79c5cd3fa829a19faea8b68dc50bfe07048f3bef3",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "b2b3d3b4bb463b851c0175d8f58c4dc53caa9eb1f9f8b96e312d9a8c2a911383",
+      "published_sha256": "d0ec0cdb895c4f384cb7312b5df1afce762889d054a44660ade95c039bcf5e46",
+      "worktree_sha256": "d0ec0cdb895c4f384cb7312b5df1afce762889d054a44660ade95c039bcf5e46",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.h",
+      "delivery": "direct",
+      "base_sha256": "41599b6c9d3f81d2b48a88bff21b2785806a2e1d57ba9932a0ae43a2cc32f612",
+      "published_sha256": "bac152a51bbf3bba861aa2a916654af1d6be7ac7d15c16b2f439d22d0160b5ec",
+      "worktree_sha256": "bac152a51bbf3bba861aa2a916654af1d6be7ac7d15c16b2f439d22d0160b5ec",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "11ae925af6fe04d6545e8e05300856f0b8e96c7d539b80ee3f387e17b41d1211",
+      "published_sha256": "6148b0f7f787ef976634d8f0253897be290531782863941e0790fb515cb295e0",
+      "worktree_sha256": "2acc6d29256d56b79639e88aef92168e03b97557b3c53bcc8c0f25c60e301592",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.h",
+      "delivery": "direct",
+      "base_sha256": "a1cce3cbd4b730b277b81ec97d402765249843fee4cb563ecd3b20b4cea711b8",
+      "published_sha256": "d4e27d9797755257dd2ae7990d8d3d202dc604c9b2888e76a85659dd0a3bead0",
+      "worktree_sha256": "d4e27d9797755257dd2ae7990d8d3d202dc604c9b2888e76a85659dd0a3bead0",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainVillageSpawner.cpp",
+      "delivery": "direct",
+      "base_sha256": "0e2216a982e749221642680e607df86498e2370d21a91448766891c54a8aeec1",
+      "published_sha256": "dc453f31504c1d1a28a84e8438bd3582b4791564c45a0ddd663c10b6e10431aa",
+      "worktree_sha256": "dc453f31504c1d1a28a84e8438bd3582b4791564c45a0ddd663c10b6e10431aa",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "ee7cdae82a4f470834b1307851d29a82e5af2caddc69ec0387d49271cc5bbc0d",
+      "published_sha256": "6a5b3ba8e5048c9d00c93d515d588d035d1d8c5ed8d3ea59eb7a7c68b2ec92c7",
+      "worktree_sha256": "e0bfe863f28f9912f782d3637d87d063181f279620af60fd6ee6e8b99c056fbd",
+      "selected_edits": [
+        0,
+        1,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "4d837e46610656c7b68137e9773965f68139eca2958c783b86d09ee34124828b",
+      "published_sha256": "79e5263b5edfb72b4ee4fa7954fd607b832d1f1b4894ca8c898362479630d616",
+      "worktree_sha256": "c5e523a7d33bd16f09557f3a1dff7c18d5ddf6b3afbaca3023e1cea2800ee06f",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagMonster.h",
+      "delivery": "direct",
+      "base_sha256": "77c421b2538988f90a2a8870dff7f975c8d137eb4535516354c0364209e74e4b",
+      "published_sha256": "234c0077c683790c36ccc9c7fcea2f3ffa0c3ff14d26c91f6cdf1b221aad9871",
+      "worktree_sha256": "234c0077c683790c36ccc9c7fcea2f3ffa0c3ff14d26c91f6cdf1b221aad9871",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "9f4f8570e8eb0cc1e7193557d0d4a801b01057a8c643e07c4fe48d0313d97a34",
+      "published_sha256": "e08fd7ae480e2a2772a46dfb6c34a377ab1dab2598b70df8bef718c609c8684d",
+      "worktree_sha256": "e2ff2b07fee871ff4b62da2ede529b1b9a80c4deab43cab123675d6d3644054c",
+      "selected_edits": [
+        0,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "a03839f86fe22f41b6862e04f3b831f01d8935e5c6e9538729087b123577d611",
+      "published_sha256": "dfbe3cf3b0b3ca83ba87fabe955795861884c0f2880f9b9d649a204c5c28ba40",
+      "worktree_sha256": "69f2f9fef534b786affd66c9094c3eb98216c89960e0e6830982419cb4bbf267",
+      "selected_edits": [
+        0,
+        1,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MantisM27Pounce.cpp",
+      "delivery": "direct",
+      "base_sha256": "15ff1f16c4eb97e7d8c45948fa5fd140d8787928d1e9707442789774b09a899c",
+      "published_sha256": "61b8e07a8f64965130a18006c01df082c570170a7b4a842e2e150e893c6d31c0",
+      "worktree_sha256": "61b8e07a8f64965130a18006c01df082c570170a7b4a842e2e150e893c6d31c0",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "53cff054fe3eaa881324bf950b7e03d8844d724feb5db23cf69e77a80079ff3e",
+      "published_sha256": "1e30632b0872a92e22355e3f665545953e70b27fbd7181b27340fc4eebb894af",
+      "worktree_sha256": "498e2a2bd861ffe9694fa0a3978bceaf3376b121cab5daa4c4c296c80a15da04",
+      "selected_edits": [
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3.h",
+      "delivery": "direct",
+      "base_sha256": "f3c7fd40de86434dd142d660f6cccb9f0f601b4e59afcbb1f40ecee936aa34e0",
+      "published_sha256": "2f41ce8753aef36b2238a9d6db41819a1607bfb17c1ad83ff8ba9b0baedfd18a",
+      "worktree_sha256": "2f41ce8753aef36b2238a9d6db41819a1607bfb17c1ad83ff8ba9b0baedfd18a",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3Feral.cpp",
+      "delivery": "direct",
+      "base_sha256": "56d9d986ad0fa55a366f14c088875e983ed2bb9f8085971341f7168516e54e8c",
+      "published_sha256": "035a4d292fba232211c0035252b15e545c6c6c61cbb0867b5b50f880d98f95ad",
+      "worktree_sha256": "035a4d292fba232211c0035252b15e545c6c6c61cbb0867b5b50f880d98f95ad",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3Network.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "24257d30f133c449528ec364a9653821fb0a132c6ec22cdf81987eb50c9b7f22",
+      "worktree_sha256": "24257d30f133c449528ec364a9653821fb0a132c6ec22cdf81987eb50c9b7f22",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "73da9370531d2f1b53a9786b0dc5dc2c045a6a137242f0bde3b4c800cf93ad42",
+      "published_sha256": "894744b73a772896677138d12ffe09ac5828fceddc53bb984e50f29e30f8717c",
+      "worktree_sha256": "05957946ac77a831a1fe6222283b837b6b0e659017d215587f3f137d311003ca",
+      "selected_edits": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "delivery": "integration_patch",
+      "base_sha256": "387b92b02f5574f2ebb22455da8a4c1785e114684fc4ede1cc4639f59c315b5c",
+      "published_sha256": "1396628d041cab594543b662b439e551c0cd2ac8d1d95194cd926261a653d58d",
+      "worktree_sha256": "2229ff77d794939d1b8b24e2fe2c6ccf3cc355f8212fd3c2b94af022d53b461e",
+      "selected_edits": [
+        0,
+        2,
+        3,
+        4,
+        6
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombiePounceNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "cb20bfa993d0e07e9cc0105c55fc7d4b48fdf6cd12c0b3dd845990d46ad14798",
+      "worktree_sha256": "cb20bfa993d0e07e9cc0105c55fc7d4b48fdf6cd12c0b3dd845990d46ad14798",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "8c175faa4a830fc1560bb1eb2dd31b56f315883974e75ef3070ef89705a872d8",
+      "published_sha256": "de105285e973402fd309e34836b482f77291c9fb9cbbf9b27247871291e40b17",
+      "worktree_sha256": "fe302971e880f25a6cd465f15b3ae5a7571ab47dd72c290edcb9139c59994101",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotMonster.h",
+      "delivery": "direct",
+      "base_sha256": "de507c42a41b7dc1532fc2df2bc8a1c134124d4c6ecea3aa126810aaf1df08be",
+      "published_sha256": "5ad30f015d0f7b30a96f8fc892cf9c5196fa51e7dd0657dbb8ab4ec8f33254f9",
+      "worktree_sha256": "5ad30f015d0f7b30a96f8fc892cf9c5196fa51e7dd0657dbb8ab4ec8f33254f9",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "81a8c55d8c34153112b58b24e1354b8c42b06a05eee2b237124b5dc44f2be830",
+      "published_sha256": "8353b355ff6a03df9a5bf9e30fb6a2f6768e826c47c94c08d6bd77a0e34e26ac",
+      "worktree_sha256": "0b444ce90950cd68f25c04b808c69ad164af5e8f6e73265693aa7206769e409a",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.h",
+      "delivery": "direct",
+      "base_sha256": "3ffb9f01468cd134c89bd7dd9c52273eaed894aa1e77791cb1c6dc383263bc69",
+      "published_sha256": "98fcddd0e6bf29f3b99cbc5b83c3732497f4b2a20a4c74fcc175f1d012618b6c",
+      "worktree_sha256": "98fcddd0e6bf29f3b99cbc5b83c3732497f4b2a20a4c74fcc175f1d012618b6c",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotSpawner.cpp",
+      "delivery": "direct",
+      "base_sha256": "677a6b60b9f4a9ab3c93c1eb1cdc6c6ea5a8b468935112c7b2bad116682c8a00",
+      "published_sha256": "3760c866c5a6ed3598d8a12a076ddb51b2120763fc104869b965e0a9d0143554",
+      "worktree_sha256": "3760c866c5a6ed3598d8a12a076ddb51b2120763fc104869b965e0a9d0143554",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "f0673bab2f3e5dc61186c34818f7bca7a3ab47d2d7fbcc88476a0b5a32a4b016",
+      "published_sha256": "401c59797966be4671b7facb0dabac283f76e15015485f203dbe083c3eee3332",
+      "worktree_sha256": "b68c9ee26f3e91400b9f0faa7eecfec625269c8389dfc2ce02fa98961e5dd260",
+      "selected_edits": [
+        0,
+        1,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterZombie.cpp",
+      "delivery": "direct",
+      "base_sha256": "82876037dd4be17fa0448c9372a47f0e1a81ec95e81a5b7ee77d2da6fa390eab",
+      "published_sha256": "e053dbe7fec2e6ba99eae1c2a65f7ca39f3fea47269e9700d5babff77b9a7dd4",
+      "worktree_sha256": "e053dbe7fec2e6ba99eae1c2a65f7ca39f3fea47269e9700d5babff77b9a7dd4",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterZombie.h",
+      "delivery": "direct",
+      "base_sha256": "7bea18209ff911a32be9744ddbeaee1fce446828caade82efc82a84eecf4036a",
+      "published_sha256": "50ecefb1154d579c50909cfb8e1cd613f21ce8accb88d5a6826d0042073f3e53",
+      "worktree_sha256": "50ecefb1154d579c50909cfb8e1cd613f21ce8accb88d5a6826d0042073f3e53",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "before"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpitterZombieNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "6b3a14927b67c1dabf2b5792fa013507b9fb1de95cabce83cb6f81820e532aef",
+      "worktree_sha256": "6b3a14927b67c1dabf2b5792fa013507b9fb1de95cabce83cb6f81820e532aef",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerAttackBranches20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerAttackBranches20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/VortexCofferM25.cpp",
+      "delivery": "direct",
+      "base_sha256": "5f8fe0147a3755a02b5b9660b9a16b3b212fa3352521db5eea8c64c0a09f61fc",
+      "published_sha256": "5d08c02b4bb7292ea0cd1c53c4864eb164ee4262ff4b13e996f2103ea0a1b8d9",
+      "worktree_sha256": "5d08c02b4bb7292ea0cd1c53c4864eb164ee4262ff4b13e996f2103ea0a1b8d9",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchMonster.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "07b6d84d931c2a465620bf03989d0ce93c02543ea8bb1ebb2bad365cfed42194",
+      "published_sha256": "cb4180af80deafe53ff5461b8369deea6c202d56ef29ab9c511b22b9109ab64b",
+      "worktree_sha256": "59ee9962dd21ca8448da97e60a9403d6afee054823e6bed45f8ea4a08a6ece7a",
+      "selected_edits": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchMonster.h",
+      "delivery": "direct",
+      "base_sha256": "ba278e1cc2c1e92216c34b4a655b23a8e58a37d9484d0bc3977dc60174cae6e3",
+      "published_sha256": "de1f9bce011d7869f2510b71471ae385a12e79cc47065ac27496589f14c1cfb5",
+      "worktree_sha256": "de1f9bce011d7869f2510b71471ae385a12e79cc47065ac27496589f14c1cfb5",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchProjectile.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "b86889d238bb97d85df37ef2a334aadc632b658a1cc7a48f9db1721e3672fab2",
+      "published_sha256": "3dc38d763f511b9a0820fb4d2e29a9897f4b11f9d267bd3ae3c33d8bb1a13b03",
+      "worktree_sha256": "3dd83cfd47574c045acec4473dae21fc41259661f7aa58b5fc4345a0ec9be5cd",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        10,
+        12,
+        15,
+        16
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchProjectile.h",
+      "delivery": "direct",
+      "base_sha256": "ef1775299bc94bd94b6593410dbcc97a67dfa9a2d8669ea4fde0fa32f2cf0409",
+      "published_sha256": "64a13b0a443e88e61e2401e0fc5d8a8bc93dde1a5f17d7eee088dae0196d31df",
+      "worktree_sha256": "64a13b0a443e88e61e2401e0fc5d8a8bc93dde1a5f17d7eee088dae0196d31df",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "245cc06813dc587469c69c7b2cbbad144c0ee63bcc16bbbb62a0da4ce2e1c094",
+      "published_sha256": "6e26a39f485975a362f2d215def9e401e2463af81d1b9c73aab650f8d11165ef",
+      "worktree_sha256": "daf4109f35842e918da06dfe94a468617eefbdc1a6ec8d77dd0e6f2dabf0e9a8",
+      "selected_edits": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.h",
+      "delivery": "integration_patch",
+      "base_sha256": "d6dae2760fb1c70fa2e0e56be58004edfb5e89cedb64b60a7cf1deb6a1fda3e6",
+      "published_sha256": "7ee98e50d300fdd09235588ff98dc79f8c58f4e5a2bf08a1facdb4d2a7c97606",
+      "worktree_sha256": "00e771f51a03432276ddde74603ea50bb127d224f8d6a176bd11188470ad5992",
+      "selected_edits": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "18a1bb1870638a4674e3cf5b46d06cf174e6aad53931910af1cc18b0dbb74b93",
+      "published_sha256": "145fe29c89aad432bcad3f70e23f842477268f355fc88f810231b526b8c30713",
+      "worktree_sha256": "145fe29c89aad432bcad3f70e23f842477268f355fc88f810231b526b8c30713",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFootstepAudioComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "96d301f28b9326ae6002541a84ade3cb26b123a4e1c7c05711ef66d32acea9c2",
+      "published_sha256": "2446bb8fd4535ec44647bb89c71d8dabdc32e08c4881e1b8afb9985dfcc8c34e",
+      "worktree_sha256": "2446bb8fd4535ec44647bb89c71d8dabdc32e08c4881e1b8afb9985dfcc8c34e",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFootstepAudioComponent.h",
+      "delivery": "direct",
+      "base_sha256": "78c4a1f39ae09e533d69531efc1d0cf22c0243d211a8ed91bdaf5c2ce2cdacf5",
+      "published_sha256": "bfedb7bd3815406622ffc3f8435ffe7c706ca67fb66385a6636c4ea844d8cce5",
+      "worktree_sha256": "bfedb7bd3815406622ffc3f8435ffe7c706ca67fb66385a6636c4ea844d8cce5",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "delivery": "direct",
+      "base_sha256": "7c3f357aa510659d2f8bbc731b8cc7579df3376dd2ae94b22403412f6f99e15a",
+      "published_sha256": "524b6c18bdc0a17b0d4bef672a14291552a3d6f565283c753d31f7daa80b80b2",
+      "worktree_sha256": "524b6c18bdc0a17b0d4bef672a14291552a3d6f565283c753d31f7daa80b80b2",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "e62cb891474eb3dae88b04dd26c7c21bf17cfb67ef072b74def87572193f1b04",
+      "published_sha256": "8b4c08c15c32fb5e0a53b473ed9dcf7db1cafdfa4ba086e5d5278f9fba7b3168",
+      "worktree_sha256": "8b4c08c15c32fb5e0a53b473ed9dcf7db1cafdfa4ba086e5d5278f9fba7b3168",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "aa30239cd01e312d3afecb009155eb96bc5bc84ca166305f3d5c634bbfa8ded6",
+      "worktree_sha256": "aa30239cd01e312d3afecb009155eb96bc5bc84ca166305f3d5c634bbfa8ded6",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelAuthorityContext.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "a89f4a04d8d2389550bdcdacf35a34af83ae12587b1f0ceae66d017f627d0328",
+      "worktree_sha256": "a89f4a04d8d2389550bdcdacf35a34af83ae12587b1f0ceae66d017f627d0328",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "776d082d140b562ece2d645f8b5c4802756a57b17658d94557b574f8c3faabb7",
+      "worktree_sha256": "776d082d140b562ece2d645f8b5c4802756a57b17658d94557b574f8c3faabb7",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "8c1001d074f84650a39510d0fcb5bf6280bd0a83567836b222181a2a31e7d1ed",
+      "worktree_sha256": "8c1001d074f84650a39510d0fcb5bf6280bd0a83567836b222181a2a31e7d1ed",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerMovementFix20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "6c82e3618ac67798b5ba407b4186b61acf6370fcbbe5e6481343334ec78f1c01",
+      "worktree_sha256": "6c82e3618ac67798b5ba407b4186b61acf6370fcbbe5e6481343334ec78f1c01",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "3404fc2722e9be9607e45f9df60d870c23a45443451e9ef2322c1b1600f7a815",
+      "worktree_sha256": "3404fc2722e9be9607e45f9df60d870c23a45443451e9ef2322c1b1600f7a815",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "95dd47d7a380b2ba090dc6eede73e685db18a0597db6010f5e9de1bfed066769",
+      "worktree_sha256": "95dd47d7a380b2ba090dc6eede73e685db18a0597db6010f5e9de1bfed066769",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "95bb90584f699518f28c547ca4163ac347126dedd2bd051440ed51174b352ac6",
+      "worktree_sha256": "95bb90584f699518f28c547ca4163ac347126dedd2bd051440ed51174b352ac6",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "new-files.txt"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelNetSessionSubsystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "f5eb7a6b46b23f421922d37afa46e35090f811e22fc9c5a5f16de0c00b140159",
+      "worktree_sha256": "f5eb7a6b46b23f421922d37afa46e35090f811e22fc9c5a5f16de0c00b140159",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "new-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelNetSessionSubsystem.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "be9e0912d1632f809abec83696e7274df6b1dfe9c2ed0a915b15813a95876f96",
+      "worktree_sha256": "be9e0912d1632f809abec83696e7274df6b1dfe9c2ed0a915b15813a95876f96",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "new-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelNetWorldSubsystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "a9b0fb0087b579fd87124b49217856218edb8898308645f945cbaeb491a1d4f2",
+      "published_sha256": "76380803a8e6f27e76371a3754a863a3cb37d9e8a343bd68586f70ecbc64029e",
+      "worktree_sha256": "76380803a8e6f27e76371a3754a863a3cb37d9e8a343bd68586f70ecbc64029e",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelNetWorldSubsystem.h",
+      "delivery": "direct",
+      "base_sha256": "833b1354b4467b366c0b44e33682060dd5771b966f4f9fb8fac5f8da7cff674e",
+      "published_sha256": "94019336d2f1989559c548751fe2204c204ad4ada6198f9c2124dd971d0cd5d9",
+      "worktree_sha256": "94019336d2f1989559c548751fe2204c204ad4ada6198f9c2124dd971d0cd5d9",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "972a0b441cbcf8e3b50bfba77061d4ee2e441328cc5c15b413013cc558085bc6",
+      "published_sha256": "438bf3fcad57474fa0388c119c0c3423295d1ec0ba69bab746e405249265dbd6",
+      "worktree_sha256": "0930f6715119a566eb7623b1055cb3f884c84c4524d0795192b5057eebbcc1c6",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerMovementFix20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "delivery": "direct",
+      "base_sha256": "1a8f427e3f6730b9f88ffdc934ee8671a6ab59a7c96be22a4e088e7457fbff63",
+      "published_sha256": "75ba8db7b576cfb0c54f8e75270bd7d4646d2e98bbdc0cea175183430a1d2c3e",
+      "worktree_sha256": "75ba8db7b576cfb0c54f8e75270bd7d4646d2e98bbdc0cea175183430a1d2c3e",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelProfileMerge.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "f7bd1415aff53fd60e57abebbbe6c6a411d3ed7bf9a538ef73e31116e0cacff0",
+      "worktree_sha256": "f7bd1415aff53fd60e57abebbbe6c6a411d3ed7bf9a538ef73e31116e0cacff0",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelProfileTransfer.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "4fed3baca8edd29433f1fd4fbd52ff1d336737c3a5463418d430591d85dcba82",
+      "worktree_sha256": "4fed3baca8edd29433f1fd4fbd52ff1d336737c3a5463418d430591d85dcba82",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelProfileTransfer.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "1025345567e8454668eb9a1f862c6c467f2422e2c55b94a1e35e6b9725a5fc87",
+      "worktree_sha256": "1025345567e8454668eb9a1f862c6c467f2422e2c55b94a1e35e6b9725a5fc87",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "783fb2d9784fd6379b22756fc97a3ee5e32a203f7c2935afde857d4f6cedfca6",
+      "worktree_sha256": "783fb2d9784fd6379b22756fc97a3ee5e32a203f7c2935afde857d4f6cedfca6",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "d0892b5ffbe7a906baa48262f254a59462b2c1e99a634449659e9e3721a92860",
+      "worktree_sha256": "d0892b5ffbe7a906baa48262f254a59462b2c1e99a634449659e9e3721a92860",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedChestVisual.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "06f2e076d584de40f93ebbb7e83752e0ef87927100341cc4a044dcf9a714c286",
+      "worktree_sha256": "06f2e076d584de40f93ebbb7e83752e0ef87927100341cc4a044dcf9a714c286",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedChestVisual.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "33fb5a42625db81d3637a69ab874a35f267cbe17c257c3ca78d79de5a330aa06",
+      "worktree_sha256": "33fb5a42625db81d3637a69ab874a35f267cbe17c257c3ca78d79de5a330aa06",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "bb7330773d2ef76a09cb5ca6d23820961bac16151a1b171a23bfe50708a8413c",
+      "worktree_sha256": "bb7330773d2ef76a09cb5ca6d23820961bac16151a1b171a23bfe50708a8413c",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "a7d1957495d453bf0412db69a81000e95b052c2ebc4616a16130fdfb78b248dd",
+      "worktree_sha256": "a7d1957495d453bf0412db69a81000e95b052c2ebc4616a16130fdfb78b248dd",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "2eea0d788441fccebefca7f57e4cff5eed7f5c6a97204520780119113d507023",
+      "worktree_sha256": "2eea0d788441fccebefca7f57e4cff5eed7f5c6a97204520780119113d507023",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "79554590f478a5eb2cd02637137ee1c9e0a7e8161b9d593115233da9fc849d41",
+      "worktree_sha256": "79554590f478a5eb2cd02637137ee1c9e0a7e8161b9d593115233da9fc849d41",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e388f2c7aa1706b9209ca68eea8c1b28a7210afc1c0640cc41132829a4ebe9d9",
+      "worktree_sha256": "e388f2c7aa1706b9209ca68eea8c1b28a7210afc1c0640cc41132829a4ebe9d9",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "7f57e243a7a0649e82cec9df9cb6cc40fa402477e840d27a655e6e458e635cc9",
+      "published_sha256": "f9abd3a67e25c06a05b0d935f1805eebc1d32e1f851c435c165f886a0748203a",
+      "worktree_sha256": "55850cc47ffddab6b9edf69657112307e8554875d3549a2546e0bf32de27a630",
+      "selected_edits": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "509014ce98cf519e510ff889420f07351e3bda1c1592f465a3efd4682ba10dac",
+      "worktree_sha256": "509014ce98cf519e510ff889420f07351e3bda1c1592f465a3efd4682ba10dac",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecovery20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "08441699c66f960043102698ed84f6d6b96dd26b1080889250eb92d64a366e7d",
+      "worktree_sha256": "08441699c66f960043102698ed84f6d6b96dd26b1080889250eb92d64a366e7d",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelWorldSnapshot.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e60cdacabe88c2d93c4fe32d8108480021f560ed1fcf1caa6eff1e96481eef58",
+      "worktree_sha256": "e60cdacabe88c2d93c4fe32d8108480021f560ed1fcf1caa6eff1e96481eef58",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "c542b9e9e944dd22674c2c8b57cf9b7701d8333d4e7c0c9456f3a7651311553d",
+      "worktree_sha256": "c542b9e9e944dd22674c2c8b57cf9b7701d8333d4e7c0c9456f3a7651311553d",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "27f3b19334e23cef491315dbc8deb0ccf7ba49237986a59870e74c11337a6954",
+      "worktree_sha256": "27f3b19334e23cef491315dbc8deb0ccf7ba49237986a59870e74c11337a6954",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/MultiplayerAssetInventoryCommandlet.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "28df8e29eb41e3c0840aba298384f0aa10dc7adb1e45d7fa9b9986a7ca93090c",
+      "worktree_sha256": "28df8e29eb41e3c0840aba298384f0aa10dc7adb1e45d7fa9b9986a7ca93090c",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "before"
+        ],
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "changed-files.txt"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/MultiplayerAssetInventoryCommandlet.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e72159a10116083c59c156feb71ec80439fe5c99172bc7b4f1428ea47c71c23c",
+      "worktree_sha256": "e72159a10116083c59c156feb71ec80439fe5c99172bc7b4f1428ea47c71c23c",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerLifecycleAssets20261013",
+          "changed-files.txt"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/Super90NetworkTypes.h",
+      "delivery": "direct",
+      "base_sha256": "c8927c28ba8ce9734d7b6895efa5548efc2fa709d963ede98641cd2a00b8841d",
+      "published_sha256": "09bdf72f258656b38a0d17bf3238b361096d5d6e57234560b6774f8f81613854",
+      "worktree_sha256": "09bdf72f258656b38a0d17bf3238b361096d5d6e57234560b6774f8f81613854",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "multiplayer_module",
+          "module"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionFallingTree.cpp",
+      "delivery": "direct",
+      "base_sha256": "184fa4d8462165a71f775e49081a0dcc313b7abc146e7a3162d8343d6ba9c946",
+      "published_sha256": "df9366a489d3bef4108aa9e9c2e36ef98b378bf029e5d847f4366a7075903f01",
+      "worktree_sha256": "df9366a489d3bef4108aa9e9c2e36ef98b378bf029e5d847f4366a7075903f01",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionFallingTree.h",
+      "delivery": "direct",
+      "base_sha256": "ba544bd93eb41dc3645bede8487253520fa48adaa28a0f95f9245d5f33b3af69",
+      "published_sha256": "6b72b66cb3f82f4a79ec9f7eeb009b218ae9c6d4c941fd9583af7b63cc83fb49",
+      "worktree_sha256": "6b72b66cb3f82f4a79ec9f7eeb009b218ae9c6d4c941fd9583af7b63cc83fb49",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionHarvestSubsystem.cpp",
+      "delivery": "direct",
+      "base_sha256": "92952f67591fca96a161f772747737c596aedb61f7173232e7f5e6cf42a08399",
+      "published_sha256": "4cd9a096af0fe0d31c089ae73c5eb53d1ee16b3f16ed1305e8c10605bc5f18bf",
+      "worktree_sha256": "4cd9a096af0fe0d31c089ae73c5eb53d1ee16b3f16ed1305e8c10605bc5f18bf",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionHarvestSubsystem.h",
+      "delivery": "direct",
+      "base_sha256": "24c43cbf91be7351ce65a2fdcae79b84b099728acc5da19638df4f340b37fc78",
+      "published_sha256": "bc343ec74b332e947d1c95d1cdd8a308ea68ff8bcfbde2f3424135606483bb6c",
+      "worktree_sha256": "bc343ec74b332e947d1c95d1cdd8a308ea68ff8bcfbde2f3424135606483bb6c",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "e923c72864d79dc26c886ac896b8deaeeb59382baa991fc240536e7107c8769a",
+      "published_sha256": "c8f68f398a5138982a2a6779a0b1158869272ff6bec9c9c854d0fd07f3677403",
+      "worktree_sha256": "c8f68f398a5138982a2a6779a0b1158869272ff6bec9c9c854d0fd07f3677403",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "delivery": "direct",
+      "base_sha256": "3f226f4b85ae62f45ad243441a472da70e1863eb70cdbca4d4ddbe945245ac3e",
+      "published_sha256": "e53d66375a4330612e74374f613f353b6253da0be948ecd47f258c2903b03c6d",
+      "worktree_sha256": "e53d66375a4330612e74374f613f353b6253da0be948ecd47f258c2903b03c6d",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionTreeFallPlan.h",
+      "delivery": "direct",
+      "base_sha256": "1d2c90433c195dbb5d23f63fe8238ebdbf0a2df9411ea046e6fb137badf2d18c",
+      "published_sha256": "a3b494cc4b7d38767d027648a0c428375669536edcc960ce264b6d2f24dcb760",
+      "worktree_sha256": "a3b494cc4b7d38767d027648a0c428375669536edcc960ce264b6d2f24dcb760",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionTreeGrowthPresentation.cpp",
+      "delivery": "direct",
+      "base_sha256": "0fd2bc7718e565e3af05f70e718d53c45043ae429c940f51222372aa5c8d7f18",
+      "published_sha256": "26ccb036e729790670bd76fb42b3a286997956bfb59a3c17c831a0a693e427f4",
+      "worktree_sha256": "26ccb036e729790670bd76fb42b3a286997956bfb59a3c17c831a0a693e427f4",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Props/FPSPracticeTarget.cpp",
+      "delivery": "direct",
+      "base_sha256": "ffab5a604441367a98dc7e43752edf9d00439b7af90b61a8ee1fa19196097c5d",
+      "published_sha256": "b428f4693291eb17f800c3f6f77e56fd7f4527fa57235e83f46fb284bd8ee236",
+      "worktree_sha256": "b428f4693291eb17f800c3f6f77e56fd7f4527fa57235e83f46fb284bd8ee236",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Props/FPSPracticeTarget.h",
+      "delivery": "direct",
+      "base_sha256": "c865b690ff25169acba7be0a5e141046004278e4502f94c6e5f1f3a48a6c3d4d",
+      "published_sha256": "b0bf9b57fd8c0cd965de79307286840428ead7225b9a70ccee5afa9b5756de77",
+      "worktree_sha256": "b0bf9b57fd8c0cd965de79307286840428ead7225b9a70ccee5afa9b5756de77",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/SceneSpawnValidation.cpp",
+      "delivery": "direct",
+      "base_sha256": "ab7df99c15f7f7c349d6bd00b1fa899b3beedec7af2e464cdee758b8440ee299",
+      "published_sha256": "6d0de84179dc0186d850eb7870d2918c5901802d91b410d0e14b74cffabd4910",
+      "worktree_sha256": "6d0de84179dc0186d850eb7870d2918c5901802d91b410d0e14b74cffabd4910",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerMovementFix20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.cpp",
+      "delivery": "direct",
+      "base_sha256": "9c1b6032a60cfaba8dcf42527fe6bc073bc59cb1dbe21739589594f026b9acd4",
+      "published_sha256": "b5158f532600c3260884bcf08aaca49ff4f8655ae7fed4192511858f2cd3b79d",
+      "worktree_sha256": "b5158f532600c3260884bcf08aaca49ff4f8655ae7fed4192511858f2cd3b79d",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.h",
+      "delivery": "direct",
+      "base_sha256": "149bc1d8c5ec13cba7ce327f62b8ddee6eaff0a7443cabf4399a19e40393253e",
+      "published_sha256": "7561070ed022bc58befb70591661eb5e92ddc9d99003ca273a4a1f1d904ee5e3",
+      "worktree_sha256": "7561070ed022bc58befb70591661eb5e92ddc9d99003ca273a4a1f1d904ee5e3",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "delivery": "direct",
+      "base_sha256": "16235a8076fe853494754f9c3b7e7b5f53afb52139c522ebb97bdd9bde8c6f0d",
+      "published_sha256": "09111bfe6eaeb3e0e8da8edaa5946ac454223b783abb5ee21085f11e401cceeb",
+      "worktree_sha256": "09111bfe6eaeb3e0e8da8edaa5946ac454223b783abb5ee21085f11e401cceeb",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "b9e641bdf633cdf569fb7a2bcf1d68b76f1202e66512097505ffe105facf832d",
+      "published_sha256": "f54afb00917c1117883f6b9c79c4c18d9e9c8b463a1d0060cde9ad0bdcaffded",
+      "worktree_sha256": "c8d07f3d6660706fbd612cfe0878118bc0dda5fd8d673777fc0b9ea7c7b673cf",
+      "selected_edits": [
+        0,
+        17
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "delivery": "direct",
+      "base_sha256": "a8f3157be75d11be3568c06fe02d5dfbd64f83f2f3127b4bcdc8c40daa105dd5",
+      "published_sha256": "167e58e1b7a4496043b1e6d67b13c5399014f5b18b6d386c1dba86f1f1001c21",
+      "worktree_sha256": "167e58e1b7a4496043b1e6d67b13c5399014f5b18b6d386c1dba86f1f1001c21",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "e19b5441e9996e097b12d073c4d8b52f1d0db5dea31f39116c166300b7eaae95",
+      "published_sha256": "fa3c2f6b0608188b47727860380e7083130679980bb780cb01a2f429964e5ce4",
+      "worktree_sha256": "245c6efeb0903dd04da2939423853f12ade9f7de2fad737ca19c4feabe096e7c",
+      "selected_edits": [
+        0,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        21,
+        22
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "delivery": "integration_patch",
+      "base_sha256": "d3f255aed7def89a6551cf1672586692f2b7974a8bfa8558961931bc641fd7ff",
+      "published_sha256": "c7d731b6ae5e5f145871f3a4a6b65f12111e7302f085ff49c6fe932b0fd0acc0",
+      "worktree_sha256": "cd96f4aa5f390cc66f447ca9460162171e14f7e5d40633e5d09fe18feddfb871",
+      "selected_edits": [
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "56bec876d582608d1300781098a4562031539b220e5ac94cd60e7fe7fa4dba34",
+      "published_sha256": "1c03e5c13684d34a1ecb206611bf6e9a2e861032c1dd8e976fddde90ac18d9ef",
+      "worktree_sha256": "eb4c79b4195e998f783df2f4cfe32aa972d769dfe20fe3d40b8c9652cb72d090",
+      "selected_edits": [
+        1,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicsAudit20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "ce129f5ef487ea7d286b38bda45f7d473dfc4444a4a8c35b4daf9c69a84bdaf7",
+      "published_sha256": "749e2ee8ed0754fdad4855f74e05f115e799f1f87c11d589b5f2bd7829bb295e",
+      "worktree_sha256": "7e54d02a0cc053ca81df0c53f41b5356c45dd335602d97f22cf9e616fb0b03f6",
+      "selected_edits": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.h",
+      "delivery": "direct",
+      "base_sha256": "4d35025a7e7097a88e5319bf6df389103e70c3ea74639c0f016c515712e599dc",
+      "published_sha256": "1c078bfab0b16a1a30122754199d168ea01b881f6497383c28543c56d4742a8d",
+      "worktree_sha256": "1c078bfab0b16a1a30122754199d168ea01b881f6497383c28543c56d4742a8d",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceWall.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "a07747f217bd540e18b3f90335d93acecc7d8ea3698880cc92693c45c822b6a8",
+      "published_sha256": "248dcf2d6ef818f8156a63807f6d6364d253d47663511235d86326f00593a956",
+      "worktree_sha256": "e97c1d5c3a6fd05a072769e459510fbe4c54560a753c28fc6490ee1f457220ef",
+      "selected_edits": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceWall.h",
+      "delivery": "direct",
+      "base_sha256": "93c695289efcb7371d32b7e58c4ffdd92dcf7304d871aa487858ac5176de5901",
+      "published_sha256": "51d36bd1d8457adf1fbaf1b36acc37d9f3faba7d1caa082b1fca7128de69fcdd",
+      "worktree_sha256": "51d36bd1d8457adf1fbaf1b36acc37d9f3faba7d1caa082b1fca7128de69fcdd",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "b6ceaa29d3dcc8fe2b734f349349b8972bf59b6451d90c337ca01efdfef037ff",
+      "published_sha256": "8deb2ccb1dcc2a76877f9c6c3b64ae1f11b91296387e35994a74333c61f18e81",
+      "worktree_sha256": "968fbbed47dfa8f0b0550ebe373f9d938d2a4bdf144bcc1a12de8a521a1abbd1",
+      "selected_edits": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.h",
+      "delivery": "direct",
+      "base_sha256": "6f16d4653aca3a97672a8f17dffe0c42ae80daf69726f4e28c7288a96c27c76a",
+      "published_sha256": "8cf471403191d696a63accbb9ef1df81fedae7c82b7afb873167daf0ddf7d9a5",
+      "worktree_sha256": "8cf471403191d696a63accbb9ef1df81fedae7c82b7afb873167daf0ddf7d9a5",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireMagicTypes.h",
+      "delivery": "integration_patch",
+      "base_sha256": "a9dfe1aef252640670bab33b34496252ce225485417394b8338b73a5a76bc2c8",
+      "published_sha256": "c2f4d4690ca890ae38d77f3596b79d6ac7d818f12bb506331e47bb794c4214c3",
+      "worktree_sha256": "626a3b4a6a27d07da9121f6c76de597fa3cf5cf71687af3c9c1374027f86a8c0",
+      "selected_edits": [
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Skills/NetCastUtils.h",
+      "delivery": "direct",
+      "base_sha256": "7b0a0deb2d8987e04fecc21629c8932e646cdf0522e585d861b856f6d169bd22",
+      "published_sha256": "cac3e940e7789bccfab4c68ec22b0bb8861eba5ff9ab614f75e4989d46dd2ad0",
+      "worktree_sha256": "cac3e940e7789bccfab4c68ec22b0bb8861eba5ff9ab614f75e4989d46dd2ad0",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "a9652ce54bd75ef63967ce69bc6cc699590a7d618c91ceb3bcb2deea68db1204",
+      "published_sha256": "38c3a42a7a94fe1405e444b519f949f3644b35a71ea01baf1708117843b9b439",
+      "worktree_sha256": "17a2d224f228bfeff697fffdc4d94357d068bf6afde6e1890a59dc59d76b5f44",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDungeonRewards.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "ac56a0be2af1ce7366d6d09bec27b182d722800bcca5b80cb904dcfa39940ae8",
+      "published_sha256": "50d4a19f393cbd6c31291afe040534be80454c5d407faaa8cc88161128c34553",
+      "worktree_sha256": "222483a2d9bc9f3a1c2d52b9bf0dbd992df5e605f9aac0ff653573a5f78a3de5",
+      "selected_edits": [
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "c90d97f81cbc7db4332343870feb6ebbf343e256828fc47f0639330fbc570acd",
+      "published_sha256": "b3f546bfd58ab7ab5d81fb9c808f88da8dc1ec4f742d9e9e539e7c449d9d0b93",
+      "worktree_sha256": "c60efdf2da6901ee9c06b702d780a25fde8778e43808b255553e0a17ecf62043",
+      "selected_edits": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+      "delivery": "integration_patch",
+      "base_sha256": "ec83d808643bb16de34b48f32b4b432ceef66e83db51f8504eb342ca220b5003",
+      "published_sha256": "88c47248e9dfa25de65c8b696de05b5dab108f57e4ab99cc37657a0a682c89ec",
+      "worktree_sha256": "1d95c521f5e140dbbb9e7878b46b8f4248cf5e674d912e8ad399af5d4e90247f",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelExpeditionController.cpp",
+      "delivery": "direct",
+      "base_sha256": "65588cb41af6682e6a195068f4dac056270049e37d199428a8d1311e9d0f594f",
+      "published_sha256": "613ee797f668c319a50624cf356043c7b338fcc6a5f03ea95cdf22d9ed625a20",
+      "worktree_sha256": "613ee797f668c319a50624cf356043c7b338fcc6a5f03ea95cdf22d9ed625a20",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "delivery": "integration_patch",
+      "base_sha256": "e70677fabb8e01b8a895461607b9833226f883c2390fbf92b1c99b89d77ab716",
+      "published_sha256": "402f69ab5cc0f32526cd55f104d6399e40882ee1dd046d0cbdaa672ca49f7b59",
+      "worktree_sha256": "94ffad89abe7e53f1f9a0c4e8b91897552a6a0003c5b828717d59d5232133fea",
+      "selected_edits": [
+        1,
+        3,
+        6
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "7a50e233a3b009575d43dfb869be71285885ca10486b07b4ed24ed2ddb263764",
+      "worktree_sha256": "7a50e233a3b009575d43dfb869be71285885ca10486b07b4ed24ed2ddb263764",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "c978e79561a016edb26d25293751c37f083fb99ed21bf2297f783803c3f80441",
+      "worktree_sha256": "c978e79561a016edb26d25293751c37f083fb99ed21bf2297f783803c3f80441",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "new-files.txt"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "60eacff2ef41acc9c53087643800c55a18c701aa3fa9f2ad8d5c6b722552154a",
+      "worktree_sha256": "60eacff2ef41acc9c53087643800c55a18c701aa3fa9f2ad8d5c6b722552154a",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerRecoveryState20261013",
+          "new-files.txt"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "4775868d90786badc89719f0ab06749b2fecce9afee82461fd69218358802945",
+      "published_sha256": "fe785d568a88f1297de082ca42d733d19b2f85c8ae11456584d7178bc11a5bf8",
+      "worktree_sha256": "22ab619c78cfbf0914321d07b6172cb2ade7d2e08efe2f730fbd718b549af826",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        9,
+        13,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        25,
+        26,
+        30,
+        32,
+        33,
+        34,
+        36,
+        37,
+        39,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicCoverage20261013",
+          "before"
+        ],
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerBasicsAudit20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "before"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerRecoveryState20261013",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "494b1973705e8c10df897394a486fd1ae7b4a92254759b426c2c086bdb36fc70",
+      "published_sha256": "620bb4361550f892a0accdf66149833aa2ce6373e113a0e504aab0210f51a4b2",
+      "worktree_sha256": "5362bb32c5b2aa7c2a91c823de1e017ab5e183e8b3b77923bd24bf40933dd155",
+      "selected_edits": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "evidence": [
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneContainer.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "9d539ac892689e8986aea8f2fbac17a7a21bf4187e4aaeb5e72e6e6ff8c6aa7a",
+      "published_sha256": "f7c842bfa86729087dc197db89fba29dc6d399259d57fa1127e6bdcd7ee188d9",
+      "worktree_sha256": "eef666704d5aca0073e04410f4095c5a109d8277f877634ce3ff32c0b2b0b8e8",
+      "selected_edits": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneContainer.h",
+      "delivery": "integration_patch",
+      "base_sha256": "266c64b2b70e0a36a3dd0be96af0274dd4b3cc60c9736fea18b96e29efc80d49",
+      "published_sha256": "8ca51b86137809371a519784d588181da4615b496acdbbc4bcb987396766941f",
+      "worktree_sha256": "e010b1e359a4318e9dbc32ee81f472a7ca72e05f1cb3c1ff2de06edf90cad8da",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerExtendedCoverage20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "delivery": "integration_patch",
+      "base_sha256": "22db8a9cf6854aef142e1ff9220d78561e12c6d0a897ae05fda29fa1e85b7427",
+      "published_sha256": "ec429b3a2aaa1a30b743f0685fceddca56f25cf121a3444810e6fd9e1dda0ed8",
+      "worktree_sha256": "4da142f57efa954a46f573822fd8ae5de2e0dcf73c21cf1e7a1f41a27065044a",
+      "selected_edits": [
+        7,
+        8,
+        9,
+        10,
+        12,
+        14,
+        15,
+        17
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerCommitRecovery20261014",
+          "patch"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "before"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerWeaponRecovery20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "52726903eba4db6a15e79c81cb1d85deccc4e403d1d447cd1b240e5cd1805a46",
+      "published_sha256": "a6a8ad0cf0bb71ca97b8b3da5075d9ed97deb1f7554a976f5394a4d4419c071c",
+      "worktree_sha256": "36a790e35f2539a095ba2ee43e5e48ff5fdb9e8914037422660d6029cb3e8e2f",
+      "selected_edits": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        12
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "8df2c00c80b4b30dd37e416198fdc22ff1684ba91467529d1d171f129167f4d7",
+      "published_sha256": "54ea9de014d0a06f6bc5f4a65217c9a4101a97d3717e7c60ae62f0e2c9334445",
+      "worktree_sha256": "54ea9de014d0a06f6bc5f4a65217c9a4101a97d3717e7c60ae62f0e2c9334445",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectsComponent.h",
+      "delivery": "direct",
+      "base_sha256": "64b52031f5c3622eb5fe45dd2e8ac04f3b811b175d3cb64e2aee4e1941520dab",
+      "published_sha256": "9be722d5e66ad99a69b7158ad035a957685f93ad521314f84a44d47c0baecb8f",
+      "worktree_sha256": "9be722d5e66ad99a69b7158ad035a957685f93ad521314f84a44d47c0baecb8f",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "61dee38e8f6022e1d7608592ac673fb5b52b33636b0a53dac0ea03a4106aa29e",
+      "published_sha256": "86418bcaea2aad87ce729ab622ef57b0829ee5ef0daff5ba1ff6a7f617380029",
+      "worktree_sha256": "55d63d036434a56fb67678ab17745e1fa834ac23bd658563f0b099c1b86b7021",
+      "selected_edits": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        14,
+        22,
+        23
+      ],
+      "evidence": [
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "before"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "manifest"
+        ],
+        [
+          "MultiplayerInterruptionCoverage20261014",
+          "patch"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.h",
+      "delivery": "integration_patch",
+      "base_sha256": "10cfe0f5b191aacd3793218227cd6bc96b3de784e4298e9fc0940d34b54abd9e",
+      "published_sha256": "dfc2c59e1f6abf34fff6b50c7eafa6d18cedc1f475af113ebdd91f50f2348340",
+      "worktree_sha256": "7d8af1c82a000fcd3e8aacfac70a03ab188f349d4d9a65a9c72afdc5cf038e21",
+      "selected_edits": [
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "before"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerDynamicLifecycle20261013",
+          "manifest"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Water/ClearwaterWater.cpp",
+      "delivery": "direct",
+      "base_sha256": "030579356fdc76891b31a65396d972cfd3fe372b9904aafd54c38ee9bca92e00",
+      "published_sha256": "534b5479bdb152dcae351c52fe1d4aac80e8bca60439f9e389ea16072af3e90f",
+      "worktree_sha256": "534b5479bdb152dcae351c52fe1d4aac80e8bca60439f9e389ea16072af3e90f",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "04b61f2d5036f83abf0577571d857ff394cd073ecb2ebe323645047c0c42b236",
+      "published_sha256": "f7a7785e3b2efb03cde44e305cfe10efeb2240ea222a58338a9f66511c90d4b2",
+      "worktree_sha256": "361b72f1d8fb3c83b30374896569e9d7d88a3baa5b6ce121864eaa56709dbf51",
+      "selected_edits": [
+        1,
+        2,
+        3,
+        4,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "ab8dcb3303ea2fe5ede8684f41fa2edb0bf0772728e56d2f63b6c1af25a8a16a",
+      "published_sha256": "aaecd25e5bc7ebfae124669e61bb0bca65cad6e4e286fdeec6419b14d5eeb8f2",
+      "worktree_sha256": "5b9a349e4dc42cbffbdead8b296d27e5d49cb2c3420d1a3f0aba8f5d83a2a6c8",
+      "selected_edits": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h",
+      "delivery": "integration_patch",
+      "base_sha256": "ebe0cf4b1b7003070a5886b60e16fa42b1a5e45ebd213ddcad0046a3ded24827",
+      "published_sha256": "b5e90f4ef4e646af2f1a9c37530d009fb767ee747980b80b411f80255eecaaf6",
+      "worktree_sha256": "92fe70e5b8404bf5a8a3bd53f522e44d3e2f8b2209f84540c9564ffbcb52aabc",
+      "selected_edits": [
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCombatRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "cf7363513e31ed5979f5dcb348098ec0722a992fdbe3de98b2a0c8f4cb1a8267",
+      "published_sha256": "78b8a53b190eadcd3144a750dcb12272a9dff4bbf41c73f11aedd23d3cfb9200",
+      "worktree_sha256": "ac83e59b734e99fbe267e6d92d7a44224e9307ea4cbd65d7f5698989a75ddcbf",
+      "selected_edits": [
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "be5e52e67a78977e75f5025c2e72371f422f552a2459fb687aa7d9775424582b",
+      "published_sha256": "578a57733289d8685a0deac3db6027a7f563cd4ffb6479a47190a9db417cf327",
+      "worktree_sha256": "49f5ea2fbec759a55215bf33ec92c0358551fa521f4fadce0f3fcf63c4c0c242",
+      "selected_edits": [
+        0,
+        1,
+        3,
+        5,
+        6
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSRiftBladeComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "12c712117570c1e9b73a5313c64903079b578c476b1eb3674d10af1d7dbdd584",
+      "published_sha256": "65b3f9af30a9f4a15bb01d0bbb1fc1962e6dcb964ec12c00a67eca528a923bf5",
+      "worktree_sha256": "65b3f9af30a9f4a15bb01d0bbb1fc1962e6dcb964ec12c00a67eca528a923bf5",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicsAudit20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSRiftSlashProjectile.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "ac8fd4771fb005a72703c17903b06cf64728e38e9b07ace7fee38f64db31b796",
+      "published_sha256": "60079ac27e0e155792f741e63aa6d321ba891950f50e7dd75cfa6e64d00e28a4",
+      "worktree_sha256": "8ca5bf7c3f197fd745abe57e06e512f996bd81f5c806256bb2abfe9bbfb4afd9",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSRiftSlashProjectile.h",
+      "delivery": "direct",
+      "base_sha256": "3bb28f01033e90c2a43b43e5255dd80e510385dbcac890c125264a7bf88b2648",
+      "published_sha256": "e159160697c7b3bd50891e6c4e3dfbd5effec36da6081453698979704a33c4aa",
+      "worktree_sha256": "e159160697c7b3bd50891e6c4e3dfbd5effec36da6081453698979704a33c4aa",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "af9225718ee0a79c519ba9963e62b0b89e7451eb7ca9339a509688da37ff7f7e",
+      "published_sha256": "49ab6de0ed5a82544675b55e3b9cb99aaaa4415e1bfeb379e7046d7babd083aa",
+      "worktree_sha256": "3f745caa7bf7dcd060458d664c4715bd0bd22a0fa8dfda51c492ddf4bf5e9c19",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "cd9232e728d61a7e9fcfd623813f1e49ca18ce5852a797a39aea4d0a69741cc7",
+      "published_sha256": "64a6609845cb566dbbc0b1de84b73550dc4ae399cae3805c51a935df663e7517",
+      "worktree_sha256": "46983902eb1596c664cafa2c4a19b0ffdf5708c830ad74193a2de08cb919c827",
+      "selected_edits": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        13
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordClovenGuard.cpp",
+      "delivery": "direct",
+      "base_sha256": "40f94257f6239f0c0aacb2e41b95f988d3d1095450dd57768dbaf63cabd744f7",
+      "published_sha256": "e0f0d3cd53b5786186b48261200aade9077548bdf694ed86d9fc6166e63db6b3",
+      "worktree_sha256": "e0f0d3cd53b5786186b48261200aade9077548bdf694ed86d9fc6166e63db6b3",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "e7c5e8117894921094237082d54e62c97e4e40c882cb912edc208a881da907a6",
+      "published_sha256": "6d99b556eeaa728fa9e9e39ef7cd1d5ab6678fe749810794d0609d8d2aa7b44c",
+      "worktree_sha256": "507f78e6f990cff19338cdd5bcecc8d1687b8fe1aa6c4d9c731e8a7893f26b67",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "delivery": "direct",
+      "base_sha256": "4366a15dc4986072a87134526db7ae7b2bd083908355697c95107f52013e0e34",
+      "published_sha256": "04b5889145377f422cbbc8f4f2c45193cdd84f9684e98a0d15da04b4eb511349",
+      "worktree_sha256": "04b5889145377f422cbbc8f4f2c45193cdd84f9684e98a0d15da04b4eb511349",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerCoverageRepairs20261013",
+          "before"
+        ],
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "delivery": "direct",
+      "base_sha256": "7a44745ba076e06ac29b55eab838971c76a63c73c115217decc34e7d03f11264",
+      "published_sha256": "7a561d12d39346cea58211e0c30dfbba04921f23e0b927c853df751ee24a943d",
+      "worktree_sha256": "7a561d12d39346cea58211e0c30dfbba04921f23e0b927c853df751ee24a943d",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "f28744b89e178e3d4d409d3a2469a298897fc484a64cbf02f1d7928d5585ff09",
+      "worktree_sha256": "f28744b89e178e3d4d409d3a2469a298897fc484a64cbf02f1d7928d5585ff09",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuardTuning.h",
+      "delivery": "direct",
+      "base_sha256": "d22811c927367dbc5ebf9d951ecb076efad7b4b0d6247bece36e8603db32b258",
+      "published_sha256": "91921f335d2761a1b37982bab6c018955bf10681fae60083966597acb0cde2bb",
+      "worktree_sha256": "91921f335d2761a1b37982bab6c018955bf10681fae60083966597acb0cde2bb",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerGuardFeedback20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "9c3c9f4257474d008a4debe1129fae8b7d4febea219e7176477e9e74ec6d1ebd",
+      "published_sha256": "7562a8cfc373c1c44f8a0729ba2018d617e85685effd33f2eca9cd32d86355c2",
+      "worktree_sha256": "7562a8cfc373c1c44f8a0729ba2018d617e85685effd33f2eca9cd32d86355c2",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerBasicsAudit20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "0442854a7b2d5dc077758d53666bbd41652bf43e533d4f917fda3b537e46fb5a",
+      "published_sha256": "7423d27e419bb9343706fc8fb6f075c55056d0416661f176c8d7330772013ce8",
+      "worktree_sha256": "20a52d5bf8047b6b5ccc23ab8cf1b024df368883bea09babcdcefd9f0790c90c",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.cpp",
+      "delivery": "direct",
+      "base_sha256": "d21f9c05b0531f626473e30b140e6fee030196e30b0bca77dc0d3a6c87834854",
+      "published_sha256": "75794f810e45b910eae731136b2c57d650c60a9c80daeddd71dd594f33a571ac",
+      "worktree_sha256": "75794f810e45b910eae731136b2c57d650c60a9c80daeddd71dd594f33a571ac",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h",
+      "delivery": "direct",
+      "base_sha256": "4937bf6f7de9e2bc99cf724b767a54fcd66ca4591e0ec8e040625ce3a69e1f53",
+      "published_sha256": "3b1aee982e67ecd72e86a98bc93a9e84bf05d2f8b5e6154ac18a54a304e9107b",
+      "worktree_sha256": "3b1aee982e67ecd72e86a98bc93a9e84bf05d2f8b5e6154ac18a54a304e9107b",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+      "delivery": "direct",
+      "base_sha256": "f4ecf392cec053cedca0786d1b6f01129640cd20e8a9be2549609bd3c294d26b",
+      "published_sha256": "2774e18271f46bb3e548bdcebaa16efe1ded56f16d4d0f92615ba51ef2f1470f",
+      "worktree_sha256": "2774e18271f46bb3e548bdcebaa16efe1ded56f16d4d0f92615ba51ef2f1470f",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "delivery": "direct",
+      "base_sha256": "8af62e9dd928dd2bcd911e9bbe5472f5174ca144059059305ca8f20a03da91c5",
+      "published_sha256": "2bcba075c3fc33e3aff37d5797fc398ce7eb46c904a40fd5809ba296309e3fe7",
+      "worktree_sha256": "2bcba075c3fc33e3aff37d5797fc398ce7eb46c904a40fd5809ba296309e3fe7",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "evidence": [
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "before"
+        ],
+        [
+          "MultiplayerStreamingPlugins20261013",
+          "changed-files.txt"
+        ],
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "delivery": "direct",
+      "base_sha256": "ceda5b778792747e31c44cbb01783948a9debef37f2b5c33fb757411e3d57a0e",
+      "published_sha256": "47eea9329852c9cd8bc4adb733872d19854813794dd44915131e5a460db035a9",
+      "worktree_sha256": "47eea9329852c9cd8bc4adb733872d19854813794dd44915131e5a460db035a9",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerWorldRepairs20261013",
+          "before"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "delivery": "direct",
+      "base_sha256": "bdb4264f31c56a67fc8be14829decb4ff7bd7a78c3bb74fa581899c42beadeba",
+      "published_sha256": "b0522568517fddf9e9c0b75012569d3ece6136debeff19d79c0a6e598e9bb7fd",
+      "worktree_sha256": "b0522568517fddf9e9c0b75012569d3ece6136debeff19d79c0a6e598e9bb7fd",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "MultiplayerProjectSweep20261013",
+          "before"
+        ],
+        [
+          "MultiplayerProjectSweep20261013",
+          "changed-files.txt"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+      "delivery": "direct",
+      "base_sha256": "60af2bddac560a598879a7d08574b05cb5ab0c52df61615dd7d3638da61abe81",
+      "published_sha256": "bdbced93044d4a88ecd793b859111fe90f9638df11a1a9ab9a974567bfd0250d",
+      "worktree_sha256": "bdbced93044d4a88ecd793b859111fe90f9638df11a1a9ab9a974567bfd0250d",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "delivery": "integration_patch",
+      "base_sha256": "5a850f2718664de420d87aad657777f05943805682c9ac8ce13d0d3b331211b3",
+      "published_sha256": "0cf4891fe2418fed100460e00285143ae633cdcf1bb1d54e1424d53156b02ae0",
+      "worktree_sha256": "22894195c4c27778afe266224362df736156e51abe04a5d94ec2ca3642ecb5af",
+      "selected_edits": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "3655c70345fc83d258a878f3446100fb0d9e1bfcbf6acbdd88e89a0cd1517da8",
+      "published_sha256": "484e08325fa64e2876818cbf77efa7a59fcbef32af46be60fa567e57e6fb7371",
+      "worktree_sha256": "0206e602bbdf0537ac8f85333c9490f4abf65c1df1df492c3a13f57e2c6c87f8",
+      "selected_edits": [
+        1,
+        14,
+        17
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladeProjectile.h",
+      "delivery": "direct",
+      "base_sha256": "58c4bfb26424e9e2fa91ca889d13fccee433c2a8edacc560e6885c30d9995fb3",
+      "published_sha256": "2255c7999bfabf577b39ca5e549d6f213b26dd9e6cc4f6d80cd1c88268075360",
+      "worktree_sha256": "2255c7999bfabf577b39ca5e549d6f213b26dd9e6cc4f6d80cd1c88268075360",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "0cb96dcb5f31c30e8c8ae6b266752899f244199e7bad082a3301ed7c55c0e105",
+      "published_sha256": "3e6ac9dee956302754dcbfe7d930851592485cc5cd7034f3bb7f5bd5a578f4dd",
+      "worktree_sha256": "e57e10b50edc56e3fb6e298f0108852e3e04ebd3d2536e6b0bf91693015b2e67",
+      "selected_edits": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladesComponent.h",
+      "delivery": "direct",
+      "base_sha256": "17edee71fc42e02ca593d819612a258a18fc7f53f36279c26d31d5f3aa76fe0a",
+      "published_sha256": "2e5eb10d987744a8765e5f1410ae33a549f185a61456cb5180c253a1050a6deb",
+      "worktree_sha256": "2e5eb10d987744a8765e5f1410ae33a549f185a61456cb5180c253a1050a6deb",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAreaPickup.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "82eda5d1de97a472681d9dac88ffe2ec48ea1edbfe8d58f8683284c229153730",
+      "published_sha256": "b13a21de2bbef53f3c60b76b1eae6ac2e4eac817c3103b9d0ed884143ea5d4e5",
+      "worktree_sha256": "6122b144c34eda4faf8c3ce98e8066795476c71ce18b516941cb8f8a3d5d172e",
+      "selected_edits": [
+        1,
+        3
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "delivery": "direct",
+      "base_sha256": "8dd50942a6b40f2ff36135a0d302728701b3e2a6fe7904152e2771be0592c103",
+      "published_sha256": "fcfdb1bcfed3275ad31905c31570ee7a8054cc097610c6f07ccaeaa8f0d5f61f",
+      "worktree_sha256": "fcfdb1bcfed3275ad31905c31570ee7a8054cc097610c6f07ccaeaa8f0d5f61f",
+      "selected_edits": [
+        0,
+        1,
+        2
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.h",
+      "delivery": "direct",
+      "base_sha256": "246a7a75afd772ac85a870babe956a108187e69079f904aab4b9be880fa32b5a",
+      "published_sha256": "f094446eb98480be576799d38ac9b21d8dd77a0e96032184c612199bf3888538",
+      "worktree_sha256": "f094446eb98480be576799d38ac9b21d8dd77a0e96032184c612199bf3888538",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseChest.cpp",
+      "delivery": "direct",
+      "base_sha256": "5f67fd1ecc73589cc0086be9b00e2bfb37314d1bf708981c78d26f5f2773bce8",
+      "published_sha256": "09a264fdca74f9fc53823d7fca3c2e89b28efcf2dfefba08e58c0e8ca5b612ae",
+      "worktree_sha256": "09a264fdca74f9fc53823d7fca3c2e89b28efcf2dfefba08e58c0e8ca5b612ae",
+      "selected_edits": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseChest.h",
+      "delivery": "direct",
+      "base_sha256": "42cbe495694374fc5a39c40acb15bc37b083ff58d29673a4979dc564cadc8f78",
+      "published_sha256": "aefee35e41c39e81a57b78ede15108a69b5c564fe7adabe13541f0614842e13b",
+      "worktree_sha256": "aefee35e41c39e81a57b78ede15108a69b5c564fe7adabe13541f0614842e13b",
+      "selected_edits": [
+        0,
+        1
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "84caefbc54fdd8f10aa8effac1ebbfe1938115a76a19b233b3c449d9b1fe88e2",
+      "published_sha256": "89863a09448d57d4da86aad212e55e468b8f185961587b562372008f24844f34",
+      "worktree_sha256": "36396a6530583ddccd741b10bcc63f19ac79da55b62f5b7c4f91f676c657e641",
+      "selected_edits": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        11
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "delivery": "integration_patch",
+      "base_sha256": "d4ce7a03ee46ef4172ffd6f47e63d7284cca6233305d7676be7c3d491d4b27b1",
+      "published_sha256": "bf157baa756af81f6775462948ab96f52ff685d3ebd9a6ad03c30d2c34b9189d",
+      "worktree_sha256": "787d819b1b0abc2c5eaa85217a493831cc8782b01935c3124e3b6f22e765fc7d",
+      "selected_edits": [
+        1,
+        2,
+        5,
+        6,
+        9,
+        10,
+        11
+      ],
+      "evidence": [
+        [
+          "basic_feature_dependency",
+          "direct network callers"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionFallingTreeNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "c2f6d1c071aaf10da3d1a33b41af18c92de63382461fe3942396e99443ddc1f5",
+      "worktree_sha256": "c2f6d1c071aaf10da3d1a33b41af18c92de63382461fe3942396e99443ddc1f5",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "network dependency",
+          "new"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionObservers.h",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "481dec21cddd2b72039d7e2330aba30aae0ec4c74af28f19ef2aab6508c28520",
+      "worktree_sha256": "481dec21cddd2b72039d7e2330aba30aae0ec4c74af28f19ef2aab6508c28520",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "network dependency",
+          "new"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNetworkContainer.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "07988b83c53169e77b7f2b83c7a855716947347719c5d16d31c1463fb82317ac",
+      "worktree_sha256": "07988b83c53169e77b7f2b83c7a855716947347719c5d16d31c1463fb82317ac",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "network dependency",
+          "new"
+        ]
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladesNetwork.cpp",
+      "delivery": "direct",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "26946756dd28c65db31aa28cf228e766feb4768ef4534277ed2d67f6ded0fa97",
+      "worktree_sha256": "26946756dd28c65db31aa28cf228e766feb4768ef4534277ed2d67f6ded0fa97",
+      "selected_edits": [
+        0
+      ],
+      "evidence": [
+        [
+          "network dependency",
+          "new"
+        ]
+      ]
+    }
+  ]
+}

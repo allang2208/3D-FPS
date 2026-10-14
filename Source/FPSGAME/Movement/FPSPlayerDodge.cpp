@@ -114,9 +114,7 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
     if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type,Attacker);
     if(!Direct)
     {
-        if(auto* PanChi=FindComponentByClass<UPanChiGuardComponent>();PanChi&&HasAuthority()&&!IsLocallyControlled()&&PanChi->IsActive())
-            DamageAmount=PanChi->ResolveRemoteGuard(DamageAmount,Type,EventInstigator,DamageCauser);
-        else if(RuneSword&&RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
+        if(RuneSword&&RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
     }
     // Independent multiplier after existing armor, status and block reductions.
     if(const auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())DamageAmount*=Guard->DamageTakenMultiplier();

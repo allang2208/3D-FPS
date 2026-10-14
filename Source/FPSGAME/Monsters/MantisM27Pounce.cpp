@@ -336,8 +336,8 @@ void AMantisM27Monster::PounceImpact(const FVector& LandingPoint)
             {
                 // Cripple and bleeding are applied by the accepted health-damage
                 // event, after dodge, armor and invulnerability have resolved.
-                if (auto* PC = Cast<APlayerController>(Victim->GetController()); PC && PC->IsLocalController() && PC->PlayerCameraManager)
-                    PC->PlayerCameraManager->StartCameraShake(UMutant3PounceCameraShake::StaticClass());
+                if (auto* PC = Cast<APlayerController>(Victim->GetController()))
+                    PC->ClientStartCameraShake(UMutant3PounceCameraShake::StaticClass());
             }
         }
         if (State != ENurseState::Attack || PouncePhase != EM27PouncePhase::Flight) return;
@@ -349,10 +349,8 @@ void AMantisM27Monster::Landed(const FHitResult& Hit)
     Super::Landed(Hit);
     if (!HasAuthority() || State != ENurseState::Attack || PouncePhase != EM27PouncePhase::Flight) return;
     MulticastMantisAccent(TEXT("PounceLand"), ServerClock());
-    if (auto* FX = GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())
-        if (auto* Player = UGameplayStatics::GetPlayerPawn(this, 0))
-            if (auto* Camera = Player->FindComponentByClass<UCameraComponent>())
-                FX->SpawnPounceLanding(Hit, GetActorForwardVector(), PounceImpactRadius, PounceImpactAngle, Camera, this, false);
+    MulticastPounceLanding(Hit.ImpactPoint,Hit.ImpactNormal,GetActorForwardVector(),
+        PounceImpactRadius,PounceImpactAngle,false,GetWorld()->GetTimeSeconds());
     PounceImpact(FVector(GetActorLocation().X, GetActorLocation().Y, Hit.ImpactPoint.Z));
     if (State != ENurseState::Attack || PouncePhase != EM27PouncePhase::Flight) return;
     GetCharacterMovement()->StopMovementImmediately();

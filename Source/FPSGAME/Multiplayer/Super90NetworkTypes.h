@@ -2,6 +2,8 @@
 #include "CoreMinimal.h"
 #include "Super90NetworkTypes.generated.h"
 
+class APawn;
+
 USTRUCT()
 struct FSuper90NetMagazine
 {
@@ -16,6 +18,9 @@ USTRUCT()
 struct FSuper90NetAmmoState
 {
     GENERATED_BODY()
+    UPROPERTY() TObjectPtr<APawn> SourcePawn=nullptr;
+    UPROPERTY() int64 InventoryRevision=0;
+    UPROPERTY() TArray<int64> PouchCounts;
     UPROPERTY() uint32 Acknowledged=0;
     UPROPERTY() uint32 Revision=0;
     UPROPERTY() TArray<FSuper90NetMagazine> Magazines;
@@ -34,6 +39,7 @@ struct FSuper90NetAmmoState
 };
 struct FSuper90ServerReload
 {
+    TWeakObjectPtr<APawn> Pawn;
     FString Weapon,Ammo;
     double Started=0;
     float Rate=1.f,Length=0.f,Duration=0.f,Tail=0.f;

@@ -1,4 +1,5 @@
 #include "ProductionToolComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "ProductionToolAppearance.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -106,7 +107,7 @@ void UProductionToolComponent::ApplyToolStats(const FColdSteelItem* Item,UColdSt
 {
     ToolStats=Item?ColdSteelTool::Evaluate(*Item,Profile):FProductionToolStats{};
     RateScale=float(ToolStats.RateScale);
-    if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
+    if(UsesTwoHandMotion())
     {
         AxeHarvestReach=float(ToolStats.HarvestReachCM);
         AxeCombatReach=float(ToolStats.CombatReachCM);
@@ -169,7 +170,7 @@ void UProductionToolComponent::RefreshHeldTool()
         Paths.Add(ViewmodelPath);
         if(!SwingPath.IsNull())Paths.Add(SwingPath);
         for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
-            if((Kind!=TEXT("axe") && Kind!=TEXT("pickaxe")) || FName(Clip)!=TEXT("Walk"))
+            if(!UsesTwoHandMotion() || FName(Clip)!=TEXT("Walk"))
                 Paths.Add(HarvestMotionPath(MotionPrefix,Clip));
     }
     else Paths.Add(MeshPath);
@@ -181,7 +182,7 @@ void UProductionToolComponent::RefreshHeldTool()
             {
                 Viewmodel->SetSkeletalMesh(Cast<USkeletalMesh>(ViewmodelPath.ResolveObject()));
                 for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
-                    if((Kind!=TEXT("axe") && Kind!=TEXT("pickaxe")) || FName(Clip)!=TEXT("Walk"))
+                    if(!UsesTwoHandMotion() || FName(Clip)!=TEXT("Walk"))
                         Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(MotionPrefix,Clip).ResolveObject()));
                 SwingSound=Cast<USoundBase>(SwingPath.ResolveObject());
                 if(HasReadyPresentation())
@@ -200,7 +201,7 @@ void UProductionToolComponent::RefreshHeldTool()
                 ProductionToolAppearance::ApplyLevel(Viewmodel,*Current);
             }
             HitSound=Cast<USoundBase>(SoundPath.ResolveObject()); ImpactDust=Cast<UParticleSystem>(DustPath.ResolveObject());
-            Feedback=HasReadyPresentation()?((Kind==TEXT("axe") || Kind==TEXT("pickaxe"))?TEXT("双手工具 · 左键攻击 / 采集 · G / 滚轮切换武器"):TEXT("左键采集 · F7 收起工具")):TEXT("工具或手部动作加载失败，请重新装备");
+            Feedback=Kind==TEXT("warhammer")?TEXT("双手战锤 · 左键下砸 · G / 滚轮切换武器"):HasReadyPresentation()?((UsesTwoHandMotion())?TEXT("双手工具 · 左键攻击 / 采集 · G / 滚轮切换武器"):TEXT("左键采集 · F7 收起工具")):TEXT("工具或手部动作加载失败，请重新装备");
             FeedbackSeconds=3.f;
             if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshEquipment();
         }));
@@ -236,19 +237,19 @@ void UProductionToolComponent::BeginUse()
         {
             // 改造数值每次挥动重新求值：属性、配件与附魔变化都不能沿用上一次的快照。
             ApplyToolStats(Item,Profile);
-            if(!Profile->SpendStamina(float(FMath::Max(0.,ToolStats.StaminaCost))))
+            if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(float(FMath::Max(0.,ToolStats.StaminaCost))))
             {Feedback=TEXT("体力不足，稍作休息再采集");FeedbackSeconds=1.5f;return;}
-            if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
+            if(UsesTwoHandMotion())
             {
                 // Capture after the stamina transaction, which can replace inventory data.
-                AxeStrike=ColdSteelSkills::Snapshot(Character.Get(),Item);
+                AxeStrike=ColdSteelSkills::Snapshot(Character.Get(),Profile->ActiveProductionTool());
                 AxeStrike.bMelee=true;
                 AxeStrike.DamagePanel=ToolStats.Damage;
                 AxeStrike.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage);
                 AxeStrike.CriticalChance=float(FMath::Clamp(double(AxeStrike.CriticalChance)+ToolStats.CriticalChanceAdd,0.,100.));
             }
         }
-        else if(!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost))
+        else if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost))
         {Feedback=TEXT("体力不足，稍作休息再采集");FeedbackSeconds=1.5f;return;}
     }
     Elapsed=0; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
@@ -256,7 +257,7 @@ void UProductionToolComponent::BeginUse()
 
 void UProductionToolComponent::CancelUse()
 {
-    if((Kind==TEXT("axe") || Kind==TEXT("pickaxe")) && (Elapsed>=0.f || EquipElapsed>=0.f))VisualTime=0.f;
+    if((UsesTwoHandMotion()) && (Elapsed>=0.f || EquipElapsed>=0.f))VisualTime=0.f;
     Elapsed=-1; EquipElapsed=-1; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
     if (Pivot) Pivot->SetRelativeRotation(FRotator::ZeroRotator);
 }
@@ -268,7 +269,8 @@ void UProductionToolComponent::ShowFeedback(const FString& Message)
 
 bool UProductionToolComponent::TraceResource(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const
 {
-    if(Kind==TEXT("axe") || Kind==TEXT("pickaxe"))
+    if(Kind==TEXT("warhammer"))return false;
+    if(UsesTwoHandMotion())
         return TraceAxeContact(Resource,Hit,Reason) && !Resource.Id.IsEmpty();
     if (!Camera || !Character.IsValid()) return false;
     FCollisionQueryParams Q(SCENE_QUERY_STAT(ProductionTool),false,Character.Get());
@@ -286,7 +288,7 @@ bool UProductionToolComponent::TraceResource(FProductionResource& Resource,FHitR
 bool UProductionToolComponent::ResolveContact()
 {
     FProductionResource Target; FHitResult Hit; FString Reason;
-    const bool bCombatTool=Kind==TEXT("axe") || Kind==TEXT("pickaxe");
+    const bool bCombatTool=UsesTwoHandMotion();
     const bool Found=bCombatTool?TraceAxeContact(Target,Hit,Reason):TraceResource(Target,Hit,Reason);
     // The shovel's trace still returns its blocking hit even when it is not soil.
     if(UWardBreakableGlass::BreakHit(Hit,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal()))
@@ -296,8 +298,13 @@ bool UProductionToolComponent::ResolveContact()
     if (Kind!=Target.RequiredTool)
     {
         Feedback=Target.RequiredTool==TEXT("axe")?TEXT("砍树需要伐木斧：在背包右键装备到主手，再用 G / 滚轮切换"):
-            Target.RequiredTool==TEXT("pickaxe")?TEXT("开采岩块需要矿镐：在背包右键装备到主手，再用 G / 滚轮切换"):TEXT("采集表土需要铁铲（8）");
+            Target.RequiredTool==TEXT("pickaxe")?TEXT("开采岩块需要矿镐：在背包右键装备到主手，再用滚轮切换"):TEXT("采集表土需要铁铲（Shift+F7）");
         FeedbackSeconds=2; return false;
+    }
+    if(GetNetMode()!=NM_Standalone)
+    {
+        FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Harvest;R.Eye=Hit.TraceStart;R.Direction=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal();
+        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())return PS->RequestInventoryAction(R);return false;
     }
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     bool Depleted=false;
@@ -321,13 +328,17 @@ bool UProductionToolComponent::ResolveContact()
 void UProductionToolComponent::BeginRefill()
 {
     if(!IsEquipped()||IsBusy())return;
-    if(Kind!=TEXT("shovel")){ShowFeedback(TEXT("回填地面需要铁铲（8）"));return;}
+    if(Kind==TEXT("warhammer"))return;
+    if(Kind!=TEXT("shovel")){ShowFeedback(TEXT("回填地面需要铁铲（Shift+F7）"));return;}
     if(!Camera||!Character.IsValid())return;
     FCollisionQueryParams Q(SCENE_QUERY_STAT(ProductionTool),false,Character.Get());
     const FVector Start=Camera->GetComponentLocation();
     FHitResult Hit;
     if(!GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Camera->GetForwardVector()*ToolDigReach.GetValueOnGameThread(),ECC_Visibility,Q))
     {ShowFeedback(TEXT("瞄准地面再回填"));return;}
+    if(GetNetMode()!=NM_Standalone)
+    {FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::SoilRefill;R.Eye=Start;R.Direction=Camera->GetForwardVector();
+     if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())PS->RequestInventoryAction(R);return;}
     FString Message;
     for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
         if(It->ApplySoilRefill(Hit.ImpactPoint,Message))break;
@@ -350,7 +361,7 @@ void UProductionToolComponent::AdvanceActionBeforeCamera(float Delta)
         // The overhead pickaxe starts accelerating 100 ms before contact;
         // its whoosh belongs to that downstroke, after the raised hold.
         const float WhooshTime=(Kind==TEXT("axe")?AxeMotion.SwingSoundSeconds:
-            (Kind==TEXT("pickaxe")?FMath::Max(0.f,ContactSeconds-.10f):ContactSeconds*.65f))/RateScale;
+            (UsesPickaxeMotion()?FMath::Max(0.f,ContactSeconds-.10f):ContactSeconds*.65f))/RateScale;
         if(bUsesArms && !bSwingSoundPlayed && Elapsed>=WhooshTime)
         {
             bSwingSoundPlayed=true;
@@ -370,10 +381,10 @@ void UProductionToolComponent::AdvanceActionBeforeCamera(float Delta)
             bContacted=true; bHitConfirmed=ResolveContact();
             // Start the confirmed impact at zero age, even on a late frame, so
             // a hitch cannot skip the lodged pose and its first camera impulse.
-            if(bHitConfirmed && (Kind==TEXT("axe") || Kind==TEXT("pickaxe")))Elapsed=Contact;
+            if(bHitConfirmed && (UsesTwoHandMotion()))Elapsed=Contact;
         }
         const float End=bHitConfirmed && Kind==TEXT("axe")?Contact+AxeMotion.HitRecoverSeconds/RateScale:
-            bHitConfirmed && Kind==TEXT("pickaxe")?Contact+ProductionPickaxeImpact::HitRecoverSeconds/RateScale:Swing;
+            bHitConfirmed && UsesPickaxeMotion()?Contact+ProductionPickaxeImpact::HitRecoverSeconds/RateScale:Swing;
         if (Elapsed>=End) CancelUse();
     }
 }

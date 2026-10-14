@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
@@ -104,6 +105,8 @@ void UCombatStatusFormula::AddStatusImmune(float Seconds)
 }
 void UCombatStatusFormula::InterruptOwnerActions(float Seconds)
 {
+    if(auto* P=Cast<APawn>(GetOwner());P&&P->IsPlayerControlled())
+        if(auto* Guard=P->FindComponentByClass<UPlayerGuardBreakComponent>()){Guard->Apply(Seconds);return;}
     // 玩家侧统一走破防输入锁（它自带 stun 卡片与输入恢复），怪物侧沿用与冻结一致的四类中断链。
     if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
     if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
@@ -271,6 +274,7 @@ float UCombatStatusFormula::ZhenmoDamageMultiplier() const
 }
 float UCombatStatusFormula::ZhenmoMovementMultiplier() const
 {
+    if(!GetOwner()->HasAuthority())return NetworkZhenmoMovement;
     float Slow=0.f;
     if(!IsImmune())for(const auto& Source:ZhenmoSources)
         if(Source.IsValid()&&Source->Affects(GetOwner()))Slow=FMath::Max(Slow,Source->Slow());
@@ -290,6 +294,7 @@ float UCombatStatusFormula::MovementMultiplier()const
 void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {
     Super::TickComponent(Delta,Type,Fn);
+    if(!GetOwner()->HasAuthority())return;
     AdvanceBerserk();
     if(WagerStacks>0&&WagerCount()==0)ConsumeWager();
     if(ComposureStacks>0&&ComposureCount()==0)ClearComposure();
@@ -537,6 +542,7 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     if(Take())if(BleedStacks>0){BleedStacks=0;BleedTime=BleedTick=0;BleedSource.Reset();Clear(TEXT("bleed"));++Cleansed;}
     if(Take())if(auto* F=Owner->FindComponentByClass<UHandBrainFearComponent>();F&&F->Stacks>0){F->Cleanse();++Cleansed;}
     if(Take())if(ChillStacks>0||ChillTime>0){ChillStacks=0;ChillTime=0;Clear(TEXT("chill"));++Cleansed;}
+    if(Take())if(auto* P=GetOwner()->FindComponentByClass<UColdSteelPoisonComponent>();P&&P->GetStacks()>0){P->ClearPoison();++Cleansed;}
     if(Take())if(FrozenTime>0){FrozenTime=0;Clear(TEXT("frozen"));++Cleansed;}
     if(Take())if(SlowTime>0){SlowTime=0;SlowPct=0;Clear(TEXT("slow"));++Cleansed;}
     if(Take())if(WaxTime>0){WaxTime=0;WaxPct=0;Clear(TEXT("waxSealSlow"));++Cleansed;}

@@ -1,4 +1,7 @@
 #include "GunAssemblySystem.h"
+#include "../FPSGAMECharacter.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -13,7 +16,7 @@ void UColdSteelStatusModel::StageGunCalibration(const FString& Id,float Held,flo
     J.CalibrationSeconds=Held;J.CalibrationTime=Time;J.CalibrationError=Error;bTrainingDirty=true;
 }
 UColdSteelStatusModel* UGunAssemblySystem::Model() const
-{return GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetworkModel?NetworkModel.Get():ColdSteelAuthority::Model(this);}
 const FColdSteelGunAssemblyJob& UGunAssemblySystem::Job() const
 {static const FColdSteelGunAssemblyJob Empty;return Model()?Model()->GunAssemblyJob():Empty;}
 void UGunAssemblySystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -75,7 +78,7 @@ bool UGunAssemblySystem::CanStart(FString& Reason) const
     const auto& Data=Recipe();
     auto* M=Model();
     if(!M||Data.Id.IsNone()||Data.Parts.IsEmpty()||Data.Parts.Num()>30||Data.Inputs.IsEmpty()){Reason=TEXT("拼装配方未就绪");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client){Reason=TEXT("拼装仅支持单人模式");return false;}
+    if(!GetWorld()){Reason=TEXT("拼装仅支持单人模式");return false;}
     if(!Job().Id.IsEmpty()){Reason=TEXT("已有工件，请继续拼装或领取成品");return false;}
     if(M->CreateItem(Data.Output).Data.IsEmpty()){Reason=TEXT("枪械目录未就绪");return false;}
     for(const auto& In:Data.Inputs)if(M->CountMaterial(In.Item)<In.Count)
@@ -84,6 +87,7 @@ bool UGunAssemblySystem::CanStart(FString& Reason) const
 }
 bool UGunAssemblySystem::Start(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("assembly.start"),SelectedRecipe);}
     const auto& Data=Recipe();
     if(!CanStart(Reason))return false;
     auto* M=Model();M->SyncRuntime();auto P=M->Snapshot();
@@ -113,6 +117,8 @@ bool UGunAssemblySystem::Assembled() const
 {return !Job().Id.IsEmpty()&&!Recipe().Parts.IsEmpty()&&InstalledCount()==Recipe().Parts.Num();}
 bool UGunAssemblySystem::Install(int32 Part,float Distance,float Angle,FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this))
+    {ColdSteelStationNet::Input(this,TEXT("assembly"),0,NAME_None,Part,FVector2D(Distance,Angle));Reason=TEXT("正在同步装配");return Distance<=Recipe().PositionTolerance&&FMath::Abs(Angle)<=Recipe().AngleTolerance;}
     const auto& Data=Recipe();
     if(!Model()||Job().Id.IsEmpty()||Job().bFinished||!Data.Parts.IsValidIndex(Part)||Installed(Part))return false;
     if(!FMath::IsFinite(Distance)||!FMath::IsFinite(Angle))return false;
@@ -131,6 +137,17 @@ bool UGunAssemblySystem::Install(int32 Part,float Distance,float Angle,FString& 
 }
 void UGunAssemblySystem::Calibrate(float DeltaTime,float Error)
 {
+    if(ColdSteelStationNet::IsClient(this))
+    {
+        auto* M=Model();if(!M||!M->RuntimePawn()||Job().Id.IsEmpty()||Job().bFinished)return;
+        if(CalibrationPawn.Get()!=M->RuntimePawn()||CalibrationJob!=Job().Id)
+        {NetworkSessionEnded();CalibrationPawn=M->RuntimePawn();CalibrationJob=Job().Id;}
+        CalibrationAccum+=FMath::Clamp(DeltaTime,0.f,.05f);
+        CalibrationErrorAccum+=FMath::Clamp(DeltaTime,0.f,.05f)*FMath::Clamp(Error,0.f,2.f);
+        if(CalibrationAccum>=.1f)
+        {ColdSteelStationNet::Input(this,TEXT("assembly"),1,NAME_None,0,FVector2D(CalibrationAccum,CalibrationErrorAccum/CalibrationAccum));CalibrationAccum=CalibrationErrorAccum=0.f;}
+        return;
+    }
     const auto& Data=Recipe();
     if(!Assembled()||Job().bFinished||!Model()||Job().CalibrationSeconds>=Job().CalibrationDuration)return;
     const float Dt=FMath::Clamp(DeltaTime,0.f,.05f),E=FMath::Clamp(Error,0.f,2.f);
@@ -152,6 +169,7 @@ FString UGunAssemblySystem::BenefitText(float Value)
 {return FString::Printf(TEXT("后坐力 −%.1f%% · 腰射散布 −%.1f%%"),Value*.12f,Value*.15f);}
 bool UGunAssemblySystem::Finish(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("assembly.finish"));}
     const auto& Data=Recipe();
     if(Job().bFinished)return true;
     if(!Assembled()||Job().CalibrationSeconds<Job().CalibrationDuration){Reason=TEXT("先完成全部装配和校准");return false;}
@@ -168,6 +186,7 @@ bool UGunAssemblySystem::Finish(FString& Reason)
 }
 bool UGunAssemblySystem::Claim(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("assembly.claim"));}
     if(!Model()||!Job().bFinished){Reason=TEXT("尚无可领取成品");return false;}
     Model()->SyncRuntime();auto P=Model()->Snapshot();
     if(!ColdSteelInventory::Insert(P.Items,P.GunAssemblyJob.Item)){Reason=TEXT("背包空间不足，成品保留待领");return false;}
@@ -192,7 +211,7 @@ bool UGunAssemblySystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refun
     Refund.Reset();Reason.Reset();
     if(!Model()||Job().Id.IsEmpty()||!Job().bFinished)
     {Reason=TEXT("只有已完成、尚未领取的成品可以废弃");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)
+    if(!GetWorld())
     {Reason=TEXT("拼装仅支持单人模式");return false;}
     TMap<FString,int64> Paid;
     if(!GetPaidMaterials(Paid)){Reason=TEXT("无法读取返还材料，成品保留待领");return false;}
@@ -206,6 +225,7 @@ bool UGunAssemblySystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refun
 }
 bool UGunAssemblySystem::Discard(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("assembly.discard"));}
     TArray<FColdSteelCraftingInput> Refund;
     if(!GetDiscardRefund(Refund,Reason))return false;
     auto* M=Model();M->SyncRuntime();auto P=M->Snapshot();
@@ -227,7 +247,20 @@ bool UGunAssemblySystem::Discard(FString& Reason)
 }
 bool UGunAssemblySystem::Pause(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this))
+    {
+        auto* M=Model();
+        const bool SameJob=M&&M->RuntimePawn()&&CalibrationPawn.Get()==M->RuntimePawn()&&CalibrationJob==Job().Id;
+        if(SameJob&&CalibrationAccum>0.f)
+            ColdSteelStationNet::Input(this,TEXT("assembly"),1,NAME_None,0,FVector2D(CalibrationAccum,CalibrationErrorAccum/CalibrationAccum));
+        NetworkSessionEnded();
+        if(M&&!Job().Id.IsEmpty())ColdSteelStationNet::Input(this,TEXT("assembly"),2);
+        Reason=TEXT("已暂停，等待服务器保存工件");return true;
+    }
     if(!Model()||Job().Id.IsEmpty())return true;
     if(!Model()->SaveNow()){Reason=Model()->ResultMessage();return false;}
     Reason=TEXT("工件已保存，下次可以继续");return true;
 }
+
+UGunAssemblySystem* UGunAssemblySystem::CreateNetworkSession(UColdSteelStatusModel* M)
+{auto* Session=NewObject<UGunAssemblySystem>(GetGameInstance());Session->Recipes=Recipes;Session->NetworkModel=M;return Session;}

@@ -1,0 +1,670 @@
+{
+  "task": "multiplayer closeout",
+  "archive_root": "trash/MultiplayerCloseout20261014",
+  "files": [
+    {
+      "original": "Saved/MultiplayerAttackBranches20261014/repair.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerAttackBranches20261014/repair.py",
+      "bytes": 5724,
+      "sha256": "1f0a9da934a2f6e01935561346345a1b88b0f629d0bb234183277ed73a7b59a8",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerAttackBranches20261014/repair_variants.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerAttackBranches20261014/repair_variants.py",
+      "bytes": 7697,
+      "sha256": "8453a02c6825228395ba5d11e3d7a137d1b917d8e5a262ea33051d2ce04b7080",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerBasicCoverage20261013/build_repairs.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerBasicCoverage20261013/build_repairs.py",
+      "bytes": 719,
+      "sha256": "1f8d0ef91398897a2d5bc66a9570e16c9095cbb928fe207773558a98123bee14",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerBasicCoverage20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerBasicCoverage20261013/edit.py",
+      "bytes": 5740,
+      "sha256": "6be376567e6db52012ccf2977e6f7bf126fe893f4eb6d76369826fdd64b65894",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerBasicCoverage20261013/footsteps.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerBasicCoverage20261013/footsteps.py",
+      "bytes": 2702,
+      "sha256": "4d0eaa6a741159c77c4ba24676d58d21dbd6d4f55e532088c6a01df59e66f0cd",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerBasicCoverage20261013/tree.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerBasicCoverage20261013/tree.py",
+      "bytes": 4212,
+      "sha256": "a3bc40b7fc5f66edec3d2e7d669e10bb3fb09dc868e347506e6f2a90268e2712",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerBasicCoverage20261013/wood.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerBasicCoverage20261013/wood.py",
+      "bytes": 8151,
+      "sha256": "aedc057f23db7fc862667275f69f7e0b421a9d68f7b614eae58a561fa42cbede",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerBasicCoverage20261013/wood_finish.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerBasicCoverage20261013/wood_finish.py",
+      "bytes": 229,
+      "sha256": "f055c8e19a7231b6763b5344c7fcbf86a6016365117e5c59d4ef061fe8abf0d0",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/actors.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/actors.py",
+      "bytes": 5827,
+      "sha256": "d475e9e62e804cf3160c0cf5a0fc6c8d5092058fc18a397c388dc5286368f9d8",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/animation.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/animation.py",
+      "bytes": 7161,
+      "sha256": "82ff58fa456890124621b0431f3343d0b5499c9438bd55cdc25195ce71b9e003",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/core.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/core.py",
+      "bytes": 5445,
+      "sha256": "bbd13830cf337c3ea620ebea0d8d44927794444399bb561d1cdd002bf429e3d6",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/edit.py",
+      "bytes": 850,
+      "sha256": "ce6decbe8619242ea29dd7259d5454a8a78ab8695c6ecc9acd02fb89e67e951a",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/finish.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/finish.py",
+      "bytes": 5074,
+      "sha256": "dc6a48b1beda5fc352e71eb6a4ba094ae2d5f78e26034e40c2820626d7e8f427",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/glass_world.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/glass_world.py",
+      "bytes": 3556,
+      "sha256": "8dc7883154619223b5c64084c2859aa583e1839ac9ccc251b1a8394729424a26",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/integration.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/integration.py",
+      "bytes": 4066,
+      "sha256": "d7363d8f032dadf64e72b17bcb5976a17fd97107608249fe37d5e9397ba0cdcf",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/shop.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/shop.py",
+      "bytes": 9391,
+      "sha256": "86cbbbcfaecf20e3812ad998f0e63340abe3b80353589fdf4b95a60e2c33370f",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/status.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/status.py",
+      "bytes": 12817,
+      "sha256": "3fe10912a9357af97e92526c1181529056953eeb5d5da84c693d7b085bdab6dd",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/weather.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/weather.py",
+      "bytes": 7310,
+      "sha256": "37a112721745f3efc04860b8a358fde7c527e1590be9a58807dcff2e99788668",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCombatRepairs20261013/witch.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCombatRepairs20261013/witch.py",
+      "bytes": 6650,
+      "sha256": "dae3ddd3eeeec5fe1d2eb1fd768a7b985b7f9c1415f6570e72ffd56a679ce5fe",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCommitRecovery20261014/apply-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCommitRecovery20261014/apply-and-build.ps1",
+      "bytes": 658,
+      "sha256": "573d727201708ae5258e3d62826a32f4baba7daeadaca6ac8df255599a93ea46",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCommitRecovery20261014/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCommitRecovery20261014/edit.py",
+      "bytes": 491,
+      "sha256": "11c1883b347cbe2d39fd8414709dbfb843ec97bcddbc3c8a68e4e55b4dd340c8",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCommitRecovery20261014/finish-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCommitRecovery20261014/finish-and-build.ps1",
+      "bytes": 939,
+      "sha256": "744dcff62bbfb879f3c3e6041e2874b31bc7c69de6f2402d59c83fe252a67a02",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCommitRecovery20261014/finish.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCommitRecovery20261014/finish.py",
+      "bytes": 630,
+      "sha256": "11d5f4c7f9f1583e9b8cc0dd776ca4fc237941f776ccfc91516ebc4b01064088",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCommitRecovery20261014/repair.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCommitRecovery20261014/repair.py",
+      "bytes": 12157,
+      "sha256": "b3e9eb0ecd4d0b025e3b7a5d6d65035e66f39fc1ba18588ca44fb28e81229db6",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCoverageRepairs20261013/edit_core.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCoverageRepairs20261013/edit_core.py",
+      "bytes": 8534,
+      "sha256": "b27c992945da6611f4b9754bc835f6fc7d400bb35dcf6561684688db94a5f908",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCoverageRepairs20261013/edit_effects.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCoverageRepairs20261013/edit_effects.py",
+      "bytes": 6467,
+      "sha256": "3fa1a112e6acb3a12f074b796036d8814cf76b8bd2f831cbcd24d0cd725efd49",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCoverageRepairs20261013/edit_rift.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCoverageRepairs20261013/edit_rift.py",
+      "bytes": 8893,
+      "sha256": "20c5cb0e54cc7935ea9682bc3d0a3e08405f5149647ec0c0ad496deec3dd4b67",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCoverageRepairs20261013/edit_world.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCoverageRepairs20261013/edit_world.py",
+      "bytes": 9431,
+      "sha256": "13e2c3ef3a8581f8a96a92b0212e8bd1b34f524440e000e09f65be5b76abfcdd",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCoverageRepairs20261013/finish_integration.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCoverageRepairs20261013/finish_integration.py",
+      "bytes": 2161,
+      "sha256": "c04b99492e8d54bf5bad6dfe68634abc46a545bd5daf4bf70d41666b95eb4772",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerCoverageRepairs20261013/reward_credit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerCoverageRepairs20261013/reward_credit.py",
+      "bytes": 601,
+      "sha256": "b05a852398d7c97c5225b665d82643372cd14e7a636f46976d0aafed098a89aa",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerDynamicLifecycle20261013/chest_readiness.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerDynamicLifecycle20261013/chest_readiness.py",
+      "bytes": 3251,
+      "sha256": "d9381103d81c5e0a295e20b23d43460ad75934f9eaa9bc599351fdb2667722ea",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerDynamicLifecycle20261013/consume_scene_mirror.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerDynamicLifecycle20261013/consume_scene_mirror.py",
+      "bytes": 3465,
+      "sha256": "6ad79220249c018887008f52afeab4af1f37b2aa8488377f520c374e72775b83",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerDynamicLifecycle20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerDynamicLifecycle20261013/edit.py",
+      "bytes": 485,
+      "sha256": "e05d95d52ae683a58b87b0e85f8f825fcddecfd09cf494ba45fac32b1b517cde",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerDynamicLifecycle20261013/loading_failure.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerDynamicLifecycle20261013/loading_failure.py",
+      "bytes": 1496,
+      "sha256": "76b0ec0549bb61af28e9bad11564f8729b84166a9b13a53aa60c8d2f37d66863",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerDynamicLifecycle20261013/scene_keys.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerDynamicLifecycle20261013/scene_keys.py",
+      "bytes": 2504,
+      "sha256": "b158397802f2fe79ce2093d2027b938df918738b603b40d1b51d998203484302",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerDynamicLifecycle20261013/scene_mirror.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerDynamicLifecycle20261013/scene_mirror.py",
+      "bytes": 3577,
+      "sha256": "4a874744680d99950d874043d554c5c85ab3f3b930f5034b5cff717a841648a5",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerExtendedCoverage20261013/build_fix.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerExtendedCoverage20261013/build_fix.py",
+      "bytes": 392,
+      "sha256": "4dfe00e114f4b7bb410c030c1ede1457bb30ff26090e09fe0b844ab3bbbdece8",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerExtendedCoverage20261013/building.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerExtendedCoverage20261013/building.py",
+      "bytes": 7795,
+      "sha256": "4fc38b8ad7b66a6efbccb89f8add31730294b785c28fae0515c7947db5dc56ab",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerExtendedCoverage20261013/cast_receipts.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerExtendedCoverage20261013/cast_receipts.py",
+      "bytes": 3399,
+      "sha256": "512e6aab3a5d44a1b7ba5e8523084e7b4ae30c00fb28391d8b256039ba2eb7b9",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerExtendedCoverage20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerExtendedCoverage20261013/edit.py",
+      "bytes": 9928,
+      "sha256": "5911da0bf16fbb639c30407dc18d664995ac271d4fd8f002523fa3b0cd8d49ef",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerExtendedCoverage20261013/travel.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerExtendedCoverage20261013/travel.py",
+      "bytes": 4563,
+      "sha256": "e77ecd1812e682a08eed929002b86e5df837e66e1802476bb62542ade9796248",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerGuardFeedback20261013/cleanup.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerGuardFeedback20261013/cleanup.py",
+      "bytes": 2402,
+      "sha256": "2d4507f583acd3fe775155a1b3e3c030af3c9abdc5c94d4af96a5981ecd0240a",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerGuardFeedback20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerGuardFeedback20261013/edit.py",
+      "bytes": 6907,
+      "sha256": "e1c03f901b9760d0f8f8f9b64f517445af61486d58e2634d381a83ab1f850c30",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerGuardFeedback20261013/feedback.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerGuardFeedback20261013/feedback.py",
+      "bytes": 3277,
+      "sha256": "ef58a914b0fdadb4f8272e994fdb3f1255a44bcd1a9abbe6787ee8e5e88e731d",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerGuardFeedback20261013/receipt_routes.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerGuardFeedback20261013/receipt_routes.py",
+      "bytes": 1452,
+      "sha256": "51f9265b1b594a8c402baf09cbb2c3fddd1b2dd313855c316cbcd3d8023c2e64",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerInterruptionCoverage20261014/repair.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerInterruptionCoverage20261014/repair.py",
+      "bytes": 8640,
+      "sha256": "fdcf59ca39deea22b2a5e4103c0eab2b7373b072d76e5587b2cf6d15b27b3e6a",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerLifecycleAssets20261013/building.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerLifecycleAssets20261013/building.py",
+      "bytes": 3395,
+      "sha256": "bee5799e1072e85df2b18fcd96c174afcbe10111b5ff087510902c71dbbc9514",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerLifecycleAssets20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerLifecycleAssets20261013/edit.py",
+      "bytes": 480,
+      "sha256": "9a62751d562bda6f29ccdd9accabcf0f47bf992b6043d71f83f8010a1246dbba",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerLifecycleAssets20261013/fresh_travel_upload.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerLifecycleAssets20261013/fresh_travel_upload.py",
+      "bytes": 1492,
+      "sha256": "1f046fdc30e800b4be59dc53b279280770fbe4cc4bc6ea0069494d6e53d89ec3",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerLifecycleAssets20261013/reconnect.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerLifecycleAssets20261013/reconnect.py",
+      "bytes": 4552,
+      "sha256": "653a76d541e665834f41c0c7ad512b4ab293f97cef172d1f3b539de7cec360ab",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerLifecycleAssets20261013/stations.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerLifecycleAssets20261013/stations.py",
+      "bytes": 3846,
+      "sha256": "3d0c156a8cf9a457abac47dffbf7ad3ede077f00b27fd2a1aae9aaf8ae84fa18",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerLifecycleAssets20261013/travel.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerLifecycleAssets20261013/travel.py",
+      "bytes": 7400,
+      "sha256": "2bc8061fca4dc662001c4cb87f55d5fecb522ff67f7ba578bd0a65791d426085",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/actors.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/actors.py",
+      "bytes": 1110,
+      "sha256": "c4cf204de21386ead84aa9c6c490a6f8e69e4bcd3304d48e6862702852862e4a",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/authority.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/authority.py",
+      "bytes": 3782,
+      "sha256": "e71872403cf99176f84a96a890f358daa5b41783f98160b9cf14982b77ae7282",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/build_compat.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/build_compat.py",
+      "bytes": 217,
+      "sha256": "3d1f16d40f5b4265f37458ecd70a75e12715eee2c114af00f44d5516f8aa464a",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/edges.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/edges.py",
+      "bytes": 2679,
+      "sha256": "aa882d8383821fb699481f0e7d55ab91e673b8133252354a1f81c1475c7cac23",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/edit.py",
+      "bytes": 477,
+      "sha256": "6e1478b2a8ea431d1871130750719fe7bbc78bf1af3d6b7c8bfccabad2ddb814",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/feedback.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/feedback.py",
+      "bytes": 3547,
+      "sha256": "02bb2186f101e4fbaaaaef0b9f353a63720591c53b088c6c3957a180075870ad",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/finalize.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/finalize.py",
+      "bytes": 1506,
+      "sha256": "123b06083ec87d3ecb7591f133c7d47ca271e949aab261cf9cffd562d5d844e1",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/inventory.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/inventory.py",
+      "bytes": 1363,
+      "sha256": "a10956f3cefe236175bffd8aa153c5a76fe0575e51b7b72e3ed927290bbb63d9",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/keys.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/keys.py",
+      "bytes": 2039,
+      "sha256": "1f2a99f7a463cf8677165f5529fa9513c6b47778e475370edaf666877fe30244",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/stream.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/stream.py",
+      "bytes": 3348,
+      "sha256": "6de00d8f9cf03b2cb573684918ecd48f74830e545ec88350cf65c744f8564f69",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/target.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/target.py",
+      "bytes": 4738,
+      "sha256": "688195cf167625c583bd8e21a95cbe4a8266e2889f2a826621e77590fc7e8fd7",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerProjectSweep20261013/world.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerProjectSweep20261013/world.py",
+      "bytes": 1922,
+      "sha256": "0ccac6e14d5604fecdf1d4733a696db5f4e877fb3485cbdddddbe13eb5b55066",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecovery20261013/apply-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecovery20261013/apply-and-build.ps1",
+      "bytes": 640,
+      "sha256": "62cce98fc9c84fd7d3212ef2c17393f5d7d65c9bc6858d8af897b9f0a0b3d1a4",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecovery20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecovery20261013/edit.py",
+      "bytes": 479,
+      "sha256": "aeb5dc423d03a26467e646436360f5e451b448a30da630326664c0cd90122a4f",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecovery20261013/repair.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecovery20261013/repair.py",
+      "bytes": 13994,
+      "sha256": "43a4980ba70ea2c078d88bd4d4948c70ad690381d4c3b567f13b93f51cfdb9aa",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecoveryState20261013/apply-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecoveryState20261013/apply-and-build.ps1",
+      "bytes": 652,
+      "sha256": "0a93d338f9204135f1192334f74b18095c2d90696d33dbcd820ee1f55bd65dc2",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecoveryState20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecoveryState20261013/edit.py",
+      "bytes": 486,
+      "sha256": "9d091863094baf07e582b7af7f83f6b5e16b7d9737bc9707c86293fe2657fdef",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecoveryState20261013/finish_integration.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecoveryState20261013/finish_integration.py",
+      "bytes": 1219,
+      "sha256": "d8cf039e1321432b25fa2a29f1a080234c06c74fe93b9c19ebebdcc0010d06ac",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerRecoveryState20261013/repair.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerRecoveryState20261013/repair.py",
+      "bytes": 16975,
+      "sha256": "0f8b8a21a7747be10ba8e1e67a222825902db8ef6120ee42367ef6db1b34abb3",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerStreamingPlugins20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerStreamingPlugins20261013/edit.py",
+      "bytes": 483,
+      "sha256": "5f245bfd971d4ce8961f55a05b87065296bc218f9ca5fc25a42b5485fa371536",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerStreamingPlugins20261013/footsteps.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerStreamingPlugins20261013/footsteps.py",
+      "bytes": 5137,
+      "sha256": "b79a929f3ce5a853730a2216169aa868f4a42f2d26be687f5107052bb131623d",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerStreamingPlugins20261013/streaming.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerStreamingPlugins20261013/streaming.py",
+      "bytes": 3832,
+      "sha256": "d6aaaaa82b397dd0f680dc07079bf617402e03771d448a0e46785661e13012f4",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/apply-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/apply-and-build.ps1",
+      "bytes": 656,
+      "sha256": "afffbe9032dede995bed08bd1592bafc7b8b7125060fb4b0e4db57969fc0c243",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/build_integration.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/build_integration.py",
+      "bytes": 794,
+      "sha256": "20acfda9d3dd1694b86b9832e06646b35146deb258f34c0707412e14f6dc7edc",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/edit.py",
+      "bytes": 489,
+      "sha256": "193e1f4095b02a8602b391d18cd5efc24ee5f894da702469dee71940ed14f77e",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/finish-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/finish-and-build.ps1",
+      "bytes": 515,
+      "sha256": "53f5dd5251429a99537a32f31bcabce54d06ea9949e5d6f6ee53ad6ac3bcdde5",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/finish.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/finish.py",
+      "bytes": 5483,
+      "sha256": "aacbb3a62c644594c6c2dbc5cada893e6b5a75a953e587a58833290f12ab767a",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/integration-and-build.ps1",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/integration-and-build.ps1",
+      "bytes": 526,
+      "sha256": "6c0da1c09d852478c88a919405d11d7ebb973ac06311184fa3a494e62c3a6787",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWeaponRecovery20261014/repair.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWeaponRecovery20261014/repair.py",
+      "bytes": 17804,
+      "sha256": "2bcfae1db15d749adb86b43bb62475b620821a83787c624def76221c25d7537b",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWorldRepairs20261013/edit.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWorldRepairs20261013/edit.py",
+      "bytes": 670,
+      "sha256": "5c5a1c49d41f1a22519083d0052ee25c85f7c4ed455a986efefacc43adc36ab0",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    },
+    {
+      "original": "Saved/MultiplayerWorldRepairs20261013/finish.py",
+      "archived": "trash/MultiplayerCloseout20261014/MultiplayerWorldRepairs20261013/finish.py",
+      "bytes": 7239,
+      "sha256": "9b2b4d35db9901455165ccdc3a2c3663974e5bf0b66bcfda4915e3a3a735dccf",
+      "reason": "Applied batch-specific source rewrite or one-shot wrapper; do not rerun on the current shared worktree",
+      "retained_replacement": "Current Source plus batch Before snapshots, changes.patch, source manifests and build receipts"
+    }
+  ]
+}

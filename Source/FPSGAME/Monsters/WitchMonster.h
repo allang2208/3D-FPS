@@ -50,7 +50,9 @@ private:
     FTransform PreviousStaffTransform = FTransform::Identity;
     FVector StaffLinearVelocity = FVector::ZeroVector;
     FVector StaffAngularVelocity = FVector::ZeroVector;
-    bool bThrowing = false;
+    UPROPERTY(ReplicatedUsing=OnRep_Throwing) bool bThrowing = false;
+    UFUNCTION() void OnRep_Throwing();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     bool bReleased = false;
     double NextMagicAt = 0.0;
     double NextBottleAt = 0.0;

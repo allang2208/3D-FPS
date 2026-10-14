@@ -1,4 +1,6 @@
 #include "DungeonRunSubsystem.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "AuthoredDungeonGenerator.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelWorldInteraction.h"
@@ -58,27 +60,38 @@ bool UDungeonRunSubsystem::IsShrine(const AActor* Actor) const
 
 FString UDungeonRunSubsystem::ShrinePrompt() const
 {
-    return ShrineName+(bShrineClaimed?TEXT(" · 已获赐福（本次地牢）"):TEXT(" · 祈求赐福\n")+ShrineDescription);
+    return ShrineName+(HasShrineBlessing()?TEXT(" · 已获赐福（本次地牢）"):TEXT(" · 祈求赐福\n")+ShrineDescription);
 }
 
-double UDungeonRunSubsystem::ShrineEffect(FName Key) const
-{return bActive&&bShrineClaimed?ShrineEffects.FindRef(Key):0.;}
+bool UDungeonRunSubsystem::HasShrineBlessing(const APawn* Viewer) const
+{
+    const auto* M=Viewer?ColdSteelAuthority::ForPawn(Viewer):StatusModel();
+    return bActive&&M&&M->Snapshot().DungeonRun.RunId==CurrentRunId&&M->Snapshot().DungeonRun.Claimed.Contains(TEXT("start_shrine"));
+}
+double UDungeonRunSubsystem::ShrineEffect(FName Key,const APawn* Viewer) const
+{return HasShrineBlessing(Viewer)?ShrineEffects.FindRef(Key):0.;}
 
 bool UDungeonRunSubsystem::ClaimShrine(APlayerController* Controller,AActor* Target)
 {
-    if(!IsShrine(Target)||!CanClaimShrine()||!Controller||Controller->GetNetMode()==NM_Client
+    if(!Controller||!IsShrine(Target)||HasShrineBlessing(Controller->GetPawn())
         ||ColdSteelWorldInteraction::TraceTarget(Controller)!=Target)return false;
+    if(Controller->GetNetMode()==NM_Client)
+    {auto* PS=Controller->GetPlayerState<AColdSteelPlayerState>();return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::Shrine,FString(),Target);}
     APawn* Pawn=Controller->GetPawn();
     auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    UColdSteelStatusModel* Model=StatusModel();
+    UColdSteelStatusModel* Model=ColdSteelAuthority::ForPawn(Pawn);
     if(!Model||!Health||Health->IsDead())return false;
     Model->SyncRuntime();auto Profile=Model->Snapshot();
     static const FName Receipt(TEXT("start_shrine"));
-    if(Profile.DungeonRun.RunId!=CurrentRunId||Profile.DungeonRun.Claimed.Contains(Receipt))return false;
+    if(Profile.DungeonRun.RunId!=CurrentRunId)
+    {Profile.DungeonRun={};Profile.DungeonRun.RunId=CurrentRunId;Profile.DungeonRun.Seed=Seed;}
+    if(Profile.DungeonRun.Claimed.Contains(Receipt))return false;
     Profile.DungeonRun.Claimed.Add(Receipt);
     Profile.Health=FMath::Min(Health->MaxHealth,float(Profile.Health+Health->MaxHealth*FMath::Clamp(ShrineHealFraction,0.,1.)));
     // The receipt and instant heal are committed together. A failed save never consumes the shrine.
-    if(!Model->CommitState(MoveTemp(Profile)))return false;
+    auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
+    if(GetWorld()->GetNetMode()==NM_Standalone){if(!Model->CommitState(MoveTemp(Profile)))return false;}
+    else if(!Model->CommitCampfireState(MoveTemp(Profile),TEXT("Shrine"),Controller->IsLocalController()?FString():PS->CampfireGuestSlot()))return false;
     bShrineClaimed=true;ShrineRecipient=Pawn;
     UStatusEffectsComponent::Notify(Pawn);Model->NotifyChanged();
     return true;

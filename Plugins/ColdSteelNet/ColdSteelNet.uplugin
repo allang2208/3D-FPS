@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.1",
+	"FriendlyName": "Cold Steel Net",
+	"Description": "Multiplayer foundation for FPSGAME: listen-server authoritative replication track. See Docs/MultiplayerStrategyAndPlan20260930.md",
+	"Category": "Gameplay",
+	"CreatedBy": "FPSGAME multiplayer track",
+	"CanContainContent": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "ColdSteelNet",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"FPSGAME"
+			]
+		}
+	]
+}

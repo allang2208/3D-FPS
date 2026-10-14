@@ -1,0 +1,25 @@
+{
+  "kind": "Missing local include prerequisites only, not a complete link/asset dependency closure",
+  "prerequisites": {
+    "Source/FPSGAME/Monsters/MonsterArcPathing.h": [
+      "Source/FPSGAME/Monsters/NurseZombie.h"
+    ],
+    "Source/FPSGAME/Building/ColdSteelCampfire.h": [
+      "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp"
+    ],
+    "Source/FPSGAME/UI/ColdSteelShopModel.h": [
+      "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp"
+    ],
+    "Source/FPSGAME/Skills/MagicOcclusion.h": [
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp"
+    ],
+    "Source/FPSGAME/UI/ColdSteelCurrency.h": [
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp"
+    ],
+    "Source/FPSGAME/UI/ColdSteelSceneLoot.h": [
+      "Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp"
+    ]
+  }
+}

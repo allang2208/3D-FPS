@@ -7,6 +7,15 @@ class UStaticMeshComponent;
 class UTextRenderComponent;
 class UStaticMesh;
 
+USTRUCT()
+struct FPracticeTargetNetStats
+{
+    GENERATED_BODY()
+    UPROPERTY() float Total=0.f;
+    UPROPERTY() float Dps=0.f;
+    UPROPERTY() int32 Hits=0;
+};
+
 /** 主神空间训练靶（2026-10-02）：圆环靶面 + 木质三脚架道具，承接所有武器命中。
  *  伤害从武器侧统一经 UGameplayStatics::ApplyPointDamage/ApplyRadialDamage 收口，
  *  本靶只监听 OnTakePointDamage/OnTakeRadialDamage/OnTakeAnyDamage：
@@ -14,13 +23,14 @@ class UStaticMesh;
  *  - 头顶牌显示滚动窗口 DPS、累计伤害与击数（5s 窗口、4s 无命中重开一节）。
  *  同一次 TakeDamage 会先广播 Point/Radial 再广播 Any——按帧去重，Any 只兜底
  *  非点/径向的通用伤害路径（持续伤害、直接 ApplyDamage 等）。
- *  Hub（DayNight_Lighting）为单机会话，不做属性复制。 */
+ *  服务器统计命中，复制累计与 DPS，命中浮字通过空间组播呈现。 */
 UCLASS()
 class FPSGAME_API AFPSPracticeTarget : public AActor
 {
     GENERATED_BODY()
 public:
     AFPSPracticeTarget();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     /** 清空累计/窗口统计与浮空数字。 */
     void ResetSession();
     /** 要害判定入口（ColdSteelSkills::IsCriticalHit 调用）：命中点落在靶心正面
@@ -35,7 +45,10 @@ private:
     UFUNCTION() void OnRadialDamage(AActor* DamagedActor,float Damage,const UDamageType* DamageType,FVector Origin,const FHitResult& HitInfo,class AController* InstigatedBy,AActor* DamageCauser);
     UFUNCTION() void OnAnyDamage(AActor* DamagedActor,float Damage,const UDamageType* DamageType,class AController* InstigatedBy,AActor* DamageCauser);
     bool IsBullseyeLocation(const FVector& WorldPoint) const;
-    void RecordHit(float Damage,const FVector& Point,bool bBullseye);
+    void RecordHit(float Damage,const FVector& Point,bool bBullseye,bool bRock=false);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastPracticeHit(float Damage,FVector Point,bool bBullseye,bool bRock);
+    UPROPERTY(ReplicatedUsing=OnRep_Statistics) FPracticeTargetNetStats Statistics;
+    UFUNCTION() void OnRep_Statistics();
     void SpawnDamageText(float Damage,const FVector& Point,bool bBullseye);
     void UpdateSign();
     void FaceCamera(USceneComponent* Component) const;

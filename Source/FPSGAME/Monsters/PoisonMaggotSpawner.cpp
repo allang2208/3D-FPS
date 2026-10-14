@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "Engine/Engine.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/PlayerController.h"
 #include "TimerManager.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
@@ -14,13 +15,15 @@ void APoisonMaggotSpawner::BeginPlay()
  // Other monster regressions own isolated fixtures; a newly placed enemy must
  // not inject unrelated damage into their tests. Normal village play is unchanged.
  if(FParse::Param(FCommandLine::Get(),TEXT("HandBrainAudit"))||FParse::Param(FCommandLine::Get(),TEXT("NurseAudit"))||FParse::Param(FCommandLine::Get(),TEXT("MonsterAIAudit")))return;
- if(HasAuthority()&&bEnabled)GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::SpawnMonster,1,false);
+ if(GetNetMode()!=NM_Client&&HasAuthority()&&bEnabled)GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::SpawnMonster,1,false);
 }
 void APoisonMaggotSpawner::SpawnMonster()
 {
- if(!HasAuthority()||!bEnabled||IsValid(LiveMonster)||!MonsterClass)return;
+ if(GetNetMode()==NM_Client||!HasAuthority()||!bEnabled||IsValid(LiveMonster)||!MonsterClass)return;
  auto Retry=[this](){GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::SpawnMonster,10,false);};
- if(auto* P=UGameplayStatics::GetPlayerPawn(this,0))if(FVector::Dist2D(P->GetActorLocation(),GetActorLocation())<MinimumPlayerDistance){Retry();return;}
+ for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+  if(const auto* PC=It->Get())if(const APawn* Player=PC->GetPawn())
+   if(FVector::Dist2D(Player->GetActorLocation(),GetActorLocation())<MinimumPlayerDistance){Retry();return;}
  FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(MaggotSpawn),false,this);FVector At=GetActorLocation();
  if(!GetWorld()->LineTraceSingleByChannel(Hit,At+FVector(0,0,200),At-FVector(0,0,400),ECC_WorldStatic,Q)||Hit.ImpactNormal.Z<.94f){Retry();return;}
  At=Hit.ImpactPoint+FVector(0,0,72);

@@ -1,4 +1,5 @@
 #include "ProgressiveInfectionComponent.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "CombatStatusFormula.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Monsters/MonsterCombatComponent.h"
@@ -92,7 +93,7 @@ void UProgressiveInfectionComponent::Restore(const FInfectionState& SavedState)
 void UProgressiveInfectionComponent::Publish(bool bStageChanged)
 {
     if (auto* Player=Cast<AFPSGAMECharacter>(GetOwner()); Player && Player->IsPlayerControlled())
-        if (auto* Model=Player->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        if (auto* Model=ColdSteelAuthority::ForPawn(Player))
             Model->SetInfectionState(State,bStageChanged);
     if (bStageChanged) UStatusEffectsComponent::Notify(GetOwner());
 }

@@ -27,6 +27,7 @@ public:
     bool ReadyFall(const FProductionResource& Resource) const;
     void ReleasePreparedFall(const FProductionResource& Resource);
     void DelayDrops(const TArray<FString>& Ids,float Delay);
+    bool IsDropReady(const FString& Id) const;
     void Burst(bool Wood,const FVector& At,uint32 Seed,bool Landing=false);
     void ShowStumpAtCut(const FProductionResource& Resource);
     /** 树桩被劈开（2026-09-28）：标记树桩表脏，让下一次刷新收走渲染与碰撞；不动幼树。 */

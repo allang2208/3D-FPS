@@ -16,6 +16,8 @@ class FPSGAME_API AVoxelCollapseFragment : public AActor
     GENERATED_BODY()
 public:
     AVoxelCollapseFragment();
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
+    bool HasGeometry() const {return Shapes>0;}
     void Initialize(AVoxelBuildWorld* OwnerWorld,const FVoxelFragmentSave& InState,
         TSharedPtr<FVoxelGeometry> Geometry,const TArray<TObjectPtr<UMaterialInterface>>& Materials);
     void Activate();
@@ -27,7 +29,7 @@ public:
     /** Failed-placement debris: falls like any other piece but never damages the standing building. */
     void SetFailureDebris(bool bFailure) {bFailureDebris=bFailure;}
     virtual float TakeDamage(float Amount,const FDamageEvent& Event,AController* Instigator,AActor* Causer) override;
-    FGuid Id() const {return State.Id;}
+    FGuid Id() const {return NetworkId.IsValid()?NetworkId:State.Id;}
     int32 ShapeCount() const {return Shapes;}
     bool IsMoving() const;
     /** Time this debris has spent at rest; the building world recycles it into voxel blocks. */
@@ -53,7 +55,10 @@ private:
     FVoxelFragmentSave State;
     FVector PreviousVelocity=FVector::ZeroVector;
     FVector DesiredCenter=FVector::ZeroVector;
-    bool bStarted=false,bReplacing=false;
+    UPROPERTY(Replicated) FGuid NetworkId;
+    UPROPERTY(ReplicatedUsing=OnRep_Physics) bool bStarted=false;
+    UPROPERTY(ReplicatedUsing=OnRep_Physics) bool bReplacing=false;
+    UFUNCTION() void OnRep_Physics();
     bool bFailureDebris=false;
     float RestSeconds=0;
     float Mass=1;

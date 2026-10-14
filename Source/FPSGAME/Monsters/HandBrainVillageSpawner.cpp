@@ -4,10 +4,10 @@
 #include "Engine/World.h"
 #include "TimerManager.h"
 AHandBrainVillageSpawner::AHandBrainVillageSpawner(){RootComponent=CreateDefaultSubobject<USceneComponent>(TEXT("SpawnPoint"));PrimaryActorTick.bCanEverTick=false;}
-void AHandBrainVillageSpawner::BeginPlay(){Super::BeginPlay();if(HasAuthority()&&bEnabled)GetWorldTimerManager().SetTimer(Timer,this,&AHandBrainVillageSpawner::SpawnMonster,1.f,false);}
+void AHandBrainVillageSpawner::BeginPlay(){Super::BeginPlay();if(GetNetMode()!=NM_Client&&HasAuthority()&&bEnabled)GetWorldTimerManager().SetTimer(Timer,this,&AHandBrainVillageSpawner::SpawnMonster,1.f,false);}
 void AHandBrainVillageSpawner::SpawnMonster()
 {
- if(!HasAuthority()||!bEnabled||IsValid(LiveMonster)||!MonsterClass)return;
+ if(GetNetMode()==NM_Client||!HasAuthority()||!bEnabled||IsValid(LiveMonster)||!MonsterClass)return;
  FActorSpawnParameters P;P.Owner=this;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
  LiveMonster=GetWorld()->SpawnActor<AHandBrainMonster>(MonsterClass,GetActorLocation(),GetActorRotation(),P);
  if(LiveMonster){++SpawnCount;LiveMonster->OnDestroyed.AddDynamic(this,&AHandBrainVillageSpawner::MonsterDestroyed);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_VILLAGE_SPAWN count=%d position=%s"),SpawnCount,*LiveMonster->GetActorLocation().ToString());}

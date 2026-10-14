@@ -10,7 +10,7 @@ int64 UColdSteelSmeltingSystem::CastingStored(const FVoxelSmeltingJob& Job)
 
 bool UColdSteelSmeltingSystem::HasCastingStation(const AVoxelBuildWorld* World,FIntVector Cell) const
 {
-    if(!World)return false;
+    if(!World||World->IsCampfireAt(Cell))return false;
     if(const auto* Job=World->FindSmelting(Cell);Job&&Job->bCasting)return true;
     FIntVector Station;return World->FindAvailableCastingStation(Cell,Station);
 }
@@ -26,6 +26,7 @@ bool UColdSteelSmeltingSystem::CastingBlocked(const AVoxelBuildWorld* World,cons
 
 bool UColdSteelSmeltingSystem::SettleCasting(AVoxelBuildWorld* World,FIntVector Cell)
 {
+    if(!World||!World->HasAuthority())return false;
     auto* Job=World?World->FindSmeltingMutable(Cell):nullptr;
     if(!Job||!Job->bCasting)return false;
     auto* Station=World->PrefabActorAt(Job->StationCell);

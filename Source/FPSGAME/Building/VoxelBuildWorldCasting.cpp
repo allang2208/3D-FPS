@@ -1,9 +1,14 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPrefabActor.h"
+#include "EngineUtils.h"
 
 AVoxelBuildPrefabActor* AVoxelBuildWorld::PrefabActorAt(FIntVector Cell) const
 {
-    return Cast<AVoxelBuildPrefabActor>(PrefabActors.FindRef(Cell).Get());
+    if(auto* Found=Cast<AVoxelBuildPrefabActor>(PrefabActors.FindRef(Cell).Get()))return Found;
+    if(!HasAuthority())for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
+        if(It->GetOwner()==this&&It->AnchorCell()==Cell&&!It->IsFalling())
+        {const_cast<AVoxelBuildWorld*>(this)->PrefabActors.Add(Cell,*It);return *It;}
+    return nullptr;
 }
 
 bool AVoxelBuildWorld::FindCastingFurnace(FIntVector Station,FIntVector& OutFurnace) const

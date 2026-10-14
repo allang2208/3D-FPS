@@ -1,4 +1,5 @@
 #include "ProductionHarvestSubsystem.h"
+#include "ProductionObservers.h"
 #include "ProductionHarvestAssets.h"
 #include "ProductionBreakEffect.h"
 #include "ProductionResource.h"
@@ -68,6 +69,8 @@ void UProductionHarvestSubsystem::InvalidateStumps(const FProductionResource& Re
     Hills=Resource.World;bStumpsDirty=true;
     // 不 RemoveGrowingTree：劈桩只是收走桩，同一候选点的幼树照常生长。
 }
+bool UProductionHarvestSubsystem::IsDropReady(const FString& Id) const
+{const double* Time=VisibleAfter.Find(Id);return !Time||GetWorld()->GetTimeSeconds()>=*Time;}
 void UProductionHarvestSubsystem::DelayDrops(const TArray<FString>& Ids,float Delay)
 {
     const double Time=GetWorld()->GetTimeSeconds()+Delay;
@@ -84,7 +87,7 @@ void UProductionHarvestSubsystem::Burst(bool Wood,const FVector& At,uint32 Seed,
 }
 void UProductionHarvestSubsystem::Tick(float Delta)
 {
-    if(GetWorld()->GetNetMode()==NM_Client)return;
+
     ScanCountdown-=Delta;if(ScanCountdown>0)return;ScanCountdown=.2f;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
@@ -96,6 +99,7 @@ void UProductionHarvestSubsystem::Tick(float Delta)
     const double Now=GetWorld()->GetTimeSeconds();
     UpdateStumps(Eye,Now);
     UpdateGrowingTrees(Eye,Now);
+    if(GetWorld()->GetNetMode()!=NM_Standalone)return;
     for(auto It=VisibleAfter.CreateIterator();It;++It)if(It.Value()<=Now)It.RemoveCurrent();
     struct FCandidate {FString Id;double Distance;};
     TArray<FCandidate> Candidates;
@@ -167,10 +171,13 @@ void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
             Component->SetMobility(EComponentMobility::Movable);Component->RegisterComponent();Stumps.Add(Component);
         }
     }
-    TArray<FTemperatePlacement> Places;Hills->GetHarvestedStumps(FBox(Eye-FVector(6400,6400,50000),Eye+FVector(6400,6400,50000)),Places);
-    Places.RemoveAll([&](const auto& P){return ProductionHarvestAssets::TreeVariant(P.Mesh)==INDEX_NONE||FVector::DistSquared2D(P.Transform.GetLocation(),Eye)>FMath::Square(6400.f);});
-    Places.Sort([&](const auto& A,const auto& B){return FVector::DistSquared2D(A.Transform.GetLocation(),Eye)<FVector::DistSquared2D(B.Transform.GetLocation(),Eye);});
-    if(Places.Num()>64)Places.SetNum(64);
+    const auto Observers=ProductionObservers::Gather(GetWorld(),Eye);
+    TArray<FTemperatePlacement> Places;TSet<uint64> Seen;
+    for(const auto& View:Observers){TArray<FTemperatePlacement> Near;Hills->GetHarvestedStumps(FBox(View-FVector(6400,6400,50000),View+FVector(6400,6400,50000)),Near);
+        for(const auto& P:Near)if(!Seen.Contains(P.CandidateId)){Seen.Add(P.CandidateId);Places.Add(P);}}
+    Places.RemoveAll([&](const auto& P){return ProductionHarvestAssets::TreeVariant(P.Mesh)==INDEX_NONE||ProductionObservers::Distance(Observers,P.Transform.GetLocation())>FMath::Square(6400.f);});
+    Places.Sort([&](const auto& A,const auto& B){return ProductionObservers::Distance(Observers,A.Transform.GetLocation())<ProductionObservers::Distance(Observers,B.Transform.GetLocation());});
+    if(Places.Num()>64*Observers.Num())Places.SetNum(64*Observers.Num());
     TArray<FTransform> Groups[4];
     for(const auto& Place:Places)Groups[ProductionHarvestAssets::TreeVariant(Place.Mesh)].Add(Place.Transform);
     for(int32 Variant=0;Variant<4;++Variant)

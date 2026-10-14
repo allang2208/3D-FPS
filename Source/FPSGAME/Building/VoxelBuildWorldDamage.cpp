@@ -22,7 +22,7 @@ namespace
 
 float AVoxelBuildWorld::TakeDamage(float Amount,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
 {
-    if(!bReady||Amount<=0)return 0;
+    if(!HasAuthority()||!bReady||Amount<=0)return 0;
     if(Event.IsOfType(FPointDamageEvent::ClassID))
     {
         const auto& Point=static_cast<const FPointDamageEvent&>(Event);FVoxelBuildKey Key;
@@ -40,18 +40,19 @@ float AVoxelBuildWorld::TakeDamage(float Amount,const FDamageEvent& Event,AContr
 
 void AVoxelBuildWorld::DamageBuilding(FVector Position,float Amount,float RadiusCm)
 {
-    if(!bReady||Position.ContainsNaN()||Amount<=0||!FMath::IsFinite(Amount))return;
+    if(!HasAuthority()||!bReady||Position.ContainsNaN()||Amount<=0||!FMath::IsFinite(Amount))return;
     Runtime->DamageQueue.Add({nullptr,Position,Amount,FMath::Max(0.f,RadiusCm),0,true});
 }
 
 void AVoxelBuildWorld::QueueFragmentDamage(AVoxelCollapseFragment* Fragment,FVector Position,float Amount,float Radius,float Energy)
 {
-    if(!bReady||!IsValid(Fragment)||Position.ContainsNaN())return;
+    if(!HasAuthority()||!bReady||!IsValid(Fragment)||Position.ContainsNaN())return;
     Runtime->DamageQueue.Add({Fragment,Position,Amount,FMath::Max(0.f,Radius),FMath::Max(0.f,Energy),false});
 }
 
 void AVoxelBuildWorld::QueueCollapseImpact(AActor* Other,const FHitResult& Hit,float Energy)
 {
+    if(!HasAuthority())return;
     if(Other==this)
         Runtime->DamageQueue.Add({nullptr,Hit.ImpactPoint,0,FMath::Clamp(FMath::Sqrt(Energy)*.7f,15.f,100.f),Energy,true});
     else if(auto* Fragment=Cast<AVoxelCollapseFragment>(Other))

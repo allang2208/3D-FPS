@@ -1,0 +1,26 @@
+{
+  "editor-build-closeout-result.json": {
+    "finished": "2026-10-14T12:24:59.7729704+08:00",
+    "exitCode": 0,
+    "target": "FPSGAMEEditor"
+  },
+  "game-build-final-result.json": {
+    "finished": "2026-10-14T12:19:42.4853346+08:00",
+    "exitCode": 0,
+    "target": "FPSGAME"
+  },
+  "assets-current-result.json": {
+    "finished": "2026-10-14T12:26:12.1064651+08:00",
+    "exitCode": 0
+  },
+  "asset-read-summary.json": {
+    "maps": 46,
+    "blueprints_including_embedded": 28,
+    "actors": 7430,
+    "load_failures": [],
+    "replication_or_load_overrides": [],
+    "client_only_streaming": []
+  },
+  "scope": "Historical complete local worktree build and requested asset read; publication selection was not built and no gameplay/network test was run.",
+  "coverage_index": "Docs/Multiplayer/coverage-index-20261014.md"
+}

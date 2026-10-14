@@ -69,15 +69,8 @@ void UGrassFootstepFeedbackComponent::BeginPlay()
         return;
     }
 
-    // A dedicated server check is not enough on its own: this component is presentation, so it
-    // only makes sense on the locally controlled pawn. A remote proxy's footsteps arrive through
-    // the network, not through the local AutoFootstep notify.
-    if (const ACharacter* Character = Cast<ACharacter>(GetOwner()))
-    {
-        if (!Character->IsLocallyControlled()) return;
-    }
-
-    ResolveAssets();
+    // Possession may arrive after BeginPlay on clients. Subscribe for every displayed pawn;
+    // the event supplies its source, and assets remain lazy until this pawn actually steps.
     Subscribe();
 }
 
@@ -177,17 +170,19 @@ void UGrassFootstepFeedbackComponent::Unsubscribe()
 // Event path
 // ---------------------------------------------------------------------------------------------
 
-void UGrassFootstepFeedbackComponent::HandleFootstep(EPhysicalSurface Surface, const FVector& Location, const FRotator& Rotation)
+void UGrassFootstepFeedbackComponent::HandleFootstep(const UObject* SourceContext, EPhysicalSurface Surface, const FVector& Location, const FRotator& Rotation)
 {
     // Rotation is part of the plugin's contract but is deliberately unused here: on the running-game
     // path it is the character's rotation plus a fixed 90 degrees, not a surface normal, so it
     // cannot be trusted as a ground orientation. The component places everything along world up.
     (void)Rotation;
 
-    if (!ResolveAssets() || !IsSurfaceAccepted(Surface)) return;
-
     UWorld* World = GetWorld();
-    if (!World) return;
+    if (!World || !IsValid(SourceContext) || SourceContext->GetWorld()!=World) return;
+    const auto* SourceComponent=Cast<UActorComponent>(SourceContext);
+    const AActor* SourceActor=SourceComponent?SourceComponent->GetOwner():Cast<AActor>(SourceContext);
+    if(SourceActor!=GetOwner())return;
+    if (!ResolveAssets() || !IsSurfaceAccepted(Surface)) return;
 
     // Throttle: a landing and a stride contact can arrive in the same frame.
     if (Cooldown > 0.f) return;

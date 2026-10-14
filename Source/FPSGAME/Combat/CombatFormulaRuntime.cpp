@@ -1,4 +1,5 @@
 #include "CombatFormulaRuntime.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "CoreCombatFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -43,6 +44,9 @@ float CombatFormulaRuntime::MonsterCriticalResistance(const AActor* Target)
 }
 float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UDamageType* Type,AActor* Source)
 {
+    const APawn* Attacker=Cast<APawn>(Source);
+    if(!Attacker&&Source)Attacker=Source->GetInstigator();
+    const auto* AttackerModel=Attacker&&Attacker->IsPlayerControlled()?ColdSteelAuthority::ForPawn(Attacker):nullptr;
     if(Type&&Type->IsA<UCombatDirectDamage>())
     {
         const auto* Field=Target->FindComponentByClass<UCombatStatusFormula>();
@@ -55,7 +59,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
         const auto* SourceStatus=Source?Source->FindComponentByClass<UCombatStatusFormula>():nullptr;
         double Common=UJingangRuneComponent::OutgoingMultiplier(Source);
         if(Status)Common*=Status->ZhenmoDamageMultiplier();
-        if(Target->GetGameInstance())if(const auto* P=Target->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        if(const auto* P=AttackerModel)
             Common*=P->TributeEffect(TEXT("monsterDamageTakenPercent"));
         auto Resolve=[&](double Amount,bool Magic)
         {
@@ -77,7 +81,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     }
     const bool Magic=IsMagic(Type);double Penetration=0;
     const auto* Player=Cast<APawn>(Source);
-    if(Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+    if(const auto* P=AttackerModel)
         if(const auto* I=P->Equipped())if(auto* E=Source->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
             Penetration=E->Effect(*I,Magic?TEXT("magicPenetrationPercent"):TEXT("armorPenetrationPercent"))+E->CraftEffect(*I,Magic?TEXT("magicPenetrationPercent"):TEXT("armorPenetrationPercent"));
     if(Magic&&ActiveMagicHit)Penetration=ActiveMagicHit->Penetration;
@@ -85,13 +89,13 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
     double Result=CoreCombatFormula::Defense(Damage,MonsterDefense(Target,Magic),Magic,Penetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
     if(Magic&&ActiveMagicHit)Result=std::floor(Result*(1+ActiveMagicHit->DamageBonus));
-    else if(Magic&&Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(const auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage")))*ColdSteelMelee::EquippedModifiers(P).MagicDamage);
+    else if(Magic)if(const auto* P=AttackerModel)Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage")))*ColdSteelMelee::EquippedModifiers(P).MagicDamage);
     if(Magic&&Status)Result=std::floor(Result*Status->MagicVulnerabilityMultiplier());
     if(!Magic&&Status)Result=std::floor(Result*Status->PhysicalVulnerabilityMultiplier());
     if(Magic&&Status)Result=std::floor(Result*Status->PetrifiedMagicMultiplier());
     if(Type&&Type->IsA<ULightningDamage>()&&Status)Result=std::floor(Result*Status->ElectricMultiplier());
     if(Status)Result=std::floor(Result*Status->DroneDamageMultiplier(Source));
-    if(Target->GetGameInstance())if(const auto* P=Target->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*P->TributeEffect(TEXT("monsterDamageTakenPercent")));
+    if(const auto* P=AttackerModel)Result=std::floor(Result*P->TributeEffect(TEXT("monsterDamageTakenPercent")));
     if(!Magic&&Status&&Status->FrozenRemaining()>0)Result=std::floor(Result*1.5);
     if(Magic&&ActiveMagicHit)
     {

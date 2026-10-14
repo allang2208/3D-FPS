@@ -3438,3 +3438,18 @@ __pycache__/
 !/SourceAssets/WoodworkingBenchV6Controls20261013/layout_manifest.json
 !/SourceAssets/WoodworkingOverhaul20261012/*.py
 !/SourceAssets/WoodworkingBenchV6Controls20261013/registration.json
+
+# Reviewed multiplayer source-only plugins; content, resources and build products stay local.
+!/Plugins/
+/Plugins/*
+!/Plugins/ColdSteelNet/
+/Plugins/ColdSteelNet/*
+!/Plugins/ColdSteelNet/ColdSteelNet.uplugin
+!/Plugins/ColdSteelNet/Source/
+!/Plugins/ColdSteelNet/Source/**
+!/Plugins/AutoFootstep/
+/Plugins/AutoFootstep/*
+!/Plugins/AutoFootstep/AutoFootstep.uplugin
+!/Plugins/AutoFootstep/Source/
+!/Plugins/AutoFootstep/Source/**
+!/Plugins/AutoFootstep/LICENSE

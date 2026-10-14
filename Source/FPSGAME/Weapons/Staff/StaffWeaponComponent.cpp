@@ -54,12 +54,16 @@ void UStaffWeaponComponent::BeginPlay()
     Arms=NewObject<UStaffArmsMeshComponent>(Pawn,TEXT("StaffV7Arms"));Pawn->AddInstanceComponent(Arms);Arms->SetupAttachment(Camera);
     Arms->SetCollisionEnabled(ECollisionEnabled::NoCollision);Arms->SetOnlyOwnerSee(true);Arms->SetCastShadow(false);Arms->RegisterComponent();Arms->SetVisibility(false);
     Arms->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;Arms->SetComponentTickEnabled(false);
-    AddTickPrerequisiteActor(Pawn);RefreshEquipment(GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>());
+    AddTickPrerequisiteActor(Pawn);
+    if(Pawn->IsLocallyControlled())RefreshEquipment(GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>());
+    else if(Pawn->HasAuthority())RefreshEquipment(Pawn->GetNetShadowProfile());
 }
 void UStaffWeaponComponent::EndPlay(const EEndPlayReason::Type Reason){ResetIllumination();if(Load)Load->CancelHandle();Super::EndPlay(Reason);}
 USkeletalMeshComponent* UStaffWeaponComponent::ArmsMesh()const{return Arms;}
 void UStaffWeaponComponent::RefreshEquipment(UColdSteelStatusModel* P)
 {
+    const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+    if(!Pawn||(!Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()))return;
     if(!Staff||!Arms||!P)return;const auto* I=P->Equipped();const bool Active=I&&ColdSteelStaff::IsStaff(*I)&&!P->ActiveProductionTool();
     if(!Active)
     {

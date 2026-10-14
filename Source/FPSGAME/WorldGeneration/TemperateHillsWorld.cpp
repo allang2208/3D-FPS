@@ -1,4 +1,5 @@
 #include "TemperateHillsWorld.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "Net/UnrealNetwork.h" // M4: DOREPLIFETIME
 #include "TemperateHillsSurface.h"
 #include "../UI/TransitLoadingSubsystem.h"
@@ -451,7 +452,7 @@ bool ATemperateHillsWorld::ApplySoilRefill(const FVector& Location,FString& OutM
     const double RiseLimit=TemperateHills::MaxRiseCm.GetValueOnGameThread();
     if(TerrainOffsetAt(CX,CY)>=RiseLimit)
     {OutMessage=FString::Printf(TEXT("这里已经回填到上限（%.0f cm），换一处再填"),RiseLimit);return false;}
-    auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    auto* Profile=ColdSteelAuthority::Model(this);
     if(!Profile){OutMessage=TEXT("找不到角色档案");return false;}
     FString Reason;
     if(!Profile->ConsumeItem(TEXT("soil"),SoilPerLayer,Reason))

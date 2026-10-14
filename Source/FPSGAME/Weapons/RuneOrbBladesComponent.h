@@ -41,8 +41,12 @@ public:
     // HUD and trigger share the active main-hand check, including production tools.
     bool SwordEquipped() const;
     int32 AvailableBladeCount() const;
+    UFUNCTION(Server,Reliable) void ServerOrbitIntent(uint8 Phase,int32 Slot,FVector_NetQuantize Target);
+    UFUNCTION(Client,Reliable) void ClientOrbitRejected(float Remaining);
+    UFUNCTION(Client,Reliable) void ClientBladeKill();
 
 private:
+    UColdSteelStatusModel* Profile() const;
     struct FBladeSlot
     {
         float Lateral = 0.f;   // cm offset along the camera's right axis (ice-spike wings)

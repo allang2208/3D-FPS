@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../Monsters/HandBrainFearComponent.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -211,7 +212,8 @@ float UFPSCharacterMovementComponent::GetMaxSpeed() const
     if(IsBipodMovementLocked())return 0.f;
     if (const auto* Player = Cast<AFPSGAMECharacter>(CharacterOwner); Player && Player->IsMeleeSkillMovementLocked()) return 0.f;
     const auto* Status=GetOwner()?GetOwner()->FindComponentByClass<UCombatStatusFormula>():nullptr;
-    return Super::GetMaxSpeed()*(Status?Status->MovementMultiplier():1.f);
+    const auto* Fear=CharacterOwner?CharacterOwner->FindComponentByClass<UHandBrainFearComponent>():nullptr;
+    return Super::GetMaxSpeed()*(Status?Status->MovementMultiplier():1.f)*(Fear?FMath::Max(.01f,1.f-.33f*Fear->Stacks):1.f);
 }
 
 bool UFPSCharacterMovementComponent::StepUp(const FVector& GravDir, const FVector& Delta,

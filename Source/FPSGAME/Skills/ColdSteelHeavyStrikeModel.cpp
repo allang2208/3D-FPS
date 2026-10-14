@@ -27,8 +27,9 @@ bool UColdSteelStatusModel::CommitSwordUppercutRelease()
     if(Current.Stamina<=0.f)Current.bSprintExhausted=true;
     Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:D.UppercutCooldownSeconds;
     Current.SwordUppercutCooldownDuration=Current.SwordUppercutCooldown;
+    Current.MartialCooldownRevision=FMath::Min(Current.MartialCooldownRevision,MAX_int64-1)+1;
     bTrainingDirty=true;TrainingFlushAccumulator=0.f;
-    OnStaminaChanged.Broadcast();return true;
+    SyncMartialCooldowns(true);OnStaminaChanged.Broadcast();return true;
 }
 
 bool UColdSteelStatusModel::TrainSwordUppercut(int32 Hits,int32 Kills)

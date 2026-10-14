@@ -15,10 +15,10 @@
 #include "../Dungeons/DungeonRunSubsystem.h"
 namespace
 {
-using J=TSharedPtr<const FJsonObject>;
-J Read(const FColdSteelItem* I){return I?CombatItemFormula::ReadOnly(*I):nullptr;}
-J Obj(J O,const TCHAR* K){const TSharedPtr<FJsonObject>* V=nullptr;return O&&O->TryGetObjectField(K,V)?*V:nullptr;}
-double Num(J O,const TCHAR* K,double Default=0){double V=Default;if(O)O->TryGetNumberField(K,V);return V;}
+using FFormulaBonusJson=TSharedPtr<const FJsonObject>;
+FFormulaBonusJson Read(const FColdSteelItem* I){return I?CombatItemFormula::ReadOnly(*I):nullptr;}
+FFormulaBonusJson Obj(FFormulaBonusJson O,const TCHAR* K){const TSharedPtr<FJsonObject>* V=nullptr;return O&&O->TryGetObjectField(K,V)?*V:nullptr;}
+double Num(FFormulaBonusJson O,const TCHAR* K,double Default=0){double V=Default;if(O)O->TryGetNumberField(K,V);return V;}
 double Now(){return FDateTime::UtcNow().ToUnixTimestamp();}
 }
 FString UColdSteelStatusModel::ArmorSet()const
@@ -58,7 +58,7 @@ bool UColdSteelStatusModel::ConsumePeachRevive(double& OutRatio)
     {
         if(!B.bTribute||B.RemainingSeconds<=0||B.bPeachUsed)continue;
         const double V=B.Effects.FindRef(TEXT("revivePercent"));
-        if(V>1){B.bPeachUsed=true;OutRatio=FMath::Clamp(V/100.,.01,.99);return true;} // 旧口径：revivePercent 为百分数（30→30%），缺省兜底由调用方处理
+        if(V>1){B.bPeachUsed=true;bTrainingDirty=true;TrainingFlushAccumulator=0.f;OutRatio=FMath::Clamp(V/100.,.01,.99);OnChanged.Broadcast();return true;} // 旧口径：revivePercent 为百分数（30→30%），缺省兜底由调用方处理
     }
     return false;
 }
@@ -70,7 +70,7 @@ double UColdSteelStatusModel::TryActivateMoonshadow()
     {
         if(!B.bTribute||B.RemainingSeconds<=0||B.bMoonshadowUsed)continue;
         const double Ms=B.Specials.FindRef(TEXT("moonshadowDuration"));
-        if(Ms>0){B.bMoonshadowUsed=true;MoonshadowUntil=Now+Ms/1000.;return MoonshadowUntil;}
+        if(Ms>0){B.bMoonshadowUsed=true;bTrainingDirty=true;TrainingFlushAccumulator=0.f;MoonshadowUntil=Now+Ms/1000.;OnChanged.Broadcast();return MoonshadowUntil;}
     }
     return 0;
 }
@@ -103,7 +103,7 @@ void UColdSteelStatusModel::SyncTributeTiles()
 double UColdSteelStatusModel::DungeonEffect(FName Key)const
 {
     const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
-    double Total=Run?Run->ShrineEffect(Key):0.;
+    double Total=Run?Run->ShrineEffect(Key,RuntimePawn()):0.;
     for(const auto& B:Current.FormulaBuffs)if(!B.bTribute&&B.Battles>0)Total+=B.Effects.FindRef(Key);return Total;
 }
 double UColdSteelStatusModel::AdjustCombatStat(FName Key,double Value)const
@@ -177,7 +177,7 @@ bool UColdSteelStatusModel::OfferTribute(const FString& Id)
     SyncRuntime();auto P=Snapshot();const int32 Index=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id&&(I.Place==0||I.Place==ColdSteelInventory::ColdSteelCompartment::Place)&&I.Count>0;});if(Index<0)return false;
     auto& I=P.Items[Index];if(ColdSteelInventory::Text(I,TEXT("category"))!=TEXT("tribute"))return false;
     const auto E=Obj(Read(&I),TEXT("effects"));if(!E)return false;
-    FColdSteelFormulaBuff Buff;Buff.Id=FName(*I.Definition);Buff.bTribute=true;Buff.RemainingSeconds=1800;Buff.Rarity=ColdSteelInventory::Text(I,TEXT("rarity"));
+    FColdSteelFormulaBuff Buff;Buff.OfferingId=FGuid::NewGuid();Buff.Id=FName(*I.Definition);Buff.bTribute=true;Buff.RemainingSeconds=1800;Buff.Rarity=ColdSteelInventory::Text(I,TEXT("rarity"));
     for(const auto& V:E->Values)if(V.Value->Type==EJson::Number)Buff.Effects.Add(FName(*V.Key),V.Value->AsNumber());
     // 旧 tribute 的 special 块同样随献祭携带（布尔按 1 记），由机制端（金刚石/月影/血藤等）消费。
     if(const auto S=Obj(Read(&I),TEXT("special")))for(const auto& V:S->Values)

@@ -1,4 +1,6 @@
 #include "CraftingSystem.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "Engine/GameInstance.h"
@@ -131,6 +133,7 @@ bool UColdSteelCraftingSystem::Craft(const FColdSteelCraftingRecipe& R,int64 Bat
 {
     if(WoodworkingRecipes.ContainsByPredicate([&](const auto& Entry){return Entry.Id==R.Id;}))
     {Reason=TEXT("该装备需要在木工工作台完成加工后领取");return false;}
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器制作");return ColdSteelStationNet::Request(this,TEXT("craft"),R.Id,Batch);}
     auto* M=Model();
     if(!M){Reason=TEXT("角色数据未就绪");return false;}
     M->SyncRuntime();
@@ -181,5 +184,5 @@ bool UColdSteelCraftingSystem::PrepareCraft(const FColdSteelCraftingRecipe& R,in
 
 UColdSteelStatusModel* UColdSteelCraftingSystem::Model() const
 {
-    return GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    return ColdSteelAuthority::Model(this);
 }

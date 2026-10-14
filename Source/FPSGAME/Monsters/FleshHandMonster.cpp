@@ -1,4 +1,6 @@
 #include "FleshHandMonster.h"
+#include "GameFramework/GameStateBase.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "FleshHandKnockdownComponent.h"
@@ -80,7 +82,7 @@ AFleshHandMonster::AFleshHandMonster(const FObjectInitializer& I)
     .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;
- Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+ Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
  Status=CreateDefaultSubobject<UCombatStatusFormula>(TEXT("CombatStatus"));
  Knockdown=CreateDefaultSubobject<UFleshHandKnockdownComponent>(TEXT("HandKnockdown"));
  CorpseRagdoll=CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
@@ -122,7 +124,7 @@ void AFleshHandMonster::OnConstruction(const FTransform& T)
 }
 void AFleshHandMonster::BeginPlay()
 {
- Super::BeginPlay();MaxHealth*=MonsterCoreStats::HealthMultiplier();Health=MaxHealth;Home=GetActorLocation();
+ Super::BeginPlay();if(HasAuthority()){MaxHealth*=MonsterCoreStats::HealthMultiplier();Health=MaxHealth;}Home=GetActorLocation();
  if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
  GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
  GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
@@ -145,7 +147,7 @@ void AFleshHandMonster::BeginPlay()
   }
   else SetLifeSpan(90);
  }
- SetState(EFleshHandState::Idle);
+ SetState(HasAuthority()?EFleshHandState::Idle:State);
 }
 void AFleshHandMonster::EndPlay(const EEndPlayReason::Type Reason)
 {
@@ -160,7 +162,8 @@ void AFleshHandMonster::Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blen
 bool AFleshHandMonster::Busy() const {return Dead()||State==EFleshHandState::KnockedDown||State==EFleshHandState::Stagger||State==EFleshHandState::Telegraph||Attacking(State)||Charging(State);}
 void AFleshHandMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AFleshHandMonster,NetworkStateStarted);
+    DOREPLIFETIME(AFleshHandMonster,Health);DOREPLIFETIME(AFleshHandMonster,MaxHealth);
     DOREPLIFETIME(AFleshHandMonster, State);
 }
 void AFleshHandMonster::OnRep_State()
@@ -172,6 +175,7 @@ void AFleshHandMonster::SetState(EFleshHandState Next)
 {
  const auto Previous=State;
  if(State==EFleshHandState::ChargeRush&&Next!=State)StopChargeMotion();
+ if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
  State=Next;StateSeconds=0;PalmFist->SetVisibility(false);WarningRing->SetVisibility(false);
  if(RingMID)WarningRing->SetMaterial(0,RingMID);
  if(auto* FX=GetWorld()->GetSubsystem<UFleshHandChargeFX>())FX->Transition(this,Previous);
@@ -404,7 +408,19 @@ void AFleshHandMonster::UpdateFist()
 }
 void AFleshHandMonster::Tick(float Dt)
 {
- Super::Tick(Dt);if(!HasAuthority()||State==EFleshHandState::Corpse)return;
+ Super::Tick(Dt);if(!HasAuthority())
+ {
+  const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds(); StateSeconds=FMath::Max(0.,Now-NetworkStateStarted);
+  if(Knockdown&&Knockdown->OwnsPresentation())return;
+  if(Attacking(State))
+  {
+   if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetCombatTime(StateSeconds);
+   if(State==EFleshHandState::Hammer)UpdateFist();
+  }
+  else if(State==EFleshHandState::Walk||State==EFleshHandState::Returning)
+   if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetLocomotionRate(FMath::Clamp(GetVelocity().Size2D()/FMath::Max(1.f,AnimationWalkSpeed),.15f,1.8f));
+  return;
+ }if(State==EFleshHandState::Corpse)return;
  StateSeconds+=Dt;
  if(Knockdown&&Knockdown->OwnsPresentation())
  {
@@ -601,7 +617,7 @@ float AFleshHandMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
   if(auto* AI=Cast<AMonsterAIController>(GetController())){AI->StopMovement();AI->SetDecisionEnabled(false);AI->UpdateKnowledge();}
   SetLifeSpan(CorpseSeconds);
   ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),DamageInstigator,this);
-  if(!bMinion||ActorHasTag(TEXT("DungeonSpawned")))if(auto* PC=Cast<APlayerController>(DamageInstigator);PC&&PC->IsLocalController()&&GetGameInstance())GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+  if(!bMinion||ActorHasTag(TEXT("DungeonSpawned")))ColdSteelSkills::AwardKillByOwner(GetGameInstance(),DamageInstigator,this,ExperienceReward);
  }
  else Combat->ReceiveHit(Applied,DamageInstigator?DamageInstigator->GetPawn().Get():Cast<APawn>(Causer),MonsterToughness::FormOf(Type));
  return Applied;

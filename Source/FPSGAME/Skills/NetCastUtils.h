@@ -30,7 +30,7 @@ inline void Send(AActor* Owner, FName SkillId, uint8 Phase,
     Request.SkillId = SkillId; Request.Phase = Phase;
     Request.AimPoint = AimPoint; Request.AimNormal = AimNormal; Request.AimAxis = AimAxis;
     Request.Variant = Variant; Request.Target = Target; Request.Charge = Charge;
-    State->ServerCastSpell(Request);
+    State->RequestCastSpell(Request);
 }
 
 /** 服务端上远端 pawn 的权威模型（影子档）；主机/本地回退 GI 单例。 */

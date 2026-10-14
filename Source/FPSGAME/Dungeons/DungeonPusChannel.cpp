@@ -39,14 +39,14 @@ void ADungeonPusChannel::BeginPlay()
 
 void ADungeonPusChannel::ActivateDamage()
 {
-    if (HasAuthority()&&!GetWorldTimerManager().IsTimerActive(DamageTimer))
+    if (GetNetMode()!=NM_Client&&HasAuthority()&&!GetWorldTimerManager().IsTimerActive(DamageTimer))
         GetWorldTimerManager().SetTimer(DamageTimer, this, &ThisClass::PulseDamage,
             FMath::Max(.1f, DamageInterval), true, FMath::Max(.1f, DamageInterval));
 }
 
 void ADungeonPusChannel::PulseDamage()
 {
-    if (!HasAuthority() || DamagePerPulse <= 0.f) return;
+    if (GetNetMode()==NM_Client || !HasAuthority() || DamagePerPulse <= 0.f) return;
     if (const auto* Dungeon=Cast<AAuthoredDungeonGenerator>(GetOwner()); Dungeon&&Dungeon->IsPreparationPending()) return;
     TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Dungeon_PusDamage);
     DungeonPerformance::FScope Scope(this, TEXT("Dungeon.PusDamage"));

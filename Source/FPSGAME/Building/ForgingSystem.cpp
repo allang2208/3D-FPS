@@ -1,4 +1,6 @@
 #include "ForgingSystem.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -15,7 +17,7 @@ void UColdSteelStatusModel::StageForgeHit(const FString& JobId,int32 Hits)
 }
 
 UColdSteelStatusModel* UColdSteelForgingSystem::Model() const
-{return GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetworkModel?NetworkModel.Get():ColdSteelAuthority::Model(this);}
 const FColdSteelForgeJob& UColdSteelForgingSystem::Job() const
 {static const FColdSteelForgeJob Empty;const auto* M=Model();return M?M->ForgeJob():Empty;}
 const FColdSteelForgeRecipe* UColdSteelForgingSystem::Find(FName Id) const
@@ -72,7 +74,7 @@ bool UColdSteelForgingSystem::CanStart(FName Id,FString& Reason) const
 {
     const auto* M=Model();const auto* R=Find(Id);
     if(!M||!R){Reason=TEXT("配方未就绪");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client){Reason=TEXT("锻造仅支持单人模式");return false;}
+    if(!GetWorld()){Reason=TEXT("锻造仅支持单人模式");return false;}
     if(bActive||!Job().Id.IsEmpty()){Reason=TEXT("先领取或废弃上一把成品");return false;}
     if(M->CreateItem(R->Output).Data.IsEmpty()){Reason=TEXT("成品未加入物品目录");return false;}
     for(const auto& In:R->Inputs)if(M->CountMaterial(In.Item)<In.Count)
@@ -84,6 +86,7 @@ bool UColdSteelForgingSystem::CanStart(FName Id,FString& Reason) const
 }
 bool UColdSteelForgingSystem::Start(FName Id,FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("forge.start"),Id);}
     if(!CanStart(Id,Reason))return false;
     auto* M=Model();const auto* R=Find(Id);M->SyncRuntime();auto P=M->Snapshot();
     for(const auto& In:R->Inputs)
@@ -139,6 +142,7 @@ bool UColdSteelForgingSystem::BeginStrike(int32 ShownIndex,double ContactDelay,d
 {
     if(!bActive||bStrikePending||ShownIndex==INDEX_NONE||ShownIndex!=TargetIndex())return false;
     FVector2D Point;float Life=0;if(!Target(Point,Life))return false;
+    ColdSteelStationNet::Input(this,TEXT("forge"),0,NAME_None,ShownIndex,FVector2D(ContactDelay,RecoveryDelay));
     // Judge the player's reaction at input time, without charging the hammer's travel time.
     StrikeTargetLife=Life;
     bStrikePending=true;StrikeContactAt=FPlatformTime::Seconds()+FMath::Max(0.,ContactDelay);
@@ -161,14 +165,17 @@ void UColdSteelForgingSystem::AdvanceTargets(double Now)
 }
 bool UColdSteelForgingSystem::Strike(int32 ShownIndex,const FVector2D& UV,const FVector2D& RadiusUV)
 {
+    if(ColdSteelStationNet::IsClient(this))
+    {ColdSteelStationNet::Input(this,TEXT("forge"),1,NAME_None,ShownIndex,UV,RadiusUV);return true;}
     const double Now=FPlatformTime::Seconds();FVector2D Point;float Life=0;
     if(ShownIndex==INDEX_NONE||ShownIndex!=TargetIndex()||!Target(Point,Life)
-        ||RadiusUV.X<=0||RadiusUV.Y<=0||Job().Id!=ActiveId||(bStrikePending&&Now<StrikeContactAt))return false;
+        ||RadiusUV.X<=0||RadiusUV.Y<=0||Job().Id!=ActiveId||(bStrikePending&&Now+.08<StrikeContactAt))return false;
     const FVector2D Delta((UV.X-Point.X)/RadiusUV.X,(UV.Y-Point.Y)/RadiusUV.Y);
     const bool bHit=Delta.SizeSquared()<=Life*Life;ResolveTarget(bHit,Now);return bHit;
 }
 void UColdSteelForgingSystem::Tick(float DeltaTime)
 {
+    if(ColdSteelStationNet::IsClient(this))return;
     if(Job().Id!=ActiveId){bActive=false;return;}
     const double Now=FPlatformTime::Seconds();AdvanceTargets(Now);
     if(CompletedTargets>=TargetCount&&Now>=PhaseEndsAt&&Now>=RetryAt)
@@ -176,6 +183,7 @@ void UColdSteelForgingSystem::Tick(float DeltaTime)
 }
 bool UColdSteelForgingSystem::Finish(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("forge.finish"));}
     auto* M=Model();if(!M)return false;
     if(Job().Id.IsEmpty()||Job().bFinished){bActive=false;return true;}
     M->SyncRuntime();auto P=M->Snapshot();auto& J=P.ForgeJob;
@@ -192,6 +200,7 @@ bool UColdSteelForgingSystem::Finish(FString& Reason)
 }
 bool UColdSteelForgingSystem::Claim(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("forge.claim"));}
     auto* M=Model();if(!M||bActive||Job().Id.IsEmpty()||!Job().bFinished){Reason=TEXT("还没有可领取的成品");return false;}
     M->SyncRuntime();auto P=M->Snapshot();
     if(!ColdSteelInventory::Insert(P.Items,P.ForgeJob.Item)){Reason=TEXT("背包空间不足，成品保留待领");return false;}
@@ -215,7 +224,7 @@ bool UColdSteelForgingSystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& 
     Refund.Reset();Reason.Reset();
     if(!Model()||bActive||Job().Id.IsEmpty()||!Job().bFinished)
     {Reason=TEXT("只有已完成、尚未领取的成品可以废弃");return false;}
-    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)
+    if(!GetWorld())
     {Reason=TEXT("锻造仅支持单人模式");return false;}
     TMap<FString,int64> Paid;
     if(!GetPaidMaterials(Paid)){Reason=TEXT("无法读取返还材料，成品保留待领");return false;}
@@ -229,6 +238,7 @@ bool UColdSteelForgingSystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& 
 }
 bool UColdSteelForgingSystem::Discard(FString& Reason)
 {
+    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器处理");return ColdSteelStationNet::Request(this,TEXT("forge.discard"));}
     TArray<FColdSteelCraftingInput> Refund;
     if(!GetDiscardRefund(Refund,Reason))return false;
     auto* M=Model();M->SyncRuntime();auto P=M->Snapshot();
@@ -248,4 +258,28 @@ bool UColdSteelForgingSystem::Discard(FString& Reason)
     Reason=Returned.IsEmpty()?TEXT("成品已废弃，各项材料折半不足 1 个，无可返还材料")
         :TEXT("成品已废弃，已返还背包：")+FString::Join(Returned,TEXT("、"));
     return true;
+}
+
+UColdSteelForgingSystem* UColdSteelForgingSystem::CreateNetworkSession(UColdSteelStatusModel* M)
+{auto* Session=NewObject<UColdSteelForgingSystem>(GetGameInstance());Session->Recipes=Recipes;Session->NetworkModel=M;if(!M->ForgeJob().Id.IsEmpty()&&!M->ForgeJob().bFinished){FString Why;Session->Finish(Why);}return Session;}
+
+FColdSteelForgeNetState UColdSteelForgingSystem::NetworkState() const
+{
+    FColdSteelForgeNetState S;const auto& CurrentJob=Job();S.JobId=CurrentJob.Id;S.Hits=CurrentJob.Hits;S.Finished=CurrentJob.bFinished;
+    S.Points=Sequence;S.Active=bActive;S.Open=bTargetOpen;S.Pending=bStrikePending;
+    S.Completed=CompletedTargets;const double Now=FPlatformTime::Seconds();S.Elapsed=Now-StartedAt;
+    S.Remaining=PhaseEndsAt-Now;S.ContactRemaining=StrikeContactAt-Now;S.Window=PhaseEndsAt-TargetOpenedAt;S.Life=StrikeTargetLife;return S;
+}
+void UColdSteelForgingSystem::NetworkSessionEnded()
+{
+    bActive=bTargetOpen=bStrikePending=false;ActiveId.Reset();Sequence.Reset();
+    CompletedTargets=0;StrikeTargetLife=0;StartedAt=RetryAt=0.;
+    TargetOpenedAt=PhaseEndsAt=StrikeContactAt=RecoveryAfterContact=0.;
+}
+void UColdSteelForgingSystem::ApplyNetworkState(const FColdSteelForgeNetState& S)
+{
+    if(!ColdSteelStationNet::IsClient(this))return;
+    Sequence=S.Points;bActive=S.Active;bTargetOpen=S.Open;bStrikePending=S.Pending;CompletedTargets=S.Completed;
+    ActiveId=S.JobId;const double Now=FPlatformTime::Seconds();StartedAt=Now-S.Elapsed;PhaseEndsAt=Now+S.Remaining;
+    TargetOpenedAt=PhaseEndsAt-S.Window;StrikeContactAt=Now+S.ContactRemaining;StrikeTargetLife=S.Life;
 }

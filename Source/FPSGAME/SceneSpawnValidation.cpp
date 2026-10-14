@@ -34,6 +34,9 @@ bool USceneSpawnValidation::FindSafeSpawn(UObject* WorldContextObject, FVector N
             FHitResult Hit;
             if (!World->LineTraceSingleByChannel(Hit, Probe + FVector(0,0,500), Probe - FVector(0,0,2000), ECC_Pawn, Query)) continue;
             if (Hit.bStartPenetrating || Hit.ImpactNormal.Z < .71f) continue;
+            // An occupied start must search the next ring, not spawn on a pawn's head.
+            // Keep pawns in the clearance query so the new capsule cannot overlap them.
+            if (Cast<APawn>(Hit.GetActor())) continue;
             const FVector Candidate = Hit.ImpactPoint + FVector(0,0,102);
             if (World->OverlapBlockingTestByChannel(Candidate, FQuat::Identity, ECC_Pawn, Capsule, Query)) continue;
             SafeLocation = Candidate;

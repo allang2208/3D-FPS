@@ -1,4 +1,6 @@
 #include "FPSWeatherManager.h"
+#include "Net/UnrealNetwork.h"
+#include "GameFramework/GameStateBase.h"
 #include "LightingConflictValidation.h"
 #include "RainUpgradeValidation.h"
 #include "WeatherWorldValidation.h"
@@ -76,6 +78,7 @@ namespace FPSStormLightning
 AFPSWeatherManager::AFPSWeatherManager()
 {
     PrimaryActorTick.bCanEverTick = true;
+    bReplicates=true;bAlwaysRelevant=true;SetNetUpdateFrequency(2.f);
 
     SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("WeatherRoot"));
     SetRootComponent(SceneRoot);
@@ -161,6 +164,7 @@ AFPSWeatherManager::AFPSWeatherManager()
 void AFPSWeatherManager::BeginPlay()
 {
     Super::BeginPlay();
+    if(GetNetMode()!=NM_Client)SetReplicates(true);
     StormClouds->AddTickPrerequisiteActor(this);
     ViewEffects->AddTickPrerequisiteActor(this);
     PresentationAssets=PresentationLibrary.LoadSynchronous();
@@ -239,6 +243,7 @@ void AFPSWeatherManager::BeginPlay()
         PuddleDecalMaterial ? TEXT("yes") : TEXT("no"),
         static_cast<int32>(LightRainSound != nullptr) + static_cast<int32>(RainSound != nullptr) + static_cast<int32>(HeavyRainSound != nullptr),
         ThunderSounds.Num());
+    if(GetNetMode()==NM_Client){OnRep_Weather();LastNetworkLightning=0;OnRep_Lightning();}
     StartLightingConflictValidation(this);
     StartRainUpgradeValidation(this);
     StartStormCloudValidation(this);
@@ -249,6 +254,8 @@ void AFPSWeatherManager::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 
+    if(GetNetMode()!=NM_Client)
+    {
     bSkyClockConnected = TrySynchronizeWithSkyClock();
     if (!bSkyClockConnected)
     {
@@ -261,11 +268,14 @@ void AFPSWeatherManager::Tick(float DeltaSeconds)
         }
     }
 
+    }
+    else UpdateNetworkWeather(DeltaSeconds);
     UpdatePlayerFollowing();
     UpdateShelter(DeltaSeconds);
     if (CurrentState == EFPSWeatherState::Cloudy) CloudyElapsedSeconds += DeltaSeconds;
-    UpdateSchedule();
+    if(GetNetMode()!=NM_Client)UpdateSchedule();
     UpdateLightning(DeltaSeconds);
+    if(GetNetMode()!=NM_Client)UpdateNetworkWeather(DeltaSeconds);
     UpdateEffects(DeltaSeconds);
     UpdateSceneDayNight(DeltaSeconds);
 
@@ -278,7 +288,7 @@ float AFPSWeatherManager::GetSurfaceWetness() const
 
 void AFPSWeatherManager::AdvanceGameTime(float Hours)
 {
-    if (Hours == 0.0f) return;
+    if (Hours == 0.0f || GetNetMode()==NM_Client) return;
 
     // 与 TrySynchronizeWithSkyClock 同一套属性发现规则（类名含 FPS_DayNightManager、属性名含 SunHeight，
     // 0..2400 = 一天）。这里再走一遍是为了不往头文件加新的反射成员。
@@ -334,6 +344,7 @@ void AFPSWeatherManager::AdvanceGameTime(float Hours)
 
 void AFPSWeatherManager::SetWeatherState(EFPSWeatherState NewState, bool bDisableAutomaticSchedule)
 {
+    if(GetNetMode()==NM_Client)return;
     if (bDisableAutomaticSchedule)
     {
         bAutomaticSchedule = false;
@@ -343,6 +354,7 @@ void AFPSWeatherManager::SetWeatherState(EFPSWeatherState NewState, bool bDisabl
 
 void AFPSWeatherManager::ResumeAutomaticSchedule()
 {
+    if(GetNetMode()==NM_Client)return;
     bAutomaticSchedule = true;
     RequestState(ResolveScheduledState());
 }
@@ -625,9 +637,9 @@ void AFPSWeatherManager::UpdateLightning(float DeltaSeconds)
         AppliedLightningFill = Fill;
     }
 
-    if (CurrentState != EFPSWeatherState::Storm) return;
+    if (GetNetMode()==NM_Client || CurrentState != EFPSWeatherState::Storm) return;
     LightningCountdown -= DeltaSeconds;
-    if (LightningCountdown > 0.f || EffectiveRainIntensity < .5f || LightningFlashElapsed >= 0.f || PendingThunderDelay >= 0.f) return;
+    if (LightningCountdown > 0.f || TargetRainIntensity < .5f || LightningFlashElapsed >= 0.f || PendingThunderDelay >= 0.f) return;
     const float Delay = FPSStormLightning::RandomSeconds(WeatherRandom, ThunderDelaySeconds, .1f);
     if (!QueueThunder(Delay))
     {
@@ -637,6 +649,9 @@ void AFPSWeatherManager::UpdateLightning(float DeltaSeconds)
     }
     LightningFlashElapsed = 0.f;
     LightningPeak = WeatherRandom.FRandRange(.82f, 1.f);
+    ++NetworkLightning.Serial;NetworkLightning.StartedAt=GetWorld()->GetTimeSeconds();
+    NetworkLightning.Peak=LightningPeak;NetworkLightning.ThunderDelay=Delay;NetworkLightning.Sound=PendingThunderSound;
+    ForceNetUpdate();
     LightningCountdown = FPSStormLightning::RandomSeconds(WeatherRandom, LightningIntervalSeconds, 3.f);
     UE_LOG(LogTemp, Display, TEXT("WeatherLightning: peak=%.2f thunderDelay=%.2fs next=%.2fs"),
         LightningPeak * LightningStrength, Delay, LightningCountdown);
@@ -798,6 +813,8 @@ bool AFPSWeatherManager::TrySynchronizeWithSkyClock()
     // them once; per frame only the weak handles are validated and the value read.
     if (!SkyClockActor.IsValid())
     {
+        const double Now=GetWorld()->GetTimeSeconds();
+        if(Now<SkyResolveAfter)return false;SkyResolveAfter=Now+1.;
         SkyClockActor.Reset();
         SkyClockProperty.Reset();
         for (TActorIterator<AActor> It(GetWorld()); It; ++It)
@@ -869,4 +886,59 @@ bool AFPSWeatherManager::TrySynchronizeWithSkyClock()
     NormalizedDayTime = SkyUnits / 2400.0f;
     WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
     return true;
+}
+
+void AFPSWeatherManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AFPSWeatherManager,NetworkWeather);DOREPLIFETIME(AFPSWeatherManager,NetworkLightning);
+}
+void AFPSWeatherManager::OnRep_Weather()
+{
+    if(GetNetMode()!=NM_Client)return;
+    bAutomaticSchedule=NetworkWeather.Automatic;WeatherSeed=NetworkWeather.Seed;
+    RealSecondsPerGameDay=FMath::Max(1.f,NetworkWeather.DaySeconds);
+    ApplyState(NetworkWeather.Weather);PendingRainState=NetworkWeather.Pending;bRainPending=NetworkWeather.RainPending;
+    UpdateNetworkWeather(0.f);
+}
+void AFPSWeatherManager::UpdateNetworkWeather(float Delta)
+{
+    if(GetNetMode()!=NM_Client)
+    {
+        NetworkPublishLeft-=Delta;if(NetworkPublishLeft>0.f)return;NetworkPublishLeft=.5f;
+        NetworkWeather.SampledAt=GetWorld()->GetTimeSeconds();NetworkWeather.DayTime=NormalizedDayTime;
+        NetworkWeather.Day=DaySerial;NetworkWeather.DaySeconds=RealSecondsPerGameDay;NetworkWeather.Seed=WeatherSeed;
+        NetworkWeather.Weather=CurrentState;NetworkWeather.Pending=PendingRainState;
+        NetworkWeather.Automatic=bAutomaticSchedule;NetworkWeather.RainPending=bRainPending;NetworkWeather.CloudyElapsed=CloudyElapsedSeconds;
+        return;
+    }
+    // Discover the authored sky once, then drive its public clock before its Tick.
+    if(!SkyClockActor.IsValid())
+    {bSkyClockConnected=TrySynchronizeWithSkyClock();if(SkyClockActor.IsValid())SkyClockActor->AddTickPrerequisiteActor(this);}
+    const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+    const double Elapsed=FMath::Max(0.,Now-NetworkWeather.SampledAt);
+    const double Day=NetworkWeather.DayTime+Elapsed/FMath::Max(1.f,NetworkWeather.DaySeconds);
+    NormalizedDayTime=FMath::Frac(Day);DaySerial=NetworkWeather.Day+FMath::FloorToInt(Day);
+    WeatherClockSeconds=NormalizedDayTime*RealSecondsPerGameDay;CloudyElapsedSeconds=NetworkWeather.CloudyElapsed+Elapsed;
+    if(auto* Sky=SkyClockActor.Get())if(auto* Property=SkyClockProperty.Get())
+    {
+        const double Units=NormalizedDayTime*2400.;
+        if(auto* P=CastField<FFloatProperty>(Property))P->SetPropertyValue_InContainer(Sky,float(Units));
+        else if(auto* DoubleProperty=CastField<FDoubleProperty>(Property))DoubleProperty->SetPropertyValue_InContainer(Sky,Units);
+        LastSkyTimeUnits=Units;bSkyClockConnected=true;
+    }
+}
+void AFPSWeatherManager::OnRep_Lightning()
+{
+    if(GetNetMode()!=NM_Client||NetworkLightning.Serial==0||LastNetworkLightning==NetworkLightning.Serial)return;
+    LastNetworkLightning=NetworkLightning.Serial;
+    const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+    const float Age=FMath::Max(0.,Now-NetworkLightning.StartedAt);
+    const float End=FPSStormLightning::AttackSeconds+FMath::Max(0.f,LightningHoldSeconds)+FMath::Max(.1f,LightningFadeSeconds);
+    if(Age<End){LightningPeak=NetworkLightning.Peak;LightningFlashElapsed=Age;}
+    if(Age<=NetworkLightning.ThunderDelay+1.f&&ThunderSounds.IsValidIndex(NetworkLightning.Sound))
+    {
+        PendingThunderSound=NetworkLightning.Sound;PendingThunderVoice=!ThunderAudio->IsPlaying()?0:1;
+        PendingThunderDelay=FMath::Max(.001f,NetworkLightning.ThunderDelay-Age);
+    }
 }

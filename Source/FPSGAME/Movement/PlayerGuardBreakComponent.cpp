@@ -37,6 +37,7 @@ void UPlayerGuardBreakComponent::ApplyInputLock(float Seconds)
     auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     if(!PC||Seconds<=0.f)return;
     Pawn->SuspendWeaponForMenu();
+    if(Pawn->IsLocallyControlled())if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>())Sword->PresentGuardBreak();
     Pawn->StopJumping();Pawn->ConsumeMovementInputVector();Pawn->GetCharacterMovement()->StopMovementImmediately();
     if(!LockedController.IsValid())
     {

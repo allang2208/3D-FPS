@@ -48,6 +48,7 @@ public:
     void Restore(const FInfectionState& SavedState);
     virtual void TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Function) override;
 private:
+    friend class UFPSStatusReplicationComponent;
     void Publish(bool bStageChanged);
     UPROPERTY(VisibleAnywhere, Category="Infection") FInfectionState State;
     TWeakObjectPtr<AActor> InfectionSource;

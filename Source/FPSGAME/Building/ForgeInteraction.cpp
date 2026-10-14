@@ -1,4 +1,5 @@
 #include "ForgeInteraction.h"
+#include "WorkstationViewRestore.h"
 #include "ForgeArmsMeshComponent.h"
 #include "ForgingSystem.h"
 #include "VoxelBuildPrefabActor.h"
@@ -435,7 +436,7 @@ void AForgeInteraction::RestorePlayer()
     {
         if(bHeldInput){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bHeldInput=false;Player->FlushPressedKeys();}
         if(bHidPawn){Player->HiddenActors.Remove(WorkingPawn.Get());bHidPawn=false;}
-        if(Player->GetViewTarget()==this)Player->SetViewTargetWithBlend(PreviousView.IsValid()?PreviousView.Get():Player->GetPawn(),.25f,VTBlend_Cubic);
+        ColdSteelWorkstationView::Restore(Player,this,WorkingPawn.Get(),PreviousView.Get(),.25f);
     }
     if(Prompt){Prompt->RemoveFromParent();Prompt=nullptr;}
 }

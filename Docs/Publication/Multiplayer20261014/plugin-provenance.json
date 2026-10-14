@@ -1,0 +1,18 @@
+{
+  "AutoFootstep": {
+    "upstream": "https://github.com/suramaru517/AutoFootstep",
+    "license": "CC0-1.0",
+    "license_url": "https://raw.githubusercontent.com/suramaru517/AutoFootstep/master/LICENSE",
+    "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+    "scope": "Source modules and descriptor only; retain upstream copyright headers; no icon, UE content, cache or binaries",
+    "local_changes": [
+      "Per-notify weak mesh context for async trace callback",
+      "SourceContext in global footstep event and world/actor filtering",
+      "Reject stale callback world"
+    ]
+  },
+  "ColdSteelNet": {
+    "origin": "FPSGAME project-authored multiplayer plugin",
+    "scope": "Runtime C++ and descriptor; MPConnect/MPAutoWalk remain explicit command-line hooks, not product auto-reconnect"
+  }
+}

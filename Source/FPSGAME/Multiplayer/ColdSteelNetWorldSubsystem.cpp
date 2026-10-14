@@ -1,6 +1,10 @@
 #include "ColdSteelNetWorldSubsystem.h"
 #include "ColdSteelPlayerState.h"
+#include "ColdSteelNetSessionSubsystem.h"
+#include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Engine/Engine.h"
+#include "EngineUtils.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/PlayerState.h"
@@ -8,6 +12,11 @@
 
 namespace
 {
+    void CancelTravelForRosterChange(UWorld* World,const FString& Reason)
+    {
+        for(TActorIterator<AColdSteelPlayerState> It(World);It;++It)
+            if(!It->TeamDestination.IsEmpty()){It->AbortTeamTravel(Reason);break;}
+    }
     // 客人档案槽名：按玩家名做文件名安全化 + CRC 后缀（与原 NetGameMode 口径一致，
     // 存量 ColdSteelMP_*.sav 客人档可直接载回）。
     FString BuildGuestSlotName(const APlayerController* PC)
@@ -48,13 +57,34 @@ void UColdSteelNetWorldSubsystem::Initialize(FSubsystemCollectionBase& Collectio
     Super::Initialize(Collection);
     PostLoginHandle = FGameModeEvents::OnGameModePostLoginEvent().AddUObject(this, &UColdSteelNetWorldSubsystem::OnPostLogin);
     LogoutHandle = FGameModeEvents::OnGameModeLogoutEvent().AddUObject(this, &UColdSteelNetWorldSubsystem::OnLogout);
+    if(GEngine)TravelFailureHandle=GEngine->OnTravelFailure().AddLambda(
+        [this](UWorld* FailedWorld,ETravelFailure::Type,const FString& Error)
+        {
+            if(FailedWorld!=GetWorld()||!FailedWorld||!FailedWorld->GetAuthGameMode())return;
+            // ServerTravel can accept the URL and fail later while loading its destination.
+            for(TActorIterator<AColdSteelPlayerState> It(FailedWorld);It;++It)
+                if(It->TeamTravelId.IsValid()){It->AbortTeamTravel(TEXT("地图加载失败，换图等待已解除：")+Error);break;}
+        });
 }
 
 void UColdSteelNetWorldSubsystem::Deinitialize()
 {
     FGameModeEvents::OnGameModePostLoginEvent().Remove(PostLoginHandle);
     FGameModeEvents::OnGameModeLogoutEvent().Remove(LogoutHandle);
+    if(GEngine&&TravelFailureHandle.IsValid())GEngine->OnTravelFailure().Remove(TravelFailureHandle);
     Super::Deinitialize();
+}
+
+void UColdSteelNetWorldSubsystem::RememberGuestKeys(FGuid Profile,const TArray<FName>& Keys)
+{
+    if(auto* GI=GetWorld()->GetGameInstance())
+        if(auto* Session=GI->GetSubsystem<UColdSteelNetSessionSubsystem>())Session->RememberGuestKeys(GetWorld(),Profile,Keys);
+}
+TArray<FName> UColdSteelNetWorldSubsystem::RestoreGuestKeys(FGuid Profile) const
+{
+    if(auto* GI=GetWorld()->GetGameInstance())
+        if(auto* Session=GI->GetSubsystem<UColdSteelNetSessionSubsystem>())return Session->RestoreGuestKeys(GetWorld(),Profile);
+    return {};
 }
 
 void UColdSteelNetWorldSubsystem::OnPostLogin(AGameModeBase* GameMode, APlayerController* NewPlayer)
@@ -65,7 +95,12 @@ void UColdSteelNetWorldSubsystem::OnPostLogin(AGameModeBase* GameMode, APlayerCo
     // 服务器 GameMode 的登录事件——必须过滤只处理本世界的登录。
     if (!GameMode || GameMode->GetWorld() != World) return;
     // 本机玩家（监听服主机）不挂影子档案——它的权威档案就是 GameInstance 单例。
-    if (NewPlayer->IsLocalController()) return;
+    CancelTravelForRosterChange(World,TEXT("有队员加入，换图准备已取消，请重新发起"));
+    if (NewPlayer->IsLocalController())
+    {
+        if(auto* PS=NewPlayer->GetPlayerState<AColdSteelPlayerState>())PS->InitializeHostSession();
+        return;
+    }
     if (AColdSteelPlayerState* PS = NewPlayer->GetPlayerState<AColdSteelPlayerState>())
     {
         PS->InitializeGuest(BuildGuestSlotName(NewPlayer));
@@ -77,10 +112,11 @@ void UColdSteelNetWorldSubsystem::OnLogout(AGameModeBase* GameMode, AController*
 {
     UWorld* World = GetWorld();
     if (!World || World->GetNetMode() == NM_Standalone || !Exiting) return;
-    if (GameMode && GameMode->GetWorld() != World) return;
+    if (!GameMode || GameMode->GetWorld() != World) return;
+    CancelTravelForRosterChange(World,TEXT("有队员离开，换图准备已取消，请重新发起"));
     if (AColdSteelPlayerState* PS = Exiting->GetPlayerState<AColdSteelPlayerState>())
     {
         // 玩家离开时把影子档案立即落盘（正常节流靠 bServerDirty，这里抢在销毁前）。
-        PS->SaveShadowToHostDisk();
+        PS->PrepareForDisconnect();
     }
 }

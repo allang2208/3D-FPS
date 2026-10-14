@@ -1,4 +1,6 @@
 #include "TemperateHillsWorld.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Production/ProductionResource.h"
 #include "../Production/ProductionFallingTree.h"
 #include "../Production/ProductionHarvestAssets.h"
@@ -22,7 +24,7 @@ FString ATemperateHillsWorld::ProductionResourceId(int32 Layer,uint64 Candidate)
 }
 bool ATemperateHillsWorld::IsProductionDepleted(int32 Layer,uint64 Candidate) const
 {
-    const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    const auto* Profile=UColdSteelSharedInventorySubsystem::HarvestModel(this);
     if(!Profile)return false;
     const FString Id=ProductionResourceId(Layer,Candidate);
     // Regrown trees keep one owner for their whole lifetime, including maturity.
@@ -95,7 +97,7 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         Resource.Transform=Candidate.Transform; Resource.Mesh=Candidate.Mesh; Resource.Seed=Candidate.Key;
         Resource.CandidateId=Candidate.CandidateId; Resource.Id=ProductionResourceId(Layer,Candidate.CandidateId);
         if(Tree)
-            if(const auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Profile && !Profile->IsTreeMature(Resource.Id))
+            if(const auto* Profile=UColdSteelSharedInventorySubsystem::HarvestModel(this);Profile && !Profile->IsTreeMature(Resource.Id))
             {Reason=TEXT("树木正在生长，成熟后才能砍伐");return false;}
         Resource.RequiredTool=Tree?TEXT("axe"):TEXT("pickaxe");
         // 树木像怪物一样有生命值：上限按树种与实例尺寸取，斧头按伤害扣血、归零才倒。
@@ -118,6 +120,15 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
     return false;
 }
 
+void ATemperateHillsWorld::MulticastHarvestImpact_Implementation(bool Wood,bool Stump,FVector_NetQuantize Point,uint32 ImpactSeed)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
+    {Harvest->Prepare(Wood);Harvest->Burst(Wood,Point,ImpactSeed);}
+    if(Stump)if(auto* Sound=Cast<USoundBase>(ProductionHarvestAssets::TreeSound(false).ResolveObject()))
+        UGameplayStatics::PlaySoundAtLocation(this,Sound,Point,.7f,.9f+(ImpactSeed%11)*.01f);
+}
+
 void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction)
 {
     // 树桩劈开（2026-09-28）：收走这一个桩的碰撞实例与渲染（标脏重建），木屑特效＋
@@ -126,12 +137,8 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
     {
         if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);
         if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
-        {
-            Harvest->Burst(true,Hit.ImpactPoint,Resource.Seed);
             Harvest->InvalidateStumps(Resource);
-        }
-        if(auto* Sound=Cast<USoundBase>(ProductionHarvestAssets::TreeSound(false).ResolveObject()))
-            UGameplayStatics::PlaySoundAtLocation(this,Sound,Hit.ImpactPoint,.7f,.9f+(Resource.Seed%11)*.01f);
+        MulticastHarvestImpact(true,true,Hit.ImpactPoint,Resource.Seed);
         return;
     }
     if (Resource.Layer==2)
@@ -146,7 +153,7 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
         const double CY=FMath::GridSnap(Resource.Transform.GetLocation().Y,SnapCm);
         // The sink limit lives in ApplyTerrainStep (fps.Hills.MaxDropCm). Once it is hit the
         // dig is refused and the cell stays depleted, so soil cannot be farmed forever.
-        auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+        auto* Profile=ColdSteelAuthority::Model(this);
         if(ApplyTerrainStep(FVector(CX,CY,Height(CX,CY)),HalfCm,HalfCm,-LayerCm,
             TemperateHillsSurface::Key(int32(CX),int32(CY),uint32(Seed),9111)))
         {if(Profile)Profile->ResetHarvestProgress(Resource.Id);}
@@ -158,11 +165,8 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
         return;
     }
     if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);
-    if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
-    {
-        Harvest->Burst(Resource.Layer==0,Hit.ImpactPoint,Resource.Seed);
-        if(Resource.Layer==0)Harvest->ShowStumpAtCut(Resource);
-    }
+    MulticastHarvestImpact(Resource.Layer==0,false,Hit.ImpactPoint,Resource.Seed);
+    if(Resource.Layer==0)if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->ShowStumpAtCut(Resource);
     if (Resource.Layer==0)
     {
         // Remove only the rendered tree instance. Stable candidate IDs remain in
@@ -192,7 +196,7 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
 
 void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
-    const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    const auto* Profile=UColdSteelSharedInventorySubsystem::HarvestModel(this);
     // Reconstruct from the same seeded candidates and persisted depletion IDs.
     // No second stump save schema, and no tree/PCG regeneration on each chop.
     // 2026-09-28：树桩可能带偏移（被砍的树不在候选点基点上，最多 ±6.5 m）——枚举各扩
@@ -216,7 +220,7 @@ void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTempera
 
 void ATemperateHillsWorld::GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
-    const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    const auto* Profile=UColdSteelSharedInventorySubsystem::HarvestModel(this);
     if(!Profile)return;
     // 2026-09-28 用户规则：幼树不长在原桩位，而在生长记录的随机偏移处（半径 2.8–6.5 m）；
     // 枚举各扩一格，入盒判定与扎根高度都用偏移后的树位，缩放仍绕根（原 10 cm 嵌入按比例）。

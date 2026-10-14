@@ -38,6 +38,7 @@ public:
  UFUNCTION(BlueprintCallable,Category="Status Display") void Remove(FName Type);
  UFUNCTION(BlueprintCallable,Category="Status Display") void Clear();
 private:
+    friend class UFPSStatusReplicationComponent;
  struct FRecord {FStatusEffectView View;double End=0;};
  TArray<FRecord> Records;
  static FStatusEffectView Definition(FName Type);

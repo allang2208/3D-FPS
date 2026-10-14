@@ -5,6 +5,17 @@
 UENUM(BlueprintType)
 enum class EMutant3FeralPhase : uint8 { None, Claw, Windup, Flight, Landing, Recovery };
 
+USTRUCT()
+struct FMutant3FeralNetworkState
+{
+    GENERATED_BODY()
+    UPROPERTY() EMutant3FeralPhase Phase = EMutant3FeralPhase::None;
+    UPROPERTY() TObjectPtr<UAnimSequence> Clip = nullptr;
+    UPROPERTY() double StartedAt = 0.;
+    UPROPERTY() float BlendSeconds = 0.f;
+    UPROPERTY() float FlightSeconds = .65f;
+};
+
 /** Original Meshy body with Khaimera-derived feral locomotion and combat. */
 UCLASS(Blueprintable)
 class FPSGAME_API AMutant3 : public ANurseZombie
@@ -52,6 +63,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mutant3|Feral", meta=(ClampMin="1", ClampMax="180", Units="deg")) float PounceImpactAngle = 120.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Mutant3|Feral") EMutant3FeralPhase FeralPhase = EMutant3FeralPhase::None;
 protected:
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void StartDeathPresentation() override;
     virtual void StartHitPresentation(UAnimSequence* Clip, float Duration) override;
     virtual void SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining) override;
@@ -67,6 +79,11 @@ private:
     FVector AppliedFeralFloorOffset = FVector::ZeroVector;
     void StartDeathRagdoll();
     void BeginFeralPhase(EMutant3FeralPhase Phase, UAnimSequence* Clip, float BlendSeconds);
+    void PublishFeralPhase(UAnimSequence* Clip, float BlendSeconds);
+    void PresentNetworkFeralPhase();
+    void TickNetworkFeralPhase();
+    UFUNCTION() void OnRep_FeralState();
+    UPROPERTY(ReplicatedUsing=OnRep_FeralState) FMutant3FeralNetworkState NetworkFeral;
     void BeginClaw();
     void BeginFeralRecovery(float Seconds);
     void FinishFeralAction();

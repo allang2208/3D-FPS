@@ -1,4 +1,6 @@
 #include "FatZombiePusPool.h"
+#include "Net/UnrealNetwork.h"
+#include "GameFramework/GameStateBase.h"
 #include "FPSCombatHealthComponent.h"
 #include "MonsterCombatComponent.h"
 #include "../Skills/CorrosivePusDamage.h"
@@ -36,6 +38,7 @@ uint8 TeamOf(const APawn* Pawn)
 AFatZombiePusPool::AFatZombiePusPool()
 {
     PrimaryActorTick.bCanEverTick = true;
+    bReplicates=true;SetNetUpdateFrequency(2.f);
     PrimaryActorTick.TickInterval = .05f;
     Surface = CreateDefaultSubobject<UDynamicMeshComponent>(TEXT("PusFilm"));
     SetRootComponent(Surface);
@@ -64,7 +67,7 @@ void AFatZombiePusPool::InitializeFrom(APawn* Source, const FFatZombiePusSetting
     Tuning.MaxDroplets = FMath::Clamp(Tuning.MaxDroplets, Tuning.MinDroplets, 24);
     Tuning.FadeSeconds = FMath::Max(0.f, Tuning.FadeSeconds);
     Seed = Tuning.ShapeSeed != 0 ? Tuning.ShapeSeed : FMath::RandRange(1, MAX_int32-1);
-    SourcePawn = Source;
+    SourcePawn = Source;NetworkStartTime=GetWorld()->GetTimeSeconds();
     SourceFaction = FactionOf(Source);
     if (Source)
     {
@@ -85,7 +88,9 @@ void AFatZombiePusPool::BeginPlay()
         return;
     }
     Liquid = Surface->CreateDynamicMaterialInstance(0, PusMaterial);
-    StartTime = GetWorld()->GetTimeSeconds();
+    const auto* GS=GetWorld()->GetGameState();
+    const double Age=HasAuthority()?0.:FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())-NetworkStartTime);
+    StartTime = GetWorld()->GetTimeSeconds()-Age;
     SetActorTickInterval(Tuning.SpreadSeconds > 0.f ? 0.f : .05f);
     Liquid->SetScalarParameterValue(TEXT("SpreadProgress"), GetSpreadProgress(0.f));
     Liquid->SetScalarParameterValue(TEXT("Visibility"), 1.f);
@@ -94,7 +99,7 @@ void AFatZombiePusPool::BeginPlay()
     Liquid->SetScalarParameterValue(TEXT("Variation"), TintRandom.FRand());
     // First pulse at +interval; include the pulse exactly at duration, never after it.
     if (HasAuthority()) GetWorldTimerManager().SetTimer(DamageTimer, this, &ThisClass::PulseDamage, Tuning.Interval, true, Tuning.Interval);
-    SetLifeSpan(Tuning.Duration + Tuning.FadeSeconds + .1f);
+    if(HasAuthority())SetLifeSpan(Tuning.Duration + Tuning.FadeSeconds + .1f);
     UE_LOG(LogTemp, Display, TEXT("FAT_PUS_SPAWN seed=%d triangles=%d duration=%.2f interval=%.2f magic_damage=%.2f faction=%s spread=%.2f"),
         Seed, GroundTriangles.Num(), Tuning.Duration, Tuning.Interval, Tuning.Damage, *SourceFaction.ToString(), Tuning.SpreadSeconds);
 }
@@ -160,3 +165,6 @@ void AFatZombiePusPool::EndPlay(const EEndPlayReason::Type Reason)
     GetWorldTimerManager().ClearTimer(DamageTimer);
     Super::EndPlay(Reason);
 }
+
+void AFatZombiePusPool::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME_CONDITION(AFatZombiePusPool,Seed,COND_InitialOnly);DOREPLIFETIME_CONDITION(AFatZombiePusPool,Tuning,COND_InitialOnly);DOREPLIFETIME_CONDITION(AFatZombiePusPool,NetworkStartTime,COND_InitialOnly);}

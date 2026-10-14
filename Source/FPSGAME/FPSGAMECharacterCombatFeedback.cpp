@@ -5,10 +5,17 @@
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
 
-void AFPSGAMECharacter::NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult,bool bFirearmHit)
+void AFPSGAMECharacter::NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult,bool bFirearmHit,bool bForwardToOwner)
 {
     if (Target == this || !Cast<APawn>(Target) || AppliedDamage <= 0.f || !GetWorld()) return;
     if(auto* Rune=FindComponentByClass<UJingangRuneComponent>())Rune->ConfirmAttack(Target,AppliedDamage);
+    if(HasAuthority()&&!IsLocallyControlled())
+    {
+        const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+        if(bForwardToOwner)ClientWeaponHitFeedback(Target,AppliedDamage,DamageResult&&DamageResult->bCritical,
+            DamageResult?DamageResult->bKilled:(Combat&&Combat->IsDead()),bFirearmHit);
+        return;
+    }
     LastConfirmedWeaponHitTime = GetWorld()->GetTimeSeconds();
     LastMonsterHit = FMonsterHitFeedback();
     const auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>();
@@ -26,6 +33,13 @@ void AFPSGAMECharacter::NotifyConfirmedWeaponHit(AActor* Target, float AppliedDa
     // hit. Melee and Cold Steel skills keep that tick as their confirm cue.
     if (IsLocallyControlled() && !bFirearmHit && ConfirmedMonsterHitSound)
         UGameplayStatics::PlaySound2D(this, ConfirmedMonsterHitSound, 1.f, 1.f);
+}
+
+void AFPSGAMECharacter::ClientWeaponHitFeedback_Implementation(AActor* Target,float AppliedDamage,bool Critical,bool Killed,bool Firearm)
+{
+    if(!IsLocallyControlled()||HasAuthority())return;
+    FWeaponDamageResult Result;Result.bResolved=true;Result.bCritical=Critical;Result.bKilled=Killed;
+    NotifyConfirmedWeaponHit(Target,AppliedDamage,&Result,Firearm);
 }
 
 float AFPSGAMECharacter::GetHitMarkerOpacity() const

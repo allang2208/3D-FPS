@@ -33,7 +33,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Assets") TObjectPtr<USoundBase> HowlSound;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Assets") TObjectPtr<USoundBase> MoveSound;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Assets") TObjectPtr<UMaterialInterface> GroundRingMaterial;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Stats") float MaxHealth=1500.f;
+ UPROPERTY(Replicated, EditAnywhere,BlueprintReadWrite,Category="HandBrain|Stats") float MaxHealth=1500.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Stats") float PhysicalAttack=50.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Stats") float MagicAttack=55.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Stats") float MagicDefense=65.f;
@@ -56,13 +56,13 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") TArray<FString> WeakpointBones;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death",meta=(ToolTip="Fallback without a death clip; configured death clips hand off at 60%.")) float RagdollStartSeconds=1.15f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float CorpseSeconds=15.f;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float Health=1500.f;
+ UPROPERTY(Replicated, VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float Health=1500.f;
  /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime",ReplicatedUsing=OnRep_State) EHandBrainState State=EHandBrainState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") int32 SlamHits=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") int32 HowlHits=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float StateSeconds=0.f;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") FVector SlamCenter;
+ UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime",Replicated) FVector SlamCenter;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") FVector Home;
  UFUNCTION(BlueprintCallable,Category="HandBrain|Combat") void InterruptAttack(float Seconds=.6f);
  UFUNCTION(BlueprintCallable,Category="HandBrain|Combat") bool StartAttack(bool bHowl);
@@ -74,6 +74,7 @@ public:
 private:
  void SetState(EHandBrainState NewState); void DealSlam(); void DealHowl(); void EnterRagdoll();
  virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UPROPERTY(Replicated) double NetworkStateStarted=0.;
  UFUNCTION() void OnRep_State();
  bool CanSee(const AActor* Actor,FVector Origin) const; FVector GroundPoint(FVector Point) const;
  bool CanSlamTarget(const APawn* Pawn) const;

@@ -27,8 +27,13 @@ public:
     bool IsFinished() const { return bFinished; }
     bool CanLaunch() const { return !bFlying && !bFinished && FadeAge < 0.f; }
     virtual void Tick(float Delta) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
+    UPROPERTY(ReplicatedUsing=OnRep_Visual) TObjectPtr<UStaticMesh> NetworkMesh;
+    UPROPERTY(ReplicatedUsing=OnRep_Visual) uint8 NetworkPhase=0;
+    UFUNCTION() void OnRep_Visual();
+    UFUNCTION(NetMulticast,Reliable) void MulticastImpact(const FHitResult& Hit);
     void ApplyHit(const FHitResult& Hit);
 
     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;

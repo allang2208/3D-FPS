@@ -78,7 +78,8 @@ private:
     UPROPERTY(ReplicatedUsing=OnRep_State) uint8 NetState=0;
     UPROPERTY(Replicated) float NetStateAge=0;
     UPROPERTY(Replicated) float NetDropHeight=0;
-    UPROPERTY(Replicated) float NetHealth=0;
+    UPROPERTY(ReplicatedUsing=OnRep_Health) float NetHealth=0;
+    UFUNCTION() void OnRep_Health();
     bool bNetInit=false;
     void NetInit();
     UFUNCTION() void OnRep_State();

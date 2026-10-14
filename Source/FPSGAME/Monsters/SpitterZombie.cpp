@@ -12,6 +12,7 @@
 #include "Engine/DamageEvents.h"
 #include "Engine/World.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/GameStateBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PhysicsEngine/BodyInstance.h"
 #include "TimerManager.h"
@@ -120,10 +121,18 @@ void ASpitterZombie::OnConstruction(const FTransform& Transform)
 
 void ASpitterZombie::BeginPlay()
 {
-    SelectedMovementIndex = DrawMovement(*this);
+    if (HasAuthority()) SelectedMovementIndex = DrawMovement(*this);
+    ApplyMovementChoice();
+    AlignVisual(); Super::BeginPlay();
+    UE_LOG(LogTemp, Display, TEXT("SPITTER_MOVE_ASSIGNED actor=%s index=%d clip=%s reference_speed=%.3f walk_speed=%.3f"),
+        *GetName(), SelectedMovementIndex, *GetNameSafe(SelectedMovementClip.Get()), MovementReferenceSpeed, WalkSpeed);
+}
+
+void ASpitterZombie::ApplyMovementChoice()
+{
     SelectedMovementClip = WalkClip;
     MovementReferenceSpeed = FMath::Max(1.f, WalkSpeed);
-    if (SelectedMovementIndex != INDEX_NONE)
+    if (MovementClips.IsValidIndex(SelectedMovementIndex))
     {
         SelectedMovementClip = MovementClips[SelectedMovementIndex];
         if (MovementReferenceSpeeds.IsValidIndex(SelectedMovementIndex))
@@ -133,9 +142,7 @@ void ASpitterZombie::BeginPlay()
     // Set this before Nurse BeginPlay initializes CharacterMovement, so a slow
     // shuffle is not forced to play at 2.35x to follow a shared chase speed.
     WalkSpeed = MovementReferenceSpeed;
-    AlignVisual(); Super::BeginPlay();
-    UE_LOG(LogTemp, Display, TEXT("SPITTER_MOVE_ASSIGNED actor=%s index=%d clip=%s reference_speed=%.3f walk_speed=%.3f"),
-        *GetName(), SelectedMovementIndex, *GetNameSafe(SelectedMovementClip.Get()), MovementReferenceSpeed, WalkSpeed);
+    GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 }
 
 UFatZombieAnimInstance* ASpitterZombie::PosePlayer()
@@ -187,7 +194,18 @@ void ASpitterZombie::StartStateAnimation(UAnimSequence* Clip, bool bLoop)
 {
     if (State == ENurseState::Attack && !bLoop)
     {
-        SelectAttackVariant();
+        if (HasAuthority())
+        {
+            SelectAttackVariant();
+            NetworkAttack.Index=SelectedAttackIndex;
+            NetworkAttack.Variant.Clip=AttackClip;
+            NetworkAttack.Variant.ContactTime=ContactTime;
+            NetworkAttack.Variant.ContactEnd=ContactEnd;
+            NetworkAttack.Variant.RecoveryTime=RecoveryTime;
+            NetworkAttack.StartedAt=GetWorld()->GetTimeSeconds();
+            ForceNetUpdate();
+        }
+        else ApplyNetworkAttack();
         Clip = AttackClip;
     }
     FMonsterClipTransition Transition;
@@ -232,6 +250,12 @@ float ASpitterZombie::ApplyMeleeDamage(APawn* Victim)
 
 void ASpitterZombie::SetAttackAnimationTime(float Seconds)
 {
+    if (!HasAuthority() && NetworkAttack.StartedAt>=0.)
+    {
+        const auto* GS=GetWorld()->GetGameState();
+        const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        Seconds=FMath::Clamp(float(Now-NetworkAttack.StartedAt),0.f,GetAttackDuration());
+    }
     if (auto* Animation = PosePlayer()) Animation->SetCombatTime(Seconds);
 }
 

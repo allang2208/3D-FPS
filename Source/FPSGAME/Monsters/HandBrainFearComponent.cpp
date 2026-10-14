@@ -30,8 +30,7 @@ void UHandBrainFearComponent::TickComponent(float Dt,ELevelTick T,FActorComponen
  auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();double Now=GetWorld()->GetTimeSeconds();
  const int32 Before=Stacks;Expirations.RemoveAll([Now](double End){return End<=Now;});Stacks=Expirations.Num();
  if(!Stacks||!Threat.IsValid()||(Health&&Health->IsDead())){Release();return;}
- auto* Move=C->GetCharacterMovement();RestoreSpeed=Move->MaxWalkSpeed;
- Move->MaxWalkSpeed=RestoreSpeed*FMath::Max(.01f,1.f-.33f*Stacks);
+ if(!C->HasAuthority()&&!C->IsLocallyControlled())return;
  C->ConsumeMovementInputVector();C->AddMovementInput((C->GetActorLocation()-Threat->GetActorLocation()).GetSafeNormal2D(),1.f,true);
  if(Stacks!=Before)UStatusEffectsComponent::Notify(GetOwner());
 }

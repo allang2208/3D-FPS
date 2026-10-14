@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Engine/NetSerialization.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/SaveGame.h"
 #include "../FPSGAMEGameMode.h"
@@ -202,6 +203,7 @@ public:
     void GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;
     void CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastHarvestImpact(bool Wood,bool Stump,FVector_NetQuantize Point,uint32 ImpactSeed);
 
 protected:
     virtual void BeginPlay() override;

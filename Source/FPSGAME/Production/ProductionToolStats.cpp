@@ -3,12 +3,13 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Weapons/WeaponDamagePanel.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../Movement/FPSStaminaTuning.h"
 #include "Engine/GameInstance.h"
 
 bool ColdSteelTool::Supports(const FColdSteelItem& Item)
 {
-    return ColdSteelInventory::IsEquippedProductionTool(Item);
+    return ColdSteelInventory::IsEquippedProductionTool(Item) || ColdSteelInventory::IsTwoHandedBlunt(Item);
 }
 
 FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview)
@@ -24,7 +25,7 @@ FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UC
     // 不借用剑类 Evaluate，避免把连击、格挡与精通口径带进采集工具。
     const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),12);
     const double Attack=Profile?Profile->Derived(TEXT("atk")):0;
-    const double Processed=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage):Base*R.Modifiers.Damage+Attack;
+    const double Processed=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
     R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed);
 
     R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.)*(Profile?Profile->BerserkAttackSpeedMultiplier():1.f);
@@ -44,6 +45,17 @@ FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UC
     R.ToughnessDamage=R.Modifiers.ToughnessDamage;
     R.CriticalChanceAdd=R.Modifiers.CriticalChanceAdd;
     R.HarvestHitsAdd=R.Modifiers.HarvestHitsAdd;
+    if(ColdSteelInventory::IsTwoHandedBlunt(Item))
+    {
+        const auto* Enhancement=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+        R.RateScale=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd"))):1.)/
+            FMath::Max(.1,Enhancement?Enhancement->Effect(Item,TEXT("attackIntervalMul"),1):1.),.2,4.);
+        R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.16)/R.RateScale;
+        R.ContactSeconds=ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.6)/R.RateScale;
+        R.StaminaCost=ColdSteelMelee::AttackStamina(&Item,Profile);
+        R.HarvestReachCM=R.HarvestRadiusCM=0.;
+        R.ToughnessDamage=ColdSteelInventory::Number(Item,TEXT("toughness_damage_mult"),1.);
+    }
     return R;
 }
 

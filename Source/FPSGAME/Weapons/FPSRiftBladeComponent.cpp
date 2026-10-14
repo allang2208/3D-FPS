@@ -27,7 +27,7 @@ void UFPSRiftBladeComponent::BeginPlay()
 {
     Super::BeginPlay();
     auto* World=GetWorld();
-    if(!World||!World->IsGameWorld()||GetNetMode()==NM_Client||!World->GetGameInstance()||!Cast<APawn>(GetOwner()))return;
+    if(!World||!World->IsGameWorld()||!World->GetGameInstance()||!Cast<APawn>(GetOwner()))return;
     Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>();
     Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
     if(!Sword.IsValid())return;
@@ -61,6 +61,8 @@ void UFPSRiftBladeComponent::RefreshEquipment()
 void UFPSRiftBladeComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    if(!Pawn||!Pawn->IsLocallyControlled()){ClearBlade();return;}
     USceneComponent* Parent=nullptr;FName Socket=NAME_None;FTransform LocalFrame;float Length=0.f;
     if(!bEnabled||!Sword.IsValid()||(Health.IsValid()&&Health->IsDead())
         ||!Sword->GetEnchantmentBladeAttachment(Parent,Socket,LocalFrame,Length)||!IsValid(Parent))

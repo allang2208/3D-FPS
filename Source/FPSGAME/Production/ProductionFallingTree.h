@@ -8,6 +8,18 @@ struct FProductionResource;
 class USkeletalMeshComponent;
 class UStaticMeshComponent;
 
+USTRUCT()
+struct FProductionTreeFallNetState
+{
+    GENERATED_BODY()
+    UPROPERTY() FProductionTreeFallPlan Plan;
+    UPROPERTY() FSoftObjectPath Mesh;
+    UPROPERTY() FTransform Transform;
+    UPROPERTY() uint32 Seed=0;
+    UPROPERTY() double StartedAt=0.;
+    UPROPERTY() bool Valid=false;
+};
+
 /** Cosmetic fall; persistent ground drops are committed before the animation starts. */
 UCLASS(NotBlueprintable)
 class FPSGAME_API AProductionFallingTree : public AActor
@@ -17,11 +29,17 @@ public:
     AProductionFallingTree();
     void InitializeFall(const FProductionResource& Resource,const FVector& Direction);
     virtual void Tick(float Delta) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
     UPROPERTY() TObjectPtr<USkeletalMeshComponent> Tree;
     /** 断口封盖：只在"原树网格 + 材质遮罩切切口"这条路挂上（重制网格自带真实封盖）。 */
     UPROPERTY() TObjectPtr<UStaticMeshComponent> CutCap;
     UPROPERTY() TArray<TObjectPtr<class UMaterialInstanceDynamic>> Materials;
+    UPROPERTY(ReplicatedUsing=OnRep_Fall) FProductionTreeFallNetState NetFall;
+    UFUNCTION() void OnRep_Fall();
+    void TryNetworkFall();
+    bool bFallReady=false;
+    float NetworkLoadCountdown=0.f;
     FProductionTreeFallPlan Plan;
     FVector Scale=FVector::OneVector;
     FVector LocalFallDirection=FVector::ForwardVector;

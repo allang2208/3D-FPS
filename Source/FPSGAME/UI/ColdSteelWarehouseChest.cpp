@@ -19,6 +19,7 @@
 #include "EngineUtils.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerStart.h"
+#include "Net/UnrealNetwork.h"
 
 namespace
 {
@@ -141,6 +142,7 @@ bool AColdSteelWarehouseChest::ResolveFixedSpawn(UWorld* World,const APawn* Fall
 AColdSteelWarehouseChest::AColdSteelWarehouseChest()
 {
     PrimaryActorTick.bCanEverTick=true;
+    bReplicates=true;SetReplicateMovement(true);
     auto* Root=CreateDefaultSubobject<USceneComponent>(TEXT("Root"));SetRootComponent(Root);
     Collision=CreateDefaultSubobject<UBoxComponent>(TEXT("ChestCollision"));Collision->SetupAttachment(Root);Collision->SetBoxExtent(FVector(55,73,37));Collision->SetRelativeLocation(FVector(0,0,37));Collision->SetCollisionProfileName(TEXT("BlockAll"));
     Mesh=CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("OriginalChest"));Mesh->SetupAttachment(Root);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
@@ -171,7 +173,7 @@ bool AColdSteelWarehouseChest::CanInteract(const APawn* Pawn)const
 }
 bool AColdSteelWarehouseChest::IsWithinReach(const APawn* Pawn)const
 {
-    return IsValid(Pawn)&&Pawn->GetWorld()==GetWorld()&&Pawn->GetNetMode()!=NM_Client&&FVector::Dist(Pawn->GetActorLocation(),GetActorLocation()+FVector(0,0,70))<=InteractionRadius;
+    return IsValid(Pawn)&&Pawn->GetWorld()==GetWorld()&&FVector::Dist(Pawn->GetActorLocation(),GetActorLocation()+FVector(0,0,70))<=InteractionRadius;
 }
 void AColdSteelWarehouseChest::SetOpen(bool Open)
 {
@@ -183,7 +185,24 @@ void AColdSteelWarehouseChest::SetOpen(bool Open)
 void AColdSteelWarehouseChest::Tick(float Delta)
 {
     Super::Tick(Delta); // 名牌显隐旧逻辑已废：交互提示由准星小浮窗统一呈现
+    if(HasAuthority()&&GetNetMode()!=NM_Standalone&&!OpenUsers.IsEmpty())
+    {
+        for(auto It=OpenUsers.CreateIterator();It;++It)if(!It->IsValid()||!IsWithinReach(It->Get()))It.RemoveCurrent();
+        const bool Open=!OpenUsers.IsEmpty();
+        if(bSharedOpen!=Open){bSharedOpen=Open;SetOpen(Open);ForceNetUpdate();}
+    }
     if(bAnimating){Elapsed+=Delta;auto* Clip=bPlayingOpen?OpenClip.Get():CloseClip.Get();if(Clip&&Elapsed>=Clip->GetPlayLength()){
         Mesh->SetPosition(Clip->GetPlayLength(),false);Mesh->SetPlayRate(0);bIsOpen=bPlayingOpen;bAnimating=false;SetOpen(bDesiredOpen);
     }}
+}
+void AColdSteelWarehouseChest::SetOpenFor(APawn* Pawn,bool Open)
+{
+    if(!HasAuthority()||!Pawn||(Open&&!IsWithinReach(Pawn)))return;
+    if(Open)OpenUsers.Add(Pawn);else OpenUsers.Remove(Pawn);
+    bSharedOpen=!OpenUsers.IsEmpty();SetOpen(bSharedOpen);ForceNetUpdate();
+}
+void AColdSteelWarehouseChest::OnRep_SharedOpen(){SetOpen(bSharedOpen);}
+void AColdSteelWarehouseChest::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AColdSteelWarehouseChest,bSharedOpen);
 }

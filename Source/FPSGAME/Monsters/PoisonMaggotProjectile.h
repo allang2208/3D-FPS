@@ -11,6 +11,8 @@ class FPSGAME_API APoisonMaggotProjectile : public AActor
  GENERATED_BODY()
 public:
  APoisonMaggotProjectile();
+ virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UFUNCTION(NetMulticast,Unreliable) void MulticastImpact(const FHitResult& Hit,FVector_NetQuantize Incoming);
  void Launch(APoisonMaggotMonster* Source,FVector Direction,float Speed,float Range,float Damage,float Chance);
  virtual void Tick(float Dt) override;
  UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Visual;
@@ -21,7 +23,9 @@ private:
  float VisualAge=0,VisualPhase=0,NextTrail=0;
  int32 TrailCount=0;
  TWeakObjectPtr<APoisonMaggotMonster> Shooter;
- FVector Velocity;
+ UPROPERTY(Replicated) FVector Velocity;
+ FVector LastVisualLocation=FVector::ZeroVector;
+ bool bHasVisualLocation=false;
  float Remaining=0,HitDamage=0,PoisonChance=0;
 };
 /** Shared poison: first tick at one second, a layer decays every five seconds. */
@@ -41,5 +45,6 @@ public:
 private:
  TWeakObjectPtr<AController> DamageInstigator;
  TWeakObjectPtr<AActor> DamageSource;
+ friend class UFPSStatusReplicationComponent;
  float NextTick=1,DecayLeft=5;
 };

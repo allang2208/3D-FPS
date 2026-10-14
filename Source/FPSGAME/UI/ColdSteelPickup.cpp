@@ -13,6 +13,7 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Pawn.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Net/UnrealNetwork.h"
 void UColdSteelPickupPrompt::NativeOnInitialized()
 {
     Super::NativeOnInitialized();Text=WidgetTree->ConstructWidget<UTextBlock>();Text->SetFont(ColdSteelUI::TextFont(16));Text->SetColorAndOpacity(ColdSteelUI::TextPrimary);Text->SetJustification(ETextJustify::Center);WidgetTree->RootWidget=Text;
@@ -37,10 +38,26 @@ void AColdSteelPickup::InitializeItem(const FColdSteelItem& Item)
 {
     ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun&&!BuildProductionTool(Item)&&!BuildProductionMaterial(Item)&&!BuildVoxelBlock(Item))BuildConsumable(Item);Mesh->SetVisibility(!Gun);
     auto* Surface=NewObject<UPhysicalMaterial>(this);Surface->Friction=.8f;Surface->Restitution=.08f;Body->SetPhysMaterialOverride(Surface);
-    Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:bVoxelBlock?2.5f:bProductionMaterial?ProductionMassKg:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(!bProductionMaterial||bProductionMaterialReady);
+    Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:bVoxelBlock?2.5f:bProductionMaterial?ProductionMassKg:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(HasAuthority()&&(!bProductionMaterial||bProductionMaterialReady));
     BuildLootGlow(Item);
     FString Name=ColdSteelInventory::Text(Item,TEXT("name"));if(Name.IsEmpty())Name=Item.Definition;
     PromptCaption=FString::Printf(TEXT("拾取 %s ×%lld"),*Name,Item.Count); // 准星统一小浮窗读取；不再有模型上方名牌
+}
+void AColdSteelPickup::InitializeSharedItem(const FColdSteelItem& Item)
+{
+    if(!HasAuthority())return;
+    SharedItem=Item;SetReplicates(true);SetReplicateMovement(true);
+    SetNetUpdateFrequency(10.f);SetMinNetUpdateFrequency(2.f);
+    InitializeItem(Item);ForceNetUpdate();
+}
+void AColdSteelPickup::OnRep_SharedItem()
+{
+    InitializeItem(SharedItem);
+}
+void AColdSteelPickup::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(AColdSteelPickup,SharedItem,COND_InitialOnly);
 }
 bool AColdSteelPickup::CanInteract(const APawn* Pawn)const{return !ItemId.IsEmpty()&&IsValid(Pawn)&&FVector::DistSquared(Pawn->GetActorLocation(),GetActorLocation())<=FMath::Square(250.f)&&ColdSteelWorldInteraction::IsFocused(Pawn,this);}
 void AColdSteelPickup::Tick(float Delta)

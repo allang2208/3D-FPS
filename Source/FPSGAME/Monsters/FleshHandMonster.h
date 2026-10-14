@@ -53,7 +53,7 @@ public:
  UPROPERTY(EditDefaultsOnly,Category="FleshHand|Assets") TObjectPtr<UMaterialInterface> WarningMaterial;
  UPROPERTY(EditDefaultsOnly,Category="FleshHand|Summons") TSubclassOf<AFleshHandMonster> MinionClass;
  UPROPERTY(EditDefaultsOnly,Category="FleshHand|Stats") bool bMinion=false;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float MaxHealth=1500;
+ UPROPERTY(Replicated, EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float MaxHealth=1500;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float PhysicalAttack=60;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") float MagicDefense=30;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="FleshHand|Stats") int32 Level=12;
@@ -76,7 +76,7 @@ public:
  UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0",ClampMax="1.5")) float ChargeLeadStrength=1.f;
  UPROPERTY(EditAnywhere,Category="FleshHand|Charge",meta=(ClampMin="0",Units="cm")) float ChargeMaxLeadDistance=450.f;
  UPROPERTY(EditAnywhere,Category="FleshHand|Death") float CorpseSeconds=15;
- UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float Health=1500;
+ UPROPERTY(Replicated, VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float Health=1500;
  /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime",ReplicatedUsing=OnRep_State) EFleshHandState State=EFleshHandState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="FleshHand|Runtime") float StateSeconds=0;
@@ -97,6 +97,7 @@ private:
  friend class UFleshHandKnockdownComponent;
  void SetState(EFleshHandState Next);
  virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ UPROPERTY(Replicated) double NetworkStateStarted=0.;
  UFUNCTION() void OnRep_State();
  void Impact(); void Summon(); void ContactDamage();
  bool CanReach(const APawn* P,float Range) const;

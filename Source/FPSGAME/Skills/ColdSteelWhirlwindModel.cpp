@@ -40,8 +40,9 @@ bool UColdSteelStatusModel::CommitWhirlwindCast(const FWhirlwindCast& Cast)
     // Like the source skill, the cost and cooldown are committed once at entry.
     P.WhirlwindCooldown=HasNoAbilityCooldown()?0.f:Cast.CooldownSeconds;
     P.WhirlwindCooldownDuration=P.WhirlwindCooldown;
+    P.MartialCooldownRevision=FMath::Min(P.MartialCooldownRevision,MAX_int64-1)+1;
     if(!CommitState(P))return false;
-    OnStaminaChanged.Broadcast();return true;
+    SyncMartialCooldowns(true);OnStaminaChanged.Broadcast();return true;
 }
 
 void UColdSteelStatusModel::TrainWhirlwind(int32 Hits,int32 Kills)

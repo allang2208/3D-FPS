@@ -1,4 +1,5 @@
 #include "BlindSupplicantMonster.h"
+#include "GameFramework/GameStateBase.h"
 #include "BlindSupplicantAnimInstance.h"
 #include "M07MagicAttack.h"
 #include "HumanoidKnockdownComponent.h"
@@ -157,6 +158,8 @@ void ABlindSupplicantMonster::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(ABlindSupplicantMonster, AudioAttackKind);
+    DOREPLIFETIME(ABlindSupplicantMonster, NetworkAttack);
+    DOREPLIFETIME(ABlindSupplicantMonster, bNetworkWallListening);
     DOREPLIFETIME(ABlindSupplicantMonster, AudioMagicReleased);
 }
 
@@ -193,8 +196,11 @@ void ABlindSupplicantMonster::StartStateAnimation(UAnimSequence* Clip, bool bLoo
 {
     bPresentingWallListen = false;
     StopWallMimic();
+    if (HasAuthority() && bNetworkWallListening)
+    { bNetworkWallListening=false; ForceNetUpdate(); }
     if (State == ENurseState::Attack)
     {
+        if (!HasAuthority()) ApplyNetworkAttack();
         if (IsMagicAttack())
         {
             Clip = MagicGatherClip;
@@ -207,6 +213,8 @@ void ABlindSupplicantMonster::StartStateAnimation(UAnimSequence* Clip, bool bLoo
         }
     }
     else { CancelPendingAttack(); ActiveAttack = EAttack::None; ActiveAttackDuration = 0.f; }
+    if (!HasAuthority() && State==ENurseState::Idle && bNetworkWallListening && WallListenClip)
+    { bPresentingWallListen=true; Clip=WallListenClip; }
     if (auto* Animation = PosePlayer())
     {
         FMonsterClipTransition Transition;
@@ -225,20 +233,31 @@ void ABlindSupplicantMonster::StartStateAnimation(UAnimSequence* Clip, bool bLoo
 
 void ABlindSupplicantMonster::SetAttackAnimationTime(float Seconds)
 {
+    if (!HasAuthority() && NetworkAttack.StartedAt>=0.)
+    {
+        const auto* GS=GetWorld()->GetGameState();
+        const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        Seconds=FMath::Clamp(float(Now-NetworkAttack.StartedAt),0.f,ActiveAttackDuration);
+    }
     auto* Animation = PosePlayer();
     if (!Animation) return;
     if (!IsMagicAttack()) { Animation->SetCombatTime(Seconds * ActiveMeleePlaybackRate); return; }
     if (!bMagicReleaseStarted)
     {
-        if (IsLivingPlayer(LockedAttackTarget.Get()) && CombatTarget() == LockedAttackTarget.Get())
-            LockedAimPoint = LockedAttackTarget->GetActorLocation();
-        else CancelPendingAttack();
+        // Target ownership and cancellation belong to the authority. Remote
+        // presentation has no AI CombatTarget and must not cancel its charge.
+        if (HasAuthority())
+        {
+            if (IsLivingPlayer(LockedAttackTarget.Get()) && CombatTarget() == LockedAttackTarget.Get())
+                LockedAimPoint = LockedAttackTarget->GetActorLocation();
+            else CancelPendingAttack();
+        }
         if (Seconds >= ActiveGatherDuration)
         {
             // Keep the release pose fixed. ReleaseMagic takes its final target
             // snapshot and flight-time lead at contact; the projectile never homes.
             bMagicReleaseStarted = true;
-            AudioMagicReleased = true;
+            if (HasAuthority()) AudioMagicReleased = true;
             // The release begins from the complete bent-elbow gathering pose,
             // not the previous frame's partly extended locomotion/charge snapshot.
             Animation->SetCombatTime(ActiveGatherDuration);
@@ -322,18 +341,17 @@ void ABlindSupplicantMonster::RefreshWallPresentation()
             if (auto* Animation = PosePlayer())
                 Animation->TransitionTo(NearWall ? WallListenClip.Get() : IdleClip.Get(), true, false, .3f);
     }
+    if (bNetworkWallListening!=NearWall)
+    { bNetworkWallListening=NearWall; ForceNetUpdate(); }
     if (!NearWall)
     {
         StopWallMimic();
         return;
     }
     const double Now = GetWorld()->GetTimeSeconds();
-    if (WallMimicSound && WallMimicVoice && GetNetMode() != NM_DedicatedServer &&
-        !WallMimicVoice->IsPlaying() && Now >= NextWallMimicTime)
+    if (WallMimicSound && Now >= NextWallMimicTime)
     {
-        WallMimicVoice->SetSound(WallMimicSound);
-        WallMimicVoice->SetVolumeMultiplier(WallMimicVolume);
-        WallMimicVoice->FadeIn(.35f);
+        MulticastWallMimic(Now);
         NextWallMimicTime = Now + WallMimicIntervalSeconds;
     }
 }

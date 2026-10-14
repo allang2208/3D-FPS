@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "RuneSwordGuardTuning.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "TangDaoGuardComponent.h"
 #include "PanChiGuardComponent.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -39,14 +40,14 @@ void URuneSwordComponent::TryBeginGuard()
     if(!Profile || Profile->Stamina()<=0.f)return;
     const float Entry=bReturningGuard?GuardPoseTime:0.f;
     bGuarding=true;bReturningGuard=false;GuardStartedAt=GetWorld()->GetTimeSeconds();
-    if(auto* Guard=Pawn->FindComponentByClass<UPanChiGuardComponent>())Guard->SetGuardIntent(true);
+    SendGuardIntent(true);
     GuardPoseTime=Entry;StopRift();SetClip(TEXT("Guard"),false);Elapsed=Entry;SamplePose(Entry);
     Viewmodel->SetRelativeLocation(FVector::ZeroVector);Viewmodel->SetRelativeRotation(FRotator(0,90,0));
     Profile->DelayStaminaRecovery();
 }
 void URuneSwordComponent::ReleaseGuard()
 {
-    if(auto* Guard=GetOwner()->FindComponentByClass<UPanChiGuardComponent>())Guard->SetGuardIntent(false);
+    SendGuardIntent(false);
     bGuardHeld=false;
     if(!bGuarding)return;
     bGuarding=false;bReturningGuard=true;
@@ -54,7 +55,7 @@ void URuneSwordComponent::ReleaseGuard()
 }
 void URuneSwordComponent::ClearGuard()
 {
-    if(auto* Guard=GetOwner()->FindComponentByClass<UPanChiGuardComponent>())Guard->SetGuardIntent(false);
+    if(bGuardHeld||bGuarding)SendGuardIntent(false);
     bGuardHeld=bGuarding=bReturningGuard=bGuardReacting=bGuardBreakPose=false;
     GuardPoseTime=0.f;GuardFeedbackStrength=0.f;GuardFeedbackAt=-100.;
 }
@@ -113,9 +114,9 @@ void URuneSwordComponent::GuardFeedback(bool Parried)
 float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamageType* Type,AController* Instigator,AActor* Causer)
 {
     if(IncomingDamage<=0.f || !bGuarding)return IncomingDamage;
-    auto* Pawn=Character.Get();auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* Pawn=Character.Get();auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
     const auto* Item=Profile?Profile->Equipped():nullptr;
-    if(!CanUse() || !Item || Item->InstanceId!=InstanceId || Pawn->IsCastBlockingLeftHandAction() || Pawn->IsDodging() || Pawn->IsSliding())
+    if(!Pawn||!Pawn->HasAuthority()||!CanMaintainNetworkGuard()||!Item||Item->InstanceId!=InstanceId)
     {CancelAction();return IncomingDamage;}
     if(Type && (Type->IsA<UMaggotPoisonDamage>() || Type->IsA<UCorrosivePusDamage>()))return IncomingDamage;
     AActor* Source=Instigator?Instigator->GetPawn():Causer;
@@ -130,7 +131,7 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         const FVector Facing=FRotationMatrix(FRotator(0,Pawn->GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::X);
         if(!Toward.IsNearlyZero() && FVector::DotProduct(Facing,Toward)>=FMath::Cos(FMath::DegreesToRadians(RuneSwordGuardTuning::ParryHalfAngleDegrees)))
         {
-            GuardFeedback(true);
+            if(Pawn->IsLocallyControlled())GuardFeedback(true);
             if(auto* Guard=Pawn->FindComponentByClass<UTangDaoGuardComponent>())Guard->GrantDragon();
             if(auto* Guard=Pawn->FindComponentByClass<UPanChiGuardComponent>())Guard->ConfirmGuard(true);
             GrantClovenCounter();
@@ -139,23 +140,25 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
             if(Type && Type->IsA<UEnemyMeleeDamage>() && !Source->ActorHasTag(TEXT("ParryImmune")))
                 if(auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>())
                     Combat->ReceiveParry(Pawn,RuneSwordGuardTuning::ParryStunSeconds,RuneSwordGuardTuning::ParryKnockbackCM);
+            if(!Pawn->IsLocallyControlled())ClientSwordGuardResult(InstanceId,1,0.f,GetWorld()->GetTimeSeconds());
             return 0.f;
         }
     }
-    GuardFeedback(false);
+    if(Pawn->IsLocallyControlled())GuardFeedback(false);
     const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(MeleeModifiers));
     const bool Broken=Profile->Stamina()<BlockCost;
-    Profile->SpendStamina(Broken?Profile->Stamina():BlockCost);
+    const float Spent=Broken?Profile->Stamina():BlockCost;
+    Profile->SpendStamina(Spent);
     if(!Broken)if(auto* Guard=Pawn->FindComponentByClass<UPanChiGuardComponent>())Guard->ConfirmGuard(false);
     if(Broken)
     {
         auto* Stun=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();
         if(!Stun){Stun=NewObject<UPlayerGuardBreakComponent>(Pawn);Pawn->AddInstanceComponent(Stun);Stun->RegisterComponent();}
         Stun->Apply(RuneSwordGuardTuning::BreakStunSeconds);
-        // Apply owns the gameplay lock; this component only presents the broken guard.
-        bGuardBreakPose=true;GuardFeedbackAt=GetWorld()->GetTimeSeconds();GuardFeedbackStrength=1.8f;
-        SetClip(Animations.FindRef(TEXT("GuardBreak"))?TEXT("GuardBreak"):TEXT("Idle"),false);
+        bGuarding=bGuardHeld=false;
+        if(Pawn->IsLocallyControlled())PresentGuardBreak();
     }
+    if(!Pawn->IsLocallyControlled())ClientSwordGuardResult(InstanceId,Broken?2:0,Spent,GetWorld()->GetTimeSeconds());
     const double Reduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*MeleeModifiers.BlockReduction,0.,1.);
     return IncomingDamage*(1.-Reduction);
 }

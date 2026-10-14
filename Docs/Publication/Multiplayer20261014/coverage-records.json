@@ -1,0 +1,122 @@
+{
+  "records": [
+    {
+      "path": "Docs/Multiplayer/basic-coverage-followup-20261013.md",
+      "sha256": "c27de8296cbf5ef37fcd7612e38c69d87015603521cbe1149ec20b54b2d3a22c"
+    },
+    {
+      "path": "Docs/Multiplayer/basic-feature-audit-20261013.md",
+      "sha256": "cf00566e496a45b4865b308a22606b385cb605b4ba990aa0b8d931c3e56f746c"
+    },
+    {
+      "path": "Docs/Multiplayer/basic-feature-repairs-20261013.md",
+      "sha256": "cae77a4781dc4a507670258ab72b53c51056120978735846479110e0b21d0cd4"
+    },
+    {
+      "path": "Docs/Multiplayer/blueprint-streaming-plugin-coverage-20261013.md",
+      "sha256": "2865a4cca63a52cdfc4a6562965a5d8dae7f71a54a1c6c6666b1eed8a25b43c9"
+    },
+    {
+      "path": "Docs/Multiplayer/client-melee-and-profile-mirror-20261013.md",
+      "sha256": "cdfaddb59238339e1bff3cba00f59beda7bac9a8cf35b29a9ee7b41f6a758903"
+    },
+    {
+      "path": "Docs/Multiplayer/combat-and-world-sync-repairs-20261013.md",
+      "sha256": "e64f94b473c0fc7f2ce487ac486cca3064ffbfd881677d4a3c6cdeccfdf323ad"
+    },
+    {
+      "path": "Docs/Multiplayer/coverage-index-20261014.md",
+      "sha256": "ef67b09d1fb1ce8daed25845943ef4feb72dc144933198fdb20173b32e0cfd43"
+    },
+    {
+      "path": "Docs/Multiplayer/coverage-repairs-20261013.md",
+      "sha256": "da2129fdca36fb1d834a224c7f6781b02182132b148033b6126958f972818e72"
+    },
+    {
+      "path": "Docs/Multiplayer/door-push-bipod-20261003.md",
+      "sha256": "2213b1d98d2bb60dee31301d57a3311d6fededf7ceb71b8f85f61a274b57c587"
+    },
+    {
+      "path": "Docs/Multiplayer/dynamic-loading-lifecycle-20261013.md",
+      "sha256": "beb3b869c53ab514f43a7cbd1094b4f52a56d8f1f82de78342223be17ee246cf"
+    },
+    {
+      "path": "Docs/Multiplayer/extended-coverage-repairs-20261013.md",
+      "sha256": "2b3db17b5b270b068b76e8b4922db2d6f0a22bccf073b5eb50233766fa9cd0a0"
+    },
+    {
+      "path": "Docs/Multiplayer/guard-feedback-repairs-20261013.md",
+      "sha256": "74c6ebec166f5c77678dfbaeadc1d118fa23b38b0c9b2657665db52e0c942d99"
+    },
+    {
+      "path": "Docs/Multiplayer/inventory-cooldown-station-recovery-20261013.md",
+      "sha256": "8aad672ea0122c5386459e1e1a30c249226cf7c038a28279d9232bd8087c3ad5"
+    },
+    {
+      "path": "Docs/Multiplayer/laser-endpoint-sync-20261013.md",
+      "sha256": "3ba3a7fc582b59ce50bbcd2df725a674e8f22409ad76f8ef0889f42483f3f423"
+    },
+    {
+      "path": "Docs/Multiplayer/lifecycle-concurrency-assets-20261013.md",
+      "sha256": "0301a73d049ce525dfb719e2c9a6546db5105d0f5e92d54081131e3317509ecd"
+    },
+    {
+      "path": "Docs/Multiplayer/martial-quickbar-ammo-recovery-20261013.md",
+      "sha256": "85e90791444e34c8bf6f8b85f8021c64d0b4cef7ccbe29a45b4f8ea874063512"
+    },
+    {
+      "path": "Docs/Multiplayer/monster-action-branches-20261014.md",
+      "sha256": "0dc7c6e3216af56b35c2b3a6b1d498269c46d6c310c1032d12625a70bc4d73d8"
+    },
+    {
+      "path": "Docs/Multiplayer/movement-profile-congestion-20261013.md",
+      "sha256": "44aaf6227e1745a556e6aa94b1df9482f419cf1d442ccd2368d2920e207c41cf"
+    },
+    {
+      "path": "Docs/Multiplayer/player-actions-and-spellbook-20261012.md",
+      "sha256": "cb89fbe1654ed612be978cb91622fd9cb21369c6fb7556d3b358a60eb541eef3"
+    },
+    {
+      "path": "Docs/Multiplayer/project-wide-source-sweep-20261013.md",
+      "sha256": "fcb2f89e1d1da2c843ae4b474d42f60fe2b898b0fb29e2b15a50480f1ec5e66a"
+    },
+    {
+      "path": "Docs/Multiplayer/reconnect-respawn-travel-20261013.md",
+      "sha256": "3ef051b086be641601830a1fede2a3741dbd04bdb61c5a0b8ccbd36572e6f6fa"
+    },
+    {
+      "path": "Docs/Multiplayer/transaction-disconnect-handoff-20261014.md",
+      "sha256": "028789a747188c38c05d9d846b6976ee6fbbecda66bb1282b762dfed3bb01763"
+    },
+    {
+      "path": "Docs/Multiplayer/weapon-animation-sync-20261013.md",
+      "sha256": "66403b4a431eaf34613cdb627746ecbfca97452ec5091baa7960cad60aee8063"
+    },
+    {
+      "path": "Docs/Multiplayer/world-feature-repairs-20261013.md",
+      "sha256": "95a4c1a111feb83b1125cbed0eab0db94d9c5bec6e9c3d3ba84fa78e5607292a"
+    }
+  ],
+  "new_records_in_this_publication": [
+    "Docs/Multiplayer/basic-coverage-followup-20261013.md",
+    "Docs/Multiplayer/basic-feature-audit-20261013.md",
+    "Docs/Multiplayer/basic-feature-repairs-20261013.md",
+    "Docs/Multiplayer/blueprint-streaming-plugin-coverage-20261013.md",
+    "Docs/Multiplayer/client-melee-and-profile-mirror-20261013.md",
+    "Docs/Multiplayer/combat-and-world-sync-repairs-20261013.md",
+    "Docs/Multiplayer/coverage-index-20261014.md",
+    "Docs/Multiplayer/coverage-repairs-20261013.md",
+    "Docs/Multiplayer/dynamic-loading-lifecycle-20261013.md",
+    "Docs/Multiplayer/extended-coverage-repairs-20261013.md",
+    "Docs/Multiplayer/guard-feedback-repairs-20261013.md",
+    "Docs/Multiplayer/inventory-cooldown-station-recovery-20261013.md",
+    "Docs/Multiplayer/lifecycle-concurrency-assets-20261013.md",
+    "Docs/Multiplayer/martial-quickbar-ammo-recovery-20261013.md",
+    "Docs/Multiplayer/monster-action-branches-20261014.md",
+    "Docs/Multiplayer/movement-profile-congestion-20261013.md",
+    "Docs/Multiplayer/project-wide-source-sweep-20261013.md",
+    "Docs/Multiplayer/reconnect-respawn-travel-20261013.md",
+    "Docs/Multiplayer/transaction-disconnect-handoff-20261014.md",
+    "Docs/Multiplayer/world-feature-repairs-20261013.md"
+  ]
+}

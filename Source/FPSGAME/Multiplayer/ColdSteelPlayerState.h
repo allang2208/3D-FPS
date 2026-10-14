@@ -10,6 +10,9 @@
 #include "../Skills/FireMagicTypes.h"
 #include "../Skills/ElectricMagicTypes.h"
 #include "Super90NetworkTypes.h"
+#include "ColdSteelInventoryRequestTypes.h"
+#include "ColdSteelStationNetwork.h"
+#include "../Building/ColdSteelDoorNetState.h"
 #include "ColdSteelPlayerState.generated.h"
 
 class UColdSteelStatusModel;
@@ -35,6 +38,7 @@ struct FColdSteelNetHitReport
     UPROPERTY() FVector_NetQuantize ImpactPoint;
     UPROPERTY() FVector_NetQuantizeNormal HitNormal;
     UPROPERTY() FName BoneName;
+    UPROPERTY() FName HitComponent;
     UPROPERTY() FVector_NetQuantizeNormal Direction;
     UPROPERTY() FString ItemDefinition;
     /** 客户端自报标量伤害：仅作参考，服务端按武器包络钳制。 */
@@ -52,6 +56,7 @@ struct FColdSteelNetHitReport
     UPROPERTY() double ClientFireTime = 0.0;
     /** Groups targets from one blade swing; carries no client-provided buff values. */
     UPROPERTY() uint32 GuardAttackSerial = 0;
+    UPROPERTY() uint32 QuickCombatSerial = 0;
 };
 
 /**
@@ -68,6 +73,8 @@ struct FColdSteelNetCastRequest
 {
     GENERATED_BODY()
     UPROPERTY() FName SkillId;
+    UPROPERTY() TObjectPtr<APawn> SourcePawn=nullptr;
+    UPROPERTY() uint32 Sequence=0;
     UPROPERTY() uint8 Phase = 0;
     UPROPERTY() FVector_NetQuantize AimPoint = FVector::ZeroVector;
     UPROPERTY() FVector_NetQuantizeNormal AimNormal = FVector::UpVector;
@@ -87,6 +94,7 @@ struct FColdSteelNetHitReceipt
     UPROPERTY() bool bCritical = false;
     UPROPERTY() bool bKilled = false;
     UPROPERTY() bool bRejected = false;
+    UPROPERTY() bool bFirearm = false;
 };
 
 /** 全员可见的玩家公开信息（名牌/HUD/远端表现用的小字段，私有数据走 OwnerOnly）。 */
@@ -102,7 +110,7 @@ struct FColdSteelPublicPlayerInfo
 /**
  * 联机玩家数据归属（重构自 UColdSteelNetChannelComponent 的档案/命中通路）：
  * - 公开数据（武器/等级/击杀）复制到全员——远端玩家的名牌与 UI 数据源。
- * - 私有数据（服务端权威档案回写 MirrorBlob）仅复制给拥有者（COND_OwnerOnly）。
+ * - 私有数据（服务端权威档案回写 MirrorBlob）仅通过分片 Client RPC 发给拥有者。
  * - 服务端在这里持有每个远端玩家的影子档案（UColdSteelStatusModel::CreateShadowModel），
  *   命中校验、死亡结算、身体表现都从这里读权威状态。
  * - 客户端侧把本机档案快照分块上行给服务端（ServerSubmitProfileChunk）。
@@ -114,8 +122,12 @@ UCLASS()
 class FPSGAME_API AColdSteelPlayerState : public APlayerState
 {
     GENERATED_BODY()
+    friend class UBowSkillTrainingAuditCommandlet;
 
 public:
+    UFUNCTION(Client,Reliable) void ClientGlassBroken(const FString& ActorName,FVector_NetQuantize Point,FVector_NetQuantizeNormal Direction);
+    UFUNCTION(Client,Reliable) void ClientGeneratedDoorSwing(const FString& ActorName,const FColdSteelDoorNetState& State);
+    UFUNCTION(Client,Reliable) void ClientGeneratedContainerOpened(const FString& ActorName);
     AColdSteelPlayerState();
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -123,6 +135,7 @@ public:
 
     /** 服务端：客人档案位名登记 + 尝试从主机磁盘载回旧档（NetWorldSubsystem 轮询调）。 */
     void InitializeGuest(const FString& InSlotName);
+    void InitializeHostSession();
     bool IsGuestInitialized() const { return bGuestInitialized; }
 
     /** 服务端影子档案（权威数值源）。 */
@@ -133,15 +146,24 @@ public:
     UPROPERTY(ReplicatedUsing=OnRep_PublicInfo)
     FColdSteelPublicPlayerInfo PublicInfo;
     UFUNCTION() void OnRep_PublicInfo();
+    void GrantSessionDoorKey(FName Key);
+    bool HasSessionDoorKey(FName Key) const {return SessionDoorKeys.Contains(Key);}
+private:
+    // Session state survives pawn replacement and seamless travel, never disk saves.
+    UPROPERTY(Replicated) TArray<FName> SessionDoorKeys;
+public:
 
-    /** 私有镜像（COND_OwnerOnly）：服务端权威档案回写，仅拥有者可见。 */
-    UPROPERTY(ReplicatedUsing=OnRep_MirrorBlob)
+    /** 私有镜像由拥有者按分片组装；整块字节数组不能作为复制属性发送。 */
+    UPROPERTY(Transient)
     TArray<uint8> MirrorBlob;
     UFUNCTION() void OnRep_MirrorBlob();
+    UFUNCTION(Client, Reliable)
+    void ClientReceiveProfileChunk(uint32 TransferId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt);
 
     /** 档案快照分块上行（客户端→服务端）。TMap 不能直接 RPC，序列化成字节流按 1KB 分片。 */
     UFUNCTION(Server, Reliable)
-    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision);
+    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn);
+    UFUNCTION(Client,Reliable) void ClientRetryProfileUpload(int32 UploadId);
 
     uint32 RequestSuper90Shot(const FString& Weapon,const FVector& Eye,const FVector& Muzzle,const FVector& Aim,bool Aiming,int32 PredictedRounds);
     void RequestSuper90Reload(const FString& Weapon,const FString& Ammo);
@@ -149,9 +171,9 @@ public:
     bool IsSuper90ReloadPending() const {return bSuper90ReloadPending;}
     bool IsSuper90ServerReady(const FString& Weapon) const {return Super90ServerWeapons.Contains(Weapon);}
     UFUNCTION(Server,Reliable) void ServerSuper90Shot(uint32 Sequence,const FString& Weapon,FVector_NetQuantize Eye,
-        FVector_NetQuantize Muzzle,FVector_NetQuantizeNormal Aim,bool Aiming,double FiredAt);
-    UFUNCTION(Server,Reliable) void ServerSuper90Reload(uint32 Sequence,const FString& Weapon,const FString& Ammo);
-    UFUNCTION(Server,Reliable) void ServerSuper90Cancel(uint32 Sequence,bool Soft);
+        FVector_NetQuantize Muzzle,FVector_NetQuantizeNormal Aim,bool Aiming,double FiredAt,APawn* SourcePawn);
+    UFUNCTION(Server,Reliable) void ServerSuper90Reload(uint32 Sequence,const FString& Weapon,const FString& Ammo,APawn* SourcePawn);
+    UFUNCTION(Server,Reliable) void ServerSuper90Cancel(uint32 Sequence,bool Soft,APawn* SourcePawn);
     UFUNCTION(Client,Reliable) void ClientSuper90Ammo(const FSuper90NetAmmoState& State);
     UFUNCTION(NetMulticast,Unreliable) void MulticastSuper90Shot(class AFPSGAMECharacter* Shooter,FVector_NetQuantize Muzzle,
         const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt);
@@ -159,6 +181,10 @@ public:
     /** 客户端命中上报：只报开火几何与武器声明，数值由服务端按影子档案重算。 */
     UFUNCTION(Server, Reliable)
     void ServerReportHit(const FColdSteelNetHitReport& Report);
+    UFUNCTION(Server,Reliable) void ServerReleaseRiftSlash(uint32 Sequence,const FString& Weapon,FVector_NetQuantize Origin,FVector_NetQuantizeNormal Direction,uint32 GuardSerial,bool bAzureDragon,bool bClovenCounter);
+    uint32 LastRiftSequence=0;
+    double LastRiftReleasedAt=-100.;
+    TWeakObjectPtr<APawn> RiftPawn;
 
     /** 服务端命中回执。 */
     UFUNCTION(Client, Reliable)
@@ -172,13 +198,18 @@ public:
     UFUNCTION(Server, Unreliable)
     void ServerReportShotStamp();
 
+    /** One reliable start/cancel per draw; no per-frame timing reports. */
+    UFUNCTION(Server, Reliable)
+    void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds);
+
     /** 施法意图上报：见 FColdSteelNetCastRequest。 */
     UFUNCTION(Server, Reliable)
     void ServerCastSpell(const FColdSteelNetCastRequest& Request);
+    void RequestCastSpell(FColdSteelNetCastRequest Request);
 
     /** 施法回执：Code 0=受理；其余为拒因，Phase 回传以便本地收尾。 */
     UFUNCTION(Client, Reliable)
-    void ClientCastResult(FName SkillId, uint8 Phase, uint8 Code);
+    void ClientCastResult(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence);
 
     /** Focus intent shares the reliable cast channel: 0 cancel, 1 open, 2 close. */
     UFUNCTION(Server, Reliable)
@@ -196,9 +227,116 @@ public:
 
 public:
     /** 服务端：影子档案落盘到主机磁盘（玩家离开时由 NetWorldSubsystem 调用）。 */
-    void SaveShadowToHostDisk();
+    bool SaveShadowToHostDisk();
+    void PrepareForDisconnect();
+    const FString& CampfireGuestSlot() const { return SlotName; }
+    /** UI sends intents on the owned PlayerState channel, never on a world-owned campfire. */
+    bool RequestCampfire(class AColdSteelCampfire* Fire,uint8 Action,FName Recipe=NAME_None,int64 Batch=1);
+    bool CampfireRequestPending() const { return bCampfirePending; }
+    const FString& CampfireMessage() const { return CampfireResultText; }
+    UFUNCTION(Server,Reliable) void ServerCampfireRequest(AColdSteelCampfire* Fire,int32 RequestId,uint8 Action,FName Recipe,int64 Batch,int64 InventoryRevision,APawn* RequestPawn);
+    UFUNCTION(Client,Reliable) void ClientCampfireResult(int32 RequestId,int64 InventoryRevision,const FString& Reason);
+    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+    bool RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item=FString(),AActor* Target=nullptr);
+    bool RequestInventoryAction(FColdSteelInventoryRequest Request);
+    void AcknowledgeInventoryProfile();
+    void SyncMartialCooldowns(const FColdSteelProfile& Profile,bool Immediate);
+    UFUNCTION(Server,Reliable) void ServerMartialCooldowns(APawn* SourcePawn,int64 Revision,float Whirlwind,
+        float WhirlwindDuration,float Uppercut,float UppercutDuration,double CapturedAt);
+    bool ExecuteWorldAction(const FColdSteelInventoryRequest& Request,UColdSteelStatusModel* Model,FString& Reason);
+    bool RequestTeamTravel(AActor* Entrance);
+    UFUNCTION(Server,Reliable) void ServerTeamTravel(AActor* Entrance);
+    UFUNCTION(Client,Reliable) void ClientPrepareTeamTravel(FGuid TravelId);
+    UFUNCTION(Server,Reliable) void ServerTeamTravelReady(FGuid TravelId,int32 AcceptedUploadId);
+    UFUNCTION(Client,Reliable) void ClientTeamTravelSaveFailed(FGuid TravelId,const FString& Reason);
+    void AbortTeamTravel(const FString& Reason);
+    void InvalidateTeamTravelReady();
+    bool SaveTeamTravelParticipant();
+    virtual void CopyProperties(APlayerState* Other) override;
+    void TickTeamTravel();
+    void TickWorldNetwork(float Delta);
+    bool ExecuteStation(const FColdSteelInventoryRequest& R,UColdSteelStatusModel* M,FString& Reason);
+    bool StationReach(FName Kind) const;
+    void InitializeStations(UColdSteelStatusModel* M);
+    void TickStations(float Delta);
+    bool CloseStationSessions();
+    UFUNCTION(Server,Reliable) void ServerStationInput(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B,uint32 Sequence);
+    void TickWoodNetwork();
+    UFUNCTION(Client,Reliable) void ClientWoodChunk(int32 Transfer,uint32 Ack,int32 Index,int32 Total,const TArray<uint8>& Bytes,APawn* SourcePawn);
+    uint32 WoodInputSerial=0,WoodAuthoritySequence=0,WoodOutgoingAck=0,WoodIncomingAck=0;
+    int32 WoodTransfer=0,WoodChunk=0,WoodReceiving=0,WoodTotal=0;
+    TArray<uint8> WoodOutgoing,WoodIncoming;
+    TWeakObjectPtr<APawn> WoodOutgoingPawn;
+    double WoodSendAt=0.,WoodPublishAt=0.;
+    bool bWoodDirty=false;
+    UFUNCTION(Client,Reliable) void ClientStationState(const FColdSteelForgeNetState& Forge,const FColdSteelAssemblyNetState& Assembly,APawn* SourcePawn);
+    UPROPERTY() TObjectPtr<class UColdSteelForgingSystem> GuestForge;
+    UPROPERTY() TObjectPtr<class UGunAssemblySystem> GuestAssembly;
+    UPROPERTY() TObjectPtr<class UWoodworkingSystem> GuestWood;
+    double StationPublishAt=0,CalibrationAt=0,HarvestAt=0;
+    bool bStationDirty=false;
+    UFUNCTION(Client,Reliable) void ClientWorldChunk(int32 Serial,int32 Index,int32 Total,const TArray<uint8>& Bytes);
+    UPROPERTY() TObjectPtr<class UColdSteelWorldSnapshot> PendingWorldState;
+    uint64 LastBuildingSentRevision=0;
+    TWeakObjectPtr<class AVoxelBuildWorld> LastBuildingSentWorld;
+    TWeakObjectPtr<UWorld> WorldStreamWorld;
+    void EnsureWorldStreamContext();
+    bool ApplyWorldState();
+    TArray<uint8> WorldOutgoing,WorldIncoming,WorldLastSent;
+    int32 WorldSerial=0,WorldChunk=0,WorldReceiveSerial=0,WorldReceiveTotal=0;
+    double WorldSendAt=0,WorldSnapshotAt=0,WorldApplyAt=0;
+    bool bWorldHarvestApplied=false;
+    bool bTravelFlush=false,bTravelReady=false,bTravelNeedsFreshUpload=false;
+    bool bDisconnectPrepared=false;
+    bool bWasLocalOwner=false;
+    FGuid TeamTravelId;
+    TWeakObjectPtr<UWorld> TeamTravelWorld;
+    TWeakObjectPtr<APawn> TeamTravelPawn;
+    FString TeamDestination,TeamOptions;
+    double TeamTravelStarted=0.;
+    bool InventoryRequestPending() const {return bInventoryRequestPending;}
+    void RequestQuickCombat(float Duration,float PredictedCost);
+    void FinishQuickCombat();
+    UFUNCTION(Server,Reliable) void ServerQuickCombat(uint32 Sequence,APawn* Pawn,float Duration,bool Finish);
+    UFUNCTION(Client,Reliable) void ClientQuickCombatRejected(uint32 Sequence);
+    UFUNCTION(Server,Reliable) void ServerInventoryAction(const FColdSteelInventoryRequest& Request);
+    UFUNCTION(Client,Reliable) void ClientInventoryReplyChunk(uint32 Sequence,int32 Index,int32 Total,const TArray<uint8>& Chunk);
+    UFUNCTION(Client,Reliable) void ClientInventoryBaseline(const FString& Digest,int64 Souls,int64 Credits,int64 Debits);
+    UFUNCTION(Server,Reliable) void ServerWarehouseOpen(class AColdSteelWarehouseChest* Chest,bool Open);
+    UFUNCTION(Client,Reliable) void ClientContainerInvalidated(AActor* Target);
+    UFUNCTION(NetMulticast,Reliable) void MulticastSharedChestOpened(AActor* Target);
 
 private:
+    bool bContainerNeedsRefresh=false;
+    friend class UColdSteelAcquisitionAuditCommandlet;
+    void TickContainerRefresh();
+    uint32 QuickCombatSequence=0,QuickCombatServerSequence=0;
+    double QuickCombatUntil=0.;
+    TMap<uint32,float> QuickCombatPredictedCosts;
+    TWeakObjectPtr<APawn> QuickCombatPawn;
+    TSet<TWeakObjectPtr<AActor>> QuickCombatTargets;
+    int64 ConfirmedSouls=-1,ConfirmedSoulCredits=-1,ConfirmedSoulDebits=-1;
+    bool bInventoryRequestPending=false;
+    bool bInventoryWaitingUpload=false;
+    UPROPERTY() FColdSteelInventoryRequest PendingInventoryRequest;
+    void DispatchInventoryAfterUpload();
+    TArray<uint8> AcknowledgedInventoryBaseline;
+    static TArray<uint8> InventoryBaseline(const FColdSteelProfile& Profile);
+    void SendInventoryBaseline();
+    bool ExecuteBowShot(const FColdSteelInventoryRequest& Request,UColdSteelStatusModel* Model,FString& Reason);
+    double LastBowShotAt=-100.;
+    TWeakObjectPtr<APawn> BowDrawPawn;
+    FString BowDrawWeapon;
+    double BowDrawStartedAt=-1.;
+    float BowDrawSeconds=0.f;
+    TWeakObjectPtr<APawn> InventoryRequestPawn;
+    uint32 InventoryRequestSequence=0,LastInventoryRequestSequence=0,ReplySequence=0;
+    TArray<uint8> InventoryReplyOutgoing,InventoryReplyIncoming;
+    int32 InventoryReplyChunk=0,InventoryReplyTotal=0;
+    double LastInventoryReplyAt=0.;
+    void TickInventoryReply();
+    void QueueInventoryReply(const FColdSteelInventoryRequest& Request,bool Success,const FString& Reason,
+        const FColdSteelProfile& Before,const FColdSteelProfile& After);
     uint32 Super90LocalSequence=0,Super90ProcessedSequence=0,Super90Revision=0,Super90AppliedRevision=0;
     uint32 PendingSuper90Revision=0,IncomingSuper90Revision=0;
     TArray<FSuper90PredictedShot> Super90PredictedShots;
@@ -209,13 +347,30 @@ private:
     bool bSuper90ReloadPending=false,bSuper90SoftCancelSent=false;
     double Super90LastFireTime=-100.,Super90NextFireTime=-100.;
     void TickSuper90Authority(float DeltaSeconds);
+    void TickSuper90Recovery();
+    TWeakObjectPtr<APawn> Super90ClientPawn;
+    UPROPERTY() FSuper90NetAmmoState PendingSuper90State;
+    bool bPendingSuper90State=false;
     void SendSuper90Ammo(bool Rejected=false);
     void RecordSuper90PouchChange(const FColdSteelProfile& Before,const FColdSteelProfile& After);
-    bool RebaseSuper90Upload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous) const;
+    bool RebaseSuper90Upload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous,bool KeepServerPouch) const;
     void PreserveSuper90ClientAmmo(FColdSteelProfile& Incoming) const;
     class AFPSGAMECharacter* Super90AuthorityPawn(const FString& Weapon);
     void FinishSuper90AuthorityReload();
-    void ApplyGuestProfile(const FColdSteelProfile& Profile);
+    bool bCampfirePending=false,bCampfireWaitingUpload=false;
+    int32 CampfireRequestId=0,LastCampfireRequestId=0;
+    int64 CampfireResultRevision=-1;
+    uint8 PendingCampfireAction=0;
+    FName PendingCampfireRecipe;
+    int64 PendingCampfireBatch=1;
+    TWeakObjectPtr<AColdSteelCampfire> PendingCampfire;
+    TWeakObjectPtr<APawn> PendingCampfirePawn;
+    FString CampfireResultText;
+    double LastCampfireRequestAt=-100;
+    void FinishCampfireReceipt();
+    void DispatchCampfireAfterUpload();
+    bool ApplyGuestProfile(const FColdSteelProfile& Profile);
+    UFUNCTION(Client,Reliable) void ClientProfileSyncRejected(const FString& Reason);
     void ApplyShadowToServerPawn();
     void TickUpload(float DeltaSeconds);
     void TickShadowMirror(float DeltaSeconds);
@@ -231,13 +386,13 @@ private:
 
     FString SlotName;
     bool bGuestInitialized = false;
+    bool bRestoreGuestAmmo=false;
+    double MartialPublishAt=0.;
+    FGuid BoundProfileId;
     bool bServerDirty = false;
     float ServerSaveTimer = 0.f;
     float ShadowMirrorTimer = 0.f;
     float PublicInfoTimer = 0.f;
-    /** 修行点数采纳基线：ApplyGuestProfile 差分出服务端授予增量（升级奖励），
-     *  叠回客户端申报值——客户端花费与服务端授予两个写者互不覆盖。 */
-    int32 ServerPointsBaseline = 0;
     /** 表现层 RPC 防抖：远端开火戳/离散动作上报的最小到达间隔。 */
     double LastShotStampAt = -100.0;
     double LastBodyActionAt = -100.0;
@@ -245,6 +400,8 @@ private:
     /** 服务端施法执行器：按 SkillId 分派到各族实现（当前仅 fireball）。 */
     void ExecuteCastRequest(const FColdSteelNetCastRequest& Request);
     /** 服务端已凝聚未发射的权威 orb：发射/取消/看门狗清理共用。 */
+    void CancelPendingNetworkCast();
+    TWeakObjectPtr<APawn> PendingCastPawn;
     TWeakObjectPtr<AActor> PendingCastOrb;
     FName PendingCastSkill = NAME_None;
     double PendingCastAt = -100.0;
@@ -271,15 +428,17 @@ private:
     /** 在途上传对应的归一 blob，完成时迁入 LastSentNormBlob。 */
     TArray<uint8> PendingNormBlob;
     bool bHasLastSent = false;
-    /** 上次整块实际完成上行的时间（世界秒）：结构不变时 30s 兜底把生命体征漂移带上去。 */
+    /** 最近分片发送的真实时间；整块完成后也作为 30s 生命体征补传的基准。 */
     double LastUploadAt = 0.0;
     static constexpr double VitalFlushInterval = 30.0;
     TArray<uint8> PendingUpload;
+    TWeakObjectPtr<APawn> PendingUploadPawn,IncomingUploadPawn;
     int32 PendingUploadId = 0;
     int32 NextChunkIndex = 0;
     int32 PendingTotalChunks = 0;
     float HeartbeatTimer = 2.f;
     int32 IncomingUploadId = INDEX_NONE;
+    int32 LastAcceptedUploadId = INDEX_NONE;
     int32 IncomingReceived = 0;
     int32 IncomingTotal = 0;
     TArray<uint8> IncomingBlob;
@@ -287,6 +446,16 @@ private:
     TArray<uint8> LastAppliedBlob;
     /** 最近一次下发给拥有者的镜像整块：无服务端侧变更则不重复写 MirrorBlob。 */
     TArray<uint8> LastMirrorBlob;
+    TArray<uint8> PendingMirrorBlob;
+    TWeakObjectPtr<APawn> PendingMirrorPawn,ReceivingMirrorPawn;
+    bool bMirrorReady=false;
+    uint32 LocalCastSequence=0,ProcessedCastSequence=0,PendingMirrorCastSequence=0,ReceivingMirrorCastSequence=0;
+    double PendingMirrorCapturedAt=0.,ReceivingMirrorCapturedAt=0.;
+    uint32 MirrorTransferId = 0;
+    int32 NextMirrorChunk = 0;
+    double LastMirrorChunkAt = 0.0;
+    uint32 ReceivingMirrorId = 0;
+    int32 ReceivingMirrorTotal = 0;
 
     /** 服务端命中限流：按影子档案的射速发令牌，容忍批量补射（最大连补数）。 */
     float FireTokenBucket = 4.f;
