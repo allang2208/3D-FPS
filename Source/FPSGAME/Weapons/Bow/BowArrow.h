@@ -15,10 +15,22 @@ class UCapsuleComponent;
 class USphereComponent;
 class UPrimitiveComponent;
 
+USTRUCT()
+struct FBowArrowPresentation
+{
+    GENERATED_BODY()
+    UPROPERTY() TObjectPtr<UStaticMesh> Shaft=nullptr;
+    UPROPERTY() TObjectPtr<UStaticMesh> Head=nullptr;
+    UPROPERTY() FString Ammo;
+    UPROPERTY() float Radius=.3f;
+    UPROPERTY() float Length=76.f;
+};
+
 UCLASS()
 class FPSGAME_API ABowArrow : public AActor
 {
     GENERATED_BODY()
+    friend class UBowSkillTrainingAuditCommandlet;
 
 public:
     ABowArrow();
@@ -36,6 +48,7 @@ public:
     FString RecoveryPrompt() const;
     bool TryRecover(APawn* Pawn);
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
     /** 命中结算：一次扫掠一个目标，命中后不再重复扣血。 */
@@ -53,7 +66,11 @@ private:
     float Speed = 0.f;
     float Damage = 0.f, GravityCM = 0.f, TravelledCM = 0.f, MaxDistanceCM = 0.f;
     float Age = 0.f;
-    bool bResolved = false, bStuck = false;
+    bool bResolved = false;
+    UPROPERTY(ReplicatedUsing=OnRep_Stuck) bool bStuck = false;
+    UPROPERTY(ReplicatedUsing=OnRep_Presentation) FBowArrowPresentation Presentation;
+    UFUNCTION() void OnRep_Presentation();
+    UFUNCTION() void OnRep_Stuck();
 
     /** 单步不超过这个长度：9800 cm/s 在 30 fps 下也不会穿过薄墙。 */
     static constexpr float StepCM = 60.f;
@@ -62,7 +79,7 @@ private:
     float CollisionRadiusCM = .35f;
     // Overlaps only: the E trace sees this shape, weapon blocking traces do not.
     UPROPERTY(VisibleAnywhere) TObjectPtr<UCapsuleComponent> RecoveryShape;
-    bool bRecoverable = false;
+    UPROPERTY(ReplicatedUsing=OnRep_Stuck) bool bRecoverable = false;
     float RecoverySeconds = 120.f;
     FString RecoveryCaption;
     UPROPERTY(VisibleAnywhere) TObjectPtr<USphereComponent> AutoRecovery;

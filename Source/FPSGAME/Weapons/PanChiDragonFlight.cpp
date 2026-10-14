@@ -1,4 +1,5 @@
 #include "PanChiGuardComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "SwordWaveTuning.h"
 #include "PanChiUppercutTuning.h"
 #include "MeleeWeaponStats.h"
@@ -135,7 +136,7 @@ void UPanChiGuardComponent::TickDragonFlight(float Delta)
     for(;;)
     {
         TArray<FHitResult> Hits;bool bPastBody=false;
-        GetWorld()->SweepMultiByChannel(Hits,Start,End,ReleaseRotation.Quaternion(),ECC_Visibility,
+        RangedAttackQuery::SweepMulti(GetWorld(), GetOwner(), Hits,Start,End,ReleaseRotation.Quaternion(),ECC_Visibility,
             FCollisionShape::MakeBox(FVector(6.f,88.f*PanChiUppercut::DragonWidthScale,36.f*PanChiUppercut::DragonWidthScale)),Query);
         for(const FHitResult& Hit:Hits)
         {

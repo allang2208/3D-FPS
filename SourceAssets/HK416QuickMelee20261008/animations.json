@@ -1,0 +1,175 @@
+{
+  "reference": "M4QuickMeleeRefine20260919N",
+  "source_fps": 120,
+  "playback_fps": 180,
+  "duration": 0.6,
+  "contact": 0.1111111111111111,
+  "travel_gain": 0.7,
+  "rotation_gain": 0.9,
+  "native_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416Reworked20260930\\HK416_Gameplay_Editable.blend",
+  "runtime_tested": false,
+  "clips": {
+    "base": {
+      "family": "base",
+      "name": "A_HK416_base_quick_melee",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\base\\A_HK416_base_quick_melee.fbx",
+      "duration": 0.6,
+      "source_action": "HK416_base_quick_melee",
+      "support": {
+        "shoulder_anchors_m": {
+          "r": [
+            0.0963648185133934,
+            -0.14333684742450714,
+            -0.06538783758878708
+          ],
+          "l": [
+            -0.2826804518699646,
+            -0.15241430699825287,
+            -0.14732034504413605
+          ]
+        },
+        "reach_fraction": {
+          "r": 0.91,
+          "l": 0.91
+        },
+        "maximum_additional_group_retreat_m": 0.0,
+        "maximum_additional_group_translation_m": 0.0
+      }
+    },
+    "drum": {
+      "family": "drum",
+      "name": "A_HK416_drum_quick_melee",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\drum\\A_HK416_drum_quick_melee.fbx",
+      "duration": 0.6,
+      "source_action": "HK416_drum_quick_melee",
+      "support": {
+        "shoulder_anchors_m": {
+          "r": [
+            0.09636485576629639,
+            -0.14333686232566833,
+            -0.0653878003358841
+          ],
+          "l": [
+            -0.2826938331127167,
+            -0.13441036641597748,
+            -0.14731934666633606
+          ]
+        },
+        "reach_fraction": {
+          "r": 0.91,
+          "l": 0.91
+        },
+        "maximum_additional_group_retreat_m": 0.0,
+        "maximum_additional_group_translation_m": 0.0
+      }
+    },
+    "angled": {
+      "family": "angled",
+      "name": "A_HK416_angled_quick_melee",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\angled\\A_HK416_angled_quick_melee.fbx",
+      "duration": 0.6,
+      "source_action": "HK416_angled_quick_melee",
+      "support": {
+        "shoulder_anchors_m": {
+          "r": [
+            0.09636491537094116,
+            -0.14333687722682953,
+            -0.06538774073123932
+          ],
+          "l": [
+            -0.28607630729675293,
+            -0.11101222038269043,
+            -0.16777321696281433
+          ]
+        },
+        "reach_fraction": {
+          "r": 0.91,
+          "l": 0.91
+        },
+        "maximum_additional_group_retreat_m": 0.0,
+        "maximum_additional_group_translation_m": 0.0
+      }
+    },
+    "vertical": {
+      "family": "vertical",
+      "name": "A_HK416_vertical_quick_melee",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\vertical\\A_HK416_vertical_quick_melee.fbx",
+      "duration": 0.6,
+      "source_action": "HK416_vertical_quick_melee",
+      "support": {
+        "shoulder_anchors_m": {
+          "r": [
+            0.09636484831571579,
+            -0.14333680272102356,
+            -0.06538790464401245
+          ],
+          "l": [
+            -0.267345666885376,
+            -0.12310825288295746,
+            -0.14867448806762695
+          ]
+        },
+        "reach_fraction": {
+          "r": 0.91,
+          "l": 0.91
+        },
+        "maximum_additional_group_retreat_m": 0.0,
+        "maximum_additional_group_translation_m": 0.0
+      }
+    },
+    "canted": {
+      "family": "canted",
+      "name": "A_HK416_canted_quick_melee",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\canted\\A_HK416_canted_quick_melee.fbx",
+      "duration": 0.6,
+      "source_action": "HK416_canted_quick_melee",
+      "support": {
+        "shoulder_anchors_m": {
+          "r": [
+            0.09636491537094116,
+            -0.14333687722682953,
+            -0.06538774073123932
+          ],
+          "l": [
+            -0.2690843343734741,
+            -0.12071964144706726,
+            -0.15755052864551544
+          ]
+        },
+        "reach_fraction": {
+          "r": 0.91,
+          "l": 0.91
+        },
+        "maximum_additional_group_retreat_m": 0.0,
+        "maximum_additional_group_translation_m": 0.0
+      }
+    },
+    "prism": {
+      "family": "prism",
+      "name": "A_HK416_prism_quick_melee",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\prism\\A_HK416_prism_quick_melee.fbx",
+      "duration": 0.6,
+      "source_action": "HK416_prism_quick_melee",
+      "support": {
+        "shoulder_anchors_m": {
+          "r": [
+            0.09636491537094116,
+            -0.14333687722682953,
+            -0.06538774073123932
+          ],
+          "l": [
+            -0.27013781666755676,
+            -0.12319338321685791,
+            -0.17683391273021698
+          ]
+        },
+        "reach_fraction": {
+          "r": 0.91,
+          "l": 0.91
+        },
+        "maximum_additional_group_retreat_m": 0.0,
+        "maximum_additional_group_translation_m": 0.0
+      }
+    }
+  }
+}

@@ -1,0 +1,2642 @@
+{
+  "families": {
+    "M4": {
+      "host": {
+        "path": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M4-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768760212284086,
+            -14.374750594346285,
+            -9.835331576070217,
+            -0.04361946398912569,
+            -6.147214260984521e-07,
+            0.9990482182356238,
+            1.0722188746729911e-06,
+            100.00000000000004,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447219831340179,
+            -22.519750055451937,
+            -17.623072531391127,
+            0.0436194602672913,
+            -1.3662627633426253e-08,
+            -0.9990482183988278,
+            -3.445651908201981e-07,
+            100.00000000000007,
+            99.99997019768013,
+            99.99998807907107
+          ],
+          "WPN_Trigger": [
+            5.556531352104787,
+            -19.336706645893432,
+            -7.365820588489469,
+            0.04361946026729065,
+            -1.0616319407953621e-08,
+            -0.9990482183988015,
+            -4.1434741151327653e-07,
+            100.00000000000003,
+            99.99997615814317,
+            99.99998807907106
+          ],
+          "WPN_bolt": [
+            5.4814497772541975,
+            -21.283836768217803,
+            -6.551381786126509,
+            0.043619460267290536,
+            -1.0413143719475843e-08,
+            -0.9990482183987995,
+            -4.189995897908408e-07,
+            100.00000000000007,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_RearSight": [
+            4.6151706388644165,
+            -17.907199391619606,
+            3.394070797892934,
+            0.043619460267290536,
+            -1.0819438419546337e-08,
+            -0.9990482183988031,
+            -4.096952306266791e-07,
+            100.00000000000004,
+            99.99997615814321,
+            99.99998807907107
+          ],
+          "WPN_FrontSight": [
+            4.622288991542085,
+            -49.25251334799349,
+            3.3668115140851107,
+            0.043619460267291146,
+            -1.1630899357610434e-08,
+            -0.9990482183988109,
+            -3.910876011494113e-07,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907106
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.141207257374474,
+            -59.37474801233209,
+            -2.662735850866582,
+            0.04361946026729048,
+            -1.0413679603398204e-08,
+            -0.9990482183987995,
+            -4.189990442828412e-07,
+            100.00000000000007,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_SOCKET_Eject": [
+            2.4378257230835327,
+            -22.374748973510542,
+            -1.5942812729417666,
+            0.043619460267290154,
+            -1.0006905803843132e-08,
+            -0.9990482183987958,
+            -4.2830395134199075e-07,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907106
+          ],
+          "WPN_ChargingHandle": [
+            4.940776739838681,
+            -13.374760590310853,
+            -0.3714790858615924,
+            0.043619385832485445,
+            6.139090443460225e-07,
+            -0.9990482216480396,
+            -1.053610092295614e-06,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907104
+          ],
+          "WPN_BoltCatch": [
+            3.890209619784349,
+            -23.714751341575624,
+            -5.803725294473838,
+            0.043619385832485445,
+            6.139090443460225e-07,
+            -0.9990482216480396,
+            -1.053610092295614e-06,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907104
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/M4/laser/SM_TacticalDevice",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M4-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              5.306141278127659,
+              36.37367440565987,
+              7.799936085939407
+            ],
+            "AimGuide": [
+              5.306141540396011,
+              39.37367452486916,
+              7.799936085939407
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_laser",
+              "path": "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Body_OpticalV2.M_M4_laser_Body_OpticalV2"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_8f08ad0bcf.MI_M4_R01_mount_8f08ad0bcf"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/SM_TacticalDevice",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M4-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              4.689715408415211,
+              38.10260850915586,
+              7.800582051277161
+            ],
+            "AimGuide": [
+              4.6897156706835625,
+              41.10260862836514,
+              7.800582051277161
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_flashlight",
+              "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Body_MetalTail.M_M4_flashlight_Body_MetalTail"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_3b90647a37.MI_M4_R01_mount_3b90647a37"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_M4",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M4-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              5.306141278127659,
+              36.37367440565987,
+              7.799936085939407
+            ],
+            "AimGuide": [
+              5.306141540396011,
+              39.37367452486916,
+              7.799936085939407
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_M4_R01_mount_8f08ad0bcf",
+              "path": "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_8f08ad0bcf.MI_M4_R01_mount_8f08ad0bcf"
+            }
+          ]
+        }
+      }
+    },
+    "AKM": {
+      "host": {
+        "path": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\AKM-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768760212284086,
+            -14.374750594346285,
+            -9.835331576070217,
+            -0.04361946398912569,
+            -6.147214260984521e-07,
+            0.9990482182356238,
+            1.0722188746729911e-06,
+            100.00000000000004,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447219831340179,
+            -22.519750055451937,
+            -17.623072531391127,
+            0.0436194602672913,
+            -1.3662627633426253e-08,
+            -0.9990482183988278,
+            -3.445651908201981e-07,
+            100.00000000000007,
+            99.99997019768013,
+            99.99998807907107
+          ],
+          "WPN_Trigger": [
+            5.556531352104787,
+            -19.336706645893432,
+            -7.365820588489469,
+            0.04361946026729065,
+            -1.0616319407953621e-08,
+            -0.9990482183988015,
+            -4.1434741151327653e-07,
+            100.00000000000003,
+            99.99997615814317,
+            99.99998807907106
+          ],
+          "WPN_bolt": [
+            5.4814497772541975,
+            -21.283836768217803,
+            -6.551381786126509,
+            0.043619460267290536,
+            -1.0413143719475843e-08,
+            -0.9990482183987995,
+            -4.189995897908408e-07,
+            100.00000000000007,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_RearSight": [
+            4.6151706388644165,
+            -17.907199391619606,
+            3.394070797892934,
+            0.043619460267290536,
+            -1.0819438419546337e-08,
+            -0.9990482183988031,
+            -4.096952306266791e-07,
+            100.00000000000004,
+            99.99997615814321,
+            99.99998807907107
+          ],
+          "WPN_FrontSight": [
+            4.622288991542085,
+            -49.25251334799349,
+            3.3668115140851107,
+            0.043619460267291146,
+            -1.1630899357610434e-08,
+            -0.9990482183988109,
+            -3.910876011494113e-07,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907106
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.141207257374474,
+            -59.37474801233209,
+            -2.662735850866582,
+            0.04361946026729048,
+            -1.0413679603398204e-08,
+            -0.9990482183987995,
+            -4.189990442828412e-07,
+            100.00000000000007,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_SOCKET_Eject": [
+            2.4378257230835327,
+            -22.374748973510542,
+            -1.5942812729417666,
+            0.043619460267290154,
+            -1.0006905803843132e-08,
+            -0.9990482183987958,
+            -4.2830395134199075e-07,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907106
+          ],
+          "WPN_ChargingHandle": [
+            4.940776739838681,
+            -13.374760590310853,
+            -0.3714790858615924,
+            0.043619385832485445,
+            6.139090443460225e-07,
+            -0.9990482216480396,
+            -1.053610092295614e-06,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907104
+          ],
+          "WPN_BoltCatch": [
+            3.890209619784349,
+            -23.714751341575624,
+            -5.803725294473838,
+            0.043619385832485445,
+            6.139090443460225e-07,
+            -0.9990482216480396,
+            -1.053610092295614e-06,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907104
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/AKM/laser/SM_TacticalDevice",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\AKM-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.623187445578241,
+              35.373675419039905,
+              5.699730664491653
+            ],
+            "AimGuide": [
+              4.62318770784659,
+              38.37367553824918,
+              5.699730664491653
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_laser",
+              "path": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2.M_AKM_laser_Body_OpticalV2"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_d6c787a550.MI_AKM_R01_mount_d6c787a550"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/SM_TacticalDevice",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\AKM-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              4.006390164427203,
+              37.102657206284185,
+              5.7005830109119415
+            ],
+            "AimGuide": [
+              4.006390426695555,
+              40.10265732549345,
+              5.7005830109119415
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_flashlight",
+              "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body_MetalTail.M_AKM_flashlight_Body_MetalTail"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_3c7ed344f1.MI_AKM_R01_mount_3c7ed344f1"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_AKM",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\AKM-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.623187445578241,
+              35.373675419039905,
+              5.699730664491653
+            ],
+            "AimGuide": [
+              4.62318770784659,
+              38.37367553824918,
+              5.699730664491653
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_AKM_R01_mount_d6c787a550",
+              "path": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_d6c787a550.MI_AKM_R01_mount_d6c787a550"
+            }
+          ]
+        }
+      }
+    },
+    "QBZ191": {
+      "host": {
+        "path": "/Game/Weapons/QBZ191/Attachments20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\QBZ191-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768760212284086,
+            -14.374750594346285,
+            -9.835331576070217,
+            -0.04361946398912569,
+            -6.147214260984521e-07,
+            0.9990482182356238,
+            1.0722188746729911e-06,
+            100.00000000000004,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447219831340179,
+            -22.519750055451937,
+            -17.623072531391127,
+            0.0436194602672913,
+            -1.3662627633426253e-08,
+            -0.9990482183988278,
+            -3.445651908201981e-07,
+            100.00000000000007,
+            99.99997019768013,
+            99.99998807907107
+          ],
+          "WPN_Trigger": [
+            5.556531352104787,
+            -19.336706645893432,
+            -7.365820588489469,
+            0.04361946026729065,
+            -1.0616319407953621e-08,
+            -0.9990482183988015,
+            -4.1434741151327653e-07,
+            100.00000000000003,
+            99.99997615814317,
+            99.99998807907106
+          ],
+          "WPN_bolt": [
+            5.4814497772541975,
+            -21.283836768217803,
+            -6.551381786126509,
+            0.043619460267290536,
+            -1.0413143719475843e-08,
+            -0.9990482183987995,
+            -4.189995897908408e-07,
+            100.00000000000007,
+            99.99997615814318,
+            99.99998807907107
+          ],
+          "WPN_RearSight": [
+            4.635618740373768,
+            -13.451661998150858,
+            2.327093105240974,
+            0.04361946026729048,
+            -1.0819500161841592e-08,
+            -0.9990482183988033,
+            -4.096951196043864e-07,
+            100.00000000000004,
+            99.99997615814321,
+            99.99998807907107
+          ],
+          "WPN_FrontSight": [
+            4.6499053478790415,
+            -48.72615823865331,
+            2.1617664290684013,
+            0.0436194602672901,
+            -1.000744173633776e-08,
+            -0.9990482183987957,
+            -4.2830340577848004e-07,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907106
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.172232387542654,
+            -70.57474648434585,
+            -4.165812864267671,
+            0.04361946026731924,
+            1.38456247819688e-07,
+            -0.9990482183987918,
+            -4.1249923197055776e-07,
+            100.00000000000004,
+            99.99997615814318,
+            99.9999880790711
+          ],
+          "WPN_SOCKET_Eject": [
+            2.607149993739756,
+            -23.37475395043286,
+            -2.3825319161782987,
+            0.04361946026729114,
+            -1.3256806828652078e-08,
+            -0.9990482183988247,
+            -3.5386911555416426e-07,
+            100.00000000000004,
+            99.99997615814321,
+            99.99998807907106
+          ],
+          "WPN_ChargingHandle": [
+            4.940776739838681,
+            -13.374760590310853,
+            -0.3714790858615924,
+            0.043619385832485445,
+            6.139090443460225e-07,
+            -0.9990482216480396,
+            -1.053610092295614e-06,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907104
+          ],
+          "WPN_BoltCatch": [
+            3.890209619784349,
+            -23.714751341575624,
+            -5.803725294473838,
+            0.043619385832485445,
+            6.139090443460225e-07,
+            -0.9990482216480396,
+            -1.053610092295614e-06,
+            100.00000000000003,
+            99.99997615814318,
+            99.99998807907104
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/SM_TacticalDevice",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\QBZ191-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.746888905338873,
+              33.57367474065355,
+              6.999805569648743
+            ],
+            "AimGuide": [
+              4.746889540136255,
+              36.5736748598628,
+              6.999805569648743
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_laser",
+              "path": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Body.M_QBZ191_laser_Body"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Collar.M_QBZ191_laser_Collar"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/SM_TacticalDevice",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\QBZ191-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              4.130250694083582,
+              35.302656527883926,
+              7.0005811750888824
+            ],
+            "AimGuide": [
+              4.130251328880961,
+              38.30265664709317,
+              7.0005811750888824
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_flashlight",
+              "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/M_QBZ191_flashlight_Body.M_QBZ191_flashlight_Body"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/M_QBZ191_flashlight_Collar.M_QBZ191_flashlight_Collar"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_QBZ191",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\QBZ191-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.746888905338873,
+              33.57367474065355,
+              6.999805569648743
+            ],
+            "AimGuide": [
+              4.746889540136255,
+              36.5736748598628,
+              6.999805569648743
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "M_QBZ191_laser_Collar",
+              "path": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Collar.M_QBZ191_laser_Collar"
+            }
+          ]
+        }
+      }
+    },
+    "HK416": {
+      "host": {
+        "path": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\HK416-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768757180933448,
+            -14.37477340930745,
+            -9.83532999160106,
+            -0.04361943709964076,
+            -3.6492476154473284e-07,
+            0.9990482277290331,
+            3.671657966804516e-07,
+            99.99998211860728,
+            99.99998211860728,
+            100.00001192092611
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447216716654071,
+            -22.51976406010206,
+            -17.623070487096637,
+            0.0436194430749166,
+            6.035937389886385e-08,
+            -0.9990482274683051,
+            -2.387676437110166e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_Trigger": [
+            5.4318869804632675,
+            -18.089016294026248,
+            -5.941195776957908,
+            0.043619443074932554,
+            -1.0825848706836701e-08,
+            -0.9990482274683021,
+            -3.1645237030618306e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_bolt": [
+            5.276910887429286,
+            -25.769020234636415,
+            -1.8752402206820618,
+            0.04361944307495534,
+            -8.526094406483109e-08,
+            -0.9990482274683269,
+            -3.197022093216113e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_RearSight": [
+            4.495834356139775,
+            -15.78902990877144,
+            4.757940208205236,
+            0.0436194430749101,
+            6.360904305705632e-08,
+            -0.999048227468277,
+            -3.132024335356491e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_FrontSight": [
+            4.534694283055598,
+            -52.38099909758056,
+            4.3130273826227805,
+            0.04361944307500042,
+            -2.3413095740532112e-07,
+            -0.9990482274683768,
+            -3.2620203612232566e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.105945748575769,
+            -63.08317624218411,
+            -2.216601006730623,
+            0.043619443074910946,
+            6.320260476350966e-08,
+            -0.9990482274682807,
+            -3.038980379006831e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_SOCKET_Eject": [
+            7.059603064392643,
+            -25.409025339553207,
+            -1.598814709289531,
+            0.04361944307496049,
+            -8.20111540172068e-08,
+            -0.9990482274682982,
+            -3.94137159240385e-07,
+            99.99998211860728,
+            99.99998211860728,
+            99.99999999999574
+          ],
+          "WPN_ChargingHandle": [
+            4.889438212491969,
+            -11.72902662328939,
+            0.2591284377256642,
+            0.043619368950808785,
+            6.875249492458045e-07,
+            -0.999048230704151,
+            -9.385087366587245e-07,
+            99.99998211860728,
+            99.9999940395341,
+            99.99999999999574
+          ],
+          "WPN_BoltCatch": [
+            3.5230906524028036,
+            -22.48901879186264,
+            -4.3173843248339505,
+            0.04361936895089461,
+            6.122775946124797e-07,
+            -0.9990482307041805,
+            -9.23149914022662e-07,
+            99.99998211860728,
+            99.9999940395341,
+            99.99999999999574
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\HK416-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              8.975249333565511,
+              -53.36901623988742,
+              -0.5478852894157171
+            ],
+            "AimGuide": [
+              8.975242278351663,
+              -57.36901838565405,
+              -0.5478904582560062
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_HK416_Laser_Grip",
+              "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\HK416-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              5.570923758046164,
+              -57.1290021044575,
+              -7.531169801950455
+            ],
+            "AimGuide": [
+              5.570917075361871,
+              -61.128998289759664,
+              -7.531174272298813
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_HK416_Flash_Light",
+              "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+            },
+            {
+              "slot": "M_HK416_Glass",
+              "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_HK416",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\HK416-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              8.975249333565511,
+              -53.36901623988742,
+              -0.5478852894157171
+            ],
+            "AimGuide": [
+              8.975242278351663,
+              -57.36901838565405,
+              -0.5478904582560062
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "HK416_Blessed_Contact",
+              "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+            }
+          ]
+        }
+      }
+    },
+    "ASH12": {
+      "host": {
+        "path": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface.SK_ASH12_Surface",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\ASH12-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.767688400752471,
+            -14.391866034370734,
+            -9.811261049567598,
+            -0.042593764019660696,
+            2.9929342781554264e-05,
+            0.9990923959796945,
+            0.0003932765264987636,
+            100.00000596046029,
+            100.00003576278682,
+            100.00002384185372
+          ],
+          "WPN_SOCKET_Magazine": [
+            5.64551919726958,
+            3.721016638394159,
+            -12.075529099814087,
+            0.042593767737938236,
+            -3.05197619678657e-05,
+            -0.9990923960903476,
+            -0.00039254665908255916,
+            99.99999999999541,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_Trigger": [
+            5.367910913468411,
+            -17.647594016095066,
+            -8.69891956364448,
+            0.04259376401470583,
+            -3.0553799586018155e-05,
+            -0.9990923962181592,
+            -0.0003926226985746308,
+            99.99999999999542,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_bolt": [
+            5.481690504025203,
+            -21.30064310223394,
+            -6.52654102682233,
+            0.04259376401470618,
+            -3.055380322795936e-05,
+            -0.999092396218159,
+            -0.0003926226985592104,
+            99.99999999999542,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_RearSight": [
+            4.2059267171769505,
+            -3.054988110667907,
+            5.434594056140063,
+            0.0425937677364616,
+            -3.05534125152279e-05,
+            -0.9990923960558503,
+            -0.00039263199351541393,
+            99.99999999999547,
+            100.00002384185362,
+            100.00001788138783
+          ],
+          "WPN_FrontSight": [
+            4.205922682045428,
+            -19.994991148540898,
+            5.43460078844511,
+            0.04259376773708342,
+            -3.0555002609367097e-05,
+            -0.9990923960704027,
+            -0.0003925947705266123,
+            99.99999999999542,
+            100.00002384185358,
+            100.00001788138779
+          ],
+          "WPN_SOCKET_Muzzle": [
+            4.935626185033786,
+            -51.93900464157189,
+            -3.4410530537516415,
+            0.0425937677366305,
+            -3.0404139173114607e-05,
+            -0.9990923960592488,
+            -0.0003926349148431419,
+            99.99999999999547,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_SOCKET_Eject": [
+            6.963538413244428,
+            -27.49699226266323,
+            -1.5260525832191174,
+            0.042593767737703854,
+            -3.055658753791656e-05,
+            -0.9990923960849482,
+            -0.0003925575619396159,
+            99.99999999999542,
+            100.0000238418536,
+            100.00001788138783
+          ],
+          "WPN_ChargingHandle": [
+            4.959925919573781,
+            -13.390972795354678,
+            -0.34575142397066383,
+            0.042593700732675335,
+            -2.9930586074719496e-05,
+            -0.999092398689456,
+            -0.00039324674896669556,
+            99.9999880790658,
+            100.00002384185358,
+            100.00001788138783
+          ],
+          "WPN_BoltCatch": [
+            3.89007616677143,
+            -23.730274075403276,
+            -5.77554364643369,
+            0.042593700732675335,
+            -2.9930586074719496e-05,
+            -0.999092398689456,
+            -0.00039324674896669556,
+            99.9999880790658,
+            100.00002384185358,
+            100.00001788138783
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/laser/SM_ASH12_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\ASH12-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.3736744056598695,
+              3.1444439142742038,
+              6.391406059247373e-05
+            ],
+            "AimGuide": [
+              7.373674524869159,
+              3.1444441765425557,
+              6.391406059247373e-05
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_laser",
+              "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_laser_Body.M_ASH12_laser_Body"
+            },
+            {
+              "slot": "ASH_GripMetal",
+              "path": "/Game/Weapons/ASH12/SurfaceStandard20260930/Materials/MI_ASH12_WS_laser_GripMetal.MI_ASH12_WS_laser_GripMetal"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/flashlight/SM_ASH12_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\ASH12-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              6.102608509155857,
+              2.5280180445617555,
+              -0.0005820512771608222
+            ],
+            "AimGuide": [
+              9.10260862836514,
+              2.5280183068301074,
+              -0.0005820512771608222
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_Tactical_flashlight",
+              "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_flashlight_Body.M_ASH12_flashlight_Body"
+            },
+            {
+              "slot": "ASH_GripMetal",
+              "path": "/Game/Weapons/ASH12/SurfaceStandard20260930/Materials/MI_ASH12_WS_flashlight_GripMetal.MI_ASH12_WS_flashlight_GripMetal"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_ASH12",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\ASH12-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.3736744056598695,
+              3.1444439142742038,
+              6.391406059247373e-05
+            ],
+            "AimGuide": [
+              7.373674524869159,
+              3.1444441765425557,
+              6.391406059247373e-05
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_ASH12_WS_laser_GripMetal",
+              "path": "/Game/Weapons/ASH12/SurfaceStandard20260930/Materials/MI_ASH12_WS_laser_GripMetal.MI_ASH12_WS_laser_GripMetal"
+            }
+          ]
+        }
+      }
+    },
+    "M16": {
+      "host": {
+        "path": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M16-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.767688400752471,
+            -14.391866034370734,
+            -9.811261049567598,
+            -0.042593764019660696,
+            2.9929342781554264e-05,
+            0.9990923959796945,
+            0.0003932765264987636,
+            100.00000596046029,
+            100.00003576278682,
+            100.00002384185372
+          ],
+          "WPN_SOCKET_Magazine": [
+            5.754288472008495,
+            -29.469797567596473,
+            -9.748341650230596,
+            0.042593689577759976,
+            -3.054530930903871e-05,
+            -0.99909239942119,
+            -0.00039254801946972894,
+            99.99999999999547,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_Trigger": [
+            5.305794984526946,
+            -20.648129306432562,
+            -4.416726392674075,
+            0.04259368213251637,
+            -3.055337100825297e-05,
+            -0.9990923997053658,
+            -0.0003926319657689232,
+            99.9999999999955,
+            100.0000238418536,
+            100.00001788138782
+          ],
+          "WPN_bolt": [
+            4.913589795590999,
+            -28.592263636875145,
+            0.10165492339517801,
+            0.04259368213282729,
+            -3.055416837283841e-05,
+            -0.9990923997126276,
+            -0.0003926133907008117,
+            99.99999999999545,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_RearSight": [
+            4.350893509089169,
+            -16.424806261504987,
+            6.80104053341235,
+            0.04259368585473578,
+            -3.055417165500778e-05,
+            -0.9990923995539539,
+            -0.0003926133906121111,
+            99.99999999999542,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_FrontSight": [
+            4.30249923272699,
+            -73.60581642658457,
+            6.841405826261382,
+            0.04259368585443014,
+            -3.055337987313323e-05,
+            -0.9990923995466799,
+            -0.00039263199487780585,
+            99.99999999999547,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_SOCKET_Muzzle": [
+            4.878843664620282,
+            -93.28647151088572,
+            -0.08684648500854042,
+            0.04259368585473507,
+            -3.055417347234627e-05,
+            -0.9990923995539538,
+            -0.0003926133906895886,
+            99.99999999999542,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_SOCKET_Eject": [
+            7.515810571209892,
+            -26.788515949843273,
+            -0.9718275739022175,
+            0.042593685853188686,
+            -3.0550206664104115e-05,
+            -0.9990923995175764,
+            -0.0003927064264740272,
+            99.99999999999545,
+            100.00002384185356,
+            100.00001788138779
+          ],
+          "WPN_ChargingHandle": [
+            4.669756439790597,
+            -13.198792215095498,
+            3.0978447569217415,
+            0.0425936188509444,
+            -2.9931349469773956e-05,
+            -0.9990924021875718,
+            -0.00039322813167167456,
+            99.9999880790658,
+            100.00002384185356,
+            100.00001788138778
+          ],
+          "WPN_ChargingHandleLatch": [
+            2.734119953846929,
+            -13.314893688961908,
+            1.7467925282284025,
+            -0.042593683969446156,
+            2.9908112642317117e-05,
+            0.9990923994125038,
+            0.0003932271394681906,
+            99.99998807906579,
+            100.00001788138768,
+            100.00001192092229
+          ],
+          "WPN_BoltCatch": [
+            6.467928181387879,
+            -17.774736593796604,
+            -0.23691962532170763,
+            0.04259361884970991,
+            -2.9928176557364834e-05,
+            -0.9990924021584155,
+            -0.00039330257779943004,
+            99.9999880790658,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_MagazineRelease": [
+            3.461642692136794,
+            -24.86960262457356,
+            -2.6658237380477345,
+            0.0425936821237837,
+            -3.0119376417221907e-05,
+            -0.9990923994989008,
+            -0.00039319141807694756,
+            99.99999999999547,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_EjectionPortCover": [
+            7.053713578691684,
+            -27.593433117417344,
+            -1.2772869147167132,
+            0.04259368212107791,
+            -2.992534639589064e-05,
+            -0.9990923994347207,
+            -0.0003933695665710075,
+            99.9999999999955,
+            100.00002384185358,
+            100.00001788138778
+          ],
+          "WPN_M16Stock": [
+            5.491738945603978,
+            -10.287058499165699,
+            -6.802082606016757,
+            0.04259368212272223,
+            -3.0023103944145948e-05,
+            -0.9990923994736427,
+            -0.00039326306991461157,
+            99.99999999999547,
+            100.0000238418536,
+            100.00001788138782
+          ],
+          "WPN_M16Grip": [
+            5.631814206009917,
+            -12.630420322039088,
+            -8.159580304447122,
+            0.042593682122769705,
+            -3.0023228522011712e-05,
+            -0.9990923994747911,
+            -0.00039326013710848216,
+            99.99999999999542,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_M16Handguard": [
+            4.975730801749561,
+            -35.367876556845275,
+            -0.6881749154893146,
+            0.04259368212302533,
+            -2.9743214372941487e-05,
+            -0.999092399479833,
+            -0.0003932685785481683,
+            99.99999999999542,
+            100.0000238418536,
+            100.00001788138779
+          ],
+          "WPN_M16Muzzle": [
+            4.933406559390282,
+            -89.1822109873362,
+            -0.6738344818302933,
+            0.042593682122610686,
+            -3.0116400424323925e-05,
+            -0.999092399471566,
+            -0.0003932612240486176,
+            99.99999999999547,
+            100.00002384185358,
+            100.00001788138779
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M16-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              7.806141315380562,
+              46.37367455467148,
+              9.154936112463474
+            ],
+            "AimGuide": [
+              7.806141577648914,
+              49.37367467388077,
+              9.154936112463474
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M16_InterfaceMetal",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+            },
+            {
+              "slot": "M_Tactical_laser",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_optic_c6af9185c5.MI_M16_R01_optic_c6af9185c5"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_dd24f6556b.MI_M16_R01_mount_dd24f6556b"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M16-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              7.189715445668114,
+              48.10260865816747,
+              9.155582077801228
+            ],
+            "AimGuide": [
+              7.1897157079364655,
+              51.10260877737675,
+              9.155582077801228
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M16_InterfaceMetal",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_b111b91124.MI_M16_R01_mount_b111b91124"
+            },
+            {
+              "slot": "M_Tactical_flashlight",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_optic_567646140d.MI_M16_R01_optic_567646140d"
+            },
+            {
+              "slot": "M_Tactical_Collar",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_e7959be017.MI_M16_R01_mount_e7959be017"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_M16",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\M16-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              7.806141315380562,
+              46.37367455467148,
+              9.154936112463474
+            ],
+            "AimGuide": [
+              7.806141577648914,
+              49.37367467388077,
+              9.154936112463474
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_M16_R01_mount_adac2dfa8b",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+            },
+            {
+              "slot": "MI_M16_R01_mount_dd24f6556b",
+              "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_dd24f6556b.MI_M16_R01_mount_dd24f6556b"
+            }
+          ]
+        }
+      }
+    },
+    "A762": {
+      "host": {
+        "path": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\A762-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768758824981502,
+            -14.374753505161397,
+            -9.83532116937711,
+            -0.043619400159856714,
+            -5.751377307707467e-07,
+            0.9990482024943564,
+            1.0180887260962448e-06,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447221797361714,
+            -22.519755524240118,
+            -17.623057529985076,
+            0.04361939270136054,
+            -6.071819686211696e-08,
+            -0.9990482028211088,
+            -2.9076130506897534e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_Trigger": [
+            5.556530726273264,
+            -19.336708643719785,
+            -7.3658088339618955,
+            0.0436193927013612,
+            -5.767189852805575e-08,
+            -0.999048202821036,
+            -3.605434110760084e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_bolt": [
+            5.481449530749335,
+            -21.2838384222589,
+            -6.55136942828356,
+            0.04361939270136119,
+            -5.74686638034602e-08,
+            -0.9990482028210311,
+            -3.651956436434689e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_RearSight": [
+            4.615167308816088,
+            -17.90720247299323,
+            3.3940839395585787,
+            0.0436193927013612,
+            -5.787496291668492e-08,
+            -0.9990482028210408,
+            -3.5589117101451587e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_FrontSight": [
+            4.622296118366085,
+            -49.25251320064539,
+            3.3668275397636727,
+            0.04361939270136118,
+            -5.868642248778672e-08,
+            -0.9990482028210602,
+            -3.372835418148056e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.141218549173447,
+            -59.37474998941629,
+            -2.662720111737804,
+            0.043619392701361136,
+            -5.746925661059833e-08,
+            -0.999048202821031,
+            -3.6519510052245773e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Eject": [
+            2.4378246270348205,
+            -22.37475098460537,
+            -1.594267720793674,
+            0.04361939270136123,
+            -5.706242649498084e-08,
+            -0.9990482028210215,
+            -3.7450000502808453e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_ChargingHandle": [
+            4.940772999956119,
+            -13.374763897760703,
+            -0.37146735056590163,
+            0.043619325992467255,
+            5.668534476762446e-07,
+            -0.9990482057325991,
+            -9.998063270594288e-07,
+            100.00000596046377,
+            99.99998211860444,
+            99.99999403953552
+          ],
+          "WPN_BoltCatch": [
+            3.8902097883917226,
+            -23.714757185708613,
+            -5.803712457451682,
+            0.043619325992467255,
+            5.668534476762446e-07,
+            -0.9990482057325991,
+            -9.998063270594288e-07,
+            100.00000596046377,
+            99.99998211860444,
+            99.99999403953552
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\A762-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              5.223187431693077,
+              35.37367582321167,
+              6.199730560183525
+            ],
+            "AimGuide": [
+              5.223187804222107,
+              38.37367594242096,
+              6.199730560183525
+            ]
+          },
+          "materials": [
+            {
+              "slot": "A762_laser_Interface",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_Interface.MI_A762_WS_laser_Interface"
+            },
+            {
+              "slot": "A762_laser_0",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_0.MI_A762_WS_laser_0"
+            },
+            {
+              "slot": "A762_laser_1",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_1.MI_A762_WS_laser_1"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\A762-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              4.606390371918678,
+              37.10265755653381,
+              6.200582906603813
+            ],
+            "AimGuide": [
+              4.606390371918678,
+              40.1026576757431,
+              6.200582906603813
+            ]
+          },
+          "materials": [
+            {
+              "slot": "A762_flashlight_Interface",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_Interface.MI_A762_WS_flashlight_Interface"
+            },
+            {
+              "slot": "A762_flashlight_0",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_0.MI_A762_WS_flashlight_0"
+            },
+            {
+              "slot": "A762_flashlight_1",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_1.MI_A762_WS_flashlight_1"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_A762",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\A762-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              5.223187431693077,
+              35.37367582321167,
+              6.199730560183525
+            ],
+            "AimGuide": [
+              5.223187804222107,
+              38.37367594242096,
+              6.199730560183525
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_A762_WS_laser_Interface",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_Interface.MI_A762_WS_laser_Interface"
+            },
+            {
+              "slot": "MI_A762_WS_laser_1",
+              "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_1.MI_A762_WS_laser_1"
+            }
+          ]
+        }
+      }
+    },
+    "SVD": {
+      "host": {
+        "path": "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock.SK_SVD_ModularStock",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\SVD-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768744800659139,
+            -14.374769157365796,
+            -9.835343048793002,
+            -0.04361940960109586,
+            -6.57874634305247e-07,
+            0.9990481975419346,
+            9.609599479546602e-07,
+            100.00001192092896,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447202869637831,
+            -22.519757000354055,
+            -17.623068452086578,
+            0.043619387298134776,
+            -9.988128677386546e-08,
+            -0.9990481985168788,
+            -2.576805284494985e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_Trigger": [
+            5.556512004152855,
+            -19.336716451888257,
+            -7.365817485283769,
+            0.04361938729813975,
+            -1.0203914911798526e-07,
+            -0.9990481985168067,
+            -3.3387365148602567e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_bolt": [
+            5.48143075682685,
+            -21.2838473731694,
+            -6.551379691480045,
+            0.04361938729813983,
+            -9.656517261932461e-08,
+            -0.9990481985168034,
+            -3.336345954122878e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_RearSight": [
+            4.615146826635282,
+            -17.907209843806797,
+            3.3940789863839833,
+            0.043619387298144074,
+            -1.1885032765273961e-07,
+            -0.9990481985168255,
+            -3.2569509438940085e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_FrontSight": [
+            4.6222748187251455,
+            -49.252538643584856,
+            3.366817615838777,
+            0.043619387298133104,
+            -7.565454911226666e-08,
+            -0.9990481985168125,
+            -3.100973791392922e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.141197110513551,
+            -59.37476931280912,
+            -2.662725689178128,
+            0.04361938729813933,
+            -9.653541345976141e-08,
+            -0.9990481985168027,
+            -3.343187981021476e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_SOCKET_Eject": [
+            2.4378051104805434,
+            -22.374766027053123,
+            -1.5942755375537274,
+            0.04361938729813846,
+            -9.647536922793863e-08,
+            -0.9990481985168015,
+            -3.356875217272151e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_ChargingHandle": [
+            4.940752889327662,
+            -13.374768263267399,
+            -0.37147532898863833,
+            0.043619320617442524,
+            5.237743972652775e-07,
+            -0.9990482014271217,
+            -9.74986187262454e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ],
+          "WPN_BoltCatch": [
+            3.89019028758076,
+            -23.714769056565206,
+            -5.8037216460270855,
+            0.04361932061743175,
+            5.347226998510456e-07,
+            -0.9990482014271155,
+            -9.745082672390183e-07,
+            99.99999999999858,
+            99.99997615814316,
+            100.00000596046377
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Meshes/SM_SVD_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\SVD-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.447171837091446,
+              44.87367570400238,
+              5.699730664491653
+            ],
+            "AimGuide": [
+              4.447172209620476,
+              47.87367582321167,
+              5.699730664491653
+            ]
+          },
+          "materials": [
+            {
+              "slot": "SVD_laser_0",
+              "path": "/Game/Weapons/SVDDragunov20260922/RefinedFinish20260923/Materials/M_M_SVD_laser_0_Matte_6dc3ba_Base.M_M_SVD_laser_0_Matte_6dc3ba_Base"
+            },
+            {
+              "slot": "SVD_laser_1",
+              "path": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_laser_SVD_laser_1.MI_SVD_WS_laser_SVD_laser_1"
+            },
+            {
+              "slot": "SVD_InterfaceSteel",
+              "path": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_laser_SVD_InterfaceSteel.MI_SVD_WS_laser_SVD_InterfaceSteel"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/SVDDragunov20260922/Accessories20260923/Meshes/SM_SVD_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\SVD-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              3.830374777317047,
+              46.602657437324524,
+              5.7005830109119415
+            ],
+            "AimGuide": [
+              3.830374777317047,
+              49.60265755653381,
+              5.7005830109119415
+            ]
+          },
+          "materials": [
+            {
+              "slot": "SVD_flashlight_0",
+              "path": "/Game/Weapons/SVDDragunov20260922/RefinedFinish20260923/Materials/M_M_SVD_flashlight_0_Matte_60ed99_Base.M_M_SVD_flashlight_0_Matte_60ed99_Base"
+            },
+            {
+              "slot": "SVD_flashlight_1",
+              "path": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_flashlight_SVD_flashlight_1.MI_SVD_WS_flashlight_SVD_flashlight_1"
+            },
+            {
+              "slot": "SVD_InterfaceSteel",
+              "path": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_flashlight_SVD_InterfaceSteel.MI_SVD_WS_flashlight_SVD_InterfaceSteel"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_SVD",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\SVD-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.447171837091446,
+              44.87367570400238,
+              5.699730664491653
+            ],
+            "AimGuide": [
+              4.447172209620476,
+              47.87367582321167,
+              5.699730664491653
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_SVD_WS_laser_SVD_laser_1",
+              "path": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_laser_SVD_laser_1.MI_SVD_WS_laser_SVD_laser_1"
+            },
+            {
+              "slot": "MI_SVD_WS_laser_SVD_InterfaceSteel",
+              "path": "/Game/Weapons/SVDDragunov20260922/SurfaceStandard20261001/Materials/MI_SVD_WS_laser_SVD_InterfaceSteel.MI_SVD_WS_laser_SVD_InterfaceSteel"
+            }
+          ]
+        }
+      }
+    },
+    "PKM": {
+      "host": {
+        "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\PKM-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768758824981502,
+            -14.374753505161397,
+            -9.83532116937711,
+            -0.043619400159856714,
+            -5.751377307707467e-07,
+            0.9990482024943564,
+            1.0180887260962448e-06,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.447221797361714,
+            -22.519755524240118,
+            -17.623057529985076,
+            0.04361939270136054,
+            -6.071819686211696e-08,
+            -0.9990482028211088,
+            -2.9076130506897534e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_Trigger": [
+            5.556530726273264,
+            -19.336708643719785,
+            -7.3658088339618955,
+            0.0436193927013612,
+            -5.767189852805575e-08,
+            -0.999048202821036,
+            -3.605434110760084e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_bolt": [
+            5.481449530749335,
+            -21.2838384222589,
+            -6.55136942828356,
+            0.04361939270136119,
+            -5.74686638034602e-08,
+            -0.9990482028210311,
+            -3.651956436434689e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_RearSight": [
+            4.615167308816088,
+            -17.90720247299323,
+            3.3940839395585787,
+            0.0436193927013612,
+            -5.787496291668492e-08,
+            -0.9990482028210408,
+            -3.5589117101451587e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_FrontSight": [
+            4.622296118366085,
+            -49.25251320064539,
+            3.3668275397636727,
+            0.04361939270136118,
+            -5.868642248778672e-08,
+            -0.9990482028210602,
+            -3.372835418148056e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.141218549173447,
+            -59.37474998941629,
+            -2.662720111737804,
+            0.043619392701361136,
+            -5.746925661059833e-08,
+            -0.999048202821031,
+            -3.6519510052245773e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Eject": [
+            2.4378246270348205,
+            -22.37475098460537,
+            -1.594267720793674,
+            0.04361939270136123,
+            -5.706242649498084e-08,
+            -0.9990482028210215,
+            -3.7450000502808453e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_ChargingHandle": [
+            4.940772999956119,
+            -13.374763897760703,
+            -0.37146735056590163,
+            0.043619325992467255,
+            5.668534476762446e-07,
+            -0.9990482057325991,
+            -9.998063270594288e-07,
+            100.00000596046377,
+            99.99998211860444,
+            99.99999403953552
+          ],
+          "WPN_BoltCatch": [
+            3.8902097883917226,
+            -23.714757185708613,
+            -5.803712457451682,
+            0.043619325992467255,
+            5.668534476762446e-07,
+            -0.9990482057325991,
+            -9.998063270594288e-07,
+            100.00000596046377,
+            99.99998211860444,
+            99.99999403953552
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\PKM-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.719369113445282,
+              51.96738243103027,
+              6.984999775886536
+            ],
+            "AimGuide": [
+              4.719369858503342,
+              54.967379570007324,
+              6.984999775886536
+            ]
+          },
+          "materials": [
+            {
+              "slot": "PKM14_Interface",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20"
+            },
+            {
+              "slot": "PKM14_laser_0",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_93e63d341d.MI_PKM_R01_optic_93e63d341d"
+            },
+            {
+              "slot": "PKM14_laser_1",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_98e350d2fc.MI_PKM_R01_optic_98e350d2fc"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\PKM-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              4.102572053670883,
+              53.69635820388794,
+              6.985852122306824
+            ],
+            "AimGuide": [
+              4.102572053670883,
+              56.69636130332947,
+              6.985852122306824
+            ]
+          },
+          "materials": [
+            {
+              "slot": "PKM14_Interface",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20"
+            },
+            {
+              "slot": "PKM14_flashlight_0",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_c3b65cf9d7.MI_PKM_R01_optic_c3b65cf9d7"
+            },
+            {
+              "slot": "PKM14_flashlight_1",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_771565ee17.MI_PKM_R01_optic_771565ee17"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_PKM",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\PKM-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.719369113445282,
+              51.96738243103027,
+              6.984999775886536
+            ],
+            "AimGuide": [
+              4.719369858503342,
+              54.967379570007324,
+              6.984999775886536
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_PKM_R01_mount_a65b0dae20",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20"
+            },
+            {
+              "slot": "MI_PKM_R01_optic_98e350d2fc",
+              "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_98e350d2fc.MI_PKM_R01_optic_98e350d2fc"
+            }
+          ]
+        }
+      }
+    },
+    "LMG201": {
+      "host": {
+        "path": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\LMG201-host.fbx",
+        "bones": {
+          "WPN_root": [
+            5.768758994940452,
+            -14.37475364368676,
+            -9.835320976566075,
+            -0.043619400967276345,
+            -5.751377414430073e-07,
+            0.9990482209872997,
+            1.0180887449492013e-06,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Magazine": [
+            6.4472217885610785,
+            -22.51975603173118,
+            -17.62305756194882,
+            0.04361939350875969,
+            -6.071819788533903e-08,
+            -0.9990482213135861,
+            -2.9076131054365897e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_Trigger": [
+            5.55653093703012,
+            -19.33670901673544,
+            -7.365808594647905,
+            0.04361939350876252,
+            -5.7671899572094946e-08,
+            -0.9990482213135633,
+            -3.605434176609246e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_bolt": [
+            5.481449754206871,
+            -21.283838887061865,
+            -6.5513691747750125,
+            0.04361939350876262,
+            -5.746866485443831e-08,
+            -0.9990482213135615,
+            -3.65195650339408e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_RearSight": [
+            4.6151677457194005,
+            -17.90720279387167,
+            3.394084456992319,
+            0.04361939350876235,
+            -5.7874963943376816e-08,
+            -0.9990482213135651,
+            -3.558911776549427e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_FrontSight": [
+            4.622296488557723,
+            -49.25251498175247,
+            3.3668279534081247,
+            0.04361939350876183,
+            -5.868642356998969e-08,
+            -0.9990482213135713,
+            -3.372835480111407e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Muzzle": [
+            5.141218772776518,
+            -59.3747522339392,
+            -2.6627198848358846,
+            0.043619393508762566,
+            -5.746925761300418e-08,
+            -0.9990482213135613,
+            -3.6519510721839686e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_SOCKET_Eject": [
+            2.437824900809964,
+            -22.374751496266867,
+            -1.5942674059600481,
+            0.04361939350876283,
+            -5.706242763269513e-08,
+            -0.9990482213135583,
+            -3.745000119460695e-07,
+            100.00000596046377,
+            99.99997019767903,
+            99.99999403953552
+          ],
+          "WPN_ChargingHandle": [
+            4.940773368278009,
+            -13.374764002416766,
+            -0.37146691398246556,
+            0.043619326799885394,
+            5.66853458209728e-07,
+            -0.9990482242255394,
+            -9.998063454682957e-07,
+            100.00000596046377,
+            99.99998211860444,
+            99.99999403953552
+          ],
+          "WPN_BoltCatch": [
+            3.8902099928849414,
+            -23.71475775855193,
+            -5.803712228637137,
+            0.043619326799885394,
+            5.66853458209728e-07,
+            -0.9990482242255394,
+            -9.998063454682957e-07,
+            100.00000596046377,
+            99.99998211860444,
+            99.99999403953552
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\LMG201-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              6.519369035959244,
+              44.46738362312317,
+              4.58499975502491
+            ],
+            "AimGuide": [
+              6.5193697810173035,
+              47.46738076210022,
+              4.58499975502491
+            ]
+          },
+          "materials": [
+            {
+              "slot": "LMG20122_Interface",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3"
+            },
+            {
+              "slot": "LMG20122_laser_1",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_eda15e6fee.MI_LMG201_R01_receiver_eda15e6fee"
+            },
+            {
+              "slot": "LMG20122_laser_2",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_90ad945ee2.MI_LMG201_R01_receiver_90ad945ee2"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\LMG201-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              5.902571976184845,
+              46.196359395980835,
+              4.585852101445198
+            ],
+            "AimGuide": [
+              5.902571976184845,
+              49.19636249542236,
+              4.585852101445198
+            ]
+          },
+          "materials": [
+            {
+              "slot": "LMG20122_Interface",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3"
+            },
+            {
+              "slot": "LMG20122_flashlight_1",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_49eb8be908.MI_LMG201_R01_receiver_49eb8be908"
+            },
+            {
+              "slot": "LMG20122_flashlight_2",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_75a2c471cc.MI_LMG201_R01_receiver_75a2c471cc"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_LMG201",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\LMG201-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              6.519369035959244,
+              44.46738362312317,
+              4.58499975502491
+            ],
+            "AimGuide": [
+              6.5193697810173035,
+              47.46738076210022,
+              4.58499975502491
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "MI_LMG201_R01_mount_04222ef6f3",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_mount_04222ef6f3.MI_LMG201_R01_mount_04222ef6f3"
+            },
+            {
+              "slot": "MI_LMG201_R01_receiver_90ad945ee2",
+              "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_90ad945ee2.MI_LMG201_R01_receiver_90ad945ee2"
+            }
+          ]
+        }
+      }
+    },
+    "Super90": {
+      "host": {
+        "path": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7.SK_Super90_V7",
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\Super90-host.fbx",
+        "bones": {
+          "WPN_root": [
+            1.862104581640267e-07,
+            -2.1299968828203397,
+            -75.73999510578805,
+            -0.7071067690849304,
+            0.0,
+            0.0,
+            0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_bolt": [
+            -5.98189819900341e-07,
+            -1.5592434726453552,
+            -75.15968810300441,
+            1.2334968503571594e-06,
+            -0.7071067690849304,
+            0.7071067690849304,
+            -1.2334968502705639e-06,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_Load": [
+            -5.02768726651226e-07,
+            5.751006553152893,
+            -78.29599446715113,
+            5.591472455294901e-07,
+            -0.7071067690849304,
+            0.7071067690849304,
+            -5.591472454428945e-07,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_Trigger": [
+            -1.1917475561951107e-06,
+            13.63200543129005,
+            -78.29600183424087,
+            5.591472455294901e-07,
+            -0.7071067690849304,
+            0.7071067690849304,
+            -5.591472454428945e-07,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_SOCKET_Muzzle": [
+            4.3573254671080974e-06,
+            -49.84199049665069,
+            -75.65479929448276,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_SOCKET_Eject": [
+            1.4909991993959593,
+            8.307002550466825,
+            -75.52699732489985,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_RearSight": [
+            -1.4058893271773343e-06,
+            16.081502669885552,
+            -70.75580284791229,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_FrontSight": [
+            3.7111753115048884e-06,
+            -42.45089273482478,
+            -71.94859955076332,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_ChargingHandle": [
+            2.449499070590322,
+            8.413501885099638,
+            -75.35660243241995,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_BoltCatch": [
+            1.8104990943725752,
+            10.863001695698593,
+            -77.65700197467412,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_SOCKET_Magazine": [
+            -9.31052446251357e-07,
+            10.65000157568684,
+            -79.147999267735,
+            0.7071067690849304,
+            0.0,
+            0.0,
+            -0.7071067690849304,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "WPN_Shell": [
+            1.0005883925232051e-10,
+            -0.0011418135149487973,
+            -82.94797255796092,
+            -5.591472455294901e-07,
+            0.7071067690849304,
+            -0.7071067690849304,
+            5.591472454428945e-07,
+            100.0,
+            100.0,
+            100.0
+          ]
+        }
+      },
+      "devices": {
+        "laser": {
+          "path": "/Game/Weapons/Super90/Tactical20261008/SM_Super90_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\Super90-laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.3736744056598695,
+              3.1444439142742038,
+              6.391406059247373e-05
+            ],
+            "AimGuide": [
+              7.373674524869159,
+              3.1444441765425557,
+              6.391406059247373e-05
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_ASH12_laser_Body",
+              "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_laser_Body.M_ASH12_laser_Body"
+            },
+            {
+              "slot": "M_ASH12_GripMetal_Coat",
+              "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+            },
+            {
+              "slot": "Super90_Tactical_Seat",
+              "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+            }
+          ]
+        },
+        "flashlight": {
+          "path": "/Game/Weapons/Super90/Tactical20261008/SM_Super90_flashlight",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\Super90-flashlight.fbx",
+          "sockets": {
+            "Emitter": [
+              6.102608509155857,
+              2.5280180445617555,
+              -0.0005820512771608222
+            ],
+            "AimGuide": [
+              9.10260862836514,
+              2.5280183068301074,
+              -0.0005820512771608222
+            ]
+          },
+          "materials": [
+            {
+              "slot": "M_ASH12_flashlight_Body",
+              "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_flashlight_Body.M_ASH12_flashlight_Body"
+            },
+            {
+              "slot": "M_ASH12_GripMetal_Coat",
+              "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+            },
+            {
+              "slot": "Super90_Tactical_Seat",
+              "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+            }
+          ]
+        },
+        "blessed_laser": {
+          "path": "/Game/Weapons/Super90/Tactical20261008/SM_Super90_blessed_laser",
+          "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\Inputs\\Super90-blessed_laser.fbx",
+          "sockets": {
+            "Emitter": [
+              4.3736744056598695,
+              3.1444439142742038,
+              6.391406059247373e-05
+            ],
+            "AimGuide": [
+              7.373674524869159,
+              3.1444441765425557,
+              6.391406059247373e-05
+            ]
+          },
+          "materials": [
+            {
+              "slot": "Blessed_Graphite",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+            },
+            {
+              "slot": "Blessed_Gold",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+            },
+            {
+              "slot": "Blessed_Black",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+            },
+            {
+              "slot": "Blessed_Optic",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+            },
+            {
+              "slot": "Blessed_Aperture",
+              "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+            },
+            {
+              "slot": "Super90_Tactical_Seat",
+              "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "dirty_source_packages": [],
+  "mode": "read-only current editor assets"
+}

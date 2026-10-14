@@ -1,4 +1,5 @@
 #include "BowArrow.h"
+#include "../../Combat/RangedAttackQuery.h"
 #include "../../Dungeons/WardBreakableGlass.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../Skills/ColdSteelSkillRules.h"
@@ -16,10 +17,13 @@
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
+#include "../../Multiplayer/ColdSteelPlayerState.h"
+#include "Net/UnrealNetwork.h"
 
 ABowArrow::ABowArrow()
 {
     PrimaryActorTick.bCanEverTick = true;
+    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
     Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     SetRootComponent(Root);
     Shaft = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Shaft"));
@@ -67,6 +71,8 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
     Shot = InShot;
     AmmoId = InAmmoId;
     bRecoverable = bInRecoverable;
+    if(HasAuthority())
+    {Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;ForceNetUpdate();}
     RecoverySeconds = FMath::Clamp(InRecoverySeconds, 8.f, 300.f);
     if (const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         RecoveryCaption = FString::Printf(TEXT("拾回 %s ×1"), *Profile->AmmoLabel(AmmoId));
@@ -116,6 +122,7 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
 void ABowArrow::Tick(float Delta)
 {
     Super::Tick(Delta);
+    if(!HasAuthority())return;
     Delta = FMath::Max(0.f, Delta);
     Age += Delta;
     if (bStuck) return;
@@ -135,7 +142,7 @@ void ABowArrow::Tick(float Delta)
         const FVector Next = Previous + Displacement;
         Velocity += Acceleration * Dt;
         SetActorRotation(Velocity.Rotation());
-        const bool Blocked = GetWorld()->SweepSingleByChannel(Hit, Previous, Next, FQuat::Identity,
+        const bool Blocked = RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, Previous, Next, FQuat::Identity,
             ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query);
         TravelledCM += Displacement.Size() * (Blocked ? Hit.Time : 1.f);
         if (Blocked)
@@ -160,7 +167,7 @@ void ABowArrow::ResolveLaunchObstruction(const FVector& CameraOrigin)
     FHitResult Hit;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BowLaunch), true, GetInstigator());
     Query.AddIgnoredActor(this);
-    if (GetWorld()->SweepSingleByChannel(Hit, CameraOrigin, GetActorLocation(), FQuat::Identity,
+    if (RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, CameraOrigin, GetActorLocation(), FQuat::Identity,
         ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query)) ApplyHit(Hit);
 }
 
@@ -186,7 +193,11 @@ void ABowArrow::ApplyHit(const FHitResult& Hit)
                 Applied = ColdSteelSkills::ApplyHit(Pawn, Hit, Damage, Direction, Shot, &Result);
             }
             if (auto* Character = Cast<AFPSGAMECharacter>(Pawn))
-                Character->NotifyConfirmedWeaponHit(Target, Applied, &Result, true);
+            {
+                Character->NotifyConfirmedWeaponHit(Target, Applied, &Result, true,false);
+                if(HasAuthority()&&!Character->IsLocallyControlled())if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
+                {FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=Result.bCritical;Receipt.bKilled=Result.bKilled;PS->ClientConfirmHit(Receipt);}
+            }
         }
     }
     FinishStuck(Hit);
@@ -223,7 +234,7 @@ void ABowArrow::OnRecoveryOverlap(UPrimitiveComponent* OverlappedComponent,AActo
     UPrimitiveComponent* OtherComponent,int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
 {
     const auto* Pawn=Cast<APawn>(OtherActor);
-    if(bStuck&&!IsActorBeingDestroyed()&&HasAuthority()&&GetNetMode()==NM_Standalone&&Pawn&&Pawn->IsPlayerControlled()&&
+    if(bStuck&&!IsActorBeingDestroyed()&&Pawn&&Pawn->IsPlayerControlled()&&
         !GetWorldTimerManager().IsTimerActive(RecoveryTimer))
         GetWorldTimerManager().SetTimer(RecoveryTimer,this,&ABowArrow::RecoverNearby,.2f,true,.15f);
 }
@@ -236,7 +247,7 @@ void ABowArrow::OnRecoveryEndOverlap(UPrimitiveComponent* OverlappedComponent,AA
 
 void ABowArrow::RecoverNearby()
 {
-    if(!bStuck||IsActorBeingDestroyed()||!HasAuthority()||GetNetMode()!=NM_Standalone)
+    if(!bStuck||IsActorBeingDestroyed())
     {GetWorldTimerManager().ClearTimer(RecoveryTimer);return;}
     TArray<AActor*> Nearby;AutoRecovery->GetOverlappingActors(Nearby,APawn::StaticClass());
     bool bPlayerNearby=false;
@@ -244,6 +255,7 @@ void ABowArrow::RecoverNearby()
     {
         auto* Pawn=Cast<APawn>(Actor);
         if(!Pawn||!Pawn->IsPlayerControlled())continue;
+        if(GetNetMode()!=NM_Standalone&&bRecoverable&&!Pawn->IsLocallyControlled())continue;
         bPlayerNearby=true;
         if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())continue;
         // A nearby arrow behind a wall cannot be collected through that wall.
@@ -251,14 +263,23 @@ void ABowArrow::RecoverNearby()
         FHitResult Obstruction;const FVector End=AutoRecovery->GetComponentLocation();
         if(GetWorld()->LineTraceSingleByChannel(Obstruction,Pawn->GetActorLocation(),End,ECC_Visibility,Query)&&
             FVector::DistSquared(Obstruction.ImpactPoint,End)>FMath::Square(8.f))continue;
-        if(bRecoverable)RecoverIntoPouch(Pawn);
+        if(bRecoverable)
+        {
+            if(GetNetMode()==NM_Client)
+            {
+                if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())
+                {
+                    if(PS->InventoryRequestPending())continue;
+                    PS->RequestInventoryAction(EColdSteelInventoryAction::RecoverArrow,FString(),this);
+                }
+            }
+            else RecoverIntoPouch(Pawn);
+        }
         else
         {
             // No pouch round was spent for this shot. Collect the visible
             // arrow without converting unlimited practice ammo into stock.
-            bStuck=false;
-            SetActorEnableCollision(false);
-            Destroy();
+            if(HasAuthority()){bStuck=false;SetActorEnableCollision(false);Destroy();}
         }
         // On a save failure keep the arrow and retry on the next entry, without
         // retrying disk writes or notices five times per second.
@@ -275,13 +296,23 @@ FString ABowArrow::RecoveryPrompt() const
 
 bool ABowArrow::TryRecover(APawn* Pawn)
 {
-    return ColdSteelWorldInteraction::IsFocused(Pawn,this)&&RecoverIntoPouch(Pawn);
+    if(!Pawn||FVector::DistSquared(Pawn->GetActorLocation(),AutoRecovery->GetComponentLocation())>FMath::Square(250.f))return false;
+    const bool Near=FVector::DistSquared(Pawn->GetActorLocation(),AutoRecovery->GetComponentLocation())<=FMath::Square(125.f)
+        &&ColdSteelWorldInteraction::CanReachPickup(GetWorld(),Pawn,this,AutoRecovery->GetComponentLocation());
+    if(!Near&&!ColdSteelWorldInteraction::IsFocused(Pawn,this))return false;
+    if(GetNetMode()==NM_Client)
+    {
+        auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
+        return PS&&PS->RequestInventoryAction(EColdSteelInventoryAction::RecoverArrow,FString(),this);
+    }
+    return RecoverIntoPouch(Pawn);
 }
 
 bool ABowArrow::RecoverIntoPouch(APawn* Pawn)
 {
-    if(!Pawn||!Pawn->IsPlayerControlled()||!CanRecover()||!HasAuthority()||GetNetMode()!=NM_Standalone)return false;
-    auto* Profile = Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if(!Pawn||!Pawn->IsPlayerControlled()||!CanRecover()||!HasAuthority())return false;
+    auto* Player=Cast<AFPSGAMECharacter>(Pawn);
+    auto* Profile=Player&&Player->GetNetShadowProfile()?Player->GetNetShadowProfile():Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (!Profile) return false;
     // Persist the exact fired type before removing the world arrow. Failed
     // saves/capacity leave it available; virtual training arrows never enter here.
@@ -289,7 +320,12 @@ bool ABowArrow::RecoverIntoPouch(APawn* Pawn)
     // Overlap callbacks must not mistake an in-progress refund for a virtual
     // arrow if the inventory commit updates world state synchronously.
     bStuck = false;
-    if (!Profile->GrantAmmo(AmmoId, 1))
+    auto After=Profile->Snapshot();
+    auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
+    const bool Added=Profile->AddAmmoToState(After,AmmoId,1);
+    const bool Saved=Added&&(GetNetMode()==NM_Standalone?Profile->CommitState(After)
+        :Profile->CommitCampfireState(After,TEXT("Inventory"),Player&&Player->GetNetShadowProfile()&&PS?PS->CampfireGuestSlot():FString()));
+    if (!Saved)
     {
         bRecoverable = true;
         bStuck = true;
@@ -299,4 +335,24 @@ bool ABowArrow::RecoverIntoPouch(APawn* Pawn)
     SetActorEnableCollision(false);
     Destroy();
     return true;
+}
+void ABowArrow::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(ABowArrow,Presentation,COND_InitialOnly);
+    DOREPLIFETIME(ABowArrow,bStuck);DOREPLIFETIME(ABowArrow,bRecoverable);
+}
+void ABowArrow::OnRep_Presentation()
+{
+    Configure(1,600,0,400,FColdSteelSkillShot{},Presentation.Shaft,Presentation.Head,
+        Presentation.Radius,Presentation.Length,Presentation.Ammo,bRecoverable,120);
+    OnRep_Stuck();
+}
+void ABowArrow::OnRep_Stuck()
+{
+    if(HasAuthority())return;
+    SetActorEnableCollision(bStuck);
+    RecoveryShape->SetCollisionEnabled(bStuck&&bRecoverable?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+    AutoRecovery->SetCollisionEnabled(bStuck?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+    SetActorTickEnabled(false);
 }

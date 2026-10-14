@@ -1,4 +1,5 @@
 #include "G18WeaponAssets.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "RSH12WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
 #include "PistolDualWieldComponent.h"
@@ -43,7 +44,7 @@ float UPistolDualWieldComponent::SharedConeSpread() const
 void UPistolDualWieldComponent::TryFire(int32 Index)
 {
     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
-    if((!H.Pending && H.Item.Definition!=G18WeaponAssets::Definition) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
+    if((!H.Pending && !H.Automatic) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
         || Now<Player->SprintFireUnlockTime || Now<H.NextShot || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
     H.Pending=false;
     if(WeaponReloadStages::NeedsCycle(H.Item)){BeginReload(Index);return;}
@@ -62,12 +63,12 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     const float Range=FMath::Max(10000.f,float(H.Stats.Range)*300.f);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(DualPistolShot),true,Player);Query.bReturnPhysicalMaterial=true;Query.bReturnFaceIndex=true;
     FHitResult Sight,Blocked;
-    const bool AimHit=GetWorld()->LineTraceSingleByChannel(Sight,Eye,Eye+Direction*Range,ECC_Visibility,Query);
+    const bool AimHit=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Sight,Eye,Eye+Direction*Range,ECC_Visibility,Query);
     const FVector Target=AimHit?Sight.ImpactPoint:Eye+Direction*Range;
-    const bool MuzzleBlocked=GetWorld()->LineTraceSingleByChannel(Blocked,Eye,Muzzle,ECC_Visibility,Query);
+    const bool MuzzleBlocked=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Blocked,Eye,Muzzle,ECC_Visibility,Query);
     --H.Rounds;H.Item.Magazine=H.Rounds;
     const double ShotInterval=FMath::Max(.001,H.Stats.Interval);
-    H.NextShot=H.Item.Definition==G18WeaponAssets::Definition
+    H.NextShot=H.Automatic
         ? (Now-H.NextShot>.15?Now:H.NextShot)+ShotInterval : Now+ShotInterval;
     H.Pattern=Now-H.LastShot>.4?0:FMath::Min(H.Pattern+1,FWeaponHandling::PatternCount-1);H.LastShot=Now;
     const float FireRate=H.Item.Definition==RSH12WeaponAssets::Definition && H.Clips.FindRef(TEXT("fire"))

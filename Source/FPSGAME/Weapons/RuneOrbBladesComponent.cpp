@@ -1,4 +1,5 @@
 #include "RuneOrbBladesComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "RuneOrbBladeProjectile.h"
 #include "../Skills/FPSFireballComponent.h"
@@ -21,6 +22,7 @@
 URuneOrbBladesComponent::URuneOrbBladesComponent()
 {
     PrimaryComponentTick.bCanEverTick = true;
+    SetIsReplicatedByDefault(true);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> BladeAsset(
         TEXT("/Game/Weapons/RuneSpectralBlade20260927/SM_SpectralRuneBlade.SM_SpectralRuneBlade"));
     if (BladeAsset.Succeeded()) BladeMesh = BladeAsset.Object;
@@ -28,19 +30,20 @@ URuneOrbBladesComponent::URuneOrbBladesComponent()
 
 bool URuneOrbBladesComponent::SwordEquipped() const
 {
-    const auto* Owner = Cast<APawn>(GetOwner());
-    const auto* Profile = Owner && Owner->GetGameInstance()
-        ? Owner->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>() : nullptr;
-    const auto* Item = Profile ? Profile->Equipped() : nullptr;
-    return Item && !Profile->ActiveProductionTool() && Item->Definition == TEXT("ue_rune_sword");
+    const auto* Model=Profile();const auto* Item=Model?Model->Equipped():nullptr;
+    return Item&&!Model->ActiveProductionTool()&&Item->Definition==TEXT("ue_rune_sword");
+}
+UColdSteelStatusModel* URuneOrbBladesComponent::Profile() const
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    if(!Player||!Player->GetGameInstance())return nullptr;
+    if(Player->HasAuthority()&&!Player->IsLocallyControlled())return Player->GetNetShadowProfile();
+    return Player->IsLocallyControlled()?Player->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
 }
 
 bool URuneOrbBladesComponent::NoAbilityCooldown() const
 {
-    const auto* Owner = Cast<APawn>(GetOwner());
-    const auto* Profile = Owner && Owner->GetGameInstance()
-        ? Owner->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>() : nullptr;
-    return Profile && Profile->HasNoAbilityCooldown();
+    const auto* Model=Profile();return Model&&Model->HasNoAbilityCooldown();
 }
 
 float URuneOrbBladesComponent::BladeDamage(const UColdSteelStatusModel* Profile)
@@ -56,7 +59,7 @@ bool URuneOrbBladesComponent::CanUse() const
     const auto* PC = Player ? Cast<APlayerController>(Player->GetController()) : nullptr;
     const auto* Health = Player ? Player->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
     const auto* Build = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
-    return Player && Player->IsLocallyControlled() && GetWorld()->GetNetMode() != NM_Client && PC &&
+    return Player && Player->IsLocallyControlled() && PC &&
         !AFPSGAMEPlayerController::BlocksOngoingActions(PC) && !Player->IsTraversing() &&
         !Player->IsLeftHandHeldForCast() && (!Health || !Health->IsDead()) && (!Build || !Build->IsBuilding()) && SwordEquipped();
 }
@@ -124,8 +127,9 @@ void URuneOrbBladesComponent::OpenOrbit()
 {
     auto* Character = Cast<ACharacter>(GetOwner());
     if (!Character || !Character->GetGameInstance() || !BladeMesh) return;
-    auto* Profile = Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* Profile = this->Profile();
     if (!Profile || !Profile->Equipped()) return;
+    if(GetNetMode()==NM_Client)ServerOrbitIntent(0,0,FVector::ZeroVector);
     FVector Eye, Forward, Right, Up;
     float TanVertical;
     if (!ViewBasis(Eye, Forward, Right, Up, TanVertical)) return;
@@ -175,7 +179,8 @@ bool URuneOrbBladesComponent::ViewBasis(FVector& Eye, FVector& Forward, FVector&
     const auto* Camera = Character ? Character->FindComponentByClass<UCameraComponent>() : nullptr;
     if (!Camera) return false;
     Eye = Camera->GetComponentLocation();
-    const FRotationMatrix ViewBasis(Camera->GetComponentRotation());
+    if(!Character->IsLocallyControlled())Eye=Character->GetPawnViewLocation();
+    const FRotationMatrix ViewBasis(Character->IsLocallyControlled()?Camera->GetComponentRotation():Character->GetBaseAimRotation());
     Forward = ViewBasis.GetUnitAxis(EAxis::X);
     Right = ViewBasis.GetUnitAxis(EAxis::Y);
     Up = ViewBasis.GetUnitAxis(EAxis::Z);
@@ -196,7 +201,7 @@ void URuneOrbBladesComponent::LaunchOne()
     FHitResult Aim;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(RuneBladeAim), false, Character);
     const FVector Eye = Camera->GetComponentLocation();
-    GetWorld()->LineTraceSingleByChannel(Aim, Eye, Eye + Camera->GetForwardVector() * 20000.f,
+    RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Aim, Eye, Eye + Camera->GetForwardVector() * 20000.f,
         ECC_Visibility, Query);
     const FVector Target = Aim.bBlockingHit ? Aim.ImpactPoint : Eye + Camera->GetForwardVector() * 20000.f;
     // A random still-hovering blade leaves the ring, like the 2D launcher.
@@ -206,6 +211,7 @@ void URuneOrbBladesComponent::LaunchOne()
     if (Available.IsEmpty()) { PendingLaunches = 0; return; }
     const int32 Pick = Available[FMath::RandRange(0, Available.Num() - 1)];
     Slots[Pick].bLaunched = true;
+    if(GetNetMode()==NM_Client)ServerOrbitIntent(1,Pick,Target);
     if (auto* Orb = Slots[Pick].Orb.Get()) Orb->Launch(Target);
     --PendingLaunches;
     LastLaunchTime = GetWorld()->GetTimeSeconds();
@@ -227,6 +233,7 @@ void URuneOrbBladesComponent::InterruptPending(bool bGathering)
 
 void URuneOrbBladesComponent::FinishOrbit(bool bCancelGesture)
 {
+    if(GetNetMode()==NM_Client&&bActive)ServerOrbitIntent(2,0,FVector::ZeroVector);
     for (auto& Slot : Slots)
         if (auto* Orb = Slot.Orb.Get())
             if (!Orb->IsFlying() && !Orb->IsFinished()) Orb->StartFade();
@@ -243,9 +250,8 @@ void URuneOrbBladesComponent::NotifyBladeResult(bool bKilled)
     // 2D contract: a blade kill runs the same reduction as a melee swing — every
     // ability cooldown (this orbit's own included) shrinks by half a second.
     if (!bKilled) return;
-    if (auto* Owner = Cast<APawn>(GetOwner()); Owner && Owner->GetGameInstance())
-        if (auto* Profile = Owner->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-            Profile->ReduceAllAbilityCooldowns(.5f);
+    if(auto* Model=Profile())Model->ReduceAllAbilityCooldowns(.5f);
+    if(auto* Owner=Cast<APawn>(GetOwner());Owner&&Owner->HasAuthority()&&!Owner->IsLocallyControlled())ClientBladeKill();
 }
 
 void URuneOrbBladesComponent::BeginPlay()
@@ -266,6 +272,7 @@ void URuneOrbBladesComponent::TickComponent(float Delta, ELevelTick Type, FActor
     Super::TickComponent(Delta, Type, Tick);
     Cooldown = NoAbilityCooldown() ? 0.f : FMath::Max(0.f, Cooldown - Delta);
     auto* Character = Cast<APawn>(GetOwner());
+    if(Character&&!Character->HasAuthority()&&!Character->IsLocallyControlled())return;
     const auto* Health = Character ? Character->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
     if (!Character || !SwordEquipped() || (Health && Health->IsDead())) { EndOrbit(); return; }
     if (!CanUse())
@@ -303,7 +310,7 @@ void URuneOrbBladesComponent::TickComponent(float Delta, ELevelTick Type, FActor
             // Same cover rule as the ice row: a wall between the eye and a slot pulls
             // the blade in to the contact instead of letting it hover through geometry.
             FHitResult Cover;
-            if (GetWorld()->SweepSingleByChannel(Cover, Eye, Desired, FQuat::Identity,
+            if (RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Cover, Eye, Desired, FQuat::Identity,
                 ECC_Visibility, FCollisionShape::MakeSphere(20.f), Query)) Desired = Cover.Location;
             Slot.Orb->SetActorLocationAndRotation(Desired, Facing + FRotator(0.f, 0.f, Slot.Roll));
         }

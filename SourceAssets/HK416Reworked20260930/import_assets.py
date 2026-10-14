@@ -120,3 +120,7 @@ finally:u.SystemLibrary.execute_console_command(None,flag+' '+str(previous))
 
 file=O/'finish_publication.py'
 exec(compile(file.read_text(encoding='utf-8'),str(file),'exec'),{'__file__':str(file),'__name__':'__main__'})
+
+# Keep the compact quick-melee revision and its runtime grip layers on full reimport.
+file=O.parent/'HK416QuickMelee20261008/import_assets.py'
+exec(compile(file.read_text(encoding='utf-8'),str(file),'exec'),{'__file__':str(file),'__name__':'__main__'})

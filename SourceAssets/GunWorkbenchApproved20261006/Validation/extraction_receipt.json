@@ -1,0 +1,404 @@
+[
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/geometry_inventory.json",
+    "bytes": 874,
+    "sha256": "e0a37ce085346049338d40e314d392b19f9e4ff0e18588b805e7b08ae17f95b6"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/external_textures.json",
+    "bytes": 9486,
+    "sha256": "a16ae8aea53737875cb510f5dfe5476e2afc0a3c486da99af6da2d7926addf22"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/Lamp.blend",
+    "bytes": 12804439,
+    "sha256": "6186ff03058864f2cca6a58a25fa49e82e7692ed8b6e4df279bc3e0fec94bcec"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/libraries.json",
+    "bytes": 551,
+    "sha256": "ba053a68ff3ab4b1bdf287176c7994ecf5d7bbb9da030ac20192ddc0be930c51"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/NewAmmo.blend",
+    "bytes": 791007,
+    "sha256": "4878cd661705e4295437096264a942e3329f98b107598cfb8cfe02941edcd1a7"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/RetainedTools.blend",
+    "bytes": 896661,
+    "sha256": "27e0316aa539d859781c0f99c0b85320668fe105b66253cfd582b2de0c9724e3"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/NewProps.blend",
+    "bytes": 254441,
+    "sha256": "29b8d5564d950e91b76a3208f700ee728d07c9aaa83a96b4c82e38b5b435524d"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/GunWorkbench_Design_Master.blend",
+    "bytes": 98753,
+    "sha256": "738b397c34443e028731e80be8b889da9f4cb8632b0e3241a0f32f51cba50e89"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/TableAndMat.blend",
+    "bytes": 1164073,
+    "sha256": "959bded1e4caf136d14bc7086c11823c7dd0bad52f1815b69400fbb603a58628"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/README_\u8bbe\u8ba1\u8bf4\u660e.txt",
+    "bytes": 2313,
+    "sha256": "548e2ee6f702db8d5d721d7e691eb05b18139316806336b40220a7823a4a2b75"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/layout_validation.json",
+    "bytes": 3741,
+    "sha256": "315b8449e6e42a62ac53afdfb5cecbfc1b346d866238f68b7e522cb4ca4e0f06"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/portable_validation.json",
+    "bytes": 153,
+    "sha256": "ba3cd02980d848cd6c96202b1f6b7a4e7c859b00b3c87170b66aa18019d62660"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SceneSetup.blend",
+    "bytes": 66253,
+    "sha256": "d922742aaa602322a03c3afb89e78eb10f3c294e8956c0ea19e033e68f4b34c8"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/preview_machines.py",
+    "bytes": 1729,
+    "sha256": "ac5b724761d0dc55b421934f417f9f643f2ba009dfba403060ad5348cb1f0cb1"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/create_linked_master.py",
+    "bytes": 1411,
+    "sha256": "df204be83e41ad13cb09b68940e43b0b0edb8073a3ffbd955a01bb87df6fa850"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/layout_bench_v2.py",
+    "bytes": 7085,
+    "sha256": "1af30e019f7b3fb0291030242e24a4059f85c437b0958ef64bd7c99eaf420aca"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/machine_props.py",
+    "bytes": 11141,
+    "sha256": "ad927a9d79a4d69881ea987322b74915ebf4e14acdcd8e3328e71261523353f4"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/desk_props.py",
+    "bytes": 2756,
+    "sha256": "6f8dace85323cfe8ffa0b2cfa9a88162e31df758c95b332a98aff460f93411bd"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/clear_glass.py",
+    "bytes": 874,
+    "sha256": "9476a691f9e31c8ed9d5a7b2f5c83c65bb8b571eeabe0d0c8b5087e0c16feae2"
+  },
+  {
+    "zip": "GunWorkbench_Design_Core.zip",
+    "path": "GunWorkbenchDesign/SourceScripts/package_design.py",
+    "bytes": 945,
+    "sha256": "cd1a8b5e2220a6f674012d39398319d2c5170535a9a11bbb29ecf5e121b0166e"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_01.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_2cc26fd6c8bf.png",
+    "bytes": 8980094,
+    "sha256": "2cc26fd6c8bf0d14cc07ce4ef16e9690e30c6af33ecce33840597e9b8353829e"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_01.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_3b175af16c41.jpg",
+    "bytes": 6731980,
+    "sha256": "3b175af16c417245ff8fa950de0f7dee6fc77804845825d7d5b988b30946e5e8"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_01.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_82ad6bc4ab69.png",
+    "bytes": 3099589,
+    "sha256": "82ad6bc4ab69284fbacfa1ab94a5cc8c73d9e911e44f7d07f36cf6b28f4c1847"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_01.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_dcd5a2ea23b9.png",
+    "bytes": 57499,
+    "sha256": "dcd5a2ea23b92303dd4c4e09fca010d0125306794b90b7d5fe60d330b53d8988"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_4c7de1daa06c.png",
+    "bytes": 4457485,
+    "sha256": "4c7de1daa06cc0156206455623872828f61f5b28644eb2c53de95fb3e54e2562"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_47bdd0ef8e1b.png",
+    "bytes": 4352219,
+    "sha256": "47bdd0ef8e1b61569422dbf45a3cc554a06cb4578dbb72c8225cfb55ac56e8ba"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_72cbce02fdc7.png",
+    "bytes": 4143969,
+    "sha256": "72cbce02fdc787b361e6f1a157f174ef02be22d6a8a803750667166701fede37"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_c9ee8d6ffc8a.png",
+    "bytes": 3688083,
+    "sha256": "c9ee8d6ffc8a5e6eedccbc433339bfcaf3ce5cae5f613a81a22fad88b8244695"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_62d5efdd4376.png",
+    "bytes": 1912842,
+    "sha256": "62d5efdd4376be51dac343f28027c15ea2a640afd5b11f14d9df94e5547409b2"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_24d3f9836e7d.png",
+    "bytes": 313060,
+    "sha256": "24d3f9836e7d8be356f3e1b143aa1ddd621069ff455d84a6ec3b2098bc547ba7"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_02.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_3c4b25712292.png",
+    "bytes": 5335,
+    "sha256": "3c4b25712292f72e57b97f5295f04925f9a6a17b6b6dceb1e48996532e21c4f5"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_c6d61f6bfd25.jpg",
+    "bytes": 3327336,
+    "sha256": "c6d61f6bfd2537f7dcb8e4c2264f77e3d8fdfbca14dcf5ff7bade7637d2125b5"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_11122e2546f3.png",
+    "bytes": 2938490,
+    "sha256": "11122e2546f3e7105ff8ae808bcddf02247e4fb1f3a3a6fe0d654eabb565784d"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_b4855f803bbb.jpg",
+    "bytes": 2875502,
+    "sha256": "b4855f803bbbad6fbe8a78d514f453ba1c9989b2972775f46f835402de302b44"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_89d0705c68f5.png",
+    "bytes": 2758571,
+    "sha256": "89d0705c68f52afa165e80e45c22ea3fa8868e1068b427803acab716fa8d0069"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_b9123a09de26.png",
+    "bytes": 2744689,
+    "sha256": "b9123a09de26fb25c7fafd5feaf04296dc59cd297be8829ddec6243d370babee"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_730f862ce116.png",
+    "bytes": 2702832,
+    "sha256": "730f862ce116877d8295947079b4e2cde58090aba4041e5b4c7dcb4fcfff0f61"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_03.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_5391c66aca5e.png",
+    "bytes": 1485205,
+    "sha256": "5391c66aca5e85ab9c79134ced0c488738ccc72c213dc80cfa64df5c09e9a38d"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_69d70436450e.png",
+    "bytes": 2615384,
+    "sha256": "69d70436450e29e03d3e85cc96c0f6dfe9b9c68203b309a17b3215cabb0fc8e8"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_9c772e3468ea.png",
+    "bytes": 1864433,
+    "sha256": "9c772e3468ea4b7fe54ff8dfd1deb1faecaca8c15f61c9afe93559dadbc2ba5e"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_1347684598ef.png",
+    "bytes": 1702890,
+    "sha256": "1347684598ef4ad976b61299312613214b0681286e9040d604872a25e2376274"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_e1ce9534d0a5.png",
+    "bytes": 1702595,
+    "sha256": "e1ce9534d0a505f381d06dae0e64dc88c86f9b0a0ded7d990b7ea9ba30666939"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_d70fb2e3d311.png",
+    "bytes": 1615492,
+    "sha256": "d70fb2e3d3118b3df870f448e86b2b8da35e716754a9636e01a27f2e2836eb98"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_69f110eaf5da.png",
+    "bytes": 1598456,
+    "sha256": "69f110eaf5da54c9d2760969fb557a32945200b39efbb7f8fdbf9ff37e633a94"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_8c1f25347ced.png",
+    "bytes": 1482857,
+    "sha256": "8c1f25347ced4ea889a93c113c36a1632cd704dd0ccc180f96606d375d5f528d"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_ea7ee841f0ad.png",
+    "bytes": 1078824,
+    "sha256": "ea7ee841f0ad2b397562ac4afa6cf4df08421ab966b69a1470624a0bef13add0"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_bd53714845e8.png",
+    "bytes": 845736,
+    "sha256": "bd53714845e8ab57ba3e8baec712c00ba06cfa258059e0d2fd9dee253b63aa22"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_ce7eeb4ad110.png",
+    "bytes": 813740,
+    "sha256": "ce7eeb4ad110d9247ba57080236aeeda9290892e29362b7ed7b34342eb562c71"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_048b029eb44a.png",
+    "bytes": 777835,
+    "sha256": "048b029eb44a239a9e4cf3eec0d03be1b852b52057de185a3f7ac792c4109d74"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_21335504ed81.png",
+    "bytes": 714135,
+    "sha256": "21335504ed81a6b8815fe0c48a31b87f19b8d2c2b69e460dde23a61f1358e181"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/NewAmmo_2022087fbfb7.png",
+    "bytes": 692584,
+    "sha256": "2022087fbfb744397c9dab406c5903ec3325633d97d6717524d3edb0fbd3fd81"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_cc8b3de1b640.png",
+    "bytes": 569422,
+    "sha256": "cc8b3de1b6405aceccd76cdb8985e7f3f4c2c68a209c3b7053126016c91f2b34"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_0bf1e9632f06.png",
+    "bytes": 518733,
+    "sha256": "0bf1e9632f06d6b1613ffa763d1913b10945aca39292642f784e6bec2a0fecae"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_04.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_c2945c6739f0.png",
+    "bytes": 250376,
+    "sha256": "c2945c6739f051c94744a5e8ee74e3df5c043f84e8233370118a4782c44547aa"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_eec570250a57.png",
+    "bytes": 512322,
+    "sha256": "eec570250a579dc872ddf6f3773b835c63f62573fda41c254efa993934c99868"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_e0eb93bcb549.png",
+    "bytes": 429220,
+    "sha256": "e0eb93bcb549740e9614e4358c18faaa824b71541d1c38942fefd41e75fcc3a6"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_64b6ad7734d1.png",
+    "bytes": 359416,
+    "sha256": "64b6ad7734d1a67fb9052438a8e9578f26ee778a81210c191498de3373cacacc"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_f43dbbbe5898.png",
+    "bytes": 321281,
+    "sha256": "f43dbbbe5898c3851202150862bc782b6e48e8b48d00f0075f6b696a5f30c5f6"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_95b4bf431651.png",
+    "bytes": 230037,
+    "sha256": "95b4bf4316513280941cab8633f9c6fa8acaa3ab0374ccdeb09fe21c2e41e8c2"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_e3f563caf9ff.png",
+    "bytes": 223302,
+    "sha256": "e3f563caf9ff7b750479068fe6d398797bbf77773f7cbfd128befb451cad8aa8"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_f9e949497ae4.png",
+    "bytes": 182340,
+    "sha256": "f9e949497ae42598730897e14cecb1234460171306f326f02df9551fb8fd0398"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_2d41626e05c7.png",
+    "bytes": 175473,
+    "sha256": "2d41626e05c75b66cdc2dfb59e38a95d40a4e308ead0fa3c0770934e227cc664"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_344dbce29e40.png",
+    "bytes": 160664,
+    "sha256": "344dbce29e400b85b38dfb876a3fb9db74db10a9a79aaed47ae4395182a269c9"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_088d0ed6af6f.png",
+    "bytes": 106501,
+    "sha256": "088d0ed6af6fab6b2ddd6334640cea025b1f7ba59b6dd76c335fb7e2198a5163"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/TableAndMat_0d8199a72d09.png",
+    "bytes": 75890,
+    "sha256": "0d8199a72d09b0e7b882b6dd8f1f2c041d018bcd16bf99d5a0f5c319e7f479fe"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_fcbacf4344ab.png",
+    "bytes": 46298,
+    "sha256": "fcbacf4344ab00e054c8619e7cb7aced7c49a111347505de691ae8fbda9f4c1c"
+  },
+  {
+    "zip": "GunWorkbench_Design_Textures_05.zip",
+    "path": "GunWorkbenchDesign/Textures/RetainedTools_44e008a51469.png",
+    "bytes": 44646,
+    "sha256": "44e008a514690f52dbe6ba0bda33a03d3989e4cc3ddb4a64fb76a03746b787df"
+  }
+]

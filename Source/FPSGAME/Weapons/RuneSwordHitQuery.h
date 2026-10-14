@@ -13,6 +13,8 @@ struct FRuneSwordTraceSettings
     float Radius=4.f;
     float ForwardCorridorRadius=0.f; // Zero keeps the ordinary front hemisphere.
     bool bCleavePawns=true;
+    bool bAreaDamage=false; // Skill AOE may propagate through authored open barriers.
+    bool bIgnoreFriendlyUnits=false; // Extended ranged claws; ordinary melee keeps its contact contract.
 };
 
 namespace RuneSwordCombat

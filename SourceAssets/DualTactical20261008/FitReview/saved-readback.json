@@ -1,0 +1,398 @@
+{
+  "M4-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M4-laser-1.fbx"
+  },
+  "M4-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M4-laser-2.fbx"
+  },
+  "M4-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M4-flashlight-1.fbx"
+  },
+  "M4-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M4-flashlight-2.fbx"
+  },
+  "M4-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M4-blessed_laser-1.fbx"
+  },
+  "M4-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M4-blessed_laser-2.fbx"
+  },
+  "HK416-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\HK416-laser-1.fbx"
+  },
+  "HK416-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\HK416-laser-2.fbx"
+  },
+  "HK416-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\HK416-flashlight-1.fbx"
+  },
+  "HK416-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\HK416-flashlight-2.fbx"
+  },
+  "HK416-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\HK416-blessed_laser-1.fbx"
+  },
+  "HK416-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\HK416-blessed_laser-2.fbx"
+  },
+  "M16-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M16-laser-1.fbx"
+  },
+  "M16-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M16-laser-2.fbx"
+  },
+  "M16-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M16-flashlight-1.fbx"
+  },
+  "M16-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M16-flashlight-2.fbx"
+  },
+  "M16-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M16-blessed_laser-1.fbx"
+  },
+  "M16-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\M16-blessed_laser-2.fbx"
+  },
+  "AKM-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\AKM-laser-1.fbx"
+  },
+  "AKM-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\AKM-laser-2.fbx"
+  },
+  "AKM-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\AKM-flashlight-1.fbx"
+  },
+  "AKM-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\AKM-flashlight-2.fbx"
+  },
+  "AKM-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\AKM-blessed_laser-1.fbx"
+  },
+  "AKM-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\AKM-blessed_laser-2.fbx"
+  },
+  "QBZ191-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\QBZ191-laser-1.fbx"
+  },
+  "QBZ191-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\QBZ191-laser-2.fbx"
+  },
+  "QBZ191-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\QBZ191-flashlight-1.fbx"
+  },
+  "QBZ191-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\QBZ191-flashlight-2.fbx"
+  },
+  "QBZ191-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\QBZ191-blessed_laser-1.fbx"
+  },
+  "QBZ191-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\QBZ191-blessed_laser-2.fbx"
+  },
+  "ASH12-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\ASH12-laser-1.fbx"
+  },
+  "ASH12-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\ASH12-laser-2.fbx"
+  },
+  "ASH12-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\ASH12-flashlight-1.fbx"
+  },
+  "ASH12-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\ASH12-flashlight-2.fbx"
+  },
+  "ASH12-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\ASH12-blessed_laser-1.fbx"
+  },
+  "ASH12-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\ASH12-blessed_laser-2.fbx"
+  },
+  "A762-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\A762-laser-1.fbx"
+  },
+  "A762-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\A762-laser-2.fbx"
+  },
+  "A762-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\A762-flashlight-1.fbx"
+  },
+  "A762-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\A762-flashlight-2.fbx"
+  },
+  "A762-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\A762-blessed_laser-1.fbx"
+  },
+  "A762-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\A762-blessed_laser-2.fbx"
+  },
+  "SVD-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\SVD-laser-1.fbx"
+  },
+  "SVD-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\SVD-laser-2.fbx"
+  },
+  "SVD-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\SVD-flashlight-1.fbx"
+  },
+  "SVD-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\SVD-flashlight-2.fbx"
+  },
+  "SVD-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\SVD-blessed_laser-1.fbx"
+  },
+  "SVD-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\SVD-blessed_laser-2.fbx"
+  },
+  "PKM-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\PKM-laser-1.fbx"
+  },
+  "PKM-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\PKM-laser-2.fbx"
+  },
+  "PKM-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\PKM-flashlight-1.fbx"
+  },
+  "PKM-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\PKM-flashlight-2.fbx"
+  },
+  "PKM-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\PKM-blessed_laser-1.fbx"
+  },
+  "PKM-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\PKM-blessed_laser-2.fbx"
+  },
+  "LMG201-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\LMG201-laser-1.fbx"
+  },
+  "LMG201-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\LMG201-laser-2.fbx"
+  },
+  "LMG201-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\LMG201-flashlight-1.fbx"
+  },
+  "LMG201-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\LMG201-flashlight-2.fbx"
+  },
+  "LMG201-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\LMG201-blessed_laser-1.fbx"
+  },
+  "LMG201-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\LMG201-blessed_laser-2.fbx"
+  },
+  "Super90-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\Super90-laser-1.fbx"
+  },
+  "Super90-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\Super90-laser-2.fbx"
+  },
+  "Super90-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\Super90-flashlight-1.fbx"
+  },
+  "Super90-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\Super90-flashlight-2.fbx"
+  },
+  "Super90-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\Super90-blessed_laser-1.fbx"
+  },
+  "Super90-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials_match": true,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\FitReview\\SavedExport\\Super90-blessed_laser-2.fbx"
+  }
+}

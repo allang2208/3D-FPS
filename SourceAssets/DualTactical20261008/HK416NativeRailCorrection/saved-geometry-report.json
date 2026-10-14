@@ -1,0 +1,62 @@
+{
+  "HK416-laser-1": {
+    "maximum_surface_difference_mm": 0.00014901161193847656,
+    "material_region_difference_mm": {
+      "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7": 0.00014901161193847656
+    },
+    "saved_triangles": 132029,
+    "passed": true
+  },
+  "HK416-laser-2": {
+    "maximum_surface_difference_mm": 0.00015086276050624292,
+    "material_region_difference_mm": {
+      "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7": 0.00015086276050624292
+    },
+    "saved_triangles": 132029,
+    "passed": true
+  },
+  "HK416-flashlight-1": {
+    "maximum_surface_difference_mm": 0.00013033192658440385,
+    "material_region_difference_mm": {
+      "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39": 0.00013033192658440385,
+      "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass": 9.570444348128149e-05
+    },
+    "saved_triangles": 121332,
+    "passed": true
+  },
+  "HK416-flashlight-2": {
+    "maximum_surface_difference_mm": 0.00015557269250621175,
+    "material_region_difference_mm": {
+      "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39": 0.00015557269250621175,
+      "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass": 9.335550998912368e-05
+    },
+    "saved_triangles": 121332,
+    "passed": true
+  },
+  "HK416-blessed_laser-1": {
+    "maximum_surface_difference_mm": 0.00012225537204813008,
+    "material_region_difference_mm": {
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite": 0.00011920928955078125,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold": 0.000103506771154116,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black": 9.42432194506182e-05,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic": 0.00010085840784768152,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture": 0.00012225537204813008,
+      "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7": 8.97168703772877e-05
+    },
+    "saved_triangles": 22628,
+    "passed": true
+  },
+  "HK416-blessed_laser-2": {
+    "maximum_surface_difference_mm": 0.0001557509961003234,
+    "material_region_difference_mm": {
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite": 9.996002603429588e-05,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold": 0.0001497548112183722,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black": 9.996002603429588e-05,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic": 0.00015141368692184187,
+      "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture": 0.0001557509961003234,
+      "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7": 9.996002603429588e-05
+    },
+    "saved_triangles": 22628,
+    "passed": true
+  }
+}

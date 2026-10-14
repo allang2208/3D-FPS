@@ -1,4 +1,5 @@
 #include "FPSBallisticsComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "FPSWeaponFXComponent.h"
 #include "FPSShatterFXSubsystem.h"
 #include "../FPSGAMECharacter.h"
@@ -12,7 +13,8 @@ bool UFPSBallisticsComponent::IsShatterEnemy(AActor* Target,AActor* Shooter)
 {
     if(!IsValid(Target)||Target==Shooter||Target->IsActorBeingDestroyed()||!Target->CanBeDamaged()
         ||Target->IsA<AFPSGAMECharacter>()||Target->ActorHasTag(TEXT("Player"))
-        ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion")))return false;
+        ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))
+        ||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))return false;
     const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
     return Combat&&!Combat->IsDead();
 }
@@ -48,7 +50,7 @@ void UFPSBallisticsComponent::QueueShatter(const FHitResult& Hit,const FColdStee
     Candidates.RemoveAll([&](AActor* Target)
     {
         FHitResult Cover;
-        return World->LineTraceSingleByChannel(Cover,Origin,Target->GetActorLocation(),ECC_Visibility,Sight);
+        return RangedAttackQuery::LineTraceSingle(World, Shooter, Cover,Origin,Target->GetActorLocation(),ECC_Visibility,Sight);
     });
     if(Candidates.IsEmpty())return;
     if(!Receipt.bKilled)

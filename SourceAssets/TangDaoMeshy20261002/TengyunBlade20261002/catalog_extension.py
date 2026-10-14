@@ -23,9 +23,11 @@ def add_option(gunsmith):
     m = manifest()
     column = next(c for c in gunsmith['columns'] if c['key']=='blade_1')
     option = {'id':m['id'],'name':m['name'],'weapons':['ue_tang_dao'],
-        'description':'唐刀专属刀身。弧形刀尖接修长龙脊导槽，鎏金游龙沿刃面腾行，流云暗纹与层叠水波锻纹交织。',
-        'effects':[{'text':'弧形刀尖 · 龙脊长导槽','benefit':0},{'text':'鎏金游龙浮雕 · 流云水波锻纹','benefit':0}],
-        'stats':{}}
+        'description':'唐刀专属。弧形刀尖接修长龙脊，鎏金游龙交织流云与水波锻纹。',
+        'special_effects':['连段变化｜连段收尾改为升龙，准备时间缩短50%。', '击飞｜升龙命中无韧性或已破韧的目标时，将其击飞。'],
+        'effects':[{'text':'攻击速度 +10%','benefit':1},
+                   {'text':'连段收尾改为升龙 · 准备时间 -50% · 无韧性或破韧时击飞','benefit':1}],
+        'stats':{'attack_speed_mult':1.1,'combo_third_damage_mult':1.3}}
     for index, old in enumerate(column['options']):
         if old['id']==m['id']:
             column['options'][index]=option

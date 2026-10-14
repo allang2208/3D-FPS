@@ -1,0 +1,14 @@
+{
+  "change": "default automatic on installation",
+  "targets": {
+    "FPSGAMEEditor": {
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LegendaryFullAutoTrigger20261007\\Integration\\default-auto-build-FPSGAMEEditor-20261007-192911.log",
+      "exit_code": 0
+    },
+    "FPSGAME": {
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LegendaryFullAutoTrigger20261007\\Integration\\default-auto-build-FPSGAME-20261007-192929.log",
+      "exit_code": 0
+    }
+  },
+  "runtime_tested": false
+}

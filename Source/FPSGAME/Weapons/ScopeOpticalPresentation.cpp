@@ -1,6 +1,8 @@
 #include "../FPSGAMECharacter.h"
 #include "Bow/BowWeaponComponent.h"
 #include "RSH12OpticAssets.h"
+#include "ThermalScopeAssets.h"
+#include "ThermalTargetSubsystem.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -27,6 +29,15 @@ void AFPSGAMECharacter::InitializeScopeOptics()
     // One asynchronous request per character, with a weak owner callback. No
     // synchronous asset lookup or unbounded retry on ADS/paint/profile refresh.
     const TWeakObjectPtr<AFPSGAMECharacter> WeakOwner(this);
+    const FSoftObjectPath ThermalPath(ThermalScopeAssets::Material);
+    UAssetManager::GetStreamableManager().RequestAsyncLoad(ThermalPath,
+        FStreamableDelegate::CreateLambda([WeakOwner,ThermalPath]()
+        {
+            auto* Owner=WeakOwner.Get();if(!Owner)return;
+            if(auto* Source=Cast<UMaterialInterface>(ThermalPath.ResolveObject()))
+                Owner->ThermalSceneMaterial=UMaterialInstanceDynamic::Create(Source,Owner);
+            else UE_LOG(LogTemp,Error,TEXT("ThermalScope: failed to load post-process material %s"),*ThermalPath.ToString());
+        }));
     UAssetManager::GetStreamableManager().RequestAsyncLoad(ScopeOpticalPresentation::LensPath,
         FStreamableDelegate::CreateLambda([WeakOwner]()
         {
@@ -44,6 +55,7 @@ bool AFPSGAMECharacter::HasBowScope() const
 float AFPSGAMECharacter::GetOpticMagnification() const
 {
     if(Bow && Bow->IsEquipped())return Bow->ScopeMagnification();
+    if(HasThermalScope()){constexpr float Steps[]={1.5f,3.f,8.f};return Steps[FMath::Min<int32>(ThermalZoomIndex,2)];}
     // The RSH's retained EOTH model is now its fixed 1.5x tactical square sight.
     if(IsRSH12Weapon() && RSH12OpticAssets::Upgrade(OpticVariant)==RSH12OpticAssets::TacticalSquare)return 1.5f;
     return HasPSO1Scope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:
@@ -93,7 +105,7 @@ void AFPSGAMECharacter::UpdateScopeLensMaterial()
     const float Strength=FMath::Clamp(ScopeOpticalPresentation::Refraction.GetValueOnGameThread(),0.f,1.f);
     // The handgun's smaller aperture has its own Slate coating and eye shadow.
     // Do not apply the rifle material's fixed 85%-diameter refraction to it.
-    bool Apply=Alpha>UE_SMALL_NUMBER&&Strength>0.f&&!HasHandgunScope()&&!HasBowScope();
+    bool Apply=Alpha>UE_SMALL_NUMBER&&Strength>0.f&&!HasHandgunScope()&&!HasBowScope()&&!HasThermalScope();
     if(Apply)
     {
         const auto* World=GetWorld();
@@ -116,4 +128,36 @@ void AFPSGAMECharacter::UpdateScopeLensMaterial()
         else FirstPersonCamera->PostProcessSettings.RemoveBlendable(ScopeLensMaterial);
         bScopeLensApplied=Apply;
     }
+}
+
+void AFPSGAMECharacter::UpdateThermalPresentation()
+{
+    const auto* PC=Cast<APlayerController>(GetController());
+    const float Alpha=HasThermalScope()&&PC&&PC->IsLocalController()&&!PC->bShowMouseCursor?GetScopePresentationAlpha():0.f;
+    bool Apply=Alpha>UE_SMALL_NUMBER&&FirstPersonCamera&&ThermalSceneMaterial;
+    if(Apply)
+    {
+        const auto* World=GetWorld();
+        const auto* Resource=World&&World->Scene?ThermalSceneMaterial->GetMaterialResource(World->Scene->GetShaderPlatform()):nullptr;
+        const auto* ShaderMap=Resource?Resource->GetGameThreadShaderMap():nullptr;
+        // UE 5.8 compiles the needed post-process permutations when the renderer
+        // requests them. Waiting for EVERY permutation before adding the pass
+        // can prevent both this effect and its heat targets from ever starting.
+        Apply=ShaderMap&&ShaderMap->IsValidForRendering();
+    }
+    if(Apply)ThermalSceneMaterial->SetScalarParameterValue(TEXT("ThermalAlpha"),Alpha);
+    if(Apply!=bThermalApplied)
+    {
+        if(Apply)FirstPersonCamera->PostProcessSettings.AddBlendable(ThermalSceneMaterial,1.f);
+        else if(FirstPersonCamera)FirstPersonCamera->PostProcessSettings.RemoveBlendable(ThermalSceneMaterial);
+        bThermalApplied=Apply;
+        if(auto* Targets=GetWorld()->GetSubsystem<UThermalTargetSubsystem>())Targets->SetViewer(FirstPersonCamera,Apply);
+        UE_LOG(LogTemp,Display,TEXT("ThermalScope: camera post-process %s (ADS=%.3f)"),Apply?TEXT("enabled"):TEXT("disabled"),Alpha);
+    }
+}
+void AFPSGAMECharacter::ReleaseThermalPresentation()
+{
+    if(FirstPersonCamera&&ThermalSceneMaterial)FirstPersonCamera->PostProcessSettings.RemoveBlendable(ThermalSceneMaterial);
+    if(GetWorld())if(auto* Targets=GetWorld()->GetSubsystem<UThermalTargetSubsystem>())Targets->SetViewer(FirstPersonCamera,false);
+    bThermalApplied=false;
 }

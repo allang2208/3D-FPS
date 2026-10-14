@@ -1,0 +1,350 @@
+{
+  "HK416-laser-1": {
+    "family": "HK416",
+    "kind": "laser",
+    "side": 1,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\Exports\\HK416-laser-1.fbx",
+    "source": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_laser",
+    "materials": {
+      "MI_HK416_R01_optic_00e8a6efa7": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+    },
+    "sockets": {
+      "Emitter": [
+        8.975249528884888,
+        -53.36901545524597,
+        -0.547885661944747
+      ],
+      "AimGuide": [
+        8.97524207830429,
+        -57.369017601013184,
+        -0.5478909239172935
+      ]
+    },
+    "native_clamp": "original emitter and clamp retained as one rigid assembly",
+    "whole_native_assembly_rigid": true,
+    "generated_connector_count": 0,
+    "rail_center_gun_m": [
+      5.6764110922813416e-05,
+      0.0,
+      0.07913362979888916
+    ],
+    "runtime_compensation": [
+      [
+        0.99619460105896,
+        -1.6116422330014757e-06,
+        -0.08715605735778809,
+        0.05799328163266182
+      ],
+      [
+        1.909332922878093e-06,
+        0.9999998807907104,
+        1.2665987014770508e-06,
+        0.256089985370636
+      ],
+      [
+        0.08715574443340302,
+        -1.2887816183138057e-06,
+        0.9961946606636047,
+        -0.10141158849000931
+      ],
+      [
+        -0.0,
+        0.0,
+        -0.0,
+        1.0
+      ]
+    ]
+  },
+  "HK416-laser-2": {
+    "family": "HK416",
+    "kind": "laser",
+    "side": 2,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\Exports\\HK416-laser-2.fbx",
+    "source": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_laser",
+    "materials": {
+      "MI_HK416_R01_optic_00e8a6efa7": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+    },
+    "sockets": {
+      "Emitter": [
+        8.796419203281403,
+        -56.56899809837341,
+        2.8712641447782516
+      ],
+      "AimGuide": [
+        8.79642441868782,
+        -60.569000244140625,
+        2.8712691739201546
+      ]
+    },
+    "native_clamp": "original emitter and clamp retained as one rigid assembly",
+    "whole_native_assembly_rigid": false,
+    "generated_connector_count": 0,
+    "rail_center_gun_m": [
+      5.6764110922813416e-05,
+      0.0,
+      0.07913362979888916
+    ],
+    "runtime_compensation": [
+      [
+        -0.99619460105896,
+        1.6116423466883134e-06,
+        0.08715596795082092,
+        0.04252318665385246
+      ],
+      [
+        1.909332922878093e-06,
+        0.9999998807907104,
+        1.2665987014770508e-06,
+        0.256089985370636
+      ],
+      [
+        -0.08715565502643585,
+        1.288781504626968e-06,
+        -0.9961946606636047,
+        0.09045404940843582
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "HK416-flashlight-1": {
+    "family": "HK416",
+    "kind": "flashlight",
+    "side": 1,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\Exports\\HK416-flashlight-1.fbx",
+    "source": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_flashlight",
+    "materials": {
+      "MI_HK416_R01_optic_7b70d94e39": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39",
+      "M_HK416_Glass": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+    },
+    "sockets": {
+      "Emitter": [
+        10.28037816286087,
+        -57.129013538360596,
+        -1.8055684864521027
+      ],
+      "AimGuide": [
+        10.280371457338333,
+        -61.12900972366333,
+        -1.8055737018585205
+      ]
+    },
+    "native_clamp": "original emitter and clamp retained as one rigid assembly",
+    "whole_native_assembly_rigid": true,
+    "generated_connector_count": 0,
+    "rail_center_gun_m": [
+      5.6764110922813416e-05,
+      0.0,
+      0.07913362979888916
+    ],
+    "runtime_compensation": [
+      [
+        0.99619460105896,
+        -1.6116422330014757e-06,
+        -0.08715605735778809,
+        0.05799328163266182
+      ],
+      [
+        1.909332922878093e-06,
+        0.9999998807907104,
+        1.2665987014770508e-06,
+        0.256089985370636
+      ],
+      [
+        0.08715574443340302,
+        -1.2887816183138057e-06,
+        0.9961946606636047,
+        -0.10141158849000931
+      ],
+      [
+        -0.0,
+        0.0,
+        -0.0,
+        1.0
+      ]
+    ]
+  },
+  "HK416-flashlight-2": {
+    "family": "HK416",
+    "kind": "flashlight",
+    "side": 2,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\Exports\\HK416-flashlight-2.fbx",
+    "source": "/Game/Weapons/HK416/Reworked20260930/Attachments/SM_HK416_flashlight",
+    "materials": {
+      "MI_HK416_R01_optic_7b70d94e39": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39",
+      "M_HK416_Glass": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+    },
+    "sockets": {
+      "Emitter": [
+        10.101554542779922,
+        -57.12899565696716,
+        1.6135867685079575
+      ],
+      "AimGuide": [
+        10.1015605032444,
+        -61.1289918422699,
+        1.6135917976498604
+      ]
+    },
+    "native_clamp": "original emitter and clamp retained as one rigid assembly",
+    "whole_native_assembly_rigid": true,
+    "generated_connector_count": 0,
+    "rail_center_gun_m": [
+      5.6764110922813416e-05,
+      0.0,
+      0.07913362979888916
+    ],
+    "runtime_compensation": [
+      [
+        -0.99619460105896,
+        1.6116423466883134e-06,
+        0.08715596795082092,
+        0.04252318665385246
+      ],
+      [
+        1.909332922878093e-06,
+        0.9999998807907104,
+        1.2665987014770508e-06,
+        0.256089985370636
+      ],
+      [
+        -0.08715565502643585,
+        1.288781504626968e-06,
+        -0.9961946606636047,
+        0.09045404940843582
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "HK416-blessed_laser-1": {
+    "family": "HK416",
+    "kind": "blessed_laser",
+    "side": 1,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\Exports\\HK416-blessed_laser-1.fbx",
+    "source": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_HK416",
+    "materials": {
+      "Blessed_Graphite": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite",
+      "Blessed_Gold": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold",
+      "Blessed_Black": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black",
+      "Blessed_Optic": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic",
+      "Blessed_Aperture": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture",
+      "HK416_Original_Rail_Clamp": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+    },
+    "sockets": {
+      "Emitter": [
+        10.76631247997284,
+        -52.3872971534729,
+        -1.822732575237751
+      ],
+      "AimGuide": [
+        10.766306519508362,
+        -56.38729929924011,
+        -1.822737604379654
+      ]
+    },
+    "native_clamp": "original Laser_sight/mount_low, unchanged shape and source UV",
+    "whole_native_assembly_rigid": false,
+    "generated_connector_count": 0,
+    "rail_center_gun_m": [
+      5.6764110922813416e-05,
+      0.0,
+      0.07913362979888916
+    ],
+    "runtime_compensation": [
+      [
+        0.99619460105896,
+        -1.6116422330014757e-06,
+        -0.08715605735778809,
+        0.05799328163266182
+      ],
+      [
+        1.909332922878093e-06,
+        0.9999998807907104,
+        1.2665987014770508e-06,
+        0.256089985370636
+      ],
+      [
+        0.08715574443340302,
+        -1.2887816183138057e-06,
+        0.9961946606636047,
+        -0.10141158849000931
+      ],
+      [
+        -0.0,
+        0.0,
+        -0.0,
+        1.0
+      ]
+    ]
+  },
+  "HK416-blessed_laser-2": {
+    "family": "HK416",
+    "kind": "blessed_laser",
+    "side": 2,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\Exports\\HK416-blessed_laser-2.fbx",
+    "source": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_HK416",
+    "materials": {
+      "Blessed_Graphite": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite",
+      "Blessed_Gold": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold",
+      "Blessed_Black": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black",
+      "Blessed_Optic": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic",
+      "Blessed_Aperture": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture",
+      "HK416_Original_Rail_Clamp": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+    },
+    "sockets": {
+      "Emitter": [
+        10.587474703788757,
+        -52.78728008270264,
+        1.5964116901159286
+      ],
+      "AimGuide": [
+        10.587482154369354,
+        -56.78728222846985,
+        1.5964169055223465
+      ]
+    },
+    "native_clamp": "original Laser_sight/mount_low, unchanged shape and source UV",
+    "whole_native_assembly_rigid": false,
+    "generated_connector_count": 0,
+    "rail_center_gun_m": [
+      5.6764110922813416e-05,
+      0.0,
+      0.07913362979888916
+    ],
+    "runtime_compensation": [
+      [
+        -0.99619460105896,
+        1.6116423466883134e-06,
+        0.08715596795082092,
+        0.04252318665385246
+      ],
+      [
+        1.909332922878093e-06,
+        0.9999998807907104,
+        1.2665987014770508e-06,
+        0.256089985370636
+      ],
+      [
+        -0.08715565502643585,
+        1.288781504626968e-06,
+        -0.9961946606636047,
+        0.09045404940843582
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}

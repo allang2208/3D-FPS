@@ -1,0 +1,22 @@
+[
+  {
+    "slot": "Ammo_ammo_556_0",
+    "previous": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_556_0.M_GW_Ammo_ammo_556_0",
+    "new": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_Ammo_556_Paper.M_GWDesign_Ammo_556_Paper"
+  },
+  {
+    "slot": "Ammo_ammo_556_1",
+    "previous": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_556_1.M_GW_Ammo_ammo_556_1",
+    "new": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_AmmoMetal.M_GWDesign_AmmoMetal"
+  },
+  {
+    "slot": "Ammo_ammo_762_0",
+    "previous": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_762_0.M_GW_Ammo_ammo_762_0",
+    "new": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_Ammo_762_Paper.M_GWDesign_Ammo_762_Paper"
+  },
+  {
+    "slot": "Ammo_ammo_762_1",
+    "previous": "/Game/Building/GunWorkbenchLibraryTools20260928/Materials/M_GW_Ammo_ammo_762_1.M_GW_Ammo_ammo_762_1",
+    "new": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_AmmoMetal.M_GWDesign_AmmoMetal"
+  }
+]

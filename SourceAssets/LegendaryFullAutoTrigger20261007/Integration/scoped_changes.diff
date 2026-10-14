@@ -1,0 +1,330 @@
+--- Before/Config/DefaultInput.ini
++++ Config/DefaultInput.ini
+@@ -93,6 +93,8 @@
+ +ActionMappings=(ActionName="Slide",Key=LeftControl)
+ +ActionMappings=(ActionName="Slide",Key=C)
+ +ActionMappings=(ActionName="Fire",Key=LeftMouseButton)
+++ActionMappings=(ActionName="MainFireMode",Key=V)
+++ActionMappings=(ActionName="OffhandFireMode",Key=H)
+ +ActionMappings=(ActionName="Aim",Key=RightMouseButton)
+ +ActionMappings=(ActionName="Reload",Key=R)
+ +ActionMappings=(ActionName="InspectWeapon",Key=L)
+--- Before/Content/ColdSteelData/gunsmith.json
++++ Content/ColdSteelData/gunsmith.json
+@@ -2348,6 +2348,28 @@
+             "stats": {
+               "fire_interval_mult": 0.75
+             }
++          },
++          {
++            "id": "legendary_full_auto_trigger",
++            "name": "全自动扳机",
++            "description": "半自动手枪专用的射击模式改造，沿用原厂扳机外观。主手 V、副手 H 切换射击模式。",
++            "effects": [
++              {
++                "text": "射击间隔减少20%",
++                "benefit": 1
++              },
++              {
++                "text": "可切换半自动与全自动，全自动时按住对应开火键持续射击",
++                "benefit": 1
++              },
++              {
++                "text": "双持时仅作用于安装该改造的武器",
++                "benefit": 0
++              }
++            ],
++            "stats": {
++              "fire_interval_mult": 0.8
++            }
+           }
+         ],
+         "optic": [
+@@ -2567,7 +2589,7 @@
+       "traits": [
+         {
+           "icon": "mechanic",
+-          "text": "半自动：每次扣扳机一发，射击间隔 180 ms，原厂 7 发单排弹匣"
++          "text": "原厂半自动：每次扣扳机一发，原厂 7 发单排弹匣；全自动扳机可解锁射击模式切换"
+         },
+         {
+           "icon": "mechanic",
+@@ -2967,6 +2989,28 @@
+             "stats": {
+               "fire_interval_mult": 0.75
+             }
++          },
++          {
++            "id": "legendary_full_auto_trigger",
++            "name": "全自动扳机",
++            "description": "半自动手枪专用的射击模式改造，沿用原厂扳机外观。主手 V、副手 H 切换射击模式。",
++            "effects": [
++              {
++                "text": "射击间隔减少20%",
++                "benefit": 1
++              },
++              {
++                "text": "可切换半自动与全自动，全自动时按住对应开火键持续射击",
++                "benefit": 1
++              },
++              {
++                "text": "双持时仅作用于安装该改造的武器",
++                "benefit": 0
++              }
++            ],
++            "stats": {
++              "fire_interval_mult": 0.8
++            }
+           }
+         ]
+       },
+@@ -2988,7 +3032,7 @@
+       "traits": [
+         {
+           "icon": "mechanic",
+-          "text": "半自动；9mm弹药；原厂15发双排弹匣"
++          "text": "原厂半自动；9mm弹药；原厂15发双排弹匣；全自动扳机可解锁射击模式切换"
+         },
+         {
+           "icon": "special",
+@@ -8960,8 +9004,8 @@
+         "camera_shake": 120,
+         "spread_mult": 1.5,
+         "fire_interval": 0.65,
+-        "reload_time": 1.65,
+-        "empty_reload_time": 7.066666666666666,
++        "reload_time": 1.2692307692307692,
++        "empty_reload_time": 5.435897435897435,
+         "damage": 80,
+         "bullet_speed": 380,
+         "effective_range": 35,
+--- Before/Source/FPSGAME/FPSGAMECharacter.cpp
++++ Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -833,6 +833,8 @@
+     Input->BindAction(TEXT("Slide"), IE_Pressed, this, &AFPSGAMECharacter::SlidePressed);
+     Input->BindAction(TEXT("Fire"), IE_Pressed, this, &AFPSGAMECharacter::FirePressed);
+     Input->BindAction(TEXT("Fire"), IE_Released, this, &AFPSGAMECharacter::FireInputReleased);
++    Input->BindAction(TEXT("MainFireMode"), IE_Pressed, this, &AFPSGAMECharacter::MainFireModePressed);
++    Input->BindAction(TEXT("OffhandFireMode"), IE_Pressed, this, &AFPSGAMECharacter::OffhandFireModePressed);
+     Input->BindAction(TEXT("Aim"), IE_Pressed, this, &AFPSGAMECharacter::AimPressed);
+     Input->BindAction(TEXT("Aim"), IE_Released, this, &AFPSGAMECharacter::AimReleased);
+     Input->BindAction(TEXT("Reload"), IE_Pressed, this, &AFPSGAMECharacter::ReloadInputPressed);
+--- Before/Source/FPSGAME/FPSGAMECharacter.h
++++ Source/FPSGAME/FPSGAMECharacter.h
+@@ -76,7 +76,8 @@
+     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
+     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
+     bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
+-    bool UsesSingleShotTrigger() const { return !IsG18Weapon() && (IsPistolWeapon() || bSingleShotTrigger); }
++    bool UsesSingleShotTrigger() const { return !IsG18Weapon() && !bAutomaticTrigger && (IsPistolWeapon() || bSingleShotTrigger); }
++    FString GetFireModeHint(int32 HandIndex = 0) const;
+     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
+     UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
+     bool IsDualWieldingPistols() const;
+@@ -514,6 +515,9 @@
+     void JumpReleased();
+     void FirePressed();
+     void FireInputReleased();
++    void MainFireModePressed();
++    void OffhandFireModePressed();
++    void ToggleWeaponFireMode(int32 HandIndex);
+     void FireReleased();
+     void AimPressed();
+     void AimReleased();
+@@ -867,4 +871,7 @@
+     UPROPERTY(Replicated) TArray<FName> DoorKeys;
+     // Refreshed with installed firearm stats; active actions snapshot this rate.
+     float FirearmEquipRate = 1.f;
++    // Cached from this inventory instance on profile publication, never per shot.
++    bool bSelectableAutoTrigger = false;
++    bool bAutomaticTrigger = false;
+ };
+--- Before/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSGAMECharacter.h"
++#include "Weapons/FullAutoTrigger.h"
+ #include "Weapons/JingangRuneComponent.h"
+ #include "GameFramework/CharacterMovementComponent.h"
+ #include "Weapons/PistolDualWieldComponent.h"
+@@ -136,11 +137,15 @@
+     FirearmEquipRate=1.f;
+     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
+     FireInterval=Defaults->FireInterval;
++    const bool PreviousSelectable=bSelectableAutoTrigger, PreviousAutomatic=bAutomaticTrigger;
++    bSelectableAutoTrigger=false;bAutomaticTrigger=false;
+     BurstShotCount=1;BurstRecoverySeconds=0.f;
+     ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
+     if(auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+     {
+         const auto Parts=I?Gunsmith->Installed(*I):FGunsmithParts();
++        bSelectableAutoTrigger=I&&FullAutoTrigger::Installed(I->Definition,Parts);
++        bAutomaticTrigger=I&&FullAutoTrigger::Automatic(*I,bSelectableAutoTrigger);
+         // Gameplay transactions can refresh stats while the gunsmith is open;
+         // keep its transient preview until Apply/Undo/Close resolves it.
+         const auto& VisualParts=I&&Gunsmith->IsOpen()&&Gunsmith->Instance()==I->InstanceId?Gunsmith->Draft():Parts;
+@@ -164,6 +169,8 @@
+             DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval;
+             BurstShotCount=Stats.BurstCount;BurstRecoverySeconds=Stats.BurstDelay;}
+     }
++    if(!ChangedWeapon && !WasDual && (PreviousSelectable!=bSelectableAutoTrigger || PreviousAutomatic!=bAutomaticTrigger))
++        bFireHeld=bPistolShotPending=false;
+     // Rebuild from weapon/attachment values on each publication; never compound
+     // the passive bonus into the previous duration. Active action clocks stay fixed.
+     ReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,ReloadDuration);
+--- Before/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp
++++ Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp
+@@ -4,6 +4,7 @@
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/PistolDualWieldComponent.h"
++#include "../Weapons/FullAutoTrigger.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Components/Border.h"
+@@ -143,6 +144,7 @@
+         const bool Low=Count>0&&Count<=FMath::Max(1,FMath::CeilToInt(Capacity*.2f));
+         Names[Index]->SetText(FText::FromString(FString(Index==0?TEXT("主手 · "):TEXT("副手 · "))+ColdSteelInventory::Text(Hand.Item,TEXT("name"))));
+         FString Detail=FString(Index==0?TEXT("左键 · "):TEXT("右键 · "))+Model.AmmoLabel(Model.AmmoDefinitionFor(Hand.Item));
++        if(Hand.SelectableAutomatic)Detail+=TEXT("\n")+FullAutoTrigger::Hint(Hand.Automatic,Index);
+         if(!Hand.PendingAmmoType.IsEmpty())if(const auto* Target=Model.AmmoType(Hand.PendingAmmoType))Detail+=TEXT(" → ")+Target->Name;
+         if(Hand.Reloading)Detail+=TEXT(" · 换弹中");
+         Details[Index]->SetText(FText::FromString(Detail));
+@@ -180,6 +182,7 @@
+     const auto& Hand=Dual.Hand(1);
+     OffhandName->SetText(FText::FromString(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name"))));
+     FString Detail=TEXT("右键 · ")+Model.AmmoLabel(Model.AmmoDefinitionFor(Hand.Item));
++    if(Hand.SelectableAutomatic)Detail+=TEXT("\n")+FullAutoTrigger::Hint(Hand.Automatic,1);
+     if(!Hand.PendingAmmoType.IsEmpty())if(const auto* Target=Model.AmmoType(Hand.PendingAmmoType))Detail+=TEXT(" → ")+Target->Name;
+     if(Hand.Reloading)Detail+=TEXT(" · 换弹中");
+     OffhandCalibre->SetText(FText::FromString(Detail));
+@@ -246,6 +249,7 @@
+         SetDualVisible(false);
+         const auto& Hand=Dual->Hand(1);
+         FString AmmoName=Model->AmmoLabel(Model->AmmoDefinitionFor(Hand.Item));
++        if(Hand.SelectableAutomatic)AmmoName+=TEXT("\n")+FullAutoTrigger::Hint(Hand.Automatic,1);
+         if(!Hand.PendingAmmoType.IsEmpty())AmmoName+=TEXT(" → ")+Model->AmmoLabel(Hand.PendingAmmoType)+TEXT(" · 换弹中");
+         Present(TEXT("副手 · ")+ColdSteelInventory::Text(Hand.Item,TEXT("name")),AmmoName,
+             Hand.Rounds,Dual->Reserve(1),Hand.Stats.Capacity,Hand.Reloading,true);
+@@ -264,6 +268,8 @@
+         if(Character)
+         {
+             const FString BipodHint=Character->GetBipodDeploymentHint();
++            const FString FireModeHint=Character->GetFireModeHint();
++            if(!FireModeHint.IsEmpty())AmmoName+=TEXT("\n")+FireModeHint;
+             if(!BipodHint.IsEmpty())AmmoName+=TEXT("\n")+BipodHint;
+         }
+         if(Character&&Model&&!Character->GetPendingAmmoType().IsEmpty())if(const auto* Target=Model->AmmoType(Character->GetPendingAmmoType()))AmmoName+=TEXT(" → ")+Target->Name+TEXT(" · 换弹中");
+--- Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -5,6 +5,7 @@
+ #include "ColdSteelEnhancementSystem.h"
+ #include "Engine/GameInstance.h"
+ #include "../Weapons/GunsmithSystem.h"
++#include "../Weapons/FullAutoTrigger.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/ModularSwordVisual.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+@@ -505,6 +506,8 @@
+         }
+         Row(Main,TEXT("握持"),TEXT("单手主手；左键挥杖，技能快捷键施法"));
+     }else if(Weapon){Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
++        if(FullAutoTrigger::Installed(I.Definition,Parts))
++            Row(Main,TEXT("射击模式"),FullAutoTrigger::Automatic(I,true)?TEXT("全自动（可切换半自动）"):TEXT("半自动（可切换全自动）"));
+         const auto DamageParts=ColdSteelWeaponStats::DamageParts(I,Model,S.Damage);
+         DamageRows(Main,DamageParts);
+         Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,ColdSteelWeaponText::Ammo,Model?Model->AmmoLabel(Model->AmmoDefinitionFor(I)):ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
+--- Before/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -3,12 +3,15 @@
+ #include "RSH12OpticAssets.h"
+ #include "TacticalDeviceVariants.h"
+ #include "LegendaryTacticalStock.h"
++#include "FullAutoTrigger.h"
+ 
+ enum class EGunsmithModificationTier : uint8 { Common, Special, Legendary };
+ namespace ColdSteelModification
+ {
+ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
+ {
++    if(SlotKey==TEXT("trigger")&&Id==FullAutoTrigger::Part&&FullAutoTrigger::Supports(Weapon))
++        return EGunsmithModificationTier::Legendary;
+     if(SlotKey==TEXT("stock")&&Id==LegendaryTacticalStock::Part)
+         return EGunsmithModificationTier::Legendary;
+     if(SlotKey==TEXT("tactical")&&Id==TacticalDeviceVariants::BlessedLaser)
+--- Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -1,4 +1,5 @@
+ #include "GunsmithSystem.h"
++#include "FullAutoTrigger.h"
+ #include "G18WeaponAssets.h"
+ #include "PitViper2011WeaponAssets.h"
+ #include "Staff/StaffCatalog.h"
+@@ -383,6 +384,8 @@
+     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Profile->SyncRuntime();auto State=Profile->Snapshot();
+     const int32 Index=State.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==InstanceId;});if(Index<0)return false;
+     auto& I=State.Items[Index];TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data))return false;
++    if(Part(Installed(I),TEXT("trigger"))!=Part(Preview,TEXT("trigger")))
++        Data->RemoveField(FullAutoTrigger::ModeKey);
+     auto Parts=MakeShared<FJsonObject>();for(const auto& P:Preview){if(P.Value==TEXT("true"))Parts->SetBoolField(P.Key,true);else Parts->SetStringField(P.Key,P.Value);}
+     Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Data->SetNumberField(TEXT("gunsmith_version"),1);
+     // 强化等级与 gunsmith_parts 同一次提交：都写进这一份 State 的 Item.Data，随后走同一个 CommitState。
+--- Before/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
++++ Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
+@@ -41,7 +41,7 @@
+ void UPistolDualWieldComponent::TryFire(int32 Index)
+ {
+     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
+-    if((!H.Pending && H.Item.Definition!=G18WeaponAssets::Definition) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
++    if((!H.Pending && !H.Automatic) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
+         || Now<Player->SprintFireUnlockTime || Now<H.NextShot || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
+     H.Pending=false;
+     if(WeaponReloadStages::NeedsCycle(H.Item)){BeginReload(Index);return;}
+@@ -65,7 +65,7 @@
+     const bool MuzzleBlocked=GetWorld()->LineTraceSingleByChannel(Blocked,Eye,Muzzle,ECC_Visibility,Query);
+     --H.Rounds;H.Item.Magazine=H.Rounds;
+     const double ShotInterval=FMath::Max(.001,H.Stats.Interval);
+-    H.NextShot=H.Item.Definition==G18WeaponAssets::Definition
++    H.NextShot=H.Automatic
+         ? (Now-H.NextShot>.15?Now:H.NextShot)+ShotInterval : Now+ShotInterval;
+     H.Pattern=Now-H.LastShot>.4?0:FMath::Min(H.Pattern+1,FWeaponHandling::PatternCount-1);H.LastShot=Now;
+     const float FireRate=H.Item.Definition==RSH12WeaponAssets::Definition && H.Clips.FindRef(TEXT("fire"))
+--- Before/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
++++ Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "PistolDualWieldComponent.h"
++#include "FullAutoTrigger.h"
+ #include "TacticalDeviceVariants.h"
+ #include "G18WeaponAssets.h"
+ #include "PitViper2011WeaponAssets.h"
+@@ -272,6 +273,10 @@
+         auto& H=Hands[Side];H.Item=Side?*Off:*Main;
+         H.FX->SetBigBlindEnabled(ColdSteelCombat::BigBlind(Player->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),&H.Item).Enabled);
+         const auto Parts=G->Installed(H.Item);
++        const bool Selectable=FullAutoTrigger::Installed(H.Item.Definition,Parts);
++        const bool Automatic=FullAutoTrigger::Automatic(H.Item,Selectable);
++        if(H.SelectableAutomatic!=Selectable || H.Automatic!=Automatic)H.Held=H.Pending=false;
++        H.SelectableAutomatic=Selectable;H.Automatic=Automatic;
+         if(Side==0&&H.Item.Definition==RSH12WeaponAssets::Definition)
+             RSH12HeavyGrip::ShowFactory(H.Mesh,!(RSH12HeavyGrip::IsPart(Parts.FindRef(TEXT("grip_body")))
+                 &&Player->GripBodyAttachment&&Player->GripBodyAttachment->IsVisible()));
+@@ -655,7 +660,7 @@
+         }
+         if(InputAvailable() && !Player->IsChoosingAmmo() && !H.Action && (H.ReloadQueued || WeaponReloadStages::NeedsCycle(H.Item)
+             || (H.Rounds==0 && (InfiniteReserve(Side)||Reserve(Side)>0))))BeginReload(Side);
+-        if(H.Item.Definition==G18WeaponAssets::Definition)
++        if(H.Automatic)
+         {
+             // Preserve this hand's cadence across variable frame times, with
+             // bounded catch-up. Action gates remain owned by TryFire.
+--- Before/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
++++ Source/FPSGAME/Weapons/PistolDualWieldComponent.h
+@@ -71,6 +71,8 @@
+     TSet<FString> PlayedCues;
+     UPROPERTY(Transient) TMap<FName,TObjectPtr<class UWeaponGripProfile>> PoseProfiles;
+     FName ActionPoseProfile;
++    // Per-instance capability/mode; refreshed only when that hand's item changes.
++    bool SelectableAutomatic=false, Automatic=false;
+ };
+ 
+ /** Pistol pair or staff/offhand pistol; each active hand owns its trigger, ammo and action clock. */

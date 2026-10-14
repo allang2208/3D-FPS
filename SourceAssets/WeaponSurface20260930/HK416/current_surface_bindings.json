@@ -46,90 +46,148 @@
       "M_HK416_Laser_Grip": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_angled.SM_HK416_angled": {
-      "Resonance_Metal_M4_001": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_accessory_6cb9abbebe.MI_HK416_R01_accessory_6cb9abbebe",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_7039fd76b7.MI_HK416_R01_mount_7039fd76b7"
+      "Resonance_Metal_M4_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_671b1366d5.MI_HK416_A08_existing_authored_671b1366d5",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_ef6fa61860.MI_HK416_A08_existing_authored_ef6fa61860"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_balanced_reargrip.SM_HK416_balanced_reargrip": {
-      "M_BalancedRearGrip": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_032f8140af.MI_HK416_R01_furniture_032f8140af",
-      "M_BalancedRearGrip_Collar": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_a9ed83aafb.MI_HK416_R01_mount_a9ed83aafb",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_68e2ec09e9.MI_HK416_R01_mount_68e2ec09e9"
+      "M_BalancedRearGrip": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_ef7c78d068.MI_HK416_A08_existing_authored_ef7c78d068",
+      "M_BalancedRearGrip_Collar": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_bb698db653.MI_HK416_A08_existing_authored_bb698db653",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_9d5520de9f.MI_HK416_A08_existing_authored_9d5520de9f"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_brake.SM_HK416_brake": {
-      "RifleMetal": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_muzzle_e94373f37b.MI_HK416_R01_muzzle_e94373f37b",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_409a2b622b.MI_HK416_R01_mount_409a2b622b"
+      "RifleMetal": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_2c9d4d86ca.MI_HK416_A08_existing_authored_2c9d4d86ca",
+      "RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_2990b1f295.MI_HK416_A08_existing_authored_2990b1f295"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_canted.SM_HK416_canted": {
-      "Body_004": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_accessory_9fcbce6624.MI_HK416_R01_accessory_9fcbce6624",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_ed93ecc10f.MI_HK416_R01_mount_ed93ecc10f"
+      "Body_004": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_c63de621b5.MI_HK416_A08_existing_authored_c63de621b5",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_63fce49eb2.MI_HK416_A08_existing_authored_63fce49eb2"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_core_stock.SM_HK416_core_stock": {
-      "CoreStockBody": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_aa9849e08f.MI_HK416_R01_furniture_aa9849e08f",
-      "CoreStockAdapter": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_137a4e64e0.MI_HK416_R01_mount_137a4e64e0",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_817adc5a19.MI_HK416_R01_mount_817adc5a19"
+      "CoreStockBody": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_39a25abcba.MI_HK416_A08_existing_authored_39a25abcba",
+      "CoreStockRubber": "/Game/Weapons/CoreStock20260914/Meshy0914005605/M_CoreStock_Rubber.M_CoreStock_Rubber",
+      "CoreStockAdapter": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_c3350fed8f.MI_HK416_A08_existing_authored_c3350fed8f",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_30de1e19e6.MI_HK416_A08_existing_authored_30de1e19e6"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_ext_mag.SM_HK416_ext_mag": {
-      "M_HK416_Mag_Silencer_Magazine_001": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_magazine_8165a4c4df.MI_HK416_R01_magazine_8165a4c4df"
+      "M_HK416_Mag_Silencer_Magazine_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_87152aafc3.MI_HK416_A08_existing_authored_87152aafc3"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_large_drum.SM_HK416_large_drum": {
-      "DrumPolymer": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_magazine_8aa33cb76f.MI_HK416_R01_magazine_8aa33cb76f",
-      "DrumFasteners": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_magazine_e7f41d9433.MI_HK416_R01_magazine_e7f41d9433",
-      "M_HK416_Mag_Silencer_Magazine": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_magazine_8165a4c4df.MI_HK416_R01_magazine_8165a4c4df",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_magazine_93496bc0c7.MI_HK416_R01_magazine_93496bc0c7"
+      "DrumPolymer": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_51a0ebe1d8.MI_HK416_A08_existing_authored_51a0ebe1d8",
+      "DrumFasteners": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_6fd67b293a.MI_HK416_A08_existing_authored_6fd67b293a",
+      "DrumIndex": "/Game/Weapons/LargeDrumUpgrade20260920/M4/M_M4_DrumSurface.M_M4_DrumSurface",
+      "M_HK416_Mag_Silencer_Magazine": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_87152aafc3.MI_HK416_A08_existing_authored_87152aafc3",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_ec7dd999b9.MI_HK416_A08_existing_authored_ec7dd999b9"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_lpvo_1_6x.SM_HK416_lpvo_1_6x": {
-      "LPVO_Body": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_3caeb9366f.MI_HK416_R01_optic_3caeb9366f"
+      "LPVO_Reticle": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+      "LPVO_Glass": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+      "LPVO_Body": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_41fca641da.MI_HK416_A08_existing_authored_41fca641da"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_lpvo_ring.SM_HK416_lpvo_ring": {
-      "LPVO_Body": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_6962f729ee.MI_HK416_R01_optic_6962f729ee"
+      "LPVO_Body": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_c4e462e6d7.MI_HK416_A08_existing_authored_c4e462e6d7"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_panoramic_red_dot.SM_HK416_panoramic_red_dot": {
-      "Panoramic_Body": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_dfbebcb057.MI_HK416_R01_optic_dfbebcb057"
+      "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+      "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+      "Panoramic_Body": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_4aeead2b67.MI_HK416_A08_existing_authored_4aeead2b67"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_phantom_reargrip.SM_HK416_phantom_reargrip": {
-      "M_PhantomRearGrip": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_28b229cf26.MI_HK416_R01_furniture_28b229cf26",
-      "M_PhantomRearGrip_Collar": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_14c4f144b7.MI_HK416_R01_mount_14c4f144b7",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_72e17e8258.MI_HK416_R01_mount_72e17e8258"
+      "M_PhantomRearGrip": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_23e0eb55f8.MI_HK416_A08_existing_authored_23e0eb55f8",
+      "M_PhantomRearGrip_Collar": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_36d10456f3.MI_HK416_A08_existing_authored_36d10456f3",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_1dea4d2a90.MI_HK416_A08_existing_authored_1dea4d2a90"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_prism.SM_HK416_prism": {
-      "Prism_Polymer": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_accessory_e100249277.MI_HK416_R01_accessory_e100249277",
-      "Prism_Saddle": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_2fa3673026.MI_HK416_R01_mount_2fa3673026",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_acae8b8fb3.MI_HK416_R01_mount_acae8b8fb3"
+      "Prism_Polymer": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_f369b7c235.MI_HK416_A08_existing_authored_f369b7c235",
+      "Prism_Saddle": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_99f191fdb2.MI_HK416_A08_existing_authored_99f191fdb2",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_ee722ae327.MI_HK416_A08_existing_authored_ee722ae327"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_prism_scope_2x.SM_HK416_prism_scope_2x": {
-      "Scope2X_Body": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_68dc0b9e8d.MI_HK416_R01_optic_68dc0b9e8d"
+      "Scope2X_Reticle": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+      "Scope2X_Glass": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+      "Scope2X_Body": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_a3596c8e64.MI_HK416_A08_existing_authored_a3596c8e64"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_qr_performance.SM_HK416_qr_performance": {
-      "StockMetal_M4": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_57f3a73661.MI_HK416_R01_furniture_57f3a73661",
-      "StockPolymer_M4": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_488fb7797f.MI_HK416_R01_furniture_488fb7797f",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_1c52928ddb.MI_HK416_R01_mount_1c52928ddb"
+      "StockMetal_M4": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_49838a40b9.MI_HK416_A08_existing_authored_49838a40b9",
+      "StockPolymer_M4": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_3d6cb84e7e.MI_HK416_A08_existing_authored_3d6cb84e7e",
+      "StockRubber_M4": "/Game/Weapons/QRPerformanceStock/Meshy20260913/M_Stock_Rubber.M_Stock_Rubber",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_8124ee8d4e.MI_HK416_A08_existing_authored_8124ee8d4e"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_skeleton.SM_HK416_skeleton": {
-      "StockMetal": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_ef212286c5.MI_HK416_R01_furniture_ef212286c5",
-      "StockPolymer": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_d31d3a0b84.MI_HK416_R01_furniture_d31d3a0b84",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_59121b76e5.MI_HK416_R01_mount_59121b76e5"
+      "StockMetal": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_86a939de5e.MI_HK416_A08_existing_authored_86a939de5e",
+      "StockPolymer": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_f90fc75a81.MI_HK416_A08_existing_authored_f90fc75a81",
+      "StockRubber": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_9003c6b481.MI_HK416_A08_existing_authored_9003c6b481"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_stable_antislip_reargrip.SM_HK416_stable_antislip_reargrip": {
-      "M_StableAntiSlipRearGrip": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_e49cc3cd8a.MI_HK416_R01_furniture_e49cc3cd8a",
-      "M_StableGrip_Collar_M4": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_6019aea294.MI_HK416_R01_mount_6019aea294",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_9266f2869f.MI_HK416_R01_mount_9266f2869f"
+      "M_StableAntiSlipRearGrip": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_50712eb581.MI_HK416_A08_existing_authored_50712eb581",
+      "M_StableGrip_Collar_M4": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_6f72b1a0c0.MI_HK416_A08_existing_authored_6f72b1a0c0",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_c6a15b234e.MI_HK416_A08_existing_authored_c6a15b234e"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_tactical_suppressor.SM_HK416_tactical_suppressor": {
-      "TacticalShell": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_muzzle_517e26ebdc.MI_HK416_R01_muzzle_517e26ebdc",
-      "TacticalMount": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_97cf440c98.MI_HK416_R01_mount_97cf440c98",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_abbec6ccec.MI_HK416_R01_mount_abbec6ccec"
+      "TacticalShell": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_348ce80a05.MI_HK416_A08_existing_authored_348ce80a05",
+      "TacticalRecess": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+      "TacticalMount": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_7d46deb31c.MI_HK416_A08_existing_authored_7d46deb31c",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_a13521fee6.MI_HK416_A08_existing_authored_a13521fee6"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_tactical_telescopic.SM_HK416_tactical_telescopic": {
-      "TacticalStock_Metal_M4": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_01f2527710.MI_HK416_R01_furniture_01f2527710",
-      "TacticalStock_Polymer_M4": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_3b5cc3de05.MI_HK416_R01_furniture_3b5cc3de05",
-      "TacticalStock_Adapter_M4": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_de63659b98.MI_HK416_R01_mount_de63659b98",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_24962b4fc6.MI_HK416_R01_mount_24962b4fc6"
+      "TacticalStock_Metal_M4": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_0c9da5d9ed.MI_HK416_A08_existing_authored_0c9da5d9ed",
+      "TacticalStock_Polymer_M4": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_c5f6fdad0a.MI_HK416_A08_existing_authored_c5f6fdad0a",
+      "TacticalStock_Rubber_M4": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber",
+      "TacticalStock_Adapter_M4": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_73ab98874b.MI_HK416_A08_existing_authored_73ab98874b",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_a1fd37bccf.MI_HK416_A08_existing_authored_a1fd37bccf"
     },
     "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_tactical_vertical.SM_HK416_tactical_vertical": {
-      "M_TacticalVerticalForegrip_Candidate": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_accessory_a3e94456bc.MI_HK416_R01_accessory_a3e94456bc",
-      "HK416_InterfaceSteel": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_d7c860a86d.MI_HK416_R01_mount_d7c860a86d"
+      "M_TacticalVerticalForegrip_Candidate": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_73745240ff.MI_HK416_A08_existing_authored_73745240ff",
+      "HK416_InterfaceSteel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_existing_authored_d351fec3f8.MI_HK416_A08_existing_authored_d351fec3f8"
+    },
+    "/Game/Weapons/LegendaryStock20261006/Fitted/SM_TacticalStock_HK416.SM_TacticalStock_HK416": {
+      "Stock_Graphite": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_stock_19801b96e4.MI_HK416_A08_stock_19801b96e4",
+      "Stock_Champagne": "/Game/Weapons/LegendaryStock20261006/Materials/M_Stock_Champagne.M_Stock_Champagne",
+      "Stock_Polymer": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_stock_bcfd40adcc.MI_HK416_A08_stock_bcfd40adcc",
+      "Stock_RedInset": "/Game/Weapons/LegendaryStock20261006/Materials/M_Stock_RedInset.M_Stock_RedInset",
+      "Stock_Steel": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_stock_8eec62fe9f.MI_HK416_A08_stock_8eec62fe9f",
+      "Stock_Rubber": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_stock_3eb800db2b.MI_HK416_A08_stock_3eb800db2b"
+    },
+    "/Game/Weapons/ThermalScope20261006/Runtime/SM_Thermal_HK416.SM_Thermal_HK416": {
+      "Thermal_Graphite": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_f47e543531.MI_HK416_A08_thermal_f47e543531",
+      "Thermal_Copper": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_fd9bf0681e.MI_HK416_A08_thermal_fd9bf0681e",
+      "Thermal_Rubber": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_a981ad1b1f.MI_HK416_A08_thermal_a981ad1b1f",
+      "Thermal_Objective": "/Game/Weapons/ThermalScope20261006/Materials/M_Thermal_Objective.M_Thermal_Objective",
+      "Thermal_Titanium": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_94a07a7d3f.MI_HK416_A08_thermal_94a07a7d3f",
+      "Thermal_LegendRed": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_6bbbe18533.MI_HK416_A08_thermal_6bbbe18533",
+      "Thermal_Marking": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_b16bbdb940.MI_HK416_A08_thermal_b16bbdb940",
+      "Thermal_Graphite_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_f47e543531.MI_HK416_A08_thermal_f47e543531",
+      "Thermal_Titanium_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_94a07a7d3f.MI_HK416_A08_thermal_94a07a7d3f",
+      "Thermal_Rubber_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_a981ad1b1f.MI_HK416_A08_thermal_a981ad1b1f",
+      "Thermal_Display": "/Game/Weapons/ThermalScope20261006/Materials/M_Thermal_Display.M_Thermal_Display"
+    },
+    "/Game/Weapons/ThermalScope20261006/Runtime/SM_ThermalSelector_HK416.SM_ThermalSelector_HK416": {
+      "Thermal_Graphite_002": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_f47e543531.MI_HK416_A08_thermal_f47e543531",
+      "Thermal_Copper_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_fd9bf0681e.MI_HK416_A08_thermal_fd9bf0681e",
+      "Thermal_Rubber_002": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_a981ad1b1f.MI_HK416_A08_thermal_a981ad1b1f",
+      "Thermal_Marking_001": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_thermal_b16bbdb940.MI_HK416_A08_thermal_b16bbdb940"
+    },
+    "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_1.SM_blessed_laser_1": {
+      "Blessed_Graphite": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_blessed_fdd13c19a9.MI_HK416_A08_blessed_fdd13c19a9",
+      "Blessed_Gold": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_blessed_f1dea123ab.MI_HK416_A08_blessed_f1dea123ab",
+      "Blessed_Black": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_blessed_32f63e809a.MI_HK416_A08_blessed_32f63e809a",
+      "Blessed_Optic": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic",
+      "Blessed_Aperture": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture",
+      "HK416_Original_Rail_Clamp": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+    },
+    "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_2.SM_blessed_laser_2": {
+      "Blessed_Graphite": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_blessed_fdd13c19a9.MI_HK416_A08_blessed_fdd13c19a9",
+      "Blessed_Gold": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_blessed_f1dea123ab.MI_HK416_A08_blessed_f1dea123ab",
+      "Blessed_Black": "/Game/Weapons/HK416/AccessoryFinish20261008/Materials/MI_HK416_A08_blessed_32f63e809a.MI_HK416_A08_blessed_32f63e809a",
+      "Blessed_Optic": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic",
+      "Blessed_Aperture": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture",
+      "HK416_Original_Rail_Clamp": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
     }
   },
   "wet_library": "/Game/Weapons/HK416/Reworked20260930/DA_HK416_WetMaterials.DA_HK416_WetMaterials",
   "geometry_changed": false,
-  "tested": false
+  "tested": false,
+  "accessory_revision": "HK416-AccessoryFinish-20261008",
+  "accessory_recipe": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponSurface20260930\\HK416\\Accessories20261008\\recipe.json"
 }

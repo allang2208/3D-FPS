@@ -2,7 +2,9 @@
 import json,re
 from pathlib import Path
 import unreal as u
+from runpy import run_path
 P=Path(__file__).resolve().parents[3];O=P/'SourceAssets/LegendaryStock20261006/Integration'
+apply_hk416_finish=run_path(str(P/'SourceAssets/WeaponSurface20260930/HK416/current_bindings.py'))['apply_current_bindings']
 auth=json.loads((O/'fitted-models.json').read_text());D='/Game/Weapons/LegendaryStock20261006'
 A=u.AssetToolsHelpers.get_asset_tools();E=u.EditorAssetLibrary
 report={'saved':[],'models':{},'game_tested':False,'status':'importing'}
@@ -29,6 +31,7 @@ try:
    if mat is None:raise RuntimeError('Missing stock material '+key)
    s.material_interface=mat;slots[i]=s
   mesh.set_editor_property('static_materials',slots)
+  if family=='HK416':apply_hk416_finish(mesh)
   E.set_metadata_tag(mesh,'DisplayName','可调式战术后托');E.set_metadata_tag(mesh,'PartId','legendary_adjustable_tactical_stock')
   E.set_metadata_tag(mesh,'WeaponFamily',family);E.set_metadata_tag(mesh,'Frame','WPN_root physical centimetres; relative scale 0.01')
   E.set_metadata_tag(mesh,'Source',str(O/'Editable'/(family+'_TacticalStock.blend')))

@@ -32,7 +32,7 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     const auto Temporary=TemporaryModifiers(Profile);
     R.ParrySeconds=RuneSwordGuardTuning::ParrySeconds*R.Modifiers.ParryWindow;
     const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55),Attack=Profile?Profile->Derived(TEXT("atk")):0;
-    const double BaseDamage=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage):Base*R.Modifiers.Damage+Attack;
+    const double BaseDamage=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
     R.DamageParts=ColdSteelWeaponDamage::Evaluate(Item,Profile,BaseDamage,&R.Modifiers);
     R.Damage=R.DamageParts.Total();
     R.ComboSecondDamage=R.Damage*R.Modifiers.ComboMultiplier(2);

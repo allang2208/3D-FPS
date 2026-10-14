@@ -1,0 +1,56 @@
+{
+  "version": "LMG201GripJunction-20261007",
+  "meshes": {
+    "phantom": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_phantom_reargrip",
+      "sha256": "d3153de64c393afbd17e2118a322e8e1b0645472cb334827ebbce20e22d292da",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripJunction20261007\\Exports\\SM_LMG201_phantom_reargrip.fbx",
+      "source_sha256": "9fcfb00813c79f381ad68ef020fa3c1d1b23326b2887018de1e64e06ffd223c6",
+      "moved_vertices": 1220,
+      "normal_triangles": 2455,
+      "orientation_flipped_triangles": 0,
+      "materials": [
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48",
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48"
+      ],
+      "triangles": 481319,
+      "uv_sets": 5,
+      "saved": true
+    },
+    "balanced": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_balanced_reargrip",
+      "sha256": "8ce632727182e8f3b9a630721373d338b1d5d63b326fc9db22b5ad04950b0bbd",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripJunction20261007\\Exports\\SM_LMG201_balanced_reargrip.fbx",
+      "source_sha256": "577ea2ffff11df214255216fb114c9e90170581dcbfac8dc92e0b4d2c951016f",
+      "moved_vertices": 4510,
+      "normal_triangles": 9293,
+      "orientation_flipped_triangles": 1,
+      "materials": [
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730",
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730"
+      ],
+      "triangles": 465575,
+      "uv_sets": 5,
+      "saved": true
+    },
+    "stable": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_stable_antislip_reargrip",
+      "sha256": "3ed82040818595d1914fef6401727e61c0f7e40e31cf36e00dc09c1f4b4ae7bf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripJunction20261007\\Exports\\SM_LMG201_stable_antislip_reargrip.fbx",
+      "source_sha256": "85847c5811508e48950ea52805ecaa86400be72c830812c85603930a7a05aac8",
+      "moved_vertices": 5880,
+      "normal_triangles": 11892,
+      "orientation_flipped_triangles": 0,
+      "materials": [
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb",
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb"
+      ],
+      "triangles": 422464,
+      "uv_sets": 5,
+      "saved": true
+    }
+  },
+  "complete": true,
+  "runtime_tested": false,
+  "material_changed": false
+}

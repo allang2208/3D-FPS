@@ -1,0 +1,53 @@
+{
+  "name": "全自动扳机",
+  "rarity": "传说",
+  "slot": "trigger",
+  "suggested_id": "legendary_full_auto_trigger",
+  "scope": "PNG, gameplay integration, native Editor/Game builds and saved UE Texture2D; no new model.",
+  "compatibility": "仅限原生为半自动的手枪；排除左轮、原生全自动手枪及其他武器类别。",
+  "description": "提供半自动与全自动射击模式切换，全自动模式下按住鼠标左键即可持续射击。",
+  "effects": {
+    "fire_interval_mult": 0.8,
+    "display_stat": "射击间隔减少 20%",
+    "fire_modes": [
+      "semi",
+      "auto"
+    ],
+    "automatic_input": "按住鼠标左键持续射击；松开停止"
+  },
+  "design_notes": [
+    "间隔缩短在两种射击模式均生效。",
+    "开火仍消耗弹药并遵守武器当前可射击状态。",
+    "使用原枪扳机模型，无新增或替换模型。",
+    "正式描述只写机制，数值由属性行表达。",
+    "传说品质由 UI 标记表达，图标遵循中性灰阶规则。"
+  ],
+  "image": {
+    "file": "trigger_legendary_full_auto_trigger_v1.png",
+    "generator": "built-in image_gen",
+    "reference_frame": "SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+    "reference_trigger": "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/trigger_m1911_lightweight_fast.png",
+    "source_generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a1153a-aa70-7c23-816f-37d68fd40262\\exec-b052118a-1dc6-4dec-bfb6-7c9a436b19d5.png",
+    "prompt": "Use case: precise-object-edit.\nAsset type: one square 2D attachment icon for a fictional FPS videogame, named 全自动扳机 (Full-auto Trigger). This is artwork only.\nInput image 1 is the approved frame/style reference: preserve the thick bevelled square metal frame, exactly four corner rivets, silver inner circular ring, and recessed opaque dark charcoal textured backplate. Remove its muzzle brake subject.\nInput image 2 is the existing in-game pistol trigger silhouette reference. Preserve this trigger's external silhouette, upright orientation, left-facing concave finger surface and exactly three cut-out openings. Show just this one trigger centered entirely inside the circular ring, with clear breathing room. Do not show a whole pistol or any other weapon parts.\nPrimary request: create a refined high-quality matching inventory icon for this legendary gameplay upgrade, based on the existing trigger shape without inventing a new physical mechanism. Give the trigger subtle brushed silver and graphite surface separation, clean precision bevel highlights and light realistic wear; keep a strong readable silhouette at small size. Level camera, near-orthographic side view, gentle depth like the reference.\nColor palette: strictly neutral grayscale, white/silver/gray/charcoal only, including reflections. Legendary rarity is represented elsewhere by the game UI, so no gold, orange, colored glows, rarity emblems or special badge.\nComposition: 1024x1024 square PNG. Frame nearly fills the canvas with only a very narrow transparent exterior margin, transparent clipped corners. The entire interior of the frame stays opaque, including the backplate visible through the trigger openings. Match the approved frame proportions and lighting.\nText: none. No letters, numbers, arrows, fire-mode marks, watermarks, diagrams, exploded views, mechanical instructions, extra objects or comparison layouts. This image does not illustrate internal firearm conversion details. The gameplay design (not printed on the image) is semi-automatic pistols only, fire interval multiplied by 0.8, selectable semi/automatic mode with hold-to-fire in automatic mode."
+  },
+  "delivery_status": {
+    "image_saved": true,
+    "gameplay_implemented": true,
+    "ue_asset_imported": true,
+    "models_created": false,
+    "editor_build": "succeeded",
+    "game_build": "succeeded",
+    "default_auto_build_receipt": "Integration/default_auto_build_receipt.json",
+    "scoped_catalog_check": "passed",
+    "runtime_tests_run": false
+  },
+  "controls": {
+    "main_hand_fire": "LeftMouseButton",
+    "offhand_fire": "RightMouseButton",
+    "main_hand_mode": "V",
+    "offhand_mode": "H",
+    "initial_mode": "auto",
+    "persistence": "per weapon InstanceId, pistol_fire_mode in Item.Data"
+  },
+  "integration_record": "Docs/Weapons/full-auto-trigger-20261007.md"
+}

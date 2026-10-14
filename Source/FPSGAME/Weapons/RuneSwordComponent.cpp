@@ -1,4 +1,6 @@
 #include "RuneSwordComponent.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "SprintCameraMotion.h"
 #include "TangDaoGuardComponent.h"
 #include "PanChiGuardComponent.h"
@@ -52,6 +54,7 @@
 
 URuneSwordComponent::URuneSwordComponent()
 {
+    SetIsReplicatedByDefault(true);
     PrimaryComponentTick.bCanEverTick=true;
     // Lunge movement and the attached arms must finish before World caches the
     // player camera. Keep this order for every state: changing groups on attack
@@ -92,8 +95,19 @@ void URuneSwordComponent::BeginPlay()
     auto* World=GetWorld();
     auto* GameInstance=World?World->GetGameInstance():nullptr;
     // IsGameWorld includes GamePreview; visual rigs must not access inventory.
-    if(!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()==NM_Client)
+    if(!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE))
     {SetComponentTickEnabled(false);return;}
+    // Client possession can arrive after BeginPlay. RefreshEquipment will create
+    // the local presentation when OnRep_Controller attaches the owner's profile.
+    if(Pawn->HasAuthority() || Pawn->IsLocallyControlled())InitializePresentation();
+    if(Pawn->IsLocallyControlled())RefreshEquipment(GameInstance->GetSubsystem<UColdSteelStatusModel>());
+    else if(Pawn->HasAuthority())RefreshEquipment(Pawn->GetNetShadowProfile());
+}
+
+void URuneSwordComponent::InitializePresentation()
+{
+    auto* Pawn=Character.Get();
+    if(!Pawn || Viewmodel)return;
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     if(!Camera){SetComponentTickEnabled(false);return;}
     LoadUppercutAnimations();
@@ -130,12 +144,13 @@ void URuneSwordComponent::BeginPlay()
     RiftVisual->SetCastShadow(false);RiftVisual->bReceivesDecals=false;
     RiftVisual->RegisterComponent();RiftVisual->SetVisibility(false);
     RiftVisual->SetComponentTickEnabled(false);
-    RefreshEquipment(GameInstance->GetSubsystem<UColdSteelStatusModel>());
 }
 
 void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
 {
-    if(!Profile || !Viewmodel)return;
+    if(!Profile || !Character.IsValid() || (!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
+    if(!Viewmodel)InitializePresentation();
+    if(!Viewmodel)return;
     const auto* Item=Profile->Equipped();
     const FString NewId=Item && !Profile->ActiveProductionTool() && ColdSteelInventory::IsTwoHandedSword(*Item) ? Item->InstanceId : FString();
     RefreshAzureDragon(NewId.IsEmpty()?nullptr:Item,Profile);
@@ -504,6 +519,8 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
     SwingSkills.AttackMeta = uint8(Heavy ? 0x10 : (ComboStage & 0x0F));
     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
     UPanChiGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
+    if(!SwingSkills.GuardAttackSerial){if(++NetworkBladeSerial==0)++NetworkBladeSerial;SwingSkills.GuardAttackSerial=NetworkBladeSerial;}
+    SwingSkills.GuardSourceInstance=InstanceId;
     SwingSkills.bRisingDragonFinisher=RisingDragon;
     // The stage keeps its existing grip/global poise modifiers when its motion changes.
     if(ComboStage==3&&!Heavy)SwingSkills.ToughnessDamageMultiplier*=MeleeModifiers.ComboThirdToughness;
@@ -525,14 +542,23 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy,float StaminaOverride
 void URuneSwordComponent::ReleaseSlashWave(const FTransform& Aim)
 {
     if(!bHeavyAttack||SwingWaveRange<=0.f||SwingWaveScale<=0.f||SwingWaveSpeed<=0.f||!Character.IsValid())return;
+    if(!Character->HasAuthority())
+    {
+        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
+            PS->ServerReleaseRiftSlash(++RiftReleaseSerial,InstanceId,Aim.GetLocation(),Aim.GetUnitAxis(EAxis::X),SwingSkills.GuardAttackSerial,SwingSkills.AzureDragonPhysicalMultiplier>1.f,SwingSkills.AttackMeta==0x15);
+        return;
+    }
+    auto WaveSkills=SwingSkills;WaveSkills.AttackMeta|=0x40;
+    SpawnAuthoritySlashWave(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,WaveSkills);
+}
+
+void URuneSwordComponent::SpawnAuthoritySlashWave(const FTransform& Aim,float WaveDamage,float Range,float Speed,const FColdSteelSkillShot& Shot)
+{
+    if(!GetOwner()->HasAuthority()||!Character.IsValid())return;
     FActorSpawnParameters Spawn;Spawn.Owner=Character.Get();Spawn.Instigator=Character.Get();
     Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     if(auto* Wave=GetWorld()->SpawnActor<AFPSRiftSlashProjectile>(Aim.GetLocation(),Aim.Rotator(),Spawn))
-    {
-        // 裂斩波命中也要服务端复算：在挥砍语义上叠加"波"位，服务端再乘附魔缩放。
-        auto WaveSkills = SwingSkills; WaveSkills.AttackMeta |= 0x40;
-        Wave->Launch(Aim,SwingDamage*SwingWaveScale,SwingWaveRange,SwingWaveSpeed,WaveSkills,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
-    }
+        Wave->Launch(Aim,WaveDamage,Range,Speed,Shot,SlashWaveMesh,SlashWaveMaterial,SlashWaveMotes,HitSound);
 }
 
 bool URuneSwordComponent::BeginQuickCombatStrike()
@@ -799,7 +825,7 @@ void URuneSwordComponent::CancelAction()
     bThrustAttack=bPommelAttack=bLungeStarted=bLungeBlocked=false;LungeDirection=FVector::ZeroVector;
     bOverheadAttack=false;bQuickCombatStrike=bQueuedQuickCombat=false;bQuickCombatContactDone=false;QuickCombatKnockbackCM=0.f;
     // Death/equipment interruption releases action occupancy without refunding stamina.
-    if(auto* Profile=GetWorld()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
+    if(auto* Profile=ColdSteelAuthority::ForPawn(Character.Get()))
     {
         Profile->FinishQuickCombatCast();
         if(QuickCombatKillPending)Profile->TrainQuickCombat(Profile->QuickCombatDefinition().KillExperience);
@@ -1177,6 +1203,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
         AzureDragonSwingLateral+=Lateral(To)-Lateral(From);
         if(FMath::Abs(AzureDragonSwingLateral)>20.f)AzureDragonClipSide.Add(CurrentClip,AzureDragonSwingLateral<0.f?int8(1):int8(-1));
     }
+    Trace.bIgnoreFriendlyUnits=SwingAzureDragonReachMultiplier>1.f;
     auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,From,To,AzureDragonRange(SwingReach),HitActors,Trace);
     // Blade motion was authored against the shared 180 cm base reach. Extend
     // its contact path with base tuning as well as the distance cap; retain
@@ -1198,6 +1225,7 @@ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRu
             return S;
         };
         FRuneSwordTraceSettings ClawTrace=Trace;
+        ClawTrace.bIgnoreFriendlyUnits=true;
         ClawTrace.Radius=FMath::Max(Trace.Radius,AzureDragonReach::TraceRadiusCM);
         auto ClawHits=RuneSwordCombat::Query(GetWorld(),Pawn,ClawLine(From),ClawLine(To),AzureDragonReach::ClawReachCM,HitActors,ClawTrace);
         // Report the eye as the origin: the lane start can be metres out, which the server's hit
@@ -1310,6 +1338,8 @@ void URuneSwordComponent::ApplySwingHits(const TArray<FHitResult>& Hits,const FV
 void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    // Remote first-person rigs do not advance local combat/input state.
+    if(Character.IsValid()&&!Character->IsLocallyControlled()){bEquipping=false;TickNetworkGuard();return;}
     ON_SCOPE_EXIT { UpdateAzureDragonPose(); };
     TickAzureDragon(Delta);
     if(!bWhirlwind)
@@ -1543,7 +1573,7 @@ void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
     FinishHeavyTraining();
     // Release a cast that ended with teardown instead of a finished swing, so the
     // cooldown starts and the reserved flag is not left set for the next session.
-    if(auto* Profile=GetWorld()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)Profile->FinishQuickCombatCast();
+    if(auto* Profile=ColdSteelAuthority::ForPawn(Character.Get()))Profile->FinishQuickCombatCast();
     ClearGuard();
     bAttacking=bEquipping=bInspecting=bQueuedAttack=bCharging=bReturningCharge=bHeavyAttack=false;HitActors.Reset();
     SwingCooldownReduceSeconds=0.f;bSwingCooldownReduced=false;

@@ -1,0 +1,90 @@
+[
+  {
+    "filename": "GunWorkbench_UE_Overall.png",
+    "camera_cm": [
+      -350,
+      -370,
+      315
+    ],
+    "target_cm": [
+      0,
+      0,
+      85
+    ],
+    "horizontal_fov": 46,
+    "resolution": [
+      1800,
+      1500
+    ],
+    "real_ue_static_scene": true,
+    "PIE": false,
+    "asset": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench",
+    "lighting": "temporary inspection studio, original scene not saved"
+  },
+  {
+    "filename": "GunWorkbench_UE_Top.png",
+    "camera_cm": [
+      0,
+      0,
+      610
+    ],
+    "target_cm": [
+      0,
+      0,
+      80
+    ],
+    "horizontal_fov": 40,
+    "resolution": [
+      1800,
+      1500
+    ],
+    "real_ue_static_scene": true,
+    "PIE": false,
+    "asset": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench",
+    "lighting": "temporary inspection studio, original scene not saved"
+  },
+  {
+    "filename": "GunWorkbench_UE_Machines.png",
+    "camera_cm": [
+      -265,
+      -175,
+      240
+    ],
+    "target_cm": [
+      -60,
+      98,
+      131
+    ],
+    "horizontal_fov": 35,
+    "resolution": [
+      1800,
+      1500
+    ],
+    "real_ue_static_scene": true,
+    "PIE": false,
+    "asset": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench",
+    "lighting": "temporary inspection studio, original scene not saved"
+  },
+  {
+    "filename": "GunWorkbench_UE_Ammo.png",
+    "camera_cm": [
+      242,
+      -265,
+      225
+    ],
+    "target_cm": [
+      81,
+      -99,
+      103
+    ],
+    "horizontal_fov": 32,
+    "resolution": [
+      1800,
+      1500
+    ],
+    "real_ue_static_scene": true,
+    "PIE": false,
+    "asset": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench",
+    "lighting": "temporary inspection studio, original scene not saved"
+  }
+]

@@ -3,15 +3,19 @@
 #include "RSH12OpticAssets.h"
 #include "TacticalDeviceVariants.h"
 #include "LegendaryTacticalStock.h"
+#include "FullAutoTrigger.h"
 
 enum class EGunsmithModificationTier : uint8 { Common, Special, Legendary };
 namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(SlotKey==TEXT("optic")&&Id==TEXT("thermal_scope"))return EGunsmithModificationTier::Legendary;
+    if(SlotKey==TEXT("trigger")&&Id==FullAutoTrigger::Part&&FullAutoTrigger::Supports(Weapon))
+        return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("stock")&&Id==LegendaryTacticalStock::Part)
         return EGunsmithModificationTier::Legendary;
-    if(SlotKey==TEXT("tactical")&&Id==TacticalDeviceVariants::BlessedLaser)
+    if(TacticalDeviceVariants::IsSlot(SlotKey)&&Id==TacticalDeviceVariants::BlessedLaser)
         return EGunsmithModificationTier::Legendary;
     if(Weapon==TEXT("ue_xuanchi_zhenyue")&&SlotKey==TEXT("blade_2")&&(Id==TEXT("zhenmo_rune")||Id==TEXT("jingang_rune")))
         return EGunsmithModificationTier::Legendary;

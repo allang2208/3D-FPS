@@ -1,0 +1,51 @@
+{
+  "area_threshold_m2_counts": {
+    "0": 561,
+    "1e-16": 561,
+    "1e-14": 561,
+    "1e-12": 561,
+    "1e-10": 859
+  },
+  "materials": {
+    "0": {
+      "GWDesign_PropsPBR": 512,
+      "OriginalLamp_WSBench_LampPaint": 3,
+      "OriginalLamp_WSBench_Reflector": 3,
+      "OriginalLamp_WSSculpt_Machined": 9,
+      "Library_Fab_Bench_Wrench_0": 2,
+      "GWDesign_ClearGlass": 32
+    },
+    "1e-16": {
+      "GWDesign_PropsPBR": 512,
+      "OriginalLamp_WSBench_LampPaint": 3,
+      "OriginalLamp_WSBench_Reflector": 3,
+      "OriginalLamp_WSSculpt_Machined": 9,
+      "Library_Fab_Bench_Wrench_0": 2,
+      "GWDesign_ClearGlass": 32
+    },
+    "1e-14": {
+      "GWDesign_PropsPBR": 512,
+      "OriginalLamp_WSBench_LampPaint": 3,
+      "OriginalLamp_WSBench_Reflector": 3,
+      "OriginalLamp_WSSculpt_Machined": 9,
+      "Library_Fab_Bench_Wrench_0": 2,
+      "GWDesign_ClearGlass": 32
+    },
+    "1e-12": {
+      "GWDesign_PropsPBR": 512,
+      "OriginalLamp_WSBench_LampPaint": 3,
+      "OriginalLamp_WSBench_Reflector": 3,
+      "OriginalLamp_WSSculpt_Machined": 9,
+      "Library_Fab_Bench_Wrench_0": 2,
+      "GWDesign_ClearGlass": 32
+    },
+    "1e-10": {
+      "GWDesign_PropsPBR": 512,
+      "OriginalLamp_WSBench_LampPaint": 7,
+      "OriginalLamp_WSBench_Reflector": 7,
+      "OriginalLamp_WSSculpt_Machined": 13,
+      "Library_Fab_Bench_Wrench_0": 288,
+      "GWDesign_ClearGlass": 32
+    }
+  }
+}

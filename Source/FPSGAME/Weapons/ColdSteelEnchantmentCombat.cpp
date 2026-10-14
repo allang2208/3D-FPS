@@ -1,4 +1,5 @@
 #include "ColdSteelEnchantmentCombat.h"
+#include "../UI/StatusEffectsComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../FPSGAMECharacter.h"
@@ -11,6 +12,19 @@
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/BoundCongregate.h"
 #include "GunsmithSystem.h"
+
+DealerPoker::FShot ColdSteelCombat::Dealer(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
+{
+    DealerPoker::FShot R;
+    if(!Enhancement||!Item||ColdSteelInventory::Text(*Item,TEXT("weaponType"))!=TEXT("pistol")
+        ||ColdSteelInventory::Text(*Item,TEXT("weaponTypeTag"))!=TEXT("左轮手枪")
+        ||Enhancement->Effect(*Item,TEXT("dealerPoker"))<=0.)return R;
+    const TCHAR* Keys[]={TEXT("dealerHighCard"),TEXT("dealerPair"),TEXT("dealerTwoPair"),TEXT("dealerThree"),
+        TEXT("dealerStraight"),TEXT("dealerFlush"),TEXT("dealerFullHouse"),TEXT("dealerFour"),TEXT("dealerStraightFlush")};
+    R.Enabled=true;
+    for(int32 I=0;I<9;++I){R.Multipliers[I]=Enhancement->Effect(*Item,Keys[I],R.Multipliers[I]);R.Enabled&=R.Multipliers[I]>0.f;}
+    return R;
+}
 
 ColdSteelCombat::FComposure ColdSteelCombat::Calm(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item)
 {
@@ -109,6 +123,7 @@ void UColdSteelPoisonComponent::AddStacks(AActor* Source,int32 Amount)
     if(!GetOwner()->HasAuthority()||Amount<=0)return;
     if(const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())return;
     Stacks+=Amount;TicksLeft=5;Shooter=Source;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("poison"),5.f,Stacks);
     if(const auto* P=Cast<APawn>(Source))Instigator=P->GetController();
     if(!GetWorld()->GetTimerManager().IsTimerActive(Timer))GetWorld()->GetTimerManager().SetTimer(Timer,this,&ThisClass::Pulse,1.f,true);
 }
@@ -118,6 +133,14 @@ void UColdSteelPoisonComponent::Pulse()
     // 中毒跳伤不进入硬直闸门（伤害类型不变，避免影响减伤结算）。
     auto Deal=[&](){ return UGameplayStatics::ApplyDamage(GetOwner(),Stacks,Instigator.Get(),Shooter.Get(),UCombatDirectDamage::StaticClass()); };
     if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())Combat->ApplyHitWithReactionScale(0.f,Deal);else Deal();
-    if(--TicksLeft<=0){--Stacks;TicksLeft=5;if(Stacks<=0)GetWorld()->GetTimerManager().ClearTimer(Timer);}
+    if(--TicksLeft<=0)
+    {
+        --Stacks;TicksLeft=5;
+        if(Stacks<=0){GetWorld()->GetTimerManager().ClearTimer(Timer);UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("poison"));}
+        else UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("poison"),5.f,Stacks);
+    }
 }
 void UColdSteelPoisonComponent::EndPlay(const EEndPlayReason::Type R){if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(Timer);Super::EndPlay(R);}
+
+void UColdSteelPoisonComponent::ClearPoison()
+{Stacks=TicksLeft=0;GetWorld()->GetTimerManager().ClearTimer(Timer);UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("poison"));}

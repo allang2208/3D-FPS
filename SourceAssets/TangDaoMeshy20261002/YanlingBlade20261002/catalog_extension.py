@@ -29,9 +29,9 @@ def add_option(gunsmith):
     m = manifest()
     column = next(c for c in gunsmith['columns'] if c['key'] == 'blade_1')
     option = {'id': m['id'], 'name': m['name'], 'weapons': ['ue_tang_dao'],
-              'description': '唐刀专属刀身。燕翎折锋与双槽导势强化连段收尾，第三段改为过顶竖劈，打击前方矩形区域；连续进攻更耗耐力，格挡能力略有降低。',
-              'effects': [{'text': '第三段改为冲刺竖劈动作 · 前方矩形判定', 'benefit': 0},
-                          {'text': '第三段攻击伤害 +40%', 'benefit': 1},
+              'description': '唐刀专属。燕翎折锋配双导槽与层叠锻钢纹，保留原有龙纹。',
+              'special_effects': ['连段变化｜连段收尾改为冲刺竖劈，打击前方矩形区域。'],
+              'effects': [{'text': '连段收尾改为冲刺竖劈动作 · 前方矩形判定', 'benefit': 0},
                           {'text': '攻击耐力消耗 +10%', 'benefit': -1},
                           {'text': '格挡减伤倍率 ×0.90', 'benefit': -1}],
               'stats': {'combo_third_damage_mult': 1.4,

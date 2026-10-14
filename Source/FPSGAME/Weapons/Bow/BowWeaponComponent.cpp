@@ -1,4 +1,5 @@
 ﻿#include "BowWeaponComponent.h"
+#include "../../Combat/RangedAttackQuery.h"
 #include "BowArrow.h"
 #include "../../Characters/FPSPlayerBodyComponent.h"
 #include "BowArmsMeshComponent.h"
@@ -14,6 +15,7 @@
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../UI/ColdSteelInventoryTypes.h"
 #include "../../UI/ColdSteelPickup.h"
+#include "../../Multiplayer/ColdSteelPlayerState.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
 #include "../../Building/VoxelBuildComponent.h"
 #include "../../Skills/ColdSteelSkillRules.h"
@@ -429,7 +431,8 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f));
     const auto* Profile = Character.IsValid()&&Character->GetNetShadowProfile()
         ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile, Number(TEXT("draw_seconds"), 1.4f))));
+    if (!IsDrawing())
+        DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile, Number(TEXT("draw_seconds"), 1.4f))));
     HoldSeconds = FMath::Max(0.f, Number(TEXT("hold_seconds"), 2.2f));
     ReleaseSeconds = FMath::Max(.08f, Number(TEXT("release_seconds"), .3f));
     RecoverSeconds = FMath::Max(.08f, Number(TEXT("recover_seconds"), .34f));
@@ -670,6 +673,43 @@ float UBowWeaponComponent::DrawFraction() const
     return FMath::Lerp(DrawCurve[I], DrawCurve[I + 1], Sample - I);
 }
 
+float UBowWeaponComponent::DrawElapsed() const
+{
+    return Stage == EBowStage::Holding ? DrawSeconds + Elapsed
+        : Stage == EBowStage::Drawing ? Elapsed : 0.f;
+}
+
+bool UBowWeaponComponent::GetDrawRhythm(FBowDrawRhythm& Out) const
+{
+    if (!IsEquipped()) return false;
+    Out = FBowDrawRhythm();
+    Out.FullDrawSeconds = DrawSeconds;
+    if (IsDrawing() || Stage == EBowStage::DrawEntry)
+    {
+        Out.Elapsed = DrawElapsed();
+        Out.bPerfect = IsDrawing() && DrawFraction() >= 1.f && ColdSteelBow::IsPerfectRelease(Out.Elapsed, DrawSeconds);
+        return true;
+    }
+    if ((Stage == EBowStage::Release || Stage == EBowStage::Recover)
+        && bLastPerfectRelease && ReleaseFeedbackAge >= 0.f && ReleaseFeedbackAge < .45f)
+    {
+        Out.Elapsed = LastReleaseElapsed;
+        Out.bPerfect = Out.bReleased = true;
+        Out.Opacity = FMath::Clamp((.45f - ReleaseFeedbackAge) / .15f, 0.f, 1.f);
+        return true;
+    }
+    return false;
+}
+
+void UBowWeaponComponent::EndNetworkDraw()
+{
+    if (!bNetworkDrawActive) return;
+    bNetworkDrawActive = false;
+    if (auto* Pawn = Character.Get())
+        if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+            PS->ServerSetBowDraw(Pawn, InstanceId, false, 0.f);
+}
+
 int32 UBowWeaponComponent::ArrowsInPouch() const
 {
     auto* World = GetWorld();
@@ -728,14 +768,22 @@ void UBowWeaponComponent::SetStage(EBowStage Next, float Seconds, float StartSec
 {
     StopDrawAudio();
     if (Next == EBowStage::Drawing)
+    {
         if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
             if (const auto* Item = Profile->ActiveBow())
-                DrawSeconds = FMath::Max(.3f, float(ColdSteelWeaponStats::Interval(Item, Profile,
-                    ColdSteelInventory::Number(*Item, TEXT("draw_seconds"), 1.4))));
+                DrawSeconds = float(ColdSteelBow::Evaluate(*Item, Profile).Draw);
+        bLastPerfectRelease = false;
+        if (auto* Pawn = Character.Get(); Pawn && Pawn->GetNetMode() == NM_Client)
+            if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+            {
+                PS->ServerSetBowDraw(Pawn, InstanceId, true, FMath::Max(0.f, StartSeconds));
+                bNetworkDrawActive = true;
+            }
+    }
     Stage = Next;
     StageSeconds = Seconds;
     Elapsed = FMath::Max(0.f, StartSeconds);
-    HoldElapsed = 0.f;
+    HoldElapsed = Next == EBowStage::Holding ? Elapsed : 0.f;
     bNockSoundPlayed = false;
     bTakeArrowSoundPlayed = false;
     // Start exactly when Drawing begins, after the 0.2 s entry. Direct-video
@@ -849,7 +897,7 @@ const TCHAR* UBowWeaponComponent::DrawEntryClip() const
     return bEntryNeedsArrow && ClipLength(Wanted) > 0.f ? Wanted : ClipDraw;
 }
 
-void UBowWeaponComponent::ReleasePrimaryAttack()
+void UBowWeaponComponent::ReleasePrimaryAttack(bool bAutomatic)
 {
     // Door push starts only from Ready. A physical release during its gesture
     // must not turn that retained/nocked carry pose into a new equip cycle.
@@ -870,12 +918,18 @@ void UBowWeaponComponent::ReleasePrimaryAttack()
     UpdatePoseLayers();
     UpdateBowGeometry();
     ReleasedNockCM = NockPoint();
-    if (LooseArrow(ReleaseRatio))
+    const float ReleasedAt = DrawElapsed();
+    const bool bPerfect = !bAutomatic && ReleaseRatio >= 1.f
+        && ColdSteelBow::IsPerfectRelease(ReleasedAt, DrawSeconds);
+    if (LooseArrow(ReleaseRatio, bPerfect))
     {
+        bLastPerfectRelease = bPerfect;
+        LastReleaseElapsed = ReleasedAt;
         ReleaseFeedbackAge = 0.f;
         SetStage(EBowStage::Release, ReleaseSeconds);
     }
     else SetStage(EBowStage::Ready, 0.f);
+    EndNetworkDraw();
 }
 
 bool UBowWeaponComponent::BeginQuickCombat()
@@ -918,6 +972,8 @@ bool UBowWeaponComponent::GetQuickCombatStrikeProbe(FVector& Origin, float PoseS
 
 void UBowWeaponComponent::CancelAction(bool bImmediate)
 {
+    EndNetworkDraw();
+    bLastPerfectRelease = false;
     if (!bImmediate && IsDrawing() && bArrowNocked && CanUse())
     {
         LetDownPhase = Stage == EBowStage::Holding ? 1.f : FMath::Clamp(Elapsed / DrawSeconds, 0.f, 1.f);
@@ -984,7 +1040,7 @@ FVector UBowWeaponComponent::ArrowTipPoint() const
     return Nock + (ArrowRestCM - Nock).GetSafeNormal() * ArrowLengthCM;
 }
 
-bool UBowWeaponComponent::LooseArrow(float Ratio)
+bool UBowWeaponComponent::LooseArrow(float Ratio,bool bPerfect)
 {
     const float ChargeDamage = ColdSteelBow::DrawDamageMultiplier(Ratio);
     if (ChargeDamage <= 0.f) return false;
@@ -1012,7 +1068,7 @@ bool UBowWeaponComponent::LooseArrow(float Ratio)
             + Camera->GetUpVector() * FMath::FRandRange(-Spread, Spread)).GetSafeNormal();
     const FVector FarAim = CameraOrigin + AimDirection * RangeCM;
     FCollisionQueryParams AimQuery(SCENE_QUERY_STAT(BowAim), true, Pawn);
-    const bool bHitAim = GetWorld()->LineTraceSingleByChannel(AimHit, CameraOrigin, FarAim, ECC_Visibility, AimQuery);
+    const bool bHitAim = RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), AimHit, CameraOrigin, FarAim, ECC_Visibility, AimQuery);
     const FVector AimPoint = bHitAim ? AimHit.ImpactPoint : FarAim;
     const FVector AimVector = AimPoint - Muzzle;
     const bool bAimAhead = FVector::DotProduct(AimVector, Camera->GetForwardVector()) > 0.f;
@@ -1034,18 +1090,28 @@ bool UBowWeaponComponent::LooseArrow(float Ratio)
     Spawn.Owner = Pawn;
     Spawn.Instigator = Pawn;
     Spawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
+    if(Pawn->GetNetMode()==NM_Client)
+    {
+        auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
+        FColdSteelInventoryRequest Request;Request.Action=EColdSteelInventoryAction::BowShot;
+        Request.Item=InstanceId;Request.Eye=CameraOrigin;Request.Origin=Muzzle;Request.Direction=LaunchDirection;Request.Charge=Ratio;
+        Request.BowReleaseElapsed=bPerfect?DrawElapsed():-1.f;
+        if(!PS||!PS->RequestInventoryAction(Request)){ShowFeedback(TEXT("物品操作正在同步，请稍候"));return false;}
+    }
+    else if (auto* Arrow = GetWorld()->SpawnActor<ABowArrow>(Muzzle, Direction, Spawn))
     {
         FString Reason;
         bool bSpentOwnedArrow = false;
         if (!ConsumeArrowFromPouch(Reason, bSpentOwnedArrow)) { Arrow->Destroy(); bArrowNocked = false; ShowFeedback(Reason); return false; }
         // 射击瞬间的修炼／符文快照与弹道组件同源；弓自己的暴击与破韧只在配了值时覆盖。
         FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Pawn, Profile ? Profile->ActiveBow() : nullptr, true);
+        Shot.bPerfectBowRelease = bPerfect;
         Shot.DamageContext = FMath::Clamp(Ratio, 0.f, 1.f); // 联机上报：拉弦比，服务端按影子档案复算箭伤
         const auto* Item = Profile->ActiveBow();
         const float BaseDamage = Shot.DamagePanel.Total() > 0.f ? Shot.DamagePanel.Total() : FullDamage;
         const float Damage = BaseDamage * ChargeDamage
-            * (Item ? Profile->AmmoDamageMultiplier(*Item) : 1.f);
+            * (Item ? Profile->AmmoDamageMultiplier(*Item) : 1.f)
+            * (bPerfect ? ColdSteelBow::PerfectReleaseMultiplier : 1.f);
         if (CriticalChance >= 0.f) Shot.CriticalChance = FMath::Max(Shot.CriticalChance, CriticalChance);
         if (ToughnessMultiplier > 0.f) Shot.ToughnessDamageMultiplier = ToughnessMultiplier;
         // 箭模取自 arrow 部件：已选箭种的弦上网格与飞行网格一致，箭台保持独立。
@@ -1063,7 +1129,7 @@ bool UBowWeaponComponent::LooseArrow(float Ratio)
     StopDrawAudio();
     StopHandlingAudio();
     if (ReleaseSound) UGameplayStatics::PlaySound2D(this, ReleaseSound, .6f, bOriginalAudioSpeed ? 1.f : 1.f + .06f * Clamped);
-    Profile->SpendStamina(Cost);
+    if(Pawn->GetNetMode()!=NM_Client)Profile->SpendStamina(Cost);
     return true;
 }
 
@@ -1292,12 +1358,10 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
         }
         break;
     case EBowStage::Drawing:
-        if (Elapsed >= DrawSeconds) SetStage(EBowStage::Holding, 0.f);
+        if (Elapsed >= DrawSeconds) SetStage(EBowStage::Holding, 0.f, Elapsed - DrawSeconds);
         break;
     case EBowStage::Holding:
-        HoldElapsed += Delta;
-        // 保持超时：弓臂撑不住自动撒弦，不算"完美释放"。
-        if (HoldSeconds > 0.f && HoldElapsed >= HoldSeconds) ReleasePrimaryAttack();
+        HoldElapsed = Elapsed;
         break;
     case EBowStage::Release:
         if (Elapsed >= StageSeconds) SetStage(EBowStage::Recover, RecoverSeconds);
@@ -1311,6 +1375,10 @@ void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
     default:
         break;
     }
+    // Includes a long frame that crossed Drawing -> Holding. Forced release
+    // never earns the manual timing bonus, even if a very short hold is authored.
+    if (IsDrawing() && HoldSeconds > 0.f && DrawElapsed() >= DrawSeconds + HoldSeconds)
+        ReleasePrimaryAttack(true);
 }
 
 float UBowWeaponComponent::ShotSpread() const

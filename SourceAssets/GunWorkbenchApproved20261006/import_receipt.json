@@ -1,0 +1,244 @@
+{
+  "saved": true,
+  "readback_after_save": true,
+  "mesh": "/Game/Building/GunWorkbenchLibraryTools20260928/SM_GunWorkbench.SM_GunWorkbench",
+  "materials": [
+    {
+      "slot": "WSBench_BenchWood",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_BenchWood_R3.MI_WBK_WSBench_BenchWood_R3"
+    },
+    {
+      "slot": "WSBench_EndGrain",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_EndGrain.MI_WBK_WSBench_EndGrain"
+    },
+    {
+      "slot": "WSDetail_RackPaint",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSDetail_RackPaint.MI_WBK_WSDetail_RackPaint"
+    },
+    {
+      "slot": "WSSculpt_Machined",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined"
+    },
+    {
+      "slot": "WSSculpt_RubberGrip",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_RubberGrip.MI_WBK_WSSculpt_RubberGrip"
+    },
+    {
+      "slot": "GW3_Mat",
+      "path": "/Game/Building/GunWorkbenchPolish20260928/Materials/M_GW3_Mat.M_GW3_Mat"
+    },
+    {
+      "slot": "GW3_Index",
+      "path": "/Game/Building/GunWorkbenchPolish20260928/Materials/M_GW3_Index.M_GW3_Index"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_LampPaint",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_CableRubber",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+    },
+    {
+      "slot": "OriginalLamp_WSSculpt_Machined",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSSculpt_Machined.MI_WBK_WSSculpt_Machined"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_Reflector",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_Reflector.MI_WBK_WSBench_Reflector"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_SocketCeramic",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_SocketCeramic.MI_WBK_WSBench_SocketCeramic"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_LampBulb",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampBulb.MI_WBK_WSBench_LampBulb"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_CableRubber_001",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_CableRubber.MI_WBK_WSBench_CableRubber"
+    },
+    {
+      "slot": "OriginalLamp_WSBench_LampPaint_001",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSBench_LampPaint.MI_WBK_WSBench_LampPaint"
+    },
+    {
+      "slot": "Library_Fab_Bench_Screwdriver_0",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Screwdriver.MI_WBK_WSFab_Bench_Screwdriver"
+    },
+    {
+      "slot": "Library_Fab_Bench_Pliers_0",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Pliers.MI_WBK_WSFab_Bench_Pliers"
+    },
+    {
+      "slot": "Library_Fab_Bench_Wrench_0",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Bench_Wrench.MI_WBK_WSFab_Bench_Wrench"
+    },
+    {
+      "slot": "Library_Fab_Wall_Hammer_0",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WSFab_Wall_Hammer.MI_WBK_WSFab_Wall_Hammer"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_0",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_OilPaint.MI_WBK_WBKBottle_OilPaint"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_1",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_SpoutSteel.MI_WBK_WBKBottle_SpoutSteel"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_2",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_CapPolymer.MI_WBK_WBKBottle_CapPolymer"
+    },
+    {
+      "slot": "Library_Bottle_OilCan_3",
+      "path": "/Game/Dungeons/AtmosphereV2/RoomInteriors/WorkbenchKit/Materials/InUse/MI_WBK_WBKBottle_OilLabel.MI_WBK_WBKBottle_OilLabel"
+    },
+    {
+      "slot": "Ammo_ammo_556_0",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_Ammo_556_Paper.M_GWDesign_Ammo_556_Paper"
+    },
+    {
+      "slot": "Ammo_ammo_556_1",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_AmmoMetal.M_GWDesign_AmmoMetal"
+    },
+    {
+      "slot": "Ammo_ammo_762_0",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_Ammo_762_Paper.M_GWDesign_Ammo_762_Paper"
+    },
+    {
+      "slot": "Ammo_ammo_762_1",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_AmmoMetal.M_GWDesign_AmmoMetal"
+    },
+    {
+      "slot": "GWDesign_PropsPBR",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_PropsPBR.M_GWDesign_PropsPBR"
+    },
+    {
+      "slot": "GWDesign_ClearGlass",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_ClearGlass.M_GWDesign_ClearGlass"
+    },
+    {
+      "slot": "GWDesign_OpticGlass",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_OpticGlass.M_GWDesign_OpticGlass"
+    },
+    {
+      "slot": "M_ammo_9_Paper",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_Ammo_9_Paper.M_GWDesign_Ammo_9_Paper"
+    },
+    {
+      "slot": "M_ammo_9_Metal",
+      "path": "/Game/Building/GunWorkbenchApproved20261006/Materials/M_GWDesign_AmmoMetal.M_GWDesign_AmmoMetal"
+    }
+  ],
+  "source_triangles": 242532,
+  "ue_source_model_triangles": 241967,
+  "bounds_origin_cm": [
+    7.62939453125e-06,
+    0.84661865234375,
+    86.10045623779297
+  ],
+  "bounds_extent_cm": [
+    120.91099548339844,
+    129.5,
+    86.10045623779297
+  ],
+  "bounds_center_delta_cm": [
+    0.0,
+    -7.62939453125e-06,
+    6.586639404296875
+  ],
+  "pivot_offset_before_cm": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "pivot_offset_after_cm": [
+    0.0,
+    0.0,
+    6.586639404296875
+  ],
+  "footprint": [
+    13,
+    13,
+    8
+  ],
+  "collision": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>",
+  "simple_collision_shapes": {
+    "box_elems": 0,
+    "sphere_elems": 0,
+    "sphyl_elems": 0,
+    "convex_elems": 0
+  },
+  "nanite_enabled": false,
+  "four_yaw_placement_invariance": [
+    {
+      "yaw_degrees": 0,
+      "old_component_location_cm": [
+        129.99999237060547,
+        129.15337371826172,
+        0.48618316650390625
+      ],
+      "new_component_location_cm": [
+        129.99999237060547,
+        129.15338134765625,
+        0.48618316650390625
+      ],
+      "maximum_world_anchor_shift_cm": 7.62939453125e-06
+    },
+    {
+      "yaw_degrees": 90,
+      "old_component_location_cm": [
+        130.84662628173828,
+        129.99999237060547,
+        0.48618316650390625
+      ],
+      "new_component_location_cm": [
+        130.84661865234375,
+        129.99999237060547,
+        0.48618316650390625
+      ],
+      "maximum_world_anchor_shift_cm": 7.62939453125e-06
+    },
+    {
+      "yaw_degrees": 180,
+      "old_component_location_cm": [
+        130.00000762939453,
+        130.84662628173828,
+        0.48618316650390625
+      ],
+      "new_component_location_cm": [
+        130.00000762939453,
+        130.84661865234375,
+        0.48618316650390625
+      ],
+      "maximum_world_anchor_shift_cm": 7.62939453125e-06
+    },
+    {
+      "yaw_degrees": 270,
+      "old_component_location_cm": [
+        129.15337371826172,
+        130.00000762939453,
+        0.48618316650390625
+      ],
+      "new_component_location_cm": [
+        129.15338134765625,
+        130.00000762939453,
+        0.48618316650390625
+      ],
+      "maximum_world_anchor_shift_cm": 7.62939453125e-06
+    }
+  ],
+  "grid_cell_zero_existing_foot_bottom_z_cm": 0.48618316650390625,
+  "dirty_content": [],
+  "dirty_maps": [],
+  "cpp_modified": false,
+  "maps_saved": false,
+  "PIE": false,
+  "note": "Import saved successfully; first receipt formatting hit an AttributeError after save. This independent readback recovered the receipt without re-import.",
+  "ue_mesh_description_triangles": 241967,
+  "ue_render_triangles": 241967,
+  "ue_dynamic_conversion_triangles": 241967,
+  "source_triangle_difference": 565
+}

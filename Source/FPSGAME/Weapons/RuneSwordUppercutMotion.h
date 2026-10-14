@@ -17,10 +17,28 @@ namespace RuneSwordUppercutMotion
     inline constexpr float RecoveryStart=float(RecoveryStartFrame)/SampleRate;
     inline constexpr float End=float(EndFrame)/SampleRate;
     inline constexpr float LungeEnd=ReleaseStart+.16f;
-    // The active skill's blade crosses the forward aim at source frame 126.
-    // Complete the stride there; a .16 s stride leaves most travel after contact.
+    // The blade still crosses forward aim at source frame 126. Retiming that
+    // source interval gives the 150 cm stride a visible push-off and foot plant.
     inline constexpr float SkillLungeEnd=ReleaseStart+6.f/SampleRate;
     inline constexpr float LungeDistance=150.f;
+    inline constexpr float SkillLungeSeconds=.28f;
+    inline constexpr float SkillLungePlaybackEnd=ReleaseStart+SkillLungeSeconds;
+    inline constexpr float SkillExtraSeconds=SkillLungeSeconds-(SkillLungeEnd-ReleaseStart);
+
+    inline float SkillPlaybackTime(float SourceTime)
+    {
+        if(SourceTime<=ReleaseStart)return SourceTime;
+        if(SourceTime<SkillLungeEnd)return ReleaseStart+
+            (SourceTime-ReleaseStart)*SkillLungeSeconds/(SkillLungeEnd-ReleaseStart);
+        return SourceTime+SkillExtraSeconds;
+    }
+    inline float SkillSourceTime(float PlaybackTime)
+    {
+        if(PlaybackTime<=ReleaseStart)return PlaybackTime;
+        if(PlaybackTime<SkillLungePlaybackEnd)return ReleaseStart+
+            (PlaybackTime-ReleaseStart)*(SkillLungeEnd-ReleaseStart)/SkillLungeSeconds;
+        return PlaybackTime-SkillExtraSeconds;
+    }
 
     inline float LungeAlpha(float Time,bool ActiveSkill=false)
     {

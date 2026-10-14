@@ -1,4 +1,6 @@
 #include "RuneSwordHitQuery.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Skills/MagicOcclusion.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/Character.h"
@@ -10,12 +12,17 @@
 namespace
 {
 bool RuneSwordWorldOccludes(UWorld* World,AActor* Owner,AActor* Target,const FVector& Eye,const FVector& Point,bool bCleavePawns,
-    const FCollisionQueryParams* SectorCover=nullptr)
+    const FCollisionQueryParams* SectorCover=nullptr,bool bAreaDamage=false,bool bIgnoreFriendlyUnits=false)
 {
     const FCollisionQueryParams Initial(SCENE_QUERY_STAT(RuneSwordCover),false,Owner);
     const FCollisionQueryParams& FirstQuery=SectorCover?*SectorCover:Initial;
+    const auto Trace=[&](FHitResult& Hit,const FCollisionQueryParams& Params)
+    {
+        return bAreaDamage?MagicOcclusion::TraceBlocker(World,Eye,Point,Params,Hit,bIgnoreFriendlyUnits?Owner:nullptr):
+            RangedAttackQuery::LineTraceSingle(World,bIgnoreFriendlyUnits?Owner:nullptr,Hit,Eye,Point,ECC_Visibility,Params);
+    };
     FHitResult Cover;
-    if(!World->LineTraceSingleByChannel(Cover,Eye,Point,ECC_Visibility,FirstQuery))return false;
+    if(!Trace(Cover,FirstQuery))return false;
     if(Cover.GetActor()==Target)return false;
     if(!bCleavePawns||!Cover.GetActor()||!Cover.GetActor()->IsA<APawn>())return true;
     // Only an extra Pawn outside the broad-phase set needs a private retry list.
@@ -28,8 +35,18 @@ bool RuneSwordWorldOccludes(UWorld* World,AActor* Owner,AActor* Target,const FVe
         // A cleave can reach another body; walls and other solid cover still stop it.
         if(!bCleavePawns || !Blocker || !Blocker->IsA<APawn>())return true;
         Q.AddIgnoredActor(Blocker);
-    }while(World->LineTraceSingleByChannel(Cover,Eye,Point,ECC_Visibility,Q));
+    }while(Trace(Cover,Q));
     return false;
+}
+
+bool RuneSwordAreaOccludes(UWorld* World,AActor* Owner,AActor* Target,const FVector& Origin,
+    const FVector& Point,bool bCleavePawns,const FCollisionQueryParams* Cover=nullptr,bool bIgnoreFriendlyUnits=false)
+{
+    if(!RuneSwordWorldOccludes(World,Owner,Target,Origin,Point,bCleavePawns,Cover,true,bIgnoreFriendlyUnits))return false;
+    MagicOcclusion::FBodySamples Samples;MagicOcclusion::BodySamples(Target,Origin,Samples);
+    for(const FVector& Sample:Samples)
+        if(!RuneSwordWorldOccludes(World,Owner,Target,Origin,Sample,bCleavePawns,Cover,true,bIgnoreFriendlyUnits))return false;
+    return true;
 }
 }
 
@@ -71,7 +88,7 @@ TArray<FHitResult> RuneSwordCombat::QuerySector(UWorld* World,AActor* Owner,cons
         if(Distance>R&&Angle>FMath::DegreesToRadians(ArcDegrees*.5f)+FootprintAngle)continue;
         FVector Point;
         if(Shape->GetClosestPointOnCollision(Origin,Point)<0.f)Point=Bounds.GetBox().GetClosestPointTo(Origin);
-        if(RuneSwordWorldOccludes(World,Owner,Target,Origin,Point,true,&SectorCover))continue;
+        if(RuneSwordAreaOccludes(World,Owner,Target,Origin,Point,true,&SectorCover))continue;
         FHitResult Hit(Target,Shape,Point,(Origin-Point).GetSafeNormal());
         Hit.ImpactPoint=Hit.Location=Point;Hit.TraceStart=Origin;Hit.TraceEnd=Point;
         Found.Add(Target);Result.Add(Hit);
@@ -107,7 +124,7 @@ TArray<FHitResult> RuneSwordCombat::QueryRectangle(UWorld* World,AActor* Owner,c
         if(const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&Combat->IsDead())continue;
         FVector Point;
         if(Shape->GetClosestPointOnCollision(Origin,Point)<0.f)Point=Shape->Bounds.GetBox().GetClosestPointTo(Origin);
-        if(RuneSwordWorldOccludes(World,Owner,Target,Origin,Point,true,&Cover))continue;
+        if(RuneSwordAreaOccludes(World,Owner,Target,Origin,Point,true,&Cover))continue;
         FHitResult Hit(Target,Shape,Point,(Origin-Point).GetSafeNormal());
         Hit.ImpactPoint=Hit.Location=Point;Hit.TraceStart=Origin;Hit.TraceEnd=Point;
         Found.Add(Target);Result.Add(Hit);
@@ -122,6 +139,7 @@ TArray<FHitResult> RuneSwordCombat::Query(UWorld* World,AActor* Owner,const FRun
     TArray<FHitResult> Result;
     TSet<TWeakObjectPtr<AActor>> Found;
     FCollisionQueryParams Initial(SCENE_QUERY_STAT(RuneSwordBlade),false,Owner);
+    Initial.bTraceComplex=Settings.bAreaDamage;
     if(Settings.bCleavePawns)
         for(const auto& Weak:AlreadyHit)if(auto* Actor=Weak.Get();Actor && Actor->IsA<APawn>())Initial.AddIgnoredActor(Actor);
     // Overlapping lanes cover the complete blade, including short tip/root contacts.
@@ -134,16 +152,22 @@ TArray<FHitResult> RuneSwordCombat::Query(UWorld* World,AActor* Owner,const FRun
         for(;;)
         {
             TArray<FHitResult> Hits;
-            World->SweepMultiByChannel(Hits,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(Settings.Radius),Q);
-            bool ContinuePastPawn=false;
+            RangedAttackQuery::SweepMulti(World,Settings.bIgnoreFriendlyUnits?Owner:nullptr,Hits,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(Settings.Radius),Q);
+            bool ContinuePastBlocker=false;
             for(const auto& Hit:Hits)
             {
                 AActor* Target=Hit.GetActor();
                 if(!IsValid(Target) || Target==Owner)continue;
+                if(Settings.bAreaDamage&&MagicOcclusion::IsOpenBarrier(Hit.GetComponent()))
+                {
+                    Q.AddIgnoredComponent(Hit.GetComponent());
+                    ContinuePastBlocker|=Hit.bBlockingHit;
+                    continue;
+                }
                 if(Settings.bCleavePawns && Target->IsA<APawn>())
                 {
                     Q.AddIgnoredActor(Target);
-                    ContinuePastPawn|=Hit.bBlockingHit;
+                    ContinuePastBlocker|=Hit.bBlockingHit;
                 }
                 if(AlreadyHit.Contains(Target) || Found.Contains(Target) || !Target->CanBeDamaged())continue;
                 const FVector Relative=Hit.ImpactPoint-To.Origin;
@@ -151,12 +175,13 @@ TArray<FHitResult> RuneSwordCombat::Query(UWorld* World,AActor* Owner,const FRun
                 if(Relative.SizeSquared()>FMath::Square(Reach) || Along<0.f)continue;
                 if(Settings.ForwardCorridorRadius>0.f &&
                     (Relative-To.Forward*Along).SizeSquared()>FMath::Square(Settings.ForwardCorridorRadius))continue;
-                if(RuneSwordWorldOccludes(World,Owner,Target,To.Origin,Hit.ImpactPoint,Settings.bCleavePawns))continue;
+                if(Settings.bAreaDamage?
+                    RuneSwordAreaOccludes(World,Owner,Target,To.Origin,Hit.ImpactPoint,Settings.bCleavePawns,nullptr,Settings.bIgnoreFriendlyUnits):
+                    RuneSwordWorldOccludes(World,Owner,Target,To.Origin,Hit.ImpactPoint,Settings.bCleavePawns,nullptr,false,Settings.bIgnoreFriendlyUnits))continue;
                 Found.Add(Target);Result.Add(Hit);
             }
-            // Channel sweeps stop at the first blocking hit. Continue through a body,
-            // with that pawn ignored, while retaining solid geometry as the stop.
-            if(!ContinuePastPawn)break;
+            // Cleaves pass bodies; AOE also passes open rails, while solid cover stops both.
+            if(!ContinuePastBlocker)break;
         }
     }
     if(!Settings.bCleavePawns && Result.Num()>1)

@@ -1,0 +1,180 @@
+{
+  "saved": {
+    "HK416-laser-1": {
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_1.SM_laser_1",
+      "sockets": {
+        "Emitter": [
+          8.975249528884888,
+          -53.36901545524597,
+          -0.547885661944747
+        ],
+        "AimGuide": [
+          8.97524207830429,
+          -57.369017601013184,
+          -0.5478909239172935
+        ]
+      },
+      "materials": [
+        {
+          "slot": "M_HK416_Laser_Grip",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+        }
+      ]
+    },
+    "HK416-laser-2": {
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_2.SM_laser_2",
+      "sockets": {
+        "Emitter": [
+          8.796419203281403,
+          -56.56899809837341,
+          2.8712641447782516
+        ],
+        "AimGuide": [
+          8.79642441868782,
+          -60.569000244140625,
+          2.8712691739201546
+        ]
+      },
+      "materials": [
+        {
+          "slot": "M_HK416_Laser_Grip",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+        }
+      ]
+    },
+    "HK416-flashlight-1": {
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_1.SM_flashlight_1",
+      "sockets": {
+        "Emitter": [
+          10.28037816286087,
+          -57.129013538360596,
+          -1.8055684864521027
+        ],
+        "AimGuide": [
+          10.280371457338333,
+          -61.12900972366333,
+          -1.8055737018585205
+        ]
+      },
+      "materials": [
+        {
+          "slot": "M_HK416_Flash_Light",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+        },
+        {
+          "slot": "M_HK416_Glass",
+          "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+        }
+      ]
+    },
+    "HK416-flashlight-2": {
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_2.SM_flashlight_2",
+      "sockets": {
+        "Emitter": [
+          10.101554542779922,
+          -57.12899565696716,
+          1.6135867685079575
+        ],
+        "AimGuide": [
+          10.1015605032444,
+          -61.1289918422699,
+          1.6135917976498604
+        ]
+      },
+      "materials": [
+        {
+          "slot": "M_HK416_Flash_Light",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+        },
+        {
+          "slot": "M_HK416_Glass",
+          "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+        }
+      ]
+    },
+    "HK416-blessed_laser-1": {
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_1.SM_blessed_laser_1",
+      "sockets": {
+        "Emitter": [
+          10.76631247997284,
+          -52.3872971534729,
+          -1.822732575237751
+        ],
+        "AimGuide": [
+          10.766306519508362,
+          -56.38729929924011,
+          -1.822737604379654
+        ]
+      },
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "HK416_Original_Rail_Clamp",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+        }
+      ]
+    },
+    "HK416-blessed_laser-2": {
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_2.SM_blessed_laser_2",
+      "sockets": {
+        "Emitter": [
+          10.587474703788757,
+          -52.78728008270264,
+          1.5964116901159286
+        ],
+        "AimGuide": [
+          10.587482154369354,
+          -56.78728222846985,
+          1.5964169055223465
+        ]
+      },
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "HK416_Original_Rail_Clamp",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+        }
+      ]
+    }
+  },
+  "runtime_tested": false,
+  "status": "six_native_rail_variants_saved"
+}

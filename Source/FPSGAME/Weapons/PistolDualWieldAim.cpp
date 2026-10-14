@@ -1,4 +1,5 @@
 #include "PistolDualWieldComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../FPSGAMECharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
@@ -17,7 +18,7 @@ void UPistolDualWieldComponent::UpdateAimTarget(float Delta)
     const FVector Direction=SightDirection();
     FCollisionQueryParams Query(SCENE_QUERY_STAT(DualPistolConvergence),true,Player);
     FHitResult Hit;
-    const bool HasTarget=GetWorld()->LineTraceSingleByChannel(Hit,Eye,Eye+Direction*100000.f,ECC_Visibility,Query);
+    const bool HasTarget=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,Eye,Eye+Direction*100000.f,ECC_Visibility,Query);
     // Close surfaces are handled by the shared lower/retract pose. Do not make
     // the arms cross to chase a target inches from the camera.
     const float Distance=HasTarget?FMath::Clamp(Hit.Distance,300.f,10000.f):1200.f;

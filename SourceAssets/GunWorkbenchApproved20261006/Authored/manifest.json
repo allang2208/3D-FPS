@@ -1,0 +1,2470 @@
+{
+  "approved_master": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006\\ApprovedDesign\\GunWorkbench_Design_Master.blend",
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006\\Authored\\SM_GunWorkbench.fbx",
+  "source_mesh_objects": 338,
+  "converted_curves_and_text": [
+    "Tray identification",
+    "Protected wiring",
+    "Printer top mark",
+    "Printer supply cable",
+    "Printer screen line",
+    "Press nameplate",
+    "Press designation",
+    "Filament guide"
+  ],
+  "triangles": 242532,
+  "vertices": 128478,
+  "bounds_min_m": [
+    -1.209109902381897,
+    -1.3034662008285522,
+    0.0
+  ],
+  "bounds_max_m": [
+    1.2091100215911865,
+    1.2865337133407593,
+    1.7220090627670288
+  ],
+  "materials": [
+    "WSBench_BenchWood",
+    "GWDesign_PropsPBR",
+    "GW3_Mat",
+    "WSBench_EndGrain",
+    "WSDetail_RackPaint",
+    "WSSculpt_Machined",
+    "WSSculpt_RubberGrip",
+    "GW3_Index",
+    "OriginalLamp_WSBench_CableRubber",
+    "OriginalLamp_WSBench_LampPaint",
+    "OriginalLamp_WSSculpt_Machined",
+    "OriginalLamp_WSBench_Reflector",
+    "OriginalLamp_WSBench_SocketCeramic",
+    "OriginalLamp_WSBench_LampBulb",
+    "Library_Fab_Bench_Wrench_0",
+    "Library_Fab_Bench_Screwdriver_0",
+    "Library_Fab_Bench_Pliers_0",
+    "Library_Bottle_OilCan_0",
+    "Library_Bottle_OilCan_1",
+    "Library_Bottle_OilCan_2",
+    "Library_Bottle_OilCan_3",
+    "GWDesign_ClearGlass",
+    "GWDesign_OpticGlass",
+    "M_ammo_9_Paper",
+    "M_ammo_9_Metal",
+    "M_ammo_762_Paper",
+    "M_ammo_762_Metal",
+    "M_ammo_556_Paper",
+    "M_ammo_556_Metal"
+  ],
+  "ammo_materials": {
+    "M_ammo_9_Paper": {
+      "BaseColor": "T_ammo_9_Box_BaseColor.png",
+      "Normal": "T_AmmoShared_Paper_Normal.png",
+      "ORM": "T_AmmoShared_Paper_ORM.png"
+    },
+    "M_ammo_9_Metal": {
+      "BaseColor": "T_AmmoShared_Metal_BaseColor.png",
+      "Normal": "T_AmmoShared_Metal_Normal.png",
+      "ORM": "T_AmmoShared_Metal_ORM.png"
+    },
+    "M_ammo_762_Paper": {
+      "BaseColor": "T_ammo_762_Box_BaseColor.png",
+      "Normal": "T_AmmoShared_Paper_Normal.png",
+      "ORM": "T_AmmoShared_Paper_ORM.png"
+    },
+    "M_ammo_762_Metal": {
+      "BaseColor": "T_AmmoShared_Metal_BaseColor.png",
+      "Normal": "T_AmmoShared_Metal_Normal.png",
+      "ORM": "T_AmmoShared_Metal_ORM.png"
+    },
+    "M_ammo_556_Paper": {
+      "BaseColor": "T_ammo_556_Box_BaseColor.png",
+      "Normal": "T_AmmoShared_Paper_Normal.png",
+      "ORM": "T_AmmoShared_Paper_ORM.png"
+    },
+    "M_ammo_556_Metal": {
+      "BaseColor": "T_AmmoShared_Metal_BaseColor.png",
+      "Normal": "T_AmmoShared_Metal_Normal.png",
+      "ORM": "T_AmmoShared_Metal_ORM.png"
+    }
+  },
+  "baked_textures": {
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006\\Authored\\Textures\\T_GWDesign_Props_Normal.png",
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006\\Authored\\Textures\\T_GWDesign_Props_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006\\Authored\\Textures\\T_GWDesign_Props_ORM.png",
+    "Emissive": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006\\Authored\\Textures\\T_GWDesign_Props_Emissive.png"
+  },
+  "geometry": [
+    {
+      "object": "Silicone mat",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 828,
+      "vertices": 416
+    },
+    {
+      "object": "Retained_Table",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 28436,
+      "vertices": 14410
+    },
+    {
+      "object": "Inset mat seam",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 832,
+      "vertices": 424
+    },
+    {
+      "object": "Graduation.060",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.059",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.058",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.057",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.056",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.055",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.054",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.053",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.052",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.051",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.050",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.049",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.048",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.047",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.046",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.045",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.044",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.043",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.042",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.041",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.040",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.039",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.038",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.037",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.036",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.035",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.034",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.033",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.032",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.031",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.030",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.029",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.028",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.027",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.026",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.025",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.024",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.023",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.022",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.021",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.020",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.019",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.018",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.017",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.016",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.015",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.014",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.013",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.012",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.011",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.010",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.009",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.008",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.007",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.006",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.005",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.004",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.003",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.002",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation.001",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "Graduation",
+      "source_type": "MESH",
+      "group": "OriginalTableMat",
+      "triangles": 12,
+      "vertices": 8
+    },
+    {
+      "object": "SM_WBK_LampFlex",
+      "source_type": "MESH",
+      "group": "Lamp",
+      "triangles": 7416,
+      "vertices": 3724
+    },
+    {
+      "object": "SM_WBK_Bench_TaskLamp",
+      "source_type": "MESH",
+      "group": "Lamp",
+      "triangles": 56222,
+      "vertices": 28174
+    },
+    {
+      "object": "SM_WBK_Fab_Bench_Wrench",
+      "source_type": "MESH",
+      "group": "Wrench",
+      "triangles": 1298,
+      "vertices": 649
+    },
+    {
+      "object": "SM_WBK_Fab_Bench_Screwdriver",
+      "source_type": "MESH",
+      "group": "Screwdriver",
+      "triangles": 2630,
+      "vertices": 1349
+    },
+    {
+      "object": "SM_WBK_Fab_Bench_Pliers",
+      "source_type": "MESH",
+      "group": "Pliers",
+      "triangles": 4790,
+      "vertices": 2408
+    },
+    {
+      "object": "SM_WBK_Bottle_OilCan",
+      "source_type": "MESH",
+      "group": "OilCan",
+      "triangles": 17760,
+      "vertices": 9510
+    },
+    {
+      "object": "Z stepper body.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Z stepper body",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Z lead screw.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Z lead screw",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Z guide rod.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Z guide rod",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "X gantry rail.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "X gantry rail",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Wound filament.009",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.008",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.007",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.006",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.005",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.004",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Wound filament",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Upper cast bridge",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Upper bevel cover",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Tube support.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Tube support",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Tray lip.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Tray lip",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Tray identification",
+      "source_type": "FONT",
+      "group": "ComponentsTray",
+      "triangles": 2064,
+      "vertices": 2092
+    },
+    {
+      "object": "Tray end lip.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Tray end lip",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Top side rail.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Top side rail",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Top cross rail.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Top cross rail",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Toolhead shroud",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Toolhead fan recess",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Toolhead carrier",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Status screen",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Spool spoke.011",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.010",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.009",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.008",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.007",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.006",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.005",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.004",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool spoke",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool mount",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Spool hub.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Spool hub",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Spool flange.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Spool flange",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Spool axle",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Service side stripe",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.008",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.007",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.006",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.005",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.004",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Sample layer line",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Safety front glass",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Safety clear guard",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rear exhaust grille",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rear electronics panel",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Ready lamp",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Ram tip cover",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Ram housing",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Rail top segment.012",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.011",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.010",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.009",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.008",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.007",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.006",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.005",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.004",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.003",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.002",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail top segment",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Rail backbone",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Protected wiring",
+      "source_type": "CURVE",
+      "group": "AmmoPress",
+      "triangles": 400,
+      "vertices": 210
+    },
+    {
+      "object": "Progress bar",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Printer top mark",
+      "source_type": "FONT",
+      "group": "Printer",
+      "triangles": 2916,
+      "vertices": 2932
+    },
+    {
+      "object": "Printer supply cable",
+      "source_type": "CURVE",
+      "group": "Printer",
+      "triangles": 400,
+      "vertices": 210
+    },
+    {
+      "object": "Printer screen line",
+      "source_type": "FONT",
+      "group": "Printer",
+      "triangles": 2212,
+      "vertices": 2232
+    },
+    {
+      "object": "Printer rubber foot.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Printer rubber foot.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Printer rubber foot.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Printer rubber foot",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Printer rigid base",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Printer base inset",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Printed sample module",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Press work surface",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Press nameplate",
+      "source_type": "FONT",
+      "group": "AmmoPress",
+      "triangles": 2152,
+      "vertices": 2172
+    },
+    {
+      "object": "Press motor",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Press isolation foot.003",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Press isolation foot.002",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Press isolation foot.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Press isolation foot",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Press handle rubber",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Press handle",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Press designation",
+      "source_type": "FONT",
+      "group": "AmmoPress",
+      "triangles": 1468,
+      "vertices": 1520
+    },
+    {
+      "object": "Press cast column.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Press cast column",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Press cast base",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Press bed support",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Polished guide rail.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Polished guide rail",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Peripheral tool mat",
+      "source_type": "MESH",
+      "group": "ToolOrganizer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "PEI build surface",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Optic tube",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Optic support",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Optic side dial",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Optic glass",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Optic end ring.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Optic end ring",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Optic adjustment",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Nozzle collar",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.007",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.006",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.005",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.004",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.003",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.002",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Motor cooling fin",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Loose collar.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Loose collar",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lever pivot",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Lead screw accent.027",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.026",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.025",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.024",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.023",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.022",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.021",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.020",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.019",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.018",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.017",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.016",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.015",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.014",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.013",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.012",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.011",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.010",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.009",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.008",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.007",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.006",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.005",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.004",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Lead screw accent",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Handguard shell",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard inset",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.007",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.006",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.005",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.004",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.003",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.002",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Handguard external vent",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Guard side rail.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Guard side rail",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Guard lower grip",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Grip rib.004",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Grip rib.003",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Grip rib.002",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Grip rib.001",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Grip rib",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Gauge tick.010",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.009",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.008",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.007",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.006",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.005",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.004",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.003",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.002",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge tick",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Gauge needle",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Gauge face",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Gauge case",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Gantry drive belt",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Frame bolt.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Frame bolt.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Frame bolt.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Frame bolt",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Foam liner",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Filament guide",
+      "source_type": "CURVE",
+      "group": "Printer",
+      "triangles": 600,
+      "vertices": 310
+    },
+    {
+      "object": "Fan grille spoke.006",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Fan grille spoke.005",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Fan grille spoke.004",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Fan grille spoke.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Fan grille spoke.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Fan grille spoke.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Fan grille spoke",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 220,
+      "vertices": 112
+    },
+    {
+      "object": "Extrusion centre groove.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Extrusion centre groove.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Extrusion centre groove.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Extrusion centre groove",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "External ram sleeve",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Exhaust fin.009",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.008",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.007",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.006",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.005",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.004",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Exhaust fin",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Enclosed lower block",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Emergency stop",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Drive cover trim",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 640,
+      "vertices": 320
+    },
+    {
+      "object": "Drive cover fastener.007",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener.006",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener.005",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener.004",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener.003",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener.002",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover fastener",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Drive cover",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Door hinge.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Door hinge",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Door handle",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Display tube",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 236,
+      "vertices": 120
+    },
+    {
+      "object": "Detached grip shell",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Control housing",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Control dial cap",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Control dial",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Cone",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 92,
+      "vertices": 48
+    },
+    {
+      "object": "Component tray base",
+      "source_type": "MESH",
+      "group": "ComponentsTray",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Column milled inset.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Column milled inset",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Build plate",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Belt idler.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Belt idler",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 380,
+      "vertices": 192
+    },
+    {
+      "object": "Bed support carrier",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Bed adjust bolt.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Bed adjust bolt.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Bed adjust bolt.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Bed adjust bolt",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Anchor bolt.003",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Anchor bolt.002",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Anchor bolt.001",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Anchor bolt",
+      "source_type": "MESH",
+      "group": "AmmoPress",
+      "triangles": 164,
+      "vertices": 84
+    },
+    {
+      "object": "Aluminium upright.003",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Aluminium upright.002",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Aluminium upright.001",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "Aluminium upright",
+      "source_type": "MESH",
+      "group": "Printer",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "SM_ammo_9_LOD0",
+      "source_type": "MESH",
+      "group": "ammo_9",
+      "triangles": 9136,
+      "vertices": 4612
+    },
+    {
+      "object": "SM_ammo_762_LOD0",
+      "source_type": "MESH",
+      "group": "ammo_762",
+      "triangles": 11644,
+      "vertices": 5868
+    },
+    {
+      "object": "SM_ammo_556_LOD0",
+      "source_type": "MESH",
+      "group": "ammo_556",
+      "triangles": 11644,
+      "vertices": 5868
+    },
+    {
+      "object": "ammo_9_SupportPad",
+      "source_type": "MESH",
+      "group": "ammo_9",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "ammo_762_SupportPad",
+      "source_type": "MESH",
+      "group": "ammo_762",
+      "triangles": 188,
+      "vertices": 96
+    },
+    {
+      "object": "ammo_556_SupportPad",
+      "source_type": "MESH",
+      "group": "ammo_556",
+      "triangles": 188,
+      "vertices": 96
+    }
+  ],
+  "nanite_plan": "disabled for this single mixed opaque/translucent mesh; no shape reduction",
+  "approved_source_unchanged": true,
+  "PIE": false,
+  "slot_zero_runtime_surface": "WSBench_BenchWood",
+  "triangulated": true,
+  "game_blend_textures_packed": true
+}

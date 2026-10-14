@@ -72,6 +72,8 @@ struct FDualPistolHand
     TSet<FString> PlayedCues;
     UPROPERTY(Transient) TMap<FName,TObjectPtr<class UWeaponGripProfile>> PoseProfiles;
     FName ActionPoseProfile;
+    // Per-instance capability/mode; refreshed only when that hand's item changes.
+    bool SelectableAutomatic=false, Automatic=false;
 };
 
 /** Pistol pair or staff/offhand pistol; each active hand owns its trigger, ammo and action clock. */

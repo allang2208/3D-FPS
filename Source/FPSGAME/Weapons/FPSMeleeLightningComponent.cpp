@@ -1,4 +1,6 @@
 #include "FPSMeleeLightningComponent.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "RuneSwordComponent.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Skills/FPSLightningArc.h"
@@ -36,7 +38,8 @@ void UFPSMeleeLightningComponent::BeginPlay()
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
     if(auto* Tool=GetOwner()->FindComponentByClass<UProductionToolComponent>())AddTickPrerequisiteComponent(Tool);
     CosmeticRandom.Initialize(int32(FPlatformTime::Cycles()));
-    Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if(const auto* Pawn=Cast<APawn>(GetOwner());Pawn&&Pawn->IsLocallyControlled())
+        Profile=ColdSteelAuthority::ForPawn(Pawn);
     if(auto* M=Profile.Get())ProfileChanged=M->OnChanged.AddUObject(this,&ThisClass::RefreshEquipment);
     if(GetNetMode()!=NM_DedicatedServer)
         LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(
@@ -52,7 +55,8 @@ void UFPSMeleeLightningComponent::BeginPlay()
 bool UFPSMeleeLightningComponent::IsEnemy(AActor* Target,AActor* Owner)
 {
     if(!IsValid(Target)||Target==Owner||Target->IsActorBeingDestroyed()||!Target->CanBeDamaged()
-        ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))||Target->ActorHasTag(TEXT("Player")))return false;
+        ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))||Target->ActorHasTag(TEXT("Player"))
+        ||RangedAttackQuery::IsFriendlyUnit(Owner,Target))return false;
     if(const auto* Pawn=Cast<APawn>(Target);Pawn&&Pawn->IsPlayerControlled())return false;
     const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
     return Combat&&!Combat->IsDead();
@@ -60,7 +64,7 @@ bool UFPSMeleeLightningComponent::IsEnemy(AActor* Target,AActor* Owner)
 
 void UFPSMeleeLightningComponent::QueueDischarge(const FHitResult& Hit,float RadiusCM,int32 MinimumLevel)
 {
-    auto* M=Profile.Get();const auto* Pawn=Cast<APawn>(GetOwner());
+    const auto* Pawn=Cast<APawn>(GetOwner());auto* M=ColdSteelAuthority::ForPawn(Pawn);
     if(!M||!Pawn||!Pawn->HasAuthority()||!Pawn->IsPlayerControlled()||RadiusCM<=0.f||MinimumLevel<=0)return;
     // Called only after a confirmed melee hit. The original victim may already be dead.
     FWave Wave;Wave.Chain=MakeShared<FChain>();Wave.Chain->Radius=RadiusCM;
@@ -94,13 +98,13 @@ void UFPSMeleeLightningComponent::Gather(const FWave& Wave,TArray<AActor*>& Out)
     Out.RemoveAll([&](AActor* Target)
     {
         FHitResult Cover;
-        return GetWorld()->LineTraceSingleByChannel(Cover,Wave.Start,Target->GetActorLocation(),ECC_Visibility,Sight);
+        return RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Cover,Wave.Start,Target->GetActorLocation(),ECC_Visibility,Sight);
     });
 }
 
 void UFPSMeleeLightningComponent::ProcessWave(const FWave& Wave)
 {
-    auto* M=Profile.Get();auto* Pawn=Cast<APawn>(GetOwner());if(!M||!Pawn||!Wave.Chain)return;
+    auto* Pawn=Cast<APawn>(GetOwner());auto* M=ColdSteelAuthority::ForPawn(Pawn);if(!M||!Pawn||!Pawn->HasAuthority()||!Wave.Chain)return;
     TArray<AActor*> Targets;Gather(Wave,Targets);
     if(Wave.bRandomFirst&&!Targets.IsEmpty())
     {AActor* Chosen=Targets[FMath::RandHelper(Targets.Num())];Targets.Reset();Targets.Add(Chosen);}
@@ -139,7 +143,7 @@ void UFPSMeleeLightningComponent::ProcessWave(const FWave& Wave)
 
 void UFPSMeleeLightningComponent::ShowArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bOverload)
 {
-    if(!ChainSystem)return;
+    if(!ChainSystem&&GetNetMode()!=NM_DedicatedServer)return;
     WorldArcs.RemoveAll([](const auto& Arc){return !Arc.IsValid();});
     // A cosmetic budget only: every eligible enemy still receives damage.
     if(WorldArcs.Num()>=32){if(auto* Old=WorldArcs[0].Get())Old->Destroy();WorldArcs.RemoveAt(0);}

@@ -1,0 +1,142 @@
+{
+  "target_assets": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchLibraryTools20260928\\SM_GunWorkbench.uasset",
+      "bytes": 12831655,
+      "sha256": "32dce97e44ed9c187ce50347881ff48dc4a2019a69675200952747db914697a1"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\Voxels\\Rounded\\DA_VoxelBuildPalette.uasset",
+      "bytes": 26305,
+      "sha256": "51d9cfc980ce2007ac050321b634969251632b1a2740e7a406bf646c9830d4e2"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_AmmoMetal.uasset",
+      "bytes": 12338,
+      "sha256": "3de9e98b19604eb24a90ce0cd963bb095723ad9ebc6e62859916b37f5d6d6709"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_Ammo_556_Paper.uasset",
+      "bytes": 13635,
+      "sha256": "81de72f59ebc05e530e64a08fa94bdba6606ef1a53ea35f8f926c572e2f46d33"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_Ammo_762_Paper.uasset",
+      "bytes": 14085,
+      "sha256": "fed5e801baca1686067ec3d0c324270d27346f31372504dcc5622af5f73b0349"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_Ammo_9_Paper.uasset",
+      "bytes": 12637,
+      "sha256": "9bb5f209852066587ea9a47dc7a666ab2a3112e95384d8ef5ecfe6cf378f952e"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_ClearGlass.uasset",
+      "bytes": 12368,
+      "sha256": "39d4e6a6fc7c8277cb118827c5c7506223e4258114869fe1d2f150dd189cb4b6"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_OpticGlass.uasset",
+      "bytes": 12101,
+      "sha256": "1f84a5fc55c92afd9e51f70c198e3c8c9d8f11f9bd6531f292dae1baf7d4ba1b"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Materials\\M_GWDesign_PropsPBR.uasset",
+      "bytes": 15440,
+      "sha256": "4fd47b34c8d90b7875d008da2f8caa03c9b1b6b837b440bbc2b7d74aad3c1050"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_AmmoShared_Metal_BaseColor.uasset",
+      "bytes": 617358,
+      "sha256": "3a2ff93ea4e31775e9962624dd316cbc612014a26b562e1747180151f1fd5aa1"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_AmmoShared_Metal_Normal.uasset",
+      "bytes": 526008,
+      "sha256": "2895e195c6aa85ad8c45ac911e15b4c958b2964cef95e0b3e12e8a77161f0453"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_AmmoShared_Metal_ORM.uasset",
+      "bytes": 625987,
+      "sha256": "3e9e3e9678a29e61b8e1fa742322b203e06b1fe897858f7c57ecfeccfa49cb84"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_AmmoShared_Paper_Normal.uasset",
+      "bytes": 10237658,
+      "sha256": "9094093a42ff0454ea1721d22d454d11b005c67442863f819862974f8ad29729"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_AmmoShared_Paper_ORM.uasset",
+      "bytes": 2322465,
+      "sha256": "9350586121eeb94a0e02efef75b7151ad4f91b71d14c0a0474a800a9dd5e3204"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_ammo_556_Box_BaseColor.uasset",
+      "bytes": 2477387,
+      "sha256": "a075d3e993a7ed155ed7712074f98023fada9075db57971f677b9d67fca95488"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_ammo_762_Box_BaseColor.uasset",
+      "bytes": 2457765,
+      "sha256": "799ba9fe10025f9b3dea3ce1d702890c7332b5b83cdf52de0738311b4399391f"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_ammo_9_Box_BaseColor.uasset",
+      "bytes": 2435929,
+      "sha256": "91f0afae9d5bc7e758db041b187d74c7afa88217617be0733309b512d26ce402"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_GWDesign_Props_BaseColor.uasset",
+      "bytes": 485709,
+      "sha256": "ef2f76cfea9270bce993a8c5ca992f6dfefd19f0c0035924159c112cab3a4f94"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_GWDesign_Props_Emissive.uasset",
+      "bytes": 22657,
+      "sha256": "997542dfb334c92c58d22b952ea0a8e871e21803ed8a4f6a67680d7f2cd4e4e1"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_GWDesign_Props_Normal.uasset",
+      "bytes": 1488245,
+      "sha256": "054169a6cb0c3e66842b8a1e712859e3c19760ac2d3ef40c94010d1f821791f9"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\Building\\GunWorkbenchApproved20261006\\Textures\\T_GWDesign_Props_ORM.uasset",
+      "bytes": 486866,
+      "sha256": "3563e77ecbc5bd59e01527a73a92107fdd5bdda6064f46204732145293030d64"
+    }
+  ],
+  "old_source_changes": [],
+  "protected": {
+    "checked": 1766,
+    "changed": []
+  },
+  "own_cpp_edits": [],
+  "own_config_edits": [],
+  "own_map_saves": [],
+  "source_directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunWorkbenchApproved20261006",
+  "backup_directory": "C:\\Users\\allan\\Documents\\Codex\\2026-10-04\\task-2\\gunbench_import_20261006\\backup_before",
+  "library_screenshots": [
+    {
+      "library_file_id": "libfile_f94017f67b148191849993930a1944ed",
+      "file_id": "file_000000008bb8823087d5a05e9ccb2774",
+      "name": "GunWorkbench_UE_Overall.png"
+    },
+    {
+      "library_file_id": "libfile_e21cd4d45be881918d476998e05b4ecd",
+      "file_id": "file_00000000e99481f58666cd31aa42dacf",
+      "name": "GunWorkbench_UE_Top.png"
+    },
+    {
+      "library_file_id": "libfile_7908373540f081919a6e71027fcefd35",
+      "file_id": "file_00000000b82881fd9fc0ca6effdb0def",
+      "name": "GunWorkbench_UE_Machines.png"
+    },
+    {
+      "library_file_id": "libfile_81127cfef34c8191b4cf580e6ee2b715",
+      "file_id": "file_00000000a25081f88a61aa75c1f4f991",
+      "name": "GunWorkbench_UE_Ammo.png"
+    }
+  ],
+  "no_git_commit_or_push": true
+}

@@ -3,18 +3,22 @@
 No host weapon is edited. Geometry is exported in the WPN_root physical frame;
 the runtime cancels the native root scale once. No previews or tests are run.
 """
-import bpy,bmesh,json,math
+import bpy,bmesh,json,math,sys,argparse
 from pathlib import Path
 from mathutils import Matrix,Vector,Quaternion
 P=Path(__file__).resolve().parents[3];O=P/'SourceAssets/LegendaryStock20261006';I=O/'Integration'
 for d in ('Editable','Exports'):(I/d).mkdir(parents=True,exist_ok=True)
 sources=json.loads((I/'fitting-sources.json').read_text())
+parser=argparse.ArgumentParser();parser.add_argument('--family',choices=list(sources))
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 F=Vector((0,-1,0));U=Vector((0,0,1));L=Vector((1,0,0))
 B=Matrix(((0,1,0),(-1,0,0),(0,0,1))).to_4x4()
 flip=Matrix.Diagonal((1,-1,1))
 report={'models':{},'frame':'WPN_root physical metres, FBX centimetres; root scale cancelled once',
         'reference':'Model/TacticalStock_Editable.blend','game_tested':False}
 report['visual_revision']=json.loads((O/'authoring.json').read_text(encoding='utf-8')).get('visual_revision','V1')
+if args.family and (I/'fitted-models.json').exists():
+ report['models']=json.loads((I/'fitted-models.json').read_text())['models']
 
 def select(ob):
  bpy.ops.object.select_all(action='DESELECT');ob.hide_set(False);ob.select_set(True);bpy.context.view_layer.objects.active=ob
@@ -73,6 +77,7 @@ def surface(ob):
    v=data.vertices[data.loops[li].vertex_index].co;uv.data[li].uv=(v[axes[0]]/.035,v[axes[1]]/.035)
 
 for family,spec in sources.items():
+ if args.family and family!=args.family:continue
  bpy.ops.wm.open_mainfile(filepath=str(O/'Model/TacticalStock_Editable.blend'))
  bpy.context.preferences.filepaths.save_version=0
  originals=[ob for ob in bpy.context.scene.objects if ob.type=='MESH']
@@ -97,6 +102,17 @@ for family,spec in sources.items():
  if len(outline)<3:raise RuntimeError('No source interface cross section: '+family)
  center=Vector(((min(p.x for p in outline)+max(p.x for p in outline))/2,
                 (min(p.y for p in outline)+max(p.y for p in outline))/2))
+ section_center=center.copy()
+ if family=='HK416':
+  # The lower key on the donor interface biases its bounding-box centre.
+  # Seat the stock on the native circular buffer tube's actual axis instead.
+  native=json.loads((P/'SourceAssets/HK416Reworked20260930/source_inventory.json').read_text())
+  tube=next(o['bounds'] for o in native['objects'] if o['name']=='Stock_Stick_low')
+  radius=(tube['max'][0]-tube['min'][0])/2
+  datum=Vector(((tube['max'][0]+tube['min'][0])/2,tube['max'][1],tube['max'][2]-radius))
+  native_frame=json.loads((P/'SourceAssets/HK416Reworked20260930/authoring.json').read_text())['source_to_weapon_root']
+  axis=Matrix(native_frame)@datum
+  center=Vector((axis.dot(L),axis.dot(U)))
  # Match the front shape, then transition over a short solid neck to the
  # already-authored closed mount. Only the connecting surfaces are rebuilt.
  transition=.010
@@ -148,5 +164,8 @@ for family,spec in sources.items():
    'root_rest_scale':spec['bones']['WPN_root'][7:10],
    'materials':[m.name for m in ob.data.materials],
    'asset':'/Game/Weapons/LegendaryStock20261006/Fitted/'+ob.name}
+ if family=='HK416':
+  report['models'][family]['interface_alignment']='native Stock_Stick_low circular axis; receiver-facing interface unchanged'
+  report['models'][family]['body_alignment_delta_m']=[center.x-section_center.x,0.,center.y-section_center.y]
  (I/'fitted-models.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
  print('TACTICAL_STOCK_FITTED '+family+' '+json.dumps({'mount':list(pivot),'source_front':front,'triangles':len(ob.data.loop_triangles)}),flush=True)

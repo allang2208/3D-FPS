@@ -1,0 +1,2106 @@
+{
+  "saved": {
+    "M4-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Body_OpticalV2.M_M4_laser_Body_OpticalV2"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.3061410784721375,
+          36.37367486953735,
+          7.799936085939407
+        ],
+        "AimGuide": [
+          5.3061410784721375,
+          39.37367498874664,
+          7.799936085939407
+        ]
+      }
+    },
+    "M4-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Body_OpticalV2.M_M4_laser_Body_OpticalV2"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.3061410784721375,
+          36.37367486953735,
+          7.799936085939407
+        ],
+        "AimGuide": [
+          5.3061410784721375,
+          39.37367498874664,
+          7.799936085939407
+        ]
+      }
+    },
+    "M4-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Body_MetalTail.M_M4_flashlight_Body_MetalTail"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.689715430140495,
+          38.10260593891144,
+          7.800582051277161
+        ],
+        "AimGuide": [
+          4.689715802669525,
+          41.10260605812073,
+          7.800582051277161
+        ]
+      }
+    },
+    "M4-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Body_MetalTail.M_M4_flashlight_Body_MetalTail"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.689715430140495,
+          38.10260593891144,
+          7.800582051277161
+        ],
+        "AimGuide": [
+          4.689715802669525,
+          41.10260605812073,
+          7.800582051277161
+        ]
+      }
+    },
+    "M4-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.3061410784721375,
+          36.37367486953735,
+          7.799936085939407
+        ],
+        "AimGuide": [
+          5.3061410784721375,
+          39.37367498874664,
+          7.799936085939407
+        ]
+      }
+    },
+    "M4-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M4/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.3061410784721375,
+          36.37367486953735,
+          7.799936085939407
+        ],
+        "AimGuide": [
+          5.3061410784721375,
+          39.37367498874664,
+          7.799936085939407
+        ]
+      }
+    },
+    "HK416-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_HK416_Laser_Grip",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          9.352786093950272,
+          -53.36901545524597,
+          -0.5478852894157171
+        ],
+        "AimGuide": [
+          9.352779388427734,
+          -57.369017601013184,
+          -0.5478904582560062
+        ]
+      }
+    },
+    "HK416-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_HK416_Laser_Grip",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          9.657473862171173,
+          -53.36902141571045,
+          -0.5478852894157171
+        ],
+        "AimGuide": [
+          9.657467156648636,
+          -57.36902356147766,
+          -0.5478904582560062
+        ]
+      }
+    },
+    "HK416-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_HK416_Flash_Light",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+        },
+        {
+          "slot": "M_HK416_Glass",
+          "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          10.861869901418686,
+          -57.129013538360596,
+          -0.5478902719914913
+        ],
+        "AimGuide": [
+          10.861866921186447,
+          -61.12900972366333,
+          -0.5478946957737207
+        ]
+      }
+    },
+    "HK416-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_HK416_Flash_Light",
+          "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+        },
+        {
+          "slot": "M_HK416_Glass",
+          "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          10.858394205570221,
+          -57.129013538360596,
+          -0.5478902719914913
+        ],
+        "AimGuide": [
+          10.858391225337982,
+          -61.12900972366333,
+          -0.5478946957737207
+        ]
+      }
+    },
+    "HK416-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          10.19425019621849,
+          -53.36902141571045,
+          -0.5478852894157171
+        ],
+        "AimGuide": [
+          10.194243490695953,
+          -57.36902356147766,
+          -0.5478904582560062
+        ]
+      }
+    },
+    "HK416-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          9.558916836977005,
+          -53.36901545524597,
+          -0.5478852894157171
+        ],
+        "AimGuide": [
+          9.558910131454468,
+          -57.369017601013184,
+          -0.5478904582560062
+        ]
+      }
+    },
+    "M16-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_optic_c6af9185c5.MI_M16_R01_optic_c6af9185c5"
+        },
+        {
+          "slot": "M16_InterfaceMetal",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          7.8061409294605255,
+          46.373674273490906,
+          9.15493592619896
+        ],
+        "AimGuide": [
+          7.8061409294605255,
+          49.373674392700195,
+          9.15493592619896
+        ]
+      }
+    },
+    "M16-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_optic_c6af9185c5.MI_M16_R01_optic_c6af9185c5"
+        },
+        {
+          "slot": "M16_InterfaceMetal",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          7.8061409294605255,
+          46.373674273490906,
+          9.15493592619896
+        ],
+        "AimGuide": [
+          7.8061409294605255,
+          49.373674392700195,
+          9.15493592619896
+        ]
+      }
+    },
+    "M16-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_optic_567646140d.MI_M16_R01_optic_567646140d"
+        },
+        {
+          "slot": "MI_M16_R01_mount_adac2dfa8b",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          7.1897149085998535,
+          48.10260534286499,
+          9.155581891536713
+        ],
+        "AimGuide": [
+          7.189715653657913,
+          51.10260844230652,
+          9.155581891536713
+        ]
+      }
+    },
+    "M16-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_optic_567646140d.MI_M16_R01_optic_567646140d"
+        },
+        {
+          "slot": "MI_M16_R01_mount_adac2dfa8b",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          7.1897149085998535,
+          48.10260534286499,
+          9.155581891536713
+        ],
+        "AimGuide": [
+          7.189715653657913,
+          51.10260844230652,
+          9.155581891536713
+        ]
+      }
+    },
+    "M16-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "MI_M16_R01_mount_adac2dfa8b",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          7.8061409294605255,
+          46.373674273490906,
+          9.15493592619896
+        ],
+        "AimGuide": [
+          7.8061409294605255,
+          49.373674392700195,
+          9.15493592619896
+        ]
+      }
+    },
+    "M16-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/M16/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "MI_M16_R01_mount_adac2dfa8b",
+          "path": "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_adac2dfa8b.MI_M16_R01_mount_adac2dfa8b"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          7.8061409294605255,
+          46.373674273490906,
+          9.15493592619896
+        ],
+        "AimGuide": [
+          7.8061409294605255,
+          49.373674392700195,
+          9.15493592619896
+        ]
+      }
+    },
+    "AKM-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2.M_AKM_laser_Body_OpticalV2"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.623187333345413,
+          35.37367582321167,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.623187333345413,
+          38.37367594242096,
+          5.699730664491653
+        ]
+      }
+    },
+    "AKM-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body_OpticalV2.M_AKM_laser_Body_OpticalV2"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.623187333345413,
+          35.37367582321167,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.623187333345413,
+          38.37367594242096,
+          5.699730664491653
+        ]
+      }
+    },
+    "AKM-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body_MetalTail.M_AKM_flashlight_Body_MetalTail"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.006389901041985,
+          37.10265755653381,
+          5.7005830109119415
+        ],
+        "AimGuide": [
+          4.006390646100044,
+          40.1026576757431,
+          5.7005830109119415
+        ]
+      }
+    },
+    "AKM-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body_MetalTail.M_AKM_flashlight_Body_MetalTail"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.006389901041985,
+          37.10265755653381,
+          5.7005830109119415
+        ],
+        "AimGuide": [
+          4.006390646100044,
+          40.1026576757431,
+          5.7005830109119415
+        ]
+      }
+    },
+    "AKM-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.623187333345413,
+          35.37367582321167,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.623187333345413,
+          38.37367594242096,
+          5.699730664491653
+        ]
+      }
+    },
+    "AKM-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/AKM/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.623187333345413,
+          35.37367582321167,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.623187333345413,
+          38.37367594242096,
+          5.699730664491653
+        ]
+      }
+    },
+    "QBZ191-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Body.M_QBZ191_laser_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.74688895046711,
+          33.57367217540741,
+          6.999805569648743
+        ],
+        "AimGuide": [
+          4.7468893229961395,
+          36.5736722946167,
+          6.999805569648743
+        ]
+      }
+    },
+    "QBZ191-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Body.M_QBZ191_laser_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.74688895046711,
+          33.57367217540741,
+          6.999805569648743
+        ],
+        "AimGuide": [
+          4.7468893229961395,
+          36.5736722946167,
+          6.999805569648743
+        ]
+      }
+    },
+    "QBZ191-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/M_QBZ191_flashlight_Body.M_QBZ191_flashlight_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.3077729642391205,
+          35.30265688896179,
+          7.0005811750888824
+        ],
+        "AimGuide": [
+          4.30777333676815,
+          38.30265700817108,
+          7.0005811750888824
+        ]
+      }
+    },
+    "QBZ191-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/M_QBZ191_flashlight_Body.M_QBZ191_flashlight_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.4000498950481415,
+          35.30265688896179,
+          7.0005811750888824
+        ],
+        "AimGuide": [
+          4.400050267577171,
+          38.30265700817108,
+          7.0005811750888824
+        ]
+      }
+    },
+    "QBZ191-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.74688895046711,
+          33.57367217540741,
+          6.999805569648743
+        ],
+        "AimGuide": [
+          4.7468893229961395,
+          36.5736722946167,
+          6.999805569648743
+        ]
+      }
+    },
+    "QBZ191-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/QBZ191/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.74688895046711,
+          33.57367217540741,
+          6.999805569648743
+        ],
+        "AimGuide": [
+          4.7468893229961395,
+          36.5736722946167,
+          6.999805569648743
+        ]
+      }
+    },
+    "ASH12-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_laser_Body.M_ASH12_laser_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "ASH12-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_laser",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_laser_Body.M_ASH12_laser_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "ASH12-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_flashlight_Body.M_ASH12_flashlight_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.1026085168123245,
+          2.572900243103504,
+          -0.0005820512797072297
+        ],
+        "AimGuide": [
+          9.102608263492584,
+          2.572900429368019,
+          -0.0005820512797072297
+        ]
+      }
+    },
+    "ASH12-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_flashlight_Body.M_ASH12_flashlight_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.1026085168123245,
+          2.528017945587635,
+          -0.0005820512797072297
+        ],
+        "AimGuide": [
+          9.102608263492584,
+          2.52801813185215,
+          -0.0005820512797072297
+        ]
+      }
+    },
+    "ASH12-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "ASH12-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/ASH12/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "A762-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "A762_laser_0",
+          "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_0.MI_A762_WS_laser_0"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.223187431693077,
+          35.37367582321167,
+          6.199730187654495
+        ],
+        "AimGuide": [
+          5.223187804222107,
+          38.37367594242096,
+          6.199730187654495
+        ]
+      }
+    },
+    "A762-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "A762_laser_0",
+          "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_0.MI_A762_WS_laser_0"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.223187431693077,
+          35.37367582321167,
+          6.199730187654495
+        ],
+        "AimGuide": [
+          5.223187804222107,
+          38.37367594242096,
+          6.199730187654495
+        ]
+      }
+    },
+    "A762-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "A762_flashlight_0",
+          "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_0.MI_A762_WS_flashlight_0"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.606390371918678,
+          37.10265755653381,
+          6.200582906603813
+        ],
+        "AimGuide": [
+          4.606390371918678,
+          40.1026576757431,
+          6.200582906603813
+        ]
+      }
+    },
+    "A762-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "A762_flashlight_0",
+          "path": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_0.MI_A762_WS_flashlight_0"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.606390371918678,
+          37.10265755653381,
+          6.200582906603813
+        ],
+        "AimGuide": [
+          4.606390371918678,
+          40.1026576757431,
+          6.200582906603813
+        ]
+      }
+    },
+    "A762-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.223187431693077,
+          35.37367582321167,
+          6.199730187654495
+        ],
+        "AimGuide": [
+          5.223187804222107,
+          38.37367594242096,
+          6.199730187654495
+        ]
+      }
+    },
+    "A762-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/A762/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.223187431693077,
+          35.37367582321167,
+          6.199730187654495
+        ],
+        "AimGuide": [
+          5.223187804222107,
+          38.37367594242096,
+          6.199730187654495
+        ]
+      }
+    },
+    "SVD-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "SVD_laser_0",
+          "path": "/Game/Weapons/SVDDragunov20260922/RefinedFinish20260923/Materials/M_M_SVD_laser_0_Matte_6dc3ba_Base.M_M_SVD_laser_0_Matte_6dc3ba_Base"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.447171464562416,
+          44.87367570400238,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.447172209620476,
+          47.87367582321167,
+          5.699730664491653
+        ]
+      }
+    },
+    "SVD-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "SVD_laser_0",
+          "path": "/Game/Weapons/SVDDragunov20260922/RefinedFinish20260923/Materials/M_M_SVD_laser_0_Matte_6dc3ba_Base.M_M_SVD_laser_0_Matte_6dc3ba_Base"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.447171464562416,
+          44.87367570400238,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.447172209620476,
+          47.87367582321167,
+          5.699730664491653
+        ]
+      }
+    },
+    "SVD-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "SVD_flashlight_0",
+          "path": "/Game/Weapons/SVDDragunov20260922/RefinedFinish20260923/Materials/M_M_SVD_flashlight_0_Matte_60ed99_Base.M_M_SVD_flashlight_0_Matte_60ed99_Base"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          3.830374777317047,
+          46.602657437324524,
+          5.7005830109119415
+        ],
+        "AimGuide": [
+          3.830374777317047,
+          49.60265755653381,
+          5.7005830109119415
+        ]
+      }
+    },
+    "SVD-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "SVD_flashlight_0",
+          "path": "/Game/Weapons/SVDDragunov20260922/RefinedFinish20260923/Materials/M_M_SVD_flashlight_0_Matte_60ed99_Base.M_M_SVD_flashlight_0_Matte_60ed99_Base"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          3.830374777317047,
+          46.602657437324524,
+          5.7005830109119415
+        ],
+        "AimGuide": [
+          3.830374777317047,
+          49.60265755653381,
+          5.7005830109119415
+        ]
+      }
+    },
+    "SVD-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.447171464562416,
+          44.87367570400238,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.447172209620476,
+          47.87367582321167,
+          5.699730664491653
+        ]
+      }
+    },
+    "SVD-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/SVD/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.447171464562416,
+          44.87367570400238,
+          5.699730664491653
+        ],
+        "AimGuide": [
+          4.447172209620476,
+          47.87367582321167,
+          5.699730664491653
+        ]
+      }
+    },
+    "PKM-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "PKM14_laser_0",
+          "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_93e63d341d.MI_PKM_R01_optic_93e63d341d"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.719368740916252,
+          51.96738243103027,
+          6.984999775886536
+        ],
+        "AimGuide": [
+          4.719369858503342,
+          54.967379570007324,
+          6.984999775886536
+        ]
+      }
+    },
+    "PKM-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "PKM14_laser_0",
+          "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_93e63d341d.MI_PKM_R01_optic_93e63d341d"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.719368740916252,
+          51.96738243103027,
+          6.984999775886536
+        ],
+        "AimGuide": [
+          4.719369858503342,
+          54.967379570007324,
+          6.984999775886536
+        ]
+      }
+    },
+    "PKM-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "PKM14_flashlight_0",
+          "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_c3b65cf9d7.MI_PKM_R01_optic_c3b65cf9d7"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.102572053670883,
+          53.69635820388794,
+          6.985852122306824
+        ],
+        "AimGuide": [
+          4.102572053670883,
+          56.69636130332947,
+          6.985852122306824
+        ]
+      }
+    },
+    "PKM-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "PKM14_flashlight_0",
+          "path": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_optic_c3b65cf9d7.MI_PKM_R01_optic_c3b65cf9d7"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.102572053670883,
+          53.69635820388794,
+          6.985852122306824
+        ],
+        "AimGuide": [
+          4.102572053670883,
+          56.69636130332947,
+          6.985852122306824
+        ]
+      }
+    },
+    "PKM-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.719368740916252,
+          51.96738243103027,
+          6.984999775886536
+        ],
+        "AimGuide": [
+          4.719369858503342,
+          54.967379570007324,
+          6.984999775886536
+        ]
+      }
+    },
+    "PKM-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/PKM/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.719368740916252,
+          51.96738243103027,
+          6.984999775886536
+        ],
+        "AimGuide": [
+          4.719369858503342,
+          54.967379570007324,
+          6.984999775886536
+        ]
+      }
+    },
+    "LMG201-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "LMG20122_laser_1",
+          "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_eda15e6fee.MI_LMG201_R01_receiver_eda15e6fee"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.519369035959244,
+          44.46738362312317,
+          4.58499938249588
+        ],
+        "AimGuide": [
+          6.5193697810173035,
+          47.46738076210022,
+          4.58499938249588
+        ]
+      }
+    },
+    "LMG201-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "LMG20122_laser_1",
+          "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_eda15e6fee.MI_LMG201_R01_receiver_eda15e6fee"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.519369035959244,
+          44.46738362312317,
+          4.58499938249588
+        ],
+        "AimGuide": [
+          6.5193697810173035,
+          47.46738076210022,
+          4.58499938249588
+        ]
+      }
+    },
+    "LMG201-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "LMG20122_flashlight_1",
+          "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_49eb8be908.MI_LMG201_R01_receiver_49eb8be908"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.902571976184845,
+          46.196356415748596,
+          4.585852101445198
+        ],
+        "AimGuide": [
+          5.902571976184845,
+          49.19636249542236,
+          4.585852101445198
+        ]
+      }
+    },
+    "LMG201-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "LMG20122_flashlight_1",
+          "path": "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_receiver_49eb8be908.MI_LMG201_R01_receiver_49eb8be908"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          5.902571976184845,
+          46.196356415748596,
+          4.585852101445198
+        ],
+        "AimGuide": [
+          5.902571976184845,
+          49.19636249542236,
+          4.585852101445198
+        ]
+      }
+    },
+    "LMG201-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.519369035959244,
+          44.46738362312317,
+          4.58499938249588
+        ],
+        "AimGuide": [
+          6.5193697810173035,
+          47.46738076210022,
+          4.58499938249588
+        ]
+      }
+    },
+    "LMG201-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/LMG201/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.519369035959244,
+          44.46738362312317,
+          4.58499938249588
+        ],
+        "AimGuide": [
+          6.5193697810173035,
+          47.46738076210022,
+          4.58499938249588
+        ]
+      }
+    },
+    "Super90-laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_laser_1.SM_laser_1",
+      "materials": [
+        {
+          "slot": "M_ASH12_laser_Body",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_laser_Body.M_ASH12_laser_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "Super90-laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_laser_2.SM_laser_2",
+      "materials": [
+        {
+          "slot": "M_ASH12_laser_Body",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_laser_Body.M_ASH12_laser_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "Super90-flashlight-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_flashlight_1.SM_flashlight_1",
+      "materials": [
+        {
+          "slot": "M_ASH12_flashlight_Body",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_flashlight_Body.M_ASH12_flashlight_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.1026085168123245,
+          2.528017945587635,
+          -0.0005820512797072297
+        ],
+        "AimGuide": [
+          9.102608263492584,
+          2.52801813185215,
+          -0.0005820512797072297
+        ]
+      }
+    },
+    "Super90-flashlight-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_flashlight_2.SM_flashlight_2",
+      "materials": [
+        {
+          "slot": "M_ASH12_flashlight_Body",
+          "path": "/Game/Weapons/ASH12/TacticalDevices20260920/Materials/M_ASH12_flashlight_Body.M_ASH12_flashlight_Body"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Materials/M_ASH12_GripMetal_Coat.M_ASH12_GripMetal_Coat"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          6.1026085168123245,
+          2.528017945587635,
+          -0.0005820512797072297
+        ],
+        "AimGuide": [
+          9.102608263492584,
+          2.52801813185215,
+          -0.0005820512797072297
+        ]
+      }
+    },
+    "Super90-blessed_laser-1": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_blessed_laser_1.SM_blessed_laser_1",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    },
+    "Super90-blessed_laser-2": {
+      "revision": 3,
+      "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/Super90/SM_blessed_laser_2.SM_blessed_laser_2",
+      "materials": [
+        {
+          "slot": "Blessed_Graphite",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        },
+        {
+          "slot": "Blessed_Gold",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+        },
+        {
+          "slot": "Blessed_Black",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+        },
+        {
+          "slot": "Blessed_Optic",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+        },
+        {
+          "slot": "Blessed_Aperture",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+        },
+        {
+          "slot": "Tactical_Fitted_Bearing",
+          "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+        }
+      ],
+      "sockets": {
+        "Emitter": [
+          4.373674467206001,
+          3.144443780183792,
+          6.391406373040809e-05
+        ],
+        "AimGuide": [
+          7.373674213886261,
+          3.144444152712822,
+          6.391406373040809e-05
+        ]
+      }
+    }
+  },
+  "game_tested": false,
+  "status": "all_66_assets_imported_and_saved"
+}

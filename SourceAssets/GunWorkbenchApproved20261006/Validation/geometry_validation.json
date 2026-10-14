@@ -1,0 +1,62 @@
+{
+  "source_vertex_count": 128478,
+  "game_vertex_count": 128478,
+  "max_game_vertex_distance_to_approved_source_m": 2.528810796320613e-07,
+  "inter_group_surface_intersections": [],
+  "props_in_assembly_drag_region": [],
+  "support_heights": {
+    "Lamp": {
+      "min_z_m": 0.9390000104904175,
+      "gap_above_table_mm": 1.250147819519043
+    },
+    "Wrench": {
+      "min_z_m": 0.9445000290870667,
+      "gap_above_table_mm": 6.750166416168213
+    },
+    "Screwdriver": {
+      "min_z_m": 0.9445000290870667,
+      "gap_above_table_mm": 6.750166416168213
+    },
+    "Pliers": {
+      "min_z_m": 0.9445000290870667,
+      "gap_above_table_mm": 6.750166416168213
+    },
+    "OilCan": {
+      "min_z_m": 0.9386000037193298,
+      "gap_above_table_mm": 0.8501410484313965
+    },
+    "Printer": {
+      "min_z_m": 0.9380000233650208,
+      "gap_above_table_mm": 0.25016069412231445
+    },
+    "AmmoPress": {
+      "min_z_m": 0.9380000233650208,
+      "gap_above_table_mm": 0.25016069412231445
+    },
+    "ComponentsTray": {
+      "min_z_m": 0.9380000233650208,
+      "gap_above_table_mm": 0.25016069412231445
+    },
+    "ToolOrganizer": {
+      "min_z_m": 0.937999963760376,
+      "gap_above_table_mm": 0.25010108947753906
+    },
+    "ammo_9": {
+      "min_z_m": 0.937999963760376,
+      "gap_above_table_mm": 0.25010108947753906
+    },
+    "ammo_762": {
+      "min_z_m": 0.937999963760376,
+      "gap_above_table_mm": 0.25010108947753906
+    },
+    "ammo_556": {
+      "min_z_m": 0.937999963760376,
+      "gap_above_table_mm": 0.25010108947753906
+    }
+  },
+  "game_blend_library_count": 0,
+  "game_blend_missing_libraries": [],
+  "game_blend_external_unpacked_images": [],
+  "source_vs_game_check": "evaluated source vertex positions vs converted game blend; exact surface intersection on approved source groups",
+  "PIE": false
+}

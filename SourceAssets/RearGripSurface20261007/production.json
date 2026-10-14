@@ -1,0 +1,392 @@
+{
+  "version": "RearGripSurface01-20261007",
+  "tested": false,
+  "meshes": {
+    "M4_phantom": {
+      "key": "M4_phantom",
+      "source_sha256": "448eecb4505e3b00e6c7da5343bb19e1545b32e8e118448b4c07127bbcbf332f",
+      "vertices": 106014,
+      "triangles": 50784,
+      "moved": 532,
+      "normal_triangles": 2162,
+      "frozen_vertices": 55244,
+      "max_displacement_mm": 0.0800000000000079,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_PhantomRearGrip"
+      ]
+    },
+    "M4_balanced": {
+      "key": "M4_balanced",
+      "source_sha256": "24df639807cb98b724ca983d82f9ccc33fa1927fa6a077d71aa7daeaa99b6d30",
+      "vertices": 72817,
+      "triangles": 55318,
+      "moved": 2617,
+      "normal_triangles": 8318,
+      "frozen_vertices": 47230,
+      "max_displacement_mm": 0.12000000000000163,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_BalancedRearGrip"
+      ]
+    },
+    "M4_stable": {
+      "key": "M4_stable",
+      "source_sha256": "c577696f955c946c322fc0626ba78231d81eec23e0e450d5c1faa3005932cec1",
+      "vertices": 51816,
+      "triangles": 30284,
+      "moved": 210,
+      "normal_triangles": 1660,
+      "frozen_vertices": 31512,
+      "max_displacement_mm": 0.12000000000000013,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_StableAntiSlipRearGrip"
+      ]
+    },
+    "AKM_phantom": {
+      "key": "AKM_phantom",
+      "source_sha256": "f33558d0572fef4dfaf635a01afde2bcae31d03db609d88bf9fb43accb10317d",
+      "vertices": 106467,
+      "triangles": 51690,
+      "moved": 527,
+      "normal_triangles": 2159,
+      "frozen_vertices": 55258,
+      "max_displacement_mm": 0.080000000000002,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_PhantomRearGrip"
+      ]
+    },
+    "AKM_balanced": {
+      "key": "AKM_balanced",
+      "source_sha256": "49f497b5f286638965e4e42188b8e6553b7bb2f064f11e1ce5759fda5df1bd91",
+      "vertices": 70334,
+      "triangles": 50356,
+      "moved": 2681,
+      "normal_triangles": 8251,
+      "frozen_vertices": 47254,
+      "max_displacement_mm": 0.12000000000000338,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_BalancedRearGrip"
+      ]
+    },
+    "AKM_stable": {
+      "key": "AKM_stable",
+      "source_sha256": "5128a4ec3d11204ceadb935d4f52780f1cfc82120ad9b4bc24fcfb81aaae4f20",
+      "vertices": 51903,
+      "triangles": 30458,
+      "moved": 208,
+      "normal_triangles": 1637,
+      "frozen_vertices": 31530,
+      "max_displacement_mm": 0.12000000000000137,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_StableAntiSlipRearGrip"
+      ]
+    },
+    "QBZ191_phantom": {
+      "key": "QBZ191_phantom",
+      "source_sha256": "c31f94a20f1b870a2ad75c993b684fa187c4b83e76c0044cd650c1566ad129a0",
+      "vertices": 106290,
+      "triangles": 51336,
+      "moved": 536,
+      "normal_triangles": 2239,
+      "frozen_vertices": 55239,
+      "max_displacement_mm": 0.08000000000000175,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_PhantomRearGrip"
+      ]
+    },
+    "QBZ191_balanced": {
+      "key": "QBZ191_balanced",
+      "source_sha256": "7effb852d84b87855bdee911acf8ce8c0b240a064447f6e3aa726fc79f8e10d8",
+      "vertices": 70422,
+      "triangles": 50532,
+      "moved": 2767,
+      "normal_triangles": 8455,
+      "frozen_vertices": 47181,
+      "max_displacement_mm": 0.12000000000000022,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_BalancedRearGrip"
+      ]
+    },
+    "QBZ191_stable": {
+      "key": "QBZ191_stable",
+      "source_sha256": "284c38e6bffe424746616af3d83320486120060c733e215ba860aee5e03f66fe",
+      "vertices": 51971,
+      "triangles": 30594,
+      "moved": 213,
+      "normal_triangles": 1650,
+      "frozen_vertices": 31496,
+      "max_displacement_mm": 0.12000000000000025,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_StableAntiSlipRearGrip"
+      ]
+    },
+    "HK416_phantom": {
+      "key": "HK416_phantom",
+      "source_sha256": "b3488f555e41177a1f1a1dec14f727b11d3310449947bd38bb8e1205bd5746cb",
+      "vertices": 52504,
+      "triangles": 51022,
+      "moved": 253,
+      "normal_triangles": 1552,
+      "frozen_vertices": 48189,
+      "max_displacement_mm": 0.08000000000000762,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_PhantomRearGrip"
+      ]
+    },
+    "HK416_balanced": {
+      "key": "HK416_balanced",
+      "source_sha256": "a70769a097bdef7add1c28fa58b6c44bdecd88947f9a59e316a9f75acd639fdb",
+      "vertices": 43029,
+      "triangles": 46494,
+      "moved": 1000,
+      "normal_triangles": 5196,
+      "frozen_vertices": 37956,
+      "max_displacement_mm": 0.12000000000000852,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_BalancedRearGrip"
+      ]
+    },
+    "HK416_stable": {
+      "key": "HK416_stable",
+      "source_sha256": "9c3e940c07bbba10f4b13795cf0649120ec1895fb3f2d57b98b979db1022a183",
+      "vertices": 29754,
+      "triangles": 32228,
+      "moved": 178,
+      "normal_triangles": 1467,
+      "frozen_vertices": 25526,
+      "max_displacement_mm": 0.11999999999999662,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_StableAntiSlipRearGrip"
+      ]
+    },
+    "M16_phantom": {
+      "key": "M16_phantom",
+      "source_sha256": "91280281b55ef470299c433217eb3d1bed6fa53ac8049c5dd992eada548c3834",
+      "vertices": 56123,
+      "triangles": 50839,
+      "moved": 359,
+      "normal_triangles": 2153,
+      "frozen_vertices": 55240,
+      "max_displacement_mm": 0.0800000000000013,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_PhantomRearGrip"
+      ]
+    },
+    "M16_balanced": {
+      "key": "M16_balanced",
+      "source_sha256": "1b48bc27e34a7c26925b9f2506aeb6c8821b11c613b139d1d23c74a4f0e0bec4",
+      "vertices": 36174,
+      "triangles": 36805,
+      "moved": 478,
+      "normal_triangles": 1148,
+      "frozen_vertices": 194,
+      "max_displacement_mm": 0.10023247592265586,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_BalancedRearGrip"
+      ]
+    },
+    "M16_stable": {
+      "key": "M16_stable",
+      "source_sha256": "b6dcea34b2a2823ad610113a51cce71b0b4cba3f33b605eb0e86cd0d0f88f7f6",
+      "vertices": 32029,
+      "triangles": 30458,
+      "moved": 208,
+      "normal_triangles": 1660,
+      "frozen_vertices": 31508,
+      "max_displacement_mm": 0.11999999999999887,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "M_StableAntiSlipRearGrip"
+      ]
+    },
+    "A762_phantom": {
+      "key": "A762_phantom",
+      "source_sha256": "d65aacf2edb3fa6dae1d696c4fd4975b98a90203eb24d86c7c3685359430f006",
+      "vertices": 101778,
+      "triangles": 49622,
+      "moved": 398,
+      "normal_triangles": 1585,
+      "frozen_vertices": 48401,
+      "max_displacement_mm": 0.0800000000000062,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "A762_phantom_reargrip_0"
+      ]
+    },
+    "A762_balanced": {
+      "key": "A762_balanced",
+      "source_sha256": "f0eb4a9eeaaf21c2b5aa51e69be5d6a351a868d18be0ddf03274b0529e9c70a6",
+      "vertices": 33591,
+      "triangles": 35996,
+      "moved": 9412,
+      "normal_triangles": 24709,
+      "frozen_vertices": 8588,
+      "max_displacement_mm": 0.11999999999999858,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "A762_balanced_reargrip_0",
+        "A762_balanced_reargrip_Body08"
+      ]
+    },
+    "A762_stable": {
+      "key": "A762_stable",
+      "source_sha256": "f5e030b82b07ca87f782626956f045ce61c88b402708dfe9d867f7aa6054f843",
+      "vertices": 37380,
+      "triangles": 35954,
+      "moved": 9239,
+      "normal_triangles": 23769,
+      "frozen_vertices": 8701,
+      "max_displacement_mm": 0.11912412541097223,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "A762_stable_antislip_reargrip_0",
+        "A762_stable_antislip_reargrip_Body08"
+      ]
+    },
+    "PKM_phantom": {
+      "key": "PKM_phantom",
+      "source_sha256": "4d6dd5b0ee4bd1089a6dff3d0eaba0e10f02df29cbf0d8a2ea09f2483d7aea9d",
+      "vertices": 58059,
+      "triangles": 50209,
+      "moved": 527,
+      "normal_triangles": 2156,
+      "frozen_vertices": 55253,
+      "max_displacement_mm": 0.08000000000000218,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "PKM14_phantom_reargrip_0"
+      ]
+    },
+    "PKM_balanced": {
+      "key": "PKM_balanced",
+      "source_sha256": "c919bda5406d0c466ca24d88e99f90ea7624a9fa48243b61928d6b912f405280",
+      "vertices": 54709,
+      "triangles": 50117,
+      "moved": 2540,
+      "normal_triangles": 8191,
+      "frozen_vertices": 47238,
+      "max_displacement_mm": 0.12000000000000541,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "PKM14_balanced_reargrip_0"
+      ]
+    },
+    "PKM_stable": {
+      "key": "PKM_stable",
+      "source_sha256": "1ddb2660a8d8f01c4de4c9901870bd81ff80268f33b70311e116a5e2f22e14fb",
+      "vertices": 32350,
+      "triangles": 30209,
+      "moved": 208,
+      "normal_triangles": 1637,
+      "frozen_vertices": 31517,
+      "max_displacement_mm": 0.12000000000000069,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "PKM14_stable_antislip_reargrip_0"
+      ]
+    },
+    "LMG201_phantom": {
+      "key": "LMG201_phantom",
+      "source_sha256": "b3644f1d86361ee01f3f096631ca0a4740dbef654ce9716c0957059781605bdb",
+      "vertices": 255046,
+      "triangles": 481319,
+      "moved": 157198,
+      "normal_triangles": 371693,
+      "frozen_vertices": 74428,
+      "max_displacement_mm": 0.08000000000000002,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.08,
+      "topology_changed": false,
+      "selected_slots": [
+        "LMG20122_phantom_reargrip_1"
+      ]
+    },
+    "LMG201_balanced": {
+      "key": "LMG201_balanced",
+      "source_sha256": "8672abd56b78a09644e8b841a799e039965c06d6fa516df395f48eef94eb4462",
+      "vertices": 239932,
+      "triangles": 465575,
+      "moved": 196329,
+      "normal_triangles": 428373,
+      "frozen_vertices": 33981,
+      "max_displacement_mm": 0.11999999999999997,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "LMG20122_balanced_reargrip_1"
+      ]
+    },
+    "LMG201_stable": {
+      "key": "LMG201_stable",
+      "source_sha256": "29ef430ca9d541b807fd0d8a2ffce1fe8bb2af6eda7f0387043433f8e5ef88af",
+      "vertices": 214654,
+      "triangles": 422464,
+      "moved": 173478,
+      "normal_triangles": 382375,
+      "frozen_vertices": 35467,
+      "max_displacement_mm": 0.12000000000000063,
+      "radius_mm": 1.8,
+      "max_allowed_displacement_mm": 0.12,
+      "topology_changed": false,
+      "selected_slots": [
+        "LMG20122_stable_antislip_reargrip_1"
+      ]
+    }
+  }
+}

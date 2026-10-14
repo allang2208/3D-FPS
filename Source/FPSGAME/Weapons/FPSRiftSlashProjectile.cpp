@@ -1,5 +1,12 @@
 #include "FPSRiftSlashProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "GameFramework/GameStateBase.h"
+#include "Net/UnrealNetwork.h"
 #include "FPSMeleeLightningComponent.h"
+#include "JingangRuneComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Combat/WeaponDamageTypes.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -18,6 +25,7 @@
 AFPSRiftSlashProjectile::AFPSRiftSlashProjectile()
 {
     PrimaryActorTick.bCanEverTick=true;
+    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
     Root=CreateDefaultSubobject<USceneComponent>(TEXT("FlightRoot"));SetRootComponent(Root);
     Blade=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CrescentEdge"));Blade->SetupAttachment(Root);
     Wake=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("EnergyWake"));Wake->SetupAttachment(Root);
@@ -34,6 +42,10 @@ AFPSRiftSlashProjectile::AFPSRiftSlashProjectile()
 void AFPSRiftSlashProjectile::Launch(const FTransform& Aim,float Damage,float RangeCM,float SpeedCM,
     const FColdSteelSkillShot& Snapshot,UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles,USoundBase* HitSound)
 {
+    if(!HasAuthority())return;
+    bInitialized=true;
+    NetFlight.Aim=Aim;NetFlight.Range=RangeCM;NetFlight.Speed=SpeedCM;
+    NetFlight.StartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
     Direction=Aim.GetUnitAxis(EAxis::X);HitDamage=Damage;Remaining=RangeCM;Speed=SpeedCM;Shot=Snapshot;
     ImpactSound=HitSound;
     // Secondary sword damage cannot recursively produce more enchantment attacks.
@@ -41,6 +53,14 @@ void AFPSRiftSlashProjectile::Launch(const FTransform& Aim,float Damage,float Ra
     Shot.ShatterRadiusCM=0.f;Shot.ElectrifiedRadiusCM=0.f;Shot.ElectrifiedMinLevel=0;
     Shot.ExtraMasteryExperience=0;Shot.WeakpointPercent=0.f;
     SetActorLocationAndRotation(Aim.GetLocation(),Aim.GetRotation()*FQuat(FVector::ForwardVector,FMath::DegreesToRadians(-18.f)));
+    SetupVisuals(Mesh,Material,Particles);
+    if((!Mesh||!Material||!Particles)&&GetNetMode()!=NM_DedicatedServer)LoadVisuals();
+    SetLifeSpan(RangeCM/FMath::Max(1.f,SpeedCM)+.3f);ForceNetUpdate();
+}
+
+void AFPSRiftSlashProjectile::SetupVisuals(UStaticMesh* Mesh,UMaterialInterface* Material,UNiagaraSystem* Particles)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
     if(Mesh&&Material)
     {
         Blade->SetStaticMesh(Mesh);Wake->SetStaticMesh(Mesh);
@@ -52,10 +72,36 @@ void AFPSRiftSlashProjectile::Launch(const FTransform& Aim,float Damage,float Ra
         BladeMaterial->SetScalarParameterValue(TEXT("Opacity"),0.f);
         WakeMaterial->SetScalarParameterValue(TEXT("Opacity"),0.f);
     }
-    if(Particles){Motes->SetAsset(Particles);Motes->Activate(true);}
-    SetLifeSpan(RangeCM/FMath::Max(1.f,SpeedCM)+.3f);
-    // The first flight tick sweeps from the aim origin, so a nearby wall is
-    // never skipped. Damage also stays outside the sword's release callback.
+    if(Particles&&!bFinished){Motes->SetAsset(Particles);Motes->Activate(true);}
+}
+
+void AFPSRiftSlashProjectile::LoadVisuals()
+{
+    const FSoftObjectPath Mesh(TEXT("/Game/Weapons/RiftSlash20260930/SM_RiftSlash.SM_RiftSlash"));
+    const FSoftObjectPath Material(TEXT("/Game/Weapons/RiftSlash20260930/M_RiftSlash.M_RiftSlash"));
+    const FSoftObjectPath Particles(TEXT("/Game/Weapons/RiftSlash20260930/NS_RiftSlashMotes.NS_RiftSlashMotes"));
+    VisualLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(TArray<FSoftObjectPath>{Mesh,Material,Particles},
+        FStreamableDelegate::CreateWeakLambda(this,[this,Mesh,Material,Particles]()
+        {SetupVisuals(Cast<UStaticMesh>(Mesh.ResolveObject()),Cast<UMaterialInterface>(Material.ResolveObject()),Cast<UNiagaraSystem>(Particles.ResolveObject()));}));
+}
+
+void AFPSRiftSlashProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AFPSRiftSlashProjectile,NetFlight);
+}
+
+void AFPSRiftSlashProjectile::OnRep_Flight()
+{
+    if(NetFlight.Range<=0.f)return;
+    const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+    Age=float(FMath::Max(0.,Now-NetFlight.StartedAt));
+    if(!bInitialized){bInitialized=true;LoadVisuals();}
+    if(NetFlight.FinishedAt>=0.){bFinished=true;FadeAge=float(FMath::Max(0.,Now-NetFlight.FinishedAt));Motes->Deactivate();}
+}
+
+void AFPSRiftSlashProjectile::EndPlay(EEndPlayReason::Type Reason)
+{
+    if(VisualLoad)VisualLoad->CancelHandle();VisualLoad.Reset();Super::EndPlay(Reason);
 }
 
 void AFPSRiftSlashProjectile::Advance(float Distance)
@@ -70,7 +116,7 @@ void AFPSRiftSlashProjectile::Advance(float Distance)
     for(;;)
     {
         TArray<FHitResult> Hits;bool bPastBody=false;
-        GetWorld()->SweepMultiByChannel(Hits,Start,End,GetActorQuat(),ECC_Visibility,
+        RangedAttackQuery::SweepMulti(GetWorld(), GetOwner(), Hits,Start,End,GetActorQuat(),ECC_Visibility,
             FCollisionShape::MakeBox(FVector(6.f,88.f,36.f)),Query);
         for(const FHitResult& Hit:Hits)
         {
@@ -100,7 +146,14 @@ void AFPSRiftSlashProjectile::Advance(float Distance)
             // A weapon swap must not change feedback from a wave already in flight.
             if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Hit.ImpactPoint,.90f,.85f);
             if(auto* Character=Cast<AFPSGAMECharacter>(GetOwner()))
-                Character->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
+            {
+                if(Character->IsLocallyControlled())Character->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
+                else if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
+                {
+                    if(auto* Rune=Character->FindComponentByClass<UJingangRuneComponent>())Rune->ConfirmAttack(Target,Applied);
+                    FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;PS->ClientConfirmHit(Receipt);
+                }
+            }
         }
     }
     SetActorLocation(FMath::Lerp(Start,End,WallTime));Remaining-=Distance*WallTime;
@@ -111,15 +164,18 @@ void AFPSRiftSlashProjectile::FinishFlight()
 {
     if(bFinished)return;
     bFinished=true;FadeAge=0.f;Motes->Deactivate();
+    if(HasAuthority())
+    {NetFlight.FinishedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();ForceNetUpdate();}
 }
 
 void AFPSRiftSlashProjectile::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if(!IsValid(GetOwner())){Destroy();return;}
+    if(!bInitialized)return;
+    if(!IsValid(GetOwner())){if(HasAuthority())Destroy();return;}
     Age+=DeltaSeconds;HitGlow=FMath::Max(0.f,HitGlow-DeltaSeconds*12.f);
-    if(!bFinished)Advance(FMath::Min(Remaining,Speed*DeltaSeconds));
-    else FadeAge+=DeltaSeconds;
+    if(!bFinished&&HasAuthority())Advance(FMath::Min(Remaining,Speed*DeltaSeconds));
+    if(bFinished)FadeAge+=DeltaSeconds;
     const float Fade=bFinished?1.f-FMath::SmoothStep(0.f,.20f,FadeAge):1.f;
     const float Alpha=FMath::SmoothStep(0.f,.05f,Age)*Fade;
     for(auto* Material:{BladeMaterial.Get(),WakeMaterial.Get()})if(Material)

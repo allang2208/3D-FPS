@@ -1,0 +1,426 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScope20261006\\Model\\ThermalScope_Editable.blend",
+  "runtime_tested": false,
+  "models": {
+    "SM_Thermal_Common": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_Common.fbx",
+      "sockets": {
+        "Mount": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "SightRear": [
+          -5.499999970197678,
+          -0.0,
+          3.750000149011612
+        ],
+        "SightFront": [
+          4.399999976158142,
+          -0.0,
+          3.750000149011612
+        ],
+        "SightUp": [
+          -5.499999970197678,
+          -0.0,
+          4.749999940395355
+        ],
+        "DisplayCenter": [
+          -2.8999999165534973,
+          -0.0,
+          3.750000149011612
+        ],
+        "ZoomPivot": [
+          -0.9999999776482582,
+          -2.7000000700354576,
+          3.999999910593033
+        ]
+      },
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "interface_source": "Canonical Picatinny clamp; mount origin is the rail crown"
+    },
+    "SM_ThermalSelector_Common": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_Common.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    "SM_Thermal_HK416": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_HK416.fbx",
+      "sockets": {
+        "Mount": [
+          4.774373397231102,
+          -25.60901641845703,
+          1.5740908682346344
+        ],
+        "SightRear": [
+          4.447547346353531,
+          -20.10902166366577,
+          5.309827998280525
+        ],
+        "SightFront": [
+          4.447530955076218,
+          -30.009019374847412,
+          5.30981533229351
+        ],
+        "SightUp": [
+          4.360391199588776,
+          -20.10902315378189,
+          6.30602240562439
+        ],
+        "DisplayCenter": [
+          4.447542876005173,
+          -22.709020972251892,
+          5.309824645519257
+        ],
+        "ZoomPivot": [
+          1.7360253259539604,
+          -24.60901588201523,
+          5.32355010509491
+        ]
+      },
+      "socket_forward": [
+        -1.6156700439751148e-06,
+        -1.0,
+        -1.5050172805786133e-06
+      ],
+      "socket_up": [
+        -0.08715584129095078,
+        -1.3560056686401367e-06,
+        0.9961947202682495
+      ],
+      "interface_source": "Canonical Picatinny clamp; mount origin is the rail crown"
+    },
+    "SM_ThermalSelector_HK416": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_HK416.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    "SM_Thermal_M16": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_M16.fbx",
+      "sockets": {
+        "Mount": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "SightRear": [
+          -5.499999970197678,
+          -0.0,
+          3.750000149011612
+        ],
+        "SightFront": [
+          4.399999976158142,
+          -0.0,
+          3.750000149011612
+        ],
+        "SightUp": [
+          -5.499999970197678,
+          -0.0,
+          4.749999940395355
+        ],
+        "DisplayCenter": [
+          -2.8999999165534973,
+          -0.0,
+          3.750000149011612
+        ],
+        "ZoomPivot": [
+          -0.9999999776482582,
+          -2.7000000700354576,
+          3.999999910593033
+        ]
+      },
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "interface_source": "HK416UniversalParts20260930 measured M16 carry-handle saddle"
+    },
+    "SM_ThermalSelector_M16": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_M16.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    "SM_Thermal_M1911": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_M1911.fbx",
+      "sockets": {
+        "Mount": [
+          0.0,
+          -0.0,
+          0.06500000017695129
+        ],
+        "SightRear": [
+          -5.499999970197678,
+          -0.0,
+          3.815000131726265
+        ],
+        "SightFront": [
+          4.399999976158142,
+          -0.0,
+          3.815000131726265
+        ],
+        "SightUp": [
+          -5.499999970197678,
+          -0.0,
+          4.814999923110008
+        ],
+        "DisplayCenter": [
+          -2.8999999165534973,
+          -0.0,
+          3.815000131726265
+        ],
+        "ZoomPivot": [
+          -0.9999999776482582,
+          -2.7000000700354576,
+          4.064999893307686
+        ]
+      },
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "interface_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911AttachmentPolish20260927\\M1911_holographic_RoundedMount_Editable.blend"
+    },
+    "SM_ThermalSelector_M1911": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_M1911.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    "SM_Thermal_G18": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_G18.fbx",
+      "sockets": {
+        "Mount": [
+          0.0,
+          -0.0,
+          0.26724119670689106
+        ],
+        "SightRear": [
+          -5.499999970197678,
+          -0.0,
+          4.017241299152374
+        ],
+        "SightFront": [
+          4.399999976158142,
+          -0.0,
+          4.017241299152374
+        ],
+        "SightUp": [
+          -5.499999970197678,
+          -0.0,
+          5.0172410905361176
+        ],
+        "DisplayCenter": [
+          -2.8999999165534973,
+          -0.0,
+          4.017241299152374
+        ],
+        "ZoomPivot": [
+          -0.9999999776482582,
+          -2.7000000700354576,
+          4.267241060733795
+        ]
+      },
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "interface_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18AttachmentRepair20260930\\Exports\\SM_G18_holographic_Editable.blend"
+    },
+    "SM_ThermalSelector_G18": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_G18.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    "SM_Thermal_DW715": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_DW715.fbx",
+      "sockets": {
+        "Mount": [
+          0.0,
+          -0.0,
+          0.06500000017695129
+        ],
+        "SightRear": [
+          -5.499999970197678,
+          -0.0,
+          3.815000131726265
+        ],
+        "SightFront": [
+          4.399999976158142,
+          -0.0,
+          3.815000131726265
+        ],
+        "SightUp": [
+          -5.499999970197678,
+          -0.0,
+          4.814999923110008
+        ],
+        "DisplayCenter": [
+          -2.8999999165534973,
+          -0.0,
+          3.815000131726265
+        ],
+        "ZoomPivot": [
+          -0.9999999776482582,
+          -2.7000000700354576,
+          4.064999893307686
+        ]
+      },
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "interface_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\holographic\\DW715_Attachment_Editable.blend"
+    },
+    "SM_ThermalSelector_DW715": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_DW715.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    "SM_Thermal_PitViper": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_Thermal_PitViper.fbx",
+      "sockets": {
+        "Mount": [
+          0.0,
+          -0.0,
+          0.11172423837706447
+        ],
+        "SightRear": [
+          -5.499999970197678,
+          -0.0,
+          3.8617242127656937
+        ],
+        "SightFront": [
+          4.399999976158142,
+          -0.0,
+          3.8617242127656937
+        ],
+        "SightUp": [
+          -5.499999970197678,
+          -0.0,
+          4.861724376678467
+        ],
+        "DisplayCenter": [
+          -2.8999999165534973,
+          -0.0,
+          3.8617242127656937
+        ],
+        "ZoomPivot": [
+          -0.9999999776482582,
+          -2.7000000700354576,
+          4.111723974347115
+        ]
+      },
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "interface_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PitViper2011OpticPreviewFix20261002\\Exports\\SM_PitViper2011_eoth_holographic_Editable.blend"
+    },
+    "SM_ThermalSelector_PitViper": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThermalScopeRuntime20261007\\Exports\\SM_ThermalSelector_PitViper.fbx",
+      "sockets": {},
+      "socket_forward": [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      "socket_up": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    }
+  }
+}

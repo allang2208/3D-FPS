@@ -1,0 +1,72 @@
+{
+  "meshes": {
+    "phantom": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\Exports\\SM_LMG201_phantom_reargrip.fbx",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\SM_LMG201_phantom_reargrip.blend",
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_phantom_reargrip",
+      "source_sha256": "d3153de64c393afbd17e2118a322e8e1b0645472cb334827ebbce20e22d292da"
+    },
+    "balanced": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\Exports\\SM_LMG201_balanced_reargrip.fbx",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\SM_LMG201_balanced_reargrip.blend",
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_balanced_reargrip",
+      "source_sha256": "8ce632727182e8f3b9a630721373d338b1d5d63b326fc9db22b5ad04950b0bbd"
+    },
+    "stable": {
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\Exports\\SM_LMG201_stable_antislip_reargrip.fbx",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\SM_LMG201_stable_antislip_reargrip.blend",
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_stable_antislip_reargrip",
+      "source_sha256": "3ed82040818595d1914fef6401727e61c0f7e40e31cf36e00dc09c1f4b4ae7bf"
+    }
+  },
+  "operations": {
+    "phantom": {
+      "cut_z_m": -0.03,
+      "boundary_vertices": 307,
+      "boundary_loops": 5,
+      "new_neck_top_m": 0.006,
+      "mask_uv_channel": 4,
+      "shared_boundary": true,
+      "surface_slot": 1,
+      "source_lower_uv_and_normals_preserved": true,
+      "design": "Solid continuous convex connector; no recessed waist, grooves or cut-out",
+      "body_below_z_m": -0.03,
+      "frame_alignment_m": 2.562383019134862e-09,
+      "triangles": 466016,
+      "uv_sets": 5,
+      "whole_grip_scaled": false
+    },
+    "balanced": {
+      "cut_z_m": -0.028,
+      "boundary_vertices": 503,
+      "boundary_loops": 4,
+      "new_neck_top_m": 0.006,
+      "mask_uv_channel": 4,
+      "shared_boundary": true,
+      "surface_slot": 1,
+      "source_lower_uv_and_normals_preserved": true,
+      "design": "Solid continuous convex connector; no recessed waist, grooves or cut-out",
+      "body_below_z_m": -0.028,
+      "frame_alignment_m": 3.123417578135973e-09,
+      "triangles": 432158,
+      "uv_sets": 5,
+      "whole_grip_scaled": false
+    },
+    "stable": {
+      "cut_z_m": -0.03,
+      "boundary_vertices": 503,
+      "boundary_loops": 3,
+      "new_neck_top_m": 0.006,
+      "mask_uv_channel": 4,
+      "shared_boundary": true,
+      "surface_slot": 1,
+      "source_lower_uv_and_normals_preserved": true,
+      "design": "Solid continuous convex connector; no recessed waist, grooves or cut-out",
+      "body_below_z_m": -0.03,
+      "frame_alignment_m": 2.0544015651852154e-09,
+      "triangles": 353050,
+      "uv_sets": 5,
+      "whole_grip_scaled": false
+    }
+  }
+}

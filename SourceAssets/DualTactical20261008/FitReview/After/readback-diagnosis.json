@@ -1,0 +1,38 @@
+{
+  "M4-laser-1": {
+    "source_triangles": 36296,
+    "bvh_self_error_mm": 0.0,
+    "exported": {
+      "triangles": 36296,
+      "max_nearest_vertex_mm": 3.3785322983703736e-05
+    },
+    "saved": {
+      "triangles": 36284,
+      "max_nearest_vertex_mm": 0.31512038549408317
+    }
+  },
+  "M4-blessed_laser-1": {
+    "source_triangles": 15876,
+    "bvh_self_error_mm": 0.0,
+    "exported": {
+      "triangles": 15876,
+      "max_nearest_vertex_mm": 4.000353115429789e-05
+    },
+    "saved": {
+      "triangles": 15172,
+      "max_nearest_vertex_mm": 0.11006433487636968
+    }
+  },
+  "M4-flashlight-1": {
+    "source_triangles": 36296,
+    "bvh_self_error_mm": 0.0,
+    "exported": {
+      "triangles": 36296,
+      "max_nearest_vertex_mm": 3.4009417504421435e-05
+    },
+    "saved": {
+      "triangles": 35960,
+      "max_nearest_vertex_mm": 0.4116800846531987
+    }
+  }
+}

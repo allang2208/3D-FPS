@@ -1,4 +1,4 @@
-param([string[]]$Targets=@('FPSGAMEEditor','FPSGAME'))
+﻿param([string[]]$Targets=@('FPSGAMEEditor','FPSGAME'))
 $ErrorActionPreference='Stop'
 $recoilRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 $recoilProject=Join-Path $recoilRoot 'FPSGAME.uproject'

@@ -1,0 +1,416 @@
+{
+  "laser": [
+    {
+      "offset_mm": 0,
+      "crossings": {
+        "laser": 720,
+        "flashlight": 0,
+        "blessed_laser": 88
+      }
+    },
+    {
+      "offset_mm": -4,
+      "crossings": {
+        "laser": 530,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 4,
+      "crossings": {
+        "laser": 530,
+        "flashlight": 0,
+        "blessed_laser": 140
+      }
+    },
+    {
+      "offset_mm": -8,
+      "crossings": {
+        "laser": 414,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 8,
+      "crossings": {
+        "laser": 414,
+        "flashlight": 0,
+        "blessed_laser": 130
+      }
+    },
+    {
+      "offset_mm": -12,
+      "crossings": {
+        "laser": 370,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 12,
+      "crossings": {
+        "laser": 370,
+        "flashlight": 0,
+        "blessed_laser": 135
+      }
+    },
+    {
+      "offset_mm": -16,
+      "crossings": {
+        "laser": 377,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 16,
+      "crossings": {
+        "laser": 377,
+        "flashlight": 120,
+        "blessed_laser": 135
+      }
+    },
+    {
+      "offset_mm": -20,
+      "crossings": {
+        "laser": 1254,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 20,
+      "crossings": {
+        "laser": 1254,
+        "flashlight": 137,
+        "blessed_laser": 438
+      }
+    },
+    {
+      "offset_mm": -24,
+      "crossings": {
+        "laser": 1260,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 24,
+      "crossings": {
+        "laser": 1260,
+        "flashlight": 126,
+        "blessed_laser": 391
+      }
+    },
+    {
+      "offset_mm": -28,
+      "crossings": {
+        "laser": 1073,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 28,
+      "crossings": {
+        "laser": 1073,
+        "flashlight": 474,
+        "blessed_laser": 300
+      }
+    },
+    {
+      "offset_mm": -32,
+      "crossings": {
+        "laser": 1074,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 32,
+      "crossings": {
+        "laser": 1074,
+        "flashlight": 776,
+        "blessed_laser": 393
+      }
+    },
+    {
+      "offset_mm": -36,
+      "crossings": {
+        "laser": 1319,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 36,
+      "crossings": {
+        "laser": 1319,
+        "flashlight": 1078,
+        "blessed_laser": 667
+      }
+    },
+    {
+      "offset_mm": -40,
+      "crossings": {
+        "laser": 1473,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 40,
+      "crossings": {
+        "laser": 1473,
+        "flashlight": 1419,
+        "blessed_laser": 677
+      }
+    },
+    {
+      "offset_mm": -44,
+      "crossings": {
+        "laser": 1845,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 44,
+      "crossings": {
+        "laser": 1845,
+        "flashlight": 1850,
+        "blessed_laser": 923
+      }
+    },
+    {
+      "offset_mm": -48,
+      "crossings": {
+        "laser": 1555,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 48,
+      "crossings": {
+        "laser": 1555,
+        "flashlight": 2432,
+        "blessed_laser": 938
+      }
+    },
+    {
+      "offset_mm": -52,
+      "crossings": {
+        "laser": 1589,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 52,
+      "crossings": {
+        "laser": 1589,
+        "flashlight": 2598,
+        "blessed_laser": 982
+      }
+    },
+    {
+      "offset_mm": -56,
+      "crossings": {
+        "laser": 2024,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 56,
+      "crossings": {
+        "laser": 2024,
+        "flashlight": 2672,
+        "blessed_laser": 1378
+      }
+    },
+    {
+      "offset_mm": -60,
+      "crossings": {
+        "laser": 1989,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -64,
+      "crossings": {
+        "laser": 1927,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -68,
+      "crossings": {
+        "laser": 1885,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -72,
+      "crossings": {
+        "laser": 2006,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -76,
+      "crossings": {
+        "laser": 2009,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -80,
+      "crossings": {
+        "laser": 2079,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -84,
+      "crossings": {
+        "laser": 2148,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -88,
+      "crossings": {
+        "laser": 2146,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -92,
+      "crossings": {
+        "laser": 2037,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -96,
+      "crossings": {
+        "laser": 2509,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -100,
+      "crossings": {
+        "laser": 2627,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -104,
+      "crossings": {
+        "laser": 2737,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -108,
+      "crossings": {
+        "laser": 2857,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -112,
+      "crossings": {
+        "laser": 2962,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -116,
+      "crossings": {
+        "laser": 3115,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -120,
+      "crossings": {
+        "laser": 3311,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -124,
+      "crossings": {
+        "laser": 3115,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -128,
+      "crossings": {
+        "laser": 2907,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    }
+  ],
+  "flashlight": [
+    {
+      "offset_mm": 0,
+      "crossings": {
+        "laser": 0,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    }
+  ],
+  "blessed_laser": [
+    {
+      "offset_mm": 0,
+      "crossings": {
+        "laser": 88,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": -4,
+      "crossings": {
+        "laser": 140,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    },
+    {
+      "offset_mm": 4,
+      "crossings": {
+        "laser": 0,
+        "flashlight": 0,
+        "blessed_laser": 0
+      }
+    }
+  ]
+}

@@ -129,7 +129,8 @@ void URuneSwordComponent::TickUppercut(float Delta)
     const bool RisingDragon=IsRisingDragonFinisher();
     const float End=CurrentAnimation->GetPlayLength();
     const float Next=FMath::Min(End,RisingDragon?RuneSwordRisingDragon::SourceTime(
-        RuneSwordRisingDragon::PlaybackTime(Elapsed)+Delta*SwingRate):Elapsed+Delta*SwingRate);
+        RuneSwordRisingDragon::PlaybackTime(Elapsed)+Delta*SwingRate):RuneSwordUppercutMotion::SkillSourceTime(
+        RuneSwordUppercutMotion::SkillPlaybackTime(Elapsed)+Delta*SwingRate));
     if(!RisingDragon&&!bSwingCuePlayed&&Next>=ContactStart)
     {
         auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
@@ -150,7 +151,8 @@ void URuneSwordComponent::TickUppercut(float Delta)
     const auto FrameAt=[&](float Time)
     {
         FTransform Frame;
-        const float Played=RisingDragon?RuneSwordRisingDragon::PlaybackTime(Time)-RuneSwordRisingDragon::PlaybackTime(Elapsed):Time-Elapsed;
+        const float Played=RisingDragon?RuneSwordRisingDragon::PlaybackTime(Time)-RuneSwordRisingDragon::PlaybackTime(Elapsed):
+            RuneSwordUppercutMotion::SkillPlaybackTime(Time)-RuneSwordUppercutMotion::SkillPlaybackTime(Elapsed);
         Frame.Blend(PreviousAimFrame,AimBeforeLunge,FMath::Clamp(Played/FMath::Max(SMALL_NUMBER,Delta*SwingRate),0.f,1.f));
         const float Distance=FVector::DotProduct(Moved,LungeDirection);
         if(Distance>SMALL_NUMBER)

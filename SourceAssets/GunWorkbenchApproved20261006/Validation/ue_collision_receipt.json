@@ -1,0 +1,17 @@
+{
+  "before": {
+    "box_elems": 0,
+    "sphere_elems": 0,
+    "sphyl_elems": 0,
+    "convex_elems": 1
+  },
+  "mesh_description_triangles": 241967,
+  "render_triangles": 241967,
+  "after": {
+    "box_elems": 0,
+    "sphere_elems": 0,
+    "sphyl_elems": 0,
+    "convex_elems": 0
+  },
+  "collision_mode": "<CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE: 3>"
+}

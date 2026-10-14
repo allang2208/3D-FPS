@@ -1,0 +1,52 @@
+{
+  "fbx_triangles": 242532,
+  "fbx_vertices": 128478,
+  "bounds_min_m": [
+    -1.209109902381897,
+    -1.3034662008285522,
+    0.0
+  ],
+  "bounds_max_m": [
+    1.2091100215911865,
+    1.2865338325500488,
+    1.7220090627670288
+  ],
+  "materials": [
+    "WSBench_BenchWood",
+    "GWDesign_PropsPBR",
+    "GW3_Mat",
+    "WSBench_EndGrain",
+    "WSDetail_RackPaint",
+    "WSSculpt_Machined",
+    "WSSculpt_RubberGrip",
+    "GW3_Index",
+    "OriginalLamp_WSBench_CableRubber",
+    "OriginalLamp_WSBench_LampPaint",
+    "OriginalLamp_WSSculpt_Machined",
+    "OriginalLamp_WSBench_Reflector",
+    "OriginalLamp_WSBench_SocketCeramic",
+    "OriginalLamp_WSBench_LampBulb",
+    "Library_Fab_Bench_Wrench_0",
+    "Library_Fab_Bench_Screwdriver_0",
+    "Library_Fab_Bench_Pliers_0",
+    "Library_Bottle_OilCan_0",
+    "Library_Bottle_OilCan_1",
+    "Library_Bottle_OilCan_2",
+    "Library_Bottle_OilCan_3",
+    "GWDesign_ClearGlass",
+    "GWDesign_OpticGlass",
+    "M_ammo_9_Paper",
+    "M_ammo_9_Metal",
+    "M_ammo_762_Paper",
+    "M_ammo_762_Metal",
+    "M_ammo_556_Paper",
+    "M_ammo_556_Metal"
+  ],
+  "uv_layers": [
+    "UVMap",
+    "WorkshopLocalXY",
+    "Hand_Tools_UV_Atlas"
+  ],
+  "triangle_and_material_count_match": true,
+  "max_position_bounds_error_m": 1.1920928955078125e-07
+}

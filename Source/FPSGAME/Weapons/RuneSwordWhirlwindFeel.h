@@ -23,12 +23,16 @@ inline float SpinTime(float Time,const FWhirlwindTuning& T)
 constexpr float Acceleration=.12f,Braking=.18f;
 constexpr float SpeedArea=1.f-.5f*(Acceleration+Braking);
 inline float RampArea(float U) { return U*U*U-.5f*U*U*U*U; }
-inline float Phase(float Time,const FWhirlwindTuning& T)
+inline float NormalizedPhase(float U)
 {
-    const float U=SpinTime(Time,T);
+    U=FMath::Clamp(U,0.f,1.f);
     if(U<Acceleration)return Acceleration*RampArea(U/Acceleration)/SpeedArea;
     if(U>1.f-Braking)return 1.f-Braking*RampArea((1.f-U)/Braking)/SpeedArea;
     return (U-.5f*Acceleration)/SpeedArea;
+}
+inline float Phase(float Time,const FWhirlwindTuning& T)
+{
+    return NormalizedPhase(SpinTime(Time,T));
 }
 inline float Speed(float Time,const FWhirlwindTuning& T)
 {

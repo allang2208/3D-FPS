@@ -1,0 +1,122 @@
+{
+  "HK416-laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_1.SM_laser_1",
+    "socket_error_cm": 0.0,
+    "materials": [
+      {
+        "slot": "M_HK416_Laser_Grip",
+        "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+      }
+    ],
+    "section_count": 1,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\SavedExport\\HK416-laser-1.fbx"
+  },
+  "HK416-laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_laser_2.SM_laser_2",
+    "socket_error_cm": 0.0,
+    "materials": [
+      {
+        "slot": "M_HK416_Laser_Grip",
+        "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+      }
+    ],
+    "section_count": 1,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\SavedExport\\HK416-laser-2.fbx"
+  },
+  "HK416-flashlight-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_1.SM_flashlight_1",
+    "socket_error_cm": 0.0,
+    "materials": [
+      {
+        "slot": "M_HK416_Flash_Light",
+        "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+      },
+      {
+        "slot": "M_HK416_Glass",
+        "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+      }
+    ],
+    "section_count": 2,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\SavedExport\\HK416-flashlight-1.fbx"
+  },
+  "HK416-flashlight-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_flashlight_2.SM_flashlight_2",
+    "socket_error_cm": 0.0,
+    "materials": [
+      {
+        "slot": "M_HK416_Flash_Light",
+        "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_7b70d94e39.MI_HK416_R01_optic_7b70d94e39"
+      },
+      {
+        "slot": "M_HK416_Glass",
+        "path": "/Game/Weapons/HK416/Reworked20260930/Materials/M_HK416_Glass.M_HK416_Glass"
+      }
+    ],
+    "section_count": 2,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\SavedExport\\HK416-flashlight-2.fbx"
+  },
+  "HK416-blessed_laser-1": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_1.SM_blessed_laser_1",
+    "socket_error_cm": 0.0,
+    "materials": [
+      {
+        "slot": "Blessed_Graphite",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+      },
+      {
+        "slot": "Blessed_Gold",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+      },
+      {
+        "slot": "Blessed_Black",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+      },
+      {
+        "slot": "Blessed_Optic",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+      },
+      {
+        "slot": "Blessed_Aperture",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+      },
+      {
+        "slot": "HK416_Original_Rail_Clamp",
+        "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+      }
+    ],
+    "section_count": 6,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\SavedExport\\HK416-blessed_laser-1.fbx"
+  },
+  "HK416-blessed_laser-2": {
+    "path": "/Game/Weapons/TacticalDevices20260913/DualFit20261008/HK416/SM_blessed_laser_2.SM_blessed_laser_2",
+    "socket_error_cm": 0.0,
+    "materials": [
+      {
+        "slot": "Blessed_Graphite",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Graphite.M_Blessed_Graphite"
+      },
+      {
+        "slot": "Blessed_Gold",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Gold.M_Blessed_Gold"
+      },
+      {
+        "slot": "Blessed_Black",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Black.M_Blessed_Black"
+      },
+      {
+        "slot": "Blessed_Optic",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Optic.M_Blessed_Optic"
+      },
+      {
+        "slot": "Blessed_Aperture",
+        "path": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Materials/M_Blessed_Aperture.M_Blessed_Aperture"
+      },
+      {
+        "slot": "HK416_Original_Rail_Clamp",
+        "path": "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_optic_00e8a6efa7.MI_HK416_R01_optic_00e8a6efa7"
+      }
+    ],
+    "section_count": 6,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DualTactical20261008\\HK416NativeRailCorrection\\SavedExport\\HK416-blessed_laser-2.fbx"
+  }
+}

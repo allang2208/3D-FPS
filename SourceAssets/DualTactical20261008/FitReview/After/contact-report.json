@@ -1,0 +1,464 @@
+{
+  "M4-laser-1": {
+    "bearing_samples": 128,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M4-laser-2": {
+    "bearing_samples": 128,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M4-flashlight-1": {
+    "bearing_samples": 161,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M4-flashlight-2": {
+    "bearing_samples": 161,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M4-blessed_laser-1": {
+    "bearing_samples": 150,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M4-blessed_laser-2": {
+    "bearing_samples": 150,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "HK416-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0796329986769706,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 3.7753725945949554,
+    "passed_contact": true
+  },
+  "HK416-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991090387804434,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 6.82225027680397,
+    "passed_contact": true
+  },
+  "HK416-flashlight-1": {
+    "bearing_samples": 131,
+    "max_contact_distance_mm": 0.07999967783689499,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 18.866266548633575,
+    "passed_contact": true
+  },
+  "HK416-flashlight-2": {
+    "bearing_samples": 67,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 18.831509590148926,
+    "passed_contact": true
+  },
+  "HK416-blessed_laser-1": {
+    "bearing_samples": 210,
+    "max_contact_distance_mm": 0.07999967783689499,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 12.190013617277145,
+    "passed_contact": true
+  },
+  "HK416-blessed_laser-2": {
+    "bearing_samples": 200,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 5.836676299571991,
+    "passed_contact": true
+  },
+  "M16-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 1.5921258977869e-05,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M16-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 1.5921258977869e-05,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M16-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 1.5366822481155396e-05,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M16-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 1.5366822481155396e-05,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M16-blessed_laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 1.561181051101812e-05,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "M16-blessed_laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 1.561181051101812e-05,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "AKM-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991695747477934,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "AKM-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991695747477934,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "AKM-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991695747477934,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "AKM-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991695747477934,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "AKM-blessed_laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991694292286411,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "AKM-blessed_laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07991694292286411,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "QBZ191-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "QBZ191-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "QBZ191-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 1.7752195298671722,
+    "passed_contact": true
+  },
+  "QBZ191-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 2.697988837957382,
+    "passed_contact": true
+  },
+  "QBZ191-blessed_laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "QBZ191-blessed_laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "ASH12-laser-1": {
+    "bearing_samples": 204,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "ASH12-laser-2": {
+    "bearing_samples": 204,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "ASH12-flashlight-1": {
+    "bearing_samples": 191,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.4488224685192108,
+    "passed_contact": true
+  },
+  "ASH12-flashlight-2": {
+    "bearing_samples": 186,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "ASH12-blessed_laser-1": {
+    "bearing_samples": 210,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "ASH12-blessed_laser-2": {
+    "bearing_samples": 210,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "A762-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "A762-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "A762-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "A762-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "A762-blessed_laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "A762-blessed_laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "SVD-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "SVD-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "SVD-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "SVD-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "SVD-blessed_laser-1": {
+    "bearing_samples": 275,
+    "max_contact_distance_mm": 0.07847337838029489,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "SVD-blessed_laser-2": {
+    "bearing_samples": 275,
+    "max_contact_distance_mm": 0.07847337838029489,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "PKM-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0799908084445633,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "PKM-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.0799908084445633,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "PKM-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07999272929737344,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "PKM-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07999272929737344,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "PKM-blessed_laser-1": {
+    "bearing_samples": 296,
+    "max_contact_distance_mm": 0.0799908084445633,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "PKM-blessed_laser-2": {
+    "bearing_samples": 296,
+    "max_contact_distance_mm": 0.0799908084445633,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "LMG201-laser-1": {
+    "bearing_samples": 300,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "LMG201-laser-2": {
+    "bearing_samples": 289,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "LMG201-flashlight-1": {
+    "bearing_samples": 300,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "LMG201-flashlight-2": {
+    "bearing_samples": 275,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "LMG201-blessed_laser-1": {
+    "bearing_samples": 182,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "LMG201-blessed_laser-2": {
+    "bearing_samples": 182,
+    "max_contact_distance_mm": 0.0800006091594696,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "Super90-laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07992466271389276,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "Super90-laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07992465543793514,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "Super90-flashlight-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07992466271389276,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "Super90-flashlight-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07992465543793514,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "Super90-blessed_laser-1": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07992466271389276,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  },
+  "Super90-blessed_laser-2": {
+    "bearing_samples": 325,
+    "max_contact_distance_mm": 0.07992465543793514,
+    "open_bearing_edges": 0,
+    "body_outward_mm": 0.0,
+    "passed_contact": true
+  }
+}

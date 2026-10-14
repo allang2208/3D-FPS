@@ -1,0 +1,1416 @@
+{
+  "phantom": {
+    "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_c64c234a4a75.M_LMG201_R01_c64c234a4a75",
+    "properties": {
+      "MP_AMBIENT_OCCLUSION": {
+        "node": null,
+        "class": null,
+        "output": ""
+      },
+      "MP_NORMAL": {
+        "node": "MaterialExpressionCustom_16",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_BASE_COLOR": {
+        "node": "MaterialExpressionCustom_11",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_ROUGHNESS": {
+        "node": "MaterialExpressionCustom_17",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      }
+    },
+    "custom": [
+      {
+        "name": "MaterialExpressionCustom_0",
+        "description": "PKM20_SurfaceRegion",
+        "code": "return Value;",
+        "inputs": [
+          {
+            "name": "Value"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_1",
+        "description": "PKM20 physical micro finish",
+        "code": "// SVD-style physical satin grain, carried in undeformed local centimeters.\n// Keep sparse PKM handling marks; never replace UV0 structural normals.\n// Centimeter-scale surface detail in the undeformed mesh's local coordinates.\n// Sparse shallow marks affect coating reflectance; structural normals survive.\nstruct FinishNoise\n{\n    float hash(float3 p)\n    {\n        p=frac(p*.1031);p+=dot(p,p.yzx+33.33);\n        return frac((p.x+p.y)*p.z);\n    }\n    float noise(float3 p)\n    {\n        float3 i=floor(p),f=frac(p);f=f*f*(3-2*f);\n        return lerp(lerp(lerp(hash(i),hash(i+float3(1,0,0)),f.x),\n                         lerp(hash(i+float3(0,1,0)),hash(i+float3(1,1,0)),f.x),f.y),\n                    lerp(lerp(hash(i+float3(0,0,1)),hash(i+float3(1,0,1)),f.x),\n                         lerp(hash(i+float3(0,1,1)),hash(i+float3(1,1,1)),f.x),f.y),f.z);\n    }\n    float marks(float2 uv,float seed)\n    {\n        float value=0;\n        [unroll] for(int layer=0;layer<2;++layer)\n        {\n            float2 q=uv/(layer==0?1.8:2.8);\n            float2 id=floor(q),p=frac(q)-.5;\n            float3 h=float3(hash(float3(id,seed+layer*17)),hash(float3(id,seed+3+layer*17)),hash(float3(id,seed+9+layer*17)));\n            float angle=(h.y-.5)*(layer==0?.7:2.5);\n            float2 d=float2(cos(angle),sin(angle));\n            float2 v=float2(dot(p,d),dot(p,float2(-d.y,d.x)));\n            v.y-=(h.z-.5)*.36;\n            float width=lerp(.002,.004,h.z),len=lerp(.06,.28,h.y);\n            float aa=max(length(fwidth(q)),.0002);\n            float stroke=1-smoothstep(width,width+aa,abs(v.y));\n            float ends=1-smoothstep(len*.70,len+aa,abs(v.x));\n            value=max(value,stroke*ends*step(layer==0?.67:.82,h.x)*min(1.,width/aa));\n        }\n        return value;\n    }\n};\n\nFinishNoise f;\nfloat3 weights=pow(abs(normalize(N)),float3(6,6,6));\nweights/=max(dot(weights,float3(1,1,1)),.0001);\nfloat scratch=dot(weights,float3(f.marks(P.yz,2),f.marks(P.xz,11),f.marks(P.xy,23)));\nfloat3 q=P/5.0;\nfloat grain=dot(weights,float3(\n    Texture2DSample(FinishTex,FinishTexSampler,q.yz*float2(2.4,1)).r,\n    Texture2DSample(FinishTex,FinishTexSampler,q.xz*float2(2.4,1)).r,\n    Texture2DSample(FinishTex,FinishTexSampler,q.xy*float2(2.4,1)).r));\nreturn float4(saturate(scratch),grain,0,.5);\n",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "FinishTex"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_2",
+        "description": "PKM20 restrained scuffs",
+        "code": "// Neutral dark gun steel. Preserve markings and source part-level contrast.\nfloat luminance=dot(Base,float3(.2126,.7152,.0722));\nfloat markings=smoothstep(.32,.66,max(Base.r,max(Base.g,Base.b)));\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal)*(1-markings);\nfloat shading=clamp(luminance/.034,.72,1.30);\nfloat3 coating=lerp(Base,Tint*shading,ColorWeight)*(1+(Detail.g-.5)*.018);\nfloat wear=Detail.r*Strength;\nreturn lerp(Base,coating+wear*float3(.020,.022,.024),region);\n",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "ColorWeight"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_3",
+        "description": "PKM20 varied roughness",
+        "code": "// Replace the old .56-.80 matte clamp; original source map remains an input.\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal);\nfloat structure=clamp((Base-.40)*.16,-.035,.035);\nfloat satin=clamp(Center+structure+(Detail.g-.5)*.024\n                  -Detail.r*Strength*.055,.28,.50);\nreturn lerp(Base,satin,region);\n",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_4",
+        "description": "PKM20 fine exposed metal",
+        "code": "float coated=saturate(Region)*smoothstep(.3,.65,Metal); return lerp(Base,min(.86,.73+Detail.r*Strength*.08),coated);",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_5",
+        "description": "F37 region specular",
+        "code": "return lerp(Base,.5,saturate(Region));",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_6",
+        "description": "F37 wet amount",
+        "code": "return saturate(Wet)*saturate(Region);",
+        "inputs": [
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_7",
+        "description": "F37 unified wet film",
+        "code": "return Base*(1-Wet*.10);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_8",
+        "description": "F37 unified wet film",
+        "code": "return lerp(Base,max(.25,Base*.78),Wet);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_9",
+        "description": "G43 attached physical coating detail",
+        "code": "float3 w=pow(abs(normalize(N)),4);w/=max(dot(w,float3(1,1,1)),.0001);float3 q=P/4.;return Texture2DSample(T,TSampler,q.yz)*w.x+Texture2DSample(T,TSampler,q.xz+float2(.37,.61))*w.y+Texture2DSample(T,TSampler,q.xy+float2(.71,.13))*w.z;",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "T"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_10",
+        "description": "G43 material region",
+        "code": "return 1.;",
+        "inputs": [
+          {
+            "name": "M"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_11",
+        "description": "G43 base coating and restrained wear",
+        "code": "float v=dot(Base,float3(.2126,.7152,.0722));float3 tone=Tint*lerp(1.,clamp(v/.032,.7,1.3),.04);tone=lerp(tone,Wear,saturate(Edge)*.025);return lerp(Base,tone,Region)*(1-saturate(Wet)*.12);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "Wear"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_12",
+        "description": "G43 roughness hierarchy and single wet film",
+        "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_13",
+        "description": "G43 material identity",
+        "code": "return lerp(Base,Value,Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Value"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_14",
+        "description": "G43 shallow micro normal",
+        "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_15",
+        "description": "J44 continuous neck structural normal fade",
+        "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "UV"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_16",
+        "description": "F50 retained structural relief, no added grain bump",
+        "code": "return normalize(float3(N.xy*Strength,lerp(1.,N.z,Strength)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_17",
+        "description": "201 R01 fine roughness and single wet film",
+        "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "GrainRoughness"
+          },
+          {
+            "name": "MottleRoughness"
+          },
+          {
+            "name": "PolymerStipple"
+          },
+          {
+            "name": "EdgeHighlight"
+          }
+        ]
+      }
+    ],
+    "coordinates": [
+      {
+        "node": "MaterialExpressionTextureCoordinate_0",
+        "channel": 1
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_1",
+        "channel": 2
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_2",
+        "channel": 0
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_3",
+        "channel": 4
+      }
+    ]
+  },
+  "balanced": {
+    "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_101ad9d50405.M_LMG201_R01_101ad9d50405",
+    "properties": {
+      "MP_AMBIENT_OCCLUSION": {
+        "node": null,
+        "class": null,
+        "output": ""
+      },
+      "MP_NORMAL": {
+        "node": "MaterialExpressionCustom_16",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_BASE_COLOR": {
+        "node": "MaterialExpressionCustom_11",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_ROUGHNESS": {
+        "node": "MaterialExpressionCustom_17",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      }
+    },
+    "custom": [
+      {
+        "name": "MaterialExpressionCustom_0",
+        "description": "PKM20_SurfaceRegion",
+        "code": "return Value;",
+        "inputs": [
+          {
+            "name": "Value"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_1",
+        "description": "PKM20 physical micro finish",
+        "code": "// SVD-style physical satin grain, carried in undeformed local centimeters.\n// Keep sparse PKM handling marks; never replace UV0 structural normals.\n// Centimeter-scale surface detail in the undeformed mesh's local coordinates.\n// Sparse shallow marks affect coating reflectance; structural normals survive.\nstruct FinishNoise\n{\n    float hash(float3 p)\n    {\n        p=frac(p*.1031);p+=dot(p,p.yzx+33.33);\n        return frac((p.x+p.y)*p.z);\n    }\n    float noise(float3 p)\n    {\n        float3 i=floor(p),f=frac(p);f=f*f*(3-2*f);\n        return lerp(lerp(lerp(hash(i),hash(i+float3(1,0,0)),f.x),\n                         lerp(hash(i+float3(0,1,0)),hash(i+float3(1,1,0)),f.x),f.y),\n                    lerp(lerp(hash(i+float3(0,0,1)),hash(i+float3(1,0,1)),f.x),\n                         lerp(hash(i+float3(0,1,1)),hash(i+float3(1,1,1)),f.x),f.y),f.z);\n    }\n    float marks(float2 uv,float seed)\n    {\n        float value=0;\n        [unroll] for(int layer=0;layer<2;++layer)\n        {\n            float2 q=uv/(layer==0?1.8:2.8);\n            float2 id=floor(q),p=frac(q)-.5;\n            float3 h=float3(hash(float3(id,seed+layer*17)),hash(float3(id,seed+3+layer*17)),hash(float3(id,seed+9+layer*17)));\n            float angle=(h.y-.5)*(layer==0?.7:2.5);\n            float2 d=float2(cos(angle),sin(angle));\n            float2 v=float2(dot(p,d),dot(p,float2(-d.y,d.x)));\n            v.y-=(h.z-.5)*.36;\n            float width=lerp(.002,.004,h.z),len=lerp(.06,.28,h.y);\n            float aa=max(length(fwidth(q)),.0002);\n            float stroke=1-smoothstep(width,width+aa,abs(v.y));\n            float ends=1-smoothstep(len*.70,len+aa,abs(v.x));\n            value=max(value,stroke*ends*step(layer==0?.67:.82,h.x)*min(1.,width/aa));\n        }\n        return value;\n    }\n};\n\nFinishNoise f;\nfloat3 weights=pow(abs(normalize(N)),float3(6,6,6));\nweights/=max(dot(weights,float3(1,1,1)),.0001);\nfloat scratch=dot(weights,float3(f.marks(P.yz,2),f.marks(P.xz,11),f.marks(P.xy,23)));\nfloat3 q=P/5.0;\nfloat grain=dot(weights,float3(\n    Texture2DSample(FinishTex,FinishTexSampler,q.yz*float2(2.4,1)).r,\n    Texture2DSample(FinishTex,FinishTexSampler,q.xz*float2(2.4,1)).r,\n    Texture2DSample(FinishTex,FinishTexSampler,q.xy*float2(2.4,1)).r));\nreturn float4(saturate(scratch),grain,0,.5);\n",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "FinishTex"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_2",
+        "description": "PKM20 restrained scuffs",
+        "code": "// Neutral dark gun steel. Preserve markings and source part-level contrast.\nfloat luminance=dot(Base,float3(.2126,.7152,.0722));\nfloat markings=smoothstep(.32,.66,max(Base.r,max(Base.g,Base.b)));\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal)*(1-markings);\nfloat shading=clamp(luminance/.034,.72,1.30);\nfloat3 coating=lerp(Base,Tint*shading,ColorWeight)*(1+(Detail.g-.5)*.018);\nfloat wear=Detail.r*Strength;\nreturn lerp(Base,coating+wear*float3(.020,.022,.024),region);\n",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "ColorWeight"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_3",
+        "description": "PKM20 varied roughness",
+        "code": "// Replace the old .56-.80 matte clamp; original source map remains an input.\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal);\nfloat structure=clamp((Base-.40)*.16,-.035,.035);\nfloat satin=clamp(Center+structure+(Detail.g-.5)*.024\n                  -Detail.r*Strength*.055,.28,.50);\nreturn lerp(Base,satin,region);\n",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_4",
+        "description": "PKM20 fine exposed metal",
+        "code": "float coated=saturate(Region)*smoothstep(.3,.65,Metal); return lerp(Base,min(.86,.73+Detail.r*Strength*.08),coated);",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_5",
+        "description": "F37 region specular",
+        "code": "return lerp(Base,.5,saturate(Region));",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_6",
+        "description": "F37 wet amount",
+        "code": "return saturate(Wet)*saturate(Region);",
+        "inputs": [
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_7",
+        "description": "F37 unified wet film",
+        "code": "return Base*(1-Wet*.10);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_8",
+        "description": "F37 unified wet film",
+        "code": "return lerp(Base,max(.25,Base*.78),Wet);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_9",
+        "description": "G43 attached physical coating detail",
+        "code": "float3 w=pow(abs(normalize(N)),4);w/=max(dot(w,float3(1,1,1)),.0001);float3 q=P/4.;return Texture2DSample(T,TSampler,q.yz)*w.x+Texture2DSample(T,TSampler,q.xz+float2(.37,.61))*w.y+Texture2DSample(T,TSampler,q.xy+float2(.71,.13))*w.z;",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "T"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_10",
+        "description": "G43 material region",
+        "code": "return 1.;",
+        "inputs": [
+          {
+            "name": "M"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_11",
+        "description": "G43 base coating and restrained wear",
+        "code": "float v=dot(Base,float3(.2126,.7152,.0722));float3 tone=Tint*lerp(1.,clamp(v/.032,.7,1.3),.04);tone=lerp(tone,Wear,saturate(Edge)*.025);return lerp(Base,tone,Region)*(1-saturate(Wet)*.12);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "Wear"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_12",
+        "description": "G43 roughness hierarchy and single wet film",
+        "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_13",
+        "description": "G43 material identity",
+        "code": "return lerp(Base,Value,Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Value"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_14",
+        "description": "G43 shallow micro normal",
+        "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_15",
+        "description": "J44 continuous neck structural normal fade",
+        "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "UV"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_16",
+        "description": "F50 retained structural relief, no added grain bump",
+        "code": "return normalize(float3(N.xy*Strength,lerp(1.,N.z,Strength)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_17",
+        "description": "201 R01 fine roughness and single wet film",
+        "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "GrainRoughness"
+          },
+          {
+            "name": "MottleRoughness"
+          },
+          {
+            "name": "PolymerStipple"
+          },
+          {
+            "name": "EdgeHighlight"
+          }
+        ]
+      }
+    ],
+    "coordinates": [
+      {
+        "node": "MaterialExpressionTextureCoordinate_0",
+        "channel": 0
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_1",
+        "channel": 1
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_2",
+        "channel": 2
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_3",
+        "channel": 0
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_4",
+        "channel": 4
+      }
+    ]
+  },
+  "stable": {
+    "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_deb7da1c49e8.M_LMG201_R01_deb7da1c49e8",
+    "properties": {
+      "MP_AMBIENT_OCCLUSION": {
+        "node": null,
+        "class": null,
+        "output": ""
+      },
+      "MP_NORMAL": {
+        "node": "MaterialExpressionCustom_11",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_BASE_COLOR": {
+        "node": "MaterialExpressionCustom_6",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_ROUGHNESS": {
+        "node": "MaterialExpressionCustom_12",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      }
+    },
+    "custom": [
+      {
+        "name": "MaterialExpressionCustom_0",
+        "description": "PKM20_SurfaceRegion",
+        "code": "return Value;",
+        "inputs": [
+          {
+            "name": "Value"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_1",
+        "description": "PKM20 physical micro finish",
+        "code": "// Centimeter-scale surface detail in the undeformed mesh's local coordinates.\n// Sparse shallow marks affect coating reflectance; structural normals survive.\nstruct FinishNoise\n{\n    float hash(float3 p)\n    {\n        p=frac(p*.1031);p+=dot(p,p.yzx+33.33);\n        return frac((p.x+p.y)*p.z);\n    }\n    float noise(float3 p)\n    {\n        float3 i=floor(p),f=frac(p);f=f*f*(3-2*f);\n        return lerp(lerp(lerp(hash(i),hash(i+float3(1,0,0)),f.x),\n                         lerp(hash(i+float3(0,1,0)),hash(i+float3(1,1,0)),f.x),f.y),\n                    lerp(lerp(hash(i+float3(0,0,1)),hash(i+float3(1,0,1)),f.x),\n                         lerp(hash(i+float3(0,1,1)),hash(i+float3(1,1,1)),f.x),f.y),f.z);\n    }\n    float marks(float2 uv,float seed)\n    {\n        float value=0;\n        [unroll] for(int layer=0;layer<2;++layer)\n        {\n            float2 q=uv/(layer==0?1.8:2.8);\n            float2 id=floor(q),p=frac(q)-.5;\n            float3 h=float3(hash(float3(id,seed+layer*17)),hash(float3(id,seed+3+layer*17)),hash(float3(id,seed+9+layer*17)));\n            float angle=(h.y-.5)*(layer==0?.7:2.5);\n            float2 d=float2(cos(angle),sin(angle));\n            float2 v=float2(dot(p,d),dot(p,float2(-d.y,d.x)));\n            v.y-=(h.z-.5)*.36;\n            float width=lerp(.002,.004,h.z),len=lerp(.06,.28,h.y);\n            float aa=max(length(fwidth(q)),.0002);\n            float stroke=1-smoothstep(width,width+aa,abs(v.y));\n            float ends=1-smoothstep(len*.70,len+aa,abs(v.x));\n            value=max(value,stroke*ends*step(layer==0?.67:.82,h.x)*min(1.,width/aa));\n        }\n        return value;\n    }\n};\nFinishNoise f;\nfloat3 weights=pow(abs(normalize(N)),float3(6,6,6));\nweights/=max(dot(weights,float3(1,1,1)),.0001);\nfloat scratch=dot(weights,float3(f.marks(P.yz,2),f.marks(P.xz,11),f.marks(P.xy,23)));\nreturn float4(saturate(scratch),f.noise(P*.65),smoothstep(.50,.82,f.noise(P*.23+7)),0);\n",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_2",
+        "description": "PKM20 restrained scuffs",
+        "code": "float marks=1-smoothstep(.42,.72,dot(Base,float3(.2126,.7152,.0722))); float wear=Detail.r*Strength*Region*marks; return Base*(1+Region*(Detail.g-.5)*.025)+wear*.018;",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_3",
+        "description": "PKM20 varied roughness",
+        "code": "float grain=(Detail.g-.5)*.045-Detail.b*.018; return saturate(Base+Region*grain-Detail.r*Strength*Region*.12);",
+        "inputs": [
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Metal"
+          },
+          {
+            "name": "Base"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_4",
+        "description": "G43 attached physical coating detail",
+        "code": "float3 w=pow(abs(normalize(N)),4);w/=max(dot(w,float3(1,1,1)),.0001);float3 q=P/4.;return Texture2DSample(T,TSampler,q.yz)*w.x+Texture2DSample(T,TSampler,q.xz+float2(.37,.61))*w.y+Texture2DSample(T,TSampler,q.xy+float2(.71,.13))*w.z;",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "T"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_5",
+        "description": "G43 material region",
+        "code": "return 1.;",
+        "inputs": [
+          {
+            "name": "M"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_6",
+        "description": "G43 base coating and restrained wear",
+        "code": "float v=dot(Base,float3(.2126,.7152,.0722));float3 tone=Tint*lerp(1.,clamp(v/.032,.7,1.3),.04);tone=lerp(tone,Wear,saturate(Edge)*.025);return lerp(Base,tone,Region)*(1-saturate(Wet)*.12);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "Wear"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_7",
+        "description": "G43 roughness hierarchy and single wet film",
+        "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_8",
+        "description": "G43 material identity",
+        "code": "return lerp(Base,Value,Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Value"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_9",
+        "description": "G43 shallow micro normal",
+        "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_10",
+        "description": "J44 continuous neck structural normal fade",
+        "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "UV"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_11",
+        "description": "F50 retained structural relief, no added grain bump",
+        "code": "return normalize(float3(N.xy*Strength,lerp(1.,N.z,Strength)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_12",
+        "description": "201 R01 fine roughness and single wet film",
+        "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "GrainRoughness"
+          },
+          {
+            "name": "MottleRoughness"
+          },
+          {
+            "name": "PolymerStipple"
+          },
+          {
+            "name": "EdgeHighlight"
+          }
+        ]
+      }
+    ],
+    "coordinates": [
+      {
+        "node": "MaterialExpressionTextureCoordinate_0",
+        "channel": 0
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_1",
+        "channel": 4
+      }
+    ]
+  },
+  "factory": {
+    "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_ab4aa1bcbdc7.M_LMG201_R01_ab4aa1bcbdc7",
+    "properties": {
+      "MP_AMBIENT_OCCLUSION": {
+        "node": "MaterialExpressionCustom_18",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_NORMAL": {
+        "node": "MaterialExpressionCustom_19",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_BASE_COLOR": {
+        "node": "MaterialExpressionCustom_4",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      },
+      "MP_ROUGHNESS": {
+        "node": "MaterialExpressionCustom_20",
+        "class": "MaterialExpressionCustom",
+        "output": ""
+      }
+    },
+    "custom": [
+      {
+        "name": "MaterialExpressionCustom_1",
+        "description": "F37 coating with restrained source variation",
+        "code": "float3 shade=clamp(Base/float3(.010960,.014444,.017642),.5,1.6); return lerp(Base,Tint*(.92+.08*shade),Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_3",
+        "description": "F37 dielectric coating over metal",
+        "code": "return lerp(Base,Coating,Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Coating"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_5",
+        "description": "F37 unified wet film",
+        "code": "return Base*(1-Wet*.10);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_7",
+        "description": "F37 original painted region",
+        "code": "return smoothstep(.30,.65,Metal);",
+        "inputs": [
+          {
+            "name": "Metal"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_8",
+        "description": "F37 coating with restrained source variation",
+        "code": "float3 shade=clamp(Base/float3(.010960,.014444,.017642),.5,1.6); return lerp(Base,Tint*(.92+.08*shade),Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_9",
+        "description": "F37 coated roughness",
+        "code": "return lerp(Base,Center+clamp((Base-.604)*.24,-.016,.016),Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_10",
+        "description": "F37 dielectric coating over metal",
+        "code": "return lerp(Base,Coating,Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Coating"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_11",
+        "description": "F37 shared 5 cm roughness grain",
+        "code": "// Undeformed local centimetres keep the finish attached during reload.\n// Fine detail affects roughness only; UV0 structure remains unchanged.\nfloat3 weights = pow(abs(normalize(N)), float3(6, 6, 6));\nweights /= max(dot(weights, float3(1, 1, 1)), 0.0001);\nfloat3 q = P / 5.0;\nfloat grain = dot(weights, float3(\n    Texture2DSample(FinishTex, FinishTexSampler, q.yz).r,\n    Texture2DSample(FinishTex, FinishTexSampler, q.xz).r,\n    Texture2DSample(FinishTex, FinishTexSampler, q.xy).r));\nreturn clamp(Base + (grain - 0.5) * Amplitude, 0.04, 0.96);\n",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "FinishTex"
+          },
+          {
+            "name": "Amplitude"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_12",
+        "description": "F37 wet amount",
+        "code": "return saturate(Wet)*saturate(Region);",
+        "inputs": [
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_13",
+        "description": "F37 unified wet film",
+        "code": "return Base*(1-Wet*.10);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_14",
+        "description": "F37 unified wet film",
+        "code": "return lerp(Base,max(.25,Base*.78),Wet);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_0",
+        "description": "G43 attached physical coating detail",
+        "code": "float3 w=pow(abs(normalize(N)),4);w/=max(dot(w,float3(1,1,1)),.0001);float3 q=P/4.;return Texture2DSample(T,TSampler,q.yz)*w.x+Texture2DSample(T,TSampler,q.xz+float2(.37,.61))*w.y+Texture2DSample(T,TSampler,q.xy+float2(.71,.13))*w.z;",
+        "inputs": [
+          {
+            "name": "P"
+          },
+          {
+            "name": "N"
+          },
+          {
+            "name": "T"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_2",
+        "description": "G43 material region",
+        "code": "return 1.;",
+        "inputs": [
+          {
+            "name": "M"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_4",
+        "description": "G43 base coating and restrained wear",
+        "code": "float v=dot(Base,float3(.2126,.7152,.0722));float3 tone=Tint*lerp(1.,clamp(v/.032,.7,1.3),.04);tone=lerp(tone,Wear,saturate(Edge)*.025);return lerp(Base,tone,Region)*(1-saturate(Wet)*.12);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Tint"
+          },
+          {
+            "name": "Wear"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_6",
+        "description": "G43 roughness hierarchy and single wet film",
+        "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_15",
+        "description": "G43 material identity",
+        "code": "return lerp(Base,Value,Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Value"
+          },
+          {
+            "name": "Region"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_16",
+        "description": "G43 shallow micro normal",
+        "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Detail"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_17",
+        "description": "J44 continuous neck structural normal fade",
+        "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "UV"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_18",
+        "description": "J44 neck has independent occlusion",
+        "code": "return lerp(AO,1.,smoothstep(0.,.12,UV.x));",
+        "inputs": [
+          {
+            "name": "AO"
+          },
+          {
+            "name": "UV"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_19",
+        "description": "F50 retained structural relief, no added grain bump",
+        "code": "return normalize(float3(N.xy*Strength,lerp(1.,N.z,Strength)));",
+        "inputs": [
+          {
+            "name": "N"
+          },
+          {
+            "name": "Strength"
+          }
+        ]
+      },
+      {
+        "name": "MaterialExpressionCustom_20",
+        "description": "201 R01 fine roughness and single wet film",
+        "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);",
+        "inputs": [
+          {
+            "name": "Base"
+          },
+          {
+            "name": "Center"
+          },
+          {
+            "name": "D"
+          },
+          {
+            "name": "Edge"
+          },
+          {
+            "name": "Region"
+          },
+          {
+            "name": "Wet"
+          },
+          {
+            "name": "GrainRoughness"
+          },
+          {
+            "name": "MottleRoughness"
+          },
+          {
+            "name": "PolymerStipple"
+          },
+          {
+            "name": "EdgeHighlight"
+          }
+        ]
+      }
+    ],
+    "coordinates": [
+      {
+        "node": "MaterialExpressionTextureCoordinate_0",
+        "channel": 0
+      },
+      {
+        "node": "MaterialExpressionTextureCoordinate_1",
+        "channel": 1
+      }
+    ]
+  }
+}

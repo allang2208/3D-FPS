@@ -1,4 +1,5 @@
 #include "FPSBallisticsComponent.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "WeaponDamageFalloff.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
@@ -65,7 +66,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         FCollisionQueryParams Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;
         for(const auto& A:R.HitActors)if(A.IsValid())Params.AddIgnoredActor(A.Get());
         bool Stopped=false;
-        while(GetWorld()->LineTraceSingleByChannel(Hit,R.Position,End,ECC_Visibility,Params))
+        while(RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,R.Position,End,ECC_Visibility,Params))
         {
             // Each shatter child belongs to one selected enemy. Other bodies,
             // including allies and corpses, neither take its damage nor steal it.
@@ -84,11 +85,11 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
                 const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
                 if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))
                 {
-                    Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
+                    Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true,false);
                     if(Shooter->HasAuthority()&&!Shooter->IsLocallyControlled())
                         if(auto* PS=Shooter->GetPlayerState<AColdSteelPlayerState>())
                         {
-                            FColdSteelNetHitReceipt Receipt;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;
+                            FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;
                             Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;
                             PS->ClientConfirmHit(Receipt);
                         }

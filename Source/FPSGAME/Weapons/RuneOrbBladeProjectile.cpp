@@ -1,4 +1,5 @@
 #include "RuneOrbBladeProjectile.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "RuneOrbBladesComponent.h"
 #include "RuneOrbBladeDamage.h"
@@ -19,6 +20,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Materials/MaterialInterface.h"
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 
 namespace
 {
@@ -30,6 +33,7 @@ constexpr int32 SpectralImpactMaxParticles = 48;
 ARuneOrbBlade::ARuneOrbBlade()
 {
     PrimaryActorTick.bCanEverTick = true;
+    bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
     Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     SetRootComponent(Root);
     Blade = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Blade"));
@@ -78,6 +82,9 @@ void ARuneOrbBlade::Setup(URuneOrbBladesComponent* InSource, APawn* InOwner, flo
     MaxDistance = FMath::Max(0.f, InSource->BladeRangeCM());
     VulnerabilityStacks = InSource->BladeVulnerabilityStacks();
     if (Mesh) Blade->SetStaticMesh(Mesh);
+    NetworkMesh=Mesh;
+    if(GetNetMode()!=NM_Standalone&&GetNetMode()!=NM_Client&&InOwner&&!InOwner->IsLocallyControlled())
+    {Blade->SetOwnerNoSee(true);Wake->SetOwnerNoSee(true);ImpactWisps->SetOwnerNoSee(true);}
     // All shader motion stays in the authored local UVs. Independent phases avoid
     // four swords pulsing together; no per-frame material allocation or texture IO.
     const float Phase = FMath::FRandRange(0.f, 20.f);
@@ -92,6 +99,7 @@ void ARuneOrbBlade::Launch(const FVector& TargetPoint)
     if (!CanLaunch()) return;
     EnchantmentShot=ColdSteelSkills::Snapshot(Shooter.Get());
     bFlying = true;
+    NetworkPhase=1;ForceNetUpdate();
     Velocity = (TargetPoint - GetActorLocation()).GetSafeNormal(UE_SMALL_NUMBER, GetActorForwardVector()) * Speed;
     SetActorRotation(Velocity.Rotation());
     Wake->SetVisibility(true);
@@ -101,23 +109,25 @@ void ARuneOrbBlade::StartFade()
 {
     if (bFinished || FadeAge >= 0.f) return;
     FadeAge = 0.f;
+    NetworkPhase=2;ForceNetUpdate();
     Light->SetIntensity(0.f);
 }
 
 void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
 {
     bFinished = true;
-    UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal());
-    if (auto* Target = Hit.GetActor())
+    if(GetNetMode()!=NM_Client)UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal());
+    if (auto* Target = Hit.GetActor();Target&&GetNetMode()!=NM_Client)
     {
         auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>();
-        if (Combat && !Combat->IsDead() && !Target->ActorHasTag(TEXT("Friendly")))
+        if (Combat && !Combat->IsDead() && !RangedAttackQuery::IsFriendlyUnit(Shooter.Get(),Target))
         {
             const bool bBerserkEnemy=UFPSMeleeLightningComponent::IsEnemy(Target,Shooter.Get());
             bool bCritical = false;
             double CritChance = 0, CritBonus = 0, Pen = 0, DmgBonus = 0;
             if (Shooter.IsValid() && Shooter->GetGameInstance())
-                if (auto* Profile = Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+                if (auto* Profile = Cast<AFPSGAMECharacter>(Shooter.Get())&&CastChecked<AFPSGAMECharacter>(Shooter.Get())->GetNetShadowProfile()
+                    ?CastChecked<AFPSGAMECharacter>(Shooter.Get())->GetNetShadowProfile():Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
                 {
                     CritChance = Profile->Derived(TEXT("crit"));
                     CritBonus = Profile->CriticalStrikeEffect().CriticalDamageBonus;
@@ -135,7 +145,11 @@ void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
             if(bBerserkEnemy&&Damage>0.f)ColdSteelSkills::GrantBerserkOnWeaponHit(Shooter.Get(),EnchantmentShot);
             if (Applied > 0)
                 if (auto* Player = Cast<AFPSGAMECharacter>(Shooter.Get()))
-                    Player->NotifyConfirmedWeaponHit(Target, Applied);
+                {
+                    Player->NotifyConfirmedWeaponHit(Target, Applied,nullptr,false,false);
+                    if(!Player->IsLocallyControlled())if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>())
+                    {FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=bCritical;Receipt.bKilled=Combat->IsDead();PS->ClientConfirmHit(Receipt);}
+                }
             // 毁灭符文 (2D magicVulnerabilityOnHit): the blade stacks the target's
             // magic vulnerability so follow-up magic lands harder.
             if (VulnerabilityStacks > 0 && Applied > 0 && !Combat->IsDead())
@@ -218,6 +232,7 @@ void ARuneOrbBlade::ApplyHit(const FHitResult& Hit)
     }
     else Light->SetIntensity(0.f);
     SetLifeSpan(ImpactLifetime + .05f);
+    if(GetNetMode()!=NM_Client){NetworkPhase=3;ForceNetUpdate();MulticastImpact(Hit);}
 }
 
 void ARuneOrbBlade::Tick(float Delta)
@@ -254,6 +269,7 @@ void ARuneOrbBlade::Tick(float Delta)
         }
         return;
     }
+    if(GetNetMode()==NM_Client&&GetLocalRole()!=ROLE_Authority)return;
     if (!Shooter.IsValid() || !Source.IsValid()) { Destroy(); return; }
     if (FadeAge >= 0.f)
     {
@@ -276,7 +292,7 @@ void ARuneOrbBlade::Tick(float Delta)
     // Match ice-spike bursts: an earlier blade's corpse does not eat later blades.
     for (int32 Pass = 0; Pass < 8; ++Pass)
     {
-        Blocked = GetWorld()->SweepSingleByChannel(Hit, Previous, Next, FQuat::Identity,
+        Blocked = RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit, Previous, Next, FQuat::Identity,
             ECC_Visibility, FCollisionShape::MakeSphere(HitRadius), Query);
         if (!Blocked) break;
         const auto* Combat = IsValid(Hit.GetActor()) ? Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>() : nullptr;
@@ -287,4 +303,23 @@ void ARuneOrbBlade::Tick(float Delta)
     SetActorLocation(Next);
     Distance += Travel;
     if (Distance >= MaxDistance) StartFade();
+}
+void ARuneOrbBlade::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(ARuneOrbBlade,NetworkMesh,COND_InitialOnly);
+    DOREPLIFETIME(ARuneOrbBlade,NetworkPhase);
+}
+void ARuneOrbBlade::OnRep_Visual()
+{
+    if(NetworkMesh)Blade->SetStaticMesh(NetworkMesh);
+    // The owning client already has immediate gesture-driven cosmetic blades.
+    Blade->SetOwnerNoSee(true);Wake->SetOwnerNoSee(true);ImpactWisps->SetOwnerNoSee(true);
+    if(GetInstigator()&&GetInstigator()->IsLocallyControlled())Light->SetVisibility(false);
+    if(NetworkPhase==1)Wake->SetVisibility(true);
+    else if(NetworkPhase>=2){Blade->SetVisibility(false);Wake->SetVisibility(false);Light->SetIntensity(0.f);}
+}
+void ARuneOrbBlade::MulticastImpact_Implementation(const FHitResult& Hit)
+{
+    if(GetNetMode()==NM_Client&&GetLocalRole()!=ROLE_Authority)ApplyHit(Hit);
 }

@@ -521,9 +521,11 @@ void UFPSImpactFXSubsystem::ClearImpactDecalsForComponent(const UPrimitiveCompon
 
 void UFPSImpactFXSubsystem::AddDecal(const FHitResult& Hit,EFPSImpactSurface Surface,double Now)
 {
+    // Broken panes cannot retain impact marks, including hits from melee paths.
     // No projected bullet holes on deforming flesh or loose dirt. No decals on
     // merged destructible buildings: a removed cell would leave a floating mark.
-    if(Surface==EFPSImpactSurface::Flesh || Surface==EFPSImpactSurface::Dirt || Cast<AVoxelBuildWorld>(Hit.GetActor()) || !Hit.GetComponent())return;
+    if(Surface==EFPSImpactSurface::Flesh || Surface==EFPSImpactSurface::Dirt || Surface==EFPSImpactSurface::Glass
+        || Cast<AVoxelBuildWorld>(Hit.GetActor()) || !Hit.GetComponent() || !Hit.GetComponent()->bReceivesDecals)return;
     if(Hit.GetComponent()->ComponentHasTag(TEXT("Glass.Broken")))return;
     UMaterialInterface* Material=DecalMaterials[static_cast<uint8>(Surface)];
     if(!Material)return;

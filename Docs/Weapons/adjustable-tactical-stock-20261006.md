@@ -102,3 +102,13 @@ V1 的源脚本、可编辑母版、导入记录及 UE 资产备份保存在 `So
 - 当前 V3 材质与网格更新：依次后台执行 `author_model.py`、`fit_models.py`，再运行 `run_asset_stage.ps1 -ScriptName import_refinement.py`，一次保存母版表面和九套运行网格；不必重新安装数值目录。
 
 模型源、导出、材质和资产身份记录在 `SourceAssets/LegendaryStock20261006/authoring.json`；逐枪适配记录在 `Integration/fitted-models.json`。既有枪械网格和其他后托资产保持原样，新后托使用独立资产路径。
+
+## HK416 接口位置微调（2026-10-08）
+
+按用户当前游戏截图调整 HK416 的传说后托。旧适配取前端截面的包围范围中心，原装接口下方的定位键使该中心偏低；本次改用原装 `Stock_Stick_low` 缓冲管前端圆截面的轴心。后托主体在 `WPN_root` 的物理坐标中上移约 3.994 mm，横向修正约 0.017 mm；纵向位置、尺寸、原装接口前端保持原位，现有过渡段的后端同步对准后托接座。
+
+`fit_models.py` 的 HK416 分支已使用这一原装轴心，新增 `--family HK416` 可只重建该枪并保留其他枪记录。实际运行网格继续使用 `/Game/Weapons/LegendaryStock20261006/Fitted/SM_TacticalStock_HK416`；后托母版、材质、数值及其他八把枪均未改动，无 C++ 变更。
+
+备份、源接口测量和本次保存回执位于 `SourceAssets/LegendaryStock20261006/HK416Fit20261008/`；`import-receipt.json` 记录实际保存结果。未运行游戏、测试或验收渲染，微调后的游戏观感交由用户测试。
+
+同日按用户要求对 HK416 非原厂改造件统一表面，本后托的石墨涂层、钢件、聚合物和橡胶接入 HK416 私有材质，香槟金与红色饰片保留。共用母版和其他枪的后托材质不改；标准导入器与本次接口微调导入器均恢复当前 HK416 绑定。制作和保存记录见 [HK416 改造件表面优化](hk416-accessory-finish-20261008.md)。

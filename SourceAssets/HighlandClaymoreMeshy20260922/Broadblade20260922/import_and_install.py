@@ -125,7 +125,7 @@ def add_option(data):
     heavy = next(o for o in column['options'] if o['id'] == 'heavy_spine')
     option = copy.deepcopy(heavy)
     option.update(id=OPTION, name='阔锋重刃', weapons=[ID],
-                  description='高地双手剑专属。宽肩钢刃与加厚剑脊形成重剑轮廓，中央符文保留原比例；偏重单次伤害与命中硬直。')
+                  description='高地双手剑专属。宽肩钢刃配加厚剑脊，中央符文保持原有比例。')
     existing = next((i for i, row in enumerate(column['options']) if row['id'] == OPTION), None)
     if existing is None:
         column['options'].append(option)

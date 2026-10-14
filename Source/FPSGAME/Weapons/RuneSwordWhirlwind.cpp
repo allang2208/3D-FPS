@@ -186,7 +186,8 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         S.Origin=Origin;S.Forward=FRotator(0,WhirlwindYaw+90.f+Degrees,0).Vector();
         S.Base=Origin+S.Forward*15.f;S.Tip=Origin+S.Forward*AzureDragonRange(WhirlwindCast.RadiusCM);return S;
     };
-    FRuneSwordTraceSettings Settings;Settings.Radius=32.f;Settings.bCleavePawns=true;
+    FRuneSwordTraceSettings Settings;Settings.Radius=32.f;Settings.bCleavePawns=true;Settings.bAreaDamage=true;
+    Settings.bIgnoreFriendlyUnits=AzureDragonRange(WhirlwindCast.RadiusCM)>WhirlwindCast.RadiusCM;
     const auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(FromDegrees),Sample(ToDegrees),AzureDragonRange(WhirlwindCast.RadiusCM),HitActors,Settings);
     int32 Confirmed=0;
     bool AnyKilled=false;

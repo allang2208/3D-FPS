@@ -1,4 +1,5 @@
 #include "GunsmithSystem.h"
+#include "FullAutoTrigger.h"
 #include "TacticalDeviceVariants.h"
 #include "G18WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
@@ -84,6 +85,14 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
             }
         }
         PistolGripSurface::MergeOptions(Catalog,O,W.Allowed);
+        // Both mounts share the same merged catalog, including common legendary
+        // devices. The second slot is explicitly enabled only on long guns.
+        if(TacticalDeviceVariants::SupportsSecondary(W.Id))
+        {
+            auto Options=O->GetObjectField(TEXT("options"));
+            W.Allowed.AddUnique(TacticalDeviceVariants::SecondarySlot);
+            Options->SetArrayField(TacticalDeviceVariants::SecondarySlot,Options->GetArrayField(TacticalDeviceVariants::PrimarySlot));
+        }
         const auto B=O->GetObjectField(TEXT("base"));W.Ammo=B->GetStringField(TEXT("ammo_item_id"));
         W.Base.ADS=FMath::Loge(20.)/Num(B,TEXT("ads_smooth"),9.98577424518);W.Base.Capacity=Num(B,TEXT("mag_size"),30);
         W.Base.ADSPercent=Num(B,TEXT("ads_percent")); // Factory-mounted accessory costs; removal offsets this value.
@@ -129,6 +138,7 @@ void UGunsmithSystem::Deinitialize(){Close();Super::Deinitialize();}
 const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Weapons.Find(D);}
 FString UGunsmithSystem::CategoryLabel(const FString& Definition,const FString& Slot) const
 {
+    if(Slot==TacticalDeviceVariants::PrimarySlot&&TacticalDeviceVariants::SupportsSecondary(Definition))return TEXT("战术挂件Ⅰ");
     if(Slot==TEXT("reargrip") && PistolGripSurface::Supports(Weapon(Definition)))return TEXT("握把防滑纹");
     const int32 Index=Slots(Definition).IndexOfByKey(Slot);
     const auto& Names=Categories(Definition);
@@ -308,9 +318,16 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         R.Reload*=Super90SpeedloaderAssets::NormalPacedReference/Super90WeaponAssets::SingleReload;
         R.EmptyReload*=Super90SpeedloaderAssets::EmptyPacedReference/Super90WeaponAssets::FullReload;
     }
-    for(const auto& Pair:Normalize(D,P))
+    const auto NormalizedParts=Normalize(D,P);
+    const FString ActiveLaser=TacticalDeviceVariants::ActiveLaserSlot(
+        NormalizedParts.FindRef(TacticalDeviceVariants::PrimarySlot),NormalizedParts.FindRef(TacticalDeviceVariants::SecondarySlot));
+    for(const auto& Pair:NormalizedParts)
     {
         auto A=*Option(D,Pair.Key,Pair.Value);
+        // Installed geometry still counts, but only the strongest laser supplies
+        // its entire modifier set. Removing it automatically activates the other.
+        if(TacticalDeviceVariants::IsSlot(Pair.Key)&&TacticalDeviceVariants::IsLaser(Pair.Value)&&Pair.Key!=ActiveLaser)
+        {++R.ActiveParts;continue;}
         if(bUnsupportedForegrip&&D==RSH12WeaponAssets::Definition&&Pair.Key==TEXT("underbarrel"))
         {
             // One-handed RSH keeps the weight/handling cost but receives no
@@ -439,6 +456,11 @@ bool UGunsmithSystem::Apply()
     if(IsBow(DefinitionId)&&!PreparePartMaterials(State,Status))return false;
     const int32 Index=State.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==InstanceId;});if(Index<0)return false;
     auto& I=State.Items[Index];TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data))return false;
+    if(Part(Installed(I),TEXT("trigger"))!=Part(Preview,TEXT("trigger")))
+    {
+        if(FullAutoTrigger::Installed(I.Definition,Preview))Data->SetStringField(FullAutoTrigger::ModeKey,TEXT("auto"));
+        else Data->RemoveField(FullAutoTrigger::ModeKey);
+    }
     auto Parts=MakeShared<FJsonObject>();for(const auto& P:Preview){if(P.Value==TEXT("true"))Parts->SetBoolField(P.Key,true);else Parts->SetStringField(P.Key,P.Value);}
     Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Data->SetNumberField(TEXT("gunsmith_version"),1);
     // 强化等级与 gunsmith_parts 同一次提交：都写进这一份 State 的 Item.Data，随后走同一个 CommitState。

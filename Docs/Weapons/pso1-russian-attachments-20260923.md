@@ -2,7 +2,7 @@
 
 已把现有 SVD 的 PSO-1 制作为可安装／拆卸的枪匠选项 `pso1_4x`。仅 AKM（`ue_akm`）、A762（`ue_a762`）、PKM（`ue_pkm_lowpoly`）开放，目录选项与运行白名单使用同一范围。SVD 继续使用原厂固定 PSO，不增加本改造入口。
 
-后续状态：用户随后要求为 SVD 接入通用改造件，原厂 PSO 已支持被通用瞄具替换并恢复，见 [SVD 通用改造记录](svd-common-attachments-20260923.md)。`pso1_4x` 自身仍只开放给上述三枪。
+后续状态：用户随后要求为 SVD 接入通用改造件，原厂 PSO 已支持被通用瞄具替换并恢复，见 [SVD 通用改造记录](svd-common-attachments-20260923.md)。2026-10-04 又按用户指定新增 RSH-12 的专用上导轨版本，见 [RSH PSO 改造](rsh12-pso-20261004.md)；当前 `pso1_4x` 开放范围为 AKM、A762、PKM 和 RSH-12。
 
 ## 制作与接入
 

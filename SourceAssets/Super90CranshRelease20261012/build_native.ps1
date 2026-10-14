@@ -1,4 +1,4 @@
-param([string[]]$Targets=@('FPSGAMEEditor','FPSGAME'))
+﻿param([string[]]$Targets=@('FPSGAMEEditor','FPSGAME'))
 $ErrorActionPreference='Stop'
 $taskProject=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $taskReport=@{game_tested=$false;targets=@{}}

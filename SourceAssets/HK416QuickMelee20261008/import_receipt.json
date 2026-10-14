@@ -1,0 +1,85 @@
+{
+  "animations": {
+    "base": {
+      "asset": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee.A_HK416_base_quick_melee",
+      "saved": true,
+      "previous_duration": 1.7999999523162842,
+      "duration": 0.6000000238418579,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\base\\A_HK416_base_quick_melee.fbx"
+    },
+    "drum": {
+      "asset": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_quick_melee.A_HK416_drum_quick_melee",
+      "saved": true,
+      "previous_duration": 1.7999999523162842,
+      "duration": 0.6000000238418579,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\drum\\A_HK416_drum_quick_melee.fbx"
+    },
+    "angled": {
+      "asset": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_quick_melee.A_HK416_angled_quick_melee",
+      "saved": true,
+      "previous_duration": 1.7999999523162842,
+      "duration": 0.6000000238418579,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\angled\\A_HK416_angled_quick_melee.fbx"
+    },
+    "vertical": {
+      "asset": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_quick_melee.A_HK416_vertical_quick_melee",
+      "saved": true,
+      "previous_duration": 1.7999999523162842,
+      "duration": 0.6000000238418579,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\vertical\\A_HK416_vertical_quick_melee.fbx"
+    },
+    "canted": {
+      "asset": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_quick_melee.A_HK416_canted_quick_melee",
+      "saved": true,
+      "previous_duration": 1.7999999523162842,
+      "duration": 0.6000000238418579,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\canted\\A_HK416_canted_quick_melee.fbx"
+    },
+    "prism": {
+      "asset": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_quick_melee.A_HK416_prism_quick_melee",
+      "saved": true,
+      "previous_duration": 1.7999999523162842,
+      "duration": 0.6000000238418579,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416QuickMelee20261008\\Animations\\prism\\A_HK416_prism_quick_melee.fbx"
+    }
+  },
+  "profiles": {
+    "drum": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_drum.DA_drum",
+      "saved": true,
+      "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee.A_HK416_base_quick_melee",
+      "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_quick_melee.A_HK416_drum_quick_melee",
+      "duration": 0.6000000238418579
+    },
+    "angled": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_angled.DA_angled",
+      "saved": true,
+      "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee.A_HK416_base_quick_melee",
+      "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/angled/A_HK416_angled_quick_melee.A_HK416_angled_quick_melee",
+      "duration": 0.6000000238418579
+    },
+    "vertical": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_vertical.DA_vertical",
+      "saved": true,
+      "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee.A_HK416_base_quick_melee",
+      "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_quick_melee.A_HK416_vertical_quick_melee",
+      "duration": 0.6000000238418579
+    },
+    "canted": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_canted.DA_canted",
+      "saved": true,
+      "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee.A_HK416_base_quick_melee",
+      "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/canted/A_HK416_canted_quick_melee.A_HK416_canted_quick_melee",
+      "duration": 0.6000000238418579
+    },
+    "prism": {
+      "asset": "/Game/Weapons/AnimationProfiles20261001/ue_hk416/DA_prism.DA_prism",
+      "saved": true,
+      "base": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_quick_melee.A_HK416_base_quick_melee",
+      "authored": "/Game/Weapons/HK416/Reworked20260930/Animations/prism/A_HK416_prism_quick_melee.A_HK416_prism_quick_melee",
+      "duration": 0.6000000238418579
+    }
+  },
+  "complete": true,
+  "runtime_tested": false
+}

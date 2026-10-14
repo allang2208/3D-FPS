@@ -1,0 +1,111 @@
+{
+  "pairs": {
+    "laser + laser": 0,
+    "laser + flashlight": 0,
+    "laser + blessed_laser": 0,
+    "flashlight + laser": 0,
+    "flashlight + flashlight": 0,
+    "flashlight + blessed_laser": 0,
+    "blessed_laser + laser": 0,
+    "blessed_laser + flashlight": 0,
+    "blessed_laser + blessed_laser": 0
+  },
+  "assemblies": {
+    "HK416-laser-1": {
+      "bounds_gun_m": [
+        [
+          -0.038752373307943344,
+          0.07416471838951111,
+          0.047495827078819275
+        ],
+        [
+          0.05350816622376442,
+          0.29870906472206116,
+          0.11049982905387878
+        ]
+      ],
+      "added_bridge_count": 0,
+      "native_clamp": "original emitter and clamp retained as one rigid assembly"
+    },
+    "HK416-laser-2": {
+      "bounds_gun_m": [
+        [
+          -0.05339464172720909,
+          0.05816471949219704,
+          0.047767430543899536
+        ],
+        [
+          0.03886590152978897,
+          0.3307090699672699,
+          0.11077143251895905
+        ]
+      ],
+      "added_bridge_count": 0,
+      "native_clamp": "original emitter and clamp retained as one rigid assembly"
+    },
+    "HK416-flashlight-1": {
+      "bounds_gun_m": [
+        [
+          0.024949871003627777,
+          0.1969967782497406,
+          0.06002144515514374
+        ],
+        [
+          0.07113084197044373,
+          0.3150072991847992,
+          0.09829224646091461
+        ]
+      ],
+      "added_bridge_count": 0,
+      "native_clamp": "original emitter and clamp retained as one rigid assembly"
+    },
+    "HK416-flashlight-2": {
+      "bounds_gun_m": [
+        [
+          -0.0710173100233078,
+          0.1969967782497406,
+          0.05997501313686371
+        ],
+        [
+          -0.024836339056491852,
+          0.3150072991847992,
+          0.09824581444263458
+        ]
+      ],
+      "added_bridge_count": 0,
+      "native_clamp": "original emitter and clamp retained as one rigid assembly"
+    },
+    "HK416-blessed_laser-1": {
+      "bounds_gun_m": [
+        [
+          0.026241855695843697,
+          0.1853598952293396,
+          0.06452159583568573
+        ],
+        [
+          0.07222016900777817,
+          0.2677827775478363,
+          0.092556431889534
+        ]
+      ],
+      "added_bridge_count": 0,
+      "native_clamp": "original Laser_sight/mount_low, unchanged shape and source UV"
+    },
+    "HK416-blessed_laser-2": {
+      "bounds_gun_m": [
+        [
+          -0.07210663706064224,
+          0.1893598884344101,
+          0.06571082025766373
+        ],
+        [
+          -0.02612832747399807,
+          0.271782785654068,
+          0.093745656311512
+        ]
+      ],
+      "added_bridge_count": 0,
+      "native_clamp": "original Laser_sight/mount_low, unchanged shape and source UV"
+    }
+  }
+}

@@ -117,3 +117,7 @@ receipt['status']='HK416 common attachment meshes, materials, skeletal sections 
 
 script=O/"import_icons.py"
 exec(compile(script.read_text(encoding="utf-8"),str(script),"exec"),{"__file__":str(script),"__name__":"__main__"})
+
+# Restore the current six quick-melee clips and rebuild only their profile entries.
+script=O.parent/'HK416QuickMelee20261008/import_assets.py'
+exec(compile(script.read_text(encoding='utf-8'),str(script),'exec'),{'__file__':str(script),'__name__':'__main__'})

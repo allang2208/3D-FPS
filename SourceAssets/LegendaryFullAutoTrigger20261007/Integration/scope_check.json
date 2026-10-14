@@ -1,0 +1,18 @@
+{
+  "catalog_check": "passed",
+  "compatible_weapons": [
+    "ue_m1911",
+    "ue_pit_viper2011"
+  ],
+  "base_modified_intervals_seconds": {
+    "ue_m1911": 0.144,
+    "ue_pit_viper2011": 0.12
+  },
+  "target_existing_options_preserved": true,
+  "other_parallel_catalog_changes_preserved": [
+    "ue_super90"
+  ],
+  "shared_icon_sha256": "a88fb965053ffc48190cdee3cbfeae73a2dff97019e3b4022482d6c4f5a473be",
+  "input_mappings": "V main, H offhand",
+  "runtime_tested": false
+}

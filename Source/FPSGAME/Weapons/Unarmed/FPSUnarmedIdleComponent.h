@@ -58,6 +58,8 @@ public:
     bool IsTriggerHeld() const {return bTriggerHeld;}
     int32 GetPunchSide() const {return PunchSide;}
     void SetTriggerHeld(bool Held);
+    /** One punch, including the F escape contact; does not hold the trigger. */
+    bool BeginPunch();
     void CancelAttack();
     void AdvanceActionBeforeCamera(float Delta);
     bool GetStrikeProbe(FVector& Origin);
@@ -84,6 +86,5 @@ private:
     bool bTriggerHeld=false;
     int32 NextPunchSide=1,PunchSide=1;
     bool CanPunch() const;
-    bool BeginPunch();
     void RefreshPunchSample();
 };

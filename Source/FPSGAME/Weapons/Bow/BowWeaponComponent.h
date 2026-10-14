@@ -41,6 +41,12 @@ enum class EBowStage : uint8
     LetDown,
 };
 
+struct FBowDrawRhythm
+{
+    float Elapsed=0.f,FullDrawSeconds=1.4f,Opacity=1.f;
+    bool bPerfect=false,bReleased=false;
+};
+
 /**
  * 弓武器组件：数值、节奏和资源由 bows.json 驱动；单一动作时钟采样 Bow 原生骨架的八段动画。
  * Sparrow 的手／肘轨迹经 V7 裸臂比例适配，弓挂 bow_grip、弦挂 bow_nock 接触标记。
@@ -54,6 +60,7 @@ class FPSGAME_API UBowWeaponComponent : public UActorComponent
     GENERATED_BODY()
     friend class UFPSPlayerBodyComponent;
     friend class UFPSConsumableAuditCommandlet;
+    friend class UBowSkillTrainingAuditCommandlet;
 
 public:
     UBowWeaponComponent();
@@ -71,8 +78,9 @@ public:
     UFUNCTION(BlueprintPure, Category="Bow") bool IsDrawing() const
     { return Stage == EBowStage::Drawing || Stage == EBowStage::Holding; }
     UFUNCTION(BlueprintPure, Category="Bow") bool HasArrowNocked() const { return bArrowNocked; }
-    /** 0 = 未拉，1 = 拉满。伤害、速度、镜头后座只看这一个数。 */
+    /** 0 = 未拉，1 = 拉满；节拍奖励另按同一动作时钟判定。 */
     UFUNCTION(BlueprintPure, Category="Bow") float DrawFraction() const;
+    bool GetDrawRhythm(FBowDrawRhythm& Out) const;
     UFUNCTION(BlueprintPure, Category="Bow") EBowStage GetStage() const { return Stage; }
     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
 
@@ -86,7 +94,7 @@ public:
     /** Save the selected arrow type, then nock it; spending still happens only at launch. */
     bool SwitchArrow(const FString& Target);
     /** 左键松开：拉距不足 50% 缓收弓；达到门槛按当前拉距结算。满拉力竭仍会发射。 */
-    void ReleasePrimaryAttack();
+    void ReleasePrimaryAttack(bool bAutomatic=false);
     /** 右键：连续 ADS 对位与轻度变焦，不重启当前拉弓动作。 */
     void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld && Stage != EBowStage::QuickCombat; }
     bool IsAimHeld() const { return IsEquipped() && bSteadyHeld; }
@@ -199,7 +207,11 @@ private:
     FString PresentationSignature(const FColdSteelItem* Item) const;
     void CollectPartAssets(const FColdSteelItem* Item);
     bool ConsumeArrowFromPouch(FString& Reason, bool& bSpentOwnedArrow);
-    bool LooseArrow(float Ratio);
+    bool LooseArrow(float Ratio,bool bPerfect);
+    float DrawElapsed() const;
+    void EndNetworkDraw();
+    bool bNetworkDrawActive=false,bLastPerfectRelease=false;
+    float LastReleaseElapsed=0.f;
     FVector NockPoint() const;
     FVector ArrowTipPoint() const;
     /** 手动采样手臂片段：Position 是片段内秒数，bLoop 时按秒取模（与采集工具同一口径）。 */

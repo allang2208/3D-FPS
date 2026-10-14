@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "DealerPokerTypes.h"
 #include "ColdSteelEnchantmentCombat.generated.h"
 
 struct FColdSteelShotEffects {int32 Piercing=0,Poison=0;};
@@ -22,6 +23,7 @@ struct FColdSteelConvergence
 };
 namespace ColdSteelCombat
 {
+    FPSGAME_API DealerPoker::FShot Dealer(const UColdSteelEnhancementSystem* Enhancement,const FColdSteelItem* Item);
     struct FBigBlind
     {
         bool Enabled=false;
@@ -59,6 +61,7 @@ class FPSGAME_API UColdSteelPoisonComponent : public UActorComponent
 public:
     void AddStacks(AActor* Source,int32 Amount);
     int32 GetStacks()const{return Stacks;}
+    void ClearPoison();
     void Pulse();
 protected:
     virtual void EndPlay(const EEndPlayReason::Type)override;

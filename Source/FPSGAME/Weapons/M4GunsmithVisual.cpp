@@ -29,6 +29,8 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if(Variant==TEXT("thermal_scope")){SetThermalOptic();return;}
+    if(HasThermalScope()&&LPVORing){LPVORing->DestroyComponent();LPVORing=nullptr;}
     if (IsSuper90Weapon()) { SetSuper90Optic(Variant); return; }
     if (IsRSH12Weapon()) { SetRSH12Optic(Variant); return; }
     if (Variant == CommonHK416Parts::Optic)
@@ -251,6 +253,8 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
+    if (HasThermalScope()&&HolographicOptic&&HolographicOptic->GetStaticMesh())
+        if(const auto* Center=HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))return Center->RelativeLocation;
     if (IsPitViperWeapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
             return Center->RelativeLocation;
@@ -311,6 +315,12 @@ void AFPSGAMECharacter::SetLPVOMagnification(float Value)
 bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 {
     if(Bow && Bow->IsEquipped())return false;
+    if(HasThermalScope()&&IsAiming())
+    {
+        if(!FMath::IsNearlyZero(Delta))ThermalZoomIndex=uint8(FMath::Clamp(int32(ThermalZoomIndex)+(Delta>0?1:-1),0,2));
+        if(LPVORing)LPVORing->SetRelativeRotation(FRotator(-70.f*ThermalZoomIndex,0,0));
+        return true;
+    }
     if(OpticVariant!=TEXT("lpvo_1_6x")||!IsAiming())return false;
     SetLPVOMagnification(LPVOMagnification+Delta);return true;
 }
@@ -321,7 +331,7 @@ float AFPSGAMECharacter::GetScopePresentationAlpha() const
     // through the visible physical sight. No screen mask, HUD or arms hiding.
     // Bow::AimVerticalFOV still supplies the selected fixed 2x/4x zoom.
     if(Bow && Bow->IsEquipped())return 0.f;
-    if((!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x"))||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
+    if((!HasThermalScope()&&!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x"))||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
     return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
 }
 
@@ -345,6 +355,7 @@ float AFPSGAMECharacter::GetLastShotSeed() const
 void AFPSGAMECharacter::UpdateScopePresentation()
 {
     UpdateScopeLensMaterial();
+    UpdateThermalPresentation();
     const bool bScopeHidesViewmodel=GetScopePresentationAlpha()>.5f;
     if(!bScopeHidesViewmodel&&ScopeHiddenParts.IsEmpty())return;
     const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>();

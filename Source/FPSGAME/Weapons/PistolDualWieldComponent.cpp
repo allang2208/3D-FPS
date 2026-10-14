@@ -1,6 +1,7 @@
 #include "PistolDualWieldComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "DualPistolReloadTiming.h"
+#include "FullAutoTrigger.h"
 #include "TacticalDeviceVariants.h"
 #include "G18WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
@@ -274,6 +275,10 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         auto& H=Hands[Side];H.Item=Side?*Off:*Main;
         H.FX->SetBigBlindEnabled(ColdSteelCombat::BigBlind(Player->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),&H.Item).Enabled);
         const auto Parts=G->Installed(H.Item);
+        const bool Selectable=FullAutoTrigger::Installed(H.Item.Definition,Parts);
+        const bool Automatic=FullAutoTrigger::Automatic(H.Item,Selectable);
+        if(H.SelectableAutomatic!=Selectable || H.Automatic!=Automatic)H.Held=H.Pending=false;
+        H.SelectableAutomatic=Selectable;H.Automatic=Automatic;
         if(Side==0&&H.Item.Definition==RSH12WeaponAssets::Definition)
             RSH12HeavyGrip::ShowFactory(H.Mesh,!(RSH12HeavyGrip::IsPart(Parts.FindRef(TEXT("grip_body")))
                 &&Player->GripBodyAttachment&&Player->GripBodyAttachment->IsVisible()));
@@ -473,7 +478,7 @@ FString UPistolDualWieldComponent::QuickCombatClipKind(int32 Side,bool LeftStrik
         // the most canted axis, including when an optic/tactical is also fitted.
         if(Muzzle==TEXT("true") || Muzzle==TEXT("tactical_suppressor") || Muzzle==TEXT("multi_caliber_suppressor") ||
            (H.Item.Definition==RSH12WeaponAssets::Definition && Muzzle==TEXT("rsh12_heavy_suppressor")))Kind+=TEXT("_long");
-        else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot") || Optic==TEXT("eoth_holographic")
+        else if(Optic==TEXT("holographic") || Optic==TEXT("panoramic_red_dot") || Optic==TEXT("eoth_holographic") || Optic==TEXT("thermal_scope")
             || (H.Item.Definition==RSH12WeaponAssets::Definition && RSH12OpticAssets::IsSquare(Optic))
             || TacticalDeviceVariants::IsLaser(Tactical) || Tactical==TEXT("flashlight"))Kind+=TEXT("_fitted");
     }
@@ -676,7 +681,7 @@ void UPistolDualWieldComponent::Advance(float Delta)
         }
         if(InputAvailable() && !Player->IsChoosingAmmo() && !H.Action && (H.ReloadQueued || WeaponReloadStages::NeedsCycle(H.Item)
             || (H.Rounds==0 && (InfiniteReserve(Side)||Reserve(Side)>0))))BeginReload(Side);
-        if(H.Item.Definition==G18WeaponAssets::Definition)
+        if(H.Automatic)
         {
             // Preserve this hand's cadence across variable frame times, with
             // bounded catch-up. Action gates remain owned by TryFire.

@@ -1,0 +1,56 @@
+{
+  "complete": true,
+  "source_authored": true,
+  "meshes": {
+    "phantom": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_phantom_reargrip",
+      "sha256": "e366517e31b39e615a778b4397d610487368ad4f96834110a86dc1a8f1509b40",
+      "source_sha256": "d3153de64c393afbd17e2118a322e8e1b0645472cb334827ebbce20e22d292da",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\Exports\\SM_LMG201_phantom_reargrip.fbx",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\SM_LMG201_phantom_reargrip.blend",
+      "fbx_sha256": "1fa97d635f7e95499a25564ec1eb2113f33b28236a5dc1cb92f741cd47117ecf",
+      "candidate": "/Game/Weapons/LMG201/GripSolidJunction20261007/Sources/SM_Solid_phantom_1fa97d635f",
+      "saved": true,
+      "materials": [
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48",
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48"
+      ],
+      "material_changed": false,
+      "cut_z_m": -0.03
+    },
+    "balanced": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_balanced_reargrip",
+      "sha256": "0f39091855f7f3abedf017d63dbd1baa6c8e4f45579c2c90554752632cef14d1",
+      "source_sha256": "8ce632727182e8f3b9a630721373d338b1d5d63b326fc9db22b5ad04950b0bbd",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\Exports\\SM_LMG201_balanced_reargrip.fbx",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\SM_LMG201_balanced_reargrip.blend",
+      "fbx_sha256": "d53d98c5b4eb1def9789a2d711663269ac37a45f8bdd8d1703adff0863fc4083",
+      "candidate": "/Game/Weapons/LMG201/GripSolidJunction20261007/Sources/SM_Solid_balanced_d53d98c5b4",
+      "saved": true,
+      "materials": [
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730",
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730"
+      ],
+      "material_changed": false,
+      "cut_z_m": -0.028
+    },
+    "stable": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_stable_antislip_reargrip",
+      "sha256": "b7d25d66e0eb53ef5407b2f809489b755abcdec67f8845555b9ed05e21e8e954",
+      "source_sha256": "3ed82040818595d1914fef6401727e61c0f7e40e31cf36e00dc09c1f4b4ae7bf",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\Exports\\SM_LMG201_stable_antislip_reargrip.fbx",
+      "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG201GripSolidJunction20261007\\SM_LMG201_stable_antislip_reargrip.blend",
+      "fbx_sha256": "79510b1e244fc7005b8d02132a95e9ce0e18514503e477a587dac7a1548efa33",
+      "candidate": "/Game/Weapons/LMG201/GripSolidJunction20261007/Sources/SM_Solid_stable_79510b1e24",
+      "saved": true,
+      "materials": [
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb",
+        "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb"
+      ],
+      "material_changed": false,
+      "cut_z_m": -0.03
+    }
+  },
+  "runtime_tested": false,
+  "rendered": false
+}

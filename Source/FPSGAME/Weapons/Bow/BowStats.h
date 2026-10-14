@@ -5,6 +5,13 @@ class UColdSteelStatusModel;
 namespace ColdSteelBow
 {
 inline constexpr float MinimumFireDrawFraction = .5f;
+inline constexpr float PerfectReleaseWindow = .20f;
+inline constexpr float PerfectReleaseMultiplier = 1.25f;
+inline bool IsPerfectRelease(float Elapsed,float FullDrawSeconds)
+{
+    return FMath::IsFinite(Elapsed) && Elapsed >= FullDrawSeconds
+        && Elapsed <= FullDrawSeconds + PerfectReleaseWindow;
+}
 // Below half draw no arrow can launch. Half draw deals 50%, full draw 150%.
 float DrawDamageMultiplier(float DrawFraction);
 struct FStats

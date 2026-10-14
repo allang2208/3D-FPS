@@ -1,0 +1,323 @@
+{
+  "phantom": {
+    "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_phantom_reargrip",
+    "sha256": "9fcfb00813c79f381ad68ef020fa3c1d1b23326b2887018de1e64e06ffd223c6",
+    "vertices": 255046,
+    "triangles": 481319,
+    "uv_sets": 5,
+    "slots": [
+      "LMG20122_Interface",
+      "LMG20122_phantom_reargrip_1"
+    ],
+    "materials": [
+      "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48",
+      "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48"
+    ],
+    "material_details": [
+      {
+        "path": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48",
+        "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_c64c234a4a75.M_LMG201_R01_c64c234a4a75",
+        "scalars": {
+          "PKM_MicroScratchStrength": 0.0,
+          "PKM_SatinRoughness": 0.3569999933242798,
+          "PKM_SatinColorWeight": 0.9800000190734863,
+          "G43_LegacyWetDisabled": 0.0,
+          "G43_Zero": 0.0,
+          "G43_One": 1.0,
+          "G43_SourceRoughness": 0.4000000059604645,
+          "G43_SourceMetal": 0.7300000190734863,
+          "WeaponWetness": 0.0,
+          "G43_Roughness": 0.5199999809265137,
+          "G43_Metallic": 0.0,
+          "G43_MicroNormalStrength": 0.0,
+          "G43_Specular": 0.41999998688697815,
+          "F50_StructuralNormalStrength": 0.75,
+          "R01_GrainRoughness": 0.009999999776482582,
+          "R01_MottleRoughness": 0.0017999999690800905,
+          "R01_PolymerStipple": 0.011250000447034836,
+          "R01_EdgeHighlight": 0.019999999552965164
+        },
+        "custom": [
+          {
+            "description": "PKM20 varied roughness",
+            "code": "// Replace the old .56-.80 matte clamp; original source map remains an input.\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal);\nfloat structure=clamp((Base-.40)*.16,-.035,.035);\nfloat satin=clamp(Center+structure+(Detail.g-.5)*.024\n                  -Detail.r*Strength*.055,.28,.50);\nreturn lerp(Base,satin,region);\n"
+          },
+          {
+            "description": "G43 roughness hierarchy and single wet film",
+            "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          },
+          {
+            "description": "G43 shallow micro normal",
+            "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));"
+          },
+          {
+            "description": "J44 continuous neck structural normal fade",
+            "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));"
+          },
+          {
+            "description": "201 R01 fine roughness and single wet film",
+            "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          }
+        ]
+      },
+      {
+        "path": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_8745f6a23b48.MI_RG01_phantom_8745f6a23b48",
+        "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_c64c234a4a75.M_LMG201_R01_c64c234a4a75",
+        "scalars": {
+          "PKM_MicroScratchStrength": 0.0,
+          "PKM_SatinRoughness": 0.3569999933242798,
+          "PKM_SatinColorWeight": 0.9800000190734863,
+          "G43_LegacyWetDisabled": 0.0,
+          "G43_Zero": 0.0,
+          "G43_One": 1.0,
+          "G43_SourceRoughness": 0.4000000059604645,
+          "G43_SourceMetal": 0.7300000190734863,
+          "WeaponWetness": 0.0,
+          "G43_Roughness": 0.5199999809265137,
+          "G43_Metallic": 0.0,
+          "G43_MicroNormalStrength": 0.0,
+          "G43_Specular": 0.41999998688697815,
+          "F50_StructuralNormalStrength": 0.75,
+          "R01_GrainRoughness": 0.009999999776482582,
+          "R01_MottleRoughness": 0.0017999999690800905,
+          "R01_PolymerStipple": 0.011250000447034836,
+          "R01_EdgeHighlight": 0.019999999552965164
+        },
+        "custom": [
+          {
+            "description": "PKM20 varied roughness",
+            "code": "// Replace the old .56-.80 matte clamp; original source map remains an input.\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal);\nfloat structure=clamp((Base-.40)*.16,-.035,.035);\nfloat satin=clamp(Center+structure+(Detail.g-.5)*.024\n                  -Detail.r*Strength*.055,.28,.50);\nreturn lerp(Base,satin,region);\n"
+          },
+          {
+            "description": "G43 roughness hierarchy and single wet film",
+            "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          },
+          {
+            "description": "G43 shallow micro normal",
+            "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));"
+          },
+          {
+            "description": "J44 continuous neck structural normal fade",
+            "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));"
+          },
+          {
+            "description": "201 R01 fine roughness and single wet film",
+            "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          }
+        ]
+      }
+    ]
+  },
+  "balanced": {
+    "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_balanced_reargrip",
+    "sha256": "577ea2ffff11df214255216fb114c9e90170581dcbfac8dc92e0b4d2c951016f",
+    "vertices": 239932,
+    "triangles": 465575,
+    "uv_sets": 5,
+    "slots": [
+      "LMG20122_Interface",
+      "LMG20122_balanced_reargrip_1"
+    ],
+    "materials": [
+      "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730",
+      "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730"
+    ],
+    "material_details": [
+      {
+        "path": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730",
+        "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_101ad9d50405.M_LMG201_R01_101ad9d50405",
+        "scalars": {
+          "PKM_MicroScratchStrength": 0.0,
+          "PKM_SatinRoughness": 0.3569999933242798,
+          "PKM_SatinColorWeight": 0.9800000190734863,
+          "G43_LegacyWetDisabled": 0.0,
+          "G43_Zero": 0.0,
+          "G43_One": 1.0,
+          "G43_SourceRoughness": 0.4000000059604645,
+          "G43_SourceMetal": 0.7300000190734863,
+          "WeaponWetness": 0.0,
+          "G43_Roughness": 0.5199999809265137,
+          "G43_Metallic": 0.0,
+          "G43_MicroNormalStrength": 0.0,
+          "G43_Specular": 0.41999998688697815,
+          "F50_StructuralNormalStrength": 0.75,
+          "R01_GrainRoughness": 0.009999999776482582,
+          "R01_MottleRoughness": 0.0017999999690800905,
+          "R01_PolymerStipple": 0.011250000447034836,
+          "R01_EdgeHighlight": 0.019999999552965164
+        },
+        "custom": [
+          {
+            "description": "PKM20 varied roughness",
+            "code": "// Replace the old .56-.80 matte clamp; original source map remains an input.\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal);\nfloat structure=clamp((Base-.40)*.16,-.035,.035);\nfloat satin=clamp(Center+structure+(Detail.g-.5)*.024\n                  -Detail.r*Strength*.055,.28,.50);\nreturn lerp(Base,satin,region);\n"
+          },
+          {
+            "description": "G43 roughness hierarchy and single wet film",
+            "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          },
+          {
+            "description": "G43 shallow micro normal",
+            "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));"
+          },
+          {
+            "description": "J44 continuous neck structural normal fade",
+            "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));"
+          },
+          {
+            "description": "201 R01 fine roughness and single wet film",
+            "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          }
+        ]
+      },
+      {
+        "path": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_3fa47f97e730.MI_RG01_balanced_3fa47f97e730",
+        "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_101ad9d50405.M_LMG201_R01_101ad9d50405",
+        "scalars": {
+          "PKM_MicroScratchStrength": 0.0,
+          "PKM_SatinRoughness": 0.3569999933242798,
+          "PKM_SatinColorWeight": 0.9800000190734863,
+          "G43_LegacyWetDisabled": 0.0,
+          "G43_Zero": 0.0,
+          "G43_One": 1.0,
+          "G43_SourceRoughness": 0.4000000059604645,
+          "G43_SourceMetal": 0.7300000190734863,
+          "WeaponWetness": 0.0,
+          "G43_Roughness": 0.5199999809265137,
+          "G43_Metallic": 0.0,
+          "G43_MicroNormalStrength": 0.0,
+          "G43_Specular": 0.41999998688697815,
+          "F50_StructuralNormalStrength": 0.75,
+          "R01_GrainRoughness": 0.009999999776482582,
+          "R01_MottleRoughness": 0.0017999999690800905,
+          "R01_PolymerStipple": 0.011250000447034836,
+          "R01_EdgeHighlight": 0.019999999552965164
+        },
+        "custom": [
+          {
+            "description": "PKM20 varied roughness",
+            "code": "// Replace the old .56-.80 matte clamp; original source map remains an input.\nfloat region=saturate(Region)*smoothstep(.20,.60,Metal);\nfloat structure=clamp((Base-.40)*.16,-.035,.035);\nfloat satin=clamp(Center+structure+(Detail.g-.5)*.024\n                  -Detail.r*Strength*.055,.28,.50);\nreturn lerp(Base,satin,region);\n"
+          },
+          {
+            "description": "G43 roughness hierarchy and single wet film",
+            "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          },
+          {
+            "description": "G43 shallow micro normal",
+            "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));"
+          },
+          {
+            "description": "J44 continuous neck structural normal fade",
+            "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));"
+          },
+          {
+            "description": "201 R01 fine roughness and single wet film",
+            "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          }
+        ]
+      }
+    ]
+  },
+  "stable": {
+    "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_stable_antislip_reargrip",
+    "sha256": "85847c5811508e48950ea52805ecaa86400be72c830812c85603930a7a05aac8",
+    "vertices": 214654,
+    "triangles": 422464,
+    "uv_sets": 5,
+    "slots": [
+      "LMG20122_Interface",
+      "LMG20122_stable_antislip_reargrip_1"
+    ],
+    "materials": [
+      "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb",
+      "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb"
+    ],
+    "material_details": [
+      {
+        "path": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb",
+        "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_deb7da1c49e8.M_LMG201_R01_deb7da1c49e8",
+        "scalars": {
+          "PKM_MicroScratchStrength": 0.0,
+          "G43_Zero": 0.0,
+          "G43_One": 1.0,
+          "G43_SourceRoughness": 0.4000000059604645,
+          "G43_SourceMetal": 0.7300000190734863,
+          "WeaponWetness": 0.0,
+          "G43_Roughness": 0.6100000143051147,
+          "G43_Metallic": 0.0,
+          "G43_MicroNormalStrength": 0.0,
+          "G43_Specular": 0.41999998688697815,
+          "F50_StructuralNormalStrength": 0.75,
+          "R01_GrainRoughness": 0.009999999776482582,
+          "R01_MottleRoughness": 0.0017999999690800905,
+          "R01_PolymerStipple": 0.011250000447034836,
+          "R01_EdgeHighlight": 0.019999999552965164
+        },
+        "custom": [
+          {
+            "description": "PKM20 varied roughness",
+            "code": "float grain=(Detail.g-.5)*.045-Detail.b*.018; return saturate(Base+Region*grain-Detail.r*Strength*Region*.12);"
+          },
+          {
+            "description": "G43 roughness hierarchy and single wet film",
+            "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          },
+          {
+            "description": "G43 shallow micro normal",
+            "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));"
+          },
+          {
+            "description": "J44 continuous neck structural normal fade",
+            "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));"
+          },
+          {
+            "description": "201 R01 fine roughness and single wet film",
+            "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          }
+        ]
+      },
+      {
+        "path": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_c44c065053bb.MI_RG01_stable_c44c065053bb",
+        "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_deb7da1c49e8.M_LMG201_R01_deb7da1c49e8",
+        "scalars": {
+          "PKM_MicroScratchStrength": 0.0,
+          "G43_Zero": 0.0,
+          "G43_One": 1.0,
+          "G43_SourceRoughness": 0.4000000059604645,
+          "G43_SourceMetal": 0.7300000190734863,
+          "WeaponWetness": 0.0,
+          "G43_Roughness": 0.6100000143051147,
+          "G43_Metallic": 0.0,
+          "G43_MicroNormalStrength": 0.0,
+          "G43_Specular": 0.41999998688697815,
+          "F50_StructuralNormalStrength": 0.75,
+          "R01_GrainRoughness": 0.009999999776482582,
+          "R01_MottleRoughness": 0.0017999999690800905,
+          "R01_PolymerStipple": 0.011250000447034836,
+          "R01_EdgeHighlight": 0.019999999552965164
+        },
+        "custom": [
+          {
+            "description": "PKM20 varied roughness",
+            "code": "float grain=(Detail.g-.5)*.045-Detail.b*.018; return saturate(Base+Region*grain-Detail.r*Strength*Region*.12);"
+          },
+          {
+            "description": "G43 roughness hierarchy and single wet film",
+            "code": "float fresh=Center+(D.r-.5)*0.015+(D.a-.5)*.020-D.b*.006-Edge*.018;float r=lerp(Base,clamp(fresh,.24,.70),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          },
+          {
+            "description": "G43 shallow micro normal",
+            "code": "return normalize(float3(N.xy+Detail.xy*Strength,N.z));"
+          },
+          {
+            "description": "J44 continuous neck structural normal fade",
+            "code": "float a=1-smoothstep(0.,.12,UV.x);return normalize(float3(N.xy*a,lerp(1.,N.z,a)));"
+          },
+          {
+            "description": "201 R01 fine roughness and single wet film",
+            "code": "float fine=Center+(D.r-.5)*2.*GrainRoughness+(D.g-.5)*2.*MottleRoughness+(D.a-.375)*PolymerStipple-Edge*EdgeHighlight;float r=lerp(Base,clamp(fine,.20,.85),Region);return lerp(r,max(.20,r*.78),saturate(Wet)*Region);"
+          }
+        ]
+      }
+    ]
+  }
+}

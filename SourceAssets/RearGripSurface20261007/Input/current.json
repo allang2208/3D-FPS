@@ -1,0 +1,1906 @@
+{
+  "meshes": {
+    "M4_phantom": {
+      "path": "/Game/Weapons/RearGripFinish20260913/M4/phantom/SM_PhantomRearGrip",
+      "sha256": "448eecb4505e3b00e6c7da5343bb19e1545b32e8e118448b4c07127bbcbf332f",
+      "family": "M4",
+      "kind": "phantom",
+      "vertices": 106014,
+      "triangles": 50784,
+      "uv_sets": 2,
+      "slots": [
+        "M_PhantomRearGrip",
+        "M_PhantomRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_fa91e71498.MI_M4_R01_furniture_fa91e71498",
+        "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_34040cae2e.MI_M4_R01_mount_34040cae2e"
+      ]
+    },
+    "M4_balanced": {
+      "path": "/Game/Weapons/RearGripFinish20260913/M4/balanced/Seam20260914/SM_BalancedRearGrip",
+      "sha256": "24df639807cb98b724ca983d82f9ccc33fa1927fa6a077d71aa7daeaa99b6d30",
+      "family": "M4",
+      "kind": "balanced",
+      "vertices": 72817,
+      "triangles": 55318,
+      "uv_sets": 2,
+      "slots": [
+        "M_BalancedRearGrip",
+        "M_BalancedRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_2a96f50aa4.MI_M4_R01_furniture_2a96f50aa4",
+        "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_7e7362e040.MI_M4_R01_mount_7e7362e040"
+      ]
+    },
+    "M4_stable": {
+      "path": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M4/SM_StableAntiSlipRearGrip",
+      "sha256": "c577696f955c946c322fc0626ba78231d81eec23e0e450d5c1faa3005932cec1",
+      "family": "M4",
+      "kind": "stable",
+      "vertices": 51816,
+      "triangles": 30284,
+      "uv_sets": 3,
+      "slots": [
+        "M_StableAntiSlipRearGrip",
+        "M_StableGrip_Collar_M4"
+      ],
+      "materials": [
+        "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_345c2e0588.MI_M4_R01_furniture_345c2e0588",
+        "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_58601c7aad.MI_M4_R01_mount_58601c7aad"
+      ]
+    },
+    "AKM_phantom": {
+      "path": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/SM_PhantomRearGrip",
+      "sha256": "f33558d0572fef4dfaf635a01afde2bcae31d03db609d88bf9fb43accb10317d",
+      "family": "AKM",
+      "kind": "phantom",
+      "vertices": 106467,
+      "triangles": 51690,
+      "uv_sets": 2,
+      "slots": [
+        "M_PhantomRearGrip",
+        "M_PhantomRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_82a50b73b5.MI_AKM_R01_furniture_metal_82a50b73b5",
+        "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_75329df74f.MI_AKM_R01_mount_75329df74f"
+      ]
+    },
+    "AKM_balanced": {
+      "path": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/SM_BalancedRearGrip",
+      "sha256": "49f497b5f286638965e4e42188b8e6553b7bb2f064f11e1ce5759fda5df1bd91",
+      "family": "AKM",
+      "kind": "balanced",
+      "vertices": 70334,
+      "triangles": 50356,
+      "uv_sets": 2,
+      "slots": [
+        "M_BalancedRearGrip",
+        "M_BalancedRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_7f0934e0d0.MI_AKM_R01_furniture_metal_7f0934e0d0",
+        "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_a8aca91e39.MI_AKM_R01_mount_a8aca91e39"
+      ]
+    },
+    "AKM_stable": {
+      "path": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/AKM/SM_StableAntiSlipRearGrip",
+      "sha256": "5128a4ec3d11204ceadb935d4f52780f1cfc82120ad9b4bc24fcfb81aaae4f20",
+      "family": "AKM",
+      "kind": "stable",
+      "vertices": 51903,
+      "triangles": 30458,
+      "uv_sets": 3,
+      "slots": [
+        "M_StableAntiSlipRearGrip",
+        "M_StableGrip_Collar_AKM"
+      ],
+      "materials": [
+        "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip",
+        "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_89fd38824f.MI_AKM_R01_mount_89fd38824f"
+      ]
+    },
+    "QBZ191_phantom": {
+      "path": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/SM_PhantomRearGrip",
+      "sha256": "c31f94a20f1b870a2ad75c993b684fa187c4b83e76c0044cd650c1566ad129a0",
+      "family": "QBZ191",
+      "kind": "phantom",
+      "vertices": 106290,
+      "triangles": 51336,
+      "uv_sets": 2,
+      "slots": [
+        "M_PhantomRearGrip",
+        "M_PhantomRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body",
+        "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar"
+      ]
+    },
+    "QBZ191_balanced": {
+      "path": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/SM_BalancedRearGrip",
+      "sha256": "7effb852d84b87855bdee911acf8ce8c0b240a064447f6e3aa726fc79f8e10d8",
+      "family": "QBZ191",
+      "kind": "balanced",
+      "vertices": 70422,
+      "triangles": 50532,
+      "uv_sets": 2,
+      "slots": [
+        "M_BalancedRearGrip",
+        "M_BalancedRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body",
+        "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar"
+      ]
+    },
+    "QBZ191_stable": {
+      "path": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/QBZ191/SM_StableAntiSlipRearGrip",
+      "sha256": "284c38e6bffe424746616af3d83320486120060c733e215ba860aee5e03f66fe",
+      "family": "QBZ191",
+      "kind": "stable",
+      "vertices": 51971,
+      "triangles": 30594,
+      "uv_sets": 3,
+      "slots": [
+        "M_StableAntiSlipRearGrip",
+        "M_StableGrip_Collar_QBZ191"
+      ],
+      "materials": [
+        "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip",
+        "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/QBZ191/M_StableGrip_Collar_QBZ191.M_StableGrip_Collar_QBZ191"
+      ]
+    },
+    "HK416_phantom": {
+      "path": "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_phantom_reargrip",
+      "sha256": "b3488f555e41177a1f1a1dec14f727b11d3310449947bd38bb8e1205bd5746cb",
+      "family": "HK416",
+      "kind": "phantom",
+      "vertices": 52504,
+      "triangles": 51022,
+      "uv_sets": 4,
+      "slots": [
+        "M_PhantomRearGrip",
+        "M_PhantomRearGrip_Collar",
+        "HK416_InterfaceSteel"
+      ],
+      "materials": [
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_28b229cf26.MI_HK416_R01_furniture_28b229cf26",
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_14c4f144b7.MI_HK416_R01_mount_14c4f144b7",
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_72e17e8258.MI_HK416_R01_mount_72e17e8258"
+      ]
+    },
+    "HK416_balanced": {
+      "path": "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_balanced_reargrip",
+      "sha256": "a70769a097bdef7add1c28fa58b6c44bdecd88947f9a59e316a9f75acd639fdb",
+      "family": "HK416",
+      "kind": "balanced",
+      "vertices": 43029,
+      "triangles": 46494,
+      "uv_sets": 4,
+      "slots": [
+        "M_BalancedRearGrip",
+        "M_BalancedRearGrip_Collar",
+        "HK416_InterfaceSteel"
+      ],
+      "materials": [
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_032f8140af.MI_HK416_R01_furniture_032f8140af",
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_a9ed83aafb.MI_HK416_R01_mount_a9ed83aafb",
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_68e2ec09e9.MI_HK416_R01_mount_68e2ec09e9"
+      ]
+    },
+    "HK416_stable": {
+      "path": "/Game/Weapons/HK416/CommonAttachments20260930/Meshes/SM_HK416_stable_antislip_reargrip",
+      "sha256": "9c3e940c07bbba10f4b13795cf0649120ec1895fb3f2d57b98b979db1022a183",
+      "family": "HK416",
+      "kind": "stable",
+      "vertices": 29754,
+      "triangles": 32228,
+      "uv_sets": 4,
+      "slots": [
+        "M_StableAntiSlipRearGrip",
+        "M_StableGrip_Collar_M4",
+        "HK416_InterfaceSteel"
+      ],
+      "materials": [
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_e49cc3cd8a.MI_HK416_R01_furniture_e49cc3cd8a",
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_6019aea294.MI_HK416_R01_mount_6019aea294",
+        "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_9266f2869f.MI_HK416_R01_mount_9266f2869f"
+      ]
+    },
+    "M16_phantom": {
+      "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_phantom_reargrip",
+      "sha256": "91280281b55ef470299c433217eb3d1bed6fa53ac8049c5dd992eada548c3834",
+      "family": "M16",
+      "kind": "phantom",
+      "vertices": 56123,
+      "triangles": 50839,
+      "uv_sets": 6,
+      "slots": [
+        "M16_InterfaceMetal",
+        "M_PhantomRearGrip",
+        "M_PhantomRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_627b8e1920.MI_M16_R01_mount_627b8e1920",
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_furniture_66a8276651.MI_M16_R01_furniture_66a8276651",
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_993357b0d8.MI_M16_R01_mount_993357b0d8"
+      ]
+    },
+    "M16_balanced": {
+      "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_balanced_reargrip",
+      "sha256": "1b48bc27e34a7c26925b9f2506aeb6c8821b11c613b139d1d23c74a4f0e0bec4",
+      "family": "M16",
+      "kind": "balanced",
+      "vertices": 36174,
+      "triangles": 36805,
+      "uv_sets": 4,
+      "slots": [
+        "M16_FactoryGripInterface",
+        "M_BalancedRearGrip",
+        "M_BalancedRearGrip_Collar"
+      ],
+      "materials": [
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_40b259048f.MI_M16_R01_mount_40b259048f",
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_furniture_59d57bb737.MI_M16_R01_furniture_59d57bb737",
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_a4e23d2b03.MI_M16_R01_mount_a4e23d2b03"
+      ]
+    },
+    "M16_stable": {
+      "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_stable_antislip_reargrip",
+      "sha256": "b6dcea34b2a2823ad610113a51cce71b0b4cba3f33b605eb0e86cd0d0f88f7f6",
+      "family": "M16",
+      "kind": "stable",
+      "vertices": 32029,
+      "triangles": 30458,
+      "uv_sets": 7,
+      "slots": [
+        "M16_InterfaceMetal",
+        "M_StableAntiSlipRearGrip",
+        "M_StableGrip_Collar_M4"
+      ],
+      "materials": [
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_32f20b49c4.MI_M16_R01_mount_32f20b49c4",
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_furniture_bf1182503a.MI_M16_R01_furniture_bf1182503a",
+        "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_bcce0a7b00.MI_M16_R01_mount_bcce0a7b00"
+      ]
+    },
+    "A762_phantom": {
+      "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_phantom_reargrip",
+      "sha256": "d65aacf2edb3fa6dae1d696c4fd4975b98a90203eb24d86c7c3685359430f006",
+      "family": "A762",
+      "kind": "phantom",
+      "vertices": 101778,
+      "triangles": 49622,
+      "uv_sets": 2,
+      "slots": [
+        "A762_phantom_reargrip_Interface",
+        "A762_phantom_reargrip_0",
+        "A762_phantom_reargrip_1",
+        "A762_phantom_reargrip_Neck08"
+      ],
+      "materials": [
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_Interface.MI_A762_WS_phantom_reargrip_Interface",
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_0.MI_A762_WS_phantom_reargrip_0",
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_1.MI_A762_WS_phantom_reargrip_1",
+        "/Game/Weapons/A762/ReceiverGrip20261001/Materials/MI_A762_phantom_reargrip_Neck08.MI_A762_phantom_reargrip_Neck08"
+      ]
+    },
+    "A762_balanced": {
+      "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_balanced_reargrip",
+      "sha256": "f0eb4a9eeaaf21c2b5aa51e69be5d6a351a868d18be0ddf03274b0529e9c70a6",
+      "family": "A762",
+      "kind": "balanced",
+      "vertices": 33591,
+      "triangles": 35996,
+      "uv_sets": 2,
+      "slots": [
+        "A762_balanced_reargrip_Interface",
+        "A762_balanced_reargrip_0",
+        "A762_balanced_reargrip_1",
+        "A762_balanced_reargrip_Body08"
+      ],
+      "materials": [
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_Interface.MI_A762_WS_balanced_reargrip_Interface",
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_0.MI_A762_WS_balanced_reargrip_0",
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_1.MI_A762_WS_balanced_reargrip_1",
+        "/Game/Weapons/A762/ReceiverGrip20261001/Materials/MI_A762_balanced_reargrip_Body08.MI_A762_balanced_reargrip_Body08"
+      ]
+    },
+    "A762_stable": {
+      "path": "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_stable_antislip_reargrip",
+      "sha256": "f5e030b82b07ca87f782626956f045ce61c88b402708dfe9d867f7aa6054f843",
+      "family": "A762",
+      "kind": "stable",
+      "vertices": 37380,
+      "triangles": 35954,
+      "uv_sets": 3,
+      "slots": [
+        "A762_stable_antislip_reargrip_Interface",
+        "A762_stable_antislip_reargrip_0",
+        "A762_stable_antislip_reargrip_1",
+        "A762_stable_antislip_reargrip_Body08"
+      ],
+      "materials": [
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_Interface.MI_A762_WS_stable_antislip_reargrip_Interface",
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_0.MI_A762_WS_stable_antislip_reargrip_0",
+        "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_1.MI_A762_WS_stable_antislip_reargrip_1",
+        "/Game/Weapons/A762/ReceiverGrip20261001/Materials/MI_A762_stable_antislip_reargrip_Body08.MI_A762_stable_antislip_reargrip_Body08"
+      ]
+    },
+    "PKM_phantom": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_phantom_reargrip",
+      "sha256": "4d6dd5b0ee4bd1089a6dff3d0eaba0e10f02df29cbf0d8a2ea09f2483d7aea9d",
+      "family": "PKM",
+      "kind": "phantom",
+      "vertices": 58059,
+      "triangles": 50209,
+      "uv_sets": 3,
+      "slots": [
+        "PKM14_Interface",
+        "PKM14_phantom_reargrip_0",
+        "PKM14_phantom_reargrip_1"
+      ],
+      "materials": [
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_cd55e203c4.MI_PKM_R01_accessory_cd55e203c4",
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_22c09d603b.MI_PKM_R01_accessory_22c09d603b"
+      ]
+    },
+    "PKM_balanced": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_balanced_reargrip",
+      "sha256": "c919bda5406d0c466ca24d88e99f90ea7624a9fa48243b61928d6b912f405280",
+      "family": "PKM",
+      "kind": "balanced",
+      "vertices": 54709,
+      "triangles": 50117,
+      "uv_sets": 3,
+      "slots": [
+        "PKM14_Interface",
+        "PKM14_balanced_reargrip_0",
+        "PKM14_balanced_reargrip_1"
+      ],
+      "materials": [
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_b715d3419e.MI_PKM_R01_accessory_b715d3419e",
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_d934797266.MI_PKM_R01_accessory_d934797266"
+      ]
+    },
+    "PKM_stable": {
+      "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Meshes/SM_PKM_stable_antislip_reargrip",
+      "sha256": "1ddb2660a8d8f01c4de4c9901870bd81ff80268f33b70311e116a5e2f22e14fb",
+      "family": "PKM",
+      "kind": "stable",
+      "vertices": 32350,
+      "triangles": 30209,
+      "uv_sets": 3,
+      "slots": [
+        "PKM14_Interface",
+        "PKM14_stable_antislip_reargrip_0",
+        "PKM14_stable_antislip_reargrip_1"
+      ],
+      "materials": [
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20",
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_grip_4da40445d7.MI_PKM_R01_grip_4da40445d7",
+        "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_bc8e7759f0.MI_PKM_R01_accessory_bc8e7759f0"
+      ]
+    },
+    "LMG201_phantom": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_phantom_reargrip",
+      "sha256": "b3644f1d86361ee01f3f096631ca0a4740dbef654ce9716c0957059781605bdb",
+      "family": "LMG201",
+      "kind": "phantom",
+      "vertices": 255046,
+      "triangles": 481319,
+      "uv_sets": 5,
+      "slots": [
+        "LMG20122_Interface",
+        "LMG20122_phantom_reargrip_1"
+      ],
+      "materials": [
+        "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_d2621c3bf7.MI_LMG201_R01_grip_d2621c3bf7",
+        "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_d2621c3bf7.MI_LMG201_R01_grip_d2621c3bf7"
+      ]
+    },
+    "LMG201_balanced": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_balanced_reargrip",
+      "sha256": "8672abd56b78a09644e8b841a799e039965c06d6fa516df395f48eef94eb4462",
+      "family": "LMG201",
+      "kind": "balanced",
+      "vertices": 239932,
+      "triangles": 465575,
+      "uv_sets": 5,
+      "slots": [
+        "LMG20122_Interface",
+        "LMG20122_balanced_reargrip_1"
+      ],
+      "materials": [
+        "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_79d60ac85c.MI_LMG201_R01_grip_79d60ac85c",
+        "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_79d60ac85c.MI_LMG201_R01_grip_79d60ac85c"
+      ]
+    },
+    "LMG201_stable": {
+      "path": "/Game/Weapons/LMG201/Accessories22/Meshes/SM_LMG201_stable_antislip_reargrip",
+      "sha256": "29ef430ca9d541b807fd0d8a2ffce1fe8bb2af6eda7f0387043433f8e5ef88af",
+      "family": "LMG201",
+      "kind": "stable",
+      "vertices": 214654,
+      "triangles": 422464,
+      "uv_sets": 5,
+      "slots": [
+        "LMG20122_Interface",
+        "LMG20122_stable_antislip_reargrip_1"
+      ],
+      "materials": [
+        "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_bd7ed6f32e.MI_LMG201_R01_grip_bd7ed6f32e",
+        "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_bd7ed6f32e.MI_LMG201_R01_grip_bd7ed6f32e"
+      ]
+    }
+  },
+  "materials": {
+    "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_fa91e71498.MI_M4_R01_furniture_fa91e71498": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "76d500d915d6db865a1f27c8cd7f348ad4ca77781ec17bf2edb86f5cc807a85b",
+      "base": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_9315ece1c447.M_M4_R01_9315ece1c447",
+      "scalars": {
+        "one": 1.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_FineGrain.T_M4_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_9315ece1c447.M_M4_R01_9315ece1c447"
+    },
+    "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_34040cae2e.MI_M4_R01_mount_34040cae2e": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "1c0aec27026350aa86dad2fea9ee9c7b3283b4affbca109e4b3c10f1f4202e71",
+      "base": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_2523c5b0e5d8.M_M4_R01_2523c5b0e5d8",
+      "scalars": {
+        "one": 1.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.46000000834465027,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_FineGrain.T_M4_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_2523c5b0e5d8.M_M4_R01_2523c5b0e5d8"
+    },
+    "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_2a96f50aa4.MI_M4_R01_furniture_2a96f50aa4": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "910174c27f9ff3e0b9af89135ecae34ffc4d3365e7cfd56c842e2680bcac3f89",
+      "base": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_c9ddec763bc7.M_M4_R01_c9ddec763bc7",
+      "scalars": {
+        "one": 1.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_FineGrain.T_M4_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_c9ddec763bc7.M_M4_R01_c9ddec763bc7"
+    },
+    "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_7e7362e040.MI_M4_R01_mount_7e7362e040": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "7783a9b7d7d490a4841742f935ca19a47b26aac407b049b722c9c8a06c103784",
+      "base": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_e2eb88d3433b.M_M4_R01_e2eb88d3433b",
+      "scalars": {
+        "one": 1.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.46000000834465027,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_FineGrain.T_M4_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_e2eb88d3433b.M_M4_R01_e2eb88d3433b"
+    },
+    "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_345c2e0588.MI_M4_R01_furniture_345c2e0588": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "e94b3c552fa2a01d25fe4a765355505eea588215953f660b52a9f67522449d55",
+      "base": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_6f9d432ba936.M_M4_R01_6f9d432ba936",
+      "scalars": {
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_FineGrain.T_M4_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_6f9d432ba936.M_M4_R01_6f9d432ba936"
+    },
+    "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_mount_58601c7aad.MI_M4_R01_mount_58601c7aad": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "2cd38f088713ff5936291ae13a0de7e919ba52891b6aeba349e52bc31ae25a28",
+      "base": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_8ee247c3c26d.M_M4_R01_8ee247c3c26d",
+      "scalars": {
+        "one": 1.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.46000000834465027,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M4/SurfaceStandard20261001/Textures/T_M4_R01_FineGrain.T_M4_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M4/SurfaceStandard20261001/Master/M_M4_R01_8ee247c3c26d.M_M4_R01_8ee247c3c26d"
+    },
+    "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_82a50b73b5.MI_AKM_R01_furniture_metal_82a50b73b5": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "2299fcdb5d3ca98c791745efae0f7a3cc8a37485e1ce581f20261786ce5ed998",
+      "base": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_885eeb34632e.M_AKM_R01_885eeb34632e",
+      "scalars": {
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.012000000104308128,
+        "R01_Variation": 0.004999999888241291,
+        "R01_Strength": 1.0,
+        "WeaponWetness": 0.0,
+        "R02_SourceColorContrast": 0.5799999833106995
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Textures/T_AKM_R01_FineGrain.T_AKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_885eeb34632e.M_AKM_R01_885eeb34632e"
+    },
+    "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_75329df74f.MI_AKM_R01_mount_75329df74f": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "0b9e3d9b72caf570619c6574f9020d283a701e2bf5fe566076e521216d01fb8b",
+      "base": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_2ec066f182e1.M_AKM_R01_2ec066f182e1",
+      "scalars": {
+        "R01_Roughness": 0.4399999976158142,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.012000000104308128,
+        "R01_Variation": 0.004999999888241291,
+        "R01_Strength": 1.0,
+        "WeaponWetness": 0.0,
+        "R02_SourceColorContrast": 0.5799999833106995
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Textures/T_AKM_R01_FineGrain.T_AKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_2ec066f182e1.M_AKM_R01_2ec066f182e1"
+    },
+    "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_furniture_metal_7f0934e0d0.MI_AKM_R01_furniture_metal_7f0934e0d0": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "da673e3beb191899810afc9cb9a3293137b9d275f0c90fa714ef50189d32a3a4",
+      "base": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_97ac6a446a95.M_AKM_R01_97ac6a446a95",
+      "scalars": {
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.012000000104308128,
+        "R01_Variation": 0.004999999888241291,
+        "R01_Strength": 1.0,
+        "WeaponWetness": 0.0,
+        "R02_SourceColorContrast": 0.5799999833106995
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Textures/T_AKM_R01_FineGrain.T_AKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_97ac6a446a95.M_AKM_R01_97ac6a446a95"
+    },
+    "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_a8aca91e39.MI_AKM_R01_mount_a8aca91e39": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "6ee1252e8929254a7ab14a32a14ecd40847db92adfa2f4f855e2f298f606a1e4",
+      "base": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_9c78b125645a.M_AKM_R01_9c78b125645a",
+      "scalars": {
+        "R01_Roughness": 0.4399999976158142,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.012000000104308128,
+        "R01_Variation": 0.004999999888241291,
+        "R01_Strength": 1.0,
+        "WeaponWetness": 0.0,
+        "R02_SourceColorContrast": 0.5799999833106995
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Textures/T_AKM_R01_FineGrain.T_AKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_9c78b125645a.M_AKM_R01_9c78b125645a"
+    },
+    "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip": {
+      "class": "Material",
+      "sha256": "be50c4861452b46f033fe084a4edc7b18659effccaddfda1aed425216c2e8e4e",
+      "base": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip",
+      "scalars": {},
+      "textures": {},
+      "parameter_names": [],
+      "outputs": {
+        "normal": "None",
+        "roughness": "<Object '/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip:MaterialExpressionClamp_1' (0x00000284FEC3A500) Class 'MaterialExpressionClamp'>",
+        "color": "<Object '/Game/Weapons/StableAntiSlipRearGrip/Selected91727/M_StableAntiSlipRearGrip.M_StableAntiSlipRearGrip:MaterialExpressionTextureSample_2' (0x000002850E2B2A80) Class 'MaterialExpressionTextureSample'>"
+      }
+    },
+    "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Materials/MI_AKM_R01_mount_89fd38824f.MI_AKM_R01_mount_89fd38824f": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "e299d56866b7d10d0b494da9cc443344e4bca8b6b46c28dda9e357dc299525f1",
+      "base": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_c45e1719e6c5.M_AKM_R01_c45e1719e6c5",
+      "scalars": {
+        "R01_Roughness": 0.4399999976158142,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.012000000104308128,
+        "R01_Variation": 0.004999999888241291,
+        "R01_Strength": 1.0,
+        "WeaponWetness": 0.0,
+        "R02_SourceColorContrast": 0.5799999833106995
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Textures/T_AKM_R01_FineGrain.T_AKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/AKMIntegration/SurfaceStandard20261001/Master/M_AKM_R01_c45e1719e6c5.M_AKM_R01_c45e1719e6c5"
+    },
+    "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body": {
+      "class": "Material",
+      "sha256": "ef9e6aea819990e29e481349784f5a6d374389836a4a0d0e05060fa95da0a076",
+      "base": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body",
+      "scalars": {},
+      "textures": {},
+      "parameter_names": [],
+      "outputs": {
+        "normal": "None",
+        "roughness": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body:MaterialExpressionLinearInterpolate_1' (0x00000284FEC3CD80) Class 'MaterialExpressionLinearInterpolate'>",
+        "color": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body:MaterialExpressionLinearInterpolate_0' (0x00000284FEC3CC00) Class 'MaterialExpressionLinearInterpolate'>"
+      }
+    },
+    "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar": {
+      "class": "Material",
+      "sha256": "754610445e81667d95ec88400a1ff47c5a31ee622d369c4eda981c5ae2013298",
+      "base": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar",
+      "scalars": {},
+      "textures": {},
+      "parameter_names": [],
+      "outputs": {
+        "normal": "None",
+        "roughness": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar:MaterialExpressionTextureSample_1' (0x000002850E2B5A00) Class 'MaterialExpressionTextureSample'>",
+        "color": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar:MaterialExpressionTextureSample_0' (0x000002850E2B5780) Class 'MaterialExpressionTextureSample'>"
+      }
+    },
+    "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body": {
+      "class": "Material",
+      "sha256": "9cabd43b3339baa1a1956964e7a37e9828efe0480b32c03a6e9c8accdf6ca8b6",
+      "base": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body",
+      "scalars": {},
+      "textures": {},
+      "parameter_names": [],
+      "outputs": {
+        "normal": "None",
+        "roughness": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body:MaterialExpressionLinearInterpolate_1' (0x00000284FEC3E100) Class 'MaterialExpressionLinearInterpolate'>",
+        "color": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body:MaterialExpressionLinearInterpolate_0' (0x00000284FEC3D980) Class 'MaterialExpressionLinearInterpolate'>"
+      }
+    },
+    "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar": {
+      "class": "Material",
+      "sha256": "827ba7fde99fde6713680d95559c7994d75bdfa7607b320aba584781190c66f2",
+      "base": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar",
+      "scalars": {},
+      "textures": {},
+      "parameter_names": [],
+      "outputs": {
+        "normal": "None",
+        "roughness": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar:MaterialExpressionTextureSample_1' (0x000002850E2B7D00) Class 'MaterialExpressionTextureSample'>",
+        "color": "<Object '/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar:MaterialExpressionTextureSample_0' (0x000002850E2B7A80) Class 'MaterialExpressionTextureSample'>"
+      }
+    },
+    "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/QBZ191/M_StableGrip_Collar_QBZ191.M_StableGrip_Collar_QBZ191": {
+      "class": "Material",
+      "sha256": "1fd6f7b4d2947d9a9760a661ea915f04cea8dfd72085a9a4b347363be609b2e1",
+      "base": "/Game/Weapons/StableAntiSlipRearGrip/Selected91727/QBZ191/M_StableGrip_Collar_QBZ191.M_StableGrip_Collar_QBZ191",
+      "scalars": {},
+      "textures": {},
+      "parameter_names": [],
+      "outputs": {
+        "normal": "None",
+        "roughness": "<Object '/Game/Weapons/StableAntiSlipRearGrip/Selected91727/QBZ191/M_StableGrip_Collar_QBZ191.M_StableGrip_Collar_QBZ191:MaterialExpressionTextureSample_1' (0x000002850E2B9880) Class 'MaterialExpressionTextureSample'>",
+        "color": "<Object '/Game/Weapons/StableAntiSlipRearGrip/Selected91727/QBZ191/M_StableGrip_Collar_QBZ191.M_StableGrip_Collar_QBZ191:MaterialExpressionTextureSample_0' (0x000002850E2B9600) Class 'MaterialExpressionTextureSample'>"
+      }
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_28b229cf26.MI_HK416_R01_furniture_28b229cf26": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "437dae975a2cbdf94993c11fbd36d7f5e3d2854f0d55b770f349283a441da345",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_ed7b407ac598.M_HK416_R01_ed7b407ac598",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_ed7b407ac598.M_HK416_R01_ed7b407ac598"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_14c4f144b7.MI_HK416_R01_mount_14c4f144b7": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "ff75f1cb7f43f19f2c3d3c0a0afc633fcf10186cd3b601704c925128f6f57740",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_5e997a10b32a.M_HK416_R01_5e997a10b32a",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.41999998688697815,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.4699999988079071,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_5e997a10b32a.M_HK416_R01_5e997a10b32a"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_72e17e8258.MI_HK416_R01_mount_72e17e8258": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "b5b716e2631a85e69013177ae2396090ca08dbc619cc52e677654f4201df70e3",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_a5e613b953e3.M_HK416_R01_a5e613b953e3",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.41999998688697815,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.4699999988079071,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_a5e613b953e3.M_HK416_R01_a5e613b953e3"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_032f8140af.MI_HK416_R01_furniture_032f8140af": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "f31a2e89d35cce6580c40902a4fa29022fa6802ba8f2063d4397dec9b5881497",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_679e23a5c393.M_HK416_R01_679e23a5c393",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_679e23a5c393.M_HK416_R01_679e23a5c393"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_a9ed83aafb.MI_HK416_R01_mount_a9ed83aafb": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "0f53b64d3e0443930915537ee8101a0e6f995ce80d5c2ccd2f38cde9065a7d59",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_f951b6d5526c.M_HK416_R01_f951b6d5526c",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.41999998688697815,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.4699999988079071,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_f951b6d5526c.M_HK416_R01_f951b6d5526c"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_68e2ec09e9.MI_HK416_R01_mount_68e2ec09e9": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "7523e3d5809b1b9c2700440a0dc44f7231f83df4d07f4267461d4f9da7cc895b",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_d9be8088af69.M_HK416_R01_d9be8088af69",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.41999998688697815,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.4699999988079071,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_d9be8088af69.M_HK416_R01_d9be8088af69"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_furniture_e49cc3cd8a.MI_HK416_R01_furniture_e49cc3cd8a": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "124241aa0b5919bdf5b7e41b4c58a6008917eb35820310c62596c31bcb3ce317",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_815e58ccf375.M_HK416_R01_815e58ccf375",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_815e58ccf375.M_HK416_R01_815e58ccf375"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_6019aea294.MI_HK416_R01_mount_6019aea294": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "07b76b1fb5808a306d836cbeebdc7701a209b4477f33b2443d40870e2efec9a1",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_adfb0492cc0a.M_HK416_R01_adfb0492cc0a",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.41999998688697815,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.4699999988079071,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_adfb0492cc0a.M_HK416_R01_adfb0492cc0a"
+    },
+    "/Game/Weapons/HK416/SurfaceStandard20261001/Materials/MI_HK416_R01_mount_9266f2869f.MI_HK416_R01_mount_9266f2869f": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "cf64f92821accae17932ee434f9a8cb2c0d7d798d48cc9a0b553bec5a2b66910",
+      "base": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_f8178462efbd.M_HK416_R01_f8178462efbd",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.41999998688697815,
+        "R01_SourcePivot": 0.3400000035762787,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.4699999988079071,
+        "R01_PolymerPivot": 0.6000000238418579,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/HK416/SurfaceStandard20261001/Textures/T_HK416_R01_FineGrain.T_HK416_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/HK416/SurfaceStandard20261001/Master/M_HK416_R01_f8178462efbd.M_HK416_R01_f8178462efbd"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_627b8e1920.MI_M16_R01_mount_627b8e1920": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "193f5923b6cb0f899ba16d6e6bb8e25e842a3f70059123093de9b0b24c54edae",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_e1098a7ccd0f.M_M16_R01_e1098a7ccd0f",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.41999998688697815,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_e1098a7ccd0f.M_M16_R01_e1098a7ccd0f"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_furniture_66a8276651.MI_M16_R01_furniture_66a8276651": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "f51a7851132996d8916291096308a44dc084f8a4645029f5d900f8d07395feed",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_df1226565024.M_M16_R01_df1226565024",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_df1226565024.M_M16_R01_df1226565024"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_993357b0d8.MI_M16_R01_mount_993357b0d8": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "61b3f6fb7c7a3198f92489205bcc333310c6647fd31ce9424fd3d6dfd5f94743",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_6d4c285f0564.M_M16_R01_6d4c285f0564",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.41999998688697815,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_6d4c285f0564.M_M16_R01_6d4c285f0564"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_40b259048f.MI_M16_R01_mount_40b259048f": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "6b37e803a72f9e4daaabc99bba1e2716a71692bd8ccd6d8858311e5693282d71",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_8fb8f2bb9642.M_M16_R01_8fb8f2bb9642",
+      "scalars": {
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 0.75,
+        "R01_PolymerRoughness": 0.41999998688697815,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.3499999940395355,
+        "WeaponWetness": 0.0
+      },
+      "textures": {
+        "BaseColor": "/Game/Weapons/M16A2Migration/Textures/T_M16A2_BaseColor.T_M16A2_BaseColor",
+        "Metallic": "/Game/Weapons/M16A2Migration/Textures/T_M16A2_Metallic.T_M16A2_Metallic",
+        "Roughness": "/Game/Weapons/M16A2Migration/Textures/T_M16A2_Roughness.T_M16A2_Roughness",
+        "Normal": "/Game/Weapons/M16A2Migration/Textures/T_M16A2_Normal.T_M16A2_Normal",
+        "AO": "/Game/Weapons/M16A2Migration/Textures/T_M16A2_AO.T_M16A2_AO",
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_8fb8f2bb9642.M_M16_R01_8fb8f2bb9642"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_furniture_59d57bb737.MI_M16_R01_furniture_59d57bb737": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "020200bc39f321bebb3687227fda66a52621116fd6682dab0c8a0a08dfb215b1",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_9547c0aa3c6f.M_M16_R01_9547c0aa3c6f",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_9547c0aa3c6f.M_M16_R01_9547c0aa3c6f"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_a4e23d2b03.MI_M16_R01_mount_a4e23d2b03": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "73c624d7aebc7dddb14f74d2803e77067cc7cd110a23bda660ecc0e36599b384",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_199bf7d4f869.M_M16_R01_199bf7d4f869",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.41999998688697815,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_199bf7d4f869.M_M16_R01_199bf7d4f869"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_32f20b49c4.MI_M16_R01_mount_32f20b49c4": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "fb02095b9e29131698831bd89e82cdee9ce7fd2d82bf23c87356b645df866ff6",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_c864d345d341.M_M16_R01_c864d345d341",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.41999998688697815,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_c864d345d341.M_M16_R01_c864d345d341"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_furniture_bf1182503a.MI_M16_R01_furniture_bf1182503a": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "648ae6e9870817573cbea1b3a492d4db3fcde39e414864c8fc9b2e4bf0ad24c6",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_d7f4e03f6f2f.M_M16_R01_d7f4e03f6f2f",
+      "scalars": {
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.38999998569488525,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.49000000953674316,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_d7f4e03f6f2f.M_M16_R01_d7f4e03f6f2f"
+    },
+    "/Game/Weapons/M16A2/SurfaceStandard20261001/Materials/MI_M16_R01_mount_bcce0a7b00.MI_M16_R01_mount_bcce0a7b00": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "68b7f73219b083c1140a6a66bc782e3b1e141624ecd3f03e3de4a49951605b1e",
+      "base": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_e65a8ed2a020.M_M16_R01_e65a8ed2a020",
+      "scalars": {
+        "one": 1.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.4000000059604645,
+        "R01_SourcePivot": 0.5,
+        "R01_SourceRoughnessWeight": 0.2800000011920929,
+        "R01_Grain": 0.009999999776482582,
+        "R01_Variation": 0.004000000189989805,
+        "R01_Strength": 1.0,
+        "R02_SourceColorContrast": 0.5799999833106995,
+        "R01_PolymerStrength": 1.0,
+        "R01_PolymerRoughness": 0.41999998688697815,
+        "R01_PolymerPivot": 0.5,
+        "R01_PolymerSourceWeight": 0.2199999988079071
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/M16A2/SurfaceStandard20261001/Textures/T_M16_R01_FineGrain.T_M16_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/M16A2/SurfaceStandard20261001/Master/M_M16_R01_e65a8ed2a020.M_M16_R01_e65a8ed2a020"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_Interface.MI_A762_WS_phantom_reargrip_Interface": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "453b2150915fb39b0d4461c123df9582f95a0fd7f84a0711dd1740432f2c2165",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.41999998688697815,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.04500000178813934,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 77.96399688720703
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanSatinSteel.MI_WS_CleanSatinSteel"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_0.MI_A762_WS_phantom_reargrip_0": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "d88658dd52aacdafad605580140f61d9ac9bad6300c48ad6695a94f76506f4b0",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.550000011920929,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 0.0,
+        "Specular": 0.4000000059604645,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.019999999552965164,
+        "MottleRoughness": 0.00800000037997961,
+        "MottleColor": 0.0,
+        "Stipple": 0.02800000086426735,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.6000000238418579,
+        "EdgeContrast": 6.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.019999999552965164,
+        "CavityDarken": 0.03500000014901161,
+        "CavityRoughness": 0.02500000037252903,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 77.96399688720703
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanPolymer.MI_WS_CleanPolymer"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_1.MI_A762_WS_phantom_reargrip_1": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "1c25863323598d875c803318ddfc6ce31f922bd609778cde0bf371827a056070",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.41999998688697815,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.04500000178813934,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 77.96399688720703
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanSatinSteel.MI_WS_CleanSatinSteel"
+    },
+    "/Game/Weapons/A762/ReceiverGrip20261001/Materials/MI_A762_phantom_reargrip_Neck08.MI_A762_phantom_reargrip_Neck08": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "30d07635eb102e9c48dafa3e998df1dbcaaa5563b0571e1efc505e7fac0260dc",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.550000011920929,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 0.0,
+        "Specular": 0.4000000059604645,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.019999999552965164,
+        "MottleRoughness": 0.00800000037997961,
+        "MottleColor": 0.0,
+        "Stipple": 0.02800000086426735,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.6000000238418579,
+        "EdgeContrast": 6.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.0,
+        "CavityDarken": 0.0,
+        "CavityRoughness": 0.0,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 6.989999771118164
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Polymer_N.T_A762_R06_Polymer_N",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanPolymer.MI_WS_CleanPolymer"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_Interface.MI_A762_WS_balanced_reargrip_Interface": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "53fb83301238f800ab3b11c6f1c0a50bcb0d24ce0c5bd4cad693951ee0a34caa",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.41999998688697815,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.04500000178813934,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 51.5
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanSatinSteel.MI_WS_CleanSatinSteel"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_0.MI_A762_WS_balanced_reargrip_0": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "737c33d46731da3030b52282707ffd45455661c3e971c511905b2539caa3846a",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.550000011920929,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 0.0,
+        "Specular": 0.4000000059604645,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.019999999552965164,
+        "MottleRoughness": 0.00800000037997961,
+        "MottleColor": 0.0,
+        "Stipple": 0.02800000086426735,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.6000000238418579,
+        "EdgeContrast": 6.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.019999999552965164,
+        "CavityDarken": 0.03500000014901161,
+        "CavityRoughness": 0.02500000037252903,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 51.5
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanPolymer.MI_WS_CleanPolymer"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_1.MI_A762_WS_balanced_reargrip_1": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "ef7dd3eadbf587a026f0ac7a2fad5e6c91eba2b7a8727c0b0ba60a939aaf13eb",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.41999998688697815,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.04500000178813934,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 51.5
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanSatinSteel.MI_WS_CleanSatinSteel"
+    },
+    "/Game/Weapons/A762/ReceiverGrip20261001/Materials/MI_A762_balanced_reargrip_Body08.MI_A762_balanced_reargrip_Body08": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "1b7214b11047a6028304af89bf196b20cfa2216d737d53d716f4db86004ca1d9",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.550000011920929,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 0.0,
+        "Specular": 0.4000000059604645,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.019999999552965164,
+        "MottleRoughness": 0.00800000037997961,
+        "MottleColor": 0.0,
+        "Stipple": 0.02800000086426735,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.6000000238418579,
+        "EdgeContrast": 6.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.0,
+        "CavityDarken": 0.0,
+        "CavityRoughness": 0.0,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 6.989999771118164
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Polymer_N.T_A762_R06_Polymer_N",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanPolymer.MI_WS_CleanPolymer"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_Interface.MI_A762_WS_stable_antislip_reargrip_Interface": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "47f791532c2e7fa78764baf799555e2db8bcdc416e9c9e8bc2a6f4279a5cc178",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.41999998688697815,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.04500000178813934,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 65.30000305175781
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanSatinSteel.MI_WS_CleanSatinSteel"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_0.MI_A762_WS_stable_antislip_reargrip_0": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "9c98670ce70bcfb17e4c8400b698a567e109e92aba9e341c211fb17e6b3c2d53",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.6800000071525574,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 0.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.017999999225139618,
+        "MottleRoughness": 0.006000000052154064,
+        "MottleColor": 0.0,
+        "Stipple": 0.02500000037252903,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.6000000238418579,
+        "EdgeContrast": 6.0,
+        "EdgeRoughness": 0.6000000238418579,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.009999999776482582,
+        "CavityDarken": 0.054999999701976776,
+        "CavityRoughness": 0.02500000037252903,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.699999988079071,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 65.30000305175781
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_Rubber.MI_WS_Rubber"
+    },
+    "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_1.MI_A762_WS_stable_antislip_reargrip_1": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "39a93bf3af5454898fdf4119cc4de8afc3df39e47e70df9c5629af070dbca128",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.41999998688697815,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 1.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.012000000104308128,
+        "MottleRoughness": 0.004999999888241291,
+        "MottleColor": 0.0,
+        "Stipple": 0.0,
+        "EdgeWear": 0.02500000037252903,
+        "EdgeBreakup": 0.0,
+        "EdgeContrast": 8.0,
+        "EdgeRoughness": 0.30000001192092896,
+        "EdgeMetallic": 1.0,
+        "EdgeHighlight": 0.04500000178813934,
+        "CavityDarken": 0.02500000037252903,
+        "CavityRoughness": 0.017999999225139618,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.5,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 65.30000305175781
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_CleanSatinSteel.MI_WS_CleanSatinSteel"
+    },
+    "/Game/Weapons/A762/ReceiverGrip20261001/Materials/MI_A762_stable_antislip_reargrip_Body08.MI_A762_stable_antislip_reargrip_Body08": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "2bad69ef170a058ff05d34889787dc72ed7e3bc46b274ddeed1c824f1d2f7f31",
+      "base": "/Game/Weapons/WeaponSurface/Master/M_WeaponSurface.M_WeaponSurface",
+      "scalars": {
+        "SourceColorWeight": 0.0,
+        "Roughness": 0.6800000071525574,
+        "SourceRoughnessWeight": 0.0,
+        "SourceRoughnessPivot": 0.5,
+        "Metallic": 0.0,
+        "Specular": 0.5,
+        "GrainTileCm": 4.0,
+        "GrainRoughness": 0.017999999225139618,
+        "MottleRoughness": 0.006000000052154064,
+        "MottleColor": 0.0,
+        "Stipple": 0.02500000037252903,
+        "EdgeWear": 0.0,
+        "EdgeBreakup": 0.6000000238418579,
+        "EdgeContrast": 6.0,
+        "EdgeRoughness": 0.6000000238418579,
+        "EdgeMetallic": 0.0,
+        "EdgeHighlight": 0.0,
+        "CavityDarken": 0.0,
+        "CavityRoughness": 0.0,
+        "HandlingPolish": 0.0,
+        "ScratchAmount": 0.0,
+        "AOStrength": 0.699999988079071,
+        "MaskUVChannel": 0.0,
+        "WeaponWetness": 0.0,
+        "BeadScale": 6.989999771118164
+      },
+      "textures": {
+        "SourceBaseColor": "/Game/Weapons/WeaponSurface/Textures/T_WS_White.T_WS_White",
+        "SourceRoughness": "/Game/Weapons/WeaponSurface/Textures/T_WS_GreyLinear.T_WS_GreyLinear",
+        "SurfaceNormal": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Rubber_N.T_A762_R06_Rubber_N",
+        "SurfaceMask": "/Game/Weapons/WeaponSurface/Textures/T_WS_MaskNeutral.T_WS_MaskNeutral",
+        "GrainTexture": "/Game/Weapons/A762/SurfaceStandard08/Refine06/Textures/T_A762_R06_Grain.T_A762_R06_Grain"
+      },
+      "parent": "/Game/Weapons/WeaponSurface/Presets/MI_WS_Rubber.MI_WS_Rubber"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_mount_a65b0dae20.MI_PKM_R01_mount_a65b0dae20": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "f0e7588aac44cf47307fa0f015b9e7e5d76e3fe4687face6e02ef6db56f4de9c",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_ca39c6c07238.M_PKM_R01_ca39c6c07238",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "PKM_SatinRoughness": 0.36000001430511475,
+        "PKM_SatinColorWeight": 0.30000001192092896,
+        "R01_Roughness": 0.4399999976158142,
+        "R01_GrainRoughness": 0.012000000104308128,
+        "R01_VariationRoughness": 0.004999999888241291,
+        "R01_SourceRoughnessWeight": 0.11999999731779099,
+        "R01_ColorWeight": 0.8999999761581421,
+        "R01_PolymerStipple": 0.0
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/PKMLowpoly20260922/RefinedFinish20260927/Textures/T_PKM_SatinFinish.T_PKM_SatinFinish",
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_ca39c6c07238.M_PKM_R01_ca39c6c07238"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_cd55e203c4.MI_PKM_R01_accessory_cd55e203c4": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "4ff67de331f8d7fa981fda5245caf63f5aacb5d3d89c56518342b7895183bf8e",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_d0d7192dc6e4.M_PKM_R01_d0d7192dc6e4",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "PKM_SatinRoughness": 0.3799999952316284,
+        "PKM_SatinColorWeight": 0.30000001192092896,
+        "R01_Roughness": 0.4099999964237213,
+        "R01_GrainRoughness": 0.012000000104308128,
+        "R01_VariationRoughness": 0.004999999888241291,
+        "R01_SourceRoughnessWeight": 0.11999999731779099,
+        "R01_ColorWeight": 0.8999999761581421,
+        "R01_PolymerStipple": 0.0
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/PKMLowpoly20260922/RefinedFinish20260927/Textures/T_PKM_SatinFinish.T_PKM_SatinFinish",
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_d0d7192dc6e4.M_PKM_R01_d0d7192dc6e4"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_22c09d603b.MI_PKM_R01_accessory_22c09d603b": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "5cb9856417bfcb778947315b395caabca06c44ddbfca4c52973b790f48e009be",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_107dd30f6b81.M_PKM_R01_107dd30f6b81",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "PKM_SatinRoughness": 0.3799999952316284,
+        "PKM_SatinColorWeight": 0.30000001192092896,
+        "R01_Roughness": 0.4099999964237213,
+        "R01_GrainRoughness": 0.012000000104308128,
+        "R01_VariationRoughness": 0.004999999888241291,
+        "R01_SourceRoughnessWeight": 0.11999999731779099,
+        "R01_ColorWeight": 0.8999999761581421,
+        "R01_PolymerStipple": 0.0
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/PKMLowpoly20260922/RefinedFinish20260927/Textures/T_PKM_SatinFinish.T_PKM_SatinFinish",
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_107dd30f6b81.M_PKM_R01_107dd30f6b81"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_b715d3419e.MI_PKM_R01_accessory_b715d3419e": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "4d09fc1659bb9c8792d3f8c44e48d5d93c6a11ecd96ba868779d91f0775e15b6",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_9f6ea8d5f35c.M_PKM_R01_9f6ea8d5f35c",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "PKM_SatinRoughness": 0.3799999952316284,
+        "PKM_SatinColorWeight": 0.30000001192092896,
+        "R01_Roughness": 0.4099999964237213,
+        "R01_GrainRoughness": 0.012000000104308128,
+        "R01_VariationRoughness": 0.004999999888241291,
+        "R01_SourceRoughnessWeight": 0.11999999731779099,
+        "R01_ColorWeight": 0.8999999761581421,
+        "R01_PolymerStipple": 0.0
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/PKMLowpoly20260922/RefinedFinish20260927/Textures/T_PKM_SatinFinish.T_PKM_SatinFinish",
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_9f6ea8d5f35c.M_PKM_R01_9f6ea8d5f35c"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_d934797266.MI_PKM_R01_accessory_d934797266": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "16a5077b8a900fc93d546de6499a8277c0edf2918dca922407acd4151e81165b",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_71d3e75f3692.M_PKM_R01_71d3e75f3692",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "PKM_SatinRoughness": 0.3799999952316284,
+        "PKM_SatinColorWeight": 0.30000001192092896,
+        "R01_Roughness": 0.4099999964237213,
+        "R01_GrainRoughness": 0.012000000104308128,
+        "R01_VariationRoughness": 0.004999999888241291,
+        "R01_SourceRoughnessWeight": 0.11999999731779099,
+        "R01_ColorWeight": 0.8999999761581421,
+        "R01_PolymerStipple": 0.0
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/PKMLowpoly20260922/RefinedFinish20260927/Textures/T_PKM_SatinFinish.T_PKM_SatinFinish",
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_71d3e75f3692.M_PKM_R01_71d3e75f3692"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_grip_4da40445d7.MI_PKM_R01_grip_4da40445d7": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "31495856270fc87d0cdb6948061c7db240967e0cdef5f87b3d48967374799bfc",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_3a690a9f5344.M_PKM_R01_3a690a9f5344",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "R01_Roughness": 0.5400000214576721,
+        "R01_GrainRoughness": 0.019999999552965164,
+        "R01_VariationRoughness": 0.006000000052154064,
+        "R01_SourceRoughnessWeight": 0.18000000715255737,
+        "R01_ColorWeight": 0.20000000298023224,
+        "R01_PolymerStipple": 0.019999999552965164
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_3a690a9f5344.M_PKM_R01_3a690a9f5344"
+    },
+    "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Materials/MI_PKM_R01_accessory_bc8e7759f0.MI_PKM_R01_accessory_bc8e7759f0": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "dbdb13dfa40721fe35b81b737c7176d97c810edd1670b04c2c67c323497f2507",
+      "base": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_b23f8c428e2a.M_PKM_R01_b23f8c428e2a",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.0,
+        "WeaponWetness": 0.0,
+        "PKM_SatinRoughness": 0.3799999952316284,
+        "PKM_SatinColorWeight": 0.30000001192092896,
+        "R01_Roughness": 0.4099999964237213,
+        "R01_GrainRoughness": 0.012000000104308128,
+        "R01_VariationRoughness": 0.004999999888241291,
+        "R01_SourceRoughnessWeight": 0.11999999731779099,
+        "R01_ColorWeight": 0.8999999761581421,
+        "R01_PolymerStipple": 0.0
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/PKMLowpoly20260922/RefinedFinish20260927/Textures/T_PKM_SatinFinish.T_PKM_SatinFinish",
+        "R01_GrainTexture": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Textures/T_PKM_R01_FineGrain.T_PKM_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/PKMLowpoly20260922/SurfaceStandard20261001/Master/M_PKM_R01_b23f8c428e2a.M_PKM_R01_b23f8c428e2a"
+    },
+    "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_d2621c3bf7.MI_LMG201_R01_grip_d2621c3bf7": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "25bbae7d66a5828e800d0c4ef56fc12e21b403dc74bfebcd05157d7ae24e0902",
+      "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_c64c234a4a75.M_LMG201_R01_c64c234a4a75",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.04500000178813934,
+        "PKM_SatinRoughness": 0.3569999933242798,
+        "PKM_SatinColorWeight": 0.9800000190734863,
+        "G43_LegacyWetDisabled": 0.0,
+        "G43_Zero": 0.0,
+        "G43_One": 1.0,
+        "G43_SourceRoughness": 0.4000000059604645,
+        "G43_SourceMetal": 0.7300000190734863,
+        "WeaponWetness": 0.0,
+        "G43_Roughness": 0.5400000214576721,
+        "G43_Metallic": 0.0,
+        "G43_MicroNormalStrength": 0.0,
+        "G43_Specular": 0.41999998688697815,
+        "F50_StructuralNormalStrength": 0.75,
+        "R01_GrainRoughness": 0.019999999552965164,
+        "R01_MottleRoughness": 0.006000000052154064,
+        "R01_PolymerStipple": 0.02500000037252903,
+        "R01_EdgeHighlight": 0.019999999552965164
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/LMG201/Material21/Textures/T_LMG201_FineFinish.T_LMG201_FineFinish",
+        "R01_GrainTexture": "/Game/Weapons/LMG201/SurfaceStandard20261001/Textures/T_LMG201_R01_FineGrain.T_LMG201_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_c64c234a4a75.M_LMG201_R01_c64c234a4a75"
+    },
+    "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_79d60ac85c.MI_LMG201_R01_grip_79d60ac85c": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "744d09445d3e7eb35b787ca82f5a121d6fa04aab4c82fb906b41765a7a6d6b9b",
+      "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_101ad9d50405.M_LMG201_R01_101ad9d50405",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.04500000178813934,
+        "PKM_SatinRoughness": 0.3569999933242798,
+        "PKM_SatinColorWeight": 0.9800000190734863,
+        "G43_LegacyWetDisabled": 0.0,
+        "G43_Zero": 0.0,
+        "G43_One": 1.0,
+        "G43_SourceRoughness": 0.4000000059604645,
+        "G43_SourceMetal": 0.7300000190734863,
+        "WeaponWetness": 0.0,
+        "G43_Roughness": 0.5400000214576721,
+        "G43_Metallic": 0.0,
+        "G43_MicroNormalStrength": 0.0,
+        "G43_Specular": 0.41999998688697815,
+        "F50_StructuralNormalStrength": 0.75,
+        "R01_GrainRoughness": 0.019999999552965164,
+        "R01_MottleRoughness": 0.006000000052154064,
+        "R01_PolymerStipple": 0.02500000037252903,
+        "R01_EdgeHighlight": 0.019999999552965164
+      },
+      "textures": {
+        "PKM_SatinFinishTexture": "/Game/Weapons/LMG201/Material21/Textures/T_LMG201_FineFinish.T_LMG201_FineFinish",
+        "R01_GrainTexture": "/Game/Weapons/LMG201/SurfaceStandard20261001/Textures/T_LMG201_R01_FineGrain.T_LMG201_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_101ad9d50405.M_LMG201_R01_101ad9d50405"
+    },
+    "/Game/Weapons/LMG201/SurfaceStandard20261001/Materials/MI_LMG201_R01_grip_bd7ed6f32e.MI_LMG201_R01_grip_bd7ed6f32e": {
+      "class": "MaterialInstanceConstant",
+      "sha256": "7b5c7dfa69c4ad7b428ae1c9656aba180796444bf60d5ed5bb6ff68226926f86",
+      "base": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_deb7da1c49e8.M_LMG201_R01_deb7da1c49e8",
+      "scalars": {
+        "PKM_MicroScratchStrength": 0.10000000149011612,
+        "G43_Zero": 0.0,
+        "G43_One": 1.0,
+        "G43_SourceRoughness": 0.4000000059604645,
+        "G43_SourceMetal": 0.7300000190734863,
+        "WeaponWetness": 0.0,
+        "G43_Roughness": 0.5400000214576721,
+        "G43_Metallic": 0.0,
+        "G43_MicroNormalStrength": 0.0,
+        "G43_Specular": 0.41999998688697815,
+        "F50_StructuralNormalStrength": 0.75,
+        "R01_GrainRoughness": 0.019999999552965164,
+        "R01_MottleRoughness": 0.006000000052154064,
+        "R01_PolymerStipple": 0.02500000037252903,
+        "R01_EdgeHighlight": 0.019999999552965164
+      },
+      "textures": {
+        "R01_GrainTexture": "/Game/Weapons/LMG201/SurfaceStandard20261001/Textures/T_LMG201_R01_FineGrain.T_LMG201_R01_FineGrain"
+      },
+      "parent": "/Game/Weapons/LMG201/SurfaceStandard20261001/Master/M_LMG201_R01_deb7da1c49e8.M_LMG201_R01_deb7da1c49e8"
+    }
+  }
+}

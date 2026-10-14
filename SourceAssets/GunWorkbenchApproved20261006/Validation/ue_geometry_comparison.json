@@ -1,0 +1,167 @@
+{
+  "source_triangles": 242532,
+  "ue_export_triangles": 241967,
+  "coordinate_flip_xy": [
+    1,
+    1
+  ],
+  "max_nearest_source_triangle_centroid_error_m": 4.460403317807504e-07,
+  "unmatched_source_count": 565,
+  "unmatched_source_nonzero_count": 4,
+  "unmatched_source_nonzero_total_area_m2": 1.48255701155416e-10,
+  "unmatched_nonzero_by_material": {
+    "OriginalLamp_WSSculpt_Machined": 1,
+    "OriginalLamp_WSBench_LampPaint": 2,
+    "OriginalLamp_WSBench_Reflector": 1
+  },
+  "unmatched_largest_area_m2": 4.205007278478354e-11,
+  "material_pairs": [
+    {
+      "source": "WSBench_BenchWood",
+      "ue": "MI_WBK_WSBench_BenchWood_R3",
+      "triangles": 10672
+    },
+    {
+      "source": "GWDesign_PropsPBR",
+      "ue": "M_GWDesign_PropsPBR",
+      "triangles": 87896
+    },
+    {
+      "source": "GW3_Mat",
+      "ue": "M_GW3_Mat",
+      "triangles": 828
+    },
+    {
+      "source": "WSBench_EndGrain",
+      "ue": "MI_WBK_WSBench_EndGrain",
+      "triangles": 180
+    },
+    {
+      "source": "WSDetail_RackPaint",
+      "ue": "MI_WBK_WSDetail_RackPaint",
+      "triangles": 4866
+    },
+    {
+      "source": "WSSculpt_Machined",
+      "ue": "MI_WBK_WSSculpt_Machined",
+      "triangles": 10334
+    },
+    {
+      "source": "WSSculpt_RubberGrip",
+      "ue": "MI_WBK_WSSculpt_RubberGrip",
+      "triangles": 2384
+    },
+    {
+      "source": "GW3_Index",
+      "ue": "M_GW3_Index",
+      "triangles": 1564
+    },
+    {
+      "source": "OriginalLamp_WSBench_CableRubber",
+      "ue": "MI_WBK_WSBench_CableRubber",
+      "triangles": 7216
+    },
+    {
+      "source": "OriginalLamp_WSBench_LampPaint",
+      "ue": "MI_WBK_WSBench_LampPaint",
+      "triangles": 22593
+    },
+    {
+      "source": "OriginalLamp_WSSculpt_Machined",
+      "ue": "MI_WBK_WSSculpt_Machined_9",
+      "triangles": 22727
+    },
+    {
+      "source": "OriginalLamp_WSBench_Reflector",
+      "ue": "MI_WBK_WSBench_Reflector",
+      "triangles": 9427
+    },
+    {
+      "source": "OriginalLamp_WSBench_SocketCeramic",
+      "ue": "MI_WBK_WSBench_SocketCeramic",
+      "triangles": 508
+    },
+    {
+      "source": "OriginalLamp_WSBench_LampBulb",
+      "ue": "MI_WBK_WSBench_LampBulb",
+      "triangles": 1148
+    },
+    {
+      "source": "Library_Fab_Bench_Wrench_0",
+      "ue": "MI_WBK_WSFab_Bench_Wrench",
+      "triangles": 1296
+    },
+    {
+      "source": "Library_Fab_Bench_Screwdriver_0",
+      "ue": "MI_WBK_WSFab_Bench_Screwdriver",
+      "triangles": 2630
+    },
+    {
+      "source": "Library_Fab_Bench_Pliers_0",
+      "ue": "MI_WBK_WSFab_Bench_Pliers",
+      "triangles": 4790
+    },
+    {
+      "source": "Library_Bottle_OilCan_0",
+      "ue": "MI_WBK_WBKBottle_OilPaint",
+      "triangles": 4352
+    },
+    {
+      "source": "Library_Bottle_OilCan_1",
+      "ue": "MI_WBK_WBKBottle_SpoutSteel",
+      "triangles": 7264
+    },
+    {
+      "source": "Library_Bottle_OilCan_2",
+      "ue": "MI_WBK_WBKBottle_CapPolymer",
+      "triangles": 3584
+    },
+    {
+      "source": "Library_Bottle_OilCan_3",
+      "ue": "MI_WBK_WBKBottle_OilLabel",
+      "triangles": 2560
+    },
+    {
+      "source": "GWDesign_ClearGlass",
+      "ue": "M_GWDesign_ClearGlass",
+      "triangles": 344
+    },
+    {
+      "source": "GWDesign_OpticGlass",
+      "ue": "M_GWDesign_OpticGlass",
+      "triangles": 380
+    },
+    {
+      "source": "M_ammo_9_Paper",
+      "ue": "M_GWDesign_Ammo_9_Paper",
+      "triangles": 1976
+    },
+    {
+      "source": "M_ammo_9_Metal",
+      "ue": "M_GWDesign_AmmoMetal",
+      "triangles": 7160
+    },
+    {
+      "source": "M_ammo_762_Paper",
+      "ue": "M_GW_Ammo_ammo_762_0",
+      "triangles": 2084
+    },
+    {
+      "source": "M_ammo_762_Metal",
+      "ue": "M_GW_Ammo_ammo_762_1",
+      "triangles": 9560
+    },
+    {
+      "source": "M_ammo_556_Paper",
+      "ue": "M_GW_Ammo_ammo_556_0",
+      "triangles": 2084
+    },
+    {
+      "source": "M_ammo_556_Metal",
+      "ue": "M_GW_Ammo_ammo_556_1",
+      "triangles": 9560
+    }
+  ],
+  "ammo_uv_max_error": 4.6566128730773926e-08,
+  "note": "Nearest centroid matching can conflate duplicate triangles; missing counts may overcount coincident source faces."
+}

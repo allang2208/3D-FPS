@@ -19,12 +19,12 @@ FWeaponDamageParts ColdSteelWeaponStats::DamageParts(const FColdSteelItem& Item,
         if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Base*=G->Calculate(Item.Definition,G->Installed(Item)).Bow.Damage;
     const float Attack=Model?Model->Derived(TEXT("atk")):0;
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
-    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
+    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack,-1,Model):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
 }
 double ColdSteelWeaponStats::BowDrawSpeedBonus(const FColdSteelItem* Item,const UColdSteelStatusModel* Model)
 {
     if(!Item||!Model||!ColdSteelInventory::IsBow(*Item))return 0.;
-    double Bonus=Model->EquipmentBonus(TEXT("bowDrawSpeed"));
+    double Bonus=Model->EquipmentBonus(TEXT("bowDrawSpeed"))+Model->DexterousHandsEffect().BowDrawSpeed;
     if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
         Bonus+=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.DrawSpeedBonus;
     if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
@@ -41,7 +41,7 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
     float Result=Base;
     if(Item&&ColdSteelInventory::IsBow(*Item))
     {
-        // Modification, equipment and this bow's enchantment share one speed sum.
+        // Dexterous Hands, modification, equipment and this bow's enchantment share one speed sum.
         // Nocking and arrow velocity keep their independent clocks.
         Result/=FMath::Max(0.05,1.+BowDrawSpeedBonus(Item,Model));
     }
