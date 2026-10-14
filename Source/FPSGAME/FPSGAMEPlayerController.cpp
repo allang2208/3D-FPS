@@ -9,8 +9,10 @@
 #include "Building/VoxelBuildComponent.h"
 #include "Building/VoxelBuildAudit.h"
 #include "Building/ColdSteelDoorInteraction.h"
+#include "Movement/FPSDoorPushComponent.h"
 
 #include "UI/ColdSteelHUDWidget.h"
+#include "UI/ColdSteelGameMenuWidget.h"
 #include "UI/LPVOScopeWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "UI/ColdSteelStatusModel.h"
@@ -60,6 +62,7 @@ void RunConsumablePickupAudit(AFPSGAMEPlayerController* PC);
 void RunEnhancementMaterialPickupAudit(AFPSGAMEPlayerController* PC);
 void RunMagicScrollAudit(AFPSGAMEPlayerController* PC);
 void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
+void RunIncineratorUIAudit(AFPSGAMEPlayerController* PC);
 
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
@@ -228,15 +231,20 @@ void AFPSGAMEPlayerController::BeginPlay()
     StartWeatherPanelValidation(this, WeatherPanel);
 #endif
     ColdSteelHUD = CreateWidget<UColdSteelHUDWidget>(this, UColdSteelHUDWidget::StaticClass());
+    GameMenu = CreateWidget<UColdSteelGameMenuWidget>(this, UColdSteelGameMenuWidget::StaticClass());
+    if (GameMenu) GameMenu->AddToPlayerScreen(90);
     ScopeOverlay=CreateWidget<ULPVOScopeWidget>(this,ULPVOScopeWidget::StaticClass());
     if(ScopeOverlay){ScopeOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);ScopeOverlay->AddToPlayerScreen(10);}
     if (ColdSteelHUD)
     {
         ColdSteelHUD->AddToPlayerScreen(20);
+        if(FParse::Param(FCommandLine::Get(),TEXT("IncineratorUIAudit"))){FTimerHandle AuditTimer;GetWorldTimerManager().SetTimer(AuditTimer,FTimerDelegate::CreateWeakLambda(this,[this](){RunIncineratorUIAudit(this);}),6.f,false);}
         if(FParse::Param(FCommandLine::Get(),TEXT("ColdSteelTopVitalsAudit"))){FTimerHandle VitalsAudit;GetWorldTimerManager().SetTimer(VitalsAudit,[this](){ColdSteelHUD->RunTopVitalsAudit();},10.f,false);}
         FTimerHandle WarehouseInit;
         GetWorldTimerManager().SetTimer(WarehouseInit,[this]()
         {
+            // Collision is shared. A client must not place its own chest row.
+            if(!HasAuthority())return;
             // The gunplay audit requires its original clear movement corridor.
             if(FParse::Param(FCommandLine::Get(),TEXT("GunplayAudit"))){UE_LOG(LogTemp,Display,TEXT("Gunplay audit: omit automatic chest from movement fixture"));return;}
             const bool Audit=FParse::Param(FCommandLine::Get(),TEXT("ColdSteelWarehouseAudit"));
@@ -372,6 +380,11 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    if (IsGameMenuOpen())
+    {
+        if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) GameMenu->GoBack();
+        return true;
+    }
     // Action handlers own inspection interruption. Raw keys and look/move axes
     // also describe ordinary locomotion, empty shortcuts and UI-only input.
     if(WoodworkingPanel)
@@ -425,6 +438,11 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     {
         return true;
     }
+    if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape && CanOpenGameMenu())
+    {
+        OpenGameMenu();
+        return true;
+    }
     // Magic hold-to-preview consumes its own release: pressing a bound slot while its
     // projectile hovers shows the red trajectory instead of firing, and letting go fires it.
     if(Params.Event==IE_Released&&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
@@ -435,6 +453,10 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
             auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
             if(Profile&&Profile->EndSpellAimPreview(QuickIndex))return true;
         }
+        // 拖拽门松手冻结：E 按下时经 RequestDoorInteraction 记住了那扇门，这里只管松开。
+        if(Params.Key==EKeys::E&&GetPawn())
+            if(auto* Push=GetPawn()->FindComponentByClass<UFPSDoorPushComponent>())
+                if(Push->HasPressedDoor())Push->ReleasePressedDoor();
     }
     if(Params.Event==IE_Pressed&&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
     {
@@ -445,8 +467,13 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         {
             if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->InterruptWeaponInspection();
         };
-        if(Params.Key==EKeys::Eight){Profile->SelectProductionTool(TEXT("tool_shovel"));return true;}
-        if(Params.Key==EKeys::F7){Profile->StowProductionTool();return true;}
+        // Number keys belong to the mixed quick bar. Keep tools on their own chord.
+        if(Params.Key==EKeys::F7)
+        {
+            if(IsInputKeyDown(EKeys::LeftShift)||IsInputKeyDown(EKeys::RightShift))Profile->SelectProductionTool(TEXT("tool_shovel"));
+            else Profile->StowProductionTool();
+            return true;
+        }
         // G 已让位给符文长剑·环绕飞剑（角色 BindAction "RuneBlades"），武器轮换只留滚轮。
         if(Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
         {Profile->CycleWeapon();return true;}
@@ -507,7 +534,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
-    if(IsLocalController()&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
+    if(IsLocalController()&&!IsGameMenuOpen()&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
         &&(!ColdSteelHUD||(!ColdSteelHUD->IsWorldForging()&&!ColdSteelHUD->IsGunAssembly()))
         &&(!WeatherPanel||!WeatherPanel->IsPanelOpen())
         &&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
@@ -544,6 +571,7 @@ void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 
 void AFPSGAMEPlayerController::ToggleInventory()
 {
+    if (IsGameMenuOpen()) return;
     if(WoodworkingPanel)return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) WeatherPanel->SetPanelOpen(false);
     if (ColdSteelHUD)
@@ -561,7 +589,7 @@ bool AFPSGAMEPlayerController::IsItemIconPanelOpen() const
 
 bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 {
-    return bShowMouseCursor && !IsMoveInputIgnored() && !IsLookInputIgnored() &&
+    return bShowMouseCursor && !IsGameMenuOpen() && !IsMoveInputIgnored() && !IsLookInputIgnored() &&
         !WoodworkingPanel && !GunsmithPanel && !EnhancementPanel && !ExpeditionPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
         ColdSteelHUD && !ColdSteelHUD->IsInventoryOpen() && (!VoxelBuilder || !VoxelBuilder->IsPanelOpen());
 }
@@ -575,6 +603,7 @@ bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Pla
 
 void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
+    if (IsGameMenuOpen()) return;
     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return;
     if (WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
@@ -601,6 +630,7 @@ void AFPSGAMEPlayerController::ToggleWeatherPanel()
 
 void AFPSGAMEPlayerController::ToggleDevelopmentPanel()
 {
+    if (IsGameMenuOpen()) return;
     if(WoodworkingPanel)return;
     if (!WeatherPanel) return;
     CloseExpedition();

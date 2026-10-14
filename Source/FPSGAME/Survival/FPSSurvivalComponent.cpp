@@ -1,4 +1,6 @@
 #include "FPSSurvivalComponent.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Building/ColdSteelCampfire.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 #include "../UI/StatusEffectsComponent.h"
@@ -84,8 +86,7 @@ void UFPSSurvivalComponent::OnRep_State(const FFPSSurvivalState& Previous)
 void UFPSSurvivalComponent::NotifySanityChange(bool bWasDepleted)
 {
     if(bWasDepleted==State.IsSanityDepleted())return;
-    if(auto* Instance=GetWorld()->GetGameInstance())
-        if(auto* Model=Instance->GetSubsystem<UColdSteelStatusModel>())Model->SetSurvivalState(State,GetOwner());
+    if(auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner())))Model->SetSurvivalState(State,GetOwner());
     if(GetOwner()->HasAuthority())GetOwner()->ForceNetUpdate();
     UStatusEffectsComponent::Notify(GetOwner());
 }
@@ -149,8 +150,9 @@ void UFPSSurvivalComponent::TickComponent(float DeltaTime,ELevelTick TickType,FA
     const float BlessedTime=FMath::Min(DeltaTime,State.FountainBlessingSeconds);
     const float SanityTime=FMath::Min(DeltaTime,DepletedAt);
     const float Boundaries[]={FMath::Min(BlessedTime,SanityTime),FMath::Max(BlessedTime,SanityTime),DeltaTime};
-    const auto RateMultiplier=[BlessedTime,DepletedAt](float Time)
-    {return (Time<BlessedTime?.9f:1.f)*(Time>=DepletedAt?2.f:1.f);};
+    const float CampfireRate=AColdSteelCampfire::ConsumptionMultiplierAt(Pawn);
+    const auto RateMultiplier=[BlessedTime,DepletedAt,CampfireRate](float Time)
+    {return CampfireRate*(Time<BlessedTime?.9f:1.f)*(Time>=DepletedAt?2.f:1.f);};
     float ConsumptionTime=0.f,Start=0.f;
     for(const float End:Boundaries)
     {ConsumptionTime+=(End-Start)*RateMultiplier((Start+End)*.5f);Start=End;}

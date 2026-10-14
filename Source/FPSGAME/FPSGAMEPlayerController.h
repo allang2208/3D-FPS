@@ -16,13 +16,19 @@ class FPSGAME_API AFPSGAMEPlayerController : public APlayerController
 
 public:
     AFPSGAMEPlayerController();
+    void OpenGameMenu();
+    void CloseGameMenu();
+    bool IsGameMenuOpen() const;
+    bool CanOpenGameMenu() const;
+    void SetHubMusicUserVolume(float Volume);
     void ToggleWeatherPanel();
     void ToggleDevelopmentPanel();
     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
     /** 开发面板打开期间与背包共用右侧 HUD 让位规则。 */
     UColdSteelHUDWidget* GetColdSteelHUD() const { return ColdSteelHUD; }
-    /** ALT exposes the HUD cursor without suspending the held weapon/action. */
+    /** Live item thumbnails are only produced while a consuming panel is open. */
     bool IsItemIconPanelOpen() const;
+    /** ALT exposes the HUD cursor without suspending the held weapon/action. */
     bool IsCursorOnlyInteraction() const;
     static bool BlocksOngoingActions(const APlayerController* Player);
     bool OpenGunsmith(const FString& Instance=TEXT(""));
@@ -30,6 +36,7 @@ public:
     bool OpenWoodworking(AActor* Station,bool PracticeOnly=false);
     bool IsWoodworkingOpen() const { return WoodworkingPanel!=nullptr; }
     void CloseWoodworking();
+    /** Manual development practice entry; never consumes materials or grants rewards. */
     bool OpenEnhancement(const FString& Instance=TEXT(""));
     void CloseEnhancement();
     UFUNCTION(BlueprintCallable, Category="Cold Steel UI") bool OpenExpedition();
@@ -51,6 +58,9 @@ protected:
     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 
 private:
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelGameMenuWidget> GameMenu;
+    bool bGameMenuOwnsInput = false;
+    bool bGameMenuOwnsPause = false;
     UPROPERTY(VisibleAnywhere, Category="Development") TObjectPtr<UDevelopmentSpawnComponent> DevelopmentSpawner;
     /** 主神空间（Hub 地图）驻留 BGM 组件：随控制器存活、换图自动销毁。 */
     UPROPERTY(Transient) TObjectPtr<class UAudioComponent> HubMusic;

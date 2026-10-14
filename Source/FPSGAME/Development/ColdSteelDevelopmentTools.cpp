@@ -39,7 +39,7 @@ namespace
         if(Category==TEXT("material")&&Type==TEXT("建材")){Entry.Group=TEXT("建材");Entry.GroupOrder=4;}
         else if(Category==TEXT("enhancement")){Entry.Group=TEXT("强化道具");Entry.GroupOrder=5;Entry.SubgroupOrder=Type==TEXT("附魔卷轴")?1:0;}
         else if(Category==TEXT("tribute")){Entry.Group=TEXT("祭品");Entry.GroupOrder=6;}
-        else if(Category==TEXT("gold")){Entry.Group=TEXT("货币");Entry.GroupOrder=7;}
+        else if(Category==TEXT("currency")){Entry.Group=TEXT("货币");Entry.GroupOrder=7;}
         else if(Category==TEXT("material")){Entry.Group=TEXT("材料");Entry.GroupOrder=3;}
         else if(Category==TEXT("equipment")){Entry.Group=TEXT("装备");Entry.GroupOrder=8;}
         else {Entry.Group=TEXT("其他");Entry.GroupOrder=9;}
@@ -53,8 +53,8 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
     static const TArray<FName> Ids={
         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
-        TEXT("heavyStrike"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
+        TEXT("heavyStrike"),TEXT("swordUppercut"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
+        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("meteor"),TEXT("flameArmor"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
     return Ids;
 }
 
@@ -67,8 +67,11 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::DevelopmentSkillDefiniti
     if(Id==TEXT("criticalStrike"))return CriticalStrikeDefinition();
     if(Id==TEXT("fireball"))return FireballDefinition();
     if(Id==TEXT("iceSpike"))return IceSpikeDefinition();
+    if(Id==TEXT("iceWall"))return IceWallDefinition();
+    if(Id==TEXT("blizzard"))return BlizzardDefinition();
     if(Id==TEXT("lightningStrike"))return LightningDefinition();
     if(ElectricMagic::IsSkill(Id))return ElectricMagicDefinition(Id);
+    if(FireMagic::IsSkill(Id))return FireMagicDefinition(Id);
     if(Id==TEXT("holyLight"))return HolyLightDefinition();
     if(Id==TEXT("quickCombat"))return QuickCombatDefinition();
     return MasteryDefinition(Id);
