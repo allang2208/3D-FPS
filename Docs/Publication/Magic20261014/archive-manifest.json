@@ -1,0 +1,623 @@
+{
+  "stage": "archived_and_hash_verified",
+  "count": 77,
+  "bytes": 28206308,
+  "files": [
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/apply.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/apply.py",
+      "bytes": 143,
+      "sha256": "5ab8bb05f53a089e4b0703b3878acad9b96b106a1b0c22541b4ae09f0310e904",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/cache_docs.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/cache_docs.py",
+      "bytes": 353,
+      "sha256": "64453d4b1194645d5bb40a7df05c01382959e067d197f858b1f95be0133d0283",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/colors.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/colors.json",
+      "bytes": 8702,
+      "sha256": "5b8a3eff93b03001ec14f42280815374f9d56e6b71f04ad3663c211240aea860",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/colors.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/colors.py",
+      "bytes": 862,
+      "sha256": "995d441019f75afd91e1671860116823c68be750718510ea256c37e9b9b1c2f0",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/inspect.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/inspect.py",
+      "bytes": 2418,
+      "sha256": "6a48b3f33ab0359365fa4e3d29e0ae03656428819d1de0c2d2bc429146064f38",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/inspection.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/inspection.json",
+      "bytes": 113778,
+      "sha256": "84d46ab2e38393c8c437a65400c89ce031c42d623163696759a366c7f05748ec",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/live-components.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/live-components.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/probe_api.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/probe_api.py",
+      "bytes": 648,
+      "sha256": "c6a2a771b2adadfc2be78b98c0eca46f0cb6cf3ec4dd3582c35b08234df83af6",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/read_live.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/read_live.py",
+      "bytes": 998,
+      "sha256": "e494841dd61dc5903cd38ac2a1ba3bdadf62c5240252dec76ba09c17cced5a4e",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/simulate_after.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/simulate_after.py",
+      "bytes": 292,
+      "sha256": "cbd251834841d0fc93320ef54a3382d5b122ae7800b2fa9320173e5dd22f3a7a",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/simulate_source.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/simulate_source.py",
+      "bytes": 292,
+      "sha256": "ea24b8973ab19462bc326cda8f58e26ffd35ca8cde9340835d6ba85810e5a86c",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/simulate.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/simulate.py",
+      "bytes": 2769,
+      "sha256": "d62209162ffc6a3b9490491d9e85c2172476608d4083b4e1a64c3c03edd25b50",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/simulation-after.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/simulation-after.json",
+      "bytes": 14422,
+      "sha256": "6d402e194380964b2f72728c68581393c7546b8cf36c045696a9e87f96d535cc",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/simulation-before.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/simulation-before.json",
+      "bytes": 11795,
+      "sha256": "6eb71114a095f3d9cd6fea16b74d822dcf50bf68802ff8813c52f6fa025d7029",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/simulation-source.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/simulation-source.json",
+      "bytes": 517,
+      "sha256": "58509c454ccd9d887a1664931d89570cfbc36bd18b630138ac97d602adac3499",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/VisibilityFix/summarize.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/VisibilityFix/summarize.py",
+      "bytes": 1045,
+      "sha256": "9ac08dbe2642a8308c7cb282e21615df7fb8f449d981e993b13dd0e97b42ee94",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/apply.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/apply.py",
+      "bytes": 213,
+      "sha256": "508f8bd76a4479afa9af433a85c04bdf97fe4c1a56c9525332c56684cc8387e3",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/delivery.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/delivery.json",
+      "bytes": 1309,
+      "sha256": "ac4776907d7b9b5ed0a1a81e53211be5840d8e11f54a5e63bce756003c9e2015",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/flame-layer.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/flame-layer.json",
+      "bytes": 8081,
+      "sha256": "02d71d1d5f597185f413b5e90fc6876e9360572d308ad207a731e41677b35beb",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/M_DragonFlame.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/M_DragonFlame.t3d",
+      "bytes": 14983,
+      "sha256": "6722b3f7c32cb541aef617caad51d85b2e7f50083a8926284b6b6d68f1fe06e0",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/M_MasterSpriteMat.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/M_MasterSpriteMat.t3d",
+      "bytes": 16405,
+      "sha256": "41ca7e2bcdb99089b4c019fd7841453ee1c7945772e9b8487695355f7e8dd12e",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/M_RadialBurnDecal.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/M_RadialBurnDecal.t3d",
+      "bytes": 17573,
+      "sha256": "b91e80df00a02e0ff1a75edf227d2e83c1fb1f4211c8317982c004b959ea97bc",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/M_RadialBurnDecalBlack.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/M_RadialBurnDecalBlack.t3d",
+      "bytes": 18044,
+      "sha256": "955373221345101b4eacf28df0f49e4ec8a6a2518e2fdc7e79781e0dc329a836",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/M_Smoke.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/M_Smoke.t3d",
+      "bytes": 14713,
+      "sha256": "03edd91593905521e22ce1bd6abb86760db93c55281635a43e22f8fb82cd5951",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/materials.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/materials.json",
+      "bytes": 4220,
+      "sha256": "a4e515c0fe3fef1cf64f1fdcb8686cacc3b5a4c1f0670953e9f4124efcc9d1a2",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/MI_DragonFlame.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/MI_DragonFlame.t3d",
+      "bytes": 2522,
+      "sha256": "256ae68131d3547796f95e599ee3e950c14007a30c469004275c6fc080317ffd",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/MI_Particles.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/MI_Particles.t3d",
+      "bytes": 1789,
+      "sha256": "43ffc3e2bb92d10e245911a8c4a6933a597254fa29ae1cfa09a30c335fd526dc",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/MI_TrailSmoke.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/MI_TrailSmoke.t3d",
+      "bytes": 2531,
+      "sha256": "f03f17add01e043a4df46ea67e66942d33dabf4f4cf2ba5770853e76637783e9",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/read_flame_layer.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/read_flame_layer.py",
+      "bytes": 1854,
+      "sha256": "be0a06cae9d4dfed3dc5e2fa78d04d8da5b29e19a437f7fbde05f0c362ae4579",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/read_materials.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/read_materials.py",
+      "bytes": 1907,
+      "sha256": "a37e0aadae45b356a1a7b4fba587f6b270d25cbad97bd3ec49c4a48f621ee969",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/read_saved.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/read_saved.py",
+      "bytes": 2069,
+      "sha256": "72f652e57d30dd4e492276598c56b6c950cec23ee7d6a88e0f7c5b794d5b0298",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/saved-material-binding.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/saved-material-binding.json",
+      "bytes": 1259,
+      "sha256": "a02b0511c965cabb2ca9dd468c7ef67aa855f1ef0de5a2ae8a780c1f5a55a354",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/T_TiledFire.png",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/T_TiledFire.png",
+      "bytes": 1704803,
+      "sha256": "c598b3dee204e5320d77a3491a4a359e097d80a53ecbebb84885af9a58c7940f",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlameRestoreR3/T_TiledFire.tga",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlameRestoreR3/T_TiledFire.tga",
+      "bytes": 3145746,
+      "sha256": "bd153314988ced1121f1ab23e6fcd9d660224aeba3486f24a3722d2c86515fc3",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/apply.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/apply.py",
+      "bytes": 213,
+      "sha256": "508f8bd76a4479afa9af433a85c04bdf97fe4c1a56c9525332c56684cc8387e3",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/before.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/before.json",
+      "bytes": 3130,
+      "sha256": "504de75f02b96c31cffe84a588d5890d50d07a873209c6db490f8249d0ad9ee7",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/delivery.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/delivery.json",
+      "bytes": 1419,
+      "sha256": "69faf1c77204469db9003852e336b8f93f729ba400a8f9a0a5622795b34420e8",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/diagnose.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/diagnose.py",
+      "bytes": 2118,
+      "sha256": "6a2bd8c1789f14549cfd732f7cd87076f54e97924f66bed5874959dab22937da",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/export_flame.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/export_flame.py",
+      "bytes": 490,
+      "sha256": "5c4fbd2294b96a435df62a43412f443ca1268d8c53dcccc6e6cc4402c98fab7f",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/fire-flame-source.png",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/fire-flame-source.png",
+      "bytes": 2893327,
+      "sha256": "37bc33db9e29849cf1f02444cfbc6258907947b4d0bd9a0c1352cff659862675",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/fire-flame-source.tga",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/fire-flame-source.tga",
+      "bytes": 16777234,
+      "sha256": "eb41e6d0e8a5718c54c7191ef51e6d96c33609dcc9d58c3ac9dc7ffe6cb9145e",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/particle_probe.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/particle_probe.py",
+      "bytes": 3278,
+      "sha256": "29e56b58588cd2c1aa83d89ab916a3a709b740d2563f1685fe98e35aba60d948",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/particles-before.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/particles-before.json",
+      "bytes": 10770,
+      "sha256": "20c355bcab5a5fc824045b2879d9b909ef5b588ee945b648d23329d63d2bc96d",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/probe_after.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/probe_after.py",
+      "bytes": 2463,
+      "sha256": "0cfaf66498cef15316d549a648266a7192947043b3fef6dba699b3d184c9cc93",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/read_saved.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/read_saved.py",
+      "bytes": 2193,
+      "sha256": "b616b93ed2fcf76763ab8ca74e1063a78dfd98be958647a270f4eedc79936ce1",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/JetFixR4/saved-asset-checks.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/JetFixR4/saved-asset-checks.json",
+      "bytes": 496,
+      "sha256": "64c0272fbe2976a07fb4b6d8044449c6416694c5be1bb7867db922c85f3b79de",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/apply.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/apply.py",
+      "bytes": 163,
+      "sha256": "f3bd4756e75f02e8720cdab100b17cbf6d29b4d1a370ef9cf59ef26d413c9e10",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/delivery.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/delivery.json",
+      "bytes": 791,
+      "sha256": "706fbc93bba7437a9b1645f182794518936cbf60a06a67ea5669b772789c3248",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/M_Fire_C.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/M_Fire_C.t3d",
+      "bytes": 17426,
+      "sha256": "278769272e24123f7b55df6615cf2ba7093e394261f11dff3640dc5a47c2dd2b",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/M_Spark_A.t3d",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/M_Spark_A.t3d",
+      "bytes": 13068,
+      "sha256": "940847e743278a6c0c68e8e2f32e015b5056665f8525870d0c4a3e51c58232ee",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/read_source.py",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/read_source.py",
+      "bytes": 1164,
+      "sha256": "39075edf1141a3b1004b27275f39ceab8602d39b5bebfbcce4d5ccb61b4e255e",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/source.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/source.json",
+      "bytes": 394,
+      "sha256": "e3f1d9dd162c3e61be9495b45b2ee3465ca8983828c8c3872a1b9372b423262a",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/T_Fire_B.tga",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/T_Fire_B.tga",
+      "bytes": 49170,
+      "sha256": "880159173e63cc68cbe3fa201e8cf851510489ca3ff4e8e14947359529ac243d",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/T_Fire_F.png",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/T_Fire_F.png",
+      "bytes": 206580,
+      "sha256": "f644c33cb69a972df6b198d837bcd08f4064ab372095a8ccd1e3aac3823d3adc",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/RealisticJetV5/T_Fire_F.tga",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/RealisticJetV5/T_Fire_F.tga",
+      "bytes": 786450,
+      "sha256": "e79b65ec71aa774142a295ca7ceb217c9b3b39314e4506eef6c8651e7e76ec3f",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlowV6_20261014/delivery.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlowV6_20261014/delivery.json",
+      "bytes": 912,
+      "sha256": "425ce58990de3b771dab0e929d05697fc8a235e762c3d5b11412baa39e983767",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/FlowV6_20261014/review.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/FlowV6_20261014/review.json",
+      "bytes": 589,
+      "sha256": "6ce9fca6c25f39260884a09dc628e92993982bc43bfe1ca6d917d545e565fe7b",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/AcceptedV7_20261014/accepted-source-sha256.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/AcceptedV7_20261014/accepted-source-sha256.json",
+      "bytes": 654,
+      "sha256": "365c761f568eed81e47464b168dbc72a008a745677d13892e28be74cfd22155b",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/AcceptedV7_20261014/delivery.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/AcceptedV7_20261014/delivery.json",
+      "bytes": 1237,
+      "sha256": "e93d85fe41038efa0972e38cf56295beccb701b781a9117573a77b444fc0908d",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/integration-review.json",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/integration-review.json",
+      "bytes": 2246,
+      "sha256": "7b72acf4335bf864d28b885eedafe0a5d627cd3ae4af1e482fa5b66425d901f7",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Tools/Skills/build_dragon_breath_flame.py",
+      "archived": "trash/magic-closeout-20261014/Tools/Skills/build_dragon_breath_flame.py",
+      "bytes": 5613,
+      "sha256": "bf45aa802fd481805b4b02d8002d29820819068509724c2b1ccdf61e114c2db7",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Tools/Skills/build_dragon_breath_realistic.py",
+      "archived": "trash/magic-closeout-20261014/Tools/Skills/build_dragon_breath_realistic.py",
+      "bytes": 14649,
+      "sha256": "fd09517c5e72b8ed05e3c77816f08d0263ef15336ae6b27635621e9c6a6adc57",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Tools/Skills/build_dragon_breath_accepted.py",
+      "archived": "trash/magic-closeout-20261014/Tools/Skills/build_dragon_breath_accepted.py",
+      "bytes": 8358,
+      "sha256": "3c9df5b23a7fa5b2991b7ec593afc49ec692eaf0c588cfd10f152231e856962e",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Tools/Skills/check_dragon_breath_samples.py",
+      "archived": "trash/magic-closeout-20261014/Tools/Skills/check_dragon_breath_samples.py",
+      "bytes": 4097,
+      "sha256": "64267afc1a017b10d2d33b73ad343d22e0aa6a05e43e4db603f3c7753a2226f1",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Tools/Skills/inspect_dragon_breath.py",
+      "archived": "trash/magic-closeout-20261014/Tools/Skills/inspect_dragon_breath.py",
+      "bytes": 2985,
+      "sha256": "8d687adb15fbb0ee81c88cd420282e41dc7325e2e7dbc60de39bd56015e11045",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/AcceptedV7/M_DragonAcceptedCore.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/AcceptedV7/M_DragonAcceptedCore.uasset",
+      "bytes": 22774,
+      "sha256": "9b91670c957d7799afeba543f72adc156d8cdf553b10bb5e4873e329969b8b67",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/AcceptedV7/M_DragonAcceptedEmbers.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/AcceptedV7/M_DragonAcceptedEmbers.uasset",
+      "bytes": 8333,
+      "sha256": "add6a5d0899488a46d2339da0f7932287a2ef051a4714e713f189ca51c03de36",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/AcceptedV7/M_DragonAcceptedTongues.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/AcceptedV7/M_DragonAcceptedTongues.uasset",
+      "bytes": 17593,
+      "sha256": "500dd7a7ddc36950e0660ab86498f5e9485e9d8d6ac2e626eebad2c9b92bf736",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/M_DragonEmber.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/M_DragonEmber.uasset",
+      "bytes": 17286,
+      "sha256": "b205d3d52137506c5c2c73a8a9349f3c93a0181c8d1595ed839330b404e8c518",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/M_DragonFlame.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/M_DragonFlame.uasset",
+      "bytes": 23711,
+      "sha256": "c7c4b6acc0a87a026ad0496d121214655dfada4ced44bc841c8b5b51b2d34d6a",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/M_DragonNativeJetV5.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/M_DragonNativeJetV5.uasset",
+      "bytes": 18080,
+      "sha256": "8ee09a5733f33a2bb38b0735f09b2d0bc282bed78b30bf1d25566845c232736f",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/M_DragonNativeSparkV5.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/M_DragonNativeSparkV5.uasset",
+      "bytes": 14997,
+      "sha256": "bf0ff35157adf3a882312af3ea9240bac38e250d36e84ea5875d5e891938492c",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/MI_DragonEmber.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/MI_DragonEmber.uasset",
+      "bytes": 6836,
+      "sha256": "bd210491f4da15fc1409fae121954ce6e981eeb8121d67861872946390314230",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/MI_DragonFlame.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/MI_DragonFlame.uasset",
+      "bytes": 11952,
+      "sha256": "c8cb98bf4cfb769b8566f40d4e8a210bb4271acef35ed871576df7fa604c9815",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "Content/Skills/DragonBreath20261013/NS_DragonBreath.uasset",
+      "archived": "trash/magic-closeout-20261014/Content/Skills/DragonBreath20261013/NS_DragonBreath.uasset",
+      "bytes": 2118091,
+      "sha256": "9ea2877855107d8fcb023bb4d6e2beb58a3c2112ee38c25fb717d1b67ab03eeb",
+      "reason": "Superseded Sprite Dragon Breath production, candidates, or probes",
+      "replacement": "Content/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume.uasset; Tools/Skills/build_dragon_breath.py"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathReviewCommandlet.cpp",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathReviewCommandlet.cpp",
+      "bytes": 13574,
+      "sha256": "7034d58ba50f76288d87d74c27219767a5c9619f467d246fee19b1056d014e00",
+      "reason": "Probe hardcodes retired Sprite system; replaced by optional DragonFluidInspect commandlet",
+      "replacement": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonFluidInspectCommandlet.cpp"
+    },
+    {
+      "original": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathReviewCommandlet.h",
+      "archived": "trash/magic-closeout-20261014/SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathReviewCommandlet.h",
+      "bytes": 347,
+      "sha256": "ea51c8d634e02124fed87cd46ab5628de8657da085d33f042217e097d2d79aea",
+      "reason": "Probe hardcodes retired Sprite system; replaced by optional DragonFluidInspect commandlet",
+      "replacement": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonFluidInspectCommandlet.cpp"
+    }
+  ]
+}

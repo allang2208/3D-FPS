@@ -69,14 +69,18 @@ FString URainAssetEditor::ReadInput(UNiagaraSystem* System,const FString& Emitte
     return FString();
 #endif
 }
-bool URainAssetEditor::CompileRain(UNiagaraSystem* System)
+bool URainAssetEditor::CompileRain(UNiagaraSystem* System,bool bForce)
 {
 #if WITH_EDITOR
     if(!System)return false;
-    System->RequestCompile(false);
+    const bool bDeferredBefore=System->NeedsRequestCompile();
+    const bool bPendingBefore=System->HasOutstandingCompilationRequests(true);
+    System->RequestCompile(bForce);
     System->WaitForCompilationComplete(true,false);
-    UE_LOG(LogTemp,Display,TEXT("RainAsset compile %s valid=%d"),*System->GetPathName(),System->IsValid());
-    return System->IsValid();
+    const bool bComplete=System->IsValid()&&!System->HasOutstandingCompilationRequests(true);
+    UE_LOG(LogTemp,Display,TEXT("RainAsset compile %s valid=%d deferred_before=%d pending_before=%d pending_after=%d"),
+        *System->GetPathName(),System->IsValid(),bDeferredBefore,bPendingBefore,System->HasOutstandingCompilationRequests(true));
+    return bComplete;
 #else
     return false;
 #endif

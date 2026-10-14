@@ -10,6 +10,7 @@ class UNiagaraSystem;
 class UNiagaraComponent;
 class USoundBase;
 class AFPSMeteorStrike;
+struct FStreamableHandle;
 
 UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSFireMagicComponent : public UActorComponent
@@ -34,12 +35,42 @@ public:
     bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
+    void NetDragonCastResult(uint8 Phase,uint8 Code,uint32 CastId);
+    void NetStopDragonBreath(uint32 CastId);
+    void FinishDragonBreathForRemoval();
+    bool IsDragonBreathActive() const;
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
+    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> DragonSystem;
+    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> DragonFX;
+    UPROPERTY(ReplicatedUsing=OnRep_DragonBreath) FDragonBreathState DragonState;
+    UFUNCTION() void OnRep_DragonBreath();
+    FDragonBreathState DragonPrediction;
+    uint32 DragonLocalCastId=0,DragonCancelledCastId=0,DragonConfirmedCastId=0;
+    uint32 DragonSoundCastId=0,DragonVisualCastId=0,DragonAuthoritySerial=0;
+    TWeakObjectPtr<UColdSteelStatusModel> DragonRewardModel;
+    TSharedPtr<FStreamableHandle> DragonLoad;
+    FFireMagicRewards DragonRewards;
+    float DragonNextDamage=0,DragonProbeClock=0,DragonTailTime=0;
+    bool bDragonAwaitingRelease=false;
+    bool bDragonGestureHeld=false;
+    void LoadDragonBreath();
+    bool StartDragonBreath(const FFireMagicCast& Spell,bool bPredict=false,uint32 CastId=0,const FVector& NozzleOffset=FVector(95,17,4));
+    const FDragonBreathState& DragonView() const;
+    FVector CaptureDragonNozzle() const;
+    void RequestDragonStop();
+    void ConfirmDragonRelease(uint32 CastId);
+    void PresentDragonBreath();
+    void PlayDragonStartSound();
+    void TickDragonBreath(float Delta);
+    void StopDragonBreath(bool bTrain);
+    void DragonBreathHit();
+    void DragonBreathFrame(FVector& Origin,FQuat& Rotation) const;
+    void UpdateDragonBreathOcclusion(const FVector& Origin,const FQuat& Rotation);
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> AuraSystem;
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> WeaponSystem;
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> SparkSystem;
@@ -75,8 +106,8 @@ private:
     FVector PreviousWeaponBase=FVector::ZeroVector,PreviousWeaponTip=FVector::ZeroVector;
     bool bWeaponSampleValid=false;
     // ── 联机：焰甲激活态复制——远端副本仅演火环/武器火，伤害结算留在服务端 ──
-    UPROPERTY(ReplicatedUsing=OnRep_Armor) bool bNetArmor=false;
-    UPROPERTY(Replicated) FFireMagicCast NetArmorCast;
+    UPROPERTY(ReplicatedUsing=OnRep_Armor) FFlameArmorNetState NetArmor;
+    uint32 AppliedArmorSerial=0;
     UFUNCTION() void OnRep_Armor();
     bool bNetPaid=false;
     void SpawnArmorFX();

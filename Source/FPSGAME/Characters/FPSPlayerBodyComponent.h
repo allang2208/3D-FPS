@@ -214,7 +214,11 @@ private:
     void CaptureMotion(FFPSBodyState& State);
     void ApplyMotion(float Delta);
     void UpdateFloatingBook(const FFPSBodyMotionSample& Sample,float Alpha);
+    void ClearFloatingBook();
     UPROPERTY(Transient) TObjectPtr<class UFPSBodyWeaponMeshComponent> WorldFloatingBook;
+    UPROPERTY(Transient) TObjectPtr<class UDynamicMeshComponent> WorldBookGold;
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInstanceDynamic> WorldBookGoldMaterial;
+    TSharedPtr<struct FStreamableHandle> FloatingBookGoldLoad;
     TSharedPtr<struct FStreamableHandle> FloatingBookLoad;
     FTransform SmoothedBookFrame=FTransform::Identity;
     TArray<FTransform> SmoothedBookPose;

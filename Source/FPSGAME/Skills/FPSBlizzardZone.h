@@ -8,6 +8,7 @@ class UDecalComponent;
 class UMaterialInstanceDynamic;
 class UInstancedStaticMeshComponent;
 class USoundBase;
+class UColdSteelStatusModel;
 struct FStreamableHandle;
 
 USTRUCT()
@@ -30,6 +31,7 @@ public:
     AFPSBlizzardZone();
     bool InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,const FVector& Point,const FVector& Normal,const FVector& LongAxis,const TArray<TObjectPtr<UObject>>& Assets);
     void ActivateZone();
+    void FinishForRemoval();
     /** 15 件资产路径表：组件预热与远端副本自载共用同一张清单。 */
     static const TCHAR* const* ZoneAssetPaths();
     static bool HasBasicAssets(const TArray<TObjectPtr<UObject>>& Assets);
@@ -45,6 +47,7 @@ private:
     struct FChunk{FVector Position=FVector::ZeroVector,Velocity=FVector::ZeroVector;float Age=0,Size=0,FloorZ=0;int32 Layer=0;bool bActive=false,bFragment=false;float Roll=0;};
     FChunk Chunks[48];
     TWeakObjectPtr<APawn> Caster;
+    TWeakObjectPtr<UColdSteelStatusModel> RewardModel;
     FBlizzardCast CastSnapshot;
     FBlizzardRewards Rewards;
     FVector Center=FVector::ZeroVector,SurfaceNormal=FVector::UpVector,AxisX=FVector::ForwardVector,AxisY=FVector::RightVector,Wind=FVector::ZeroVector;

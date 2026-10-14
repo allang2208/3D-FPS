@@ -1,6 +1,7 @@
 #include "SpellbookComponent.h"
 #include "SpellbookAuthoredFocus.h"
 #include "SpellbookBookOrientation.h"
+#include "SpellbookBookSampling.h"
 #include "SpellbookFocusInterruptMotion.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "Animation/AnimSequence.h"
@@ -66,10 +67,8 @@ void USpellbookComponent::BeginFocusInterruptPresentation()
         InterruptBookFrame=FocusBook->GetRelativeTransform();
         const auto Current=FocusBook->GetBoneSpaceTransformsView();
         InterruptBookEntry=TArray<FTransform>(Current.GetData(),Current.Num());
-        FocusBook->SetAnimation(OpenClip);FocusBook->SetPlayRate(0.f);
-        FocusBook->SetComponentSpaceTransformsDoubleBuffering(false);
-        FocusBook->SetPosition(SpellbookFocusMotion::Detach,false);
-        FocusBook->TickAnimation(0.f,false);FocusBook->RefreshBoneTransforms();
+        if(!SpellbookBookSampling::Sample(*FocusBook,OpenClip,SpellbookFocusMotion::Detach))
+        {CancelFocus();return;}
         const auto Closed=FocusBook->GetBoneSpaceTransformsView();
         InterruptBookClosed=TArray<FTransform>(Closed.GetData(),Closed.Num());
         // Restore the captured pose immediately after sampling the catch pose.
@@ -123,10 +122,7 @@ void USpellbookComponent::PresentFocusInterruptBook()
     // Pick the farther end so even a hit near a cycle endpoint turns several pages.
     const float End=ClosePageAlpha<.5f?1.f:0.f;
     const float Page=FMath::Lerp(ClosePageAlpha,End,Ease(0.f,Hit::RapidEnd,Age));
-    if(!FocusBook->GetSingleNodeInstance()||FocusBook->GetSingleNodeInstance()->GetCurrentAsset()!=FlipClip)
-    {FocusBook->SetAnimation(FlipClip);FocusBook->SetPlayRate(0.f);}
-    FocusBook->SetPosition(Page*FlipClip->GetPlayLength(),false);
-    FocusBook->TickAnimation(0.f,false);FocusBook->RefreshBoneTransforms();
+    if(!SpellbookBookSampling::Sample(*FocusBook,FlipClip,Page*FlipClip->GetPlayLength()))return;
     const auto* Mesh=FocusBook->GetSkeletalMeshAsset();if(!Mesh)return;
     const auto Flipping=FocusBook->GetBoneSpaceTransformsView();
     const auto& Ref=Mesh->GetRefSkeleton();auto& Pose=FocusBook->GetEditableComponentSpaceTransforms();

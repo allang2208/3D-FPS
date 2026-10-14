@@ -38,6 +38,7 @@ public:
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastAccepted(uint8 Phase);
     void NetCastCancelled(uint8 Phase);
+    void FinishZonesForRemoval();
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;

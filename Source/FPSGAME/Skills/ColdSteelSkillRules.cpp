@@ -29,6 +29,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(ElectricMagic::IsSkill(Id))
     {
         const bool bLance=Id==TEXT("thunderLance");
+        if(!bLance)D.ElectricMagic.bRequiresStaff=true;
         D.Name=bLance?TEXT("贯穿雷枪"):TEXT("雷暴领域");
         D.Icon=bLance?TEXT("Skills/thunder_lance_cold_steel.png"):TEXT("Skills/storm_domain_cold_steel.png");
         D.Description=bLance?TEXT("长按绑定键充能，松键发射贯穿雷枪；未满充在收拢准星内散射，100%充能合并为点并保持待释放。"):TEXT("雷云跟随玩家，每0.9秒自动落雷、传导并叠加感电。");
@@ -38,7 +39,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("staffLight"))
     {D.Name=TEXT("水晶照明");D.Description=TEXT("学徒长杖的特殊功能：按 G 切换水晶照明，无冷却、无消耗。抬杖动作只播放一次，照明持续至再次按 G 或卸下法杖。");D.Icon=TEXT("Skills/staff_light_cold_steel.png");return D;}
     if(Id==TEXT("dodge")){D.Name=TEXT("闪避");D.Description=TEXT("短按左 Shift 后松开，朝输入方向快速闪避；无输入时沿朝向。动作期间无敌。");D.Icon=TEXT("Skills/dodge_cold_steel.png");}
-    if(Id==TEXT("dexterousHands")){D.Name=TEXT("巧手");D.Description=TEXT("灵巧的双手带来更高敏捷与更快换弹。完成换弹即可修炼，被动效果常驻。");D.Icon=TEXT("Skills/dexterous_hands.png");}
+    if(Id==TEXT("dexterousHands")){D.Name=TEXT("巧手");D.Description=TEXT("提高敏捷、换弹与拉弓速度。换弹、近战及完美节拍箭命中敌人可修炼，被动效果常驻。");D.Icon=TEXT("Skills/dexterous_hands.png");D.BowDrawSpeedPerLevel=.0125f;D.PerfectBowHitExperience=4;D.PerfectBowKillExperience=6;}
     if(Id==TEXT("pistolMastery")){D.Name=TEXT("手枪精通");D.Description=TEXT("精通手枪的快速射击，在移动中也能精准命中。");D.Icon=TEXT("Skills/pistol_mastery_cold_steel.png");}
     if(Id==TEXT("criticalStrike")){D.Name=TEXT("暴击");D.Description=TEXT("精通暴击之道，每次暴击都能造成更致命的打击。");D.Icon=TEXT("Skills/critical_strike_cold_steel.png");}
     if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射。直击要害必定暴击，普通直击与爆炸波及目标各自随机判定暴击。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
@@ -82,9 +83,12 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     D.RangedDodgeExperience=FMath::Clamp(int32(Num(TEXT("rangedDodgeExperience"),10)),0,10000);
     D.DexterityPerLevel=FMath::Clamp(int32(Num(TEXT("dexterityPerLevel"),1)),0,100);
     D.ReloadSpeedPerLevel=FMath::Clamp(float(Num(TEXT("reloadSpeedPerLevel"),.01)),0.f,1.f);
+    D.BowDrawSpeedPerLevel=FMath::Clamp(float(Num(TEXT("bowDrawSpeedPerLevel"),D.BowDrawSpeedPerLevel)),0.f,1.f);
     D.ReloadExperience=FMath::Clamp(int32(Num(TEXT("reloadExperience"),5)),0,10000);
     D.MeleeHitExperience=FMath::Clamp(int32(Num(TEXT("meleeHitExperience"),0)),0,10000);
     D.MeleeKillExperience=FMath::Clamp(int32(Num(TEXT("meleeKillExperience"),0)),0,10000);
+    D.PerfectBowHitExperience=FMath::Clamp(int32(Num(TEXT("perfectBowHitExperience"),D.PerfectBowHitExperience)),0,10000);
+    D.PerfectBowKillExperience=FMath::Clamp(int32(Num(TEXT("perfectBowKillExperience"),D.PerfectBowKillExperience)),0,10000);
     D.MoveSpeedPerLevel=FMath::Clamp(float(Num(TEXT("moveSpeedPerLevel"),.01)),0.f,1.f);
     // 持械移速固定档：0 = 不配置（保持 1 倍倍率），否则钳制在 0-1.5，避免写错系数毁掉移动。
     D.MovementMultiplier=FMath::Clamp(float(Num(TEXT("movementMultiplier"),0)),0.f,1.5f);
@@ -194,6 +198,8 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(FireMagic::IsSkill(Id))
     {
         auto& F=D.FireMagic;
+        F.RadiusMaximum=Num(TEXT("radiusMaximumCM"),1500);
+        F.ArcDegrees=Num(TEXT("arcDegrees"),90);
         F.DamageBase=Num(TEXT("damageBase"),F.DamageBase);F.DamagePerLevel=Num(TEXT("damagePerLevel"),F.DamagePerLevel);
         F.MagicBase=Num(TEXT("magicBase"),F.MagicBase);F.MagicPerLevel=Num(TEXT("magicPerLevel"),F.MagicPerLevel);
         F.IntelligenceBase=Num(TEXT("intelligenceBase"),F.IntelligenceBase);F.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),F.IntelligencePerLevel);
@@ -250,7 +256,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         T.DamageBase=Num(TEXT("damageMultiplierBase"),1.75);T.DamagePerLevel=Num(TEXT("damageMultiplierPerLevel"),.05);
         T.ReadySeconds=Num(TEXT("readySeconds"),1);T.ReadyReductionPerLevel=Num(TEXT("readyReductionPerLevel"),.03);
         T.StaminaCost=Num(TEXT("staminaCost"),20);T.Distance=Num(TEXT("distanceCM"),100);
-        T.SpeedMultiplier=Num(TEXT("speedMultiplier"),0);T.BounceRatio=Num(TEXT("bounceRatio"),0);T.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        T.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
         T.RangeBase=Num(TEXT("rangeBonusBase"),6);T.RangePerLevel=Num(TEXT("rangeBonusPerLevel"),6);T.RangeFlat=Num(TEXT("rangeBonusFlat"),55);
         T.KnockbackBonus=Num(TEXT("knockbackBonus"),188);T.KnockbackPerLevel=Num(TEXT("knockbackPerLevel"),6);
         T.ArcDegrees=Num(TEXT("arcDegrees"),60);
@@ -264,8 +270,8 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         W.RadiusBase=Num(TEXT("radiusBase"),120);W.RadiusPerLevel=Num(TEXT("radiusPerLevel"),5);
         W.MeleeRadiusBonus=Num(TEXT("meleeRadiusBonus"),80);W.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
         W.Knockback=Num(TEXT("knockback"),250);W.StunSeconds=Num(TEXT("stunSeconds"),2.5);
-        W.ReadySeconds=Num(TEXT("readySeconds"),.5);W.SpinSeconds=Num(TEXT("spinSeconds"),.8);
-        W.RecoverSeconds=Num(TEXT("recoverSeconds"),.52);W.TurnDegrees=Num(TEXT("turnDegrees"),-720);
+        W.ReadySeconds=Num(TEXT("readySeconds"),.5);W.SpinSeconds=Num(TEXT("spinSeconds"),W.SpinSeconds);
+        W.RecoverSeconds=Num(TEXT("recoverSeconds"),.52);W.TurnDegrees=Num(TEXT("turnDegrees"),720);
         W.HitStopSeconds=Num(TEXT("hitStopSeconds"),.045);W.HitStopBudget=Num(TEXT("hitStopBudget"),.135);
         W.MotionBlur=Num(TEXT("motionBlur"),.65);
     }
@@ -283,7 +289,11 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 21) return false;
+    if (P.SkillProgressVersion >= 22) return false;
+    P.Skills.FindOrAdd(TEXT("dragonBreath"));
+    P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
+    P.bDragonBreathReserved=false;
+    if(P.SkillProgressVersion==21){P.SkillProgressVersion=22;return true;}
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -316,12 +326,17 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
     P.Skills.FindOrAdd(TEXT("swordUppercut"));
     P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
-    P.SkillProgressVersion=21;
+    P.SkillProgressVersion=22;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>21 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>22 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if(P.SkillProgressVersion>=22&&(!P.Skills.Contains(TEXT("dragonBreath"))||!FMath::IsFinite(P.DragonBreathCooldown)||
+        !FMath::IsFinite(P.DragonBreathCooldownDuration)||P.DragonBreathCooldown<0||P.DragonBreathCooldownDuration<P.DragonBreathCooldown||
+        P.DragonBreathCooldownDuration>300||!FMath::IsFinite(P.DragonBreathReservedMana)||P.DragonBreathReservedMana<0||
+        (!P.bDragonBreathReserved&&P.DragonBreathReservedMana!=0)))
+    {Reason=TEXT("龙息进度或冷却无效");return false;}
     if(P.SkillProgressVersion>=21&&(!FMath::IsFinite(P.SwordUppercutCooldown)||P.SwordUppercutCooldown<0.f||!FMath::IsFinite(P.SwordUppercutCooldownDuration)||P.SwordUppercutCooldownDuration<P.SwordUppercutCooldown||P.SwordUppercutCooldownDuration>300.f))
     {Reason=TEXT("上挑冷却无效");return false;}
     if(P.SkillProgressVersion>=20&&!P.Skills.Contains(TEXT("swordUppercut"))){Reason=TEXT("上挑进度缺失");return false;}
@@ -407,9 +422,9 @@ FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D
     {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;E.MovementMultiplier=D.MovementMultiplier;return E;}
     if(D.Id==TEXT("criticalStrike")){FColdSteelSkillEffect E;E.CriticalDamageBonus=L>0?D.CriticalDamageBase+L*D.CriticalDamagePerLevel:0.f;E.Luck=L*D.LuckPerLevel;return E;}
     if(D.Id==TEXT("dodge")){FColdSteelSkillEffect E;E.DodgeDistanceCM=L*D.DodgeDistanceCMPerLevel;E.DodgeCostReduction=L*D.DodgeCostReductionPerLevel;return E;}
-    // 占位技能：正式效果定义前保持零收益，避免落入步枪精通的通用档。
+    // 快速进战没有常驻属性收益；主动伤害和体力成长由 QuickCombatStats 计算。
     if(D.Id==TEXT("quickCombat")){FColdSteelSkillEffect E;return E;}
-    if(D.Id==TEXT("dexterousHands")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.ReloadSpeed=L*D.ReloadSpeedPerLevel;return E;}
+    if(D.Id==TEXT("dexterousHands")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.ReloadSpeed=L*D.ReloadSpeedPerLevel;E.BowDrawSpeed=L*D.BowDrawSpeedPerLevel;return E;}
     if(D.Id==TEXT("pistolMastery")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.MoveSpeed=L*D.MoveSpeedPerLevel;return E;}
     FColdSteelSkillEffect E; E.DamagePercent=L*D.DamagePercentPerLevel; E.FlatDamage=L*D.FlatDamagePerLevel;
     E.WeakpointPercent=L*D.WeakpointPerLevel; E.Wisdom=L*D.WisdomPerLevel; return E;
@@ -434,6 +449,7 @@ if(E.CriticalDamageBonus>0||E.Luck>0)return FString::Printf(TEXT("暴击伤害 +
 if(E.DodgeDistanceCM>0||E.DodgeCostReduction>0)return FString::Printf(TEXT("闪避距离 +%.1f 米   ·   体力消耗 −%.1f%%"),E.DodgeDistanceCM/100,E.DodgeCostReduction*100);
 if(E.MoveSpeed>0)return FString::Printf(TEXT("手枪伤害 +%.0f%% / +%.0f   ·   敏捷 +%d   ·   持枪移速 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Dexterity,E.MoveSpeed*100);
 if(E.CooldownReduction>0||E.Strength>0||E.Constitution>0)return FString::Printf(TEXT("伤害 +%.0f%% / +%.0f · 属性 +%d%s"),E.DamagePercent*100,E.FlatDamage,E.Strength+E.Constitution+E.Dexterity,E.CooldownReduction>0?*FString::Printf(TEXT(" · 攻速 +%.0f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100):TEXT(""));
+if(E.BowDrawSpeed>0)return FString::Printf(TEXT("敏捷 +%d · 换弹速度 +%.0f%% · 拉弓速度 +%.2f%%"),E.Dexterity,E.ReloadSpeed*100,E.BowDrawSpeed*100);
 if(E.Dexterity>0||E.ReloadSpeed>0)return FString::Printf(TEXT("敏捷 +%d   ·   换弹速度 +%.0f%%"),E.Dexterity,E.ReloadSpeed*100);
 return FString::Printf(TEXT("步枪伤害 +%.0f%% / +%.0f   ·   精神 +%d   ·   要害伤害 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Wisdom,E.WeakpointPercent*100); }
 FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelItem* Item,bool bFiredRound)

@@ -63,8 +63,8 @@ struct FColdSteelNetHitReport
  * 施法意图上报（客户端→服务端）：A 模式服务端化通道——
  * 客户端只报"放了哪个技能+相位+瞄准上下文"，消耗校验、orb 生成、弹道与伤害结算
  * 全部在服务端按影子档案执行，法术实体以复制 actor 回流到各端。
- * Phase: 0=凝聚(Prepare) 1=发射/释放(Launch/Commit) 2=凝聚期取消(退蓝清CD) 3=弃置悬停体(只清占用)。
- * 各字段按技能取用：AimPoint=瞄准/放置点；AimNormal=放置朝向/坡面法线/弹道方向；
+ * Phase: 0=凝聚 1=释放 2=未释放取消 3=弃置 4=龙息按 CastId 停止／取消。
+ * 各字段按技能取用：AimPoint=瞄准/放置点（龙息为眼部瞄准空间的杖尖偏移）；AimNormal=放置朝向/坡面法线/弹道方向；
  * Variant=形态位（冰墙 0=高 1=低；圣光 bit0=自我施放）；Target=目标类法术锁定的 actor；
  * Charge=充能类技能的充量比（thunderLance）。
  */
@@ -75,6 +75,7 @@ struct FColdSteelNetCastRequest
     UPROPERTY() FName SkillId;
     UPROPERTY() TObjectPtr<APawn> SourcePawn=nullptr;
     UPROPERTY() uint32 Sequence=0;
+    UPROPERTY() uint32 CastId=0; // Dragon/Storm prepare sequence; stable through release/cancellation.
     UPROPERTY() uint8 Phase = 0;
     UPROPERTY() FVector_NetQuantize AimPoint = FVector::ZeroVector;
     UPROPERTY() FVector_NetQuantizeNormal AimNormal = FVector::UpVector;
@@ -205,11 +206,11 @@ public:
     /** 施法意图上报：见 FColdSteelNetCastRequest。 */
     UFUNCTION(Server, Reliable)
     void ServerCastSpell(const FColdSteelNetCastRequest& Request);
-    void RequestCastSpell(FColdSteelNetCastRequest Request);
+    uint32 RequestCastSpell(FColdSteelNetCastRequest Request);
 
     /** 施法回执：Code 0=受理；其余为拒因，Phase 回传以便本地收尾。 */
     UFUNCTION(Client, Reliable)
-    void ClientCastResult(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence);
+    void ClientCastResult(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence,uint32 CastId=0);
 
     /** Focus intent shares the reliable cast channel: 0 cancel, 1 open, 2 close. */
     UFUNCTION(Server, Reliable)
@@ -406,6 +407,7 @@ private:
     FName PendingCastSkill = NAME_None;
     double PendingCastAt = -100.0;
     float PendingCastPaidMana = 0.f;
+    uint32 PendingIdentifiedCastId=0;
     // Authoritative paid-cast snapshots survive chain consumption until release.
     FIceWallCast PendingIceWallStats;
     FBlizzardCast PendingBlizzardStats;

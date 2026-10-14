@@ -78,6 +78,7 @@ bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,
     // 联机：权威侧把表现所需的口径写进复制态。
     if(HasAuthority())
     {
+        RewardModel=NetCast::AuthorityModel(Shooter,GetGameInstance());
         NetCaster=Shooter;NetCast=Spell;NetCenter=Center;NetNormal=SurfaceNormal;NetAxis=AxisX;
         UpdateCloudClearance(true);
     }
@@ -143,7 +144,7 @@ void AFPSBlizzardZone::ActivateZone()
 void AFPSBlizzardZone::DamageTick()
 {
     if(!HasAuthority())return; // 伤害结算只在权威端
-    auto* Shooter=Caster.Get();auto* Model=NetCast::AuthorityModel(Shooter,GetGameInstance());if(!Shooter||!Model)return;
+    auto* Shooter=Caster.Get();auto* Model=RewardModel.Get();if(!Shooter||!Model)return;
     FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);Objects.AddObjectTypesToQuery(ECC_PhysicsBody);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BlizzardOverlap),false,Shooter);TArray<FOverlapResult> Overlaps;
     const float Height=BlizzardEnvironment::VerticalReach(CastSnapshot.RadiusY);
@@ -170,8 +171,15 @@ void AFPSBlizzardZone::Finish()
     if(HasAuthority())
     {
         bNetFinished=true;ForceNetUpdate();
-        if(auto* Model=NetCast::AuthorityModel(Caster.Get(),GetGameInstance()))Model->FinishBlizzardCast(Rewards);
+        auto Batch=MoveTemp(Rewards);Rewards={};
+        auto* Model=RewardModel.Get();RewardModel.Reset();
+        const auto* Health=Caster.IsValid()?Caster->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+        if(Model&&(!Health||!Health->IsDead()))Model->FinishBlizzardCast(Batch);
     }
+}
+void AFPSBlizzardZone::FinishForRemoval()
+{
+    if(HasAuthority()&&bActivated)Finish();
 }
 void AFPSBlizzardZone::UpdateCloudClearance(bool bForce)
 {
@@ -386,7 +394,9 @@ void AFPSBlizzardZone::NetInit()
 }
 void AFPSBlizzardZone::EndPlay(EEndPlayReason::Type Reason)
 {
-    // Death/scene exit discard unfinished training, as in the original clearZones().
+    // Disconnect/travel settle before saving; destruction is an idempotent fallback.
+    // Finish retains the existing policy of discarding the batch on caster death.
+    FinishForRemoval();
     for(auto& Layer:VisualLayers)
         for(auto* FX:{Layer.Cloud.Get(),Layer.Snow.Get(),Layer.Mist.Get()})if(FX)FX->DestroyComponent();
     if(NetAssetLoad)NetAssetLoad->CancelHandle();NetAssetLoad.Reset();NetAssets.Reset();

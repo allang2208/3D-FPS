@@ -4,6 +4,19 @@
 #include "Engine/AssetManager.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StreamableManager.h"
+#include "Components/DynamicMeshComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "../Weapons/Spellbook/SpellbookGoldGeometry.h"
+#include "../Weapons/Spellbook/SpellbookBookOrientation.h"
+
+void UFPSPlayerBodyComponent::ClearFloatingBook()
+{
+    if(FloatingBookLoad)FloatingBookLoad->CancelHandle();FloatingBookLoad.Reset();
+    if(FloatingBookGoldLoad)FloatingBookGoldLoad->CancelHandle();FloatingBookGoldLoad.Reset();
+    if(WorldBookGold){WorldBookGold->DestroyComponent();WorldBookGold=nullptr;}WorldBookGoldMaterial=nullptr;
+    if(WorldFloatingBook){WorldFloatingBook->DestroyComponent();WorldFloatingBook=nullptr;}
+    SmoothedBookPose.Reset();
+}
 
 void UFPSPlayerBodyComponent::UpdateFloatingBook(const FFPSBodyMotionSample& Sample,float Alpha)
 {
@@ -42,4 +55,37 @@ void UFPSPlayerBodyComponent::UpdateFloatingBook(const FFPSBodyMotionSample& Sam
         WorldFloatingBook->PublishMechanicalPose(SmoothedBookPose);
     }
     if(WorldFloatingBook->IsVisible()!=Show)WorldFloatingBook->SetVisibility(Show);
+    if(Show&&!WorldBookGold)
+    {
+        static const FSoftObjectPath GoldPath(TEXT("/Game/Weapons/SpellbookEvildeer20261009/Effects/M_Spellbook_GoldOrbit.M_Spellbook_GoldOrbit"));
+        auto* Material=Cast<UMaterialInterface>(GoldPath.ResolveObject());
+        if(!Material)
+        {
+            if(!FloatingBookGoldLoad)FloatingBookGoldLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(GoldPath);
+        }
+        else
+        {
+            WorldBookGold=NewObject<UDynamicMeshComponent>(Character.Get(),TEXT("BodySpellbookGoldOrbits"));
+            Character->AddInstanceComponent(WorldBookGold);WorldBookGold->SetupAttachment(WorldFloatingBook);
+            WorldBookGold->SetRelativeTransform(SpellbookBookOrientation::ReadingSurface());
+            WorldBookGold->SetCollisionEnabled(ECollisionEnabled::NoCollision);WorldBookGold->SetGenerateOverlapEvents(false);
+            WorldBookGold->SetCanEverAffectNavigation(false);WorldBookGold->SetCastShadow(false);
+            WorldBookGold->bReceivesDecals=false;WorldBookGold->SetVisibility(false);WorldBookGold->RegisterComponent();
+            WorldBookGold->SetComponentTickEnabled(false);WorldBookGold->SetMesh(SpellbookGoldGeometry::Build());
+            WorldBookGoldMaterial=UMaterialInstanceDynamic::Create(Material,this);WorldBookGold->SetMaterial(0,WorldBookGoldMaterial);
+        }
+    }
+    if(WorldBookGold)
+    {
+        FPSBodyEquipment::ApplyOwnerVisibilityFlags(WorldBookGold,false,!IsThirdPersonViewEnabled());
+        const bool Glow=Show&&Sample.BookGold.X>UE_SMALL_NUMBER;
+        if(WorldBookGold->IsVisible()!=Glow)WorldBookGold->SetVisibility(Glow);
+        if(Glow&&WorldBookGoldMaterial)
+        {
+            const float Age=Sample.BookGold.Y+FMath::Clamp(ServerClock()-DisplayState.PresentationSampledAt,0.f,.12f);
+            WorldBookGoldMaterial->SetScalarParameterValue(TEXT("GoldAge"),Age);
+            WorldBookGoldMaterial->SetScalarParameterValue(TEXT("Fade"),Sample.BookGold.X);
+            WorldBookGoldMaterial->SetScalarParameterValue(TEXT("PageActivity"),Sample.BookGold.Z);
+        }
+    }
 }

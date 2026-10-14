@@ -152,6 +152,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         Sample.FloatingBook=true;
         Sample.BookFrame=Pages->GetComponentTransform().GetRelativeTransform(GetBodyMesh()->GetComponentTransform());
         Sample.BookPose=Pages->GetComponentSpaceTransforms();
+        Sample.BookGold=FVector3f(Book->FocusGoldParameters());
     }
     const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();
     const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();

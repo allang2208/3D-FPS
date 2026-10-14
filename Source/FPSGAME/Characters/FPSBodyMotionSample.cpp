@@ -53,13 +53,15 @@ bool FFPSBodyMotionSample::NetSerialize(FArchive& Ar,UPackageMap*,bool& Success)
         uint8 N=Ar.IsSaving()?FMath::Min(BookPose.Num(),64):0;Ar<<N;
         if(N>64){Success=false;return true;}if(Ar.IsLoading())BookPose.SetNum(N);
         for(auto& Bone:BookPose)Transform(Ar,Bone);
+        Ar<<BookGold.X;Ar<<BookGold.Y;Ar<<BookGold.Z;
     }
-    else if(Ar.IsLoading()){BookPose.Reset();BookFrame=FTransform::Identity;}
+    else if(Ar.IsLoading()){BookPose.Reset();BookFrame=FTransform::Identity;BookGold=FVector3f::ZeroVector;}
     Ar<<Light;Success=!Ar.IsError();return true;
 }
 bool FFPSBodyMotionSample::IsSane() const
 {
     if(!Good(BookFrame)||BookPose.Num()>64)return false;
+    if(BookGold.ContainsNaN()||BookGold.X<0||BookGold.X>1||BookGold.Y<0||BookGold.Z<0||BookGold.Z>1)return false;
     for(const auto& Bone:BookPose)if(!Good(Bone))return false;
     if(Fingers>3||Wrists>3||Rigs.Num()>2||!FMath::IsFinite(LiquidLevel)||!FMath::IsFinite(Light)||!Good(SupportGrip))return false;
     for(const auto& H:Hands){if(!Good(H.Wrist))return false;for(const auto& Q:H.Fingers)if(Q.ContainsNaN())return false;}
@@ -77,6 +79,7 @@ bool FFPSBodyMotionSample::Identical(const FFPSBodyMotionSample* Other,uint32) c
     if(FloatingBook!=B.FloatingBook)return false;
     if(FloatingBook)
     {
+        if(BookGold!=B.BookGold)return false;
         if(!BookFrame.Equals(B.BookFrame)||BookPose.Num()!=B.BookPose.Num())return false;
         for(int32 I=0;I<BookPose.Num();++I)if(!BookPose[I].Equals(B.BookPose[I]))return false;
     }

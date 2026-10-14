@@ -324,6 +324,12 @@ void UFPSBlizzardComponent::UpdateGatherCloud()
     GatherFX->SetVariableFloat(TEXT("User.DetailReduction"),0.f);GatherFX->SetSystemFixedBounds(FBox(FVector(-90,-90,-90),FVector(90,90,90)));
 }
 void UFPSBlizzardComponent::ClearZones(){for(auto& Zone:Zones)if(Zone.IsValid())Zone->Destroy();Zones.Reset();}
+void UFPSBlizzardComponent::FinishZonesForRemoval()
+{
+    if(!GetOwner()->HasAuthority())return;
+    for(auto& Zone:Zones)if(Zone.IsValid())Zone->FinishForRemoval();
+    ClearZones();
+}
 void UFPSBlizzardComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);Zones.RemoveAll([](const auto& Z){return !Z.IsValid();});
@@ -339,6 +345,7 @@ void UFPSBlizzardComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
 }
 void UFPSBlizzardComponent::EndPlay(EEndPlayReason::Type Reason)
 {
+    FinishZonesForRemoval();
     // A sent release can already be dealing authoritative damage. Do not leave
     // a refundable held-cloud save behind when its pawn disappears before ACK.
     // A rejected request is refunded in the server profile and mirrored back.

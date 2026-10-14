@@ -18,3 +18,7 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 ## 魔法书专注与施法快照
 
 - 法杖＋副手书的施法加速、减耗、受击扣魔及影子档案事务，读取[副手魔法书](../ue5-weapon-workflow/references/spellbook-focus-and-publication.md)。派生电系法术只应用一次专注；客户端反应与服务器扣魔通过轮次和累计记录衔接。
+
+## 持续魔法联机
+
+龙息、雷暴领域和暴风雪的施法编号、预测回执、异步表现、奖励档案及离场结算，读取 [持续魔法的联机状态与收尾](references/persistent-magic-network.md)。

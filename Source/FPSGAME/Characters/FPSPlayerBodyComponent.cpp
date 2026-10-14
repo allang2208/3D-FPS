@@ -198,6 +198,7 @@ void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
     if(FirstPersonLowerBody){FirstPersonLowerBody->DestroyComponent();FirstPersonLowerBody=nullptr;}
     ClearBow();
     ClearMotion();
+    ClearFloatingBook();
     ++AppearanceRequest;
     if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
     if(Character.IsValid()&&Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())

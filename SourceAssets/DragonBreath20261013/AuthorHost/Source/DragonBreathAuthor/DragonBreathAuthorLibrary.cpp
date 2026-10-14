@@ -1,0 +1,107 @@
+#include "DragonBreathAuthorLibrary.h"
+#include "Materials/Material.h"
+#include "ShaderCompiler.h"
+#include "NiagaraSystem.h"
+#include "NiagaraEmitter.h"
+#if WITH_EDITOR
+#include "NiagaraExternalSystemEditorUtilities.h"
+#include "NiagaraEmitterEditorData.h"
+#include "NiagaraDataInterfaceSpline.h"
+#include "UObject/UObjectHash.h"
+#endif
+void UDragonBreathAuthorLibrary::PrepareFluidStack(UNiagaraSystem* System)
+{
+#if WITH_EDITOR
+    if(!System)return;
+    for(const FNiagaraEmitterHandle& Handle:System->GetEmitterHandles())
+        if(auto* Data=Handle.GetInstance().GetEmitterData())
+            if(auto* Editor=Cast<UNiagaraEmitterEditorData>(Data->GetEditorData()))
+                Editor->SetShowSummaryView(false);
+#endif
+}
+bool UDragonBreathAuthorLibrary::BindSplineUserObject(UNiagaraSystem* System,FName ParameterName)
+{
+#if WITH_EDITOR
+    if(!System||ParameterName.IsNone())return false;
+    System->Modify();
+    System->GetExposedParameters().AddParameter(FNiagaraVariable(FNiagaraTypeDefinition::GetUObjectDef(),ParameterName));
+    // Build the instance parameter layout before setting the compiled spline
+    // defaults. Compilation can replace these interfaces, so binding is last.
+    System->RequestCompile(true);
+    System->WaitForCompilationComplete(true,false);
+    if(!System->IsValid())return false;
+    TArray<UObject*> Objects;GetObjectsWithOuter(System,Objects,true);
+    int32 Count=0;
+    for(UObject* Object:Objects)
+        if(auto* Spline=Cast<UNiagaraDataInterfaceSpline>(Object))
+        {
+            Spline->Modify();
+            Spline->SourceMode=ENDISpline_SourceMode::ParameterBindingOnly;
+            Spline->SplineUserParameter.Parameter=FNiagaraVariable(FNiagaraTypeDefinition::GetUObjectDef(),ParameterName);
+            ++Count;
+        }
+    System->OnCompiledDataInterfaceChanged();System->MarkPackageDirty();
+    UE_LOG(LogTemp,Display,TEXT("Spline asset binding %s parameter=%s interfaces=%d"),*System->GetPathName(),*ParameterName.ToString(),Count);
+    return Count>0;
+#else
+    return false;
+#endif
+}
+bool UDragonBreathAuthorLibrary::SetInput(UNiagaraSystem* System,const FString& Emitter,const FString& Script,const FString& Module,const FString& Input,const FString& Type,const FString& Value)
+{
+#if WITH_EDITOR
+    if(!System)return false;
+    UScriptStruct* Struct=LoadObject<UScriptStruct>(nullptr,*Type);
+    if(!Struct)return false;
+    FNiagaraExt_StackInputValue Data;
+    Data.InitializeAs(Struct);
+    if(!Struct->ImportText(*Value,Data.GetMutableMemory(),nullptr,PPF_None,GWarn,Struct->GetName()))return false;
+    FNiagaraExt_StackItemReference Ref;
+    Ref.System=System;Ref.EmitterName=*Emitter;Ref.ScriptName=*Script;Ref.ModuleName=*Module;Ref.InputNameStack.Add(*Input);
+    FNiagaraExternalEditContext Context(Ref);
+    UNiagaraExternalEditUtilities::SetStackInputData(Ref,Data,Context);
+    FNiagaraExt_StackInputValue Actual;
+    UNiagaraExternalEditUtilities::GetStackInputData(Ref,Actual,Context);
+    for(const auto& Error:Context.Errors)UE_LOG(LogTemp,Error,TEXT("RainAsset: %s"),*Error.ToString());
+    return Context.Errors.IsEmpty()&&Actual.GetScriptStruct()==Struct&&Struct->CompareScriptStruct(Data.GetMemory(),Actual.GetMemory(),PPF_None);
+#else
+    return false;
+#endif
+}
+FString UDragonBreathAuthorLibrary::ReadInput(UNiagaraSystem* System,const FString& Emitter,const FString& Script,const FString& Module,const FString& Input)
+{
+#if WITH_EDITOR
+    FNiagaraExt_StackItemReference Ref;
+    Ref.System=System;Ref.EmitterName=*Emitter;Ref.ScriptName=*Script;Ref.ModuleName=*Module;Ref.InputNameStack.Add(*Input);
+    FNiagaraExternalEditContext Context(Ref);
+    FNiagaraExt_StackInputValue Actual;
+    UNiagaraExternalEditUtilities::GetStackInputData(Ref,Actual,Context);
+    FString Result;
+    if(Actual.IsValid())Actual.GetScriptStruct()->ExportText(Result,Actual.GetMemory(),nullptr,nullptr,PPF_None,nullptr);
+    return Result;
+#else
+    return FString();
+#endif
+}
+bool UDragonBreathAuthorLibrary::CompileRain(UNiagaraSystem* System,bool bForce)
+{
+#if WITH_EDITOR
+    if(!System)return false;
+    const bool bDeferredBefore=System->NeedsRequestCompile();
+    const bool bPendingBefore=System->HasOutstandingCompilationRequests(true);
+    System->RequestCompile(bForce);
+    System->WaitForCompilationComplete(true,false);
+    const bool bComplete=System->IsValid()&&!System->HasOutstandingCompilationRequests(true);
+    UE_LOG(LogTemp,Display,TEXT("RainAsset compile %s valid=%d deferred_before=%d pending_before=%d pending_after=%d"),
+        *System->GetPathName(),System->IsValid(),bDeferredBefore,bPendingBefore,System->HasOutstandingCompilationRequests(true));
+    return bComplete;
+#else
+    return false;
+#endif
+}
+
+bool UDragonBreathAuthorLibrary::CompileMaterialAssets(const TArray<UMaterialInterface*>& Materials)
+{
+    for(auto* Interface:Materials)if(Interface){auto* M=Interface->GetMaterial();M->PreEditChange(nullptr);M->PostEditChange();M->UpdateCachedExpressionData();M->ForceRecompileForRendering();M->MarkPackageDirty();}
+    GShaderCompilingManager->FinishAllCompilation();return true;
+}

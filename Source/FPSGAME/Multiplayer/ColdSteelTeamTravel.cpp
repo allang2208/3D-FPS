@@ -6,6 +6,8 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../FPSGAMECharacter.h"
 #include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSFireMagicComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
 #include "../Skills/FPSIceSpikeComponent.h"
 #include "../Skills/FPSIceWallComponent.h"
 #include "../Skills/FPSBlizzardComponent.h"
@@ -89,6 +91,9 @@ bool AColdSteelPlayerState::SaveTeamTravelParticipant()
     {AbortTeamTravel(TEXT("队员交易保存结果待恢复，暂时无法换图"));return false;}
     // Finish paid jobs and cancel unlaunched casts before persisting readiness.
     CancelPendingNetworkCast();
+    if(auto* Fire=GetPawn()->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishDragonBreathForRemoval();
+    if(auto* Electric=GetPawn()->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
+    if(auto* Blizzard=GetPawn()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
     if(!CloseStationSessions()){AbortTeamTravel(TEXT("工作站结算或档案保存失败，请稍后重试"));return false;}
     M->SyncRuntime();
     const auto* PC=Cast<APlayerController>(GetOwner());

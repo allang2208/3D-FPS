@@ -50,6 +50,8 @@ public:
     double ItemMagicAttack(const FColdSteelItem& Item) const;
     const FColdSteelItem* ActiveSpellbook() const;
     void ApplySpellbookFocus(float& CastSpeed,float& ManaCost) const;
+    /** Current spell cost only; shared with cast stats, without damage/attribute evaluation. */
+    float SpellManaCost(FName Id,int32 AtLevel=-1) const;
     float SpellbookFocusMovementMultiplier() const;
     bool ApplySpellbookFocusBreak();
     double SpellbookFocusManaLossTotal() const {return Current.SpellbookFocusManaLoss;}
@@ -440,6 +442,7 @@ public:
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
     const FColdSteelSkillDefinition& FireMagicDefinition(FName Id) const;
+    bool CommitDragonBreathRelease();
     FColdSteelSkillProgress FireMagicProgress(FName Id) const;
     FFireMagicCast FireMagicStats(FName Id,int32 AtLevel=-1) const;
     float FireMagicCooldown(FName Id) const;
@@ -479,7 +482,7 @@ private:
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;
-    struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false,bMelee=false; };
+    struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false,bMelee=false,bPerfectBowHit=false; };
     FTrainingHit* ActiveTrainingHit=nullptr;
     void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
     FColdSteelProfile Current;
@@ -522,7 +525,7 @@ private:
     bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids,const FProductionToolStats& ToolStats);
     void StampProductionDrop(FColdSteelItem& Item) const;
     friend class AColdSteelPickup;
-    FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill;
+    FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill,DragonBreathSkill;
     FColdSteelSkillDefinition IceWallSkill;
     FColdSteelSkillDefinition BlizzardSkill;
     TSet<TWeakObjectPtr<AActor>> KillStaminaVictims;

@@ -1,6 +1,7 @@
 #include "../Dungeon/DungeonLayout.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelProfileRecovery.h"
 #include "ColdSteelItemRarity.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/WeaponReloadStages.h"
@@ -105,6 +106,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     HolyLightSkill=ColdSteelSkills::LoadDefinition(TEXT("holyLight"));
     MeteorSkill=ColdSteelSkills::LoadDefinition(TEXT("meteor"));
     FlameArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("flameArmor"));
+    DragonBreathSkill=ColdSteelSkills::LoadDefinition(TEXT("dragonBreath"));
     DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
     QuickCombatSkill=ColdSteelSkills::LoadDefinition(TEXT("quickCombat"));
@@ -164,11 +166,13 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     Shadow->HolyLightSkill=HolyLightSkill;
     Shadow->MeteorSkill=MeteorSkill;
     Shadow->FlameArmorSkill=FlameArmorSkill;
+    Shadow->DragonBreathSkill=DragonBreathSkill;
     Shadow->QuickCombatSkill=QuickCombatSkill;
     Shadow->RuneBladesSkill=RuneBladesSkill;
     Shadow->StaffLightSkill=StaffLightSkill;
     auto Migrated=GuestProfile;
     ColdSteelItemRarity::Normalize(Migrated.Items);
+    ColdSteelProfileRecovery::InterruptedSpells(Migrated,float(ResourceMaximum(Migrated,true)));
     Shadow->Publish(Migrated);
     Shadow->bPersistenceBlocked=true;
     Shadow->bNetShadowProfile=true;
@@ -309,32 +313,8 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool QuickBarMigrated=ColdSteelQuickBar::Migrate(Clean);
     const bool StaminaMigrated=NormalizeStamina(Clean);
     Clean.Survival.Normalize();
-    const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
-    const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
-    const bool AbandonedIceWall=Clean.bIceWallReserved;Clean.bIceWallReserved=false;
-    if(AbandonedIceWall)
-    {
-        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Clean.IceWallReservedMana);
-        Clean.IceWallCooldown=Clean.IceWallCooldownDuration=0;
-    }
-    Clean.IceWallReservedMana=0;
-    const bool AbandonedBlizzard=Clean.bBlizzardReserved;Clean.bBlizzardReserved=false;
-    if(AbandonedBlizzard)
-    {
-        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Clean.BlizzardReservedMana);
-        Clean.BlizzardCooldown=Clean.BlizzardCooldownDuration=0;
-    }
-    Clean.BlizzardReservedMana=0;
-    const bool AbandonedElectric=!Clean.ElectricReservedMana.IsEmpty();
-    for(const auto& Reserved:Clean.ElectricReservedMana)
-    {
-        Clean.Mana=FMath::Min(float(ResourceMaximum(Clean,true)),Clean.Mana+Reserved.Value);
-        Clean.ElectricCooldowns.Add(Reserved.Key,0);Clean.ElectricCooldownDurations.Add(Reserved.Key,0);
-    }
-    Clean.ElectricReservedMana.Reset();
-    const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
-    Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedQuick||AmmoMigrated||BestFootprintMigrated;
+    const bool Interrupted=ColdSteelProfileRecovery::InterruptedSpells(Clean,float(ResourceMaximum(Clean,true)));
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||Interrupted||AmmoMigrated||BestFootprintMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -733,6 +713,7 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
         }
         if(ActiveTrainingHit->bCritical)ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience+CriticalStrikeSkill.CriticalKillExperience);
         if(ActiveTrainingHit->bMelee)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.MeleeKillExperience+DexterousHandsSkill.MeleeHitExperience);
+        if(ActiveTrainingHit->bPerfectBowHit)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.PerfectBowHitExperience+DexterousHandsSkill.PerfectBowKillExperience);
     }
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
@@ -939,6 +920,7 @@ void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
     Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
     Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
     Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
+    if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=FMath::Max(0.f,Current.DragonBreathCooldown-Seconds);
     // Quick combat is an animation cycle; cooldown reduction never skips recovery.
     Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Seconds);
     Current.SwordUppercutCooldown=FMath::Max(0.f,Current.SwordUppercutCooldown-Seconds);
@@ -962,6 +944,7 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
     Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);
     Current.FlameArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.FlameArmorCooldown-Delta);
+    if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.DragonBreathCooldown-Delta);
     // Quick-combat HUD timing is published by the actual weapon action clock,
     // including attack-speed retiming and hit stops, independently of CD cheats.
     if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;

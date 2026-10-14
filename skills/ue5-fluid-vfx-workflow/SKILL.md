@@ -14,3 +14,7 @@ description: 为 FPSGAME 制作和优化 UE5 流体特效，包括枪口烟、�
 ## 遮住出怪设施内部
 
 需要黑色门腔、隐藏刷怪细节和低成本雾幕时，读取 [黑色遮蔽与雾幕](references/transparency-and-visibility.md#出怪门内的黑色遮蔽与廉价雾幕)。持续遮挡与雾气装饰分别保留，远距关闭装饰不能露出内部。
+
+## 龙息体积喷流
+
+持续喷火、三维温度场、喷射坐标、主体过白和旧 Sprite 方案归档时，读取 [龙息体积喷流制作与失败经验](references/dragon-volume-production.md)。

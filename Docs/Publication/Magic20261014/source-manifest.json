@@ -1,0 +1,457 @@
+{
+  "base": "fb2646c5a21de8bcb080409491953e6d5279f10a",
+  "selection": "Full task files plus scoped hunks replayed on HEAD; parallel worktree edits preserved",
+  "files": [
+    {
+      "path": "Config/DefaultGame.ini",
+      "sha256": "44f6127e8ef2ef16c44bd4ea5dd8d37d081b0fd0e0e366052f1f878cfc9cd115",
+      "bytes": 21664,
+      "blob": "30f2a782ca15535c01c6e3988b263886b0a9477a"
+    },
+    {
+      "path": "Docs/Skills/dragon-breath-20261013.md",
+      "sha256": "11a9b6c7e12d93301a4c7bdffc0333f35980adb4ef46707ce5495f299c038656",
+      "bytes": 25479,
+      "blob": "dcd835985aeec7edd1788c45aec94bb1199f55b2"
+    },
+    {
+      "path": "Docs/Skills/dragon-breath-network-20261014.md",
+      "sha256": "122ca27d56ab88d6a635c9f05ccc80c1f9ef0b8351e81188cc652b4cd1717885",
+      "bytes": 4110,
+      "blob": "2639c65dd58385a80f589402828f03d5c90e673e"
+    },
+    {
+      "path": "Docs/Skills/focus-book-dragon-range-20261014.md",
+      "sha256": "a7423567a43d240b39fda151124da76e4eaba1a7f2d7e753861e32dc3d37021b",
+      "bytes": 5350,
+      "blob": "e1f623866d7f69c5c078f77cb4d6d354a9c5596d"
+    },
+    {
+      "path": "Docs/Skills/magic-network-completion-20261014.md",
+      "sha256": "0137d468035b00af443e719da5971c1d55fd3584f1525b66a7fc6d16a1ad1a0e",
+      "bytes": 6702,
+      "blob": "b5e3d9f449df2dc8d641f06ab89e54321442bd09"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionSample.cpp",
+      "sha256": "1c1a2d98850615e2a6f5dd8f2679d37a9b03233e0bc1453b49fa5a70910a6d21",
+      "bytes": 5581,
+      "blob": "e88e953c5ab6eb4d71ecf203a5a611c7b9107c7d"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMotionSample.h",
+      "sha256": "9c7b06a05c069d3cd3d1a12ba7cecbc7bab739d993f863f5e0cc487e24097a50",
+      "bytes": 1855,
+      "blob": "eb676b9d4392952d2d566fcda3c75a556ba77964"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "sha256": "a1c2a1d7971ae97f62e7aef895a88d57ffc0588a1d0efbb83238557b15e34dfa",
+      "bytes": 22502,
+      "blob": "0bc799a74509944156ba5fde7a0d31de8b073259"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "sha256": "f6b4915901ab9f15ecf60eab08dd89b2af5d4d5c7fb19b463758a3e18db56b6c",
+      "bytes": 17452,
+      "blob": "d8d2dee45eab548e620a715359351409873f4b15"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "sha256": "29b9fbbce9dce6887d4cefae61ed4655e4137f9cdb93f723e95f1055ff544eb3",
+      "bytes": 34680,
+      "blob": "28cc7aefafde3fc27f5bfc9e4eac8446e0353161"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp",
+      "sha256": "30dd0c2940ca7f53674e7db72d856e8469da9cffdbb4c595828d2dbf709bde1c",
+      "bytes": 5300,
+      "blob": "e3231270b3b6670347a3aa1be144183763a7015d"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "sha256": "3f1e6a98caa83ac874555d6c383dcaa30126ae9f11fe3588bfcab3a2b8dd829f",
+      "bytes": 8883,
+      "blob": "e217b8e17239852089f73788ebc6df77afe5af33"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "sha256": "2c62dab21c27ae4a59b6a482da893a9530b63414d9e3ed5afbad7865dca4c445",
+      "bytes": 66013,
+      "blob": "0d2807aff20785d3c0d1bf3168bef1ffeaee63ee"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "sha256": "d6694ccfc81de6cd06353e8a95e7852c8741c56e27cc166dd45ed9434ab58d5c",
+      "bytes": 26186,
+      "blob": "bf97b16f83306e6c9a9edd89dc07fac43ccafa98"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "sha256": "f21c7d8eb068f73dc94957532f0f7413167ac4947a2a1ad9483a22c29ace55d4",
+      "bytes": 10118,
+      "blob": "90f688b49a3fa24318bd2da2b994a7e79eb028bf"
+    },
+    {
+      "path": "Source/FPSGAME/RainAssetEditor.cpp",
+      "sha256": "412d4134ca6487cb3922e5a37005505951d744889ed29f4a9054aa6abbdb6449",
+      "bytes": 4144,
+      "blob": "941bb5a0f23a297890d96b357c9c97c57bc3d5e7"
+    },
+    {
+      "path": "Source/FPSGAME/RainAssetEditor.h",
+      "sha256": "0d7d6a3a5419effe3c4ce3b7b97fbfec914a27f8d291d040fc1c419924e11c02",
+      "bytes": 1045,
+      "blob": "02a664ccbabbfc8a5f1aaecea46d465f9476fbcc"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "sha256": "66e167c5472ea9520d8dc384332b14d864d779b0c50c1e3504dd02769d5b7c5d",
+      "bytes": 53706,
+      "blob": "8603f09adf3d417376a980d737c1afe70dea6482"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ElectricMagicTypes.h",
+      "sha256": "5de3ec2bc16a433f4a441f8b41c9d128edb06bc1ffd12ab620eb8c20b1f9a456",
+      "bytes": 1922,
+      "blob": "120b1f58d19a2998007805509a19c0b0f73fa31c"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.cpp",
+      "sha256": "240aaa7d6d22d0d98246bd098b4bf65d563b88f87028870fa8cc54a6141d6dd9",
+      "bytes": 21039,
+      "blob": "1d7b3409d5d0582256b48969b18f9ab7b031ae52"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.h",
+      "sha256": "13885f3dadc6450dba1313a4e084df26d07fd3686c2897e81229ca4d3057822d",
+      "bytes": 3554,
+      "blob": "17410e10e4d8b75c123e08037763f9b26b04fcc5"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardZone.cpp",
+      "sha256": "84d64d910cce01f4e0e24bbc3bea1dcd349ccaad00160f0a323591873a0a5bd9",
+      "bytes": 23968,
+      "blob": "706d23cc4f40ffecd7b9af6b952d99e426880012"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardZone.h",
+      "sha256": "11075919b6b8bc692d39701833db4b7ca7a8e62d3276266888bd6e80623ead3c",
+      "bytes": 4125,
+      "blob": "53d3e64a4acfcfbb984c7bb05fc831dba8183969"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSDragonBreath.cpp",
+      "sha256": "7cad23562fc482aca07c84af4be981b261a67c5400c7276d2250615f3f0d7f40",
+      "bytes": 17906,
+      "blob": "472994829f7de9ea146959bfdd3d3e337f7e65f7"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp",
+      "sha256": "e447089e861d21485df00dd8b0f0b83d1ee3bc0f7f5221df4d39cb8c74f98526",
+      "bytes": 45630,
+      "blob": "73a65a9835e0edcd1eea236185b265618c4a7282"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.h",
+      "sha256": "195bb8f8833f0587078be8d647a399e5f6268fcd6a773070962ae10f2ed13c4c",
+      "bytes": 6620,
+      "blob": "2965aa5eb6067239b26d1c5ab2d64fab772e7631"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "sha256": "add08872a0b7f8c6be105cef106ae6ce618a12d5fa17fda9de6d92e2244dc9b2",
+      "bytes": 27768,
+      "blob": "c9e83c8c0fbab6348cc0a189b9ad1ee3efc43545"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "sha256": "d48449fc7163d355e61df60293fac40dd8355a79b09cde5e9e47ac5e7e4208df",
+      "bytes": 5279,
+      "blob": "52aa615278756c9646d67e5f235e473e201d2718"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSStormDomainNetwork.cpp",
+      "sha256": "e328d9f6e19e0de6a0229e081493d7cabda0fb5e5492db11cee8fd715f820fdc",
+      "bytes": 5950,
+      "blob": "ce2d98f4b1370d8a8bf296e77809c3edd1c0474d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireMagicTypes.h",
+      "sha256": "de6229861cd654ec48ace20cfc29393202329efee75694ae45807247b3de4435",
+      "bytes": 3129,
+      "blob": "5e09557d933f29366a8493a01b950d4416e6a694"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/NetCastUtils.h",
+      "sha256": "699dc1dba538f6d3da0c1fa8e3995d1d91b06d949c2e538668a752019a46f11f",
+      "bytes": 1838,
+      "blob": "181445a1605bc596ae442396f9285a002e2c4177"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "sha256": "fbb92ca9340966e01b548ba8e10ab1733aacefef41245758d1b9c6af3460a60a",
+      "bytes": 18923,
+      "blob": "8314b20fabb1eb521b59ce791bdef85d82fe6822"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "sha256": "a9d11d770794692b8c8f15c4f446b3c999ed655071fda82bd24dfb332f7c8a00",
+      "bytes": 74260,
+      "blob": "14e73170c1e70327c453e7fbb75d51764090a9e0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256": "355dc4d64af52150f29326fa2d9de8ae441b89f90f9517a0ebd62eeafd489223",
+      "bytes": 36555,
+      "blob": "83a2069bcae84ec27186c75d691a7dd75cb1768a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookBookSampling.h",
+      "sha256": "b1fa82209ba715ad3a5775d0e443c33e33bc11d97445c03dd68babab8c6b866b",
+      "bytes": 1761,
+      "blob": "627d7f7956fb23a2c0b7d2504d97601716a08b00"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h",
+      "sha256": "702fce77ff26c7a240484e736d054359f8936d7f0be217bfbeef627833bda784",
+      "bytes": 6037,
+      "blob": "dd1590de7b82970c2c682c3a3f3af5774d4daa5d"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookFocus.cpp",
+      "sha256": "96f5895ffb82351d1b08362c7e642f52d6b24beef8064baff318b1a3766edf81",
+      "bytes": 12254,
+      "blob": "e50a707b040c01d5d0a9b9b9225b363d71edd971"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookFocusGold.cpp",
+      "sha256": "75dd0ba5d627d4476e97acf114aa6ba35abb0df2ab05e38a3518cea571598ca9",
+      "bytes": 2431,
+      "blob": "42f2cfbe0765485c6dc4b4871def06bba511a695"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookFocusInterrupt.cpp",
+      "sha256": "b3d1a2b85bf7f140d693a9766e66a38eeb401fc92815092c866832c10a3e9b9d",
+      "bytes": 7227,
+      "blob": "3bb355cbc6096fed53528cf6252716fc4bfa276f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Spellbook/SpellbookGoldGeometry.h",
+      "sha256": "74769b7f23f723443f341b61b8ef333cbbfebfb0e4b828156eb6d20cd8aa3efa",
+      "bytes": 2394,
+      "blob": "1ebc27bd2e962d516ba24b0d68245804dc178458"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Config/DefaultEngine.ini",
+      "sha256": "83a3c0a8737a6f0438356fecbebd483efa812f96c7d43d43ab2eda0efd287caf",
+      "bytes": 267,
+      "blob": "29670ca22bbac166380ae67546060984d010a4e0"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/DragonBreathAuthor.uproject",
+      "sha256": "40c53d29e828ddea79c8eeaf3e5550fdcb5f9dbb6919cba741f967eac3fdeef7",
+      "bytes": 538,
+      "blob": "b149b7b4cbb42071d56a3c939b9eda33e6b062b9"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathAuthor.Build.cs",
+      "sha256": "5d1416e45340aacf6ec1d80ec2620f89e76562efbefad2ad54cb90bac3e4aeb1",
+      "bytes": 379,
+      "blob": "8f13758b6a0151db3c5a013808355cca4d64e8a6"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathAuthorLibrary.cpp",
+      "sha256": "acf97a953dbf953cbe64f15409b43717cc2aaa1ebce411ecff9998f4729e2402",
+      "bytes": 5100,
+      "blob": "738f3a46c9aa98c5e3b53114a6207031375b0d5b"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathAuthorLibrary.h",
+      "sha256": "41b89b283884f8fceab61642c491d87e0ddfe72fa5e01ea102facd915735261d",
+      "bytes": 1715,
+      "blob": "871912fb76f8119eba727a80f9e13528f810917c"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonBreathAuthorModule.cpp",
+      "sha256": "fbda71ca903dd01cc714d27128ab9da2ef1fbf63864f227415431a9abc7739a0",
+      "bytes": 91,
+      "blob": "4132c1ccf8a79e8488f02d458d063c074dbb20e2"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonFluidInspectCommandlet.cpp",
+      "sha256": "e861d7439c260953ed91edec705ebcf049c04b28814ae385d595ef28834249ab",
+      "bytes": 11889,
+      "blob": "38144fca59d939771ab3d2b7da08495e7993f8e3"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonFluidInspectCommandlet.h",
+      "sha256": "df7e36a5d5c73b674e66f0aa81006b374adf53d5799a76649775bba2d6831438",
+      "bytes": 339,
+      "blob": "4af81a932ce0d64fc3794bf4a796550092460078"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthor/DragonFluidStack.cpp",
+      "sha256": "efee887812a602894b18d2b8b5477a967dcca88f6dc7fea7a6a427a5fd33106f",
+      "bytes": 6789,
+      "blob": "d3822e058e1d323dee7d71df1cb35f8081bf09d9"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/AuthorHost/Source/DragonBreathAuthorEditor.Target.cs",
+      "sha256": "920d70b4ed2b97e052a86f57d9e94401463a668f2c3af75856f07e234c68a130",
+      "bytes": 329,
+      "blob": "c4ab80b462772479b9b32950e721e2aa247b08ed"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/VolumeV8R1_20261014/repair-notes.md",
+      "sha256": "bb493a5610c4654d2fe10f1d9b4404dbb1017bf6724cf8462f7ec3804b2f0b91",
+      "bytes": 3175,
+      "blob": "a41edd60867aaf6954564f5890455a948204695b"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/VolumeV8R2_20261014/DragonFlameColor.hlsl",
+      "sha256": "95cb0345aba96663da7602303f37fea979790edaf84f8c2ef8df9d97527723bc",
+      "bytes": 770,
+      "blob": "744eaedcfe028346aef1cf5999dc402f6a2dd19a"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/VolumeV8R2_20261014/production-notes.md",
+      "sha256": "b682adde40029dee59e31bde979500f9dfa30026d7fa0d7425ebd94b2b9c66e3",
+      "bytes": 2473,
+      "blob": "90edc38c6a142705b2bd62f27ea57f5bd099c35b"
+    },
+    {
+      "path": "SourceAssets/DragonBreath20261013/VolumeV8_20261014/production-notes.md",
+      "sha256": "fbd1f3650c7f90f9ca96614a10123d418e6b20997c259290dbb3cad859e16005",
+      "bytes": 4134,
+      "blob": "fd5ac291dba7eb8359ac3817cf393de0d79a3bcb"
+    },
+    {
+      "path": "Tools/Skills/build_dragon_breath.py",
+      "sha256": "7d15b8edaf102f07f1756954cedd4f8c6e4a3489102c882bb3a8425a9ca8a81c",
+      "bytes": 482,
+      "blob": "af78307cc40df7467c989adf8e47e895fc118e20"
+    },
+    {
+      "path": "Tools/Skills/build_dragon_breath_volume.py",
+      "sha256": "12e6c226c9a17acf4f6669856146d6bc16247a9cc494928495350ffc2dc5a27f",
+      "bytes": 8062,
+      "blob": "6f502138cded8a4a5924520cb914a16a8bdc2c8b"
+    },
+    {
+      "path": "Tools/Skills/build_dragon_volume_color.py",
+      "sha256": "394531d96c199c5002d33261f522cf539ff2d75cba2aa4471dcac2c44ad7ed16",
+      "bytes": 6739,
+      "blob": "29733ac0d5c78c15d1666017f293aa313f295329"
+    },
+    {
+      "path": "Tools/Skills/describe_dragon_fluid_templates.py",
+      "sha256": "36dce789d857cf2df687874d770473e7f82e408c6959a86b776847308fdd89ee",
+      "bytes": 2182,
+      "blob": "e812b562e14e16c49da7183c843107585679be42"
+    },
+    {
+      "path": "Tools/Skills/dragon_fluid_source.py",
+      "sha256": "912c66cf5d5bc28ae487af7b8d0344f931e269d1affee12e3f63699fd1d6feab",
+      "bytes": 4197,
+      "blob": "f088a3598b312c38ce3e74c07ec640242105fe2e"
+    },
+    {
+      "path": "Tools/Skills/inspect_focus_dragon_20261014.py",
+      "sha256": "a8677310f16debafb0539ab23c2150320778c074f5817ff30c909d8a34ce5717",
+      "bytes": 3158,
+      "blob": "79504331dfb043fc993117fc5aec2c70d5eddc8c"
+    },
+    {
+      "path": "Tools/Skills/inspect_focus_mesh_20261014.py",
+      "sha256": "9a491ca59a6a0844edc0e5a57eaee190c076661926a143d0a058b36ff0bc9c74",
+      "bytes": 1159,
+      "blob": "2385b9020c56d975a86c4c62decaf7f08d8d2600"
+    },
+    {
+      "path": "Tools/Skills/repair_dragon_volume_visibility.py",
+      "sha256": "80e1efd40fe4e2fa0fc4882467187aba69c95e9461e2269da8ed28973f9c9b61",
+      "bytes": 5324,
+      "blob": "053ac8a984a28d3606b3d00db9f8d918fdc067ef"
+    },
+    {
+      "path": "skills/ue5-fluid-vfx-workflow/SKILL.md",
+      "sha256": "3644f4c2b4ff6cd5a53018b1883e1bcd4e3bbe3c820c35ef4b5a21cbd3382a32",
+      "bytes": 1483,
+      "blob": "e71c77810477a79aa401ae3ffe0ae63b08824632"
+    },
+    {
+      "path": "skills/ue5-fluid-vfx-workflow/references/dragon-volume-production.md",
+      "sha256": "5b8c6078883e20c9d96a957a50305149a0d3482952551addaab6333c0eff96e6",
+      "bytes": 3351,
+      "blob": "68d66d076726798f3906f7fafdc59454056f23b8"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "sha256": "cbedd6baa09130a8c764343c34505b559d269823f445850a6474d311e7db7d14",
+      "bytes": 952,
+      "blob": "d092a8db296809c921f2876b949865d438c92337"
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+      "sha256": "673a212858e835086370bf3e0d2fcdf4056e7b882e33ef32a6d6d075147ee221",
+      "bytes": 1769,
+      "blob": "f402cfc6151b3bf547a4dbd2d4645b47ab04520a"
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/references/persistent-magic-network.md",
+      "sha256": "bc16c101b75eed3311461ed1863c4e5a40914a5bad5e1be2e624798b5e125727",
+      "bytes": 3159,
+      "blob": "31fe3f5007b3f87fe9e5266dc7b83712d344852f"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "sha256": "7e17af46696c0732300771751c2b3e58c09576bf356a9ce8738689377b54d686",
+      "bytes": 111551,
+      "blob": "be476a279d0a2ddf4ffe20e0ef3178c48844e49e"
+    }
+  ],
+  "tracked_archived_paths": [
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/apply.py",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/delivery.json",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/flame-layer.json",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/materials.json",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/read_flame_layer.py",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/read_materials.py",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/read_saved.py",
+    "SourceAssets/DragonBreath20261013/FlameRestoreR3/saved-material-binding.json",
+    "SourceAssets/DragonBreath20261013/JetFixR4/apply.py",
+    "SourceAssets/DragonBreath20261013/JetFixR4/before.json",
+    "SourceAssets/DragonBreath20261013/JetFixR4/delivery.json",
+    "SourceAssets/DragonBreath20261013/JetFixR4/diagnose.py",
+    "SourceAssets/DragonBreath20261013/JetFixR4/export_flame.py",
+    "SourceAssets/DragonBreath20261013/JetFixR4/particle_probe.py",
+    "SourceAssets/DragonBreath20261013/JetFixR4/particles-before.json",
+    "SourceAssets/DragonBreath20261013/JetFixR4/probe_after.py",
+    "SourceAssets/DragonBreath20261013/JetFixR4/read_saved.py",
+    "SourceAssets/DragonBreath20261013/JetFixR4/saved-asset-checks.json",
+    "SourceAssets/DragonBreath20261013/RealisticJetV5/apply.py",
+    "SourceAssets/DragonBreath20261013/RealisticJetV5/delivery.json",
+    "SourceAssets/DragonBreath20261013/RealisticJetV5/read_source.py",
+    "SourceAssets/DragonBreath20261013/RealisticJetV5/source.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/apply.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/cache_docs.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/colors.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/colors.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/inspect.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/inspection.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/live-components.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/probe_api.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/read_live.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/simulate.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/simulate_after.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/simulate_source.py",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/simulation-after.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/simulation-before.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/simulation-source.json",
+    "SourceAssets/DragonBreath20261013/VisibilityFix/summarize.py",
+    "Tools/Skills/build_dragon_breath_flame.py"
+  ],
+  "runtime_validation": "not run",
+  "assets": "licensed binary content remains local; see README.md"
+}

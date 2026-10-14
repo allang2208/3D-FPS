@@ -1,4 +1,8 @@
 #include "ColdSteelPlayerState.h"
+#include "../Skills/FPSFireMagicComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
+#include "../Skills/FPSBlizzardComponent.h"
+#include "../FPSGAMECharacter.h"
 #include "ColdSteelNetWorldSubsystem.h"
 #include "ColdSteelNetSessionSubsystem.h"
 #include "Engine/World.h"
@@ -102,6 +106,11 @@ void AColdSteelPlayerState::PrepareForDisconnect()
     if(!HasAuthority()||bDisconnectPrepared)return;
     if(auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())Session->RememberGuestKeys(BoundProfileId,SessionDoorKeys);
     CancelPendingNetworkCast();
+    // Settle confirmed hits before the guest profile is saved or remembered.
+    APawn* CastPawn=GetPawn()?GetPawn():ShadowPawn.Get();
+    if(CastPawn)if(auto* Fire=CastPawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishDragonBreathForRemoval();
+    if(CastPawn)if(auto* Electric=CastPawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
+    if(CastPawn)if(auto* Blizzard=CastPawn->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
     const bool Closed=CloseStationSessions();
     // Preserve unfinished paid jobs too when closing cannot complete (e.g. pawn already gone).
     const bool Saved=!ShadowModel||SaveShadowToHostDisk();

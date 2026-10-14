@@ -38,6 +38,8 @@ public:
     bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FElectricMagicCast& Spell);
     void NetCastRejected(uint8 Phase,uint8 Code);
     void NetCastCancelled(uint8 Phase);
+    void NetDomainCastResult(uint8 Phase,uint8 Code,uint32 CastId);
+    void FinishDomainForRemoval();
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -63,6 +65,10 @@ private:
     TArray<TWeakObjectPtr<UNiagaraComponent>> Bursts;
     FElectricMagicCast PendingCast,DomainCast;
     FElectricMagicRewards DomainRewards;
+    TWeakObjectPtr<UColdSteelStatusModel> DomainRewardModel;
+    double DomainStartedAt=0,DomainEndedAt=0;
+    uint32 DomainCastId=0,DomainLocalCastId=0,DomainCancelledCastId=0,DomainConfirmedCastId=0;
+    uint32 DomainAuthoritySerial=0,DomainSoundCastId=0;
     FName QueuedSkill,CommittedSkill,NoticeSkill,MessageSkill;
     FString Message;
     double MessageUntil=0;
@@ -79,6 +85,13 @@ private:
     void FireLance();
     void Strike();
     void FinishDomain(bool bTrain);
+    void StartDomain(const FElectricMagicCast& Spell,uint32 CastId,UColdSteelStatusModel* RewardModel);
+    void SettleDomainRewards();
+    void FadeDomain();
+    void PlayDomainStartSound();
+    double DomainClock() const;
+    void ConfirmDomainRelease(uint32 CastId);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastDomainStrikeSound(FVector_NetQuantize Point);
     void Feedback(FName Skill,const FString& Text);
     bool Enemy(AActor* Actor) const;
     bool Visible(AActor* Origin,AActor* Target,const FVector& Start) const;
@@ -100,8 +113,7 @@ private:
     void UpdateDomainCloud(float Delta,bool bForce=false);
     FVector DomainStrikeOrigin(AActor* Target) const;
     // ── 联机：雷云激活态复制（远端副本看云；电弧/雷枪柱经 AFPSLightningArc 复制）──
-    UPROPERTY(ReplicatedUsing=OnRep_Domain) bool bNetDomain=false;
-    UPROPERTY(Replicated) FElectricMagicCast NetDomainCast;
+    UPROPERTY(ReplicatedUsing=OnRep_Domain) FStormDomainState NetDomain;
     UFUNCTION() void OnRep_Domain();
     bool bNetPaid=false;
 };

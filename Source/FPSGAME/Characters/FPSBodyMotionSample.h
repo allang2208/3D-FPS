@@ -39,6 +39,7 @@ struct FFPSBodyMotionSample
     bool FloatingBook=false;
     FTransform BookFrame=FTransform::Identity; // body space, independent of observation camera
     TArray<FTransform> BookPose; // exact cover/page component pose, including interrupted close
+    FVector3f BookGold=FVector3f::ZeroVector; // fade, shared effect clock, page activity
     FTransform Props[3]={FTransform::Identity,FTransform::Identity,FTransform::Identity};
     bool NetSerialize(FArchive& Ar,UPackageMap* Map,bool& Success);
     bool IsSane() const;

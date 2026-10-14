@@ -54,6 +54,9 @@ struct FDragonBreathState
     GENERATED_BODY()
     UPROPERTY() FFireMagicCast Cast;
     UPROPERTY() double StartedAt=0;
+    UPROPERTY() uint32 CastId=0;
+    // Staff tip relative to the pawn eye, in aim space. Shared by damage and FX.
+    UPROPERTY() FVector NozzleOffset=FVector(95,17,4);
     UPROPERTY() bool bActive=false;
 };
 

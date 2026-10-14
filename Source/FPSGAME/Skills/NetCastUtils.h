@@ -18,19 +18,20 @@ inline AColdSteelPlayerState* StateFor(const APawn* Pawn)
     return PC ? Cast<AColdSteelPlayerState>(PC->PlayerState) : nullptr;
 }
 
-inline void Send(AActor* Owner, FName SkillId, uint8 Phase,
+inline uint32 Send(AActor* Owner, FName SkillId, uint8 Phase,
     const FVector& AimPoint = FVector::ZeroVector,
     const FVector& AimNormal = FVector::UpVector,
     uint8 Variant = 0, AActor* Target = nullptr, float Charge = 0.f,
-    const FVector& AimAxis = FVector::ForwardVector)
+    const FVector& AimAxis = FVector::ForwardVector, uint32 CastId = 0)
 {
     auto* State = StateFor(Cast<APawn>(Owner));
-    if (!State) return;
+    if (!State) return 0;
     FColdSteelNetCastRequest Request;
     Request.SkillId = SkillId; Request.Phase = Phase;
     Request.AimPoint = AimPoint; Request.AimNormal = AimNormal; Request.AimAxis = AimAxis;
     Request.Variant = Variant; Request.Target = Target; Request.Charge = Charge;
-    State->RequestCastSpell(Request);
+    Request.CastId=CastId;
+    return State->RequestCastSpell(Request);
 }
 
 /** 服务端上远端 pawn 的权威模型（影子档）；主机/本地回退 GI 单例。 */

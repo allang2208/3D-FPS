@@ -1,4 +1,5 @@
 #include "ColdSteelPlayerState.h"
+#include "../UI/ColdSteelProfileRecovery.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "Components/PrimitiveComponent.h"
@@ -122,11 +123,35 @@ void AColdSteelPlayerState::Tick(float DeltaSeconds)
         if (ShadowModel && Pawn && ShadowPawn.Get() == Pawn)
             ShadowModel->TickRuntime(DeltaSeconds, Pawn);
         TickSuper90Authority(DeltaSeconds);
-        // 施法看门狗：凝聚球在外部消亡（悬停超时/世界清理）而 Phase 未落地——回收占用并退款。
-        if (PendingCastSkill == FireballSkillId && !PendingCastOrb.IsValid())
+        if(!PendingCastSkill.IsNone())
         {
-            if (ShadowModel) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, TEXT("fireball"));
-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+            const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+            const bool MissingOrb=(PendingCastSkill==FireballSkillId||PendingCastSkill==TEXT("iceSpike"))&&!PendingCastOrb.IsValid();
+            if(!Pawn||PendingCastPawn.Get()!=Pawn||(Health&&Health->IsDead())||MissingOrb)
+            {const FName Cancelled=PendingCastSkill;const uint32 CastId=PendingIdentifiedCastId;auto* CastPawn=PendingCastPawn.Get();CancelPendingNetworkCast();ClientCastResult(Cancelled,1,5,CastPawn,ProcessedCastSequence,CastId);}
+        }
+        if (PendingCastSkill == TEXT("blizzard"))
+        {
+            const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+            const auto* Hands=Pawn?Pawn->FindComponentByClass<UFPSFireballComponent>():nullptr;
+            const double Lifetime=35.0+(Hands?Hands->RaiseDuration+Hands->ReleaseEntryDuration+Hands->ReleaseDuration:1.55f)/FMath::Max(.1f,PendingBlizzardStats.CastSpeed);
+            if(!Pawn||(Health&&Health->IsDead())||World->GetTimeSeconds()-PendingCastAt>Lifetime)
+            {
+                if(ShadowModel)ShadowModel->RefundUnreleasedCast(PendingCastPaidMana,TEXT("blizzard"));
+                PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;
+                ClientCastResult(TEXT("blizzard"),1,5,PendingCastPawn.Get(),ProcessedCastSequence);
+            }
+        }
+        if(PendingCastSkill==TEXT("dragonBreath")||PendingCastSkill==TEXT("stormDomain"))
+        {
+            const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+            const double Limit=PendingCastSkill==TEXT("stormDomain")?35.:10.;
+            if(!Pawn||(Health&&Health->IsDead())||!ShadowModel||!ShadowModel->HasEquippedStaff()||World->GetTimeSeconds()-PendingCastAt>Limit)
+            {
+                const FName Skill=PendingCastSkill;
+                const uint32 CastId=PendingIdentifiedCastId;auto* CastPawn=PendingCastPawn.Get();
+                CancelPendingNetworkCast();ClientCastResult(Skill,1,5,CastPawn,ProcessedCastSequence,CastId);
+            }
         }
         TickShadowMirror(DeltaSeconds);
         TickPublicInfo(DeltaSeconds);
@@ -279,6 +304,7 @@ void AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
         FColdSteelProfile Adopted = GuestProfile;
         if(!RebaseSuper90Upload(Adopted,Prev)){SendSuper90Ammo(true);return;}
         // A profile upload may have been captured before the focus-break RPC.
+        ColdSteelProfileRecovery::NetworkSpells(Adopted,Prev);
         SpellbookFocusMana::Merge(Adopted,Prev.SpellbookFocusManaLoss);
         // Ongoing survival is server-owned; inventory uploads must not refill or rewind it.
         Adopted.Survival=Prev.Survival;
@@ -894,14 +920,40 @@ void AColdSteelPlayerState::ServerReportShotStamp_Implementation()
 // 施法意图通道（A 模式：客户端报意图，服务端按影子档案执行，实体经复制回流）
 // ============================================================================
 
+void AColdSteelPlayerState::CancelPendingNetworkCast()
+{
+    if(!HasAuthority()||PendingCastSkill.IsNone())return;
+    const FName Skill=PendingCastSkill;const float Paid=PendingCastPaidMana;
+    PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;PendingCastPawn.Reset();PendingIdentifiedCastId=0;
+    if(PendingCastOrb.IsValid())PendingCastOrb->Destroy();
+    PendingCastOrb.Reset();
+    if(ShadowModel)ShadowModel->RefundUnreleasedCast(Paid,Skill);
+    bServerDirty=true;
+}
+
+uint32 AColdSteelPlayerState::RequestCastSpell(FColdSteelNetCastRequest Request)
+{
+    Request.SourcePawn=GetPawn();Request.Sequence=++LocalCastSequence;
+    if(!Request.Sequence)Request.Sequence=++LocalCastSequence;
+    if((Request.SkillId==TEXT("dragonBreath")||Request.SkillId==TEXT("stormDomain"))&&Request.Phase==0)Request.CastId=Request.Sequence;
+    ServerCastSpell(Request);
+    return Request.Sequence;
+}
+
 void AColdSteelPlayerState::ServerCastSpell_Implementation(const FColdSteelNetCastRequest& Request)
 {
     if (GetLocalRole() != ROLE_Authority) return;
     if (GetWorld() && GetWorld()->GetNetMode() == NM_Standalone) return;
-    // 防抖：施法相位切换的最小合理间隔远大于 150ms。
+    if(!Request.Sequence||Request.Sequence<=ProcessedCastSequence)return;
+    ProcessedCastSequence=Request.Sequence;bServerDirty=true;
+    if(!Request.SourcePawn||Request.SourcePawn!=GetPawn()){ShadowMirrorTimer=3.f;return;}
+    // Limit new reservations only. Reliable release/cancel transitions must always settle.
     const double Now = GetWorld()->GetTimeSeconds();
-    if (Now - LastCastRequestAt < 0.15) return;
-    LastCastRequestAt = Now;
+    if(Request.Phase==0)
+    {
+        if(Now-LastCastRequestAt<.15){ClientCastResult(Request.SkillId,Request.Phase,4,Request.SourcePawn,Request.Sequence,Request.CastId);return;}
+        LastCastRequestAt=Now;
+    }
     ExecuteCastRequest(Request);
 }
 
@@ -911,7 +963,7 @@ namespace
 struct FNetCastSkill { FName Id; };
 const FNetCastSkill NetCastSkills[] = {
     { TEXT("fireball") }, { TEXT("iceSpike") }, { TEXT("iceWall") }, { TEXT("blizzard") },
-    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") },
+    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("dragonBreath") },
     { TEXT("stormDomain") }, { TEXT("thunderLance") },
 };
 bool IsNetCastSkill(FName Id)
@@ -925,19 +977,36 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
 {
     APlayerController* PC = Cast<APlayerController>(GetOwner());
     AFPSGAMECharacter* Pawn = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
-    const auto Reject = [&](uint8 Code) { ClientCastResult(Request.SkillId, Request.Phase, Code); };
-    const auto Accept = [&]() { ClientCastResult(Request.SkillId, Request.Phase, 0); };
-    if (!ShadowModel || !Pawn) { Reject(1); return; }
-    if (!IsNetCastSkill(Request.SkillId)) { Reject(2); return; }
+    const auto Reject = [&](uint8 Code)
+    {
+        if(Request.Phase==1&&PendingCastSkill==Request.SkillId&&
+            ((Request.SkillId!=TEXT("dragonBreath")&&Request.SkillId!=TEXT("stormDomain"))||Request.CastId==PendingIdentifiedCastId))CancelPendingNetworkCast();
+        ClientCastResult(Request.SkillId, Request.Phase, Code,Request.SourcePawn,Request.Sequence,Request.CastId);
+    };
+    const auto Accept = [&]() { ClientCastResult(Request.SkillId, Request.Phase, 0,Request.SourcePawn,Request.Sequence,Request.CastId); };
+    if (!ShadowModel) { Reject(1); return; }
+    const bool Dragon=Request.SkillId==TEXT("dragonBreath");
+    const bool Identified=Dragon||Request.SkillId==TEXT("stormDomain");
+    if (!IsNetCastSkill(Request.SkillId)||Request.Phase>(Dragon?4:3)) { Reject(2); return; }
+    if(Identified&&(!Request.CastId||(Request.Phase==0&&Request.CastId!=Request.Sequence))){Reject(2);return;}
     const double Now = GetWorld()->GetTimeSeconds();
+
+    // Dragon release and stop share this PlayerState's reliable channel.
+    // A repeated/late stop only settles the identified cast, never its successor.
+    if(Dragon&&Request.Phase==4)
+    {
+        if(PendingCastSkill==Request.SkillId&&PendingIdentifiedCastId==Request.CastId)CancelPendingNetworkCast();
+        if(Pawn)if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetStopDragonBreath(Request.CastId);
+        Accept();return;
+    }
 
     // ── Phase 2/3 取消/弃置：通用收尾——销毁在途实体，按技能退蓝/清占用。 ──
     if (Request.Phase == 2 || Request.Phase == 3)
     {
-        if (PendingCastOrb.IsValid()) { PendingCastOrb->Destroy(); PendingCastOrb.Reset(); }
-        if (PendingCastSkill == Request.SkillId)
+        if (PendingCastSkill == Request.SkillId&&(!Identified||PendingIdentifiedCastId==Request.CastId))
         {
-            if (Request.Phase == 2) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
+            if (PendingCastOrb.IsValid()) { PendingCastOrb->Destroy(); PendingCastOrb.Reset(); }
+            if (Request.Phase == 2||Request.SkillId==TEXT("blizzard")) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
             else
             {
                 if (Request.SkillId == TEXT("fireball")) ShadowModel->FinishFireballCast();
@@ -949,11 +1018,15 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
                 else if (FireMagic::IsSkill(Request.SkillId)) ShadowModel->FinishFireMagicCast(Request.SkillId, FFireMagicRewards());
                 else if (ElectricMagic::IsSkill(Request.SkillId)) ShadowModel->FinishElectricMagicCast(Request.SkillId, FElectricMagicRewards());
             }
+            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
         }
-        PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
         Accept();
         return;
     }
+    if(!Pawn){Reject(1);return;}
+    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Reject(5);return;}
+    if(Request.Phase==1&&PendingCastPawn.Get()!=Pawn){Reject(5);return;}
+    if(Identified&&Request.Phase==1&&PendingIdentifiedCastId!=Request.CastId){Reject(3);return;}
 
     // Restraint blocks both prepare and release, while cancellation/refunds
     // above remain available. Firearm reports use their separate hit path.
@@ -1016,7 +1089,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
             if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
             auto* F = Pawn->FindComponentByClass<UFPSFireMagicComponent>();
             if (!F || !F->NetRelease(Pawn, Request, ShadowModel, PendingFireMagicStats)) { Reject(7); return; }
-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
             Accept(); return;
         }
         if (ElectricMagic::IsSkill(Request.SkillId))
@@ -1024,7 +1097,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
             if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
             auto* E = Pawn->FindComponentByClass<UFPSElectricMagicComponent>();
             if (!E || !E->NetRelease(Pawn, Request, ShadowModel, PendingElectricMagicStats)) { Reject(7); return; }
-            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
             Accept(); return;
         }
         Reject(2); return;
@@ -1032,6 +1105,7 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
 
     // ── Phase 0 凝聚：影子档校验法耗/冷却并扣账；带悬停体的技能同时生成权威实体。 ──
     if (PendingCastOrb.IsValid() || PendingCastSkill != NAME_None) { Reject(4); return; }
+    if(const auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();Fire&&Fire->IsDragonBreathActive()){Reject(4);return;}
     if (auto* HP = Pawn->FindComponentByClass<UFPSCombatHealthComponent>(); HP && HP->IsDead()) { Reject(5); return; }
 
     if (Request.SkillId == TEXT("fireball"))
@@ -1094,17 +1168,29 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         PendingCastPaidMana = Stats.Hit.ManaCost;
         PendingElectricMagicStats = Stats;
     }
-    PendingCastSkill = Request.SkillId; PendingCastAt = Now;
+    PendingCastSkill = Request.SkillId; PendingCastAt = Now; PendingCastPawn=Pawn;
+    PendingIdentifiedCastId=Identified?Request.CastId:0;
     // Snapshot first, then consume: match local casts, including later cancellation.
     if(auto* Status=Pawn->FindComponentByClass<UCombatStatusFormula>())Status->ConsumeChainSpell();
     Accept();
 }
 
-void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8 Phase, uint8 Code)
+void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8 Phase, uint8 Code,APawn* SourcePawn,uint32 Sequence,uint32 CastId)
 {
     APlayerController* PC = Cast<APlayerController>(GetOwner());
     AFPSGAMECharacter* Pawn = PC ? Cast<AFPSGAMECharacter>(PC->GetPawn()) : nullptr;
-    if (!Pawn) return;
+    if (!Pawn||Pawn!=SourcePawn) return;
+    if(SkillId==TEXT("dragonBreath"))
+    {
+        if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetDragonCastResult(Phase,Code,CastId);
+        return;
+    }
+    if(SkillId==TEXT("stormDomain"))
+    {
+        if(auto* Electric=Pawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->NetDomainCastResult(Phase,Code,CastId);
+        return;
+    }
+    if(Sequence<LocalCastSequence)return;
     // 把回执路由到发起技能的组件；各组件自己决定拒收/取消的本地收尾。
     const auto Receipt = [Phase, Code](auto* C)
     {
@@ -1115,10 +1201,27 @@ void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8
     if (SkillId == TEXT("fireball")) Receipt(Pawn->FindComponentByClass<UFPSFireballComponent>());
     else if (SkillId == TEXT("iceSpike")) Receipt(Pawn->FindComponentByClass<UFPSIceSpikeComponent>());
     else if (SkillId == TEXT("iceWall")) Receipt(Pawn->FindComponentByClass<UFPSIceWallComponent>());
-    else if (SkillId == TEXT("blizzard")) Receipt(Pawn->FindComponentByClass<UFPSBlizzardComponent>());
-    else if (SkillId == TEXT("holyLight")) Receipt(Pawn->FindComponentByClass<UFPSHolyLightComponent>());
-    else if (SkillId == TEXT("lightning")) Receipt(Pawn->FindComponentByClass<UFPSLightningComponent>());
-    else if (FireMagic::IsSkill(SkillId)) Receipt(Pawn->FindComponentByClass<UFPSFireMagicComponent>());
+    else if (SkillId == TEXT("blizzard"))
+    {
+        auto* Blizzard=Pawn->FindComponentByClass<UFPSBlizzardComponent>();
+        if(Blizzard&&Code==0&&Phase<2)Blizzard->NetCastAccepted(Phase);
+        else Receipt(Blizzard);
+    }
+    else if (SkillId == TEXT("holyLight"))
+    {
+        auto* C=Pawn->FindComponentByClass<UFPSHolyLightComponent>();
+        if(C&&Code==0&&Phase<2)C->NetCastAccepted(Phase);else Receipt(C);
+    }
+    else if (SkillId == TEXT("lightning"))
+    {
+        auto* C=Pawn->FindComponentByClass<UFPSLightningComponent>();
+        if(C&&Code==0&&Phase<2)C->NetCastAccepted(Phase);else Receipt(C);
+    }
+    else if (FireMagic::IsSkill(SkillId))
+    {
+        auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();
+        Receipt(Fire);
+    }
     else if (ElectricMagic::IsSkill(SkillId)) Receipt(Pawn->FindComponentByClass<UFPSElectricMagicComponent>());
 }
 

@@ -35,3 +35,14 @@ struct FElectricMagicRewards
     FLightningRewards Hit;
     bool bMultiHit=false;
 };
+
+USTRUCT()
+struct FStormDomainState
+{
+    GENERATED_BODY()
+    UPROPERTY() FElectricMagicCast Cast;
+    UPROPERTY() uint32 CastId=0;
+    UPROPERTY() double StartedAt=0;
+    UPROPERTY() double EndedAt=0;
+    UPROPERTY() bool bActive=false;
+};

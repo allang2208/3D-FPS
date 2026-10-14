@@ -247,6 +247,10 @@ struct FColdSteelProfile
     UPROPERTY() float MeteorCooldownDuration = 0;
     UPROPERTY() float FlameArmorCooldown = 0;
     UPROPERTY() float FlameArmorCooldownDuration = 0;
+    UPROPERTY() float DragonBreathCooldown = 0;
+    UPROPERTY() float DragonBreathCooldownDuration = 0;
+    UPROPERTY() float DragonBreathReservedMana = 0;
+    UPROPERTY() bool bDragonBreathReserved = false;
     // Geometry, encounters and reward receipts travel with the same character transaction.
     UPROPERTY() FDungeonRunState DungeonRun;
     UPROPERTY() FInfectionState Infection;

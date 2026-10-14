@@ -47,8 +47,7 @@ UFPSElectricMagicComponent::UFPSElectricMagicComponent()
 void UFPSElectricMagicComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(UFPSElectricMagicComponent,bNetDomain);
-    DOREPLIFETIME(UFPSElectricMagicComponent,NetDomainCast);
+    DOREPLIFETIME(UFPSElectricMagicComponent,NetDomain);
 }
 void UFPSElectricMagicComponent::BeginPlay()
 {
@@ -63,8 +62,16 @@ void UFPSElectricMagicComponent::BeginPlay()
         TEXT("/Game/Skills/ElectricMagic/S_ThunderLanceCharge.S_ThunderLanceCharge"),TEXT("/Game/Skills/ElectricMagic/S_ThunderLanceDischarge.S_ThunderLanceDischarge"),
         TEXT("/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle")};
     TArray<FSoftObjectPath> Requests;for(const auto* Path:Paths)Requests.Emplace(Path);
+    // Server requests may arrive before this pawn's cosmetic preload finishes.
+    Assets.SetNum(Requests.Num());
     AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
-    {bAssetsReady=true;for(const auto& Path:Requests){auto* A=Path.ResolveObject();bAssetsReady&=A!=nullptr;Assets.Add(A);}}));
+    {
+        bAssetsReady=true;
+        for(int32 I=0;I<Requests.Num();++I){Assets[I]=Requests[I].ResolveObject();bAssetsReady&=Assets[I]!=nullptr;}
+        if(GetOwner()->HasAuthority())
+        {if(bDomainActive&&!bDomainFading&&!CloudFX)SpawnDomainFX();PlayDomainStartSound();}
+        else OnRep_Domain();
+    }));
 }
 UColdSteelStatusModel* UFPSElectricMagicComponent::Model() const
 {return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
@@ -200,7 +207,12 @@ void UFPSElectricMagicComponent::ServiceQueue()
     if(auto* S=P->FindComponentByClass<UCombatStatusFormula>())S->ConsumeChainSpell();
     if(IsCharging())P->StopMovementForMeleeSkill();
     // 联机客人：凝聚扣账上报；雷云域/雷枪结算由服务端在释放相位执行。
-    if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetCast::Send(P,CommittedSkill,0);}
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {
+        bNetPaid=true;const uint32 Id=NetCast::Send(P,CommittedSkill,0);
+        if(CommittedSkill==TEXT("stormDomain"))
+        {DomainLocalCastId=Id;if(!Id){CancelPending();Feedback(TEXT("stormDomain"),TEXT("联机施法未就绪"));}}
+    }
 }
 void UFPSElectricMagicComponent::GrantCastBuffs(const FLightningCast& C)
 {if(auto* S=UCombatStatusFormula::GetOrAdd(GetOwner())){if(C.bGrantChain)S->AddChainSpell();if(C.CastHasteStacks>0)S->AddHaste(C.CastHasteStacks,C.CastHasteDuration);}}
@@ -240,21 +252,20 @@ void UFPSElectricMagicComponent::AtContact()
         if(Assets.IsValidIndex(13)&&Assets[13])UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[13]),CastOrigin(),.9f);
         return;
     }
-    if(!M->CommitElectricMagicRelease(CommittedSkill)){CancelPending();return;}
+    const bool Client=GetNetMode()==NM_Client;
+    if(Client?!M->Snapshot().ElectricReservedMana.Contains(CommittedSkill):!M->CommitElectricMagicRelease(CommittedSkill))
+    {CancelPending();return;}
     const FName ActivatedSkill=CommittedSkill;
-    FinishDomain(true);DomainCast=PendingCast;DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;bDomainActive=true;bDomainFading=false;
-    SpawnDomainFX();
-    UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),GetOwner()->GetActorLocation(),.6f);
+    StartDomain(PendingCast,Client?DomainLocalCastId:0,Client?nullptr:M);
     GrantCastBuffs(PendingCast.Hit);if(Hands())Hands()->TakeGesturePayment();CommittedSkill=NAME_None;
     // 联机：服务端激活时把雷云态写进复制字段（远端 OnRep 重演云）；客人则上报服务端激活权威域。
-    if(GetOwner()->HasAuthority()){NetDomainCast=DomainCast;bNetDomain=true;}
-    else NetCast::Send(GetOwner(),ActivatedSkill,1);
+    if(Client)NetCast::Send(GetOwner(),ActivatedSkill,1,FVector::ZeroVector,FVector::UpVector,0,nullptr,0,FVector::ForwardVector,DomainLocalCastId);
     bNetPaid=false;
-    Strike();NextStrike=DomainCast.StrikeSeconds;
 }
 // 雷云 FX——本地/服务端/远端 OnRep 共用同一套参数。
 void UFPSElectricMagicComponent::SpawnDomainFX()
 {
+    if(CloudFX||GetNetMode()==NM_DedicatedServer||!bDomainActive||bDomainFading||!Assets.IsValidIndex(0)||!Assets[0])return;
     CloudTop=330.f;CloudThickness=110.f;CloudRadiusX=DomainCast.Radius;CloudRadiusY=DomainCast.Radius*.78f;
     CloudCeilingZ=TNumericLimits<double>::Max();
     CloudFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[0]),GetOwner()->GetActorLocation(),FRotator::ZeroRotator,FVector(1),true,false);
@@ -349,13 +360,6 @@ FVector UFPSElectricMagicComponent::DomainStrikeOrigin(AActor* Target) const
     // Virtually no headroom: use the same body-height route used to select this target.
     return GetOwner()->GetActorLocation();
 }
-void UFPSElectricMagicComponent::OnRep_Domain()
-{
-    // 远端副本：雷云出现——仅演云层；伤害 tick 由服务端 Strike() 结算。
-    if(!bNetDomain||bDomainActive||Assets.Num()<1||!Assets[0])return;
-    DomainCast=NetDomainCast;DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;bDomainActive=true;bDomainFading=false;
-    SpawnDomainFX();
-}
 void UFPSElectricMagicComponent::SpawnArc(const FVector& Start,const FVector& End,const FLightningCast& Spell,bool bBeam,float ChargeRatio,float Width,bool bContactLight,float Brightness)
 {
     Arcs.RemoveAll([](const auto& A){return !A.IsValid();});if(Arcs.Num()>=48)return;
@@ -394,7 +398,9 @@ void UFPSElectricMagicComponent::MuzzleFlashFX(const FVector& Start,const FVecto
 }
 void UFPSElectricMagicComponent::Overload(AActor* Origin,const FLightningCast& Spell,FElectricMagicRewards& Rewards)
 {
-    auto* P=Cast<APawn>(GetOwner());auto* M=NetCast::AuthorityModel(P,GetWorld()?GetWorld()->GetGameInstance():nullptr);if(!M||!P)return;
+    auto* P=Cast<APawn>(GetOwner());
+    auto* M=&Rewards==&DomainRewards?DomainRewardModel.Get():NetCast::AuthorityModel(P,GetWorld()?GetWorld()->GetGameInstance():nullptr);
+    if(!M||!P)return;
     // The overloaded victim is stunned; the discharge damages nearby enemies.
     if(auto* S=UCombatStatusFormula::GetOrAdd(Origin);!S->IsImmune())
     {S->AddStun(Spell.OverloadStun);if(auto* C=Origin->FindComponentByClass<UMonsterCombatComponent>())C->ReceiveStun(P,Spell.OverloadStun,0);}
@@ -419,7 +425,7 @@ void UFPSElectricMagicComponent::Strike()
 {
     // 权威端结算；客户端 bDomainActive 仅驱动云层与倒计时——电弧经复制到达。
     if(!GetOwner()->HasAuthority())return;
-    auto* P=Cast<APawn>(GetOwner());auto* M=NetCast::AuthorityModel(P,GetWorld()?GetWorld()->GetGameInstance():nullptr);if(!M||!P)return;
+    auto* P=Cast<APawn>(GetOwner());auto* M=DomainRewardModel.Get();if(!M||!P)return;
     TArray<AActor*> Chain;AActor* Cursor=nullptr;
     for(int32 I=0;I<DomainCast.Hit.Count;++I)
     {
@@ -442,7 +448,7 @@ void UFPSElectricMagicComponent::Strike()
         {++Hits;ApplyStatus(Target,DomainCast.Hit,DomainRewards);}Start=End;
     }
     DomainRewards.bMultiHit|=Hits>=2;
-    if(Hits>0)UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),Start,.35f);
+    if(Hits>0)MulticastDomainStrikeSound(Start);
 }
 void UFPSElectricMagicComponent::FireLance()
 {
@@ -568,27 +574,29 @@ void UFPSElectricMagicComponent::CancelPending(bool bRefund)
     if(MuzzleIris){MuzzleIris->DestroyComponent();MuzzleIris=nullptr;MuzzleIrisMID=nullptr;}
     if(bRefund&&!Skill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);
     // 联机客人：凝聚/充能期取消——上报服务端退预留。
-    if(bRefund&&!Skill.IsNone()&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)NetCast::Send(GetOwner(),Skill,2);
+    if(bRefund&&!Skill.IsNone()&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid)
+    {
+        if(Skill==TEXT("stormDomain"))DomainCancelledCastId=DomainLocalCastId;
+        NetCast::Send(GetOwner(),Skill,2,FVector::ZeroVector,FVector::UpVector,0,nullptr,0,FVector::ForwardVector,
+            Skill==TEXT("stormDomain")?DomainLocalCastId:0);
+    }
     bNetPaid=false;
     if(Hands())Hands()->CancelSpellGesture(this);
 }
 // ── 联机服务端入口：风暴域权威激活 / 雷枪充能射线重算 ──
 bool UFPSElectricMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FElectricMagicCast& Spell)
 {
+    if(!Caster||!Caster->HasAuthority()||!Shadow)return false;
     if(Spell.bRequiresStaff&&!Shadow->HasEquippedStaff())return false;
     if(Req.SkillId==TEXT("stormDomain"))
     {
-        if(!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
-        FinishDomain(true);PendingCast=Spell;DomainCast=Spell;DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;bDomainActive=true;bDomainFading=false;
-        SpawnDomainFX();
-        UGameplayStatics::PlaySoundAtLocation(this,Cast<USoundBase>(Assets[5]),Caster->GetActorLocation(),.6f);
+        if(!Req.CastId||!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
+        PendingCast=Spell;StartDomain(Spell,Req.CastId,Shadow);
         GrantCastBuffs(Spell.Hit);
-        NetDomainCast=DomainCast;bNetDomain=true; // 远端副本 OnRep 演云
-        Strike();NextStrike=DomainCast.StrikeSeconds;
         return true;
     }
     // thunderLance：客人上报充能量+视线方向，服务端重算命中链。
-    if(!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
+    if((GetNetMode()!=NM_DedicatedServer&&!bAssetsReady)||!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
     const float Charge=FMath::Clamp(Req.Charge,0.f,Spell.MaxCharge);
     const float Ratio=FMath::Clamp(Charge/Spell.MaxCharge,.2f,1.f);
     const FVector Eye=Caster->GetPawnViewLocation();
@@ -611,12 +619,6 @@ void UFPSElectricMagicComponent::NetCastRejected(uint8 /*Phase*/,uint8 /*Code*/)
 void UFPSElectricMagicComponent::NetCastCancelled(uint8 /*Phase*/)
 {
     bNetPaid=false;
-}
-void UFPSElectricMagicComponent::FinishDomain(bool bTrain)
-{
-    if(bDomainActive&&bTrain)if(auto* M=NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()?GetWorld()->GetGameInstance():nullptr))M->FinishElectricMagicCast(TEXT("stormDomain"),DomainRewards);
-    bDomainActive=false;bDomainFading=false;DomainRewards={};
-    if(CloudFX){CloudFX->DestroyComponent();CloudFX=nullptr;}
 }
 void UFPSElectricMagicComponent::ClearEffects()
 {
@@ -655,14 +657,16 @@ void UFPSElectricMagicComponent::TickComponent(float Delta,ELevelTick Type,FActo
     }
     if(bDomainActive)
     {
-        DomainAge+=Delta;DomainVisualAge+=Delta;
+        DomainAge=FMath::Max(0.f,float(DomainClock()-DomainStartedAt));DomainVisualAge+=Delta;
+        if(!bDomainFading&&!CloudFX)SpawnDomainFX();
+        PlayDomainStartSound();
         UpdateDomainCloud(Delta);
         if(!bDomainFading&&DomainAge>=DomainCast.Duration)
-        {if(auto* M=Model())M->FinishElectricMagicCast(TEXT("stormDomain"),DomainRewards);DomainRewards={};bDomainFading=true;if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),0);}
+            FadeDomain();
         if(bDomainFading)
-        {if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.Strength"),FMath::Clamp(1-(DomainAge-DomainCast.Duration)/.6f,0.f,1.f));if(DomainAge>=DomainCast.Duration+.6f)FinishDomain(false);}
+        {const float FadeAge=float(DomainClock()-DomainEndedAt);if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.Strength"),FMath::Clamp(1-FadeAge/.6f,0.f,1.f));if(FadeAge>=.6f)FinishDomain(false);}
         else if(DomainAge>=NextStrike){Strike();NextStrike=DomainAge+DomainCast.StrikeSeconds;}
     }
 }
 void UFPSElectricMagicComponent::EndPlay(EEndPlayReason::Type Reason)
-{if(AssetLoad)AssetLoad->CancelHandle();ClearEffects();Super::EndPlay(Reason);}
+{FinishDomainForRemoval();if(AssetLoad)AssetLoad->CancelHandle();ClearEffects();Super::EndPlay(Reason);}

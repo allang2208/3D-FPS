@@ -3,6 +3,7 @@
 #include "SpellbookFocusInterruptMotion.h"
 #include "SpellbookAuthoredGrip.h"
 #include "SpellbookBookOrientation.h"
+#include "SpellbookBookSampling.h"
 #include "../Staff/StaffWeaponComponent.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../Items/FPSPotionUseComponent.h"
@@ -85,6 +86,8 @@ bool USpellbookComponent::ToggleFocus()
     if(!OwnsLeftHand()||Staff->IsBusy()||Pawn->IsDoorPushActive()||Pawn->IsResolvingActionInterrupt()
         ||(Potion&&Potion->IsActive())||(Magic&&Magic->IsGestureActive())||(Quick&&Quick->IsOccupyingLeftHand())
         ||!FocusBook||!FocusBook->GetSkeletalMeshAsset()||!OpenClip||!FlipClip)return false;
+    // Do not start the release clock with an uninitialized/compiling book pose.
+    if(!SpellbookBookSampling::Sample(*FocusBook,OpenClip,0.f))return false;
     Pawn->ExitSprintForWeapon();Arms->CaptureFocusEntry();
     UCombatStatusFormula::GetOrAdd(Pawn);
     FocusAge=PagePhase=PageAlpha=OpenAlpha=0.f;
@@ -107,10 +110,7 @@ void USpellbookComponent::BeginCloseFocus()
     {
         const auto Current=FocusBook->GetBoneSpaceTransformsView();
         const TArray<FTransform> Snapshot(Current.GetData(),Current.Num());
-        FocusBook->SetAnimation(OpenClip);FocusBook->SetPlayRate(0.f);
-        FocusBook->SetComponentSpaceTransformsDoubleBuffering(false);
-        FocusBook->SetPosition(SpellbookFocusMotion::SourceTime(ReturnStartTime),false);
-        FocusBook->TickAnimation(0.f,false);FocusBook->RefreshBoneTransforms();
+        if(!SpellbookBookSampling::Sample(*FocusBook,OpenClip,SpellbookFocusMotion::SourceTime(ReturnStartTime)))return;
         const auto Base=FocusBook->GetBoneSpaceTransformsView();
         ClosePageDeltas.Init(FTransform::Identity,Base.Num());
         for(const int32 I:PageBones)if(Snapshot.IsValidIndex(I)&&I<Base.Num())
@@ -213,6 +213,9 @@ void USpellbookComponent::PresentFocusBook()
         // Reuse normal carry attachment, with no second book interpolation.
         bFocusDetached=false;GoldFade=0.f;return;
     }
+    const bool Pages=!bFocusClosing&&FocusAge>=Motion::OpenLength;
+    auto* Clip=Pages?FlipClip.Get():OpenClip.Get();
+    if(!Clip||!SpellbookBookSampling::Sample(*FocusBook,Clip,Pages?PageAlpha*Clip->GetPlayLength():SourceTime))return;
     if(!bFocusDetached)
     {
         if(bFocusClosing||SourceTime<Motion::Detach)return;
@@ -231,13 +234,6 @@ void USpellbookComponent::PresentFocusBook()
     FocusBook->SetRelativeTransform(Frame);
     // V27 changes only the book's coordinate direction. Accepted cover/page
     // articulation follows the same staged clock forward and backward.
-    const bool Pages=!bFocusClosing&&FocusAge>=Motion::OpenLength;
-    auto* Clip=Pages?FlipClip.Get():OpenClip.Get();
-    if(!FocusBook->GetSingleNodeInstance()||FocusBook->GetSingleNodeInstance()->GetCurrentAsset()!=Clip)
-    {FocusBook->SetAnimation(Clip);FocusBook->SetPlayRate(0.f);}
-    FocusBook->SetComponentSpaceTransformsDoubleBuffering(false);
-    FocusBook->SetPosition(Pages?PageAlpha*Clip->GetPlayLength():FMath::Min(SourceTime,Clip->GetPlayLength()),false);
-    FocusBook->TickAnimation(0.f,false);FocusBook->RefreshBoneTransforms();
     if(bFocusClosing)ApplyClosingPages(*FocusBook,ClosePageDeltas,1.f-Motion::Ease(0.f,CloseBookSeconds,CloseAge));
     if(FocusWorldBook)FocusWorldBook->SetWorldTransform(FocusBook->GetComponentTransform());
     PresentFocusGold();
