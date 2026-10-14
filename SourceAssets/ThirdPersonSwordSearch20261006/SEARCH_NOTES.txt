@@ -1,0 +1,29 @@
+2026-10-06 第三人称全身剑术素材重新筛选
+
+用户再次否定 CombatRepair20261006V3 的上劈、上挑、旋风：主要只有手臂运动，身体没有带动。用户倾向直接复用成熟全身动画，本轮只查找和比较，不发布新的动作或修改运行配置。
+
+当前源码原因：BodyCombatRepair20261006V2/author_actions.py 的 body() 基于 idle，加少量脊柱角度和骨盆升降；不是直接保留完整动作素材。FPSPlayerBodyAnimInstance.cpp 的 SwordLegWeight 按速度衰减，达到 120 cm/s 时为零，因此运动中的攻击脚步被走跑层替代。后续接入必须处理这一点，不能只换资产引用。
+
+首选新候选：Epic Paragon: Kwang
+https://www.fab.com/listings/f4c67e92-b976-4b5b-ab9f-4c25b010f6f3
+官方页面明确免费，包含角色动画和 Animation Blueprints，供 Unreal Engine 项目使用。当前 Content 和 D:/FPS3D/VaultCache 未找到 Kwang。可作为成熟全身剑术来源进一步筛选；没有取得并逐条确认其上劈、原生上挑和连续旋风，不能宣称三项均可直接替换。不需要改用 Kwang 人物本身，目标仍是 Jason。
+
+第二新候选：Explosive RPG Character Mecanim Animation Pack FREE
+https://www.explosive.ws/products/rpg-character-mecanim-animation-pack-free
+https://assetstore.unity.com/packages/3d/animations/rpg-character-mecanim-animation-pack-free-65284
+官方免费版 88 个动作；作者更新记录明确包含双手剑动作。标准 Unity Asset Store EULA。官方提示预览视频含完整版动作，不能把视频中的所有招式视为免费包所有。本机尚未取得文件，也未确认上挑/旋风具体片段。
+
+其他来源：
+- Mixamo：Adobe 官方 FAQ 确认免费 Adobe ID 可使用，动画可用于商业游戏。尚未进入账户取得 Great Sword 动作原包，本轮不从第三方整库镜像下载。
+  https://helpx.adobe.com/creative-cloud/faq/mixamo-faq.html
+- MoCap Online T.C. Sword：官方有免费真人动捕剑术/大剑包；候选，未逐条取得和确认三招；其当前许可另有 AI 使用条款，不将普通免费说明当成无限制授权。
+  https://mocaponline.com/products/tc-sword
+
+已有来源的排除理由：
+- Kevin FREE：原生双手剑攻击只有 Attack2H01，已用于普通攻击，不能凑成三种新技能。
+- KayKit：已有 Chop、Spin、Spinning，没有原生上挑。Spinning 脚步简化的问题已有记录，不能再次视为写实全身旋风的完成方案。
+- Quaternius UAL2：同日已有当前官方 Standard 原包，保存在 ThirdPersonSwordCandidates20261006，含 Sword_Heavy_Combo；此前已尝试把单手动作改为双手并被否定，不是本轮新方案。不要再以倒放下劈或强拉副手当成原生双手上挑。
+
+本轮 QuaterniusUAL2 子目录另保存作者在 OpenGameArt 发布的旧 Standard 原包及 receipt.json，只用于核对免费文件清单（43 条动画）。该旧版本没有 Sword_Heavy_Combo，不覆盖项目已有的新版本，不导入运行库。
+
+结论：存在新的可复用全身来源，但本轮尚未确认一套免费素材能原样覆盖三个技能。优先筛 Kwang，其次 Explosive 原生双手剑；任何候选都需对 Jason 重定向、双手握柄和剑刃方向适配，并保留动作原有的胸髋、重心、踏步及收势。未启动 UE、游戏、测试或渲染。

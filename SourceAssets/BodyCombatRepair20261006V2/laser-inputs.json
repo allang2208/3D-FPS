@@ -1,0 +1,136 @@
+{
+  "cylinder": {
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "extent": [
+      50.0,
+      50.0,
+      50.0
+    ]
+  },
+  "components": [
+    {
+      "name": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.StaticMeshComponent_3",
+      "mesh": "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_PitViper2011.SM_BlessedLaser_PitViper2011",
+      "visible": false,
+      "transform": {
+        "location": [
+          -3136.5869996406723,
+          -168.31049471387803,
+          161.69772506613305
+        ],
+        "rotation": [
+          0.03425243717485354,
+          0.1942334758431417,
+          -0.1702576387450826,
+          0.965459716331253
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "materials": [
+        "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSWeatherManager_0.WeatherViewEffects.MID_M_Blessed_Graphite_0",
+        "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSWeatherManager_0.WeatherViewEffects.MID_M_Blessed_Gold_0",
+        "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSWeatherManager_0.WeatherViewEffects.MID_M_Blessed_Black_0",
+        "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSWeatherManager_0.WeatherViewEffects.MID_M_Blessed_Optic_0",
+        "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSWeatherManager_0.WeatherViewEffects.MID_M_Blessed_Aperture_0",
+        "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_laser_Body.M_PV2011_laser_Body",
+        "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSWeatherManager_0.WeatherViewEffects.MID_MI_PitViper2011_h_0"
+      ],
+      "Emitter": {
+        "location": [
+          -3125.0133585748144,
+          -172.51721292788048,
+          153.772046293355
+        ],
+        "rotation": [
+          -0.1702576809466685,
+          -0.9654597088890537,
+          -0.034252428684638236,
+          0.1942334773403631
+        ],
+        "scale": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "AimGuide": {
+        "location": [
+          -3122.4136444013675,
+          -173.46355674202567,
+          152.61190823387022
+        ],
+        "rotation": [
+          -0.1702576809466685,
+          -0.9654597088890537,
+          -0.034252428684638236,
+          0.1942334773403631
+        ],
+        "scale": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      }
+    },
+    {
+      "name": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.StaticMeshComponent_4",
+      "mesh": "/Engine/BasicShapes/Sphere.Sphere",
+      "visible": false,
+      "transform": {
+        "location": [
+          983.6498530892795,
+          2408.6639226874067,
+          20.029998091980815
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          -0.7071067811865476,
+          0.7071067811865477
+        ],
+        "scale": [
+          0.01600000075995922,
+          0.01600000075995922,
+          0.00039999998989515007
+        ]
+      },
+      "materials": [
+        "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/M_BlessedLaserDot.M_BlessedLaserDot"
+      ]
+    },
+    {
+      "name": "/Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting:PersistentLevel.FPSGAMECharacter_0.StaticMeshComponent_5",
+      "mesh": "/Engine/BasicShapes/Cylinder.Cylinder",
+      "visible": false,
+      "transform": {
+        "location": [
+          -27.58788054955221,
+          1047.922319661775,
+          97.7299064351746
+        ],
+        "rotation": [
+          0.22716133239625014,
+          0.6865115320842482,
+          0.6557569704145436,
+          0.21698488687472697
+        ],
+        "scale": [
+          0.004000000189989805,
+          0.004000000189989805,
+          33.942665100097656
+        ]
+      },
+      "materials": [
+        "/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/M_BlessedLaserBeam.M_BlessedLaserBeam"
+      ]
+    }
+  ]
+}

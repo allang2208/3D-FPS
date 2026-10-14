@@ -16,7 +16,7 @@ void FFPSBodyGrounding::Reset()
 }
 
 void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBodyAnimInstance& Anim,
-    const FFPSBodyFootSeed (&Feet)[2],float WalkWeight,float Delta)
+    const FFPSBodyFootSeed (&Feet)[2],float WalkWeight,float Delta,float AuthoredCrouchWeight,float AuthoredSlideWeight)
 {
     const auto* Character=Cast<ACharacter>(Mesh.GetOwner());
     const auto* Move=Character?Character->GetCharacterMovement():nullptr;
@@ -29,7 +29,7 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
     if(!bInitialized){FeetYaw=Yaw;bInitialized=true;}
     LastLocation=Location;
     const bool Grounded=Move->IsMovingOnGround()&&!Anim.bFalling&&Anim.BodyState.Motion==EFPSBodyMotion::Ground
-        &&Anim.BodyState.Action!=EFPSBodyAction::Dead;
+        &&Anim.BodyState.Action!=EFPSBodyAction::Dead&&AuthoredSlideWeight<=ZERO_ANIMWEIGHT_THRESH;
     const bool Pushed=Anim.Clock-Anim.Reactions.PushAt<Anim.Reactions.PushSeconds;
     const bool Melee=FPSBodyMelee::Active(Anim.BodyState);
     const bool CanTurn=Grounded&&Anim.Speed<15.f&&!Anim.Reactions.bStunned&&!Pushed&&!Melee;
@@ -128,7 +128,10 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
         // A rising ankle can mean heel roll, not swing clearance. Settle the heel
         // during walking mid-stance; keep toe-first backward landings, toe-off,
         // airborne feet and the authored jog/reaction/attack steps intact.
-        Pose.SolePlant[I]=!Melee&&!Pushed?Load*(1.f-FMath::SmoothStep(6.f,14.f,Lift)):0.f;
+        // Crouch donors include intentional heel lift and ankle flexion. Flattening
+        // them to standing soles changes the squat depth and twists the loaded leg.
+        // Retain support traces/locks, but preserve the donor's crouched foot roll.
+        Pose.SolePlant[I]=!Melee&&!Pushed?Load*(1.f-FMath::SmoothStep(6.f,14.f,Lift))*(1.f-AuthoredCrouchWeight):0.f;
         FVector Goal(Raw.X,Raw.Y,Point.Z+(Feet[I].SoleHeight+Lift*(1.f-Pose.SolePlant[I]))*Frame.GetScale3D().Z);
         const bool Stance=(Anim.Speed<15.f?Pose.TurnLift[I]<.5f:(Phase<.55f&&Lift<6.f))&&!Melee&&!Pushed;
         if(!Stance)C.bPlanted=false;

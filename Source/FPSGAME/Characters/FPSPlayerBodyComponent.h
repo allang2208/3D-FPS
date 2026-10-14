@@ -7,6 +7,8 @@
 #include "FPSPlayerBodyGrip.h"
 #include "FPSBodyMotionBinding.h"
 #include "FPSBodyReactionState.h"
+#include "FPSPlayerDeathMotion.h"
+#include "FPSPlayerReactionCamera.h"
 #include "FPSPlayerBodyComponent.generated.h"
 
 /** World-space body and equipment, separate from the camera's existing viewmodels. */
@@ -55,6 +57,7 @@ public:
     bool ResolveWorldWeaponFrame(const class USkeletalMeshComponent* Source,const class USceneComponent* SourceAnchor,
         const FTransform& SourceFrame,FTransform& WorldFrame) const;
     void ApplyCameraView(struct FMinimalViewInfo& View);
+    void ApplyReactionCamera(float Delta,struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
     void PresentSuper90Shot(const FString& Instance,float FiredAt,bool bAiming,bool bSuppressed);
@@ -242,6 +245,7 @@ private:
     float LastWorldLight=-1.f,LastLiquidLevel=-10000.f;
     void UpdateReactions();
     UPROPERTY(Replicated) FFPSBodyReactionState Reactions;
+    FFPSPlayerReactionCamera ReactionCamera;
     TWeakObjectPtr<class UCombatStatusFormula> ReactionStatus;
     TWeakObjectPtr<class UPlayerGuardBreakComponent> ReactionGuard;
     float ReactionComponentRefresh=0.f;
@@ -257,6 +261,18 @@ private:
     float OwnerCameraLookDownForward=12.f;
     float OwnerCameraLookDownDrop=0.f;
     float OwnerCameraTorsoClearance=40.f;
+
+    void InitializeDeathPresentation();
+    bool ApplyDeathCameraView(struct FMinimalViewInfo& View);
+    void ReleaseDeathCamera();
+    bool IsDeathViewActive() const { return DisplayState.Action==EFPSBodyAction::Dead; }
+    TArray<FPSPlayerDeathMotion::FCameraKey> DeathCameraTracks[2];
+    bool bDeathCameraStarted=false;
+    FVector DeathInitialLocation=FVector::ZeroVector,DeathLastCameraLocation=FVector::ZeroVector;
+    FRotator DeathInitialRotation=FRotator::ZeroRotator;
+    float DeathInitialFOV=90.f;
+    FTransform DeathMeshFrame=FTransform::Identity;
+    TWeakObjectPtr<class APlayerCameraManager> DeathCameraManager;
 
     // Session-only observation pose. The gameplay eye and control rotation
     // continue driving inputs, aiming and all first-person action clocks.

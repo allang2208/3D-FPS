@@ -1,0 +1,36 @@
+{
+  "Kevin": {
+    "mesh": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/Kevin/SK_Kevin_HumanM.SK_Kevin_HumanM",
+    "clips": {
+      "A_Kevin_Attack2H01": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/Kevin/A_Kevin_Attack2H01.A_Kevin_Attack2H01",
+      "A_Kevin_CombatIdle2H01": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/Kevin/A_Kevin_CombatIdle2H01.A_Kevin_CombatIdle2H01"
+    }
+  },
+  "KayKit": {
+    "mesh": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium.SK_KayKit_Medium",
+    "clips": {
+      "SK_KayKit_Medium_Anim_Melee_1H_Attack_Chop": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_1H_Attack_Chop.SK_KayKit_Medium_Anim_Melee_1H_Attack_Chop",
+      "SK_KayKit_Medium_Anim_Melee_1H_Attack_Jump_Chop": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_1H_Attack_Jump_Chop.SK_KayKit_Medium_Anim_Melee_1H_Attack_Jump_Chop",
+      "SK_KayKit_Medium_Anim_Melee_1H_Attack_Slice_Diagonal": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_1H_Attack_Slice_Diagonal.SK_KayKit_Medium_Anim_Melee_1H_Attack_Slice_Diagonal",
+      "SK_KayKit_Medium_Anim_Melee_1H_Attack_Slice_Horizontal": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_1H_Attack_Slice_Horizontal.SK_KayKit_Medium_Anim_Melee_1H_Attack_Slice_Horizontal",
+      "SK_KayKit_Medium_Anim_Melee_1H_Attack_Stab": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_1H_Attack_Stab.SK_KayKit_Medium_Anim_Melee_1H_Attack_Stab",
+      "SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop.SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop",
+      "SK_KayKit_Medium_Anim_Melee_2H_Attack_Slice": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_2H_Attack_Slice.SK_KayKit_Medium_Anim_Melee_2H_Attack_Slice",
+      "SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin.SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin",
+      "SK_KayKit_Medium_Anim_Melee_2H_Attack_Spinning": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_2H_Attack_Spinning.SK_KayKit_Medium_Anim_Melee_2H_Attack_Spinning",
+      "SK_KayKit_Medium_Anim_Melee_2H_Attack_Stab": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_2H_Attack_Stab.SK_KayKit_Medium_Anim_Melee_2H_Attack_Stab",
+      "SK_KayKit_Medium_Anim_Melee_2H_Idle": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_2H_Idle.SK_KayKit_Medium_Anim_Melee_2H_Idle",
+      "SK_KayKit_Medium_Anim_Melee_Block": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Block.SK_KayKit_Medium_Anim_Melee_Block",
+      "SK_KayKit_Medium_Anim_Melee_Block_Attack": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Block_Attack.SK_KayKit_Medium_Anim_Melee_Block_Attack",
+      "SK_KayKit_Medium_Anim_Melee_Block_Hit": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Block_Hit.SK_KayKit_Medium_Anim_Melee_Block_Hit",
+      "SK_KayKit_Medium_Anim_Melee_Blocking": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Blocking.SK_KayKit_Medium_Anim_Melee_Blocking",
+      "SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Chop": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Chop.SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Chop",
+      "SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Slice": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Slice.SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Slice",
+      "SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Stab": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Stab.SK_KayKit_Medium_Anim_Melee_Dualwield_Attack_Stab",
+      "SK_KayKit_Medium_Anim_Melee_Unarmed_Attack_Kick": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Unarmed_Attack_Kick.SK_KayKit_Medium_Anim_Melee_Unarmed_Attack_Kick",
+      "SK_KayKit_Medium_Anim_Melee_Unarmed_Attack_Punch_A": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Unarmed_Attack_Punch_A.SK_KayKit_Medium_Anim_Melee_Unarmed_Attack_Punch_A",
+      "SK_KayKit_Medium_Anim_Melee_Unarmed_Idle": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_Melee_Unarmed_Idle.SK_KayKit_Medium_Anim_Melee_Unarmed_Idle",
+      "SK_KayKit_Medium_Anim_T-Pose": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Donors/KayKit/SK_KayKit_Medium_Anim_T-Pose.SK_KayKit_Medium_Anim_T-Pose"
+    }
+  }
+}

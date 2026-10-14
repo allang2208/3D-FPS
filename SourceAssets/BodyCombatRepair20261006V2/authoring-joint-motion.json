@@ -1,0 +1,302 @@
+{
+  "DashOverhead": {
+    "r": {
+      "minimum_wrist_swing_max": [
+        48.3,
+        27
+      ],
+      "wrist_articulation_max": [
+        48.3,
+        27
+      ],
+      "joint_motion": {
+        "upperarm_r": [
+          10.9,
+          6
+        ],
+        "lowerarm_r": [
+          16.6,
+          6
+        ],
+        "hand_r": [
+          5.7,
+          26
+        ]
+      }
+    },
+    "l": {
+      "minimum_wrist_swing_max": [
+        50.1,
+        15
+      ],
+      "wrist_articulation_max": [
+        50.1,
+        16
+      ],
+      "joint_motion": {
+        "upperarm_l": [
+          15.3,
+          38
+        ],
+        "lowerarm_l": [
+          15.1,
+          39
+        ],
+        "hand_l": [
+          9.5,
+          38
+        ]
+      }
+    }
+  },
+  "Overhead": {
+    "r": {
+      "minimum_wrist_swing_max": [
+        48.3,
+        35
+      ],
+      "wrist_articulation_max": [
+        48.3,
+        34
+      ],
+      "joint_motion": {
+        "upperarm_r": [
+          8.5,
+          8
+        ],
+        "lowerarm_r": [
+          13.0,
+          7
+        ],
+        "hand_r": [
+          4.8,
+          32
+        ]
+      }
+    },
+    "l": {
+      "minimum_wrist_swing_max": [
+        50.1,
+        19
+      ],
+      "wrist_articulation_max": [
+        50.1,
+        21
+      ],
+      "joint_motion": {
+        "upperarm_l": [
+          13.0,
+          36
+        ],
+        "lowerarm_l": [
+          11.7,
+          49
+        ],
+        "hand_l": [
+          7.7,
+          32
+        ]
+      }
+    }
+  },
+  "Uppercut": {
+    "r": {
+      "minimum_wrist_swing_max": [
+        46.3,
+        20
+      ],
+      "wrist_articulation_max": [
+        46.3,
+        20
+      ],
+      "joint_motion": {
+        "upperarm_r": [
+          18.1,
+          38
+        ],
+        "lowerarm_r": [
+          17.5,
+          8
+        ],
+        "hand_r": [
+          13.0,
+          36
+        ]
+      }
+    },
+    "l": {
+      "minimum_wrist_swing_max": [
+        48.2,
+        54
+      ],
+      "wrist_articulation_max": [
+        48.2,
+        0
+      ],
+      "joint_motion": {
+        "upperarm_l": [
+          10.1,
+          36
+        ],
+        "lowerarm_l": [
+          12.6,
+          7
+        ],
+        "hand_l": [
+          5.1,
+          7
+        ]
+      }
+    }
+  },
+  "Whirlwind.Loop": {
+    "r": {
+      "minimum_wrist_swing_max": [
+        21.2,
+        9
+      ],
+      "wrist_articulation_max": [
+        21.2,
+        9
+      ],
+      "joint_motion": {
+        "upperarm_r": [
+          0.6,
+          1
+        ],
+        "lowerarm_r": [
+          0.5,
+          18
+        ],
+        "hand_r": [
+          0.5,
+          1
+        ]
+      }
+    },
+    "l": {
+      "minimum_wrist_swing_max": [
+        48.6,
+        1
+      ],
+      "wrist_articulation_max": [
+        48.6,
+        15
+      ],
+      "joint_motion": {
+        "upperarm_l": [
+          0.5,
+          1
+        ],
+        "lowerarm_l": [
+          0.5,
+          1
+        ],
+        "hand_l": [
+          0.1,
+          36
+        ]
+      }
+    }
+  },
+  "Whirlwind.Start": {
+    "r": {
+      "minimum_wrist_swing_max": [
+        18.4,
+        18
+      ],
+      "wrist_articulation_max": [
+        18.4,
+        18
+      ],
+      "joint_motion": {
+        "upperarm_r": [
+          11.6,
+          10
+        ],
+        "lowerarm_r": [
+          11.9,
+          9
+        ],
+        "hand_r": [
+          1.3,
+          9
+        ]
+      }
+    },
+    "l": {
+      "minimum_wrist_swing_max": [
+        48.5,
+        18
+      ],
+      "wrist_articulation_max": [
+        48.5,
+        18
+      ],
+      "joint_motion": {
+        "upperarm_l": [
+          2.8,
+          9
+        ],
+        "lowerarm_l": [
+          5.0,
+          9
+        ],
+        "hand_l": [
+          1.1,
+          8
+        ]
+      }
+    }
+  },
+  "Whirlwind.End": {
+    "r": {
+      "minimum_wrist_swing_max": [
+        18.4,
+        0
+      ],
+      "wrist_articulation_max": [
+        18.4,
+        0
+      ],
+      "joint_motion": {
+        "upperarm_r": [
+          8.7,
+          13
+        ],
+        "lowerarm_r": [
+          8.9,
+          13
+        ],
+        "hand_r": [
+          0.9,
+          15
+        ]
+      }
+    },
+    "l": {
+      "minimum_wrist_swing_max": [
+        48.5,
+        2
+      ],
+      "wrist_articulation_max": [
+        48.5,
+        0
+      ],
+      "joint_motion": {
+        "upperarm_l": [
+          2.1,
+          11
+        ],
+        "lowerarm_l": [
+          3.7,
+          13
+        ],
+        "hand_l": [
+          0.8,
+          14
+        ]
+      }
+    }
+  }
+}

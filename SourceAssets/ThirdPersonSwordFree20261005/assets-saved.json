@@ -1,0 +1,70 @@
+{
+  "runtime_clips": {
+    "Melee.FullBody.Slash1": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_Attack2H01.J_A_Kevin_Attack2H01",
+    "Melee.FullBody.Idle": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_CombatIdle2H01.J_A_Kevin_CombatIdle2H01",
+    "Melee.FullBody.Overhead": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop.J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop",
+    "Melee.FullBody.Slash2": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Slice.J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Slice",
+    "Melee.FullBody.Thrust": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Stab.J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Stab",
+    "Melee.FullBody.Whirlwind": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin.J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Spin",
+    "Melee.FullBody.Pommel": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block_Attack.J_SK_KayKit_Medium_Anim_Melee_Block_Attack",
+    "Melee.FullBody.Guard": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block.J_SK_KayKit_Medium_Anim_Melee_Block",
+    "Melee.FullBody.GuardHit": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block_Hit.J_SK_KayKit_Medium_Anim_Melee_Block_Hit",
+    "Melee.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_Sword_Uppercut.J_Sword_Uppercut",
+    "Melee.FullBody.HeavyRelease": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_Attack2H01.J_A_Kevin_Attack2H01",
+    "Melee.FullBody.Charge": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_A_Kevin_Attack2H01.J_A_Kevin_Attack2H01",
+    "Melee.FullBody.GuardBreak": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_Block_Hit.J_SK_KayKit_Medium_Anim_Melee_Block_Hit"
+  },
+  "timings": {
+    "Slash1": {
+      "length": 1.600000023841858,
+      "contact": 0.34375,
+      "release": 0.50375
+    },
+    "Idle": {
+      "length": 1.3333333730697632,
+      "contact": 0.4125,
+      "release": 0.5725
+    },
+    "Overhead": {
+      "length": 1.6333333253860474,
+      "contact": 0.4387755102040816,
+      "release": 0.5987755102040816
+    },
+    "Slash2": {
+      "length": 1.100000023841858,
+      "contact": 0.3484848484848485,
+      "release": 0.5084848484848485
+    },
+    "Thrust": {
+      "length": 1.600000023841858,
+      "contact": 0.4791666666666667,
+      "release": 0.5791666666666667
+    },
+    "Whirlwind": {
+      "length": 2.4000000953674316,
+      "contact": 0.3402777777777778,
+      "release": 0.5002777777777778
+    },
+    "Pommel": {
+      "length": 1.0666667222976685,
+      "contact": 0.390625,
+      "release": 0.550625
+    },
+    "Guard": {
+      "length": 1.0666667222976685,
+      "contact": 0.171875,
+      "release": 0.33187500000000003
+    },
+    "GuardHit": {
+      "length": 1.0666667222976685,
+      "contact": 0.203125,
+      "release": 0.36312500000000003
+    },
+    "Uppercut": {
+      "length": 1.6333333253860474,
+      "contact": 0.5612244897959183,
+      "release": 0.7212244897959184
+    }
+  },
+  "head_postprocess_default_EnableHeadMovementIK": true
+}

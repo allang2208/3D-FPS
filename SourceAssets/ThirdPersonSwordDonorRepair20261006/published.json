@@ -1,0 +1,12 @@
+{
+  "replaced": {
+    "Melee.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/SwordActions20261006/Animations/J_Sword_Uppercut.J_Sword_Uppercut",
+    "Melee.FullBody.Overhead": "/Game/Characters/JasonPlayer20261003/SwordFullBody20261005/Animations/J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop.J_SK_KayKit_Medium_Anim_Melee_2H_Attack_Chop",
+    "Melee.FullBody.DashOverhead": "/Game/Characters/JasonPlayer20261003/SwordActions20261006/Animations/J_Sword_DashOverhead.J_Sword_DashOverhead"
+  },
+  "active": {
+    "Melee.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/SwordDonorRepair20261006/Animations/J_UAL2_Uppercut.J_UAL2_Uppercut",
+    "Melee.FullBody.Overhead": "/Game/Characters/JasonPlayer20261003/SwordDonorRepair20261006/Animations/J_UAL2_Overhead.J_UAL2_Overhead",
+    "Melee.FullBody.DashOverhead": "/Game/Characters/JasonPlayer20261003/SwordDonorRepair20261006/Animations/J_UAL2_DashOverhead.J_UAL2_DashOverhead"
+  }
+}

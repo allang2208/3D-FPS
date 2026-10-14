@@ -1,0 +1,26 @@
+{
+  "runtime_clips": {
+    "Melee.FullBody.Whirlwind.Start": "/Game/Characters/JasonPlayer20261003/Whirlwind20261006/Animations/J_Whirlwind_Start.J_Whirlwind_Start",
+    "Melee.FullBody.Whirlwind.Loop": "/Game/Characters/JasonPlayer20261003/Whirlwind20261006/Animations/J_Whirlwind_Loop.J_Whirlwind_Loop",
+    "Melee.FullBody.Whirlwind.End": "/Game/Characters/JasonPlayer20261003/Whirlwind20261006/Animations/J_Whirlwind_End.J_Whirlwind_End"
+  },
+  "clips": {
+    "Start": {
+      "asset": "/Game/Characters/JasonPlayer20261003/Whirlwind20261006/Animations/J_Whirlwind_Start.J_Whirlwind_Start",
+      "keys": 16,
+      "duration": 0.5
+    },
+    "Loop": {
+      "asset": "/Game/Characters/JasonPlayer20261003/Whirlwind20261006/Animations/J_Whirlwind_Loop.J_Whirlwind_Loop",
+      "keys": 31,
+      "duration": 1.0
+    },
+    "End": {
+      "asset": "/Game/Characters/JasonPlayer20261003/Whirlwind20261006/Animations/J_Whirlwind_End.J_Whirlwind_End",
+      "keys": 17,
+      "duration": 0.5333333611488342
+    }
+  },
+  "source_url": "https://kaylousberg.itch.io/kaykit-character-animations",
+  "provenance": "KayKit Character Animations 1.1 CC0; Jason retarget with authored lower body and phase transitions"
+}

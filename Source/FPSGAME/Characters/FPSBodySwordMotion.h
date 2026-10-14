@@ -1,9 +1,21 @@
 #pragma once
 #include "FPSPlayerBodyTypes.h"
+#include "../Weapons/RuneSwordWhirlwindFeel.h"
 
 /** Third-person source selection only; the sword executor owns time and hits. */
 namespace FPSBodySwordMotion
 {
+inline float WhirlwindVisualYaw(const FFPSBodyState& State,float Progress)
+{
+    if(State.Action!=EFPSBodyAction::Whirlwind)return 0.f;
+    const float Ready=FMath::Clamp(State.ContactFraction,.01f,.98f);
+    const float End=FMath::Clamp(State.ReleaseFraction,Ready+.001f,.99f);
+    const float Phase=WhirlwindFeel::NormalizedPhase((Progress-Ready)/(End-Ready));
+    // The actor already contributes the gameplay turn. Subtract it twice so
+    // the world-body performance turns the other way, without reversing the
+    // authored windup/jump/plant or changing the camera and damage sweep.
+    return FRotator::NormalizeAxis(-2.f*360.f*State.WhirlwindTurns*Phase);
+}
 inline float WhirlwindSample(const FFPSBodyState& State,float Progress)
 {
     const float Ready=FMath::Clamp(State.ContactFraction,.01f,.98f);

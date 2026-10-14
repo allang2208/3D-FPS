@@ -187,12 +187,13 @@ void UFPSPlayerBodyComponent::BeginPlay()
         FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Configuration);
     if(!Configuration.IsValid())
     {UE_LOG(LogTemp,Error,TEXT("PlayerBody: missing Content/ColdSteelData/player_body.json"));SetComponentTickEnabled(false);return;}
-    if(GetNetMode()!=NM_DedicatedServer)InitializeBody();
+    if(GetNetMode()!=NM_DedicatedServer){InitializeDeathPresentation();InitializeBody();}
     if(Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         ProfileChanged=Profile->OnChanged.AddUObject(this,&UFPSPlayerBodyComponent::RefreshEquipment);
 }
 void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    ReleaseDeathCamera();
     ClearGunPresentation();
     if(FirstPersonLowerBody){FirstPersonLowerBody->DestroyComponent();FirstPersonLowerBody=nullptr;}
     ClearBow();
@@ -311,7 +312,7 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
     // A network pawn can become locally controlled after BeginPlay.
     InitializeFirstPersonLowerBody();
     const bool bThirdPerson=IsThirdPersonViewEnabled();
-    UpdateWorldOwnerVisibility(!bThirdPerson);
+    UpdateWorldOwnerVisibility(!bThirdPerson&&!IsDeathViewActive());
     // Compress only the owning pistol viewmodel's rendered depth. Sleeves,
     // bare skin, gloves, optics and dual-wield parts must use the same space;
     // scaling a sleeve alone would reverse its depth order against the hand.
@@ -326,7 +327,7 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
         // changed: this runs again on every camera update and every 0.2 s.
         // The scope owns its recorded hide request until it releases it. Clearing
         // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
-        const bool bHideFromOwner=bThirdPerson||Character->ScopeHiddenParts.Contains(Primitive);
+        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||Character->ScopeHiddenParts.Contains(Primitive);
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
     };

@@ -1,0 +1,2 @@
+[node] 34A6D7044A4080AE35B8E19252476A33  success=False
+[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/Tools/PlayerBody/read_combat_repair_inputs.py", line 13, in <module>'}, {'type': 'Error', 'output': '    mesh=comp.get_static_mesh()'}, {'type': 'Error', 'output': '         ^^^^^^^^^^^^^^^^^^^^'}, {'type': 'Error', 'output': "AttributeError: 'CameraProxyMeshComponent' object has no attribute 'get_static_mesh'"}]

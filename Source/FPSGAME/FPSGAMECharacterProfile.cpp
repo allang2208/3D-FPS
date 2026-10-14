@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/FullAutoTrigger.h"
 #include "Weapons/JingangRuneComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
@@ -22,9 +23,25 @@
 #include "Weapons/Super90SpeedloaderAssets.h"
 #include "Weapons/WeaponStatEvaluation.h"
 #include "Weapons/ColdSteelEnchantmentCombat.h"
+#include "Weapons/DealerEnchantmentComponent.h"
 #include "Movement/FPSTraversalComponent.h"
 #include "Multiplayer/ColdSteelPlayerState.h"
 #include "Net/UnrealNetwork.h"
+
+void AFPSGAMECharacter::GrantDoorKey(FName KeyId)
+{
+    if(!HasAuthority()||KeyId.IsNone())return;
+    DoorKeys.AddUnique(KeyId);
+    if(auto* State=GetPlayerState<AColdSteelPlayerState>())State->GrantSessionDoorKey(KeyId);
+    ForceNetUpdate();
+}
+
+bool AFPSGAMECharacter::HasDoorKey(FName KeyId) const
+{
+    if(KeyId.IsNone())return false;
+    const auto* State=GetPlayerState<AColdSteelPlayerState>();
+    return DoorKeys.Contains(KeyId)||(State&&State->HasSessionDoorKey(KeyId));
+}
 
 void AFPSGAMECharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -48,7 +65,7 @@ void AFPSGAMECharacter::ApplyWeaponAttachmentPresentation(const TMap<FString,FSt
     if(Changed(TEXT("bipod")))SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));
     if(Changed(TEXT("stock")))SetGunsmithStock(Parts.FindRef(TEXT("stock")));
     if(Changed(TEXT("reargrip"))||Changed(TEXT("grip_body")))SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),nullptr,Parts.FindRef(TEXT("grip_body")));
-    if(Changed(TEXT("tactical")))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));
+    if(Changed(TEXT("tactical"))||Changed(TEXT("tactical_secondary")))SetGunsmithTactical(Parts.FindRef(TEXT("tactical")),Parts.FindRef(TEXT("tactical_secondary")));
     if(Changed(TEXT("reload_device")))SetSuper90Speedloader(IsSuper90Weapon()&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);
     AppliedWeaponVisualParts=Parts;
     bWeaponVisualPartsApplied=true;
@@ -82,8 +99,9 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ActiveProductionToolInstance=ToolId;
     }
     const auto P=Profile->Snapshot();
+    if(auto* Dealer=FindComponentByClass<UDealerEnchantmentComponent>())Dealer->Configure(Profile);
     if(auto* Survival=FindComponentByClass<UFPSSurvivalComponent>())Survival->RestoreState(P.Survival);
-    if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
+    if(HasAuthority())if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     // A single-pistol swap retains its existing held-input behavior. Changing
     // between single and dual input mappings requires fresh trigger edges.
     const bool PistolInput=ChangedWeapon&&!WasDual&&!ChangedDual&&bInventoryWeaponReady&&((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12")));
@@ -136,11 +154,15 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     FirearmEquipRate=1.f;
     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
     FireInterval=Defaults->FireInterval;
+    const bool PreviousSelectable=bSelectableAutoTrigger, PreviousAutomatic=bAutomaticTrigger;
+    bSelectableAutoTrigger=false;bAutomaticTrigger=false;
     BurstShotCount=1;BurstRecoverySeconds=0.f;
     ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
     if(auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
     {
         const auto Parts=I?Gunsmith->Installed(*I):FGunsmithParts();
+        bSelectableAutoTrigger=I&&FullAutoTrigger::Installed(I->Definition,Parts);
+        bAutomaticTrigger=I&&FullAutoTrigger::Automatic(*I,bSelectableAutoTrigger);
         // Gameplay transactions can refresh stats while the gunsmith is open;
         // keep its transient preview until Apply/Undo/Close resolves it.
         const auto& VisualParts=I&&Gunsmith->IsOpen()&&Gunsmith->Instance()==I->InstanceId?Gunsmith->Draft():Parts;
@@ -168,6 +190,8 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
             DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval;
             BurstShotCount=Stats.BurstCount;BurstRecoverySeconds=Stats.BurstDelay;}
     }
+    if(!ChangedWeapon && !WasDual && (PreviousSelectable!=bSelectableAutoTrigger || PreviousAutomatic!=bAutomaticTrigger))
+        bFireHeld=bPistolShotPending=false;
     // Rebuild from weapon/attachment values on each publication; never compound
     // the passive bonus into the previous duration. Active action clocks stay fixed.
     ReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,ReloadDuration);
@@ -208,6 +232,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
 }
 void AFPSGAMECharacter::EndPlay(const EEndPlayReason::Type Reason)
 {
+    ReleaseThermalPresentation();
     CancelAmmoSelection();
     StopMechanicalAudio();
     // 联机：只有本机玩家的 pawn 才触发档案落盘——服务端远端 pawn 销毁不该写主机单例档。

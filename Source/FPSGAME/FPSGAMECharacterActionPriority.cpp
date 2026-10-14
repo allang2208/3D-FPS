@@ -64,6 +64,7 @@ bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
 
 void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
 {
+    ReleaseThermalPresentation();
     if(bResolvingActionInterrupt)return;
     if(BipodDeployment)BipodDeployment->Release(true);
     auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;

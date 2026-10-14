@@ -83,6 +83,7 @@ struct FFPSBodyState
     UPROPERTY(BlueprintReadOnly) float ContactFraction = .5f;
     UPROPERTY(BlueprintReadOnly) float LastShotAt = -100.f;
     UPROPERTY(BlueprintReadOnly) float AimPitch = 0.f;
+    UPROPERTY(BlueprintReadOnly) float AimYaw = 0.f;
     UPROPERTY(BlueprintReadOnly) bool bAiming = false;
     UPROPERTY(BlueprintReadOnly) bool bSprinting = false;
     UPROPERTY(BlueprintReadOnly) bool bCrouched = false;
@@ -127,6 +128,10 @@ struct FFPSBodyState
     UPROPERTY() FFPSBodyMotionSample Contacts;
     UPROPERTY() TArray<FFPSBodyLaserSample> Lasers;
     UPROPERTY() float ActionEntryFraction=0.f;
+    // Presentation only; a stopped swept lunge must not keep running in place.
+    UPROPERTY() bool bUppercutLungeBlocked=false;
+    // Signed gameplay turns; the world body reverses them on the same clock.
+    UPROPERTY() float WhirlwindTurns=-2.f;
     // Azure Dragon claws (cosmetic, see URuneSwordComponent::SampleAzureDragonNet): flags, strike clip
     // length and entry (source seconds), heavy charge start (server clock).
     UPROPERTY() uint8 AzureFlags=0;

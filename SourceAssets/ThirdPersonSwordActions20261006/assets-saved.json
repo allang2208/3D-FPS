@@ -1,0 +1,25 @@
+{
+  "runtime_clips": {
+    "Melee.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/SwordActions20261006/Animations/J_Sword_Uppercut.J_Sword_Uppercut",
+    "Melee.FullBody.DashOverhead": "/Game/Characters/JasonPlayer20261003/SwordActions20261006/Animations/J_Sword_DashOverhead.J_Sword_DashOverhead"
+  },
+  "clips": {
+    "Uppercut": {
+      "asset": "/Game/Characters/JasonPlayer20261003/SwordActions20261006/Animations/J_Sword_Uppercut.J_Sword_Uppercut",
+      "keys": 62,
+      "duration": 2.0333333015441895,
+      "contact": 0.4918032786885246,
+      "release": 0.5573770491803278
+    },
+    "DashOverhead": {
+      "asset": "/Game/Characters/JasonPlayer20261003/SwordActions20261006/Animations/J_Sword_DashOverhead.J_Sword_DashOverhead",
+      "keys": 50,
+      "duration": 1.6333333253860474,
+      "contact": 0.16326530612244897,
+      "release": 0.2653061224489796
+    }
+  },
+  "provenance": "Authored third-person Jason actions; KayKit Character Animations 1.1 CC0 torso accents; native idle grip calibration only",
+  "source_url": "https://kaylousberg.itch.io/kaykit-character-animations",
+  "reference_url": "https://quaternius.itch.io/universal-animation-library-2"
+}

@@ -1,0 +1,121 @@
+{
+  "source": "D:\\FPS3D\\游戏动画示例\\Content",
+  "provenance": "Epic Game Animation Sample, locally owned source; see Docs/gasp-traversal-20260910.md. Source and derived UE binaries stay local.",
+  "clips": {
+    "M_Neutral_Crouch_Loop_F": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_F",
+    "M_Neutral_Crouch_Loop_FR": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_FR",
+    "M_Neutral_Crouch_Loop_RR": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_RR",
+    "M_Neutral_Crouch_Loop_RL": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_RL",
+    "M_Neutral_Crouch_Loop_BR": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_BR",
+    "M_Neutral_Crouch_Loop_B": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_B",
+    "M_Neutral_Crouch_Loop_BL": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_BL",
+    "M_Neutral_Crouch_Loop_LL": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_LL",
+    "M_Neutral_Crouch_Loop_LR": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_LR",
+    "M_Neutral_Crouch_Loop_FL": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_FL",
+    "M_Neutral_Transition_Stand_to_Crouch": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Transition_Stand_to_Crouch",
+    "M_Neutral_Transition_Crouch_to_Stand": "/Game/Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Transition_Crouch_to_Stand",
+    "M_Neutral_Crouch_Idle_Loop": "/Game/Characters/UEFN_Mannequin/Animations/Idle/M_Neutral_Crouch_Idle_Loop"
+  },
+  "files": [
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_F.uasset",
+      "sha256": "d9e2f6383ae8942f9015831a33ceafe4dc5419908ec649b4d1749282da6dacc6"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_FR.uasset",
+      "sha256": "9815b1d9c45b967cce8fb313d19c383c88e59ef6300fa159e1f466ff3dd849fe"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_RR.uasset",
+      "sha256": "a9ac6ba21c7c9acbd9f78728174abb424ea6f99a75e6f6ecd3dea54031065122"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_RL.uasset",
+      "sha256": "020b1cbd5de02cf157558b95958d4451f8a56ac119a8d23695656ec12c532173"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_BR.uasset",
+      "sha256": "9ad87c19d82e0a8b35ee6105bee1ceeced1502895301f31b69dfe0566d2c6ca6"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_B.uasset",
+      "sha256": "52ee424424ffbc578327eb4a26402df516b0ec5311a58aa00679242af84c9dce"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_BL.uasset",
+      "sha256": "80f6407f2c59f7cfea06704b2941a3c4337482866657a34185e7402a1b5e3673"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_LL.uasset",
+      "sha256": "0995e330a77d5ce0bdb4d794ee19b53a8381c4086fa032b94cc08c945c99d0e0"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_LR.uasset",
+      "sha256": "25348678b0599d0b10251c744e3fc50cf1a504bc4da3c70f35f6d4cb20b1b5d9"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Crouch_Loop_FL.uasset",
+      "sha256": "460d3931d47ac931527086223cca878f87e7bc3a10aa6809fa51a50132f92036"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Transition_Stand_to_Crouch.uasset",
+      "sha256": "1967fe875f6fd0b22bece6f11009864b2d3f77272252be46b7d770e92e2f7a70"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Crouch/M_Neutral_Transition_Crouch_to_Stand.uasset",
+      "sha256": "ef7d118c4d9598b878f55d1b99f7cdecbaacb5dab60f206d56d9228bf84754ad"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Idle/M_Neutral_Crouch_Idle_Loop.uasset",
+      "sha256": "47b73a0e31b6d0375a3ae8db80e91d9a000055694ab329645ace79fa48395bf6"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Meshes/Character_LodSettings.uasset",
+      "sha256": "5b9817fb1b2956f5f9157000cad472d54745e90b0887fb1405e5681e407b3048"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Meshes/SKM_UEFN_Mannequin.uasset",
+      "sha256": "0e8512588864e5c614ceacb9ba54481ee38f731fb2b8353de5cf3a4db933bfcf"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Meshes/SK_UEFN_Mannequin.uasset",
+      "sha256": "26aa510d87237584db9d6e27c382699f22d8ea2d0935dc0caa929faba70f2c70"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Materials/MI_UEFN_Mannequin_CMC.uasset",
+      "sha256": "ea6430b5fa17a065ba8436d933388ce43a21ed363cda8c65fe7b98e600754ea4"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Materials/MI_UEFN_Mannequin_Mover.uasset",
+      "sha256": "b7b7e5b0a4da7b3711811e1cb1196677453a1814aae7ebd4fa3ae7d9557eddfd"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Materials/MI_UEFN_Mannequin_Physics.uasset",
+      "sha256": "88f8f97e6a3dc9e24e81f02fba641bec4e28dcd64f86b710d2affa56e42b42ef"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Materials/M_UEFN_Mannequin.uasset",
+      "sha256": "bcfa65da372e63730ee4b11d9f1d3229fcdcba22a75225fd224935a2fa8ef171"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Materials/M_UEFN_Mannequin_Masked_Bicolor.uasset",
+      "sha256": "c770fc2e6c8533a071f576424568b1bcf436ea687520c46e8bfa77e6c20d52b3"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Textures/T_UEFN_Mannequin_D.uasset",
+      "sha256": "9fc2f66ba1cce01a7b0f278697e81d1d7ee588126c9f0889c25c71be7878822e"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Textures/T_UEFN_Mannequin_Mask_Bicolor.uasset",
+      "sha256": "17fc203c0e29d6d552151a75b229ead2596c008621e7deb082fea0a0f337e617"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Textures/T_UEFN_Mannequin_N.uasset",
+      "sha256": "3e61904f2106d7f7529f0a70d3a5560793c22b7d5970e70360267548f8fe899c"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Rigs/PA_UEFN_Mannequin.uasset",
+      "sha256": "88d2a7d4c1a578cc27de3544e7ba29b47de429c006d33d41584dd13d9d5d97e8"
+    }
+  ]
+}

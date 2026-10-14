@@ -4,6 +4,17 @@
 #include "../Movement/PlayerGuardBreakComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Engine/World.h"
+#include "Camera/CameraTypes.h"
+#include "HAL/IConsoleManager.h"
+
+void UFPSPlayerBodyComponent::ApplyReactionCamera(float Delta,FMinimalViewInfo& View)
+{
+    if(!Character.IsValid()||!Character->IsLocallyControlled())return;
+    static const auto* Shake=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Camera.Shake"));
+    const float Scale=Character->CameraMotionScale*(Shake?FMath::Max(0.f,Shake->GetFloat()):1.f);
+    const bool Enabled=!IsThirdPersonViewEnabled()&&DisplayState.Action!=EFPSBodyAction::Dead&&!bDeathCameraStarted;
+    ReactionCamera.Apply(Reactions,ServerClock(),Delta,Scale,Enabled,View);
+}
 
 void UFPSPlayerBodyComponent::RecordAcceptedHit(AActor* Attacker,float Damage,float MaxHealth)
 {

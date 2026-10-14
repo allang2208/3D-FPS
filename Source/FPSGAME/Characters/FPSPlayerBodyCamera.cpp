@@ -6,12 +6,14 @@
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "FPSBodyWeaponMeshComponent.h"
 #include "Engine/World.h"
 
 void AFPSGAMECharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
 {
     Super::CalcCamera(DeltaTime, OutResult);
-    if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>()) Body->ApplyCameraView(OutResult);
+    if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
+    {Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);}
 }
 
 bool UFPSPlayerBodyComponent::IsThirdPersonViewEnabled() const
@@ -61,6 +63,7 @@ void UFPSPlayerBodyComponent::UpdateWorldOwnerVisibility(bool bHideFromOwner)
     for (auto Part : WorldParts) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     for (auto Prop : WorldReloadProps) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Prop,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     UpdateBowVisibility(bHideFromOwner);
+    FPSBodyEquipment::ApplyOwnerVisibilityFlags(WorldFloatingBook,false,bHideFromOwner);
     for (auto Outfit : OutfitMeshes) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Outfit,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     for (auto Outfit : OutfitStaticMeshes) FPSBodyEquipment::ApplyOwnerVisibilityFlags(Outfit,/*bOnlyOwnerSee=*/false,bHideFromOwner);
     // Owner visibility must not re-enable shadows on hidden or stowed equipment.
@@ -69,6 +72,7 @@ void UFPSPlayerBodyComponent::UpdateWorldOwnerVisibility(bool bHideFromOwner)
 
 void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
 {
+    if(ApplyDeathCameraView(View))return;
     if(Character.IsValid()&&Character->IsLocallyControlled())
     {
         const bool bPistol=Character->IsPistolWeapon();

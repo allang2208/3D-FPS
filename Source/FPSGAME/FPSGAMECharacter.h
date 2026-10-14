@@ -51,6 +51,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class FDualPistolQuickCombatRegression;
     friend class UFPSConsumableAuditCommandlet;
     friend class URuneSwordComponent;
+    friend class UProductionToolComponent;
     friend class UM4TacticalSprintComponent;
     friend class UFPSPlayerBodyComponent;
     friend class AColdSteelPlayerState; // 联机：命中校验读 EffectiveFireInterval/汇聚弹数打点
@@ -80,7 +81,8 @@ public:
     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
     bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
-    bool UsesSingleShotTrigger() const { return !IsG18Weapon() && (IsPistolWeapon() || bSingleShotTrigger); }
+    bool UsesSingleShotTrigger() const { return !IsG18Weapon() && !bAutomaticTrigger && (IsPistolWeapon() || bSingleShotTrigger); }
+    FString GetFireModeHint(int32 HandIndex = 0) const;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
     UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
     bool IsDualWieldingPistols() const;
@@ -116,8 +118,8 @@ bool TriggerPistolQuickCombat();
     bool IsDoorPushActive() const;
     bool IsSwitchingWeapon() const;
     /** 门钥匙环（本次会话有效，不进存档）：AColdSteelKeyPickup 走入拾取时写入，AColdSteelKeyDoor 开锁时读取。 */
-    void GrantDoorKey(FName KeyId) { if (!KeyId.IsNone()) DoorKeys.AddUnique(KeyId); }
-    bool HasDoorKey(FName KeyId) const { return !KeyId.IsNone() && DoorKeys.Contains(KeyId); }
+    void GrantDoorKey(FName KeyId);
+    bool HasDoorKey(FName KeyId) const;
     bool CanStartQuickCombatPriority() const;
     void InterruptActionsForPriority(bool bWeaponSwitch);
     /** Leave firearm inspection before dispatching a new command, without changing shot cooldowns. */
@@ -133,7 +135,8 @@ bool TriggerPistolQuickCombat();
     float BaseLookHorizontalFOV() const {return VerticalToHorizontalFOV(BaseVerticalFieldOfView);}
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */
-    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false);
+    UFUNCTION(Client,Unreliable) void ClientWeaponHitFeedback(AActor* Target,float AppliedDamage,bool Critical,bool Killed,bool Firearm);
+    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false,bool bForwardToOwner=true);
     float GetHitMarkerOpacity() const;
     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
     void NotifyCowboyReload();
@@ -160,6 +163,7 @@ public:
     bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd") && !bHolographicOptic; }
     bool HasPSO1Scope() const { return HasSVDFactoryScope() || (bHolographicOptic && OpticVariant==TEXT("pso1_4x")); }
     bool HasHandgunScope() const { return bUseDanWesson715 && bHolographicOptic && OpticVariant==TEXT("dw715_handgun_scope_2x"); }
+    bool HasThermalScope() const { return bHolographicOptic && OpticVariant==TEXT("thermal_scope"); }
     float GetOpticMagnification() const;
     bool HasBowScope() const;
     float GetDisplayedOpticMagnification() const;
@@ -528,6 +532,9 @@ private:
     void JumpReleased();
     void FirePressed();
     void FireInputReleased();
+    void MainFireModePressed();
+    void OffhandFireModePressed();
+    void ToggleWeaponFireMode(int32 HandIndex);
     void FireReleased();
     void AimPressed();
     void AimReleased();
@@ -889,6 +896,12 @@ private:
     void InitializeScopeOptics();
     void AdvanceScopeOptics(float DeltaSeconds);
     void UpdateScopeLensMaterial();
+    void SetThermalOptic();
+    void UpdateThermalPresentation();
+    void ReleaseThermalPresentation();
+    uint8 ThermalZoomIndex=0;
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInstanceDynamic> ThermalSceneMaterial;
+    bool bThermalApplied=false;
     // Whole-assembly hip framing; appended so existing presentation fields retain their order.
     FRifleHipFraming RifleHipFraming;
     // Transient success feedback in the existing hint row above stamina.
@@ -899,5 +912,8 @@ private:
     UPROPERTY(Replicated) TArray<FName> DoorKeys;
     // Refreshed with installed firearm stats; active actions snapshot this rate.
     float FirearmEquipRate = 1.f;
+    // Cached from this inventory instance on profile publication, never per shot.
+    bool bSelectableAutoTrigger = false;
+    bool bAutomaticTrigger = false;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class USpellbookComponent> Spellbook;
 };

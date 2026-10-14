@@ -3,6 +3,7 @@
 #include "FPSBodyWeaponMeshComponent.h"
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodySwordMotion.h"
+#include "FPSBodyRifleMotion.h"
 #include "FPSBodyStaffGrip.h"
 #include "../FPSGAMECharacter.h"
 #include "../Items/FPSPotionUseComponent.h"
@@ -243,7 +244,24 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         const auto& HandState=Side==0?State.RightHand:State.LeftHand;
         const bool Drive=NativeMelee||Reload||Inspect||Mount||StaffAction||(Side==1&&(Bash||BookFocus))||HandState.bReloading||HandState.bEquipping
             ||(D.PoseFamily==TEXT("Gun")&&State.Action==EFPSBodyAction::Equip);
-        const auto& Pose=SourcePose;
+        const bool Rifle=State.Family==TEXT("Rifle")&&D.PoseFamily==TEXT("Gun")&&I==0;
+        const TArray<FTransform>* RifleCarryPose=nullptr;
+        if(Rifle&&!Drive&&MotionBindings.IsValidIndex(I))
+        {
+            auto& Binding=MotionBindings[I];const int32 Root=Binding.NativeWeaponRoot;
+            if(Binding.FrozenPose.IsValidIndex(Root)&&SourcePose.IsValidIndex(Root))
+            {
+                // FPS tactical sprint releases the support hand. The world
+                // rifle keeps its complete hold on the current weapon frame;
+                // mechanical bones below still use the live firing sample.
+                Binding.LocomotionPose=Binding.FrozenPose;
+                const FTransform From=BodyMotionRigidTransform(Binding.FrozenPose[Root]);
+                const FTransform To=BodyMotionRigidTransform(SourcePose[Root]);
+                for(auto& Bone:Binding.LocomotionPose)Bone=Bone.GetRelativeTransform(From)*To;
+                RifleCarryPose=&Binding.LocomotionPose;
+            }
+        }
+        const auto& Pose=RifleCarryPose?*RifleCarryPose:SourcePose;
         if(!Pose.IsValidIndex(SourceHand))continue;
         Rig.Valid=true;Rig.Schema=D.MotionSchema;
         const FTransform Hand=BodyMotionRigidTransform(Pose[SourceHand]);
@@ -275,7 +293,18 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             if(Sample.HasSupportGrip)
                 Sample.Hands[1].Wrist=Sample.SupportGrip*Sample.Hands[0].Wrist;
         }
-        Rig.Root=Hand.Inverse()*NativeMount;
+        if(Rifle&&Drive&&FPSBodyRifleMotion::UsesHoldSpace(State)&&Sample.CoupledWrists&&
+            MotionBindings.IsValidIndex(I)&&MotionBindings[I].FrozenPose.IsValidIndex(SourceHand))
+        {
+            const FTransform Ready=NativeMount.Inverse()*BodyMotionRigidTransform(MotionBindings[I].FrozenPose[SourceHand]);
+            const FTransform Current=NativeMount.Inverse()*Hand;
+            Sample.Hands[0].Wrist=Current.GetRelativeTransform(Ready);
+            Sample.Hands[1].Wrist=Sample.SupportGrip*Sample.Hands[0].Wrist;
+        }
+        // Rifle mechanisms and attachments travel in the owning wrist's frame.
+        // Interpolating a moving inverse wrist and absolute bones separately
+        // otherwise pulls the magazine away from the sampled support hand.
+        Rig.Root=Rifle?NativeMount:Hand.Inverse()*NativeMount;
         Rig.Visible=Drawn(Source);
         Rig.ReloadPropVisible=Drawn(D.ReloadPropSource.Get());
         if(auto* Static=D.StaticSource.Get())
@@ -289,7 +318,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         for(int32 Bone:D.MotionBones)
         {
             const FTransform Transform=SourcePose.IsValidIndex(Bone)?SourcePose[Bone]:FTransform::Identity;
-            Rig.Bones.Add(Transform);
+            Rig.Bones.Add(Rifle?Transform.GetRelativeTransform(Hand):Transform);
         }
         for(int32 P=0;P<D.SourceParts.Num();++P)
         {
@@ -304,6 +333,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             }
             else Rig.Parts.Add(Part?Part->GetComponentTransform().GetRelativeTransform(
                 D.StaticSource.IsValid()?D.StaticSource->GetComponentTransform():Source->GetComponentTransform()):FTransform::Identity);
+            if(Rifle)Rig.Parts.Last()=Rig.Parts.Last().GetRelativeTransform(Hand);
             Rig.VisibleParts.Add(Drawn(Part)?1:0);
         }
         Rig.Sections=0;

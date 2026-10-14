@@ -36,7 +36,7 @@ struct FFPSBodyGrounding
 {
     FFPSBodyGroundPose Pose;
     void Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBodyAnimInstance& Anim,
-        const FFPSBodyFootSeed (&Feet)[2],float WalkWeight,float Delta);
+        const FFPSBodyFootSeed (&Feet)[2],float WalkWeight,float Delta,float AuthoredCrouchWeight=0.f,float AuthoredSlideWeight=0.f);
     void Reset();
 private:
     struct FContact

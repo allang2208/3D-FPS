@@ -1,0 +1,75 @@
+{
+  "retargeter": "/Game/Characters/JasonPlayer20261003/CrouchGASP20261005/Rig/RTG_GASP_Jason_Crouch.RTG_GASP_Jason_Crouch",
+  "runtime_clips": {
+    "Slide.Enter.L": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Into_Lfoot.J_M_Relaxed_Slide_FootOut_Into_Lfoot",
+    "Slide.Enter.R": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Into_Rfoot.J_M_Relaxed_Slide_FootOut_Into_Rfoot",
+    "Slide.Enter.Sprint.L": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Into_Sprint_Lfoot.J_M_Relaxed_Slide_FootOut_Into_Sprint_Lfoot",
+    "Slide.Enter.Sprint.R": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Into_Sprint_Rfoot.J_M_Relaxed_Slide_FootOut_Into_Sprint_Rfoot",
+    "Slide.Loop": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Loop.J_M_Relaxed_Slide_FootOut_Loop",
+    "Slide.Exit.Stand": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Out_Idle_Stand.J_M_Relaxed_Slide_FootOut_Out_Idle_Stand",
+    "Slide.Exit.Crouch": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Out_Idle_Crouch.J_M_Relaxed_Slide_FootOut_Out_Idle_Crouch",
+    "Slide.Exit.CrouchMove": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Out_Moving_Crouch.J_M_Relaxed_Slide_FootOut_Out_Moving_Crouch",
+    "Slide.Exit.Walk": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Out_Moving_Walk.J_M_Relaxed_Slide_FootOut_Out_Moving_Walk",
+    "Slide.Exit.Run": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Out_Moving_Run.J_M_Relaxed_Slide_FootOut_Out_Moving_Run",
+    "Slide.Exit.Sprint": "/Game/Characters/JasonPlayer20261003/SlideGASP20261005/Animations/J_M_Relaxed_Slide_FootOut_Out_Moving_Sprint.J_M_Relaxed_Slide_FootOut_Out_Moving_Sprint"
+  },
+  "durations": {
+    "Enter.L": 7.5333333015441895,
+    "Enter.R": 7.566666603088379,
+    "Enter.Sprint.L": 7.366666793823242,
+    "Enter.Sprint.R": 7.366666793823242,
+    "Loop": 12.5,
+    "Exit.Stand": 3.7666666507720947,
+    "Exit.Crouch": 7.5,
+    "Exit.CrouchMove": 3.8333332538604736,
+    "Exit.Walk": 4.833333492279053,
+    "Exit.Run": 3.7666666507720947,
+    "Exit.Sprint": 2.8333332538604736
+  },
+  "playback_ranges": {
+    "Enter.L": [
+      0.7333333333333333,
+      1.6
+    ],
+    "Enter.R": [
+      0.8,
+      1.6
+    ],
+    "Enter.Sprint.L": [
+      0.5333333333333333,
+      1.3
+    ],
+    "Enter.Sprint.R": [
+      0.6333333333333333,
+      1.3
+    ],
+    "Loop": [
+      0,
+      12.5
+    ],
+    "Exit.Stand": [
+      0.1,
+      1.3333333333333333
+    ],
+    "Exit.Crouch": [
+      0.1,
+      1.5
+    ],
+    "Exit.CrouchMove": [
+      0.1,
+      0.7666666666666667
+    ],
+    "Exit.Walk": [
+      0.1,
+      1.1666666666666667
+    ],
+    "Exit.Run": [
+      0.1,
+      1.3333333333333333
+    ],
+    "Exit.Sprint": [
+      0.1,
+      1.0666666666666667
+    ]
+  }
+}

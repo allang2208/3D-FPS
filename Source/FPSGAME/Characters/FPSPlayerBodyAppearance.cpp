@@ -1,5 +1,6 @@
 #include "FPSPlayerBodyComponent.h"
 #include "FPSPlayerHeadAnimInstance.h"
+#include "UObject/UnrealType.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -103,6 +104,12 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
         HeadMesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
         HeadMesh->SetAnimInstanceClass(UFPSPlayerHeadAnimInstance::StaticClass());
         HeadMesh->RegisterComponent();HeadMesh->AddTickPrerequisiteComponent(Parent);
+        // The native body graph already animates the entire neck/head chain.
+        // The stock face post-process also has a procedural head movement IK:
+        // disable that second skeletal driver only, retaining facial RigLogic.
+        if(auto* Post=HeadMesh->GetPostProcessInstance())
+            if(auto* HeadIK=FindFProperty<FBoolProperty>(Post->GetClass(),TEXT("EnableHeadMovementIK")))
+                HeadIK->SetPropertyValue_InContainer(Post,false);
         HeadMesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
         for(const auto& Recipe:GroomRecipes)
         {
@@ -151,7 +158,8 @@ void UFPSPlayerBodyComponent::UpdateAppearanceVisibility()
     for(auto Groom:HeadGrooms)if(Groom)Parts.Add(Groom);
     for(auto* Part:Parts)
     {
-        FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,Body->bOwnerNoSee);
+        const bool HideHead=Body->bOwnerNoSee||(IsDeathViewActive()&&!IsThirdPersonViewEnabled());
+        FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,HideHead);
         FPSBodyEquipment::ApplyShadowFlags(Part,ShouldWorldBodyCastShadow());
         if(Part->IsVisible()!=Visible)Part->SetVisibility(Visible);
         if(Part->bHiddenInGame==Visible)Part->SetHiddenInGame(!Visible);

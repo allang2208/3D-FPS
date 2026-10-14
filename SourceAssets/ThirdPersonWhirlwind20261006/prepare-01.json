@@ -1,0 +1,2 @@
+[node] 3798B81F435128D0C2F0D0AEBFD43C0F  success=False
+[{'type': 'Error', 'output': 'Traceback (most recent call last):'}, {'type': 'Error', 'output': '  File "D:/FPS3D/FPSGAME/Tools/PlayerBody/prepare_whirlwind_jason.py", line 34, in <module>'}, {'type': 'Error', 'output': '    loop = next(d.get_asset() for d in outputs if isinstance(d.get_asset(), u.AnimSequence))'}, {'type': 'Error', 'output': '           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'}, {'type': 'Error', 'output': 'StopIteration'}]

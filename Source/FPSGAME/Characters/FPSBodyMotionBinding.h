@@ -12,7 +12,8 @@ struct FFPSBodyMotionBinding
     TArray<FTransform> FrozenPose;
     TArray<FTransform> FrozenParts;
     int32 NativeWeaponRoot=INDEX_NONE;
-    // Sword carry keeps its ordinary idle/walk pose on an independent clip clock.
+    // Reused ordinary carry buffer; tactical FPS sprint never opens the rifle
+    // support grip. Sword carry also keeps an independent clip clock here.
     FName LocomotionClip;
     float LocomotionTime=0.f;
     TArray<FTransform> LocomotionPose;

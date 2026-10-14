@@ -4,6 +4,7 @@
 #include "Animation/AnimInstance.h"
 #include "FPSPlayerBodyTypes.h"
 #include "FPSBodyReactionState.h"
+#include "FPSBodyRifleHold.h"
 #include "FPSPlayerBodyAnimInstance.generated.h"
 
 /** Independent third-person graph. Explicit samples never execute gameplay notifies. */
@@ -19,6 +20,7 @@ public:
     FFPSBodyReactionState Reactions;
     FTransform LeftGripFromRight = FTransform::Identity;
     bool bHasLeftGrip = false;
+    FFPSBodyRifleHold RifleHold;
     float Clock = 0.f;
     float Speed = 0.f;
     float Direction = 0.f;

@@ -9,9 +9,9 @@ namespace
 TAutoConsoleVariable<float> CVarChainmailSway(TEXT("fps.Outfit.ChainmailSway"),1.f,
     TEXT("Shared chainmail/lining cuff inertia strength, 0..1. No cloth simulation."),ECVF_Default);
 constexpr float MaximumOffsetCm=.12f;
-constexpr float Frequency=2.f*UE_PI*6.5f;
+constexpr float OutfitCuffFrequency=2.f*UE_PI*6.5f;
 constexpr float Damping=.85f;
-const FName Parameters[]={TEXT("CuffLagLeft"),TEXT("CuffLagRight"),TEXT("CuffLagPreviousLeft"),TEXT("CuffLagPreviousRight")};
+const FName OutfitCuffParameters[]={TEXT("CuffLagLeft"),TEXT("CuffLagRight"),TEXT("CuffLagPreviousLeft"),TEXT("CuffLagPreviousRight")};
 
 void ConfigureCameraRegion(USkeletalMeshComponent& Garment,
     const TArray<TWeakObjectPtr<UMaterialInstanceDynamic>>& Materials,bool bFirstPerson)
@@ -71,7 +71,7 @@ void FFPSOutfitSecondaryMotion::Push(const FVector& Left,const FVector& Right,co
         if(bHaveParameters&&LastSent[I].Equals(Values[I],.00001))continue;
         const FVector& V=Values[I];
         for(auto& Weak:Materials)if(auto* Material=Weak.Get())
-            Material->SetVectorParameterValue(Parameters[I],FLinearColor(V.X,V.Y,V.Z,0.f));
+            Material->SetVectorParameterValue(OutfitCuffParameters[I],FLinearColor(V.X,V.Y,V.Z,0.f));
         LastSent[I]=V;
     }
     bHaveParameters=true;
@@ -116,7 +116,7 @@ void FFPSOutfitSecondaryMotion::Tick(float Delta)
         H.PreviousAnchor=Anchor;H.AnchorVelocity=Filtered;
         for(int32 Step=0;Step<Steps;++Step)
         {
-            H.Velocity+=(Force-Frequency*Frequency*H.Offset-2.f*Damping*Frequency*H.Velocity)*Dt;
+            H.Velocity+=(Force-OutfitCuffFrequency*OutfitCuffFrequency*H.Offset-2.f*Damping*OutfitCuffFrequency*H.Velocity)*Dt;
             H.Offset+=H.Velocity*Dt;
             if(H.Offset.SizeSquared()>MaximumOffsetCm*MaximumOffsetCm)
             {

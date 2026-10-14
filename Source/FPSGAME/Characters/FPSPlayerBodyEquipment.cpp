@@ -339,6 +339,7 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         {
             Key+=TEXT("|")+Part.Mesh.ToSoftObjectPath().ToString();
             Key+=TEXT("|")+Part.TacticalKind.ToString()+(Part.bAuthoredEmitterAxis?TEXT("|axis-authored"):TEXT("|axis-sight"));
+            if(Part.Mesh.ToSoftObjectPath().GetAssetName().Contains(TEXT("Stock")))Key+=Part.bVisible?TEXT("|stock-on"):TEXT("|stock-off");
             if(!W.Source.IsValid())Key+=TEXT("|")+Part.RelativeTransform.ToString();
             Key+=TEXT("|")+Part.SkeletalMesh.ToSoftObjectPath().ToString()+Part.Slot.ToString()+TEXT("|")+Part.Socket.ToString();
             for(const auto& Material:Part.Materials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
@@ -388,7 +389,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
     MotionBindings.Reset();MotionMaps.Reset();MotionEquipmentIndices.Reset();
     if(WorldStaffLight){WorldStaffLight->DestroyComponent();WorldStaffLight=nullptr;}WorldStaffMaterials.Reset();LastWorldLight=-1.f;
     ClearBow();
-    if(BodyAnimation){BodyAnimation->bHasLeftGrip=false;BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
+    if(BodyAnimation){BodyAnimation->bHasLeftGrip=false;BodyAnimation->RifleHold=FFPSBodyRifleHold();BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
     for(int32 Index=0;Index<Weapons.Num();++Index)
     {
         const auto& Definition=Weapons[Index];
@@ -581,6 +582,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             }
         }
         BuildGunPresentation(Definition,Weapon);
+        if(Index==0&&Weapons.Num()==1&&BodyAnimation)BodyAnimation->RifleHold=BuildFPSBodyRifleHold(*Weapon,Definition);
     }
     for(auto& Binding:MotionBindings)
     {
@@ -595,6 +597,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
 bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) const
 {
     const float Now=ServerClock();
+    if(IsDeathViewActive())return true;
     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;
     const auto* Hand=WorldEquipmentHands.Find(Mesh);
     const bool BusyLeft=DisplayState.Action==EFPSBodyAction::Consume||DisplayState.Action==EFPSBodyAction::DoorPush

@@ -58,6 +58,24 @@ void FControls::BlendSword(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
         LastSwordPose[I]=Authored.Pose[B];
     }
     FCSPose<FCompactPose> Full;Full.InitPose(Authored.Pose);
+    if(UppercutStrideWeight>ZERO_ANIMWEIGHT_THRESH)
+    {
+        const auto Hip=Pelvis.GetCompactPoseIndex(Bones),Chest=ChestBase.GetCompactPoseIndex(Bones);
+        FTransform StrikeChest=Full.GetComponentSpaceTransform(Chest);
+        const FVector StrikeHip=Full.GetComponentSpaceTransform(Hip).GetLocation();
+        FPoseContext Stride(Out);UppercutStride.Evaluate(Stride);
+        for(int32 I=0;I<UppercutStrideBones.Num();++I)if(UppercutStrideBones[I])
+        {
+            const FCompactPoseBoneIndex B(I);
+            FTransform Mixed;Mixed.Blend(Authored.Pose[B],Stride.Pose[B],UppercutStrideWeight);Authored.Pose[B]=Mixed;
+        }
+        Full.InitPose(Authored.Pose);
+        // Retain the complete authored sword/arm frame while the pelvis and
+        // legs push forward; the existing ground solver handles both feet below.
+        StrikeChest.AddToTranslation(Full.GetComponentSpaceTransform(Hip).GetLocation()-StrikeHip);
+        TArray<FBoneTransform,TInlineAllocator<1>> Change;Change.Emplace(Chest,StrikeChest);
+        Full.LocalBlendCSBoneTransforms(Change,1.f);
+    }
     if(bStaffAttackLibrary&&Hands[0].IsValidToEvaluate(Bones))
     {
         const auto W=Hands[0].GetCompactPoseIndex(Bones);

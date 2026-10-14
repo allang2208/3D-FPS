@@ -181,7 +181,7 @@ void UFPSPlayerBodyComponent::UpdateBow()
 
 void UFPSPlayerBodyComponent::UpdateBowVisibility(bool HideOwner)
 {
-    const bool Stowed=FPSBodyPoses::Traversing(DisplayState.Motion)||ServerClock()<WorldWeaponsHiddenUntil
+    const bool Stowed=IsDeathViewActive()||FPSBodyPoses::Traversing(DisplayState.Motion)||ServerClock()<WorldWeaponsHiddenUntil
         ||DisplayState.Action==EFPSBodyAction::Cast||DisplayState.Action==EFPSBodyAction::Consume
         ||DisplayState.Action==EFPSBodyAction::DoorPush||DisplayState.Family!=TEXT("Bow");
     for(auto Part:WorldBowParts)if(Part)

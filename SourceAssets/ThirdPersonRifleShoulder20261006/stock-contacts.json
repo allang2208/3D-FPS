@@ -1,0 +1,200 @@
+{
+  "ue_akm": {
+    "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative",
+    "stock_root": [
+      0.0008034199493936931,
+      -0.2941002867088125,
+      -0.011700086100643615
+    ],
+    "stock_cs": [
+      5.790758510774879,
+      15.035272568628857,
+      -11.007851199552587
+    ],
+    "source_slots": [
+      "M_AKM_FactoryStock"
+    ],
+    "rear_surface_width_cm": 3.642853303619522,
+    "rear_surface_height_cm": 10.37652133885259
+  },
+  "ue_m4a1": {
+    "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+    "stock_root": [
+      -3.278224739014261e-05,
+      -0.24104888094857757,
+      0.02414491067854326
+    ],
+    "stock_cs": [
+      5.5616392056257595,
+      9.730129006382299,
+      -7.42971111596613
+    ],
+    "source_slots": [
+      "Classic_Stock_001"
+    ],
+    "rear_surface_width_cm": 6.008313599237809,
+    "rear_surface_height_cm": 12.606362838952583
+  },
+  "ue_qbz191": {
+    "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+    "stock_root": [
+      0.0005566303489925781,
+      -0.2134929431029053,
+      0.029085521257490265
+    ],
+    "stock_cs": [
+      5.45985615143735,
+      6.9745354476171215,
+      -6.942670895480736
+    ],
+    "source_slots": [
+      "M_QBZ191_FactoryStock_Metal",
+      "M_QBZ191_FactoryStock_Polymer"
+    ],
+    "rear_surface_width_cm": 2.969699194661347,
+    "rear_surface_height_cm": 10.837098779277952
+  },
+  "ue_hk416": {
+    "mesh": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny",
+    "stock_root": [
+      -3.8449419138318526e-05,
+      -0.2684736882560189,
+      0.03206861891444832
+    ],
+    "stock_cs": [
+      5.493109454985491,
+      12.47258845716936,
+      -6.640315391181622
+    ],
+    "source_slots": [
+      "M_HK416_FactoryStock"
+    ],
+    "rear_surface_width_cm": 3.6724765278489753,
+    "rear_surface_height_cm": 14.763861580369172
+  },
+  "ue_ash12": {
+    "mesh": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface.SK_ASH12_Surface",
+    "stock_root": [
+      0.0032886810226336305,
+      -0.4581960469232997,
+      0.023831412139234953
+    ],
+    "stock_cs": [
+      5.273307694818222,
+      31.42822075058155,
+      -7.465961595838255
+    ],
+    "source_slots": [
+      "M_ASH12_Lower",
+      "M_ASH12_Sights",
+      "M_ASH12_Front",
+      "M_ASH12_Magazine",
+      "M_ASH12_Magazine_Base",
+      "M_ASH12_Flash_Hider",
+      "M_ASH12_Upper"
+    ],
+    "rear_surface_width_cm": 5.867141501616677,
+    "rear_surface_height_cm": 14.791566489130124
+  },
+  "ue_m16a2": {
+    "mesh": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny",
+    "stock_root": [
+      0.00022060650952485163,
+      -0.3274466647508994,
+      0.03519309750623707
+    ],
+    "stock_cs": [
+      5.471994152604826,
+      18.35314761828552,
+      -6.307458976146983
+    ],
+    "source_slots": [
+      "M_M16_Stock"
+    ],
+    "rear_surface_width_cm": 5.2715181676427925,
+    "rear_surface_height_cm": 14.818146042358686
+  },
+  "ue_a762": {
+    "mesh": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+    "stock_root": [
+      0.0005609117068541404,
+      -0.32580669257945705,
+      0.01799997877066938
+    ],
+    "stock_cs": [
+      5.556065715650138,
+      18.205904112638915,
+      -8.04702108068846
+    ],
+    "source_slots": [
+      "M_A762_FactoryStock_Seam04",
+      "M_A762_FactoryStock_Rubber04",
+      "M_A762_FactoryStock_Socket03",
+      "M_A762_FactoryStock_Metal04"
+    ],
+    "rear_surface_width_cm": 2.9399139323059598,
+    "rear_surface_height_cm": 12.80000159406608
+  },
+  "ue_svd": {
+    "mesh": "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock.SK_SVD_ModularStock",
+    "stock_root": [
+      3.8885432437269754e-05,
+      -0.3480299389794673,
+      -0.015454537266801299
+    ],
+    "stock_cs": [
+      5.899631243124909,
+      20.42821825909534,
+      -11.37520605608022
+    ],
+    "source_slots": [
+      "SVD_FactoryStock",
+      "SVD_StockCutPolymer"
+    ],
+    "rear_surface_width_cm": 2.4611947552509905,
+    "rear_surface_height_cm": 13.979061335437342
+  },
+  "ue_lmg201": {
+    "mesh": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10",
+    "stock_root": [
+      0.000802225172287751,
+      -0.33587333258280294,
+      -0.007928686008706382
+    ],
+    "stock_cs": [
+      5.758011452674611,
+      19.21257061264289,
+      -10.632122698719957
+    ],
+    "source_slots": [
+      "M_LMG201_FactoryStock_Polymer",
+      "M_LMG201_FactoryStock",
+      "M_LMG201_FactoryStock_R30_Surface",
+      "M_LMG201_FactoryStock_R30_Interior",
+      "M_LMG201_FactoryStock_F50",
+      "M_LMG201_FactoryStock_F50_Fastener",
+      "M_LMG201_FactoryStock_F50_Pad"
+    ],
+    "rear_surface_width_cm": 2.6604376385364157,
+    "rear_surface_height_cm": 13.185743788790699
+  },
+  "ue_pkm_lowpoly": {
+    "mesh": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular",
+    "stock_root": [
+      -3.3896164098983786e-05,
+      -0.35873983756280703,
+      0.027298695219135062
+    ],
+    "stock_cs": [
+      5.534283023671105,
+      21.499216519495967,
+      -7.115499764392763
+    ],
+    "source_slots": [
+      "PKM_LaminatedWood__FactoryStock",
+      "PKM_QBZ_Body__FactoryStock"
+    ],
+    "rear_surface_width_cm": 3.3565413303574463,
+    "rear_surface_height_cm": 13.568190493414061
+  }
+}

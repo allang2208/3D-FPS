@@ -1,0 +1,11 @@
+{
+  "clips": {
+    "Melee.FullBody.DashOverhead": "/Game/Characters/JasonPlayer20261003/CombatRepair20261006V3/Animations/J_Sword_DashOverhead.J_Sword_DashOverhead",
+    "Melee.FullBody.Overhead": "/Game/Characters/JasonPlayer20261003/CombatRepair20261006V3/Animations/J_Sword_Overhead.J_Sword_Overhead",
+    "Melee.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/CombatRepair20261006V3/Animations/J_Sword_Uppercut.J_Sword_Uppercut",
+    "Melee.FullBody.Whirlwind.Loop": "/Game/Characters/JasonPlayer20261003/CombatRepair20261006V3/Animations/J_Sword_Whirlwind_Loop.J_Sword_Whirlwind_Loop",
+    "Melee.FullBody.Whirlwind.Start": "/Game/Characters/JasonPlayer20261003/CombatRepair20261006V3/Animations/J_Sword_Whirlwind_Start.J_Sword_Whirlwind_Start",
+    "Melee.FullBody.Whirlwind.End": "/Game/Characters/JasonPlayer20261003/CombatRepair20261006V3/Animations/J_Sword_Whirlwind_End.J_Sword_Whirlwind_End"
+  },
+  "provenance": "Existing project Kevin two-hand carry and authored two-step pivot; new bounded skill paths and paired-arm fitting at fixed Jason bone lengths"
+}

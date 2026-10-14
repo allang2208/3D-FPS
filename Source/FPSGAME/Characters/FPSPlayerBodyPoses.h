@@ -46,9 +46,12 @@ inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Ai
     if(Gun&&S.Action!=EFPSBodyAction::Reload&&S.Action!=EFPSBodyAction::ReloadEmpty&&S.Action!=EFPSBodyAction::Equip)
     {
         Target+=FVector(0,-7,-12)*(1.f-Aim);
-        Target+=FVector(-7,-10,-10)*Sprint;
-        Turn(FVector::UpVector,-.35f*Sprint);
-        Turn(FVector::ForwardVector,.12f*(1.f-Aim)+.2f*Sprint);
+        // Rifle.Jog already authors the running arm posture. Applying a second
+        // sprint lowering/yaw here fights that pose and its two-hand grip.
+        const float ExtraSprint=S.Family==TEXT("Pistol")?Sprint:0.f;
+        Target+=FVector(-7,-10,-10)*ExtraSprint;
+        Turn(FVector::UpVector,-.35f*ExtraSprint);
+        Turn(FVector::ForwardVector,.12f*(1.f-Aim)+.2f*ExtraSprint);
     }
     if(Melee&&S.Action==EFPSBodyAction::None)
     {

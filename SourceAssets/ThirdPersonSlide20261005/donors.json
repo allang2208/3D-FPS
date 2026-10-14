@@ -1,0 +1,63 @@
+{
+  "source": "D:\\FPS3D\\游戏动画示例\\Content",
+  "provenance": "Epic Game Animation Sample; local UE-only source. Source and derived binary assets stay local.",
+  "clips": {
+    "Enter.L": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Lfoot",
+    "Enter.R": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Rfoot",
+    "Enter.Sprint.L": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Sprint_Lfoot",
+    "Enter.Sprint.R": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Sprint_Rfoot",
+    "Loop": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Loop",
+    "Exit.Stand": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Idle_Stand",
+    "Exit.Crouch": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Idle_Crouch",
+    "Exit.CrouchMove": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Crouch",
+    "Exit.Walk": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Walk",
+    "Exit.Run": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Run",
+    "Exit.Sprint": "/Game/Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Sprint"
+  },
+  "files": [
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Lfoot.uasset",
+      "sha256": "ddc3614e5140615ba67401f14689fb491758b7ae4bb29d15c4c97e1d6c3efae7"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Rfoot.uasset",
+      "sha256": "bb1353f237be1a2ffc42fb308fa3a576d267c4929024f110de7477e56d217a96"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Sprint_Lfoot.uasset",
+      "sha256": "e14bed895030b345d66cc26873c308492b5ce769592229d2644bb2df4f0b3a85"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Into_Sprint_Rfoot.uasset",
+      "sha256": "da01e1f76ab803a151d208eb6fdaaafbda9024d83320196f74856503d048e2db"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Loop.uasset",
+      "sha256": "81d7f12148d97e8048a3a891e475f4d977e968b842277d1b788ed3e852c1e803"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Idle_Stand.uasset",
+      "sha256": "6b9ed5900dc8592dfc0bdf40128f284e51f328da62106b4605d861825024cdeb"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Idle_Crouch.uasset",
+      "sha256": "60dc1cb6fa875ead73f16bcb0171019974226c090451be3eb1c99d0eb15948a8"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Crouch.uasset",
+      "sha256": "346cb8b16d68412bbbee6d5a7d2d123c53d27eb8ff458e80c11c43dabfdec00d"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Walk.uasset",
+      "sha256": "bdfc95dfdf6ea6f26de4f6ad77f2bad4db44e954273d29b86f2689abaececfe6"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Run.uasset",
+      "sha256": "af177ed2f0714018d26eb7bb94c08563cb4e87dec15590684864a2b4f9d80af3"
+    },
+    {
+      "path": "Characters/UEFN_Mannequin/Animations/Slide/M_Relaxed_Slide_FootOut_Out_Moving_Sprint.uasset",
+      "sha256": "ee171dd069e7bbd55681f5fa374381c93bf0b10e35cea086e301df41795e088b"
+    }
+  ]
+}
