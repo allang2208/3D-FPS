@@ -33,3 +33,9 @@
 用户提供 `撞门.mp3` 替换了早期候选。保留完整录音、声道及来源记录，短音频使用 ForceInline 预加载；声音触发独立于屏幕抖动开关。用户提供文件的使用授权不代表允许公开原始音频。
 
 本例源码与构建已落盘；绑定读取及数值定位不代表游戏画面验收。默认不追加测试或启动编辑器，交由用户测试。已否定动作和音效候选可归档，但现版作者直接读取的 `GuardWristThumbV8_20261002/authored-guard.json`、其上游来源及原生绑定制作输入继续保留。
+
+## 武器专属臂骨与捕获失败排查（2026-10-14 补）
+
+- 武器骨架可带 V7 donor 没有的左臂辅助骨（`SK_Super90_V7` 的 `lowerarm_aux_l`）。`Capture` 曾对所有目标链骨逐个要求 donor 同名骨，`FindBoneIndex` 返回 -1 即整体 `return false`——该武器持枪撞门必败。现改为先建 `DonorIndex` 映射：供体缺失的非标准骨取目标参考姿态旋转、随父骨刚性跟随；`bNative` 平移路径对缺失映射做 `>=0` 防护，避免 `DonorPose[-1]` 越界。新增武器骨架若再带专属 `_l` 骨，先核对其是否挂在 `clavicle_l` 链下、是否需专门绑定，不要默认所有目标骨都在供体里。
+- `BeginPush` 用 `GetComponents<UFPSCastingMeshComponent>` 遍历 `OwnedComponents`——它是 `TSet`，迭代顺序不稳定。"第一个满足 bApplyLeftHandCast+可见+有 hand_l" 的组件随会话变化，同类捕获失败会表现为整段会话必败、换会话全好的间歇故障；排查这类问题先确认实际选中的 `Source` 是哪一个，再谈骨架差异。
+- 排查日志：起手失败是稀有尝试事件，按项目"尝试/拒绝类日志不进 cvar"约定无条件输出；`Capture` 各早退分支分别写明缺资产、缺相机、`ComponentSpaceTransforms` 计数不符（附 leader-pose 与注册状态）与缺骨（目标名+供体名），定位不依赖 `fps.DoorPush.Debug`。
