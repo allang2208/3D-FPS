@@ -1,0 +1,45 @@
+根冠检查与生态区首领接入（2026-10-14）
+
+本轮范围
+用户要求检查根冠遗漏/bug，并按医疗区规则接入生态区首领、入口出口封锁与联机任务追踪。
+后台源码和资产引用排查；不打开游戏或新编辑器，不把数据合同检查当作双端实战验收。
+
+根冠排查
+检查原生动画代理、移动、铡击/骨针/地雷全阶段、有效受击与5秒致残、硬直/眩晕/击飞、死亡及攻击清理、伤害和状态复制。
+原生动画已不再使用要求 AnimBlueprint NodeData 的 Inertialization 节点；死亡先提交状态再派发伤害回调，重复致命打击不重复奖励。
+地雷由服务器触发和结算，墙/地板阻挡爆炸；拆雷不产生伤害，根冠死亡清除残雷及飞行骨针；致残沿现有玩家状态复制。
+现有编辑器只读加载蓝图：32项模型/物理/动画/材质/音效/AI引用全部存在，四方向受击片段齐全；数值与上一轮保存一致。
+资产证据：SourceAssets/RootCrown20261014/Reports/ecology_asset_audit.json。
+本轮以上源码/引用检查未发现新的确定性根冠缺陷；不据此承诺无运行时bug。动画观感、真实碰撞表现及双端高延迟仍待实机体验。
+专属掉落表和额外生态普通怪波次未在本轮定义；保留现有经验/击杀奖励。
+
+区域合同
+Task ID=dungeon.exploration；Instance ID=本轮RunId；Objective ID=ecology.root_crown。
+区域=EcoNursery育苗温室、EcoHydroponics循环水培厅、EcoBiosphere失控生态舱及三者之间的连接段。
+数量=1只根冠；位于第三间失控生态舱地面，继承原4200基础生命、12级、Boss级和原三种攻击。
+出生中心=房间局部UE厘米(-1725,-250,0)，一楼西侧宽阔地面；重试范围x[-1900,-1550]、y[-450,-80]。
+避开树、楼梯、办公室与上层宝箱；沿通用导航、真实地面、胶囊与225cm支撑半径校验，不强制穿模生成。
+区域首次有人完整跨过边界后启动；只封锁外部两端，内部房门与通路不新增封锁。
+按医疗区已有SetEntryOnly规则允许外部队友进入；完成前内部玩家不能退出；两端闸门完全抬起后同时撤销屏障。
+根冠作为真实稳定槽位生成，未生成/非致死删除不计击杀；失败保留槽位重试；任何玩家的服务端有效击杀完成全队目标。
+权威来源=FacilityHallEncounter的根冠槽位死亡状态，经DungeonRunSubsystem::IsEcologyBossDefeated同时供开门和HUD读取。
+区域击杀也接入AnyThemedRouteCleared，避免首领已死但前两间尚未设置普通波次导致整条路线仍无法通过。
+加载=沿AuthoredDungeonGenerator异步资源/渲染准备阶段加入现有根冠蓝图，不在进入区域时同步加载。
+
+联机/生命周期
+FDungeonSharedProgress增加bEcologyBossDefeated；服务器Publish，客机只读镜像；RunId/Revision继续拒绝旧轮次和旧版本。
+各玩家通过现有Viewer区域来源显示自己所在区域；医疗/货运的击杀不完成生态目标。完成项保留并沿公共任务栏划线。
+迟加入接收本轮完成状态；重建地牢清空旧生态标记，销毁旧区域/刷怪/残留攻击。
+同医疗区，仅本轮共享，不新增退出游戏后恢复未完成首领战的跨会话存档。
+
+交付状态
+源码已写入；Editor/Game完整构建和TaskTrackingContract数据合同结果待本轮回执补充。
+本次复用已保存根冠及闸门资产，动态生成接入，无需重导模型或重存地图。
+
+实际完成回执
+Editor：Receipts/build-FPSGAMEEditor-20261014-200225.log，Result Succeeded，退出0（当前目标已是最新）。
+Game：Receipts/build-FPSGAME-20261014-200231.log，43项构建动作完成，Result Succeeded，退出0。
+TaskTrackingContract：Reports/ecology-contract-20261014-200347.log，30项检查、0失败、退出0。
+本轮数据检查含生态进度序列化、主客镜像、旧版本拒绝、迟加入、跨区域独立目标和新RunId清零。
+综合回执：SourceAssets/RootCrown20261014/Reports/ecology_delivery.json。
+未启动交互编辑器或游戏；未进行画面、实机战斗或真实双端联机验收。

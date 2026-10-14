@@ -1,0 +1,107 @@
+{
+  "base_commit": "cfaef03cc1816a8c6c502d090e8d0c7cfca20202",
+  "format": "zero-context unified diff, UTF-8 LF",
+  "warning": "Not a patch against public HEAD as a whole. Do not apply to the current live workspace. Restore/merge the named prerequisite APIs first; compare prerequisite hashes before git apply --unidiff-zero. Local prerequisite/result texts are retained in Saved/PublicationRootEcology20261014/integration/.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunEcology.cpp",
+      "prerequisite_lf_sha256": null,
+      "result_lf_sha256": "7faa1bd42cc60d751849b1d321cf6770bd2730ad378c8065aa52f70cb7bbc4b6",
+      "prerequisite_kind": "file absent",
+      "note": "New ecology module; requires the regional declarations and existing local spawn preparation framework."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp",
+      "prerequisite_lf_sha256": null,
+      "result_lf_sha256": "dd6bcd414bb95981b307777291c35071580a14359fc5f041bad8c26fa53a2f17",
+      "prerequisite_kind": "file absent",
+      "note": "New ecology module; requires the regional declarations and existing local spawn preparation framework."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "prerequisite_lf_sha256": "5544156739903bdbb179e02c3abfc313c3e6ca65043aaee421fc1f8fa3e8b5c2",
+      "result_lf_sha256": "f3f9ae9b9c38337d1b3cb2ef04c943e515b4a99a4ce88be62069297e4971bf16",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Independent regional flags carried by the existing RunId/Revision shared progress pipeline."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "prerequisite_lf_sha256": "506bcd7f2a05f1dacbe6d4698367412e0fd9f3e2e26e0349bb3af2292a253fb8",
+      "result_lf_sha256": "162e3c5a68fb889b82f993ca987b4bc0c9bb331c52b649e2995ad79942363b62",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Independent regional flags carried by the existing RunId/Revision shared progress pipeline."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "prerequisite_lf_sha256": "057c63cbdb163479f8ea3dd9132155e22f3f67ab95d86e5cb5dd223619b3b46a",
+      "result_lf_sha256": "dc24db5f8bec1fae096acbba8b74ada28032e9a2338d9deebb5b8963d3c33276",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Medical/ecology state and region binding declarations only; common task tracking and multiplayer prerequisites stay outside this patch."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "prerequisite_lf_sha256": "49dbc76b5b18e1ea1ba87288503eb6bb98114aa2d6719331c74a16f4924c3081",
+      "result_lf_sha256": "dc1c0d53065149b1460a935e6cb745071238d6fcb38fce318ca0872834fe4105",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Medical area bounds, ecology binding, passage predicates and viewer-local objectives."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "prerequisite_lf_sha256": "ad96e2a5bab89e00face33df0bdcbb16da9dcc61088e0b2622f2b51270871616",
+      "result_lf_sha256": "bc5472163bc12a6b526b5783238663cde8ec0a8927bc7ac5c1099416e3d2163b",
+      "prerequisite_kind": "Git HEAD file",
+      "note": "HEAD-based medical/ecology admission implementation. Later freight/power extension branches are intentionally excluded; preserve them when merging into the current workspace.",
+      "git_blob": "c0ff2202ac6e441483fbfbcde7232434c4a6979a"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "prerequisite_lf_sha256": "29c22cf2d093ba16adfe85149395ad15393df279ded01e1bb884a9fa5b3def2a",
+      "result_lf_sha256": "e5fca84704ce2f02b9000b4c177af1443dee1c5c4c8616f6966dbaee0b5d3c6e",
+      "prerequisite_kind": "Git HEAD file",
+      "note": "HEAD-based medical/ecology admission implementation. Later freight/power extension branches are intentionally excluded; preserve them when merging into the current workspace.",
+      "git_blob": "1a5ad3ff457bfebcae6b20bdcd9986fce1ab64a4"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "prerequisite_lf_sha256": "ef16a95d2a6ce1dddd5aa1599cb74bf9eae1a8e84765b89c138fd473c23df5f2",
+      "result_lf_sha256": "cb5801ab34a9b69f882e419e91ecd73a5b382620e4151d9e83f2014a7a0030d1",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Medical/ecology composition, slot and spawn declarations; FacilityMedicalEncounter.cpp was already published but shared declarations were deferred."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "prerequisite_lf_sha256": "0341ce7fea8b33d6778314f9f9d7e6806a4aa376364cdd053726ed66c7c21435",
+      "result_lf_sha256": "e033ca3eb1faeb2e997fc878e2d1090b80f431983504c9565a9f3a9ed9c86a21",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Medical/ecology dispatch, rank/identity, valid-spawn death binding and completion publication; shared preparation/performance and other encounter families are prerequisites."
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "prerequisite_lf_sha256": "f18625b00b13eb2e356c71164727fecb7969de596795a0a67ddd2e1989f2566f",
+      "result_lf_sha256": "86c3deff36456fb3279403b51f1cf610661256fed5439146e38ae67027c6aa30",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Queue medical/ecology soft classes and enable medical AI doors; the rest of generation/network/performance remains a prerequisite."
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "prerequisite_lf_sha256": "7f8ee02e6935ab3381cd270957bb7be11c46bd44c9b12a2bff8fd29e698f1003",
+      "result_lf_sha256": "956fa1c1a78d1803c630623c5598d27ca6ab0b1d91580af453acac2050e6ecf7",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Server validation resolves Root Crown remote hit contacts against its hit surface; existing validated hit-report pipeline is a prerequisite."
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "prerequisite_lf_sha256": "04ea366effd1623a7d208eb995c5ecb65cd82d6478710a11fb4a5c8a3a9a1b2a",
+      "result_lf_sha256": "b439ef51960a1ca9772b58250d6569ac946058e9607e41dd3916569e1b7f38a8",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Adds Root Crown to the existing friendly-transparent ranged acquisition path; shared ranged sight implementation is not republished here."
+    },
+    {
+      "path": "Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp",
+      "prerequisite_lf_sha256": "5ee3f767e1c1c42fee7f33ac36c58f485c0e8de57c03dd41dc67888fb2b81fa3",
+      "result_lf_sha256": "c0da2751f8f37c1e0e3c53c353344f5ba755e05da0367bbb1b4f2b5e763b7061",
+      "prerequisite_kind": "local working context with this scoped delta removed",
+      "note": "Regional serialization, independent completion, late join, stale revision and new-run checks; existing shared progress fixture is a prerequisite."
+    }
+  ]
+}

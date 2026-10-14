@@ -53,3 +53,13 @@ M03 V11 帽带与帽檐各为独立厚壳，侧根低于帽带底边约 6.8 mm�
 工程的 `Docs/Publication/FacelessStaff20261009/README.md` 维护当前恢复链和归档映射；`Tools/FacelessSecurity`、`Tools/FacelessReceptionist`、`Tools/FacelessResearcher` 及 `Tools/FacelessStaffStates20261009` 保存作者/导入配方。旧脚本兼作后续生成器的输入，不按版本号批量删除或批量执行。
 
 当前混合版本仍依赖早期 Authoring、Motion、Native、Inputs、纹理及部分诊断 JSON（例如帽子 `hat_before.json`）。只归档已确认被替代的导出和备份；用清单恢复旧输出，不把全部旧版本视为废案。公开 Git 仅含原创源码、脚本、文档和归档元数据；Meshy、动作包、UE 包、模型、贴图及密集姿态/蒙皮数据留本机，按原许可恢复。
+
+## 园艺师：实体分层与曲面 UV（2026-10-14）
+
+用户否定 V01 的廉价、贴图式服装，认可 V02 外形。改善来自连续裁片和实际厚度：独立皮围裙与外套保留间隙，肩带绕肩连续到后腰，口袋有袋面、侧壁、底壁及开口，扣件、卷边和针脚各有几何。不要把沿原网格逐面裁切的锯齿边缘或简单贴色当成服装分层。
+
+曲面肩带、腰带和袋体按表面两个方向的累计弧长建立 UV；正面投影会使侧面退化、织纹拉长。织物、皮革、织带、橡胶、金属各自设置 PBR，并统一物理纹理尺度，不能以全身增加噪点替代结构。
+
+继承研究员动作时，固定参考三角形和重心坐标，传递骨权重及全部 231 个 FR 修形；实体偏移随变形后的局部三角形坐标系输运，保留双腿分区与活动开衩。材质先设置 Skeletal/Morph 等使用标志，再建立纹理节点和连接，最后编译保存；本案例在不完整纹理图中途触发使用标志编译，曾导致 TextureReferenceIndex 断言。
+
+园艺师身份标签优先于研究员显示名，但保留 FacelessResearcher 家族标签以复用成熟动画、FR 曲线与过渡。V02 作者仍读取 V01/Authoring/EcologyGardener_V01.blend；旧外观被否定不代表该输入可以删除。制作链见工程 Docs/Publication/RootCrownEcology20261014/README.md。用户外形认可、资产保存与真实联机运行验收分别记录。

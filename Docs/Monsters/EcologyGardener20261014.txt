@@ -1,0 +1,40 @@
+生态区园艺师与房间配置（2026-10-14）
+
+玩家请求
+使用当前研究员模型制作园艺师服装，沿用动画。第一、二间各6～8名园艺师；第二间另加4只螺柱；第三间2只螺柱和1只根冠。
+
+园艺师
+稳定ID EcologyGardener；显示名称“园艺师”；本轮未分配新的M编号。
+母版=FacelessResearcher V05完整身体/穿衣源及既有骨架、动画、物理资产。
+外观=橄榄绿工作外套、深棕防水围裙、肩带与腰带、胸前工具袋、加固双侧口袋、裤装及橡胶工作靴。
+删除研究员胸牌/文字和中央实验服钮扣；身体、蒙皮与动作曲线沿用。围裙及肩带等新增厚壳用明确顶点映射继承研究员231个FR修形；不新增运行时布料求解。
+五套1024 PBR材质（颜色/法线/ORM），真实研究员皮肤材质保留；静止姿态顶点遮罩表达泥土沾染，随蒙皮移动。
+独立源 Authoring/EcologyGardener_V01.blend；导出 Delivery/SK_EcologyGardener_V01.fbx；原研究员资产不覆盖。
+网格239881三角面、161导出骨段、231修形；数值、攻击、受击、眩晕、倒地、起身、死亡和联机沿用研究员，普通怪等级。
+保留FacelessResearcher标签作为原生动画/修形过渡家族，EcologyGardener标签作为身份；血条优先显示园艺师。
+蓝图 /Game/Monsters/EcologyGardener/BP_EcologyGardener；F6加入独立园艺师入口。
+
+生态编排
+EcoNursery：单波6～8园艺师，育苗工作通道。
+EcoHydroponics：单波6～8园艺师+4螺柱M-14。园艺师在干燥侧通道、南侧工作面与上层检修平台；螺柱在四个分开的地面位置，不放进水池/窄桥/楼梯。
+EcoBiosphere：单波2螺柱M-14+1根冠M-01。保留根冠原位置，螺柱分置远侧地面。
+按本轮种子和房间独立流取每间园艺师数量，布局随机流保持独立。复用预算化异步加载与单次调度生成，不在入场时同步载入资产。
+新增成员有独立稳定槽位，服务器生成并确认死亡；避开玩家和已生成怪物，验证实际地面、导航和支撑体积；失败按同一槽位重试。
+三间房统一使用原生态区域。目标仍只需击杀根冠M-01，普通怪存活不妨碍区域两端解锁；外部队友可以进入、完成前不能退出、各玩家显示自己所在区域目标、迟加入共享进度，均保持医疗区合同。
+
+制作与接入
+Tools/EcologyGardener/author.py：基于研究员V05制作服装、材质贴图、蒙皮/修形厚壳及FBX。
+Tools/EcologyGardener/import_assets.py：导入保存园艺师资产、复用研究员蓝图配置，不修改其动画源。
+Tools/EcologyGardener/build_and_import.ps1：批次互斥、必要Editor/Game构建及后台D3D12材质编译/导入保存。
+SourceAssets/EcologyGardener20261014/V01/authoring_receipt.json、ue_delivery.json、delivery.json分别记录作者产物、资产保存与构建进度。
+本轮不进行游戏、动画、截图、渲染验收或联机测试，由用户体验。
+
+实际落盘（2026-10-14 21:07）
+Editor与Game构建均完成，退出0。后台导入批次import-20261014-210227.log正常退出0，园艺师15张贴图、5个材质、骨骼网格和蓝图共22个资产已保存，231个共享修形已导入。
+已修正材质导入时的编译顺序：先设置骨骼网格/修形用途，再创建贴图节点并统一刷新材质，避免未更新贴图引用时触发编译断言。
+最终交付回执SourceAssets/EcologyGardener20261014/V01/delivery.json，状态built_imported_saved；未启动交互编辑器或游戏，未做实机/联机验收。
+
+服装后续修订：2026-10-14 V02
+用户否定V01的服装层次，现活动蓝图已切换至/Game/Monsters/EcologyGardener/V02/SK_EcologyGardener_V02。
+连续裁片、立体袋身及袋口、肩带调节扣、围裙折边和针脚、物理长度UV及独立布料/皮革/织带/橡胶/金属PBR已后台保存。
+当前制作入口为Tools/EcologyGardener/author_v02.py与import_v02.ps1，旧V01脚本仅用于恢复。详细记录Docs/Monsters/EcologyGardenerClothingV02_20261014.md。

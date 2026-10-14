@@ -1,0 +1,644 @@
+{
+  "base_commit": "cfaef03cc1816a8c6c502d090e8d0c7cfca20202",
+  "files": [
+    {
+      "path": ".gitignore",
+      "publication": "whole scoped file",
+      "bytes": 184300,
+      "sha256_lf": "55adaabea218c870d04234127131a2553056e698109f17cb8136f562064328fc"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 21932,
+      "sha256_lf": "c91c4b04af8ff396d88a6b2a570391d708ae5ce248785ce57e830bd1f7422a28"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 112242,
+      "sha256_lf": "a62e440d726d2d3cbd4ad02b37aaa7d18af118754ff9a198168c3318781bec76"
+    },
+    {
+      "path": "Docs/Monsters/EcologyGardener20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 4131,
+      "sha256_lf": "f16e69e6e50c8faeb1ddb35ab7b0bd8927bc3d2504033e04ce3eded67f7fabce"
+    },
+    {
+      "path": "Docs/Monsters/EcologyGardenerClothingV02_20261014.md",
+      "publication": "whole scoped file",
+      "bytes": 2481,
+      "sha256_lf": "4f821b99dbe437259f4f7a177a08227503521c1a24d8a1fcb225e44559bfb5f4"
+    },
+    {
+      "path": "Docs/Monsters/EcologyIntegrationAudit20261014.md",
+      "publication": "whole scoped file",
+      "bytes": 5715,
+      "sha256_lf": "f351d0bb2100ba06027c2ccb5953d6a585d5f74bd19ab3a73cad6bf718b8a86b"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownCombatV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 3784,
+      "sha256_lf": "a0d3668aa4564bd1bb5fb5bafab0ef94d25ec071085f9e75d65f96f661692610"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownCrownRigV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 4604,
+      "sha256_lf": "ce25f44ff08ed3ca1972a90c30755adec1af03d57db0f95330b03582e4ff9161"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownCrownSlashV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 3201,
+      "sha256_lf": "e7e12f1d48596eefff8bf097d05d43e3c22998a8ef4293c1303d5c208d69ce3f"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownDesignation20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 1258,
+      "sha256_lf": "8629c84a9782dc8010ab08a170d848c5a6b21d145fb5bd4448d6bc954f986707"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownEcology20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 4211,
+      "sha256_lf": "c15c5204f534945b0a2271e6966f8407c02fb09a5c8710080ab4d9aab95bef55"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownLocomotionV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 2610,
+      "sha256_lf": "567c162be6bd346b093b7ddc709018976d19fc5cad07b99ee5727b9ac570a373"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownMinesV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 5110,
+      "sha256_lf": "3d0995cce3083cd80a7ab28b2dc9792fce4ed507cd8ef44817de29cca9c0a555"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownNativeAnimCrashFix20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 2185,
+      "sha256_lf": "954bdbfc899e31b684d9b631d327698306babb20c03c66929535260a061ee49b"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownNeedleFanV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 2854,
+      "sha256_lf": "abcd8a42ad6faa24db056f2acc9d7022e352ff303e07e827e375e1ff06182c64"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownReactionsDeathV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 5138,
+      "sha256_lf": "67ea0754be167f7ab20993ebcc2f6f9475aa427c42e8d0de4881dc184eb4d6c8"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownRootEnclosureV01_20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 4280,
+      "sha256_lf": "71bc755f1cb617347a03c953f661bb4bd93370d5317108ef928d82cee78659c6"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownSlashV02MaterialFix20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 2927,
+      "sha256_lf": "5549177724b75a83a5680269b676b6c30a4123e30b1059f710012006f4cc5775"
+    },
+    {
+      "path": "Docs/Monsters/RootCrownUpperFanWhiteArc20261014.txt",
+      "publication": "whole scoped file",
+      "bytes": 2969,
+      "sha256_lf": "a9b6dc9cceb6e375d45f9b97d3e97c8e894ffcdbc095046399564e6928aa51f0"
+    },
+    {
+      "path": "Docs/Publication/RootCrownEcology20261014/README.md",
+      "publication": "whole scoped file",
+      "bytes": 9311,
+      "sha256_lf": "a85dedec22bf07d58ace611c311ff17c78ca2a4669796489c2bee6e9c939f1e8"
+    },
+    {
+      "path": "Docs/Publication/RootCrownEcology20261014/archive-manifest.json",
+      "publication": "whole scoped file",
+      "bytes": 285926,
+      "sha256_lf": "a4d30d6a78b382b471769029b32eee3ea8ee616a56c3e901db3bdaee8e8cb03d"
+    },
+    {
+      "path": "Docs/Publication/RootCrownEcology20261014/integration-manifest.json",
+      "publication": "whole scoped file",
+      "bytes": 7339,
+      "sha256_lf": "2d6a2b488c53dc7f1d866a5a2b0bfdd9264d8ebf25fcb31c130dae310baa281f"
+    },
+    {
+      "path": "Docs/Publication/RootCrownEcology20261014/regional-integration.patch",
+      "publication": "whole scoped file",
+      "bytes": 31841,
+      "sha256_lf": "c3bc8c11807d8892c0ecc2856d64e7aa134d511d89ed61967961a73e40b165cd"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 14521,
+      "sha256_lf": "799a4eda66e63e17f0f87936e93fe898761ca171cd53b323f76b1293876ded47"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 19269,
+      "sha256_lf": "e3ace53c7cb91ac28bfb500f097f49aa3d1a97635f8781a4362768b1d0fbcc95"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 17769,
+      "sha256_lf": "72c33962ea4a650963944b12866c5910c6a2fff46c8258c7d8e0cb9f390c86b8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAwareness.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 10666,
+      "sha256_lf": "15381df14832a759b2cf1b8998769ea2562c83ddb7d9c8346cd35f5a7770d1bf"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 36993,
+      "sha256_lf": "1a4d64d0ec0741a137636d3c6847cd43178c2365aae15e205224338edfbe064c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 12460,
+      "sha256_lf": "447e05d16480fef57f353f000de63d74d90b3ab5d065b9a0dac60c8625b4d4d6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterGunHitFeedback.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 11481,
+      "sha256_lf": "b7db3afba3458448b2155fd2964614b4ebc1c6e9b070f423acae308c1a75ad82"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterMeleeKnockback.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 11043,
+      "sha256_lf": "858c9f402b376e6feecab2fb262ec41ee655f88cc628e6cfb8d3ebd1ee9b8564"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterParryReaction.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 4438,
+      "sha256_lf": "eba1555b449d2458980d86a9f7f6fb5a5cddbf5bd43c0a37db4c81508cd9c1ba"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterSurfaceGroundingNode.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 16322,
+      "sha256_lf": "6daac7e51f713eb88bf399d4609f87ef79ab96e85e0c64497e8f3f5384f989b9"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterSurfaceGroundingNode.h",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 2052,
+      "sha256_lf": "1b7c615f55dde688605e05d8dbe1d691b18b36f60f6ba2df931fcd2f66cc3ca3"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterToughnessProfiles.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 5770,
+      "sha256_lf": "6fb6b5cc1a446d51dc89ddc46470d74a22a229c3e667e2f3839164b3dfebdf16"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownAnimInstance.cpp",
+      "publication": "whole scoped file",
+      "bytes": 9022,
+      "sha256_lf": "599acd73c012426c9e3eca21d4985bcf9b061686aefe687b2f8691d3ccf80e36"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownAnimInstance.h",
+      "publication": "whole scoped file",
+      "bytes": 1378,
+      "sha256_lf": "08cb7ee64538da6b823c1c2c7235ecb0c151a3dd444eace64c0d79db7c1f8d76"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitComponent.cpp",
+      "publication": "whole scoped file",
+      "bytes": 6608,
+      "sha256_lf": "5665a0ef2077abec64009851e3a5b56b354937a544254607a40134a0e615d6e6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitComponent.h",
+      "publication": "whole scoped file",
+      "bytes": 1162,
+      "sha256_lf": "3708204e88301a165892d1b8145dd6f0666e9e56afbc748209c7bbbf447754f3"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitSurface.cpp",
+      "publication": "whole scoped file",
+      "bytes": 4258,
+      "sha256_lf": "cb5ef373dc935959e7b72ce28d8079abf34baa9d9da2fb8b9d94f5a6e9b1a4de"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownMineDamage.h",
+      "publication": "whole scoped file",
+      "bytes": 341,
+      "sha256_lf": "f7e5e1d1702ab5e35d094f9b5a53a9926787f1c1563823bb1fbad364644029c0"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownMovementComponent.cpp",
+      "publication": "whole scoped file",
+      "bytes": 2647,
+      "sha256_lf": "b8ecb6c013e8888b4f30e0b30a27289b6c3a40045fb491fdd8fe56cc08ebbfbe"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownMovementComponent.h",
+      "publication": "whole scoped file",
+      "bytes": 600,
+      "sha256_lf": "46b32a5d6e89984f2ba9f56329aa6a9975a77c92f6b66e505692921c66d4b49f"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownNeedleOutlets.h",
+      "publication": "whole scoped file",
+      "bytes": 443,
+      "sha256_lf": "8bcad2fc1c6292528a0474e8dca22954e48a2de4b833f50a31ec530a3ea9b6aa"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp",
+      "publication": "whole scoped file",
+      "bytes": 5017,
+      "sha256_lf": "ed766010824bae6141c606c5985828bdc058fa2761119efdc046a55f0577f2f5"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownNeedleProjectile.h",
+      "publication": "whole scoped file",
+      "bytes": 1412,
+      "sha256_lf": "1853eb6387732ab2acbad9cd854ce2dd36f43d3845fcdf7295542608fd9a84b6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownNeedles.cpp",
+      "publication": "whole scoped file",
+      "bytes": 4947,
+      "sha256_lf": "704ad7e8214f003cd39e0bfd6f4ff5fb3c8bbac49beaf8f4382387a104457132"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownReactions.cpp",
+      "publication": "whole scoped file",
+      "bytes": 11525,
+      "sha256_lf": "e48104c3820111f8208963c47f83277445df0c7d0780fae22fe0bc42dc3b4bda"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRigPreview.cpp",
+      "publication": "whole scoped file",
+      "bytes": 6155,
+      "sha256_lf": "9ed44680eb3f4f34372695eae7aa4faf10c27e38a1f9da19ff64b31102739a4d"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRigPreview.h",
+      "publication": "whole scoped file",
+      "bytes": 14008,
+      "sha256_lf": "adfaeb977d59ec3e5ea8f265e15d47da3ea09a37841fc79f201c5ee550af76fb"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRootField.cpp",
+      "publication": "whole scoped file",
+      "bytes": 9787,
+      "sha256_lf": "a67db2f16d35b3cfdfa7ae73a62b8d402c36da84aa044682fb5c3b0325d4d2a8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRootField.h",
+      "publication": "whole scoped file",
+      "bytes": 3557,
+      "sha256_lf": "f26cfd19440edb24a84df78712a11a485a3c5eeb0f25546be64faf3dec84f2c5"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRootGround.cpp",
+      "publication": "whole scoped file",
+      "bytes": 3930,
+      "sha256_lf": "ffa9d740fba7a27921d1ac5e7d2393852627806cfee08ce1149ee6e7582a8e51"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRootVisual.cpp",
+      "publication": "whole scoped file",
+      "bytes": 11173,
+      "sha256_lf": "08d53b5929146e692634a21f9889ae481dce7a587bb7c9bd70cf45321952293b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownRoots.cpp",
+      "publication": "whole scoped file",
+      "bytes": 1794,
+      "sha256_lf": "4673051b06f06538bf7392728dc73d1151ba9942d015d5e3c377087f038647ae"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownSlash.cpp",
+      "publication": "whole scoped file",
+      "bytes": 13112,
+      "sha256_lf": "471a548a7505e4d194c982c5fbbe9c81747010dc0b8f4f66243740aa48362ea8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownSlashArc.cpp",
+      "publication": "whole scoped file",
+      "bytes": 5685,
+      "sha256_lf": "4710ff708200c81c91f3c1af130d5632df44bca6242cd3de39b4e46eef3a48a6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownSlashTiming.h",
+      "publication": "whole scoped file",
+      "bytes": 762,
+      "sha256_lf": "4db7903b6c486da04d87bfd5b8ec18dd4cd71679e079058527b6afc1443e0133"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 31347,
+      "sha256_lf": "f4dc717a2397cdba9560c654020b0d65e9a22eba698b4de20c7a55dbd8d041e7"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "publication": "owned hunks on Git HEAD",
+      "bytes": 53854,
+      "sha256_lf": "c363cb689d3816d0de40279603fba86b30fc0df4a6d0f87219690f09b64b91c6"
+    },
+    {
+      "path": "SourceAssets/RootCrown20261014/build.ps1",
+      "publication": "whole scoped file",
+      "bytes": 1974,
+      "sha256_lf": "9afc93e9088bbf60e5df96363a592ca77647b1ea19c5160f10493b549dba1165"
+    },
+    {
+      "path": "SourceAssets/RootCrown20261014/finish_locomotion.ps1",
+      "publication": "whole scoped file",
+      "bytes": 226,
+      "sha256_lf": "fa0d057dd35b077d4b22f25108f08927393663949d030a07211487dfd261262b"
+    },
+    {
+      "path": "SourceAssets/RootCrown20261014/import.ps1",
+      "publication": "whole scoped file",
+      "bytes": 2214,
+      "sha256_lf": "cd4b3f5f6b0268e9ab905bc529bfe08b9386376271c4dc98c95231411689ab4b"
+    },
+    {
+      "path": "Tools/EcologyGardener/README.md",
+      "publication": "whole scoped file",
+      "bytes": 865,
+      "sha256_lf": "be5ca647a55928bc929953c6264ec3f621bd5ef4e5435635bdc4df28284b0e4d"
+    },
+    {
+      "path": "Tools/EcologyGardener/audit_assets.py",
+      "publication": "whole scoped file",
+      "bytes": 5293,
+      "sha256_lf": "840434676eef70b100d2ce128be8561d5e9336095be186f51675477becda7b68"
+    },
+    {
+      "path": "Tools/EcologyGardener/author.py",
+      "publication": "whole scoped file",
+      "bytes": 9496,
+      "sha256_lf": "56864793e288184d40b1ef439a5267ac38af8bb64b5cd504890074dce6e01b67"
+    },
+    {
+      "path": "Tools/EcologyGardener/author_v02.py",
+      "publication": "whole scoped file",
+      "bytes": 19448,
+      "sha256_lf": "1bf1c3c7e9b7ff4e9e4c10e0c3df598d7612e98dcb2d75e8d22d51b3f98a153a"
+    },
+    {
+      "path": "Tools/EcologyGardener/build_and_import.ps1",
+      "publication": "whole scoped file",
+      "bytes": 4313,
+      "sha256_lf": "e218a2436fce3c2a27a5a8597de14b70985e589ef0b8f9727ac1256f0c3e71f4"
+    },
+    {
+      "path": "Tools/EcologyGardener/import_assets.py",
+      "publication": "whole scoped file",
+      "bytes": 10746,
+      "sha256_lf": "8243708854c8161d05f8320373fc81dcbed2a6e42fd83642391e4d851588f3b3"
+    },
+    {
+      "path": "Tools/EcologyGardener/import_v02.ps1",
+      "publication": "whole scoped file",
+      "bytes": 2842,
+      "sha256_lf": "4e61eba0d5b18971124038aa89cf94389e0ec4fdedd1fdaf74dbe88b28582b89"
+    },
+    {
+      "path": "Tools/EcologyGardener/import_v02.py",
+      "publication": "whole scoped file",
+      "bytes": 10978,
+      "sha256_lf": "5e90b991dead93600a8f424d3c4d2a16b2246819f2bf94a7e00f99c80ee68d81"
+    },
+    {
+      "path": "Tools/EcologyGardener/read_source.py",
+      "publication": "whole scoped file",
+      "bytes": 1533,
+      "sha256_lf": "28c9a45dfbc161c69d56507acb1290520e27bdf4e9d966bd41c908ebae838b0a"
+    },
+    {
+      "path": "Tools/EcologyGardener/run_audit.ps1",
+      "publication": "whole scoped file",
+      "bytes": 2430,
+      "sha256_lf": "5ad85e309cf9ca6b62c6d4b926498884f9db2bbb6fcfc76f27c2e6eafd58239c"
+    },
+    {
+      "path": "Tools/RootCrown/README.md",
+      "publication": "whole scoped file",
+      "bytes": 1109,
+      "sha256_lf": "c6c44e3f426faf03900ae6040c6e6a609add9d333d51350b69268b4458f504ae"
+    },
+    {
+      "path": "Tools/RootCrown/apply_slash_v2.py",
+      "publication": "whole scoped file",
+      "bytes": 5977,
+      "sha256_lf": "eed45fb10396eac4ecc29d89c0c9bfcb89652d0b205f08d6fa611ce121862888"
+    },
+    {
+      "path": "Tools/RootCrown/audit_ecology_assets.py",
+      "publication": "whole scoped file",
+      "bytes": 2885,
+      "sha256_lf": "df7b4f57573572d4203764644d4519ab6fc799b536d57c0383407e0bf2a958a6"
+    },
+    {
+      "path": "Tools/RootCrown/author_locomotion.py",
+      "publication": "whole scoped file",
+      "bytes": 7185,
+      "sha256_lf": "82ce199327a910b469ed62d125c953c17ba760c024dbb76d33fa14a0a2bd6a27"
+    },
+    {
+      "path": "Tools/RootCrown/author_mine_audio.py",
+      "publication": "whole scoped file",
+      "bytes": 1133,
+      "sha256_lf": "986c81cea26aa4ff600ef33640dea2d5eb742044766171b309ad92fa73849d02"
+    },
+    {
+      "path": "Tools/RootCrown/author_needles.py",
+      "publication": "whole scoped file",
+      "bytes": 10620,
+      "sha256_lf": "6f590674d4ad92f64192149d87f49b38e360a675b8877603f4d3836ee367da13"
+    },
+    {
+      "path": "Tools/RootCrown/author_reactions.py",
+      "publication": "whole scoped file",
+      "bytes": 7129,
+      "sha256_lf": "00bf95185bdd17606e713355f69c00615985da6855ed978b24cacec7a4fda06c"
+    },
+    {
+      "path": "Tools/RootCrown/author_rig.py",
+      "publication": "whole scoped file",
+      "bytes": 11518,
+      "sha256_lf": "4731c99cf9d3fc2bfe66e61839db1bf2603342b58b33eb5f528cfe1bf2f409b6"
+    },
+    {
+      "path": "Tools/RootCrown/author_roots.py",
+      "publication": "whole scoped file",
+      "bytes": 8161,
+      "sha256_lf": "c978c6a1063647fb8bf45bfee7645657d072525a0884782ad657f80768181393"
+    },
+    {
+      "path": "Tools/RootCrown/author_slash.py",
+      "publication": "whole scoped file",
+      "bytes": 8670,
+      "sha256_lf": "f5fbd755f49e9fc947c43460f611e6133989c39c79beeb3d2f5b92e3a6367d2a"
+    },
+    {
+      "path": "Tools/RootCrown/author_soft_death.py",
+      "publication": "whole scoped file",
+      "bytes": 1079,
+      "sha256_lf": "c859c15cc100c0379fcd079ead01407ce8627bac93d0985ac411ab626a6fa5c9"
+    },
+    {
+      "path": "Tools/RootCrown/check_assets.py",
+      "publication": "whole scoped file",
+      "bytes": 3892,
+      "sha256_lf": "1f1c4b0915a772f0c4f96bcd4af456d7d5ff1374fc2deeb0668a6cc5b7d22901"
+    },
+    {
+      "path": "Tools/RootCrown/check_ecology.ps1",
+      "publication": "whole scoped file",
+      "bytes": 2323,
+      "sha256_lf": "78a07209a0affa7a42970234870328547ef7285bc65ccfbad0e1cd6fc4f5532c"
+    },
+    {
+      "path": "Tools/RootCrown/check_exports.py",
+      "publication": "whole scoped file",
+      "bytes": 2191,
+      "sha256_lf": "4fe1604478d668abcc426100a9d05f22f4b0285ab0209a504f820cb44d5e4672"
+    },
+    {
+      "path": "Tools/RootCrown/check_saved_material_v2.py",
+      "publication": "whole scoped file",
+      "bytes": 2147,
+      "sha256_lf": "a00f8457dc8993abab2f2a9610e6d906697ce69bef3e0a5d0100d1cbaa60f375"
+    },
+    {
+      "path": "Tools/RootCrown/inspect_material_v2.py",
+      "publication": "whole scoped file",
+      "bytes": 1957,
+      "sha256_lf": "ea65d3e65240449e8cfea189a078e1a89123ed429b47fb5336de7c041b62c77e"
+    },
+    {
+      "path": "Tools/RootCrown/install.py",
+      "publication": "whole scoped file",
+      "bytes": 9020,
+      "sha256_lf": "b70e7cbbee891c2c29af9563f9e482e481a1245794cab02a086779611b624aa5"
+    },
+    {
+      "path": "Tools/RootCrown/install_combat.py",
+      "publication": "whole scoped file",
+      "bytes": 2719,
+      "sha256_lf": "7cdd312f946b72dc0dd257f2d66feac61d257f4fa885c00f3ab791f0a8e3d13a"
+    },
+    {
+      "path": "Tools/RootCrown/install_locomotion.py",
+      "publication": "whole scoped file",
+      "bytes": 4890,
+      "sha256_lf": "9811fd9e0a521cc17372e8e9df660725a840f5536c988102599307b5ea7b3c73"
+    },
+    {
+      "path": "Tools/RootCrown/install_mines.py",
+      "publication": "whole scoped file",
+      "bytes": 4914,
+      "sha256_lf": "e04fcb1acb75a7339ba1ef3ed80a3f52f283f66e3eb8070691c7125ad1c2b367"
+    },
+    {
+      "path": "Tools/RootCrown/install_needles.py",
+      "publication": "whole scoped file",
+      "bytes": 5999,
+      "sha256_lf": "7dd728114fdc8e951041a514b3b2ade1d4babdf2fe5a3ee8195ddb94d5726806"
+    },
+    {
+      "path": "Tools/RootCrown/install_reactions.py",
+      "publication": "whole scoped file",
+      "bytes": 4100,
+      "sha256_lf": "8430562611a02c63e683772c9bf43017d3166b257b4af384b3985711d46287c8"
+    },
+    {
+      "path": "Tools/RootCrown/install_roots.py",
+      "publication": "whole scoped file",
+      "bytes": 8431,
+      "sha256_lf": "0fdb0db52a8e93e162598262da6746ccc13e8daa924f1c24b1f8025ec6133ca0"
+    },
+    {
+      "path": "Tools/RootCrown/install_soft_death.py",
+      "publication": "whole scoped file",
+      "bytes": 3608,
+      "sha256_lf": "bf67a738db53be86e4e07376b7ffc7c98bbb45f7ed890252c6507df2a4d8844c"
+    },
+    {
+      "path": "Tools/RootCrown/install_upper_fan_arc.py",
+      "publication": "whole scoped file",
+      "bytes": 6349,
+      "sha256_lf": "e010568ed86c65bb4e7216d651a09772966eec74a5904dddba8304f11c0cb5ca"
+    },
+    {
+      "path": "Tools/RootCrown/prepare_soft_death.py",
+      "publication": "whole scoped file",
+      "bytes": 1460,
+      "sha256_lf": "bb124e5ba50df9d9decdb3df23c5a1790bde26bb6436b678b233529da7273529"
+    },
+    {
+      "path": "Tools/RootCrown/read_locomotion_defaults.py",
+      "publication": "whole scoped file",
+      "bytes": 846,
+      "sha256_lf": "881f2eee7cc7a0458ef1879d1804b4a72567953562ced55ab3788d4bcd7fdab1"
+    },
+    {
+      "path": "Tools/RootCrown/read_source.py",
+      "publication": "whole scoped file",
+      "bytes": 3845,
+      "sha256_lf": "f7d2fd38c5549761cf164bb9198becf1e7f223b6ffd1e065eb4ca11b12313d09"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "publication": "whole scoped file",
+      "bytes": 1450,
+      "sha256_lf": "f4cd66838538a912765e68d5c34bb00d302e23bdff3692005f933e3dd2d51967"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/faceless-staff-clothing.md",
+      "publication": "whole scoped file",
+      "bytes": 8132,
+      "sha256_lf": "75c2813caba968672125f73776db1b23dc7f7bc4839f2d37e4411c23ea4c94ae"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/root-crown-native-animation.md",
+      "publication": "whole scoped file",
+      "bytes": 2358,
+      "sha256_lf": "952ae87610b6c92408e570f49be282fc4d0c6bd32cb017e4594e64f1c5e00960"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "publication": "whole scoped file",
+      "bytes": 1114,
+      "sha256_lf": "6d0c7ba1983ed06657b80feec119f4e27e343dd349389c0a9094c90324d6e382"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/regional-boss-objectives.md",
+      "publication": "whole scoped file",
+      "bytes": 2347,
+      "sha256_lf": "186fa622f90eb3854d0771c2b60477ec9e3ab6fffbb962240117e8e5917762d3"
+    }
+  ],
+  "deferred_integration_files": 14,
+  "content_assets": "local only; see README",
+  "working_copy_tests": "not run during publication"
+}

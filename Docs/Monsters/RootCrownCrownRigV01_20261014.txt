@@ -1,0 +1,52 @@
+根冠：冠盘骨架与权重优化 V01（2026-10-14）
+
+范围
+基于用户 Downloads/Meshy_AI_Character_output (1).glb，不重新生成或继续减面。
+本轮完成模型骨架阶段：冠盘绑定、形变检查、模型/材质/骨架/演示动画导入及 F6 骨架预览。
+移动、战斗招式、生命与奖励、死亡软体及生态区首领刷怪仍属于后续玩法阶段；预览角色不冒充战斗完成品。
+
+输入与保留
+- 原始文件单独保存在 SourceAssets/RootCrown20261014/Source/RootCrown_UserRig.glb。
+- 原始 197,061 三角面、UV、法线和原 PBR 三张贴图保留；未做几何变形烘焙或重新减面。
+- 原文件高约 1.7 m；源和导出保持该比例，F6 实例统一缩放至 3.5 m。
+- 原绑定包含 15 根 Bone_000～Bone_014，无动画。保留三片根足的原链和下部权重，缩短伸出模型上方的 Bone_013 尾段。
+
+新骨架合同
+- 共 49 根作者骨骼：保留 15 根，新增地面 Root、Stem_Lower、Stem_Upper、Crown_Base，以及 10 组 Base/Flex/Rim 三级径向骨链。
+- 径向骨位置依实际冠盘包围范围与曲面深度计算；盘根、中段、边缘分别承担支撑、弯曲、卷曲。
+- 冠盘前后表面共用连续权重，保持厚度；褶片随所在分区弯曲，未逐颗种子添加骨骼。
+- 下部 z≤0.33 m 权重不变，茎部过渡至 z=0.58 m 后由新骨架接管；最多 8 个影响并归一化。
+- UV 接缝处同位置的冠盘顶点使用相同权重。源骨名和层级保留，新增单一地面根节点。
+- 后续冠盘动作使用新 Stem/Crown 控制链；Bone_013/Bone_014 保留作来源兼容，不与新控制链叠加制作同一动作。
+
+授权检查
+- 静止姿态与源外形比较、权重和影响上限、无权重点、下部权重保留。
+- 冠盘收拢、展开、左右 8 度侧摆和边缘起伏；记录实际边伸缩、有限坐标、根足漂移并读取变形渲染。
+- 当前演示最大分段卷曲为 4/7/10 度；更大闭合幅度需按之后正式攻击动作再做变形检查。
+- 重新导入 FBX 和 GLB 检查真实交付文件的骨骼、三角面、比例、权重和材质槽。
+- glTF 回读时排除 Blender 自动创建的骨骼显示小球，该辅助物不在 GLB 数据中。
+- 检查数据：Reports/rig-checks.json、Reports/rig.json、Reports/export-checks.json；真实模型图片：Previews/。
+
+引擎入口
+- /Game/Monsters/RootCrown/RigV01/SK_RootCrown，独立 Skeleton 与初始查询 PhysicsAsset。
+- /Game/Monsters/RootCrown/RigV01/Animations/A_RootCrown_Idle 与 A_RootCrown_CrownRigDemo。
+- /Game/Monsters/RootCrown/BP_RootCrownRigPreview；F6 → 怪物生成 → 根冠（骨架预览）。
+- 使用已有 M10Mawcrawler 的 225 cm / 450 cm 导航规格，胶囊 175 cm / 半高 175 cm，F6 仍执行导航、净空和完整落点检查。
+- 角色静止循环播放冠盘演示，不接敌、不攻击；沿既有 F6 清除入口回收。
+- glTF 法线按 OpenGL 转 UE DirectX，MetallicRoughness 使用 G 粗糙度/B 金属度，沿现有 Substrate 入口。
+- 实际保存结果以 Reports/ue-import.json 为准；必要 Editor/Game 构建日志保存在 Receipts。
+
+交付文件
+Authored/RootCrown_CrownRig.blend；Exports/RootCrown_Rigged.glb；Exports/SK_RootCrown.fbx；两段动画 FBX。
+作者、导出检查和导入脚本：Tools/RootCrown/。
+本轮不自动启动游戏或安排完整首领战斗验收。
+
+本轮实际完成
+- Editor 和 Game 基础构建均成功；10 项 UE 资产已保存。
+- 作者 FBX/GLB 回读均为 197,061 三角面、49 骨、无缺失权重；原 1.7 m 源尺寸保留。
+- UE 落盘资产回读为 197,061 三角面、149,187 渲染顶点、50 骨（包含 RootCrownRig 导入根）、最多 7 个有效影响；单材质分区。
+- UE 演示动画在 0/3/6/9/12 秒采样：根节点与三个根足末骨位移为 0，冠盘两处边缘控制骨位移约 5.77/9.88 cm（源资产尺度）。
+- 初始 PhysicsAsset 为 2 个查询刚体/1 个约束，仅属当前模型预览阶段，不作为正式死亡软体或战斗命中质量验收。
+- F6 蓝图实际类、模型、演示片段与 225/450 cm 导航默认值回读通过；未运行实际 F6 游戏生成、PIE 或首领战斗。
+- 可选的 UE 二次 FBX 导出在 NullRHI 模式触发 MeshObject 断言，未修改已保存资产；最终引擎几何检查直接读取落盘网格渲染数据，作者 FBX/GLB 独立回读均已通过。
+- 最终结果：Reports/ue-import.json（assets_saved）、Reports/ue-checks.json（passed=true）、Reports/export-checks.json（passed=true）。

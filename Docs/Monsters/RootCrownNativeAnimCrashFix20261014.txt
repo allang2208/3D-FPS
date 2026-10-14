@@ -1,0 +1,29 @@
+根冠生成崩溃修复（2026-10-14）
+
+用户现场
+F6 生成根冠时，ARootCrownRigPreview::ApplyRig 调用 SetAnimInstanceClass 初始化原生动画图，触发 AnimNodeBase.h:825 的 check(NodeData)。
+现场记录：Saved/Crashes/UECC-Windows-1D5F18244042E5F66B40A5861B0435DB_0000，2026-10-14 18:36。
+未再次运行游戏复现，依据用户堆栈、现场日志与本机对应引擎源码定位。
+
+原因
+上一轮受控／死亡动作接入新增 FAnimNode_Inertialization。
+该节点 Evaluate_AnyThread 会向跟踪接口传入 GetNodeIndex()；GetNodeIndex 必须访问蓝图 NodeData。
+根冠使用 FAnimInstanceProxy::GetCustomRootNode / GetCustomNodes 构建纯原生图；该路径注册节点的初始化／重置回调，并不建立蓝图编译的 NodeData。
+因此 C++ 编译及蓝图资产保存成功后，真正生成角色首次求值才触发断言。
+
+修复
+仅修改 RootCrownAnimInstance.cpp 的过渡实现，移除 FAnimNode_Inertialization 及消息请求依赖。
+改为原生 FRootCrownPoseTransition，在受控阶段切换时从上一帧实际输出姿势用0.14秒平滑进入目标动作。
+上一帧姿势保存在持久数组中，不跨帧保存动画栈内存；连续打断从当前混合结果重新衔接。
+姿势采样在地形贴合之前，避免重复叠加地面偏移；骨骼缓存重建／LOD变化与瞬移清理历史。
+没有可用历史的首次生成直接使用目标姿势；死亡软体交接即使为零Delta或延迟复制，也直接采样指定交接姿势。
+不修改引擎源码、不关闭断言或跟踪；动作资产、材质、首领数值与受击联机规则不变。
+
+交付边界
+必要的 Editor / Game 完整构建完成后记录到 SourceAssets/RootCrown20261014/Reports/native_anim_crash_fix.json。
+本次不启动编辑器、不运行游戏或自动验收；F6生成和后续动作表现由用户复测。
+
+构建回执
+Editor：build-FPSGAMEEditor-20261014-184017.log，Target is up to date，Result: Succeeded，退出0。
+Game：build-FPSGAME-20261014-184023.log，Result: Succeeded，退出0。
+原蓝图引用的是同一个原生动画类，本次无资产重导入或蓝图改绑。

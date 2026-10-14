@@ -88,6 +88,14 @@ void AMonsterAIController::OnPossess(APawn* P)
   Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
   Senses->ConfigureSense(*Hearing);
  }
+ if(const auto* Mantis=Cast<AMantisM27Monster>(P))
+ {
+  auto* Hearing=NewObject<UAISenseConfig_Hearing>(this);
+  Hearing->HearingRange=FMath::Max(0.f,Mantis->GunshotHearingRadius);Hearing->SetMaxAge(8.f);
+  Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+  Senses->ConfigureSense(*Hearing);
+  MemorySeconds=FMath::Max(MemorySeconds,30.f);
+ }
  Senses->RequestStimuliListenerUpdate();
  if(Behavior){RunBehaviorTree(Behavior);UpdateKnowledge();UE_LOG(LogTemp,Display,TEXT("MONSTER_BT_READY %s tree=%s"),*P->GetName(),*Behavior->GetPathName());}
  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());

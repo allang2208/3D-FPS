@@ -3453,3 +3453,10 @@ __pycache__/
 !/Plugins/AutoFootstep/Source/
 !/Plugins/AutoFootstep/Source/**
 !/Plugins/AutoFootstep/LICENSE
+
+# Root Crown / Ecology Gardener: publish recipes, keep models and dense author data local.
+/SourceAssets/RootCrown20261014/**
+!/SourceAssets/RootCrown20261014/*.ps1
+!/SourceAssets/RootCrown20261014/README.md
+/SourceAssets/EcologyGardener20261014/**
+!/SourceAssets/EcologyGardener20261014/README.md

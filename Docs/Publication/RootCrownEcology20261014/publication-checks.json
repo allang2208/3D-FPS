@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-14",
+  "scope": "publication only; no new UE/game tests",
+  "archive_files": 393,
+  "archive_bytes": 490028410,
+  "integration_patch_verified_files": 14,
+  "staged_files": 107,
+  "total_scoped_file_bytes": 1323560,
+  "largest_files": [
+    {
+      "path": "Docs/Publication/RootCrownEcology20261014/archive-manifest.json",
+      "bytes": 285926
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 184300
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 112242
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "bytes": 53854
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 36993
+    }
+  ],
+  "diff_check": "passed",
+  "credential_pattern_scan": "no matches",
+  "binary_assets": "none; licensed/dense asset data excluded",
+  "baseline": "cfaef03cc1816a8c6c502d090e8d0c7cfca20202",
+  "diff_sha256": "bb869b1dddcbb057cbd900dd4853dd2dc3ed8f15f3a8b3961f3f8821a90e9ef4",
+  "notes": "Checks cover the 107-file reviewed payload; this metadata file is the additional final staged file. No new engine build, gameplay or multiplayer run."
+}

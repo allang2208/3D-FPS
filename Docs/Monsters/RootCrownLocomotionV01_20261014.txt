@@ -1,0 +1,39 @@
+根冠：移动制作版 V01（2026-10-14）
+
+范围
+沿用用户提供的减面 Meshy 模型、原三足骨架及已交付的冠盘分区骨链。
+本轮制作待机、三足牵引前进、左转、右转。网格、UV、贴图、蒙皮和参考骨架不变。
+三足错开 1/3 周期，支撑占比 72%；足垫回收时抬起，冠盘分区延迟摆动。
+动作来自本地作者脚本，不是外部动捕。没有自动渲染、PIE 或游戏测试。
+
+数值
+移动 150 cm/s；公共 AI 的非接敌游荡为半速，即 75 cm/s。
+转身上限 150 度/s，角加速度 540 度/s²。
+转向误差超过 70 度时停车换足，回到 12 度以内恢复前进；普通转弯按夹角减速。
+参考本次读取的已保存 Blueprint：沉匣 M10、螺柱 M14、涡电匣 M25 的 WalkSpeed 均为 150 cm/s。
+M10 实际独立转向值为移动 72 / 原地 60 度/s；M14 使用 120 度/s。
+根冠独立提高为 150 度/s，没有修改其他怪物的数值。
+
+动画与移动
+Move：0.6 s，源步幅 90 cm。TurnLeft/Right：0.8 s，源转角 72 度。
+运行时共用一个持续步态相位，由实际水平位移与实际偏航改变量推进。
+直行和转向以各自相位贡献混合，不因修改移速而同时抬高源速度分母。
+待机、起步、停步和转向保持步态相位；待机呼吸只在静止时推进。
+胶囊与导航规格沿用上一版，导航半径 225 cm / 高 450 cm；使用公共 40 cm 台阶能力。
+复用公共地面探测与逐足接地，三个足垫分别处理地形，保留摆足离地高度。
+服务端公共 MonsterAIController/Behavior Tree 负责游荡、感知、追随及返回；动画只消费位移。
+本轮没有设计攻击、死亡、首领数值、生态区刷怪或通关目标。
+
+文件
+作者脚本：Tools/RootCrown/author_locomotion.py
+可编辑源：SourceAssets/RootCrown20261014/Authored/RootCrown_LocomotionV01.blend
+动作 FBX：SourceAssets/RootCrown20261014/Exports/MotionV01
+导入脚本：Tools/RootCrown/install_locomotion.py
+动作目标：/Game/Monsters/RootCrown/MotionV01
+F6 稳定 ID 保留 RootCrownRig；显示名称改为“根冠（移动制作版）”。
+原 Blueprint 路径保留：/Game/Monsters/RootCrown/BP_RootCrownRigPreview。
+源码类名暂留 RootCrownRigPreview，以兼容已交付引用。
+
+已完成 FPSGAMEEditor / FPSGAME 后台构建；四条动画、共用骨架及原 Blueprint 已保存。
+最后导入日志：Reports/import-20261014-133947.log，commandlet 返回 0。
+构建与保存回执：Reports/locomotion_delivery.json。没有打开交互编辑器或运行游戏测试。

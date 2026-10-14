@@ -1,0 +1,14 @@
+根冠 M-01（2026-10-14）
+
+按用户要求采用当前M系列最小可用正整数编号，沿其他成员两位数字格式命名为“根冠 M-01”。
+编号依据：正式DevelopmentSpawnComponent可用名册与当前怪物分类文档；命名前已用编号为03、04、05、07、08、09、10、11、13、14、16、20、25、27、66、88，未发现01的现行占用或预留。
+同步F6生成列表、战斗血条名称、生态区目标及提示，并更新地雷作者脚本的交付名称。
+稳定ID RootCrownRig、生态目标 ecology.root_crown、类名、资源路径及既有存档/联机身份保留。
+本次仅更名，不修改数值、技能、刷怪、封锁或奖励规则；不需要资产重导。
+构建回执另记；不运行游戏或自动测试。
+
+本轮实际状态
+Game构建：Receipts/rename-Game-20261014-201939.log，Result Succeeded，退出0。
+Editor构建已于生态区园艺师接入批次完成，Result Succeeded，退出0；日志为SourceAssets/EcologyGardener20261014/V01/Logs/build-FPSGAMEEditor-20261014-205344.log。
+此前占用模块的后台进程已自行退出；未强制结束该进程。Editor版名称已编译落盘。
+回执：Reports/rename_delivery.json。未运行测试或启动编辑器。

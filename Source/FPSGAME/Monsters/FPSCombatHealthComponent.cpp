@@ -13,6 +13,7 @@
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "HandBrainMonster.h"
 #include "M10HowlDamage.h"
+#include "RootCrownMineDamage.h"
 #include "MantisM27AttackDamage.h"
 #include "M09ResonanceDamage.h"
 #include "PoisonMaggotMonster.h"
@@ -218,6 +219,13 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
                 if(!Pawn->IsLocallyControlled()&&(bPounce||bBleeding))
                     ClientApplyM27HitStatus(Attacker,bPounce,bBleeding,GetWorld()->GetTimeSeconds());
             }
+    if(Type&&Type->IsA<URootCrownMineDamage>()&&!IsDead())
+    {
+        // This accepted-damage path excludes dodge, invulnerability and lethal hits.
+        // The player's existing status replica carries the deadline, slow strength
+        // and the cripple HUD label; no RPC on the short-lived mine is needed.
+        if(auto* Status=UCombatStatusFormula::GetOrAdd(Actor))Status->AddCripple(URootCrownMineDamage::CrippleSeconds);
+    }
     if(Type&&Type->IsA<UM10HowlDamage>())
     {
         // Exactly five SAN per accepted pulse; replaces the attacker's generic

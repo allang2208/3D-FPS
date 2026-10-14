@@ -1,0 +1,38 @@
+根冠冠缘铡击 V02：砸落两倍速与白模修复（2026-10-14）
+
+用户反馈：砸下需要再快一倍，新增攻击后模型变成白模；明确要求检查材质。
+
+白模原因与修复
+原编辑器日志明确记录 M_RootCrown_Slash 在 PCD3D_SM6 编译失败：
+PreSkinnedPosition is not available in the Pixel shader。
+上一版把预蒙皮顶点位置直接接入像素端 Custom 遮罩，没有跨阶段插值，游戏使用了默认材质。
+原 BaseColor、Normal、MetallicRoughness 三张贴图均在，模型和 UV 没有丢失。
+已在原材质中加入 VertexInterpolator：PreSkinnedPosition → VS 输入 → 像素端遮罩 P。
+保留原材质、贴图采样与局部收紧发白效果。旧安装脚本同步修正，重建不再生成同一错误连线。
+
+实际材质检查
+使用后台 D3D12 / SM6 commandlet，未使用 NullRHI 的空编译结果作结论。
+RecompileMaterial 错误列表为空，GetStatistics 完成真实 shader 编译：
+vertex instructions 316，pixel instructions 250，pixel texture samples 3，interpolator scalars 3。
+原三张 PBR 贴图全部被材质使用，原 Blueprint 的 SlashMaterial 和组件材质槽均绑定修复后的材质。
+日志：SourceAssets/RootCrown20261014/Reports/import-20261014-144051.log。
+该日志加载旧材质时包含修复前错误及结束时的警告汇总；修复后生成了有效的 SM6 shader 统计。
+随后在重新启动的现有编辑器中只读复查落盘材质，插值连线、蓝图材质槽及三张贴图均正确，SM6 shader 统计仍为 316 / 250。
+重新加载检查通过，记录：Reports/material_v2_saved_check.json。没有为复查启动编辑器或游戏。
+
+动作修改
+砸落运动由原 1.00–1.40 的 0.4 秒压缩到 1.10–1.30 的 0.2 秒，速度精确为两倍。
+1.00–1.10 留蓄势短停，1.30–1.40 压住接触姿态；原 1.40 秒之后恢复动作与 3.2 秒总时长保留。
+重新从实际蒙皮顶点生成 24 点冠缘轨迹，最后一条接触记录为 1.30 秒；没有在压住阶段追加命中。
+破风音包络压缩一半并移至新出手时刻；蓄势声音覆盖短停，实际受伤接触音仍由权威扣血触发。
+未修改 C++、伤害、冷却、移速或转向数值；不需要新增原生编译或重启模块。
+
+文件与保存
+作者源：SourceAssets/RootCrown20261014/Authored/RootCrown_CrownSlashV02.blend
+重建：Tools/RootCrown/author_slash.py --double-downstroke
+接入：Tools/RootCrown/apply_slash_v2.py
+动作与音效：/Game/Monsters/RootCrown/SlashV02
+原材质就地修复：/Game/Monsters/RootCrown/SlashV01/M_RootCrown_Slash
+回执：SourceAssets/RootCrown20261014/Reports/slash_v2_delivery.json。
+F6 入口仍为“根冠（冠缘铡击）”。材质、动画、骨架、音效和原蓝图已保存。
+本轮完成用户要求的材质检查；没有启动 PIE、游戏测试、试听或额外截图/渲染验收。

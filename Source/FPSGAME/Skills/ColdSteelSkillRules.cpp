@@ -1,4 +1,5 @@
 #include "ColdSteelSkillRules.h"
+#include "../Monsters/RootCrownRigPreview.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
@@ -393,6 +394,7 @@ bool ColdSteelSkills::IsPistol(const FColdSteelItem* I)
 { return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("pistol"); }
 bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
 {
+    if(const auto* Crown=Cast<ARootCrownRigPreview>(Hit.GetActor()))return Crown->IsWeakpointHit(Hit);
     if(const auto* M25=Cast<AVortexCofferM25>(Hit.GetActor()))return M25->IsWeakpointHit(Hit);
     if(const auto* M14=Cast<ASpiralPillarM14>(Hit.GetActor()))return M14->IsWeakpointHit(Hit);
     if(const auto* M09=Cast<AHangingBellM09>(Hit.GetActor()))return M09->IsWeakpointHit(Hit);

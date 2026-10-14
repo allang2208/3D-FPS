@@ -91,12 +91,15 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
         // deadline; a cached sight event must not cancel it in the same frame.
         if (!PendingDamageTarget.IsValid() && CanSeePlayer(Player, !bConfirmedTarget)) DiscoverPlayer(Player, true);
     }
-    else if (Stimulus.Type == UAISense::GetSenseID<UAISense_Hearing>() && !PendingDamageTarget.IsValid())
+    else if (Stimulus.Type == UAISense::GetSenseID<UAISense_Hearing>())
     {
         const auto* Bellow = Cast<ABellowSacLobber>(GetPawn());
-        const bool Sensitive = Bellow && Bellow->bSoundSensitive;
+        const auto* Mantis = Cast<AMantisM27Monster>(GetPawn());
+        const bool Sensitive = Mantis || (Bellow && Bellow->bSoundSensitive);
+        const float SensitiveRange = Mantis ? Mantis->GunshotHearingRadius : Bellow ? Bellow->HearingRadius : 1800.f;
         const bool Suppressed = Stimulus.Tag == TEXT("GunshotSuppressed");
         const bool Gunshot = Suppressed || Stimulus.Tag == TEXT("Gunshot");
+        if (PendingDamageTarget.IsValid() && !(Mantis && Gunshot)) return;
         if (bConfirmedTarget && !(Sensitive && Gunshot)) return;
         const auto* Hearing = Senses->GetSenseConfig<UAISenseConfig_Hearing>();
         const FVector From = GetPawn()->GetPawnViewLocation();
@@ -104,7 +107,7 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
         // The single gunshot event reaches sensitive ears farther away, while
         // ordinary monsters retain their previous 18 m / suppressed 5 m limits.
         if (Gunshot && DistanceSq > FMath::Square(Sensitive ?
-            (Suppressed ? FMath::Min(1000.f, Bellow->HearingRadius) : Bellow->HearingRadius) :
+            (Suppressed ? FMath::Min(1000.f, SensitiveRange) : SensitiveRange) :
             (Suppressed ? 500.f : 1800.f))) return;
         FCollisionQueryParams Query(SCENE_QUERY_STAT(MonsterNoise), false, GetPawn());
         Query.AddIgnoredActor(Player);
@@ -114,7 +117,7 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
             TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_HearingTrace);
             Occluded = GetWorld()->LineTraceSingleByChannel(Hit, From, Stimulus.StimulusLocation, ECC_Visibility, Query);
         }
-        if (Occluded && DistanceSq > FMath::Square((Hearing ? Hearing->HearingRange : 1800.f) * (Sensitive ? .65f : .35f))) return;
+        if (Occluded && !(Mantis && Gunshot) && DistanceSq > FMath::Square((Hearing ? Hearing->HearingRange : 1800.f) * (Sensitive ? .65f : .35f))) return;
         // Sensitive gunshot discovery shares the visual/group-warning path.
         // A pending 1-2 second hit-reaction deadline still takes precedence.
         if (Sensitive && Gunshot) DiscoverPlayer(Player, true);

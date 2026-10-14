@@ -1,4 +1,5 @@
 #include "MonsterSurfaceGroundingNode.h"
+#include "RootCrownRigPreview.h"
 #include "MonsterGroundSupport.h"
 #include "BlindSupplicantMonster.h"
 #include "MantisM27Monster.h"
@@ -20,18 +21,28 @@ FMonsterSurfaceGroundingNode::FMonsterSurfaceGroundingNode(UAnimInstance* Instan
 void FMonsterSurfaceGroundingNode::Configure(const ACharacter* Owner)
 {
     if (!Owner || Rig!=ERig::None) return;
-    if (Owner->IsA<AVortexCofferM25>()) Rig=ERig::Tendrils;
+    if (Owner->IsA<ARootCrownRigPreview>()) Rig=ERig::Tripod;
+    else if (Owner->IsA<AVortexCofferM25>()) Rig=ERig::Tendrils;
     else if (Owner->IsA<ASpiralPillarM14>()) Rig=ERig::RootFan;
     else if (Owner->IsA<ABlindSupplicantMonster>() || Owner->IsA<AMantisM27Monster>() ||
         Owner->ActorHasTag(TEXT("FacelessReceptionist")) || Owner->ActorHasTag(TEXT("FacelessSecurity")) ||
         Owner->ActorHasTag(TEXT("FacelessResearcher"))) Rig=ERig::Biped;
     else return;
-    const int32 Count=Rig==ERig::Biped?2:Rig==ERig::RootFan?8:32;
+    const int32 Count=Rig==ERig::Tripod?3:Rig==ERig::Biped?2:Rig==ERig::RootFan?8:32;
     Limbs.SetNum(Count);
     for (int32 I=0; I<Count; ++I)
     {
         auto& L=Limbs[I];
-        if (Rig==ERig::Biped)
+        if (Rig==ERig::Tripod)
+        {
+            // The distal pad remains level; the extra proximal joint on the
+            // front chains keeps its authored support/traction motion.
+            static const TCHAR* Names[3][3]={{TEXT("Bone_004"),TEXT("Bone_003"),TEXT("Bone_002")},
+                {TEXT("Bone_007"),TEXT("Bone_006"),TEXT("Bone_005")},
+                {TEXT("Bone_011"),TEXT("Bone_010"),TEXT("Bone_009")}};
+            L.Upper.BoneName=Names[I][0];L.Lower.BoneName=Names[I][1];L.Foot.BoneName=Names[I][2];
+        }
+        else if (Rig==ERig::Biped)
         {
             const FString Side=I==0?TEXT("l"):TEXT("r");
             L.Upper.BoneName=FName(TEXT("thigh_")+Side);
@@ -112,7 +123,7 @@ void FMonsterSurfaceGroundingNode::CacheReference(const ACharacter* Owner)
         const FVector Knee=Bind[K].GetLocation()-Bind[U].GetLocation();
         L.ReferencePole=(Knee-Axis*FVector::DotProduct(Knee,Axis)).GetSafeNormal();
         const float Length=FVector::Distance(Bind[U].GetLocation(),Bind[K].GetLocation())+FVector::Distance(Bind[K].GetLocation(),End);
-        const float HalfSole=Rig==ERig::Biped?FMath::Min(Length*.08f,10.f/Scale):Rig==ERig::RootFan?4.f/Scale:0.f;
+        const float HalfSole=Rig==ERig::Tripod?6.f/Scale:Rig==ERig::Biped?FMath::Min(Length*.08f,10.f/Scale):Rig==ERig::RootFan?4.f/Scale:0.f;
         for (int32 J=0; J<2; ++J)
         {
             FVector P=End+ForwardCS*(J==0?-HalfSole:HalfSole);
@@ -135,6 +146,7 @@ void FMonsterSurfaceGroundingNode::Prepare(const ACharacter* Owner, float DeltaS
     const auto* Mesh=Owner->GetMesh();
     const auto* Move=Owner->GetCharacterMovement();
     if (!Move || !Move->IsMovingOnGround() || Mesh->IsSimulatingPhysics()) return;
+    if(const auto* Crown=Cast<ARootCrownRigPreview>(Owner);Crown&&(Crown->Dead()||Crown->IsKnockedDown()))return;
     if (const auto* Humanoid=Cast<ANurseZombie>(Owner))
         if (Humanoid->State==ENurseState::Dead || (Humanoid->Knockdown && Humanoid->Knockdown->IsControlling())) return;
     if (const auto* Pillar=Cast<ASpiralPillarM14>(Owner); Pillar && Pillar->Dead()) return;
@@ -180,7 +192,7 @@ void FMonsterSurfaceGroundingNode::Prepare(const ACharacter* Owner, float DeltaS
             // Lower to the supporting leg, allowing the higher leg to flex.
             if (!Points.IsEmpty()) WantedHeight=FMath::Clamp(Lowest,-45.f,30.f);
         }
-        else if (MonsterGroundSupport::FitPlane(Points,Pivot,Rig==ERig::RootFan?10.f:25.f,WantedHeight,WantedTilt))
+        else if (MonsterGroundSupport::FitPlane(Points,Pivot,(Rig==ERig::RootFan || Rig==ERig::Tripod)?10.f:25.f,WantedHeight,WantedTilt))
         {
             // The pillar keeps its upright silhouette; only modest base lean is used.
             const float BellyClearance=Rig==ERig::RootFan?10.f:8.f;

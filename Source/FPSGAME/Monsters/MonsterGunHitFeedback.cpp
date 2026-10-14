@@ -80,7 +80,13 @@ void UMonsterIdleBreathingMeshComponent::CacheGunHitBones()
     {
         float Degrees = 0.f; bool bPinChildren = false;
         const FName Name = Skeleton.GetBoneName(Bone);
-        if (!GunHitBoneProfile(Name, PhysicalBones.Contains(Name), Degrees, bPinChildren)) continue;
+        if(GetOwner()->ActorHasTag(TEXT("RootCrown")))
+        {
+            const FString Joint=Name.ToString();
+            if(!Joint.StartsWith(TEXT("Crown_"))||(!Joint.EndsWith(TEXT("_Flex"))&&!Joint.EndsWith(TEXT("_Rim"))))continue;
+            Degrees=2.f;
+        }
+        else if (!GunHitBoneProfile(Name, PhysicalBones.Contains(Name), Degrees, bPinChildren)) continue;
         GunHitBoneLookup[Bone] = GunHitBones.Num();
         auto& Track = GunHitBones.AddDefaulted_GetRef();
         Track.Index = Bone; Track.Degrees = Degrees; Track.bPinChildren = bPinChildren;

@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "RootCrownRigPreview.h"
 #include "BoundCongregate.h"
 #include "VortexCofferM25.h"
 #include "M25MagicComponent.h"
@@ -54,7 +55,8 @@ void UMonsterCombatComponent::OnRep_HitReactions()
     const bool bContinueSway=BeginHumanoidStun(ReactionDuration);
     if(auto* C=Cast<ACharacter>(GetOwner()))
     {
-        if(auto* BC=Cast<ABoundCongregate>(C))BC->StartHitPresentation();
+        if(C->IsA<ARootCrownRigPreview>()) {} // Its native player owns the cancellation fade.
+        else if(auto* BC=Cast<ABoundCongregate>(C))BC->StartHitPresentation();
         else if(auto* M25=Cast<AVortexCofferM25>(C))M25->StartHitPresentation();
  else if(auto* M14=Cast<ASpiralPillarM14>(C))M14->StartHitPresentation();
  else if(auto* M09=Cast<AHangingBellM09>(C))M09->StartHitPresentation();
@@ -81,6 +83,7 @@ void UMonsterCombatComponent::BeginPlay()
 }
 bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
 {
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner())){Health=Crown->Health;MaxHealth=Crown->MaxHealth;Name=FText::FromString(TEXT("根冠 M-01"));return true;}
  if(const auto* BC=Cast<ABoundCongregate>(GetOwner())){Health=BC->Health;MaxHealth=BC->MaxHealth;Name=FText::FromString(TEXT("缚群 M-88"));return true;}
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner())){Health=M25->Health;MaxHealth=M25->MaxHealth;Name=FText::FromString(TEXT("涡电匣 M-25"));return true;}
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner())){Health=M14->Health;MaxHealth=M14->MaxHealth;Name=FText::FromString(TEXT("螺柱 M-14"));return true;}
@@ -99,6 +102,7 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
   Health=N->Health;MaxHealth=N->MaxHealth;
   if(N->ActorHasTag(TEXT("FacelessSecurity")))Name=FText::FromString(TEXT("安保员 M-03"));
   else if(N->ActorHasTag(TEXT("FacelessReceptionist")))Name=FText::FromString(TEXT("接待员 M-04"));
+  else if(N->ActorHasTag(TEXT("EcologyGardener")))Name=FText::FromString(TEXT("园艺师"));
   else if(N->ActorHasTag(TEXT("FacelessResearcher")))Name=FText::FromString(TEXT("研究员 M-05"));
   else Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));
   return true;
@@ -111,6 +115,7 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
 }
 bool UMonsterCombatComponent::IsDead() const
 {
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Dead();
  if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->Dead();
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->Dead();
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->Dead();
@@ -126,6 +131,7 @@ bool UMonsterCombatComponent::IsDead() const
 }
 bool UMonsterCombatComponent::IsControlled() const
 {
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Controlled();
  if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->Controlled();
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->Controlled();
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->State==EM14State::Stagger;
@@ -141,6 +147,7 @@ bool UMonsterCombatComponent::IsControlled() const
 }
 bool UMonsterCombatComponent::IsKnockedDown() const
 {
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->IsKnockedDown();
  if(const auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->Knockdown&&F->Knockdown->IsControlling();
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))return N->Knockdown&&N->Knockdown->IsControlling();
  return false;
@@ -148,6 +155,7 @@ bool UMonsterCombatComponent::IsKnockedDown() const
 bool UMonsterCombatComponent::IsBusy() const
 {
  if(IsDead()||IsControlled())return true;
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Busy();
  if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->Busy();
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->AttackBusy();
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->Busy();
@@ -163,6 +171,7 @@ bool UMonsterCombatComponent::IsBusy() const
 }
 void UMonsterCombatComponent::SetTarget(APawn* P)
 {
+ if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->SetTarget(P);
  if(auto* BC=Cast<ABoundCongregate>(GetOwner()))BC->SetTarget(P);
  if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->SetCombatTarget(P);
  if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->SetTarget(P);
@@ -178,6 +187,7 @@ void UMonsterCombatComponent::SetTarget(APawn* P)
 bool UMonsterCombatComponent::CanAttack(APawn* P) const
 {
  if(!IsValid(P)||IsBusy())return false;
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->CanAttack(P);
  if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->CanAttack(P);
  if(const auto* M27=Cast<AMantisM27Monster>(GetOwner()))return M27->CanStartMantisAttack(P);
  if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->CanAttackTarget(P);
@@ -201,6 +211,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
 bool UMonsterCombatComponent::TryAttack(APawn* P)
 {
  if(!GetOwner()->HasAuthority()||!CanAttack(P))return false;SetTarget(P);
+ if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->StartAttack(P);
  if(auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->StartAttack(P);
  if(auto* M27=Cast<AMantisM27Monster>(GetOwner());M27&&M27->WantsPounce(P))return M27->StartPounce(P);
  if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->StartAttack(P);
@@ -239,19 +250,20 @@ void UMonsterCombatComponent::SetLocomotion(bool Moving,bool Returning)
  if(auto* N=Cast<ANurseZombie>(GetOwner())){auto S=Moving?ENurseState::Chase:ENurseState::Idle;if(N->State!=S)N->SetState(S);}
  if(auto* H=Cast<AHandBrainMonster>(GetOwner())){auto S=Moving?(Returning?EHandBrainState::Returning:EHandBrainState::Chase):EHandBrainState::Idle;if(H->State!=S)H->SetState(S);}
 }
-float UMonsterCombatComponent::AggroRange() const{if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->AggroRadius;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->AggroRadius;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->AggroRadius;
+float UMonsterCombatComponent::AggroRange() const{if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->AggroRadius;if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->AggroRadius;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->AggroRadius;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->AggroRadius;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->AggroRadius;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->AggroRadius;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->AggroRadius;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->AggroRadius;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->AggroRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->AggroRadius;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->AggroRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->AggroRadius;return 0;}
-float UMonsterCombatComponent::LeashRange() const{if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->LeashRadius;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->LeashRadius;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->LeashRadius;
+float UMonsterCombatComponent::LeashRange() const{if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->LeashRadius;if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->LeashRadius;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->LeashRadius;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->LeashRadius;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->LeashRadius;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->LeashRadius;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->LeashRadius;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->LeashRadius;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->LeashRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->LeashRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->LeashRadius;return 2400;}
-float UMonsterCombatComponent::StopRange() const{if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->BiteTriggerRange-15.f;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->StoppingDistance;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->AttackStopRange();
+float UMonsterCombatComponent::StopRange() const{if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->CombatStoppingRange();if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->BiteTriggerRange-15.f;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->StoppingDistance;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->AttackStopRange();
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return 180.f;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->BiteTriggerRange-15.f;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return FMath::Clamp(S->MeleeRange-35.f,80.f,155.f);if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->bMinion?5.f:F->HammerRange*.8f;if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return FMath::Max(40.f,Witch->SpellRange*.75f);if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))return M07->CombatStoppingRange();if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
-FVector UMonsterCombatComponent::Home() const{if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->Home;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->Home;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->Home;
+FVector UMonsterCombatComponent::Home() const{if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Home;if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->Home;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->Home;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->Home;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->Home;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->Home;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->Home;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->Home;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->Home;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
 void UMonsterCombatComponent::ReachedHome(){if(auto* M25=Cast<AVortexCofferM25>(GetOwner());M25&&!M25->Dead())M25->Health=M25->MaxHealth;
+if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner());Crown&&!Crown->Dead()){Crown->Health=Crown->MaxHealth;Crown->ForceNetUpdate();}
 if(auto* BC=Cast<ABoundCongregate>(GetOwner());BC&&!BC->Dead())BC->Health=BC->MaxHealth;
 if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->Health=M14->MaxHealth;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->Health=M09->MaxHealth;
@@ -323,6 +335,7 @@ void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker,EMonsterAt
  // 破韧按破韧时长失能；可选的次阈值硬直沿用原短硬直时长。
  if(!bStunned)bParryReaction=false;
  const float Duration=(bBreak?ToughnessBreakSeconds:StaggerDuration)*IncomingHitReactionMultiplier;
+ if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->InterruptAttack(FMath::Max(Remaining,Duration));
  if(auto* BC=Cast<ABoundCongregate>(GetOwner()))BC->InterruptAttack(FMath::Max(Remaining,Duration));
  if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(FMath::Max(Remaining,Duration));
  if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->InterruptAttack(FMath::Max(Remaining,Duration));
@@ -348,7 +361,8 @@ void UMonsterCombatComponent::ApplyToughnessReaction(float Seconds)
  // Only the additional poise reaction is bounded by the broken window.
  TGuardValue<bool> Scope(bApplyingToughnessReaction,true);
  ToughnessReactionUntil=ToughnessClock()+Seconds;
- if(auto* BC=Cast<ABoundCongregate>(GetOwner()))BC->InterruptAttack(Seconds);
+ if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->InterruptAttack(Seconds);
+ else if(auto* BC=Cast<ABoundCongregate>(GetOwner()))BC->InterruptAttack(Seconds);
  else if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
  else if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->InterruptAttack(Seconds);
  else if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
@@ -372,7 +386,8 @@ void UMonsterCombatComponent::BeginReaction(float Duration)
  if(auto* C=Cast<ACharacter>(GetOwner()))
  {
   if(auto* AI=Cast<AMonsterAIController>(C->GetController())){AI->StopMovement();AI->UpdateKnowledge();}
-  if(auto* BC=Cast<ABoundCongregate>(C))BC->StartHitPresentation();
+  if(C->IsA<ARootCrownRigPreview>()) {} // Replicated slash state fades through the native player.
+  else if(auto* BC=Cast<ABoundCongregate>(C))BC->StartHitPresentation();
   else if(auto* M25=Cast<AVortexCofferM25>(C))M25->StartHitPresentation();
  else if(auto* M14=Cast<ASpiralPillarM14>(C))M14->StartHitPresentation();
  else if(auto* M09=Cast<AHangingBellM09>(C))M09->StartHitPresentation();
@@ -406,6 +421,7 @@ void UMonsterCombatComponent::FinishReaction()
  ClearHumanoidStun();
  ExplicitStunUntil=0.0;bStunned=false;bParryReaction=false;
  if(GetOwner()->HasAuthority()){NetStunEndsAt=0.;NetStunSeconds=0.f;}
+ if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->FinishHitReaction();
  if(auto* BC=Cast<ABoundCongregate>(GetOwner()))BC->FinishHitReaction();
  if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->FinishHitReaction();
  if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->FinishHitReaction();
@@ -461,6 +477,7 @@ void UMonsterCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
 }
 void UMonsterCombatComponent::UpdateReactionPresentation()
 {
+ if(GetOwner()->IsA<ARootCrownRigPreview>())return; // The native graph follows its replicated reaction clock.
  if(UpdateHumanoidStun(ReactionTime,ReactionDuration-ReactionTime))return;
  // Parry starts at the existing recoil's impact pose, not its neutral lead-in.
  // Only presentation is offset; the full control duration remains unchanged.

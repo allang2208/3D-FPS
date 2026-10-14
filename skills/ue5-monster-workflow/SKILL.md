@@ -12,3 +12,5 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
 
 鼓囊 M-09 的原骨架动作、单时钟抛射、屏边爆炸方向提示、事件音效和混合版本恢复读 [鼓囊与爆炸物提示](references/bellow-sac-lobber.md)。其制作与构建状态不代表游戏验收；逐足地形适配继续看 [M 系列移动与动作时钟](references/m-series-locomotion.md)。
+
+根冠的原生动画图、攻击时钟、地雷命中和混合版本恢复读 [根冠接入经验](references/root-crown-native-animation.md)；园艺师实体服装见 [无面职员衣物](references/faceless-staff-clothing.md)。

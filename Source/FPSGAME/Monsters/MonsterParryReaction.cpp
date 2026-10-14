@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "RootCrownRigPreview.h"
 #include "VortexCofferM25.h"
 #include "M10Mawcrawler.h"
 #include "SpiralPillarM14.h"
@@ -30,7 +31,8 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
     RegisterExplicitStun(Seconds);
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
     if(!UsesToughnessBar()){Toughness=0.f;SinceHit=0.f;PublishToughnessState();}
-    if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
+    if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->InterruptAttack(Seconds);
+    else if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
     else if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->InterruptAttack(Seconds);
     else if(auto* M09=Cast<AHangingBellM09>(GetOwner()))M09->InterruptAttack(Seconds);
     else if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))M10->InterruptAttack(Seconds);

@@ -1,0 +1,39 @@
+根冠：上方扇叶针射与白色铡击弧线（2026-10-14）
+
+按用户反馈制作
+骨针发射点移到上方扇叶；增强发射摆动；冠缘铡击增加与当前攻击判定范围对应的白色弧线冲击特效。
+
+上方扇叶发射点
+从原来的 Crown_03 / 06 / 09 Flex 中段改为 Crown_04 / 06 / 07 Rim 上缘。
+从原网格上选取实际前表面顶点，保存参考网格坐标；运行时使用 UE 实际参考骨架换算骨骼局部偏移。
+发射时由对应 Rim 骨的当前姿态驱动，再向前移 4 cm，随上方扇叶一起摆动。
+生成的三处参考点在 RootCrownNeedleOutlets.h，制作来源在 Exports/NeedlesV02/outlets.json。
+起手视线、第一轮锁定及三轮发射共用新的 NeedleMuzzle；原弹体扫掠、墙体遮挡、射程和每轮伤害去重保留。
+
+针射动画 V02
+Base / Flex / Rim 的局部弯折幅度系数从 1.5 / 4.5 / 6.5 度改为 4 / 10 / 17 度。
+上半身增加左右摇摆，扇叶按不同延迟依次弹出、回弹和衰减余震。
+保持原三足支撑目标、网格与权重；不更换肉质材质、骨针模型或音效。
+总时长仍为 2.8 秒，三轮释放时刻仍为 1.4 / 1.7 / 2.0 秒，首轮锁定后不追踪目标移动。
+制作命令：Tools/RootCrown/author_needles.py --upper-fan。
+
+白色弧线
+用低面数动态条带呈现白色亮芯与柔和外沿，随砸落运动出现。
+中心线直接读取 SlashFrames，经同一个 SlashPointWorld 转换；宽度由 SlashHitRadius 决定。
+沿用当前 2 倍水平扩展、44 cm 接触半径及前方角度／距离限制，不单独估计一套特效半径。
+弧线使用原复制动作时钟，在接触窗口中按作者采样帧更新；最后一帧后原地淡出 0.22 秒。
+墙壁和关闭的门裁去被遮挡的弧线部分，材质保留深度遮挡；打断立即隐藏。
+每只怪物复用一个无碰撞、无阴影的动态网格；专用服务器不创建表现组件。
+此特效不额外造成伤害，也不改变现有铡击伤害、冷却或砸落速度。
+
+制作与接入
+Source/FPSGAME/Monsters/RootCrownSlashArc.cpp：弧线运行时表现。
+Tools/RootCrown/install_upper_fan_arc.py：针射 V02、白色弧线材质及原蓝图的导入保存。
+SourceAssets/RootCrown20261014/Authored/RootCrown_NeedleFanV02.blend：可编辑动作源。
+/Game/Monsters/RootCrown/NeedlesV02/A_RootCrown_NeedleFan_V02：新版针射动画。
+/Game/Monsters/RootCrown/SlashVfxV01/M_RootCrownWhiteArc：白色弧线材质。
+保留现有 F6“根冠（铡击·针射）”入口和快速 CrownSlash V02。
+
+构建与保存回执：SourceAssets/RootCrown20261014/Reports/upper_fan_arc_delivery.json。
+FPSGAMEEditor 与 FPSGAME 的 Win64 Development 构建已成功；后台 D3D12 SM6 导入退出码 0，已保存新版动画、骨架、白色弧线材质及原蓝图，共 4 个资产。
+按用户规则不运行游戏、联机测试、试听、截图或验收渲染；表现由用户测试。

@@ -1,4 +1,5 @@
 #include "ColdSteelSkillRules.h"
+#include "../Monsters/RootCrownRigPreview.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
 #include "../Weapons/DealerEnchantmentComponent.h"
 #include "MeleeToughnessTuning.h"
@@ -345,7 +346,9 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     // yield entirely to the existing death/ragdoll presentation.
     if(bFirearmContact&&bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
         &&Victim->HasAuthority()&&!Combat->IsDead())
-        if(const auto* Character=Cast<ACharacter>(Victim))
+        if(auto* Crown=Cast<ARootCrownRigPreview>(Victim))
+            Crown->PresentGunContact(Hit,Direction,FMath::Max(Applied,1.f));
+        else if(const auto* Character=Cast<ACharacter>(Victim))
             if(auto* Mesh=Cast<UMonsterIdleBreathingMeshComponent>(Character->GetMesh()))
                 Mesh->AddGunHitFeedback(Hit,Direction,FMath::Max(Applied,1.f));
     // One contact, one captured ammo effect. Armor reducing the direct damage

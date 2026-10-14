@@ -28,6 +28,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("FacelessReceptionist"), TEXT("接待员 M-04"), TEXT("/Game/Monsters/FacelessReceptionist/BP_FacelessReceptionist.BP_FacelessReceptionist_C"), 44.f);
     Add(TEXT("FacelessSecurity"), TEXT("安保员 M-03"), TEXT("/Game/Monsters/FacelessSecurity/BP_FacelessSecurity.BP_FacelessSecurity_C"), 44.f);
     Add(TEXT("FacelessResearcher"), TEXT("研究员 M-05"), TEXT("/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C"), 44.f);
+    Add(TEXT("EcologyGardener"), TEXT("园艺师"), TEXT("/Game/Monsters/EcologyGardener/BP_EcologyGardener.BP_EcologyGardener_C"), 44.f);
     Add(TEXT("SpitterZombie"), TEXT("毒液僵尸"), TEXT("/Game/Monsters/SpitterZombie/BP_SpitterZombie.BP_SpitterZombie_C"), 44.f);
     Add(TEXT("WitchRebuilt"), TEXT("巫婆"), TEXT("/Script/FPSGAME.WitchRebuiltMonster"), 65.f);
     Add(TEXT("BlindSupplicantM07"), TEXT("盲祷者 M-07"), TEXT("/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C"), 100.f);
@@ -43,6 +44,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("SpiralPillarM14"), TEXT("螺柱 M-14"), TEXT("/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C"), 125.f);
     Add(TEXT("BoundCongregate"), TEXT("缚群 M-88"), TEXT("/Game/Monsters/BoundCongregate/BP_BoundCongregate.BP_BoundCongregate_C"), 225.f);
     Add(TEXT("BellowSacLobber"), TEXT("鼓囊 M-09"), TEXT("/Game/Monsters/BellowSacLobber/BP_BellowSacLobber.BP_BellowSacLobber_C"), 135.f);
+    Add(TEXT("RootCrownRig"), TEXT("根冠 M-01"), TEXT("/Game/Monsters/RootCrown/BP_RootCrownRigPreview.BP_RootCrownRigPreview_C"), 225.f);
     Add(TEXT("Wolf"), TEXT("野狼"), TEXT("/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"), 100.f);
     Add(TEXT("ZombieDog"), TEXT("僵尸犬"), TEXT("/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"), 100.f);
     Add(TEXT("InfectedDog"), TEXT("感染犬"), TEXT("/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C"), 100.f);

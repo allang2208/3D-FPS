@@ -19,7 +19,7 @@ protected:
     virtual bool IsValidToEvaluate(const USkeleton*, const FBoneContainer& Bones) override;
     virtual void EvaluateSkeletalControl_AnyThread(FComponentSpacePoseContext& Output, TArray<FBoneTransform>& Out) override;
 private:
-    enum class ERig : uint8 { None, Biped, RootFan, Tendrils };
+    enum class ERig : uint8 { None, Biped, RootFan, Tendrils, Tripod };
     struct FLimb
     {
         FBoneReference Upper, Lower, Foot;

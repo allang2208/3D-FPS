@@ -1,0 +1,574 @@
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunEcology.cpp b/Source/FPSGAME/Dungeons/DungeonRunEcology.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunEcology.cpp
+@@ -0,0 +1,44 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "Engine/World.h"
++
++void UDungeonRunSubsystem::BindEcologyTheme(AAuthoredDungeonGenerator* InGenerator)
++{
++    TArray<int32> EcologyRooms;
++    for (const auto& Node:Nodes)
++        if (AFacilityHallEncounter::IsEcology(Node.Module)) EcologyRooms.Add(Node.Id);
++    if (EcologyRooms.IsEmpty()) return;
++    TArray<int32> AreaRooms=EcologyRooms;
++    // Follow complete connector chains; internal sleeves/stairs stay in the
++    // same area even if the generated route reverses this theme's orientation.
++    for (const auto& Node:Nodes) if (Node.bConnector)
++    {
++        TArray<int32> Neighbors;CollectNeighborRooms(Node.Id,Neighbors);
++        if (Neighbors.Num()>=2 && !Neighbors.ContainsByPredicate([&EcologyRooms](int32 Id){return !EcologyRooms.Contains(Id);}))
++            AreaRooms.Add(Node.Id);
++    }
++    TArray<FDungeonRunDoor> Boundaries;
++    for (const auto& Node:Nodes) if (EcologyRooms.Contains(Node.Id))
++        for (const auto& Door:Node.Doors)
++            if (!AreaRooms.Contains(Door.Neighbor)) Boundaries.Add(Door);
++    if (EcologyRooms.Num()==3 && Boundaries.Num()==2)
++    {
++        FActorSpawnParameters Params;Params.Owner=InGenerator;Params.ObjectFlags|=RF_Transient;
++        auto* Area=GetWorld()->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,Params);
++        if (Area && Area->Configure(this,InGenerator,AreaRooms,Boundaries,EDungeonThemeObjective::EcologyBoss)) EcologyTheme=Area;
++        else if (Area) Area->Destroy();
++    }
++    if (!EcologyTheme.IsValid())
++        UE_LOG(LogTemp,Error,TEXT("[EcologyEncounter] Expected three ecology rooms and two outer boundaries; rooms=%d boundaries=%d"),EcologyRooms.Num(),Boundaries.Num());
++}
++
++bool UDungeonRunSubsystem::IsEcologyBossDefeated() const
++{
++    if (!bActive || !Generator.IsValid()) return false;
++    if (GetWorld()->GetNetMode()==NM_Client) return bNetworkEcologyBossDefeated;
++    for (const auto& Encounter:HallEncounters)
++        if (Encounter.IsValid() && Encounter->IsEcologyBossDefeated()) return true;
++    return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp
+@@ -0,0 +1,120 @@
++#include "FacilityHallEncounter.h"
++#include "../Monsters/RootCrownRigPreview.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/SpiralPillarM14.h"
++#include "GameFramework/PlayerController.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
++
++namespace
++{
++constexpr int32 Gardener=0,Spiral=1,Crown=2;
++float Footprint(int32 Member) { return Member==Crown ? 225.f : Member==Spiral ? 125.f : 44.f; }
++// Room-local UE centimetres. These are dry floors; Blender source Y is negated.
++const FBox NurseryFloors[]={
++    FBox(FVector(-1100,100,0),FVector(1050,650,0)),
++    FBox(FVector(-950,-220,0),FVector(950,100,0)),
++    FBox(FVector(-550,-680,0),FVector(950,-250,0))
++};
++const FBox HydroFloors[]={
++    FBox(FVector(-1950,-150,0),FVector(-1250,950,0)),
++    FBox(FVector(1250,-150,0),FVector(1950,950,0)),
++    FBox(FVector(-1150,650,0),FVector(1150,980,0)),
++    FBox(FVector(-1300,-1400,240),FVector(1300,-1000,240))
++};
++const FVector HydroSpirals[]={FVector(-1575,450,0),FVector(1575,450,0),FVector(-650,800,0),FVector(650,800,0)};
++const FVector BiosphereSpirals[]={FVector(-1000,1300,0),FVector(1000,1300,0)};
++}
++
++bool AFacilityHallEncounter::IsEcology(const FString& Module)
++{
++    return Module==TEXT("EcoNursery") || Module==TEXT("EcoHydroponics") || Module==TEXT("EcoBiosphere");
++}
++
++TArray<FString> AFacilityHallEncounter::EcologyMonsterClassPaths()
++{
++    return {
++        TEXT("/Game/Monsters/EcologyGardener/BP_EcologyGardener.BP_EcologyGardener_C"),
++        TEXT("/Game/Monsters/SpiralPillarM14/BP_SpiralPillarM14.BP_SpiralPillarM14_C"),
++        TEXT("/Game/Monsters/RootCrown/BP_RootCrownRigPreview.BP_RootCrownRigPreview_C")
++    };
++}
++
++bool AFacilityHallEncounter::IsEcologyBossDefeated() const
++{
++    return Slots.IsValidIndex(EcologyBossSlot) && Slots[EcologyBossSlot].bDefeated;
++}
++
++void AFacilityHallEncounter::ConfigureEcology()
++{
++    const UClass* Expected[]={ANurseZombie::StaticClass(),ASpiralPillarM14::StaticClass(),ARootCrownRigPreview::StaticClass()};
++    for (const FString& Path:EcologyMonsterClassPaths())
++    {
++        UClass* Class=FSoftClassPath(Path).ResolveClass();
++        if (!Class || !Class->IsChildOf(Expected[Members.Num()]))
++        { UE_LOG(LogTemp,Error,TEXT("[EcologyEncounter] Missing prepared class %s"),*Path); return; }
++        Members.Add(Class);
++    }
++    const uint32 Salt=Run->NodeRandomSalt(Room.Id);
++    FRandomStream Composition(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnComposition ^ Salt)));
++    Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement ^ Salt)));
++    const bool Biosphere=Room.Module==TEXT("EcoBiosphere"),Hydro=Room.Module==TEXT("EcoHydroponics");
++    if (Biosphere)
++    {
++        EcologyBossSlot=Slots.Num();auto& Boss=Slots.AddDefaulted_GetRef();Boss.Member=Crown;Boss.bEcologyBoss=true;
++    }
++    const int32 SpiralCount=Biosphere ? 2 : Hydro ? 4 : 0;
++    for (int32 I=0;I<SpiralCount;++I)
++    { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=Spiral;Slot.EcologyPosition=I; }
++    const int32 GardenerCount=Biosphere ? 0 : Composition.RandRange(6,8);
++    for (int32 I=0;I<GardenerCount;++I)
++    { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=Gardener;Slot.EcologyPosition=I; }
++    FirstWaveCount=Slots.Num();bSecondWave=true;
++    GetWorldTimerManager().SetTimer(EncounterTimer,this,&AFacilityHallEncounter::UpdateEncounter,.2f,true);
++    UE_LOG(LogTemp,Log,TEXT("[EcologyEncounter] %s gardeners=%d spirals=%d root_crown=%d single_wave=1"),*Room.Module,GardenerCount,SpiralCount,Biosphere?1:0);
++}
++
++bool AFacilityHallEncounter::FindEcologySpawn(const FFacilityHallSlot& Slot,const ACharacter* Defaults,FVector& Location,FRotator& Facing)
++{
++    const FTransform Transform(FRotator(0,Room.Yaw,0),Room.Origin);
++    const float Radius=Footprint(Slot.Member);
++    const bool Hydro=Room.Module==TEXT("EcoHydroponics");
++    // UE centimetres (authoring Blender Y is negated). This broad ground-floor
++    // apron is west of the garden, east of the entry, and south of the office.
++    // Keep the 4.5 m footprint clear of the stair at x=-1220, trees and upper chest.
++    // Try the authored center first, then retry within the same clear apron.
++    for (int32 Attempt=0;Attempt<12;++Attempt)
++    {
++        FVector Local;
++        if (Slot.bEcologyBoss)
++            Local=Attempt==0 ? FVector(-1725,-250,0)
++                : FVector(Placement.FRandRange(-1900.f,-1550.f),Placement.FRandRange(-450.f,-80.f),0);
++        else if (Slot.Member==Spiral)
++        {
++            Local=Hydro ? HydroSpirals[Slot.EcologyPosition] : BiosphereSpirals[Slot.EcologyPosition];
++            if (Attempt>0) Local+=FVector(Placement.FRandRange(-85.f,85.f),Placement.FRandRange(-65.f,65.f),0);
++        }
++        else
++        {
++            const FBox& Floor=Hydro ? HydroFloors[Slot.EcologyPosition%UE_ARRAY_COUNT(HydroFloors)]
++                : NurseryFloors[Slot.EcologyPosition%UE_ARRAY_COUNT(NurseryFloors)];
++            const float Margin=Radius+25.f;
++            Local=FVector(Placement.FRandRange(Floor.Min.X+Margin,Floor.Max.X-Margin),
++                Placement.FRandRange(Floor.Min.Y+Margin,Floor.Max.Y-Margin),Floor.Min.Z);
++        }
++        const FVector Candidate=Transform.TransformPosition(Local);
++        bool Occupied=false;
++        for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if (const APawn* Player=It->Get() ? It->Get()->GetPawn().Get() : nullptr)
++                Occupied |= FMath::Abs(Player->GetNavAgentLocation().Z-Candidate.Z)<180.f
++                    && FVector::DistSquared2D(Player->GetActorLocation(),Candidate)<FMath::Square(Slot.bEcologyBoss ? 600. : 450.);
++        for (const auto& Other:Slots) if (Other.Monster.IsValid())
++            Occupied |= FMath::Abs(Other.Monster->GetNavAgentLocation().Z-Candidate.Z)<120.f
++                && FVector::DistSquared2D(Other.Monster->GetActorLocation(),Candidate)<FMath::Square(Radius+Footprint(Other.Member)+80.f);
++        if (Occupied || !FindSpawn(Defaults,Candidate,Location,Radius)) continue;
++        Facing=FRotator(0,Room.Yaw+(Slot.bEcologyBoss ? 0.f : Placement.FRandRange(-180.f,180.f)),0);
++        return true;
++    }
++    // No forced spawn through geometry, and failed placement never counts as a kill.
++    return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+--- a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
++++ b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+@@ -13,0 +14 @@
++    UPROPERTY() bool bMedicalBossDefeated = false;
+@@ -14,0 +16 @@
++    UPROPERTY() bool bEcologyBossDefeated = false;
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+@@ -34,0 +35 @@
++    State.bMedicalBossDefeated=IsMedicalBossDefeated();
+@@ -35,0 +37 @@
++    State.bEcologyBossDefeated=IsEcologyBossDefeated();
+@@ -49,0 +52 @@
++    bNetworkMedicalBossDefeated=State.bMedicalBossDefeated;
+@@ -50,0 +54 @@
++    bNetworkEcologyBossDefeated=State.bEcologyBossDefeated;
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -105,0 +106 @@
++    bool IsMedicalBossDefeated() const;
+@@ -106,0 +108 @@
++    bool IsEcologyBossDefeated() const;
+@@ -161,0 +164 @@
++    bool bNetworkMedicalBossDefeated=false;
+@@ -162,0 +166 @@
++    bool bNetworkEcologyBossDefeated=false;
+@@ -169,0 +174 @@
++    TWeakObjectPtr<class ADungeonThemeEncounter> MedicalTheme;
+@@ -171,0 +177,2 @@
++    TWeakObjectPtr<class ADungeonThemeEncounter> EcologyTheme;
++    void BindEcologyTheme(AAuthoredDungeonGenerator* InGenerator);
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -56 +56,3 @@
+-            const bool Passed=AFacilityHallEncounter::IsFreight(Node.Module) ? IsFreightBossDefeated()
++            const bool Passed=AFacilityHallEncounter::IsMedical(Node.Module) ? IsMedicalBossDefeated()
++                : AFacilityHallEncounter::IsFreight(Node.Module) ? IsFreightBossDefeated()
++                : AFacilityHallEncounter::IsEcology(Node.Module) ? IsEcologyBossDefeated()
+@@ -122,0 +125,34 @@
++        TArray<int32> MedicalRooms;
++        TArray<FDungeonRunDoor> MedicalBoundaries;
++        for (const auto& Node:Nodes)
++            if (AFacilityHallEncounter::IsMedical(Node.Module)) MedicalRooms.Add(Node.Id);
++        // Include only connectors whose two endpoints belong to this theme.
++        TArray<int32> MedicalAreaRooms=MedicalRooms;
++        for (const auto& Node:Nodes) if (Node.bConnector)
++        {
++            TArray<int32> Neighbors; CollectNeighborRooms(Node.Id,Neighbors);
++            if (Neighbors.Num()>=2 && !Neighbors.ContainsByPredicate([&MedicalRooms](int32 Id){return !MedicalRooms.Contains(Id);}))
++                MedicalAreaRooms.Add(Node.Id);
++        }
++        for (const auto& Node:Nodes)
++        {
++            // Only the doctor's Entry (+Y) and theatre's Service (+X) face
++            // outside the medical area. Internal room/corridor doors stay free.
++            // Use authored normals: graph depth reverses near the branch merge.
++            FVector LocalOutward;
++            if (Node.Module==TEXT("MedicalDoctorOffice")) LocalOutward=FVector::RightVector;
++            else if (Node.Module==TEXT("AbandonedAnatomyTheatre")) LocalOutward=FVector::ForwardVector;
++            else continue;
++            const FVector Outward=FRotator(0,Node.Yaw,0).RotateVector(LocalOutward);
++            for (const auto& Door:Node.Doors)
++                if (FVector::DotProduct(Door.OutwardNormal,Outward)>.9)
++                    MedicalBoundaries.Add(Door);
++        }
++        if (MedicalRooms.Num()==3 && MedicalBoundaries.Num()==2)
++        {
++            auto* Area=World->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,ThemeParams);
++            if (Area && Area->Configure(this,InGenerator,MedicalAreaRooms,MedicalBoundaries,EDungeonThemeObjective::MedicalBoss)) MedicalTheme=Area;
++            else if (Area) Area->Destroy();
++        }
++        if (!MedicalRooms.IsEmpty() && !MedicalTheme.IsValid())
++            UE_LOG(LogTemp,Error,TEXT("[MedicalEncounter] Expected three medical rooms and two outer boundaries; rooms=%d boundaries=%d"),MedicalRooms.Num(),MedicalBoundaries.Num());
+@@ -123,0 +160 @@
++        BindEcologyTheme(InGenerator);
+@@ -127 +164,3 @@
+-            ADungeonThemeEncounter* Area=AFacilityHallEncounter::IsFreight(Node.Module) ? FreightTheme.Get()
++            ADungeonThemeEncounter* Area=AFacilityHallEncounter::IsMedical(Node.Module) ? MedicalTheme.Get()
++                : AFacilityHallEncounter::IsFreight(Node.Module) ? FreightTheme.Get()
++                : AFacilityHallEncounter::IsEcology(Node.Module) ? EcologyTheme.Get()
+@@ -157,0 +197,2 @@
++    if (MedicalTheme.IsValid()) MedicalTheme->Destroy();
++    MedicalTheme.Reset();
+@@ -159,0 +201,2 @@
++    if (EcologyTheme.IsValid()) EcologyTheme->Destroy();
++    EcologyTheme.Reset();
+@@ -168 +211 @@
+-    bNetworkEliteDefeated=false;bNetworkFreightBossDefeated=false;bNetworkPowerBossDefeated=false;SharedProgressMirror={};RoomsWithDefeats.Reset();
++    bNetworkEliteDefeated=false;bNetworkMedicalBossDefeated=false;bNetworkFreightBossDefeated=false;bNetworkEcologyBossDefeated=false;bNetworkPowerBossDefeated=false;SharedProgressMirror={};RoomsWithDefeats.Reset();
+@@ -475,0 +519,8 @@
++bool UDungeonRunSubsystem::IsMedicalBossDefeated() const
++{
++    if (!bActive || !Generator.IsValid()) return false;
++    if (GetWorld()->GetNetMode()==NM_Client) return bNetworkMedicalBossDefeated;
++    for (const auto& Encounter:HallEncounters)
++        if (Encounter.IsValid() && Encounter->IsMedicalBossDefeated()) return true;
++    return false;
++}
+@@ -526,0 +578,11 @@
++    else if (AFacilityHallEncounter::IsMedical(Room->Module))
++    {
++        Out.Stage=FText::FromString(TEXT("区域首领"));
++        Objective.Id=TEXT("medical.bound_congregate");
++        Objective.Text=FText::FromString(TEXT("击杀医疗区首领：缚群"));
++        Objective.Current=IsMedicalBossDefeated() ? 1 : 0;
++        Objective.Target=1;
++        Objective.State=Objective.Current==1 ? ETrackedObjectiveState::Completed : ETrackedObjectiveState::Active;
++        Out.Hint=FText::FromString(Objective.Current==1 ? TEXT("医疗区已通过 · 前往下一片区域")
++            : TEXT("缚群位于第三间大厅 · 击败后开启区域出口"));
++    }
+@@ -536,0 +599,11 @@
++    }
++    else if (AFacilityHallEncounter::IsEcology(Room->Module))
++    {
++        Out.Stage=FText::FromString(TEXT("区域首领"));
++        Objective.Id=TEXT("ecology.root_crown");
++        Objective.Text=FText::FromString(TEXT("击杀生态区首领：根冠 M-01"));
++        Objective.Current=IsEcologyBossDefeated() ? 1 : 0;
++        Objective.Target=1;
++        Objective.State=Objective.Current==1 ? ETrackedObjectiveState::Completed : ETrackedObjectiveState::Active;
++        Out.Hint=FText::FromString(Objective.Current==1 ? TEXT("生态区已通过 · 来路与出口已开放")
++            : TEXT("根冠 M-01 位于第三间失控生态舱 · 击败后开启区域两端闸门"));
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+@@ -18 +18 @@
+-    const TArray<int32>& InRooms, const TArray<FDungeonRunDoor>& Exits)
++    const TArray<int32>& InRooms, const TArray<FDungeonRunDoor>& Boundaries, EDungeonThemeObjective InObjective)
+@@ -20,2 +20,2 @@
+-    if (!HasAuthority() || !InRun || !InGenerator || InRooms.IsEmpty() || Exits.IsEmpty()) return false;
+-    Run = InRun; Generator = InGenerator; Rooms = InRooms;
++    if (!HasAuthority() || !InRun || !InGenerator || InRooms.IsEmpty() || Boundaries.IsEmpty()) return false;
++    Run = InRun; Generator = InGenerator; Rooms = InRooms; Objective = InObjective;
+@@ -23 +23 @@
+-    for (const auto& Door : Exits)
++    for (const auto& Door : Boundaries)
+@@ -31 +31,6 @@
+-        Gate->Tags.AddUnique(TEXT("DungeonTheme.Exit"));
++        Gate->Tags.AddUnique(UsesBoundaryAdmission() ? TEXT("DungeonTheme.Boundary") : TEXT("DungeonTheme.Exit"));
++        if (UsesBoundaryAdmission())
++        {
++            Gate->SetEntryOnly(true);
++            AddTickPrerequisiteActor(Gate);
++        }
+@@ -34 +39 @@
+-    UE_LOG(LogTemp, Log, TEXT("[DungeonTheme] Area prepared: rooms=%d exits=%d"), Rooms.Num(), Gates.Num());
++    UE_LOG(LogTemp, Log, TEXT("[DungeonTheme] Area prepared: rooms=%d boundaries=%d"), Rooms.Num(), Gates.Num());
+@@ -55 +60,6 @@
+-        if (ContainsLocation(Player->GetActorLocation())) return Player;
++        if (!ContainsLocation(Player->GetActorLocation())) continue;
++        // Start only after one player's whole capsule has crossed a boundary.
++        // Other teammates can still be approaching or traversing that doorway.
++        if (UsesBoundaryAdmission() && Gates.ContainsByPredicate([Player](const ADungeonRoomGate* Gate)
++            { return Gate->IsSweepOccupied(Player); })) continue;
++        return Player;
+@@ -67,5 +77,6 @@
+-        // Reserve every player's capsule at an exit before beginning the fight.
+-        // Normally entry is in the reception hall, far from these three exits.
+-        for (auto It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+-            if (APawn* Player = It->Get() ? It->Get()->GetPawn().Get() : nullptr)
+-                for (const ADungeonRoomGate* Gate : Gates) if (Gate->IsSweepOccupied(Player)) return;
++        // Welcome exits close only when clear. Regional boss boundaries instead
++        // admit outside teammates individually while keeping inside players in.
++        if (!UsesBoundaryAdmission())
++            for (auto It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
++                if (APawn* Player = It->Get() ? It->Get()->GetPawn().Get() : nullptr)
++                    for (const ADungeonRoomGate* Gate : Gates) if (Gate->IsSweepOccupied(Player)) return;
+@@ -75 +86 @@
+-        UE_LOG(LogTemp, Log, TEXT("[DungeonTheme] Area entered: locked %d exits; all %d rooms required"), Gates.Num(), Rooms.Num());
++        UE_LOG(LogTemp, Log, TEXT("[DungeonTheme] Area entered: locked %d boundaries; objective=%s"), Gates.Num(),ObjectiveId());
+@@ -77,3 +88,10 @@
+-    // A room is clear only after its full composition, including pending wave 2,
+-    // has actually died. Leaving/dying and a single clear room never release us.
+-    for (int32 Id : Rooms) if (!Run->IsRoomCleared(Id)) return;
++    // Each region's designated enemy owns passage; surviving ordinary enemies
++    // do not keep the onward exits locked or fabricate a room-clear state.
++    if (!IsObjectiveDefeated())
++    {
++        if (UsesBoundaryAdmission())
++            for (const ADungeonRoomGate* Gate : Gates)
++                if (Gate->NetOpen != (Gate->WantsInboundOpening() ? 1.f : 0.f))
++                { SetActorTickEnabled(true); break; }
++        return;
++    }
+@@ -83 +101,16 @@
+-    UE_LOG(LogTemp, Log, TEXT("[DungeonTheme] Entire area cleared: opening %d exits"), Gates.Num());
++    UE_LOG(LogTemp, Log, TEXT("[DungeonTheme] Objective defeated: %s; opening %d boundaries"),ObjectiveId(),Gates.Num());
++}
++
++bool ADungeonThemeEncounter::IsObjectiveDefeated() const
++{
++    if (!Run.IsValid()) return false;
++    if (Objective==EDungeonThemeObjective::MedicalBoss) return Run->IsMedicalBossDefeated();
++    if (Objective==EDungeonThemeObjective::EcologyBoss) return Run->IsEcologyBossDefeated();
++    return Run->IsWelcomeEliteDefeated();
++}
++
++const TCHAR* ADungeonThemeEncounter::ObjectiveId() const
++{
++    if (Objective==EDungeonThemeObjective::MedicalBoss) return TEXT("medical.bound_congregate");
++    if (Objective==EDungeonThemeObjective::EcologyBoss) return TEXT("ecology.root_crown");
++    return TEXT("welcome.elite");
+@@ -88,0 +122,20 @@
++    if (UsesBoundaryAdmission())
++    {
++        bool bAllSettled = true;
++        for (ADungeonRoomGate* Gate : Gates)
++        {
++            const float Target = bCleared || Gate->WantsInboundOpening() ? 1.f : 0.f;
++            const float Fraction = FMath::FInterpConstantTo(Gate->NetOpen, Target, Dt,
++                1.f / float(DungeonRoomGateDimensions::TravelSeconds));
++            Gate->SetOpenFraction(Fraction);
++            bAllSettled &= Fraction == Target;
++        }
++        if (bAllSettled)
++        {
++            // An admission only lifts the panels; the directional barrier stays
++            // active. The boss releases both barriers together after both lifts.
++            if (bCleared) for (ADungeonRoomGate* Gate : Gates) Gate->SetEncounterLocked(false);
++            SetActorTickEnabled(false);
++        }
++        return;
++    }
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+@@ -9,0 +10 @@
++enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, EcologyBoss };
+@@ -11 +12 @@
+-/** One combat area spans several rooms. Room spawners own kills; this owns exit gates. */
++/** Room spawners own kills; each configured area's objective unlocks its boundary gates. */
+@@ -19 +20,2 @@
+-        const TArray<int32>& InRooms, const TArray<FDungeonRunDoor>& Exits);
++        const TArray<int32>& InRooms, const TArray<FDungeonRunDoor>& Boundaries,
++        EDungeonThemeObjective InObjective = EDungeonThemeObjective::WelcomeElite);
+@@ -27,0 +30,3 @@
++    bool UsesBoundaryAdmission() const { return Objective != EDungeonThemeObjective::WelcomeElite; }
++    bool IsObjectiveDefeated() const;
++    const TCHAR* ObjectiveId() const;
+@@ -35,0 +41 @@
++    EDungeonThemeObjective Objective = EDungeonThemeObjective::WelcomeElite;
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+@@ -19,0 +20 @@
++    bool bMedicalBoss = false;
+@@ -20,0 +22 @@
++    bool bEcologyBoss = false;
+@@ -25,0 +28,3 @@
++    bool bCeiling = false;
++    int32 MedicalPosition = INDEX_NONE;
++    int32 EcologyPosition = INDEX_NONE;
+@@ -71,0 +77,2 @@
++    static bool IsMedical(const FString& Module);
++    static TArray<FString> MedicalMonsterClassPaths();
+@@ -73,0 +81,2 @@
++    static bool IsEcology(const FString& Module);
++    static TArray<FString> EcologyMonsterClassPaths();
+@@ -81,0 +91 @@
++    bool IsMedicalBossDefeated() const;
+@@ -82,0 +93 @@
++    bool IsEcologyBossDefeated() const;
+@@ -100,0 +112,2 @@
++    void ConfigureMedical();
++    bool FindMedicalSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+@@ -109,0 +123,2 @@
++    void ConfigureEcology();
++    bool FindEcologySpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+@@ -143,0 +159,2 @@
++    int32 MedicalBossSlot = INDEX_NONE;
++    bool bMedical = false;
+@@ -150,0 +168,2 @@
++    int32 EcologyBossSlot = INDEX_NONE;
++    bool bEcology = false;
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -10,0 +11,2 @@
++#include "../Monsters/BoundCongregate.h"
++#include "../Monsters/HangingBellM09.h"
+@@ -12,0 +15 @@
++#include "../Monsters/RootCrownRigPreview.h"
+@@ -121 +124 @@
+-    if (!Node || (!IsHall(Node->Module) && !IsFreight(Node->Module) && !IsPower(Node->Module))) return;
++    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module))) return;
+@@ -126,0 +130,2 @@
++    bMedical = IsMedical(Room.Module);
++    if (bMedical) { ConfigureMedical(); return; }
+@@ -128,0 +134,2 @@
++    bEcology = IsEcology(Room.Module);
++    if (bEcology) { ConfigureEcology(); return; }
+@@ -278,0 +286 @@
++    if (bMedical) return FindMedicalSpawn(Slot, Defaults, Location, Facing);
+@@ -279,0 +288 @@
++    if (bEcology) return FindEcologySpawn(Slot, Defaults, Location, Facing);
+@@ -396,0 +406,6 @@
++    if (auto* Bell = Cast<AHangingBellM09>(Monster); Bell && bMedical) Bell->Rank = EMonsterRank::Normal;
++    if (Slot.bMedicalBoss)
++    {
++        CastChecked<ABoundCongregate>(Monster)->Rank = EMonsterRank::Lord;
++        Monster->Tags.AddUnique(TEXT("DungeonObjective.MedicalBoss"));
++    }
+@@ -400,0 +416,5 @@
++    }
++    if (Slot.bEcologyBoss)
++    {
++        CastChecked<ARootCrownRigPreview>(Monster)->Rank = EMonsterRank::Boss;
++        Monster->Tags.AddUnique(TEXT("DungeonObjective.EcologyBoss"));
+@@ -417 +437 @@
+-    Monster->Tags.AddUnique(bPower ? TEXT("FacilityPowerEnemy") : bFreight ? TEXT("FacilityFreightEnemy") : TEXT("FacilityHallEnemy"));
++    Monster->Tags.AddUnique(bPower ? TEXT("FacilityPowerEnemy") : bEcology ? TEXT("FacilityEcologyEnemy") : bFreight ? TEXT("FacilityFreightEnemy") : bMedical ? TEXT("FacilityMedicalEnemy") : TEXT("FacilityHallEnemy"));
+@@ -421 +441 @@
+-    if (!bFreight && !bPower && !Slot.bObjectiveElite)
++    if (!bMedical && !bFreight && !bEcology && !bPower && !Slot.bObjectiveElite)
+@@ -434 +454 @@
+-    if (bFreight || bPower || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || Slot.bObjectiveElite)
+@@ -441 +461 @@
+-    if (bFreight || bPower || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || Slot.bObjectiveElite)
+@@ -499 +519 @@
+-            if(Slot.bObjectiveElite || Slot.bFreightBoss || Slot.bPowerBoss)Run->PublishSharedProgress();
++            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss)Run->PublishSharedProgress();
+@@ -616 +636 @@
+-        UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s cleared: waves=%d kills=%d"), *Room.Module,(bFreight||bPower)?1:2,Slots.Num());
++        UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s cleared: waves=%d kills=%d"), *Room.Module,(bMedical||bFreight||bEcology||bPower)?1:2,Slots.Num());
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1016,0 +1017,7 @@
++        {return AFacilityHallEncounter::IsMedical(Plan.Modules[Piece.Module].Id);}))
++    {
++        for(const FString& Path:AFacilityHallEncounter::MedicalMonsterClassPaths())
++        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
++        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
++    }
++    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+@@ -1019,0 +1027,7 @@
++        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
++        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
++    }
++    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
++        {return AFacilityHallEncounter::IsEcology(Plan.Modules[Piece.Module].Id);}))
++    {
++        for(const FString& Path:AFacilityHallEncounter::EcologyMonsterClassPaths())
+@@ -1241 +1255,2 @@
+-            QueueJob({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned]()
++            const bool bMonsterDoors=AFacilityHallEncounter::IsMedical(Plan.Modules[Piece.Module].Id);
++            QueueJob({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned,bMonsterDoors]()
+@@ -1252 +1267 @@
+-                    [this](const FString& Path){return ResolveGenerationAsset(Path);});
++                    [this](const FString& Path){return ResolveGenerationAsset(Path);},bMonsterDoors);
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -1,0 +2,2 @@
++#include "../Monsters/RootCrownRigPreview.h"
++#include "../Monsters/RootCrownHitComponent.h"
+@@ -1162,0 +1165,7 @@
++    if(const auto* Crown=Cast<ARootCrownRigPreview>(Report.Target.Get()))
++    {
++        // Resolve against the authority's anatomical history. Client bone names
++        // cannot grant weakpoint crits. Existing melee capsule contacts remain body hits.
++        if(!Crown->HitDetection||!Crown->HitDetection->ResolveRemoteContact(
++            Report.AimOrigin,Report.ImpactPoint,Report.ClientFireTime,Shot.bMelee,Report.HitComponent,Hit))return;
++    }
+diff --git a/Source/FPSGAME/Monsters/MonsterAIController.cpp b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+--- a/Source/FPSGAME/Monsters/MonsterAIController.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+@@ -2,0 +3 @@
++#include "RootCrownRigPreview.h"
+@@ -175 +176 @@
+-   ||GetPawn()->IsA<ASpiralPillarM14>()||GetPawn()->IsA<AM10Mawcrawler>()
++   ||GetPawn()->IsA<ASpiralPillarM14>()||GetPawn()->IsA<AM10Mawcrawler>()||GetPawn()->IsA<ARootCrownRigPreview>()
+diff --git a/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp b/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp
+--- a/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp
++++ b/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp
+@@ -82,0 +83,5 @@
++    FDungeonSharedProgress OtherRegion=Authority,IndependentGuest;
++    ++OtherRegion.Revision;OtherRegion.bMedicalBossDefeated=true;
++    Require(IndependentGuest.ApplyNewer(OtherRegion,Authority.RunId)&&IndependentGuest.bMedicalBossDefeated
++        &&!IndependentGuest.bEcologyBossDefeated,
++        TEXT("a medical kill does not complete ecology for players on another branch"));
+@@ -84 +89 @@
+-    Authority.bFreightBossDefeated=true;
++    Authority.bMedicalBossDefeated=true;Authority.bFreightBossDefeated=true;Authority.bEcologyBossDefeated=true;
+@@ -100,0 +106,4 @@
++    Require(HostView.bEcologyBossDefeated&&GuestView.bEcologyBossDefeated&&Received.bEcologyBossDefeated,
++        TEXT("ecology boss completion survives serialization and is shared by host and guest"));
++    Require(!GuestView.ApplyNewer(BeforeKill,Authority.RunId)&&GuestView.bEcologyBossDefeated,
++        TEXT("late pre-kill progress cannot undo ecology completion"));
+@@ -103,0 +113 @@
++    Require(LateGuest.bEcologyBossDefeated,TEXT("late participant receives ecology boss completion after layout binding"));
+@@ -108 +118 @@
+-    Require(!GuestView.bFreightBossDefeated,
++    Require(!GuestView.bFreightBossDefeated&&!GuestView.bMedicalBossDefeated&&!GuestView.bEcologyBossDefeated,
