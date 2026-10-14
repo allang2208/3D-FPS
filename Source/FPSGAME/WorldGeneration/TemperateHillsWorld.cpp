@@ -393,9 +393,8 @@ bool ATemperateHillsWorld::IsGroundCoverMesh(const UStaticMesh* Mesh) const
         return false;
     };
     // Grass layers only. Trees are skeletal instances and rocks/shrubs are props, so
-    // they are never touched here. River-ecology cover joins this list once that
-    // (still uncommitted) workstream lands.
-    return Matches(Assets->Grass)||Matches(Assets->GrassAccents);
+    // they are never touched here. Meadow flowers are grass-layer cover too.
+    return Matches(Assets->Grass)||Matches(Assets->GrassAccents)||Matches(Assets->MeadowFlowers);
 }
 
 int32 ATemperateHillsWorld::DestroyGroundCover(const FVector& Center,double RadiusCm)
@@ -636,6 +635,13 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             if(IsProductionDepleted(1,P.CandidateId))continue;
             Out.Add(P);
         }
+    }
+    // Forest-floor deadwood and hillside cliffs reuse the same rock layer and
+    // bounds contract; each keeps its own candidate namespace (TemperateHillsDressing.cpp).
+    if(Layer==1)
+    {
+        GetForestFloorPlacements(Bounds,Out);
+        GetCliffPlacements(Bounds,Out);
     }
 }
 

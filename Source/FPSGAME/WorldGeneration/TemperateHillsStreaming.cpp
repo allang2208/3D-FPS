@@ -183,6 +183,8 @@ struct FTemperateHillsStreamingState
     TArray<TWeakObjectPtr<UTexture2D>> GroundTextures;
     TArray<HillsStreaming::FCVarOverride> CVars;
     TMap<int32,TWeakObjectPtr<AActor>> Fog;
+    // River mist keyed by centreline point index; separate lifecycle/density.
+    TMap<int32,TWeakObjectPtr<AActor>> RiverFog;
     struct FSurfaceHold
     {
         EMovementMode ResumeMode=MOVE_Falling;
@@ -310,11 +312,15 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
             HillsStreaming::AddPaths(Paths,Assets->RiverPebbles);
             HillsStreaming::AddPaths(Paths,Assets->RiverReeds);HillsStreaming::AddPaths(Paths,Assets->RiverBankGrasses);
             HillsStreaming::AddPaths(Paths,Assets->RiverUnderstory);
+            HillsStreaming::AddPaths(Paths,Assets->MeadowFlowers);
         }
         if(Stage==1)HillsStreaming::AddPaths(Paths,Assets->Shrubs);
         if(Stage==2)
         {
             HillsStreaming::AddPaths(Paths,Assets->Rocks);HillsStreaming::AddPaths(Paths,Assets->RiverRocks);
+            // Rock-layer dressing (deadwood, cliffs) shares this stage and radius.
+            HillsStreaming::AddPaths(Paths,Assets->FallenLogs);HillsStreaming::AddPaths(Paths,Assets->ForestRoots);
+            HillsStreaming::AddPaths(Paths,Assets->Cliffs);
             // Vein variants are selected in GetPlacements, not from the Rocks list, so
             // preload them here to avoid a synchronous mesh load on the first ore cell.
             for(const FString Name:{TEXT("Iron"),TEXT("Copper"),TEXT("Silver"),TEXT("Gold")})
@@ -333,6 +339,7 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
     else
     {
         Paths.Add(Assets->ValleyFogClass.ToSoftObjectPath());Paths.Add(Assets->ValleyFogMaterial.ToSoftObjectPath());
+        HillsStreaming::AddPaths(Paths,Assets->BackdropTrees);
         S.Status=FText::FromString(TEXT("正在准备谷地薄雾…"));
     }
     Paths.RemoveAll([](const FSoftObjectPath& P){return P.IsNull();});
@@ -351,7 +358,13 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
         }
         if(Stage<3)
         {
-            const bool Ready=Stage==0?(HillsStreaming::Loaded(Assets->Grass)&&HillsStreaming::Loaded(Assets->GrassAccents)):Stage==1?HillsStreaming::Loaded(Assets->Shrubs):HillsStreaming::Loaded(Assets->Rocks);
+            // Optional dressing arrays only gate when configured: an empty list
+            // means the pass is off, not that loading failed.
+            const auto OptionalLoaded=[](const TArray<TSoftObjectPtr<UStaticMesh>>& List)
+                {return List.IsEmpty()||HillsStreaming::Loaded(List);};
+            const bool Ready=Stage==0?(HillsStreaming::Loaded(Assets->Grass)&&HillsStreaming::Loaded(Assets->GrassAccents)&&OptionalLoaded(Assets->MeadowFlowers))
+                :Stage==1?HillsStreaming::Loaded(Assets->Shrubs)
+                :(HillsStreaming::Loaded(Assets->Rocks)&&OptionalLoaded(Assets->FallenLogs)&&OptionalLoaded(Assets->ForestRoots)&&OptionalLoaded(Assets->Cliffs));
             State.Failed=!(Ready&&Assets->Graphs[Layer].IsValid());
         }
         else if(Stage==6)
@@ -881,6 +894,30 @@ void ATemperateHillsWorld::BuildValleyFog()
 {
     auto& S=*Streaming;const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
     const FVector Center=Pawn?Pawn->GetActorLocation():GetStartLocation();
+    // Shared spawn: scale the fog BP's mesh to a footprint and give it a fresh
+    // dynamic material at zero density; the owning pool fades it in.
+    auto SpawnFog=[&](const FVector& Position,const FRotator& Rotation,const FVector& Footprint)->AActor*
+    {
+        FActorSpawnParameters Params;Params.Owner=this;
+        auto* Fog=GetWorld()->SpawnActor<AActor>(Assets->ValleyFogClass.Get(),Position,Rotation,Params);
+        if(!Fog)return nullptr;
+        Fog->SetActorEnableCollision(false);Fog->SetActorHiddenInGame(false);
+        TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+        for(auto* M:Meshes)
+        {
+            if(!M->GetStaticMesh())continue;
+            const auto MeshBounds=M->GetStaticMesh()->GetBounds();
+            const FVector Scale=Footprint/MeshBounds.BoxExtent;
+            // Mesh bounds exclude the Blueprint's editor-only box/billboard bounds.
+            M->SetRelativeScale3D(Scale);M->SetRelativeLocation(-MeshBounds.Origin*Scale);
+            M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCanEverAffectNavigation(false);M->SetCastShadow(false);
+            auto* MID=UMaterialInstanceDynamic::Create(Assets->ValleyFogMaterial.Get(),Fog);
+            MID->SetScalarParameterValue(TEXT("FogOverallDensity"),0);
+            M->SetMaterial(0,MID);M->SetVisibility(true);M->SetHiddenInGame(false);M->PrecachePSOs();
+        }
+        ValleyFog.Add(Fog);
+        return Fog;
+    };
     // Update a small fixed pool, fading before it leaves the retention radius.
     for(auto It=S.Fog.CreateIterator();It;++It)
     {
@@ -893,6 +930,50 @@ void ATemperateHillsWorld::BuildValleyFog()
         TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
         for(auto* M:Meshes)
             if(auto* MID=Cast<UMaterialInstanceDynamic>(M->GetMaterial(0)))MID->SetScalarParameterValue(TEXT("FogOverallDensity"),Assets->ValleyFogDensity*Fade);
+    }
+    // River mist: thin bands hugging the waterline near the pawn, keyed by
+    // centreline point so a stretch of river keeps exactly one volume.
+    if(RiverPlan&&Assets->RiverMistDensity>0.01f)
+    {
+        for(auto It=S.RiverFog.CreateIterator();It;++It)
+        {
+            auto* Fog=It.Value().Get();
+            if(!Fog){It.RemoveCurrent();continue;}
+            const double Distance=FVector::Dist2D(Fog->GetActorLocation(),Center);
+            if(Distance>16000)
+            {ValleyFog.Remove(Fog);Fog->Destroy();It.RemoveCurrent();continue;}
+            const float Fade=(1-FMath::SmoothStep(12000.0,16000.0,Distance))*FMath::Clamp(Fog->GetGameTimeSinceCreation()/1.5f,0.f,1.f);
+            TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+            for(auto* M:Meshes)
+                if(auto* MID=Cast<UMaterialInstanceDynamic>(M->GetMaterial(0)))MID->SetScalarParameterValue(TEXT("FogOverallDensity"),Assets->RiverMistDensity*Fade);
+        }
+        if(S.RiverFog.Num()<2)
+        {
+            int32 Best=-1;double BestScore=DBL_MAX;
+            const auto& Points=RiverPlan->Points;
+            for(int32 I=0;I<Points.Num();++I)
+            {
+                if(S.RiverFog.Contains(I))continue;
+                const auto& Pt=Points[I];
+                const double D2=FVector2D::DistSquared(Pt.XY,FVector2D(Center));
+                if(D2>FMath::Square(14000.0))continue;
+                // Keep bands spaced apart along the channel.
+                bool Crowded=false;
+                for(const auto& Held:S.RiverFog)
+                    if(auto* Other=Held.Value.Get();Other&&FVector::Dist2D(Other->GetActorLocation(),FVector(Pt.XY.X,Pt.XY.Y,0))<3800){Crowded=true;break;}
+                if(Crowded)continue;
+                if(D2<BestScore){Best=I;BestScore=D2;}
+            }
+            if(Best>=0)
+            {
+                const auto& Pt=Points[Best];
+                // Side is the cross-channel normal; the flow axis is its perpendicular.
+                const FVector2D Flow(-Pt.Side.Y,Pt.Side.X);
+                const FRotator Rotation(0,FMath::RadiansToDegrees(FMath::Atan2(Flow.Y,Flow.X)),0);
+                if(auto* Fog=SpawnFog(FVector(Pt.XY.X,Pt.XY.Y,Pt.WaterZ+80),Rotation,FVector(2600,700,150)))
+                    S.RiverFog.Add(Best,Fog);
+            }
+        }
     }
     if(S.Fog.Num()>=4)return;
     const double Half=SizeMeters*50;const int32 Count=FMath::RoundToInt(SizeMeters/64);
@@ -918,25 +999,8 @@ void ATemperateHillsWorld::BuildValleyFog()
     if(Best<0)return;
     const float Yaw=TemperateHillsSurface::Unit(uint32(Seed)+Best*133)*2*PI;
     const FRotator Rotation=FRotationMatrix::MakeFromZX(Normal,FVector(FMath::Cos(Yaw),FMath::Sin(Yaw),0)).Rotator();
-    FActorSpawnParameters Params;Params.Owner=this;
-    auto* Fog=GetWorld()->SpawnActor<AActor>(Assets->ValleyFogClass.Get(),Position,Rotation,Params);
-    if(!Fog)return;
-    Fog->SetActorEnableCollision(false);Fog->SetActorHiddenInGame(false);
-    TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
-    for(auto* M:Meshes)
-    {
-        if(!M->GetStaticMesh())continue;
-        const auto Bounds=M->GetStaticMesh()->GetBounds();
-        const FVector Scale=FVector(1400,1000,180)/Bounds.BoxExtent;
-        // Mesh bounds exclude the Blueprint's editor-only box/billboard bounds.
-        M->SetRelativeScale3D(Scale);M->SetRelativeLocation(-Bounds.Origin*Scale);
-        M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCanEverAffectNavigation(false);M->SetCastShadow(false);
-        auto* MID=UMaterialInstanceDynamic::Create(Assets->ValleyFogMaterial.Get(),Fog);
-        MID->SetScalarParameterValue(TEXT("FogOverallDensity"),0);
-        M->SetMaterial(0,MID);M->SetVisibility(true);M->SetHiddenInGame(false);M->PrecachePSOs();
-    }
     // This also runs under the loading overlay, warming the volume shader before play.
-    ValleyFog.Add(Fog);S.Fog.Add(Best,Fog);
+    if(auto* Fog=SpawnFog(Position,Rotation,FVector(1400,1000,180)))S.Fog.Add(Best,Fog);
 }
 
 void ATemperateHillsWorld::EndStreaming()

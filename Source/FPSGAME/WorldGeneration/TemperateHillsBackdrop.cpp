@@ -5,10 +5,12 @@
 #include "Async/Async.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Components/ExponentialHeightFogComponent.h"
+#include "Components/HierarchicalInstancedStaticMeshComponent.h"
 #include "Components/SkyAtmosphereComponent.h"
 #include "Components/VolumetricCloudComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
+#include "Engine/StaticMesh.h"
 #include "Engine/Texture2D.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -22,6 +24,10 @@ struct FResult
 {
     TArray<UE::Geometry::FDynamicMesh3> Meshes;
     TArray<FColor> Colors;
+    // Far-field tree silhouettes, spawned as instanced statics once the worker
+    // result arrives. Kept alongside the rings so one reset frees everything.
+    TArray<FTransform> Canopy;
+    TArray<int32> CanopyMesh; // per-instance index into Assets->BackdropTrees
 };
 
 double Height(double X,double Y,double Half,int32 Seed,const TemperateRiver::FPlanPtr& River)
@@ -45,7 +51,8 @@ double CoreTriangleHeight(double X,double Y,double Half,int32 Seed,const Tempera
         H(0,0)*(1-B)+H(0,1)*(B-A)+H(1,1)*A;
 }
 
-TSharedPtr<FResult,ESPMode::ThreadSafe> Build(double Half,int32 Seed,TemperateRiver::FPlanPtr River)
+TSharedPtr<FResult,ESPMode::ThreadSafe> Build(double Half,int32 Seed,TemperateRiver::FPlanPtr River,
+    int32 CanopyMeshes,int32 CanopyBudget)
 {
     auto Result=MakeShared<FResult,ESPMode::ThreadSafe>();
     Result->Meshes.SetNum(3);
@@ -116,6 +123,34 @@ TSharedPtr<FResult,ESPMode::ThreadSafe> Build(double Half,int32 Seed,TemperateRi
         }
         Result->Colors[Y*ColorSize+X]=Color.ToFColorSRGB();
     }
+    // Canopy silhouettes on the backdrop rings only: the playable half already
+    // carries instanced trees from PCG. The placement field is the same forest
+    // noise that tints the ground, so dark forest patches and raised treelines
+    // agree when viewed from a ridge. Pure math, worker-thread safe.
+    if(CanopyMeshes>0&&CanopyBudget>0)
+    {
+        constexpr double Spacing=14000;
+        const double Inner=Half+4000,Outer=OuterHalf*.55;
+        bool Full=false;
+        for(int32 GY=FMath::FloorToInt(-Outer/Spacing);GY<=FMath::FloorToInt(Outer/Spacing)&&!Full;++GY)
+        for(int32 GX=FMath::FloorToInt(-Outer/Spacing);GX<=FMath::FloorToInt(Outer/Spacing);++GX)
+        {
+            const uint32 K=TemperateHillsSurface::Key(GX,GY,uint32(Seed),1771);
+            const double X=(GX+.2+TemperateHillsSurface::Unit(K+1)*.6)*Spacing;
+            const double Y=(GY+.2+TemperateHillsSurface::Unit(K+2)*.6)*Spacing;
+            const double M=FMath::Max(FMath::Abs(X),FMath::Abs(Y));
+            if(M<Inner||M>Outer)continue;
+            const double Forest=FMath::SmoothStep(0.0,1.0,
+                (TemperateHillsSurface::Noise(X*.00014,Y*.00014,Seed,173)+.45)/1.05);
+            if(TemperateHillsSurface::Unit(K+3)>Forest*.55)continue;
+            // Sink trunks under the ridge shell; only crowns need to poke out.
+            const double Z=Height(X,Y,Half,Seed,River)-500;
+            const double S=1.1+TemperateHillsSurface::Unit(K+4)*1.3;
+            Result->Canopy.Add(FTransform(FRotator(0,TemperateHillsSurface::Unit(K+5)*360,0),FVector(X,Y,Z),FVector(S)));
+            Result->CanopyMesh.Add(int32(K%uint32(CanopyMeshes)));
+            if(Result->Canopy.Num()>=CanopyBudget){Full=true;break;}
+        }
+    }
     return Result;
 }
 }
@@ -170,8 +205,9 @@ void ATemperateHillsWorld::TickBackdrop()
     {
         Backdrop=MakeShared<FTemperateBackdropState>();auto& S=*Backdrop;
         S.Cells=FMath::RoundToInt(SizeMeters/64);S.Coverage.Init(FColor::Black,S.Cells*S.Cells);
-        S.Job=Async(EAsyncExecution::ThreadPool,[Half=double(SizeMeters*50),WorldSeed=Seed,River=RiverPlan]()
-            {return TemperateBackdrop::Build(Half,WorldSeed,River);});
+        S.Job=Async(EAsyncExecution::ThreadPool,[Half=double(SizeMeters*50),WorldSeed=Seed,River=RiverPlan,
+            CanopyMeshes=Assets->BackdropTrees.Num(),CanopyBudget=Assets->BackdropTreeBudget]()
+            {return TemperateBackdrop::Build(Half,WorldSeed,River,CanopyMeshes,CanopyBudget);});
         for(TActorIterator<AActor> It(GetWorld());It;++It)
         {
             if(auto* F=It->FindComponentByClass<UExponentialHeightFogComponent>())
@@ -232,7 +268,7 @@ void ATemperateHillsWorld::TickBackdrop()
         C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->SetCanEverAffectNavigation(false);C->SetCastShadow(false);
         C->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);C->SetMaterial(0,BackdropMID);
         C->SetMesh(MoveTemp(S.Result->Meshes[S.Submitted++]));C->RegisterComponent();C->PrecachePSOs();BackdropMeshes.Add(C);
-        if(S.Submitted==3){S.Result.Reset();UE_LOG(LogTemp,Display,TEXT("HILLS_BACKDROP ready meshes=3 triangles=25088 color=1024 seed=%d"),Seed);}
+        if(S.Submitted==3){SpawnBackdropCanopy();S.Result.Reset();UE_LOG(LogTemp,Display,TEXT("HILLS_BACKDROP ready meshes=3 triangles=25088 color=1024 seed=%d"),Seed);}
         return;
     }
     if(S.CoverageDirty)
@@ -257,10 +293,46 @@ void ATemperateHillsWorld::SetBackdropCellVisible(FIntPoint Cell,bool Visible)
     if(S.Coverage[I]!=Value){S.Coverage[I]=Value;S.CoverageDirty=true;}
 }
 
+void ATemperateHillsWorld::SpawnBackdropCanopy()
+{
+    if(!Backdrop||!Assets||Assets->BackdropTrees.IsEmpty())return;
+    const auto& Result=Backdrop->Result;
+    if(!Result||Result->Canopy.IsEmpty())return;
+    // One HISM per used tree mesh keeps a handful of draw calls for the whole
+    // horizon instead of a component per silhouette.
+    TMap<int32,TArray<FTransform>> ByMesh;
+    for(int32 I=0;I<Result->Canopy.Num();++I)
+    {
+        const int32 CanopySlot=Result->CanopyMesh.IsValidIndex(I)?Result->CanopyMesh[I]:0;
+        if(!Assets->BackdropTrees.IsValidIndex(CanopySlot)||!Assets->BackdropTrees[CanopySlot].Get())continue;
+        ByMesh.FindOrAdd(CanopySlot).Add(Result->Canopy[I]);
+    }
+    int32 Instances=0;
+    for(auto& Entry:ByMesh)
+    {
+        auto* C=NewObject<UHierarchicalInstancedStaticMeshComponent>(this);
+        AddInstanceComponent(C);C->SetupAttachment(RootComponent);
+        C->SetMobility(EComponentMobility::Movable);
+        C->SetStaticMesh(Assets->BackdropTrees[Entry.Key].Get());
+        // Far silhouettes: no shadow cost, no nav, no collision, no distance fields.
+        C->SetCastShadow(false);C->SetCanEverAffectNavigation(false);
+        C->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        C->bAffectDistanceFieldLighting=false;
+        C->AddInstances(Entry.Value,false);
+        C->RegisterComponent();C->PrecachePSOs();
+        Instances+=Entry.Value.Num();
+        BackdropCanopy.Add(C);
+    }
+    if(Instances>0)
+        UE_LOG(LogTemp,Display,TEXT("HILLS_BACKDROP canopy=%d components=%d seed=%d"),Instances,BackdropCanopy.Num(),Seed);
+}
+
 void ATemperateHillsWorld::EndBackdrop()
 {
     EndDayNightSky();
     if(HillsClouds){RemoveInstanceComponent(HillsClouds);HillsClouds->DestroyComponent();HillsClouds=nullptr;}
+    for(const auto& Entry:BackdropCanopy)if(auto* C=Entry.Get()){RemoveInstanceComponent(C);C->DestroyComponent();}
+    BackdropCanopy.Empty();
     for(const auto& Entry:BackdropMeshes)if(auto* C=Entry.Get()){RemoveInstanceComponent(C);C->DestroyComponent();}
     BackdropMeshes.Empty();BackdropMID=nullptr;BackdropColor=nullptr;BackdropCoverage=nullptr;
     Backdrop.Reset();

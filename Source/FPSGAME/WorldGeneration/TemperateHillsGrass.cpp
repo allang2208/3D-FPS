@@ -20,13 +20,15 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
         if(TreeCandidate(TX,TY,Tree))TrunksInBatch.Add(FVector2D(Tree.Transform.GetLocation()));
     }
 
-    for(int32 Pass=0;Pass<2;++Pass)
+    for(int32 Pass=0;Pass<3;++Pass)
     {
-        const bool Accent=Pass==1;
-        const auto& Meshes=Accent?Assets->GrassAccents:Assets->Grass;
+        const bool Accent=Pass==1,Flower=Pass==2;
+        const auto& Meshes=Pass==0?Assets->Grass:(Accent?Assets->GrassAccents:Assets->MeadowFlowers);
         if(Meshes.IsEmpty())continue;
-        const double Spacing=Accent?FMath::Clamp(Assets->GrassAccentSpacingCm,120.f,500.f):FMath::Clamp(Assets->GrassSpacingCm,45.f,200.f);
-        const double Coverage=FMath::Clamp(Accent?Assets->GrassAccentCoverage:Assets->GrassCoverage,0.f,1.f);
+        const double Spacing=Flower?FMath::Clamp(Assets->MeadowFlowerSpacingCm,200.f,1200.f)
+            :(Accent?FMath::Clamp(Assets->GrassAccentSpacingCm,120.f,500.f):FMath::Clamp(Assets->GrassSpacingCm,45.f,200.f));
+        const double Coverage=FMath::Clamp(Flower?Assets->MeadowFlowerCoverage
+            :(Accent?Assets->GrassAccentCoverage:Assets->GrassCoverage),0.f,1.f);
         // A tile is only an enumeration bucket, not a one-plant planting grid.
         // Its 2..6 independent candidates average the previous candidate density
         // while allowing adjacent tufts, empty pockets and uneven spacing.
@@ -34,7 +36,7 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
         for(int32 GY=FMath::FloorToInt(MinY/TileSize);GY<=FMath::FloorToInt(MaxY/TileSize);++GY)
         for(int32 GX=FMath::FloorToInt(MinX/TileSize);GX<=FMath::FloorToInt(MaxX/TileSize);++GX)
         {
-            const uint32 TileKey=Key(GX,GY,uint32(Seed),Accent?1427:1401);
+            const uint32 TileKey=Key(GX,GY,uint32(Seed),Flower?1431:(Accent?1427:1401));
             const int32 Count=2+int32(Unit(TileKey+11)*5);
             for(int32 Candidate=0;Candidate<Count;++Candidate)
             {
@@ -56,10 +58,13 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
             // Dense tufts connect through thinner ground cover, with small
             // irregular gaps instead of a nearly uniform lawn everywhere.
             const double Clump=Smooth((Meadow*.35+Tuft*.65-.27)/.46);
-            const double Patch=Accent?Smooth((Meadow-.32)/.42)*Clump:(.28+.72*Clump);
-            const double PathBlend=Smooth((Path-240)/(Accent?550.0:180.0));
+            const double Patch=Accent?Smooth((Meadow-.32)/.42)*Clump:
+                (Flower?Smooth((Meadow-.48)/.34)*Smooth((Tuft-.32)/.5):(.28+.72*Clump));
+            const double PathBlend=Smooth((Path-240)/(Accent?550.0:(Flower?420.0:180.0)));
             const double BankBlend=1-Smooth(Bank.Bank/.82);
-            const double Chance=Coverage*Patch*(1-Forest*(Accent?.45:.16))*PathBlend*BankBlend;
+            // Flowers suppress in forest shade almost fully: a meadow species does
+            // not survive under closed canopy, unlike grass which only thins.
+            const double Chance=Coverage*Patch*(1-Forest*(Accent?.45:(Flower?.85:.16)))*PathBlend*BankBlend;
             if(Unit(K+3)>Chance)continue;
             const FVector N=SurfaceNormal(X,Y);
             if(N.Z<.83||Unit(K+9)>Smooth((N.Z-.83)/.10))continue;
@@ -74,10 +79,11 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
             int32 IX=FMath::FloorToInt(PX),IY=FMath::FloorToInt(PY);
             if(Unit(K+6)<Smooth(PX-IX))++IX;
             if(Unit(K+7)<Smooth(PY-IY))++IY;
-            const uint32 Species=Key(IX,IY,uint32(Seed),Accent?1367:1361);
+            const uint32 Species=Key(IX,IY,uint32(Seed),Flower?1371:(Accent?1367:1361));
             const FSoftObjectPath Mesh=Meshes[Species%Meshes.Num()].ToSoftObjectPath();
             if(Mesh.IsNull())continue;
-            const double Scale=Accent?(.65+Unit(K+5)*.55+Clump*.10):(.78+Unit(K+5)*.40+Clump*.12);
+            const double Scale=Accent?(.65+Unit(K+5)*.55+Clump*.10):
+                (Flower?(.55+Unit(K+5)*.50+Clump*.08):(.78+Unit(K+5)*.40+Clump*.12));
             const FQuat Rotation=FQuat(N,Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
             FTemperatePlacement& P=Out.Emplace_GetRef();
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-1.5),FVector(Scale));
@@ -85,7 +91,7 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
             // Signed coordinates fit well within 24 bits in this bounded world;
             // the low byte reserves a pass bit and the tile-local candidate ID.
             P.CandidateId=(uint64(uint32(GX)&0x00ffffffU)<<32)|
-                (uint64(uint32(GY)&0x00ffffffU)<<8)|uint64((Accent?0x80:0)|Candidate);
+                (uint64(uint32(GY)&0x00ffffffU)<<8)|uint64((Accent?0x80:(Flower?0xC0:0))|Candidate);
             }
         }
     }
