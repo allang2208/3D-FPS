@@ -170,12 +170,19 @@ bool UFPSDoorPushComponent::BeginPush(const FHitResult& Hit)
         ActiveHands=FallbackHands;Source=FallbackHands;
         FallbackHands->TickAnimation(0.f,false);FallbackHands->RefreshBoneTransforms();
     }
-    if(!ActiveHands.IsValid()||!Source||!FallbackHands||!FallbackHands->GetSkeletalMeshAsset()||
-        !PoseLayer.Capture(*ActiveHands.Get(),*Source,*FallbackHands->GetSkeletalMeshAsset(),
-            Source==FallbackHands.Get()))
+    FString CaptureReason;
+    const bool bCaptured=ActiveHands.IsValid()&&Source&&FallbackHands&&FallbackHands->GetSkeletalMeshAsset()&&
+        PoseLayer.Capture(*ActiveHands.Get(),*Source,*FallbackHands->GetSkeletalMeshAsset(),
+            Source==FallbackHands.Get(),&CaptureReason);
+    if(!bCaptured)
     {
-        if(DoorPushDebug())UE_LOG(LogTemp,Display,TEXT("[DoorPush] 起手失败：姿态捕获不通过（ActiveHands=%s Source=%s）"),
-            *GetNameSafe(ActiveHands.Get()),*GetNameSafe(Source));
+        // 起手拒绝是稀有事件：失败分支与所选网格无条件进日志，定位不再依赖 cvar。
+        UE_LOG(LogTemp,Warning,TEXT("[DoorPush] 起手失败：ActiveHands=%s(%s) Source=%s(%s) 原因=%s"),
+            *GetNameSafe(ActiveHands.Get()),
+            ActiveHands.IsValid()&&ActiveHands->GetSkeletalMeshAsset()?*ActiveHands->GetSkeletalMeshAsset()->GetName():TEXT("无"),
+            *GetNameSafe(Source),
+            Source&&Source->GetSkeletalMeshAsset()?*Source->GetSkeletalMeshAsset()->GetName():TEXT("无"),
+            CaptureReason.IsEmpty()?TEXT("手组件或裸臂资产为空"):*CaptureReason);
         return false;
     }
     Door=LastDoor=Hit.GetActor();

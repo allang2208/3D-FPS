@@ -28,14 +28,21 @@ void FDoorPushPoseLayer::Reset()
 }
 
 bool FDoorPushPoseLayer::Capture(USkeletalMeshComponent& Mesh,const USkeletalMeshComponent& Source,
-    const USkeletalMesh& FistRig,bool bNoNativeArms)
+    const USkeletalMesh& FistRig,bool bNoNativeArms,FString* OutReason)
 {
+    auto Fail=[&](const FString& Reason){if(OutReason)*OutReason=Reason;return false;};
     Reset();auto* Asset=Mesh.GetSkeletalMeshAsset();const auto* SourceAsset=Source.GetSkeletalMeshAsset();
     const auto* Camera=Mesh.GetOwner()?Mesh.GetOwner()->FindComponentByClass<UCameraComponent>():nullptr;
-    if(!Asset||!SourceAsset||!Camera)return false;
+    if(!Asset)return Fail(TEXT("目标组件无骨架资产"));
+    if(!SourceAsset)return Fail(TEXT("源组件无骨架资产"));
+    if(!Camera)return Fail(TEXT("Owner 无相机组件"));
     const auto& Ref=Asset->GetRefSkeleton();const auto& SourceRef=SourceAsset->GetRefSkeleton();
     const auto& SourceCS=Source.GetComponentSpaceTransforms();
-    if(SourceCS.Num()!=SourceRef.GetNum())return false;
+    if(SourceCS.Num()!=SourceRef.GetNum())
+        return Fail(FString::Printf(TEXT("源姿态尺寸不符 %d/%d 源=%s(%s) 领头跟随=%s 动画启用=%d 已注册=%d"),
+            SourceCS.Num(),SourceRef.GetNum(),*Source.GetName(),*SourceAsset->GetName(),
+            Source.LeaderPoseComponent.IsValid()?*Source.LeaderPoseComponent->GetName():TEXT("无"),
+            Source.bEnableAnimation?1:0,Source.IsRegistered()?1:0));
     CachedMesh=Asset;Reference=Ref.GetRefBonePose();auto SourceRest=SourceRef.GetRefBonePose();
     for(int32 I=0;I<SourceRest.Num();++I)
     {const int32 P=SourceRef.GetParentIndex(I);if(P>=0)SourceRest[I]=SourceRest[I]*SourceRest[P];}
@@ -47,7 +54,10 @@ bool FDoorPushPoseLayer::Capture(USkeletalMeshComponent& Mesh,const USkeletalMes
     Clavicle=Ref.FindBoneIndex(TEXT("clavicle_l"));Upper=Ref.FindBoneIndex(TEXT("upperarm_l"));
     Lower=Ref.FindBoneIndex(TEXT("lowerarm_l"));Hand=Ref.FindBoneIndex(TEXT("hand_l"));
     if(Clavicle<0||Upper<0||Lower<0||Hand<0||Ref.FindBoneIndex(TEXT("index_01_l"))<0||
-        Ref.FindBoneIndex(TEXT("middle_01_l"))<0||Ref.FindBoneIndex(TEXT("pinky_01_l"))<0)return false;
+        Ref.FindBoneIndex(TEXT("middle_01_l"))<0||Ref.FindBoneIndex(TEXT("pinky_01_l"))<0)
+        return Fail(FString::Printf(TEXT("目标缺左臂骨 锁骨=%d 大臂=%d 小臂=%d 手=%d 食=%d 中=%d 小=%d 目标=%s"),
+            Clavicle,Upper,Lower,Hand,Ref.FindBoneIndex(TEXT("index_01_l")),Ref.FindBoneIndex(TEXT("middle_01_l")),
+            Ref.FindBoneIndex(TEXT("pinky_01_l")),*Asset->GetName()));
     const int32 WeaponRoot=Ref.FindBoneIndex(TEXT("WPN_root"));
     const int32 BowRoot=Ref.FindBoneIndex(TEXT("bow_grip"));
     for(int32 I=0;I<Reference.Num();++I)
@@ -64,7 +74,12 @@ bool FDoorPushPoseLayer::Capture(USkeletalMeshComponent& Mesh,const USkeletalMes
     {const int32 P=Donor.GetParentIndex(I);if(P>=0)DonorRest[I]=DonorRest[I]*DonorRest[P];}
     const int32 DonorHand=Donor.FindBoneIndex(TEXT("hand_l"));
     if(DonorHand<0||Donor.FindBoneIndex(TEXT("index_01_l"))<0||Donor.FindBoneIndex(TEXT("middle_01_l"))<0||
-        Donor.FindBoneIndex(TEXT("pinky_01_l"))<0)return false;
+        Donor.FindBoneIndex(TEXT("pinky_01_l"))<0)return Fail(FString::Printf(TEXT("供体缺手骨 %s"),*FistRig.GetName()));
+    // Weapon skins can carry extra arm-chain helpers (e.g. Super90's
+    // lowerarm_aux_l) that the V7 donor lacks. Those bones follow their parent
+    // rigidly from the target rest pose instead of failing the whole capture.
+    TArray<int32> DonorIndex;DonorIndex.Init(INDEX_NONE,Reference.Num());
+    for(int32 I:Bones)DonorIndex[I]=Donor.FindBoneIndex(Ref.GetBoneName(I));
     const bool bNative=Asset==&FistRig;
     const FString RigPath=Asset->GetPathName();
     // M16 retains its native arm binding, with the wrist and digits rebound
@@ -106,7 +121,8 @@ bool FDoorPushPoseLayer::Capture(USkeletalMeshComponent& Mesh,const USkeletalMes
         const FQuat TargetHandDeform=HandRotation*Reference[Hand].GetRotation().Inverse();
         for(int32 I:Bones)
         {
-            const int32 J=Donor.FindBoneIndex(Ref.GetBoneName(I));if(J<0)return false;
+            const int32 J=DonorIndex[I];
+            if(J<0){KeyRotations[I]=Reference[I].GetRotation();continue;}
             if(bUseAuthoredLocals)KeyRotations[I]=DonorPose[J].GetRotation();
             else if(IsFistBone(Ref.GetBoneName(I).ToString()))
             {
@@ -130,8 +146,8 @@ bool FDoorPushPoseLayer::Capture(USkeletalMeshComponent& Mesh,const USkeletalMes
             else
             {
                 Local.SetRotation((KeyRotations[P].Inverse()*KeyRotations[I]).GetNormalized());
-                if(bNative)Local.SetTranslation(DonorPose[Donor.FindBoneIndex(Ref.GetBoneName(I))].GetRelativeTransform(
-                    DonorPose[Donor.FindBoneIndex(Ref.GetBoneName(P))]).GetTranslation());
+                if(bNative&&DonorIndex[I]>=0&&DonorIndex[P]>=0)Local.SetTranslation(
+                    DonorPose[DonorIndex[I]].GetRelativeTransform(DonorPose[DonorIndex[P]]).GetTranslation());
             }
         }
     }

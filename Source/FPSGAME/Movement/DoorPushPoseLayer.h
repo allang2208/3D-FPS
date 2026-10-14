@@ -8,7 +8,7 @@ class USkeletalMesh;
 struct FDoorPushPoseLayer
 {
     bool Capture(USkeletalMeshComponent& Mesh,const USkeletalMeshComponent& Source,
-        const USkeletalMesh& FistRig,bool bNoNativeArms=false);
+        const USkeletalMesh& FistRig,bool bNoNativeArms=false,FString* OutReason=nullptr);
     bool Apply(USkeletalMeshComponent& Mesh,float Age);
     void Reset();
 private:
