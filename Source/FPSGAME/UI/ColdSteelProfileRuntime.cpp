@@ -173,6 +173,9 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     auto Migrated=GuestProfile;
     ColdSteelItemRarity::Normalize(Migrated.Items);
     ColdSteelProfileRecovery::InterruptedSpells(Migrated,float(ResourceMaximum(Migrated,true)));
+    bool FootprintChanged=false;FString FootprintReason;
+    if(!MigrateAuthoredGridFootprints(Migrated,FootprintChanged,FootprintReason))
+    {Message=FootprintReason;return nullptr;}
     Shadow->Publish(Migrated);
     Shadow->bPersistenceBlocked=true;
     Shadow->bNetShadowProfile=true;

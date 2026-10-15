@@ -1,0 +1,1485 @@
+{
+  "date": "2026-10-15",
+  "root": "trash/regional-loot-retired-20261015",
+  "files": 164,
+  "bytes": 431336748,
+  "entries": [
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_ActiveCatalyst_Source.blend",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_ActiveCatalyst_Source.blend",
+      "bytes": 12535129,
+      "sha256": "231e903ebf647ac55399d901597bbf95a895db4490639610aa11612b544181db",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Authored/SM_Alchemy_ActiveCatalyst_Source.blend",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_ActiveCatalyst_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_ActiveCatalyst_Source.blend1",
+      "bytes": 12535623,
+      "sha256": "e6f625340d933f35f573293acbc31c58a1653e1a88b19f3377c610c54b515f84",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_BluemarrowCrystals_Source.blend",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_BluemarrowCrystals_Source.blend",
+      "bytes": 12562222,
+      "sha256": "d7c6ba2f59f4c1fc5e0e40dc99f306ccf935a2a4dd53e402b07922160f02693a",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Authored/SM_Alchemy_BluemarrowCrystals_Source.blend",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_BluemarrowCrystals_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_BluemarrowCrystals_Source.blend1",
+      "bytes": 12564187,
+      "sha256": "5cc1ecd93b1a512129357e42d9fe5149ef1cc1ec3a8984caa06a40c098fdcffe",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_CompoundStabilizer_Source.blend",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_CompoundStabilizer_Source.blend",
+      "bytes": 12523214,
+      "sha256": "b31c2a1205e093133de7cfbe02c2f39958df0e9a1fad2a1923609b7b9b5cee95",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Authored/SM_Alchemy_CompoundStabilizer_Source.blend",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_CompoundStabilizer_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_CompoundStabilizer_Source.blend1",
+      "bytes": 12525723,
+      "sha256": "d103eb5bac1dd00e09aa5094716e2ff6facd0fe2819d14d5b42d55a259b5396b",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_PureBaseFluid_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_PureBaseFluid_Source.blend1",
+      "bytes": 12578625,
+      "sha256": "cfbf1701079596256a7e73a61ba0cd7aceb382764e85436d1c2f757c83015d62",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_RedveinExtract_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_RedveinExtract_Source.blend1",
+      "bytes": 12578992,
+      "sha256": "efac618ff96da3a50e9ee251afc6df60edb7410c7f63345137d552bab02b6eb7",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_SilverleafEssence_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Authored/SM_Alchemy_SilverleafEssence_Source.blend1",
+      "bytes": 12549654,
+      "sha256": "36a3a5e52782ff46715d1dea1ab1871c7860a5c5a3ebddad7c46b10abeb5be63",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/Config/DefaultGame.ini",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/Config/DefaultGame.ini",
+      "bytes": 23738,
+      "sha256": "30f4b51b030101dc73eb612012e07eedf9d9bf6fd76d5c3ee653165b2985bc52",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/Content/ColdSteelData/items.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/Content/ColdSteelData/items.json",
+      "bytes": 166845,
+      "sha256": "d21fabb144966be4a8c48356d4c86f062ea3681d0bcfc8736656fea2973792f1",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/Content/ColdSteelData/scene_search_loot.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/Content/ColdSteelData/scene_search_loot.json",
+      "bytes": 31795,
+      "sha256": "3f4f37f8130b760d2c09cad610f3ffffa54d3ba4257c9078baca8f1ef076e92c",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/model_manifest.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/model_manifest.json",
+      "bytes": 31232,
+      "sha256": "6809721f48e8f03722a816a27ad802cbde4e4c10f29d7df384f31ae87b64b1f6",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/presentation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/presentation.json",
+      "bytes": 5288,
+      "sha256": "01266aaf00736f0d4de3859a8750a5a3a157ac8600d6cc912ae31e3535e6407e",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/Receipts/data-installation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/Receipts/data-installation.json",
+      "bytes": 24775,
+      "sha256": "ccb8fa1729caf64ab95d174311b33ee762618321cb9617abf10504ed81d7b3d6",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/Receipts/installation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/Receipts/installation.json",
+      "bytes": 3115,
+      "sha256": "250958e42a866d4847e95a64703cfcb9ba2bf8e9dcc4b07b2f1a8b0f69c68f0e",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/Receipts/ue-import.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/HollowHeelRevision/Receipts/ue-import.json",
+      "bytes": 3360,
+      "sha256": "bdcd72863b9c330c010fdda961b353f54234ddf4cf9e6b1fc9a5386f0dcc8914",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/Source/FPSGAME/Dungeons/WardBedScatter.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/Source/FPSGAME/Dungeons/WardBedScatter.cpp",
+      "bytes": 12353,
+      "sha256": "dffa8e487c374e44662d4ab56890a78c7b9ed0b5e3a1774ed15d24bebb94349d",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "bytes": 7684,
+      "sha256": "8ef5ab84adb37114f1f6f78bbd4a64d814ad66f6ae9289e8f8ef18eb07a10c23",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "bytes": 16273,
+      "sha256": "a0cde92c73f61cc2af78a8e5b79575b349d9eedbfdcc94e6f40697643859c341",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/TraceIncludeBuildFailure/build-FPSGAMEEditor-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/TraceIncludeBuildFailure/build-FPSGAMEEditor-stdout.log",
+      "bytes": 27258,
+      "sha256": "d5a1e685a1e47b89fab25e7e8852b049bfa281500fad74c83c01e5df1c293702",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/TraceIncludeBuildFailure/build-FPSGAMEEditor.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/TraceIncludeBuildFailure/build-FPSGAMEEditor.log",
+      "bytes": 25027,
+      "sha256": "2451ea049b026946c7ea36d2409c21ea4ab44007c521dd4a95406662a6b5a8a3",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Before/TraceIncludeBuildFailure/build.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Before/TraceIncludeBuildFailure/build.json",
+      "bytes": 444,
+      "sha256": "08811a6d24c0808e0791ab27ca38f6798d1cb826700bb901b982d2520d24db6c",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_ActiveCatalyst.fbx",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_ActiveCatalyst.fbx",
+      "bytes": 1643148,
+      "sha256": "c0f2f9ac0dbb3128cac0aec9187d1c1ce7785a4ed215b8a000f09b9007a45d43",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Export/SM_Alchemy_ActiveCatalyst.fbx",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_ActiveCatalyst.glb",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_ActiveCatalyst.glb",
+      "bytes": 13329836,
+      "sha256": "ec9c826d500847ff024e8bfb5fa011da17a110b0e7807e5e32a8ddc7982168ea",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Export/SM_Alchemy_ActiveCatalyst.glb",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_BluemarrowCrystals.fbx",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_BluemarrowCrystals.fbx",
+      "bytes": 2523900,
+      "sha256": "8f02280fca9843dc4fabec63e66a4add71e6c91f9c61556d079bb1779ecc7e30",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Export/SM_Alchemy_BluemarrowCrystals.fbx",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_BluemarrowCrystals.glb",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_BluemarrowCrystals.glb",
+      "bytes": 13760280,
+      "sha256": "53453ce68bd5b9e120a98923fb14d431d9a7771a6aaf6dd2341315cd47e73a20",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Export/SM_Alchemy_BluemarrowCrystals.glb",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_CompoundStabilizer.fbx",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_CompoundStabilizer.fbx",
+      "bytes": 1336108,
+      "sha256": "59a5c1ebfb6302b3b966b310011c6cf07e7aac9f18754b68b32161b7e883df84",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Export/SM_Alchemy_CompoundStabilizer.fbx",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_CompoundStabilizer.glb",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Export/SM_Alchemy_CompoundStabilizer.glb",
+      "bytes": 13067612,
+      "sha256": "b7da8494caa23efb0af2f16072ae4272d753dfc371d37bcbafd7b30e408be7ae",
+      "reason": "superseded V3 model export/source",
+      "replacement": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Export/SM_Alchemy_CompoundStabilizer.glb",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAME-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAME-stdout.log",
+      "bytes": 24016,
+      "sha256": "065e10aeacd0206b4690945fce728b403c8810896bbfa6565d618287d90d6db0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAME.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAME.log",
+      "bytes": 19554,
+      "sha256": "745432f70f73934617f866424f39d3c44e57e778cbc4eb9a8fa0cbbc4e037c8b",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAMEEditor-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAMEEditor-stdout.log",
+      "bytes": 24954,
+      "sha256": "28c80fc278438a797d1290177a3cf0bb8606a8abbc7299edeabcb41881326896",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAMEEditor.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build-FPSGAMEEditor.log",
+      "bytes": 20219,
+      "sha256": "b6d9c1990165368618a34a2807f2acac4892d285daeb6d358f69ce775213eaeb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/build.json",
+      "bytes": 778,
+      "sha256": "360a9d9d47e81ebd961b8b72455901175e473d8e3157333b07f8ff7cd1f63497",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Content/ColdSteelData/Icons/AlchemyMaterials20261015/alchemy_compound_stabilizer.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Content/ColdSteelData/Icons/AlchemyMaterials20261015/alchemy_compound_stabilizer.png",
+      "bytes": 238878,
+      "sha256": "6a766c6f2c73d75c7e4c79b613a4ba39f80b89ad4969b1c752f99a453d56014c",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Content/ColdSteelData/items.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Content/ColdSteelData/items.json",
+      "bytes": 172286,
+      "sha256": "ba60f3b9a993cdc12e517702e6cb8c4ae8379d4afb89762875cd547213bdaece",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+      "bytes": 9853,
+      "sha256": "725671c18ba58e78e3a44bfef22412a776485f1e5b31b618ec344755aac80427",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "bytes": 36824,
+      "sha256": "11c0d903cfedd69f400665d580e1e1f88420f98ac1d373a95da323be83970d53",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/model_manifest.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/model_manifest.json",
+      "bytes": 31232,
+      "sha256": "773ccb6e5ebe1f765f7dc667320df95622346bb0690c84e3dbffe01de9c5db41",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/presentation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/presentation.json",
+      "bytes": 5303,
+      "sha256": "0b21067478d1e75567d78cc1d4f48328d884af99c94ac5495478bd1ae00884e2",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/Receipts/data-installation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/Receipts/data-installation.json",
+      "bytes": 24775,
+      "sha256": "7f12331850ef0ca3356cf2985f39b5bad5aeb0296d93fa0dd6cc07ae0ffa8c53",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/texture_manifest.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/Before/SourceAssets/AlchemyMaterials20261015/texture_manifest.json",
+      "bytes": 6038,
+      "sha256": "2637e7ab0cafa9a118f3d4110bde1186cf6fedec1ae49b210286828082758ec0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/end_pie_for_build.py",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/end_pie_for_build.py",
+      "bytes": 190,
+      "sha256": "4faec11328efb6b3b680b824ee4abd199a6b89b91708d2331ece6756b30767a3",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/save_close_for_build.py",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/Stabilizer1x2/save_close_for_build.py",
+      "bytes": 891,
+      "sha256": "1ba5784c80674b6ff50386d240336fa6217864e50bf19e898ac7dde132ebca82",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/model_manifest.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/model_manifest.json",
+      "bytes": 31234,
+      "sha256": "4b0c958add6b0051f6893385c53f6672881ea7c5535bf97f8d7a4096fd720443",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/presentation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/presentation.json",
+      "bytes": 5304,
+      "sha256": "ea4c1842ae5ec4df1dde070373e1f42d906215f3af48b43c1c21e5b500fc7d4c",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/Receipts/ue-import.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/Receipts/ue-import.json",
+      "bytes": 3360,
+      "sha256": "8d17bf3c5921ddf2621a67f40774036db58dd7bba7c76d2bda350c2744f778fd",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/VisualRefineV4/delivery.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/VisualRefineV4/delivery.json",
+      "bytes": 445,
+      "sha256": "3239292703203d251230f58a6eb6e87808771a2ca1b0a606608a205c5ffc8c81",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/VisualRefineV4/presentation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/ActiveReceipts/VisualRefineV4/presentation.json",
+      "bytes": 2884,
+      "sha256": "5db859259389fea14cc165f9ba178fe2c0c5931a56ebe4547a5043e3466fadb7",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/alchemy_active_catalyst.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/alchemy_active_catalyst.png",
+      "bytes": 234462,
+      "sha256": "3f1ae1b1120708fb0e4e709cef5ee9f23980e315f12693427acca8be71e4241d",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/alchemy_bluemarrow_crystals.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/alchemy_bluemarrow_crystals.png",
+      "bytes": 229877,
+      "sha256": "d6dbd69bae7c92f1fbf7320052473a51ba3880e73dda833c4bb69b9649559f13",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/alchemy_compound_stabilizer.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/alchemy_compound_stabilizer.png",
+      "bytes": 503272,
+      "sha256": "e0a9ceb34291503ede7b047682ed710dd58ea45b16e1e175aecfede7e6b016ee",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/HeadlessEditorStateFailure/main-import-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/HeadlessEditorStateFailure/main-import-stdout.log",
+      "bytes": 66360,
+      "sha256": "0aea21407dc55c2497bc423fff6562dc256afe2d9630617e2daf44e05378d7b2",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/HeadlessEditorStateFailure/main-import.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/HeadlessEditorStateFailure/main-import.log",
+      "bytes": 279193,
+      "sha256": "bc79fb666c4db94fb38e2b1a3e658ada311f017defa066ec9ff4c4840933ffbf",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/MainPreInstall/SM_Alchemy_ActiveCatalyst.uasset",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/MainPreInstall/SM_Alchemy_ActiveCatalyst.uasset",
+      "bytes": 611891,
+      "sha256": "e2c81792e3718f3ef0e00556cd0bd4035ade01a1d58330d00369351dcb387ecb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/MainPreInstall/SM_Alchemy_BluemarrowCrystals.uasset",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/MainPreInstall/SM_Alchemy_BluemarrowCrystals.uasset",
+      "bytes": 963152,
+      "sha256": "32f6f3d695b8e6cbb62f6218f5dc81192ee56bd5909644b05e37ae0ec588edce",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/MainPreInstall/SM_Alchemy_CompoundStabilizer.uasset",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/MainPreInstall/SM_Alchemy_CompoundStabilizer.uasset",
+      "bytes": 627818,
+      "sha256": "aa458fad509e8e62915e96b28c109cb0aab2a77dd36c2826b364c8d1f29ab6ad",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/SM_Alchemy_ActiveCatalyst.uasset",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/SM_Alchemy_ActiveCatalyst.uasset",
+      "bytes": 611891,
+      "sha256": "e2c81792e3718f3ef0e00556cd0bd4035ade01a1d58330d00369351dcb387ecb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/SM_Alchemy_BluemarrowCrystals.uasset",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/SM_Alchemy_BluemarrowCrystals.uasset",
+      "bytes": 963152,
+      "sha256": "32f6f3d695b8e6cbb62f6218f5dc81192ee56bd5909644b05e37ae0ec588edce",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/SM_Alchemy_CompoundStabilizer.uasset",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/Before/SM_Alchemy_CompoundStabilizer.uasset",
+      "bytes": 627818,
+      "sha256": "aa458fad509e8e62915e96b28c109cb0aab2a77dd36c2826b364c8d1f29ab6ad",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/AlchemyMaterials20261015/VisualRefineV4/preserve_candidates.py",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/AlchemyMaterials20261015/VisualRefineV4/preserve_candidates.py",
+      "bytes": 1270,
+      "sha256": "7d0a005e146576f34e21d00bec2d791b74a7a55f6794ae81a6c2912f065ebf43",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoPorter_V01.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoPorter_V01.blend1",
+      "bytes": 42147493,
+      "sha256": "f3fb4b72614c656e34470e2bb99b2095d0c8cf9e584b7f944caa2bbeaeef2a31",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoPorter_WithHelmet_V01.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoPorter_WithHelmet_V01.blend1",
+      "bytes": 42247661,
+      "sha256": "619f834b72d0782e4b43ecfdb80b263cf5c5c461d484a2186a738c09ea708f27",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoTechnician_V01.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoTechnician_V01.blend1",
+      "bytes": 41244764,
+      "sha256": "0a25d82276d75411ddbe8eceeb286caca49da12332f14266f471e1f4c10ac097",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoTechnician_WithHelmet_V01.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/CargoStationStaff20261014/V01/Authoring/CargoTechnician_WithHelmet_V01.blend1",
+      "bytes": 41330524,
+      "sha256": "30bad56b3c7710c1e1848d2828437715fa356b3f2797968eb4414005a2c06dd9",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/Content/GameMaps/L_Dungeon_Randomized.umap",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/Content/GameMaps/L_Dungeon_Randomized.umap",
+      "bytes": 31225,
+      "sha256": "f7fdf1cb1fda6058a85aa62d59b8459ebc2302f589aee1a4de3b13ef68144d00",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/production-catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/production-catalog.json",
+      "bytes": 5823177,
+      "sha256": "22745b735f0ca87014624046e198db1a5160c163944c79204aebd43cffd4d438",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "bytes": 130411,
+      "sha256": "a7850916e4ac8faa9db18c518a29ccb66bbae2d21640a5cff67f7f20bda97865",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/FacilityFreightEncounter.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/FacilityFreightEncounter.cpp",
+      "bytes": 7230,
+      "sha256": "d0a59e5d426a6bce225799bc22de96e0f2fe6b7cc242396bfcf39e3e416d3c38",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "bytes": 40673,
+      "sha256": "bea24de9249cd515cc8edc05b453263ec0931bd376396e3e4b1a61f2d99c3474",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "bytes": 5569,
+      "sha256": "3903db0e96cde95e791bb3d7e4937fec60ae8d75f7b4f1540095a64f90075096",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/placements.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonFacilityFlow20261007/SpawnEntries20261009/placements.json",
+      "bytes": 58595,
+      "sha256": "a0b0e5fa4acc7c1b51e55c52e9594cb86fb1abf974c39f8b573d7d930f17080e",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonRoutes20260922/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonRoutes20260922/Config/catalog.json",
+      "bytes": 1357189,
+      "sha256": "1496b4dc6cb673c476f34350b1ca1258ce0253c414a5fff2e8a473215ab5c4e8",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonSplitLevels20261001/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonSplitLevels20261001/Config/catalog.json",
+      "bytes": 1357137,
+      "sha256": "82b49af3144ebe1aefcd54bdb2de0c21d05c9d1e1055316f856196493d61a322",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonStaffLiving20261002/Production20261002/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonStaffLiving20261002/Production20261002/Config/catalog.json",
+      "bytes": 1355783,
+      "sha256": "446e51eb424e4cf858637f27736e4fc3e6fe828ff7801063ffb0bf1b7f251bf4",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonThemedRoutes20261001/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonThemedRoutes20261001/Config/catalog.json",
+      "bytes": 1357137,
+      "sha256": "82b49af3144ebe1aefcd54bdb2de0c21d05c9d1e1055316f856196493d61a322",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonTransitStation20260928/Config/module.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/DungeonTransitStation20260928/Config/module.json",
+      "bytes": 138807,
+      "sha256": "d99e80c8791f5856ecff1bc43b620f76e37086febaacff6b0355c0786c878b89",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/SceneLootExpansion20261003/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/SceneLootExpansion20261003/Config/catalog.json",
+      "bytes": 1355783,
+      "sha256": "446e51eb424e4cf858637f27736e4fc3e6fe828ff7801063ffb0bf1b7f251bf4",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/Config/catalog.json",
+      "bytes": 1355783,
+      "sha256": "446e51eb424e4cf858637f27736e4fc3e6fe828ff7801063ffb0bf1b7f251bf4",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/RefineV2/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/RefineV2/Config/catalog.json",
+      "bytes": 1179129,
+      "sha256": "0b710694f04f37a461d0c304ae2d7226b6809bd40cdcbc3c05d8fd9e9be26f3d",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/RefineV3/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/RefineV3/Config/catalog.json",
+      "bytes": 1179595,
+      "sha256": "0ba1c6251decd2aa30534f78d9568ac5eceb3772aff0be6c8190176f0a3b1669",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/RefineV4/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/StationWorkshop20261003/RefineV4/Config/catalog.json",
+      "bytes": 1221904,
+      "sha256": "89d412d8727c4eecb91151e3ad69685912c7f7db882ccb9d5958ab9575d34113",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/WarehouseContainers20261002/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightDoorReinforcements20261014/Before/SourceAssets/WarehouseContainers20261002/Config/catalog.json",
+      "bytes": 1355783,
+      "sha256": "446e51eb424e4cf858637f27736e4fc3e6fe828ff7801063ffb0bf1b7f251bf4",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/DungeonRoutes20260922/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/DungeonRoutes20260922/Config/catalog.json",
+      "bytes": 1356988,
+      "sha256": "11e734292ab45cac0817dc647bac7684f3e6fa9fa89fe595378dd20501338ea3",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/DungeonSplitLevels20261001/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/DungeonSplitLevels20261001/Config/catalog.json",
+      "bytes": 1356936,
+      "sha256": "9642c615b15781148ff74ba12bf29969a3bd1cd9df87557e7d4657b5e653af54",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/DungeonStaffLiving20261002/Production20261002/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/DungeonStaffLiving20261002/Production20261002/Config/catalog.json",
+      "bytes": 1355582,
+      "sha256": "95136df6dc6d8a7068116c4f0a4d4b0111b3db5d6344e73f4e1d28c93b6857b0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/DungeonThemedRoutes20261001/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/DungeonThemedRoutes20261001/Config/catalog.json",
+      "bytes": 1356936,
+      "sha256": "9642c615b15781148ff74ba12bf29969a3bd1cd9df87557e7d4657b5e653af54",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/DungeonTransitStation20260928/Config/module.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/DungeonTransitStation20260928/Config/module.json",
+      "bytes": 138654,
+      "sha256": "43e60937a53a5a1193beede75a4c2ce0f893b48bbbc5c0e9dd6db79f19978c04",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/L_Dungeon_Randomized.umap",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/L_Dungeon_Randomized.umap",
+      "bytes": 31225,
+      "sha256": "c7b9501b421b078ae4826bcada04f5d6d554645c79ba0869b832cfe19e1c9eb0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/production-catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/production-catalog.json",
+      "bytes": 5823122,
+      "sha256": "34a0f7a8e9debd5090fba3ae908067d68d4d6e104f706afa7fa907c90b2fd1ab",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/SceneLootExpansion20261003/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/SceneLootExpansion20261003/Config/catalog.json",
+      "bytes": 1355582,
+      "sha256": "95136df6dc6d8a7068116c4f0a4d4b0111b3db5d6344e73f4e1d28c93b6857b0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/Config/catalog.json",
+      "bytes": 1355582,
+      "sha256": "95136df6dc6d8a7068116c4f0a4d4b0111b3db5d6344e73f4e1d28c93b6857b0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/Config/workshop.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/Config/workshop.json",
+      "bytes": 99768,
+      "sha256": "87ce816ade1581c359ecf0d6d1c0615117956d843343af89ac6e443f8c781dcf",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV2/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV2/Config/catalog.json",
+      "bytes": 1178928,
+      "sha256": "85d999fb6d8c1853f21d96e02b311a84818f64e39428f07ae394dfbf9ba8df26",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV2/Config/workshop.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV2/Config/workshop.json",
+      "bytes": 99337,
+      "sha256": "def34c95d6c0dc9662f0dfd402164d467f97054e96beeb15f4add567b436be6d",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV3/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV3/Config/catalog.json",
+      "bytes": 1179394,
+      "sha256": "378ed35db40f114e4da2996ecf168f735235ec0f5a569363c9044adbdfb0def5",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV3/Config/workshop.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV3/Config/workshop.json",
+      "bytes": 99768,
+      "sha256": "87ce816ade1581c359ecf0d6d1c0615117956d843343af89ac6e443f8c781dcf",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV4/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV4/Config/catalog.json",
+      "bytes": 1221703,
+      "sha256": "021381aa00b36c55751327f5fc624c24693540cb877244357f76208ed9900472",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV4/Config/workshop.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/StationWorkshop20261003/RefineV4/Config/workshop.json",
+      "bytes": 99768,
+      "sha256": "87ce816ade1581c359ecf0d6d1c0615117956d843343af89ac6e443f8c781dcf",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightEncounter20261014/Backups/WarehouseContainers20261002/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightEncounter20261014/Backups/WarehouseContainers20261002/Config/catalog.json",
+      "bytes": 1355582,
+      "sha256": "95136df6dc6d8a7068116c4f0a4d4b0111b3db5d6344e73f4e1d28c93b6857b0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Config/DefaultGame.ini",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Config/DefaultGame.ini",
+      "bytes": 22690,
+      "sha256": "8a1c5d971b9346267d6ff3804c05d454ea327b1efc82ed313c0af9ee3f1d2d4e",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/forging-recipes.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/forging-recipes.json",
+      "bytes": 1247,
+      "sha256": "5f90ad8360fe588c4f021536453340a20d306b2ac0cfcdf4fc3c893a22f2268a",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/gun-assembly.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/gun-assembly.json",
+      "bytes": 41325,
+      "sha256": "1236be8d21b06fc656cbeb7cc6a451721fae06788125665d7e105a945a62dadb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/items.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/items.json",
+      "bytes": 156665,
+      "sha256": "7382fb9ca49c674e361b6c064581cd649e8256c7e5006e9d178a169333a9fcb0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/scene_search_loot.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/scene_search_loot.json",
+      "bytes": 9171,
+      "sha256": "68bbe5eda8ce08fdee8b6abbc2da1bbb22a98d8c8ce1c781e3d95d646db0b678",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/woodworking-recipes.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Content/ColdSteelData/woodworking-recipes.json",
+      "bytes": 724,
+      "sha256": "72ffb71f7e71884e2dc413368fa9276a7c6b4239a0ac159a26c8276b150c1243",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/Building/ForgingSystem.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/Building/ForgingSystem.cpp",
+      "bytes": 16276,
+      "sha256": "3d572aa00ab9f7c7f45b4b24e2c51e0a48c54f468d99953d6d081088b74b3fe6",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/Building/GunAssemblySystem.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/Building/GunAssemblySystem.cpp",
+      "bytes": 15837,
+      "sha256": "32892423df9513eba7ac0aaac6e54d3fa07258ac183e114720da08d83caaefbb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp",
+      "bytes": 6999,
+      "sha256": "9f83bf45dfd5818c43fc3ccfc3d76ac3d6f262a7a8ead9347487ca08506f9c7f",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "bytes": 7249,
+      "sha256": "a6956367fa2dff0652cd5d1536ba6f80ead94acad0c60897f2d0b0c6ed1a7acb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "bytes": 13815,
+      "sha256": "c892bb0bb099946e216e24878a9651c84cfd60a36fb0f61d53a1ef06fc3ece28",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightIntegration20261014/Before/Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+      "bytes": 13421,
+      "sha256": "f72794c984aafde005a876f12c2ce3e29c2a4f2edd273da44f96c72c96278eb6",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Authored/SM_Freight_CordlessImpactWrench_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Authored/SM_Freight_CordlessImpactWrench_Source.blend1",
+      "bytes": 2019124,
+      "sha256": "c80d83fc6650eaa708b02fc7c63caf356537c0ec54894f0d80efb870c4927e4c",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Authored/SM_Freight_IndustrialMultimeter_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Authored/SM_Freight_IndustrialMultimeter_Source.blend1",
+      "bytes": 2050346,
+      "sha256": "2b7959eb4986887c9a7179549455a847c7ad3146c02e10faae63f860567814ea",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Authored/SM_Freight_PrecisionToolKit_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Authored/SM_Freight_PrecisionToolKit_Source.blend1",
+      "bytes": 2127061,
+      "sha256": "71ead6609ad83ccf208dc2427ddad8edd800c6c679e13072b63e8acff04ff344",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Previews/ImpactWrench_front.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Previews/ImpactWrench_front.png",
+      "bytes": 715938,
+      "sha256": "a5a7d9719e98602b496a0891799def96f962e43f6bf49041ef9387c7cd03313c",
+      "reason": "superseded first review render",
+      "replacement": "SourceAssets/FreightTools20261014/Previews/ReviewV2/ImpactWrench_front.png",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Previews/ImpactWrench_rear.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Previews/ImpactWrench_rear.png",
+      "bytes": 745781,
+      "sha256": "e0e76e37c5a8a24159a6804d8b4bc541bd651cd553924bbe8a79a54d1397bb73",
+      "reason": "superseded first review render",
+      "replacement": "SourceAssets/FreightTools20261014/Previews/ReviewV2/ImpactWrench_rear.png",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Previews/Multimeter_front.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Previews/Multimeter_front.png",
+      "bytes": 874588,
+      "sha256": "172d1a8bc8475a23a8f4f57a03ac05ec08bace44d236b829ba545d2df5696bd6",
+      "reason": "superseded first review render",
+      "replacement": "SourceAssets/FreightTools20261014/Previews/ReviewV2/Multimeter_front.png",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Previews/Multimeter_rear.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Previews/Multimeter_rear.png",
+      "bytes": 799225,
+      "sha256": "90d7fd5c309fa84d1b9a83d62b0b3c63d563aa099a0f4704f84073fa6a8adac8",
+      "reason": "superseded first review render",
+      "replacement": "SourceAssets/FreightTools20261014/Previews/ReviewV2/Multimeter_rear.png",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Previews/ToolKit_front.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Previews/ToolKit_front.png",
+      "bytes": 973354,
+      "sha256": "716feb6f22f4324ce2e5ab1accab194b336aae63fb63e54f40975f025163ddb6",
+      "reason": "superseded first review render",
+      "replacement": "SourceAssets/FreightTools20261014/Previews/ReviewV2/ToolKit_front.png",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Previews/ToolKit_rear.png",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Previews/ToolKit_rear.png",
+      "bytes": 661549,
+      "sha256": "6ec10669a514ddd55b37c1c70da053577dad84d517b220437d1266d9a07c47f3",
+      "reason": "superseded first review render",
+      "replacement": "SourceAssets/FreightTools20261014/Previews/ReviewV2/ToolKit_rear.png",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/FreightTools20261014/Scripts/read_toolkit_surface_issue.py",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/FreightTools20261014/Scripts/read_toolkit_surface_issue.py",
+      "bytes": 2133,
+      "sha256": "3e5c9db7d32acde821ec3b97250c1b159b60303ad75118ed322b41b366b31d5d",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Authored/SM_Power_ControlModule_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Authored/SM_Power_ControlModule_Source.blend1",
+      "bytes": 9848356,
+      "sha256": "de1c485a2a1897a022ce5001bfe6537afc40fd707846eed93cd98102d96782ec",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Authored/SM_Power_EnergyStorageCell_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Authored/SM_Power_EnergyStorageCell_Source.blend1",
+      "bytes": 9802405,
+      "sha256": "cb1fdf97ddf3b0b07a01fa7912b4a4a34bcdb1e44abd640ad45aac3ad07fa478",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Authored/SM_Power_IndustrialFuseSet_Source.blend1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Authored/SM_Power_IndustrialFuseSet_Source.blend1",
+      "bytes": 9825980,
+      "sha256": "d1731a85e2f1f425791725f8e73d9132ecd32653e163c4ef88eb0507598ac9a0",
+      "reason": "automatic Blender backup",
+      "replacement": "adjacent current .blend or VisualRefineV4 source",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/Config/DefaultGame.ini",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/Config/DefaultGame.ini",
+      "bytes": 23082,
+      "sha256": "5747835ba62b8a859c8f1bcfb2cd966e8334f6af5961799a481daa1b439657e3",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/Content/ColdSteelData/items.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/Content/ColdSteelData/items.json",
+      "bytes": 160980,
+      "sha256": "41d0bf259e852c7b6ec24caf4b011bc7385ec38d8c32ea5cef3e34712aee8d70",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/Content/ColdSteelData/scene_search_loot.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/Content/ColdSteelData/scene_search_loot.json",
+      "bytes": 27075,
+      "sha256": "b1f5d7c27dde1a07580f21e5d51abea5cd69d670207a0936364f937435c25993",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/Content/GameMaps/L_Dungeon_Randomized.umap",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/Content/GameMaps/L_Dungeon_Randomized.umap",
+      "bytes": 31225,
+      "sha256": "cf098c2860c449374ac60c500b6d441d7c9643dc6b7d2cbd265feb0894b117a0",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/InterruptedEditorBuild/build-FPSGAMEEditor-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/InterruptedEditorBuild/build-FPSGAMEEditor-stdout.log",
+      "bytes": 11427,
+      "sha256": "3a946c17246cccb68c384d23b78191de86221836c798881a033523583caca99a",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/InterruptedEditorBuild/build-FPSGAMEEditor.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/InterruptedEditorBuild/build-FPSGAMEEditor.log",
+      "bytes": 17019,
+      "sha256": "801069db387d9dc520350137d86045cbc1046e7165ad2ac1a115e2a1233e4a27",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/MissingHeaderBuild/build-FPSGAMEEditor-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/MissingHeaderBuild/build-FPSGAMEEditor-stdout.log",
+      "bytes": 19799,
+      "sha256": "8758a5734ca95a290bc1af67f4f076e32cbb00294397cacdb4544a1a369da243",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/MissingHeaderBuild/build-FPSGAMEEditor.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/MissingHeaderBuild/build-FPSGAMEEditor.log",
+      "bytes": 26533,
+      "sha256": "1954b94aaf8bedcd649f6fd2992dd93e1f2ad1f546e2e856146e547c63ee2289",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/MissingHeaderBuild/build.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/MissingHeaderBuild/build.json",
+      "bytes": 541,
+      "sha256": "6e0a6f7726b2a7af9d857fb8462404f91cade74e34e1c3bc2eee3c0c517174b1",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/production-catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/production-catalog.json",
+      "bytes": 5821706,
+      "sha256": "73a6cc9f033dbac033d3bbb91ecb16ad8ef08441155078e56a5bd65359a908a7",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/SourceAssets/DungeonFacilityFlow20261007/Config/catalog.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/SourceAssets/DungeonFacilityFlow20261007/Config/catalog.json",
+      "bytes": 12680197,
+      "sha256": "da866ea01357778dae2164db004178b50ccba9550af14b64b0bc8b6c9b015dc5",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/SourceAssets/DungeonPowerTheme20261004RefineV2/Config/module-drafts.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/SourceAssets/DungeonPowerTheme20261004RefineV2/Config/module-drafts.json",
+      "bytes": 144438,
+      "sha256": "66f690db2f23786eda91ebbdd487a7cbfd880146b803f1f290a0f0d4da4153d8",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Before/SourceAssets/PowerCollectibles20261014/presentation.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Before/SourceAssets/PowerCollectibles20261014/presentation.json",
+      "bytes": 2811,
+      "sha256": "4a75c51e919c080fbb9f0f1a4111e6cf15885fda08ca719f67ff93624cdae4e1",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCollectibles20261014/Scripts/editor_state_for_build.py",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCollectibles20261014/Scripts/editor_state_for_build.py",
+      "bytes": 655,
+      "sha256": "0411239f719759372d5e1eed27ae0fb2e17216d8b6cd8609ab709e98dc1defd0",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/HangingBellM09.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/HangingBellM09.cpp",
+      "bytes": 38620,
+      "sha256": "3cdfc10a286e612146614ccfdb5d4338fc6277265e3c91326cf490601e735e9c",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/ParallelBuildFailure/build-FPSGAMEEditor-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/ParallelBuildFailure/build-FPSGAMEEditor-stdout.log",
+      "bytes": 21248,
+      "sha256": "b4c45196340b5b319db834723290a34a3b0ff035241c0ab6b6f8db5e65559fa5",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/ParallelBuildFailure/build-FPSGAMEEditor.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/ParallelBuildFailure/build-FPSGAMEEditor.log",
+      "bytes": 35770,
+      "sha256": "b51c09f8a5381f8558156e646e1f08c649853113cba6a8dc425c24088acaa8fb",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/ParallelBuildFailure/build.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/ParallelBuildFailure/build.json",
+      "bytes": 317,
+      "sha256": "b59a2d4797ac5d14622d51ebd695b6b39bc2e901e31d78b6a81f96539fa9b4c9",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/ParallelGameLinkFailure/build-FPSGAME-stdout.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/ParallelGameLinkFailure/build-FPSGAME-stdout.log",
+      "bytes": 16476,
+      "sha256": "1eb20f066680e9fc29bcc85e8ee661fb3f0cd231a4dd691b41e5b26d5f574013",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/ParallelGameLinkFailure/build-FPSGAME.log",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/ParallelGameLinkFailure/build-FPSGAME.log",
+      "bytes": 24677,
+      "sha256": "7db4f366daaf7a1263bd9ca3b01865060ea89a4f4dfd5c985447e0a6bcbf0692",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerCompletionAudit20261014/Before/ParallelGameLinkFailure/build.json",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerCompletionAudit20261014/Before/ParallelGameLinkFailure/build.json",
+      "bytes": 547,
+      "sha256": "ac00a5e7d3cc4b60506ab4f01e44def1985f83e6f8c58fbe3ef1107409448e0e",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Config/DefaultGame.ini",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Config/DefaultGame.ini",
+      "bytes": 22771,
+      "sha256": "4cc4f68ad5eee493788b45ee6ead6ef90eb72c460f8594c5b26d4189bce0cf95",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "bytes": 130532,
+      "sha256": "0c9719ea55ed5959a361cec2b29a9bd1527b1bef9aba71f6bbbf712acf838555",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "bytes": 6577,
+      "sha256": "57fe95321f6ec5a942465a36ea184b8ba2ec4120db25a4383515c195aff7698b",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "bytes": 32599,
+      "sha256": "d945e69a264b1f4ad176a1ef0f72e425d7bc1f774f307e93c2ef3b7d70bb3250",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "bytes": 9140,
+      "sha256": "d1376c7730ff846b0b0bbf54eb911bef7a7e8abf012bd97264ace475ee161139",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "bytes": 1049,
+      "sha256": "bfa0d05e67fd2ca4100b5ac1d4c03396c3eb728b5f26c9df227e334cf4f11b0b",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "bytes": 7423,
+      "sha256": "156eb17075166d706e801eabf7e26a8e894e720040f8c485d7678ba2b2e1ec48",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "bytes": 1742,
+      "sha256": "a4ef4c650c275ea70914a3f645e4e16e536bfe05da6bd3283e8389241f305058",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "bytes": 42605,
+      "sha256": "02bca9acdf09f2beb06d0953b7e8575ff55b2e4533d42eafcae26967fced7f1a",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "bytes": 6919,
+      "sha256": "dfd809cf06e1b90b78fcf918df8ad4e19f2b5311363e24978be94b21b3d7b350",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterAIController.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterAIController.cpp",
+      "bytes": 19384,
+      "sha256": "356930c4c78461932214b1bd30ccc04b54f79ee06e1c3ba343ebd819a87a2850",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterCombatComponent.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterCombatComponent.cpp",
+      "bytes": 41055,
+      "sha256": "79c182ff4648c8b4903189169a708c51e8f5221331059216061ba91329cc8b14",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterCoreStats.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterCoreStats.cpp",
+      "bytes": 13004,
+      "sha256": "0346a64d1a58a0a04d89cef8f550c7ea698108cdaeb6abc26d1e98b573024d84",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterSurfaceGroundingNode.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterSurfaceGroundingNode.cpp",
+      "bytes": 17857,
+      "sha256": "04f08f6bdb33b52d4397bde196482c871d66d8c503d970cdb9063c91c851d791",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterToughnessProfiles.cpp",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/BeforeBuildSupport/MonsterToughnessProfiles.cpp",
+      "bytes": 6082,
+      "sha256": "5ba048c1fe5cac1985f151223a0052fe8dabf90efb3009ff07ef38982e1ac7af",
+      "reason": "superseded pre-change snapshot",
+      "replacement": "current production files and delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/read_context.ps1",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/read_context.ps1",
+      "bytes": 972,
+      "sha256": "6d86fb205cc313677795b492d2eadd875926ec9eae949ce2a93eb2742a013fe8",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "SourceAssets/PowerEncounter20261014/read_context.py",
+      "target": "trash/regional-loot-retired-20261015/SourceAssets/PowerEncounter20261014/read_context.py",
+      "bytes": 1583,
+      "sha256": "5a07642f9b8a3c4e55d5836e6c242efb85ae58f2efd5b940f3c6c61d7cf64d86",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    },
+    {
+      "source": "Tools/CargoStationStaff/end_play_for_import.py",
+      "target": "trash/regional-loot-retired-20261015/Tools/CargoStationStaff/end_play_for_import.py",
+      "bytes": 231,
+      "sha256": "45778beaaff5b4702b57acba8ef96d3cb39ee40a4138b4f7784d0f0fe9fe1346",
+      "reason": "completed one-time operation; not a rebuild input",
+      "replacement": "current authored recipes and completed delivery receipts",
+      "status": "moved_and_hash_verified"
+    }
+  ],
+  "status": "complete"
+}

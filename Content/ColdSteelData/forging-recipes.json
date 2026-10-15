@@ -7,30 +7,19 @@
     {
       "id": "forge_highland_claymore",
       "output": "ue_highland_claymore",
-      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "wood", "count": 2}],
+      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "wood", "count": 2}, {"item": "search_forging_alloy_blank", "count": 1}],
       "mold": "Icons/ue_highland_claymore.png"
     },
     {
       "id": "forge_rune_sword",
       "output": "ue_rune_sword",
-      "inputs": [
-        {"item": "ironIngot", "count": 8},
-        {"item": "silverIngot", "count": 4},
-        {"item": "wood", "count": 2},
-        {"item": "magic_dust", "count": 6}
-      ],
+      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "silverIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "magic_dust", "count": 6}, {"item": "search_forging_alloy_blank", "count": 2}],
       "mold": "Icons/ue_rune_sword.png"
     },
     {
       "id": "forge_frost_crystal_sword",
       "output": "ue_frost_crystal_sword",
-      "inputs": [
-        {"item": "ironIngot", "count": 6},
-        {"item": "silverIngot", "count": 4},
-        {"item": "wood", "count": 2},
-        {"item": "quartz", "count": 8},
-        {"item": "magic_dust", "count": 8}
-      ],
+      "inputs": [{"item": "ironIngot", "count": 6}, {"item": "silverIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "quartz", "count": 8}, {"item": "magic_dust", "count": 8}, {"item": "search_forging_alloy_blank", "count": 2}],
       "mold": "Icons/ue_frost_crystal_sword.png"
     }
   ]

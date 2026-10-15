@@ -1,0 +1,28 @@
+{
+  "git_base": "d85ae0277eb0aa73d544ce77ce1cd12c99b8224f",
+  "guest_profile_prerequisite_sha256": "956fa1c1a78d1803c630623c5598d27ca6ab0b1d91580af453acac2050e6ecf7",
+  "guest_profile_repaired_sha256": "82e7f9c8b2a99757aea7c213268ca6775281886bbece45bd4e46c59857c21f4e",
+  "guest_patch_target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+  "local_patch_already_applied": true,
+  "regional_new_implementations": [
+    "Source/FPSGAME/Dungeons/DungeonRunFreight.cpp",
+    "Source/FPSGAME/Dungeons/DungeonRunPower.cpp",
+    "Source/FPSGAME/Dungeons/FacilityFreightEncounter.cpp",
+    "Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp",
+    "Source/FPSGAME/Dungeons/FacilityPowerEncounter.cpp",
+    "Source/FPSGAME/Monsters/M09NetworkClockTests.cpp"
+  ],
+  "required_shared_framework": {
+    "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp": "6a112f5939a8f9d5a677c35f6355bf966bb2494a08da5dcbfce5b5b05052ad51",
+    "Source/FPSGAME/Dungeons/FacilityHallEncounter.h": "aa595aeabd44c25e7638fb082290cffa0c7a374f03bfd92bc56c4b807ba14c23",
+    "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp": "9db620773290c86c582977d0e8186053469a0685bd042454258d285bb6d61f5c",
+    "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h": "1e81ce61481d2ffd6c6bd3d4cc4a8d5e9b8fb7b02ca8b59262b9c24466ba47f1",
+    "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp": "fd1dc2b741bcc9f0fd23056d99b92bc07c9fb76378eea6588cf51fcd056d9f79",
+    "Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp": "84e195bb4c4abb836b7c51485956f6c23c78739bb808432c9410e33cb704e8c1",
+    "Source/FPSGAME/Dungeons/DungeonSharedProgress.h": "820f567b0df201d005690a6a14417296da02c5f90b9dd2644dbedbf567fc7ade",
+    "Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp": "da5b4f5a7f00e0215fc16e3cfb4cb6139930b7d0c7e5adf7a558f9416f11d525",
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": "b18d2ecd775d03e868025a5b6aeaa32f749e34fe8e1437d5a3d984cfc14630c7",
+    "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": "82e7f9c8b2a99757aea7c213268ca6775281886bbece45bd4e46c59857c21f4e"
+  },
+  "note": "The public branch does not include all shared encounter/progress/cache changes. These source patches are an integration handoff, not a clean-checkout gameplay/build claim."
+}

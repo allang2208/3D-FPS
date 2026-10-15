@@ -587,7 +587,12 @@ void AHangingBellM09::UpdateFX()
 }
 void AHangingBellM09::Tick(float Dt)
 {
- Super::Tick(Dt);const float Previous=StateSeconds;StateSeconds+=Dt;
+ Super::Tick(Dt);const float Previous=StateSeconds;
+ // A late timestamp or GameState clock correction need not change State, so
+ // OnRep_State alone cannot keep remote attack/death presentation synchronized.
+ if(!HasAuthority()&&GetWorld()->GetGameState())
+  StateSeconds=FMath::Max(0.,GetWorld()->GetGameState()->GetServerWorldTimeSeconds()-StateStartedAt);
+ else StateSeconds+=Dt;
  if(HasAuthority()){for(float& C:Cooldown)C=FMath::Max(0.f,C-Dt);GlobalCooldown=FMath::Max(0.f,GlobalCooldown-Dt);TickCeiling(Dt);}
  if(State==EM09State::Travel||State==EM09State::Returning)
   if(auto* A=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))A->SetLocomotionRate(CeilingAnimationRate);

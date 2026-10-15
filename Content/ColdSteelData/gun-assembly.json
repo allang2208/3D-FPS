@@ -3,20 +3,7 @@
     {
       "id": "assemble_m4",
       "output": "ue_m4a1",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 12
-        },
-        {
-          "item": "copperIngot",
-          "count": 4
-        },
-        {
-          "item": "wood",
-          "count": 2
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 12}, {"item": "copperIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 1}],
       "camera": [
         24,
         0,
@@ -152,20 +139,7 @@
     {
       "id": "assemble_akm",
       "output": "ue_akm",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 12
-        },
-        {
-          "item": "copperIngot",
-          "count": 4
-        },
-        {
-          "item": "wood",
-          "count": 4
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 12}, {"item": "copperIngot", "count": 4}, {"item": "wood", "count": 4}, {"item": "search_assembly_component_box", "count": 1}],
       "camera": [
         20,
         0,
@@ -279,20 +253,7 @@
     {
       "id": "assemble_qbz191",
       "output": "ue_qbz191",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 14
-        },
-        {
-          "item": "copperIngot",
-          "count": 5
-        },
-        {
-          "item": "wood",
-          "count": 2
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 14}, {"item": "copperIngot", "count": 5}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 2}],
       "camera": [
         20,
         0,
@@ -428,20 +389,7 @@
     {
       "id": "assemble_m1911",
       "output": "ue_m1911",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 6
-        },
-        {
-          "item": "copperIngot",
-          "count": 2
-        },
-        {
-          "item": "wood",
-          "count": 1
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 6}, {"item": "copperIngot", "count": 2}, {"item": "wood", "count": 1}, {"item": "search_assembly_component_box", "count": 1}],
       "camera": [
         20,
         0,
@@ -577,20 +525,7 @@
     {
       "id": "assemble_dan_wesson715",
       "output": "ue_dan_wesson715",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 8
-        },
-        {
-          "item": "copperIngot",
-          "count": 3
-        },
-        {
-          "item": "wood",
-          "count": 2
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "copperIngot", "count": 3}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 1}],
       "camera": [
         20,
         0,
@@ -704,20 +639,7 @@
     {
       "id": "assemble_ash12",
       "output": "ue_ash12",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 18
-        },
-        {
-          "item": "copperIngot",
-          "count": 6
-        },
-        {
-          "item": "wood",
-          "count": 2
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 18}, {"item": "copperIngot", "count": 6}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 2}, {"item": "search_precision_mechanism", "count": 1}],
       "camera": [
         20,
         0,
@@ -831,20 +753,7 @@
     {
       "id": "assemble_m16a2",
       "output": "ue_m16a2",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 14
-        },
-        {
-          "item": "copperIngot",
-          "count": 4
-        },
-        {
-          "item": "wood",
-          "count": 2
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 14}, {"item": "copperIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 1}],
       "camera": [
         20,
         0,
@@ -980,20 +889,7 @@
     {
       "id": "assemble_a762",
       "output": "ue_a762",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 16
-        },
-        {
-          "item": "copperIngot",
-          "count": 5
-        },
-        {
-          "item": "wood",
-          "count": 3
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 16}, {"item": "copperIngot", "count": 5}, {"item": "wood", "count": 3}, {"item": "search_assembly_component_box", "count": 2}],
       "camera": [
         20,
         0,
@@ -1129,20 +1025,7 @@
     {
       "id": "assemble_svd",
       "output": "ue_svd",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 18
-        },
-        {
-          "item": "copperIngot",
-          "count": 6
-        },
-        {
-          "item": "wood",
-          "count": 4
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 18}, {"item": "copperIngot", "count": 6}, {"item": "wood", "count": 4}, {"item": "search_assembly_component_box", "count": 2}, {"item": "search_precision_mechanism", "count": 1}],
       "camera": [
         20,
         0,
@@ -1278,20 +1161,7 @@
     {
       "id": "assemble_pkm_lowpoly",
       "output": "ue_pkm_lowpoly",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 24
-        },
-        {
-          "item": "copperIngot",
-          "count": 8
-        },
-        {
-          "item": "wood",
-          "count": 4
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 24}, {"item": "copperIngot", "count": 8}, {"item": "wood", "count": 4}, {"item": "search_assembly_component_box", "count": 3}, {"item": "search_precision_mechanism", "count": 2}],
       "camera": [
         20,
         0,
@@ -1427,20 +1297,7 @@
     {
       "id": "assemble_lmg201",
       "output": "ue_lmg201",
-      "inputs": [
-        {
-          "item": "ironIngot",
-          "count": 26
-        },
-        {
-          "item": "copperIngot",
-          "count": 8
-        },
-        {
-          "item": "wood",
-          "count": 3
-        }
-      ],
+      "inputs": [{"item": "ironIngot", "count": 26}, {"item": "copperIngot", "count": 8}, {"item": "wood", "count": 3}, {"item": "search_assembly_component_box", "count": 3}, {"item": "search_precision_mechanism", "count": 2}],
       "camera": [
         20,
         0,

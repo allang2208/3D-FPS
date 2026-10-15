@@ -341,6 +341,8 @@ namespace ColdSteelInventory
     FPSGAME_API bool Validate(const FColdSteelProfile& Profile, FString& Reason);
     // Checked load migration only; normal inventory transactions keep strict validation.
     FPSGAME_API bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
+    // Updates an authored instance snapshot; callers must place it using the new footprint.
+    FPSGAME_API bool MigrateAuthoredItemFootprint(FColdSteelItem& Item, bool& Changed, FString& Reason);
     FPSGAME_API bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
     FPSGAME_API const TArray<FString>& SlotNames();
     /** 背包装备槽(14)撑出的主背包行数：基础 4 行，装备的背包物品按 bagExtraCells 每 18 格加一行。 */

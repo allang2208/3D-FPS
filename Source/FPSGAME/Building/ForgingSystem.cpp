@@ -92,9 +92,9 @@ bool UColdSteelForgingSystem::Start(FName Id,FString& Reason)
     for(const auto& In:R->Inputs)
     {
         int64 Left=In.Count;
-        for(int32 Place:{0,4})for(int32 I=P.Items.Num()-1;I>=0&&Left>0;--I)
+        for(int32 Place:{0,5,4})for(int32 I=P.Items.Num()-1;I>=0&&Left>0;--I)
         {
-            auto& Item=P.Items[I];if(Item.Place!=Place||!Item.Container.IsEmpty()||Item.Definition!=In.Item)continue;
+            auto& Item=P.Items[I];if(Item.Place!=Place||(Place==4&&!Item.Container.IsEmpty())||Item.Definition!=In.Item)continue;
             const int64 Take=FMath::Min(Item.Count,Left);Item.Count-=Take;Left-=Take;if(Item.Count==0)P.Items.RemoveAt(I);
         }
         if(Left>0){Reason=TEXT("材料已变化，请重新开始");return false;}
@@ -216,7 +216,8 @@ bool UColdSteelForgingSystem::GetPaidMaterials(TMap<FString,int64>& Paid) const
     // Keep old-save fallback identical for the materials display and discard quote.
     const auto* Recipe=Find(Job().Recipe);
     if(!Recipe)return false;
-    for(const auto& In:Recipe->Inputs)Paid.Add(In.Item,In.Count);
+    // Jobs predating paid-material snapshots never paid the new search inputs.
+    for(const auto& In:Recipe->Inputs)if(!In.Item.StartsWith(TEXT("search_")))Paid.Add(In.Item,In.Count);
     return true;
 }
 bool UColdSteelForgingSystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refund,FString& Reason) const

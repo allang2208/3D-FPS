@@ -1,0 +1,657 @@
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunFreight.cpp b/Source/FPSGAME/Dungeons/DungeonRunFreight.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunFreight.cpp
+@@ -0,0 +1,46 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "Engine/World.h"
++
++void UDungeonRunSubsystem::BindFreightTheme(AAuthoredDungeonGenerator* InGenerator)
++{
++    TArray<int32> FreightRooms;
++    for (const auto& Node:Nodes)
++        if (AFacilityHallEncounter::IsFreight(Node.Module)) FreightRooms.Add(Node.Id);
++    if (FreightRooms.IsEmpty()) return;
++    TArray<int32> AreaRooms=FreightRooms;
++    for (const auto& Node:Nodes) if (Node.bConnector)
++    {
++        TArray<int32> Neighbors;CollectNeighborRooms(Node.Id,Neighbors);
++        if (Neighbors.Num()>=2 && !Neighbors.ContainsByPredicate([&FreightRooms](int32 Id){return !FreightRooms.Contains(Id);}))
++            AreaRooms.Add(Node.Id);
++    }
++    TArray<FDungeonRunDoor> Boundaries;
++    for (const auto& Node:Nodes) if (FreightRooms.Contains(Node.Id))
++    {
++        // Real door transforms and membership identify the two external ends,
++        // even when layout search assembles a theme in the reverse direction.
++        for (const auto& Door:Node.Doors)
++            if (!AreaRooms.Contains(Door.Neighbor)) Boundaries.Add(Door);
++    }
++    if (FreightRooms.Num()==3 && Boundaries.Num()==2)
++    {
++        FActorSpawnParameters Params;Params.Owner=InGenerator;Params.ObjectFlags|=RF_Transient;
++        auto* Area=GetWorld()->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,Params);
++        if (Area && Area->Configure(this,InGenerator,AreaRooms,Boundaries,EDungeonThemeObjective::FreightBoss)) FreightTheme=Area;
++        else if (Area) Area->Destroy();
++    }
++    if (!FreightTheme.IsValid())
++        UE_LOG(LogTemp,Error,TEXT("[FreightEncounter] Expected three freight rooms and two outer boundaries; rooms=%d boundaries=%d"),FreightRooms.Num(),Boundaries.Num());
++}
++
++bool UDungeonRunSubsystem::IsFreightBossDefeated() const
++{
++    if (!bActive || !Generator.IsValid()) return false;
++    if (GetWorld()->GetNetMode()==NM_Client) return bNetworkFreightBossDefeated;
++    for (const auto& Encounter:HallEncounters)
++        if (Encounter.IsValid() && Encounter->IsFreightBossDefeated()) return true;
++    return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunPower.cpp b/Source/FPSGAME/Dungeons/DungeonRunPower.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunPower.cpp
+@@ -0,0 +1,46 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "Engine/World.h"
++
++void UDungeonRunSubsystem::BindPowerTheme(AAuthoredDungeonGenerator* InGenerator)
++{
++    TArray<int32> PowerRooms;
++    for (const auto& Node:Nodes)
++        if (AFacilityHallEncounter::IsPower(Node.Module)) PowerRooms.Add(Node.Id);
++    if (PowerRooms.IsEmpty()) return;
++    TArray<int32> AreaRooms=PowerRooms;
++    for (const auto& Node:Nodes) if (Node.bConnector)
++    {
++        TArray<int32> Neighbors;CollectNeighborRooms(Node.Id,Neighbors);
++        if (Neighbors.Num()>=2 && !Neighbors.ContainsByPredicate([&PowerRooms](int32 Id){return !PowerRooms.Contains(Id);}))
++            AreaRooms.Add(Node.Id);
++    }
++    TArray<FDungeonRunDoor> Boundaries;
++    for (const auto& Node:Nodes) if (PowerRooms.Contains(Node.Id))
++    {
++        // Real door transforms and membership identify the two external ends,
++        // even when layout search assembles a theme in the reverse direction.
++        for (const auto& Door:Node.Doors)
++            if (!AreaRooms.Contains(Door.Neighbor)) Boundaries.Add(Door);
++    }
++    if (PowerRooms.Num()==3 && Boundaries.Num()==2)
++    {
++        FActorSpawnParameters Params;Params.Owner=InGenerator;Params.ObjectFlags|=RF_Transient;
++        auto* Area=GetWorld()->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,Params);
++        if (Area && Area->Configure(this,InGenerator,AreaRooms,Boundaries,EDungeonThemeObjective::PowerBoss)) PowerTheme=Area;
++        else if (Area) Area->Destroy();
++    }
++    if (!PowerTheme.IsValid())
++        UE_LOG(LogTemp,Error,TEXT("[PowerEncounter] Expected three power rooms and two outer boundaries; rooms=%d boundaries=%d"),PowerRooms.Num(),Boundaries.Num());
++}
++
++bool UDungeonRunSubsystem::IsPowerBossDefeated() const
++{
++    if (!bActive || !Generator.IsValid()) return false;
++    if (GetWorld()->GetNetMode()==NM_Client) return bNetworkPowerBossDefeated;
++    for (const auto& Encounter:HallEncounters)
++        if (Encounter.IsValid() && Encounter->IsPowerBossDefeated()) return true;
++    return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityFreightEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityFreightEncounter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityFreightEncounter.cpp
+@@ -0,0 +1,147 @@
++#include "FacilityHallEncounter.h"
++#include "AuthoredDungeonGenerator.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/Character.h"
++#include "GameFramework/PlayerController.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
++
++namespace
++{
++constexpr int32 Porter = 0, Technician = 1, Lurker = 2, Bellow = 3, Mawcrawler = 4;
++// Authored centimetres, before room yaw/translation. The rail bed is x >= -550,
++// |y| <= 525 at z=-180; all ground spawn boxes below are on dry platforms.
++const FBox TransferFloors[] = {
++    FBox(FVector(420,-1300,0),FVector(1380,-80,0)),
++    FBox(FVector(60,-1770,60),FVector(1740,-1430,60))
++};
++const FBox WarehouseAisles[] = {
++    FBox(FVector(-1400,700,0),FVector(230,1100,0)),
++    FBox(FVector(-230,-550,0),FVector(230,650,0)),
++    FBox(FVector(300,-700,0),FVector(1450,-300,0))
++};
++const FBox StationGround[] = {
++    FBox(FVector(1400,-1080,0),FVector(2200,-550,0)),
++    FBox(FVector(2200,-1080,0),FVector(3150,-550,0)),
++    FBox(FVector(550,550,0),FVector(1250,1080,0)),
++    FBox(FVector(2200,550,0),FVector(3150,1080,0))
++};
++const FBox StationBoss(FVector(300,-1100,0),FVector(1220,-550,0));
++}
++
++bool AFacilityHallEncounter::IsFreight(const FString& Module)
++{
++    return Module==TEXT("FreightTransfer_WarehouseLink") || Module==TEXT("AbandonedCargoWarehouse")
++        || Module==TEXT("AbandonedTransitStation");
++}
++
++TArray<FString> AFacilityHallEncounter::FreightMonsterClassPaths()
++{
++    return {
++        TEXT("/Game/Monsters/CargoPorter/BP_CargoPorter.BP_CargoPorter_C"),
++        TEXT("/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C"),
++        TEXT("/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C"),
++        TEXT("/Game/Monsters/BellowSacLobber/BP_BellowSacLobber.BP_BellowSacLobber_C"),
++        TEXT("/Game/Monsters/M10Mawcrawler/BP_M10Mawcrawler.BP_M10Mawcrawler_C")
++    };
++}
++
++bool AFacilityHallEncounter::IsFreightBossDefeated() const
++{
++    return Slots.IsValidIndex(FreightBossSlot) && Slots[FreightBossSlot].bDefeated;
++}
++
++void AFacilityHallEncounter::ConfigureFreight()
++{
++    for (const FString& Path:FreightMonsterClassPaths())
++    {
++        UClass* Class=FSoftClassPath(Path).ResolveClass();
++        if (!Class || !Class->IsChildOf(ACharacter::StaticClass()))
++        { UE_LOG(LogTemp,Error,TEXT("[FreightEncounter] Missing prepared class %s"),*Path); return; }
++        Members.Add(Class);
++    }
++    const uint32 Salt=Run->NodeRandomSalt(Room.Id);
++    FRandomStream Composition(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnComposition ^ Salt)));
++    Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement ^ Salt)));
++    if (Room.Module==TEXT("FreightTransfer_WarehouseLink"))
++    {
++        const int32 Count=Composition.RandRange(6,8);
++        for (int32 I=0;I<Count;++I)
++        { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=I<2 ? I : Composition.RandRange(Porter,Technician); }
++    }
++    else if (Room.Module==TEXT("AbandonedCargoWarehouse"))
++    {
++        for (int32 I=0;I<3;++I)
++        { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=Lurker;Slot.FreightPosition=I; }
++        const int32 StaffCount=Composition.RandRange(6,8);
++        for (int32 I=0;I<StaffCount;++I)
++        {
++            auto& Slot=Slots.AddDefaulted_GetRef();
++            Slot.Member=I<2 ? I : Composition.RandRange(Porter,Technician);
++            Slot.FreightPosition=I%UE_ARRAY_COUNT(WarehouseAisles);
++        }
++    }
++    else
++    {
++        // Boss owns a real slot from the outset; it does not wait for ordinary kills.
++        FreightBossSlot=Slots.Num();
++        auto& Boss=Slots.AddDefaulted_GetRef();Boss.Member=Mawcrawler;Boss.bFreightBoss=true;
++        for (int32 I=0;I<4;++I)
++        { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=Bellow;Slot.FreightPosition=I; }
++        for (int32 I=0;I<4;++I)
++        { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=Lurker;Slot.FreightPosition=I; }
++    }
++    FirstWaveCount=Slots.Num();bSecondWave=true;
++    if(Room.Module==TEXT("AbandonedTransitStation"))ConfigureFreightReinforcements();
++    GetWorldTimerManager().SetTimer(EncounterTimer,this,&AFacilityHallEncounter::UpdateEncounter,.2f,true);
++    UE_LOG(LogTemp,Log,TEXT("[FreightEncounter] %s initial_count=%d reinforcement_cap=%d boss_slot=%d"),
++        *Room.Module,FirstWaveCount,Slots.Num()-FirstWaveCount,FreightBossSlot);
++}
++
++bool AFacilityHallEncounter::FindFreightSpawn(const FFacilityHallSlot& Slot,const ACharacter* Defaults,FVector& Location,FRotator& Facing)
++{
++    const bool Station=Room.Module==TEXT("AbandonedTransitStation");
++    const bool Upper=Station && Slot.Member==Bellow;
++    const float Footprint=Slot.Member==Mawcrawler ? 225.f : Slot.Member==Lurker || Slot.Member==Bellow ? 135.f : 44.f;
++    const double Margin=FMath::Max(Defaults->GetCapsuleComponent()->GetScaledCapsuleRadius(),Footprint)+25.;
++    const FTransform Transform(FRotator(0,Room.Yaw,0),Room.Origin);
++    for (int32 Attempt=0;Attempt<12;++Attempt)
++    {
++        FBox Floor;
++        if (Room.Module==TEXT("FreightTransfer_WarehouseLink")) Floor=TransferFloors[Placement.RandRange(0,1)];
++        else if (!Station) Floor=WarehouseAisles[Slot.FreightPosition];
++        else if (Slot.bFreightBoss) Floor=StationBoss;
++        else if (Upper)
++        {
++            // Four separate bands of the same 5.4 m wide bridge at z=480 cm.
++            // A failed upper-floor placement retries its band; no ground fallback.
++            const double MinY=-1600.+Slot.FreightPosition*800.;
++            Floor=FBox(FVector(2225,MinY,480),FVector(2765,MinY+800.,480));
++        }
++        else Floor=StationGround[Slot.FreightPosition];
++        if (Floor.GetSize().X<=2*Margin || Floor.GetSize().Y<=2*Margin) continue;
++        const FVector Local(Placement.FRandRange(Floor.Min.X+Margin,Floor.Max.X-Margin),
++            Placement.FRandRange(Floor.Min.Y+Margin,Floor.Max.Y-Margin),Floor.Min.Z);
++        // Exclude the complete rail corridor by the full footprint, not just the pivot.
++        if (Station && !Upper && Local.X+Footprint>-550. && Local.X-Footprint<3800.
++            && FMath::Abs(Local.Y)<525.+Footprint+20.) continue;
++        const FVector Candidate=Transform.TransformPosition(Local);
++        bool Occupied=false;
++        for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if (const APawn* Player=It->Get() ? It->Get()->GetPawn().Get() : nullptr)
++                Occupied |= FVector::DistSquared(Player->GetActorLocation(),Candidate)<FMath::Square(450.);
++        for (const auto& Other:Slots)
++        {
++            if (!Other.Monster.IsValid()) continue;
++            const FVector OtherFloor=Other.Monster->GetActorLocation()-FVector(0,0,Other.Monster->GetSimpleCollisionHalfHeight());
++            if (FMath::Abs(OtherFloor.Z-Candidate.Z)>100.) continue;
++            const float OtherFootprint=Other.Member==Mawcrawler ? 225.f : Other.Member==Lurker || Other.Member==Bellow ? 135.f : 44.f;
++            Occupied |= FVector::DistSquared2D(OtherFloor,Candidate)<FMath::Square(Footprint+OtherFootprint+45.);
++        }
++        if (Occupied || !FindSpawn(Defaults,Candidate,Location,Footprint)) continue;
++        Facing=FRotator(0,Room.Yaw+Placement.FRandRange(-180.f,180.f),0);
++        if (Upper) Facing=Transform.TransformVectorNoScale(FVector(-1,0,0)).Rotation();
++        return true;
++    }
++    return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp b/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
+@@ -0,0 +1,201 @@
++#include "FacilityHallEncounter.h"
++#include "AuthoredDungeonGenerator.h"
++#include "DungeonThemeEncounter.h"
++#include "../Monsters/MonsterAIController.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/Level.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/StaticMeshActor.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "GameFramework/Character.h"
++#include "GameFramework/GameStateBase.h"
++#include "GameFramework/PlayerController.h"
++#include "Net/UnrealNetwork.h"
++
++namespace
++{
++constexpr int32 WorkerLimit=8;
++constexpr double WaveSeconds=20.;
++constexpr float DoorSeconds=.7f;
++}
++
++void AFacilityHallEncounter::BeginPlay()
++{
++    Super::BeginPlay();
++    // Initial replication can arrive before the client's generated room is ready.
++    if(GetNetMode()==NM_Client)SetActorTickEnabled(true);
++}
++
++void AFacilityHallEncounter::RegisterServiceDoors()
++{
++    const FName RoomTag(*FString::Printf(TEXT("DungeonModule.%d.%s"),Room.Id,*Room.Module));
++    const FString Prefix=TEXT("DungeonFreightDoor.");
++    // Registration happens once after assembly, before any encounter timers.
++    for(TActorIterator<AStaticMeshActor> It(GetWorld());It;++It)
++    {
++        if(It->GetOwner()!=Generator.Get()||!It->ActorHasTag(RoomTag))continue;
++        FString Id;
++        for(const FName Tag:It->Tags)
++            if(Tag.ToString().StartsWith(Prefix)){Id=Tag.ToString().RightChop(Prefix.Len());break;}
++        if(Id.IsEmpty())continue;
++        auto* Door=Doors.FindByPredicate([&Id](const auto& D){return D.Id==Id;});
++        if(!Door){Door=&Doors.AddDefaulted_GetRef();Door->Id=Id;}
++        const UStaticMesh* Mesh=It->GetStaticMeshComponent()->GetStaticMesh();
++        if(Mesh&&Mesh->GetName()==TEXT("SM_Entry_DoorLeaf"))
++        {Door->Left=*It;Door->ClosedLeft=It->GetActorTransform();}
++        else if(Mesh&&Mesh->GetName()==TEXT("SM_Entry_DoorLeafRight"))
++        {Door->Right=*It;Door->ClosedRight=It->GetActorTransform();}
++    }
++    Doors.RemoveAll([](const auto& D){return !D.Left.IsValid()||!D.Right.IsValid();});
++    Doors.Sort([](const auto& A,const auto& B){return A.Id<B.Id;});
++    for(auto& Door:Doors)
++    {
++        Door.FloorCenter=(Door.ClosedLeft.GetLocation()+Door.ClosedRight.GetLocation())*.5;
++        Door.Inward=Door.ClosedLeft.GetRotation().GetForwardVector().GetSafeNormal2D();
++    }
++}
++
++void AFacilityHallEncounter::ConfigureFreightReinforcements()
++{
++    RegisterServiceDoors();
++    if(Doors.Num()!=2)
++    {
++        UE_LOG(LogTemp,Error,TEXT("[FreightEncounter] Expected two service doors, found %d; initial encounter retained."),Doors.Num());
++        return;
++    }
++    NextFreightRewardSlot=FirstWaveCount;
++    for(int32 I=0;I<WorkerLimit;++I)
++    {
++        auto& Slot=Slots.AddDefaulted_GetRef();
++        Slot.FreightDoor=I%2;Slot.bDefeated=true;
++    }
++    // Only this room needs a replicated encounter actor. The other encounters
++    // remain server-only; generated geometry continues to use stable names.
++    bAlwaysRelevant=true;SetReplicates(true);SetReplicateMovement(false);
++    SetNetUpdateFrequency(10.f);
++    FreightDoorRunId=Run->RunId();
++    PublishFreightDoors();ForceNetUpdate();
++}
++
++APawn* AFacilityHallEncounter::FreightTargetNear(const FVector& Location) const
++{
++    if(!Theme.IsValid())return nullptr;
++    APawn* Best=nullptr;double Distance=TNumericLimits<double>::Max();
++    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++    {
++        APawn* Player=It->Get()?It->Get()->GetPawn().Get():nullptr;
++        if(!Player||!Theme->ContainsLocation(Player->GetActorLocation()))continue;
++        const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
++        if(Health&&Health->IsDead())continue;
++        const double D=FVector::DistSquared(Location,Player->GetActorLocation());
++        if(D<Distance){Best=Player;Distance=D;}
++    }
++    return Best;
++}
++
++void AFacilityHallEncounter::UpdateFreightReinforcements()
++{
++    if(!HasAuthority()||Doors.Num()!=2||Slots.Num()!=FirstWaveCount+WorkerLimit)return;
++    for(int32 I=FirstWaveCount;I<Slots.Num();++I)
++    {
++        auto& Slot=Slots[I];
++        if(Slot.bDefeated||!Slot.Monster.IsValid())continue;
++        APawn* Target=FreightTargetNear(Slot.Monster->GetActorLocation());
++        if(Target!=Slot.FreightTarget.Get())
++        {
++            Slot.FreightTarget=Target;
++            if(auto* AI=Cast<AMonsterAIController>(Slot.Monster->GetController()))AI->SetEncounterTarget(Target);
++        }
++    }
++    if(IsFreightBossDefeated())
++    {
++        // Pending slots are cancelled, never counted as kills or rewarded.
++        for(int32 I=FirstWaveCount;I<Slots.Num();++I)
++            if(!Slots[I].Monster.IsValid())Slots[I].bDefeated=true;
++        if(PreparedSlot>=FirstWaveCount)DiscardPreparedMonster(TEXT("freight_boss_defeated"));
++        return;
++    }
++    const double Now=GetWorld()->GetTimeSeconds();
++    if(NextFreightReinforcementsAt<0.){NextFreightReinforcementsAt=Now+WaveSeconds;return;}
++    if(Now<NextFreightReinforcementsAt)return;
++    NextFreightReinforcementsAt=Now+WaveSeconds;
++    if(!FreightTargetNear(Room.Origin))return;
++    int32 Active=0;
++    for(int32 I=FirstWaveCount;I<Slots.Num();++I)Active+=!Slots[I].bDefeated;
++    for(int32 N=0;N<Doors.Num()&&Active<WorkerLimit;++N)
++    {
++        const int32 DoorIndex=(FreightRound+N)%Doors.Num();
++        // A blocked doorway retains one scheduled spawn, not an accumulating queue.
++        if(Slots.ContainsByPredicate([DoorIndex](const auto& S)
++            {return S.FreightDoor==DoorIndex&&!S.bDefeated&&!S.Monster.IsValid();}))continue;
++        int32 Free=INDEX_NONE;
++        for(int32 I=FirstWaveCount;I<Slots.Num();++I)if(Slots[I].bDefeated){Free=I;break;}
++        if(Free==INDEX_NONE)break;
++        if(auto* Retired=Slots[Free].Monster.Get())
++        {
++            Retired->OnTakeAnyDamage.RemoveDynamic(this,&AFacilityHallEncounter::MonsterDamaged);
++            Retired->OnDestroyed.RemoveDynamic(this,&AFacilityHallEncounter::MonsterDestroyed);
++        }
++        auto& Slot=Slots[Free];Slot={};
++        Slot.Member=(FreightRound+DoorIndex)%2; // One porter and one technician per full batch.
++        Slot.FreightDoor=DoorIndex;Slot.RewardSlot=NextFreightRewardSlot++;
++        ++Active;
++    }
++    ++FreightRound;
++}
++
++void AFacilityHallEncounter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(AFacilityHallEncounter,FreightDoorRunId);
++    DOREPLIFETIME(AFacilityHallEncounter,FreightDoorStates);
++}
++
++void AFacilityHallEncounter::PublishFreightDoors()
++{
++    if(!HasAuthority()||!bFreight||FreightDoorRunId.IsEmpty())return;
++    const bool Initial=FreightDoorStates.Num()!=Doors.Num();
++    FreightDoorStates.SetNum(Doors.Num());
++    bool Urgent=Initial;
++    for(int32 I=0;I<Doors.Num();++I)
++    {
++        const auto& Door=Doors[I];auto& State=FreightDoorStates[I];
++        if(!Door.Left.IsValid()||!Door.Right.IsValid())continue;
++        const float Target=Door.bWantOpen?1.f:DoorOccupied(Door)?Door.OpenAlpha:0.f;
++        if(!Initial&&State.Alpha==Door.OpenAlpha&&State.Target==Target)continue;
++        Urgent|=State.Target!=Target||Door.OpenAlpha==Target;
++        State.LeftName=Door.Left->GetFName();State.RightName=Door.Right->GetFName();
++        State.ClosedLeft=Door.ClosedLeft;State.ClosedRight=Door.ClosedRight;
++        State.Alpha=Door.OpenAlpha;State.Target=Target;State.ServerSeconds=GetWorld()->GetTimeSeconds();
++    }
++    if(Urgent)ForceNetUpdate();
++}
++
++void AFacilityHallEncounter::OnRep_FreightDoors()
++{
++    if(GetNetMode()!=NM_Client)return;
++    SetActorTickEnabled(true);PresentFreightDoors();
++}
++
++void AFacilityHallEncounter::PresentFreightDoors()
++{
++    const auto* ClientRun=UDungeonRunSubsystem::Get(GetWorld());
++    if(!ClientRun||!ClientRun->IsRunActive()||ClientRun->RunId()!=FreightDoorRunId)
++    {SetActorTickEnabled(true);return;}
++    const auto* State=GetWorld()->GetGameState();
++    const double Now=State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++    Doors.SetNum(FreightDoorStates.Num());bool Pending=false;
++    for(int32 I=0;I<FreightDoorStates.Num();++I)
++    {
++        const auto& Net=FreightDoorStates[I];auto& Door=Doors[I];
++        if(!Door.Left.IsValid())Door.Left=FindObjectFast<AStaticMeshActor>(GetWorld()->PersistentLevel,Net.LeftName);
++        if(!Door.Right.IsValid())Door.Right=FindObjectFast<AStaticMeshActor>(GetWorld()->PersistentLevel,Net.RightName);
++        if(!Door.Left.IsValid()||!Door.Right.IsValid()){Pending=true;continue;}
++        Door.ClosedLeft=Net.ClosedLeft;Door.ClosedRight=Net.ClosedRight;
++        Door.OpenAlpha=FMath::FInterpConstantTo(Net.Alpha,Net.Target,float(FMath::Max(0.,Now-Net.ServerSeconds)),1.f/DoorSeconds);
++        ApplyDoorPose(Door);Pending|=Door.OpenAlpha!=Net.Target;
++    }
++    SetActorTickEnabled(Pending);
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityPowerEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityPowerEncounter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityPowerEncounter.cpp
+@@ -0,0 +1,139 @@
++#include "FacilityHallEncounter.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/HangingBellM09.h"
++#include "../Monsters/M09CeilingRoute.h"
++#include "../Monsters/VortexCofferM25.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/Character.h"
++#include "GameFramework/PlayerController.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
++
++namespace
++{
++constexpr int32 PowerResearcher=0, PowerTechnician=1, PowerBell=2, PowerCoffer=3;
++float PowerFootprint(int32 Member) { return Member==PowerCoffer ? 225.f : Member==PowerBell ? 85.f : 44.f; }
++// Production module coordinates, UE centimetres. The raised maintenance aisle is z=240.
++const FBox PowerSwitchgearFloors[]={
++    FBox(FVector(-850,-210,0),FVector(850,210,0)),
++    FBox(FVector(-260,-1040,0),FVector(260,-210,0))
++};
++const FBox PowerGeneratorFloors[]={
++    FBox(FVector(-1260,-190,0),FVector(1260,190,0)),
++    FBox(FVector(-1240,190,0),FVector(-600,970,0)),
++    FBox(FVector(600,190,0),FVector(1240,970,0)),
++    FBox(FVector(-940,-1025,240),FVector(940,-765,240))
++};
++// Probe below the high roof, away from the low maintenance platform and door sleeves.
++const FVector PowerGeneratorCeilings[]={FVector(-850,-100,50),FVector(850,-100,50),FVector(-850,650,50),FVector(850,650,50)};
++const FVector PowerControlCeilings[]={FVector(-1100,850,50),FVector(1100,850,50)};
++}
++
++bool AFacilityHallEncounter::IsPower(const FString& Module)
++{
++    return Module==TEXT("SwitchgearGallery") || Module==TEXT("GeneratorHall") || Module==TEXT("AccumulatorControl");
++}
++
++TArray<FString> AFacilityHallEncounter::PowerMonsterClassPaths()
++{
++    return {
++        TEXT("/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C"),
++        TEXT("/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C"),
++        TEXT("/Script/FPSGAME.HangingBellM09"),
++        TEXT("/Game/Monsters/VortexCofferM25/BP_VortexCofferM25.BP_VortexCofferM25_C")
++    };
++}
++
++bool AFacilityHallEncounter::IsPowerBossDefeated() const
++{
++    return Slots.IsValidIndex(PowerBossSlot) && Slots[PowerBossSlot].bDefeated;
++}
++
++void AFacilityHallEncounter::ConfigurePower()
++{
++    const UClass* Expected[]={ANurseZombie::StaticClass(),ANurseZombie::StaticClass(),AHangingBellM09::StaticClass(),AVortexCofferM25::StaticClass()};
++    for (const FString& Path:PowerMonsterClassPaths())
++    {
++        UClass* Class=FSoftClassPath(Path).ResolveClass();
++        if (!Class || !Class->IsChildOf(Expected[Members.Num()]))
++        { UE_LOG(LogTemp,Error,TEXT("[PowerEncounter] Missing prepared class %s"),*Path); return; }
++        Members.Add(Class);
++    }
++    const uint32 Salt=Run->NodeRandomSalt(Room.Id);
++    FRandomStream Composition(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnComposition ^ Salt)));
++    Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement ^ Salt)));
++    const bool Control=Room.Module==TEXT("AccumulatorControl"),GeneratorHall=Room.Module==TEXT("GeneratorHall");
++    if (Control)
++    {
++        // The real boss slot is eligible on area entry, independent of ordinary kills.
++        PowerBossSlot=Slots.Num();auto& Boss=Slots.AddDefaulted_GetRef();Boss.Member=PowerCoffer;Boss.bPowerBoss=true;
++    }
++    const int32 BellCount=Control ? 2 : GeneratorHall ? 4 : 0;
++    for (int32 I=0;I<BellCount;++I)
++    { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=PowerBell;Slot.bCeiling=true;Slot.PowerPosition=I; }
++    const int32 StaffCount=Control ? 0 : Composition.RandRange(6,8);
++    for (int32 I=0;I<StaffCount;++I)
++    {
++        auto& Slot=Slots.AddDefaulted_GetRef();
++        Slot.Member=I<2 ? I : Composition.RandRange(PowerResearcher,PowerTechnician);
++        Slot.PowerPosition=I;
++    }
++    FirstWaveCount=Slots.Num();bSecondWave=true; // Fixed single wave; no maintenance-door additions.
++    GetWorldTimerManager().SetTimer(EncounterTimer,this,&AFacilityHallEncounter::UpdateEncounter,.2f,true);
++    UE_LOG(LogTemp,Log,TEXT("[PowerEncounter] %s staff=%d bells=%d vortex_coffer=%d initial_count=%d"),
++        *Room.Module,StaffCount,BellCount,Control?1:0,FirstWaveCount);
++}
++
++bool AFacilityHallEncounter::FindPowerSpawn(const FFacilityHallSlot& Slot,const ACharacter* Defaults,FVector& Location,FRotator& Facing)
++{
++    const FTransform Transform(FRotator(0,Room.Yaw,0),Room.Origin);
++    const bool GeneratorHall=Room.Module==TEXT("GeneratorHall");
++    const float Radius=FMath::Max(PowerFootprint(Slot.Member),Defaults->GetCapsuleComponent()->GetScaledCapsuleRadius());
++    for (int32 Attempt=0;Attempt<12;++Attempt)
++    {
++        FVector Local;
++        if (Slot.bPowerBoss)
++        {
++            // Center positions in the existing south apron walk mask. Keep the full
++            // 4.5 m body outside the central 7.4 m core and inside the upper ring.
++            Local=Attempt==0 ? FVector(0,800,0)
++                : FVector(Placement.FRandRange(-850.f,850.f),Placement.FRandRange(700.f,900.f),0);
++        }
++        else if (Slot.bCeiling)
++        {
++            Local=GeneratorHall ? PowerGeneratorCeilings[Slot.PowerPosition] : PowerControlCeilings[Slot.PowerPosition];
++            if (Attempt>0)Local+=FVector(Placement.FRandRange(-100.f,100.f),Placement.FRandRange(-100.f,100.f),0);
++        }
++        else
++        {
++            const FBox& Floor=GeneratorHall ? PowerGeneratorFloors[Slot.PowerPosition%UE_ARRAY_COUNT(PowerGeneratorFloors)]
++                : PowerSwitchgearFloors[Slot.PowerPosition%UE_ARRAY_COUNT(PowerSwitchgearFloors)];
++            const float Margin=Radius+25.f;
++            Local=FVector(Placement.FRandRange(Floor.Min.X+Margin,Floor.Max.X-Margin),
++                Placement.FRandRange(Floor.Min.Y+Margin,Floor.Max.Y-Margin),Floor.Min.Z);
++        }
++        const FVector Candidate=Transform.TransformPosition(Local);
++        bool Occupied=false;
++        for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if (const APawn* Player=It->Get() ? It->Get()->GetPawn().Get() : nullptr)
++                Occupied |= (Slot.bCeiling || FMath::Abs(Player->GetNavAgentLocation().Z-Candidate.Z)<180.f)
++                    && FVector::DistSquared2D(Player->GetActorLocation(),Candidate)<FMath::Square(Slot.bPowerBoss ? 600. : 450.);
++        for (const auto& Other:Slots) if (Other.Monster.IsValid() && Slot.bCeiling==Other.bCeiling)
++            Occupied |= (Slot.bCeiling || FMath::Abs(Other.Monster->GetNavAgentLocation().Z-Candidate.Z)<120.f)
++                && FVector::DistSquared2D(Other.Monster->GetActorLocation(),Candidate)
++                    <FMath::Square(Slot.bCeiling ? 550.f : Radius+PowerFootprint(Other.Member)+80.f);
++        if (Occupied)continue;
++        if (Slot.bCeiling)
++        {
++            FVector Contact;AM09CeilingRoute* Route=nullptr;
++            if (!AM09CeilingRoute::FindPlacement(GetWorld(),Candidate,this,Contact,Route)
++                || Room.DistanceSquared(Contact)>FMath::Square(20.))continue;
++            Location=Contact-FVector(0,0,143);
++        }
++        else if (!FindSpawn(Defaults,Candidate,Location,Radius))continue;
++        Facing=FRotator(0,Room.Yaw+(Slot.bPowerBoss ? -90.f : Placement.FRandRange(-180.f,180.f)),0);
++        return true;
++    }
++    // Retry the same assigned slot; no forced overlap and no completion on failure.
++    return false;
++}
+diff --git a/Source/FPSGAME/Monsters/M09NetworkClockTests.cpp b/Source/FPSGAME/Monsters/M09NetworkClockTests.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/M09NetworkClockTests.cpp
+@@ -0,0 +1,48 @@
++#if WITH_DEV_AUTOMATION_TESTS
++#include "HangingBellM09.h"
++#include "Engine/World.h"
++#include "GameFramework/GameStateBase.h"
++#include "Misc/AutomationTest.h"
++#include "UObject/UnrealType.h"
++
++IMPLEMENT_SIMPLE_AUTOMATION_TEST(FM09NetworkClockTest,"FPSGAME.PowerNetwork.HangingBellClock",
++    EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
++
++bool FM09NetworkClockTest::RunTest(const FString&)
++{
++    UWorld::InitializationValues Settings;
++    Settings.AllowAudioPlayback(false).RequiresHitProxies(false).CreatePhysicsScene(false)
++        .CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    UWorld* World=UWorld::CreateWorld(EWorldType::EditorPreview,false,TEXT("M09NetworkClock"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    if(!TestNotNull(TEXT("isolated transient world"),World))return false;
++    auto* Bell=World->SpawnActor<AHangingBellM09>();
++    auto* Clock=World->SpawnActor<AGameStateBase>();
++    auto* Offset=FindFProperty<FFloatProperty>(AGameStateBase::StaticClass(),TEXT("ServerWorldTimeSecondsDelta"));
++    if(!TestNotNull(TEXT("real hanging bell actor"),Bell)||!TestNotNull(TEXT("replicated game clock"),Clock)
++        ||!TestNotNull(TEXT("server clock offset property"),Offset))
++    {World->DestroyWorld(false);return false;}
++    Bell->SetReplicates(true);
++    Bell->SwapRoles();
++    TestFalse(TEXT("test actor uses the remote presentation path"),Bell->HasAuthority());
++    Bell->State=EM09State::Claw;Bell->StateStartedAt=99.;Bell->StateSeconds=0.f;
++    World->SetGameState(Clock);
++    Offset->SetPropertyValue_InContainer(Clock,100.f);
++    Bell->Tick(.1f);
++    TestTrue(TEXT("late joining attack catches up to server time"),FMath::IsNearlyEqual(Bell->StateSeconds,1.f,.001f));
++    Bell->StateStartedAt=99.6; // The timestamp arrives without another state notification.
++    Bell->Tick(.1f);
++    TestTrue(TEXT("timestamp arriving after state corrects animation age"),FMath::IsNearlyEqual(Bell->StateSeconds,.4f,.001f));
++    Offset->SetPropertyValue_InContainer(Clock,100.2f);
++    Bell->Tick(.8f);
++    TestTrue(TEXT("server clock correction wins over local frame accumulation"),FMath::IsNearlyEqual(Bell->StateSeconds,.6f,.001f));
++    World->SetGameState(nullptr);Bell->StateSeconds=0.f;
++    Bell->Tick(.1f);
++    World->SetGameState(Clock);Offset->SetPropertyValue_InContainer(Clock,101.f);
++    Bell->Tick(.1f);
++    TestTrue(TEXT("clock becoming available catches up without a state transition"),FMath::IsNearlyEqual(Bell->StateSeconds,1.4f,.001f));
++    Bell->StateStartedAt=102.;Bell->Tick(.1f);
++    TestEqual(TEXT("future timestamp never produces negative animation time"),Bell->StateSeconds,0.f);
++    World->DestroyWorld(false);
++    return true;
++}
++#endif

@@ -479,7 +479,7 @@ bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile,bool& Changed,FStrin
     if(Changed)Profile=MoveTemp(Next);
     return true;
 }
-bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FString& Reason)
+bool MigrateAuthoredItemFootprint(FColdSteelItem& Item,bool& Changed,FString& Reason)
 {
     Changed=false;
     // 作者占格字段（grid_w/grid_h）变更后的旧实例回填：实例 Data 快照按旧尺寸
@@ -494,26 +494,34 @@ bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FStr
         {nullptr,TEXT("goldIngot"),2,1},
         {nullptr,TEXT("ue_alchemy_spellbook"),2,2},
         {nullptr,TEXT("search_graphics_card"),2,1},
+        {nullptr,TEXT("alchemy_compound_stabilizer"),1,2},
     };
+    int32 W=0,H=0;
+    for(const auto& Rule:Rules)
+        if((Rule.Prefix&&Item.Definition.StartsWith(Rule.Prefix))||(Rule.Exact&&Item.Definition==Rule.Exact)){W=Rule.W;H=Rule.H;break;}
+    if(!W||(Number(Item,TEXT("grid_w"))==W&&Number(Item,TEXT("grid_h"))==H))return true;
+    TSharedPtr<FJsonObject> Data;
+    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)
+    {Reason=TEXT("旧占格物品记录无效，保留原内容");return false;}
+    Data->SetNumberField(TEXT("grid_w"),W);Data->SetNumberField(TEXT("grid_h"),H);
+    Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
+    // Square books stay upright; GPUs retain the player's chosen rotation.
+    if(W==H)Item.bRotated=false;
+    ApplyOrientation(Item,Item.Definition==TEXT("search_graphics_card")?-1:0);
+    Changed=true;
+    return true;
+}
+bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FString& Reason)
+{
+    Changed=false;
     if(!ValidateProfile(Profile,Reason,false))return false;
     auto Next=Profile;
     const FIntPoint CompGrid=CompartmentGrid(Next.Items);
     for(int32 N=0;N<Next.Items.Num();++N)
     {
-        auto& Item=Next.Items[N];
-        int32 W=0,H=0;
-        for(const auto& Rule:Rules)
-            if((Rule.Prefix&&Item.Definition.StartsWith(Rule.Prefix))||(Rule.Exact&&Item.Definition==Rule.Exact)){W=Rule.W;H=Rule.H;break;}
-        if(!W||(Number(Item,TEXT("grid_w"))==W&&Number(Item,TEXT("grid_h"))==H))continue;
-        TSharedPtr<FJsonObject> Data;
-        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)continue;
-        Data->SetNumberField(TEXT("grid_w"),W);Data->SetNumberField(TEXT("grid_h"),H);
-        Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
-        // A formerly rotated 2x3 book now has one square footprint and upright art.
-        if(W==H)Item.bRotated=false;
-        // GPU shrinks from 3x2 to 2x1; preserve its chosen rotation and cell.
-        // Other authored migrations retain their existing upright policy.
-        ApplyOrientation(Item,Item.Definition==TEXT("search_graphics_card")?-1:0);
+        auto& Item=Next.Items[N];bool ItemChanged=false;
+        if(!MigrateAuthoredItemFootprint(Item,ItemChanged,Reason))return false;
+        if(!ItemChanged)continue;
         if(Item.Place==0||(Item.Place==4&&Next.WarehouseLayoutVersion==1)||Item.Place==ColdSteelCompartment::Place)
         {
             auto Others=Next.Items;Others.RemoveAt(N);

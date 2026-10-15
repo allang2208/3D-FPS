@@ -14,3 +14,5 @@ FPSGAME 主客机归属、事务中断、重连／重生／换图、工作站恢
 FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线／换图先结算后保存，读取 [持续魔法的联机状态与收尾](../ue5-skill-magic-workflow/references/persistent-magic-network.md)。
 
 区域首领目标、允许队友入场的方向闸门及每位玩家的区域追踪，读 [区域首领联机规则](references/regional-boss-objectives.md)。
+
+物品占格改变、旧地面物品、客机重连与共享容器旧键迁移，读取 [占格迁移覆盖](references/inventory-footprint-migrations.md)。

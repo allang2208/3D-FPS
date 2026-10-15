@@ -125,6 +125,8 @@ def main():
     import runpy
     treasure = runpy.run_path(str(c.PROJECT / 'SourceAssets/ThemeThirdRoomTreasure20261007/treasure.py'))
     draft = treasure['extend'](draft)
+    power_loot = runpy.run_path(str(c.PROJECT / 'SourceAssets/PowerCollectibles20261014/Scripts/power_containers.py'))
+    draft = power_loot['patch_document'](draft)
     c.write(c.ROOT / 'Config/module-drafts.json', draft)
     c.write(c.ROOT / 'Docs/required-assets.json', dict(revision=scene['revision'],
         external_required=sorted(set(c.external_dependencies(scene, roles, used_roles)) |

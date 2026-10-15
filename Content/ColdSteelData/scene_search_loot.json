@@ -163,6 +163,698 @@
           "weight": 50
         }
       ]
+    },
+    {
+      "id": "freight_maintenance",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_forging_alloy_blank",
+          "weight": 30
+        },
+        {
+          "id": "search_assembly_component_box",
+          "weight": 30
+        },
+        {
+          "id": "search_precision_mechanism",
+          "weight": 25
+        },
+        {
+          "id": "search_resin_adhesive",
+          "weight": 10
+        },
+        {
+          "id": "search_laminated_strip",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "freight_tool_cabinet",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_forging_alloy_blank",
+          "weight": 27
+        },
+        {
+          "id": "search_assembly_component_box",
+          "weight": 27
+        },
+        {
+          "id": "search_precision_mechanism",
+          "weight": 22
+        },
+        {
+          "id": "search_resin_adhesive",
+          "weight": 9
+        },
+        {
+          "id": "search_laminated_strip",
+          "weight": 5
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 6
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 3
+        },
+        {
+          "id": "search_cordless_impact_wrench",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "freight_tool_drawer",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_forging_alloy_blank",
+          "weight": 26
+        },
+        {
+          "id": "search_assembly_component_box",
+          "weight": 28
+        },
+        {
+          "id": "search_precision_mechanism",
+          "weight": 24
+        },
+        {
+          "id": "search_resin_adhesive",
+          "weight": 8
+        },
+        {
+          "id": "search_laminated_strip",
+          "weight": 4
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 7
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "freight_daily",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 35
+        },
+        {
+          "id": "soda_can",
+          "weight": 30
+        },
+        {
+          "id": "bread",
+          "weight": 15
+        },
+        {
+          "id": "baguette_bread",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "id": "freight_documents",
+      "group": "documents",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 70
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 18
+        },
+        {
+          "id": "search_certified_admin_archive",
+          "weight": 11
+        },
+        {
+          "id": "search_encrypted_archive_case",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "freight_hardware",
+      "group": "server_equipment",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_ram_module",
+          "weight": 2800
+        },
+        {
+          "id": "search_network_card",
+          "weight": 2200
+        },
+        {
+          "id": "search_hard_disk",
+          "weight": 2000
+        },
+        {
+          "id": "search_ssd",
+          "weight": 1300
+        },
+        {
+          "id": "search_processor",
+          "weight": 800
+        },
+        {
+          "id": "search_graphics_card",
+          "weight": 600
+        },
+        {
+          "id": "search_raid_controller",
+          "weight": 250
+        },
+        {
+          "id": "search_compute_accelerator",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "id": "power_staff_supplies",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 34
+        },
+        {
+          "id": "soda_can",
+          "weight": 28
+        },
+        {
+          "id": "bread",
+          "weight": 16
+        },
+        {
+          "id": "baguette_bread",
+          "weight": 16
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 5
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "power_records",
+      "group": "documents",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 80
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 18
+        },
+        {
+          "id": "search_certified_admin_archive",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "power_maintenance",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_industrial_fuse_set",
+          "weight": 28
+        },
+        {
+          "id": "search_assembly_component_box",
+          "weight": 23
+        },
+        {
+          "id": "search_precision_mechanism",
+          "weight": 18
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 12
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 6
+        },
+        {
+          "id": "search_cordless_impact_wrench",
+          "weight": 3
+        },
+        {
+          "id": "search_power_control_module",
+          "weight": 7
+        },
+        {
+          "id": "search_energy_storage_cell",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "research_records",
+      "group": "documents",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 90
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 8
+        },
+        {
+          "id": "search_certified_admin_archive",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "medical_treatment_cart",
+      "group": "medical",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "hp_potion",
+          "weight": 25
+        },
+        {
+          "id": "hp_potion_medium",
+          "weight": 20
+        },
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 25
+        },
+        {
+          "id": "alchemy_compound_stabilizer",
+          "weight": 20
+        },
+        {
+          "id": "alchemy_active_catalyst",
+          "weight": 5
+        },
+        {
+          "id": "alchemy_redvein_extract",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "medical_first_aid",
+      "group": "medical",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "hp_potion",
+          "weight": 40
+        },
+        {
+          "id": "hp_potion_medium",
+          "weight": 25
+        },
+        {
+          "id": "hp_potion_high",
+          "weight": 10
+        },
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 15
+        },
+        {
+          "id": "alchemy_compound_stabilizer",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "medical_reagent_stock",
+      "group": "alchemy",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 45
+        },
+        {
+          "id": "alchemy_compound_stabilizer",
+          "weight": 45
+        },
+        {
+          "id": "alchemy_active_catalyst",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "medical_sealed_samples",
+      "group": "alchemy",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 25
+        },
+        {
+          "id": "alchemy_compound_stabilizer",
+          "weight": 25
+        },
+        {
+          "id": "alchemy_redvein_extract",
+          "weight": 15
+        },
+        {
+          "id": "alchemy_bluemarrow_crystals",
+          "weight": 10
+        },
+        {
+          "id": "alchemy_active_catalyst",
+          "weight": 15
+        },
+        {
+          "id": "alchemy_silverleaf_essence",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "medical_patient_supplies",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 40
+        },
+        {
+          "id": "bread",
+          "weight": 25
+        },
+        {
+          "id": "soda_can",
+          "weight": 20
+        },
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 10
+        },
+        {
+          "id": "alchemy_redvein_extract",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "research_maintenance",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_assembly_component_box",
+          "weight": 32
+        },
+        {
+          "id": "search_precision_mechanism",
+          "weight": 28
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 20
+        },
+        {
+          "id": "search_power_control_module",
+          "weight": 10
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 8
+        },
+        {
+          "id": "search_cordless_impact_wrench",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "ecology_staff_supplies",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 45
+        },
+        {
+          "id": "bread",
+          "weight": 25
+        },
+        {
+          "id": "soda_can",
+          "weight": 20
+        },
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "ecology_culture_stock",
+      "group": "alchemy",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 30
+        },
+        {
+          "id": "alchemy_redvein_extract",
+          "weight": 30
+        },
+        {
+          "id": "alchemy_bluemarrow_crystals",
+          "weight": 20
+        },
+        {
+          "id": "alchemy_compound_stabilizer",
+          "weight": 10
+        },
+        {
+          "id": "alchemy_active_catalyst",
+          "weight": 5
+        },
+        {
+          "id": "alchemy_silverleaf_essence",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "ecology_botanical_archive",
+      "group": "alchemy",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "alchemy_redvein_extract",
+          "weight": 45
+        },
+        {
+          "id": "alchemy_bluemarrow_crystals",
+          "weight": 35
+        },
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 10
+        },
+        {
+          "id": "alchemy_silverleaf_essence",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "ecology_sealed_samples",
+      "group": "alchemy",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "alchemy_redvein_extract",
+          "weight": 30
+        },
+        {
+          "id": "alchemy_bluemarrow_crystals",
+          "weight": 30
+        },
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 15
+        },
+        {
+          "id": "alchemy_active_catalyst",
+          "weight": 10
+        },
+        {
+          "id": "alchemy_silverleaf_essence",
+          "weight": 15
+        }
+      ]
+    },
+    {
+      "id": "ecology_analysis_spares",
+      "group": "alchemy",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "alchemy_pure_base_fluid",
+          "weight": 30
+        },
+        {
+          "id": "alchemy_compound_stabilizer",
+          "weight": 30
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 30
+        },
+        {
+          "id": "alchemy_active_catalyst",
+          "weight": 10
+        }
+      ]
     }
   ],
   "bindings": [
@@ -351,6 +1043,853 @@
       "pool": "server_hardware",
       "module": "AccumulatorControl",
       "caption": "服务器模块"
+    },
+    {
+      "container_id": "FreightTransfer.EntryWest.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "FreightTransfer.EntryWest.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "FreightTransfer.EntryWest.Tote",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "FreightTransfer.EntryEast.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "FreightTransfer.EntryEast.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "FreightTransfer.EntryEast.Tote",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "FreightTransfer.DockWest.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "FreightTransfer.DockWest.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "FreightTransfer.DockWest.Tote",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "FreightTransfer.DockEast.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "FreightTransfer.DockEast.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "FreightTransfer.DockEast.Tote",
+      "pool": "freight_maintenance",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "FreightTransfer.Tools.West",
+      "pool": "freight_tool_cabinet",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "维护工具柜"
+    },
+    {
+      "container_id": "FreightTransfer.Tools.West.Drawer",
+      "pool": "freight_tool_drawer",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "工具柜抽屉"
+    },
+    {
+      "container_id": "FreightTransfer.Tools.East",
+      "pool": "freight_tool_cabinet",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "维护工具柜"
+    },
+    {
+      "container_id": "FreightTransfer.Tools.East.Drawer",
+      "pool": "freight_tool_drawer",
+      "module": "FreightTransfer_WarehouseLink",
+      "caption": "工具柜抽屉"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_0.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_0.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_1.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_1.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_2.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_2.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_3.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_3.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_4.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_4.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_5.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_5.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_6.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_6.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_7.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.FloorCargo_7.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "CargoWarehouse.RackCargo_0.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.RackCargo_4.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.RackCargo_5.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.RackCargo_7.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.RackCargo_12.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Tools.DockWest",
+      "pool": "freight_tool_cabinet",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "维修工具柜"
+    },
+    {
+      "container_id": "CargoWarehouse.Tools.DockWest.Drawer",
+      "pool": "freight_tool_drawer",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "工具柜上层抽屉"
+    },
+    {
+      "container_id": "CargoWarehouse.Tools.DockCenter",
+      "pool": "freight_tool_cabinet",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "维修工具柜"
+    },
+    {
+      "container_id": "CargoWarehouse.Tools.DockCenter.Drawer",
+      "pool": "freight_tool_drawer",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "工具柜上层抽屉"
+    },
+    {
+      "container_id": "CargoWarehouse.Tools.SouthWall",
+      "pool": "freight_tool_cabinet",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "维修工具柜"
+    },
+    {
+      "container_id": "CargoWarehouse.Tools.SouthWall.Drawer",
+      "pool": "freight_tool_drawer",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "工具柜上层抽屉"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthWest.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthWest.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthWest.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthMiddle.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthMiddle.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthMiddle.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthEast.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthEast.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.SouthEast.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.DockMiddle.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.DockMiddle.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.DockMiddle.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.DockEast.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.DockEast.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.DockEast.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.WestCorner.WoodCrate",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.WestCorner.MetalCase",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "金属设备箱"
+    },
+    {
+      "container_id": "CargoWarehouse.Reserve.WestCorner.Tote",
+      "pool": "freight_maintenance",
+      "module": "AbandonedCargoWarehouse",
+      "caption": "物资周转箱"
+    },
+    {
+      "container_id": "StationWorkshop.Tools",
+      "pool": "freight_tool_cabinet",
+      "module": "AbandonedTransitStation",
+      "caption": "维修工具柜"
+    },
+    {
+      "container_id": "StationWorkshop.Tools.Drawer",
+      "pool": "freight_tool_drawer",
+      "module": "AbandonedTransitStation",
+      "caption": "工具柜上层抽屉"
+    },
+    {
+      "container_id": "StationWorkshop.Rack.ToteA",
+      "pool": "freight_maintenance",
+      "module": "AbandonedTransitStation",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "StationWorkshop.Rack.ToteB",
+      "pool": "freight_daily",
+      "module": "AbandonedTransitStation",
+      "caption": "带盖周转箱"
+    },
+    {
+      "container_id": "StationWorkshop.Exterior.EquipmentCase",
+      "pool": "freight_hardware",
+      "module": "AbandonedTransitStation",
+      "caption": "重型金属运输箱"
+    },
+    {
+      "container_id": "StationWorkshop.DispatchFiles",
+      "pool": "freight_documents",
+      "module": "AbandonedTransitStation",
+      "caption": "调度文件抽屉"
+    },
+    {
+      "container_id": "StationWorkshop.ReservedSpares",
+      "pool": "freight_maintenance",
+      "module": "AbandonedTransitStation",
+      "caption": "加固运输木箱"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.PPE_01",
+      "pool": "power_staff_supplies",
+      "module": "SwitchgearGallery",
+      "caption": "供能站防护用品柜"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer1",
+      "pool": "power_records",
+      "module": "SwitchgearGallery",
+      "caption": "供能站检修记录 1"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer2",
+      "pool": "power_records",
+      "module": "SwitchgearGallery",
+      "caption": "供能站检修记录 2"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer3",
+      "pool": "power_records",
+      "module": "SwitchgearGallery",
+      "caption": "供能站检修记录 3"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.GeneratorHall.PPE_02",
+      "pool": "power_staff_supplies",
+      "module": "GeneratorHall",
+      "caption": "供能站防护用品柜"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.PPE_03",
+      "pool": "power_staff_supplies",
+      "module": "AccumulatorControl",
+      "caption": "总控室防护用品柜"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.PPE_04",
+      "pool": "power_staff_supplies",
+      "module": "AccumulatorControl",
+      "caption": "总控室防护用品柜"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer1",
+      "pool": "power_records",
+      "module": "AccumulatorControl",
+      "caption": "总控室检修记录 1"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer2",
+      "pool": "power_records",
+      "module": "AccumulatorControl",
+      "caption": "总控室检修记录 2"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer3",
+      "pool": "power_records",
+      "module": "AccumulatorControl",
+      "caption": "总控室检修记录 3"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.GeneratorHall.MaintenanceToolbox.Ground",
+      "pool": "power_maintenance",
+      "module": "GeneratorHall",
+      "caption": "发电机检修工具箱"
+    },
+    {
+      "container_id": "PowerTheme20261004RefineV2.GeneratorHall.MaintenanceToolbox.Upper",
+      "pool": "power_maintenance",
+      "module": "GeneratorHall",
+      "caption": "高台检修工具箱"
+    },
+    {
+      "container_id": "MedicalOffice.RecordsCabinet1",
+      "pool": "research_records",
+      "module": "MedicalDoctorOffice",
+      "caption": "病历档案柜"
+    },
+    {
+      "container_id": "MedicalOffice.RecordsCabinet2",
+      "pool": "research_records",
+      "module": "MedicalDoctorOffice",
+      "caption": "病历档案柜"
+    },
+    {
+      "container_id": "MedicalOffice.RecordsCabinet3",
+      "pool": "research_records",
+      "module": "MedicalDoctorOffice",
+      "caption": "病历档案柜"
+    },
+    {
+      "container_id": "MedicalOffice.ChiefMedicalLibrary",
+      "pool": "research_records",
+      "module": "MedicalDoctorOffice",
+      "caption": "主任医学书柜"
+    },
+    {
+      "container_id": "MedicalOffice.TeamReferenceShelf",
+      "pool": "research_records",
+      "module": "MedicalDoctorOffice",
+      "caption": "医生参考资料"
+    },
+    {
+      "container_id": "MedicalOffice.TeamClinicalShelf",
+      "pool": "research_records",
+      "module": "MedicalDoctorOffice",
+      "caption": "临床记录书架"
+    },
+    {
+      "container_id": "MedicalOffice.InstrumentCart1",
+      "pool": "medical_treatment_cart",
+      "module": "MedicalDoctorOffice",
+      "caption": "诊疗器械推车"
+    },
+    {
+      "container_id": "MedicalOffice.InstrumentCart2",
+      "pool": "medical_treatment_cart",
+      "module": "MedicalDoctorOffice",
+      "caption": "诊疗器械推车"
+    },
+    {
+      "container_id": "MedicalOffice.InstrumentCart3",
+      "pool": "medical_treatment_cart",
+      "module": "MedicalDoctorOffice",
+      "caption": "诊疗器械推车"
+    },
+    {
+      "container_id": "MedicalOffice.ClinicalFirstAid",
+      "pool": "medical_first_aid",
+      "module": "MedicalDoctorOffice",
+      "caption": "诊室急救柜"
+    },
+    {
+      "container_id": "Hospital.Ward.Cart.N01",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedIsolationWard",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Ward.Cart.N02",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedIsolationWard",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Ward.Cart.N03",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedIsolationWard",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Ward.Cart.S01",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedIsolationWard",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Ward.Cart.S02",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedIsolationWard",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Ward.Emergency.West",
+      "pool": "medical_first_aid",
+      "module": "AbandonedIsolationWard",
+      "caption": "壁挂急救箱"
+    },
+    {
+      "container_id": "Hospital.Ward.Emergency.East",
+      "pool": "medical_first_aid",
+      "module": "AbandonedIsolationWard",
+      "caption": "壁挂急救箱"
+    },
+    {
+      "container_id": "Hospital.Office.MedicalBooks",
+      "pool": "research_records",
+      "module": "AbandonedIsolationWard",
+      "caption": "医学书柜"
+    },
+    {
+      "container_id": "Hospital.Office.PatientRecords",
+      "pool": "research_records",
+      "module": "AbandonedIsolationWard",
+      "caption": "病历档案柜"
+    },
+    {
+      "container_id": "Hospital.Office.WorkingShelf",
+      "pool": "research_records",
+      "module": "AbandonedIsolationWard",
+      "caption": "医生资料书架"
+    },
+    {
+      "container_id": "Hospital.Theatre.Cart",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Theatre.Instruments.A",
+      "pool": "medical_reagent_stock",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "器械消毒盒"
+    },
+    {
+      "container_id": "Hospital.Theatre.Instruments.B",
+      "pool": "medical_reagent_stock",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "器械消毒盒"
+    },
+    {
+      "container_id": "Hospital.Theatre.Specimens",
+      "pool": "medical_sealed_samples",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "标本运输箱"
+    },
+    {
+      "container_id": "Hospital.Theatre.Gallery.West",
+      "pool": "medical_treatment_cart",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "医疗推车抽屉"
+    },
+    {
+      "container_id": "Hospital.Theatre.Gallery.NorthWest",
+      "pool": "medical_patient_supplies",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "病人物品箱"
+    },
+    {
+      "container_id": "Hospital.Theatre.Gallery.NorthEast",
+      "pool": "research_maintenance",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "排水检修工具箱"
+    },
+    {
+      "container_id": "Hospital.Theatre.Gallery.East",
+      "pool": "medical_sealed_samples",
+      "module": "AbandonedAnatomyTheatre",
+      "caption": "标本运输箱"
+    },
+    {
+      "container_id": "EcoNursery.PPE0",
+      "pool": "ecology_staff_supplies",
+      "module": "EcoNursery",
+      "caption": "温室防护用品柜"
+    },
+    {
+      "container_id": "EcoNursery.PPE1",
+      "pool": "ecology_staff_supplies",
+      "module": "EcoNursery",
+      "caption": "温室防护用品柜"
+    },
+    {
+      "container_id": "EcoNursery.Tote0",
+      "pool": "ecology_culture_stock",
+      "module": "EcoNursery",
+      "caption": "培育耗材周转箱"
+    },
+    {
+      "container_id": "EcoNursery.Tote1",
+      "pool": "ecology_culture_stock",
+      "module": "EcoNursery",
+      "caption": "培育耗材周转箱"
+    },
+    {
+      "container_id": "EcoNursery.Tote2",
+      "pool": "ecology_culture_stock",
+      "module": "EcoNursery",
+      "caption": "培育耗材周转箱"
+    },
+    {
+      "container_id": "EcoNursery.Sample",
+      "pool": "ecology_sealed_samples",
+      "module": "EcoNursery",
+      "caption": "密封样本箱"
+    },
+    {
+      "container_id": "EcoNursery.Seeds.Drawer0",
+      "pool": "ecology_botanical_archive",
+      "module": "EcoNursery",
+      "caption": "种子样本柜 · 1"
+    },
+    {
+      "container_id": "EcoNursery.Seeds.Drawer1",
+      "pool": "ecology_botanical_archive",
+      "module": "EcoNursery",
+      "caption": "种子样本柜 · 2"
+    },
+    {
+      "container_id": "EcoNursery.Seeds.Drawer2",
+      "pool": "ecology_botanical_archive",
+      "module": "EcoNursery",
+      "caption": "种子样本柜 · 3"
+    },
+    {
+      "container_id": "EcoHydroponics.Tools0.Cabinet",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "水培维护工具柜 · 下柜"
+    },
+    {
+      "container_id": "EcoHydroponics.Tools0.Drawer",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "水培维护工具柜 · 抽屉"
+    },
+    {
+      "container_id": "EcoHydroponics.Tools1.Cabinet",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "水培维护工具柜 · 下柜"
+    },
+    {
+      "container_id": "EcoHydroponics.Tools1.Drawer",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "水培维护工具柜 · 抽屉"
+    },
+    {
+      "container_id": "EcoHydroponics.Box0",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "泵组检修工具箱"
+    },
+    {
+      "container_id": "EcoHydroponics.Box1",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "泵组检修工具箱"
+    },
+    {
+      "container_id": "EcoHydroponics.Filter0",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "备用滤芯箱"
+    },
+    {
+      "container_id": "EcoHydroponics.Filter1",
+      "pool": "research_maintenance",
+      "module": "EcoHydroponics",
+      "caption": "备用滤芯箱"
+    },
+    {
+      "container_id": "EcoHydroponics.Spare",
+      "pool": "ecology_analysis_spares",
+      "module": "EcoHydroponics",
+      "caption": "水质检测备件箱"
+    },
+    {
+      "container_id": "EcoBiosphere.Records0.Drawer0",
+      "pool": "research_records",
+      "module": "EcoBiosphere",
+      "caption": "生态实验记录柜 · 1"
+    },
+    {
+      "container_id": "EcoBiosphere.Records0.Drawer1",
+      "pool": "research_records",
+      "module": "EcoBiosphere",
+      "caption": "生态实验记录柜 · 2"
+    },
+    {
+      "container_id": "EcoBiosphere.Records0.Drawer2",
+      "pool": "research_records",
+      "module": "EcoBiosphere",
+      "caption": "生态实验记录柜 · 3"
+    },
+    {
+      "container_id": "EcoBiosphere.Records1.Drawer0",
+      "pool": "research_records",
+      "module": "EcoBiosphere",
+      "caption": "生态实验记录柜 · 1"
+    },
+    {
+      "container_id": "EcoBiosphere.Records1.Drawer1",
+      "pool": "research_records",
+      "module": "EcoBiosphere",
+      "caption": "生态实验记录柜 · 2"
+    },
+    {
+      "container_id": "EcoBiosphere.Records1.Drawer2",
+      "pool": "research_records",
+      "module": "EcoBiosphere",
+      "caption": "生态实验记录柜 · 3"
+    },
+    {
+      "container_id": "EcoBiosphere.Sample0",
+      "pool": "ecology_sealed_samples",
+      "module": "EcoBiosphere",
+      "caption": "封存样本运输箱"
+    },
+    {
+      "container_id": "EcoBiosphere.Sample1",
+      "pool": "ecology_sealed_samples",
+      "module": "EcoBiosphere",
+      "caption": "封存样本运输箱"
+    },
+    {
+      "container_id": "EcoBiosphere.Sample2",
+      "pool": "ecology_sealed_samples",
+      "module": "EcoBiosphere",
+      "caption": "封存样本运输箱"
+    },
+    {
+      "container_id": "EcoBiosphere.Tote0",
+      "pool": "ecology_culture_stock",
+      "module": "EcoBiosphere",
+      "caption": "生态耗材周转箱"
+    },
+    {
+      "container_id": "EcoBiosphere.Tote1",
+      "pool": "ecology_culture_stock",
+      "module": "EcoBiosphere",
+      "caption": "生态耗材周转箱"
+    },
+    {
+      "container_id": "EcoBiosphere.Tote2",
+      "pool": "ecology_culture_stock",
+      "module": "EcoBiosphere",
+      "caption": "生态耗材周转箱"
+    },
+    {
+      "container_id": "EcoBiosphere.PPE0",
+      "pool": "ecology_staff_supplies",
+      "module": "EcoBiosphere",
+      "caption": "应急防护用品柜"
+    },
+    {
+      "container_id": "EcoBiosphere.PPE1",
+      "pool": "ecology_staff_supplies",
+      "module": "EcoBiosphere",
+      "caption": "应急防护用品柜"
+    },
+    {
+      "container_id": "Hospital.Bedside",
+      "pool": "medical_patient_supplies",
+      "module": "AbandonedIsolationWard",
+      "caption": "病人物品箱",
+      "binding_scope": "Generated ward bedside family; storage retains complete unique ContainerId"
     }
   ]
 }

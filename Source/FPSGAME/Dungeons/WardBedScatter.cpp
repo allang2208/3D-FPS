@@ -5,6 +5,7 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
+#include "Misc/Crc.h"
 
 AWardBedScatter::AWardBedScatter()
 {
@@ -72,7 +73,9 @@ void AWardBedScatter::GenerateFromSeed(int32 InSeed)
         for(const FBox& Existing:Occupied)
             if(Candidate.ExpandBy(FVector(Clearance,Clearance,0.f)).Intersect(Existing))return false;
         const FBox WorldBounds=Candidate.TransformBy(RoomToWorld);
-        return !World->OverlapBlockingTestByChannel(WorldBounds.GetCenter(),FQuat::Identity,ECC_Pawn,
+        // Authored furniture must not depend on host/client pawn or monster positions.
+        // Static room architecture plus the local occupancy ledger determine placement.
+        return !World->OverlapAnyTestByObjectType(WorldBounds.GetCenter(),FQuat::Identity,FCollisionObjectQueryParams(ECC_WorldStatic),
             FCollisionShape::MakeBox(WorldBounds.GetExtent()),Query);
     };
 
@@ -207,6 +210,17 @@ void AWardBedScatter::GenerateFromSeed(int32 InSeed)
                 if(!Container)continue;
                 Container->ContainerId=Setting.IdentityPrefix+FString::Printf(TEXT(".%s.Seed%d.%s.%d"),
                     *GetName(),InSeed,*Anchor.Room.ToString(),Index);
+                // The parent already has its deterministic dungeon name before scattering.
+                // These children are generated on every peer, like the other authored cabinets.
+                // Disable actor spawning replication and expose the identical name for RPC refs.
+                if(ActorHasTag(TEXT("DungeonRouteGenerated")))
+                {
+                    const FString StableName=FString::Printf(TEXT("%s_Bedside_%08x"),*GetName(),FCrc::StrCrc32(*Container->ContainerId));
+                    Container->Rename(*StableName,nullptr,REN_DontCreateRedirectors|REN_NonTransactional);
+                    Container->SetReplicates(false);
+                    Container->SetNetAddressable();
+                    Container->Tags.AddUnique(TEXT("DungeonRouteGenerated"));
+                }
                 Container->Caption=Setting.Caption;
                 Container->OpeningMotion=EColdSteelContainerMotion::Lid;
                 Container->OpenedRoll=Setting.OpenedRoll;

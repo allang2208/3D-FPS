@@ -47,13 +47,18 @@ int64 UColdSteelShopModel::SellPrice(const FColdSteelItem& Item) const
     if (!SaleRules.Contains(Item.Definition))
     {
         const auto Base = Model->CreateItem(Item.Definition);
+        // Search collectibles carry an authored recovery value. Read the trusted
+        // catalogue, not an instance's saved/client-supplied price fields.
+        const double SellValue=Item.Definition.StartsWith(TEXT("search_"))
+            ? Number(Base,TEXT("sell_souls"),Number(Base,TEXT("price"),0)*.5)
+            : Number(Base,TEXT("price"),0)*.5;
         const double BasePrice = Base.Data.IsEmpty() || Flag(Base, TEXT("unsellable")) || Flag(Base, TEXT("questItem"))
-            ? 0 : Number(Base, TEXT("price"), 0);
+            ? 0 : SellValue;
         if(SaleRules.Num()>=128)SaleRules.Reset();
         SaleRules.Add(Item.Definition,FVector2D(BasePrice,Number(Base,TEXT("maxUses"),1)));
     }
     const auto Rule=SaleRules.FindChecked(Item.Definition);
-    double Price = Rule.X * .5;
+    double Price = Rule.X;
     const double MaxUses = Rule.Y;
     if (MaxUses > 1) Price *= FMath::Clamp(Number(Item, TEXT("remainingUses"), MaxUses) / MaxUses, 0., 1.);
     return FMath::IsFinite(Price) && Price >= 1 && Price <= double(ColdSteelCurrency::MaxSouls)

@@ -1,0 +1,36 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -344,7 +344,7 @@
+     if (!ShadowModel)
+     {
+         ShadowModel = HostModel->CreateShadowModel(GuestProfile);
+-        if(!ShadowModel)return false;
++        if(!ShadowModel){ClientProfileSyncRejected(HostModel->ResultMessage());return false;}
+         UE_LOG(LogTemp, Warning, TEXT("MPTEST shadow profile created: %s items=%d hp=%.0f"),
+             *SlotName, GuestProfile.Items.Num(), GuestProfile.Health);
+     }
+@@ -363,6 +363,11 @@
+         if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision)
+         {
+             Adopted.Items=Prev.Items;
++            // Capacity and layout belong to the same authoritative inventory,
++            // including extra pages allocated by an earlier footprint migration.
++            Adopted.WarehousePages=Prev.WarehousePages;
++            Adopted.WarehouseLayoutVersion=Prev.WarehouseLayoutVersion;
++            Adopted.StoragePages=Prev.StoragePages;
+             Adopted.ActiveWeaponSlot=Prev.ActiveWeaponSlot;Adopted.ActiveProductionTool=Prev.ActiveProductionTool;
+             Adopted.AmmoPouch=Prev.AmmoPouch;
+             Adopted.Mana=Prev.Mana;Adopted.Stamina=Prev.Stamina;
+@@ -394,6 +399,11 @@
+                 // local PersistState does, without trusting uploaded health.
+                 Adopted.Health=Health->IsDead()?0.f:FMath::Clamp(Health->Health+Maximum-Health->MaxHealth,0.f,Maximum);
+             }
++        // Covers reconnect caches and the retained host inventory after revision
++        // reconciliation. NetView projections must not perform this migration.
++        bool FootprintChanged=false;FString FootprintReason;
++        if(!ColdSteelInventory::MigrateAuthoredGridFootprints(Adopted,FootprintChanged,FootprintReason))
++        {ClientProfileSyncRejected(FootprintReason);return false;}
+         ShadowModel->AdoptNetMirror(Adopted);
+     }
+     bRestoreGuestAmmo=false;

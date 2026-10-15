@@ -94,9 +94,9 @@ bool UGunAssemblySystem::Start(FString& Reason)
     for(const auto& In:Data.Inputs)
     {
         int64 Left=In.Count;
-        for(int32 Place:{0,4})for(int32 I=P.Items.Num()-1;I>=0&&Left>0;--I)
+        for(int32 Place:{0,5,4})for(int32 I=P.Items.Num()-1;I>=0&&Left>0;--I)
         {
-            auto& Item=P.Items[I];if(Item.Definition!=In.Item||Item.Place!=Place||!Item.Container.IsEmpty())continue;
+            auto& Item=P.Items[I];if(Item.Definition!=In.Item||Item.Place!=Place||(Place==4&&!Item.Container.IsEmpty()))continue;
             const int64 N=FMath::Min(Left,Item.Count);Item.Count-=N;Left-=N;if(Item.Count==0)P.Items.RemoveAt(I);
         }
         if(Left>0){Reason=TEXT("材料已变化，未扣除材料");return false;}
@@ -203,7 +203,8 @@ bool UGunAssemblySystem::GetPaidMaterials(TMap<FString,int64>& Paid) const
     // Match forging's old-save fallback in both the paid-material display and refund quote.
     const auto& Data=Recipe();
     if(Data.Id.IsNone()||Data.Inputs.IsEmpty())return false;
-    for(const auto& In:Data.Inputs)Paid.Add(In.Item,In.Count);
+    // Legacy jobs without a payment snapshot predate the search-material costs.
+    for(const auto& In:Data.Inputs)if(!In.Item.StartsWith(TEXT("search_")))Paid.Add(In.Item,In.Count);
     return true;
 }
 bool UGunAssemblySystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refund,FString& Reason) const

@@ -1,0 +1,81 @@
+{
+  "created_utc": "2026-10-14T13:22:44.133361+00:00",
+  "rooms": [
+    {
+      "module": "SwitchgearGallery",
+      "name": "配电廊",
+      "staff": {
+        "total": [
+          6,
+          8
+        ],
+        "species": [
+          "FacelessResearcher",
+          "CargoTechnician"
+        ],
+        "minimum_each_species": 1
+      },
+      "hanging_bells": 0
+    },
+    {
+      "module": "GeneratorHall",
+      "name": "发电机大厅",
+      "staff": {
+        "total": [
+          6,
+          8
+        ],
+        "species": [
+          "FacelessResearcher",
+          "CargoTechnician"
+        ],
+        "minimum_each_species": 1
+      },
+      "hanging_bells": 4
+    },
+    {
+      "module": "AccumulatorControl",
+      "name": "蓄能总控大厅",
+      "hanging_bells": 2,
+      "vortex_coffer": 1
+    }
+  ],
+  "total_initial_monsters": [
+    19,
+    23
+  ],
+  "waves": 1,
+  "periodic_reinforcements": false,
+  "placement": {
+    "staff": "Existing ground walk masks and generator maintenance deck at z=240 cm",
+    "bells": "Four separate generator-hall roof regions; two central-hall roof regions; physical underside and capsule clearance required",
+    "boss": "Ground apron outside the 7.4 m diameter energy core; initial local center [0,800,0] cm, bounded retry x [-850,850], y [700,900] cm; full capsule, support and navigation checks retained"
+  },
+  "task": {
+    "id": "dungeon.exploration",
+    "instance": "server NetworkRunId",
+    "objective": "power.vortex_coffer",
+    "title": "击杀发电区首领：涡电匣 M-25",
+    "target": 1,
+    "owner": "AFacilityHallEncounter designated bPowerBoss slot -> UDungeonRunSubsystem::IsPowerBossDefeated()",
+    "completion": "Actual spawned boss health reaches zero; spawn failure, nonlethal destruction and unrelated spawned M25 do not complete the objective",
+    "gates": "Both outside boundaries lock after first living player enters; outside teammates may enter; designated boss death opens both ends even while ordinary enemies remain",
+    "authority": "Server spawns and resolves death; FDungeonSharedProgress.bPowerBossDefeated replicates with RunId/Revision; HUD only reads progress",
+    "lifecycle": "Late join/layout-late replay use latest shared state; stale revisions/run IDs rejected; new run resets flag; completed objective retained in region",
+    "save": "Current dungeon run only, matching existing freight/medical policy. No new mid-run resume after application shutdown.",
+    "rewards": "Existing per-monster owner reward and EnemySlotTag deduplication; no additional task reward"
+  },
+  "assets": {
+    "reused": [
+      "FacelessResearcher",
+      "CargoTechnician",
+      "native HangingBellM09 (M-16)",
+      "VortexCofferM25"
+    ],
+    "existing_map": "/Game/GameMaps/L_Dungeon_Randomized",
+    "new_asset_import_required": false,
+    "map_modified": false
+  },
+  "runtime_testing": false,
+  "multiplayer_testing": false
+}

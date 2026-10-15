@@ -79,19 +79,54 @@ const FSearchTable& Table()
     }();
     return Cached;
 }
+
+const FString* BoundPool(const FString& ContainerId)
+{
+    const auto& Bindings=Table().Bindings;
+    if(const auto* Pool=Bindings.Find(ContainerId))return Pool;
+    // Ward boxes retain their full historical identity for storage and RNG.
+    // Only this authored family resolves to a shared pool, never a shared inventory.
+    if(ContainerId.StartsWith(TEXT("Hospital.Bedside.DGN_"),ESearchCase::CaseSensitive))
+    {
+        const int32 SeedAt=ContainerId.Find(TEXT(".Seed"),ESearchCase::CaseSensitive);
+        int32 At=SeedAt+5;
+        if(SeedAt<0)return nullptr;
+        if(ContainerId.IsValidIndex(At)&&ContainerId[At]==TEXT('-'))++At;
+        const int32 Start=At;
+        while(ContainerId.IsValidIndex(At)&&FChar::IsDigit(ContainerId[At]))++At;
+        int32 LastDot=INDEX_NONE;
+        if(At==Start||!ContainerId.IsValidIndex(At)||ContainerId[At]!=TEXT('.')
+            ||!ContainerId.FindLastChar(TEXT('.'),LastDot)||LastDot<=At+1)return nullptr;
+        if(LastDot+1>=ContainerId.Len())return nullptr;
+        for(int32 I=LastDot+1;I<ContainerId.Len();++I)if(!FChar::IsDigit(ContainerId[I]))return nullptr;
+        return Bindings.Find(TEXT("Hospital.Bedside"));
+    }
+    // Runtime freight furniture prefixes the authored identity with its seed and
+    // node. Only pool lookup strips that prefix; rolls, claims and storage keep it.
+    if(!ContainerId.StartsWith(TEXT("Run"),ESearchCase::CaseSensitive))return nullptr;
+    int32 At=3;
+    if(ContainerId.IsValidIndex(At)&&ContainerId[At]==TEXT('-'))++At;
+    const int32 SeedStart=At;
+    while(ContainerId.IsValidIndex(At)&&FChar::IsDigit(ContainerId[At]))++At;
+    if(At==SeedStart||ContainerId.Mid(At,5)!=TEXT(".Node"))return nullptr;
+    At+=5;const int32 NodeStart=At;
+    while(ContainerId.IsValidIndex(At)&&FChar::IsDigit(ContainerId[At]))++At;
+    if(At==NodeStart||!ContainerId.IsValidIndex(At)||ContainerId[At]!=TEXT('.'))return nullptr;
+    return Bindings.Find(ContainerId.Mid(At+1));
+}
 }
 
 bool ColdSteelSceneLoot::IsBound(const AColdSteelSceneContainer* Container)
 {
     return IsValid(Container)&&UGameplayStatics::GetCurrentLevelName(Container,true)==TEXT("L_Dungeon_Randomized")
-        &&Table().Bindings.Contains(Container->ContainerId);
+        &&BoundPool(Container->ContainerId)!=nullptr;
 }
 FName ColdSteelSceneLoot::Claim(const FString& ContainerId)
 {return FName(*(TEXT("SceneSearch.")+ContainerId));}
 
 bool ColdSteelSceneLoot::Roll(const FString& ContainerId,int32 RunSeed,TArray<TPair<FString,int64>>& OutLoot)
 {
-    OutLoot.Reset();const auto& Data=Table();const auto* PoolId=Data.Bindings.Find(ContainerId);
+    OutLoot.Reset();const auto& Data=Table();const auto* PoolId=BoundPool(ContainerId);
     const auto* Pool=PoolId?Data.Pools.Find(*PoolId):nullptr;if(!Data.Valid||!Pool)return false;
     FRandomStream Random(int32(uint32(RunSeed)^FCrc::StrCrc32(*ContainerId)^0x534C5431u));
     int32 Ticket=Random.RandRange(0,99),Draws=0;
@@ -118,12 +153,21 @@ bool UColdSteelStatusModel::AppendSceneSearchLoot(FColdSteelProfile& State,const
     {Reason=TEXT("搜索物品尚未就绪");return false;}
     const FName Claim=ColdSteelSceneLoot::Claim(Scene->ContainerId);
     if(State.DungeonRun.Claimed.Contains(Claim))return true;
-    const FString Key=Scene->StorageKey(),Legacy=Scene->LegacyStorageKey(),Prefix=Legacy+TEXT(".Run.");
+    const FString Key=Scene->StorageKey(),Legacy=Scene->LegacyStorageKey();
     auto Staged=State;
-    // Items left inside this cabinet in an ended run are not player possessions.
-    Staged.Items.RemoveAll([&](const auto& I){return I.Place==ColdSteelWarehouse::Place&&I.Container.StartsWith(Prefix)&&I.Container!=Key;});
+    // Random furniture changes seed/node prefixes between runs. Retire only
+    // bound search storage from old runs, including those prior generated IDs.
+    auto PreviousRunStorage=[&](const FString& Storage)
+    {
+        const FString Base=TEXT("SceneSearch.L_Dungeon_Randomized.");
+        if(!Storage.StartsWith(Base,ESearchCase::CaseSensitive))return false;
+        const int32 Marker=Storage.Find(TEXT(".Run."),ESearchCase::CaseSensitive,ESearchDir::FromEnd);
+        return Marker>=Base.Len() && Storage.Mid(Marker+5)!=Run->RunId()
+            && BoundPool(Storage.Mid(Base.Len(),Marker-Base.Len()))!=nullptr;
+    };
+    Staged.Items.RemoveAll([&](const auto& I){return I.Place==ColdSteelWarehouse::Place&&PreviousRunStorage(I.Container);});
     for(auto It=Staged.StoragePages.CreateIterator();It;++It)
-        if(It.Key().StartsWith(Prefix)&&It.Key()!=Key)It.RemoveCurrent();
+        if(PreviousRunStorage(It.Key()))It.RemoveCurrent();
     bool HasExisting=false;
     for(auto& Item:Staged.Items)
         if(Item.Place==ColdSteelWarehouse::Place&&(Item.Container==Legacy||Item.Container==Key))
@@ -156,10 +200,18 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSceneSearchPoolTest,"FPSGAME.SceneSearch.Pools
 bool FSceneSearchPoolTest::RunTest(const FString& Parameters)
 {
     const auto& Data=Table();if(!TestTrue(TEXT("valid production table"),Data.Valid))return false;
-    TestEqual(TEXT("scope is exactly 31 containers"),Data.Bindings.Num(),31);
-    TestEqual(TEXT("five profiles"),Data.Pools.Num(),5);
+    TestEqual(TEXT("111 facility/freight/power, 60 medical/ecology and one bedside family bindings"),Data.Bindings.Num(),172);
+    TestEqual(TEXT("14 facility/freight/power and 12 medical/ecology profiles"),Data.Pools.Num(),26);
     TArray<TPair<FString,int64>> Unknown;
     TestFalse(TEXT("outside scope has no roll"),ColdSteelSceneLoot::Roll(TEXT("FacilityTransit.Unknown"),7,Unknown));
+    TestFalse(TEXT("unknown generated identity has no roll"),ColdSteelSceneLoot::Roll(TEXT("Run7.Node3.StationWorkshop.Unknown"),7,Unknown));
+    TestFalse(TEXT("malformed generated prefix has no roll"),ColdSteelSceneLoot::Roll(TEXT("RunX.Node3.StationWorkshop.Tools"),7,Unknown));
+    TArray<TPair<FString,int64>> Freight,RepeatedFreight;
+    TestTrue(TEXT("generated freight identity resolves its authored pool"),ColdSteelSceneLoot::Roll(TEXT("Run7.Node3.StationWorkshop.Tools"),7,Freight));
+    ColdSteelSceneLoot::Roll(TEXT("Run7.Node3.StationWorkshop.Tools"),7,RepeatedFreight);
+    TestTrue(TEXT("generated freight roll is deterministic and yields one item"),Freight==RepeatedFreight&&Freight.Num()==1);
+    TestTrue(TEXT("separate room instances keep separate claims"),ColdSteelSceneLoot::Claim(TEXT("Run7.Node3.StationWorkshop.Tools"))
+        !=ColdSteelSceneLoot::Claim(TEXT("Run7.Node4.StationWorkshop.Tools")));
     TSet<FString> Items;
     for(const auto& Binding:Data.Bindings)
     {
@@ -201,7 +253,7 @@ bool FSceneSearchPoolTest::RunTest(const FString& Parameters)
             TestTrue(*(Pair.Key+TEXT(" ")+Entry.Id+TEXT(" marginal probability")),FMath::Abs(double(Hits.FindRef(Entry.Id))/Samples-Expected)<.005);
         }
     }
-    TestEqual(TEXT("21 existing items"),Items.Num(),21);
+    TestEqual(TEXT("27 prior items, six alchemy materials and three existing healing potions"),Items.Num(),36);
     FSearchTable Bad;
     TestFalse(TEXT("missing pools rejected"),ParseTable(TEXT("{\"version\":1}"),Bad));
     TestFalse(TEXT("unknown schema rejected"),ParseTable(TEXT("{\"version\":2,\"pools\":[],\"bindings\":[]}"),Bad));
