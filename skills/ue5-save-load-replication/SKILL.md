@@ -18,3 +18,7 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 物品占格改变、旧地面物品、客机重连与共享容器旧键迁移，读取 [占格迁移覆盖](references/inventory-footprint-migrations.md)。
 
 装备符文的远端材质、攻击耗体与武技冷却确认，读取 [装备符文与攻击提交回执](references/equipment-runes-and-attack-receipts.md)。
+
+## 近战防御动作的网络身份
+
+复用剑/工具格挡、旧轮次回执、攻击互斥、客机中断与复制破防，读取 [近战格挡轮次](references/melee-guard-intent.md)。

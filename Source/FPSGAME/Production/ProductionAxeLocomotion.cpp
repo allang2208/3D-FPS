@@ -7,6 +7,11 @@
 
 void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
 {
+    if(bBluntHeavy&&Elapsed>=0.f)
+    {
+        AxeLocomotionOffset=FVector::ZeroVector;AxeLocomotionRotation=FQuat::Identity;
+        return; // The stable slam frame was set before the floor/arm solve.
+    }
     const auto* Movement=Character->GetCharacterMovement();
     const float Speed=Character->GetVelocity().Size2D();
     const bool bAction=IsBusy() || Character->IsCastBlockingLeftHandAction();
@@ -18,13 +23,14 @@ void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
             AxeStridePhase=Footsteps->GetStridePhaseRadians();
 
     const float RunTarget=bMoving && Character->IsSprinting()?1.f:0.f;
-    SprintBlend=FMath::Lerp(SprintBlend,RunTarget,1.f-FMath::Exp(-10.f*Delta));
+    if(Kind!=TEXT("warhammer"))SprintBlend=FMath::Lerp(SprintBlend,RunTarget,1.f-FMath::Exp(-10.f*Delta));
+    const float StrideBlend=Kind==TEXT("warhammer")?RunTarget:SprintBlend;
     const float Weight=bMoving?FMath::Clamp((Speed-15.f)/FMath::Max(Movement->MaxWalkSpeed-15.f,1.f),0.f,1.f):0.f;
-    const bool bPickaxe=Kind==TEXT("pickaxe");
+    const bool bPickaxe=UsesPickaxeMotion();
     const FVector Travel=FMath::Lerp(bPickaxe?PickaxeWalkTravelCM:AxeWalkTravelCM,
-        bPickaxe?PickaxeRunTravelCM:AxeRunTravelCM,SprintBlend);
+        bPickaxe?PickaxeRunTravelCM:AxeRunTravelCM,StrideBlend);
     const FRotator Angles=FMath::Lerp(bPickaxe?PickaxeWalkAngles:AxeWalkAngles,
-        bPickaxe?PickaxeRunAngles:AxeRunAngles,SprintBlend);
+        bPickaxe?PickaxeRunAngles:AxeRunAngles,StrideBlend);
     const float Phase=AxeStridePhase;
     // One sideways cycle spans two steps. Two vertical pulses follow footfall;
     // the slight angular delay lets the heavy head follow the two-hand carry.
@@ -42,8 +48,11 @@ void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
         AxeLocomotionOffset=FVector::ZeroVector;
         AxeLocomotionRotation=FQuat::Identity;
         // 撬动关键帧是作者秒：改造后的真实时间先换算回作者时间。
-        if(bPickaxe)AxeLocomotionRotation=FRotator(
-            ProductionPickaxeImpact::PryDegrees(AuthoredElapsed()-ContactSeconds),0,0).Quaternion();
+        if(Kind==TEXT("pickaxe"))
+        {
+            const float Pry=ProductionPickaxeImpact::PryDegrees(AuthoredElapsed()-ContactSeconds);
+            AxeLocomotionRotation=FRotator(Pry,0,0).Quaternion();
+        }
     }
 
     // Move both arms and the held tool together. Rotating around the grip midpoint

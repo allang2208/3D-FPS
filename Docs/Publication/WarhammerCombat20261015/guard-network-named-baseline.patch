@@ -1,0 +1,682 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.cpp
++++ b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+@@ -3,6 +3,7 @@
+ #include "WarhammerAudioPaths.h"
+ #include "WarhammerInspectWalkCues.h"
+ #include "WarhammerQuickCombatMotion.h"
++#include "WarhammerGuardMotion.h"
+ #include "../Skills/FPSQuickCombatComponent.h"
+ #include "ProductionBluntCombo.h"
+ #include "WarhammerHeavyMotion.h"
+@@ -14,6 +15,7 @@
+ #include "ProductionPickaxeImpactMotion.h"
+ #include "../Skills/FPSCastingMeshComponent.h"
+ #include "../Weapons/RuneSwordMeshComponent.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/WeaponGripProfile.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+@@ -173,7 +175,7 @@
+     ToolMesh->ComponentTags.Remove(TEXT("WarhammerModule"));
+     ToolMesh->AttachToComponent(Pivot,FAttachmentTransformRules::KeepRelativeTransform);
+     ToolMesh->SetRelativeTransform(FTransform::Identity);
+-    ToolMesh->SetVisibility(false,true); ToolMesh->SetStaticMesh(nullptr); HitSound=nullptr; SwingSound=nullptr;
++    ToolMesh->SetVisibility(false,true); ToolMesh->SetStaticMesh(nullptr); HitSound=nullptr; SwingSound=nullptr;GuardSounds.Reset();
+     Viewmodel->SetVisibility(false); Viewmodel->SetSkeletalMesh(nullptr);
+     CurrentMotion=nullptr; Motions.Reset(); bUsesArms=false; VisualTime=0; SprintBlend=0;
+     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(nullptr);
+@@ -234,6 +236,8 @@
+         // Walking-inspect steel/air cues stay resident with the hammer; never load on cue.
+         for(const auto& Cue:WarhammerInspectWalkCues::Cues)Paths.AddUnique(FSoftObjectPath(Cue.Sound));
+         Paths.Add(FSoftObjectPath(WarhammerQuickCombat::Asset));
++        for(const TCHAR* Clip:WarhammerGuard::Clips)Paths.Add(FSoftObjectPath(WarhammerGuard::ClipPath(Clip)));
++        for(const TCHAR* Sound:WarhammerGuard::Sounds)Paths.Add(FSoftObjectPath(Sound));
+         Paths.Add(WarhammerWhirlwindFocusPath);
+         Paths.Add(BluntGripPath);
+         Paths.Add(HarvestMotionPath(BluntMotionPrefix,TEXT("SprintCarry")));
+@@ -263,6 +267,11 @@
+                     Motions.Add(TEXT("Inspect"),Cast<UAnimSequence>(WarhammerInspectPath.ResolveObject()));
+                     Motions.Add(TEXT("InspectWalk"),Cast<UAnimSequence>(WarhammerInspectWalkPath.ResolveObject()));
+                     Motions.Add(TEXT("QuickCombat"),Cast<UAnimSequence>(FSoftObjectPath(WarhammerQuickCombat::Asset).ResolveObject()));
++                    for(const TCHAR* Clip:WarhammerGuard::Clips)
++                        Motions.Add(Clip,Cast<UAnimSequence>(FSoftObjectPath(WarhammerGuard::ClipPath(Clip)).ResolveObject()));
++                    GuardSounds.Reset();
++                    for(const TCHAR* Sound:WarhammerGuard::Sounds)
++                        GuardSounds.Add(Cast<USoundBase>(FSoftObjectPath(Sound).ResolveObject()));
+                     for(const TCHAR* Clip:{TEXT("HeavyCharge"),TEXT("HeavyRelease")})
+                         Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(HeavyMotionPrefix,Clip).ResolveObject()));
+                 }
+@@ -324,6 +333,7 @@
+ 
+ void UProductionToolComponent::BeginUse()
+ {
++    if(Character.IsValid()&&Character->RuneSword&&Character->RuneSword->IsToolGuardRequested())return;
+     if(bBluntCharging||bBluntReturningCharge||bBluntWhirlwind||bBluntUppercut)return;
+     if(Character.IsValid() && Character->IsCastBlockingLeftHandAction()){bQueuedBluntAttack=false;return;}
+     if (!IsEquipped() || !CanUse()) return;
+@@ -417,6 +427,7 @@
+ 
+ void UProductionToolComponent::CancelUse()
+ {
++    if(Character.IsValid()&&Character->RuneSword)Character->RuneSword->CancelToolGuard();
+     if(IsQuickCombatActive())Character->QuickCombatPistol->Cancel();
+     if(Kind==TEXT("warhammer")&&(Elapsed>=0.f||NextBluntStage!=0||bBluntCharging||bBluntWhirlwind||bBluntUppercut)&&GetNetMode()==NM_Client)
+         ServerCancelBluntAttack(BluntAttackId);
+@@ -427,6 +438,7 @@
+     Elapsed=-1; EquipElapsed=-1; InspectElapsed=-1; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
+     BluntStage=NextBluntStage=BluntServerNextStage=0;LastBluntEnd=-100.;bQueuedBluntAttack=false;
+     BluntServerComboExpires=0.;BluntServerGroundSlamUntil=0.;
++    BluntServerReadyAt=0.;
+     bBluntCharging=bBluntHeavy=bBluntReleaseCharge=bBluntServerCharging=bBluntFloorTarget=false;
+     bBluntReturningCharge=false;
+     bBluntSprintAttack=false;BluntSprintSeconds=0.f;BluntSprintReadyAt=-100.;BluntSprintInstance.Reset();
+@@ -525,7 +537,13 @@
+     // The owner calls this once, before its camera and before our presentation
+     // tick. Contact audio, camera impulses and sampled arms see the same age.
+     if(!Character.IsValid()||!Character->IsLocallyControlled()||!Pivot)return;
+-    if(!IsEquipped()||!CanUse()){CancelUse();return;}
++    if(!IsEquipped()||!CanPresent()){CancelUse();return;}
++    if(IsWarhammerEquipped()&&Character->RuneSword)
++    {
++        Character->RuneSword->AdvanceToolGuard(Delta);
++        if(IsGuardActive())return;
++    }
++    if(!CanUse()){CancelUse();return;}
+     if(IsQuickCombatActive()){Character->QuickCombatPistol->AdvanceAction(Delta);return;}
+     if(bBluntWhirlwind){TickBluntWhirlwind(Delta);return;}
+     if(bBluntUppercut){TickBluntUppercut(Delta);return;}
+@@ -589,7 +607,8 @@
+     const bool Usable=IsEquipped() && CanUse();
+     if (ToolMesh) ToolMesh->SetVisibility(Present && (!bUsesArms||ToolMesh->GetAttachParent()==Viewmodel) && ToolMesh->GetStaticMesh(),true);
+     if (Viewmodel) Viewmodel->SetVisibility(Present && bUsesArms && HasReadyPresentation());
+-    if (!Usable) CancelUse();
++    const bool GuardBreakPresentation=Present&&Character->RuneSword&&Character->RuneSword->IsToolGuardBreakActive();
++    if (!Usable&&!GuardBreakPresentation) CancelUse();
+     if(Present && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);
+     FeedbackSeconds=FMath::Max(0.f,FeedbackSeconds-Delta);
+     HintCountdown-=Delta;
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -41,8 +41,15 @@
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
+     bool IsEquipped() const { return !EquippedId.IsEmpty(); }
+-    bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f || bBluntCharging || bBluntReturningCharge || bBluntWhirlwind || bBluntUppercut || IsQuickCombatActive(); }
++    bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f || bBluntCharging || bBluntReturningCharge || bBluntWhirlwind || bBluntUppercut || IsQuickCombatActive() || IsGuardActive(); }
+     bool IsWarhammerEquipped() const { return IsEquipped() && Kind==TEXT("warhammer"); }
++    bool IsGuardActive() const;
++    bool HasAuthorityAttackInFlight() const;
++    bool CanQueueGuard() const;
++    bool CanStartGuard() const;
++    void PrepareGuard();
++    bool PresentGuardPose();
++    void PlayGuardSound(bool Parried);
+     bool BeginQuickCombat();
+     bool IsQuickCombatActive() const;
+     bool GetQuickCombatStrikeProbe(FVector& Origin,float PoseSeconds);
+@@ -184,6 +191,7 @@
+     bool UsesTwoHandMotion() const { return Kind==TEXT("axe") || UsesPickaxeMotion(); }
+     static void LoadEnchantmentAnchors();
+     friend class UFPSPlayerBodyComponent;
++    friend class UWarhammerNetworkAuditCommandlet;
+     TWeakObjectPtr<AFPSGAMECharacter> Character;
+     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
+     UPROPERTY(Transient) TObjectPtr<USceneComponent> Pivot;
+@@ -193,6 +201,7 @@
+     UPROPERTY(Transient) TObjectPtr<UAnimSequence> CurrentMotion;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> HitSound;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
++    UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> GuardSounds;
+     UPROPERTY(Transient) TObjectPtr<UParticleSystem> ImpactDust;
+     UPROPERTY(Transient) TObjectPtr<UColdSteelPickupPrompt> Prompt;
+     TSharedPtr<FStreamableHandle> LoadHandle;
+--- a/Source/FPSGAME/Production/ProductionToolMotion.cpp
++++ b/Source/FPSGAME/Production/ProductionToolMotion.cpp
+@@ -5,6 +5,8 @@
+ #include "WarhammerHeavyMotion.h"
+ #include "WarhammerUppercutMotion.h"
+ #include "WarhammerQuickCombatMotion.h"
++#include "WarhammerGuardMotion.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Skills/FPSQuickCombatComponent.h"
+ #include "ProductionToolMeshComponent.h"
+ #include "ProductionPickaxeImpactMotion.h"
+@@ -87,6 +89,7 @@
+     if(!Motion || !Viewmodel)return;
+     if(CurrentMotion!=Motion)
+     {
++        const bool GuardClip=Clip==TEXT("GuardEnter")||Clip==TEXT("GuardHold")||Clip==TEXT("GuardHit")||Clip==TEXT("GuardBreak")||Clip==TEXT("GuardExit");
+         const bool MatchedNormal=Kind==TEXT("warhammer")&&!bBluntHeavy&&CurrentMotion&&
+             (Clip==TEXT("ActiveSwing")||Clip==TEXT("ActiveHitRecover"))&&
+             CurrentMotion->GetName().StartsWith(TEXT("A_Warhammer_Slash"));
+@@ -95,7 +98,7 @@
+         const bool ContactEntry=Clip==TEXT("ActiveHitRecover")&&CurrentMotion==Motions.FindRef(TEXT("ActiveSwing"));
+         // An interrupted inspect can be mid-turn with loose palms: hand off around the shaft.
+         const bool LeavingInspect=CurrentMotion&&(CurrentMotion==Motions.FindRef(TEXT("Inspect"))||CurrentMotion==Motions.FindRef(TEXT("InspectWalk")));
+-        if(Kind==TEXT("warhammer")&&CurrentMotion&&Clip!=TEXT("QuickCombat")&&Clip!=TEXT("Uppercut")&&Clip!=TEXT("Whirlwind")&&Clip!=TEXT("HitRecover")&&!ContactEntry&&!MatchedNormal&&
++        if(Kind==TEXT("warhammer")&&CurrentMotion&&!GuardClip&&Clip!=TEXT("QuickCombat")&&Clip!=TEXT("Uppercut")&&Clip!=TEXT("Whirlwind")&&Clip!=TEXT("HitRecover")&&!ContactEntry&&!MatchedNormal&&
+             !(bBluntHeavy&&Clip==TEXT("ActiveSwing")))
+             if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(
+                 Clip==TEXT("Inspect")||Clip==TEXT("InspectWalk")?.14f:Clip==TEXT("ActiveSwing")&&Elapsed<RealContactSeconds()?
+@@ -108,6 +111,8 @@
+                 else Arms->ClearWhirlwindEntry();
+             }
+         CurrentMotion=Motion;
++        if(GuardClip)
++            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(.06f,true);
+         if(Clip==TEXT("QuickCombat"))
+             if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(WarhammerQuickCombat::Entry,true);
+         if(Clip==TEXT("Whirlwind")||Clip==TEXT("Uppercut"))
+@@ -123,6 +128,12 @@
+         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(BluntUppercutTime);
+     if(IsQuickCombatActive()&&Clip==TEXT("QuickCombat"))
+         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(Seconds);
++    if(IsGuardActive()&&Character->RuneSword)
++    {
++        FName GuardClip;float GuardSeconds=0.f,GuardAge=0.f;
++        if(Character->RuneSword->GetToolGuardPose(GuardClip,GuardSeconds,GuardAge)&&Clip==GuardClip)
++            if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetWhirlwindEntryTime(GuardAge);
++    }
+     // Quick-combat callers, including the exact-contact probe, pass real age.
+     // Keep entry blending on that clock and retime the entire pose only once.
+     if(Clip==TEXT("QuickCombat"))Seconds=WarhammerQuickCombat::SourceSeconds(Seconds);
+@@ -136,6 +147,7 @@
+     VisualTime+=Delta;
+     // Every action, sprint, jump or dodge takes over from the cosmetic inspect.
+     if(InspectElapsed>=0.f&&ShouldBreakInspect())InspectElapsed=-1.f;
++    if(PresentGuardPose())return;
+     TickWalkInspect(Delta);
+     if(IsQuickCombatActive())
+     {
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -155,6 +155,7 @@
+     if(!Profile || !Character.IsValid() || (!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
+     if(!Viewmodel)InitializePresentation();
+     if(!Viewmodel)return;
++    RefreshToolGuardEquipment(Profile);
+     const auto* Item=Profile->Equipped();
+     const FString NewId=Item && !Profile->ActiveProductionTool() && ColdSteelInventory::IsTwoHandedSword(*Item) ? Item->InstanceId : FString();
+     RefreshAzureDragon(NewId.IsEmpty()?nullptr:Item,Profile);
+@@ -849,6 +850,7 @@
+ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) const
+ {
+     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
++    if(!ToolGuardInstance.IsEmpty()){GetGuardCameraMotion(Location,Rotation);return;}
+     if(!IsEquipped())return;
+     if(bWhirlwind)
+     {
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -71,10 +71,18 @@
+     USkeletalMeshComponent* ArmsMesh() const { return Viewmodel; }
+     bool IsQuickCombatActive() const { return bQuickCombatStrike; }
+     UFUNCTION(BlueprintPure, Category="Rune Sword") bool IsGuarding() const { return bGuarding; }
++    /** Shared sword/warhammer defence; the hammer keeps its own tool rig. */
++    bool IsGuardWeaponEquipped() const { return IsEquipped()||!ToolGuardInstance.IsEmpty(); }
++    bool IsToolGuardPoseActive() const { return !ToolGuardInstance.IsEmpty()&&(bGuarding||bReturningGuard||bGuardReacting||bGuardBreakPose); }
++    bool IsToolGuardBreakActive() const { return !ToolGuardInstance.IsEmpty()&&bGuardBreakPose; }
++    bool IsToolGuardRequested() const { return !ToolGuardInstance.IsEmpty()&&(bGuardHeld||IsToolGuardPoseActive()); }
++    bool GetToolGuardPose(FName& Clip,float& Seconds,float& Age) const;
++    void AdvanceToolGuard(float Delta);
++    void CancelToolGuard();
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginGuard();
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseGuard();
+-    UFUNCTION(Server,Reliable) void ServerSetSwordGuard(const FString& Weapon,bool Raised);
+-    UFUNCTION(Client,Reliable) void ClientSwordGuardResult(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt);
++    UFUNCTION(Server,Reliable) void ServerSetSwordGuard(const FString& Weapon,bool Raised,uint32 IntentSerial);
++    UFUNCTION(Client,Reliable) void ClientSwordGuardResult(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt,uint32 IntentSerial);
+     UFUNCTION(Server,Reliable) void ServerBeginClovenAttack(const FString& Weapon,uint32 Serial);
+     bool ApplyNetworkClovenAttack(FColdSteelSkillShot& Shot);
+     void PresentGuardBreak();
+@@ -123,6 +131,7 @@
+     void InitializePresentation();
+     friend class URuneSwordAuditCommandlet;
+     friend class USkillNetworkAuditCommandlet;
++    friend class UWarhammerNetworkAuditCommandlet;
+     friend class UFPSConsumableAuditCommandlet;
+     friend class UFPSPlayerBodyComponent;
+     TWeakObjectPtr<AFPSGAMECharacter> Character;
+@@ -157,6 +166,17 @@
+     FString InstanceId;
+     FString EquippedMeshPath;
+     FMeleeModifiers MeleeModifiers;
++    FString ToolGuardInstance;
++    FMeleeModifiers ToolGuardModifiers;
++    FName ToolGuardClip;
++    float ToolGuardAge=0.f;
++    void RefreshToolGuardEquipment(UColdSteelStatusModel* Profile);
++    uint32 GuardIntentSerial=0,ServerGuardIntentSerial=0;
++    void ReceiveGuardResult(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt,uint32 IntentSerial);
++    const struct FColdSteelItem* GuardItem(const UColdSteelStatusModel* Profile) const;
++    const FString& GuardWeaponInstance() const { return ToolGuardInstance.IsEmpty()?InstanceId:ToolGuardInstance; }
++    const FMeleeModifiers& GuardModifiers() const { return ToolGuardInstance.IsEmpty()?MeleeModifiers:ToolGuardModifiers; }
++    float GuardRaiseSeconds() const;
+     float SwingRuneVulnerability=0, SwingRuneVulnerabilitySeconds=0;
+     // SwingRuneVulnerability*=剑刃攻击通道（导魔符文）；QuickCombat*=配重锤快速近战通道（凝碧星核）。
+     // 金色符文强化：每次确认命中后本挥缩减技能CD的秒数与已缩减标记（每挥一次）。
+--- a/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
+@@ -1,5 +1,7 @@
+ #include "RuneSwordComponent.h"
+ #include "RuneSwordGuardTuning.h"
++#include "../Production/ProductionToolComponent.h"
++#include "../Production/WarhammerGuardMotion.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "TangDaoGuardComponent.h"
+ #include "PanChiGuardComponent.h"
+@@ -23,6 +25,12 @@
+ 
+ void URuneSwordComponent::BeginGuard()
+ {
++    if(!ToolGuardInstance.IsEmpty())
++    {
++        auto* Tool=Character.IsValid()?Character->FindComponentByClass<UProductionToolComponent>():nullptr;
++        if(!Tool||!Tool->CanQueueGuard())return;
++        Tool->PrepareGuard();bGuardHeld=true;TryBeginGuard();return;
++    }
+     if(bUppercut||bWhirlwind||bDashAttack)return;
+     if(!IsEquipped() || !CanUse() || !Animations.FindRef(TEXT("Guard")))return;
+     if(bInspecting)CancelAction();
+@@ -38,9 +46,20 @@
+     if(Pawn->IsCastBlockingLeftHandAction() || Pawn->IsDodging() || Pawn->IsSliding())return;
+     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Profile || Profile->Stamina()<=0.f)return;
++    if(!ToolGuardInstance.IsEmpty())
++    {
++        const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();
++        const auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();
++        if(!Tool||!Tool->CanStartGuard()||(Broken&&Broken->IsActive()))return;
++    }
+     const float Entry=bReturningGuard?GuardPoseTime:0.f;
+     bGuarding=true;bReturningGuard=false;GuardStartedAt=GetWorld()->GetTimeSeconds();
+     SendGuardIntent(true);
++    if(!ToolGuardInstance.IsEmpty())
++    {
++        GuardPoseTime=Entry;ToolGuardAge=Entry;ToolGuardClip=TEXT("GuardEnter");
++        Profile->DelayStaminaRecovery();return;
++    }
+     GuardPoseTime=Entry;StopRift();SetClip(TEXT("Guard"),false);Elapsed=Entry;SamplePose(Entry);
+     Viewmodel->SetRelativeLocation(FVector::ZeroVector);Viewmodel->SetRelativeRotation(FRotator(0,90,0));
+     Profile->DelayStaminaRecovery();
+@@ -51,6 +70,14 @@
+     bGuardHeld=false;
+     if(!bGuarding)return;
+     bGuarding=false;bReturningGuard=true;
++    if(!ToolGuardInstance.IsEmpty())
++    {
++        bGuardReacting=false;
++        // Releasing during the lift unwinds that partial lift continuously;
++        // the full exit clip starts only after the brace has been reached.
++        if(ToolGuardClip!=TEXT("GuardEnter"))
++        {ToolGuardAge=0.f;ToolGuardClip=TEXT("GuardExit");}
++    }
+     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->DelayStaminaRecovery();
+ }
+ void URuneSwordComponent::ClearGuard()
+@@ -58,6 +85,7 @@
+     if(bGuardHeld||bGuarding)SendGuardIntent(false);
+     bGuardHeld=bGuarding=bReturningGuard=bGuardReacting=bGuardBreakPose=false;
+     GuardPoseTime=0.f;GuardFeedbackStrength=0.f;GuardFeedbackAt=-100.;
++    ToolGuardClip=NAME_None;ToolGuardAge=0.f;
+ }
+ bool URuneSwordComponent::TickGuard(float Delta)
+ {
+@@ -93,7 +121,9 @@
+     if(!bGuardBreakPose)return false;
+     auto* Pawn=Character.Get();auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+-    if(AFPSGAMEPlayerController::BlocksOngoingActions(PC) || (Health && Health->IsDead())){CancelAction();return false;}
++    // The break's own input lock is expected; only presentation loss/death or
++    // an actual modal UI may cancel its animation.
++    if(!CanPresent()||(PC&&PC->bShowMouseCursor&&AFPSGAMEPlayerController::BlocksOngoingActions(PC)) || (Health && Health->IsDead())){CancelAction();return false;}
+     Viewmodel->SetVisibility(true,true);
+     if(CurrentAnimation){Elapsed=FMath::Min(CurrentAnimation->GetPlayLength(),Elapsed+Delta);SamplePose(Elapsed);}
+     const auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();
+@@ -103,10 +133,17 @@
+ void URuneSwordComponent::GuardFeedback(bool Parried)
+ {
+     GuardFeedbackAt=GetWorld()->GetTimeSeconds();GuardFeedbackStrength=Parried?1.45f:1.f;
++    if(!ToolGuardInstance.IsEmpty())
++    {
++        if(auto* Tool=Character->FindComponentByClass<UProductionToolComponent>())Tool->PlayGuardSound(Parried);
++        if(bGuarding&&GuardPoseTime>=WarhammerGuard::EnterSeconds&&!bGuardReacting)
++        {bGuardReacting=true;GuardReactionRate=Parried?1.25f:1.f;ToolGuardClip=TEXT("GuardHit");ToolGuardAge=0.f;}
++        return;
++    }
+     USoundBase* ImpactSound=Parried?ParrySound.Get():(FMath::RandBool()?BlockSound.Get():BlockSoundAlternate.Get());
+     if(ImpactSound)UGameplayStatics::PlaySound2D(this,ImpactSound,.85f,Parried?1.15f:1.f);
+     // Early-window parries can happen during the lift. Keep that entry continuous.
+-    if(GuardPoseTime>=RuneSwordGuardTuning::RaiseSeconds && !bGuardReacting && Animations.FindRef(TEXT("GuardHit")))
++    if(bGuarding && GuardPoseTime>=RuneSwordGuardTuning::RaiseSeconds && !bGuardReacting && Animations.FindRef(TEXT("GuardHit")))
+     {
+         bGuardReacting=true;GuardReactionRate=Parried?1.25f:1.f;SetClip(TEXT("GuardHit"),false);
+     }
+@@ -115,8 +152,9 @@
+ {
+     if(IncomingDamage<=0.f || !bGuarding)return IncomingDamage;
+     auto* Pawn=Character.Get();auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
+-    const auto* Item=Profile?Profile->Equipped():nullptr;
+-    if(!Pawn||!Pawn->HasAuthority()||!CanMaintainNetworkGuard()||!Item||Item->InstanceId!=InstanceId)
++    const auto* Item=GuardItem(Profile);
++    const auto& Mods=GuardModifiers();
++    if(!Pawn||!Pawn->HasAuthority()||!CanMaintainNetworkGuard()||!Item||Item->InstanceId!=GuardWeaponInstance())
+     {CancelAction();return IncomingDamage;}
+     if(Type && (Type->IsA<UMaggotPoisonDamage>() || Type->IsA<UCorrosivePusDamage>()))return IncomingDamage;
+     AActor* Source=Instigator?Instigator->GetPawn():Causer;
+@@ -125,7 +163,7 @@
+         if(auto* SourcePawn=Causer->GetInstigator())Source=SourcePawn;
+         else if(auto* SourceOwner=Causer->GetOwner();SourceOwner && SourceOwner!=Pawn)Source=SourceOwner;
+     }
+-    if(IsValid(Source) && Source!=Pawn && GetWorld()->GetTimeSeconds()-GuardStartedAt<=RuneSwordGuardTuning::ParrySeconds*MeleeModifiers.ParryWindow)
++    if(IsValid(Source) && Source!=Pawn && GetWorld()->GetTimeSeconds()-GuardStartedAt<=RuneSwordGuardTuning::ParrySeconds*Mods.ParryWindow)
+     {
+         const FVector Toward=(Source->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
+         const FVector Facing=FRotationMatrix(FRotator(0,Pawn->GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::X);
+@@ -134,18 +172,18 @@
+             if(Pawn->IsLocallyControlled())GuardFeedback(true);
+             if(auto* Guard=Pawn->FindComponentByClass<UTangDaoGuardComponent>())Guard->GrantDragon();
+             if(auto* Guard=Pawn->FindComponentByClass<UPanChiGuardComponent>())Guard->ConfirmGuard(true);
+-            GrantClovenCounter();
+-            if(MeleeModifiers.RiposteSeconds>0)
+-                UCombatStatusFormula::GetOrAdd(Pawn)->GrantRiposteGuard(MeleeModifiers.RiposteSeconds,MeleeModifiers.RiposteSpeed,MeleeModifiers.RiposteStamina);
++            if(ToolGuardInstance.IsEmpty())GrantClovenCounter();
++            if(Mods.RiposteSeconds>0)
++                UCombatStatusFormula::GetOrAdd(Pawn)->GrantRiposteGuard(Mods.RiposteSeconds,Mods.RiposteSpeed,Mods.RiposteStamina);
+             if(Type && Type->IsA<UEnemyMeleeDamage>() && !Source->ActorHasTag(TEXT("ParryImmune")))
+                 if(auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>())
+                     Combat->ReceiveParry(Pawn,RuneSwordGuardTuning::ParryStunSeconds,RuneSwordGuardTuning::ParryKnockbackCM);
+-            if(!Pawn->IsLocallyControlled())ClientSwordGuardResult(InstanceId,1,0.f,GetWorld()->GetTimeSeconds());
++            if(!Pawn->IsLocallyControlled())ClientSwordGuardResult(GuardWeaponInstance(),1,0.f,GetWorld()->GetTimeSeconds(),ServerGuardIntentSerial);
+             return 0.f;
+         }
+     }
+     if(Pawn->IsLocallyControlled())GuardFeedback(false);
+-    const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(MeleeModifiers));
++    const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(Mods));
+     const bool Broken=Profile->Stamina()<BlockCost;
+     const float Spent=Broken?Profile->Stamina():BlockCost;
+     Profile->SpendStamina(Spent);
+@@ -158,14 +196,14 @@
+         bGuarding=bGuardHeld=false;
+         if(Pawn->IsLocallyControlled())PresentGuardBreak();
+     }
+-    if(!Pawn->IsLocallyControlled())ClientSwordGuardResult(InstanceId,Broken?2:0,Spent,GetWorld()->GetTimeSeconds());
+-    const double Reduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*MeleeModifiers.BlockReduction,0.,1.);
++    if(!Pawn->IsLocallyControlled())ClientSwordGuardResult(GuardWeaponInstance(),Broken?2:0,Spent,GetWorld()->GetTimeSeconds(),ServerGuardIntentSerial);
++    const double Reduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*Mods.BlockReduction,0.,1.);
+     return IncomingDamage*(1.-Reduction);
+ }
+ bool URuneSwordComponent::GetGuardCameraMotion(FVector& Location,FRotator& Rotation) const
+ {
+     if(!bGuarding && !bReturningGuard && !bGuardReacting && !bGuardBreakPose)return false;
+-    const float Held=bGuardBreakPose?0.f:FMath::SmoothStep(0.f,RuneSwordGuardTuning::RaiseSeconds,GuardPoseTime);
++    const float Held=bGuardBreakPose?0.f:FMath::SmoothStep(0.f,GuardRaiseSeconds(),GuardPoseTime);
+     Location=FVector(-2.f,0.f,-1.2f)*Held;Rotation=FRotator(1.2f,0.f,0.f)*Held;
+     const float Age=float(GetWorld()->GetTimeSeconds()-GuardFeedbackAt);
+     if(Age>=0.f && Age<.25f)
+--- a/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp
+@@ -2,6 +2,8 @@
+ #include "RuneSwordGuardTuning.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Production/ProductionToolComponent.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Combat/CombatStatusFormula.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -13,11 +15,18 @@
+ bool URuneSwordComponent::CanMaintainNetworkGuard() const
+ {
+     const auto* Pawn=Character.Get();const auto* Model=ColdSteelAuthority::ForPawn(Pawn);
+-    const auto* Item=Model?Model->Equipped():nullptr;
++    const auto* Item=GuardItem(Model);
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* Break=Pawn?Pawn->FindComponentByClass<UPlayerGuardBreakComponent>():nullptr;
+-    return Pawn&&Item&&Item->InstanceId==InstanceId&&ColdSteelInventory::IsTwoHandedSword(*Item)
+-        &&!Model->ActiveProductionTool()&&Health&&!Health->IsDead()&&!(Break&&Break->IsActive())
++    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
++    const auto* PS=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
++    const bool MatchingKind=Item&&(ToolGuardInstance.IsEmpty()
++        ?ColdSteelInventory::IsTwoHandedSword(*Item)&&!Model->ActiveProductionTool()
++        :ColdSteelInventory::IsTwoHandedBlunt(*Item));
++    return Pawn&&Item&&Item->InstanceId==GuardWeaponInstance()&&MatchingKind
++        &&(ToolGuardInstance.IsEmpty()||!Tool||!Tool->HasAuthorityAttackInFlight())
++        &&(!PS||!PS->IsQuickCombatExecuting(Pawn))
++        &&Health&&!Health->IsDead()&&!(Break&&Break->IsActive())
+         &&!UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&!Pawn->IsTraversing()
+         &&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&CanUse();
+ }
+@@ -25,20 +34,26 @@
+ void URuneSwordComponent::SendGuardIntent(bool Raised)
+ {
+     const auto* Pawn=Character.Get();
+-    if(Pawn&&Pawn->IsLocallyControlled()&&!Pawn->HasAuthority())ServerSetSwordGuard(InstanceId,Raised);
++    if(!Pawn||!Pawn->IsLocallyControlled())return;
++    if(Raised){++GuardIntentSerial;if(!GuardIntentSerial)++GuardIntentSerial;}
++    if(!Pawn->HasAuthority())ServerSetSwordGuard(GuardWeaponInstance(),Raised,GuardIntentSerial);
+ }
+ 
+-void URuneSwordComponent::ServerSetSwordGuard_Implementation(const FString& Weapon,bool Raised)
++void URuneSwordComponent::ServerSetSwordGuard_Implementation(const FString& Weapon,bool Raised,uint32 IntentSerial)
+ {
+     auto* Pawn=Character.Get();if(!Pawn||!Pawn->HasAuthority()||Pawn->IsLocallyControlled())return;
+-    if(Weapon!=InstanceId){if(Raised)ClientSwordGuardResult(Weapon,3,0.f,GetWorld()->GetTimeSeconds());return;}
++    if(!IntentSerial||static_cast<int32>(IntentSerial-ServerGuardIntentSerial)<0)return;
++    if(Raised&&IntentSerial==ServerGuardIntentSerial)return;
++    if(!Raised&&IntentSerial!=ServerGuardIntentSerial)return;
++    if(Weapon!=GuardWeaponInstance()){if(Raised)ClientSwordGuardResult(Weapon,3,0.f,GetWorld()->GetTimeSeconds(),IntentSerial);return;}
++    if(Raised)ServerGuardIntentSerial=IntentSerial;
+     auto* Model=ColdSteelAuthority::ForPawn(Pawn);
+     if(!Raised)
+     {
+         bGuardHeld=bGuarding=false;if(Model)Model->DelayStaminaRecovery();return;
+     }
+     if(!CanMaintainNetworkGuard()||!Model||Model->Stamina()<=0.f)
+-    {bGuardHeld=bGuarding=false;ClientSwordGuardResult(Weapon,3,0.f,GetWorld()->GetTimeSeconds());return;}
++    {bGuardHeld=bGuarding=false;ClientSwordGuardResult(Weapon,3,0.f,GetWorld()->GetTimeSeconds(),IntentSerial);return;}
+     if(!bGuarding)GuardStartedAt=GetWorld()->GetTimeSeconds();
+     bGuardHeld=bGuarding=true;Model->DelayStaminaRecovery();
+ }
+@@ -46,36 +61,45 @@
+ void URuneSwordComponent::TickNetworkGuard()
+ {
+     if(GetOwner()->HasAuthority()&&bGuarding&&!CanMaintainNetworkGuard())
+-    {bGuardHeld=bGuarding=false;ClientSwordGuardResult(InstanceId,3,0.f,GetWorld()->GetTimeSeconds());}
++    {bGuardHeld=bGuarding=false;ClientSwordGuardResult(GuardWeaponInstance(),3,0.f,GetWorld()->GetTimeSeconds(),ServerGuardIntentSerial);}
+ }
+ 
+ void URuneSwordComponent::PresentGuardBreak()
+ {
+-    if(!Character.IsValid()||!Character->IsLocallyControlled()||!IsEquipped())return;
++    if(!Character.IsValid()||!Character->IsLocallyControlled()||!IsGuardWeaponEquipped())return;
+     bGuarding=bGuardHeld=bGuardReacting=bReturningGuard=false;
+     bGuardBreakPose=true;GuardFeedbackAt=GetWorld()->GetTimeSeconds();GuardFeedbackStrength=1.8f;
++    if(!ToolGuardInstance.IsEmpty()){ToolGuardClip=TEXT("GuardBreak");ToolGuardAge=0.f;return;}
+     SetClip(Animations.FindRef(TEXT("GuardBreak"))?TEXT("GuardBreak"):TEXT("Idle"),false);
+ }
+ 
+-void URuneSwordComponent::ClientSwordGuardResult_Implementation(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt)
++void URuneSwordComponent::ClientSwordGuardResult_Implementation(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt,uint32 IntentSerial)
+ {
+     auto* Pawn=Character.Get();if(!Pawn||!Pawn->IsLocallyControlled()||Pawn->HasAuthority())return;
++    ReceiveGuardResult(Weapon,Outcome,StaminaSpent,ServerAt,IntentSerial);
++}
++void URuneSwordComponent::ReceiveGuardResult(const FString& Weapon,uint8 Outcome,float StaminaSpent,double ServerAt,uint32 IntentSerial)
++{
++    auto* Pawn=Character.Get();if(!Pawn)return;
+     // The accepted block still spent stamina if equipment changed before this receipt.
+     if(auto* Model=ColdSteelAuthority::ForPawn(Pawn);Model&&StaminaSpent>0.f)Model->SpendStamina(FMath::Min(Model->Stamina(),StaminaSpent));
+-    if(Weapon!=InstanceId)return;
++    if(Weapon!=GuardWeaponInstance()||IntentSerial!=GuardIntentSerial)return;
+     if(Outcome==3){ReleaseGuard();return;}
+-    if(Outcome==2){PresentGuardBreak();return;}
++    // Replicated guard-break lock owns the pose. A separate RPC must not reset
++    // the same animation when the subobject's OnRep has already started it.
++    if(Outcome==2){ReleaseGuard();return;}
+     GuardFeedback(Outcome==1);
+     if(Outcome!=1)return;
+     const auto* GS=GetWorld()->GetGameState();
+     const double Age=FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():ServerAt)-ServerAt);
+-    if(MeleeModifiers.ClovenSeconds>Age)
++    const auto& Mods=GuardModifiers();
++    if(ToolGuardInstance.IsEmpty()&&Mods.ClovenSeconds>Age)
+     {
+         ClovenGrantedAt=GetWorld()->GetTimeSeconds()-Age;
+-        ClovenReadyUntil=ClovenGrantedAt+MeleeModifiers.ClovenSeconds;
++        ClovenReadyUntil=ClovenGrantedAt+Mods.ClovenSeconds;
+     }
+-    if(MeleeModifiers.RiposteSeconds>Age)
+-        UCombatStatusFormula::GetOrAdd(Pawn)->GrantRiposteGuard(MeleeModifiers.RiposteSeconds-Age,MeleeModifiers.RiposteSpeed,MeleeModifiers.RiposteStamina);
++    if(Mods.RiposteSeconds>Age)
++        UCombatStatusFormula::GetOrAdd(Pawn)->GrantRiposteGuard(Mods.RiposteSeconds-Age,Mods.RiposteSpeed,Mods.RiposteStamina);
+ }
+ 
+ bool URuneSwordComponent::ClaimNetworkClovenAttack(uint32 Serial)
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -168,7 +168,22 @@
+     if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped())
+     {
+         State.Family=TEXT("Tool");State.Weapon=FName(Tool->UsesPickaxeMotion()?TEXT("pickaxe"):*Tool->Kind);State.ActionVariant=State.Weapon;State.Action=EFPSBodyAction::None;
+-        if(Tool->bBluntWhirlwind)
++        if(Tool->IsGuardActive()&&Pawn->RuneSword)
++        {
++            const auto* Guard=Pawn->RuneSword.Get();
++            FName Clip;float PoseSeconds=0.f,Age=0.f;
++            Guard->GetToolGuardPose(Clip,PoseSeconds,Age);
++            const auto* Animation=Tool->Motions.FindRef(Clip).Get();
++            if(Guard->bGuardBreakPose)Timed(EFPSBodyAction::GuardBreak,Age,Animation?Animation->GetPlayLength():1.5f);
++            else if(Guard->bGuardReacting)Timed(EFPSBodyAction::GuardHit,Age,Animation?Animation->GetPlayLength():.3f,Guard->GuardReactionRate);
++            else
++            {
++                Timed(EFPSBodyAction::Guard,Guard->GuardPoseTime,Guard->GuardRaiseSeconds());
++                State.ActionWeight=FMath::Clamp(Guard->GuardPoseTime/Guard->GuardRaiseSeconds(),0.f,1.f);
++            }
++            State.ActionVariant=TEXT("WarhammerGuard");
++        }
++        else if(Tool->bBluntWhirlwind)
+         {
+             const auto& W=Tool->BluntWhirlwindTuning;const float End=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;
+             Timed(EFPSBodyAction::Whirlwind,Tool->BluntWhirlwindTime,End);
+--- a/Source/FPSGAME/Movement/FPSPlayerDodge.cpp
++++ b/Source/FPSGAME/Movement/FPSPlayerDodge.cpp
+@@ -114,7 +114,7 @@
+     if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type,Attacker);
+     if(!Direct)
+     {
+-        if(RuneSword&&RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
++        if(RuneSword&&RuneSword->IsGuarding())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
+     }
+     // Independent multiplier after existing armor, status and block reductions.
+     if(const auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())DamageAmount*=Guard->DamageTakenMultiplier();
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1208,7 +1208,7 @@
+     if(HasOffhandPistol()){DualPistols->Trigger(1,true);return;}
+     if(Staff&&Staff->IsEquipped()){if(Spellbook)Spellbook->ToggleFocus();return;}
+     if(IsCastBlockingLeftHandAction())return;
+-    if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
++    if(RuneSword && RuneSword->IsGuardWeaponEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
+     // 弓的右键＝稳持（压住满拉呼吸抖动），不进枪械机瞄状态机。
+     if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetSteadyHeld(true);return;}
+     // Right-click with a production tool out is the shovel's refill, never ADS.
+@@ -1224,7 +1224,7 @@
+     if(HasOffhandPistol()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
+     if(Staff&&Staff->IsEquipped()){bAimHeld=false;return;}
+     bAimHeld=false;
+-    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleaseGuard();return;}
++    if(RuneSword && RuneSword->IsGuardWeaponEquipped()){RuneSword->ReleaseGuard();return;}
+     if(Bow&&Bow->IsEquipped()){Bow->SetSteadyHeld(false);return;}
+     SetAimingState(false);if(!IsWeaponBusy())ResumeWeaponPose();
+ }
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -306,6 +306,7 @@
+     bool InventoryRequestPending() const {return bInventoryRequestPending;}
+     void RequestQuickCombat(float Duration,float PredictedCost);
+     void FinishQuickCombat();
++    bool IsQuickCombatExecuting(const APawn* Pawn) const;
+     bool RequestSwordUppercutRelease();
+     void FinishSwordUppercut();
+     void SettleSwordUppercut();
+@@ -325,6 +326,7 @@
+     bool bContainerNeedsRefresh=false;
+     friend class UColdSteelAcquisitionAuditCommandlet;
+     friend class USkillNetworkAuditCommandlet;
++    friend class UWarhammerNetworkAuditCommandlet;
+     friend class ASkillWireAuditController;
+     friend class ASkillWireAuditGameMode;
+     void TickSwordUppercut();
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -3,6 +3,8 @@
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Skills/FPSQuickCombatComponent.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Production/ProductionToolComponent.h"
++#include "../Movement/PlayerGuardBreakComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "Engine/GameInstance.h"
+@@ -23,6 +25,11 @@
+ {
+     ServerQuickCombat(QuickCombatSequence,GetPawn(),0.f,true);
+ }
++bool AColdSteelPlayerState::IsQuickCombatExecuting(const APawn* Pawn) const
++{
++    // The extra 350 ms accepts late hit reports; it is not additional recovery.
++    return Pawn&&QuickCombatPawn.Get()==Pawn&&GetWorld()&&GetWorld()->GetTimeSeconds()<QuickCombatUntil-.35;
++}
+ void AColdSteelPlayerState::ServerQuickCombat_Implementation(uint32 Sequence,APawn* ActionPawn,float Duration,bool Finish)
+ {
+     if(!HasAuthority())return;
+@@ -38,10 +45,15 @@
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* Book=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
++    const auto* Broken=Pawn?Pawn->FindComponentByClass<UPlayerGuardBreakComponent>():nullptr;
+     if(Busy||!Pawn||ActionPawn!=Pawn||!Health||Health->IsDead()||!ShadowModel
+         ||!FMath::IsFinite(Duration)||Duration<.1f||Duration>5.f||Pawn->IsTraversing()
+-        ||(Book&&Book->IsFocusActive())||!ShadowModel->SpendStamina(ShadowModel->QuickCombatStaminaCost()))
++        ||(Book&&Book->IsFocusActive())||(Broken&&Broken->IsActive())||!ShadowModel->SpendStamina(ShadowModel->QuickCombatStaminaCost()))
+     {ClientQuickCombatRejected(Sequence);return;}
++    if(const auto* Item=ShadowModel->ActiveProductionTool();Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item))
++        // Only cancel this pawn's hammer. The general local-input interrupt
++        // also reapplies the GameInstance profile, which belongs to the host.
++        if(auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();
+     QuickCombatPawn=Pawn;QuickCombatUntil=Now+Duration+.35;
+     ShadowModel->TrainQuickCombat(ShadowModel->QuickCombatDefinition().UseExperience);
+ }
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -5,6 +5,8 @@
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../FPSGAMEPlayerController.h"
++#include "../Weapons/RuneSwordComponent.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelProfileRecovery.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -22,8 +24,11 @@
+     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* Building=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
++    const auto* PS=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
++    const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
+     return Pawn&&Pawn->HasAuthority()&&Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&PC&&
+         !Pawn->IsTraversing()&&!Pawn->IsCastBlockingLeftHandAction()&&(!Health||!Health->IsDead())&&
++        (!Sword||!Sword->IsGuarding())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+         !AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Building||!Building->IsBuilding());
+ }
+ }
+@@ -132,6 +137,7 @@
+     if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(BluntContactTimer);
+     BluntServerNextStage=0;BluntServerComboExpires=0.;bBluntServerCharging=false;
+     BluntServerGroundSlamUntil=0.;BluntSprintSeconds=0.f;BluntSprintReadyAt=-100.;
++    BluntServerReadyAt=0.;
+ }
+ 
+ void UProductionToolComponent::ClientBluntAttackResult_Implementation(uint32 AttackId,int32 Stage,bool bAccepted,bool bConfirmed,bool bHeavy,bool bSprint)

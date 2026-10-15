@@ -1,0 +1,67 @@
+{
+  "historical_only": true,
+  "new_game_tests": false,
+  "receipts": {
+    "build_receipt.json": {
+      "targets": [
+        {
+          "exit_code": 0,
+          "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\NetworkReviewV1\\build-FPSGAME.log",
+          "finished": "2026-10-15T22:57:21",
+          "target": "FPSGAME"
+        },
+        {
+          "exit_code": 0,
+          "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\NetworkReviewV1\\build-FPSGAMEEditor.log",
+          "finished": "2026-10-15T23:07:44",
+          "target": "FPSGAMEEditor"
+        }
+      ],
+      "complete": true
+    },
+    "audit_receipt.json": [
+      {
+        "exit_code": 0,
+        "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\NetworkReviewV1\\WarhammerNetworkAudit.log",
+        "name": "WarhammerNetworkAudit",
+        "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\NetworkReviewV1\\WarhammerNetworkAudit.json"
+      },
+      {
+        "exit_code": 0,
+        "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\NetworkReviewV1\\WarhammerModificationAudit.log",
+        "name": "WarhammerModificationAudit",
+        "report": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\NetworkReviewV1\\WarhammerModificationAudit.json"
+      }
+    ],
+    "delivery.json": {
+      "failures": 0,
+      "finished": "2026-10-15T23:13:09",
+      "remaining": [
+        "Observer spatial audio for ordinary swing, uppercut, whirlwind, quick-melee release, block and parry",
+        "Real host-client and latency/loss acceptance"
+      ],
+      "checks": 155,
+      "build_receipt": "build_receipt.json",
+      "audio_auditioned": false,
+      "revision": "WarhammerNetworkReviewV1_20261015",
+      "real_network_transport_tested": false,
+      "audits": [
+        {
+          "checks": 52,
+          "failures": 0,
+          "name": "WarhammerNetworkAudit"
+        },
+        {
+          "checks": 103,
+          "failures": 0,
+          "name": "WarhammerModificationAudit"
+        }
+      ],
+      "user_profile_modified": false,
+      "authority_runtime_executed": true,
+      "source_fixes_saved": true,
+      "build_complete": true,
+      "visual_tested": false
+    }
+  }
+}

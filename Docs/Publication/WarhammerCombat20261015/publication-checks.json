@@ -1,0 +1,15 @@
+{
+  "scope": "Publication checks only; no new UE/game/animation/network tests",
+  "public_bytes": 1871138,
+  "source_is_latest_for_direct_paths": true,
+  "mixed_source_patch_only": true,
+  "archive_hash_readback": true,
+  "new_links_exist": true,
+  "private_key_token_signature_hits": 0,
+  "public_media_or_binary_files": 0,
+  "tests_rerun": false,
+  "checked_payload_files_before_this_receipt": 287,
+  "archive_files": 326,
+  "archive_bytes": 471868259,
+  "gameplay_validation": "Deferred by user; prior local receipts preserved separately"
+}

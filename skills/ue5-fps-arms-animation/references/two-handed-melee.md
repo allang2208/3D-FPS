@@ -277,3 +277,7 @@ GitHub `rico345100/unity-basic-melee-combat-system-for-fps-rpg` 的 `firstperson
 - `SwordGuardRightStudy20260926` 仅为诊断与方案，尚未实施右臂入场重做。此前离线姿态测量不能写成 V23 或本轮已通过实机验收。
 
 具体作者源、已保存资产和未发布运行依赖见工程 `Docs/Weapons/melee-bow-publication-20260927.md`。
+
+## 双手战锤原生骨链与多阶段动作
+
+长柄握距、肘极跳解、前臂轴向旋转、右下退出、快速近战单一时钟及制作依赖，读取 [战锤原生骨链](warhammer-native-chain.md)。用户否定的版本与制作落盘分开记录，不将烘焙成功等同于视觉认可。

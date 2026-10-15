@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/Building/SmeltingSystem.h
++++ b/Source/FPSGAME/Building/SmeltingSystem.h
+@@ -105,6 +105,7 @@
+     FCampfireSharedState CampfireState(const AVoxelBuildWorld* World,FIntVector Cell) const;
+ private:
+     TSet<TWeakObjectPtr<AVoxelBuildWorld>> CampfireBlockedWorlds;
++    friend void RunCampfireFoodSpoilageAudit(UWorld* World,UColdSteelStatusModel* Model,TFunctionRef<void(bool,const FString&)> Check);
+     void LoadCampfireRecipes();
+     bool SettleCampfire(AVoxelBuildWorld* World,FIntVector Cell);
+     bool CanUseCampfireTransaction(const AVoxelBuildWorld* World,FIntVector Cell,FString& Reason) const;
+--- a/Source/FPSGAME/Building/VoxelBuildGeometry.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildGeometry.cpp
+@@ -16,9 +16,9 @@
+         for(const auto& S:Shapes)
+             if(Remaining.Contains(S.Key))
+             {
+-                FKConvexElem Convex;VoxelCut::Corners(S.Value,Convex.VertexBuffer);
+-                for(FVector& V:Convex.VertexBuffer)V+=Offset+FVector(S.Key)*20.;
+-                if(Convex.VertexBuffer.Num()>=4)Out.ConvexElems.Add(MoveTemp(Convex));
++                FKConvexElem Convex;VoxelCut::Corners(S.Value,Convex.VertexData);
++                for(FVector& V:Convex.VertexData)V+=Offset+FVector(S.Key)*20.;
++                if(Convex.VertexData.Num()>=4)Out.ConvexElems.Add(MoveTemp(Convex));
+                 Remaining.Remove(S.Key);
+             }
+         TArray<FIntVector> Ordered=Remaining.Array();
+@@ -52,8 +52,8 @@
+ 
+ TSharedPtr<FVoxelGeometry> VoxelGeometry::Chunk(FIntVector Origin,TMap<FIntVector,int32> Slots,double Radius)
+ {
+-    TMap<FIntVector,uint8> NoShapes;
+-    return Chunk(Origin,MoveTemp(Slots),MoveTemp(NoShapes),Radius);
++    TMap<FIntVector,uint8> EmptyShapes;
++    return Chunk(Origin,MoveTemp(Slots),MoveTemp(EmptyShapes),Radius);
+ }
+ 
+ TSharedPtr<FVoxelGeometry> VoxelGeometry::Chunk(FIntVector Origin,TMap<FIntVector,int32> Slots,TMap<FIntVector,uint8> Shapes,double Radius)
+--- a/Source/FPSGAME/Items/FoodSpoilageAuditCommandlet.cpp
++++ b/Source/FPSGAME/Items/FoodSpoilageAuditCommandlet.cpp
+@@ -123,7 +123,7 @@
+         for(const TCHAR* Name:{TEXT("rendered card layout and pointer UI"),TEXT("live multiplayer RPC transport"),TEXT("campfire output/queue transaction integration (separate cooking regression)")})
+             NotRun.Add(MakeShared<FJsonValueString>(Name));
+         Report->SetArrayField(TEXT("not_run"),NotRun);
+-        FString Json;FJsonSerializer::Serialize(Report.ToSharedRef(),TJsonWriterFactory<>::Create(&Json));
++        FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));
+         IFileManager::Get().MakeDirectory(*Saved,true);
+         return FFileHelper::SaveStringToFile(Json,*(Saved/TEXT("food-spoilage-runtime.json")),FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
+     };
+--- a/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp
+@@ -19,8 +19,8 @@
+     Heading=Text(34);RightHeading=Text(34);Left=Text(27);Right=Text(27);PageNumber=Text(22);RightPageNumber=Text(22);
+     for(int32 Side=0;Side<2;++Side)
+     {
+-        auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();auto* Slot=Columns->AddChildToHorizontalBox(Stack);
+-        Slot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));Slot->SetPadding(FMargin(64,66,64,40));
++        auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();auto* ColumnSlot=Columns->AddChildToHorizontalBox(Stack);
++        ColumnSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));ColumnSlot->SetPadding(FMargin(64,66,64,40));
+         auto* Title=Side?RightHeading.Get():Heading.Get();Title->SetAutoWrapText(false);Title->SetJustification(ETextJustify::Center);
+         Stack->AddChildToVerticalBox(Title)->SetPadding(FMargin(0,0,0,28));
+         auto* Rule=WidgetTree->ConstructWidget<UBorder>();Rule->SetBrushColor(FLinearColor(.3,.18,.07));Rule->SetPadding(FMargin(0,1));Stack->AddChildToVerticalBox(Rule)->SetPadding(FMargin(0,0,0,24));
+--- a/Source/FPSGAME/UI/ColdSteelAlchemyBookPreview.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAlchemyBookPreview.cpp
+@@ -30,7 +30,7 @@
+     Image=WidgetTree->ConstructWidget<UImage>();Overlay->AddChildToOverlay(Image);
+     LoadingText=WidgetTree->ConstructWidget<UTextBlock>();LoadingText->SetFont(GunsmithUI::TextFont(24));
+     LoadingText->SetText(FText::FromString(TEXT("正在打开配方手册…")));
+-    auto* Slot=Overlay->AddChildToOverlay(LoadingText);Slot->SetHorizontalAlignment(HAlign_Center);Slot->SetVerticalAlignment(VAlign_Center);
++    auto* LoadingSlot=Overlay->AddChildToOverlay(LoadingText);LoadingSlot->SetHorizontalAlignment(HAlign_Center);LoadingSlot->SetVerticalAlignment(VAlign_Center);
+ }
+ void UColdSteelAlchemyBookPreviewWidget::Configure(const FAlchemyRecipe& Recipe,int32 Spread)
+ {

@@ -1,0 +1,2582 @@
+{
+  "files": [
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/combat-weapon-formulas.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/combat-weapon-formulas.json",
+      "bytes": 7241,
+      "sha256": "a62f633faa544a0a97befa70fa2be42dd80e744ea169403336f9ae6893f76be9",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/items.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/items.json",
+      "bytes": 154713,
+      "sha256": "a2b2b1825f466f9a36b22e5998e35a29c0c879c83971c424a4cc34c7a46ea649",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/modular_outfits.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/modular_outfits.json",
+      "bytes": 105922,
+      "sha256": "dc5f8e7a0402a218a187a52f40ce6f3f6286beb219d79f109f2a6ae57b1282fc",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "bytes": 24632,
+      "sha256": "e37c9fa203bd896d86b68a54228f77d1dc93fbed4e5baf19ef959a725081cece",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "bytes": 87764,
+      "sha256": "0480423d97e867451049dc71f07fc5dedfeb237b74684ed24a50af6fad8e5d69",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "bytes": 7703,
+      "sha256": "586c4f20782dabacc92cc219ac196b2283b95ac858424100cf9a2864da77bf18",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionAxeLocomotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionAxeLocomotion.cpp",
+      "bytes": 3495,
+      "sha256": "bfa07827914d3dc00344964513cb3db2bd720479b41bef50856564c898c48bd0",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 24364,
+      "sha256": "0edf21854f0483ac69d1654ceb6c861f6e970d1e9a7e78d30a6e20de89f16a63",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "bytes": 6415,
+      "sha256": "b2560f5d43c9ae9f5bb6f983b6ffbebd7cc248f6868a7867dc7f9f6529635ca6",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/Before/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "bytes": 16279,
+      "sha256": "b5cbf084c7d8e0699ee4dd794fb5742bb6166bbe29d19cdd6e4a0065a9e60d35",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "bytes": 27636,
+      "sha256": "539350c4bae557daa5e74aa75b58aaff8781b0f25d2b3247a6acf72aed092e67",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "bytes": 102353,
+      "sha256": "dd683bb0767c4627d892c106f2662e1db66f5150328a86bde79d3445613df91c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 254740,
+      "sha256": "6550cd4504ec94975acc36e30abc7ca8632e881638fff766a39efb0fae65ea38",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "bytes": 7157,
+      "sha256": "524b6c18bdc0a17b0d4bef672a14291552a3d6f565283c753d31f7daa80b80b2",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 37206,
+      "sha256": "7affe2e158f4c4f8ec5226a3f2d92688c15a70eda5e1d9a3036dfca4d724a930",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 14077,
+      "sha256": "8024a421f1290cd7e3df06ad3a82eaee06e222bbdf4783d39eb31c0adb82c52a",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "bytes": 16219,
+      "sha256": "0088970835c4175bf2c6bce487ec33d71711624b016798eda99c3865d5e72102",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "bytes": 92787,
+      "sha256": "7d8ae2667c34e41608c9cbd4908a550293c522978998214bf0ff3a3b432665f0",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "bytes": 24946,
+      "sha256": "81e9ba171f04660b771fe9f7f35aac21cd39b5e3eed78739d5e3736cec8ecce1",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "bytes": 9445,
+      "sha256": "7a561d12d39346cea58211e0c30dfbba04921f23e0b927c853df751ee24a943d",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/GuardV1/Before/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "bytes": 5485,
+      "sha256": "f28744b89e178e3d4d409d3a2469a298897fc484a64cbf02f1d7928d5585ff09",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HandShadeDiagnosisV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HandShadeDiagnosisV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "bytes": 6636,
+      "sha256": "3607d96659703feb8a28072aed8fb56ecd30423a7ad86d365063af5129af082a",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HandShadeDiagnosisV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HandShadeDiagnosisV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "bytes": 22923,
+      "sha256": "768e57ef4bed1ccf796d1769677daddb89d4d3059072cd560a7abccc087caea3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HandShadeDiagnosisV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HandShadeDiagnosisV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "bytes": 17749,
+      "sha256": "7ce48f8bc00c06d4d0c1e4f209aaaa63022a2f688acd2857f630f85fb89c853c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "bytes": 4265,
+      "sha256": "f2cf963bd6259a066bae3cfbd7ac7bcb8a5cf0845215e9d763ab8e69a38e9d1a",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 251160,
+      "sha256": "9eb363a3384e7b7beeb160f78d298a46847d68398b344eb59f9a0dbe2e960e50",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "bytes": 7408,
+      "sha256": "d6dc8b51e5ef691b43144efbcaee84f2b355ad825f93a6f6d74bb9d802f99da4",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionBluntContact.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionBluntContact.cpp",
+      "bytes": 3605,
+      "sha256": "0e1c8718411aa1e6ed3e4d12c89f0d28c61c9520aa7922e9139b8969588aebc8",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "bytes": 3092,
+      "sha256": "935311e26ef784ab1dcf4ef558fcc0eec1797894dd6bddc35654b12ff018febd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 31675,
+      "sha256": "5d19ea7d64651a77cdb963e874173357177021db52c7323fda2cca2302df14be",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 8562,
+      "sha256": "11fbb586125823bdc4fd09c51412b1c97d26446e70c438fe8e3be999222bc601",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "bytes": 11254,
+      "sha256": "41b8c05d77106bfc51649ce2bd3e1fd839199a46ff175d8872e9fd51f02b704c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV3/Before/Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "bytes": 1649,
+      "sha256": "a937d70ab50bf375f954e7f4c68516ae3492ce9afeb6b4237242f136281418fe",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 251566,
+      "sha256": "0525ebe2285f9af30d0a94c1df345657949278fd73e1e27be46c4d446b67ae9d",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "bytes": 3956,
+      "sha256": "9e4b4cb59f75958e8b280e4e891416827787f2fde04c83d8943774a90fbda2a6",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 33475,
+      "sha256": "7410f8d4c7a50575e86abeaca3f6b8d4c6ccd7b551b2e0a25c0700a406e9ee9b",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 8944,
+      "sha256": "31d59fd78d16946f70aaba9dd981e3844232db909245d6e0c5a80b6fb6030a71",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/HeavySlamV4/Before/Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "bytes": 2144,
+      "sha256": "cb251376e6f0c20706f3668f7f7a5f30b5335d4dadc80572ee43947b3559c64d",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/MaterialRepairV1/Before/M_SteelWarhammerSurface.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/MaterialRepairV1/Before/M_SteelWarhammerSurface.uasset",
+      "bytes": 6616,
+      "sha256": "0ef3bfe1e364d0d59841419b4004d0b4d92d23a246d6f3856b6490267537ce79",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/MaterialRepairV1/Before/SK_Warhammer_BareArmsSprintV1.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/MaterialRepairV1/Before/SK_Warhammer_BareArmsSprintV1.uasset",
+      "bytes": 25049544,
+      "sha256": "467e15622a0f6f0403a6e9ab67cd6209308a3d9539e012bd4cf808caaf9a9646",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Building/SmeltingSystem.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Building/SmeltingSystem.h",
+      "bytes": 7678,
+      "sha256": "34015985622f40d85f7a2cd2c95e0843a6ae681d0332f2305f2285cf3258a6cd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Building/VoxelBuildGeometry.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Building/VoxelBuildGeometry.cpp",
+      "bytes": 10026,
+      "sha256": "f5c3a69a6e847a72b55fe49bf7941fcbf794db8962028237d8076228551b808d",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Items/FoodSpoilageAuditCommandlet.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Items/FoodSpoilageAuditCommandlet.cpp",
+      "bytes": 32797,
+      "sha256": "478c0da8b44e179900aaa67200a0728ee7ce33a8eddde12eef7d4c6e132e6c02",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "bytes": 27640,
+      "sha256": "6a7790855f9657b48ede1d2b4bdacf05ae7720f0b7d38a91b1b20cea423ac1a5",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "bytes": 3246,
+      "sha256": "783fb2d9784fd6379b22756fc97a3ee5e32a203f7c2935afde857d4f6cedfca6",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "bytes": 11786,
+      "sha256": "905515a0ccf598eb35c055bcef9385fbcbb1f8c34e3086a411a8b03803efd105",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntGuard.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntGuard.cpp",
+      "bytes": 1909,
+      "sha256": "7db35be8e52a68ad5df885cb503c3642355d000b391c03b028124451602fb7ce",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+      "bytes": 13242,
+      "sha256": "3d1fd7cb5efd94314981a6790d8835bf1f980825238056a673413679169a6b60",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+      "bytes": 11183,
+      "sha256": "0c2d4ec53abf5d6040d4ed5616d531284d220916d21f324ace0c527b78c97be5",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 39265,
+      "sha256": "2cc0456aa3b45450d5c43786faef6d3f4610f4e4ccb5c77f57a301029370aa8e",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 15056,
+      "sha256": "8282a97f3f3d4f522d971ad5cae3ba7180301b70f4de03d9093261e41068c5af",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookPreview.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookPreview.cpp",
+      "bytes": 7218,
+      "sha256": "179c8b00ebcaf13e55a679ca003cc60918af6194b7a9f7dd47fa9e29dd8e8a5b",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+      "bytes": 4240,
+      "sha256": "4f2684d0b48e9be506407a91442acd898c4948fb6de1e92c7c838da3f62bf6fd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "bytes": 26174,
+      "sha256": "8831dac55b0749e9e44f87ae2ee15b7eb980baf138b43f97dee8bbc6d810bb00",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "bytes": 11042,
+      "sha256": "8588863c0f7a38f1dd6f9950737e9fcb38126b2a3c14552f2ab663af235674da",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/Before/Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "bytes": 5780,
+      "sha256": "c0eda3ea173340b2c5b5cfdc9052348cb2e64b43d85a53561f01c456a8574c04",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-before-final-receipt.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-before-final-receipt.json",
+      "bytes": 493,
+      "sha256": "e565d486df3953671f26fd569e090700c8202bf2a1b5fb53eb7419478dea4534",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-fifth.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-fifth.log",
+      "bytes": 18705,
+      "sha256": "240131bf04539519d66ff11b568429e8f7d377e989661a7e4ae19f6dda7cc2e9",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-first.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-first.log",
+      "bytes": 37543,
+      "sha256": "915b78adc24a5454711c2eebc3257e0414ce99e18f56573a0d583341df528d9e",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-fourth.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-fourth.log",
+      "bytes": 25259,
+      "sha256": "518acd615ae16ea5b03e4998eebdcfe8590adb62aeef948a68b3ffd6afbf6900",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-second.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-second.log",
+      "bytes": 22115,
+      "sha256": "e7fe529c054df2f3196c468eae9135af6c75672d02684a066f30d8ef7953acf6",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-third.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/build-FPSGAME-third.log",
+      "bytes": 22773,
+      "sha256": "1b053f838e67d2184b36743d007a720b56858089ee9defdecbfa986e897a9974",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/editor-state.txt",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/editor-state.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/WarhammerModificationAudit-backup-2026.10.15-15.09.58.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/WarhammerModificationAudit-backup-2026.10.15-15.09.58.log",
+      "bytes": 303275,
+      "sha256": "2a3143664ffe7921bfe3f8f946e9b01faa608f3ef2d3a940362786131da733b1",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/WarhammerNetworkAudit-backup-2026.10.15-15.09.38.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NetworkReviewV1/WarhammerNetworkAudit-backup-2026.10.15-15.09.38.log",
+      "bytes": 284224,
+      "sha256": "ac4d6412a9f6fa133d0e926a343561251538f18595f0cc6a634b7c4781b202d9",
+      "reason": "Superseded failed build or duplicate audit log; final receipts retained.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NetworkReviewV1/delivery.json"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/author.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/author.log",
+      "bytes": 4207,
+      "sha256": "a099417dcf1e6cda8ccb46a17f511f34a83cce0570dab09514e6460f36658ea7",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/author_combo.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/author_combo.py",
+      "bytes": 15207,
+      "sha256": "5746a82c1c51eda5bdbff5be6ed7f175939784cf5cbefcda9287a7b867ec6360",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/authored.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/authored.json",
+      "bytes": 749,
+      "sha256": "dc38cbcf5c74ceb4fe8fb5383712a4156849811e3ce1c7be24a2796604b0b61d",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/build-FPSGAMEEditor.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/build-FPSGAMEEditor.log",
+      "bytes": 7579,
+      "sha256": "ee42a7fb84546ec216b55a5cbf9cb604992d12d9df9a27474e3ec3978f2e6d09",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/build_editor.ps1",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/build_editor.ps1",
+      "bytes": 1300,
+      "sha256": "a87f67b0b343d032434518eccdc71ef8ed16c2de5d3a113c7603196e21090f10",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/build_receipt.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/build_receipt.json",
+      "bytes": 202,
+      "sha256": "99f77190e865ecd49d2bdc68273538b3f10fcea48cf15e40b9374a044253bbe5",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/delivery.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/delivery.json",
+      "bytes": 571,
+      "sha256": "0f376124daafa14f89dba2fc0c4a5d88fc0236a5a270aabb4ec3eea8b39c0bf8",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Diagnosis20261014/analyze_joints.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Diagnosis20261014/analyze_joints.py",
+      "bytes": 3106,
+      "sha256": "2f1dddf86e198f7496e26a4babc24bf577ac0204133b9eb1fca5b6a20b2707ab",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Diagnosis20261014/diagnosis.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Diagnosis20261014/diagnosis.log",
+      "bytes": 9966,
+      "sha256": "5efd30fc550601585b1edd76d36e216a92fe6f4f5bd710ea162798bbb8c316e9",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Diagnosis20261014/joint_diagnosis.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Diagnosis20261014/joint_diagnosis.json",
+      "bytes": 14034,
+      "sha256": "e207ae3ee3555ec446262df9b6ff0cb3d6a18630878630683597a86c205220a3",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1.fbx",
+      "bytes": 3427900,
+      "sha256": "104d0ed588b8dafa3ac330c64d2bd5a83425cac7b628d73ee4e145cd37ce700a",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1Link.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1Link.fbx",
+      "bytes": 3424460,
+      "sha256": "60d0faa1be2476e86f4cd68ec43300a2ebaedbe55871858f328e091d864b26be",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1Recover.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1Recover.fbx",
+      "bytes": 1908940,
+      "sha256": "108fe9121e14deb311ea90efd0d3927e8d11bdd8af207c140e2bbc5f20b7ee8b",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1RecoverLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash1RecoverLink.fbx",
+      "bytes": 1904012,
+      "sha256": "5c6d4372731e36749b32226c85da867438de518ef7a062f6e64418f8c4b594f8",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2.fbx",
+      "bytes": 3427692,
+      "sha256": "4821b9bdc0977928fb4e4227822965de45ede5ef3d4d10dbb801861d6f890844",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2Link.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2Link.fbx",
+      "bytes": 3422060,
+      "sha256": "38d6365724acbe3133b85a02a7bc0fa2240c1c8d1bc1195f0728fbeb79e7bead",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2Recover.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2Recover.fbx",
+      "bytes": 1909052,
+      "sha256": "ec8f5455e768437a48d33acf6d859cc89824008508410e376e432bb2b20133d5",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2RecoverLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash2RecoverLink.fbx",
+      "bytes": 1903836,
+      "sha256": "1e07549ad11c14a9538bf115002ec2b3db383518256df4ebb6c97fdee343f980",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3.fbx",
+      "bytes": 3432892,
+      "sha256": "6cb02fd383001f946fe171996d04b493c5af86c21937d129b7cf63a039f7af9b",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3Link.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3Link.fbx",
+      "bytes": 3429820,
+      "sha256": "0854808b3bf959a12244515a1c7e6bd72d7d1570fcfe7dd17e43c3622feb0dea",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3Recover.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3Recover.fbx",
+      "bytes": 1911724,
+      "sha256": "573ce857002eb35056763e19c83095c9589baa4631aabdc0c0993003a5a43528",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3RecoverLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Export/A_Warhammer_Slash3RecoverLink.fbx",
+      "bytes": 1909020,
+      "sha256": "066b9320703dc83a94d00d7b93657515a613c3b706c09678b2cbc82752aa003c",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/import-commandlet.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/import-commandlet.log",
+      "bytes": 394193,
+      "sha256": "1b174015fce6e744eb5f381dcbf4a5b36a1d354e513e8587a78708338a0fffd1",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/import-console.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/import-console.log",
+      "bytes": 47400,
+      "sha256": "4c4fb7b55e0b478a6a04454f3ef8ce64f58d91a43b82dab1b2ccd24b6a13fa8e",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/import_assets.py",
+      "bytes": 2266,
+      "sha256": "a26f7f570f03a20ffa2fe2986f06970964dab127ee1ddd71e012613ff099ade9",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/import_bridge.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/import_bridge.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/import_receipt.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/import_receipt.json",
+      "bytes": 1367,
+      "sha256": "12dacf653f8eb66f29e293bf1c5379c435dc7c05a0109984bc05bdcf8f0bcc78",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV2/Warhammer_NormalCombo_Editable.blend",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV2/Warhammer_NormalCombo_Editable.blend",
+      "bytes": 106578190,
+      "sha256": "3a0d380442cff9ac0720bd205a9522cd295e879a695183139ec8210259f09299",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/author.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/author.log",
+      "bytes": 6216,
+      "sha256": "32257e8b21b88671b8a8d94861d8725ed004da133de3a1ccdefe0a3403fd9e00",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/author_combo.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/author_combo.py",
+      "bytes": 10656,
+      "sha256": "5a9cbaa0abdebcc9f27502c4a91bd2abd44174c126925bc1f56ead1af093ace5",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/authored.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/authored.json",
+      "bytes": 3437,
+      "sha256": "b27c32c5cc600735a08da2e9c38701e1774b906545ef1dcb36f5d399699cc9b0",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/basis.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/basis.json",
+      "bytes": 1965,
+      "sha256": "cc917fa06700c827cb38b28ee22807280eb9eb2f274a800d51c755f267ba7eb5",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/basis.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/basis.log",
+      "bytes": 2281,
+      "sha256": "1d933de7b18aa87137ca0eae131a647f4b2b4dbf3f7e8212e9d033216ead393b",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/build-FPSGAMEEditor-attempt1.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/build-FPSGAMEEditor-attempt1.log",
+      "bytes": 34506,
+      "sha256": "67c1fdf390aee1ebdc1316515ad7e601e120b470b97a5437e5e2f31e56c830d8",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/build-FPSGAMEEditor.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/build-FPSGAMEEditor.log",
+      "bytes": 1095,
+      "sha256": "83df3e6008ffd02cbccfd97c2b58cb254c2dbb4a6e73278d1b98f49caf3050de",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/build_editor.ps1",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/build_editor.ps1",
+      "bytes": 1303,
+      "sha256": "62a64b0efa71a1a058c8cfaf2b17546c8c88cf2d70439efd89c0bb74376793c1",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/build_receipt-attempt1.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/build_receipt-attempt1.json",
+      "bytes": 202,
+      "sha256": "2ca3362842fcd88cf2cae2abfa24a6239963ddf5f4244a6f8470098dbce1ef73",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/build_receipt.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/build_receipt.json",
+      "bytes": 202,
+      "sha256": "c94822f8aba671253b08e808a66443721b8dfa0b531403785e6999e2ab1f7d74",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/continuity.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/continuity.log",
+      "bytes": 9655,
+      "sha256": "88a1177b04a1a19b354edf0c6b90cfc3eae913c7876c03b13cafe79f1bddb83a",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/delivery.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/delivery.json",
+      "bytes": 604,
+      "sha256": "f64e862599bf937eae95ba65724ee74e2807e81016107a1471bb1c940c0f0fff",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1.fbx",
+      "bytes": 3427404,
+      "sha256": "09a247245c29e203798b42e4d466b53e9440a21173fac2dd89576b0e49dff1c3",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1FromLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1FromLink.fbx",
+      "bytes": 3426124,
+      "sha256": "5979f8e26f7cf9e8b2f3ed5d098bd1de877bbc4c5cfffd563703e71b8e7d7673",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1FromLinkLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1FromLinkLink.fbx",
+      "bytes": 3425100,
+      "sha256": "1fc3fba01a57c8da93218bbdbc7c3292f949d8e0236f64436592bb0ad451fb22",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1Link.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1Link.fbx",
+      "bytes": 3426732,
+      "sha256": "1babbb9f7d4ec3880a783b12f4fa638999b7261651060ad899da7ee1a4ce2f2e",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1Recover.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1Recover.fbx",
+      "bytes": 1910220,
+      "sha256": "a8b6a177c23c1136df2abd102ee719f8c981c87fa32182d3c8ae36eca723d2e0",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1RecoverLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash1RecoverLink.fbx",
+      "bytes": 1910124,
+      "sha256": "df419888e1988f4613ea9d522a9cb44634fa099692479054ae81dbfb9cc070de",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2.fbx",
+      "bytes": 3430524,
+      "sha256": "bf9a8953bc5c728b794eace7ff3be7bbcc5cffd0e4406dbdf36789140da29303",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2FromLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2FromLink.fbx",
+      "bytes": 3429228,
+      "sha256": "afd9af34cef6768551810ae17c18047efbd0005ced6fd646e4221b203bea0fd3",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2FromLinkLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2FromLinkLink.fbx",
+      "bytes": 3429212,
+      "sha256": "eff90882dd6a9d1a4bb29802f44e418431f44fc2eab2bb5ee736e438247c0051",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2Link.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2Link.fbx",
+      "bytes": 3430604,
+      "sha256": "e784e5df797870c76346c4e74aa5f22d0d337bb8cb7ffc9e132a26413c88b536",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2Recover.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2Recover.fbx",
+      "bytes": 1912188,
+      "sha256": "0714dde358865dc67a4ef9e904983631b8dfa195be12f7973ed0026cc3c7baa3",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2RecoverLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash2RecoverLink.fbx",
+      "bytes": 1912364,
+      "sha256": "074d77b0bb5e3c9a66b0edf223533ef4415db14c68d4010f6de9e0dcd297df13",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3.fbx",
+      "bytes": 3430364,
+      "sha256": "9421e5fae05fe12786535d3bc713d3db363da0cad628982e022abff609de12fc",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3FromLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3FromLink.fbx",
+      "bytes": 3429020,
+      "sha256": "b860254002c764af1c01c55e91b70bdcb5c17dfbab6988056bf31b9e33322f2b",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3FromLinkLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3FromLinkLink.fbx",
+      "bytes": 3429308,
+      "sha256": "1169d1bd8989f032a72f9c515ebe1df3982b026aa1e308d5fe72f95d61e423c7",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3Link.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3Link.fbx",
+      "bytes": 3430844,
+      "sha256": "426004545f834bb728d2f144ff7cc1d52c03fa6a972a52cc703ce852b2083415",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3Recover.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3Recover.fbx",
+      "bytes": 1911036,
+      "sha256": "ec867aa69f10d290c04a0e568be9825fc839d17ab78f6b6fcae9eaf71b434628",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3RecoverLink.fbx",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Export/A_Warhammer_Slash3RecoverLink.fbx",
+      "bytes": 1911740,
+      "sha256": "3a82226bdf98f6f6bb82a4550b0e886f8011279bbf162ba5c19445d7f27093c6",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/fit.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/fit.log",
+      "bytes": 3661,
+      "sha256": "ce56fb0a3cf21197580217ec3a1176201d2e59a8ceba810810e823677002bad8",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/fit_motion.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/fit_motion.py",
+      "bytes": 7409,
+      "sha256": "ae8847f806a265131574171e46034a219fa9b5e5327575b94f5328f759e51b77",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/fitted_paths.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/fitted_paths.json",
+      "bytes": 375922,
+      "sha256": "4c4add1e831783ca73f4fe903abb8ee1c9670862ea0762917c89c1ba8126b1a7",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/import-commandlet-02.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/import-commandlet-02.log",
+      "bytes": 448408,
+      "sha256": "b972efc13802d00f94fe5ff5eac92c36396c9602e8bc5fb0b18c85f55735990e",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/import-commandlet.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/import-commandlet.log",
+      "bytes": 88615,
+      "sha256": "c8cbba6c317694d61c5f02d61b451e0f29b048a5ac0218f9d5af5b1e088472c2",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/import-console-02.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/import-console-02.log",
+      "bytes": 50956,
+      "sha256": "1905dc6f5b5ad5dd03a15ad3ae7b0ed1c7207747dd64f0d7b22bac54b8daf1a4",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/import-console.log",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/import-console.log",
+      "bytes": 6175,
+      "sha256": "6a6d931cbfe33b7bb722df8fbad279667c66b6920beccdd9780d9e5998983fdf",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/import_assets.py",
+      "bytes": 2266,
+      "sha256": "8552c5e247d5d89e93ad400959f8c5e183a46a8d04bf838cdf2ac76418ab4e26",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/import_receipt.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/import_receipt.json",
+      "bytes": 2069,
+      "sha256": "51edf224841ef40649c36fe862e8da975d839d22041468e713ffc6079d16fee4",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/joint_continuity.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/joint_continuity.json",
+      "bytes": 8633,
+      "sha256": "7e6c3cb89e85fe7ec836ef9f53b9dbde506efd9bfe9142a89a5384f33bbc5132",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/read_author_basis.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/read_author_basis.py",
+      "bytes": 888,
+      "sha256": "8a0f7f00b6fe0b1def0328792552b5d362882b38300b69313fd89a1d26eeb271",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/read_joint_continuity.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/read_joint_continuity.py",
+      "bytes": 3334,
+      "sha256": "f88eed21cbebe247011e7adff0424712ce13b046b9c1eca05ce6c281f06428ce",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV3/Warhammer_NormalCombo_Editable.blend",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV3/Warhammer_NormalCombo_Editable.blend",
+      "bytes": 129672637,
+      "sha256": "87740d0079d027df124a620a0a28700975d49ee187b630b83de0c530f203eaa5",
+      "reason": "User rejected V2/V3 arm chain; no active source consumer outside these retired stages.",
+      "replacement": "SourceAssets/SteelWarhammer20261014/NormalComboV4; later parallel normal-combo stages preserved"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionBluntCombo.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionBluntCombo.h",
+      "bytes": 6138,
+      "sha256": "1c9788b853d08fcdab3a1e2d2984cbf3dd9a888f6c74f74d8d4cec48c1531855",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionToolComponent.cpp",
+      "bytes": 35266,
+      "sha256": "7dee612f85a635571ea14a6999106e1f2c97a53c01d3bb86c9f4e585880acddf",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionToolComponent.h",
+      "bytes": 9090,
+      "sha256": "7007784e7353d1ffb52bd841d6a3501edb560e5acf2628c067eb57763d37a8ed",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/NormalComboV4/Before/ProductionToolMotion.cpp",
+      "bytes": 12376,
+      "sha256": "04b563c1670153a9f6e5a5624617b5b105e5f185b7f410055f5b16e31a9fef90",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/A_Warhammer_QuickCombat.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/A_Warhammer_QuickCombat.uasset",
+      "bytes": 485481,
+      "sha256": "5391116a51b4713d3198aed3e2b1afa5cfc0a20260e4c07cb5f6eecdf1b432c2",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/author_cone_candidate.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/author_cone_candidate.py",
+      "bytes": 13004,
+      "sha256": "714c08d3cd92e63115495a9fa4e6ee7d280a28677a06df2cf69e4a8bb8445df3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/FPSPlayerBodyActions.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/FPSPlayerBodyActions.cpp",
+      "bytes": 27636,
+      "sha256": "39a596412551227458e817a6f22977afd569de2b5718792611eaabfbbe909a11",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/ProductionBluntQuickCombat.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/ProductionBluntQuickCombat.cpp",
+      "bytes": 1972,
+      "sha256": "29622f0452d08a1ba48b515f7c814359eb8d15c13a337552bba0ab7f27f3d7e5",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatImpactV2/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatImpactV2/author_quick_combat.py",
+      "bytes": 6557,
+      "sha256": "5572ed3e013dcbdc3f072a7abfc1d6c91d7ee698cb42c3f2410b722dd410a505",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatImpactV2/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatImpactV2/import_assets.py",
+      "bytes": 2695,
+      "sha256": "963bccc26e43b4ddc796286af96c07055b4443fa6d02992b1cf060bd8ed769bc",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatV1/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatV1/author_quick_combat.py",
+      "bytes": 235,
+      "sha256": "acdb50eb5dfb5ef571e8d16641450541b89ac1d678056945afc8d06370b85ccf",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatV1/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/QuickCombatV1/import_assets.py",
+      "bytes": 229,
+      "sha256": "5cf0bded90adec083bb5339ca80eb598afa9a8adaeecdffd3eaa41e8bf50c4d6",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/steel-warhammer-quick-combat-impact-v2-20261015.md",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/steel-warhammer-quick-combat-impact-v2-20261015.md",
+      "bytes": 3136,
+      "sha256": "3c8ca35ccad8ce54d117b7bf3fcecdefd9b6131846c233329a110ec9a4ae066c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/steel-warhammer-quick-combat-v1-20261015.md",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/steel-warhammer-quick-combat-v1-20261015.md",
+      "bytes": 4207,
+      "sha256": "2802ce01717508867bc0460c4324f563d155045a4a511ce9597478001dc193e9",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/WarhammerQuickCombat.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/WarhammerQuickCombat.cpp",
+      "bytes": 3828,
+      "sha256": "a45e20b657c999f126d9acc60ae201171c8c584f620e3aab7d8bec2d5eb35603",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/WarhammerQuickCombatMarker.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/WarhammerQuickCombatMarker.h",
+      "bytes": 231,
+      "sha256": "f498c97e42ea24ddeec85762ab9a4243b1a9c9faddae75d42d4d170419e7677c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/WarhammerQuickCombatMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatHeadThrustV3/Before/WarhammerQuickCombatMotion.h",
+      "bytes": 972,
+      "sha256": "8eb6e29871a7770350460b39af4de3320d864045d1e941d6fd3cfeb04ab8b538",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/A_Warhammer_QuickCombat.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/A_Warhammer_QuickCombat.uasset",
+      "bytes": 490307,
+      "sha256": "10feb63f0a3862bc799d3633a2ee97638796f1c9abb66994a08a00dd74ad97ad",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/author_quick_combat.py",
+      "bytes": 5801,
+      "sha256": "85b8382472d4f58ffe047989d53aaa2750bdddfe5de136d75aa633cf910aefe9",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/import_assets.py",
+      "bytes": 2695,
+      "sha256": "963bccc26e43b4ddc796286af96c07055b4443fa6d02992b1cf060bd8ed769bc",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/steel-warhammer-quick-combat-v1-20261015.md",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/steel-warhammer-quick-combat-v1-20261015.md",
+      "bytes": 3937,
+      "sha256": "31b741dd06929e642bf4b4ad1d264fd6111a2f90fa63fbe6cfdde0cfe5e3d61c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/WarhammerQuickCombatMarker.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/WarhammerQuickCombatMarker.h",
+      "bytes": 225,
+      "sha256": "ecd1add5408da3a529dbff4a194d04d0b0636537ebfb57e4a304afac3c5712a4",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/WarhammerQuickCombatMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatImpactV2/Before/WarhammerQuickCombatMotion.h",
+      "bytes": 972,
+      "sha256": "ee2788a952bb8af8e9fb69856ed3c7b732eb525a49f53e3ee7f013454a5e1034",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatImpactV2/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatImpactV2/author_quick_combat.py",
+      "bytes": 228,
+      "sha256": "02020262b533f761619a7755eda9288a81d28eb8e5bc46c5d911e22e422208e6",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatImpactV2/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatImpactV2/import_assets.py",
+      "bytes": 223,
+      "sha256": "d331709e952e64c2afcae324fe9181df1609ac27a10b9ebee6cb9fbcd145af65",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatV1/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatV1/author_quick_combat.py",
+      "bytes": 228,
+      "sha256": "02020262b533f761619a7755eda9288a81d28eb8e5bc46c5d911e22e422208e6",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatV1/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/QuickCombatV1/import_assets.py",
+      "bytes": 223,
+      "sha256": "d331709e952e64c2afcae324fe9181df1609ac27a10b9ebee6cb9fbcd145af65",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/WarhammerQuickCombatMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatLeftWristV7/Before/WarhammerQuickCombatMotion.h",
+      "bytes": 1904,
+      "sha256": "e4679418cdad215857deaae6b7f2a8893adbc1d7f35b863be2dd3d49f694214c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/author_head_thrust.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/author_head_thrust.py",
+      "bytes": 8734,
+      "sha256": "972428a45ce81cb0e6384405b9026a94c7918ded266ac0a932f21974e01d43d8",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/CampfireCookingPresentation.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/CampfireCookingPresentation.cpp",
+      "bytes": 6899,
+      "sha256": "4d88e6a221de633c92a852dd455e55ba52a6d0b4b731de330377876debb36b0e",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/DragonBreathEntryAuditDiagnostics.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/DragonBreathEntryAuditDiagnostics.cpp",
+      "bytes": 6167,
+      "sha256": "677f1018c27f5214b289b7125385574568ebf766ff8dd3789ad75ab1ee6477dc",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/FPSGAMECharacter.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/FPSGAMECharacter.cpp",
+      "bytes": 253809,
+      "sha256": "27ed292f46f58d9419e7cd08a52407f10f45b13debed904b18d480f4a5823d8f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/ProductionBluntQuickCombat.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/ProductionBluntQuickCombat.cpp",
+      "bytes": 1972,
+      "sha256": "29622f0452d08a1ba48b515f7c814359eb8d15c13a337552bba0ab7f27f3d7e5",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/WarhammerQuickCombatMarker.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/WarhammerQuickCombatMarker.h",
+      "bytes": 235,
+      "sha256": "72f2fda30a355426083e88a37f3e2661821680196d121227e73c7d9cf74453b8",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/WarhammerSprintAuditCommandlet.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatOwnershipFixV4/Before/WarhammerSprintAuditCommandlet.cpp",
+      "bytes": 5356,
+      "sha256": "da4e4d4a4f7190e100ea08b02e37d64a1ac675372e7e960ebd5fd75f8dfee38c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatImpactV2/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatImpactV2/author_quick_combat.py",
+      "bytes": 235,
+      "sha256": "c8f660e80bc92bbee5d7cf6c06fa4a07b5fcf6ea8cee29d43661ac01f7461e91",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatImpactV2/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatImpactV2/import_assets.py",
+      "bytes": 229,
+      "sha256": "8c570aff7fe2a24b06d842f246cd891bd42f38ad5a7534ea2a8c1fce4d62431f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatV1/author_quick_combat.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatV1/author_quick_combat.py",
+      "bytes": 235,
+      "sha256": "c8f660e80bc92bbee5d7cf6c06fa4a07b5fcf6ea8cee29d43661ac01f7461e91",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatV1/import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/QuickCombatV1/import_assets.py",
+      "bytes": 229,
+      "sha256": "8c570aff7fe2a24b06d842f246cd891bd42f38ad5a7534ea2a8c1fce4d62431f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/WarhammerQuickCombatMarker.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/WarhammerQuickCombatMarker.h",
+      "bytes": 232,
+      "sha256": "f76a3d73e75d411f65c83595137c970f6c61b5eb29889ad1dda6a341d3967887",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/WarhammerQuickCombatMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatReachV6/Before/WarhammerQuickCombatMotion.h",
+      "bytes": 1901,
+      "sha256": "be1bbcbd05040ebfc4b577c0f30cbd89579d159a6e825b74ff0c42c14a912e9b",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatRhythmV5/Before/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatRhythmV5/Before/ProductionToolMotion.cpp",
+      "bytes": 15764,
+      "sha256": "88a992e24fa3edf5f9c6e53ec26a25404ef29679d34dd8fe235a32183dd502a8",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatRhythmV5/Before/steel-warhammer-quick-combat-head-thrust-v3-20261015.md",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatRhythmV5/Before/steel-warhammer-quick-combat-head-thrust-v3-20261015.md",
+      "bytes": 3455,
+      "sha256": "d06839354821cffd5e1ca30dfa35c9b3b3ee347c76c93f755c67604520f755cd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatRhythmV5/Before/WarhammerQuickCombatMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatRhythmV5/Before/WarhammerQuickCombatMotion.h",
+      "bytes": 971,
+      "sha256": "723282687f3b51cc62cdb07921db18b3587cf676f58803e77943c43e5d5c41ca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatSwordAudioV1/Before/FPSQuickCombatComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatSwordAudioV1/Before/FPSQuickCombatComponent.cpp",
+      "bytes": 34107,
+      "sha256": "797ca7ca98f16d526720ef3041892443bddbfc19cd5c823a5dff374827bcea2b",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatSwordAudioV1/Before/WarhammerQuickCombat.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatSwordAudioV1/Before/WarhammerQuickCombat.cpp",
+      "bytes": 4210,
+      "sha256": "a8742f83ed8e0db4ffbd608193d8f4c98f68bbc0f4b6035783555369cdfe9ea3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ColdSteelPlayerState.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ColdSteelPlayerState.cpp",
+      "bytes": 89972,
+      "sha256": "82e7f9c8b2a99757aea7c213268ca6775281886bbece45bd4e46c59857c21f4e",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ColdSteelSkillModel.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ColdSteelSkillModel.cpp",
+      "bytes": 32394,
+      "sha256": "c07499146bb4d8dcd4b070f6ef9f7b8b484be48800908b53b462b5d402ce784e",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSGAMECharacterActionPriority.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSGAMECharacterActionPriority.cpp",
+      "bytes": 5436,
+      "sha256": "7ad67d9ce8bfe3e6f6c2a8cf38e8ad4c54b55cc33870484a1826399ea5d4774e",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSPlayerBodyActions.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSPlayerBodyActions.cpp",
+      "bytes": 27529,
+      "sha256": "22df120b08b9eeadcaf2f3fb6bd498d6e561322729b5d418e861582046bb3edf",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSQuickCombatComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSQuickCombatComponent.cpp",
+      "bytes": 33117,
+      "sha256": "bad72e327961a470acd16f4802a011e015701cb0fe6f9ddbe5ed7e404a3a6a97",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSQuickCombatComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/FPSQuickCombatComponent.h",
+      "bytes": 4876,
+      "sha256": "00e0363a0619d149f30f0da1f23bf3171470bff0accb4f2c54b9fa13035f6dba",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66AudioComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66AudioComponent.cpp",
+      "bytes": 4843,
+      "sha256": "85833b36f439176c8f90a9973c6bc616b70558b13535ef76363b13ea3f0bcf35",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66BackMist.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66BackMist.cpp",
+      "bytes": 5957,
+      "sha256": "41709d1a2030af60a4bc2d1ceb1ad1c567cf05831dec5d97f94bbed9a72c702a",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66CorpseSyncComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66CorpseSyncComponent.cpp",
+      "bytes": 5894,
+      "sha256": "665c81117ed1fcc147f0fe94535ea5b6ffb0c8d2a16e6f065cd7d0db9b187418",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66NetAuditGameMode.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/M66NetAuditGameMode.h",
+      "bytes": 1881,
+      "sha256": "f4c656ad09bda317d0756829a50c78ee5c4b26e18c1d3c98052dc817cae488ad",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/PlayerSkillRenderPreparation.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/PlayerSkillRenderPreparation.cpp",
+      "bytes": 7204,
+      "sha256": "79327c47798afd66aa59ff76db3125140a5ce5f5d7f0c0dd48c63aa7da8af8c2",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ProductionToolComponent.cpp",
+      "bytes": 35869,
+      "sha256": "9e41ea2aca66055e3dd653eb90807b2c294e1e7e913c61f727173a15f02412ce",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ProductionToolComponent.h",
+      "bytes": 13041,
+      "sha256": "b62b81cb771670fa43d5603c5f5c0969b05adc822f3280cef4fb455c5be64845",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/QuickCombatV1/Before/ProductionToolMotion.cpp",
+      "bytes": 14089,
+      "sha256": "9eda756527025e5d09ac4b9f31c72a89f266faa2b7b70e9642032b4aeddf6da1",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintDragV1/Before/items.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintDragV1/Before/items.json",
+      "bytes": 151705,
+      "sha256": "c59c42b9d4258131cf9974468597cb3e7a60232aec954c22050c08bbc3be318e",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintDragV1/Before/modular_outfits.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintDragV1/Before/modular_outfits.json",
+      "bytes": 107303,
+      "sha256": "362cf40765a61bc869053f64db98a956639057fe725ba930cb5e6f5acc2ef473",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Docs/Weapons/steel-warhammer-heavy-slam-20261014.md",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Docs/Weapons/steel-warhammer-heavy-slam-20261014.md",
+      "bytes": 7086,
+      "sha256": "9a26bd06ef1419edda4e68f04b0a3395c08317588eb4eea68d6aa1a32fdc54dd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "bytes": 25079,
+      "sha256": "f590fc21475c0e92369fb25bb27603046075068e65145ede05002eaaa8d74472",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionAxeLocomotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionAxeLocomotion.cpp",
+      "bytes": 3945,
+      "sha256": "730ded2bdb97494b826c6a20a53577e2b1792e12d839115040ebc8de82ffb310",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "bytes": 7543,
+      "sha256": "e550cbf9769343870cbad434d6c50c4fc0d5006ab8b85285383bac5f4057fe95",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionBluntSprint.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionBluntSprint.cpp",
+      "bytes": 3556,
+      "sha256": "465924227f206281361fddba1fd359a620f45ad57a62f2b74b3139ab54a442c2",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 33650,
+      "sha256": "a9c85cc34753c6c0f1b43ed78d80c217112393d7fcaf9d2b153befd8afe1fca9",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 8670,
+      "sha256": "22f316162b14acc6feac2862a4cffcbc1bb4fbf4699e64ceba024cd80cd7ebb7",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "bytes": 11170,
+      "sha256": "a56ebf4a8c8e2e87d4cbf488f01dba9bd73c560d6821632188e38a82cebac9ea",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/SprintSlamV1/Before/Source/FPSGAME/Production/WarhammerHeavyMotion.h",
+      "bytes": 2127,
+      "sha256": "1605c37d9b7b18863aafd962b3a8f1b6cbfbe4148ccf4e65c873b3a63340ad9c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutAudioV1/Before/ProductionBluntUppercut.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutAudioV1/Before/ProductionBluntUppercut.cpp",
+      "bytes": 12718,
+      "sha256": "036d6bfb05d30749f009494888c3a5c88abfc1fe204e2573a8b33d86729ec8c9",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutAudioV1/Before/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutAudioV1/Before/ProductionToolComponent.cpp",
+      "bytes": 35674,
+      "sha256": "b7d6ceb8806f63b1a4cc56cb29e6b0c8b11e3d0e1448030c3a9ad10d997d7262",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/A_Warhammer_Uppercut.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/A_Warhammer_Uppercut.uasset",
+      "bytes": 4405481,
+      "sha256": "4d52caa6c9b210dd8140bf9348245c2773db9ec662c52dca9d0298daf00eb9bb",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/FPSGpuTraceCapture.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/FPSGpuTraceCapture.cpp",
+      "bytes": 26312,
+      "sha256": "33fdccd59bc7a7147844a4b55a5d1cf9de977117d4d4831ddccdbfbb7548e9fd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/ProductionBluntUppercut.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/ProductionBluntUppercut.cpp",
+      "bytes": 12862,
+      "sha256": "77edf6536f7525202666282f194618149ab519986e2402a9ec0f29f51c540983",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/V1_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/V1_author_uppercut.py",
+      "bytes": 7221,
+      "sha256": "8c82a1938c225e7dae1c848f745b9c1b98b4c73c184ffea0b11ad42a5b31f4af",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/V1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/V1_import_assets.py",
+      "bytes": 2258,
+      "sha256": "6ce576926c38c81a5ff220432c26b7c7563b410e07126243eea8bd954bbc137c",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/V1_write_contact_arc.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/V1_write_contact_arc.py",
+      "bytes": 1161,
+      "sha256": "3c6054479d93318c98c6047d1bba6ebe8cae15c9f6e20fa9b0368d9170ef9084",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/WardBedScatter.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/WardBedScatter.cpp",
+      "bytes": 13405,
+      "sha256": "026fd6eaa48881805514f5ee12ba1f107d5316c686593e14506c924ec93a1faf",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/WarhammerUppercutArc.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/WarhammerUppercutArc.h",
+      "bytes": 1985,
+      "sha256": "dd30abf0b9f57596bd0d140cfc6ae6de2034a02e5b7923ae769f04c9a04c8aed",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/WarhammerUppercutMotion.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutIdleExitV3/Before/WarhammerUppercutMotion.h",
+      "bytes": 2168,
+      "sha256": "71272929be2c4f7b9093d35686216b5845ff25edeb3f21557ae6c9ee81dc67ef",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutImpactV2/Before/ColdSteelMagicWheel.cpp",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutImpactV2/Before/ColdSteelMagicWheel.cpp",
+      "bytes": 13218,
+      "sha256": "513aa98a17be3facce017ac20c4a35db10e8e650ba1830b157ef6c471e3cb634",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/A_Warhammer_Uppercut_V3.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/A_Warhammer_Uppercut_V3.uasset",
+      "bytes": 4756133,
+      "sha256": "db45b083ca9f25d0bc1aa5a044c59ca13c0c6643d66577da61b8f4f124b21d64",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/UppercutV1_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/UppercutV1_author_uppercut.py",
+      "bytes": 248,
+      "sha256": "f5dbc255b24671ff7ebcc221d37964cd6a99e852f30aa22e5ade2b1db4dc1b34",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/UppercutV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/UppercutV1_import_assets.py",
+      "bytes": 223,
+      "sha256": "e28061a1e6ea2390cb8ee9ed0c3be2198be3deaba0daa39bc275eb971c47cefb",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/V3_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/V3_author_uppercut.py",
+      "bytes": 7022,
+      "sha256": "cd380d468f3bc571af74544fc35086e06bf99ad61b6b2940e0c7bb58391c867b",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/V3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/V3_import_assets.py",
+      "bytes": 2703,
+      "sha256": "a84ec2d5db3b16afa108b2bd0dfc05189f0957745c2ac9ec44786a46f0bab0f8",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/V3_write_contact_arc.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/V3_write_contact_arc.py",
+      "bytes": 1196,
+      "sha256": "b62e074b8ad7c3f047a0237223aa97c90908fa384b2360794979c19be81d8a7f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/WarhammerUppercutArc.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRearHighV4/Before/WarhammerUppercutArc.h",
+      "bytes": 1975,
+      "sha256": "7c8d31dcd200804d7f3090f21e3cdde434daa07569dae511d44864955a494c64",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/A_Warhammer_Uppercut_V6.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/A_Warhammer_Uppercut_V6.uasset",
+      "bytes": 4868462,
+      "sha256": "a68af545ef1eda4b7b6487f11dc434f263c969a4d9df78b6b4e53b6a2bd3c060",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/circle_fit_candidate.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/circle_fit_candidate.py",
+      "bytes": 10372,
+      "sha256": "807edbc45a054c1da3c222ce96edd3fcbe3e647fb7a0b2147ae859f24bfb7a0d",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutIdleExitV3_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutIdleExitV3_author_uppercut.py",
+      "bytes": 250,
+      "sha256": "0fe5b97ec12d5c2ac2d3fe153ad46f4a2c330dcbc7d597bf549b866443b2dd08",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutIdleExitV3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutIdleExitV3_import_assets.py",
+      "bytes": 248,
+      "sha256": "1143e3caf5c79b2dd156853a109036862863d49194182d79a4b7f87ca1567052",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutRearHighV4_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutRearHighV4_author_uppercut.py",
+      "bytes": 250,
+      "sha256": "0fe5b97ec12d5c2ac2d3fe153ad46f4a2c330dcbc7d597bf549b866443b2dd08",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutRearHighV4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutRearHighV4_import_assets.py",
+      "bytes": 248,
+      "sha256": "1143e3caf5c79b2dd156853a109036862863d49194182d79a4b7f87ca1567052",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutShiftWristV5_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutShiftWristV5_author_uppercut.py",
+      "bytes": 250,
+      "sha256": "0fe5b97ec12d5c2ac2d3fe153ad46f4a2c330dcbc7d597bf549b866443b2dd08",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutShiftWristV5_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutShiftWristV5_import_assets.py",
+      "bytes": 248,
+      "sha256": "1143e3caf5c79b2dd156853a109036862863d49194182d79a4b7f87ca1567052",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutTiltClearanceV6_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutTiltClearanceV6_import_assets.py",
+      "bytes": 2715,
+      "sha256": "506158fa52e8dd8293e1e3f2b86823b452e7286bd48fc45680366834982b6efb",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutV1_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutV1_author_uppercut.py",
+      "bytes": 250,
+      "sha256": "0fe5b97ec12d5c2ac2d3fe153ad46f4a2c330dcbc7d597bf549b866443b2dd08",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/UppercutV1_import_assets.py",
+      "bytes": 248,
+      "sha256": "1143e3caf5c79b2dd156853a109036862863d49194182d79a4b7f87ca1567052",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/write_contact_arc.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutRightAnatomyV7/Before/write_contact_arc.py",
+      "bytes": 1223,
+      "sha256": "3ad9430d05ff3414f665d3345002247565e640af5608ed979e9e21ca1f6e1b22",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/A_Warhammer_Uppercut_V4.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/A_Warhammer_Uppercut_V4.uasset",
+      "bytes": 4757764,
+      "sha256": "63f606a9cc22a3488ce5ce7fc127682fc3b3393f4cde4e4015aff325a8abce24",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutIdleExitV3_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutIdleExitV3_author_uppercut.py",
+      "bytes": 243,
+      "sha256": "62e90590eb6a81bf11b515a10c1a00ed8029388c350873096a130f9a09b6abb4",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutIdleExitV3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutIdleExitV3_import_assets.py",
+      "bytes": 224,
+      "sha256": "c83eadea3551b4cf674de84dccc74ec54bef93aa3ff33eda6f3f03fc42d30c16",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutV1_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutV1_author_uppercut.py",
+      "bytes": 243,
+      "sha256": "62e90590eb6a81bf11b515a10c1a00ed8029388c350873096a130f9a09b6abb4",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/UppercutV1_import_assets.py",
+      "bytes": 224,
+      "sha256": "c83eadea3551b4cf674de84dccc74ec54bef93aa3ff33eda6f3f03fc42d30c16",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/V4_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/V4_author_uppercut.py",
+      "bytes": 8825,
+      "sha256": "97b9fcd74cb7016a2889f60795db598bc5f3fe25ffb2506635e8dbdebe47d0af",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/V4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/V4_import_assets.py",
+      "bytes": 2697,
+      "sha256": "963a64ea4102bf98a460f7b24deb9ade6146b53809f8ec2d4793a7b36270c60b",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/V4_write_contact_arc.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/V4_write_contact_arc.py",
+      "bytes": 1196,
+      "sha256": "2015ee75421fbdcbaea789601c3d131db05dc6ada268c570dcef8e836377e39f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/WarhammerUppercutArc.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutShiftWristV5/Before/WarhammerUppercutArc.h",
+      "bytes": 1978,
+      "sha256": "421c5d75046b5c9bf14b73050780d664003ee6e6222878739796fe00677989fd",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/A_Warhammer_Uppercut_V5.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/A_Warhammer_Uppercut_V5.uasset",
+      "bytes": 4836898,
+      "sha256": "15125e3f448dab270af6824efc01ee1e19d8531ed42d9c91bc21a24612ab8755",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutIdleExitV3_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutIdleExitV3_author_uppercut.py",
+      "bytes": 240,
+      "sha256": "bdd7c549288fe3ef89aaf5accdb6d47c1d7665ae43bdd45d5873cc6cdf160896",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutIdleExitV3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutIdleExitV3_import_assets.py",
+      "bytes": 242,
+      "sha256": "a0189fc6f88b0c91fb255dea52e106838a50aef3923b513424877be6385cd7b7",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutRearHighV4_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutRearHighV4_author_uppercut.py",
+      "bytes": 240,
+      "sha256": "bdd7c549288fe3ef89aaf5accdb6d47c1d7665ae43bdd45d5873cc6cdf160896",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutRearHighV4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutRearHighV4_import_assets.py",
+      "bytes": 242,
+      "sha256": "a0189fc6f88b0c91fb255dea52e106838a50aef3923b513424877be6385cd7b7",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutShiftWristV5_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutShiftWristV5_author_uppercut.py",
+      "bytes": 10980,
+      "sha256": "159a26b2530be6bca5a44018287f538676d20492e85661af56aab743e352f33f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutShiftWristV5_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutShiftWristV5_import_assets.py",
+      "bytes": 2713,
+      "sha256": "0131b1875786083495a2943aa4c13da82c74bd18563632f23e248bccf1c008c0",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutV1_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutV1_author_uppercut.py",
+      "bytes": 240,
+      "sha256": "bdd7c549288fe3ef89aaf5accdb6d47c1d7665ae43bdd45d5873cc6cdf160896",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/UppercutV1_import_assets.py",
+      "bytes": 242,
+      "sha256": "a0189fc6f88b0c91fb255dea52e106838a50aef3923b513424877be6385cd7b7",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/V5_author_uppercut.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/V5_author_uppercut.py",
+      "bytes": 10980,
+      "sha256": "159a26b2530be6bca5a44018287f538676d20492e85661af56aab743e352f33f",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/V5_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/V5_import_assets.py",
+      "bytes": 2713,
+      "sha256": "0131b1875786083495a2943aa4c13da82c74bd18563632f23e248bccf1c008c0",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/V5_write_contact_arc.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/V5_write_contact_arc.py",
+      "bytes": 1200,
+      "sha256": "ce93327a75ddd43d2ed41b6b25e168b0af52f8a9a885f797bbaa063876c66957",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/WarhammerUppercutArc.h",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/UppercutTiltClearanceV6/Before/WarhammerUppercutArc.h",
+      "bytes": 1984,
+      "sha256": "021613f95e0eaa23e9434f1cdea30895623b4111660394b2904fd0fdcb5f8a53",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/A_Warhammer_Whirlwind_V5.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/A_Warhammer_Whirlwind_V5.uasset",
+      "bytes": 2834711,
+      "sha256": "28386377e01e572b38af42baacc842a5099a139d9ee0c39466e37927275b03ef",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/V5_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/V5_import_assets.py",
+      "bytes": 2708,
+      "sha256": "223a35250fa59be2096c4d65636a882a5574eae05a0298c220a64f41b946b659",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindFlowV4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindFlowV4_import_assets.py",
+      "bytes": 232,
+      "sha256": "d899a9ff9811e598dbecc1b90853fbc5d27baba5ad5711631ed1d1aab85495a3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindGripV2_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindGripV2_import_assets.py",
+      "bytes": 231,
+      "sha256": "9d6084f1fa05c619122abdc804c47e96025e264dcacb43fb3b15d25995ab31e3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindReleaseV3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindReleaseV3_import_assets.py",
+      "bytes": 231,
+      "sha256": "9d6084f1fa05c619122abdc804c47e96025e264dcacb43fb3b15d25995ab31e3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindDropV6/Before/WhirlwindV1_import_assets.py",
+      "bytes": 231,
+      "sha256": "9d6084f1fa05c619122abdc804c47e96025e264dcacb43fb3b15d25995ab31e3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/A_Warhammer_Whirlwind_V6.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/A_Warhammer_Whirlwind_V6.uasset",
+      "bytes": 2869713,
+      "sha256": "3e1338489b45d6cf5847c6b50b02e94d44b02ca9873b9ca7f6ddf79502f3f81d",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/V6_authored.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/V6_authored.json",
+      "bytes": 2298,
+      "sha256": "d5494d3c4620fc070836ea5c55de740ae248e9e5ba03f7d131defa7318bfbd15",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindDropV6_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindDropV6_import_assets.py",
+      "bytes": 2714,
+      "sha256": "c334c322a60f6d8a3d546f90a20293d9de8406ee2573069c19f74b8bc34ab9d1",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindFlowV4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindFlowV4_import_assets.py",
+      "bytes": 235,
+      "sha256": "8365097dc886419f049e656f448609004ceaf5f338bd66526e49fc53af9ff278",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindGripV2_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindGripV2_import_assets.py",
+      "bytes": 235,
+      "sha256": "8365097dc886419f049e656f448609004ceaf5f338bd66526e49fc53af9ff278",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindHandoffV5_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindHandoffV5_import_assets.py",
+      "bytes": 235,
+      "sha256": "8365097dc886419f049e656f448609004ceaf5f338bd66526e49fc53af9ff278",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindReleaseV3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindReleaseV3_import_assets.py",
+      "bytes": 235,
+      "sha256": "8365097dc886419f049e656f448609004ceaf5f338bd66526e49fc53af9ff278",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindEarlyReleaseV7/Before/WhirlwindV1_import_assets.py",
+      "bytes": 235,
+      "sha256": "8365097dc886419f049e656f448609004ceaf5f338bd66526e49fc53af9ff278",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindFlowV4/Before/A_Warhammer_Whirlwind_V3.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindFlowV4/Before/A_Warhammer_Whirlwind_V3.uasset",
+      "bytes": 2834587,
+      "sha256": "543cd50ebf353e48d23589e3fcb1f5c98bf1981304ed792ee0dc9cc753b710eb",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindFlowV4/Before/V3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindFlowV4/Before/V3_import_assets.py",
+      "bytes": 2707,
+      "sha256": "5b5b8f682fe90d6752b1eaf90c41011cbeb42e32eef32cd50e9bc618d25c21f5",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindGripV2/Before/A_Warhammer_Whirlwind.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindGripV2/Before/A_Warhammer_Whirlwind.uasset",
+      "bytes": 3342075,
+      "sha256": "52662dc268e8edb63317423229ede5b6b421f99054322f09eb3da42bedc510ec",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindGripV2/Before/import_assets_v1.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindGripV2/Before/import_assets_v1.py",
+      "bytes": 2264,
+      "sha256": "9ecbd082332a45210541a0c99fe8dc115e7374b056e29055e23b8df647883edf",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindHandoffV5/Before/A_Warhammer_Whirlwind_V4.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindHandoffV5/Before/A_Warhammer_Whirlwind_V4.uasset",
+      "bytes": 2887068,
+      "sha256": "0a2852b1d64e2861166377eeb9a4663094760b803a5be6574618220b67670539",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindHandoffV5/Before/V4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindHandoffV5/Before/V4_import_assets.py",
+      "bytes": 2702,
+      "sha256": "a68bc7c0877892d60d10575a0486fdefe0359f1db7cbd214416d9bf7f65de383",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/A_Warhammer_Whirlwind_V7.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/A_Warhammer_Whirlwind_V7.uasset",
+      "bytes": 2887238,
+      "sha256": "ed4516be0fbde5cbe8ee0ab4589f93a7ccc5cbcc46b56ae44349c8792f130de3",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/V7_authored.json",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/V7_authored.json",
+      "bytes": 2653,
+      "sha256": "f7b18f1ccd6ad22e9ed7df2b8b16c5389e190ebd1552a7126e3d23e72e2f3640",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindDropV6_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindDropV6_import_assets.py",
+      "bytes": 225,
+      "sha256": "4d1bd042b54ee42f8e34567fd9f2eab0ac2f4c1d57672c0e80802b607d91fcca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindEarlyReleaseV7_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindEarlyReleaseV7_import_assets.py",
+      "bytes": 2722,
+      "sha256": "2ba7ed531e1cfd9e6560cfd177ed9c51a6e8864ff1a3619322e588d88ee90ba1",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindFlowV4_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindFlowV4_import_assets.py",
+      "bytes": 225,
+      "sha256": "4d1bd042b54ee42f8e34567fd9f2eab0ac2f4c1d57672c0e80802b607d91fcca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindGripV2_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindGripV2_import_assets.py",
+      "bytes": 225,
+      "sha256": "4d1bd042b54ee42f8e34567fd9f2eab0ac2f4c1d57672c0e80802b607d91fcca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindHandoffV5_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindHandoffV5_import_assets.py",
+      "bytes": 225,
+      "sha256": "4d1bd042b54ee42f8e34567fd9f2eab0ac2f4c1d57672c0e80802b607d91fcca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindReleaseV3_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindReleaseV3_import_assets.py",
+      "bytes": 225,
+      "sha256": "4d1bd042b54ee42f8e34567fd9f2eab0ac2f4c1d57672c0e80802b607d91fcca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindV1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindInertiaV8/Before/WhirlwindV1_import_assets.py",
+      "bytes": 225,
+      "sha256": "4d1bd042b54ee42f8e34567fd9f2eab0ac2f4c1d57672c0e80802b607d91fcca",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindReleaseV3/Before/A_Warhammer_Whirlwind.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindReleaseV3/Before/A_Warhammer_Whirlwind.uasset",
+      "bytes": 2606939,
+      "sha256": "8a39b123b5653cabb83ee8cca40c3f2bd1d5b19840a60de0c42d515d91004aa4",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindReleaseV3/Before/V1_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindReleaseV3/Before/V1_import_assets.py",
+      "bytes": 243,
+      "sha256": "1bf50930f17c1e35f1e54600c104c9c60f4109cf0f256422ab0daa5e0db98192",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "SourceAssets/SteelWarhammer20261014/WhirlwindReleaseV3/Before/V2_import_assets.py",
+      "destination": "trash/warhammer-combat-retired-20261015/SourceAssets/SteelWarhammer20261014/WhirlwindReleaseV3/Before/V2_import_assets.py",
+      "bytes": 3643,
+      "sha256": "b1011878a563da5ac055bc04d050453812acc87d31241f060679ceda9ab37b23",
+      "reason": "Superseded pre-change snapshot; no current authoring input reads this backup.",
+      "replacement": "Current original path or the owning stage author/import source; named baselines retained by this archive"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1.uasset",
+      "bytes": 3431369,
+      "sha256": "70402eef59f05475e6aef6eaa3fe424d8bc2a6d6e607fe5775b534b15efed674",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1Link.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1Link.uasset",
+      "bytes": 3414561,
+      "sha256": "e324022a8b54b3ce67991670810d96c938d7830f1fe5f5a3e6cebb9595bb188d",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1Recover.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1Recover.uasset",
+      "bytes": 1641074,
+      "sha256": "a59d17e5c3ba85739549a82442bfaf3fcc67029f4acf2be305efb242449c0b21",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1RecoverLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash1RecoverLink.uasset",
+      "bytes": 1255498,
+      "sha256": "11995068ab39782b6534caeee0e0c5f1d83650c8e4d1da443fdb9e1aa9b273b8",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2.uasset",
+      "bytes": 3431369,
+      "sha256": "90cc28854fb227d3d3c898169f010a3fffadf6aec9ead4ba09fbe679f2152ab6",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2Link.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2Link.uasset",
+      "bytes": 3347233,
+      "sha256": "b5c5343a0d92994236672ccc95482893fd6d030b74b7008cb9bd061676eadbd6",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2Recover.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2Recover.uasset",
+      "bytes": 1610226,
+      "sha256": "403c40951287246b010aa1556bed96dee33ba94b51f1fa948ba0bb3f5a29c20a",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2RecoverLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash2RecoverLink.uasset",
+      "bytes": 1162954,
+      "sha256": "f40c3ccc214bddb331f211f231b21a1112ac9fd018065a069d7cb8c965b0bb26",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3.uasset",
+      "bytes": 3414537,
+      "sha256": "a290a10f90f961ce52a96a6c3a17565c75937da0ebb731c2feac7ec37b02fb25",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3Link.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3Link.uasset",
+      "bytes": 3279905,
+      "sha256": "95b01aa4d4581eef9386218969837432c6d58738614a956334b76c33b42c555b",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3Recover.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3Recover.uasset",
+      "bytes": 1587090,
+      "sha256": "6845245e29fd51101a91b0eba2720cd620c204caa8c2468b10973f7399398100",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3RecoverLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV2/A_Warhammer_Slash3RecoverLink.uasset",
+      "bytes": 1209226,
+      "sha256": "93516dcc0e876abfc7f6b070be056369a571b63d29e9a517634049e587b28e07",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1.uasset",
+      "bytes": 2993737,
+      "sha256": "7df352c7febe50593cde1358f23244dc70af8a72ad1641c7a84d5a8bd9e769b0",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1FromLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1FromLink.uasset",
+      "bytes": 3010617,
+      "sha256": "a2f7442ac0b7b7f064bd51768efefb8af7e43f0933e6b8a392529da1738bcd70",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1FromLinkLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1FromLinkLink.uasset",
+      "bytes": 3027473,
+      "sha256": "9e367898bbf0d444cabcb78179656511b30b2df45d3f3105c158bd1f5669b472",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1Link.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1Link.uasset",
+      "bytes": 3010593,
+      "sha256": "4841a6adcd1c95cb7aa7caa7b3c71b053f35e3c107f48e60b8e68516d001590d",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1Recover.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1Recover.uasset",
+      "bytes": 1378866,
+      "sha256": "1eeb0d9f2230383c8e160d2ab4a213a642ceeaf60f89eabe936da4a6523807ce",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1RecoverLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash1RecoverLink.uasset",
+      "bytes": 1386602,
+      "sha256": "4228ea57b576922ca075d7d31f5499128ee6770e499e5f6752cbe58150e76ee2",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2.uasset",
+      "bytes": 3229385,
+      "sha256": "c53779704499d3c13977985aff0fa841c083d3d815df4c43bad7bd99a1bf6c2b",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2FromLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2FromLink.uasset",
+      "bytes": 3212601,
+      "sha256": "511cbf1ffee1f7dd4d3b74f278223cf58f18044b6461ff034a522707135304c5",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2FromLinkLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2FromLinkLink.uasset",
+      "bytes": 3178961,
+      "sha256": "35e23d95da087444af9bc168316e6337111de1658e6a5bb59bbbaef77294f6ec",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2Link.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2Link.uasset",
+      "bytes": 3162081,
+      "sha256": "0481e84c6ab44c79422243b3c9597c95b7638859754055a0a098bdddb9232fd2",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2Recover.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2Recover.uasset",
+      "bytes": 1494546,
+      "sha256": "5c08f8a50a3f5bbc6f18311e7c4a65d1923a6fcf92c77e552ca5d8ba17cea231",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2RecoverLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash2RecoverLink.uasset",
+      "bytes": 1463722,
+      "sha256": "a10bb05a436b8a0fcb6eebd52b3b0b3b115af22303d8d5250f74c523eaf73093",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3.uasset",
+      "bytes": 3246217,
+      "sha256": "b44ed72282f1a9fb59106bc1e7e51c999acc3e29db67b8d2fbd641164fbf985f",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3FromLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3FromLink.uasset",
+      "bytes": 3279929,
+      "sha256": "5228cb45d434319ecd989754b07820a33ec82a83f6d6c350c534c5fff27b16f8",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3FromLinkLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3FromLinkLink.uasset",
+      "bytes": 3279953,
+      "sha256": "8fe392965aec850c3189a2051eec56c50642eb4d34a62892db3911dc1c80aa43",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3Link.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3Link.uasset",
+      "bytes": 3263073,
+      "sha256": "136ceac9bb8bbe40c25adddffe8644035b2281f729a53b47092a8b0e200e63fd",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3Recover.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3Recover.uasset",
+      "bytes": 1494546,
+      "sha256": "ef66d36a8bc13ef79fb82246c7d657519b7bc8bc70b8eec7fd13eba8ba41021e",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    },
+    {
+      "original": "Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3RecoverLink.uasset",
+      "destination": "trash/warhammer-combat-retired-20261015/Content/Weapons/SteelWarhammer20261014/NormalComboV3/A_Warhammer_Slash3RecoverLink.uasset",
+      "bytes": 1533130,
+      "sha256": "23d67d915ee40791248a79aee9810d7ecaeae22470517be5b2a972143fbc674d",
+      "reason": "Rejected V2/V3 animation package; production and authoring references now use other clips.",
+      "replacement": "Content/Weapons/SteelWarhammer20261014/NormalComboV4"
+    }
+  ],
+  "count": 322,
+  "bytes": 471807673
+}

@@ -1,0 +1,103 @@
+{
+  "current_ordinary_author_revision": "NormalComboRhythmV7_20261015",
+  "installed_package_directory": "/Game/Weapons/SteelWarhammer20261014/NormalComboV4",
+  "scope": "Read receipts and on-disk identities only. No reimport or animation acceptance. Latest parallel sources preserved, not replaced by this publication.",
+  "files": [
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import_receipt.json",
+      "sha256": "eeeb83ab0400881e55868bfc631bbc2324b82f125a67fd1d062f3c39671cb63e",
+      "bytes": 1075
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/author_rhythm.py",
+      "sha256": "1573fbaa129dad704f0d86c4f2bd1983b7fcfed39064556b9f0ef674046a24be",
+      "bytes": 24230
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import_assets.py",
+      "sha256": "b5f0ef884ccea9438fcaa17eb552e1449b7e45d70729eb4869569e3ed589b79d",
+      "bytes": 2807
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Warhammer_Combo_Rhythm_Editable.blend",
+      "sha256": "ba44da074c396ef701032cf516322ff03fe1c9f4c05b323f64909fb963d02ff9",
+      "bytes": 119858312
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import_receipt.json",
+      "sha256": "a1163cb5cdbaf495917216b579e713796250759d9333872af1c5cdc34188d59b",
+      "bytes": 266
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/author_inspect_walk.py",
+      "sha256": "b7eac735ed21419cff14bc60aa7897b75c86352c2ce4b3428f541845ae9d8e32",
+      "bytes": 12955
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash1.uasset",
+      "sha256": "bc7a6d0b5df1291c7af532c606732196e6228927edc4d7c77b8e72aaa296aaea",
+      "bytes": 4360978
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash1Recover.uasset",
+      "sha256": "c77b6de452e8d699859f4ca4151673cb93a87733d31b8db3ba2c43e226587406",
+      "bytes": 1883887
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash2.uasset",
+      "sha256": "f3514cb50cedc1f6447562ddb9e211a3e62c115d46c12245196bcd6eabb7841a",
+      "bytes": 4428299
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash2Recover.uasset",
+      "sha256": "0a65a132b046cd1880584f967b21afe9f2ac35fd463ba845bf44309214e3acbd",
+      "bytes": 1968693
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash3.uasset",
+      "sha256": "1cb97f4a259db75e2916fd5946c710eb3e6e9a23450f106924835074bdcb5321",
+      "bytes": 3721377
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash3Recover.uasset",
+      "sha256": "85925d7cc734e30d2e5e76b388efed2e3f302819387b6e40a28547b328495749",
+      "bytes": 1559979
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntCombo.h",
+      "sha256": "fa9150de7dd044af64135390b58623a8102034b990030cdd4b73f35ebb58fe10",
+      "bytes": 10489
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntComboTiming.h",
+      "sha256": "3edb41c87e315c7e8694c35e30c0cb14ba932fd2424c0fa8d5906d6ce520c4bb",
+      "bytes": 983
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntFlow.cpp",
+      "sha256": "edcb6f891b1c11b75077c60b5ee7c40fcb7b473ef55f504d055031243b265b1a",
+      "bytes": 3643
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntInspect.cpp",
+      "sha256": "34115121da76421078e362156fbf65471b33b1d3efebb23ec48b53e1b06d64a7",
+      "bytes": 2855
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "sha256": "24bb8d7db04f9bd76b41ab472a51e746051b3f2670e3bb8322d55b78705605ae",
+      "bytes": 12899
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "sha256": "e729fd44300e0451c75f5538fcc47c864c860664e3b55faad617f4a6ff849b0e",
+      "bytes": 8526
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "sha256": "07c41b51fe85ab0e17cc7dfca21fe8f8573dc8bde42e401379bfb0a1ac4ae0a9",
+      "bytes": 15457
+    }
+  ],
+  "concurrent_followup": "Ordinary-combo owner contact prediction was added while publication was in progress; mixed files remain patch-only."
+}

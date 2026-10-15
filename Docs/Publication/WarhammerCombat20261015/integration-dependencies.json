@@ -1,0 +1,107 @@
+{
+  "required_full_local_framework": true,
+  "files": [
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 15154,
+      "local_lf_sha256": "bf06f2cf331c896c8a3458a732961d6b12bd091ebb903f74bf5f75cee4099dfd",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 39292,
+      "local_lf_sha256": "98ed6ce9160d0432c73a0c5bb81443c263c759c2620dad6e7cefc46f425b6792",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "bytes": 17870,
+      "local_lf_sha256": "88382e2dc1b555423fa11d436a442ad2878c13b72d31a1abaf9aca09eb0c554d",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntCombo.h",
+      "bytes": 10489,
+      "local_lf_sha256": "fa9150de7dd044af64135390b58623a8102034b990030cdd4b73f35ebb58fe10",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntComboTiming.h",
+      "bytes": 983,
+      "local_lf_sha256": "0e2b6d0020366f65a27a37c43174b1f84c246641f6cbe10bd809cfdea585a88f",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntFlow.cpp",
+      "bytes": 2651,
+      "local_lf_sha256": "cbcdf4703d3a129325999fd1da42943c931dfa5e9abdf542d9b10f1e2be8f1e4",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntInspect.cpp",
+      "bytes": 2855,
+      "local_lf_sha256": "34115121da76421078e362156fbf65471b33b1d3efebb23ec48b53e1b06d64a7",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h",
+      "bytes": 609,
+      "local_lf_sha256": "9036894b098b2d88bbd7586697b058104c149d42bc70a534d565faf51bda2527",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp",
+      "bytes": 13551,
+      "local_lf_sha256": "4a58d598bef3914e340e15b1196fa71afa2671f571727c6fa728f2af88af0eea",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "bytes": 28278,
+      "local_lf_sha256": "3bcb854d592bbd906836dcc011e765832adc1a4357a60738ab44d10481cc5a4a",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "bytes": 4105,
+      "local_lf_sha256": "b7d0eb9b1506149200fb05fa71506cd0573ee7e0fe35674feba4ca2e3c01ebf6",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "bytes": 26444,
+      "local_lf_sha256": "56abd68d5fe57317e6699fe32f977aba0c4c9bca8630b87c7d41507561efcd18",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "bytes": 92913,
+      "local_lf_sha256": "2d026d52f4bac3f0bd678c0c4b1415e96005605b108a430dd5f99714d6ea8daf",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "bytes": 11288,
+      "local_lf_sha256": "3b133f2a9557b57b75da7ae585a64e395c66d7c3960bacc28a4dff60f06e60dc",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuardNetwork.cpp",
+      "bytes": 7100,
+      "local_lf_sha256": "207f53503191b403a21c6cd3f9e4ea5ee9ce605cc00536ca610bb7d2c9d7e59f",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "bytes": 28425,
+      "local_lf_sha256": "0ab3590ada07d7c9b49288bf9e8e4619372480454ed4a02c689137b961a05934",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "bytes": 7257,
+      "local_lf_sha256": "a32d00be35e31a885f71cb68a9149f3e8378d2da5a53fdd9738a664178999d83",
+      "note": "Current local dependency identity only; full mixed file not added by this publication"
+    }
+  ]
+}

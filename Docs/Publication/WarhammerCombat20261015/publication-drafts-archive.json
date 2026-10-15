@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "original": "Saved/WarhammerPublication20261015/Candidates/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "destination": "trash/warhammer-publication-drafts-20261015/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "bytes": 12014,
+      "sha256": "df0541cc0bd25e468eae9159d8e146da63fcd68fb409b67a0824f8f52546e14a",
+      "reason": "Publication draft replaced with owned patch; latest concurrent runtime source stays unchanged",
+      "replacement": "Docs/Publication/WarhammerCombat20261015/guard-network-named-baseline.patch and quick-and-tool-git-integration.patch"
+    },
+    {
+      "original": "Saved/WarhammerPublication20261015/Candidates/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "destination": "trash/warhammer-publication-drafts-20261015/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "bytes": 34993,
+      "sha256": "b285e1bc29d9afb705aeb05295601441c74fd64a6848dff302112493e015f417",
+      "reason": "Publication draft replaced with owned patch; latest concurrent runtime source stays unchanged",
+      "replacement": "Docs/Publication/WarhammerCombat20261015/guard-network-named-baseline.patch and quick-and-tool-git-integration.patch"
+    },
+    {
+      "original": "Saved/WarhammerPublication20261015/Candidates/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "destination": "trash/warhammer-publication-drafts-20261015/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "bytes": 5664,
+      "sha256": "b35e6b5df9ae0ad828970a7a62a2a385804b7534c833104448fed5affec48cc9",
+      "reason": "Publication draft replaced with owned patch; latest concurrent runtime source stays unchanged",
+      "replacement": "Docs/Publication/WarhammerCombat20261015/guard-network-named-baseline.patch and quick-and-tool-git-integration.patch"
+    },
+    {
+      "original": "Saved/WarhammerPublication20261015/candidates/Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "destination": "trash/warhammer-publication-drafts-20261015/Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "bytes": 7915,
+      "sha256": "556e9715ffbb0a1e588d73fd38bdf68f41e862a7a98622ff16ce884a408737a1",
+      "reason": "Concurrent ordinary-combo prediction added; publish only previously reviewed task hunks",
+      "replacement": "Docs/Publication/WarhammerCombat20261015/quick-and-tool-git-integration.patch"
+    }
+  ],
+  "count": 4,
+  "bytes": 60586,
+  "hash_readback": true
+}

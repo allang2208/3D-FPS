@@ -1,0 +1,197 @@
+--- a/Source/FPSGAME/Production/ProductionAxeContact.cpp
++++ b/Source/FPSGAME/Production/ProductionAxeContact.cpp
+@@ -42,14 +42,17 @@
+     Reason=FString::Printf(TEXT("瞄准%s（%.1f 米内）或近身敌人（%.1f 米内）"),
+         Kind==TEXT("pickaxe")?TEXT("独立岩块或矿石"):TEXT("树干"),AxeHarvestReach/100,AxeCombatReach/100);
+ 
++    if(Kind==TEXT("warhammer"))Reason=TEXT("双手战锤 · 左键三连击");
++
+     auto Classify=[&](const FHitResult& Candidate,FProductionResource& Tree,bool& bEnemy)
+     {
+         bEnemy=IsAxeEnemy(Candidate.GetActor(),Pawn);
+         const FVector Delta=Candidate.ImpactPoint-Start;
+-        const float Limit=bEnemy?AxeCombatReach:AxeHarvestReach;
++        const float Limit=(bEnemy || Kind==TEXT("warhammer"))?AxeCombatReach:AxeHarvestReach;
+         // Swept volume adds width only; its front cap does not extend reach.
+         if(FVector::DotProduct(Delta,Forward)<0 || Delta.SizeSquared()>FMath::Square(Limit))return false;
+         if(bEnemy || Cast<UWardBreakableGlass>(Candidate.GetComponent()))return true;
++        if(Kind==TEXT("warhammer"))return false;
+         FString TreeReason;
+         for(TActorIterator<ATemperateHillsWorld> It(World);It;++It)
+             if(It->ResolveProductionResource(Candidate,Tree,TreeReason))return Tree.RequiredTool==Kind;
+@@ -137,7 +140,7 @@
+     if(bConfirmed)
+     {
+         Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);
+-        Feedback=Kind==TEXT("pickaxe")?TEXT("镐头命中敌人"):TEXT("斧刃命中敌人");FeedbackSeconds=1.2f;
++        Feedback=Kind==TEXT("warhammer")?TEXT("战锤命中敌人"):Kind==TEXT("pickaxe")?TEXT("镐头命中敌人"):TEXT("斧刃命中敌人");FeedbackSeconds=1.2f;
+     }
+     // The existing confirmed-hit clock supplies hit stop, pry/recover and shake.
+     // Enemy contacts do not call harvest commits, spawn wood dust or play wood audio.
+--- a/Source/FPSGAME/Production/ProductionAxeLocomotion.cpp
++++ b/Source/FPSGAME/Production/ProductionAxeLocomotion.cpp
+@@ -7,6 +7,11 @@
+ 
+ void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
+ {
++    if(bBluntHeavy&&Elapsed>=0.f)
++    {
++        AxeLocomotionOffset=FVector::ZeroVector;AxeLocomotionRotation=FQuat::Identity;
++        return; // The stable slam frame was set before the floor/arm solve.
++    }
+     const auto* Movement=Character->GetCharacterMovement();
+     const float Speed=Character->GetVelocity().Size2D();
+     const bool bAction=IsBusy() || Character->IsCastBlockingLeftHandAction();
+@@ -18,13 +23,14 @@
+             AxeStridePhase=Footsteps->GetStridePhaseRadians();
+ 
+     const float RunTarget=bMoving && Character->IsSprinting()?1.f:0.f;
+-    SprintBlend=FMath::Lerp(SprintBlend,RunTarget,1.f-FMath::Exp(-10.f*Delta));
++    if(Kind!=TEXT("warhammer"))SprintBlend=FMath::Lerp(SprintBlend,RunTarget,1.f-FMath::Exp(-10.f*Delta));
++    const float StrideBlend=Kind==TEXT("warhammer")?RunTarget:SprintBlend;
+     const float Weight=bMoving?FMath::Clamp((Speed-15.f)/FMath::Max(Movement->MaxWalkSpeed-15.f,1.f),0.f,1.f):0.f;
+-    const bool bPickaxe=Kind==TEXT("pickaxe");
++    const bool bPickaxe=UsesPickaxeMotion();
+     const FVector Travel=FMath::Lerp(bPickaxe?PickaxeWalkTravelCM:AxeWalkTravelCM,
+-        bPickaxe?PickaxeRunTravelCM:AxeRunTravelCM,SprintBlend);
++        bPickaxe?PickaxeRunTravelCM:AxeRunTravelCM,StrideBlend);
+     const FRotator Angles=FMath::Lerp(bPickaxe?PickaxeWalkAngles:AxeWalkAngles,
+-        bPickaxe?PickaxeRunAngles:AxeRunAngles,SprintBlend);
++        bPickaxe?PickaxeRunAngles:AxeRunAngles,StrideBlend);
+     const float Phase=AxeStridePhase;
+     // One sideways cycle spans two steps. Two vertical pulses follow footfall;
+     // the slight angular delay lets the heavy head follow the two-hand carry.
+@@ -42,8 +48,11 @@
+         AxeLocomotionOffset=FVector::ZeroVector;
+         AxeLocomotionRotation=FQuat::Identity;
+         // 撬动关键帧是作者秒：改造后的真实时间先换算回作者时间。
+-        if(bPickaxe)AxeLocomotionRotation=FRotator(
+-            ProductionPickaxeImpact::PryDegrees(AuthoredElapsed()-ContactSeconds),0,0).Quaternion();
++        if(Kind==TEXT("pickaxe"))
++        {
++            const float Pry=ProductionPickaxeImpact::PryDegrees(AuthoredElapsed()-ContactSeconds);
++            AxeLocomotionRotation=FRotator(Pry,0,0).Quaternion();
++        }
+     }
+ 
+     // Move both arms and the held tool together. Rotating around the grip midpoint
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
+@@ -17,7 +17,7 @@
+ // 单一绝对时钟 ActionAge 驱动阶段/镜头/接触点，全部由 clip 长度换算，不逐段累计。
+ // 两种武器的动作本体都在作者源 clip 里（手枪 DW715、步枪 M4 六个握把配置），
+ // 本组件不参与姿态——只给出命中探针来源、结算时机与镜头语言。
+-enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush };
++enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush, Warhammer };
+ 
+ UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
+ class FPSGAME_API UFPSQuickCombatComponent : public UActorComponent
+@@ -47,6 +47,7 @@
+     void ConfigureForBow(float Length);
+     void ConfigureForStaffPunch();
+     void ConfigureForSpellbookPush();
++    void ConfigureForWarhammer();
+     // Ordinary primary punches share the contact clock, without casting/training the F skill.
+     void ConfigureForUnarmedPunch();
+     void ConfigureForStaffOffhandPistol(float Length);
+@@ -76,6 +77,7 @@
+     UPROPERTY(Transient) TObjectPtr<USoundBase> ImpactSound;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
+     void ContactHit();
++    void ContactWarhammer(AFPSGAMECharacter* Player,UColdSteelStatusModel* Profile);
+     void FinishAction();
+     float ActionDuration() const;
+     float ActionRemaining() const;
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -22,6 +22,8 @@
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Production/ProductionToolComponent.h"
++#include "../Production/WarhammerQuickCombatMotion.h"
+ #include "Engine/World.h"
+ #include "GameFramework/Pawn.h"
+ #include "Kismet/GameplayStatics.h"
+@@ -245,12 +247,22 @@
+             ImpactRotation.Yaw*=.16f;
+             ImpactRotation.Roll*=.16f;
+         }
++        if(Style==EQuickCombatStyle::Warhammer)
++        {
++            ImpactLocation*=FVector(.55f,.15f,.25f);
++            ImpactRotation*=.4f;
++        }
+         Location+=ImpactLocation;Rotation+=ImpactRotation;
+     };
+     if(Phase==EQuickCombatBashPhase::None)
+     {
+         AddImpact();
+         return;
++    }
++    if(Style==EQuickCombatStyle::Warhammer)
++    {
++        WarhammerQuickCombat::Camera(ActionAge,Location,Rotation);
++        AddImpact();return;
+     }
+     if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch||Style==EQuickCombatStyle::SpellbookPush)
+     {
+@@ -382,6 +394,7 @@
+     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+     if(Style==EQuickCombatStyle::UnarmedPunch&&Player)return; // advanced once before the character camera
+     if(Style==EQuickCombatStyle::SpellbookPush&&Player)return;
++    if(Style==EQuickCombatStyle::Warhammer&&Player&&IsOccupyingLeftHand())return;
+     if(Player&&Player->HasOffhandPistol()&&(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol))return;
+     if(Style==EQuickCombatStyle::StaffPunch&&Player)
+         if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return;
+@@ -406,7 +419,12 @@
+     const bool bStaff=Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::StaffOffhandPistol;
+     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+     const bool bBook=Style==EQuickCombatStyle::SpellbookPush;
+-    const bool bWeaponMatches=Player&&(bBook
++    const bool bWarhammer=Style==EQuickCombatStyle::Warhammer;
++    const auto* Tool=bWarhammer&&Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
++    const bool bWeaponMatches=Player&&(bWarhammer
++        ?(Tool&&Tool->IsWarhammerEquipped()&&!Player->IsTraversing()&&!Player->IsDoorPushActive()
++            &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
++        :bBook
+         ?(Book&&Book->OwnsLeftHand()&&!Player->IsDoorPushActive()
+             &&!AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(Player->GetController())))
+         :bUnarmed
+@@ -488,9 +506,14 @@
+         ActionAge+=Remaining*ASH12RecoveryRate;
+         Phase=PhaseForAge(ActionAge);
+     }
+-    else if(bStaff||bUnarmed||bBook)
++    else if(bStaff||bUnarmed||bBook||bWarhammer)
+     {
+         const float NextAge=ActionAge+Delta;
++        // Match the sword pommel quick strike: one shared blunt cue on release,
++        // including a miss. Crossing the real-time windup boundary also handles
++        // a frame that advances past both release and contact without a timer.
++        if(bWarhammer&&ActionAge<CockEnd&&NextAge>=CockEnd&&ImpactSound)
++            UGameplayStatics::PlaySound2D(this,ImpactSound,1.f,1.f);
+         if(!bContactDone&&NextAge>=ContactTime)
+         {
+             // Contact reads the same authored frame even when a hitch crosses it.
+@@ -513,6 +536,7 @@
+ {
+     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=Model();
+     if(!Player||!Profile||!GetWorld())return;
++    if(Style==EQuickCombatStyle::Warhammer){ContactWarhammer(Player,Profile);return;}
+     auto Stats=Profile->QuickCombatStats();
+     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+     // Bare hands use the same authored contact when struggling out of a coil.
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -59,7 +59,9 @@
+     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health && Health->IsDead())return false;
+     if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return false;
+     if(RuneSword && RuneSword->IsQuickCombatActive())return false;
+-    return bInventoryWeaponReady || HasOffhandSpellbook() || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->IsEquipped());
++    const auto* Tool=FindComponentByClass<UProductionToolComponent>();
++    return bInventoryWeaponReady || HasOffhandSpellbook() || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->IsEquipped())
++        || (Tool && Tool->IsWarhammerEquipped());
+ }
+ 
+ void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
