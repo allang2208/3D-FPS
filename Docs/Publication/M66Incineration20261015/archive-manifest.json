@@ -1,0 +1,429 @@
+{
+  "links": [
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/RuntimeHost-20261015-230940/Content",
+      "target": "D:\\FPS3D\\FPSGAME\\Content",
+      "action": "detach junction only; target contents are neither traversed nor moved"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/RuntimeHost-20261015-230940/Plugins/AutoFootstep/Resources",
+      "target": "D:\\FPS3D\\FPSGAME\\Plugins\\AutoFootstep\\Resources",
+      "action": "detach junction only; target contents are neither traversed nor moved"
+    }
+  ],
+  "digest_format": "SHA256 of UTF8 sorted source<TAB>SHA256 rows separated by LF, no final LF",
+  "full_manifest": "trash/m66-incineration-retired-20261015/manifest.json",
+  "state": "moved_and_sha256_verified",
+  "file_count": 13243,
+  "bytes": 1342185614,
+  "groups": [
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/Before",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/Before",
+      "files": 6,
+      "bytes": 14346267,
+      "tree_sha256": "0253C6D6825033EF7CA5E5A05C393C607C6B8B39AEDBD0B3C8C12D036E28865A",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/BeforeIconLayoutV2",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/BeforeIconLayoutV2",
+      "files": 7,
+      "bytes": 3029817,
+      "tree_sha256": "49AFDB7DECEEF5AD92E46B27E3CCE95CA1A472388C6A17811EBFC189ABB75424",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_CatalyticCore_Source.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_CatalyticCore_Source.blend1",
+      "files": 1,
+      "bytes": 5715436,
+      "tree_sha256": "DD37AE8F32FB4025213E838CD4E2C7199484270D3517D2A89354C6D5B15A0C97",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_CeramicModule_Source.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_CeramicModule_Source.blend1",
+      "files": 1,
+      "bytes": 5704055,
+      "tree_sha256": "EFD1B2F06CD4719E061ECD80F230D43B9DA5AA29DF2279F4C84E8638A05EC3E9",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_IncidentArchive_Source.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_IncidentArchive_Source.blend1",
+      "files": 1,
+      "bytes": 5739243,
+      "tree_sha256": "E98887AC3EDADC60667DF671D7C0CA07E7ADACDAB3DDB32DA86C184CC35BDBCF",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_IndustrialFilter_Source.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_IndustrialFilter_Source.blend1",
+      "files": 1,
+      "bytes": 5712207,
+      "tree_sha256": "ECA7AD0BB835307C38B4206F3A50B4B02C11AD01B2122EB5829405CE902F86C4",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_RespiratorFilter_Source.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_RespiratorFilter_Source.blend1",
+      "files": 1,
+      "bytes": 5744505,
+      "tree_sha256": "5E38596BA0CCFEB0269C439099A1AF9ADFA5FC14C15F86A020EA4939928B105B",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_Thermocouple_Source.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Authored/SM_Incineration_Thermocouple_Source.blend1",
+      "files": 1,
+      "bytes": 5685601,
+      "tree_sha256": "96BD2DB0BB4C0554A667DBB3AD97696617D30A544868812E7138C2D45BF59426",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Before",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Before",
+      "files": 26,
+      "bytes": 17972755,
+      "tree_sha256": "4E367613CCB80B5F3DF356D8D9D81FACA0DA4A5C4949AEB09E2B40C2895A6905",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/prepare_textures.py",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/prepare_textures.py",
+      "reason": "retired runtime snapshot helper or unused V1 texture precursor; current serialized recipe retained",
+      "files": 1,
+      "bytes": 5009,
+      "tree_sha256": "CF5A4682C640A34BBBFA128B26C3F0B5180350C77DBFB4953FFE5AA52CE8BAEE"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/FistSlamV14/Authoring/M66_fist_slam_v14.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/FistSlamV14/Authoring/M66_fist_slam_v14.blend1",
+      "files": 1,
+      "bytes": 41559074,
+      "tree_sha256": "EC09350A0BB03EA5915E582B950FF0E606E3F5CCABA300176F45BB582AFBB6D5",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/Authoring/M66_furnace_breath_v17.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/FurnaceBreathV17/Authoring/M66_furnace_breath_v17.blend1",
+      "files": 1,
+      "bytes": 40839564,
+      "tree_sha256": "6E6917793999EAB612658AADFB4BDE35A8D4ED8BAD3759CFE869BC5925691FF0",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/GroundSlamV13/Authoring/M66_ground_slam_v13.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/GroundSlamV13/Authoring/M66_ground_slam_v13.blend1",
+      "files": 1,
+      "bytes": 39304099,
+      "tree_sha256": "C0CE529C24C93DA05666C67FD6529E945C935CE724753188E2B60D4C909D424B",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/HandContinuityV08/resume_owned_import.py",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/HandContinuityV08/resume_owned_import.py",
+      "reason": "completed one-off PIE/import recovery helper",
+      "files": 1,
+      "bytes": 484,
+      "tree_sha256": "526B61EA22BE22AD7D62C2B925AF581268EDF5DBE1A408047C788A3FC02FFF1F"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/Authoring/M66_recovery_v21.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/KnockdownGroundV21/Authoring/M66_recovery_v21.blend1",
+      "files": 1,
+      "bytes": 45600908,
+      "tree_sha256": "17E392CAFA503D4DB6CE12B8B26ED6513C37BB35AC86E3435B6350EFA7021488",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/Before",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/KnockdownGroundV21/Before",
+      "files": 1,
+      "bytes": 73734,
+      "tree_sha256": "B206F6795A9BF7EF31C536AEA26DFBEEC38274BA79A945B1F9B878145FA5FAE9",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/LocomotionV02/Authoring/M66_locomotion_v02.blend1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/LocomotionV02/Authoring/M66_locomotion_v02.blend1",
+      "files": 1,
+      "bytes": 36510925,
+      "tree_sha256": "F2B6FF9DD67ECEC17660B9E432E641CD902CA29B3F3210F5D28E3BBB8C3682B2",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121654/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121654/host/user",
+      "files": 3,
+      "bytes": 16924,
+      "tree_sha256": "D74A6E53B5C7CA84AF5D1BDC53359CE52F481ADFA343054C747DDB355320BCCE",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121710/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121710/early/user",
+      "files": 15,
+      "bytes": 150882,
+      "tree_sha256": "6510391470E3522D96DF35F1E5B9CA3C8487D24026FB56E391A06702A5DFBB68",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121710/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121710/host/user",
+      "files": 14,
+      "bytes": 150771,
+      "tree_sha256": "983711EEB02951F28CA274493D6C45E1BC04AF4086D30A6EDF458CF375DB0445",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121710/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-121710/late/user",
+      "files": 15,
+      "bytes": 150882,
+      "tree_sha256": "8EF357AAD6B86C918F2D0368A60DCBA8D68AADD82F4F1710B9C95B4757E8CC47",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-122654/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-122654/early/user",
+      "files": 17,
+      "bytes": 196740,
+      "tree_sha256": "75A2A7204FE701909AE9A68CB76EDF0EB3855E8F1A49C83D750837825BC56F9E",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-122654/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-122654/host/user",
+      "files": 17,
+      "bytes": 263071,
+      "tree_sha256": "08E03DA47F936516B46993BC1105E395703C59477F257E49FABFA46F4986CE41",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-122654/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-122654/late/user",
+      "files": 17,
+      "bytes": 196740,
+      "tree_sha256": "76F2AF731A827FF05BCB1D6B7D4243D1A29C96059E8071A51255682C95394ADB",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-123155/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-123155/early/user",
+      "files": 16,
+      "bytes": 152262,
+      "tree_sha256": "C2E484048AFAB1338BEBACFDC8C309203ABD228ECE13EEBCC0DBC5B8EF053114",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-123155/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-123155/host/user",
+      "files": 16,
+      "bytes": 218343,
+      "tree_sha256": "54B98DF8C59A3E13DCDB6F1D093DB57016A5A18DC26EA1B0BC22AF0F624F0FA5",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-123155/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/NetworkAudioV19/Records/network-20261015-123155/late/user",
+      "files": 16,
+      "bytes": 152262,
+      "tree_sha256": "8AEC81AA918CEFF4DE714D7BD400988237377C8CA2123F989374CA8A1506C3D8",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-190824/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-190824/early/user",
+      "files": 15,
+      "bytes": 150882,
+      "tree_sha256": "82734C6FEC4818E6DFCB48C44F2EABDEA41424B08CAD10573B54BD5E8ABE9055",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-190824/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-190824/host/user",
+      "files": 14,
+      "bytes": 150771,
+      "tree_sha256": "007B7EC41F02A8C6C9C2F9801F35DE744F1D50BBC6603A4A7D54A24C3AC9EADC",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-190824/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-190824/late/user",
+      "files": 15,
+      "bytes": 150882,
+      "tree_sha256": "613C005CFBEEB11BEB6543130C6769D67D46A787066A3C1C5364102238637EF6",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-191801/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-191801/early/user",
+      "files": 16,
+      "bytes": 152261,
+      "tree_sha256": "B459760D04D5A34AC8FB6D331B69CBCC72ED4CC9E728B11AC5B1B515746C3E1B",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-191801/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-191801/host/user",
+      "files": 16,
+      "bytes": 218343,
+      "tree_sha256": "9C922F9C8F2F511994DD14074DF632BF22031E5F73E8F8E9628D32B084FB1073",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-191801/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-191801/late/user",
+      "files": 16,
+      "bytes": 152262,
+      "tree_sha256": "24B80EB35BDF140C8DB9BDDC31F9A8CD72DB5B7EF6EA8776A54772D2A6478B29",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-192708/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-192708/early/user",
+      "files": 17,
+      "bytes": 196740,
+      "tree_sha256": "FB73675E0811649B37214E9C79E20D69293542A5D4ECDB32CDDCB0D05876DF1A",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-192708/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-192708/host/user",
+      "files": 17,
+      "bytes": 263071,
+      "tree_sha256": "92EB427E75ABA72A8D5D5798DD8D13B58FF2803F0FF31C8BAC039BA7A2078728",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-192708/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/RecoveryNetworkV22/Records/network-20261015-192708/late/user",
+      "files": 17,
+      "bytes": 196740,
+      "tree_sha256": "B93C82DBEEB889048BAAE860595BCF20B9AA4E1D35149997F2978FF245F16A6C",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v01-prompt.md",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v01-prompt.md",
+      "files": 1,
+      "bytes": 4033,
+      "tree_sha256": "C0910C22CAE6A8E86F12CF7914ED6A3539FDD8A90FE57158C61FA40AC1F1825F",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v01.png",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v01.png",
+      "files": 1,
+      "bytes": 2837080,
+      "tree_sha256": "E1CEF1F548F08C928BABBCD0899707FC0B275D17C6E9B62FF0A3A4B6D78D823A",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v02-prompt.md",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v02-prompt.md",
+      "files": 1,
+      "bytes": 5192,
+      "tree_sha256": "8C9D549F9ABE10763024C6035AB5793621566D34959B5CDE9CB3CC2AF935928C",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v02.png",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v02.png",
+      "files": 1,
+      "bytes": 2547885,
+      "tree_sha256": "7B8BB6F9A3CE45B56B622F8D9949B3B1975C529D2303D41EE5F0A1D815FB7778",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/DerivedDataCache",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/DerivedDataCache",
+      "files": 12738,
+      "bytes": 1010738193,
+      "tree_sha256": "0B91188C44C8D44DFB5D2FF432BDB435F0720365515DD198427DB88836716384",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-215839/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-215839/early/user",
+      "files": 16,
+      "bytes": 152262,
+      "tree_sha256": "660121C7682804681788FC7519EE94AC0A39A5C2721B209AC3E724C13910AF42",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-215839/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-215839/host/user",
+      "files": 16,
+      "bytes": 218343,
+      "tree_sha256": "DB749510476217FED180FEACBBC711DD0920343E4D86815CB27E9FCA70E3ACF1",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-215839/late/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-215839/late/user",
+      "files": 16,
+      "bytes": 152262,
+      "tree_sha256": "C7A3FEF0617FE9EE245981ACCBB0216B40A70EF8D138DDD7AB89EE40E47BB757",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-231055/early/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-231055/early/user",
+      "files": 16,
+      "bytes": 3364490,
+      "tree_sha256": "357D83D7BA425F74FD45B18D7EF98AA780D6A9C620F9D2FEB36525A42A12459F",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-231055/host/user",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/Hall-20261015-231055/host/user",
+      "files": 15,
+      "bytes": 3364379,
+      "tree_sha256": "2B80EF47547D923784ECF927EF535CACE806D4E75BBBF7601B2BA6115B0003B5",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/runtime_snapshot_path.txt",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/Records/runtime_snapshot_path.txt",
+      "reason": "retired runtime snapshot helper or unused V1 texture precursor; current serialized recipe retained",
+      "files": 1,
+      "bytes": 95,
+      "tree_sha256": "D714D4DB6BC463D5377A5B515014BC72A5306A14492F09BB467DDFDB434A3BC2"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/RuntimeHost-20261015-230940",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/RuntimeHost-20261015-230940",
+      "files": 76,
+      "bytes": 41968338,
+      "tree_sha256": "52271942713B377B8090124E3CE163360DBF3779A2DBF1BC59A6B21A09A1E77B",
+      "reason": "superseded backup/reference or retired generated runtime/cache; active production assets and evidence kept"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/run_network.ps1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/run_network.ps1",
+      "reason": "retired runtime snapshot helper or unused V1 texture precursor; current serialized recipe retained",
+      "files": 1,
+      "bytes": 5317,
+      "tree_sha256": "18B1FBF61D544DB62DAC563470174F78BBEF836F30C2DE7B29921B67D553D8DB"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/StairRecoveryV23/snapshot_runtime.ps1",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/StairRecoveryV23/snapshot_runtime.ps1",
+      "reason": "retired runtime snapshot helper or unused V1 texture precursor; current serialized recipe retained",
+      "files": 1,
+      "bytes": 2831,
+      "tree_sha256": "AAC0E3F2A9068451AB2FD56F9CFC221BF467365A667B6B61C839AF7FA5939EEC"
+    },
+    {
+      "source": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/end_play_for_install.py",
+      "target": "trash/m66-incineration-retired-20261015/SourceAssets/IncineratorBossM66/SurfaceLifeV05/end_play_for_install.py",
+      "reason": "completed one-off PIE/import recovery helper",
+      "files": 1,
+      "bytes": 402,
+      "tree_sha256": "6928B5A3DAA3B0EEBFEA08C2F48F183AB05F96395A2901B8CBBA2CF0188AA75B"
+    }
+  ]
+}

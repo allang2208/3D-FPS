@@ -1,0 +1,1302 @@
+{
+  "git_base": "456eb00c569cd956a646498f549c5a304625276a",
+  "normalization": "UTF-8 LF",
+  "scope": "original source, recipes and metadata only; mixed regional implementation is in the named-precondition patch",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 38733,
+      "sha256": "b5d0b5d6f88546bfb96a3cb45cd89f63562f60c2b770c660808f61ab5480ad36"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "bytes": 12634,
+      "sha256": "5e434350adc3c7fe144d887a9a20077bda3f423c21c9b6484879a27c7f7262fb"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterMeleeKnockback.cpp",
+      "bytes": 11570,
+      "sha256": "2349206bc8ba143bbef4f9bf08f16d21916b4d85470d60a5be2cb44240a853d6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterParryReaction.cpp",
+      "bytes": 4567,
+      "sha256": "429f61a59c8b320ce19ab145da42602ec87b436317b5ffc06d514acb12480530"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterToughnessProfiles.cpp",
+      "bytes": 5882,
+      "sha256": "51ad613bbb395b0cd9d000bbc0ddb873e517acf0dd949cf447a94926db87b5e4"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "bytes": 17895,
+      "sha256": "3fdbd916c1fdc2abf34beb7c1b6a395e8afcfe2bfbe8a5fc018abf3549645e65"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterSurfaceGroundingNode.cpp",
+      "bytes": 17232,
+      "sha256": "6ee8ef2c99f5699b3e1fc9cef665d7a8873657636927adc09aff6ec7775cc646"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "bytes": 54002,
+      "sha256": "7c87498d3d65b8d6d7158314499947bd03c5020578d4c4df7a0c53bc3c860ca6"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "bytes": 14686,
+      "sha256": "6b412fb18ff8254e8c4c0df00e85717581d1d4ebadd7d0fd3620dbe7e206d3b7"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.cpp",
+      "bytes": 16646,
+      "sha256": "5233f848c8dcf12945b131496f3b9fac7b79f4c22ce494bc64a8d216b636fa06"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCorpseRagdollComponent.h",
+      "bytes": 2940,
+      "sha256": "b9e5bc7ebd47008338881b05f1a370a15204d3fd3f2064e33d7f1e45e4a949c3"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 162939,
+      "sha256": "1fde745c32b971fa19827bc147c4a6bc9511245a0afecbac2bed139cac44c286"
+    },
+    {
+      "path": "Content/ColdSteelData/scene_search_loot.json",
+      "bytes": 59772,
+      "sha256": "2d9207c7710ae1d635bfe5612ca8af475a367e0927a6982ca57e4f4f123be84a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "bytes": 8047,
+      "sha256": "18d72b8e284964b3594185210f554b714eb37db8d5f2503422ec35a773ff0a29"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "bytes": 17271,
+      "sha256": "3389a65624bbb970e9d5c54ff2f47bd92cda7a881f0163afa411eda37fbfdd9d"
+    },
+    {
+      "path": "SourceAssets/IncineratorContainers20261003/Config/layout.json",
+      "bytes": 59486,
+      "sha256": "43c0eff105c34dba5adfd14e7b627e034ccd6ac7c9015f7b79d2b73755432dac"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "bytes": 1745,
+      "sha256": "a12d7366e5c25bb09d47ca92a70bc9a99049106c5fe81a1d50d349fef02b233d"
+    },
+    {
+      "path": "skills/ue5-debug-validation/SKILL.md",
+      "bytes": 1274,
+      "sha256": "67c7ebd54e180cda3b06f57534e5ed4873f5b02096d19a3d37084028d7235bfc"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/search-collectible-assets.md",
+      "bytes": 6881,
+      "sha256": "0b07d573dc61cccf0e34078108acac4430a30af3d5eae1347e65067ea10611e0"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 225668,
+      "sha256": "570dd9ca88f9cd9ad5913a8f95005a87ec1202495def7d9b316bc534d0321f12"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 115662,
+      "sha256": "19a79a76da34748e14452d29cb903b1caf925f8f98e3c38da2d7f06a9b9068cf"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "bytes": 33445,
+      "sha256": "b36c70057696333d70ece1ddd6455a91331741b4a63433f49304e1dd81ce8120"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 22846,
+      "sha256": "c8ae6dd975a29f160e9802ab63bed332a29e945c9cdc62be7799bf2b097d806d"
+    },
+    {
+      "path": "Docs/Publication/M66Incineration20261015/README.md",
+      "bytes": 8105,
+      "sha256": "4eeb90980a93c7031e0b3620155a369b9bf4f04a9bf60a6da588243bde9bc306"
+    },
+    {
+      "path": "Docs/Publication/M66Incineration20261015/archive-manifest.json",
+      "bytes": 27224,
+      "sha256": "a8653fb420799c8c023e7be2676e04d6714669dda7266068af551ff437c4f898"
+    },
+    {
+      "path": "Docs/Publication/M66Incineration20261015/integration-manifest.json",
+      "bytes": 3873,
+      "sha256": "c7f837fe927af012ab12b6520c2c32eef280cf03f11e7ccee36f3e698cefa764"
+    },
+    {
+      "path": "Docs/Publication/M66Incineration20261015/regional-integration.patch",
+      "bytes": 20947,
+      "sha256": "cfe35387fc63975a9e04733be9ce06159194c441fbf9f8ebce90f7f889293881"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66AnimInstance.cpp",
+      "bytes": 10281,
+      "sha256": "411d7215e355b6b571127de71a491621b6663395a7ba9027423e19e0500c635e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66AnimInstance.h",
+      "bytes": 1274,
+      "sha256": "204e3b200c9299b64c1c0500a1d0cbdcad25d239125483de52c433939557d36d"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66AudioComponent.cpp",
+      "bytes": 5398,
+      "sha256": "fdf713f1b7e1cabfd72019a1cdb0ff5664456e08dd11119cedb464b1ad3091f5"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66AudioComponent.h",
+      "bytes": 1703,
+      "sha256": "c29069d61a7b4978223f95633aa610e987cbadb55f48b7fe01ecd9f2488d2584"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66BackMist.cpp",
+      "bytes": 6044,
+      "sha256": "55e53351df99f9731b74b9020fab9844f0db7f15229db27d765e0d2d596bdf90"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66BackMist.h",
+      "bytes": 1906,
+      "sha256": "349e414b948e5aa71340649d291da82a6496cf1d37eb4dbde0d14b70787f5904"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66BackSmoke.cpp",
+      "bytes": 2410,
+      "sha256": "8d14f4ec3b39b70b6edd8575aff7f4ec021c2801d34fd3e39f3eab8aab10aa74"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66BreathTiming.h",
+      "bytes": 550,
+      "sha256": "a312fa89d28f2b19c303eb793205fe4abb0a544aa24bec0b8dd5d9b41373b042"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66ClawSweep.cpp",
+      "bytes": 10662,
+      "sha256": "a25565ba18400e831f5a005e019d600923bb270786a84166e9649f7f64140726"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66CorpseSurface.cpp",
+      "bytes": 4847,
+      "sha256": "ca50cd52fcc5c892f5d95d99468867ba16952588261830ef6f2f45279e8f5a34"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66CorpseSurface.h",
+      "bytes": 400,
+      "sha256": "dba17fc902a1cfc8df58cb971d0d085771f0eb3c410a8a53311437c4e1874576"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66CorpseSyncComponent.cpp",
+      "bytes": 5926,
+      "sha256": "52714c42ad4af5358d62fd5c7aa1cf732f159b58d0fbdd48009b2e01d1e90061"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66CorpseSyncComponent.h",
+      "bytes": 1570,
+      "sha256": "5ba147cd1f44ca941a7153c5119f79b49745d904036765cbbe40a1a8922bea4e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66DrapeMotionNode.cpp",
+      "bytes": 6711,
+      "sha256": "0d7cf9091fed86589f2511201a6608193f0fa8a3a782d52f4318925ffe34381c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66DrapeMotionNode.h",
+      "bytes": 1210,
+      "sha256": "eb2acb0c0415a6d652a2d38eafc04a2e51eccf3ce3cd1a95d34ed7b026265dec"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66FurnaceBreath.cpp",
+      "bytes": 5672,
+      "sha256": "a0f4b13bd93cb90da8f309c7e5e5a2406b0c1163a51bf90cfb8a56475f6c5c9b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66FurnaceVisualComponent.cpp",
+      "bytes": 9238,
+      "sha256": "d5c4ca2e98cd15938cc2f3f3080a5cffac5d82a817e42c24bddc5c6cf8c60a82"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66FurnaceVisualComponent.h",
+      "bytes": 1557,
+      "sha256": "8d4a49d7e1c3b9e920be7ca783e3a201e397eeef20018aa8be59acdb604f1136"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66IncineratorMonster.cpp",
+      "bytes": 5038,
+      "sha256": "ad18a5d33d2792efed830b55ce865df0ee36dca887a627baed8b717d049426da"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66IncineratorMonster.h",
+      "bytes": 13317,
+      "sha256": "df9506822fadcb48036daaca7b9e988375fc252e7846d5aaa45d2586098e78c0"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66LifeMotionNode.cpp",
+      "bytes": 3682,
+      "sha256": "cc84d851cb8a48c441d7b39a3bc73095640bcb1bef9e8f5009fe4e957ddc3172"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66LifeMotionNode.h",
+      "bytes": 828,
+      "sha256": "c382f8489c0e96f6ec8e369d5f492a312ea4261f2d66927106106c14d3d40046"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66MovementComponent.cpp",
+      "bytes": 2466,
+      "sha256": "640bd3f9ed839667b4e80f7740c3c0d699ba7f4f6100e10c3536d8160b7015e1"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66MovementComponent.h",
+      "bytes": 510,
+      "sha256": "13e2cfc36df228e02d6717d412a982930aa6a2921c549a55467e70fed5109075"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66NetAuditGameMode.cpp",
+      "bytes": 10265,
+      "sha256": "db2d9e59d2398dc0c1c9eeb56952e3a9a3156df16701ada6281bd11607c333ff"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66NetAuditGameMode.h",
+      "bytes": 1875,
+      "sha256": "d9711277fb68b23ef526faad951131503ffc01c27d6198d5744a30408acc624e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66NetworkClockTests.cpp",
+      "bytes": 4893,
+      "sha256": "6e5682babb9e9bbcf4cff71fcead5d6d128079569f50f3b6ba2bc6fe916dfe74"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66Physics.cpp",
+      "bytes": 9669,
+      "sha256": "a25581259856c470718c6d8442b07ac8dda68f44f0a773d9938f9f12a492cf41"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66Reactions.cpp",
+      "bytes": 11081,
+      "sha256": "2c425326819834822689a9b79c1b0053c728c9b781caf5c28588c731d922827b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66RecoveryAuditGameMode.cpp",
+      "bytes": 17547,
+      "sha256": "cfb3e3ad70ab99bf93d2b652bc7c0dcdccc60b50bfa38c6a686de8ee29804d49"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66RecoveryAuditGameMode.h",
+      "bytes": 2555,
+      "sha256": "8ff36f96f5762c29f58962ab82aa2b0686d02ae684f1d0319174e90c1a0149a7"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66RecoveryAuditScene.cpp",
+      "bytes": 13729,
+      "sha256": "118cc7a96077c7b1c4042e34b0ae7af3099a6966a72e18f48dd76c4e4ad820f8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66RecoveryAuditScene.h",
+      "bytes": 356,
+      "sha256": "c2b8659f603059c582029c7238ef73e8123734e5ee75696579ac7c83b04b79cb"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66RecoveryGroundNode.cpp",
+      "bytes": 6881,
+      "sha256": "86b4361c6a81332d90074de8204e1afdbae807bebd9059e03a0b7d4c281ac64f"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66RecoveryGroundNode.h",
+      "bytes": 1283,
+      "sha256": "ca341d3f07c2731e456737bcecec2edd4ba75fe2669cbfb9dfa79d0bfed36141"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SlamAOE.cpp",
+      "bytes": 2835,
+      "sha256": "2cd8c558a57eceecdd9161b32da6f2254c07d06661628bcea59056d268e8cf80"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SlamTiming.h",
+      "bytes": 504,
+      "sha256": "c8c3254419831e6be41317ad83eae54678e5837453bb41c167d5db9d57601cdf"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SlamWave.cpp",
+      "bytes": 6269,
+      "sha256": "65852c5160dc029b0d46bc5a2c541a4a7091e074962b89091bab98e7049719d7"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SlamWave.h",
+      "bytes": 1451,
+      "sha256": "0542df5dbe81cd2e69ca26a6778cfa15ba2150ff7272f85bad0be565af6d282b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SweepTiming.h",
+      "bytes": 169,
+      "sha256": "215ff8633b30c3613adde800b36610bf46358595527d15194a36734ca9011783"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66Weakpoint.cpp",
+      "bytes": 3115,
+      "sha256": "2f4966724e55f03fb454059359a524a3f43d310379085a006c2c9f3d731a7b61"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/README.md",
+      "bytes": 6592,
+      "sha256": "690126560ee8dde61f9d3ca39a9b9675c26e7c057377f1a6adc14bb86523556c"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/author_models.py",
+      "bytes": 4693,
+      "sha256": "917e4bc6d7ddab211ddba0ab289951d1b067b6d1f30f028a930ca9eded891bb6"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/finalize_delivery.py",
+      "bytes": 1617,
+      "sha256": "a6966d3e7d43a64b0e8d1aea21c1f1327014eebf8f5f76bd185cd45c97e89d4f"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/geometry.py",
+      "bytes": 9600,
+      "sha256": "53174375f39468e20bd3a79e4bad466f77746be8ec833d40a6d26dc3a7183928"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/import_assets.py",
+      "bytes": 8548,
+      "sha256": "52ad846ac8a2bb547ed10b7f486fcf4c0159dab58d28dd5a0934c1bda724cb1a"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/import_staged.ps1",
+      "bytes": 1346,
+      "sha256": "66570900e083a0ad84880df79c761f66b485204583e8cae7c3fe7e441f33de3f"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/install_staged.py",
+      "bytes": 1829,
+      "sha256": "faa579c8a0980ef88f035124020c933ab8ca7b158966ce7872789d21ef54da0f"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/integrate_data.py",
+      "bytes": 7633,
+      "sha256": "2a23dadae1e0b91136d0497278319f9380c5156b4b93ef36511227120d0a3235"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/models.py",
+      "bytes": 6278,
+      "sha256": "7478fe957985bbd66055d6317dbd8e5fcc096347e89ff37b13d3a8db3f394f4d"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/prepare_textures.py",
+      "bytes": 5009,
+      "sha256": "fba368c08fb90b1a9413b892ac8faea4cae4b5ff5fe5a97fd914c85adba31afe"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/publish_icon_layout_v2.py",
+      "bytes": 3286,
+      "sha256": "021f32119cf5151d02e3c09bb07a27aa1bea4ff647a620a5fc99de10963fd12c"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/render_icons.py",
+      "bytes": 6156,
+      "sha256": "e04f81a0586290a6f5bd394b95ef6c1c28cb679bb682137b6cdc96dbb0b58972"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/setup_pipeline.py",
+      "bytes": 3707,
+      "sha256": "fb2660d78b791c45f43bf28283e2af8aedb93087883cfff19e607c7e72bd0da1"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/Scripts/update_catalog_metadata.py",
+      "bytes": 1617,
+      "sha256": "5e72aed108c6617f56222bc301b1d94aabef82e363fc77831aca8bc043280fac"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/README.md",
+      "bytes": 3447,
+      "sha256": "4f00f115785aab3678a3e50e92212a526d353eb35c44ee87ca415541875faab1"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/author_models.py",
+      "bytes": 4693,
+      "sha256": "917e4bc6d7ddab211ddba0ab289951d1b067b6d1f30f028a930ca9eded891bb6"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/geometry.py",
+      "bytes": 9600,
+      "sha256": "53174375f39468e20bd3a79e4bad466f77746be8ec833d40a6d26dc3a7183928"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/import_assets.py",
+      "bytes": 8590,
+      "sha256": "046506f6dd6363247381483ec96b66d0c98faff650db7d744ba99dd9fefded21"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/import_staged.ps1",
+      "bytes": 1346,
+      "sha256": "66570900e083a0ad84880df79c761f66b485204583e8cae7c3fe7e441f33de3f"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/install_revision.py",
+      "bytes": 4415,
+      "sha256": "b34a7e6b3feb64350ce3117451bc3768ce5e33ba405025799fe6d1542f943d1e"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/models.py",
+      "bytes": 10101,
+      "sha256": "ea620831c529ead53775861695d7263645ea746e86d4130d11802f98ee43a054"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/prepare_surfaces.py",
+      "bytes": 6844,
+      "sha256": "34812eaa1ea42534b3215f2aba2c4cc24fe39b64b0ef0efd5ef6890540a11f29"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/render_icons.py",
+      "bytes": 6146,
+      "sha256": "e658baa04c5d2d8c623ab4a37af47a33bcd64961ffe019764062ec0011eca267"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/setup.py",
+      "bytes": 2120,
+      "sha256": "a72f2babc32763498beb3a0abb9ad6331c39aac258b92b11052ba22a6fec8b3d"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/install_revision.ps1",
+      "bytes": 1536,
+      "sha256": "54ab55330d79da41080d32336c667a6a97c6f81057453c83f19c391b31d2b024"
+    },
+    {
+      "path": "SourceAssets/IncinerationCollectibles20261015/build_native.ps1",
+      "bytes": 3469,
+      "sha256": "f5f285be80d2ee4ee0583ecdf39ec0f3176da036af9d0610e2adf393d67aea69"
+    },
+    {
+      "path": "SourceAssets/IncinerationEncounter20261015/README.md",
+      "bytes": 4580,
+      "sha256": "ae71557496d7f8d7afccc6984ff01521c35cd6c430f4c591a850e252fda263e6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/README.md",
+      "bytes": 3048,
+      "sha256": "486729d79be116b3bf999723682f4835bd98c61cfce5617792c09b420e7fd0ad"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/author_headless.py",
+      "bytes": 222,
+      "sha256": "47fd7edcfa5c693dac125c7ebab872f8670cc514ce02c0238e85d04fcb97f0d1"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/author_smoke.py",
+      "bytes": 7075,
+      "sha256": "d0b322ef78b6602b548d2ad021dc2351e81b4746b6040d8ed078ab16633829b9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/character_headless.py",
+      "bytes": 227,
+      "sha256": "60ea4f4d77ff10123ed0efeb30d91044645406433c0a1810266b3195833e42cc"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/install_character.py",
+      "bytes": 2094,
+      "sha256": "f1579fb1bc08c1bb75065ec0ccc84fc4e2a55ef70774710ddebc95ea756daea1"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/install_editor.py",
+      "bytes": 258,
+      "sha256": "4a049a247b0f0eb397f990cea5bb4faf8c211ab4ad2773d808f00c502d9a7e9b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/install_headless.py",
+      "bytes": 278,
+      "sha256": "dbd7b50968a7153ac2536290eae9737f39729d63e105997b97cbbc5074450b73"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/read_outlets.py",
+      "bytes": 1347,
+      "sha256": "503b1cc51451a0af480b221e9732e4ca9800b758d4ba06ded9ad1c0e5555df89"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/BackSmokeV12/run_headless_install.ps1",
+      "bytes": 2276,
+      "sha256": "8c2612b8e8ad5d06f9bce1f167f8e6b113b987d6836a0129a227b3241d3d3eaa"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV04/README.md",
+      "bytes": 3587,
+      "sha256": "79bc731d27f061662a1f586c318f896f02b7d6de86e2449d655c002b804b7e47"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV04/author_sweep.py",
+      "bytes": 7086,
+      "sha256": "8b1269b0e2f52e93001d89c6e9cf11a161f7e4dbb336445fe3e7bf04ebcdcdc2"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV04/import_motion.py",
+      "bytes": 5359,
+      "sha256": "fe5cb6ae392ec947eded99764e8c28cdab2ca180ea59e1c810ac3c80508f3902"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV04/install_character.py",
+      "bytes": 3696,
+      "sha256": "87989b4bfdc1950d11fe0836abaf8e1bb9b0949979f2137fd771c2a3568170ff"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV04/install_headless.py",
+      "bytes": 288,
+      "sha256": "0709849af3491512b6fc3a799dcbe4412cbb822cf8d503fa086e24009f80dbe8"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV04/run_headless_install.ps1",
+      "bytes": 2122,
+      "sha256": "64a613769fe16bf9cfc956e46f3406abfa4f87ef8e33066f102373dd4bc49b5c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/README.md",
+      "bytes": 3662,
+      "sha256": "1146b6f11d348cfafe516fa5af64dac226f181fe27d667db0754644bb2751a6e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/author_sweep.py",
+      "bytes": 14602,
+      "sha256": "88666d58bea1a6676f8d40542c967704893244560d92d738ff3c12350e982851"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/import_motion.py",
+      "bytes": 5375,
+      "sha256": "608c1fe23ab08bd39e1084258eaa3f32f4fcb3554ae6cd7066e756063a67db12"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/install_character.py",
+      "bytes": 3633,
+      "sha256": "d93007375a73a0826ab0dbd93c4fb2f7c81cf4f8e4601b0e46a1799f6f5bc3e0"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/install_editor.py",
+      "bytes": 280,
+      "sha256": "f599299fef77f14882929fbb404c7c01e1d094bb4ea316a389ac92a97fdf3f6c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/install_headless.py",
+      "bytes": 279,
+      "sha256": "d2103d7f6cb4a9fe291e67375c75323cec9a4e06233bd41bc7d8a7781f074e9d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/read_inputs.py",
+      "bytes": 2278,
+      "sha256": "6e868f7eb1ca04f41530cfb91d1b7aa0cba6143953475ee43bdfbbbba0b0fcdc"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ClawSweepV06/run_headless_install.ps1",
+      "bytes": 2122,
+      "sha256": "98e0ff395ae559839572f86c6d684b6fe2f31a6fa1273219e4d8102c2c30fc4e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/CleftWeakpointV20/README.md",
+      "bytes": 2703,
+      "sha256": "89d8a8c6002bd5d5c5341a13bdea2ca8e8e1b307649ae94efe30476b10e2377d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/CombatTuningV11/README.md",
+      "bytes": 2530,
+      "sha256": "0ff2e6a80d5ee38e0216751ee82cc993b8779fc25a146df2db32587e640cba35"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/CombatTuningV11/install_tuning.py",
+      "bytes": 2289,
+      "sha256": "371002237fc2b1ae8664031924fce81124452df1ff44204668d02fa4783106ae"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/CombatTuningV11/read_defaults.py",
+      "bytes": 1721,
+      "sha256": "234cc7de749380e68175598786c0012e0b368f839a69d8eea0619a7b8614319a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/DeathGroundV07/README.md",
+      "bytes": 3369,
+      "sha256": "83678d99584bc7ca6fdf07053117af11863044468ca74e3077b3f336957a7496"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/DeathGroundV07/compare_support.py",
+      "bytes": 2435,
+      "sha256": "0879c945ef629dee3bded7cb669ec363ca35171e89b05d87abe44c73371b86a2"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/DeathGroundV07/install_headless.py",
+      "bytes": 2333,
+      "sha256": "4f6069a8a30ab9ceb27bb2c4df865f392794930e5bdfc591bf20f5623133d722"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/DeathGroundV07/read_inputs.py",
+      "bytes": 2276,
+      "sha256": "ae530dde2a7c94f484dea886f29750fa0d04df6211161974caa19784f0993d4a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/DeathGroundV07/run_headless_install.ps1",
+      "bytes": 2124,
+      "sha256": "2068d6178fb5f6e185d4845a5cb4ec38453f9f522f847ffba0c72300fde519c9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/DeathGroundV07/run_read_inputs.ps1",
+      "bytes": 2119,
+      "sha256": "e86363ba20703fb512a8caec30fa76d0d2946f7d6194f950322f9fc06e69bc3f"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/README.md",
+      "bytes": 2449,
+      "sha256": "36f78af2c49095916c4c7fb01e23cc29c4350b16bede02f50e7ffc0017c6cbca"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/author_fist_slam.py",
+      "bytes": 13413,
+      "sha256": "2a84138b98d5b985e45ccfd380b12d22a7c5d8e0d65dfe0fc3f03f886e115695"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/editor_state.py",
+      "bytes": 315,
+      "sha256": "1936c8758e0242ccbb1d828d9c8e70af5d76bef5af93716f87e10f1838006990"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/import_motion.py",
+      "bytes": 5394,
+      "sha256": "36ee166baab604db54a3c21b805a05fe9ae2d6696d6dbbf69ec4354f50e39e04"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/install_character.py",
+      "bytes": 4468,
+      "sha256": "373344144edd68c1a8b8be76d4eab0a9bed6ae38fe6202be463e648e048a812e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/install_editor.py",
+      "bytes": 258,
+      "sha256": "2c4f65523d204e0344c078e48f7f53b0b6c14d8fe2771b3ba87f6f2972de97e7"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/install_headless.py",
+      "bytes": 278,
+      "sha256": "d7d390d5086d880498badfe27109fc4d507a62ad7cbafe78f3352ac190a87bef"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/read_fist_fit.py",
+      "bytes": 2094,
+      "sha256": "b67fd4f5ded0f58a1e9e0a0ac05e0a3ba29604e5b649235c1213a28402f0bec8"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/read_hand_source.py",
+      "bytes": 747,
+      "sha256": "0db0986bb4a0523990a31bc7ba9065f3657266b2201f7f354201de6761547f31"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FistSlamV14/run_headless_install.ps1",
+      "bytes": 2121,
+      "sha256": "f16292c4b2e27f9c7783526bae5ceabfbce332470d93cd9502e8653f938745b6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/README.md",
+      "bytes": 4358,
+      "sha256": "5f739a8976482f14929fdcacb1b7a3042e21897d7f71efe8f733f349abc11ee9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/author_breath.py",
+      "bytes": 6866,
+      "sha256": "61571af6d25a86990445cc8c458fcd936dcdc6d86701d47a309584474ef5b342"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/author_effect.py",
+      "bytes": 7948,
+      "sha256": "ab200710d21165bdc9ad12af4f596766d4f40290fec103ef082644983bf491e6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/author_inhale.py",
+      "bytes": 1189,
+      "sha256": "e38a1e7f7515a7adefcf85d4296fbac54f8941b1c5cec65f46412f28a4cdca40"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/import_motion.py",
+      "bytes": 5401,
+      "sha256": "241a32cd30a872758878057cd104406f6beecfb1a92e760918507ce28803617e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/import_skin.py",
+      "bytes": 4538,
+      "sha256": "574658b576af1bb78f33835097ed47abab2deb7929afa2fdd75ddb9adacbd42c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/install_character.py",
+      "bytes": 4642,
+      "sha256": "7dc862b80327c3775920280674a29e89c7198edd95645e90327d4e7c8adbd367"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/install_editor.py",
+      "bytes": 299,
+      "sha256": "0981f58a72c6bcdb4a9a3bbf4daefc7940218d3da67408abdc3e844faa7a5782"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/install_headless.py",
+      "bytes": 319,
+      "sha256": "8fc66f6ed517aa36eaed76a2872a45d632eb8f53e23cc7d914a883bbab272d44"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/read_rig.py",
+      "bytes": 987,
+      "sha256": "b3903a7617d4b50c2087f24205cf106548126f16fa256ada7bbc0345bedc0604"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/FurnaceBreathV17/run_headless_install.ps1",
+      "bytes": 2126,
+      "sha256": "cf2a0cd258875e6d181f31d633cfd1d056e927791c88e69e078ad68934456a89"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/README.md",
+      "bytes": 3096,
+      "sha256": "46d9acb259fda8377cc7836179a6a9995fa2cfa0ecfdfbf8b31361b3454fbfdb"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/author_slam.py",
+      "bytes": 14061,
+      "sha256": "86099b2188e6b98a8acdcb08bb7a38b58514856074eb33ac78d24e1e65a0a94f"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/import_motion.py",
+      "bytes": 5400,
+      "sha256": "fc6558f2d0ee7ebf2919bcc096ea5e9d68f2ca8d7fb91f6a972fe29ee1e439d6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/install_character.py",
+      "bytes": 3449,
+      "sha256": "9ec1c07c1fdef52c0f73ba4482a1cd5af3af70d0bd9b4e557990f8836b17a709"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/install_editor.py",
+      "bytes": 260,
+      "sha256": "16b7a7047d221b4e4be2f3a479ea6ce65dfda64622594455856792e2890b0131"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/install_headless.py",
+      "bytes": 280,
+      "sha256": "bb256230ff50f394488ba923b031a669a1acf79bc091864fb6a9b93e7a1ad4c2"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/prepare_contact_source.py",
+      "bytes": 1257,
+      "sha256": "73ab79accf0d031e2bb4afad7df042b17c349419fe94962e96128778e9e4b3c0"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/GroundSlamV13/run_headless_install.ps1",
+      "bytes": 2123,
+      "sha256": "d2d5e33a3fe7b8a2e923943a753faf9b738f4a9a8ec5003ef4dccfac891edf9b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/README.md",
+      "bytes": 2713,
+      "sha256": "d10b34b8bdeeeea3c5bb973624caf166565365abd099fb813b652a94c1dd8795"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/author_hand.py",
+      "bytes": 5912,
+      "sha256": "80158fb3cdf41b5893b1365ebb1428980016cd75fadbfcfc1e9eeabf76079ed9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/import_motion.py",
+      "bytes": 5382,
+      "sha256": "b5eec7096f8be490e4a265e45c1dfe30f1dd33289be749f5aa9de8967ef0308a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/import_skin.py",
+      "bytes": 3726,
+      "sha256": "2081f4804af1408ad77abd2b9f2c0dac384de5b5721b154f0e60111e1d751577"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/install_character.py",
+      "bytes": 4048,
+      "sha256": "57e2be38bf7faa24e409a69da056298d549c5b940c300f1b8020c9c46ff229cf"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/install_editor.py",
+      "bytes": 302,
+      "sha256": "70c01c49463e372c0e985641883212936d2273ed7c61df19feeef22e1fb27842"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/install_headless.py",
+      "bytes": 301,
+      "sha256": "9b158fb4249164a42092a2eef35afce71da91bbbd19259f0d74e7afe6a4e6f69"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/read_deformation.py",
+      "bytes": 2845,
+      "sha256": "a8faece41a262169ad1cd701046700b6c15b04c9528f06f8f0df62322be433e4"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/HandContinuityV08/run_headless_install.ps1",
+      "bytes": 2127,
+      "sha256": "7c2a3937767cf15e30929e1c72f5f5548d2f52cfd760270a53f0de1d7f3b603b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/README.md",
+      "bytes": 3492,
+      "sha256": "5e05a312a3bc4a4d0b3994924f6b8995cbb3a4bf078f13b680825861989c1518"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/author_recovery.py",
+      "bytes": 9162,
+      "sha256": "6e71267103d34df1e2453a69577884ec6d114270112cc82b6e3b8d0665d4b5c6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/compare_imported_support.py",
+      "bytes": 3208,
+      "sha256": "3f6eca2cd16872cd8e747ba485ee0318184684758868c8cf6c7851cb69b063be"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/find_support_pose.py",
+      "bytes": 2266,
+      "sha256": "2c57eef8a39566a37aadef8880b163ed99f59439ef6d7077533bf0e3ed424b19"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/import_recovery.py",
+      "bytes": 6169,
+      "sha256": "701d17ed4e5eb240385d90d58a44fe26c08f10396c15208d884c85a676c6f592"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/preview_recovery.py",
+      "bytes": 1290,
+      "sha256": "53aa5762f040be8b004029d3b459ecf794dd81536130c6205634abbb067c70d2"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/preview_support_pose.py",
+      "bytes": 2172,
+      "sha256": "9f205f95666208d289388377ba067553419b12aff21e92a5b744af8dcfd966fe"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/read_assets.py",
+      "bytes": 2438,
+      "sha256": "dbffabeb38d624ecc1065b0d48b2b79ec2fe910e4517fb1ac1c3ec0a5dd305b6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/read_editor_state.py",
+      "bytes": 522,
+      "sha256": "2b6be6e060d42352df8e3d724ec5c23ffc47f0276aae72e559332bd84a3e024b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/read_source_support.py",
+      "bytes": 2573,
+      "sha256": "13398f618a1ad19113ae550b7321a5b85fc0b10c799f81a92577942de062c18d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/KnockdownGroundV21/run_python.ps1",
+      "bytes": 1443,
+      "sha256": "a258b680e0849e7d536e98c313ddb828b4047fd8b1e6bf1000aba29cfe1b9dce"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/LocomotionV02/README.md",
+      "bytes": 5058,
+      "sha256": "a996b0be0d8c231f38fd8de28a93003211cfcd657b5c71c29f908435355c3e72"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/LocomotionV02/author_locomotion.py",
+      "bytes": 9199,
+      "sha256": "6609a7db0527f0f15eccb390f41d4a65eef610341cece5379d635ac7e40af306"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/LocomotionV02/import_motion.py",
+      "bytes": 5385,
+      "sha256": "88f2ea25491e10355b0d3719a80c4bb05c0d5e82f9f2f5230510e3f185635cb2"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/LocomotionV02/install_character.py",
+      "bytes": 4358,
+      "sha256": "1e4ad284325fb2317eef23e5293d6a41e9f32cc5f6c91d7392c6bec2765d9498"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/LocomotionV02/install_headless.py",
+      "bytes": 289,
+      "sha256": "f23e768d4c449dbd06cb0ce6ed0d115a460679d204d12935c4f53b1785c6b97d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/LocomotionV02/run_headless_install.ps1",
+      "bytes": 2123,
+      "sha256": "17fcb6d728e74cc93145e0e0941518964b601e393b9177515bc8c0d2889afa9c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/MeshyRigV01/README.md",
+      "bytes": 4618,
+      "sha256": "451492e641fa0292b828ff05ebb45be4398d8a185c00dff4e517098c2c5fbd68"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/MeshyRigV01/complete_back_rig.py",
+      "bytes": 9233,
+      "sha256": "caff5f916a625c8524172d99595f897ac7420d52c24baba9e7e0c47ccf09edf4"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/MeshyRigV01/import_to_ue.py",
+      "bytes": 7257,
+      "sha256": "01a5a02fd7ea18ad6b5c0539b1875cb63c8e7b2d3e0ea0f6f48c865b3e3059ab"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/MeshyRigV01/map_back.py",
+      "bytes": 2221,
+      "sha256": "367a658171982db1c6be23fcd6ae55233083e2d6a3f4f861bfb4057a3c3ce3c0"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/MeshyRigV01/read_source.py",
+      "bytes": 2926,
+      "sha256": "dbcffa985116414dc5044ee7122198fd354aacf781e7d26c1a3deeb9db9d1864"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioReviewV18/README.md",
+      "bytes": 6172,
+      "sha256": "bb36b5f29b46434fa08cdf82b13c3de6d4cdf11bef69d7a33c539c73dcd1f754"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioReviewV18/read_assets.py",
+      "bytes": 2473,
+      "sha256": "2119412cee99c03663b97e06a4ddc196e0ac26e73302d0d7ac257602ce56249b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioReviewV18/run_clock_checks.ps1",
+      "bytes": 2053,
+      "sha256": "0b8dc5b6aa0ff2ea8ef638905fe244bd6cc8899d171e47c1cf1c668320450778"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/README.md",
+      "bytes": 6009,
+      "sha256": "f79a3382c956b79e322e347740262c7a4083ae4a86d6c587d0c5d97e3259231e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/author_audio.py",
+      "bytes": 3091,
+      "sha256": "f7154c3c8599989ae2df565d3a17be761e289bf92f47a62e206bc94a7ddccf6d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/author_smoke.py",
+      "bytes": 6379,
+      "sha256": "3cfddf83aca2e2e85e2cb46b12054cc5c70abc7e1480fa9d4b09b255bab6d782"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/inspect_array.py",
+      "bytes": 425,
+      "sha256": "07c33611570fec1facf9b4ae131d57e52d5168d4ca9d280bb105937898ae904e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/install.py",
+      "bytes": 2547,
+      "sha256": "e70099501f987a68e842b6771c07469801ccc233a45ebcb48431586c45095489"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/run_author.ps1",
+      "bytes": 1892,
+      "sha256": "4064fbbe56dcf2d5fc9ad8c827bffc10ac1865d97c713a0847738972805852b5"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/NetworkAudioV19/run_network.ps1",
+      "bytes": 3416,
+      "sha256": "89a3cc1d16c22bc663f4334a28ffcaebe6917ceb11686f41f86657b35f0b0478"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/README.md",
+      "bytes": 4095,
+      "sha256": "a592995630d40ca728a7ccdeba7258a96537014f4c5b8d0886e1f22bfd4dc7cb"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ReactionsV03/README.md",
+      "bytes": 4194,
+      "sha256": "603a17cb64103dd660954900492e4605b5ae01647671f200cee9665c8e1561ce"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ReactionsV03/author_reactions.py",
+      "bytes": 9621,
+      "sha256": "29d4461fa6d81828ae4573f264a90cae603bd4f6c0a3a2bc9d3b0bcfb45b8eb6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ReactionsV03/import_motion.py",
+      "bytes": 5382,
+      "sha256": "179e57ccfaf6b547687a751637218abb08cb63dc29f73a25fbefc549923b1371"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ReactionsV03/install_character.py",
+      "bytes": 3778,
+      "sha256": "4c86aa3b4b65d65bd0469ff3e185b663cbe0aff5c489160e7209cd585c0a1c67"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ReactionsV03/install_headless.py",
+      "bytes": 288,
+      "sha256": "76d5ea123857e978afae10c6b2eab0fb4283ebaa706aedbc69015f84e4943f97"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ReactionsV03/run_headless_install.ps1",
+      "bytes": 2122,
+      "sha256": "1a4e8bd3bd86e104ac3285ec63f6653916aac86d9649643019dfabfbbacd7f84"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/README.md",
+      "bytes": 5052,
+      "sha256": "2a215a17e81b60da35f213422dc3829bd5afed00c8cede1a8ab286c1e39b2afe"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/build_native.ps1",
+      "bytes": 2093,
+      "sha256": "73de9b2524ef2f9d214ab54554e8366eecdd19229f1249738126108095ee431a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/run_clock_checks.ps1",
+      "bytes": 2530,
+      "sha256": "e66ddadf6b12873fd26ae46a4ddb318e9b213299b2a0d83e83b21dfd6f0bd67a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/RecoveryNetworkV22/run_network.ps1",
+      "bytes": 3957,
+      "sha256": "453a7479a99a69d6c14732fec6944c596b9c790c8005f138f19f290137eb8863"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/References/m66-fenhai-concept-v03-prompt.md",
+      "bytes": 5688,
+      "sha256": "f11b5d6524ab7a096649c6c9183a9b76b43bbb4924007d215f7646767e519d1b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/References/m66-fenhai-turnaround-v03-prompt.md",
+      "bytes": 6718,
+      "sha256": "42dce964f10b935e9b21cec7e51d498dd9419552c9689c52190dffb314b7b1af"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/README.md",
+      "bytes": 2274,
+      "sha256": "35169f76c5e6335f32c2e335272e7f64c80b16a3a7d02eb2eceb58b2b2f513bc"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/author_rhythm.py",
+      "bytes": 5183,
+      "sha256": "df1fb2c0fc8ddb6c90ee541406c3ad244a79bd58ba59e6cb168f3524f6b91720"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/import_motion.py",
+      "bytes": 5421,
+      "sha256": "49851c0f8b8ac04e515f82047d9f47891c26879cb4b60f09c5636906105a1c52"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/install_character.py",
+      "bytes": 5059,
+      "sha256": "4a103eb2759dc04ea41b57e73fa572de78d97fce6e291d4ab9da4af163b3833e"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/install_editor.py",
+      "bytes": 266,
+      "sha256": "583bdefef8c552679b004c8de20a65156ff90b0ca51e957f7dfc651f2b8b1d37"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/install_headless.py",
+      "bytes": 286,
+      "sha256": "205ad8f0f83b12ea7c940b0b4054d869b0112ea857b347f0eff720ac7a053fd6"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamImpactRhythmV16/run_headless_install.ps1",
+      "bytes": 2129,
+      "sha256": "35a463a25ffb552a5fcd8239e485085d7769df181fd16d72969b67e8e79fa02d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamWaveV15/README.md",
+      "bytes": 3090,
+      "sha256": "e818eb698a8acb2dc264d13c03a42cf24cd4d99af809e4cd77d783246ad40155"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamWaveV15/author_wave_material.py",
+      "bytes": 3633,
+      "sha256": "92ecb168b5c2c11cc2352d0b8be1edb2f5fbee2a1fae2c5bdc49ff3eea9cf115"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamWaveV15/install_character.py",
+      "bytes": 2062,
+      "sha256": "99997f5be8dab8deff983af6c8e555f489e6f580a19f5b0197970baa0d80e2e9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamWaveV15/install_editor.py",
+      "bytes": 265,
+      "sha256": "6febc08f93504e6626a730017ed4132aa755362570f52ba4e45fd8859ee16000"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamWaveV15/install_headless.py",
+      "bytes": 285,
+      "sha256": "b7b98d95932a627e3506a8a2bd5788b7fb4a7dad84c0c5cd59793b0265db58a1"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SlamWaveV15/run_headless_install.ps1",
+      "bytes": 2121,
+      "sha256": "962956b3984a651f812f8fc46ebffd03c9b3f86409abfaef101015e47793bfd9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/README.md",
+      "bytes": 2259,
+      "sha256": "bf746117735a49c098398a4fa3c41408f27de35d8f7c73d0ab0e53aa5bcfaf33"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/author_skin.py",
+      "bytes": 5506,
+      "sha256": "4ad2157eb9044659f14a829dc22a968c45064ad67d33d16d37b2a013b494056b"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/import_skin.py",
+      "bytes": 3761,
+      "sha256": "b453f5b5dc2b3290bbc6bccfa515c9404e7bd91e887e2d3db3e146d7e194e5c7"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/install_character.py",
+      "bytes": 2189,
+      "sha256": "c3a40b709e80a34b098ee1769af92e37fed25d96b91d41b1af88dc4f79e3803f"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/install_editor.py",
+      "bytes": 267,
+      "sha256": "6796dc244d35e3b7e3912924029bbd6ebd53b6636ba60586e3fc73de58cfbebf"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/install_headless.py",
+      "bytes": 287,
+      "sha256": "9b6ac2f12e208edcf46b71efcb073bec918a848344109c11d4f718430b366975"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/prepare_ownership.py",
+      "bytes": 2127,
+      "sha256": "26c28f013b7a1db762e8c10e39a6c089ac1f790f8e1aefed3c050ef59fb8f8c9"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/read_anatomy.py",
+      "bytes": 3305,
+      "sha256": "f116e0c605ada285ff2900028331cdef737cdf1a5fbd5d498899529459540955"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SmallHandSeparationV09/run_headless_install.ps1",
+      "bytes": 2132,
+      "sha256": "74c9406ecb4f333a257878784b61ffd73e37a7cd3395d4250528e57019c53b3a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/README.md",
+      "bytes": 4553,
+      "sha256": "862c62edad5eb6371a11fdf9af1caeda792337a942c4e8b3fb74673df97a0c3f"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/build_native.ps1",
+      "bytes": 2263,
+      "sha256": "878776f5e425871b04b684a799370ca377f88a8e1023c2d87f6f451425690645"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/compiled_sources.py",
+      "bytes": 2267,
+      "sha256": "065620e783ea3ff8924c0122e6d6f386dec0d8897d8ec26108c08c4b01ad437f"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/read_scene.py",
+      "bytes": 1429,
+      "sha256": "2f3dfd2fa4f9cf202275c1c214ceba7835be02b65fefbdea40ec64da44c23a1d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/run_network.ps1",
+      "bytes": 4662,
+      "sha256": "b94965f13cd55a10ae1288be8ba87dcca0a3986e6761088e024c325841610255"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/run_python.ps1",
+      "bytes": 1468,
+      "sha256": "cbb6dfbb8fbf2d3dcef15b97d4e237b645784e4afbd5cd3bca1cc06f1c69c446"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/StairRecoveryV23/summarize.py",
+      "bytes": 1886,
+      "sha256": "3a93d3dac27d14be10ba0d0bc68104127f38f66c74f0a42b91fb46f3e3cf0267"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/README.md",
+      "bytes": 3317,
+      "sha256": "885ba59836b941f53be99e3243008727b25ef648f5a5b83036352a565ed67c45"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/import_surface.py",
+      "bytes": 4837,
+      "sha256": "c6b8ebfe4f9e5995c6f90ff93d6a29735a46631c53e54cf927cc1be7b74e0c31"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/install_editor.py",
+      "bytes": 329,
+      "sha256": "3c147a31521ab137909eddc50b1902a00b776e12081ccea0b5891f44049b152c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/install_headless.py",
+      "bytes": 327,
+      "sha256": "95014229bea8d045cdd43c4467ef72cf371adef7f7a4ac2484fd15cfff15d239"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/read_mouth_charts.py",
+      "bytes": 1715,
+      "sha256": "58cf2a0ac04fe45c7b3064bdb07293cac5ac7905d322401410041000a57a0b7c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/read_surface.py",
+      "bytes": 2957,
+      "sha256": "8c59c152ea0bca62367e4ca65ae83be6f218d5dd8c5e58f2e66420769db680d0"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/repair_skin_and_eyes.py",
+      "bytes": 6646,
+      "sha256": "76a15f9bb3b77ec8ea33bf99484e26bae3474de1fba1a824c8c4628fd51a49fe"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/SurfaceLifeV05/run_headless_install.ps1",
+      "bytes": 2124,
+      "sha256": "dfa3e14ed12c1f260655933c9226554fc5b24594187e5f21ecdc7cd6769c6c8a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/README.md",
+      "bytes": 3092,
+      "sha256": "57c87028b352d8571e8997a8ca47e55b99318991832af9d5da17f0971865280a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/author_skin.py",
+      "bytes": 6424,
+      "sha256": "8d18e3a4115f29cd418eb711d7ecf0b23f9115a306a7eaa21394b9ec6c13e7de"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/import_skin.py",
+      "bytes": 4404,
+      "sha256": "5b444d7bd62edc823109c568bdacc2d8a987448e777002b654419ad0df4a296d"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/install_character.py",
+      "bytes": 2221,
+      "sha256": "941ee1e8ff172d8c0d1d06b7fb2eec96af022d86b8278e2687f53239d43985a3"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/install_editor.py",
+      "bytes": 258,
+      "sha256": "f5617a75d933072357f3a735cd4e4ba2f80b0ebf208e899240fca8746bad80d7"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/install_headless.py",
+      "bytes": 278,
+      "sha256": "f32f98f89fb7093ea9548decec607ed70b880e0913783d626788f880f8c5c169"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/prepare_regions.py",
+      "bytes": 1116,
+      "sha256": "8c5d82b1755d74efd7fbac4f5e6442769896000b9782996a8603558006571b5c"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/read_source.py",
+      "bytes": 2348,
+      "sha256": "26880353722ea49700b362ab0fa764ffca0c6a09c885ea9a1cd8414ee6b0221a"
+    },
+    {
+      "path": "SourceAssets/IncineratorBossM66/ThumbDrapeV10/run_headless_install.ps1",
+      "bytes": 2123,
+      "sha256": "e74f6570a519c426e434aebc7fe82aee0f0d3cf263405bbbc42930b41ed64e0b"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/multi-process-runtime-evidence.md",
+      "bytes": 1908,
+      "sha256": "8fdbb518e9c276b844062f9b0e98b1054b2132c567528bf7a9143cc389aa5eeb"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/m66-incinerator-boss.md",
+      "bytes": 4927,
+      "sha256": "f997b13bab9e3f546c2a635731793a927720eae033da220b036ca7a4fdde2624"
+    }
+  ]
+}

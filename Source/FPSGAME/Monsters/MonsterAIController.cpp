@@ -1,4 +1,5 @@
 #include "MonsterAIController.h"
+#include "M66IncineratorMonster.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterNavigationCache.h"
 #include "BoundCongregate.h"
@@ -101,7 +102,16 @@ void AMonsterAIController::OnPossess(APawn* P)
  else UE_LOG(LogTemp,Error,TEXT("MONSTER_BT_MISSING %s"),*P->GetName());
 }
 void AMonsterAIController::OnUnPossess(){StopWander();StopMovement();if(BrainComponent)BrainComponent->StopLogic(TEXT("Unpossessed"));KnownTarget.Reset();EncounterTarget.Reset();EncounterArea.Reset();PendingDamageTarget.Reset();bPendingGroupAlert=false;PassiveDiscoveryAt=-1.f;Super::OnUnPossess();}
-void AMonsterAIController::SetDecisionEnabled(bool Enabled){bDecisionEnabled=Enabled;if(!Enabled){StopWander();StopMovement();}UpdateKnowledge();}
+void AMonsterAIController::SetDecisionEnabled(bool Enabled)
+{
+ bDecisionEnabled=Enabled;
+ if(!Enabled)
+ {
+  StopWander();StopMovement();
+  if(auto* M66=Cast<AM66IncineratorMonster>(GetPawn()))M66->CancelAttack();
+ }
+ UpdateKnowledge();
+}
 void AMonsterAIController::SetEncounterTarget(APawn* P)
 {
  EncounterTarget=P;bReturning=false;

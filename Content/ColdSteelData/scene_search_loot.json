@@ -855,6 +855,158 @@
           "weight": 10
         }
       ]
+    },
+    {
+      "id": "incineration_maintenance",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_precision_mechanism",
+          "weight": 25
+        },
+        {
+          "id": "search_assembly_component_box",
+          "weight": 20
+        },
+        {
+          "id": "search_forging_alloy_blank",
+          "weight": 20
+        },
+        {
+          "id": "search_high_temperature_thermocouple",
+          "weight": 15
+        },
+        {
+          "id": "search_industrial_multimeter",
+          "weight": 12
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 6
+        },
+        {
+          "id": "search_cordless_impact_wrench",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "incineration_protection",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_sealed_respirator_filter",
+          "weight": 70
+        },
+        {
+          "id": "search_high_temperature_thermocouple",
+          "weight": 10
+        },
+        {
+          "id": "search_industrial_filter_cartridge",
+          "weight": 10
+        },
+        {
+          "id": "search_precision_tool_kit",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "incineration_heat",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_refractory_ceramic_module",
+          "weight": 45
+        },
+        {
+          "id": "search_high_temperature_thermocouple",
+          "weight": 30
+        },
+        {
+          "id": "search_forging_alloy_blank",
+          "weight": 15
+        },
+        {
+          "id": "search_power_control_module",
+          "weight": 8
+        },
+        {
+          "id": "search_flue_gas_catalytic_core",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "incineration_records",
+      "group": "documents",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 65
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 25
+        },
+        {
+          "id": "search_sealed_incineration_archive",
+          "weight": 8
+        },
+        {
+          "id": "search_certified_admin_archive",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "incineration_filters",
+      "group": "maintenance",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_industrial_filter_cartridge",
+          "weight": 65
+        },
+        {
+          "id": "search_sealed_respirator_filter",
+          "weight": 25
+        },
+        {
+          "id": "search_flue_gas_catalytic_core",
+          "weight": 10
+        }
+      ]
     }
   ],
   "bindings": [
@@ -1890,6 +2042,246 @@
       "module": "AbandonedIsolationWard",
       "caption": "病人物品箱",
       "binding_scope": "Generated ward bedside family; storage retains complete unique ContainerId"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.ToolBox.1.0",
+      "pool": "incineration_maintenance",
+      "module": "ShoredBreach",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.ToolBox.2.0",
+      "pool": "incineration_maintenance",
+      "module": "ShoredBreach",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.ToolBox.3.0",
+      "pool": "incineration_maintenance",
+      "module": "ShoredBreach",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.ToolBox.4.0",
+      "pool": "incineration_maintenance",
+      "module": "ShoredBreach",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.ToolBox.5.0",
+      "pool": "incineration_maintenance",
+      "module": "ShoredBreach",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.ToolBox.6.0",
+      "pool": "incineration_maintenance",
+      "module": "ShoredBreach",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.PPELocker.1.0",
+      "pool": "incineration_protection",
+      "module": "ShoredBreach",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.PPELocker.2.0",
+      "pool": "incineration_protection",
+      "module": "ShoredBreach",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.ShoredBreach.PPELocker.3.0",
+      "pool": "incineration_protection",
+      "module": "ShoredBreach",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.0",
+      "pool": "incineration_records",
+      "module": "AbandonedIncineratorHall",
+      "caption": "停尸档案·登记记录"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.1",
+      "pool": "incineration_records",
+      "module": "AbandonedIncineratorHall",
+      "caption": "停尸档案·交接记录"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.2",
+      "pool": "incineration_records",
+      "module": "AbandonedIncineratorHall",
+      "caption": "停尸档案·设备记录"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.1.0",
+      "pool": "incineration_protection",
+      "module": "AbandonedIncineratorHall",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.2.0",
+      "pool": "incineration_protection",
+      "module": "AbandonedIncineratorHall",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.3.0",
+      "pool": "incineration_protection",
+      "module": "AbandonedIncineratorHall",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.0",
+      "pool": "incineration_heat",
+      "module": "AbandonedIncineratorHall",
+      "caption": "耐热器材柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.1",
+      "pool": "incineration_heat",
+      "module": "AbandonedIncineratorHall",
+      "caption": "耐热柜上层抽屉"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2.0",
+      "pool": "incineration_heat",
+      "module": "AbandonedIncineratorHall",
+      "caption": "耐热器材柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2.1",
+      "pool": "incineration_heat",
+      "module": "AbandonedIncineratorHall",
+      "caption": "耐热柜上层抽屉"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3.0",
+      "pool": "incineration_heat",
+      "module": "AbandonedIncineratorHall",
+      "caption": "耐热器材柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3.1",
+      "pool": "incineration_heat",
+      "module": "AbandonedIncineratorHall",
+      "caption": "耐热柜上层抽屉"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.1.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedIncineratorHall",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.2.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedIncineratorHall",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.3.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedIncineratorHall",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.4.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedIncineratorHall",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.PPELocker.1.0",
+      "pool": "incineration_protection",
+      "module": "AbandonedFlueGasStation",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.PPELocker.2.0",
+      "pool": "incineration_protection",
+      "module": "AbandonedFlueGasStation",
+      "caption": "防护用品柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1.0",
+      "pool": "incineration_heat",
+      "module": "AbandonedFlueGasStation",
+      "caption": "耐热器材柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1.1",
+      "pool": "incineration_heat",
+      "module": "AbandonedFlueGasStation",
+      "caption": "耐热柜上层抽屉"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2.0",
+      "pool": "incineration_heat",
+      "module": "AbandonedFlueGasStation",
+      "caption": "耐热器材柜"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2.1",
+      "pool": "incineration_heat",
+      "module": "AbandonedFlueGasStation",
+      "caption": "耐热柜上层抽屉"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.1.0",
+      "pool": "incineration_filters",
+      "module": "AbandonedFlueGasStation",
+      "caption": "滤芯运输箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.2.0",
+      "pool": "incineration_filters",
+      "module": "AbandonedFlueGasStation",
+      "caption": "滤芯运输箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.3.0",
+      "pool": "incineration_filters",
+      "module": "AbandonedFlueGasStation",
+      "caption": "滤芯运输箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.4.0",
+      "pool": "incineration_filters",
+      "module": "AbandonedFlueGasStation",
+      "caption": "滤芯运输箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.5.0",
+      "pool": "incineration_filters",
+      "module": "AbandonedFlueGasStation",
+      "caption": "滤芯运输箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.6.0",
+      "pool": "incineration_filters",
+      "module": "AbandonedFlueGasStation",
+      "caption": "滤芯运输箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.1.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedFlueGasStation",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.2.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedFlueGasStation",
+      "caption": "检修工具箱"
+    },
+    {
+      "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.3.0",
+      "pool": "incineration_maintenance",
+      "module": "AbandonedFlueGasStation",
+      "caption": "检修工具箱"
     }
   ]
 }

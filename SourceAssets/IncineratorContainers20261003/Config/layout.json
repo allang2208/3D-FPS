@@ -1787,5 +1787,6 @@
   "authoring_policy": "actual FBX triangle clearance; full opening envelope and 90cm front access; floor support and port/walk masks",
   "tests_run": false,
   "game_run": false,
-  "rewards_deferred": true
+  "rewards_deferred": false,
+  "loot_config": "Content/ColdSteelData/scene_search_loot.json"
 }

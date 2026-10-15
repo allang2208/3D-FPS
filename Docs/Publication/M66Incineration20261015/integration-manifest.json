@@ -1,0 +1,73 @@
+{
+  "git_reference": "456eb00c569cd956a646498f549c5a304625276a",
+  "normalization": "UTF-8 LF",
+  "scope": "M66 incineration regional increments; not standalone clean-checkout patch",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "00a23da9b2f5be3c8c81aff0c8e1ae134e79add22f97d34f6c9f493506edf68e",
+      "after_sha256": "ca1020164eb3d48b50973204da69d90138f7d73a564ea80a91082e7b491a20b0"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "4c5dea48417275005f0dd374df650bf5a2f1e26296dffaf2bbef371b37585e7f",
+      "after_sha256": "8e4fb4f3fa387ab212ec692c87af857ab94730b1d7370ae3f0ecea31a88755fd"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "3b5f5b0549aea6ced0d6efb0842ffbf1bea1d41bddff275437289b5ddb06d35b",
+      "after_sha256": "d00804015f3f248a0a9621af0bffa281d7875e0b3dd4fa3dd00bbb6a07f7a5fb"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "97a109f0e39e7042c1ff2e1923fb50966f8065fc89f94e4fc4bd2ce5b5c3522e",
+      "after_sha256": "2c17f4955cc19f8becf74b2a5e2bd69602a513ca2a7057bb84e714d6d349ab85"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "77a622c44605ffd149503800a9a9e22e3f882ee301ff9b55f60ac62406da19e6",
+      "after_sha256": "b82a89874c29df90ea85995dd842b87d57f977de569fe088e7c8b1c5c8f7eaf1"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "5d419682ad8228b9105e0cb2545c36b4763c3dc21d85b3bf4443db1e294f1321",
+      "after_sha256": "3c76418d96d2d8c9a8ec7d9c7d36ba4f182fcbf5500dd395ea17cc9cf0e46852"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "724ee6fa565ce996802f2d3b9acdcbd0a73a5475bd9546213646f74c0614b284",
+      "after_sha256": "0dae48f21db4f3a7b4fe65dc42398043d277b1d083690c8b2ce41384d9e8599f"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "ec86f93ca02c1d06cc70fbf4022521f70627c5380fac7ffc5ee63c340b6c63dc",
+      "after_sha256": "1bae1d9310bf06986627b99b2215d0cd229c8cb7bb458ec54a305d456ecf4e50"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "precondition": "local integrated context with only this increment removed",
+      "before_sha256": "32f2b40e66b1ef6339c0bb8f027cdab05c8e0e3bcbd80915c90e860b1c00e204",
+      "after_sha256": "edf4af579bdc134229c6c82bd37e726295e4a8d83b8c41e6704b76167e41faee"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityIncinerationEncounter.cpp",
+      "precondition": "new file",
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "30201b554c0f0bfaed2d460a7fcc7263f8ac562aa485efbb757ec6b7254ec851"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunIncineration.cpp",
+      "precondition": "new file",
+      "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256": "27ef3d929bef70231c104ebc4ca934398838c66a35784dda15a51839345951a5"
+    }
+  ]
+}

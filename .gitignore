@@ -4147,3 +4147,27 @@ __pycache__/
 !/SourceAssets/SteelWarhammer20261014/WindupV3/**/*.md
 /SourceAssets/SteelWarhammer20261014/WindupV3/**/Before/
 /SourceAssets/SteelWarhammer20261014/WindupV3/**/__pycache__/
+
+# M66 / incineration publication: original recipes only, assets and evidence stay local.
+/SourceAssets/IncineratorBossM66/**
+!/SourceAssets/IncineratorBossM66/*/
+!/SourceAssets/IncineratorBossM66/README.md
+!/SourceAssets/IncineratorBossM66/*/*.py
+!/SourceAssets/IncineratorBossM66/*/*.ps1
+!/SourceAssets/IncineratorBossM66/*/*.md
+/SourceAssets/IncineratorBossM66/*/Records/
+/SourceAssets/IncineratorBossM66/*/RuntimeHost*/
+/SourceAssets/IncinerationCollectibles20261015/**
+!/SourceAssets/IncinerationCollectibles20261015/README.md
+!/SourceAssets/IncinerationCollectibles20261015/build_native.ps1
+!/SourceAssets/IncinerationCollectibles20261015/Scripts/
+!/SourceAssets/IncinerationCollectibles20261015/Scripts/*.py
+!/SourceAssets/IncinerationCollectibles20261015/Scripts/*.ps1
+!/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/
+!/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/README.md
+!/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/install_revision.ps1
+!/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/
+!/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/*.py
+!/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/*.ps1
+/SourceAssets/IncinerationEncounter20261015/**
+!/SourceAssets/IncinerationEncounter20261015/README.md

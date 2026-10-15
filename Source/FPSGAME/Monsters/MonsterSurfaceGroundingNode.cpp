@@ -1,4 +1,5 @@
 #include "MonsterSurfaceGroundingNode.h"
+#include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
 #include "MonsterGroundSupport.h"
 #include "BlindSupplicantMonster.h"
@@ -24,7 +25,7 @@ void FMonsterSurfaceGroundingNode::Configure(const ACharacter* Owner)
     if (Owner->IsA<ARootCrownRigPreview>()) Rig=ERig::Tripod;
     else if (Owner->IsA<AVortexCofferM25>()) Rig=ERig::Tendrils;
     else if (Owner->IsA<ASpiralPillarM14>()) Rig=ERig::RootFan;
-    else if (Owner->IsA<ABlindSupplicantMonster>() || Owner->IsA<AMantisM27Monster>() ||
+    else if (Owner->IsA<AM66IncineratorMonster>() || Owner->IsA<ABlindSupplicantMonster>() || Owner->IsA<AMantisM27Monster>() ||
         Owner->ActorHasTag(TEXT("FacelessReceptionist")) || Owner->ActorHasTag(TEXT("FacelessSecurity")) ||
         Owner->ActorHasTag(TEXT("FacelessResearcher"))) Rig=ERig::Biped;
     else return;
@@ -44,6 +45,13 @@ void FMonsterSurfaceGroundingNode::Configure(const ACharacter* Owner)
         }
         else if (Rig==ERig::Biped)
         {
+            if(Owner->IsA<AM66IncineratorMonster>())
+            {
+                static const TCHAR* Names[2][3]={{TEXT("Bone_012"),TEXT("Bone_011"),TEXT("Bone_010")},
+                    {TEXT("Bone_017"),TEXT("Bone_016"),TEXT("Bone_015")}};
+                L.Upper.BoneName=Names[I][0];L.Lower.BoneName=Names[I][1];L.Foot.BoneName=Names[I][2];
+                continue;
+            }
             const FString Side=I==0?TEXT("l"):TEXT("r");
             L.Upper.BoneName=FName(TEXT("thigh_")+Side);
             L.Lower.BoneName=FName(TEXT("calf_")+Side);
@@ -139,6 +147,7 @@ void FMonsterSurfaceGroundingNode::CacheReference(const ACharacter* Owner)
 void FMonsterSurfaceGroundingNode::Prepare(const ACharacter* Owner, float DeltaSeconds)
 {
     const bool WasEnabled=Enabled;
+    Alpha=1.f;
     Enabled=false;
     if (!Owner) return;
     Configure(Owner);
@@ -146,6 +155,17 @@ void FMonsterSurfaceGroundingNode::Prepare(const ACharacter* Owner, float DeltaS
     const auto* Mesh=Owner->GetMesh();
     const auto* Move=Owner->GetCharacterMovement();
     if (!Move || !Move->IsMovingOnGround() || Mesh->IsSimulatingPhysics()) return;
+    if(const auto* M66=Cast<AM66IncineratorMonster>(Owner))
+    {
+        if(M66->Dead())return;
+        if(M66->IsKnockedDown())
+        {
+            float Age=0;bool Loop=false;M66->ReactionClip(Age,Loop);
+            if(M66->ReactionPhase()!=EM66Reaction::GetUp||Age<=.9f)return;
+            // Restore foot support as the side-rest overlay releases the torso.
+            Alpha=FMath::SmoothStep(.9f,1.8f,Age);
+        }
+    }
     if(const auto* Crown=Cast<ARootCrownRigPreview>(Owner);Crown&&(Crown->Dead()||Crown->IsKnockedDown()))return;
     if (const auto* Humanoid=Cast<ANurseZombie>(Owner))
         if (Humanoid->State==ENurseState::Dead || (Humanoid->Knockdown && Humanoid->Knockdown->IsControlling())) return;

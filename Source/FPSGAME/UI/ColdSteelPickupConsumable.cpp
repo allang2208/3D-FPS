@@ -75,7 +75,10 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
     const bool bAlchemyMaterial=Id==TEXT("alchemy_pure_base_fluid")||Id==TEXT("alchemy_compound_stabilizer")||
         Id==TEXT("alchemy_active_catalyst")||Id==TEXT("alchemy_redvein_extract")||
         Id==TEXT("alchemy_bluemarrow_crystals")||Id==TEXT("alchemy_silverleaf_essence");
-    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial)
+    const bool bIncinerationCollectible=Id==TEXT("search_sealed_respirator_filter")||Id==TEXT("search_refractory_ceramic_module")||
+        Id==TEXT("search_high_temperature_thermocouple")||Id==TEXT("search_industrial_filter_cartridge")||
+        Id==TEXT("search_sealed_incineration_archive")||Id==TEXT("search_flue_gas_catalytic_core");
+    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible)
     {
         auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
         if(!Asset)return false;

@@ -11,7 +11,7 @@ class UM14SoftBodyDeathComponent;
 DECLARE_MULTICAST_DELEGATE_TwoParams(FMonsterSoftBodyImpact, const FVector&, float);
 
 UENUM(BlueprintType)
-enum class EMonsterCorpseRig : uint8 { Canine, Maggot, HandBrain, FleshHand, Mawcrawler, HangingBell, SpiralPillar };
+enum class EMonsterCorpseRig : uint8 { Canine, Maggot, HandBrain, FleshHand, Mawcrawler, HangingBell, SpiralPillar, M66 };
 
 /** Death-only physics; no living knockdown/get-up behavior and no idle tick. */
 UCLASS(ClassGroup=AI)
@@ -32,8 +32,9 @@ public:
     bool HasSoftDeath() const;
     FMonsterSoftBodyImpact OnSoftBodyImpact;
     void RecordDeathPose(USkeletalMeshComponent* Mesh, float DeltaSeconds, bool bPoseAlreadyEvaluated = false);
-    bool Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity = FVector::ZeroVector);
+    bool Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity = FVector::ZeroVector, bool bKeepCurrentPose = false);
     bool WasAttempted() const { return bAttempted; }
+    bool IsFrozen() const { return bFrozen; }
     void FreezeAnimatedPose(USkeletalMeshComponent* Mesh);
     int32 SimulatedBodyCount() const { return bSimulating ? PhysicsBodyCount : 0; }
     bool CanReleaseCorpseBudget() const;

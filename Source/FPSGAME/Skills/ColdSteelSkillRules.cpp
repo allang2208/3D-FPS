@@ -1,4 +1,5 @@
 #include "ColdSteelSkillRules.h"
+#include "../Monsters/M66IncineratorMonster.h"
 #include "../Monsters/RootCrownRigPreview.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
@@ -399,6 +400,7 @@ bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
     if(const auto* M14=Cast<ASpiralPillarM14>(Hit.GetActor()))return M14->IsWeakpointHit(Hit);
     if(const auto* M09=Cast<AHangingBellM09>(Hit.GetActor()))return M09->IsWeakpointHit(Hit);
     if(const auto* M10=Cast<AM10Mawcrawler>(Hit.GetActor()))return M10->IsWeakpointHit(Hit);
+    if(const auto* M66=Cast<AM66IncineratorMonster>(Hit.GetActor()))return M66->IsWeakpointHit(Hit);
     // 手脑怪要害自定义：只有释放吼叫（Howl）期间命中张开的口部才算弱点；其余时间头部
     // （cranium）一律不触发要害必暴。随机暴击是角色属性驱动（见 Snapshot 的 crit chance），
     // 不经此处，所以近战/枪械仍可按概率对其暴击，符合"平时无固定弱点、可被随机暴击"的口径。

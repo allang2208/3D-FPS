@@ -1,4 +1,5 @@
 #include "MonsterToughnessProfiles.h"
+#include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
 #include "VortexCofferM25.h"
 #include "MonsterCombatComponent.h"
@@ -29,6 +30,7 @@ namespace MonsterToughnessProfileData
 {
 const TCHAR* SpeciesOf(const AActor* Monster)
 {
+    if(Cast<AM66IncineratorMonster>(Monster))return TEXT("incinerator_m66");
     if(Cast<ARootCrownRigPreview>(Monster))return TEXT("root_crown");
     if(Cast<AVortexCofferM25>(Monster))return TEXT("vortex_coffer_m25");
     if(Cast<ASpiralPillarM14>(Monster))return TEXT("spiral_pillar_m14");

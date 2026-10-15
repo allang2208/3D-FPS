@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "../Monsters/M66IncineratorMonster.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
@@ -107,7 +108,10 @@ void UCombatStatusFormula::InterruptOwnerActions(float Seconds)
 {
     if(auto* P=Cast<APawn>(GetOwner());P&&P->IsPlayerControlled())
         if(auto* Guard=P->FindComponentByClass<UPlayerGuardBreakComponent>()){Guard->Apply(Seconds);return;}
-    // 玩家侧统一走破防输入锁（它自带 stun 卡片与输入恢复），怪物侧沿用与冻结一致的四类中断链。
+    // M66 must cancel inside the damage callback, before another target/pulse
+    // can be processed; its replicated reaction clock carries the control.
+    if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner())){M66->InterruptAttack(Seconds);return;}
+    // 玩家侧统一走破防输入锁（它自带 stun 卡片与输入恢复），其他怪物沿用原中断链。
     if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
     if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
     if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);

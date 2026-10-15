@@ -1,4 +1,5 @@
 #include "MonsterCorpseRagdollComponent.h"
+#include "M66CorpseSurface.h"
 #include "M14SoftBodyDeath.h"
 #include "MonsterCombatComponent.h"
 #include "FleshHandKnockdownComponent.h"
@@ -26,6 +27,7 @@ UMonsterCorpseRagdollComponent::UMonsterCorpseRagdollComponent()
 FName UMonsterCorpseRagdollComponent::SelectAnchor(USkeletalMeshComponent* Mesh) const
 {
     if (!Mesh || !Mesh->GetSkeletalMeshAsset() || !Mesh->GetPhysicsAsset()) return NAME_None;
+    if (Rig == EMonsterCorpseRig::M66 && Mesh->GetBodyInstance(TEXT("Bone_001"))) return TEXT("Bone_001");
     if (Rig == EMonsterCorpseRig::SpiralPillar && Mesh->GetBodyInstance(TEXT("base"))) return TEXT("base");
     if (Rig == EMonsterCorpseRig::HangingBell && Mesh->GetBodyInstance(TEXT("spine_01"))) return TEXT("spine_01");
     if (Rig == EMonsterCorpseRig::Maggot && Mesh->GetBodyInstance(TEXT("body_04"))) return TEXT("body_04");
@@ -126,10 +128,10 @@ void UMonsterCorpseRagdollComponent::RecordDeathPose(USkeletalMeshComponent* Mes
     bHavePreviousPose = true;
 }
 
-bool UMonsterCorpseRagdollComponent::Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity)
+bool UMonsterCorpseRagdollComponent::Start(USkeletalMeshComponent* Mesh, const FVector& ImpactVelocity, bool bKeepCurrentPose)
 {
     if(TryStartSoftDeath(Mesh))return true;
-    if (bAttempted || !GetOwner()->HasAuthority()) return false;
+    if (bAttempted || (!GetOwner()->HasAuthority() && Rig != EMonsterCorpseRig::M66)) return false;
     bAttempted = true;
     BodyMesh = Mesh;
     if (!Mesh || !Mesh->GetPhysicsAsset()) return false;
@@ -152,8 +154,7 @@ bool UMonsterCorpseRagdollComponent::Start(USkeletalMeshComponent* Mesh, const F
     Mesh->SetComponentTickEnabled(true);
     Mesh->SetForcedLOD(1);
     Mesh->KinematicBonesUpdateType = EKinematicBonesUpdateToPhysics::SkipSimulatingBones;
-    Mesh->TickAnimation(0.f, false);
-    Mesh->RefreshBoneTransforms();
+    if (!bKeepCurrentPose) { Mesh->TickAnimation(0.f, false); Mesh->RefreshBoneTransforms(); }
     Mesh->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
     Mesh->SetCollisionProfileName(TEXT("Ragdoll"));
     Mesh->SetCollisionObjectType(ECC_Pawn);
@@ -220,8 +221,13 @@ void UMonsterCorpseRagdollComponent::AlignRootAndTune()
             Body->SetMassOverride(25.f * FMath::Pow(float(BodyMesh->GetComponentScale().GetAbsMax()), 3.f) *
                 Body->GetBodyMass() / OriginalMass, true);
         Body->SetUseCCD(true);
-        Body->LinearDamping = LinearDamping;
-        Body->AngularDamping = AngularDamping;
+        // M66's fitted convex asset authors its own damping. The generic
+        // defaults lowered .65/1.8 to .25/.9 and prolonged residual limb motion.
+        if(Rig!=EMonsterCorpseRig::M66)
+        {
+            Body->LinearDamping = LinearDamping;
+            Body->AngularDamping = AngularDamping;
+        }
         Body->UpdateDampingProperties();
         Body->SetMaxAngularVelocityInRadians(10.f, false);
         Body->SetMaxDepenetrationVelocity(80.f);
@@ -253,7 +259,10 @@ void UMonsterCorpseRagdollComponent::TickComponent(float DeltaSeconds, ELevelTic
     bGrounded = false;
     FHitResult Ground;
     bGrounded = MonsterRagdollPhysics::FindSupport(BodyMesh, Ground);
-    const bool bStable = bGrounded && MonsterRagdollPhysics::IsSettled(BodyMesh, 10.f, .3f);
+    const bool bSlow=MonsterRagdollPhysics::IsSettled(BodyMesh,10.f,.3f);
+    if(!bGrounded&&bSlow&&Rig==EMonsterCorpseRig::M66)
+        bGrounded=M66CorpseSurface::FindPhysicalSupport(BodyMesh,Ground);
+    const bool bStable = bGrounded && bSlow;
     StableAge = bStable ? StableAge + ProbeDelta : 0.f;
     if (PhysicsAge >= FMath::Max(1.2f, MinimumPhysicsSeconds) && StableAge >= FMath::Max(.5f, StableSeconds)) FreezePose(true);
 }
@@ -268,13 +277,14 @@ void UMonsterCorpseRagdollComponent::FreezeForBudget()
 }
 void UMonsterCorpseRagdollComponent::FreezeAnimatedPose(USkeletalMeshComponent* Mesh)
 {
-    if (bSimulating || bFrozen || !GetOwner()->HasAuthority()) return;
+    if (bSimulating || bFrozen || (!GetOwner()->HasAuthority() && Rig != EMonsterCorpseRig::M66)) return;
     BodyMesh = Mesh;
     if (!Mesh) return;
     Mesh->SetForcedLOD(1);
     Mesh->TickAnimation(0.f, false);
     Mesh->RefreshBoneTransforms();
-    MonsterRagdollPhysics::GroundAnimatedPose(Mesh);
+    if(Rig!=EMonsterCorpseRig::M66||!M66CorpseSurface::GroundAnimated(Mesh))
+        MonsterRagdollPhysics::GroundAnimatedPose(Mesh);
     FreezePose(false);
 }
 

@@ -1,0 +1,342 @@
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+@@ -23,0 +24 @@
++    bool bIncinerationBoss = false;
+@@ -24,0 +26,2 @@
++    bool bIncinerationBasement = false;
++    int32 IncinerationPosition = INDEX_NONE;
+@@ -85,0 +89,2 @@
++    static bool IsIncineration(const FString& Module);
++    static TArray<FString> IncinerationMonsterClassPaths();
+@@ -97,0 +103 @@
++    bool IsIncinerationBossDefeated() const;
+@@ -130,0 +137 @@
++    void ConfigureIncineration();
+@@ -132,0 +140,3 @@
++    bool FindIncinerationSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
++    void UpdateIncinerationBasement();
++    bool IsSlotReleased(const FFacilityHallSlot& Slot) const { return !Slot.bIncinerationBasement || bIncinerationBasementEntered; }
+@@ -177,0 +188,2 @@
++    int32 IncinerationBossSlot = INDEX_NONE;
++    bool bIncineration = false, bIncinerationBasementEntered = false;
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -17,0 +18 @@
++#include "../Monsters/M66IncineratorMonster.h"
+@@ -125 +126 @@
+-    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module) && !IsFinalBossRoom(Node->Module))) return;
++    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module) && !IsIncineration(Node->Module) && !IsFinalBossRoom(Node->Module))) return;
+@@ -140,0 +142,2 @@
++    bIncineration = IsIncineration(Room.Module);
++    if (bIncineration) { ConfigureIncineration(); return; }
+@@ -293,0 +297 @@
++    if (bIncineration) return FindIncinerationSpawn(Slot, Defaults, Location, Facing);
+@@ -352,0 +357 @@
++    if (!IsSlotReleased(Slot)) return false;
+@@ -408 +413 @@
+-    if (auto* Staff = Cast<ANurseZombie>(Monster)) Staff->Rank = EMonsterRank::Normal;
++    if (auto* Staff = Cast<ANurseZombie>(Monster); Staff && (!bIncineration || Slot.Member<2)) Staff->Rank = EMonsterRank::Normal;
+@@ -429,0 +435,5 @@
++    }
++    if (Slot.bIncinerationBoss)
++    {
++        CastChecked<AM66IncineratorMonster>(Monster)->Rank = EMonsterRank::Boss;
++        Monster->Tags.AddUnique(TEXT("DungeonObjective.IncinerationBoss"));
+@@ -451 +461,2 @@
+-    Monster->Tags.AddUnique(bPower ? TEXT("FacilityPowerEnemy") : bEcology ? TEXT("FacilityEcologyEnemy") : bFreight ? TEXT("FacilityFreightEnemy") : bMedical ? TEXT("FacilityMedicalEnemy") : TEXT("FacilityHallEnemy"));
++    Monster->Tags.AddUnique(bIncineration ? TEXT("FacilityIncinerationEnemy") : bPower ? TEXT("FacilityPowerEnemy") : bEcology ? TEXT("FacilityEcologyEnemy") : bFreight ? TEXT("FacilityFreightEnemy") : bMedical ? TEXT("FacilityMedicalEnemy") : TEXT("FacilityHallEnemy"));
++    if (Slot.bIncinerationBasement) Monster->Tags.AddUnique(TEXT("FacilityIncineration.Basement"));
+@@ -455 +466 @@
+-    if (!bMedical && !bFreight && !bEcology && !bPower && !bFinalBossRoom && !Slot.bObjectiveElite)
++    if (!bMedical && !bFreight && !bEcology && !bPower && !bIncineration && !bFinalBossRoom && !Slot.bObjectiveElite)
+@@ -468 +479 @@
+-    if (bMedical || bFreight || bEcology || bPower || bFinalBossRoom || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || Slot.bObjectiveElite)
+@@ -475 +486 @@
+-    if (bMedical || bFreight || bEcology || bPower || bFinalBossRoom || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || Slot.bObjectiveElite)
+@@ -533 +544 @@
+-            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss || Slot.bFinalBoss)Run->PublishSharedProgress();
++            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss || Slot.bIncinerationBoss || Slot.bFinalBoss)Run->PublishSharedProgress();
+@@ -612,0 +624 @@
++    if (bIncineration) UpdateIncinerationBasement();
+@@ -638 +650 @@
+-        if (!Slots[Index].bDefeated && !Slots[Index].Monster.IsValid())
++        if (IsSlotReleased(Slots[Index]) && !Slots[Index].bDefeated && !Slots[Index].Monster.IsValid())
+@@ -650 +662 @@
+-        UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s cleared: waves=%d kills=%d"), *Room.Module,(bMedical||bFreight||bEcology||bPower)?1:2,Slots.Num());
++        UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s cleared: waves=%d kills=%d"), *Room.Module,(bMedical||bFreight||bEcology||bPower||bIncineration)?1:2,Slots.Num());
+@@ -705 +717 @@
+-        if (Index != ObjectiveEliteSlot && !Slots[Index].bDefeated && !Slots[Index].Monster.IsValid())
++        if (Index != ObjectiveEliteSlot && IsSlotReleased(Slots[Index]) && !Slots[Index].bDefeated && !Slots[Index].Monster.IsValid())
+@@ -724 +736 @@
+-        return !Slot.bDefeated && !Slot.Monster.IsValid() && !Slot.bObjectiveElite
++        return IsSlotReleased(Slot) && !Slot.bDefeated && !Slot.Monster.IsValid() && !Slot.bObjectiveElite
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -110,0 +111 @@
++    bool IsIncinerationBossDefeated() const;
+@@ -174,0 +176 @@
++    bool bNetworkIncinerationBossDefeated=false;
+@@ -189,0 +192,2 @@
++    TWeakObjectPtr<class ADungeonThemeEncounter> IncinerationTheme;
++    void BindIncinerationTheme(AAuthoredDungeonGenerator* InGenerator);
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -60 +60 @@
+-                : IsRoomCleared(Node.Id);
++                : AFacilityHallEncounter::IsIncineration(Node.Module) ? IsIncinerationBossDefeated() : IsRoomCleared(Node.Id);
+@@ -162,0 +163 @@
++        BindIncinerationTheme(InGenerator);
+@@ -169,0 +171 @@
++                : AFacilityHallEncounter::IsIncineration(Node.Module) ? IncinerationTheme.Get()
+@@ -207,0 +210,2 @@
++    if (IncinerationTheme.IsValid()) IncinerationTheme->Destroy();
++    IncinerationTheme.Reset();
+@@ -216 +220 @@
+-    bNetworkEliteDefeated=false;bNetworkMedicalBossDefeated=false;bNetworkFreightBossDefeated=false;bNetworkEcologyBossDefeated=false;bNetworkPowerBossDefeated=false;SharedProgressMirror={};RoomsWithDefeats.Reset();
++    bNetworkEliteDefeated=false;bNetworkMedicalBossDefeated=false;bNetworkFreightBossDefeated=false;bNetworkEcologyBossDefeated=false;bNetworkPowerBossDefeated=false;bNetworkIncinerationBossDefeated=false;SharedProgressMirror={};RoomsWithDefeats.Reset();
+@@ -627,0 +632,11 @@
++    else if (AFacilityHallEncounter::IsIncineration(Room->Module))
++    {
++        Out.Stage=FText::FromString(TEXT("区域首领"));
++        Objective.Id=TEXT("treatment.incinerator_m66");
++        Objective.Text=FText::FromString(TEXT("击杀焚化区首领：焚骸 M-66"));
++        Objective.Current=IsIncinerationBossDefeated() ? 1 : 0;
++        Objective.Target=1;
++        Objective.State=Objective.Current==1 ? ETrackedObjectiveState::Completed : ETrackedObjectiveState::Active;
++        Out.Hint=FText::FromString(Objective.Current==1 ? TEXT("焚化区已通过 · 来路与出口已开放")
++            : TEXT("焚骸位于第三间烟气净化站 · 处理厅负一层在下楼进入后触发"));
++    }
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+@@ -38,0 +39 @@
++    State.bIncinerationBossDefeated=IsIncinerationBossDefeated();
+@@ -56,0 +58 @@
++    bNetworkIncinerationBossDefeated=State.bIncinerationBossDefeated;
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+@@ -10 +10 @@
+-enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, FreightBoss, EcologyBoss, PowerBoss, FinalBoss };
++enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, FreightBoss, EcologyBoss, PowerBoss, IncinerationBoss, FinalBoss };
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+@@ -110,0 +111 @@
++    if (Objective==EDungeonThemeObjective::IncinerationBoss) return Run->IsIncinerationBossDefeated();
+@@ -120,0 +122 @@
++    if (Objective==EDungeonThemeObjective::IncinerationBoss) return TEXT("treatment.incinerator_m66");
+diff --git a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+--- a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
++++ b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+@@ -17,0 +18 @@
++    UPROPERTY() bool bIncinerationBossDefeated = false;
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1044,0 +1045,7 @@
++        {return AFacilityHallEncounter::IsIncineration(Plan.Modules[Piece.Module].Id);}))
++    {
++        for(const FString& Path:AFacilityHallEncounter::IncinerationMonsterClassPaths())
++        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
++        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
++    }
++    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+diff --git a/Source/FPSGAME/Dungeons/FacilityIncinerationEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityIncinerationEncounter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityIncinerationEncounter.cpp
+@@ -0,0 +1,141 @@
++#include "FacilityHallEncounter.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/HundredEyedSlagMonster.h"
++#include "../Monsters/MantisM27Monster.h"
++#include "../Monsters/M66IncineratorMonster.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/PlayerController.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
++
++namespace
++{
++constexpr int32 Technician=0, Porter=1, Slag=2, Mantis=3, M66=4;
++float IncinerationFootprint(int32 Member) { return Member==M66 ? 225.f : Member==Slag ? 100.f : Member==Mantis ? 65.f : 44.f; }
++const FVector HallSlags[]={FVector(-650,-140,5),FVector(650,-140,5)};
++const FVector BasementSpawns[]={FVector(-500,300,-355),FVector(500,300,-355),FVector(-500,-300,-355),FVector(450,-300,-355)};
++// All three are on the central ground aisle, ahead of the z=240 rear platform.
++const FVector FlueSpawns[]={FVector(0,420,5),FVector(0,-180,5),FVector(0,-600,5)};
++}
++
++bool AFacilityHallEncounter::IsIncineration(const FString& Module)
++{ return Module==TEXT("ShoredBreach") || Module==TEXT("AbandonedIncineratorHall") || Module==TEXT("AbandonedFlueGasStation"); }
++
++TArray<FString> AFacilityHallEncounter::IncinerationMonsterClassPaths()
++{
++    return {
++        TEXT("/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C"),
++        TEXT("/Game/Monsters/CargoPorter/BP_CargoPorter.BP_CargoPorter_C"),
++        TEXT("/Script/FPSGAME.HundredEyedSlagMonster"),
++        TEXT("/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C"),
++        TEXT("/Game/Monsters/IncineratorBossM66/BP_M66RigPreview.BP_M66RigPreview_C")};
++}
++
++bool AFacilityHallEncounter::IsIncinerationBossDefeated() const
++{ return Slots.IsValidIndex(IncinerationBossSlot) && Slots[IncinerationBossSlot].bDefeated; }
++
++void AFacilityHallEncounter::ConfigureIncineration()
++{
++    const UClass* Expected[]={ANurseZombie::StaticClass(),ANurseZombie::StaticClass(),AHundredEyedSlagMonster::StaticClass(),AMantisM27Monster::StaticClass(),AM66IncineratorMonster::StaticClass()};
++    for (const FString& Path:IncinerationMonsterClassPaths())
++    {
++        UClass* Class=FSoftClassPath(Path).ResolveClass();
++        if (!Class || !Class->IsChildOf(Expected[Members.Num()]))
++        { UE_LOG(LogTemp,Error,TEXT("[IncinerationEncounter] Missing prepared class %s"),*Path); return; }
++        Members.Add(Class);
++    }
++    const uint32 Salt=Run->NodeRandomSalt(Room.Id);
++    FRandomStream Composition(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnComposition ^ Salt)));
++    Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement ^ Salt)));
++    const bool Hall=Room.Module==TEXT("AbandonedIncineratorHall"),Flue=Room.Module==TEXT("AbandonedFlueGasStation");
++    if (Flue)
++    {
++        IncinerationBossSlot=Slots.Num();auto& Boss=Slots.AddDefaulted_GetRef();
++        Boss.Member=M66;Boss.bIncinerationBoss=true;Boss.IncinerationPosition=0;
++    }
++    if (Hall || Flue) for (int32 I=0;I<2;++I)
++    { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=Slag;Slot.IncinerationPosition=Flue ? I+1 : I; }
++    const int32 StaffCount=Flue ? 0 : Composition.RandRange(6,8);
++    for (int32 I=0;I<StaffCount;++I)
++    {
++        auto& Slot=Slots.AddDefaulted_GetRef();
++        Slot.Member=I<2 ? I : Composition.RandRange(Technician,Porter);
++    }
++    if (Hall) for (int32 I=0;I<4;++I)
++    {
++        auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=I<2 ? Slag : Mantis;
++        Slot.IncinerationPosition=I;Slot.bIncinerationBasement=true;
++    }
++    FirstWaveCount=Slots.Num();bSecondWave=true;
++    GetWorldTimerManager().SetTimer(EncounterTimer,this,&AFacilityHallEncounter::UpdateEncounter,.2f,true);
++    UE_LOG(LogTemp,Log,TEXT("[IncinerationEncounter] room=%s staff=%d ground_slags=%d basement=%d m66=%d"),*Room.Module,StaffCount,(Hall||Flue)?2:0,Hall?4:0,Flue?1:0);
++}
++
++void AFacilityHallEncounter::UpdateIncinerationBasement()
++{
++    if (bIncinerationBasementEntered || Room.Module!=TEXT("AbandonedIncineratorHall") || !HasAuthority())return;
++    const FTransform Transform(FRotator(0,Room.Yaw,0),Room.Origin);
++    for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++    {
++        const APawn* Player=It->Get() ? It->Get()->GetPawn().Get() : nullptr;
++        if (!IsValid(Player))continue;
++        const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();
++        if (Health && Health->IsDead())continue;
++        const FVector Feet=Player->GetNavAgentLocation(),Local=Transform.InverseTransformPosition(Feet);
++        // B1 floor is -360 cm. Trigger on the final stair approach/actual B1,
++        // not on a ground-floor capsule over the stair opening or nearby room.
++        if (Local.Z> -300. || Local.Z< -400. || Local.X< -1360. || Local.X>1360.
++            || Local.Y< -1030. || Local.Y>1030. || Room.DistanceSquared(Feet)>FMath::Square(20.))continue;
++        bIncinerationBasementEntered=true;
++        UE_LOG(LogTemp,Log,TEXT("[IncinerationEncounter] basement entered: room=%d player=%s; releasing two Slag and two Mantis slots"),Room.Id,*Player->GetName());
++        return;
++    }
++}
++
++bool AFacilityHallEncounter::FindIncinerationSpawn(const FFacilityHallSlot& Slot,const ACharacter* Defaults,FVector& Location,FRotator& Facing)
++{
++    const FTransform Transform(FRotator(0,Room.Yaw,0),Room.Origin);
++    const bool Hall=Room.Module==TEXT("AbandonedIncineratorHall"),Flue=Room.Module==TEXT("AbandonedFlueGasStation");
++    const float Radius=FMath::Max(IncinerationFootprint(Slot.Member),Defaults->GetCapsuleComponent()->GetScaledCapsuleRadius());
++    for (int32 Attempt=0;Attempt<12;++Attempt)
++    {
++        FVector Candidate;
++        if (Slot.IncinerationPosition!=INDEX_NONE)
++        {
++            FVector Local=Slot.bIncinerationBasement ? BasementSpawns[Slot.IncinerationPosition]
++                : Flue ? FlueSpawns[Slot.IncinerationPosition] : HallSlags[Slot.IncinerationPosition];
++            if (Attempt>0)Local+=FVector(Placement.FRandRange(-100.f,100.f),Placement.FRandRange(-70.f,70.f),0);
++            Candidate=Transform.TransformPosition(Local);
++        }
++        else if (Hall)
++        {
++            const float Margin=Radius+35.f;
++            Candidate=Transform.TransformPosition(FVector(Placement.FRandRange(-1360.f+Margin,1360.f-Margin),
++                Placement.FRandRange(-470.f+Margin,225.f-Margin),5.f));
++        }
++        else
++        {
++            // ShoredBreach has several rotated author cells. Actual ground,
++            // collision and navigation below still decide valid placement.
++            const auto& Cells=Room.WalkCells.IsEmpty() ? Room.Cells : Room.WalkCells;
++            if (Cells.IsEmpty())return false;
++            const FBox& Cell=Cells[Placement.RandRange(0,Cells.Num()-1)];const double Margin=Radius+35.;
++            if (Cell.GetSize().X<=2*Margin || Cell.GetSize().Y<=2*Margin)continue;
++            Candidate=FVector(Placement.FRandRange(Cell.Min.X+Margin,Cell.Max.X-Margin),
++                Placement.FRandRange(Cell.Min.Y+Margin,Cell.Max.Y-Margin),Room.Origin.Z+5.);
++        }
++        bool Occupied=false;
++        for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if (const APawn* Player=It->Get() ? It->Get()->GetPawn().Get() : nullptr)
++                Occupied |= FMath::Abs(Player->GetNavAgentLocation().Z-Candidate.Z)<180.
++                    && FVector::DistSquared2D(Player->GetActorLocation(),Candidate)<FMath::Square(Slot.bIncinerationBoss ? 600. : 350.);
++        for (const auto& Other:Slots)if (Other.Monster.IsValid())
++            Occupied |= FMath::Abs(Other.Monster->GetNavAgentLocation().Z-Candidate.Z)<120.
++                && FVector::DistSquared2D(Other.Monster->GetActorLocation(),Candidate)<FMath::Square(Radius+IncinerationFootprint(Other.Member)+65.f);
++        if (Occupied || !FindSpawn(Defaults,Candidate,Location,Radius))continue;
++        Facing=FRotator(0,Room.Yaw+(Flue ? -90.f : Placement.FRandRange(-180.f,180.f)),0);
++        return true;
++    }
++    return false; // Keep this exact slot/floor pending; never force overlap or count a failure as death.
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunIncineration.cpp b/Source/FPSGAME/Dungeons/DungeonRunIncineration.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunIncineration.cpp
+@@ -0,0 +1,41 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "Engine/World.h"
++
++void UDungeonRunSubsystem::BindIncinerationTheme(AAuthoredDungeonGenerator* InGenerator)
++{
++    TArray<int32> IncinerationRooms;
++    for (const auto& Node:Nodes)
++        if (AFacilityHallEncounter::IsIncineration(Node.Module)) IncinerationRooms.Add(Node.Id);
++    if (IncinerationRooms.IsEmpty())return;
++    TArray<int32> AreaRooms=IncinerationRooms;
++    for (const auto& Node:Nodes)if (Node.bConnector)
++    {
++        TArray<int32> Neighbors;CollectNeighborRooms(Node.Id,Neighbors);
++        if (Neighbors.Num()>=2 && !Neighbors.ContainsByPredicate([&IncinerationRooms](int32 Id){return !IncinerationRooms.Contains(Id);}))
++            AreaRooms.Add(Node.Id);
++    }
++    TArray<FDungeonRunDoor> Boundaries;
++    for (const auto& Node:Nodes)if (IncinerationRooms.Contains(Node.Id))
++        for (const auto& Door:Node.Doors)if (!AreaRooms.Contains(Door.Neighbor))Boundaries.Add(Door);
++    if (IncinerationRooms.Num()==3 && Boundaries.Num()==2)
++    {
++        FActorSpawnParameters Params;Params.Owner=InGenerator;Params.ObjectFlags|=RF_Transient;
++        auto* Area=GetWorld()->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,Params);
++        if (Area && Area->Configure(this,InGenerator,AreaRooms,Boundaries,EDungeonThemeObjective::IncinerationBoss))IncinerationTheme=Area;
++        else if (Area)Area->Destroy();
++    }
++    if (!IncinerationTheme.IsValid())
++        UE_LOG(LogTemp,Error,TEXT("[IncinerationEncounter] Expected three treatment rooms and two boundaries; rooms=%d boundaries=%d"),IncinerationRooms.Num(),Boundaries.Num());
++}
++
++bool UDungeonRunSubsystem::IsIncinerationBossDefeated() const
++{
++    if (!bActive || !Generator.IsValid())return false;
++    if (GetWorld()->GetNetMode()==NM_Client)return bNetworkIncinerationBossDefeated;
++    for (const auto& Encounter:HallEncounters)
++        if (Encounter.IsValid() && Encounter->IsIncinerationBossDefeated())return true;
++    return false;
++}
