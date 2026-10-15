@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "slot": "hammer_heads",
+  "options": [
+    {
+      "id": "heavy_forged",
+      "name": "重铸方锤",
+      "description": "宽厚的锻钢方头配阶梯式收肩，击打面保留大倒角。",
+      "appearance": "宽方锤面 · 阶梯锤肩 · 成对锻钢头",
+      "stats": {
+        "physical_damage_mult": 1.2,
+        "attack_speed_mult": 0.9,
+        "stamina_mult": 1.15,
+        "toughness_damage_mult": 1.15
+      },
+      "effects": [
+        {
+          "text": "物理伤害 +20%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 -10%",
+          "benefit": -1
+        },
+        {
+          "text": "体力消耗 +15%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害 +15%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "flanged_breaker",
+      "name": "破韧棱锤",
+      "description": "放射状棱翼沿锤体纵向展开，末端以收边棱面聚拢。",
+      "appearance": "八道纵向棱翼 · 收边端面 · 成对棱锤",
+      "stats": {
+        "physical_damage_mult": 0.95,
+        "attack_speed_mult": 0.95,
+        "stamina_mult": 1.1,
+        "toughness_damage_mult": 1.4
+      },
+      "effects": [
+        {
+          "text": "物理伤害 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击速度 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "体力消耗 +10%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害 +40%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "light_drum",
+      "name": "轻量鼓锤",
+      "description": "紧凑的鼓形锤头带环槽束腰，两端圆缘包住内凹击打面。",
+      "appearance": "紧凑鼓形 · 环槽束腰 · 内凹端面",
+      "stats": {
+        "physical_damage_mult": 0.9,
+        "attack_speed_mult": 1.15,
+        "stamina_mult": 0.88,
+        "toughness_damage_mult": 0.85
+      },
+      "effects": [
+        {
+          "text": "物理伤害 -10%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击速度 +15%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 -12%",
+          "benefit": 1
+        },
+        {
+          "text": "韧性伤害 -15%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "pointed_hammer",
+      "name": "双棱尖头锤",
+      "description": "双侧尖头沿直轴对称展开，纵向棱脊与凹槽汇向尖端，短连接颈衔接中央锤座。",
+      "appearance": "双侧直尖 · 纵向棱槽 · 锻钢收肩",
+      "stats": {
+        "physical_damage_mult": 1.3,
+        "attack_speed_mult": 1.05,
+        "stamina_mult": 1.15,
+        "toughness_damage_mult": 0.75,
+        "physical_armor_penetration": 0.15
+      },
+      "effects": [
+        {
+          "text": "物理伤害 +30%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 +15%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害 -25%",
+          "benefit": -1
+        },
+        {
+          "text": "物理防御穿透 +15%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    }
+  ]
+}

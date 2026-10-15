@@ -89,7 +89,7 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
     const float Growth=float(L-1)/FMath::Max(1,FireballSkill.MaxLevel-1);
     const float BaseCooldown=FMath::Lerp(F.Cooldown,F.MinimumCooldown,Growth);
     C.Cooldown=FMath::Max(F.MinimumCooldown,BaseCooldown*float(1-SetEffect(TEXT("cooldown"))));
-    C.Cooldown*=Rune.MagicCooldown;
+    C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
     if(const auto* I=Equipped();I&&ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
@@ -99,7 +99,7 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
             const int32 Chain=Status?Status->ChainSpellStacks():0;
             C.Damage=FMath::FloorToFloat(C.Damage*(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent"))));
             C.Radius*=1+Craft(TEXT("fireballExplosionRadiusPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
-            C.Cooldown=BaseCooldown*FMath::Max(.2,(1-Craft(TEXT("magicCooldownPercent")))*(1-SetEffect(TEXT("cooldown"))))*Rune.MagicCooldown;
+            C.Cooldown=BaseCooldown*FMath::Max(.2,(1-Craft(TEXT("magicCooldownPercent")))*(1-SetEffect(TEXT("cooldown"))))*Rune.SkillCooldown*Rune.MagicCooldown;
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
             C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*I,TEXT("castHasteDuration"),5000)/1000;
             C.BurnMagicAttack=Derived(TEXT("matk"));C.BurnMultiplier=Craft(TEXT("fireBurnDamageMul"));

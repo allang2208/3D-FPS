@@ -134,6 +134,7 @@ void URuneOrbBladesComponent::OpenOrbit()
     float TanVertical;
     if (!ViewBasis(Eye, Forward, Right, Up, TanVertical)) return;
     const float Damage = BladeDamage(Profile);
+    CooldownDuration = BaseCooldownDuration * float(ColdSteelMelee::EquippedModifiers(Profile).SkillCooldown);
     // 2D craft-affix bridge, snapshotted per summon like the 2D trigger reads _craftEffects.
     ActiveBladeCount = BaseBladeCount; ActiveRangeCM = 1600.f; VulnerabilityStacks = 0;
     if (const auto* Item = Profile->Equipped())

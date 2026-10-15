@@ -1,0 +1,26 @@
+Generation mode: built-in image_gen
+Output: three-pommels-design.png
+Purpose: concept modeling reference; not a rendered model or a final attachment icon.
+
+Use case: stylized-concept
+Asset type: game weapon attachment concept sheet, a modeling reference, NOT an inventory icon.
+Create one polished landscape design board showing THREE distinct forged-steel warhammer pommel counterweights, arranged in three equal columns. Realistic physically plausible PBR metal, detailed industrial-fantasy craftsmanship, a clean warm light-gray studio background, restrained typography and thin layout dividers. These are small compact HANDLE-END counterweights, NOT hammer heads, not entire weapons.
+
+Board title in exact Chinese: "战锤 · 通用柄尾配重"
+Column titles, left to right, exact Chinese:
+"01  八棱镇击配重"
+"02  镂笼灵巧配重"
+"03  双盘平衡配重"
+
+Layout: each column contains a large three-quarter hero view occupying the upper two-thirds, and a lower strip of three smaller consistent orthographic views labeled "正面", "侧面", "底面". All views must depict the SAME design within their column. Keep the same physical scale and mounting-neck diameter across all three columns. All hero objects upright, narrow mounting neck pointing upward, tail pointing downward. Entire objects are visible with generous separation. Bottom views below each column clearly explain the end cap. Neutral soft studio lighting, crisp silhouette and readable dark cavities, moderate realistic contact shadows; no dramatic cinematic haze.
+
+LEFT — 八棱镇击配重:
+A solid compact eight-faceted steel weight, short narrow cylindrical mounting neck leading into sloped narrow upper shoulders and a fuller lower body. Eight broad planar facets around the body, strong but rounded/chamfered transitions. Squat elongated pear/truncated-octagonal form, flat broad chamfered bottom, a flush octagonal lock cap in the bottom face. Dense hand-forged dark silver steel, subtle hammer marks, polished brighter facet edges, carefully restrained wear. It must read as solid and massive, without spikes or protruding fins.
+
+CENTER — 镂笼灵巧配重:
+A compact rounded cage-shaped steel pommel. SIX substantial gently bowed longitudinal steel ribs connect the narrow upper mounting collar to a small round bottom disk, creating SIX long REAL see-through side windows. Large clear negative spaces; background and rear ribs can be seen THROUGH the windows. No solid ball, no core, no fabric liner, no gems inside. Each rib has visible finite thickness and softly chamfered rounded edges. Complete closed upper mounting collar. Bottom disk has one recessed central fastener. The silhouette is rounder and visually lighter than the left design, maximum width similar to the other pieces. Brushed dark forged steel, polished rib edges, darker inner surfaces.
+
+RIGHT — 双盘平衡配重:
+Exactly TWO thick horizontal metal disks stacked along the vertical shaft axis, rigidly joined by ONE short cylindrical central core. The upper disk near the handle is a little smaller in diameter; the lower tail disk is a little larger. Both disks have substantial thickness and wide rounded chamfers. A clearly open recessed circumferential gap BETWEEN the two disks reveals the fixed central core. This is one solid assembled part, not an exploded view, not floating rings. Above the upper disk, the SAME short narrow mounting neck as the other variants. Shallow concentric machining marks on the disks and a flush circular bottom lock cap. Readable twin-disk silhouette, matte forged silver-gray steel with slightly brighter turned surfaces.
+
+Constraints: one consistent metal family across all designs. No colored accents, magical glow, runes, gemstones, elaborate engraving, chains, tassels, hands, characters, full shafts or full weapons. No numerical dimensions, stat percentages, fake engineering certification, logos or watermark. No square riveted UI frames: this is the concept board, not final game icons. Smaller views match hero geometry and count of parts exactly. The shared mounting neck remains visually consistent across all variants. Render at high resolution with clear Chinese titles.

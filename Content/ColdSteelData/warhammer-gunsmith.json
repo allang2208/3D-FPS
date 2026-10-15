@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "weapon": "ue_steel_warhammer",
+  "traits": [
+    {
+      "icon": "special",
+      "text": "点按左键施展前方群体三连击，以双向斜挥衔接过顶下砸。"
+    },
+    {
+      "icon": "special",
+      "text": "按住左键蓄力，蓄满后松开砸向地面并释放圆形冲击波。"
+    },
+    {
+      "icon": "neutral",
+      "text": "改造栏包含双侧锤头、中央锤座、符文、握持包覆与柄尾配重。"
+    }
+  ],
+  "columns": [
+    {
+      "key": "hammer_heads",
+      "name": "双侧锤头",
+      "default": "原装双侧锤头",
+      "description": "两端对称的锻钢击打头与收颈连臂成对装配，保留原有倒角和锤面。",
+      "options": [
+        {
+          "id": "meteor_core",
+          "name": "陨星熔核",
+          "description": "八棱陨铁锤面嵌有星纹浮雕，青铜符箍束住承力笼架，暗橙熔光从内部陨石裂隙间缓缓流转。",
+          "appearance": "八棱星纹锤面 · 青铜符箍 · 熔岩裂隙",
+          "stats": {
+            "physical_damage_mult": 1.4,
+            "attack_speed_mult": 0.85,
+            "stamina_mult": 1.25,
+            "toughness_damage_mult": 1.4,
+            "shockwave_radius_mult": 1.5
+          },
+          "effects": [
+            {
+              "text": "物理伤害 +40%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击速度 -15%",
+              "benefit": -1
+            },
+            {
+              "text": "体力消耗 +25%",
+              "benefit": -1
+            },
+            {
+              "text": "韧性伤害 +40%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "震荡扩散｜重击与冲刺攻击的冲击波范围增加50%。"
+          ]
+        }
+      ],
+      "options_library": "common-hammer-heads.json"
+    },
+    {
+      "key": "head_mount",
+      "name": "中央锤座",
+      "default": "原装中央锤座",
+      "description": "中央方形锤座连接双侧锤头与柄杆，包含正背饰板和顶部固定帽。",
+      "options": [],
+      "options_library": "common-hammer-seats.json"
+    },
+    {
+      "key": "rune",
+      "name": "符文",
+      "default": "无符文",
+      "description": "未刻印符文，保留战锤原有的金属表面。",
+      "options": [],
+      "options_library": "melee-gunsmith.json",
+      "options_column": "blade_2"
+    },
+    {
+      "key": "grip",
+      "name": "握持包覆",
+      "default": "原装握持包覆",
+      "description": "下段螺旋缠裹与两端收口组成的握持模块，沿用当前双手接触位置。",
+      "options": [],
+      "options_library": "common-hammer-grips.json"
+    },
+    {
+      "key": "pommel",
+      "name": "柄尾配重",
+      "default": "原装柄尾配重",
+      "description": "柄尾的金属收束与圆钝配重，连接原装握持段下端。",
+      "options": [],
+      "options_library": "common-hammer-pommels.json"
+    }
+  ]
+}

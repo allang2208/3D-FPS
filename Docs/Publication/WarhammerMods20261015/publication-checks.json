@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-15",
+  "git_base": "8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+  "scope": "Warhammer modifications, common strength/resonance runes, scoped authority integration, original author recipes and skill references",
+  "archive_files": 86,
+  "archive_bytes": 11097260,
+  "archive_sha256_readback": true,
+  "python_syntax_files": 74,
+  "powershell_syntax_files": 25,
+  "patches_apply_to_declared_baselines": true,
+  "patch_baselines_are_not_interchangeable": true,
+  "publication_link_check": "passed; unpublished assets are described as local files",
+  "large_file_and_credential_pattern_review": "passed",
+  "media_and_licensed_source_assets_published": false,
+  "gameplay_or_build_rerun_for_publication": false,
+  "real_network_transport_tested": false,
+  "notes": "Previous complete-local-project build and native regression evidence is recorded separately in validation-evidence.json. This public slice requires the named integration prerequisites."
+}

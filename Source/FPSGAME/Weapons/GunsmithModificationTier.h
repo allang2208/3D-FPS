@@ -10,6 +10,8 @@ namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("hammer_heads")&&Id==TEXT("meteor_core"))
+        return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("optic")&&Id==TEXT("thermal_scope"))return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("trigger")&&Id==FullAutoTrigger::Part&&FullAutoTrigger::Supports(Weapon))
         return EGunsmithModificationTier::Legendary;
@@ -19,6 +21,8 @@ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotK
         return EGunsmithModificationTier::Legendary;
     if(Weapon==TEXT("ue_xuanchi_zhenyue")&&SlotKey==TEXT("blade_2")&&(Id==TEXT("zhenmo_rune")||Id==TEXT("jingang_rune")))
         return EGunsmithModificationTier::Legendary;
+    if(SlotKey==TEXT("hammer_heads")&&Id==TEXT("pointed_hammer"))
+        return EGunsmithModificationTier::Special;
     const bool VipGrip=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("reargrip")&&Id==TEXT("pit_viper_vip_scales");
     const bool SiMuzzle=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("muzzle")&&Id==TEXT("pit_viper_si_compensator");
     const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");

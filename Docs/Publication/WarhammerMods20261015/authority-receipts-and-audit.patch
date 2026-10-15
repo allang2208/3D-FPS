@@ -1,0 +1,406 @@
+diff --git a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -6,10 +6,12 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelProfileRecovery.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "../Building/VoxelBuildComponent.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "GameFramework/PlayerController.h"
++#include "GameFramework/GameStateBase.h"
+ #include "Engine/World.h"
+ 
+ namespace
+@@ -75,7 +77,9 @@
+     const float Resume=Heavy||bSprintAttack?0.f:BluntChargeResume(Held);
+     bBluntServerCharging=false;
+     const FProductionToolStats Stats=ToolStats;
+-    if(!Profile->SpendStamina(float(Stats.StaminaCost))){Reject();return;}
++    const double AttackCost=Heavy&&!bSprintAttack?Stats.HeavyReleaseStaminaCost:Stats.StaminaCost;
++    if(!Profile->SpendStamina(float(AttackCost))){Reject();return;}
++    ClientBluntStaminaSpent(AttackId,float(AttackCost));
+     Item=Profile->ActiveProductionTool();
+     if(!Item||Item->InstanceId!=SourceInstance){Reject();return;}
+     if(BluntServerInstance!=SourceInstance||World->GetTimeSeconds()>BluntServerComboExpires||Held>.20f)BluntServerNextStage=0;
+@@ -152,3 +156,50 @@
+         if(!bHeavy)Elapsed=RealContactSeconds();
+     }
+ }
++
++bool UProductionToolComponent::ApplyBluntStaminaReceipt(UColdSteelStatusModel* Profile,uint32 AttackId,float Amount)
++{
++    if(!Profile||static_cast<int32>(AttackId-LastBluntStaminaReceipt)<=0||!FMath::IsFinite(Amount)||Amount<0.f)return false;
++    LastBluntStaminaReceipt=AttackId;
++    // Accepted costs survive animation cancellation or a later equipment change.
++    // Local regeneration/other spending may have advanced since the server's cut.
++    if(Amount>0.f)
++    {
++        Profile->SpendStamina(FMath::Min(Profile->Stamina(),Amount));
++        Profile->DelayStaminaRecovery();
++    }
++    return true;
++}
++
++void UProductionToolComponent::ClientBluntStaminaSpent_Implementation(uint32 AttackId,float Amount)
++{
++    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
++    if(!Pawn||Pawn->HasAuthority()||!Pawn->IsLocallyControlled())return;
++    ApplyBluntStaminaReceipt(ColdSteelAuthority::ForPawn(Pawn),AttackId,Amount);
++}
++
++void UProductionToolComponent::SendBluntMartialReceipt(UColdSteelStatusModel* Profile,uint32 AttackId,float Amount)
++{
++    if(!Profile||!GetWorld())return;
++    const auto State=Profile->Snapshot();const auto* GS=GetWorld()->GetGameState();
++    ClientBluntMartialCommitted(AttackId,Amount,State.MartialCooldownRevision,
++        State.WhirlwindCooldown,State.WhirlwindCooldownDuration,State.SwordUppercutCooldown,State.SwordUppercutCooldownDuration,
++        GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds());
++}
++
++void UProductionToolComponent::ClientBluntMartialCommitted_Implementation(uint32 AttackId,float Amount,int64 Revision,
++    float Whirlwind,float WhirlwindDuration,float Uppercut,float UppercutDuration,double ServerAt)
++{
++    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
++    if(!Pawn||Pawn->HasAuthority()||!Pawn->IsLocallyControlled())return;
++    auto* Profile=ColdSteelAuthority::ForPawn(Pawn);if(!Profile)return;
++    ApplyBluntStaminaReceipt(Profile,AttackId,Amount);
++    auto State=Profile->Snapshot();auto Incoming=State;
++    Incoming.MartialCooldownRevision=Revision;
++    Incoming.WhirlwindCooldown=Whirlwind;Incoming.WhirlwindCooldownDuration=WhirlwindDuration;
++    Incoming.SwordUppercutCooldown=Uppercut;Incoming.SwordUppercutCooldownDuration=UppercutDuration;
++    const auto* GS=GetWorld()->GetGameState();
++    const double Now=GS?GS->GetServerWorldTimeSeconds():ServerAt;
++    ColdSteelProfileRecovery::MartialCooldowns(State,Incoming,float(FMath::Max(0.,Now-ServerAt)));
++    Profile->AdoptNetMirror(State);Profile->OnStaminaChanged.Broadcast();
++}
+diff --git a/Source/FPSGAME/Production/ProductionBluntUppercut.cpp b/Source/FPSGAME/Production/ProductionBluntUppercut.cpp
+--- a/Source/FPSGAME/Production/ProductionBluntUppercut.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntUppercut.cpp
+@@ -139,8 +139,13 @@
+         const float To=BluntUppercutPoseTime();
+         if(!bBluntUppercutReleased&&To>=RuneSwordUppercutMotion::ReleaseStart)
+         {
+-            if(Pawn->HasAuthority()&&!Profile->CommitSwordUppercutRelease())
+-            {ClientBluntUppercutResult(BluntAttackId,false);FinishBluntUppercut();return;}
++            if(Pawn->HasAuthority())
++            {
++                const float StaminaBefore=Profile->Stamina();
++                if(!Profile->CommitSwordUppercutRelease())
++                {ClientBluntUppercutResult(BluntAttackId,false);FinishBluntUppercut();return;}
++                SendBluntMartialReceipt(Profile,BluntAttackId,FMath::Max(0.f,StaminaBefore-Profile->Stamina()));
++            }
+             if(!bBluntUppercut)return;
+             bBluntUppercutReleased=true;
+         }
+diff --git a/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp b/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
+--- a/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp
+@@ -58,7 +58,9 @@
+     if(!CanWhirlwind(Pawn,Profile)||bBluntUppercut||bBluntWhirlwind||bBluntServerCharging||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
+     {ClientBluntWhirlwindResult(AttackId,false);return;}
+     ColdSteelAuthority::FScope Scope(Profile);
++    const float StaminaBefore=Profile->Stamina();
+     if(!Profile->CommitWhirlwindCast(Profile->WhirlwindStats())){ClientBluntWhirlwindResult(AttackId,false);return;}
++    SendBluntMartialReceipt(Profile,AttackId,FMath::Max(0.f,StaminaBefore-Profile->Stamina()));
+     Character=Pawn;BluntAttackId=BluntServerAttackId=AttackId;
+     StartBluntWhirlwind(Profile);ClientBluntWhirlwindResult(AttackId,true);
+ }
+diff --git a/Source/FPSGAME/Production/ProductionToolComponent.h b/Source/FPSGAME/Production/ProductionToolComponent.h
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -31,6 +31,7 @@
+     GENERATED_BODY()
+     friend class UFPSConsumableAuditCommandlet;
+     friend class UWarhammerSprintAuditCommandlet;
++    friend class UWarhammerModificationAuditCommandlet;
+ public:
+     UProductionToolComponent();
+     virtual void BeginPlay() override;
+@@ -130,6 +131,11 @@
+     void TickAuthorityBluntCharge();
+     UFUNCTION(Server,Reliable) void ServerCancelBluntAttack(uint32 AttackId);
+     UFUNCTION(Client,Reliable) void ClientBluntAttackResult(uint32 AttackId,int32 Stage,bool bAccepted,bool bConfirmed,bool bHeavy,bool bSprint=false);
++    UFUNCTION(Client,Reliable) void ClientBluntStaminaSpent(uint32 AttackId,float Amount);
++    UFUNCTION(Client,Reliable) void ClientBluntMartialCommitted(uint32 AttackId,float Amount,int64 Revision,
++        float Whirlwind,float WhirlwindDuration,float Uppercut,float UppercutDuration,double ServerAt);
++    void SendBluntMartialReceipt(UColdSteelStatusModel* Profile,uint32 AttackId,float Amount);
++    bool ApplyBluntStaminaReceipt(UColdSteelStatusModel* Profile,uint32 AttackId,float Amount);
+     FTimerHandle BluntContactTimer;
+     double BluntServerReadyAt=0.;
+     double BluntServerGroundSlamUntil=0.;
+@@ -137,6 +143,7 @@
+     FString BluntServerInstance;
+     int32 BluntStage=0,NextBluntStage=0,BluntServerNextStage=0;
+     uint32 BluntAttackId=0,BluntServerAttackId=0;
++    uint32 LastBluntStaminaReceipt=0;
+     bool bQueuedBluntAttack=false;
+     bool bBluntCharging=false,bBluntHeavy=false,bBluntReleaseCharge=false,bBluntServerCharging=false;
+     bool bBluntReturningCharge=false;
+diff --git a/Source/FPSGAME/Production/WarhammerCombat.cpp b/Source/FPSGAME/Production/WarhammerCombat.cpp
+--- a/Source/FPSGAME/Production/WarhammerCombat.cpp
++++ b/Source/FPSGAME/Production/WarhammerCombat.cpp
+@@ -1,9 +1,41 @@
+ #include "WarhammerCombat.h"
+ #include "ProductionBluntCombo.h"
++#include "WarhammerHeavyMotion.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "Engine/GameInstance.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+ #include "../Monsters/MonsterCoreStats.h"
+ #include "../Combat/CombatStatusFormula.h"
++
++float WarhammerCombat::ShockwaveRadius(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile)
++{
++    const float Base=float(ColdSteelInventory::Number(Item,TEXT("heavy_wave_radius_cm"),WarhammerHeavy::Radius));
++    if(Item.Definition!=TEXT("ue_steel_warhammer")||!Profile)return Base;
++    const auto* GI=Profile->GetGameInstance();
++    const auto* Gunsmith=GI?GI->GetSubsystem<UGunsmithSystem>():nullptr;
++    const auto* Weapon=Gunsmith?Gunsmith->ModifiableWeapon(Item.Definition):nullptr;
++    if(!Weapon||!Weapon->Source)return Base;
++    const FString Head=Gunsmith->Installed(Item).FindRef(TEXT("hammer_heads"));
++    if(Head.IsEmpty())return Base;
++    // Read the already-loaded exclusive catalogue once when committing tool stats.
++    // This modifier is specific to ground waves, independent of ordinary melee reach.
++    for(const auto& Entry:Weapon->Source->GetArrayField(TEXT("columns")))
++    {
++        const auto Column=Entry->AsObject();
++        if(Column->GetStringField(TEXT("key"))!=TEXT("hammer_heads"))continue;
++        for(const auto& Value:Column->GetArrayField(TEXT("options")))
++        {
++            const auto Option=Value->AsObject();
++            if(Option->GetStringField(TEXT("id"))!=Head)continue;
++            double Multiplier=1.;const TSharedPtr<FJsonObject>* Stats=nullptr;
++            if(Option->TryGetObjectField(TEXT("stats"),Stats))
++                (*Stats)->TryGetNumberField(TEXT("shockwave_radius_mult"),Multiplier);
++            return Base*float(Multiplier);
++        }
++    }
++    return Base;
++}
+ 
+ FWeaponDamageParts WarhammerCombat::Damage(const FWeaponDamageParts& Base,const UColdSteelStatusModel* Profile,
+     bool bSprint,bool bHeavy,float HeavyMultiplier,int32 Stage)
+diff --git a/Source/FPSGAME/Production/WarhammerCombat.h b/Source/FPSGAME/Production/WarhammerCombat.h
+--- a/Source/FPSGAME/Production/WarhammerCombat.h
++++ b/Source/FPSGAME/Production/WarhammerCombat.h
+@@ -3,10 +3,12 @@
+ 
+ class UColdSteelStatusModel;
+ class AActor;
++struct FColdSteelItem;
+ 
+ namespace WarhammerCombat
+ {
+     constexpr float HeavyStunSeconds=2.f;
++    float ShockwaveRadius(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile);
+     FWeaponDamageParts Damage(const FWeaponDamageParts& Base,const UColdSteelStatusModel* Profile,
+         bool bSprint,bool bHeavy,float HeavyMultiplier,int32 Stage);
+     void ApplyHeavyStun(AActor* Target,float Seconds);
+diff --git a/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp b/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp
+@@ -0,0 +1,173 @@
++#include "WarhammerModificationAuditCommandlet.h"
++#include "ProductionToolComponent.h"
++#include "WarhammerCombat.h"
++#include "../FPSGAMECharacter.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/GunsmithSystem.h"
++#include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/ModularSwordVisual.h"
++#include "../Weapons/MeleeRuneVisual.h"
++#include "../Characters/FPSBodyRuneVisual.h"
++#include "../Characters/FPSPlayerBodyTypes.h"
++#include "Components/StaticMeshComponent.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Materials/Material.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Engine/Texture.h"
++#include "Serialization/JsonSerializer.h"
++#include "Serialization/ObjectAndNameAsStringProxyArchive.h"
++#include "Serialization/MemoryReader.h"
++#include "Serialization/MemoryWriter.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Misc/Parse.h"
++
++namespace
++{
++void SetParts(FColdSteelItem& Item,const FGunsmithParts& Parts)
++{
++    TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data);
++    auto Mods=MakeShared<FJsonObject>();for(const auto& Pair:Parts)Mods->SetStringField(Pair.Key,Pair.Value);
++    Data->SetObjectField(TEXT("gunsmith_parts"),Mods);Item.Data.Reset();
++    FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
++}
++bool Near(double A,double B){return FMath::IsNearlyEqual(A,B,.001);}
++}
++
++int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    const FString Slot=TEXT("HammerModsAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("WarhammerModificationAudit -ColdSteelProfile=")+Slot));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("HammerModsAuditWorld"));
++    auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();auto* G=GI->GetSubsystem<UGunsmithSystem>();
++    if(!World||!Host||!G||Host->ProfileSlot()!=TEXT("ColdSteel_")+Slot)return 2;
++    TArray<TSharedPtr<FJsonValue>> Rows;int32 Failures=0;
++    const auto Check=[&](bool Passed,const FString& Label,double Actual=0.,double Expected=0.)
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("check"),Label);Row->SetBoolField(TEXT("pass"),Passed);
++        Row->SetNumberField(TEXT("actual"),Actual);Row->SetNumberField(TEXT("expected"),Expected);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failures+=!Passed;
++        UE_LOG(LogTemp,Display,TEXT("HAMMER_MODS %s %s actual=%.5f expected=%.5f"),Passed?TEXT("PASS"):TEXT("FAIL"),*Label,Actual,Expected);
++    };
++    auto Seed=Host->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();
++    Seed.Stamina=100;Seed.bSprintExhausted=false;Seed.SwordUppercutCooldown=Seed.WhirlwindCooldown=0.f;
++    Seed.Skills.FindOrAdd(TEXT("swordUppercut")).Level=1;Seed.Skills.FindOrAdd(TEXT("whirlwind")).Level=1;
++    auto Hammer=Host->CreateItem(TEXT("ue_steel_warhammer"));Hammer.Place=1;Hammer.Cell=6;
++    const auto Equip=[&](UColdSteelStatusModel* Model,const FColdSteelItem& Item)
++    {auto State=Seed;State.Items.Add(Item);Model->AdoptNetMirror(State);};
++    Equip(Host,Hammer);
++    const auto Factory=ColdSteelTool::Evaluate(Hammer,Host);
++    const float Fireball=Host->FireballStats().Cooldown,Uppercut=Host->SwordUppercutCooldownSeconds();
++    SetParts(Hammer,{{TEXT("rune"),TEXT("resonance_rune")},{TEXT("pommel"),TEXT("twin_disc_balance")}});Equip(Host,Hammer);
++    Check(Near(Host->FireballStats().Cooldown/Fireball,.85),TEXT("hammer resonance applies to magic cooldown"),Host->FireballStats().Cooldown/Fireball,.85);
++    Check(Near(Host->SwordUppercutCooldownSeconds()/Uppercut,.68),TEXT("resonance and balancing pommel multiply for martial cooldown"),Host->SwordUppercutCooldownSeconds()/Uppercut,.68);
++    const auto HammerMods=ColdSteelMelee::EquippedModifiers(Host);
++    Check(Near(HammerMods.SkillCooldown,.85)&&Near(HammerMods.MartialCooldown,.8),TEXT("tool executor preserves hammer equipped passives"));
++    auto Axe=Host->CreateItem(TEXT("tool_axe"));Axe.Place=1;Axe.Cell=6;Equip(Host,Axe);
++    Check(Near(ColdSteelMelee::EquippedModifiers(Host).SkillCooldown,1.),TEXT("harvesting axe does not inherit stored hammer passives"));
++
++    // Every registered hammer option executes the real normalization and evaluator.
++    const auto* Catalog=G->ModifiableWeapon(Hammer.Definition);
++    for(const auto& Column:Catalog->Options)for(const auto& Part:Column.Value)if(Part.Id!=TEXT("false"))
++    {
++        FGunsmithParts Parts{{Column.Key,Part.Id}};
++        const auto Normal=G->Normalize(Hammer.Definition,Parts);const auto M=G->Calculate(Hammer.Definition,Normal).Melee;
++        Check(Normal.FindRef(Column.Key)==Part.Id,TEXT("option survives normalization ")+Column.Key+TEXT("/")+Part.Id);
++        Check(Near(M.PhysicalDamage,Part.Melee.PhysicalDamage)&&Near(M.AttackSpeed,Part.Melee.AttackSpeed)&&
++            Near(M.Stamina,Part.Melee.Stamina)&&Near(M.ToughnessDamage,Part.Melee.ToughnessDamage)&&
++            Near(M.HeavyChargeSpeedBonus,Part.Melee.HeavyChargeSpeedBonus)&&Near(M.HeavyReleaseStamina,Part.Melee.HeavyReleaseStamina)&&
++            Near(M.PhysicalArmorPenetration,Part.Melee.PhysicalArmorPenetration),TEXT("native modifier evaluation ")+Part.Id);
++    }
++    const TArray<FString> Weapons={TEXT("ue_rune_sword"),TEXT("ue_frost_crystal_sword"),TEXT("ue_highland_claymore"),TEXT("ue_tang_dao"),TEXT("ue_xuanchi_zhenyue"),TEXT("ue_steel_warhammer")};
++    for(const auto& Id:Weapons)
++    {
++        auto Item=Host->CreateItem(Id);Item.Place=1;Item.Cell=6;Equip(Host,Item);
++        const bool Blunt=ColdSteelInventory::IsTwoHandedBlunt(Item);
++        const auto Before=Blunt?ColdSteelTool::Evaluate(Item,Host).Damage:ColdSteelMelee::Evaluate(Item,Host).DamageParts;
++        const FString RuneSlot=Blunt?TEXT("rune"):TEXT("blade_2");
++        SetParts(Item,{{RuneSlot,TEXT("strength_rune")}});Equip(Host,Item);
++        const auto After=Blunt?ColdSteelTool::Evaluate(Item,Host).Damage:ColdSteelMelee::Evaluate(Item,Host).DamageParts;
++        Check(Near(After.BasePhysical,Before.BasePhysical*1.1)&&Near(After.AddedMagic,Before.AddedMagic),TEXT("strength physical-only native damage ")+Id,After.BasePhysical,Before.BasePhysical*1.1);
++        Check(G->Installed(Item).FindRef(RuneSlot)==TEXT("strength_rune"),TEXT("installed payload roundtrip ")+Id);
++        auto* Actor=World->SpawnActor<AActor>();auto* Root=NewObject<UStaticMeshComponent>(Actor);
++        Actor->SetRootComponent(Root);Actor->AddInstanceComponent(Root);Root->RegisterComponent();
++        Check(ColdSteelModularSword::Apply(Root,Item),TEXT("installed modular assembly ")+Id);
++        int32 Carriers=0;
++        for(auto* Source:ColdSteelModularSword::Components(Root))
++        {
++            FFPSBodyAttachment Description;FPSBodyRuneVisual::Capture(Source,&Item,Description);
++            if(Description.RuneDefinition.IsEmpty())continue;
++            ++Carriers;TArray<uint8> Bytes;
++            {FMemoryWriter Writer(Bytes);FObjectAndNameAsStringProxyArchive Ar(Writer,false);FFPSBodyAttachment::StaticStruct()->SerializeItem(Ar,&Description,nullptr);}
++            FFPSBodyAttachment Read;
++            {FMemoryReader Reader(Bytes);FObjectAndNameAsStringProxyArchive Ar(Reader,true);FFPSBodyAttachment::StaticStruct()->SerializeItem(Ar,&Read,nullptr);}
++            Check(FPSBodyRuneVisual::Key(Read)==FPSBodyRuneVisual::Key(Description)&&Read.RuneId==TEXT("strength_rune"),TEXT("replicated attachment data roundtrip ")+Id);
++            auto* Remote=NewObject<UStaticMeshComponent>(Actor);Actor->AddInstanceComponent(Remote);Remote->SetStaticMesh(Source->GetStaticMesh());
++            for(int32 Index=0;Index<Source->GetNumMaterials();++Index)
++            {
++                UMaterialInterface* Material=Source->GetMaterial(Index);while(auto* MID=Cast<UMaterialInstanceDynamic>(Material))Material=MID->Parent;
++                Remote->SetMaterial(Index,Material);
++            }
++            FPSBodyRuneVisual::Apply(Remote,Read);bool Red=false,Mask=false;
++            for(int32 Index=0;Index<Remote->GetNumMaterials();++Index)
++            {
++                auto* MID=Cast<UMaterialInstanceDynamic>(Remote->GetOverlayMaterial(true,Index));
++                if(!MID)MID=Cast<UMaterialInstanceDynamic>(Remote->GetMaterial(Index));if(!MID)continue;
++                const auto Color=MID->K2_GetVectorParameterValue(TEXT("ConductionCoreColor"));
++                Red|=Color.R>.8&&Color.G<.02&&Color.B<.025;
++                auto* Texture=MID->K2_GetTextureParameterValue(TEXT("RuneTexture"));Mask|=Texture&&Texture->GetName()==TEXT("T_Mask_strength_rune");
++            }
++            Check(Red&&Mask,TEXT("observer reconstructs red strength ink ")+Id);
++            FFPSBodyAttachment Empty;Check(FPSBodyRuneVisual::Key(Read)!=FPSBodyRuneVisual::Key(Empty),TEXT("rune-only selection invalidates equipment key ")+Id);
++        }
++        Check(Carriers>0,TEXT("rune carrier captured ")+Id,Carriers,1);
++        ColdSteelModularSword::Clear(Root);Actor->Destroy();
++    }
++
++    // Remote player authority must spend only that player's shadow stamina.
++    SetParts(Hammer,{{TEXT("hammer_heads"),TEXT("pointed_hammer")},{TEXT("pommel"),TEXT("no_pommel")},{TEXT("rune"),TEXT("strength_rune")}});
++    auto GuestSeed=Seed;GuestSeed.Items.Add(Hammer);
++    auto* Guest=Host->CreateShadowModel(GuestSeed);
++    auto* Pawn=World->SpawnActor<AFPSGAMECharacter>();auto* PC=World->SpawnActor<AWarhammerAuditRemoteController>();
++    auto* PS=World->SpawnActor<AColdSteelPlayerState>();PC->PlayerState=PS;PC->Possess(Pawn);PS->ShadowModel=Guest;Guest->AttachPawn(Pawn);
++    auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool->Character=Pawn;Tool->Kind=TEXT("warhammer");
++    Check(ColdSteelAuthority::ForPawn(Pawn)==Guest,TEXT("authority resolves guest shadow rather than host model"));
++    const float HostStamina=Host->Stamina();
++    const auto Stats=ColdSteelTool::Evaluate(Hammer,Guest);
++    Check(Near(Stats.StaminaCost/Factory.StaminaCost,1.15*.95),TEXT("pointed head and no pommel normal cost"),Stats.StaminaCost/Factory.StaminaCost,1.15*.95);
++    Check(Near(Stats.HeavyReleaseStaminaCost/Stats.StaminaCost,1.1),TEXT("no pommel heavy release surcharge"));
++    const auto Attack=[&](uint32 Id,bool Heavy,bool Sprint)
++    {
++        Tool->CancelUse();Tool->BluntServerReadyAt=0.;Guest->AdoptNetMirror(GuestSeed);
++        if(Heavy){Tool->ServerBeginBluntCharge_Implementation(Id);Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Stats.HeavyChargeSeconds-.05;}
++        if(Sprint){Tool->BluntSprintInstance=Hammer.InstanceId;Tool->BluntSprintReadyAt=World->GetTimeSeconds();}
++        const float Before=Guest->Stamina();Tool->ServerBeginBluntAttack_Implementation(Id,Heavy,Sprint);
++        const double Expected=Heavy?Stats.HeavyReleaseStaminaCost:Stats.StaminaCost;
++        Check(Near(Before-Guest->Stamina(),Expected),Sprint?TEXT("guest sprint charged once without heavy surcharge"):Heavy?TEXT("guest charged heavy cost"):TEXT("guest normal cost"),Before-Guest->Stamina(),Expected);
++        Check(Near(Tool->AxeStrike.ArmorPenetration,.15),TEXT("authority strike includes pointed-head penetration"),Tool->AxeStrike.ArmorPenetration,.15);
++        Check(Near(Host->Stamina(),HostStamina),TEXT("guest attack leaves host stamina unchanged"));
++    };
++    Attack(1,false,false);Attack(2,true,false);Attack(3,false,true);Tool->CancelUse();
++    Guest->AdoptNetMirror(GuestSeed);const float ReceiptBefore=Guest->Stamina();
++    Check(Tool->ApplyBluntStaminaReceipt(Guest,10,12.f)&&Near(Guest->Stamina(),ReceiptBefore-12.f),TEXT("late accepted cost applies after cancellation"));
++    Check(!Tool->ApplyBluntStaminaReceipt(Guest,10,12.f)&&Near(Guest->Stamina(),ReceiptBefore-12.f),TEXT("duplicate cost receipt does not spend twice"));
++    Check(!Tool->ApplyBluntStaminaReceipt(Guest,9,12.f),TEXT("older cost receipt ignored"));
++    Check(Tool->ApplyBluntStaminaReceipt(Guest,11,1000.f)&&Near(Guest->Stamina(),0.),TEXT("accepted cost clamps depleted client stamina"));
++    SetParts(Hammer,{{TEXT("hammer_heads"),TEXT("meteor_core")}});GuestSeed.Items[0]=Hammer;Guest->AdoptNetMirror(GuestSeed);
++    Tool->ApplyToolStats(Guest->ActiveProductionTool(),Guest);
++    Check(Near(Tool->BluntWaveRadius,450.),TEXT("guest meteor core authoritative shockwave radius"),Tool->BluntWaveRadius,450.);
++    auto Report=MakeShared<FJsonObject>();Report->SetArrayField(TEXT("checks"),Rows);Report->SetNumberField(TEXT("failures"),Failures);
++    Report->SetNumberField(TEXT("count"),Rows.Num());Report->SetStringField(TEXT("isolated_profile"),Slot);
++    Report->SetBoolField(TEXT("native_authority_executed"),true);Report->SetBoolField(TEXT("real_network_transport_tested"),false);
++    Report->SetBoolField(TEXT("user_profile_modified"),false);
++    FString Out=FPaths::ProjectSavedDir()/TEXT("WarhammerModificationAudit.json");FParse::Value(*Params,TEXT("Out="),Out);
++    FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));FFileHelper::SaveStringToFile(Json,*Out);
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    UE_LOG(LogTemp,Display,TEXT("HAMMER_MODS_DONE checks=%d failures=%d"),Rows.Num(),Failures);return Failures?1:0;
++}
+diff --git a/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h b/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h
+@@ -0,0 +1,21 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "GameFramework/PlayerController.h"
++#include "WarhammerModificationAuditCommandlet.generated.h"
++
++/** An isolated authority fixture; no client connection or user profile is opened. */
++UCLASS(Transient,NotBlueprintable)
++class AWarhammerAuditRemoteController : public APlayerController
++{
++    GENERATED_BODY()
++public:
++    virtual bool IsLocalController() const override { return false; }
++};
++
++UCLASS()
++class UWarhammerModificationAuditCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

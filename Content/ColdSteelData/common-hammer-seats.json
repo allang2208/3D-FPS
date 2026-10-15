@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "slot": "head_mount",
+  "options": [
+    {
+      "id": "reinforced_block",
+      "name": "厚壁重铸座",
+      "description": "整体承力芯外配阶梯加厚盖板，以嵌入铆钉固定。",
+      "appearance": "厚壁方芯 · 阶梯盖板 · 嵌入铆钉",
+      "stats": {
+        "physical_damage_mult": 1.1,
+        "attack_speed_mult": 0.95,
+        "stamina_mult": 1.1,
+        "toughness_damage_mult": 1.15
+      },
+      "effects": [
+        {
+          "text": "物理伤害 +10%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "体力消耗 +10%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害 +15%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "ribbed_light",
+      "name": "镂肋轻型座",
+      "description": "前后盖板开出三角减重窗，支撑肋连接连续的中央承力芯。",
+      "appearance": "三角减重窗 · 交叉支撑肋 · 连续内芯",
+      "stats": {
+        "physical_damage_mult": 0.95,
+        "attack_speed_mult": 1.1,
+        "stamina_mult": 0.9,
+        "toughness_damage_mult": 0.9
+      },
+      "effects": [
+        {
+          "text": "物理伤害 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击速度 +10%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 -10%",
+          "benefit": 1
+        },
+        {
+          "text": "韧性伤害 -10%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "laminated_damper",
+      "name": "叠片缓冲座",
+      "description": "多层钢板夹持薄层垫片，由四角拉杆收束固定。",
+      "appearance": "叠片盖板 · 深色垫片 · 四角拉杆",
+      "stats": {
+        "physical_damage_mult": 1.05,
+        "attack_speed_mult": 1.05,
+        "stamina_mult": 0.85,
+        "toughness_damage_mult": 0.85
+      },
+      "effects": [
+        {
+          "text": "物理伤害 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 -15%",
+          "benefit": 1
+        },
+        {
+          "text": "韧性伤害 -15%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": []
+    }
+  ]
+}

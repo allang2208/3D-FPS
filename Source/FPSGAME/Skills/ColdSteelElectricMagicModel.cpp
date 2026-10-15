@@ -58,7 +58,7 @@ FElectricMagicCast UColdSteelStatusModel::ElectricMagicStats(FName Id,int32 AtLe
         }
     H.Damage=FMath::FloorToFloat(FMath::FloorToDouble(H.DamageBase+Derived(TEXT("matk"))*H.MagicMultiplier+Attribute(TEXT("int"))*H.IntelligenceMultiplier)*DamageFactor*MagicImplementMultiplier());
     H.ManaCost=SpellManaCostBeforeFocus(Id,L);
-    H.Cooldown=FMath::Clamp(H.Cooldown*float(FMath::Max(.2,(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.MagicCooldown),0.f,300.f);
+    H.Cooldown=FMath::Clamp(H.Cooldown*float(FMath::Max(.2,(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.SkillCooldown*Rune.MagicCooldown),0.f,300.f);
     ApplySpellbookFocus(H.CastSpeed,H.ManaCost);
     return C;
 }

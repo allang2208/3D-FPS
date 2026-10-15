@@ -12,11 +12,11 @@ void URuneOrbBladesComponent::ServerOrbitIntent_Implementation(uint8 Phase,int32
     if(!Pawn||!Pawn->HasAuthority()||Pawn->IsLocallyControlled())return;
     if(Phase==2){EndOrbit();return;}
     if(!SwordEquipped()||!Health||Health->IsDead()||Pawn->IsTraversing())
-    {ClientOrbitRejected(Cooldown);return;}
+    {ClientOrbitRejected(Cooldown,CooldownDuration);return;}
     if(Phase==0)
     {
-        if(bActive||Cooldown>0.f){ClientOrbitRejected(Cooldown);return;}
-        OpenOrbit();if(!bActive)ClientOrbitRejected(Cooldown);
+        if(bActive||Cooldown>0.f){ClientOrbitRejected(Cooldown,CooldownDuration);return;}
+        OpenOrbit();if(!bActive)ClientOrbitRejected(Cooldown,CooldownDuration);
     }
     else if(Phase==1)
     {
@@ -25,13 +25,14 @@ void URuneOrbBladesComponent::ServerOrbitIntent_Implementation(uint8 Phase,int32
             ||Target.ContainsNaN()||Aim.IsNearlyZero()||Aim.SizeSquared()>FMath::Square(21000.f)
             ||FVector::DotProduct(Aim.GetSafeNormal(),Pawn->GetBaseAimRotation().Vector())<.5f
             ||GetWorld()->GetTimeSeconds()-LastLaunchTime<BurstInterval*.8f)
-        {ClientOrbitRejected(Cooldown);return;}
+        {ClientOrbitRejected(Cooldown,CooldownDuration);return;}
         Slots[Slot].bLaunched=true;Slots[Slot].Orb->Launch(Target);LastLaunchTime=GetWorld()->GetTimeSeconds();
     }
 }
-void URuneOrbBladesComponent::ClientOrbitRejected_Implementation(float Remaining)
+void URuneOrbBladesComponent::ClientOrbitRejected_Implementation(float Remaining,float Duration)
 {
     EndOrbit();Cooldown=FMath::Max(0.f,Remaining);
+    CooldownDuration=Duration;
     if(auto* Model=Profile())Model->PostNotice(TEXT("飞剑未释放"),TEXT("武器状态或冷却尚未同步"));
 }
 void URuneOrbBladesComponent::ClientBladeKill_Implementation()

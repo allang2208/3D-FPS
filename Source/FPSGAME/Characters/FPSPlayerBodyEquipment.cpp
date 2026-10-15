@@ -3,6 +3,8 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodyWeaponMeshComponent.h"
+#include "FPSBodyRuneVisual.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Weapons/FPSGunplayAnimInstance.h"
 #include "../Weapons/WeaponGripProfile.h"
 #include "../Weapons/Super90WeaponAssets.h"
@@ -154,6 +156,8 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         if(FPSBodyEquipment::IsArmMaterial(Slot.ToString()))Result.HiddenMaterials.Add(I);
         if(bSuper90&&(Slot==TEXT("S90_FactoryRearGrip")||Slot.ToString().StartsWith(TEXT("S90_FactoryStock_")))&&!Source->IsMaterialSectionShown(I,0))
             Result.HiddenMaterials.AddUnique(I);
+        if(Slot==TEXT("M_SteelWarhammerSurface")&&!Source->IsMaterialSectionShown(I,0))
+            Result.HiddenMaterials.AddUnique(I);
     }
     TArray<USceneComponent*> Children;Source->GetChildrenComponents(true,Children);
     for(auto* Child:Children)if(auto* Prop=Cast<USkeletalMeshComponent>(Child);
@@ -165,16 +169,22 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         break;
     }
     TInlineComponentArray<UTacticalDeviceComponent*> TacticalDevices(Source->GetOwner());
+    const auto* RuneProfile=ColdSteelAuthority::ForPawn(Character.Get());
+    const auto* RuneTool=RuneProfile?RuneProfile->ActiveProductionTool():nullptr;
+    const auto* RuneItem=RuneTool?RuneTool:RuneProfile?RuneProfile->Equipped():nullptr;
     for(auto* Child:Children)if(auto* Part=Cast<UStaticMeshComponent>(Child);Part&&Part->GetStaticMesh()&&Result.Parts.Num()<64)
     {
         FFPSBodyAttachment Entry;Entry.Mesh=Part->GetStaticMesh();
-        Entry.bVisible=Part->IsVisible()&&!Part->bHiddenInGame;
+        // A hidden first-person carrier still owns installed warhammer modules.
+        // World fallback poses must not capture that temporary hidden state.
+        Entry.bVisible=Part->ComponentHasTag(TEXT("WarhammerModule"))||(Part->IsVisible()&&!Part->bHiddenInGame);
         Entry.RelativeTransform=Part->GetRelativeTransform();
         USceneComponent* Branch=Part;
         while(Branch->GetAttachParent()&&Branch->GetAttachParent()!=Source)
         {Branch=Branch->GetAttachParent();Entry.RelativeTransform=Entry.RelativeTransform*Branch->GetRelativeTransform();}
         Entry.Socket=Branch->GetAttachSocketName();
         for(int32 I=0;I<Part->GetNumMaterials();++I)Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(Part->GetMaterial(I)));
+        FPSBodyRuneVisual::Capture(Part,RuneItem,Entry);
         if(Character.IsValid()&&Source==Character->AKMViewmodel&&Part==Character->MuzzleAttachment
             &&!Character->MuzzleVariant.IsEmpty())
         {
@@ -343,6 +353,7 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
             if(!W.Source.IsValid())Key+=TEXT("|")+Part.RelativeTransform.ToString();
             Key+=TEXT("|")+Part.SkeletalMesh.ToSoftObjectPath().ToString()+Part.Slot.ToString()+TEXT("|")+Part.Socket.ToString();
             for(const auto& Material:Part.Materials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
+            Key+=FPSBodyRuneVisual::Key(Part);
         }
     }
     if(EquipmentKey!=Key)
@@ -568,6 +579,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             WorldEquipmentHands.Add(Part,static_cast<uint8>(Side));
             FPSBodyEquipment::WorldVisibility(Part);
             for(int32 I=0;I<DefinitionPart.Materials.Num();++I)if(auto* Material=DefinitionPart.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
+            FPSBodyRuneVisual::Apply(Part,DefinitionPart);
             Part->RegisterComponent();WorldParts.Add(Part);
             Motion.Parts.Add(Part);
             MotionEquipmentIndices.Add(Part,Index);

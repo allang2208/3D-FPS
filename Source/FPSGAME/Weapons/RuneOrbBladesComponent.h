@@ -42,7 +42,7 @@ public:
     bool SwordEquipped() const;
     int32 AvailableBladeCount() const;
     UFUNCTION(Server,Reliable) void ServerOrbitIntent(uint8 Phase,int32 Slot,FVector_NetQuantize Target);
-    UFUNCTION(Client,Reliable) void ClientOrbitRejected(float Remaining);
+    UFUNCTION(Client,Reliable) void ClientOrbitRejected(float Remaining,float Duration);
     UFUNCTION(Client,Reliable) void ClientBladeKill();
 
 private:
@@ -72,6 +72,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> BladeMesh;
     float Elapsed = 0.f;
     float Cooldown = 0.f;
+    // Captured at summon so stowing the sword cannot change this cast's cooldown.
+    float CooldownDuration = BaseCooldownDuration;
     bool bActive = false;
     bool bQueuedSummon = false;
     int32 PendingLaunches = 0;
@@ -81,7 +83,7 @@ private:
 
     static constexpr int32 BaseBladeCount = 4;
     static constexpr float ActiveSeconds = 30.f;
-    static constexpr float CooldownDuration = 15.f;
+    static constexpr float BaseCooldownDuration = 15.f;
     static constexpr float BladeDamageMultiplier = 1.2f;
     // Hover placement follows the ice spike's accepted view-space convention:
     // a wing row in front of the camera (even indices left) instead of a world ring

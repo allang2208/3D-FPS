@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "slot": "grip",
+  "options": [
+    {
+      "id": "bias_speed_wrap",
+      "name": "斜纹速握包覆",
+      "description": "薄织带斜向缠绕，压平搭接边，以窄收口束紧两端。",
+      "appearance": "灰褐织带 · 连续螺旋搭接 · 窄边收口",
+      "stats": {
+        "attack_speed_mult": 1.15,
+        "stamina_mult": 0.9,
+        "toughness_damage_mult": 0.85
+      },
+      "effects": [
+        {
+          "text": "攻击速度 +15%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 -10%",
+          "benefit": 1
+        },
+        {
+          "text": "韧性伤害 -15%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "layered_cushion_wrap",
+      "name": "叠革缓震包覆",
+      "description": "深棕皮革包裹薄软垫，横向分节，缝线收在侧面凹槽。",
+      "appearance": "棕色皮革 · 分节软垫 · 侧面缝线",
+      "stats": {
+        "stamina_mult": 0.75
+      },
+      "effects": [
+        {
+          "text": "体力消耗 -25%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "diamond_power_wrap",
+      "name": "菱编蓄力包覆",
+      "description": "宽皮条交叉编织，形成连续菱纹，暗色衬底连接两端收口。",
+      "appearance": "黑褐编革 · 菱纹交叠 · 金属收口",
+      "stats": {
+        "attack_speed_mult": 1.05,
+        "stamina_mult": 1.1,
+        "heavy_charge_speed_bonus": 0.25
+      },
+      "effects": [
+        {
+          "text": "攻击速度 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 +10%",
+          "benefit": -1
+        },
+        {
+          "text": "重击蓄力速度 +25%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    }
+  ]
+}

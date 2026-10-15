@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "slot": "pommel",
+  "options": [
+    {
+      "id": "octagonal_impact",
+      "name": "八棱镇击配重",
+      "description": "实心八棱钢坠上肩收窄、下腹厚实，磨亮棱线与圆钝底端环绕嵌入式锁盖。",
+      "appearance": "八棱锻钢 · 宽倒角 · 齐平锁盖",
+      "stats": {
+        "physical_damage_mult": 1.05,
+        "attack_speed_mult": 0.95,
+        "stamina_mult": 1.05,
+        "toughness_damage_mult": 1.1
+      },
+      "effects": [
+        {
+          "text": "物理伤害 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "体力消耗 +5%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害 +10%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "caged_agility",
+      "name": "镂笼灵巧配重",
+      "description": "六根弧形钢肋连接安装圈与底盘，纵向窗口贯通笼体，内壁保留暗色锻钢。",
+      "appearance": "六肋镂笼 · 贯通窗口 · 内凹紧固件",
+      "stats": {
+        "physical_damage_mult": 0.95,
+        "attack_speed_mult": 1.1,
+        "stamina_mult": 0.9
+      },
+      "effects": [
+        {
+          "text": "物理伤害 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击速度 +10%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 -10%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "twin_disc_balance",
+      "name": "双盘平衡配重",
+      "description": "两枚厚圆盘通过短芯固定连接，环形凹槽分隔上下盘，宽倒角包住同心车纹。",
+      "appearance": "双盘配重 · 刚性短芯 · 同心车纹",
+      "stats": {
+        "stamina_mult": 0.8,
+        "toughness_damage_mult": 0.9,
+        "martial_cooldown_mult": 0.8
+      },
+      "effects": [
+        {
+          "text": "体力消耗 -20%",
+          "benefit": 1
+        },
+        {
+          "text": "韧性伤害 -10%",
+          "benefit": -1
+        },
+        {
+          "text": "武技冷却时间 -20%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": []
+    },
+    {
+      "id": "no_pommel",
+      "name": "无配重",
+      "description": "移除柄尾配重坠体，握柄末端仅保留贴合安装端的轻薄金属收口。",
+      "appearance": "无配重坠体 · 轻薄平整收口",
+      "stats": {
+        "attack_speed_mult": 1.05,
+        "stamina_mult": 0.95,
+        "heavy_charge_speed_bonus": 0.1,
+        "heavy_release_stamina_mult": 1.1
+      },
+      "effects": [
+        {
+          "text": "攻击速度 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 -5%",
+          "benefit": 1
+        },
+        {
+          "text": "重击蓄力速度 +10%",
+          "benefit": 1
+        },
+        {
+          "text": "重击出手体力消耗 +10%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": []
+    }
+  ]
+}

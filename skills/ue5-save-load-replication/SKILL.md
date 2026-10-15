@@ -16,3 +16,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 区域首领目标、允许队友入场的方向闸门及每位玩家的区域追踪，读 [区域首领联机规则](references/regional-boss-objectives.md)。
 
 物品占格改变、旧地面物品、客机重连与共享容器旧键迁移，读取 [占格迁移覆盖](references/inventory-footprint-migrations.md)。
+
+装备符文的远端材质、攻击耗体与武技冷却确认，读取 [装备符文与攻击提交回执](references/equipment-runes-and-attack-receipts.md)。

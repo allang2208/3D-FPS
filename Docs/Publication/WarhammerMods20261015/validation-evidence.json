@@ -1,0 +1,43 @@
+{
+  "fixed": [
+    "hammer equipped passives excluded by tool selector",
+    "remote equipment lost rune MID and overlay state",
+    "missing authoritative stamina and martial cooldown receipts for hammer owners"
+  ],
+  "catalog_checks": 47,
+  "catalog_passed": true,
+  "native_checks": 103,
+  "native_failures": 0,
+  "native_authority_executed": true,
+  "game_build": {
+    "target": "FPSGAME",
+    "finished": "2026-10-15T11:06:37",
+    "exit_code": 0,
+    "log": "SourceAssets/WarhammerIntegrationAudit20261015/game-build.log",
+    "tests_run": false
+  },
+  "editor_build": {
+    "exit_code": 0,
+    "log": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build.log",
+    "finished": "2026-10-15T11:07:35",
+    "tests_run": false,
+    "target": "FPSGAMEEditor"
+  },
+  "native_run": {
+    "finished": "2026-10-15T11:10:31",
+    "exit_code": 0,
+    "real_network_transport_tested": false
+  },
+  "user_profile_modified": false,
+  "real_network_transport_tested": false,
+  "latency_loss_reconnect_tested": false,
+  "visual_gameplay_acceptance": false,
+  "notes": "Source review, normal builds and isolated native regression completed. Cross-process multiplayer acceptance remains open.",
+  "evidence_scope": "Historical complete local project, not this public source slice; publication performs no gameplay rerun.",
+  "prior_strength_check": {
+    "source_checks": 32,
+    "asset_checks": 58,
+    "weapons": 6,
+    "transport_tested": false
+  }
+}

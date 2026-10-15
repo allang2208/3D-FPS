@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "weapon": "ue_steel_warhammer",
+  "interface": "warhammer_factory_v1",
+  "arms_mesh": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+  "root_slot": "head_mount",
+  "module_slots": [
+    "head_mount",
+    "hammer_heads",
+    "neck",
+    "shaft",
+    "grip",
+    "pommel"
+  ],
+  "drive_bone": "WPN_root",
+  "slots": {
+    "head_mount": {
+      "factory": {
+        "mesh": "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_head_mount_factory.SM_Warhammer_head_mount_factory",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "原装中央锤座 · 独立组件"
+      },
+      "reinforced_block": {
+        "mesh": "/Game/Weapons/CommonHammerSeats20261014/BuildV1/SM_CommonHammerSeat_reinforced_block_V1.SM_CommonHammerSeat_reinforced_block_V1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "厚壁方芯 · 阶梯盖板 · 嵌入铆钉",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "BuildV1"
+      },
+      "ribbed_light": {
+        "mesh": "/Game/Weapons/CommonHammerSeats20261014/BuildV1/SM_CommonHammerSeat_ribbed_light_V1.SM_CommonHammerSeat_ribbed_light_V1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "三角减重窗 · 交叉支撑肋 · 连续内芯",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "BuildV1"
+      },
+      "laminated_damper": {
+        "mesh": "/Game/Weapons/CommonHammerSeats20261014/BuildV1/SM_CommonHammerSeat_laminated_damper_V1.SM_CommonHammerSeat_laminated_damper_V1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "叠片盖板 · 深色垫片 · 四角拉杆",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "BuildV1"
+      }
+    },
+    "hammer_heads": {
+      "factory": {
+        "mesh": "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_hammer_heads_factory.SM_Warhammer_hammer_heads_factory",
+        "location_cm": [
+          0,
+          0,
+          92.5000011920929
+        ],
+        "appearance": "原装双侧锤头 · 独立组件"
+      },
+      "heavy_forged": {
+        "mesh": "/Game/Weapons/CommonHammerHeads20261014/DesignV2/SM_CommonHammerHeads_heavy_forged_DesignV2.SM_CommonHammerHeads_heavy_forged_DesignV2",
+        "location_cm": [
+          0,
+          0,
+          92.5000011920929
+        ],
+        "appearance": "宽方锤面 · 阶梯锤肩 · 成对锻钢头",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "DesignV2"
+      },
+      "flanged_breaker": {
+        "mesh": "/Game/Weapons/CommonHammerHeads20261014/DesignV2/SM_CommonHammerHeads_flanged_breaker_DesignV2.SM_CommonHammerHeads_flanged_breaker_DesignV2",
+        "location_cm": [
+          0,
+          0,
+          92.5000011920929
+        ],
+        "appearance": "八道纵向棱翼 · 收边端面 · 成对棱锤",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "DesignV2"
+      },
+      "light_drum": {
+        "mesh": "/Game/Weapons/CommonHammerHeads20261014/DesignV2/SM_CommonHammerHeads_light_drum_DesignV2.SM_CommonHammerHeads_light_drum_DesignV2",
+        "location_cm": [
+          0,
+          0,
+          92.5000011920929
+        ],
+        "appearance": "紧凑鼓形 · 环槽束腰 · 内凹端面",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "DesignV2"
+      },
+      "pointed_hammer": {
+        "mesh": "/Game/Weapons/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/SM_CommonHammerHeads_pointed_hammer_V1.SM_CommonHammerHeads_pointed_hammer_V1",
+        "location_cm": [
+          0,
+          0,
+          92.5000011920929
+        ],
+        "appearance": "双侧直尖 · 纵向棱槽 · 锻钢收肩",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "PointedHammerV1"
+      },
+      "meteor_core": {
+        "mesh": "/Game/Weapons/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/SM_WarhammerHeads_MeteorCore_V1.SM_WarhammerHeads_MeteorCore_V1",
+        "location_cm": [
+          0,
+          0,
+          92.5000011920929
+        ],
+        "appearance": "八棱星纹锤面 · 青铜符箍 · 熔岩裂隙",
+        "interface": "warhammer_factory_v1",
+        "exclusive_weapon": "ue_steel_warhammer",
+        "model_revision": "MeteorCoreV1"
+      }
+    },
+    "neck": {
+      "factory": {
+        "mesh": "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_neck_factory.SM_Warhammer_neck_factory",
+        "location_cm": [
+          0,
+          0,
+          86.50000095367432
+        ],
+        "appearance": "固定锤颈套箍"
+      }
+    },
+    "shaft": {
+      "factory": {
+        "mesh": "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_shaft_factory.SM_Warhammer_shaft_factory",
+        "location_cm": [
+          0,
+          0,
+          81.99999928474426
+        ],
+        "appearance": "固定金属长柄"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_grip_factory.SM_Warhammer_grip_factory",
+        "location_cm": [
+          0,
+          0,
+          40.50000011920929
+        ],
+        "appearance": "原装握持包覆 · 独立组件"
+      },
+      "bias_speed_wrap": {
+        "mesh": "/Game/Weapons/CommonHammerGrips20261014/BuildV1/UV1/SM_CommonHammerGrip_bias_speed_wrap_V1.SM_CommonHammerGrip_bias_speed_wrap_V1",
+        "location_cm": [
+          0,
+          0,
+          40.50000011920929
+        ],
+        "appearance": "灰褐织带 · 连续螺旋搭接 · 窄边收口",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "BuildV1/UV1"
+      },
+      "layered_cushion_wrap": {
+        "mesh": "/Game/Weapons/CommonHammerGrips20261014/BuildV1/UV1/SM_CommonHammerGrip_layered_cushion_wrap_V1.SM_CommonHammerGrip_layered_cushion_wrap_V1",
+        "location_cm": [
+          0,
+          0,
+          40.50000011920929
+        ],
+        "appearance": "棕色皮革 · 分节软垫 · 侧面缝线",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "BuildV1/UV1"
+      },
+      "diamond_power_wrap": {
+        "mesh": "/Game/Weapons/CommonHammerGrips20261014/BuildV1/UV1/SM_CommonHammerGrip_diamond_power_wrap_V1.SM_CommonHammerGrip_diamond_power_wrap_V1",
+        "location_cm": [
+          0,
+          0,
+          40.50000011920929
+        ],
+        "appearance": "黑褐编革 · 菱纹交叠 · 金属收口",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "BuildV1/UV1"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_pommel_factory.SM_Warhammer_pommel_factory",
+        "location_cm": [
+          0,
+          0,
+          -8.500000089406967
+        ],
+        "appearance": "原装柄尾配重 · 独立组件"
+      },
+      "octagonal_impact": {
+        "mesh": "/Game/Weapons/CommonHammerPommels20261014/BuildV1/SM_CommonHammerPommel_octagonal_impact_V1.SM_CommonHammerPommel_octagonal_impact_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -8.500000089406967
+        ],
+        "appearance": "八棱锻钢 · 宽倒角 · 齐平锁盖",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "BuildV1"
+      },
+      "caged_agility": {
+        "mesh": "/Game/Weapons/CommonHammerPommels20261014/BuildV1/SM_CommonHammerPommel_caged_agility_V1.SM_CommonHammerPommel_caged_agility_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -8.500000089406967
+        ],
+        "appearance": "六肋镂笼 · 贯通窗口 · 内凹紧固件",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "BuildV1"
+      },
+      "twin_disc_balance": {
+        "mesh": "/Game/Weapons/CommonHammerPommels20261014/BuildV1/SM_CommonHammerPommel_twin_disc_balance_V1.SM_CommonHammerPommel_twin_disc_balance_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -8.500000089406967
+        ],
+        "appearance": "双盘配重 · 刚性短芯 · 同心车纹",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "BuildV1"
+      },
+      "no_pommel": {
+        "mesh": "/Game/Weapons/CommonHammerPommels20261014/NoPommelV1/SM_CommonHammerPommel_NoWeightCap_V1.SM_CommonHammerPommel_NoWeightCap_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -8.500000089406967
+        ],
+        "appearance": "无配重坠体 · 轻薄平整收口",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "NoPommelV1"
+      }
+    },
+    "rune": {
+      "factory": {
+        "appearance": "未刻印符文 · 原有金属表面"
+      },
+      "haste_rune": {
+        "appearance": "疾风折纹 · 黄色流光"
+      },
+      "resonance_rune": {
+        "appearance": "共鸣环印 · 青绿呼吸微光"
+      },
+      "erosion_rune": {
+        "appearance": "侵蚀裂纹 · 紫色渐隐"
+      },
+      "conduction_rune": {
+        "appearance": "导魔回路 · 蓝色流光"
+      },
+      "strength_rune": {
+        "appearance": "中轴重印 · 赤红微光"
+      }
+    }
+  },
+  "bone_mount": {
+    "location_cm": [
+      2.340870872418089e-08,
+      2.9104042001995044e-08,
+      -4.4859800020166056e-08
+    ],
+    "scale": [
+      0.009999999526628238,
+      0.010000003102907606,
+      0.010000000718721076
+    ],
+    "rotation_xyzw": [
+      -1.0325357424885687e-07,
+      1.4323398885712768e-07,
+      6.75819938650594e-08,
+      0.999999999999982
+    ]
+  }
+}

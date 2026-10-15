@@ -76,6 +76,8 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("combo_second_damage_mult"),Part.Melee.ComboSecond);
             Stats->TryGetNumberField(TEXT("combo_third_damage_mult"),Part.Melee.ComboThird);
             Stats->TryGetNumberField(TEXT("combo_third_toughness_mult"),Part.Melee.ComboThirdToughness);
+            Stats->TryGetNumberField(TEXT("skill_cooldown_mult"),Part.Melee.SkillCooldown);
+            Stats->TryGetNumberField(TEXT("martial_cooldown_mult"),Part.Melee.MartialCooldown);
             Stats->TryGetNumberField(TEXT("magic_cooldown_mult"),Part.Melee.MagicCooldown);
             Stats->TryGetNumberField(TEXT("cooldown_reduce_seconds_per_hit"),Part.Melee.CooldownReduceSecondsPerHit);
             Stats->TryGetNumberField(TEXT("magic_damage_mult"),Part.Melee.MagicDamage);

@@ -14,6 +14,10 @@ struct FMeleeModifiers
     // Poise damage is separate from the duration of a successful poise break.
     double ToughnessDamage=1, PhysicalArmorPenetration=0;
     double ComboSecond=1, ComboThird=1;
+    // Ability cooldowns only; attack cycles and recovery keep their own action clocks.
+    double SkillCooldown=1;
+    double MartialCooldown=1;
+    double MartialCooldownMultiplier() const {return SkillCooldown*MartialCooldown;}
     double MagicCooldown=1, MagicDamage=1, MagicCost=1, RuneIntelligence=0, RuneWisdom=0;
     double InnateErosionMultiplier=1;
     // Flat additions affect the action multiplier, not the panel damage.
@@ -46,6 +50,8 @@ struct FMeleeModifiers
     double KillStaminaMaxRatio=0;
     // 蓄力速度增量相加：0.15 = +15%，基础蓄力时间除以 (1 + 所有增量)。
     double HeavyChargeSpeedBonus=0;
+    // Charged hammer release surcharge; sprint attacks and weapon skills retain their own costs.
+    double HeavyReleaseStamina=1;
     double DamageTaken=1, DodgeStamina=1, SprintStamina=1;
     double DragonSeconds=0, DragonCooldown=0, DragonDamage=1, DragonToughness=0;
     double PhoenixSeconds=0, PhoenixCooldown=0, PhoenixSpeed=1, PhoenixHealRatio=0, PhoenixHealHits=0;
@@ -201,9 +207,9 @@ public:
     const TArray<FString>& Slots() const{return SlotKeys;}
     const TArray<FString>& Categories()const{return CategoryNames;}
     const TArray<FString>& Defaults()const{return DefaultNames;}
-    const TArray<FString>& Slots(const FString& Definition) const {return Definition==TEXT("ue_rsh12")?RSHSlotKeys:IsStaff(Definition)?StaffSlotKeys:IsBow(Definition)?BowSlotKeys:IsTool(Definition)?ToolSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;}
-    const TArray<FString>& Categories(const FString& Definition) const {return Definition==TEXT("ue_rsh12")?RSHCategoryNames:IsStaff(Definition)?StaffCategoryNames:IsBow(Definition)?BowCategoryNames:IsTool(Definition)?ToolCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;}
-    const TArray<FString>& Defaults(const FString& Definition) const {return Definition==TEXT("ue_rsh12")?RSHDefaultNames:IsStaff(Definition)?StaffDefaultNames:IsBow(Definition)?BowDefaultNames:IsTool(Definition)?ToolDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;}
+    const TArray<FString>& Slots(const FString& Definition) const;
+    const TArray<FString>& Categories(const FString& Definition) const;
+    const TArray<FString>& Defaults(const FString& Definition) const;
     FGunsmithChanged OnChanged;
     TSharedPtr<FJsonObject> Catalog;
 private:
@@ -219,6 +225,7 @@ private:
     TArray<FString> StaffSlotKeys,StaffCategoryNames,StaffDefaultNames;
     TArray<FString> MeleeSlotKeys,MeleeCategoryNames,MeleeDefaultNames;
     void LoadMeleeCatalog();
+    void LoadWarhammerCatalog();
     TArray<FString> ToolSlotKeys,ToolCategoryNames,ToolDefaultNames;
     void LoadToolCatalog();
     TArray<FString> SlotKeys,CategoryNames,DefaultNames;

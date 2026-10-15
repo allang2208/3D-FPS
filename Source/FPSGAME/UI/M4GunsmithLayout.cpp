@@ -346,7 +346,8 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
     // Retained RSH models keep their existing pictograms; only catalog identity changes.
     const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id):Id;
-    const FString IconSlot=TacticalDeviceVariants::IconSlot(SlotKey);
+    const FString IconSlot=Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?
+        TEXT("blade_2"):TacticalDeviceVariants::IconSlot(SlotKey);
     const FString WeaponIconKey=Model()->Definition()+TEXT("_")+IconSlot+TEXT("_")+IconId;
     // The shared fast-trigger pictogram also represents Pit Viper's numeric option.
     const FString CommonIconKey=SlotKey==TEXT("trigger")&&Id==TEXT("pit_viper_lightweight_fast")

@@ -1,0 +1,372 @@
+{
+  "git_base": "8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+  "encoding": "UTF-8, LF for content hashes",
+  "already_applied_locally": true,
+  "direct_sources": [
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "base_sha256_lf": "3551ee2383a0b046febc9d130419cc3bdcd159e909a4120b10be74f24a6eb073",
+      "candidate_sha256_lf": "cf992c008ffed0e1ea65797b9f0529e7dc42191fb2da1434fe3888e512322ab2",
+      "workspace_sha256_lf": "cf992c008ffed0e1ea65797b9f0529e7dc42191fb2da1434fe3888e512322ab2"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "base_sha256_lf": "dd209500e1f9579d08ae740d6d63b8edd66604d48242c42b35d907ae7e3691b3",
+      "candidate_sha256_lf": "041a7feaa08a1fa72cff0538db609519d6143d84b8f14082db26129c974536f6",
+      "workspace_sha256_lf": "041a7feaa08a1fa72cff0538db609519d6143d84b8f14082db26129c974536f6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "base_sha256_lf": "e09b01be75b1378d64d90a0898c5d6d6b5ffe729ff1e05067009df1d4aac4706",
+      "candidate_sha256_lf": "7a2f6e77d4e5cc773940166a6436cf26004d7321e2fb2e0e16cd645299b6daaf",
+      "workspace_sha256_lf": "7a2f6e77d4e5cc773940166a6436cf26004d7321e2fb2e0e16cd645299b6daaf"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "cf390f5bd393dfa9c8ffff8bdeee4cb57fade6b2e25703083cf5b76ccb8ce176",
+      "workspace_sha256_lf": "cf390f5bd393dfa9c8ffff8bdeee4cb57fade6b2e25703083cf5b76ccb8ce176"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "base_sha256_lf": "c2a09de1c8ca74453748a41e4935f33fb8e37a791bafcee235fa0b6f0042865d",
+      "candidate_sha256_lf": "8024e689f5794ad2197c9eb78de1e21cbb251ab55b1d2e101ada50b8a237cea5",
+      "workspace_sha256_lf": "8024e689f5794ad2197c9eb78de1e21cbb251ab55b1d2e101ada50b8a237cea5"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FrostSwordRunes.h",
+      "base_sha256_lf": "0ab8044d19e4ec17fed8a03c55e8c83cbb9e98d9d48cde9d330878191af0c7ce",
+      "candidate_sha256_lf": "7f18a423cdb829261a64f2c4633b5b0e096dadea16f605bca8152f23c4b671f7",
+      "workspace_sha256_lf": "7f18a423cdb829261a64f2c4633b5b0e096dadea16f605bca8152f23c4b671f7"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+      "base_sha256_lf": "825236ec54e59863e3dcae17edf0414cbd01f060b7add96a10b1e5d551be083c",
+      "candidate_sha256_lf": "78c6220e8fd1dd073d440ef3480b937cd97adbd1ee45308ed4b86fa6d297039f",
+      "workspace_sha256_lf": "78c6220e8fd1dd073d440ef3480b937cd97adbd1ee45308ed4b86fa6d297039f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "base_sha256_lf": "9fee14bf832167503161e87c38fd849e6fcbd0c8fcec15674f05ddf887500866",
+      "candidate_sha256_lf": "d161131b2381df023bdb50198255b1d2ba41ed53f146d6251f85b10a4382dfa0",
+      "workspace_sha256_lf": "d161131b2381df023bdb50198255b1d2ba41ed53f146d6251f85b10a4382dfa0"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRuneVisual.h",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "d592e25d1dd8fd50721e863fdd8919af0675f8ab004967f4911f6f89b6ad117b",
+      "workspace_sha256_lf": "d592e25d1dd8fd50721e863fdd8919af0675f8ab004967f4911f6f89b6ad117b"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRuneVisual.cpp",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "a54707ae1ca35e27a9c5a2b225e2430438a87cc13ecd070a2ae430e0a1ea99a3",
+      "workspace_sha256_lf": "a54707ae1ca35e27a9c5a2b225e2430438a87cc13ecd070a2ae430e0a1ea99a3"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "base_sha256_lf": "8234ec7a5c352fcb0536cda7f6cf266cec7e25058de34ffa06826ea2a0e758e4",
+      "candidate_sha256_lf": "1f5b3b9c8740f9da1eb4cb06a01070cc25df4767df4e9c1dee244fae57f34017",
+      "workspace_sha256_lf": "1f5b3b9c8740f9da1eb4cb06a01070cc25df4767df4e9c1dee244fae57f34017"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "base_sha256_lf": "a74f8cfb84e3b54e35ce669e5f80824e18aa12832c6ba8976deed8c626d4df0f",
+      "candidate_sha256_lf": "f545d30c3ac28ec3d10b730bf0fab07265f524523ac5203acad95366632573ea",
+      "workspace_sha256_lf": "f545d30c3ac28ec3d10b730bf0fab07265f524523ac5203acad95366632573ea"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "base_sha256_lf": "f2245b4a8e95d1cda3aaf57070c6df30bb57a66a8216edd4d609d706b33cdf21",
+      "candidate_sha256_lf": "88720971e16fe6a7edc9058ad456df15efc9316f312b97cbfc5a27b3f64b7d0a",
+      "workspace_sha256_lf": "88720971e16fe6a7edc9058ad456df15efc9316f312b97cbfc5a27b3f64b7d0a"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "base_sha256_lf": "c9073d5aa77ad91a3f7b70ee48d9671cfd077939eb74a96c5486ec771c89760a",
+      "candidate_sha256_lf": "c055073c217c21ca3d9637ae552caed25919a9a767ec0d759dd13f1c9a6c1411",
+      "workspace_sha256_lf": "c055073c217c21ca3d9637ae552caed25919a9a767ec0d759dd13f1c9a6c1411"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+      "base_sha256_lf": "22656c58c7fd16992ff615e505334d65feb4891bbe45e672731ac812b3c51e5d",
+      "candidate_sha256_lf": "0dcdb21911d077a40c45447f51429a8a333eb1c40e4ae5b498dc33db1b380b2d",
+      "workspace_sha256_lf": "0dcdb21911d077a40c45447f51429a8a333eb1c40e4ae5b498dc33db1b380b2d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "base_sha256_lf": "f3a1a249059afcd9372e3064e94addb08a7b157b0963bf481aafc9bd541eabfb",
+      "candidate_sha256_lf": "86e927fbd15006bc95122c54b9147ec80c417000c459f678f54f5cbb4d36c80e",
+      "workspace_sha256_lf": "86e927fbd15006bc95122c54b9147ec80c417000c459f678f54f5cbb4d36c80e"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "base_sha256_lf": "d2ca2e12077bc3780b7db40b3890df1149179e2463b7e3b9da174ea6204ad4d4",
+      "candidate_sha256_lf": "56585ac4398baf2617d8d9bea1724cd984ec5b14c75a31c6452f27d86df050e1",
+      "workspace_sha256_lf": "56585ac4398baf2617d8d9bea1724cd984ec5b14c75a31c6452f27d86df050e1"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "base_sha256_lf": "20ff21072615e9472cc1d0f0de2385e67c0e1447f91426bce7d2b2f1412942a5",
+      "candidate_sha256_lf": "3a5f383ac093c37cef7813b0623197da5e1a5a82c454d60afbc053abaa248725",
+      "workspace_sha256_lf": "3a5f383ac093c37cef7813b0623197da5e1a5a82c454d60afbc053abaa248725"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "base_sha256_lf": "7eefd957c1cc2169ff368334f2db880631599cfa77fc6a5ccd84a36bd8b156f5",
+      "candidate_sha256_lf": "4b7da1bf29da79dd82130d0d26c87933548bcc0dd9f535dd08c3562126b0a895",
+      "workspace_sha256_lf": "4b7da1bf29da79dd82130d0d26c87933548bcc0dd9f535dd08c3562126b0a895"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "base_sha256_lf": "6aab2e85a98fcf8429c33e1987ddb8e8804e638d2dca5ba649702bde4318797b",
+      "candidate_sha256_lf": "33879d71f9d2124853eecd02973c199c68f0a39883456e77663c9849c90c203a",
+      "workspace_sha256_lf": "33879d71f9d2124853eecd02973c199c68f0a39883456e77663c9849c90c203a"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "base_sha256_lf": "3bc27a67a41e7340e740b380fa12293cc8ecb168f2d32343456603e4a21a4735",
+      "candidate_sha256_lf": "a9d3a104122ca4085deefbf3c40a99fc47c0bab703ba145bda6fcf6d2a87b184",
+      "workspace_sha256_lf": "a9d3a104122ca4085deefbf3c40a99fc47c0bab703ba145bda6fcf6d2a87b184"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "base_sha256_lf": "1436699d6793a861fef1a94b05b6f1c2425050ec939d7f56acb3edcd3164486f",
+      "candidate_sha256_lf": "ff101d9020668fe37abb3c9a347547e636bc556dda46ad7963c023b67fc9247b",
+      "workspace_sha256_lf": "377bb8d4d3fcdaf9906287877a9252d9dc17515de86ebedaa1b3d267f68997fe"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "base_sha256_lf": "3f745caa7bf7dcd060458d664c4715bd0bd22a0fa8dfda51c492ddf4bf5e9c19",
+      "candidate_sha256_lf": "ff21306f118c41b7acfe4722dc59e002e252e7dfdd29fe82d2ad9076d22b2e91",
+      "workspace_sha256_lf": "a767bfc82eddc7027f98b118e711c1313bd95d98ca04668c0e65fe69ab302160"
+    },
+    {
+      "path": "Content/ColdSteelData/melee-gunsmith.json",
+      "base_sha256_lf": "498bd8964c23988be5c1f3c3921c823e94a4f896105d946e1ad023a286191f2b",
+      "candidate_sha256_lf": "d3937898674e329be40caea82105cc9861024eda2757f1c41302d83772ba3aa8",
+      "workspace_sha256_lf": "d3937898674e329be40caea82105cc9861024eda2757f1c41302d83772ba3aa8"
+    },
+    {
+      "path": "Content/ColdSteelData/common-hammer-heads.json",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "8c19301935983b8f66cd6e70437672504b6556908959099ac00311b3a0655c9b",
+      "workspace_sha256_lf": "8c19301935983b8f66cd6e70437672504b6556908959099ac00311b3a0655c9b"
+    },
+    {
+      "path": "Content/ColdSteelData/common-hammer-seats.json",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "c38c89a490cb3c641b42d90f514f76f8bb3f8adba3758fefd2a82fce74f81ee8",
+      "workspace_sha256_lf": "c38c89a490cb3c641b42d90f514f76f8bb3f8adba3758fefd2a82fce74f81ee8"
+    },
+    {
+      "path": "Content/ColdSteelData/common-hammer-grips.json",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "5cc33da5029792be37759c7f75e235c3b56950e944fa784c6ae935039ed423bc",
+      "workspace_sha256_lf": "5cc33da5029792be37759c7f75e235c3b56950e944fa784c6ae935039ed423bc"
+    },
+    {
+      "path": "Content/ColdSteelData/common-hammer-pommels.json",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "f9a075a75995fc3fcf501fd19b03f414ebbf74322707d5c0d9e642cb728735f7",
+      "workspace_sha256_lf": "f9a075a75995fc3fcf501fd19b03f414ebbf74322707d5c0d9e642cb728735f7"
+    },
+    {
+      "path": "Content/ColdSteelData/warhammer-gunsmith.json",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "90d685b152ae5b4a81b40653732e8c7bce08c8bb4913ac9092da0b33fbf44e45",
+      "workspace_sha256_lf": "90d685b152ae5b4a81b40653732e8c7bce08c8bb4913ac9092da0b33fbf44e45"
+    },
+    {
+      "path": "Content/ColdSteelData/warhammer-modules.json",
+      "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256_lf": "83dc7d3573cf658a265d87ae9be39c5cfa08e712c84dab11c7379ec04e011520",
+      "workspace_sha256_lf": "83dc7d3573cf658a265d87ae9be39c5cfa08e712c84dab11c7379ec04e011520"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladesComponent.h",
+      "base_sha256_lf": "2e5eb10d987744a8765e5f1410ae33a549f185a61456cb5180c253a1050a6deb",
+      "candidate_sha256_lf": "a6d6f61005d3aad3e0c8df5acdccdf1d8e9626e2837de74d8b74c7dfe9208189",
+      "workspace_sha256_lf": "a6d6f61005d3aad3e0c8df5acdccdf1d8e9626e2837de74d8b74c7dfe9208189"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp",
+      "base_sha256_lf": "e57e10b50edc56e3fb6e298f0108852e3e04ebd3d2536e6b0bf91693015b2e67",
+      "candidate_sha256_lf": "b0f04abc7fc7e4772dd93594d434a28791cd2bf13819ef8c810975172b28d15a",
+      "workspace_sha256_lf": "b0f04abc7fc7e4772dd93594d434a28791cd2bf13819ef8c810975172b28d15a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneOrbBladesNetwork.cpp",
+      "base_sha256_lf": "26946756dd28c65db31aa28cf228e766feb4768ef4534277ed2d67f6ded0fa97",
+      "candidate_sha256_lf": "bb524375e15f7536ed3c001128cac1f97f20744cf635ec1c64fc9e2a3b5d9f1b",
+      "workspace_sha256_lf": "bb524375e15f7536ed3c001128cac1f97f20744cf635ec1c64fc9e2a3b5d9f1b"
+    }
+  ],
+  "patches": [
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "e53d66375a4330612e74374f613f353b6253da0be948ecd47f258c2903b03c6d",
+      "after_sha256_lf": "e944554719d55325fbd0a13a5153456cc02cb018be146d0e83ab274b52a3eade",
+      "workspace_sha256_lf": "e944554719d55325fbd0a13a5153456cc02cb018be146d0e83ab274b52a3eade"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.h",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "82f4c16d3fc170f7b4f3059c8d0aca7c54114bcaef146a83a380011a8308afee",
+      "after_sha256_lf": "af54f1a5e03023e0b8944ff8368cdb83a1dcec92626f588c442d6bc8ae9e0396",
+      "workspace_sha256_lf": "af54f1a5e03023e0b8944ff8368cdb83a1dcec92626f588c442d6bc8ae9e0396"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "9ef6ed51a797d432d5857883fd86be6c3a91d09212ff87a93f2e4fd584a06fd9",
+      "after_sha256_lf": "8f4c06c79b14c6bd556d1939d45845abca72b852dd5e4d0d1a612e1c1e58f11f",
+      "workspace_sha256_lf": "8f4c06c79b14c6bd556d1939d45845abca72b852dd5e4d0d1a612e1c1e58f11f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "89116877de55d63b34bc74f93b5b8ec43282ea0efef29169ea0c0ee31e56b6a5",
+      "after_sha256_lf": "9856e0b16cf8da0ff68423be65e83202d84f4708292ca1c40019a8654f7b4050",
+      "workspace_sha256_lf": "9856e0b16cf8da0ff68423be65e83202d84f4708292ca1c40019a8654f7b4050"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "09111bfe6eaeb3e0e8da8edaa5946ac454223b783abb5ee21085f11e401cceeb",
+      "after_sha256_lf": "3d7f7b8341a69cb7f79f337f93332206218a9961ca1ffff2eb6b885e98b2001e",
+      "workspace_sha256_lf": "3d7f7b8341a69cb7f79f337f93332206218a9961ca1ffff2eb6b885e98b2001e"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "167e58e1b7a4496043b1e6d67b13c5399014f5b18b6d386c1dba86f1f1001c21",
+      "after_sha256_lf": "5dcff1c65902c6e367a4e4dac8b0cd39440c3f907f81243d70c4596d22f2d689",
+      "workspace_sha256_lf": "5dcff1c65902c6e367a4e4dac8b0cd39440c3f907f81243d70c4596d22f2d689"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "c8f68f398a5138982a2a6779a0b1158869272ff6bec9c9c854d0fd07f3677403",
+      "after_sha256_lf": "9f53c728a67a0c5dcfe4e571c4024d5ba0975c1330f7a94f0dac33fee2e02727",
+      "workspace_sha256_lf": "512e69f77866ef3a5780c0b9435d96070d7f84c094f9f0fe71120f00586e54b5"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "c363cb689d3816d0de40279603fba86b30fc0df4a6d0f87219690f09b64b91c6",
+      "after_sha256_lf": "88430505e8c0ce2afcd3e46c41356a7e61c1ca2e1d5e456f75d881e5f5942c5d",
+      "workspace_sha256_lf": "e355008dd54ae5ae344617034cf3c688c9e008b954866927704de4b15b526740"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "8fdd765af861ce49ca470100b48341459c8f5d691b1c9523098367cf2dc5123f",
+      "after_sha256_lf": "25816cbaddc895b0a118624f90e20f48972947c6f2de94a7bae2d6b4bf8d667e",
+      "workspace_sha256_lf": "2054d52735f6410474b7908a7cfb4a1461ccdf6f27ba73c7667a8534ddba431e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "355dc4d64af52150f29326fa2d9de8ae441b89f90f9517a0ebd62eeafd489223",
+      "after_sha256_lf": "a704886fb46e749b06ebc9815f95987810cf9afd5832c3af808b494690c3111e",
+      "workspace_sha256_lf": "6817d54d9b4e3b419034ae16efbec99ba100cbb682154bef9efab2e7358b8ee8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "5b03791ced89bb5456ba285634fad145a17aa64b2f14cc3b4bbfddacb2c5a6a9",
+      "after_sha256_lf": "78f4d4d2824608098ffb503533d1f5713522ca7d2c8f7b7e18c4a6366cfc242a",
+      "workspace_sha256_lf": "4f7db7c04ac8c548091e36e08faa59b1c5ed6b1eca5a484de9fe6cba0201a8b6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "0c8d47edc22e386dd1a3b08a26eb93d3bdd3dccfb9a093004eb0baab564531f5",
+      "after_sha256_lf": "a68ec35043fbf712acd9daea5c877369e0e056fe73ec692af06a1cba5164d55b",
+      "workspace_sha256_lf": "ae22135ca3f1a85245d7670cb0bb69d107dc93222430045fc176d9597e934952"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "baseline": "local snapshot:SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "before_sha256_lf": "f295fdb2217de5d294db83c0269d7cfa4cc8b317e71d7ea9d815d0cb993d1725",
+      "after_sha256_lf": "681fdab1cdafa8de1bd2c7f137e354971c2a68139905f71a21b25c8176ec3d89",
+      "workspace_sha256_lf": "681fdab1cdafa8de1bd2c7f137e354971c2a68139905f71a21b25c8176ec3d89"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+      "baseline": "local snapshot:SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+      "before_sha256_lf": "0c2c6179f89bbd2f1bc8d613c8a1da1738adf29e370ca16beaa3331cdc80b02a",
+      "after_sha256_lf": "3d1fd7cb5efd94314981a6790d8835bf1f980825238056a673413679169a6b60",
+      "workspace_sha256_lf": "3d1fd7cb5efd94314981a6790d8835bf1f980825238056a673413679169a6b60"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+      "baseline": "local snapshot:SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+      "before_sha256_lf": "eef5db298558c764a12a99d6d0126db64eb603bad9a7b9dde7fdd2da5d6f2d3e",
+      "after_sha256_lf": "0c2d4ec53abf5d6040d4ed5616d531284d220916d21f324ace0c527b78c97be5",
+      "workspace_sha256_lf": "0c2d4ec53abf5d6040d4ed5616d531284d220916d21f324ace0c527b78c97be5"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "baseline": "local snapshot:SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "before_sha256_lf": "4aee55209018ffd9f196ed6b7e17846fe16347f111737e216c625ce9f877cba2",
+      "after_sha256_lf": "d9e6cc386ea1cbe1a6812d68ada8429e98388f47349e0b580e7bcd45d792c766",
+      "workspace_sha256_lf": "d9e6cc386ea1cbe1a6812d68ada8429e98388f47349e0b580e7bcd45d792c766"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerCombat.cpp",
+      "baseline": "local snapshot:SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/WarhammerCombat.cpp",
+      "before_sha256_lf": "cb1c1c5574f9a7418427e0a323f87814cbd5a019eb96a60fccc3a78c9a6bc019",
+      "after_sha256_lf": "dd012d2d82ad5c810af8b30b7d972312d4732f74e0181fffbd80837cb099b7b1",
+      "workspace_sha256_lf": "dd012d2d82ad5c810af8b30b7d972312d4732f74e0181fffbd80837cb099b7b1"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerCombat.h",
+      "baseline": "local snapshot:SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/WarhammerCombat.h",
+      "before_sha256_lf": "2f621e0fb2e87db6c9d762c1bd025e0a6f73d92f225c8aba1052936f3367e6a1",
+      "after_sha256_lf": "70a329deea430e04ab3608906c8b77f444e0cd5cad16d5eef8481a99a53add72",
+      "workspace_sha256_lf": "70a329deea430e04ab3608906c8b77f444e0cd5cad16d5eef8481a99a53add72"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.cpp",
+      "baseline": "new original audit source; requires the complete local combat implementation",
+      "before_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256_lf": "4a58d598bef3914e340e15b1196fa71afa2671f571727c6fa728f2af88af0eea",
+      "workspace_sha256_lf": "4a58d598bef3914e340e15b1196fa71afa2671f571727c6fa728f2af88af0eea"
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerModificationAuditCommandlet.h",
+      "baseline": "new original audit source; requires the complete local combat implementation",
+      "before_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256_lf": "9036894b098b2d88bbd7586697b058104c149d42bc70a534d565faf51bda2527",
+      "workspace_sha256_lf": "9036894b098b2d88bbd7586697b058104c149d42bc70a534d565faf51bda2527"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "baseline": "complete local combat initializer; only the two bindings in combat-stat-bindings.cpp.inc are published here",
+      "workspace_sha256_lf": "512e69f77866ef3a5780c0b9435d96070d7f84c094f9f0fe71120f00586e54b5"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "f4dc717a2397cdba9560c654020b0d65e9a22eba698b4de20c7a55dbd8d041e7",
+      "after_sha256_lf": "48c163ba95c879b1c4b23ffd8de9bcc3a4fa34c8b58896f229fa30c8a17637e3",
+      "workspace_sha256_lf": "48c163ba95c879b1c4b23ffd8de9bcc3a4fa34c8b58896f229fa30c8a17637e3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "baseline": "git:8d87ea81a83e0db55d38222c9189c5198e8d1b75",
+      "before_sha256_lf": "12a6bb101bcc2a388f501daa53c78a7d2d5776fef0ba6613ea34cfc4f763261a",
+      "after_sha256_lf": "46786090ee654620cbf6bd12ba94c81abfd8e6493d360b90237588771b0e9f27",
+      "workspace_sha256_lf": "be005c7e8712c4eab05c005e3a3e4ed2e76f903c1afe2ad65759e14753788292"
+    }
+  ],
+  "missing_prerequisites": [
+    "complete hammer attack/animation dispatcher and ProductionToolComponent members",
+    "WarhammerHeavyMotion.h and base ProductionBlunt*/WarhammerShockwave implementation",
+    "ColdSteelProfileRecovery and MartialCooldownRevision merge protocol",
+    "base steel-warhammer item, arms and licensed local meshes/materials"
+  ]
+}

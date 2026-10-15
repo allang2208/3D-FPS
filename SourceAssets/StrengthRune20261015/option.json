@@ -1,0 +1,17 @@
+{
+  "id": "strength_rune",
+  "name": "力量符文",
+  "tier": "common",
+  "description": "粗壮中轴连接双肩折纹，赤红微光沿短刻纹汇入主印。",
+  "appearance": "中轴重印 · 赤红微光",
+  "stats": {
+    "physical_damage_mult": 1.1
+  },
+  "effects": [
+    {
+      "text": "物理伤害 +10%",
+      "benefit": 1
+    }
+  ],
+  "special_effects": []
+}

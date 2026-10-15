@@ -153,6 +153,12 @@ struct FFPSBodyAttachment
     UPROPERTY() FName TacticalKind;
     UPROPERTY() bool bAuthoredEmitterAxis=false;
     UPROPERTY() bool bVisible=true;
+    // Reconstruct transient rune ink on every observer; parent materials alone
+    // lose both the overlay and the installed rune's palette/mask selection.
+    UPROPERTY() FString RuneDefinition;
+    UPROPERTY() FString RuneId;
+    UPROPERTY() FName RuneSlot;
+    UPROPERTY() FVector RuneDimensions=FVector(12,10,63);
 };
 
 USTRUCT()

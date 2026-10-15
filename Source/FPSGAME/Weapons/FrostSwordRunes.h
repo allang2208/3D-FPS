@@ -5,6 +5,13 @@ namespace ColdSteelFrostRunes
 {
     inline constexpr const TCHAR* Definition=TEXT("ue_frost_crystal_sword");
     inline constexpr const TCHAR* SpiritBurst=TEXT("spirit_burst_rune");
+    inline constexpr const TCHAR* Warhammer=TEXT("ue_steel_warhammer");
+    inline const TCHAR* Slot(const FString& Weapon){return Weapon==Warhammer?TEXT("rune"):TEXT("blade_2");}
+    inline bool IsCommon(const FString& Rune)
+    {
+        return Rune==TEXT("strength_rune")||Rune==TEXT("haste_rune")||Rune==TEXT("resonance_rune")||
+            Rune==TEXT("erosion_rune")||Rune==TEXT("conduction_rune");
+    }
     inline constexpr const TCHAR* TangDao=TEXT("ue_tang_dao");
     inline constexpr const TCHAR* XuanChi=TEXT("ue_xuanchi_zhenyue");
     inline constexpr const TCHAR* AuspiciousCloud=TEXT("auspicious_cloud_rune");
@@ -22,6 +29,7 @@ namespace ColdSteelFrostRunes
     // Shared by catalog normalization, saved items and every sword visual.
     inline FString Upgrade(const FString& Weapon,const FString& Rune)
     {
+        if(Weapon==Warhammer&&!IsCommon(Rune))return {};
         if((Rune==Zhenmo||Rune==Jingang)&&Weapon!=XuanChi)return {};
         if(Rune==TEXT("golden_glow_rune")&&Weapon!=TEXT("ue_rune_sword"))return {};
         if((Rune==AuspiciousCloud||Rune==Mountain)&&!SupportsEasternRunes(Weapon))return {};

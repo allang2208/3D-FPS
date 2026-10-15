@@ -1,0 +1,697 @@
+{
+  "scope": "hammer modification and common rune task only",
+  "archive_root": "trash/warhammer-mods-retired-20261015",
+  "files": [
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_flanged_breaker.png",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_flanged_breaker.png",
+      "bytes": 1108725,
+      "sha256": "2d8624d81bc188511e33cd4497e49e704ace8885633681b6c3b7ece68aeac2a0",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_flanged_breaker.uasset",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_flanged_breaker.uasset",
+      "bytes": 921687,
+      "sha256": "5b70556d3d9ad3510092988be758971c2189191130a7226e5ec1305d822bd696",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_heavy_forged.png",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_heavy_forged.png",
+      "bytes": 1106557,
+      "sha256": "514ced0a4c5b084155f10195258f9d8d932f5b2780fe887559f848c836003020",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_heavy_forged.uasset",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_heavy_forged.uasset",
+      "bytes": 917637,
+      "sha256": "20818d0c710d89b77b25c0cb1dca5f7a44e6026021b524c6cdb550daee59a0c7",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_light_drum.png",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_light_drum.png",
+      "bytes": 1081597,
+      "sha256": "817d19c51504eba585bb6bb2b124a472986f645cc4953f3e7bbc509c8b470154",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_light_drum.uasset",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/hammer_heads_light_drum.uasset",
+      "bytes": 895924,
+      "sha256": "4e7e937a4adec5359e1ea053cc56e1e13f0dcd9310d2e48c5ae45524240d8adb",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Before/warhammer-modules.json",
+      "bytes": 4138,
+      "sha256": "c44dd3fbcd0105bdf968950792d1bf0407db160bc8e2f3c8de749fb7701edfbf",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSeats20261014/BuildV1/Before/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSeats20261014/BuildV1/Before/warhammer-gunsmith.json",
+      "bytes": 1565,
+      "sha256": "71d9956ca2cd58a9ec5b2ec58e2a0ff48dd6978600acc1e2a6746d55c8cea3cd",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerSeats20261014/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSeats20261014/BuildV1/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSeats20261014/BuildV1/Before/warhammer-modules.json",
+      "bytes": 4336,
+      "sha256": "7cc9c2028eee9c78113902cc24364e79e5933bdfb594983854004986c8c3a9b6",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerSeats20261014/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerGrips20261014/BuildV1/Before/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerGrips20261014/BuildV1/Before/warhammer-gunsmith.json",
+      "bytes": 1437,
+      "sha256": "4c79199e1cd31577ed880854562e19b4b05c1be6db271191fa83f51bda26a1e9",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerGrips20261014/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerGrips20261014/BuildV1/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerGrips20261014/BuildV1/Before/warhammer-modules.json",
+      "bytes": 6224,
+      "sha256": "d2605680093425674505f34c6d72cec384ac9d817b8b050a3508900936c7d6ec",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerGrips20261014/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/Balance20261014/apply_balance.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/Balance20261014/apply_balance.py",
+      "bytes": 1383,
+      "sha256": "b359f580b12ec40257037b70a4713ca0d74fbc2e83af32dd24424836832acdb7",
+      "reason": "superseded pommel balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/Balance20261014/catalog-before.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/Balance20261014/catalog-before.py",
+      "bytes": 1066,
+      "sha256": "bdde8380750967a41671a49b2bbfa8d1ae0a19fd2d0067e073003a872da0e03e",
+      "reason": "superseded pommel balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/Balance20261014/common-hammer-pommels-before.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/Balance20261014/common-hammer-pommels-before.json",
+      "bytes": 1115,
+      "sha256": "52d248abdf811315c7c221c5dba6a531c122b33a225fae0e381f41aed6d11b54",
+      "reason": "superseded pommel balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/Balance20261014/delivery.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/Balance20261014/delivery.json",
+      "bytes": 864,
+      "sha256": "9e66e49872c76ed0db5614db91c2e1e7e83db08fde87ddb27db087d788900b45",
+      "reason": "superseded pommel balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/Balance20261014/README.md",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/Balance20261014/README.md",
+      "bytes": 1303,
+      "sha256": "07220267848fa5bc42901b00caf3c8e46a6f536f7517c3d6085d261ad2011b44",
+      "reason": "superseded pommel balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Content/ColdSteelData/common-hammer-pommels.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Content/ColdSteelData/common-hammer-pommels.json",
+      "bytes": 2142,
+      "sha256": "da8e5aee9251b539768d4b95099c8178d61ae7e0ffb516f89e1e1d2f9e5703cc",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/common-hammer-pommels.json"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "bytes": 3396,
+      "sha256": "b83bb3d377ad2d2a7838d09ccafd4e0f90f90a4c6eab385e6f63ffea5582433f",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "bytes": 3086,
+      "sha256": "f17863af8978e54434ddf6ccc9d047d5625cd3f74a8c488ef2f53dd8c380d507",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "bytes": 60840,
+      "sha256": "992e079ab6ce4f099eddc0e6920217c334e0a58074f2be797bde3d0d523f2933",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "bytes": 23486,
+      "sha256": "947cb2e0ae3563da91b92ab42675982e5a7d1d168f641082de333910890a6e08",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "bytes": 33769,
+      "sha256": "7ad7094446178230e26ae351deb7c66fbfe65c3abfe5641f21821b143d7a9e8d",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "bytes": 12341,
+      "sha256": "0520fa7890d6ae5ca2e194976fe477a9af9c81550c94dd9791767fff5b7fd680",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "bytes": 32878,
+      "sha256": "ff127b8bc94e664b25c185fbed91715208e4eb8872469e1627faa7c42b92a22b",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/GunsmithSystem.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "bytes": 12675,
+      "sha256": "65639e2291514f2296e545fa1ab567f49e8afe8ecdfb9fa1c524da70140c553e",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/GunsmithSystem.h"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "bytes": 12435,
+      "sha256": "8fef154033703d047a251c7749d4f888e3f5f2f86f1341691504ff807639721c",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "bytes": 7738,
+      "sha256": "afbb049d7f6ea0dfe1c089e833b3d04b70fca7ff19a0e577173c29cffa1593f8",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/SourceAssets/CommonHammerPommels20261014/BuildV1/catalog.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BalanceV2/Before/SourceAssets/CommonHammerPommels20261014/BuildV1/catalog.py",
+      "bytes": 1803,
+      "sha256": "65e19b47a3e7787fe6519d8b5cbfef193260f805f971adc7d495a50d4a8e3d9f",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BuildV1/catalog.py"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BuildV1/Before/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BuildV1/Before/warhammer-gunsmith.json",
+      "bytes": 1925,
+      "sha256": "1c1c2dbc5ce60e7bdade995af94f701933cd0e952e793ed4798757dc85ae396c",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/BuildV1/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/BuildV1/Before/warhammer-modules.json",
+      "bytes": 7763,
+      "sha256": "fbae79fd0e270c1f3cbceb71c620f8c0b3df4defd46bfd8e1da6a4fc7943e235",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerPommels20261014/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Content/ColdSteelData/common-hammer-pommels.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Content/ColdSteelData/common-hammer-pommels.json",
+      "bytes": 2390,
+      "sha256": "d94ed5fcbc6c318d009d340a5819848feee13d35252a3e28ebc5a2022dd71896",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/common-hammer-pommels.json"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Content/ColdSteelData/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Content/ColdSteelData/warhammer-modules.json",
+      "bytes": 10310,
+      "sha256": "118f5f6d3d1fb889d769f237c06bb959d922890e76bfca54c81093fcdbd304b9",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/warhammer-modules.json"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "bytes": 8699,
+      "sha256": "0defce19724741defb7af0e3419eea0350cc3fe5451985d95b51a1a5708d55da",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 35712,
+      "sha256": "b2decccbc1c8bfa73bc334fda603fe015782b46c3e287aa7a495924668959b08",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolComponent.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "bytes": 5630,
+      "sha256": "97cfe7e1282e8ff05cc80ef5d1a734dfbb1b4fe74cf6eb5e9ca5371f8ad6ce41",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolStats.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionToolStats.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Production/ProductionToolStats.h",
+      "bytes": 2265,
+      "sha256": "ae229b2903935256de4884d0c1cd0924a702e786818b3d0ca755e63c54cc36dc",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolStats.h"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "bytes": 62315,
+      "sha256": "f0b7a7f69aaad96f3c14270b6a8054189a169ce3d5b8cdfe1bf989dab9662c7f",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "bytes": 23780,
+      "sha256": "cd7ce6ef448e7464025e92113ecc4498dcb4b2208aab8fe90117d16b39e1e9c7",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "bytes": 34069,
+      "sha256": "01dcfd53b914b9db6f8da123c8952309217030d3faf17cff523b22be4c97cfd5",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "bytes": 12575,
+      "sha256": "41fcec7bdc5daffcdbaf4fc4cec5bd89911700f6cc2eb5674b5f70a9b8ab5636",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "bytes": 32934,
+      "sha256": "56023ccad11fdfe0d06c9e2ddb1163bd6d29de5d4cc48cc6af9d98a7cd164a23",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/GunsmithSystem.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "bytes": 12790,
+      "sha256": "000f5555fbb89a730c0f922d1808c0611842f48a41a35577fca15b647f7e2656",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/GunsmithSystem.h"
+    },
+    {
+      "source": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerPommels20261014/NoPommelV1/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "bytes": 7958,
+      "sha256": "dfb7dc03cf9435ccea9fe77f429f7f9122819043881222444bc8a15ef354809a",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/apply_balance.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/apply_balance.py",
+      "bytes": 1022,
+      "sha256": "9c4d0d6567ec849359ad83e8bca7d19c9eb38fa7c6785f72c12f6102fcdbba3c",
+      "reason": "superseded balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/balance_receipt.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/balance_receipt.json",
+      "bytes": 707,
+      "sha256": "fbe90ed12f9df2876770d82779808c6372f51b8640c81f1d1f6e2f054a5cf851",
+      "reason": "superseded balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/README.md",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/README.md",
+      "bytes": 1440,
+      "sha256": "1d7000cfa7843ee54d0562ec9d51ba6942c58d2cff24ee99e09ebbf07bdd8b99",
+      "reason": "superseded balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/Before/catalog.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/Before/catalog.py",
+      "bytes": 501,
+      "sha256": "c7a7ff8b563cb96cfc6fc0bf429506e0d3d6611d178035fec253df32df8710b0",
+      "reason": "superseded balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/Before/common-hammer-heads.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV1/Before/common-hammer-heads.json",
+      "bytes": 2891,
+      "sha256": "7ef21253936052639f4c5e028f2a1e14858707f30d1f9249089c216ca55b019e",
+      "reason": "superseded balance recipe",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/Before/Content/ColdSteelData/common-hammer-heads.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/Before/Content/ColdSteelData/common-hammer-heads.json",
+      "bytes": 3400,
+      "sha256": "6c0fad84a583ebe88a697362cd046f1e039d6a2b0eca8b13b5c796632531306a",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/common-hammer-heads.json"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "bytes": 7841,
+      "sha256": "9d3505304b06c313ade01d3ef5f602db4d4545ae4b5ce45351b4cdbd47c7d218",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/Before/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/catalog.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/Before/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/catalog.py",
+      "bytes": 1050,
+      "sha256": "ccc37605c494423bd197eb1f1f49017f8390db8b087dda51e3c07e7437fa21ef",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/catalog.py"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Before/common-hammer-heads.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Before/common-hammer-heads.json",
+      "bytes": 2540,
+      "sha256": "467db7cbf2b78dc7436884d429f4790c0ef08fa5b41cc81a3369e7c835e098e5",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Before/GunsmithModificationTier.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Before/GunsmithModificationTier.h",
+      "bytes": 3812,
+      "sha256": "c2a09de1c8ca74453748a41e4935f33fb8e37a791bafcee235fa0b6f0042865d",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Before/warhammer-modules.json",
+      "bytes": 9290,
+      "sha256": "b50c61542a2a1af5b53b04608472ff8a2c83a6986bcf98cb83abbd0816aac7be",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV1/pointed-hammer-design.png",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV1/pointed-hammer-design.png",
+      "bytes": 2184973,
+      "sha256": "1eb980497cddb2c8ec9e80cabba5549da77d5ce37a328db5ded521da176be3d3",
+      "reason": "rejected pointed head concept",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV1/prompt.txt",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV1/prompt.txt",
+      "bytes": 4691,
+      "sha256": "b5a1815c50b655663191672838d1ac18e3fa49e4bdf81fe9d7733c56c0780d33",
+      "reason": "rejected pointed head concept",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV2/prompt-regenerate.txt",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV2/prompt-regenerate.txt",
+      "bytes": 3020,
+      "sha256": "704798b4f4cabf09904981ca412f44dac37eb906edf8055e5a9b8aec82fe026f",
+      "reason": "abandoned regeneration prompts",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV2/prompt.txt",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV2/prompt.txt",
+      "bytes": 2543,
+      "sha256": "5939f5509ef071ccac12dbf453f337f1720f9c04f791fe7814726a10084e61b3",
+      "reason": "abandoned regeneration prompts",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV3/double-pyramid-design.png",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV3/double-pyramid-design.png",
+      "bytes": 2039336,
+      "sha256": "cf3b4dda8d05805cc08b1ccb8a2a161678c84cb0df7a03fa4a2678b7645c86f8",
+      "reason": "superseded pointed head concept",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4"
+    },
+    {
+      "source": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV3/prompt.txt",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV3/prompt.txt",
+      "bytes": 2132,
+      "sha256": "584258825cd0fc10a69969662125c2a19b7015e7d0ea53df5c4015da8f4ec0fa",
+      "reason": "superseded pointed head concept",
+      "retained_replacement": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1/Before/catalog.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1/Before/catalog.py",
+      "bytes": 849,
+      "sha256": "1eec9e9ea13c50019cb6ad7c8c889fedc799e1ca31ed85a09ef5218fb56add24",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1/Before/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1/Before/warhammer-gunsmith.json",
+      "bytes": 2393,
+      "sha256": "870e05f2a2ba9f06bae3cf1a0f4dff407ac534c3ae53853faae5924f5671aa8c",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Before/GunsmithModificationTier.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Before/GunsmithModificationTier.h",
+      "bytes": 3929,
+      "sha256": "449ce7adeabc31749afb42fbb7bc69f74e1ca459b97ef6e75588e3a90f2267bb",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Before/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Before/warhammer-gunsmith.json",
+      "bytes": 1981,
+      "sha256": "570f90167de4713198a39154bdada1045cb0ec84331ed9cbf979c28819f35e62",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Before/warhammer-modules.json",
+      "bytes": 9812,
+      "sha256": "5dc09df10c60a6e8397662160ebec8c1ec0258d0f9c08dfde87e312da6b82c36",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Content/ColdSteelData/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Content/ColdSteelData/warhammer-gunsmith.json",
+      "bytes": 2989,
+      "sha256": "33b1cfc462c962b5c3a945f4a71cb05dfee35a828f46be647aa6d4cd907eaf60",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/warhammer-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 35757,
+      "sha256": "28c1912026a92bf96394f7b62d2fd13b1760791cde3f2bb44832f0e9ff8773df",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolComponent.cpp"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/WarhammerCombat.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/WarhammerCombat.cpp",
+      "bytes": 1554,
+      "sha256": "cb1c1c5574f9a7418427e0a323f87814cbd5a019eb96a60fccc3a78c9a6bc019",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/WarhammerCombat.cpp"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/WarhammerCombat.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/Source/FPSGAME/Production/WarhammerCombat.h",
+      "bytes": 394,
+      "sha256": "2f621e0fb2e87db6c9d762c1bd025e0a6f73d92f225c8aba1052936f3367e6a1",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/WarhammerCombat.h"
+    },
+    {
+      "source": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/catalog.py",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/Before/SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/catalog.py",
+      "bytes": 1325,
+      "sha256": "de62d6462613bed21820cb0e8bb5ca3137293811ae0866288aec16d5f0757a8d",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/catalog.py"
+    },
+    {
+      "source": "SourceAssets/WarhammerRuneSlot20261014/Before/warhammer-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerRuneSlot20261014/Before/warhammer-gunsmith.json",
+      "bytes": 1619,
+      "sha256": "71a6191fdc6ba84b3f10c3b00dc67b67281bd16eb27b55b4521300c0fd3a2ea6",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/WarhammerRuneSlot20261014"
+    },
+    {
+      "source": "SourceAssets/WarhammerRuneSlot20261014/Before/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerRuneSlot20261014/Before/warhammer-modules.json",
+      "bytes": 5776,
+      "sha256": "6e83810f0ad3e7587798cd2622c101990b839c1f8f445961504be4205cfb504f",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "SourceAssets/WarhammerRuneSlot20261014"
+    },
+    {
+      "source": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+      "bytes": 13327,
+      "sha256": "7fd9c32596a6fb057dee5a7b2277a752239ac526991425ba237fa14f5a8c4b93",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp"
+    },
+    {
+      "source": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "bytes": 21365,
+      "sha256": "9cd47de69482afed63409d6d2c549aa07faf639b892d014e72b50fe73e5d8d27",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp"
+    },
+    {
+      "source": "SourceAssets/StrengthRune20261015/Before/Content/ColdSteelData/melee-gunsmith.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/StrengthRune20261015/Before/Content/ColdSteelData/melee-gunsmith.json",
+      "bytes": 39724,
+      "sha256": "132c7404f511879cc13924e59b9250456f14bd29f33652738a205ad156e8d061",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/melee-gunsmith.json"
+    },
+    {
+      "source": "SourceAssets/StrengthRune20261015/Before/Content/ColdSteelData/warhammer-modules.json",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/StrengthRune20261015/Before/Content/ColdSteelData/warhammer-modules.json",
+      "bytes": 10803,
+      "sha256": "9508e5121220fafee9337e179bec5bf0edea7bb751eaf93a7103db4b59bb746b",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Content/ColdSteelData/warhammer-modules.json"
+    },
+    {
+      "source": "SourceAssets/StrengthRune20261015/Before/Source/FPSGAME/Weapons/FrostSwordRunes.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/StrengthRune20261015/Before/Source/FPSGAME/Weapons/FrostSwordRunes.h",
+      "bytes": 2316,
+      "sha256": "682f58572f2543d9f0ffec29afb8a7f2906ca96ea7fa84d9eb9ec36e003b42f4",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/FrostSwordRunes.h"
+    },
+    {
+      "source": "SourceAssets/StrengthRune20261015/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/StrengthRune20261015/Before/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+      "bytes": 13315,
+      "sha256": "230ce1f31055b2d2cd45ee9f096f6783d686542039983b62949895a4073fa5f1",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp"
+    },
+    {
+      "source": "SourceAssets/StrengthRune20261015/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/StrengthRune20261015/Before/Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "bytes": 21928,
+      "sha256": "abd75f7cdec140dfb8ccb1b170d47f5094b1145b75b97d0e0ccf3aeb15e5d9a8",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "bytes": 47116,
+      "sha256": "26a03285bd16cc0c9cc9aacc533d73e688aa6d59c2570062bce90652615a0a76",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "bytes": 10704,
+      "sha256": "8efa24198ea9c5e33a6d160126aaaf6742cbc3356842d9a98d3111e6206c1e90",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "bytes": 8791,
+      "sha256": "8851547a37ec7da90e6225417477dd70b7a2ead0564a4bdeb52d42b179eabe5c",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntUppercut.cpp",
+      "bytes": 13016,
+      "sha256": "0c2c6179f89bbd2f1bc8d613c8a1da1738adf29e370ca16beaa3331cdc80b02a",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionBluntUppercut.cpp"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp",
+      "bytes": 11037,
+      "sha256": "eef5db298558c764a12a99d6d0126db64eb603bad9a7b9dde7fdd2da5d6f2d3e",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionBluntWhirlwind.cpp"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 12445,
+      "sha256": "ca77e394ac628bce8e1563e250fbbc8f01d712c1fe4343e1b8c3490ecfeadb16",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolComponent.h"
+    },
+    {
+      "source": "SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "destination": "trash/warhammer-mods-retired-20261015/SourceAssets/WarhammerIntegrationAudit20261015/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "bytes": 8544,
+      "sha256": "109d13c3b8b06e4b697eb19eb2a107cf83bf92796d23e19a42e9ebc7be840570",
+      "reason": "pre-operation backup; active inputs and final source are retained",
+      "retained_replacement": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp"
+    }
+  ],
+  "count": 86,
+  "bytes": 11097260,
+  "moved_and_hash_verified": true
+}

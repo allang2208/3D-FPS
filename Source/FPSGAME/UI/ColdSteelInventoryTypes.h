@@ -304,6 +304,11 @@ namespace ColdSteelInventory
     {
         return Item.Definition==TEXT("tool_axe") || Item.Definition==TEXT("tool_pickaxe");
     }
+    inline bool IsTwoHandedBlunt(const FColdSteelItem& Item)
+    {
+        return Text(Item,TEXT("category"))==TEXT("weapon_melee") &&
+            Text(Item,TEXT("weaponType"))==TEXT("blunt") && Flag(Item,TEXT("isTwoHanded"));
+    }
     inline bool IsMeleeWeapon(const FColdSteelItem& Item)
     {
         return Item.Definition==TEXT("ue_rune_sword") || IsEquippedProductionTool(Item) ||

@@ -82,9 +82,13 @@ double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers)
 
 FMeleeModifiers ColdSteelMelee::EquippedModifiers(const UColdSteelStatusModel* Profile)
 {
-    const auto* Item=Profile&&!Profile->ActiveProductionTool()?Profile->Equipped():nullptr;
+    const auto* Tool=Profile?Profile->ActiveProductionTool():nullptr;
+    // Blunt weapons use the tool executor but still supply equipped melee passives.
+    // A held shovel/harvesting tool must continue to suppress the stored sword.
+    const auto* Item=Tool?Tool:Profile?Profile->Equipped():nullptr;
     const auto* G=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
-    return Item&&G&&ColdSteelInventory::IsTwoHandedSword(*Item)?G->Calculate(Item->Definition,G->Installed(*Item)).Melee:FMeleeModifiers{};
+    return Item&&G&&(ColdSteelInventory::IsTwoHandedSword(*Item)||ColdSteelInventory::IsTwoHandedBlunt(*Item))?
+        G->Calculate(Item->Definition,G->Installed(*Item)).Melee:FMeleeModifiers{};
 }
 
 namespace

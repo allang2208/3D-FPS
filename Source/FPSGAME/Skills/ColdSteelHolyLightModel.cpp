@@ -61,7 +61,7 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
     C.Healing=FMath::FloorToFloat(Base*HealFactor);
     C.Damage=FMath::FloorToFloat(Base*DamageFactor*MagicImplementMultiplier());
     C.ManaCost=SpellManaCostBeforeFocus(TEXT("holyLight"),L);
-    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
+    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }

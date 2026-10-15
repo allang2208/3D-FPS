@@ -130,6 +130,7 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         }Weapons.Add(W.Id,W);
     }
     LoadMeleeCatalog();
+    LoadWarhammerCatalog();
     LoadToolCatalog();
     LoadBowCatalog();
     LoadStaffCatalog();
@@ -167,7 +168,8 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
             if(Input.Contains(TEXT("bipod")))continue;
             Slot=TEXT("bipod");
         }
-        FString Id=Slot==TEXT("blade_2")?ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
+        FString Id=(Slot==TEXT("blade_2")||(D==ColdSteelFrostRunes::Warhammer&&Slot==TEXT("rune")))?
+            ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
         if(D==RSH12WeaponAssets::Definition && Slot==TEXT("optic"))Id=RSH12OpticAssets::Upgrade(Id);
         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
@@ -225,6 +227,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.PhysicalArmorPenetration=FMath::Clamp(R.Melee.PhysicalArmorPenetration+M.PhysicalArmorPenetration,0.,1.);
             R.Melee.ComboSecond*=M.ComboSecond;R.Melee.ComboThird*=M.ComboThird;
             R.Melee.ComboThirdToughness*=M.ComboThirdToughness;
+            R.Melee.SkillCooldown*=M.SkillCooldown;
+            R.Melee.MartialCooldown*=M.MartialCooldown;
             R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
@@ -250,6 +254,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
 
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
+            R.Melee.HeavyReleaseStamina*=M.HeavyReleaseStamina;
             R.Melee.HeavyToughness*=M.HeavyToughness;
             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
             R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;

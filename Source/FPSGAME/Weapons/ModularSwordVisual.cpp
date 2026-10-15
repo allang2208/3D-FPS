@@ -23,7 +23,9 @@ TMap<FString,TSharedPtr<FJsonObject>>& ResolvedCatalogs()
 }
 TSharedPtr<FJsonObject> Catalog(const FColdSteelItem& Item)
 {
-    FString File=ColdSteelInventory::Text(Item,TEXT("modular_sword_catalog"));
+    FString File=ColdSteelInventory::Text(Item,TEXT("modular_melee_catalog"));
+    if(File.IsEmpty())File=ColdSteelInventory::Text(Item,TEXT("modular_sword_catalog"));
+    if(File.IsEmpty()&&Item.Definition==TEXT("ue_steel_warhammer"))File=TEXT("warhammer-modules.json");
     if(File.IsEmpty())File=Item.Definition==TEXT("ue_frost_crystal_sword")?TEXT("frost-sword-modules.json"):
         Item.Definition==TEXT("ue_rune_sword")?TEXT("rune-sword-modules.json"):FString();
     if(File.IsEmpty())return nullptr;
@@ -82,7 +84,7 @@ FGunsmithParts Installed(const FColdSteelItem& Item,const FGunsmithParts* Draft)
     if(Draft)Result=*Draft;
     else if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Root)&&Root&&Root->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
         for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->TryGetString(Value))Result.Add(FString(*Pair.Key),Value);}
-    if(auto* Rune=Result.Find(TEXT("blade_2")))*Rune=ColdSteelFrostRunes::Upgrade(Item.Definition,*Rune);
+    if(auto* Rune=Result.Find(ColdSteelFrostRunes::Slot(Item.Definition)))*Rune=ColdSteelFrostRunes::Upgrade(Item.Definition,*Rune);
     return Result;
 }
 TSharedPtr<FJsonObject> Part(const FColdSteelItem& Item,const TCHAR* Slot,const FGunsmithParts& Parts)
@@ -92,6 +94,19 @@ TSharedPtr<FJsonObject> Part(const FColdSteelItem& Item,const TCHAR* Slot,const 
     const FString Selected=Parts.FindRef(Slot);
     if(!(*Choices)->TryGetObjectField(Selected,Spec)&&!(*Choices)->TryGetObjectField(TEXT("factory"),Spec))return nullptr;
     return *Spec;
+}
+TArray<FString> ModuleSlots(const FColdSteelItem& Item)
+{
+    const auto Root=Catalog(Item);const TArray<TSharedPtr<FJsonValue>>* Slots=nullptr;
+    if(Root&&Root->TryGetArrayField(TEXT("module_slots"),Slots))
+    {
+        TArray<FString> Result;for(const auto& Slot:*Slots)Result.Add(Slot->AsString());return Result;
+    }
+    return {TEXT("blade_1"),TEXT("guard"),TEXT("grip"),TEXT("pommel")};
+}
+FString RootSlot(const FColdSteelItem& Item)
+{
+    FString Slot=TEXT("blade_1");if(const auto Root=Catalog(Item))Root->TryGetStringField(TEXT("root_slot"),Slot);return Slot;
 }
 }
 
@@ -127,6 +142,11 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     {
         if(!Path.IsEmpty())Out.AddUnique(FSoftObjectPath(Path.Contains(TEXT("."))?Path:Path+TEXT(".")+FPaths::GetCleanFilename(Path)));
     };
+    if(Item.Definition==ColdSteelFrostRunes::Warhammer&&ColdSteelFrostRunes::IsCommon(Parts.FindRef(TEXT("rune"))))
+    {
+        Add(TEXT("/Game/Weapons/SteelWarhammer20261014/Runes/ShaftWrapV2/M_SilverRuneSurface_WarhammerShaftV2"));
+        Add(TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+Parts.FindRef(TEXT("rune")));
+    }
     if(ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)
         Add(ColdSteelFrostRunes::CloudMask);
     if(ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Mountain)
@@ -142,8 +162,8 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
         if(Spec->TryGetObjectField(TEXT("materials"),Materials))
             for(const auto& Pair:(*Materials)->Values){FString Path;if(Pair.Value->TryGetString(Path))Add(Path);}
     };
-    for(const TCHAR* Slot:{TEXT("blade_1"),TEXT("guard"),TEXT("grip"),TEXT("pommel")})
-        if(const auto Spec=Part(Item,Slot,Parts))
+    for(const FString& Slot:ModuleSlots(Item))
+        if(const auto Spec=Part(Item,*Slot,Parts))
         {
             Gather(Spec);
             const TSharedPtr<FJsonObject>* Adapter=nullptr;
@@ -170,13 +190,14 @@ FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithPar
 {
     if(!Supports(Item))return {};
     const auto Parts=Installed(Item,Draft);FString Result=Item.Definition+TEXT("|")+Catalog(Item)->GetStringField(TEXT("interface"));
-    for(const TCHAR* Slot:{TEXT("blade_1"),TEXT("guard"),TEXT("grip"),TEXT("pommel")})
-        if(const auto Spec=Part(Item,Slot,Parts))
+    for(const FString& Slot:ModuleSlots(Item))
+        if(const auto Spec=Part(Item,*Slot,Parts))
         {
             FString Settings;FJsonSerializer::Serialize(Spec.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Settings));
             Result+=FString(TEXT("|"))+Slot+TEXT("=")+Parts.FindRef(Slot)+FString::Printf(TEXT(":%08x"),FCrc::StrCrc32(*Settings));
         }
-    if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(TEXT("blade_2"));
+    if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
+    if(Item.Definition==ColdSteelFrostRunes::Warhammer)Result+=TEXT("|runePlacement=shaft-wrap-v2");
     if(Item.Definition==ColdSteelFrostRunes::Definition)Result+=TEXT("|innateErosion=spirit20260922");
     if(IncludeRune&&Item.Definition==TEXT("ue_rune_sword")&&Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune"))
         Result+=TEXT("|nativeInk=20260922-root2");
@@ -204,22 +225,23 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     const FString VisualKey=Key(Item,Draft,IncludeRune);
     if(Blade->ComponentHasTag(FName(*(KeyPrefix+VisualKey))))return true;
     const auto Parts=Installed(Item,Draft);
+    const FString PrimarySlot=RootSlot(Item);
     const FVector PommelOffset=Vector(Part(Item,TEXT("grip"),Parts),TEXT("pommel_offset_cm"));
     struct FInstall {FString Slot;TSharedPtr<FJsonObject> Spec;UStaticMesh* Asset;TMap<FName,UMaterialInterface*> Materials;};
     TArray<FInstall> Plan;
-    for(const TCHAR* Slot:{TEXT("blade_1"),TEXT("guard"),TEXT("grip"),TEXT("pommel")})
+    for(const FString& Slot:ModuleSlots(Item))
     {
-        const auto Spec=Part(Item,Slot,Parts);if(!Spec)return false;
+        const auto Spec=Part(Item,*Slot,Parts);if(!Spec)return false;
         auto* Asset=LoadObject<UStaticMesh>(nullptr,*Spec->GetStringField(TEXT("mesh")));if(!Asset)return false;
         Plan.Add({Slot,Spec,Asset,{}});
         const TSharedPtr<FJsonObject>* Adapter=nullptr;
-        if(FCString::Strcmp(Slot,TEXT("pommel"))==0&&Spec->TryGetObjectField(TEXT("adapter"),Adapter))
+        if(Slot==TEXT("pommel")&&Spec->TryGetObjectField(TEXT("adapter"),Adapter))
         {
             auto* Mount=LoadObject<UStaticMesh>(nullptr,*(*Adapter)->GetStringField(TEXT("mesh")));if(!Mount)return false;
             Plan.Add({TEXT("pommel_mount"),*Adapter,Mount,{}});
         }
         const TSharedPtr<FJsonObject>* Tassel=nullptr;
-        if(FCString::Strcmp(Slot,TEXT("pommel"))==0&&Spec->TryGetObjectField(TEXT("tassel"),Tassel))
+        if(Slot==TEXT("pommel")&&Spec->TryGetObjectField(TEXT("tassel"),Tassel))
         {
             auto* Tail=LoadObject<UStaticMesh>(nullptr,*(*Tassel)->GetStringField(TEXT("mesh")));if(!Tail)return false;
             Plan.Add({TEXT("tassel"),*Tassel,Tail,{}});
@@ -244,7 +266,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     for(const auto& Entry:Plan)
     {
         UStaticMeshComponent* Mesh=Blade;
-        if(Entry.Slot!=TEXT("blade_1"))
+        if(Entry.Slot!=PrimarySlot)
         {
             const FName SlotTag(*(TEXT("SwordSlot=")+Entry.Slot));Mesh=nullptr;
             for(auto* Child:Components(Blade))if(Child!=Blade&&Child->ComponentHasTag(SlotTag)){Mesh=Child;break;}
@@ -276,7 +298,15 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
         }
         if(auto* Tassel=Cast<USwordTasselMeshComponent>(Mesh))Tassel->Configure(Entry.Spec);
     }
-    ColdSteelMeleeRune::Apply(Blade,IncludeRune?Parts.FindRef(TEXT("blade_2")):FString(),Item.Definition);
+    const FString SelectedRune=IncludeRune?Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition)):FString();
+    if(Item.Definition==ColdSteelFrostRunes::Warhammer)
+    {
+        // Clear the old center-seat overlay, then place ink only on the bare shaft.
+        ColdSteelMeleeRune::Apply(Blade,FString(),Item.Definition);
+        for(auto* Module:Components(Blade))if(Module->ComponentHasTag(TEXT("SwordSlot=shaft")))
+            ColdSteelMeleeRune::Apply(Module,SelectedRune,Item.Definition);
+    }
+    else ColdSteelMeleeRune::Apply(Blade,SelectedRune,Item.Definition);
     if(Item.Definition==TEXT("ue_rune_sword"))
         for(auto* Module:Components(Blade))if(Module->ComponentHasTag(TEXT("SwordSlot=guard")))
             ColdSteelMeleeRune::Apply(Module,IncludeRune&&Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune")?
@@ -329,6 +359,7 @@ FString ColdSteelModularSword::Appearance(const FColdSteelItem& Item,const FStri
         return TEXT("金色太极八卦主印 · 沿刃符线 · 镇岳专属传说");
     if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::XuanChi&&Option==ColdSteelFrostRunes::Jingang)
         return TEXT("金刚经行草 · 金色渐变经文 · 镇岳专属传说");
+    if(Slot==TEXT("blade_2")&&Option==TEXT("strength_rune"))return TEXT("中轴重印 · 赤红微光");
     if(Slot==TEXT("blade_2")&&Option==TEXT("haste_rune"))return TEXT("疾风折纹 · 黄色流光");
     if(Slot==TEXT("blade_2"))return Factory?TEXT("保留原有刃面纹样"):TEXT("剑刃表面符文");
     const TSharedPtr<FJsonObject>* Slots=nullptr,*Choices=nullptr,*Spec=nullptr;

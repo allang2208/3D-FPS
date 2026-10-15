@@ -1,0 +1,533 @@
+diff --git a/Source/FPSGAME/Production/ProductionToolStats.cpp b/Source/FPSGAME/Production/ProductionToolStats.cpp
+--- a/Source/FPSGAME/Production/ProductionToolStats.cpp
++++ b/Source/FPSGAME/Production/ProductionToolStats.cpp
+@@ -1,5 +1,6 @@
+ #include "ProductionToolStats.h"
+ #include "ProductionResource.h"
++#include "WarhammerHeavyMotion.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+ #include "../Weapons/WeaponDamagePanel.h"
+@@ -20,13 +21,21 @@
+     const auto* Enhance=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+     R.bModifiable=Gunsmith&&Gunsmith->IsTool(Item.Definition);
+     if(R.bModifiable)R.Modifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Tool;
++    const bool Blunt=ColdSteelInventory::IsTwoHandedBlunt(Item);
++    FMeleeModifiers BluntModifiers;
++    if(Blunt&&Gunsmith)
++    {
++        R.bModifiable=Gunsmith->IsMelee(Item.Definition);
++        BluntModifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee;
++        R.Modifiers.Damage=BluntModifiers.Damage;
++    }
+ 
+     // 自卫伤害：工具自己的基础数值 × 改造倍率，再走与剑类相同的附魔／加工后处理。
+     // 不借用剑类 Evaluate，避免把连击、格挡与精通口径带进采集工具。
+     const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),12);
+     const double Attack=Profile?Profile->Derived(TEXT("atk")):0;
+     const double Processed=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
+-    R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed);
++    R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed,Blunt?&BluntModifiers:nullptr);
+ 
+     R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.)*(Profile?Profile->BerserkAttackSpeedMultiplier():1.f);
+     R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.1)/R.RateScale;
+@@ -45,17 +54,27 @@
+     R.ToughnessDamage=R.Modifiers.ToughnessDamage;
+     R.CriticalChanceAdd=R.Modifiers.CriticalChanceAdd;
+     R.HarvestHitsAdd=R.Modifiers.HarvestHitsAdd;
+-    if(ColdSteelInventory::IsTwoHandedBlunt(Item))
++    if(Blunt)
+     {
+         const auto* Enhancement=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+-        R.RateScale=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd"))):1.)/
++        R.RateScale=FMath::Clamp((Profile?double(Profile->Derived(TEXT("aspd"))):1.)*BluntModifiers.AttackSpeed/
+             FMath::Max(.1,Enhancement?Enhancement->Effect(Item,TEXT("attackIntervalMul"),1):1.),.2,4.);
+         R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.16)/R.RateScale;
+         R.ContactSeconds=ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.6)/R.RateScale;
++        R.HeavyChargeSpeedBonus=BluntModifiers.HeavyChargeSpeedBonus+
++            (Enhance?Enhance->Effect(Item,TEXT("heavyChargeSpeedBonus")):0.)+
++            ColdSteelInventory::Number(Item,TEXT("heavy_charge_speed_bonus"),0.);
++        R.HeavyChargeSeconds=FMath::Max(.2,ColdSteelInventory::Number(Item,TEXT("heavy_charge_seconds"),WarhammerHeavy::ChargeSeconds)/
++            FMath::Max(.1,1.+R.HeavyChargeSpeedBonus));
+         R.StaminaCost=ColdSteelMelee::AttackStamina(&Item,Profile);
++        // AttackStamina includes the installed modifier. Replace only that factor
++        // for the workbench draft; never charge it twice in the authority path.
++        if(Preview&&Gunsmith)R.StaminaCost*=BluntModifiers.Stamina/
++            FMath::Max(.001,Gunsmith->Calculate(Item.Definition,Gunsmith->Installed(Item)).Melee.Stamina);
+         R.HarvestReachCM=R.HarvestRadiusCM=0.;
+-        R.ToughnessDamage=ColdSteelInventory::Number(Item,TEXT("toughness_damage_mult"),1.);
++        R.ToughnessDamage=ColdSteelInventory::Number(Item,TEXT("toughness_damage_mult"),1.)*BluntModifiers.ToughnessDamage;
+     }
++    R.HeavyReleaseStaminaCost=R.StaminaCost*(Blunt?BluntModifiers.HeavyReleaseStamina:1.);
+     return R;
+ }
+ 
+diff --git a/Source/FPSGAME/Production/ProductionToolStats.h b/Source/FPSGAME/Production/ProductionToolStats.h
+--- a/Source/FPSGAME/Production/ProductionToolStats.h
++++ b/Source/FPSGAME/Production/ProductionToolStats.h
+@@ -24,6 +24,9 @@
+     /** 作者节奏 ÷ 挥砍速度倍率；组件按 RateScale 在作者时间与真实时间之间换算。 */
+     double SwingSeconds=1.1, ContactSeconds=.48, RateScale=1;
+     double StaminaCost=10;
++    double HeavyReleaseStaminaCost=10;
++    /** Warhammer charge clock is independent of its ordinary attack-rate clock. */
++    double HeavyChargeSpeedBonus=0, HeavyChargeSeconds=2;
+     double HarvestReachCM=320, HarvestRadiusCM=0, CombatReachCM=180, CombatRadiusCM=0;
+     double HarvestYield=1, BonusHarvestChance=0, ToughnessDamage=1, CriticalChanceAdd=0;
+     int32 HarvestHitsAdd=0;
+diff --git a/Source/FPSGAME/UI/M4MeleeGunsmith.cpp b/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
+--- a/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
++++ b/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
+@@ -6,6 +6,7 @@
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/ModularSwordVisual.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
++#include "../Production/ProductionToolStats.h"
+ #include "../Weapons/RuneSwordRhythm.h"
+ #include "../Weapons/RuneSwordThrustRhythm.h"
+ #include "../Weapons/RuneSwordCombatTuning.h"
+@@ -28,14 +29,38 @@
+ {
+     const auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     const auto Parts=bCompareFactory?FGunsmithParts():Model()->Installed(Item);
+-    const auto Before=ColdSteelMelee::Evaluate(Item,Profile,&Parts);
+-    const auto After=ColdSteelMelee::Evaluate(Item,Profile,&Model()->Draft());
+     auto Row=[this](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false)
+     {
+         const double Delta=Final-Base;const bool Same=FMath::Abs(Delta)<.00001;
+         Overview.Add({Name,FString::Printf(TEXT("%.*f%s"),Digits,Base,Unit),FString::Printf(TEXT("%.*f%s"),Digits,Final,Unit),
+             Same?TEXT("—"):FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit),Same?0:((Delta>0)!=Lower?1:-1)});
+     };
++    if(ColdSteelInventory::IsTwoHandedBlunt(Item))
++    {
++        const auto Factory=ColdSteelTool::Evaluate(Item,Profile,&Parts);
++        const auto Draft=ColdSteelTool::Evaluate(Item,Profile,&Model()->Draft());
++        Row(ColdSteelWeaponText::TotalDamage,Factory.Damage.Total(),Draft.Damage.Total(),2,TEXT(""));
++        Row(ColdSteelWeaponText::AttackInterval,Factory.SwingSeconds*1000,Draft.SwingSeconds*1000,0,TEXT(" ms"),true);
++        Row(ColdSteelWeaponText::AttackDistance,Factory.CombatReachCM/100,Draft.CombatReachCM/100,2,TEXT(" m"));
++        Row(ColdSteelWeaponText::StaminaCost,Factory.StaminaCost,Draft.StaminaCost,2,TEXT(""),true);
++        if(!FMath::IsNearlyEqual(Factory.HeavyReleaseStaminaCost,Factory.StaminaCost)||!FMath::IsNearlyEqual(Draft.HeavyReleaseStaminaCost,Draft.StaminaCost))
++            Row(TEXT("重击出手体力消耗"),Factory.HeavyReleaseStaminaCost,Draft.HeavyReleaseStaminaCost,2,TEXT(""),true);
++        Row(TEXT("韧性伤害倍率"),Factory.ToughnessDamage,Draft.ToughnessDamage,2,TEXT("×"));
++        Row(TEXT("重击蓄力速度加成"),Factory.HeavyChargeSpeedBonus*100.,Draft.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
++        const auto BeforeRunes=Model()->Calculate(Item.Definition,Parts).Melee;
++        const auto AfterRunes=Model()->Calculate(Item.Definition,Model()->Draft()).Melee;
++        if(BeforeRunes.PhysicalArmorPenetration>0.||AfterRunes.PhysicalArmorPenetration>0.)
++            Row(TEXT("改造物理防御穿透"),BeforeRunes.PhysicalArmorPenetration*100.,AfterRunes.PhysicalArmorPenetration*100.,0,TEXT("%"));
++        Row(TEXT("所有技能冷却倍率"),BeforeRunes.SkillCooldown,AfterRunes.SkillCooldown,2,TEXT("×"),true);
++        Row(TEXT("武技冷却倍率"),BeforeRunes.MartialCooldown,AfterRunes.MartialCooldown,2,TEXT("×"),true);
++        Row(TEXT("魔法技能冷却倍率"),BeforeRunes.MagicCooldown,AfterRunes.MagicCooldown,2,TEXT("×"),true);
++        Row(TEXT("魔法伤害倍率"),BeforeRunes.MagicDamage,AfterRunes.MagicDamage,2,TEXT("×"));
++        Row(TEXT("战锤命中魔法易伤"),BeforeRunes.RuneVulnerability*100,AfterRunes.RuneVulnerability*100,0,TEXT("%"));
++        Overview.Add({TEXT("握持"),TEXT("双手 · 占用副手"),TEXT("双手 · 占用副手"),TEXT("—"),0});
++        return;
++    }
++    const auto Before=ColdSteelMelee::Evaluate(Item,Profile,&Parts);
++    const auto After=ColdSteelMelee::Evaluate(Item,Profile,&Model()->Draft());
+     if(Before.Modifiers.CriticalChanceAdd>0.||After.Modifiers.CriticalChanceAdd>0.)
+         Row(TEXT("改造暴击率加成"),Before.Modifiers.CriticalChanceAdd,After.Modifiers.CriticalChanceAdd,0,TEXT("%"));
+     if(Before.Modifiers.ZhenmoSeconds>0.||After.Modifiers.ZhenmoSeconds>0.)
+@@ -84,6 +109,8 @@
+         Before.QuickCombat.bAreaHit==After.QuickCombat.bAreaHit?TEXT("—"):After.QuickCombat.bAreaHit?TEXT("启用范围攻击"):TEXT("恢复单目标"),
+         Before.QuickCombat.bAreaHit==After.QuickCombat.bAreaHit?0:After.QuickCombat.bAreaHit?1:-1});
+     Row(TEXT("魔法值消耗倍率"),Before.Modifiers.MagicCost,After.Modifiers.MagicCost,2,TEXT("×"),true);
++    Row(TEXT("所有技能冷却倍率"),Before.Modifiers.SkillCooldown,After.Modifiers.SkillCooldown,2,TEXT("×"),true);
++    Row(TEXT("武技冷却倍率"),Before.Modifiers.MartialCooldown,After.Modifiers.MartialCooldown,2,TEXT("×"),true);
+     Row(TEXT("魔法技能冷却倍率"),Before.Modifiers.MagicCooldown,After.Modifiers.MagicCooldown,2,TEXT("×"),true);
+     Row(TEXT("魔法伤害倍率"),Before.Modifiers.MagicDamage,After.Modifiers.MagicDamage,2,TEXT("×"));
+     Row(ColdSteelWeaponText::RuneVulnerability,Before.Modifiers.RuneVulnerability*100,After.Modifiers.RuneVulnerability*100,0,TEXT("%"));
+diff --git a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -204,6 +204,28 @@
+         AddValue(ColdSteelWeaponText::ADS,Was.ADS*1000,Now.ADS*1000,0,TEXT(" ms"),true,Percent(B.ADS));
+         ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)[Paragraph(ColdSteelWeaponText::BowScope,12,GunsmithUI::Muted)];
+     }
++    else if(Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item))
++    {
++        const auto Was=ColdSteelTool::Evaluate(*Item,Profile,&WithoutPart);
++        const auto Now=ColdSteelTool::Evaluate(*Item,Profile,&Gunsmith->Draft());
++        const auto& M=Option->Melee;
++        AddValue(TEXT("物理伤害"),Was.Damage.BasePhysical+Was.Damage.AddedPhysical,Now.Damage.BasePhysical+Now.Damage.AddedPhysical,2,TEXT(""),false,(M.PhysicalDamage-1.)*100.);
++        AddValue(TEXT("攻击速度倍率"),Was.RateScale,Now.RateScale,2,TEXT("×"),false,(M.AttackSpeed-1.)*100.);
++        AddValue(ColdSteelWeaponText::StaminaCost,Was.StaminaCost,Now.StaminaCost,2,TEXT(""),true,(M.Stamina-1.)*100.);
++        if(!FMath::IsNearlyEqual(M.HeavyReleaseStamina,1.))
++            AddValue(TEXT("重击出手体力消耗"),Was.HeavyReleaseStaminaCost,Now.HeavyReleaseStaminaCost,2,TEXT(""),true,(M.HeavyReleaseStamina-1.)*100.);
++        AddValue(TEXT("韧性伤害倍率"),Was.ToughnessDamage,Now.ToughnessDamage,2,TEXT("×"),false,(M.ToughnessDamage-1.)*100.);
++        AddValue(TEXT("改造物理防御穿透"),Before.Melee.PhysicalArmorPenetration*100.,After.Melee.PhysicalArmorPenetration*100.,0,TEXT("%"),false,M.PhysicalArmorPenetration*100.);
++        AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
++        AddValue(TEXT("所有技能冷却倍率"),Before.Melee.SkillCooldown,After.Melee.SkillCooldown,2,TEXT("×"),true,(M.SkillCooldown-1.)*100.);
++        AddValue(TEXT("武技冷却倍率"),Before.Melee.MartialCooldown,After.Melee.MartialCooldown,2,TEXT("×"),true,(M.MartialCooldown-1.)*100.);
++        AddValue(TEXT("魔法技能冷却倍率"),Before.Melee.MagicCooldown,After.Melee.MagicCooldown,2,TEXT("×"),true,(M.MagicCooldown-1.)*100.);
++        AddValue(TEXT("魔法伤害倍率"),Before.Melee.MagicDamage,After.Melee.MagicDamage,2,TEXT("×"),false,(M.MagicDamage-1.)*100.);
++        if(M.RuneIntelligence>0.||M.RuneWisdom>0.)
++            AddEffect(FString::Printf(TEXT("侵蚀附伤｜战锤攻击附加智力×%.0f%%＋精神×%.0f%%的魔法伤害，随本次攻击倍率结算。"),M.RuneIntelligence*100.,M.RuneWisdom*100.));
++        if(M.RuneVulnerabilitySeconds>0.)
++            AddEffect(FString::Printf(TEXT("导魔易伤｜战锤攻击命中后，目标受到的魔法伤害提高%.0f%%，持续%.0f秒；重复命中刷新，不叠加。"),M.RuneVulnerability*100.,M.RuneVulnerabilitySeconds));
++    }
+     else if(IsToolWorkbench()&&Item)
+     {
+         // 工具四栏：采集与自卫两条链路读同一份评估，行名与目录 effects 措辞一致。
+@@ -269,7 +291,7 @@
+             ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
+                 [Paragraph(Effect.Key,14,Effect.Value>0?ColdSteelUI::Success:Effect.Value<0?ColdSteelUI::Danger:GunsmithUI::Secondary)];
+     }
+-    else if(Item)
++    else if(Item&&!ColdSteelInventory::IsTwoHandedBlunt(*Item))
+     {
+         const auto Was=ColdSteelMelee::Evaluate(*Item,Profile,&WithoutPart);
+         const auto Now=ColdSteelMelee::Evaluate(*Item,Profile,&Gunsmith->Draft());
+@@ -331,6 +353,8 @@
+             AddValue(TEXT("物理防御常驻加成"),Was.Modifiers.JingangBonus*100,Now.Modifiers.JingangBonus*100,0,TEXT("%"));
+             AddValue(TEXT("魔法防御常驻加成"),Was.Modifiers.JingangBonus*100,Now.Modifiers.JingangBonus*100,0,TEXT("%"));
+         }
++        AddValue(TEXT("所有技能冷却倍率"),Was.Modifiers.SkillCooldown,Now.Modifiers.SkillCooldown,2,TEXT("×"),true,Percent(M.SkillCooldown));
++        AddValue(TEXT("武技冷却倍率"),Was.Modifiers.MartialCooldown,Now.Modifiers.MartialCooldown,2,TEXT("×"),true,Percent(M.MartialCooldown));
+         AddValue(TEXT("魔法技能冷却倍率"),Was.Modifiers.MagicCooldown,Now.Modifiers.MagicCooldown,2,TEXT("×"),true,Percent(M.MagicCooldown));
+         AddValue(TEXT("魔法值消耗倍率"),Was.Modifiers.MagicCost,Now.Modifiers.MagicCost,2,TEXT("×"),true,Percent(M.MagicCost));
+         AddValue(TEXT("魔法伤害倍率"),Was.Modifiers.MagicDamage,Now.Modifiers.MagicDamage,2,TEXT("×"),false,Percent(M.MagicDamage));
+diff --git a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+@@ -1,11 +1,23 @@
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "ColdSteelSkillRules.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "Engine/GameInstance.h"
++
++namespace
++{
++FMeleeModifiers UppercutModifiers(const UColdSteelStatusModel* Profile)
++{
++    const auto* Tool=Profile->ActiveProductionTool();
++    const auto* Gunsmith=Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
++    return Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Tool)&&Gunsmith?
++        Gunsmith->Calculate(Tool->Definition,Gunsmith->Installed(*Tool)).Melee:ColdSteelMelee::EquippedModifiers(Profile);
++}
++}
+ 
+ float UColdSteelStatusModel::SwordUppercutStaminaCost() const
+ {
+     return MasteryDefinition(TEXT("swordUppercut")).UppercutStaminaCost*
+-        ColdSteelMelee::EquippedModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
++        UppercutModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
+ }
+ 
+ float UColdSteelStatusModel::SwordUppercutCooldown() const
+@@ -13,11 +25,16 @@
+     return HasNoAbilityCooldown()?0.f:Current.SwordUppercutCooldown;
+ }
+ 
++float UColdSteelStatusModel::SwordUppercutCooldownSeconds() const
++{
++    return MasteryDefinition(TEXT("swordUppercut")).UppercutCooldownSeconds*
++        float(UppercutModifiers(this).MartialCooldownMultiplier());
++}
++
+ bool UColdSteelStatusModel::CommitSwordUppercutRelease()
+ {
+-    const auto* Item=Equipped();
+-    if(!Item||ActiveProductionTool()||!ColdSteelInventory::IsTwoHandedSword(*Item)||SwordUppercutCooldown()>0.f)return false;
+-    const auto& D=MasteryDefinition(TEXT("swordUppercut"));
++    const auto* Tool=ActiveProductionTool();const auto* Item=Tool?Tool:Equipped();
++    if(!Item||(Tool?!ColdSteelInventory::IsTwoHandedBlunt(*Item):!ColdSteelInventory::IsTwoHandedSword(*Item))||SwordUppercutCooldown()>0.f)return false;
+     const float StaminaCost=SwordUppercutStaminaCost();
+     if(!CanSpendStamina(StaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}
+     // Commit the resource and cooldown together before notifying listeners.
+@@ -25,7 +42,7 @@
+     Current.Stamina=FMath::Max(0.f,Current.Stamina-StaminaCost);
+     Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
+     if(Current.Stamina<=0.f)Current.bSprintExhausted=true;
+-    Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:D.UppercutCooldownSeconds;
++    Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:SwordUppercutCooldownSeconds();
+     Current.SwordUppercutCooldownDuration=Current.SwordUppercutCooldown;
+     Current.MartialCooldownRevision=FMath::Min(Current.MartialCooldownRevision,MAX_int64-1)+1;
+     bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+diff --git a/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp b/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp
+@@ -8,18 +8,20 @@
+     const int32 L=FMath::Clamp(AtLevel<0?MasteryProgress(D.Id).Level:AtLevel,1,D.MaxLevel);
+     FWhirlwindCast C;
+     C.DamageMultiplier=T.DamageBase+L*T.DamagePerLevel;
+-    C.CooldownSeconds=FMath::Max(0.f,T.CooldownBase-L*T.CooldownReduction);
++    C.CooldownSeconds=FMath::Max(0.f,T.CooldownBase-L*T.CooldownReduction)*float(ColdSteelMelee::EquippedModifiers(this).MartialCooldownMultiplier());
+     C.StaminaCost=FMath::Max(0.f,T.StaminaBase+L*T.StaminaPerLevel);
+     C.RadiusCM=(T.RadiusBase+L*T.RadiusPerLevel+T.MeleeRadiusBonus)*T.UnitsToCM;
+     C.KnockbackCM=T.Knockback*T.UnitsToCM;C.StunSeconds=T.StunSeconds;
+-    const auto* Item=Equipped();
+-    if(Item&&!ActiveProductionTool()&&ColdSteelInventory::IsMeleeWeapon(*Item))
++    const auto* Tool=ActiveProductionTool();
++    const auto* Item=Tool?Tool:Equipped();
++    if(Item&&((Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Item))||(!Tool&&ColdSteelInventory::IsMeleeWeapon(*Item))))
+     {
+         const auto Stats=ColdSteelMelee::Evaluate(*Item,this);
+         C.StaminaCost*=Stats.Modifiers.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
+         C.Damage=FMath::RoundToFloat(Stats.Damage*C.DamageMultiplier);
+         C.RadiusCM*=Stats.Modifiers.Range;
+         C.KnockbackCM*=Stats.Modifiers.AllAttackKnockback;
++        if(Tool)C.CooldownSeconds=FMath::Max(0.f,T.CooldownBase-L*T.CooldownReduction)*float(Stats.Modifiers.MartialCooldownMultiplier());
+     }
+     return C;
+ }
+@@ -29,8 +31,9 @@
+ 
+ bool UColdSteelStatusModel::CommitWhirlwindCast(const FWhirlwindCast& Cast)
+ {
+-    const auto* Item=Equipped();
+-    if(!Item||ActiveProductionTool()||!ColdSteelInventory::IsMeleeWeapon(*Item)||
++    const auto* Tool=ActiveProductionTool();
++    const auto* Item=Tool?Tool:Equipped();
++    if(!Item||(Tool?!ColdSteelInventory::IsTwoHandedBlunt(*Item):!ColdSteelInventory::IsMeleeWeapon(*Item))||
+         MasteryProgress(TEXT("whirlwind")).Level<1||WhirlwindCooldown()>0.f)return false;
+     if(!CanSpendStamina(Cast.StaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}
+     SyncRuntime();auto P=Snapshot();
+diff --git a/Source/FPSGAME/Production/ProductionToolComponent.cpp b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+--- a/Source/FPSGAME/Production/ProductionToolComponent.cpp
++++ b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+@@ -7,6 +7,8 @@
+ #include "../Skills/FPSCastingMeshComponent.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
++#include "../Weapons/ModularSwordVisual.h"
++#include "Rendering/SkeletalMeshRenderData.h"
+ #include "ProductionHarvestSubsystem.h"
+ #include "ProductionTreeHealth.h"
+ #include "../FPSGAMECharacter.h"
+@@ -133,9 +135,17 @@
+     const uint32 DataHash=Item?GetTypeHash(Item->Data):0u;
+     if (Id==EquippedId && DataHash==EquippedDataHash) return;
+     // 同一实例只是改造数据变了：保留已加载的视模与动作，只重算数值，手上工具不闪帧。
+-    if (Id==EquippedId && Item) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
++    const bool SameArms=Item&&Viewmodel&&Viewmodel->GetSkeletalMeshAsset()&&
++        Viewmodel->GetSkeletalMeshAsset()->GetPathName()==ColdSteelInventory::Text(*Item,TEXT("tool_viewmodel"));
++    const bool SameModules=!Item||!ColdSteelModularSword::Supports(*Item)||
++        ToolMesh->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
++    if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
+     CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset();
+-    ToolMesh->SetVisibility(false); ToolMesh->SetStaticMesh(nullptr); HitSound=nullptr; SwingSound=nullptr;
++    ColdSteelModularSword::Clear(ToolMesh);
++    ToolMesh->ComponentTags.Remove(TEXT("WarhammerModule"));
++    ToolMesh->AttachToComponent(Pivot,FAttachmentTransformRules::KeepRelativeTransform);
++    ToolMesh->SetRelativeTransform(FTransform::Identity);
++    ToolMesh->SetVisibility(false,true); ToolMesh->SetStaticMesh(nullptr); HitSound=nullptr; SwingSound=nullptr;
+     Viewmodel->SetVisibility(false); Viewmodel->SetSkeletalMesh(nullptr);
+     CurrentMotion=nullptr; Motions.Reset(); bUsesArms=false; VisualTime=0; SprintBlend=0;
+     AxeStridePhase=0; AxeLocomotionOffset=FVector::ZeroVector; AxeLocomotionRotation=FQuat::Identity;
+@@ -165,6 +175,7 @@
+     const FString MotionPrefix=ColdSteelInventory::Text(*Item,TEXT("tool_animation_prefix"));
+     bUsesArms=!ViewmodelPath.IsNull();
+     TArray<FSoftObjectPath> Paths={SoundPath,DustPath};
++    if(ColdSteelModularSword::Supports(*Item))ColdSteelModularSword::GatherVisualResources(*Item,Paths);
+     if(bUsesArms)
+     {
+         Paths.Add(ViewmodelPath);
+@@ -197,6 +208,23 @@
+             auto* LiveProfile=OwnerProfile.Get();
+             if(const auto* Current=LiveProfile?LiveProfile->ActiveProductionTool():nullptr)
+             {
++                if(bUsesArms&&ColdSteelModularSword::Supports(*Current)&&ColdSteelModularSword::Apply(ToolMesh,*Current))
++                {
++                    ToolMesh->AttachToComponent(Viewmodel,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
++                    ToolMesh->SetRelativeTransform(ColdSteelModularSword::BoneMount(*Current));
++                    for(auto* Part:ColdSteelModularSword::Components(ToolMesh))Part->ComponentTags.AddUnique(TEXT("WarhammerModule"));
++                    // Keep the live, repaired V7 hands and every existing animation.
++                    // Only the original integral hammer section is replaced.
++                    const auto* Skin=Viewmodel->GetSkeletalMeshAsset();
++                    if(const auto* Render=Skin?Skin->GetResourceForRendering():nullptr)
++                        for(int32 L=0;L<Render->LODRenderData.Num();++L)
++                            for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
++                            {
++                                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
++                                if(Skin->GetMaterials()[M].MaterialSlotName==TEXT("M_SteelWarhammerSurface"))
++                                    Viewmodel->ShowMaterialSection(M,S,false,L);
++                            }
++                }
+                 ProductionToolAppearance::ApplyLevel(ToolMesh,*Current);
+                 ProductionToolAppearance::ApplyLevel(Viewmodel,*Current);
+             }
+@@ -237,7 +265,9 @@
+         {
+             // 改造数值每次挥动重新求值：属性、配件与附魔变化都不能沿用上一次的快照。
+             ApplyToolStats(Item,Profile);
+-            if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(float(FMath::Max(0.,ToolStats.StaminaCost))))
++            const double AttackCost=Kind==TEXT("warhammer")&&bBluntHeavy&&!bBluntSprintAttack?
++                ToolStats.HeavyReleaseStaminaCost:ToolStats.StaminaCost;
++            if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(float(FMath::Max(0.,AttackCost))))
+             {Feedback=TEXT("体力不足，稍作休息再采集");FeedbackSeconds=1.5f;return;}
+             if(UsesTwoHandMotion())
+             {
+@@ -396,7 +426,7 @@
+     if(!Character.IsValid()||!Character->IsLocallyControlled())return;
+     const bool Present=IsEquipped() && CanPresent();
+     const bool Usable=IsEquipped() && CanUse();
+-    if (ToolMesh) ToolMesh->SetVisibility(Present && !bUsesArms && ToolMesh->GetStaticMesh());
++    if (ToolMesh) ToolMesh->SetVisibility(Present && (!bUsesArms||ToolMesh->GetAttachParent()==Viewmodel) && ToolMesh->GetStaticMesh(),true);
+     if (Viewmodel) Viewmodel->SetVisibility(Present && bUsesArms && HasReadyPresentation());
+     if (!Usable) CancelUse();
+     if(Present && bUsesArms && HasReadyPresentation())UpdateHandPresentation(Delta);
+@@ -417,5 +447,6 @@
+ {
+     if (LoadHandle) { LoadHandle->CancelHandle(); LoadHandle.Reset(); }
+     if (Prompt) { Prompt->RemoveFromParent(); Prompt=nullptr; }
++    ColdSteelModularSword::Clear(ToolMesh);
+     Super::EndPlay(Reason);
+ }
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -4,6 +4,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Production/ProductionToolStats.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Weapons/FPSBallisticsComponent.h"
+ #include "../Weapons/FPSMeleeLightningComponent.h"
+@@ -512,6 +513,14 @@
+                 Shot.QuickCombatPhysicalVulnerabilitySeconds=Melee.Modifiers.QuickCombatPhysicalVulnerabilitySeconds;
+                 Shot.QuickCombatRuneVulnerability=Melee.Modifiers.QuickCombatRuneVulnerability;
+                 Shot.QuickCombatRuneVulnerabilitySeconds=Melee.Modifiers.QuickCombatRuneVulnerabilitySeconds;
++                if(ColdSteelInventory::IsTwoHandedBlunt(*I))
++                {
++                    const auto Blunt=ColdSteelTool::Evaluate(*I,M);
++                    Shot.DamagePanel=Blunt.Damage;
++                    Shot.ToughnessDamageMultiplier=float(Blunt.ToughnessDamage);
++                    Shot.BluntRuneVulnerability=float(Melee.Modifiers.RuneVulnerability);
++                    Shot.BluntRuneVulnerabilitySeconds=float(Melee.Modifiers.RuneVulnerabilitySeconds);
++                }
+                 if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();E&&!bFiredRound)
+                 {
+                     if(E->Effect(*I,TEXT("electrifiedMelee"))>0.)
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -173,6 +173,8 @@
+     FString GuardSourceInstance;
+     FString ZhenmoSourceInstance;
+     float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
++    /** Warhammer direct hits and its committed slam wave share this rune snapshot. */
++    float BluntRuneVulnerability=0, BluntRuneVulnerabilitySeconds=0;
+     /** Azure Dragon: direct sword contact only; a second point-damage transaction. */
+     float AzureDragonPhysicalMultiplier=1.f,AzureDragonMagicDamage=0.f;
+ };
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -33,6 +33,7 @@
+     bool TrainSwordUppercut(int32 Hits,int32 Kills);
+     bool CommitSwordUppercutRelease();
+     float SwordUppercutCooldown() const;
++    float SwordUppercutCooldownSeconds() const;
+     float SwordUppercutStaminaCost() const;
+     float SwordUppercutCooldownDuration() const { return Current.SwordUppercutCooldownDuration; }
+     FWhirlwindCast WhirlwindStats(int32 AtLevel=-1) const;
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -299,6 +299,8 @@
+                 Delta(C,TEXT("物理伤害"),(S.Melee.PhysicalDamage-1)*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Melee.Damage-1)*100,TEXT("%"));
+                 Delta(C,TEXT("全部近战攻击伤害"),(S.Melee.AllAttackDamage-1)*100,TEXT("%"));
++                Delta(C,TEXT("所有技能冷却"),(S.Melee.SkillCooldown-1)*100,TEXT("%"),true);
++                Delta(C,TEXT("武技冷却时间"),(S.Melee.MartialCooldown-1)*100,TEXT("%"),true);
+                 Delta(C,TEXT("魔法技能冷却时间"),(S.Melee.MagicCooldown-1)*100,TEXT("%"),true);
+                 Delta(C,TEXT("魔法伤害"),(S.Melee.MagicDamage-1)*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::MagicCostMultiplier,(S.Melee.MagicCost-1)*100,TEXT("%"),true);
+@@ -318,7 +320,7 @@
+                     Note(C,TEXT("物理易伤"),TEXT("命中后目标受物理伤害 +")+N(S.Melee.QuickCombatPhysicalVulnerabilityBonus*100)+TEXT("%"),1);
+                     Note(C,TEXT("持续"),N(S.Melee.QuickCombatPhysicalVulnerabilitySeconds)+TEXT(" 秒 · 重复命中刷新，不叠加"));
+                 }
+-                Delta(C,ColdSteelWeaponText::RuneVulnerability,S.Melee.RuneVulnerability*100,TEXT("%"));
++                Delta(C,ColdSteelInventory::IsTwoHandedBlunt(I)?TEXT("战锤命中魔法易伤"):ColdSteelWeaponText::RuneVulnerability,S.Melee.RuneVulnerability*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::CooldownReducePerHit,S.Melee.CooldownReduceSecondsPerHit,TEXT(" s"));
+                 Delta(C,ColdSteelWeaponText::AttackSpeed,(S.Melee.AttackSpeed-1)*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::AttackDistance,(S.Melee.Range-1)*100,TEXT("%"));
+@@ -386,6 +388,8 @@
+         Row(Main,TEXT("三连击第二段伤害"),N(Melee.ComboSecondDamage));
+         Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
+         if(!FMath::IsNearlyEqual(Melee.Modifiers.ComboThirdToughness,1.))Row(Main,RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),N(Melee.Modifiers.ThirdThrustToughnessMultiplier())+TEXT("×"));
++        if(Melee.Modifiers.SkillCooldown!=1)Row(Main,TEXT("所有技能冷却倍率"),N(Melee.Modifiers.SkillCooldown)+TEXT("×"));
++        if(Melee.Modifiers.MartialCooldown!=1)Row(Main,TEXT("武技冷却倍率"),N(Melee.Modifiers.MartialCooldown)+TEXT("×"));
+         if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
+         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
+         if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,ColdSteelWeaponText::CooldownReducePerHit,N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
+@@ -437,6 +441,14 @@
+         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Blunt.SwingSeconds*1000))+TEXT(" ms"));
+         Row(Main,ColdSteelWeaponText::AttackDistance,N(Blunt.CombatReachCM/100)+TEXT(" m"));
+         Row(Main,ColdSteelWeaponText::StaminaCost,N(Blunt.StaminaCost));
++        if(!FMath::IsNearlyEqual(Blunt.HeavyReleaseStaminaCost,Blunt.StaminaCost))
++            Row(Main,TEXT("重击出手体力消耗"),N(Blunt.HeavyReleaseStaminaCost));
++        if(!FMath::IsNearlyEqual(Blunt.ToughnessDamage,1.))Row(Main,ColdSteelWeaponText::ToughnessMultiplier,N(Blunt.ToughnessDamage)+TEXT("×"));
++        if(!FMath::IsNearlyZero(Blunt.HeavyChargeSpeedBonus))Row(Main,TEXT("重击蓄力速度加成"),N(Blunt.HeavyChargeSpeedBonus*100.)+TEXT("%"));
++        if(G){const auto Rune=G->Calculate(I.Definition,Parts).Melee;
++            if(Rune.PhysicalArmorPenetration>0.)Row(Main,TEXT("改造物理防御穿透"),N(Rune.PhysicalArmorPenetration*100.)+TEXT("%"));
++            if(Rune.SkillCooldown!=1)Row(Main,TEXT("所有技能冷却倍率"),N(Rune.SkillCooldown)+TEXT("×"));
++            if(Rune.MartialCooldown!=1)Row(Main,TEXT("武技冷却倍率"),N(Rune.MartialCooldown)+TEXT("×"));}
+         Row(Main,TEXT("命中类型"),TEXT("钝击"));
+         Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
+         Note(Main,TEXT("攻击方式"),TEXT("左键三连击：右上斜挥、左上斜挥、举顶下砸；第三击伤害为普通攻击的 1.25 倍。"));
+diff --git a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -77,6 +77,8 @@
+         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,S.DamageParts.BasePhysical,TEXT(""),2,false,false);
+         if(S.DamageParts.AddedPhysical>0)Add(TEXT("added_physical_damage"),ColdSteelWeaponText::AddedPhysical,S.DamageParts.AddedPhysical,TEXT(""),2,false,false);
+         if(S.DamageParts.AddedMagic>0)Add(TEXT("added_magic_damage"),ColdSteelWeaponText::AddedMagic,S.DamageParts.AddedMagic,TEXT(""),2,false,false);
++        if(S.Modifiers.SkillCooldown!=1)Add(TEXT("rune_skill_cooldown"),TEXT("所有技能冷却倍率"),S.Modifiers.SkillCooldown,TEXT("×"),2,true,false);
++        if(S.Modifiers.MartialCooldown!=1)Add(TEXT("martial_cooldown"),TEXT("武技冷却倍率"),S.Modifiers.MartialCooldown,TEXT("×"),2,true,false);
+         if(S.Modifiers.MagicCooldown!=1)Add(TEXT("rune_magic_cooldown"),TEXT("魔法技能冷却倍率"),S.Modifiers.MagicCooldown,TEXT("×"),2,true,false);
+         if(S.Modifiers.MagicDamage!=1)Add(TEXT("rune_magic_mult"),TEXT("魔法伤害倍率"),S.Modifiers.MagicDamage,TEXT("×"),2,false,false);
+         if(S.Modifiers.MagicCost!=1)Add(TEXT("rune_magic_cost"),ColdSteelWeaponText::MagicCostMultiplier,S.Modifiers.MagicCost,TEXT("×"),2,true,false);
+@@ -105,6 +107,22 @@
+         Add(TEXT("toughness_damage"),ColdSteelWeaponText::ToughnessMultiplier,S.Modifiers.ToughnessDamage,TEXT("×"),2,false,false);
+         Add(TEXT("melee_armor_penetration"),TEXT("改造物理防御穿透"),S.Modifiers.PhysicalArmorPenetration*100,TEXT("%"),0,false,false);
+     }
++    else if(ColdSteelInventory::IsTwoHandedBlunt(Item))
++    {
++        const auto S=ColdSteelTool::Evaluate(Item,Model);
++        Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,S.Damage.Total(),TEXT(""),2);
++        Add(TEXT("attack_interval"),ColdSteelWeaponText::AttackInterval,S.SwingSeconds*1000,TEXT(" ms"),0,true);
++        Add(TEXT("melee_stamina"),ColdSteelWeaponText::StaminaCost,S.StaminaCost,TEXT(""),2,true);
++        if(!FMath::IsNearlyEqual(S.HeavyReleaseStaminaCost,S.StaminaCost))
++            Add(TEXT("heavy_release_stamina"),TEXT("重击出手体力消耗"),S.HeavyReleaseStaminaCost,TEXT(""),2,true,false);
++        Add(TEXT("melee_reach"),ColdSteelWeaponText::AttackDistance,S.CombatReachCM/100,TEXT(" m"),2);
++        Add(TEXT("toughness_damage"),ColdSteelWeaponText::ToughnessMultiplier,S.ToughnessDamage,TEXT("×"),2,false,false);
++        if(!FMath::IsNearlyZero(S.HeavyChargeSpeedBonus))Add(TEXT("heavy_charge_speed_bonus"),TEXT("重击蓄力速度加成"),S.HeavyChargeSpeedBonus*100.,TEXT("%"),0,false,false);
++        if(G){const auto Rune=G->Calculate(Item.Definition,G->Installed(Item)).Melee;
++            if(Rune.PhysicalArmorPenetration>0.)Add(TEXT("melee_armor_penetration"),TEXT("改造物理防御穿透"),Rune.PhysicalArmorPenetration*100.,TEXT("%"),0,false,false);
++            if(Rune.SkillCooldown!=1)Add(TEXT("rune_skill_cooldown"),TEXT("所有技能冷却倍率"),Rune.SkillCooldown,TEXT("×"),2,true,false);
++            if(Rune.MartialCooldown!=1)Add(TEXT("martial_cooldown"),TEXT("武技冷却倍率"),Rune.MartialCooldown,TEXT("×"),2,true,false);}
++    }
+     else if(ColdSteelInventory::IsEquippedProductionTool(Item))
+     {
+         // Same metric keys as the swords so the core grid and equipment comparison read alike;
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -324,6 +324,13 @@
+         Combat->ReceiveForcedLaunch(Cast<APawn>(Shooter),Away*RuneSwordRisingDragon::LaunchForwardCM+
+             FVector(0,0,RuneSwordRisingDragon::LaunchUpCM),RuneSwordRisingDragon::ControlSeconds);
+     }
++    // Shared conduction rune: settle once after each valid authoritative hammer
++    // contact, including the heavy/sprint wave that carries the same snapshot.
++    if(bAliveBefore&&Applied>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
++        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
++        &&Shot.BluntRuneVulnerability>0.f&&Shot.BluntRuneVulnerabilitySeconds>0.f
++        &&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++        UCombatStatusFormula::GetOrAdd(Victim)->AddRuneMagicVulnerability(Shot.BluntRuneVulnerability,Shot.BluntRuneVulnerabilitySeconds);
+     // 凝碧星核由权威命中入口施加，单机与远端命中共用；重复命中刷新。
+     if(bAliveBefore&&Applied>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+         &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
+diff --git a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+@@ -429,7 +429,7 @@
+         if(Index==1)return FString::Printf(TEXT("+%d"),E.Strength);
+         if(Index==2)return FString::Printf(TEXT("%d"),ColdSteelSkills::ExperienceRequired(Definition(SelectedSkill),L));
+         if(Index==3)return FString::Printf(TEXT("%.1f"),Model->SwordUppercutStaminaCost());
+-        if(Index==4)return FString::Printf(TEXT("%.1f 秒"),Definition(SelectedSkill).UppercutCooldownSeconds);
++        if(Index==4)return FString::Printf(TEXT("%.1f 秒"),Model->SwordUppercutCooldownSeconds());
+         if(Index==5)
+         {
+             const double Reach=ColdSteelMelee::UppercutReachCM(Model,L);

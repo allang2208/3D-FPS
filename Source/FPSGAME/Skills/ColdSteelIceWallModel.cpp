@@ -55,7 +55,7 @@ FIceWallCast UColdSteelStatusModel::IceWallStats(int32 AtLevel) const
     // Original identity: INT + WIS physical impact, no magic critical/penetration.
     C.Damage=FMath::FloorToFloat(FMath::FloorToFloat(C.FixedDamage+C.IntelligenceContribution+C.WisdomContribution)*ChainDamage);
     C.ManaCost=SpellManaCostBeforeFocus(TEXT("iceWall"),L);
-    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
+    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
     ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }

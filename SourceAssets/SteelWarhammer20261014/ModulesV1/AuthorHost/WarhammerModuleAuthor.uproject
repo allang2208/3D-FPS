@@ -1,0 +1,12 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Asset Authoring",
+  "Modules": [
+    {
+      "Name": "WarhammerModuleAuthor",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

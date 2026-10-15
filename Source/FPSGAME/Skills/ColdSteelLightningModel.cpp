@@ -62,7 +62,7 @@ FLightningCast UColdSteelStatusModel::LightningStats(int32 AtLevel,bool bApplyFo
     C.Count=FMath::Max(1,C.Count);
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+Matk*C.MagicMultiplier+Intelligence*C.IntelligenceMultiplier)*DamageFactor*MagicImplementMultiplier());
     C.ManaCost=SpellManaCostBeforeFocus(TEXT("lightningStrike"),L);
-    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.MagicCooldown;
+    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
     if(bApplyFocus)ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
     return C;
 }

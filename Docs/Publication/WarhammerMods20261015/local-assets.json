@@ -1,0 +1,1705 @@
+{
+  "note": "Local-only artifacts; not a license grant or a redistributable asset bundle. Generated reports are retained locally too.",
+  "artifacts": [
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/author.log",
+      "bytes": 2103
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/build-FPSGAME.log",
+      "bytes": 1083
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/build-FPSGAMEEditor.log",
+      "bytes": 1020
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/build_receipt.json",
+      "bytes": 399
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/commandlet_receipt.json",
+      "bytes": 44
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/CommonHammerHeads_Editable.blend",
+      "bytes": 68023685
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/CommonHammerHeads_Icons_Editable.blend",
+      "bytes": 68079698
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/delivery.json",
+      "bytes": 272
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/author.log",
+      "bytes": 2211
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/commandlet_receipt.json",
+      "bytes": 44
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/CommonHammerHeads_DesignV2_Editable.blend",
+      "bytes": 68627155
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/CommonHammerHeads_DesignV2_Icons.blend",
+      "bytes": 68683633
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/delivery.json",
+      "bytes": 281
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Export/SM_CommonHammerHeads_flanged_breaker_DesignV2.fbx",
+      "bytes": 2190684
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Export/SM_CommonHammerHeads_heavy_forged_DesignV2.fbx",
+      "bytes": 2113916
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Export/SM_CommonHammerHeads_light_drum_DesignV2.fbx",
+      "bytes": 2756988
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/exports.json",
+      "bytes": 933
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/icon_receipt.json",
+      "bytes": 293
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Icons/flanged_breaker.png",
+      "bytes": 1105985
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Icons/heavy_forged.png",
+      "bytes": 1116446
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Icons/light_drum.png",
+      "bytes": 1077883
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/icons.log",
+      "bytes": 1824
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/import-bridge.txt",
+      "bytes": 515
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/import-console.log",
+      "bytes": 38683
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/import-engine.log",
+      "bytes": 292549
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/import_receipt.json",
+      "bytes": 836
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/interfaces.json",
+      "bytes": 147372
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/ownership-bridge.txt",
+      "bytes": 210
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Textures/BaseColor.png",
+      "bytes": 1549508
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Textures/MetallicRoughness.png",
+      "bytes": 1053716
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignBuildV2/Textures/Normal.png",
+      "bytes": 1694537
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/DesignSheetV1/common-hammer-heads-design-v1.png",
+      "bytes": 2556021
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Export/SM_CommonHammerHeads_flanged_breaker.fbx",
+      "bytes": 1663948
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Export/SM_CommonHammerHeads_heavy_forged.fbx",
+      "bytes": 1622492
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Export/SM_CommonHammerHeads_light_drum.fbx",
+      "bytes": 1892684
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/exports.json",
+      "bytes": 802
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/icon_receipt.json",
+      "bytes": 284
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Icons/flanged_breaker.png",
+      "bytes": 1108725
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Icons/heavy_forged.png",
+      "bytes": 1106557
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Icons/light_drum.png",
+      "bytes": 1081597
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/icons.log",
+      "bytes": 1739
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/import-console.log",
+      "bytes": 40433
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/import-engine.log",
+      "bytes": 297577
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/import_receipt.json",
+      "bytes": 1195
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/interfaces.json",
+      "bytes": 147372
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Textures/BaseColor.png",
+      "bytes": 1549508
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Textures/MetallicRoughness.png",
+      "bytes": 1053716
+    },
+    {
+      "path": "SourceAssets/CommonHammerHeads20261014/Textures/Normal.png",
+      "bytes": 1694537
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/author.log",
+      "bytes": 2495
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/commandlet_receipt.json",
+      "bytes": 58
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/CommonHammerSeats_Editable.blend",
+      "bytes": 77446775
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/CommonHammerSeats_IconSources.blend",
+      "bytes": 77469596
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/delivery.json",
+      "bytes": 533
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/Export/SM_CommonHammerSeat_laminated_damper_V1.fbx",
+      "bytes": 5598204
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/Export/SM_CommonHammerSeat_reinforced_block_V1.fbx",
+      "bytes": 3696604
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/Export/SM_CommonHammerSeat_ribbed_light_V1.fbx",
+      "bytes": 2842924
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/exports.json",
+      "bytes": 1718
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/icon-source.log",
+      "bytes": 1500
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/icon_generation.json",
+      "bytes": 852
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/icon_prompts.json",
+      "bytes": 5415
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/icon_sources.json",
+      "bytes": 954
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/Icons/laminated_damper.png",
+      "bytes": 3149119
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/Icons/reinforced_block.png",
+      "bytes": 3070831
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/Icons/ribbed_light.png",
+      "bytes": 3091604
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/IconSources/laminated_damper.png",
+      "bytes": 397243
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/IconSources/reinforced_block.png",
+      "bytes": 417628
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/IconSources/ribbed_light.png",
+      "bytes": 388673
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/import-console.log",
+      "bytes": 78334
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/import-engine.log",
+      "bytes": 295283
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/import_receipt.json",
+      "bytes": 1087
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/source-read.log",
+      "bytes": 2221
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/BuildV1/source_geometry.json",
+      "bytes": 2527
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/DesignV1/common-hammer-seats-design-v1.png",
+      "bytes": 2406417
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/DesignV1/common-hammer-seats-draft.png",
+      "bytes": 2821805
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/DesignV1/generation.json",
+      "bytes": 536
+    },
+    {
+      "path": "SourceAssets/CommonHammerSeats20261014/DesignV1/revision_prompt.txt",
+      "bytes": 1030
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/common-hammer-grips-before.json",
+      "bytes": 1045
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/delivery.json",
+      "bytes": 1666
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/editor-build-console.log",
+      "bytes": 29168
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/editor-build-receipt.json",
+      "bytes": 223
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/editor-build.json",
+      "bytes": 121539
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/editor-build.log",
+      "bytes": 42856
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/game-build-console.log",
+      "bytes": 12503
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/game-build.json",
+      "bytes": 53688
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/Balance20261014/game-build.log",
+      "bytes": 19506
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/author.log",
+      "bytes": 2621
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/commandlet_receipt.json",
+      "bytes": 81
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/CommonHammerGrips_Editable.blend",
+      "bytes": 38972114
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/CommonHammerGrips_IconSources.blend",
+      "bytes": 33570394
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/delivery.json",
+      "bytes": 1105
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Export/SM_CommonHammerGrip_bias_speed_wrap_V1.fbx",
+      "bytes": 3457180
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Export/SM_CommonHammerGrip_diamond_power_wrap_V1.fbx",
+      "bytes": 3793340
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Export/SM_CommonHammerGrip_layered_cushion_wrap_V1.fbx",
+      "bytes": 2458988
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/exports.json",
+      "bytes": 1628
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/factory_geometry.json",
+      "bytes": 6351
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/icon_generation.json",
+      "bytes": 1191
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/icon_prompt_template.txt",
+      "bytes": 1607
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/icon_sources.json",
+      "bytes": 768
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Icons/bias_speed_wrap.png",
+      "bytes": 3131040
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Icons/diamond_power_wrap.png",
+      "bytes": 3081123
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Icons/layered_cushion_wrap.png",
+      "bytes": 3117743
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/icons-render.log",
+      "bytes": 1378
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/IconSources/bias_speed_wrap.png",
+      "bytes": 79998
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/IconSources/diamond_power_wrap.png",
+      "bytes": 84083
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/IconSources/layered_cushion_wrap.png",
+      "bytes": 75901
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-attempt1-console.log",
+      "bytes": 35836
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-attempt1-receipt.json",
+      "bytes": 249
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-before-uv-fix.log",
+      "bytes": 47051
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-console.log",
+      "bytes": 36153
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-engine-backup-2026.10.14-12.33.46.log",
+      "bytes": 282527
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-engine-backup-2026.10.14-12.39.36.log",
+      "bytes": 308224
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import-engine.log",
+      "bytes": 287423
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/import_receipt.json",
+      "bytes": 1877
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/read-factory.log",
+      "bytes": 4317
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Textures/T_HammerGrip_Leather_BaseColor.png",
+      "bytes": 2794206
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Textures/T_HammerGrip_Leather_Normal.png",
+      "bytes": 3101040
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Textures/T_HammerGrip_Leather_ORM.png",
+      "bytes": 2904195
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Textures/T_HammerGrip_Woven_BaseColor.png",
+      "bytes": 4762631
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Textures/T_HammerGrip_Woven_Normal.png",
+      "bytes": 5933589
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/Textures/T_HammerGrip_Woven_ORM.png",
+      "bytes": 3278944
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/uv-import-bridge.txt",
+      "bytes": 210
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/BuildV1/uv_import_receipt.json",
+      "bytes": 516
+    },
+    {
+      "path": "SourceAssets/CommonHammerGrips20261014/ConceptV1/three-grips-design.png",
+      "bytes": 2250827
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/balance_receipt.json",
+      "bytes": 846
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/delivery.json",
+      "bytes": 1070
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/editor-build-receipt.json",
+      "bytes": 403
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/game-build-console.log",
+      "bytes": 18664
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/game-build-receipt.json",
+      "bytes": 211
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/game-build.json",
+      "bytes": 70900
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BalanceV2/game-build.log",
+      "bytes": 26285
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/author-console.log",
+      "bytes": 2791
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/commandlet_receipt.json",
+      "bytes": 81
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/CommonHammerPommels_Editable.blend",
+      "bytes": 22348909
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/CommonHammerPommels_IconSources.blend",
+      "bytes": 21757360
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/delivery.json",
+      "bytes": 1155
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Export/SM_CommonHammerPommel_caged_agility_V1.fbx",
+      "bytes": 2699276
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Export/SM_CommonHammerPommel_octagonal_impact_V1.fbx",
+      "bytes": 1135116
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Export/SM_CommonHammerPommel_twin_disc_balance_V1.fbx",
+      "bytes": 2823148
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/exports.json",
+      "bytes": 2592
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/factory_geometry.json",
+      "bytes": 3918
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/icon-render-console.log",
+      "bytes": 1115
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/icon_generation.json",
+      "bytes": 4888
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/icon_sources.json",
+      "bytes": 755
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Icons/caged_agility.png",
+      "bytes": 3164647
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Icons/octagonal_impact.png",
+      "bytes": 3138003
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Icons/twin_disc_balance.png",
+      "bytes": 3178526
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/IconSources/caged_agility.png",
+      "bytes": 423755
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/IconSources/octagonal_impact.png",
+      "bytes": 451318
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/IconSources/twin_disc_balance.png",
+      "bytes": 421635
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/import-console.log",
+      "bytes": 38592
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/import-engine.log",
+      "bytes": 294172
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/import_receipt.json",
+      "bytes": 1207
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Textures/T_HammerPommelTurned_Normal.png",
+      "bytes": 522589
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/BuildV1/Textures/T_HammerPommelTurned_ORM.png",
+      "bytes": 561689
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/ConceptV1/three-pommels-design.png",
+      "bytes": 2392865
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/author-console.log",
+      "bytes": 1027
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/commandlet_receipt.json",
+      "bytes": 49
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/delivery.json",
+      "bytes": 3033
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/editor-build-console.log",
+      "bytes": 26105
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/editor-build-receipt.json",
+      "bytes": 220
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/editor-build.json",
+      "bytes": 81051
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/editor-build.log",
+      "bytes": 31836
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Export/SM_CommonHammerPommel_NoWeightCap_V1.fbx",
+      "bytes": 189004
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/exports.json",
+      "bytes": 493
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/game-build-backup-2026.10.15-01.28.29.json",
+      "bytes": 118912
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/game-build-backup-2026.10.15-01.28.29.log",
+      "bytes": 40469
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/game-build-console.log",
+      "bytes": 12023
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/game-build-receipt.json",
+      "bytes": 212
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/game-build.json",
+      "bytes": 43153
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/game-build.log",
+      "bytes": 16947
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/GameAttempt1/game-build-console.log",
+      "bytes": 28467
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/GameAttempt1/game-build-receipt.json",
+      "bytes": 212
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/GameAttempt1/game-build.log",
+      "bytes": 40469
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/Icons/no_pommel.png",
+      "bytes": 2733959
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/import-console.log",
+      "bytes": 32730
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/import-engine.log",
+      "bytes": 282704
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/import_receipt.json",
+      "bytes": 314
+    },
+    {
+      "path": "SourceAssets/CommonHammerPommels20261014/NoPommelV1/NoPommel_EndClosure_Editable.blend",
+      "bytes": 19405828
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/balance_receipt.json",
+      "bytes": 887
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/delivery.json",
+      "bytes": 819
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/editor-build-console.log",
+      "bytes": 33168
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/editor-build-receipt.json",
+      "bytes": 239
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/editor-build.json",
+      "bytes": 110056
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/editor-build.log",
+      "bytes": 42496
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/game-build-console.log",
+      "bytes": 11942
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/game-build-receipt.json",
+      "bytes": 231
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/game-build.json",
+      "bytes": 41822
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/game-build.log",
+      "bytes": 16634
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BalanceV2/livecoding-request.json",
+      "bytes": 115
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/author-console.log",
+      "bytes": 1294
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/commandlet_receipt.json",
+      "bytes": 49
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/delivery.json",
+      "bytes": 1574
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Export/SM_CommonHammerHeads_pointed_hammer_V1.fbx",
+      "bytes": 2730732
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/exports.json",
+      "bytes": 544
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/game-build-console.log",
+      "bytes": 12412
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/game-build-receipt.json",
+      "bytes": 229
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/game-build.json",
+      "bytes": 54677
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/game-build.log",
+      "bytes": 20303
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/icon-prompt.txt",
+      "bytes": 1136
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/icon-render-console.log",
+      "bytes": 1269
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/icon_source.json",
+      "bytes": 489
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/Icons/pointed_hammer.png",
+      "bytes": 3105572
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/IconSources/pointed_hammer.png",
+      "bytes": 297140
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/import-console.log",
+      "bytes": 32972
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/import-engine.log",
+      "bytes": 282683
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/import_receipt.json",
+      "bytes": 391
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/interfaces.json",
+      "bytes": 49199
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/livecoding-request.json",
+      "bytes": 115
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/livecoding-result.txt",
+      "bytes": 495
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/livecoding-schema.txt",
+      "bytes": 721
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/PointedHammer_Editable.blend",
+      "bytes": 73959049
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/PointedHammer_IconSource.blend",
+      "bytes": 73513417
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/registration_receipt.json",
+      "bytes": 401
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4/faceted-double-spike-design.png",
+      "bytes": 1994074
+    },
+    {
+      "path": "SourceAssets/CommonHammerSpecialHeads20261014/PointedHammer/ConceptV4/faceted-tip-reference.png",
+      "bytes": 72428
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BalanceV1/balance_receipt.json",
+      "bytes": 809
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/author-console.log",
+      "bytes": 1599
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/commandlet_receipt.json",
+      "bytes": 49
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/delivery.json",
+      "bytes": 2084
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/editor-build-console.log",
+      "bytes": 1203
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/editor-build-receipt.json",
+      "bytes": 238
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/editor-build.json",
+      "bytes": 26012
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/editor-build.log",
+      "bytes": 7919
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Export/SM_WarhammerHeads_MeteorCore_V1.fbx",
+      "bytes": 11296156
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/exports.json",
+      "bytes": 724
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/game-build-console.log",
+      "bytes": 37259
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/game-build-receipt.json",
+      "bytes": 230
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/game-build.json",
+      "bytes": 121908
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/game-build.log",
+      "bytes": 48070
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/icon-prompt.txt",
+      "bytes": 1254
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/icon-render-console.log",
+      "bytes": 1272
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/icon_source.json",
+      "bytes": 517
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Icons/meteor_core.png",
+      "bytes": 3227293
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/IconSources/meteor_core.png",
+      "bytes": 409928
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/import-console.log",
+      "bytes": 36437
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/import-engine-backup-2026.10.14-16.24.17.log",
+      "bytes": 301470
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/import-engine.log",
+      "bytes": 289015
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/import_receipt.json",
+      "bytes": 2227
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/ImportAttempt1/commandlet_receipt.json",
+      "bytes": 50
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/ImportAttempt1/import-console.log",
+      "bytes": 44867
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/ImportAttempt1/import-engine.log",
+      "bytes": 301470
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/ImportAttempt1/import_receipt.json",
+      "bytes": 1668
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/MeteorCore_Detailed_Editable.blend",
+      "bytes": 103803332
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/MeteorCore_IconSource.blend",
+      "bytes": 100380100
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/registration_receipt.json",
+      "bytes": 375
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorBronze_BaseColor.png",
+      "bytes": 1016900
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorBronze_Normal.png",
+      "bytes": 1938339
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorBronze_ORM.png",
+      "bytes": 730158
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorCore_BaseColor.png",
+      "bytes": 4539915
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorCore_Heat.png",
+      "bytes": 1784436
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorCore_Normal.png",
+      "bytes": 7952087
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorCore_ORM.png",
+      "bytes": 4250357
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorRuneBand_BaseColor.png",
+      "bytes": 1039237
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorRuneBand_Normal.png",
+      "bytes": 1967841
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/Textures/T_MeteorRuneBand_ORM.png",
+      "bytes": 811188
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/textures.json",
+      "bytes": 462
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ConceptV1/design.json",
+      "bytes": 897
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ConceptV1/factory-reference.png",
+      "bytes": 1690207
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ConceptV1/layout-reference.png",
+      "bytes": 1994074
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ConceptV1/meteor-core-design.png",
+      "bytes": 2235070
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/delivery.json",
+      "bytes": 905
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/effect_receipt.json",
+      "bytes": 593
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/game-build-console.log",
+      "bytes": 12572
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/game-build-receipt.json",
+      "bytes": 239
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/game-build.json",
+      "bytes": 44241
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/game-build.log",
+      "bytes": 17347
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/livecoding-request.json",
+      "bytes": 115
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/livecoding-result.txt",
+      "bytes": 496
+    },
+    {
+      "path": "SourceAssets/SteelWarhammerLegendaryHeads20261014/MeteorCore/ShockwaveRangeV1/livecoding-schema.txt",
+      "bytes": 721
+    },
+    {
+      "path": "SourceAssets/WarhammerRuneSlot20261014/commandlet_receipt.json",
+      "bytes": 58
+    },
+    {
+      "path": "SourceAssets/WarhammerRuneSlot20261014/import-console.log",
+      "bytes": 68556
+    },
+    {
+      "path": "SourceAssets/WarhammerRuneSlot20261014/import-engine.log",
+      "bytes": 282942
+    },
+    {
+      "path": "SourceAssets/WarhammerRuneSlot20261014/import_receipt.json",
+      "bytes": 655
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/build-FPSGAMEEditor.log",
+      "bytes": 51396
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/build_receipt.json",
+      "bytes": 208
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/build_status.json",
+      "bytes": 662
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/commandlet_receipt.json",
+      "bytes": 58
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/delivery.json",
+      "bytes": 508
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/import-console.log",
+      "bytes": 66204
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/import-engine.log",
+      "bytes": 280941
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/import_receipt.json",
+      "bytes": 524
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/bridge-54c0057e080647b78ff27df0814e37ea.txt",
+      "bytes": 210
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/bridge-b0ddc667b79b4734800d4887c8534ed4.txt",
+      "bytes": 625
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/commandlet_receipt.json",
+      "bytes": 49
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/delivery.json",
+      "bytes": 1023
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/editor-build-console.log",
+      "bytes": 1105
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/editor-build-receipt.json",
+      "bytes": 222
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/editor-build.json",
+      "bytes": 18299
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/editor-build.log",
+      "bytes": 5721
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/factory_geometry.json",
+      "bytes": 3893
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/game-build-console.log",
+      "bytes": 12241
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/game-build-receipt.json",
+      "bytes": 214
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/game-build.json",
+      "bytes": 54347
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/game-build.log",
+      "bytes": 20132
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/import-console.log",
+      "bytes": 33542
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/import-engine.log",
+      "bytes": 280632
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/import_receipt.json",
+      "bytes": 668
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/ShaftWrapV2/placement-reference.png",
+      "bytes": 1515723
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/shared-editor-build-receipt.log",
+      "bytes": 5863
+    },
+    {
+      "path": "SourceAssets/WarhammerCommonRunes20261014/shared-game-build-receipt.log",
+      "bytes": 33738
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/commandlet_receipt.json",
+      "bytes": 58
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/delivery.json",
+      "bytes": 432
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/factory_prompts.json",
+      "bytes": 12344
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/factory_grip.png",
+      "bytes": 2958166
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/factory_hammer_heads.png",
+      "bytes": 3108180
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/factory_head_mount.png",
+      "bytes": 3094854
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/factory_neck.png",
+      "bytes": 3103072
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/factory_pommel.png",
+      "bytes": 3034031
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/factory_shaft.png",
+      "bytes": 2979935
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/flanged_breaker.png",
+      "bytes": 3112780
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/heavy_forged.png",
+      "bytes": 3095982
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Final/light_drum.png",
+      "bytes": 3154833
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/generated.json",
+      "bytes": 2330
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/head_prompts.json",
+      "bytes": 5645
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/import-console.log",
+      "bytes": 75924
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/import-engine.log",
+      "bytes": 298053
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/import_receipt.json",
+      "bytes": 6030
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/render-sources.log",
+      "bytes": 2211
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/factory_grip.png",
+      "bytes": 70491
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/factory_hammer_heads.png",
+      "bytes": 358589
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/factory_head_mount.png",
+      "bytes": 297233
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/factory_neck.png",
+      "bytes": 211421
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/factory_pommel.png",
+      "bytes": 239146
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/factory_shaft.png",
+      "bytes": 82228
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/flanged_breaker.png",
+      "bytes": 522353
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/heavy_forged.png",
+      "bytes": 576116
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Sources/light_drum.png",
+      "bytes": 397910
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/sources.json",
+      "bytes": 6160
+    },
+    {
+      "path": "SourceAssets/WarhammerIconCorrection20261014/Warhammer_IconSources_Editable.blend",
+      "bytes": 81859243
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/blade_2_strength_rune.png",
+      "bytes": 2775321
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/catalog_receipt.json",
+      "bytes": 239
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/CheckV1/asset-bridge-01.txt",
+      "bytes": 202
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/CheckV1/asset_report.json",
+      "bytes": 29342
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/CheckV1/source_report.json",
+      "bytes": 24758
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/delivery.json",
+      "bytes": 4240
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/editor-build-console.log",
+      "bytes": 1065
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/editor-build-receipt.json",
+      "bytes": 201
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/editor-build.json",
+      "bytes": 18257
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/editor-build.log",
+      "bytes": 5681
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/game-build-console.log",
+      "bytes": 12350
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/game-build-receipt.json",
+      "bytes": 193
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/game-build.json",
+      "bytes": 43479
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/game-build.log",
+      "bytes": 17153
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/icon-generation.json",
+      "bytes": 1595
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/import-bridge-01.txt",
+      "bytes": 455
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/import_receipt.json",
+      "bytes": 306
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/livecoding-request.json",
+      "bytes": 102
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/livecoding-result-01.txt",
+      "bytes": 117
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/livecoding-schema-01.txt",
+      "bytes": 721
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/strength_rune_mask.svg",
+      "bytes": 2025
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/StrengthRune_CoreReference.png",
+      "bytes": 12415
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/StrengthRune_Design.png",
+      "bytes": 142435
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/T_Mask_strength_rune.png",
+      "bytes": 28610
+    },
+    {
+      "path": "SourceAssets/StrengthRune20261015/toolsets-01.txt",
+      "bytes": 13635
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/Attempt1/editor-build-console.log",
+      "bytes": 1145
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/Attempt1/editor-build-receipt.json",
+      "bytes": 214
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/Attempt1/editor-build.log",
+      "bytes": 10068
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/Attempt1/game-build-console.log",
+      "bytes": 19735
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/Attempt1/game-build-receipt.json",
+      "bytes": 206
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/Attempt1/game-build.log",
+      "bytes": 27080
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/catalog_report.json",
+      "bytes": 20315
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/delivery.json",
+      "bytes": 1274
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build-backup-2026.10.15-02.57.50.json",
+      "bytes": 34735
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build-backup-2026.10.15-02.57.50.log",
+      "bytes": 10068
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build-console.log",
+      "bytes": 1091
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build-receipt.json",
+      "bytes": 214
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build.json",
+      "bytes": 18282
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/editor-build.log",
+      "bytes": 5707
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/game-build-backup-2026.10.15-03.04.38.json",
+      "bytes": 73329
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/game-build-backup-2026.10.15-03.04.38.log",
+      "bytes": 27080
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/game-build-console.log",
+      "bytes": 13572
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/game-build-receipt.json",
+      "bytes": 206
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/game-build.json",
+      "bytes": 49449
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/game-build.log",
+      "bytes": 19190
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/native-audit-console.log",
+      "bytes": 47388
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/native-audit-receipt.json",
+      "bytes": 105
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/native-audit.log",
+      "bytes": 293576
+    },
+    {
+      "path": "SourceAssets/WarhammerIntegrationAudit20261015/native_report.json",
+      "bytes": 14001
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/author.log",
+      "bytes": 3174
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/AuthorHost/Config/DefaultEngine.ini",
+      "bytes": 386
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/build-author-host.log",
+      "bytes": 2723
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/build-final-FPSGAMEEditor.log",
+      "bytes": 17730
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/build-FPSGAME.log",
+      "bytes": 40415
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/build_receipt.json",
+      "bytes": 204
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/catalog_base.json",
+      "bytes": 2446
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/delivery.json",
+      "bytes": 524
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Export/SM_Warhammer_grip_factory.fbx",
+      "bytes": 6348124
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Export/SM_Warhammer_hammer_heads_factory.fbx",
+      "bytes": 1477484
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Export/SM_Warhammer_head_mount_factory.fbx",
+      "bytes": 1497324
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Export/SM_Warhammer_neck_factory.fbx",
+      "bytes": 358748
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Export/SM_Warhammer_pommel_factory.fbx",
+      "bytes": 743548
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Export/SM_Warhammer_shaft_factory.fbx",
+      "bytes": 365836
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/exports.json",
+      "bytes": 1707
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/icon_receipt.json",
+      "bytes": 315
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Icons/grip.png",
+      "bytes": 1026564
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Icons/hammer_heads.png",
+      "bytes": 1088002
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Icons/head_mount.png",
+      "bytes": 1160982
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Icons/neck.png",
+      "bytes": 1101469
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Icons/pommel.png",
+      "bytes": 1132707
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Icons/shaft.png",
+      "bytes": 1027351
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/icons.log",
+      "bytes": 2122
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/import-bridge-meshes.txt",
+      "bytes": 210
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/import-commandlet.log",
+      "bytes": 48320
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/import-engine.log",
+      "bytes": 315546
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/import_receipt.json",
+      "bytes": 2188
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/interfaces.json",
+      "bytes": 654205
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/livecoding-tools.txt",
+      "bytes": 0
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/mount-isolated-console.log",
+      "bytes": 23881
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/mount-isolated-engine.log",
+      "bytes": 232091
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/mount_authoring.txt",
+      "bytes": 241
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/mount_receipt.json",
+      "bytes": 80
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/source_dimensions.json",
+      "bytes": 12491
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Warhammer_Modular_Editable.blend",
+      "bytes": 69504921
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/ModulesV1/Warhammer_PartIcons_Editable.blend",
+      "bytes": 69561290
+    },
+    {
+      "path": "SourceAssets/ResonanceSkillCooldown20261014/delivery.json",
+      "bytes": 1503
+    },
+    {
+      "path": "SourceAssets/ResonanceSkillCooldown20261014/shared-editor-build-final.log",
+      "bytes": 5856
+    },
+    {
+      "path": "SourceAssets/ResonanceSkillCooldown20261014/shared-editor-build-initial.log",
+      "bytes": 40101
+    },
+    {
+      "path": "SourceAssets/ResonanceSkillCooldown20261014/shared-game-build-final.log",
+      "bytes": 20992
+    },
+    {
+      "path": "SourceAssets/ResonanceSkillCooldown20261014/shared-game-build-initial.log",
+      "bytes": 43514
+    }
+  ],
+  "runtime_object_paths": [
+    "/Game/Weapons/CommonHammerGrips20261014/BuildV1/UV1/SM_CommonHammerGrip_bias_speed_wrap_V1.SM_CommonHammerGrip_bias_speed_wrap_V1",
+    "/Game/Weapons/CommonHammerGrips20261014/BuildV1/UV1/SM_CommonHammerGrip_diamond_power_wrap_V1.SM_CommonHammerGrip_diamond_power_wrap_V1",
+    "/Game/Weapons/CommonHammerGrips20261014/BuildV1/UV1/SM_CommonHammerGrip_layered_cushion_wrap_V1.SM_CommonHammerGrip_layered_cushion_wrap_V1",
+    "/Game/Weapons/CommonHammerHeads20261014/DesignV2/SM_CommonHammerHeads_flanged_breaker_DesignV2.SM_CommonHammerHeads_flanged_breaker_DesignV2",
+    "/Game/Weapons/CommonHammerHeads20261014/DesignV2/SM_CommonHammerHeads_heavy_forged_DesignV2.SM_CommonHammerHeads_heavy_forged_DesignV2",
+    "/Game/Weapons/CommonHammerHeads20261014/DesignV2/SM_CommonHammerHeads_light_drum_DesignV2.SM_CommonHammerHeads_light_drum_DesignV2",
+    "/Game/Weapons/CommonHammerPommels20261014/BuildV1/SM_CommonHammerPommel_caged_agility_V1.SM_CommonHammerPommel_caged_agility_V1",
+    "/Game/Weapons/CommonHammerPommels20261014/BuildV1/SM_CommonHammerPommel_octagonal_impact_V1.SM_CommonHammerPommel_octagonal_impact_V1",
+    "/Game/Weapons/CommonHammerPommels20261014/BuildV1/SM_CommonHammerPommel_twin_disc_balance_V1.SM_CommonHammerPommel_twin_disc_balance_V1",
+    "/Game/Weapons/CommonHammerPommels20261014/NoPommelV1/SM_CommonHammerPommel_NoWeightCap_V1.SM_CommonHammerPommel_NoWeightCap_V1",
+    "/Game/Weapons/CommonHammerSeats20261014/BuildV1/SM_CommonHammerSeat_laminated_damper_V1.SM_CommonHammerSeat_laminated_damper_V1",
+    "/Game/Weapons/CommonHammerSeats20261014/BuildV1/SM_CommonHammerSeat_reinforced_block_V1.SM_CommonHammerSeat_reinforced_block_V1",
+    "/Game/Weapons/CommonHammerSeats20261014/BuildV1/SM_CommonHammerSeat_ribbed_light_V1.SM_CommonHammerSeat_ribbed_light_V1",
+    "/Game/Weapons/CommonHammerSpecialHeads20261014/PointedHammer/BuildV1/SM_CommonHammerHeads_pointed_hammer_V1.SM_CommonHammerHeads_pointed_hammer_V1",
+    "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_grip_factory.SM_Warhammer_grip_factory",
+    "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_hammer_heads_factory.SM_Warhammer_hammer_heads_factory",
+    "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_head_mount_factory.SM_Warhammer_head_mount_factory",
+    "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_neck_factory.SM_Warhammer_neck_factory",
+    "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_pommel_factory.SM_Warhammer_pommel_factory",
+    "/Game/Weapons/SteelWarhammer20261014/ModulesV1/SM_Warhammer_shaft_factory.SM_Warhammer_shaft_factory",
+    "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+    "/Game/Weapons/SteelWarhammerLegendaryHeads20261014/MeteorCore/BuildV1/SM_WarhammerHeads_MeteorCore_V1.SM_WarhammerHeads_MeteorCore_V1"
+  ]
+}
