@@ -10,6 +10,14 @@
 - 退出双持时折叠整个副手区及组间分隔，不仅清空文字。HUD 统一管理内容自适应高度与快捷栏、体力条、侧边入口的避让。
 - 近战共用同一资源栏，但数据来自状态模型 `MeleeStaminaReadout`：当前体力可普攻次数向下取整；回满时间包含剩余恢复延迟及实际恢复倍率。估算与体力 Tick 共用活动判断，不在 UI 复制一套恢复逻辑。零消耗、恢复暂停、零恢复率和满体力使用既定显示语义，切回枪械恢复标签及字体；无限备弹不覆盖近战时间。
 
+双手锤同样使用 `PresentMelee` 和 `MeleeStaminaReadout`。`ActiveProductionTool` 会返回共用动作执行器的锤，不能直接以“非空工具”排除所有近战；允许当前主手实例的双手钝器，背包铁铲覆盖时仍排除收起武器。锤的实际普攻与面板均读 `ColdSteelMelee::AttackStamina`，不新增另一套消耗公式。记录：`Docs/UI/two-handed-hammer-readout-plan-20261014.md`。
+
+## 法杖与魔法书（2026-10-14）
+
+- 法杖主手共用 `PresentStaff`，覆盖单杖、杖＋枪、杖＋书：第一行当前／最大魔法与每秒恢复，第二行魔法技能冷却缩减与回满时间。`StaffManaReadout` 从状态模型取只读数值，有限击杀恢复按剩余时长计算，不能按永久恢复率外推。
+- 副手书使用当前组 `ActiveSpellbook` 的 `focusEffects` 和组件实际专注阶段；数值是进入后的效果预览，只有 `IsFocusEmpowered` 才显示已生效。换装折叠书说明与法杖第二行，恢复副手口径颜色；不在 HUD 触发专注、扣魔或保存。
+- 复用现有 HUD 刷新和控件，短标签单行，外壳向上增高。工程记录：`Docs/UI/staff-mana-readout-plan-20261014.md`。必要构建与未测试状态以本轮记录为准。
+
 ## 无底图标与交互
 
 - `ColdSteelPanelNavigation.cpp` 只加载 `Navigation/*_subject.png`。生成图中的棋盘格可能是 RGB 像素；“看似透明”不能当作真实 alpha。此次用户明确指定本地抠图，恢复入口为 `Tools/UI/export_navigation_subjects.py`，输入 RGB、全尺寸抠图和最终运行 PNG 分开保留。
@@ -42,3 +50,10 @@
 - 生命/魔法条取色统一到新共享 token：`ColdSteelUI::Health #BD626D`／`HealthDeep #763B43`／`Mana #7194AC`／`ManaDeep #36566E`（`ColdSteelResourceMeter` 与人物状态页 `ColdSteelCharacterSheet` 同源；状态页原 Success 绿生命条/#55799D 魔法条已替换）。低血 ≤25% Danger、≤50% Warning 的渐变保留；新增同类资源条一律取这组 token，不再写字面量。
 - 左上状态效果 HUD（`StatusEffectsHUD.cpp`）复核修复：文字全部改 `ColdSteelUI::TextFont/NumberFont`（SimHei 已移除），字号入档（tile 层数/时间 11px、提示框 16/14/14/12），卡面 StatusCard/ButtonHover、悬停边 Accent、提示框深色 `Tooltip #191919FC`+1px Border，效果语义色 `V.Color` 仅作边框/进度标记。**该面板包在 SDPIScaler(1/ViewportScale) 里保持 CSS 像素版面，字体点数只乘 0.75、不再除 PixelScale**——子树内再除会双重缩小。
 - 例外：buff 图标是目录 emoji 字段，工程字体无 emoji 字形，`EmojiIcon()` 暂用系统 Segoe UI Emoji 作图标字形回退（不含 UI 文字）；补打包 emoji 字体后仅改该函数。别把它当 UI 文字字体的先例。
+
+## 法杖十格快捷魔法与被动读数（2026-10-15）
+
+- R 长按圆盘与 P 技能页配置栏共用十槽绑定；拖动配置只改变登记，不直接施法。圆盘中心和空槽先映射 `INDEX_NONE`，清除选择后左键恢复挥杖；已选法术保留其凝聚／释放流程。
+- 打开 R 圆盘清理按键预览和瞄准占用，不能调用会取消副手书专注的通用 `FireReleased`。配置栏紧贴技能栏，复用抽屉弹出／收回时钟。
+- 当前魔法图标、名称、剩余冷却读取自己的模型；异步图标回调校验当前选择，避免快速切换后旧图标覆盖新选择。法力当前／上限、每秒恢复、冷却缩减、回满时间和书本专注说明保持实际玩法语义。
+- 客机档案镜像合并保留拥有者最新的轮盘登记、清空和选中槽，不让慢到快照恢复旧绑定。完整与缩略战锤浮窗复用近战字段顺序和实际求值，不能把普通生产工具耗体当作攻击耗体。

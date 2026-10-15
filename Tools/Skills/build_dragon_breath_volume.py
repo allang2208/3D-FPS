@@ -17,8 +17,8 @@ from dragon_fluid_source import build_sources
 
 SOURCE='/NiagaraFluids/Templates/Gas/3D/Systems/Grid3D_Gas_SimpleParticleSource'
 DEST='/Game/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume'
-OUT=ROOT/'SourceAssets/DragonBreath20261013/VolumeV8R2_20261014'
-REVISION='DragonBreathVolumeV8R2_20261014'
+OUT=ROOT/'SourceAssets/DragonBreath20261013/VolumeV8R6_20261015'
+REVISION='DragonBreathVolumeV8R6_20261015'
 GRID='Grid3D_Gas_Master_Emitter'
 INT='/Script/Niagara.NiagaraInt32'
 BOOL='/Script/Niagara.NiagaraBool'
@@ -54,7 +54,7 @@ def configure(system):
     # Keep the template's additive weighted velocity injection.
     number(source,'Velocity Comp Mode',0)
     render='Grid3D_Gas_MaterialControls'
-    # Keep opacity thickness; R2 maps emission independently over .35..160.
+    # Restore the pre-R5 thickness. R6 refines emission RGB separately.
     val(render,'Temperature Range','(X=.35,Y=5.3)')
     expr(render,'Density Gain','.18*saturate(User.Strength)')
     number(render,'Density Albedo',.13)
@@ -125,6 +125,9 @@ def run():
              'grid_max_axis_by_quality':[80,96,128,160,160],'remote_grid_max_axis':80,
              'pressure_iterations':8,'material_step_factor':.75,'runtime_tested':False,'rendered':False,
              'original_fireball_and_campfire_modified':False,'gameplay_changed':False,
+             'shape_baseline':'pre-R5 Volume V8 R4','restored_shape_from':'trash/DragonBreathR5Layered20261015',
+             'color_temperature_range':[.35,160.],'color_gain':.4,
+             'runtime_loading_modified':False,'visual_acceptance':False,
              'defaults':defaults,'configured_inputs':changes}
     (OUT/'delivery.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
     (OUT.parent/'asset-authoring.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')

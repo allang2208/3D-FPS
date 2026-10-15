@@ -1,0 +1,269 @@
+{
+  "evidence_date": "2026-10-15",
+  "scope": "Existing integrated-host results; no gameplay tests rerun for this publication",
+  "editor_build": {
+    "result": "Succeeded",
+    "seconds": 19.58
+  },
+  "game_build": {
+    "result": "Succeeded",
+    "seconds": 154.12
+  },
+  "authority": {
+    "checks": 45,
+    "failures": 0,
+    "results": [
+      {
+        "case": "remote authority fixture identity",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword uppercut server commits cost and cooldown",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "duplicate release costs once",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "committed remote sword hit damages and launches",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "duplicate uppercut contact cannot damage twice",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "one server hit training batch",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "duplicate finish does not train again",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "cooldown rejects another release without payment",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "owner cooldown publication cannot erase authority uppercut cooldown",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "insufficient stamina rejects before hit",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "missing finish settles release training on expiry",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "expired uppercut hit rejected",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "old upload plus repeated receipt charges once",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "mirror arriving before receipt cannot double charge",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword remote charging begins",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword charge consumes two stamina per second",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword zero stamina cancels charging and applies exhaustion",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword recovered stamina cannot bypass timed sprint lock",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword still locked before five seconds",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "sword sprint returns after five seconds",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer remote charging begins",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer charge consumes two stamina per second",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer zero stamina cancels charging and applies exhaustion",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer recovered stamina cannot bypass timed sprint lock",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer still locked before five seconds",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer sprint returns after five seconds",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "authority blizzard rejects no staff",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "authority meteor rejects no staff",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "authority dragon rejects no staff",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "remote dragon starts without local GPU visuals",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "stale dragon stop cannot cancel current cast",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "dragon stop trains guest once and never host",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "meteor gameplay initializes independently of FX",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "meteor server clock advances directly to correct field age",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "meteor removal retains original guest reward owner and settles once",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "late meteor replica resumes field without old impact burst",
+        "passed": true,
+        "detail": "role=1 init=1 impact=1 started=7.350 age=2.650 fieldAge=2.000"
+      },
+      {
+        "case": "switching off staff between prepare and release rejects meteor",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer and unextended sword share normal reach",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "hammer normal base interval is fifteen percent longer",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "ten-slot wheel accepts learned spells",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "wheel selection routes the requested spell",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "staff readout uses the spell cooldown",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "empty wheel selection restores unselected state",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "wheel center clears selection",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "case": "removing selected registration clears selection",
+        "passed": true,
+        "detail": ""
+      }
+    ]
+  },
+  "uppercut": {
+    "groups": 30,
+    "checks": 110,
+    "failed": 0
+  },
+  "wire_host": {
+    "role": "listen_host",
+    "passed": true,
+    "contacts": 1,
+    "server_cost_once": true,
+    "guest_reported": true,
+    "guest_passed": true
+  },
+  "wire_client": {
+    "role": "client",
+    "paid_once": true,
+    "cooldown": true,
+    "exhaustion_lock": true,
+    "exhaustion_unlock": true,
+    "late_meteor": true
+  },
+  "limits": [
+    "NullRHI and no sound",
+    "Fixed isolated profiles disable automatic profile upload/mirroring",
+    "No packet loss, reconnect, full travel, new visual/audio or clean checkout build acceptance"
+  ]
+}

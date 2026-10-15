@@ -1,0 +1,14 @@
+{
+  "base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+  "runtime_patch_paths": 88,
+  "runtime_patch_roundtrip": "passed against named per-file baselines",
+  "data_patch_check": "passed",
+  "diff_check": "passed",
+  "credential_pattern_scan": "passed",
+  "binary_payloads": 0,
+  "gameplay_tests_rerun": false,
+  "shared_index_untouched": true,
+  "bytes": 808433,
+  "payload_files": 51,
+  "total_staged_files": 53
+}

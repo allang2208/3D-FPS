@@ -1,4 +1,4 @@
-"""V8 R2: warm Dragon Breath body, preserving the fluid simulation/extinction.
+"""V8 R6: restore the thick V8 body with a red/orange thermal RGB palette.
 
 Author/save only. Works in the isolated author commandlet or the existing editor
 bridge after PIE stops. No simulation, screenshots or acceptance tests.
@@ -12,13 +12,13 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'Tools/Skills'))
 if not hasattr(u, 'RainAssetEditor'):
     u.RainAssetEditor = u.DragonBreathAuthorLibrary
-from build_fireball_assets import LIB, ref, setdata, put
+from build_fireball_assets import API, LIB, ref, setdata, put
 
 DEST = '/Game/Skills/DragonBreath20261013/VolumeV8'
 SYSTEM = DEST + '/NS_DragonVolume'
 GRID = 'Grid3D_Gas_Master_Emitter'
-REVISION = 'DragonBreathVolumeV8R2_20261014'
-OUT = ROOT / 'SourceAssets/DragonBreath20261013/VolumeV8R2_20261014'
+REVISION = 'DragonBreathVolumeV8R6_20261015'
+OUT = ROOT / 'SourceAssets/DragonBreath20261013/VolumeV8R6_20261015'
 COLOR_MIN = .35
 COLOR_MAX = 160.
 COLOR_GAIN = .4
@@ -44,7 +44,7 @@ def expression_node(material, cls, tag):
 def flame_material():
     eal = u.EditorAssetLibrary
     # Reuse the already saved RG/local-space/exposure repair. Fresh rebuilds can
-    # recreate that baseline, but normal R2 updates never rewrite its packages.
+    # recreate that baseline, but palette updates never rewrite its packages.
     if not eal.does_asset_exist(DEST + '/M_DragonVolumeFlame_R1'):
         from repair_dragon_volume_visibility import exposure_material
         exposure_material()
@@ -95,6 +95,60 @@ def flame_material():
     return mi
 
 
+def run_color_only():
+    """Update the bound material's RGB code without editing Niagara or its MI.
+
+    Save outside PIE: the editor asset API refuses saving content during play.
+    No emitter graph, grid data, or renderer binding is changed or saved.
+    """
+    if not hasattr(u, 'DragonBreathAuthorLibrary') and u.get_editor_subsystem(u.UnrealEditorSubsystem).get_game_world():
+        raise RuntimeError('Stop PIE before applying and saving the Dragon Breath palette')
+    eal = u.EditorAssetLibrary
+    base = u.load_asset(DEST + '/M_DragonVolumeFlame_R2')
+    mi = u.load_asset(DEST + '/MI_DragonVolumeFlame_R2')
+    system = u.load_asset(SYSTEM)
+    if not base or not mi or not system or mi.get_editor_property('parent') != base:
+        raise RuntimeError('Active Dragon Breath material chain is unavailable')
+    renderer = API.call_method('GetRendererData', (ref(system, GRID, renderer=1),))
+    renderer_data = json.loads(renderer.get_editor_property('property_values'))
+    if mi.get_path_name().split('.')[0] not in str(renderer_data.get('Material', '')):
+        raise RuntimeError('Dragon Breath now uses a different renderer material; preserve its edits')
+    dirty = u.EditorLoadingAndSavingUtils.get_dirty_content_packages()
+    if any(package.get_path_name() == base.get_outer().get_path_name() for package in dirty):
+        raise RuntimeError('Dragon Breath color material already has unsaved edits; preserve them')
+    ramps = [node for node in u.ObjectIterator(u.MaterialExpressionCustom)
+             if node.get_outer() == base and str(node.get_editor_property('desc')) == 'DragonVolume.ColorRamp.R2']
+    if len(ramps) != 1:
+        raise RuntimeError('Expected one existing Dragon Breath RGB ramp')
+    OUT.mkdir(parents=True, exist_ok=True)
+    previous = OUT / 'previous-material-code.hlsl'
+    if not previous.exists():
+        previous.write_text(str(ramps[0].get_editor_property('code')), encoding='utf-8')
+    ramps[0].set_editor_property('code', (OUT / 'DragonFlameColor.hlsl').read_text(encoding='utf-8'))
+    eal.set_metadata_tag(base, 'DragonVolume.ColorCurve', REVISION)
+    errors = LIB.recompile_material(base)
+    if errors:
+        raise RuntimeError(str(errors))
+    compiler = u.DragonBreathAuthorLibrary if hasattr(u, 'DragonBreathAuthorLibrary') else u.PoisonMaggotMonster
+    if not compiler.compile_material_assets([base]):
+        raise RuntimeError('Dragon Breath color material compilation failed')
+    if not eal.save_loaded_asset(base, False):
+        raise RuntimeError('Dragon Breath color material save failed')
+    receipt = {'revision': REVISION, 'stage': 'assets_saved',
+               'saved_assets': [base.get_path_name()], 'material_instance': mi.get_path_name(),
+               'system': system.get_path_name(), 'changed': ['thermal_rgb_curve'],
+               'color_temperature_range_unchanged': [
+                   LIB.get_material_instance_scalar_parameter_value(mi, 'DragonColorMin'),
+                   LIB.get_material_instance_scalar_parameter_value(mi, 'DragonColorMax')],
+               'color_gain_unchanged': COLOR_GAIN, 'opacity_density_exposure_unchanged': True,
+               'niagara_system_modified': False, 'material_instance_modified': False,
+               'extra_volume_texture_samples': 0, 'native_gameplay_changed': False,
+               'material_compilation_finished': True,
+               'runtime_tested': False, 'rendered': False, 'visual_acceptance': False}
+    (OUT / 'delivery.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
+    print('DRAGON_VOLUME_R6_COLOR_ONLY_SAVED ' + base.get_path_name())
+
+
 def apply(system):
     mi = flame_material()
     put(system, GRID, 'EmitterUpdateScript', 'Grid3D_Gas_MaterialControls',
@@ -120,14 +174,13 @@ def run():
     receipt = {'revision': REVISION, 'stage': 'assets_saved', 'asset': system.get_path_name(),
                'saved_assets': [system.get_path_name(), mi.get_path_name(), mi.get_editor_property('parent').get_path_name()],
                'color_temperature_range': [COLOR_MIN, COLOR_MAX], 'color_gain': COLOR_GAIN,
-               'opacity_temperature_range_unchanged': [.35, 5.3], 'opacity_gain_unchanged': 1.25,
-               'density_gain_unchanged': .18, 'extra_volume_texture_samples': 0,
+               'opacity_and_density_modified_by_this_color_step': False, 'extra_volume_texture_samples': 0,
                'exposure_inverse_count': 1, 'native_gameplay_changed': False,
                'runtime_tested': False, 'rendered': False, 'visual_acceptance': False}
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / 'delivery.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
     (OUT.parent / 'asset-authoring.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
-    print('DRAGON_VOLUME_R2_SAVED ' + system.get_path_name())
+    print('DRAGON_VOLUME_R6_SAVED ' + system.get_path_name())
 
 
 if __name__ == '__main__':

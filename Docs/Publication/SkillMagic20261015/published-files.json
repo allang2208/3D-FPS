@@ -1,0 +1,257 @@
+[
+  {
+    "path": "Tools/Skills/build_dragon_breath_volume.py",
+    "bytes": 8311,
+    "sha256": "3e7c68729e29a3cd53e46d9cee0a5efa216aa5e3be0a772a2cf809b4b32af2da"
+  },
+  {
+    "path": "Tools/Skills/build_dragon_volume_color.py",
+    "bytes": 10284,
+    "sha256": "56cc446f56146c6f47d9839a6048d0e16603774b143f5cd9d88d4474b8606a22"
+  },
+  {
+    "path": "Tools/Skills/apply_dragon_red_palette.py",
+    "bytes": 276,
+    "sha256": "1aa44f8fb79f0424e710077ea97c159f31a7d82ff0b7faf7007b7a158dccdf34"
+  },
+  {
+    "path": "Tools/Skills/import_exhaustion_audio.py",
+    "bytes": 1615,
+    "sha256": "63767925b42c71f48dd3fc4779f795ba71bacb5f1376e246417f892b9b9e59fd"
+  },
+  {
+    "path": "Tools/Skills/inspect_dragon_readiness.py",
+    "bytes": 2258,
+    "sha256": "fc369cc3aa1ac2110db0995aab9f4819be46944524d8bff55fd550908475ae0a"
+  },
+  {
+    "path": "SourceAssets/DragonBreath20261013/VolumeV8R6_20261015/DragonFlameColor.hlsl",
+    "bytes": 868,
+    "sha256": "cfa8ed79263225b6bd4eaf3b28a0e7454190d0faf2cd25ba2686388bf23a946b"
+  },
+  {
+    "path": "SourceAssets/DragonBreath20261013/VolumeV8R6_20261015/production-notes.md",
+    "bytes": 2363,
+    "sha256": "bbc469d71dc3a04dc7decaa6e6f50e6fe30fe54bf8ac8929995b9cc114771b42"
+  },
+  {
+    "path": "SourceAssets/PlayerExhaustion20261014/credits.md",
+    "bytes": 1122,
+    "sha256": "fcae5a8479f81e450b5a8c8ff750ebce529bbe8a80b664392d0278c94008a131"
+  },
+  {
+    "path": "SourceAssets/PlayerExhaustion20261014/prepare_audio.py",
+    "bytes": 1583,
+    "sha256": "deb90cec7b2d338461146aeb3b2bc4fa48254c0d65ee4d7b4e8a40b77f084959"
+  },
+  {
+    "path": "Docs/Skills/dragon-breath-20261013.md",
+    "bytes": 27509,
+    "sha256": "68b9ecf18e24961ca902e1d023103c14efdfd290e024f1052c55cfd851a18453"
+  },
+  {
+    "path": "Docs/Skills/sword-uppercut-20261003.md",
+    "bytes": 5470,
+    "sha256": "ad3023112ed7a89073e687f9f09239a9c09e303d0154db03eb4c1c85c775bdc1"
+  },
+  {
+    "path": "Docs/Skills/blizzard-staff-required-20261014.md",
+    "bytes": 1847,
+    "sha256": "f0f5bd24f82b5771e1dbef6e43c32f00e027c62c03f9227546694ab0584b5c4a"
+  },
+  {
+    "path": "Docs/Skills/dragon-breath-readiness-20261015.md",
+    "bytes": 4961,
+    "sha256": "83083a4bf7f5e1c8cbe321d8c9d55ea7b061f48a402e8ad3e749b463740556a5"
+  },
+  {
+    "path": "Docs/Skills/dragon-first-cast-preparation-20261015.md",
+    "bytes": 10898,
+    "sha256": "b1164fd3be5cfb7483ba4f3901eacd8851925d96294ea015f181602ce2113e2e"
+  },
+  {
+    "path": "Docs/Skills/dragon-first-cast-regression-20261015.md",
+    "bytes": 4279,
+    "sha256": "9c3ef8bdf647eb8dece01a330a8ae9770e6da81a58b8249d37120d678d5740f9"
+  },
+  {
+    "path": "Docs/Skills/exhaustion-debuff-20261014.md",
+    "bytes": 4594,
+    "sha256": "2dffd3a9cde2a71881bf9f0709f2a1e6870d74ad43c5e824a13b856567032a29"
+  },
+  {
+    "path": "Docs/Skills/heavy-charge-stamina-20261014.md",
+    "bytes": 2644,
+    "sha256": "cc36cc19f831338e5bf101e16a816a44e5c601b699315bc7fec7c0a73a252a4d"
+  },
+  {
+    "path": "Docs/Skills/learned-skill-background-audit-20261015.md",
+    "bytes": 6176,
+    "sha256": "8b7144d0e276bbc8da21d8d587047800cbb295d8efc059fe7b709e3c4acabde3"
+  },
+  {
+    "path": "Docs/Skills/learned-skill-entry-preparation-20261015.md",
+    "bytes": 8587,
+    "sha256": "e93499d5928a8f447fb93c0f4210cf659cfc7e7e10f53ea80559ce789cba778e"
+  },
+  {
+    "path": "Docs/Skills/meteor-fixed-height-preview-20261015.md",
+    "bytes": 2424,
+    "sha256": "071b19a48222a5a050c170d55cf696df55fb0d869f2aa5454760bafe27ee61b1"
+  },
+  {
+    "path": "Docs/Skills/skill-network-review-20261015.md",
+    "bytes": 7663,
+    "sha256": "0c5c2f9290006649115031dae05b4b013bc5bbadc1da2b414bf7406d3dfad216"
+  },
+  {
+    "path": "Docs/Skills/uppercut-forced-launch-20261015.md",
+    "bytes": 1841,
+    "sha256": "4903aa1688b628cccb3dc72de8aedb5e20edab4985e6b26080bef4753d186d77"
+  },
+  {
+    "path": "Docs/Skills/uppercut-launch-validation-20261015.md",
+    "bytes": 2823,
+    "sha256": "c55af71faf80d592de4bcdbab8614462caa106907a24d105ad281e872652f0ec"
+  },
+  {
+    "path": "Docs/UI/staff-magic-review-20261014.md",
+    "bytes": 4126,
+    "sha256": "a0fceb6016e98faefd5a91af001c977834371ef891e14d14f8ec27832dc8171a"
+  },
+  {
+    "path": "Docs/UI/staff-magic-wheel-plan-20261014.md",
+    "bytes": 6873,
+    "sha256": "f00295ed6c98444a1ea86cce31a9562be309e8e70968508c510192d04094b567"
+  },
+  {
+    "path": "Docs/UI/staff-mana-readout-plan-20261014.md",
+    "bytes": 3356,
+    "sha256": "5db5737b1568b86bab02d74bd557ad42ce99f6357a3b289050606e0419b0fc67"
+  },
+  {
+    "path": "Docs/UI/two-handed-hammer-readout-plan-20261014.md",
+    "bytes": 2025,
+    "sha256": "15db73a385450c92841af2f116842fd5edff8be3e9e6ce4bbb350f081d4c37de"
+  },
+  {
+    "path": "Docs/UI/warhammer-tooltip-format-20261014.md",
+    "bytes": 2967,
+    "sha256": "4611198e3096b62c5d9eb3404beef0bb90c70ba4d0e09aadcd9d0d3ddd2bec19"
+  },
+  {
+    "path": "Docs/Weapons/steel-warhammer-balance-20261014.md",
+    "bytes": 3499,
+    "sha256": "f53959595f6ac3d9b45f21fba79a06abb2536ca8569a7d60ce2eff34a201d305"
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+    "bytes": 6990,
+    "sha256": "14f7450aee9f62c0cc130641961c8795692d9fa75573f3e9e7a693a38de99c80"
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/references/blizzard-migration.md",
+    "bytes": 10715,
+    "sha256": "05537166d6f631c2c89cb4762fc16e9e00e7e04fbf642eb9debe6114da8b2a42"
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/references/charged-melee-training.md",
+    "bytes": 3488,
+    "sha256": "e268e7b7822e57686ee7ae7956cac8aaf89d0e622ab348913ab6173cb46ff4d4"
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/references/fire-magic-migration.md",
+    "bytes": 7405,
+    "sha256": "1d8903f436acc041df70edecbaeb6b141fafe05753e922f7959e43bc001f5f3c"
+  },
+  {
+    "path": "skills/ue5-skill-magic-workflow/references/persistent-magic-network.md",
+    "bytes": 4888,
+    "sha256": "2a452cd104e483d90bce0aaae6ed0df2b5ffb43168ce61ee9739109f77650eef"
+  },
+  {
+    "path": "skills/ue5-ui-umg-slate/references/hud-navigation-and-weapon-readouts.md",
+    "bytes": 8952,
+    "sha256": "75990db57e5a6a97d080333d6683d5bdaa57172167bf97382ce9ae45ade1acae"
+  },
+  {
+    "path": "skills/ue5-ui-umg-slate/references/weapon-tooltip-schema.md",
+    "bytes": 10164,
+    "sha256": "9daf34b58cb75cc90b2c450ad3c8c6e8402dd13c09bbe46f61b327ab32df7b73"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/references/weapon-formula-balancing.md",
+    "bytes": 11056,
+    "sha256": "256838c0cfa8cfac54343c260a25bc3fc5859b946fe7ad9ed37bd24c1df566d7"
+  },
+  {
+    "path": "skills/ue5-fluid-vfx-workflow/references/dragon-volume-production.md",
+    "bytes": 7659,
+    "sha256": "bd0f1ffc1a38474ebd4f5716b86ffe930ef284bfe81716b5f04ffa4fc63fa022"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/archive-manifest.json",
+    "bytes": 6594,
+    "sha256": "f1f4ac0a26ee683bc670efd8d82103f12fa2b808f86bcbf3db48dcf2ad611335"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/data-baseline.json",
+    "bytes": 909,
+    "sha256": "d6a0a17602f75d347d176a983dcf1fdce6c6f2c4a3d264ed2974121c9bd6b673"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/gameplay-data.patch",
+    "bytes": 4591,
+    "sha256": "2f50239a5c23d31c3f8d2c32174099756272cd7ebf9157f88f4a259af80a24a5"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/integration-baseline.json",
+    "bytes": 40470,
+    "sha256": "0205d35023c48d9829641b525fd024affc57c6241224440efc1bf66a319b6f98"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/README.md",
+    "bytes": 7000,
+    "sha256": "304c96ed8fcf1654cb013b80bbdf7111a12b96a780ae46bcbf6da9ed9daf05b2"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/runtime-integration.patch",
+    "bytes": 384418,
+    "sha256": "ed3a14224961eeab287b6ee82f40f9c22c9789143bf63ca9be5434ed8d047298"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/verification-summary.json",
+    "bytes": 6735,
+    "sha256": "ab51c1f577e26bc9838b498446bd3e5c089166b99f3d4b3090b88f22b5451634"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/warhammer-balance-overrides.json",
+    "bytes": 366,
+    "sha256": "6fbbad751537828bf0dba114dc4ea152c2ed73dc169e3edccefd5d770d7e4c5b"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/warhammer-charge-and-preparation.cpp.inc",
+    "bytes": 4625,
+    "sha256": "2caf883779a25161a37ae3985a6ddd1e69ad1f18887a41d806579d307ee5fbe3"
+  },
+  {
+    "path": "Docs/Publication/SkillMagic20261015/warhammer-integration-inputs.json",
+    "bytes": 1019,
+    "sha256": "f7bdbc222e0896222cb7515f3d6c6635e743ca99cc74cbf3243ff35ea703d9c2"
+  },
+  {
+    "path": "Docs/AssetSetup.md",
+    "bytes": 114322,
+    "sha256": "55292a3578ca16b2a03da255267f994c6259f8a2a7e26bb1d9fec622bebd970c"
+  },
+  {
+    "path": "Config/DefaultGame.ini",
+    "bytes": 22357,
+    "sha256": "251ed74674a8dcdd740bebfb9fec06693a40f31ab872fa8ff9019bbf19355525"
+  },
+  {
+    "path": ".gitattributes",
+    "bytes": 468,
+    "sha256": "968f51bc63fe862f0d08cdf0287b81c116201d0e723ce25489e9bb8a9b7b0c1d"
+  }
+]

@@ -27,7 +27,9 @@
 
 ## 美术、动作与成本
 
-当前制作路线为 Niagara Fluids Volume V8（2026-10-14），源与实际落盘状态见 `SourceAssets/DragonBreath20261013/VolumeV8_20261014/production-notes.md` 及同目录 `delivery.json`。用户已否定 V7 龙息效果，并指定参考 RedefineFX 喷火器课程；原火球和篝火仍属认可效果，不修改。新版运行引用为 `/Game/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume`，使用 Epic `Grid3D_Gas_SimpleParticleSource` 的三维温度／密度／速度场及 Niagara Volume Renderer。可见火焰不再由 Sprite 火片组成。
+当前制作路线为 Niagara Fluids Volume V8，最新为 R6（2026-10-15）。用户反馈 R5 太单薄，要求恢复上一版厚度和扩散，主要优化颜色。R6 从 R5 制作前备份恢复 R4 所用的 V8 热源、密度、透明度、消散与翻卷；颜色独立调整为深红边缘、橙红主体和少量暖橙高温端，不再减薄火柱。当前源与实际落盘状态见 `SourceAssets/DragonBreath20261013/VolumeV8R6_20261015/production-notes.md` 及 `delivery.json`。运行引用仍为 `/Game/Skills/DragonBreath20261013/VolumeV8/NS_DragonVolume`，体积材质保留 R2 资产名称，内容为 R6；原火球和篝火不修改。下文 R1–R5 的交付与反馈保留为历史，R6 尚待用户试玩。
+
+首次释放表现准备同时修复：组件异步加载后独立完成编译/渲染管线和隐藏实例初始化，早到的施法输入排队且不提前扣蓝；全局进场继续不等待技能。实现和构建记录见 `Docs/Skills/dragon-first-cast-preparation-20261015.md`。
 
 V8 保留 90° 玩法扇形，70% 热源集中在约 15° 的中心喷流，其余向外围展开。不可见热源 360/s，最长寿命 0.8 秒；它们只注入流体，不绘制火焰。每位施法者至多一个流体组件，网格尺寸随 5–15 m 射程调整；本地画质对应最长轴 80/96/128/160/160 格，远端为 80 格，属性网格倍率为 1，压力迭代 8 次，体积步长倍率 0.75。停止施法后 0.65 秒显示淡出，不再造成伤害；死亡与 EndPlay 立即清理。上述为制作预算，不是实测帧率或显存承诺。
 
@@ -151,6 +153,14 @@ V6 在出生时保存喷口世界位置、方向、横轴／纵轴、飞行速�
 
 ## 2026-10-14 主体暖色 V8 R2
 
+**后续颜色更新：** 2026-10-15 用户确认释放正常，并指定只优化截图中的生硬红黄色。V8 R3 将颜色改为暗赭橙、琥珀主体和少量暖黄火芯，重叠相邻温度色段，保持 0.4 总颜色增益及现有透明度／模拟。仅更新现用 R2 路径下的材质 RGB 节点，路径不改。历史制作源与回执原位于 `SourceAssets/DragonBreath20261013/VolumeV8R3_20261015`，下文 R2 曲线保留为历史。
+
+**历史 R4（已由 R6 取代）：** 用户随后反馈 R3 太黄、几乎全黄，明确要求以红色为主。R4 改为深红／朱红／亮红主体，高温端保留橙红，移除宽金黄段和浅黄端点；其他参数不动。历史制作源与保存回执原位于 `SourceAssets/DragonBreath20261013/VolumeV8R4_20261015`，仅颜色安装入口为 `Tools/Skills/apply_dragon_red_palette.py`。R3 留作历史，不代表用户认可。
+
 用户反馈主体过白并授权优化。R2 专用体积材质以实际 G 通道温度独立映射 0.35–160 的暖色曲线，使用暗红／橙红／橙黄／金黄／暖浅黄过渡，取消中性纯白端点；主体发光增益由 0.8 调整为 0.4。保留现有透明度、密度和单次曝光补偿，因此不会因扩大颜色温度范围同时降低火柱的透明度厚度。运行系统路径不变，改绑 M_DragonVolumeFlame_R2 / MI_DragonVolumeFlame_R2；作者与 HLSL 已保存。
 
 2026-10-14 16:18:42 后台保存完成，制作 commandlet 退出码 0，Niagara valid=1、pending_after=0；两份材质编译完成。本轮未修改游戏 C++、技能玩法，也未执行游戏／PIE／GPU 回读／画面或性能验收。具体参数与制作记录见 `SourceAssets/DragonBreath20261013/VolumeV8R2_20261014/production-notes.md`，正式回执为同目录 `delivery.json`，最终观感由用户试玩确认。
+
+## 当前制作与整理状态（2026-10-15）
+
+当前为 `VolumeV8R6_20261015`：恢复厚实 V8 形态，仅使用红／橙连续温度曲线改善颜色。R3 过黄、R4 过于纯红、R5 过薄均为历史候选，其目录已移入 `trash/skill-magic-retired-20261015`；原路径和 SHA-256 见 `Docs/Publication/SkillMagic20261015/archive-manifest.json`。R1 的 RG／曝光修复和 R2 的材质供体仍是重建依赖，保留。当前完整作者为 `Tools/Skills/build_dragon_breath_volume.py`，仅调色入口为 `Tools/Skills/apply_dragon_red_palette.py`。首发准备与本轮联机验证各见相应工程记录，不以本次整理代替重新验收。

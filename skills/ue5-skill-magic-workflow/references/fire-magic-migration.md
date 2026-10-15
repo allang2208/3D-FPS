@@ -1,5 +1,13 @@
 # 陨星与灼锋焰甲
 
+## 陨星当前规则（2026-10-15）
+
+用户要求固定高空坠落和长按预览，覆盖下文历史“室内压低出生点／无预览圈”口径。陨星从标定点上方 13.2 米出现，坠落无碰撞，穿过沿途屋顶与掩体到标定位置；释放时不再用施法者至落点的视线阻止已标定陨星，仍检查射程和法杖等施法条件。爆炸、熔火的目标地层/暴露筛选保留。
+
+快捷键与法杖快捷施法左键共用长按范围预览：按住瞄准、松开锁定最后显示的位置并进入原施法手势；预览不扣蓝。复用 `Blizzard/ChargedV3/M_BlizzardAimPreview` 圆形材质，显示爆炸半径，异步加载并加入已学技能后台队列。无落点、取消、死亡、菜单及切走法杖不因松键重新施法。记录 `Docs/Skills/meteor-fixed-height-preview-20261015.md`；默认由用户实机测试。
+
+## 迁移基线与历史
+
 案例 `Docs/Skills/fire-magic-migration-20260921.md`，实际配置 `Content/ColdSteelData/skills.json`。两项使用 `FPSFireMagicComponent`，模型为 `ColdSteelFireMagicModel.cpp`，陨星 Actor 为 `FPSMeteorStrike`。原 game-dev 数值保留 K=1..20，范围每单位1.5cm，不套用后续调整过的火球伤害公式。
 
 - 当前 `meteor.requiresStaff=true`（2026-09-30 用户补充要求）；当前激活主手需装备法杖，起手和释放前判断，未释放切走法杖退蓝并撤销冷却。2026-09-21 迁移时曾按当时要求设为 false，该旧口径已更新；`flameArmor` 继续按其当前配置取值。详细范围见工程 `Docs/Skills/staff-required-magic-20260930.md`。

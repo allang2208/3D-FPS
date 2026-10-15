@@ -1,0 +1,12 @@
+{
+  "definition": "ue_steel_warhammer",
+  "fields": {
+    "melee_damage": 49.5,
+    "melee_reach_cm": 180,
+    "combat_reach_cm": 360,
+    "attack_seconds": 2.04125,
+    "swing_seconds": 2.04125,
+    "contact_seconds": 1.24125
+  },
+  "instruction": "Merge these fields after the base hammer catalog is restored. Do not replace the full item or reset attachments."
+}

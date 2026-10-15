@@ -1,0 +1,710 @@
+{
+  "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+  "note": "Per-file LF baselines. Named local prerequisites are not the public Git tree. Current host already contains these changes; do not apply again.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "c3bbac30cc231734b1409da90020b4b7067326fcc9f74dab5b37d287d99615fe",
+      "result_sha256": "d02780e633a7f57024d114037a7fd0f9fa9b7f9fd20f8b45bc50941c5015e8bb",
+      "working_sha256": "d02780e633a7f57024d114037a7fd0f9fa9b7f9fd20f8b45bc50941c5015e8bb"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterAmmo.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "75f523f8e06af3ff77eba1a718ba85baf31408ce6a4db1d32c89d26385fa9752",
+      "result_sha256": "459af1b3f4db26a87d3bbcc9a7c61e7e86c4827ab769e05190d65665b06ac75a",
+      "working_sha256": "459af1b3f4db26a87d3bbcc9a7c61e7e86c4827ab769e05190d65665b06ac75a"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "145fe29c89aad432bcad3f70e23f842477268f355fc88f810231b526b8c30713",
+      "result_sha256": "265f6ceb957d6ec87d6dc51ad41c4c9129528148575db9dcda5352af5d4ef036",
+      "working_sha256": "bf182eb47183e39f10a3f4a7bc49946ae91dfe48a7bd424b4e454205dd5ebfb5"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "95bb90584f699518f28c547ca4163ac347126dedd2bd051440ed51174b352ac6",
+      "result_sha256": "8a433262eb31c63790afe8b0d269d3c024e95c8cc6f8c88f6a0d6ca91a404f00",
+      "working_sha256": "8a433262eb31c63790afe8b0d269d3c024e95c8cc6f8c88f6a0d6ca91a404f00"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "c542b9e9e944dd22674c2c8b57cf9b7701d8333d4e7c0c9456f3a7651311553d",
+      "result_sha256": "32fcd9e99fc7c1ef00d9231b86205a9a29348b3a54304163d8c82c7cc481691e",
+      "working_sha256": "32fcd9e99fc7c1ef00d9231b86205a9a29348b3a54304163d8c82c7cc481691e"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "27f3b19334e23cef491315dbc8deb0ccf7ba49237986a59870e74c11337a6954",
+      "result_sha256": "bdf26d69a08322607631ef7340f024fe5d247b9e830b38fcfd50739716344a60",
+      "working_sha256": "bdf26d69a08322607631ef7340f024fe5d247b9e830b38fcfd50739716344a60"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BlizzardTypes.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "8ce158479e14ac314d96ae5eaf5c48cf01e0d332a40967c47d285f5062bfed10",
+      "result_sha256": "f40433536877e27a800f521ff555f52898093e5b8c3124cf7be7314d156ea679",
+      "working_sha256": "f40433536877e27a800f521ff555f52898093e5b8c3124cf7be7314d156ea679"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSBlizzardComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "240aaa7d6d22d0d98246bd098b4bf65d563b88f87028870fa8cc54a6141d6dd9",
+      "result_sha256": "cc31b52ad03a40c0e896101cd9ef5744de35275f89cac8388ac8a2e08ed28220",
+      "working_sha256": "cc31b52ad03a40c0e896101cd9ef5744de35275f89cac8388ac8a2e08ed28220"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSDragonBreath.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "7cad23562fc482aca07c84af4be981b261a67c5400c7276d2250615f3f0d7f40",
+      "result_sha256": "e06ed8574466ec2185287a8c4bfdb85bb1e351465c78e552f860ea0ff1eba948",
+      "working_sha256": "e06ed8574466ec2185287a8c4bfdb85bb1e351465c78e552f860ea0ff1eba948"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e447089e861d21485df00dd8b0f0b83d1ee3bc0f7f5221df4d39cb8c74f98526",
+      "result_sha256": "51ee3284664458925e4ba2c93a5a60855e0b2d3cd3481d0986a06e9233a4d413",
+      "working_sha256": "51ee3284664458925e4ba2c93a5a60855e0b2d3cd3481d0986a06e9233a4d413"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "d48449fc7163d355e61df60293fac40dd8355a79b09cde5e9e47ac5e7e4208df",
+      "result_sha256": "842c3e731a5d54090f5507aa0dd35726bcb918ff99902ba80fdd9d03727d63e9",
+      "working_sha256": "842c3e731a5d54090f5507aa0dd35726bcb918ff99902ba80fdd9d03727d63e9"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "eb4c79b4195e998f783df2f4cfe32aa972d769dfe20fe3d40b8c9652cb72d090",
+      "result_sha256": "20a9f03a767b53bc6185a3ed0c91c64e39090efb43992430aea9f15d46444de6",
+      "working_sha256": "20a9f03a767b53bc6185a3ed0c91c64e39090efb43992430aea9f15d46444de6"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSHolyLightComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "7e54d02a0cc053ca81df0c53f41b5356c45dd335602d97f22cf9e616fb0b03f6",
+      "result_sha256": "d64ec99c5e7e180357d63f3df3b493de8f2d53a0240d1e6107bd0b8e4300f50b",
+      "working_sha256": "d64ec99c5e7e180357d63f3df3b493de8f2d53a0240d1e6107bd0b8e4300f50b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceSpikeComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "4a6675831f316218d202b4260696adda639b6875687fccfa0fe4adf923f1f6bb",
+      "result_sha256": "2f4d11044b2c351b4d4975bc113d748eb5b141807545128d7a1084f42928e67d",
+      "working_sha256": "2f4d11044b2c351b4d4975bc113d748eb5b141807545128d7a1084f42928e67d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceWallComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "39169d41814cdc5a9b052d493928b75226cf96f6078c75a20e331c128aebfe7d",
+      "result_sha256": "19ff958123dfc3ad76958b8973c202ffdfa8b8b7c6836faf449efc0cbbb27732",
+      "working_sha256": "19ff958123dfc3ad76958b8973c202ffdfa8b8b7c6836faf449efc0cbbb27732"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "968fbbed47dfa8f0b0550ebe373f9d938d2a4bdf144bcc1a12de8a521a1abbd1",
+      "result_sha256": "71f1ef27f7573537f3ff95869d8080af9f2bb4f1dd384c2dbada3fc48429d78f",
+      "working_sha256": "71f1ef27f7573537f3ff95869d8080af9f2bb4f1dd384c2dbada3fc48429d78f"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "2b1d2ce928a577acf810195ed228c6fa2b3772aa2f843799e12c1e26c3c2e3d6",
+      "result_sha256": "65e25060c2a623f87cc0574d62d84f0c328f316e7a6ece093d1137c1ce1df3fd",
+      "working_sha256": "65e25060c2a623f87cc0574d62d84f0c328f316e7a6ece093d1137c1ce1df3fd"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "4a3f1a62c1269e9fb7a16bc696fa8179b80efe58541e2cbc5ddc33f0639e6f3f",
+      "result_sha256": "20214d34541046667b196aca89dddbe49fbf67a943c6c064c0639b3d31020b0d",
+      "working_sha256": "20214d34541046667b196aca89dddbe49fbf67a943c6c064c0639b3d31020b0d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SwordUppercutTuning.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "b9dfccf4d1cac131316e061be83ca83cfe2404f70b793d5d404b844a4f353bc3",
+      "result_sha256": "4c198c025e228583bd0c5d49bd2ff5375ecdf3dac767d3ca88977cee1cf12824",
+      "working_sha256": "4c198c025e228583bd0c5d49bd2ff5375ecdf3dac767d3ca88977cee1cf12824"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "f3b36e352d3b542d55a949f7a833cf364f122dfdc0f524d9974464ac542eca3c",
+      "result_sha256": "ecc3733f2d0cc02c1c0dbe64e8c95fbe7030bb60e2b5a35a532bfd502a428eaf",
+      "working_sha256": "ecc3733f2d0cc02c1c0dbe64e8c95fbe7030bb60e2b5a35a532bfd502a428eaf"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "59d25f5f781c91ba94a0de33af31bf0082d11c33b2d8bb524de26be7e5f6e7ed",
+      "result_sha256": "e55be43b34e460fff08c3e8d5be27e20b29306a09ec5cb95ae6c43ce5aa19cd4",
+      "working_sha256": "e55be43b34e460fff08c3e8d5be27e20b29306a09ec5cb95ae6c43ce5aa19cd4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "d3d7fa7c36c217c8c278b67ab37ae9e23a1521129438d6c40c45a9ed5331cd01",
+      "result_sha256": "11d5dd6f6abd54930d0999b4cae96d85a7ca07b69260382a0c7b47525c97c406",
+      "working_sha256": "11d5dd6f6abd54930d0999b4cae96d85a7ca07b69260382a0c7b47525c97c406"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHotbarLayout.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e56cc9b8c8000f034560b7b66a24ee072ef187b0192caaef87831ac72bef3d2a",
+      "result_sha256": "a7605966a2f7b278f6b720d94d6639cf61cefdbd6f53032d7700903c8eecab69",
+      "working_sha256": "a7605966a2f7b278f6b720d94d6639cf61cefdbd6f53032d7700903c8eecab69"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "ebb0033ea954c8b8959672e66aed9a20e29d82f40a084f3bf4cf4df52af93b46",
+      "result_sha256": "05d2bf0c982d59a13c002b644f961e05cfdd179d02b5cdb35e66dfe94fe44bbb",
+      "working_sha256": "05d2bf0c982d59a13c002b644f961e05cfdd179d02b5cdb35e66dfe94fe44bbb"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "de7897c3c474046be26fb5dbd8a44d1eca016aec4a796eebf63b6c159f9716c2",
+      "result_sha256": "6acf2e5eb74e3a1cc2625b8ce9d9674be0514d7ee9e73803dfdfde847cddbcef",
+      "working_sha256": "6acf2e5eb74e3a1cc2625b8ce9d9674be0514d7ee9e73803dfdfde847cddbcef"
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectIconPainter.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "796c0fdc534c6e5aa8e0c324386b46f192a59a7f359d50e100aba4600fc80b0a",
+      "result_sha256": "706ebadd9802f661a6725b6dbd8b3d4ad01e12c3cff43e4fb0a0039280d95e46",
+      "working_sha256": "706ebadd9802f661a6725b6dbd8b3d4ad01e12c3cff43e4fb0a0039280d95e46"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "7d8af1c82a000fcd3e8aacfac70a03ab188f349d4d9a65a9c72afdc5cf038e21",
+      "result_sha256": "df669d25e59bc0c67336e4d7d887536764bad2c7f66442b0118a243dd9505a43",
+      "working_sha256": "df669d25e59bc0c67336e4d7d887536764bad2c7f66442b0118a243dd9505a43"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "d8f7227d1b6a42c2e9f2a172003bb3eadf8a7a37b5d326e14eac5a63b5eee8c9",
+      "result_sha256": "a865e840e22a8ca7750b59de7d7a12beee19927acdbc187405843533b1e2e605",
+      "working_sha256": "a865e840e22a8ca7750b59de7d7a12beee19927acdbc187405843533b1e2e605"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "df4ac1205802aba02954e6e7dcd0098398c37ae508c3ca84a9dd370ed60acd43",
+      "result_sha256": "6da94e88c901da07268bcb8fefd64f3028ce72166939af785ce108ecf8450593",
+      "working_sha256": "6da94e88c901da07268bcb8fefd64f3028ce72166939af785ce108ecf8450593"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "507f78e6f990cff19338cdd5bcecc8d1687b8fe1aa6c4d9c731e8a7893f26b67",
+      "result_sha256": "7d8ae2667c34e41608c9cbd4908a550293c522978998214bf0ff3a3b432665f0",
+      "working_sha256": "7d8ae2667c34e41608c9cbd4908a550293c522978998214bf0ff3a3b432665f0"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "baseline_kind": "git-main",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "04b5889145377f422cbbc8f4f2c45193cdd84f9684e98a0d15da04b4eb511349",
+      "result_sha256": "81e9ba171f04660b771fe9f7f35aac21cd39b5e3eed78739d5e3736cec8ecce1",
+      "working_sha256": "81e9ba171f04660b771fe9f7f35aac21cd39b5e3eed78739d5e3736cec8ecce1"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "00a2ff25664aed24d67f64c97d036ab0cea475b378ca41bfe1a296d4bcfac81d",
+      "result_sha256": "a3d60981e229e0930fba78736bf601dda7084e0403d397298e8168759e4e69f2",
+      "working_sha256": "a3d60981e229e0930fba78736bf601dda7084e0403d397298e8168759e4e69f2"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "a9b0d92f649e614de117dc1ec0675779ba2fe1211935bc84919a61cf8c606884",
+      "result_sha256": "6ffcb1d0b197a0f5d066381950871eacad60d81b98014c64bb6a866d48e2f790",
+      "working_sha256": "6550cd4504ec94975acc36e30abc7ca8632e881638fff766a39efb0fae65ea38"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "0c3da58ad527b37c99d6aed63a991dc971da45eff8d39d97cedc36e1cd47ef49",
+      "result_sha256": "0293b452cb1a4447e4e43f2e410fa27aca1267e66c9d8f01e164b04a2736eb17",
+      "working_sha256": "d9ad6d340ce9c6dd422ff7a82e390be0c8d28690caa48fe16312a1661139d17e"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "89cbdd7563d93d428ca9c5f2a8cb311c1c5574ce585a5377fdcad79bc0c0956a",
+      "result_sha256": "b51e2b52243395656f67357fa2826a71b3a22a4804fe2a0ee81fd78d436cb08f",
+      "working_sha256": "b51e2b52243395656f67357fa2826a71b3a22a4804fe2a0ee81fd78d436cb08f"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "b736da13cf5cc53cfa97c44f53e88cb21e8ec0d7eb085548cc0c259487646820",
+      "result_sha256": "148c7b731ef475bec08f4b9db3964f5b65e75cf313a4df9705aa3f5fb9b038a3",
+      "working_sha256": "148c7b731ef475bec08f4b9db3964f5b65e75cf313a4df9705aa3f5fb9b038a3"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "ba9b72100e6c85d799da7ac26253777d19de19de52a640a23bdb9d5216344991",
+      "result_sha256": "785cbbd6526e3038cf624ef3ad8fd8c3156f4a53718cb76885f414cbf60f17a6",
+      "working_sha256": "6a7790855f9657b48ede1d2b4bdacf05ae7720f0b7d38a91b1b20cea423ac1a5"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "db7f43fd3f757540f8c4405590bfcb32a624be696f881fa148f9ad2ef02b5c47",
+      "result_sha256": "645dc72087506f905e807c3fd7108a4a4c834c081705a7c6ce556610af6b2fca",
+      "working_sha256": "01b88f29dc947720f6d749ad32329c574b8cc22c448a3ccb21477f8d1b293cab"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "6663e7486019c6692f3b16e7624ce13e2794f98f41a084f0be56768a5142d8e3",
+      "result_sha256": "b362a71a471484fa41fba6ea5cd0589604bdb5029e37853b473847203f0a8333",
+      "working_sha256": "c0b50df07c772b9ec2f448f1c9aeb90f240af3fa7d093f935d2682daf931a89f"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "3d7f7b8341a69cb7f79f337f93332206218a9961ca1ffff2eb6b885e98b2001e",
+      "result_sha256": "eb61e7c77df1d29c6767c75171b20eaf4f8a229080bd3358b66c3c212dbf2709",
+      "working_sha256": "eb61e7c77df1d29c6767c75171b20eaf4f8a229080bd3358b66c3c212dbf2709"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "7485012a860ee36c0e56b0cfde600645294eb2671c385636153e4dffa5393323",
+      "result_sha256": "50199dc32340aaae8241495c0127b4062a34bdeef486aba7b4bcae3a94045a96",
+      "working_sha256": "50199dc32340aaae8241495c0127b4062a34bdeef486aba7b4bcae3a94045a96"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "cba701e6bf653c56d3b94ca2905b895307fcb5a845f528f4f9b86b69318c0109",
+      "result_sha256": "d644644dc8b499003b886dc7b9b78efe3aa7aab4282624fc544beba42061af0b",
+      "working_sha256": "d644644dc8b499003b886dc7b9b78efe3aa7aab4282624fc544beba42061af0b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "25816cbaddc895b0a118624f90e20f48972947c6f2de94a7bae2d6b4bf8d667e",
+      "result_sha256": "2054d52735f6410474b7908a7cfb4a1461ccdf6f27ba73c7667a8534ddba431e",
+      "working_sha256": "2054d52735f6410474b7908a7cfb4a1461ccdf6f27ba73c7667a8534ddba431e"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "d4ec0887c97a773d9a1bba11c939ca0a0291c0d95200fe04271163c2898691ca",
+      "result_sha256": "7bc15a018292679e528c1e8e66c5f36f6745eb3f63c290c6bc0dc0b0a073408c",
+      "working_sha256": "7bc15a018292679e528c1e8e66c5f36f6745eb3f63c290c6bc0dc0b0a073408c"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "96c60aaf99e233c1a5f5cfd90c64450d54f27d5c1be59a5728c0096516c983df",
+      "result_sha256": "b835f9b246fc163e030129a3ecff5003f91f78cf4e33c9689e3a8118479f38d3",
+      "working_sha256": "b835f9b246fc163e030129a3ecff5003f91f78cf4e33c9689e3a8118479f38d3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "0f18aa9a3090f73f89d38dcd8508e71f3d7d7be31f58e6f4546a134e98ab7c28",
+      "result_sha256": "6ec7df2554a1ebfb4017e9ef3d38f9faa021652aa335c636174de6e58d76d8cf",
+      "working_sha256": "6ec7df2554a1ebfb4017e9ef3d38f9faa021652aa335c636174de6e58d76d8cf"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "df6257a037b234598bd84f09a73baba760208826aebd1ed27bcd9d9d7ea1810c",
+      "result_sha256": "9b939184db0e677ed19e5cb8a3eeeeb8e9574f398e3223f89d3a28c3fb847647",
+      "working_sha256": "9b939184db0e677ed19e5cb8a3eeeeb8e9574f398e3223f89d3a28c3fb847647"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "449ad8c95b3712189597ffbadb2bc790d4b004ebd08a0e2c7eb39c04edba245c",
+      "result_sha256": "45b0f54dad9aebf065f2eaadd5fdce28d98fc7afc928f7024df6fa3157682b7d",
+      "working_sha256": "45b0f54dad9aebf065f2eaadd5fdce28d98fc7afc928f7024df6fa3157682b7d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "a68734e773dc8a0a67696e5627e9f0afccb8e442eb5ff75b2bb0cf724ff3809a",
+      "result_sha256": "07b06504b0861c73cbf46bbc99d9db6f3a1755197e9bd2c93ed63dbf6e8cdef2",
+      "working_sha256": "07b06504b0861c73cbf46bbc99d9db6f3a1755197e9bd2c93ed63dbf6e8cdef2"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "81a897c78a15e2f28e4ac2a82c763b9c367a572b63b958e50c8a6a87a237210f",
+      "result_sha256": "4f7db7c04ac8c548091e36e08faa59b1c5ed6b1eca5a484de9fe6cba0201a8b6",
+      "working_sha256": "5516a665f7056f1a1826d0581eb84a359b4aae32b34d2cd9bfd6e531ad3b3844"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "d1840e5c32aee610dc80b8de09780ff56d5239bd881caa24b71daa02d882a231",
+      "result_sha256": "ae22135ca3f1a85245d7670cb0bb69d107dc93222430045fc176d9597e934952",
+      "working_sha256": "ae22135ca3f1a85245d7670cb0bb69d107dc93222430045fc176d9597e934952"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "69d2a781f95820741311458407dc1cac4fcd1f0018baf1ff1d55a72e2bf5cef1",
+      "result_sha256": "aa765352afefb37cbeb243476e92b2c002f9f47ffcbba6faca751aad59bbefb1",
+      "working_sha256": "aa765352afefb37cbeb243476e92b2c002f9f47ffcbba6faca751aad59bbefb1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "aff8b1cc1675ce627024253d43ce5db93a058ca2cba3975f198de04e44e8694f",
+      "result_sha256": "734800aa162287e411568d7a8a56152014107404bcfa39286e9afe78da449147",
+      "working_sha256": "734800aa162287e411568d7a8a56152014107404bcfa39286e9afe78da449147"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "7e432d801ed4bbdc3a699f407ed87b1ce992ee2f8ef1a015696dc0fc6e409614",
+      "result_sha256": "73bba14593e5a8029c7f4d27017c81defc79fb24dc308a8ec85c33265bdcec1a",
+      "working_sha256": "73bba14593e5a8029c7f4d27017c81defc79fb24dc308a8ec85c33265bdcec1a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "46786090ee654620cbf6bd12ba94c81abfd8e6493d360b90237588771b0e9f27",
+      "result_sha256": "0290261cfb95cbcfa892403bbe0b3d6bdf147b1d23b9aca265396fb007a9ad1c",
+      "working_sha256": "0290261cfb95cbcfa892403bbe0b3d6bdf147b1d23b9aca265396fb007a9ad1c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "40783044a3294e1d9d10159439095920f2cd90458004e6d3034c09f6675754d5",
+      "result_sha256": "88646c3be50ff03080601735075a0ffb883eb9e27e58ae9b25fd6a358c26535f",
+      "working_sha256": "88646c3be50ff03080601735075a0ffb883eb9e27e58ae9b25fd6a358c26535f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "fa5564bc1c4c91023a32ab2e42cdc469734f07b59a034831cc9ca009a7ff38ff",
+      "result_sha256": "85e803e73eb758713a06d704c075b7b466f9a92a3a6cf6345e48f3c6a3cb99e6",
+      "working_sha256": "85e803e73eb758713a06d704c075b7b466f9a92a3a6cf6345e48f3c6a3cb99e6"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSExhaustionComponent.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4bf29f3c577fe541a9ef84fe80495cae76de5011dccd8668c010f70350078d31",
+      "working_sha256": "4bf29f3c577fe541a9ef84fe80495cae76de5011dccd8668c010f70350078d31"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSExhaustionComponent.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4903d2b1606533c9c3cb3f16962db05dcd4f7ebf13142650a092ab0229bfb21b",
+      "working_sha256": "4903d2b1606533c9c3cb3f16962db05dcd4f7ebf13142650a092ab0229bfb21b"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "85aa170562583807077ba827eaa4883c92088f2e9bcba52b329e1f4ef3f07e79",
+      "working_sha256": "85aa170562583807077ba827eaa4883c92088f2e9bcba52b329e1f4ef3f07e79"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b6d2bc6704a980a480e09de564b642e5586dfc1f75c4632475605b5a79fe1a05",
+      "working_sha256": "b6d2bc6704a980a480e09de564b642e5586dfc1f75c4632475605b5a79fe1a05"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHeavyCharge.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "62740dc730391f84d6007f6f706b1812588311fa1ea6b1bae23cbdfe51bbe702",
+      "working_sha256": "62740dc730391f84d6007f6f706b1812588311fa1ea6b1bae23cbdfe51bbe702"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/UppercutLaunchAudit.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4ed538b3c5ee16f4502c48805657ea474de0a358f6de42957c7e9beed2896ccd",
+      "working_sha256": "4ed538b3c5ee16f4502c48805657ea474de0a358f6de42957c7e9beed2896ccd"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/DragonBreathEntryAudit.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c82fef76626529717cb60ee72afb6889bc881d871137238d4c1f68a12af79402",
+      "working_sha256": "c82fef76626529717cb60ee72afb6889bc881d871137238d4c1f68a12af79402"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/DragonBreathEntryAuditDiagnostics.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "248c6563f3c8a3a3dae601452d8cf6766b27e0e93754a3c95325017370f701d2",
+      "working_sha256": "248c6563f3c8a3a3dae601452d8cf6766b27e0e93754a3c95325017370f701d2"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/DragonBreathEntryAuditDiagnostics.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5296c04e57fd95b8097c2214b41aaf5d07169ba1df26290475f295e2c3636c67",
+      "working_sha256": "5296c04e57fd95b8097c2214b41aaf5d07169ba1df26290475f295e2c3636c67"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/DragonBreathReadinessAuditCommandlet.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "272754449fafae8129ae2fd8eb6cb532a4493d8ae209a3251f1dc418edc2ae59",
+      "working_sha256": "272754449fafae8129ae2fd8eb6cb532a4493d8ae209a3251f1dc418edc2ae59"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/DragonBreathReadinessAuditCommandlet.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "4eeb60fbff61358da4404e15883bfb844e9f94bed3e5fde6d36bd7973599eade",
+      "working_sha256": "4eeb60fbff61358da4404e15883bfb844e9f94bed3e5fde6d36bd7973599eade"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "23932feefd84f24127a43a108c473e84d176cffe99411c84b9e047bdf9564ccc",
+      "working_sha256": "23932feefd84f24127a43a108c473e84d176cffe99411c84b9e047bdf9564ccc"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "61f302a953ebdc353f02d452cfc8a236f9c80b0851d670b2d11386281637b808",
+      "working_sha256": "61f302a953ebdc353f02d452cfc8a236f9c80b0851d670b2d11386281637b808"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillPreparation.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "c93eea4678338d3894c750098868ae4900ea514a6432fb3a9572163381695545",
+      "working_sha256": "c93eea4678338d3894c750098868ae4900ea514a6432fb3a9572163381695545"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillRenderPreparation.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "2396f107d3f212f46e3924fbc472bf5f483ca3af13ec2a3db8f7f278f7fc0a13",
+      "working_sha256": "2396f107d3f212f46e3924fbc472bf5f483ca3af13ec2a3db8f7f278f7fc0a13"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillRenderPreparation.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "5089e902855a542115ce42213b90a6e89570d8753fe2eb1ed532b371ddc680a9",
+      "working_sha256": "5089e902855a542115ce42213b90a6e89570d8753fe2eb1ed532b371ddc680a9"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "da9f51e2aa9a743ba13abbfee73b5c2b641aaa4f41a51e47bb9bc3e3bc9c89bb",
+      "working_sha256": "da9f51e2aa9a743ba13abbfee73b5c2b641aaa4f41a51e47bb9bc3e3bc9c89bb"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "376c006442c2e8cd734da6400a29e62681f3143134a7cff7eb8879d8b1dbec5b",
+      "working_sha256": "376c006442c2e8cd734da6400a29e62681f3143134a7cff7eb8879d8b1dbec5b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "8726736d60d0adfcadfa07935fac987903906957d0d279290b76c293559806c7",
+      "working_sha256": "8726736d60d0adfcadfa07935fac987903906957d0d279290b76c293559806c7"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "1461307eb13b085d4e1f8b3fdaaae57cf244fa3e83d69bba7cd74b0e0e538eaf",
+      "working_sha256": "1461307eb13b085d4e1f8b3fdaaae57cf244fa3e83d69bba7cd74b0e0e538eaf"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicConfigurationHUD.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "ed4113e4e0ea8012c1b0c9ace3ac044280820c57aa70056a5d19237b41b63a6a",
+      "working_sha256": "ed4113e4e0ea8012c1b0c9ace3ac044280820c57aa70056a5d19237b41b63a6a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicQuickCast.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "0a892f737250c1af12f382d90e0e81a79be778c38c0d6c6e2dec7acc545d1b9a",
+      "working_sha256": "0a892f737250c1af12f382d90e0e81a79be778c38c0d6c6e2dec7acc545d1b9a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicQuickCast.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "37843572de4a53f69347e95fc01c9ee09dde6b9a3fcbfc298146a7adc2fcdf84",
+      "working_sha256": "37843572de4a53f69347e95fc01c9ee09dde6b9a3fcbfc298146a7adc2fcdf84"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicReadout.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "f7002c779ad02222df6410bf87056fa1bbdeb19501ead51a041bc0bb1a5aa98a",
+      "working_sha256": "f7002c779ad02222df6410bf87056fa1bbdeb19501ead51a041bc0bb1a5aa98a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicReadoutModel.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "7fdcfea8ac12baf17bd417015c4f1915010574a3ac9832abdfec9fde0d9715e3",
+      "working_sha256": "7fdcfea8ac12baf17bd417015c4f1915010574a3ac9832abdfec9fde0d9715e3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicWheel.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "de623ff6030f00534e7343a47bb14cc11b25e4ea541acfb05788fd8eac9caebf",
+      "working_sha256": "de623ff6030f00534e7343a47bb14cc11b25e4ea541acfb05788fd8eac9caebf"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicWheel.h",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "75c2b714665534b05f5dd47fda663d8ddd6c21f84ab791862d3e9b7620d9b839",
+      "working_sha256": "75c2b714665534b05f5dd47fda663d8ddd6c21f84ab791862d3e9b7620d9b839"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStaffReadout.cpp",
+      "baseline_kind": "new-session-file",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "975a4c7c98517ac62c9d5c21a07cc56dfffd07ba9672f1eb5ba1db33e4a12baf",
+      "working_sha256": "975a4c7c98517ac62c9d5c21a07cc56dfffd07ba9672f1eb5ba1db33e4a12baf"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "12c7a13c134383bba2e854794247b7e954140b792b3546283cecc122a363053f",
+      "result_sha256": "4d766b0cccd606bbcdcc316f09e69c5ebf1a391f1fad5707be59fba26817cd51",
+      "working_sha256": "4d766b0cccd606bbcdcc316f09e69c5ebf1a391f1fad5707be59fba26817cd51"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "a05bc41acd81699c6d1cbc6cef80791f7ebe2e2f527f3c7522485938771fa077",
+      "result_sha256": "8e8cb434e37a7a8831c3065f99bf1ccacf0e86b606074697543df55eea2c7ecb",
+      "working_sha256": "8e8cb434e37a7a8831c3065f99bf1ccacf0e86b606074697543df55eea2c7ecb"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "baseline_kind": "named-local-prerequisites",
+      "git_base": "3886300fe2337ce7c5aefc28f37b45fcb4b33ab2",
+      "baseline_sha256": "1d5edecbc14785ffb906684ac9fe53a08ddcf5565b77dfa9baf6077819cf1a7d",
+      "result_sha256": "1eeea58eb36ddc940330abd34eccc71519d314cb2e1a124a31357caa183b25ac",
+      "working_sha256": "1eeea58eb36ddc940330abd34eccc71519d314cb2e1a124a31357caa183b25ac"
+    }
+  ]
+}

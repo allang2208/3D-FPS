@@ -1,0 +1,57 @@
+diff --git a/Content/ColdSteelData/combat-weapon-formulas.json b/Content/ColdSteelData/combat-weapon-formulas.json
+index 708cff1c..8d122a14 100644
+--- a/Content/ColdSteelData/combat-weapon-formulas.json
++++ b/Content/ColdSteelData/combat-weapon-formulas.json
+@@ -391,0 +392,17 @@
++  },
++  "ue_steel_warhammer": {
++    "source": "STEEL_WARHAMMER_ZHENYUE_90_STR_CON_V2",
++    "base": 40.5,
++    "enhanceFlat": 5.04,
++    "attrs": [
++      {
++        "key": "str",
++        "base": 4.59,
++        "perEnhance": 0.909
++      },
++      {
++        "key": "con",
++        "base": 3.6,
++        "perEnhance": 0.621
++      }
++    ]
+diff --git a/Content/ColdSteelData/skills.json b/Content/ColdSteelData/skills.json
+index b5dac48f..8b0bab4f 100644
+--- a/Content/ColdSteelData/skills.json
++++ b/Content/ColdSteelData/skills.json
+@@ -5 +5 @@
+-    "description": "持剑向右下蓄势后前踏上挑，伴随空间扰动。突刺型单目标判定范围提升25%，判定距离在此基础上每级再增加1%；按上挑自身等级计算同级重击伤害的70%，每级提升倍率和力量。实际释放消耗25体力，并开始8秒冷却；释放、命中、击杀只取最高修炼档。基础韧性伤害300，受韧性抗性和削韧增益修正。",
++    "description": "双手剑或双手锤向右下蓄势后前踏上挑；战锤使用更宽握距与更大挥幅。命中强制击飞普通怪物；精英、领主和首领仅在破韧期间可被击飞，本次上挑造成破韧也立即生效。突刺型单目标判定范围提升25%，判定距离在此基础上每级再增加1%；按上挑自身等级计算同级重击伤害的70%，每级提升倍率和力量。释放时扣除体力并开始冷却（基础25体力、8秒）；释放、命中、击杀只取最高修炼档。基础韧性伤害300，受韧性抗性和削韧增益修正。",
+@@ -263 +263 @@
+-    "description": "限定近战武器。按住攻击键蓄满后松开，或用快捷栏自动蓄满施放。每次重击只结算最高达成的一个修炼档。基础韧性伤害400，受韧性抗性和削韧增益修正。仅韧性为0或已破韧的目标可被击飞、击倒；击退不受韧性限制。",
++    "description": "限定近战武器。按住攻击键蓄满后松开，或用快捷栏自动蓄满施放。蓄力期间持续消耗体力并暂停自然恢复，蓄满后继续按住仍会消耗，松手或取消后停止。体力耗尽时自动取消蓄力，平滑收回至待机。每次重击只结算最高达成的一个修炼档。基础韧性伤害400，受韧性抗性和削韧增益修正。仅韧性为0或已破韧的目标可被击飞、击倒；击退不受韧性限制。",
+@@ -270,0 +271 @@
++    "heavyChargeStaminaPerSecond": 2,
+@@ -427 +428 @@
+-    "description": "仅装备法杖时可施放。向准星所指地面召唤燃烧陨星，爆炸眩晕并施加灼烧，留下一片持续伤害的熔火。",
++    "description": "仅装备法杖时可施放。长按技能快捷键或快捷施法左键预览爆炸范围，松开锁定落点。陨星从落点上方固定高空坠下，穿过沿途掩体，撞击后爆炸、眩晕并施加灼烧，留下一片熔火。",
+@@ -513 +514 @@
+-    "description": "先凝聚乌云，再次长按快捷键预览地面落点，松开释放混合冰锥、雨水和雪花的暴风雪；每0.5秒造成魔法伤害并叠加寒冷，伤害、范围和持续时间随等级成长。未释放前不能施放其他魔法，无需法杖。",
++    "description": "需要装备法杖才能施放的高级寒冰魔法。先凝聚乌云，再次长按快捷键预览地面落点，松开释放混合冰锥、雨水和雪花的暴风雪；每0.5秒造成魔法伤害并叠加寒冷，伤害、范围和持续时间随等级成长。未释放前不能施放其他魔法；切走法杖会取消凝聚并退还实际魔法消耗。",
+@@ -541 +542 @@
+-    "requiresStaff": false
++    "requiresStaff": true
+diff --git a/Content/ColdSteelData/status_effects.json b/Content/ColdSteelData/status_effects.json
+index 87885e70..f0922dca 100644
+--- a/Content/ColdSteelData/status_effects.json
++++ b/Content/ColdSteelData/status_effects.json
+@@ -2,0 +3,9 @@
++    {
++      "type": "exhaustion",
++      "icon": "竭",
++      "name": "力竭",
++      "color": "#a39789",
++      "description": "体力耗尽时触发，持续5秒，移动速度降低50%，禁止冲刺，视野变暗并发出喘气声。即使体力恢复，也须等待力竭结束后才能重新冲刺；持续期间不叠加、不刷新时间。",
++      "kind": "debuff",
++      "group": "combat"
++    },

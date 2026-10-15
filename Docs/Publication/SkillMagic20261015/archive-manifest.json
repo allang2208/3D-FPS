@@ -1,0 +1,106 @@
+[
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/delivery.json",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/delivery.json",
+    "bytes": 884,
+    "sha256": "911eec77dc614d49f8b41eb3465aba9b1b98d1f0cd5acd259cf894fb42458ad3",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/DragonFlameColor.hlsl",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/DragonFlameColor.hlsl",
+    "bytes": 914,
+    "sha256": "39c9f457e20ad83290142795c6558e59c9731e4f50e08200cb2a6aa2184cb2cf",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/previous-material-code.hlsl",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/previous-material-code.hlsl",
+    "bytes": 781,
+    "sha256": "a79d55db105d7230ee6015a403fdc5af07d300b5b2f80e59f6266bdb0df90423",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/production-notes.md",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R3_20261015/production-notes.md",
+    "bytes": 2695,
+    "sha256": "ca270a414c407c62f55d2b303edb2bdcac6655bb05a984881a74a61da53cc38e",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/delivery.json",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/delivery.json",
+    "bytes": 884,
+    "sha256": "9b8d38ca782bae66f7d82681933602f8c51391aefdf73d1a3b4656e983c17203",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/DragonFlameColor.hlsl",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/DragonFlameColor.hlsl",
+    "bytes": 824,
+    "sha256": "7bd589b9037a8cedaf9340328febecdda5680ab752f39d5818bcffd73ce0823f",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/previous-material-code.hlsl",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/previous-material-code.hlsl",
+    "bytes": 928,
+    "sha256": "b999c46ef6467846da1398ef6c8f1cad09377de424cdf2c845b471788fab1777",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/production-notes.md",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R4_20261015/production-notes.md",
+    "bytes": 1593,
+    "sha256": "5bb7543b6091c8d57647b5736fc03c0687bbd6bc596b7900aaa196affe0df549",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R5_20261015/delivery.json",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R5_20261015/delivery.json",
+    "bytes": 10546,
+    "sha256": "947fc52c81b697a844c3641535a557ed7a3ff91336442a85216b2bc0f95c08aa",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R5_20261015/DragonFlameColor.hlsl",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R5_20261015/DragonFlameColor.hlsl",
+    "bytes": 713,
+    "sha256": "db152cbb7b31d2be9e0db263005411e77f7d2d096ccc058918fb376744993273",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "SourceAssets/DragonBreath20261013/VolumeV8R5_20261015/production-notes.md",
+    "destination": "trash/skill-magic-retired-20261015/SourceAssets/DragonBreath20261013/VolumeV8R5_20261015/production-notes.md",
+    "bytes": 2827,
+    "sha256": "69a76ae2fef61c3aa262d6278975443f2bf0aa5b6e9b113a5532ff4e1f21b50b",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "Tools/Skills/apply_dragon_amber_palette.py",
+    "destination": "trash/skill-magic-retired-20261015/Tools/Skills/apply_dragon_amber_palette.py",
+    "bytes": 289,
+    "sha256": "6146994d18e4d57080a1dd54ff3f6df890620e3337e779409267b026d050fe63",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  },
+  {
+    "source": "Tools/Skills/compile_skill_entry_fix.py",
+    "destination": "trash/skill-magic-retired-20261015/Tools/Skills/compile_skill_entry_fix.py",
+    "bytes": 490,
+    "sha256": "597485abb5490abcb9d59ee0acbbdae1ecfb07e308538473a35531881859084c",
+    "reason": "Superseded color/thin-flame candidate or one-off Live Coding request",
+    "replacement": "Current VolumeV8R6 palette, thick-body author scripts and formal Editor build"
+  }
+]

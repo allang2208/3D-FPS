@@ -1,0 +1,27 @@
+[
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+    "sha256": "c17bf6172e6385e9b2029ef70967b882143a94f5422b6fd8ef3bbf9abfee6575",
+    "signatures": [
+      "bool UProductionToolComponent::IsHeavyCharging() const",
+      "void UProductionToolComponent::TickAuthorityBluntCharge()"
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+    "sha256": "03740e88267366a116b929d63662dcb5e4fea4bd2d7e507e62c693b3dc81aed8",
+    "signatures": [
+      "float UProductionToolComponent::BluntChargePoseSeconds() const",
+      "void UProductionToolComponent::CancelHeavyCharge()",
+      "void UProductionToolComponent::AdvanceBluntCharge(float Delta)"
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Production/WarhammerSlamFXSubsystem.cpp",
+    "sha256": "c5cfa4fefb0011bc3cf022182532eb5f12ed1eca312777f4822e0216e8646004",
+    "signatures": [
+      "bool UWarhammerSlamFXSubsystem::PrepareSlot(int32 Index)",
+      "bool UWarhammerSlamFXSubsystem::PrepareBackground()"
+    ]
+  }
+]
