@@ -1,0 +1,962 @@
+{
+  "base_commit": "6cb8f63e92421618fafda5f6f613c205d9e57f54",
+  "public_binary_assets": false,
+  "game_tests_run_for_publication": false,
+  "source_scope": "HeQue code/recipes/docs; intertwined dungeon integration is preserved as a prerequisite-specific overlay",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 607,
+      "sha256": "9c47c92467a08a26c4156ebb5a26291a0d2d7d0df9d5663395f33158d728b377",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 226027,
+      "sha256": "7e0853f8ca3847fd07046ec234cc435305e7122715f859502e44bc323607d211",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 22946,
+      "sha256": "3b8768a0c7b4402fb7e523d58fa153bcaf0ecf94f68dedafa47816778c472843",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Content/ColdSteelData/monster-toughness.json",
+      "bytes": 2021,
+      "sha256": "911ba163060da218465cc74b8a5bc929d565ee0c5b6bc8bbf03dcadb21fa3efa",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 116349,
+      "sha256": "cac8da2be5d72890ddc69fe5aead451dad6e24d3ed81f73c40ac9b46cbdcacee",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Docs/Monsters/heque-combat-heavy-move-v02.md",
+      "bytes": 3878,
+      "sha256": "fde5da8a281fe92fac65e5233a6380c976e572c5a4bf5c9607d3b1be9d230217",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-combat-v03-20261015.md",
+      "bytes": 4362,
+      "sha256": "3755593b7c60fae5b5ae377945c597b89a8ac3533810865ac0a1ecf523da6e86",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-continuous-soft-death-v02-20261015.md",
+      "bytes": 2907,
+      "sha256": "553fa651f9aaa9e5061389e5b0e2ed126c95f48e69922236f234e86228804246",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-control-edge-audit-20261015.md",
+      "bytes": 3597,
+      "sha256": "f33cb8773ae511e4e266fb42d6dce2e181a0aa85f73f8ead4d24b9358a8fa299",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-dungeon-e2e-20261015.md",
+      "bytes": 7610,
+      "sha256": "538588f457984105a03bd0a47bde487e60e1814445b854ac3c9e573030b8290b",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-final-boss-v01-20261015.md",
+      "bytes": 5612,
+      "sha256": "9cb42340366c0b1d8cbc954c62fe028da4fd556e87509138bcbe57dfa385c9f0",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-forward-kick-v02-20261015.md",
+      "bytes": 2340,
+      "sha256": "294fb65067a2f939bf36673f9445b2d542e1a859fc82e0bedd3e53daf7af205d",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-foundation-20261014.md",
+      "bytes": 6954,
+      "sha256": "534f5785399899621c898a29926319de28f16ef9f392f5fe2440008eb87d762a",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-heavy-clamp-20261015.md",
+      "bytes": 2554,
+      "sha256": "983edc4bb73940d927b83069f37c82e8a939d43e855ebde8ed5a1e38be0c2381",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-jump-slam-v01-20261015.md",
+      "bytes": 3794,
+      "sha256": "4a42eda91e3533733a07948b92880bd02084dd671ddb51a46096d724e2be4528",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-jump-slam-v02-20261015.md",
+      "bytes": 4006,
+      "sha256": "3aa05d02f706fbd5692fd976db6b2364cd7aff647c0f7ef69a40437187322b1c",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-kick-collision-stun-20261015.md",
+      "bytes": 1220,
+      "sha256": "0944500a8b1d7a963a63a6d0e852f59620e6ed576179359bdba9b38f6c3d921c",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-kick-collision-stun-test-20261015.md",
+      "bytes": 4501,
+      "sha256": "b88d2156d53f598e135d0f527f030d443abd5dddfc8ed49a3326214bc3728f0a",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-kick-impact-aoe-v03-20261015.md",
+      "bytes": 2778,
+      "sha256": "e39d3a608ece160f9bbc5580f1c4e838c00e521614cbe9835e0d36b2ee7b6a47",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-knockdown-recovery-v02-20261015.md",
+      "bytes": 4591,
+      "sha256": "93b8ad95a6e526a7206a701bf9d5fd6326de5ab8b6b95a821300aff0aee3af70",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-network-audit-20261015.md",
+      "bytes": 6155,
+      "sha256": "817fcd0c23da9ebdd06321a49318914cf795678874230db784a50f72f82f2add",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-psychic-front-v02-turn120-20261015.md",
+      "bytes": 3864,
+      "sha256": "2618847516a83db7cc169640fe927788976a8686ad10a2fdf130e6730d54054b",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-psychic-heart-v01-20261015.md",
+      "bytes": 5436,
+      "sha256": "9f8eeb76b99e3e6ddb4fbe1620bead2e83bf30077e6f6edbdfa3456b38471650",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-range-fast-clamp-20261015.md",
+      "bytes": 2887,
+      "sha256": "ed4a0d58bed5c8f24f782a8c72245c37daaff13dfc01bea2cb82ebb69f33cfdb",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-rift-pressure-v01.md",
+      "bytes": 3809,
+      "sha256": "82a3a5414c643e4a4aef92cd508846dd5b36a14e8608e9c39934b2f54f2edb91",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-rift-pressure-v02-20261015.md",
+      "bytes": 3258,
+      "sha256": "07ec37dac7b3f0624b50dc488e2656ce77562a1249e6ddc5bd47d0e5c5475156",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Monsters/heque-side-crush-20261014.md",
+      "bytes": 4057,
+      "sha256": "fed6619be8d03496e0d0b95e68a81b76fa1d3fd4a09e181a978f88fdae6cbe66",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Publication/HeQue20261015/README.md",
+      "bytes": 6140,
+      "sha256": "9dfa4c2ba147f04ab7b39a11b26c77aa7a45b2aa228a4ba53a2edcba633528b5",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Publication/HeQue20261015/archive-manifest.json",
+      "bytes": 18216,
+      "sha256": "6ee9f612bf97f57e1793c01e5a355a9bd167a61bf4c6af85a6fac05ee91d997a",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Publication/HeQue20261015/final-room-and-audits.patch",
+      "bytes": 102143,
+      "sha256": "0ae972ec14bb2df0a8147c151495f5908f91f14f2347116ca14561a237301dc0",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Docs/Publication/HeQue20261015/integration-overlay.json",
+      "bytes": 7710,
+      "sha256": "bfa81517018ef67f23f745eb204aaf35df1b216b6f6bb6404569c27b7722b347",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+      "bytes": 19029,
+      "sha256": "caea92c963bea8480222c531e7b48d7d66a1e243c71becf65d441bb5889a30b1",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "bytes": 34178,
+      "sha256": "48f4dfb0643cf93f15c573fa32333a16309ee36464a55bca84113b990a4c0e48",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "bytes": 14831,
+      "sha256": "b97e78e3eb85688b160c470663a42ec476a70fb3cc8e402588a5b32a9c07cce6",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.cpp",
+      "bytes": 3210,
+      "sha256": "4b42598300379d20c9e3f91042ba213ce2694e682eb4ed53ec2bb719206ccc2a",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainFearComponent.h",
+      "bytes": 1393,
+      "sha256": "04be3c7139d5d7c813d2dc96aaaa740b351b21c1c7f734ab83854bf9af0b2dcf",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueAnimInstance.cpp",
+      "bytes": 10398,
+      "sha256": "58d74e3fe8ae6cbfc934f71135da96d32cb9c8440c28bd6498e95cb4552371dc",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueAnimInstance.h",
+      "bytes": 1318,
+      "sha256": "881d5d799191495460fa12abc9671a13308fb43c0968fc74b25e064cb7896833",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueAttackSelection.cpp",
+      "bytes": 3272,
+      "sha256": "b22e3d866f8e00b7e060c1b610b8126ea7882d3d9f8e9d91bbaabbc25145fa3d",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueClampTiming.h",
+      "bytes": 246,
+      "sha256": "b4f2071ab10b8daf333bc49731849207992e7be86d246c48c1ea171e19cda0c3",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueFearFeedback.cpp",
+      "bytes": 2380,
+      "sha256": "cd8c8223bbdd20851cca2c3913709b2dc1d2c35a8c41b2d9cb556dec22899a77",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueHeavyClamp.cpp",
+      "bytes": 3388,
+      "sha256": "fef4bb5c681a8e9e28d8bbc4d727cb38a17cc6b0194de0cb09e243e9fb6cec20",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueHitSurface.cpp",
+      "bytes": 5079,
+      "sha256": "12f20f012fcc547668f22f79014afc463fff5ac4af278029ed94602db950068e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueJumpPresentation.cpp",
+      "bytes": 3660,
+      "sha256": "1dd27234891513360e001c8b47cca79f31cb235bb8c76bcca5e5eb33d80140da",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueJumpSlam.cpp",
+      "bytes": 9025,
+      "sha256": "6cf82bef5e998eb11ab86b2756f8cea05f2e6e9bf11f5696481b7d5c3121178c",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueJumpTiming.h",
+      "bytes": 309,
+      "sha256": "480ff124322bd039cb985b3b8d968a48b81a4bf6e4c2a63b4b9a066c9ff73971",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueKickStunAudit.cpp",
+      "bytes": 21874,
+      "sha256": "8ecc25a7b062e122aa5b4ab7830bc7264b4da579dc1fb4e11f9d0265ff9531c2",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueKickStunAudit.h",
+      "bytes": 3465,
+      "sha256": "2fa6631ec25d5279ad6ed4fc6a0270ea948b9175f3e2d990abad990dfd644974",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueMonster.cpp",
+      "bytes": 9254,
+      "sha256": "f84b5a95dfd4ed7fbd1d2dffdb75fe83509fa58f0bb4e864a88446d95b3064a7",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueMonster.h",
+      "bytes": 20738,
+      "sha256": "e8ba11295ac00442b5db0888c5d8bf37f24664198a4ea7a4df55c0fac54d9209",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueMovementComponent.cpp",
+      "bytes": 2748,
+      "sha256": "a7b0e10afb965236419d227fdb3a015b4a0bfda572293b25c31867f370350648",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueMovementComponent.h",
+      "bytes": 592,
+      "sha256": "3e4b6294817170915f879a92b21c2b26c52e7e58464897a7835eb85f85caac30",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQuePsychic.cpp",
+      "bytes": 5746,
+      "sha256": "7e92e94e964f2cd52e8e09f89e9636961bb6dab5fa9b6342933d233aead3c7a9",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQuePsychicPresentation.cpp",
+      "bytes": 3856,
+      "sha256": "e4981cac42ab7b9200d3e41a64cb409a033670488abf63799061cbecc6f97c77",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQuePsychicTiming.h",
+      "bytes": 298,
+      "sha256": "d70d3f1367ead2c37704227fd8fc9fac5bf016e255cc26f4ac2cda91be307e31",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueReactions.cpp",
+      "bytes": 11089,
+      "sha256": "57f66cc08f1d784bc679f2dbc25d18034036442d1d871c3d841e7d78ff466b6f",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueRiftPresentation.cpp",
+      "bytes": 8531,
+      "sha256": "31b5e66cc844ce7ac6848dea74a113452e8f92a7748ee0ece52e070282ac31e3",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueRiftPressure.cpp",
+      "bytes": 8226,
+      "sha256": "8a1c0f82f6f7fd5f4e99bbcd8d9f067ccf2c664edba9740317491d3df2bda513",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueRiftTiming.h",
+      "bytes": 161,
+      "sha256": "3c906e0ab28e1875adf57009274f27c7af727a35c1cf669488f5205ec9a5b5ae",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueSideCrush.cpp",
+      "bytes": 10237,
+      "sha256": "770a6298dca7eea069f80cad86fc1560bc15d8a1b3334fcd44bce01423d3d86e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueSweepTiming.h",
+      "bytes": 276,
+      "sha256": "936ef77dbe5e213b782afbc31529cb77f469a92a9fe624629d3f9bbe6c4345b3",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "bytes": 18443,
+      "sha256": "8ab9d870f6a4cae7355985f09b603cf1a204688e462824ebbc90007d4d219df6",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "bytes": 11276,
+      "sha256": "d2fa31b18ca1fff4fc26707787a541bf2c65a5295022754206a353df948b9c5f",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 40357,
+      "sha256": "cd6dbea8487ac2c021d084b30e192fb436c55122f636c69b9b2c1cae227dbaee",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCoreStats.cpp",
+      "bytes": 12796,
+      "sha256": "0bb341e9eccbcbacc20270748a85e413b1ce68bf172fb19411b912f56a8fc94f",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterMeleeKnockback.cpp",
+      "bytes": 12072,
+      "sha256": "ba55c61a07ddc5c22b48b7493d52c2071ab9920c0f16c81388e26017577160d1",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterParryReaction.cpp",
+      "bytes": 4682,
+      "sha256": "8755378affbc6fe29a9e69f52b428d62e65e27a42ee2144c7862e22a39980764",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterSurfaceGroundingNode.cpp",
+      "bytes": 18000,
+      "sha256": "6158d78eade40e66233e59cb19b28832187288188da21ca8664110284e662092",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterToughnessProfiles.cpp",
+      "bytes": 5966,
+      "sha256": "a433dfb28373e05ef19f04a1c318ebeb7a63b3adf1dbae17a32144ec9980548b",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+      "bytes": 15154,
+      "sha256": "336e0ea6f7f5aa69c6db0407842a97bc07c6c00b90edd5f035cd2ee37d0d914d",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "bytes": 8942,
+      "sha256": "d56bc16323ece3e58d3221dfd9bfab96548307b42b5ca573377da65fc1526d51",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSImpactPushMovement.cpp",
+      "bytes": 4236,
+      "sha256": "1901157736f1323196920990ed17b4f5dc785eeec9de1675c2d0b6d229675f1c",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.cpp",
+      "bytes": 3420,
+      "sha256": "6573f957ac6e852a8e1f51e6b47e9d46da93a1f3096e617538a5ac54fbf1ceb6",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.h",
+      "bytes": 1091,
+      "sha256": "04b68ff9fdc1b0aa1c4aa9774a65e123ce125da11beb1bc43b3bffe4a4ac893f",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "bytes": 66261,
+      "sha256": "a751eadd4f43251c5fbd291a6c5eafa681250e7b01ad30eac5344486cf1af936",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "bytes": 54136,
+      "sha256": "89e8ea5b0218db1726a2f80276aebddafaa45d29694e5ee98caa8f0a25594f2b",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/JumpSlamV01/Authoring/JumpGroundImpact.hlsl",
+      "bytes": 417,
+      "sha256": "4b8e7d5fdbe444ec8b26aaf1f972b16cdc28b071cf858f199f407aeab4ca15c2",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/JumpSlamV01/Authoring/JumpGroundOffset.hlsl",
+      "bytes": 180,
+      "sha256": "28115e75b089c4cf225aff0bde62fddd2575594f8e96ce27e83b266a0ee09701",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/JumpSlamV01/Authoring/JumpGroundWave.hlsl",
+      "bytes": 731,
+      "sha256": "59474d44c18d1064a911702eeb1c6911a1622bdc04060228837d255440843c2e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/JumpSlamV02/Authoring/JumpGroundImpact.hlsl",
+      "bytes": 427,
+      "sha256": "1850e65bb5b55dc142c87fe3a8883ac45160ab6737d1b45f92b46340f9787bee",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/JumpSlamV02/Authoring/JumpGroundOffset.hlsl",
+      "bytes": 340,
+      "sha256": "605ab29ace708ef2411a70627a8541fd3abb99dbed34c1ee6dd5df2b42bdf49b",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/JumpSlamV02/Authoring/JumpGroundWave.hlsl",
+      "bytes": 988,
+      "sha256": "13da591f5dd61159b606449b87e9d953acd26bda4170edeab5a9b4b7d05c1f06",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/PsychicV01/Authoring/PsychicCore.hlsl",
+      "bytes": 330,
+      "sha256": "d79359eb8be47565ef6ebea51df910c6042dc1bf9be1cce8a60e8c414cfa8eb4",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/PsychicV01/Authoring/PsychicFearView.hlsl",
+      "bytes": 236,
+      "sha256": "d38eb82e4a1418703d1753fb7e621eed90d11647f02ef5916ea268dcdb9269fd",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/PsychicV01/Authoring/PsychicWave.hlsl",
+      "bytes": 525,
+      "sha256": "4e14b9cf011074b31281462fa79434f95118f97f9bb469144c9f9965a277eb0b",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/PsychicWaveV02/Authoring/PsychicFront.hlsl",
+      "bytes": 1522,
+      "sha256": "33bcc554237def378b501f8592b96f446701d1f136c2e8029e50e29cae5280df",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/PsychicWaveV02/Authoring/PsychicFrontOffset.hlsl",
+      "bytes": 129,
+      "sha256": "f7b51ee0c389931f98801c44cf8129f62ef18d4980a955c5ea70bb753e7c7717",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/PsychicWaveV02/Authoring/PsychicFrontRefraction.hlsl",
+      "bytes": 46,
+      "sha256": "9190364287d690d2eb2e0c7c0062da076788398b309b3d5e4031fca38c2f3465",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV01/Authoring/PressureMembrane.hlsl",
+      "bytes": 480,
+      "sha256": "8d9dde7a499b9340eed0f5bf3615354b414a7ec3c9557f32d36c2748c987ba4b",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV01/Authoring/PressureWave.hlsl",
+      "bytes": 456,
+      "sha256": "a88c63b5629ef04d52701a41c46ac1157a4eab26839e8424546a6d65ab8d01bd",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV02/Authoring/PressureDust.hlsl",
+      "bytes": 302,
+      "sha256": "4d44780651635c61178e4e1e77308c02474f11313b543af1fe1703d248685c29",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV02/Authoring/PressureImpact.hlsl",
+      "bytes": 411,
+      "sha256": "462393c874dbdbf8b8ffc2c3ffd9fbde4112b6800786da2af228aa6457cffafa",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV02/Authoring/PressureMembrane.hlsl",
+      "bytes": 401,
+      "sha256": "dfeb7c64494768d35174066195993d4c0749c5063b01747fc8ecbe3f1d959a0f",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV02/Authoring/PressureMist.hlsl",
+      "bytes": 363,
+      "sha256": "4065bfbaf128eb965605e3aa2e07571a17776b69271134a799614d306a3039f3",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "SourceAssets/HeQueBoss20261014/RiftPressureV02/Authoring/PressureWave.hlsl",
+      "bytes": 602,
+      "sha256": "b5213f521af0f11bdf778c7ef4d56b51b91c1cf2095332c2c0c72cec1c9b2117",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/audit_current_layout_bank.py",
+      "bytes": 5984,
+      "sha256": "8798af4c610c798870761a9dd44dc6ab8d272d0d312bc42c05d80870f76e8f41",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_clamp_audio.py",
+      "bytes": 1900,
+      "sha256": "87cb1e06b45c47bcdcde21c1955286e1825def20be6d13e09e8c5fac59a3babe",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_corpse_v02.py",
+      "bytes": 3465,
+      "sha256": "fb4f50245b52b20f934037efdc706c2795dab4abdbb805219ecb1fdb819d0fb5",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_fast_clamp_audio_v02.py",
+      "bytes": 2021,
+      "sha256": "c87e53d76379cccd2d0b2682891f2f641ae2ee5fe4c21a4239b7cb9004f218cb",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_fast_clamp_v02.py",
+      "bytes": 3795,
+      "sha256": "c6aee44ca4614c7ea8cc791b33fc53345673320fbf581a7f6c9d29ca4a96c26a",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_forward_kick_v02.py",
+      "bytes": 9968,
+      "sha256": "e194be3bde9eb0b956ed150270aafa73aac75c72f406f74be8eff50fa7b25faa",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_heavy_clamp.py",
+      "bytes": 8271,
+      "sha256": "75080dc156d7741cfa22d91cbc90f2e8ff05f5066cf97e9cffdf19bd00bbf534",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_jump_audio_v01.py",
+      "bytes": 1967,
+      "sha256": "7be692a3e6aa44968d188736b198fe893b576c9e0166ec38efbd59426a09a710",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_jump_audio_v02.py",
+      "bytes": 2210,
+      "sha256": "43668305b9c237d053d8cfe751fcd74e37c840688f05ac0322b0a585f5c0a613",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_jump_slam_v01.py",
+      "bytes": 8291,
+      "sha256": "1bca40cbb864a2ef7865fafeae3b84a2c8bbbb77e252b3c1f180148cf84b18c3",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_jump_slam_v02.py",
+      "bytes": 8828,
+      "sha256": "30e26b1408c6eb798be0e0be728996453491dc96576747c1c6fd9d77ba49a368",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_jump_slam_v03.py",
+      "bytes": 8055,
+      "sha256": "4863723ffbe1dd734a2ae6664f94c89e14c5fd533873d05656012c45fe475305",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_kick_audio_v03.py",
+      "bytes": 1699,
+      "sha256": "22bcb2929a526482bf89c486eb758dccf4287ebc4c8899db81e2cec75b10c660",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_kick_impact_v03.py",
+      "bytes": 6285,
+      "sha256": "110dffa960acc7adc5b0e2aef40c7352820bce464561cea7622e77fe88c21fef",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_knockdown_v02.py",
+      "bytes": 11431,
+      "sha256": "bb97fa0ecbfec197e025d44b7e7f6a163ee021a43bbcf5c6fec333239b59f80e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_psychic_audio_v01.py",
+      "bytes": 2212,
+      "sha256": "db159702a5bb08490ecc0f92c42ff2a0efce6cba9d53db2cd9ed4043e70ed7bc",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_psychic_shell_v02.py",
+      "bytes": 2661,
+      "sha256": "2d2ad06039216b233ae4294332f33e7c8459c562150b7b85d86134897b37901d",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_psychic_v01.py",
+      "bytes": 8484,
+      "sha256": "f5f25fa2ffe62b2a3474c355e687fd16027506c37874c463f75142145f612e92",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_psychic_wave_v02.py",
+      "bytes": 2401,
+      "sha256": "5af1b23b48997f401e4251d555c0fdee04fd4124f59c2ca6add7a5e6bd72018e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_rift_audio.py",
+      "bytes": 1674,
+      "sha256": "e99e0ba7e25e129254d6937e3812928c606d668cb09bf1a56d676979927fb670",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_rift_audio_v02.py",
+      "bytes": 2206,
+      "sha256": "cce85ac0c32ad472d766d04a936c326674d52301d41744deb214bd2c42a163e9",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_rift_pressure.py",
+      "bytes": 6102,
+      "sha256": "c3a79b7716646a8112d1e0f6293ba7e357d9534be5a440f96347ff83ae420638",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_rift_pressure_v02.py",
+      "bytes": 8065,
+      "sha256": "825f32f4c4bdec2b06fd0b8f8b7c17afdb0163a5e683ca8ad67922a3880f191e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_rig_motion.py",
+      "bytes": 16924,
+      "sha256": "231014f089e51d9fe2012551423aadfa5c1e3392632c9c6cc4d773dfccf7b160",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_side_crush.py",
+      "bytes": 8272,
+      "sha256": "0665ad53f4d3397fb3b5d1e86f22fabbf60debdac7f6c5dee2f4bc3b00153ffa",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/author_weighty_move_v02.py",
+      "bytes": 6590,
+      "sha256": "8fc14c330c99c2d5335dad14574e6fc333a09e2333f52855bf1744c2e1aaebcd",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/build.ps1",
+      "bytes": 1856,
+      "sha256": "9f1196c389f30f13c94d787ccb203f67ed0dda8b45267811360be44d30c5dc11",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/inspect_authored.py",
+      "bytes": 2601,
+      "sha256": "5196b974122ebe92c6bce2624e3776fc8a77a3f0aca9062af7c254c02c2ea112",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install.py",
+      "bytes": 8396,
+      "sha256": "4f4e210b3e40f47cd84e12f0256f940daa8c2b374a419e3a53e45b9a859e0952",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_combat_v03.py",
+      "bytes": 4670,
+      "sha256": "0882e59bf341b17f2348a2273fb66ef5b4cbe397696326e93045dbd98640644e",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_corpse_v02.py",
+      "bytes": 3309,
+      "sha256": "3755bc6860803a836ec34001e8dc1db60c6d3911d7d8fdbe18e8f1ec26dd425d",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_fast_clamp_v02.py",
+      "bytes": 7145,
+      "sha256": "2481e014a60ff98ba9f0ba049fdc88766243054876dcb6a2c7c4cc1586b700bc",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_forward_kick_v02.py",
+      "bytes": 6120,
+      "sha256": "42e7bc28c08b0bc5d901c971a832d187a55e65899b1492f959ccffffd16d6fd8",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_heavy_clamp.py",
+      "bytes": 7016,
+      "sha256": "7c754b9feed5adba6f2ad27e8cc987c403d3f7ece7acbd6e35f1427a29b2bbbb",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_jump_slam_v01.py",
+      "bytes": 9383,
+      "sha256": "d4da09eb7af324d6ca968781c68477c360cff2e1bbdbd668edc7464a43ae4cb2",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_jump_slam_v02.py",
+      "bytes": 9675,
+      "sha256": "0cd86032549d5eeae5f8b95ba27a71e8257a6612bd965e921df8775b2a9e4355",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_kick_impact_v03.py",
+      "bytes": 6898,
+      "sha256": "d86f1bc4198b2417b624d06db4996e8f3ed5241971192549cec323abd19d16df",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_knockdown_v02.py",
+      "bytes": 3916,
+      "sha256": "e337635aa809f8cbae02c9d1c1537d1f1ef245dc293d8f420cda428b5f1dc98d",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_layout_bank_background.ps1",
+      "bytes": 1829,
+      "sha256": "3cb0c54097d8b3bc8456e498a023052e2ad7355eaef7599ec765b9a2254ac804",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_psychic_v01.py",
+      "bytes": 11697,
+      "sha256": "2b78d7371043e9bdc042ec7f970ff634cf11ed2b4cbe5d52ef6c5c07bcfb10e4",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_psychic_wave_v02.py",
+      "bytes": 7416,
+      "sha256": "a6ed68cba61af560024884994859102176ee27f77c4ca56e31928abc23edda38",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_rift_pressure.py",
+      "bytes": 7101,
+      "sha256": "f3cacf7638610670d988a6154d7d95d1cf3eaf0288db7cd334de17c0601c5db7",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_rift_pressure_v02.py",
+      "bytes": 8785,
+      "sha256": "a8f5a31532b3aefd416f64755d047b68e548d5584f02cf779e5d0e788d04c8c5",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_side_crush.py",
+      "bytes": 6271,
+      "sha256": "b9ee1cd37121ac7d67de85934a77cfa2120dd1025c428f8723249d6f22945e6d",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_validated_layout_bank.py",
+      "bytes": 3632,
+      "sha256": "b0ab4b72127b8a5e6affadc0ddf38955bca7dd5219cb9acf41baaa551758849f",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/install_weighty_move_v02.py",
+      "bytes": 4454,
+      "sha256": "6d501f52681d7438906c37723202be1ddfca11b4d9837dd5dfe32de4df1ac328",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/map_regions.py",
+      "bytes": 1926,
+      "sha256": "1ac6eff0bd8578b4673f7df6e7422b16d65e1ae20ca154b0432ef7ea2094afd0",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/prepare_corpse_v02.py",
+      "bytes": 2223,
+      "sha256": "0b3cda38dc016d2d66f890cde2c8132a3f9fb36fcf284892b770cec4cbeb3254",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/prepare_layout_bank_audit.py",
+      "bytes": 1395,
+      "sha256": "34a1e3c8cd2c76c0996aa37eaadc80ad928eabe2d2226d9ed7488a5927c17018",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/read_combat_inputs_v02.py",
+      "bytes": 2542,
+      "sha256": "8abc76fa3092df5c9723bc3d8fbe9bc1773cc9d1c43986981c93c14337660f25",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/read_loaded_targets.py",
+      "bytes": 1165,
+      "sha256": "3cd427aa385307f8497d7d3aeadbdf115331fe0622cf3e6eb3a03affabcafac9",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/read_source.py",
+      "bytes": 4341,
+      "sha256": "718c9d0155a5dc2a02d61f84d5a8ad81beb493e0855308437489515362b90ef6",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/run_dungeon_audit.ps1",
+      "bytes": 3890,
+      "sha256": "1d6386f30eaa510b91b2fc5c4396cf597d08e6b7ee8c8d050811552964ccef04",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/run_dungeon_validation.ps1",
+      "bytes": 1142,
+      "sha256": "db1077d8f47aa16be3861ef3dee8dd2e7df4e7ec59eae99a968a3c1f83ae58e2",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/run_import.ps1",
+      "bytes": 2446,
+      "sha256": "a815511dcd980974db217857d9a21a7aa64bbac299a2dddb4a2101f6836ef780",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/run_kick_stun_audit.ps1",
+      "bytes": 3546,
+      "sha256": "9aae6a316a8b95cf7cea842e36950bac7a11eaa6aecb408237e350b73902ad5f",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "Tools/HeQue/run_network_audit.ps1",
+      "bytes": 3230,
+      "sha256": "3386b65020fb60fc57b132a62bb8bfdf90146a46bf42b7cdbcf51b7a50a462c9",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "skills/ue5-debug-validation/SKILL.md",
+      "bytes": 1450,
+      "sha256": "1303f4d32adc0a840886e7064c8bac1226231655260fbdc2c3adfb2ac4180cb5",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/map-preload-and-headless-dungeon.md",
+      "bytes": 2389,
+      "sha256": "820d18f5dd1eada987f079f92f5f836d0646b2bde80661db3ae4249beff80f03",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "bytes": 1996,
+      "sha256": "ba30b6d61ad4551878812bfe852dd30081ebf6da424eba99461ba0f9a392ffc6",
+      "kind": "scoped shared-file edit"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/dungeon-boss-encounter.md",
+      "bytes": 3233,
+      "sha256": "475f034c7a96b131cfc90159d643d4186826bdeb034aec8ac94260b2ad042452",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/heque-weighty-combat.md",
+      "bytes": 4109,
+      "sha256": "09a35c356fa3804055838cb9e062e271f09d08adf860f1e4736220c57884bef8",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "skills/ue5-pcg-building/references/themed-routes-and-room-gates.md",
+      "bytes": 7901,
+      "sha256": "3c829fd4c3b33eec9ccdc3f2acabf79fa7c7458a27c393afbb1488ef23377183",
+      "kind": "task-owned source or publication metadata"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/regional-boss-objectives.md",
+      "bytes": 4403,
+      "sha256": "fd44422d9444d34db0740a4c1b54beeb1e3fbdddaad72ba44c484804e0b8e2ce",
+      "kind": "task-owned source or publication metadata"
+    }
+  ]
+}

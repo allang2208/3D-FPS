@@ -1,3 +1,4 @@
+#include "HeQueMonster.h"
 #include "MonsterCombatComponent.h"
 #include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
@@ -32,7 +33,8 @@ void UMonsterCombatComponent::ReceiveParry(APawn* Defender,float Seconds,float K
     RegisterExplicitStun(Seconds);
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
     if(!UsesToughnessBar()){Toughness=0.f;SinceHit=0.f;PublishToughnessState();}
-    if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))M66->InterruptAttack(Seconds);
+    if(auto* HeQue=Cast<AHeQueMonster>(GetOwner()))HeQue->InterruptAttack(Seconds);
+    else if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))M66->InterruptAttack(Seconds);
     else if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->InterruptAttack(Seconds);
     else if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
     else if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->InterruptAttack(Seconds);

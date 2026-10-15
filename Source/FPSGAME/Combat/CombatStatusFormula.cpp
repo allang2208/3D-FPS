@@ -131,7 +131,14 @@ void UCombatStatusFormula::AddStun(float Seconds)
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("stun"),Seconds);
     if(auto* Character=Cast<ACharacter>(GetOwner()))
         if(const auto* Pawn=Cast<APawn>(Character);Pawn&&Pawn->IsPlayerControlled())
-            if(auto* Lock=Character->FindComponentByClass<UPlayerGuardBreakComponent>()){Lock->Apply(Seconds);return;}
+        {
+            auto* Lock=Character->FindComponentByClass<UPlayerGuardBreakComponent>();
+            // A fresh player may never have been guard-broken. Create the
+            // replicated input lock on authority before the first stun as well.
+            if(!Lock&&Character->HasAuthority())
+            {Lock=NewObject<UPlayerGuardBreakComponent>(Character);Character->AddInstanceComponent(Lock);Lock->RegisterComponent();}
+            if(Lock){Lock->Apply(Seconds);return;}
+        }
     if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())
     {
         // All monster classes use the explicit stun clock. Freeze/petrify keep
@@ -533,6 +540,10 @@ void UCombatStatusFormula::PurgeTransient()
             TEXT("bleed"),TEXT("burn"),TEXT("stun"),TEXT("bind"),TEXT("slow"),TEXT("waxSealSlow"),TEXT("weaponHaste"),
             TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("statusImmune"),TEXT("minePoison"),
             TEXT("droneVulnerability"),TEXT("holyWard"),TEXT("holyRenewal"),TEXT("runeMagicVulnerability"),TEXT("riposteInspiration"),TEXT("tigerRoar"),TEXT("physicalVulnerability")})Display->Remove(Type);
+    // In-place revival clears the actual controllers as well as their status
+    // clocks. Their existing replication paths release the owning client too.
+    if(auto* Fear=GetOwner()->FindComponentByClass<UHandBrainFearComponent>())Fear->Cleanse();
+    if(auto* Lock=GetOwner()->FindComponentByClass<UPlayerGuardBreakComponent>())Lock->ClearTransient();
 }
 int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
 {

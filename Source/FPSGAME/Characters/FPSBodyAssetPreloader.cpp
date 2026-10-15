@@ -155,8 +155,11 @@ namespace FPSBodyPreloadPrivate
         {
             return false;
         }
-        // Development and audit-only content is deliberately excluded.
-        static const TCHAR* SkipRoots[] = { TEXT("/Game/Dev/"), TEXT("/Game/Developers/"), TEXT("/Game/Test/") };
+        // World packages belong to map travel, not equipment warmup. Keeping an
+        // asynchronously loaded world package alive across LoadMap's GC can leave
+        // a package without its world and make a joining client fail to load it.
+        // Development and audit-only content is deliberately excluded as well.
+        static const TCHAR* SkipRoots[] = { TEXT("/Game/GameMaps/"), TEXT("/Game/Dev/"), TEXT("/Game/Developers/"), TEXT("/Game/Test/") };
         for (const TCHAR* Skip : SkipRoots)
         {
             if (Path.StartsWith(Skip))

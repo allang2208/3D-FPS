@@ -100,6 +100,10 @@ public:
     virtual void PerformMovement(float DeltaSeconds) override;
     void CancelDodge();
     bool IsDodging() const;
+    // Server-issued displacement participates in native movement correction/replay.
+    void ApplyImpactPush(const FVector& Direction,float DistanceCM);
+    bool HasImpactPush() const;
+    virtual float SlideAlongSurface(const FVector& Delta,float Time,const FVector& Normal,FHitResult& Hit,bool bHandleImpact=true) override;
     float GetDodgeProgress() const;
     FVector GetDodgeDirection() const { return DodgeDirection; }
 
@@ -145,6 +149,9 @@ protected:
 
 private:
     FFPSNetworkMoveDataContainer FPSMoveData;
+    void StartImpactPush(const FVector& Direction,float DistanceCM,float Age);
+    UFUNCTION(Client,Reliable) void ClientImpactPush(FVector_NetQuantizeNormal Direction,float DistanceCM,double StartedAt);
+    bool bExecutingImpactPush=false;
     uint32 LastServerDodgeSequence=0;
     uint32 LastServerSlideJumpSequence=0;
     UFUNCTION(Client,Reliable) void ClientRejectDodge(uint32 Sequence);

@@ -30,12 +30,14 @@ void UHandBrainFearComponent::TickComponent(float Dt,ELevelTick T,FActorComponen
  auto* Health=C->FindComponentByClass<UFPSCombatHealthComponent>();double Now=GetWorld()->GetTimeSeconds();
  const int32 Before=Stacks;Expirations.RemoveAll([Now](double End){return End<=Now;});Stacks=Expirations.Num();
  if(!Stacks||!Threat.IsValid()||(Health&&Health->IsDead())){Release();return;}
+ UpdatePsychicFeedback(Dt);
  if(!C->HasAuthority()&&!C->IsLocallyControlled())return;
  C->ConsumeMovementInputVector();C->AddMovementInput((C->GetActorLocation()-Threat->GetActorLocation()).GetSafeNormal2D(),1.f,true);
  if(Stacks!=Before)UStatusEffectsComponent::Notify(GetOwner());
 }
 void UHandBrainFearComponent::Release()
 {
+ StopPsychicFeedback();
  if(LockedController.IsValid())LockedController->SetIgnoreMoveInput(false);LockedController.Reset();
  if(auto* C=Cast<ACharacter>(GetOwner())){if(RestoreSpeed>0)C->GetCharacterMovement()->MaxWalkSpeed=RestoreSpeed;C->GetCharacterMovement()->RemoveTickPrerequisiteComponent(this);}
  Expirations.Empty();Stacks=0;SetComponentTickEnabled(false);

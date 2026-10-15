@@ -1,0 +1,10 @@
+float radius=saturate(UV.y);
+float theta=UV.x*6.2831853;
+float across=radius*cos(theta);
+float strands=pow(.5+.5*sin(across*71+sin(theta*3)*.6),12);
+float warning=exp(-pow((Phase-.48)/.20,2))+.9*exp(-pow((Phase-1.15)/.22,2));
+float ring=exp(-pow((radius-.88)/.06,2));
+float edge=saturate((1-radius)/.10);
+float opacity=(.24+.23*strands+.18*ring)*Alpha*edge;
+float3 tissue=lerp(float3(.22,.065,.055),float3(.77,.44,.29),strands*.7);
+return float4(tissue*(.8+.65*warning),opacity);

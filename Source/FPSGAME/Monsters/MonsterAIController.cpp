@@ -1,4 +1,5 @@
 #include "MonsterAIController.h"
+#include "HeQueMonster.h"
 #include "M66IncineratorMonster.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterNavigationCache.h"
@@ -108,6 +109,7 @@ void AMonsterAIController::SetDecisionEnabled(bool Enabled)
  if(!Enabled)
  {
   StopWander();StopMovement();
+  if(auto* HeQue=Cast<AHeQueMonster>(GetPawn()))HeQue->CancelAttack();
   if(auto* M66=Cast<AM66IncineratorMonster>(GetPawn()))M66->CancelAttack();
  }
  UpdateKnowledge();
@@ -177,6 +179,12 @@ void AMonsterAIController::UpdateKnowledge()
  // a target, honor perception's lose-sight radius instead of expiring memory
  // just because the player stepped outside the initial 12 m aggro radius.
  bool Visible=!ReactingToHit&&Valid&&CanSeePlayer(KnownTarget.Get(),!bConfirmedTarget);
+ // HeQue defends against an exposed close player before continuing a distant
+ // engagement. Publish the same target to facing, navigation and attack choice.
+ if(!ReactingToHit&&Valid&&bConfirmedTarget&&!bReturning)
+  if(const auto* HeQue=Cast<AHeQueMonster>(GetPawn());HeQue&&!HeQue->Busy())
+   if(APawn* Close=HeQue->PreferredCombatTarget(KnownTarget.Get());Close!=KnownTarget.Get()&&CanSeePlayer(Close,false))
+   {KnownTarget=Close;Visible=true;}
  if(Visible&&!bConfirmedTarget)DiscoverPlayer(KnownTarget.Get(),true);
  // Preserve explicit encounter locks for their existing callers. Hall area
  // membership alone never supplies a target or refreshes its memory.

@@ -45,6 +45,14 @@
 
 ## 实现入口与证据边界
 
+### 已保存地图与备用布局库签名
+
+布局失败出现 `bank/stale_contract` 时，先读取正式保存地图中生成器的实际 ModuleCatalogJson，并与源作者目录分别记录。不同目录文件可能属于不同配方阶段，不能用同名作者 JSON 覆盖现有地图。
+
+备用库签名用于拒绝旧配方，不应删掉检查或直接改签名当作修复。保留原摆位，先在独立候选中针对当前目录重放所覆盖的有序主题组合，再检查接口唯一对接、图连通、实际占位碰撞、任务边与长度预算；旧检查器的每路房间数必须匹配当前配方。只有检查被用户要求且已取得相应证据后，才保存这项签名更新。
+
+正式地图可能使用外部 Actor。必要的归档/恢复范围包含 umap 与其对应 ExternalActors，不只备份小体积 umap。保存后区分布局级重放与实际主客机通关；合阙 2026-10-15 的 120 组合重放不代表完整联机流程通过。
+
 源码：`Source/FPSGAME/Dungeons/AuthoredDungeon{ThemedRoutes,SplitLevels,CompactRouting,Mission}.inl`、`AuthoredDungeonGenerator.cpp`、`DungeonSpawnDirector`、`DungeonRoomEncounter`、`DungeonRoomGate`、`DungeonProgressionGate`、`DungeonRunSubsystem`。
 
 作者配置：`SourceAssets/DungeonRoutes20260922/Config/catalog.json`，主题和坡道制作为 `DungeonThemedRoutes20261001` / `DungeonSplitLevels20261001`。安装回执属于本机实际落盘证据，不能伪造回执来启用目录扩展。

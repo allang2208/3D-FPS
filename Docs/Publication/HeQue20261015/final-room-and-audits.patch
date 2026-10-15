@@ -1,0 +1,1723 @@
+diff --git a/Source/FPSGAME/Dungeons/DungeonBossEncounter.cpp b/Source/FPSGAME/Dungeons/DungeonBossEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonBossEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonBossEncounter.cpp
+@@ -1,4 +1,7 @@
+ #include "DungeonBossEncounter.h"
++#include "DungeonRunSubsystem.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
+ #include "Components/BoxComponent.h"
+ #include "Components/InstancedStaticMeshComponent.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -46,7 +49,7 @@
+         Surface->ComponentTags.Add(TEXT("DungeonBossWalkSurface"));
+     };
+ #include "DungeonBossWalkSurfaces.inl"
+-    PrimaryActorTick.bCanEverTick=false;
++    PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=false;
+     Tags.Add(TEXT("DungeonTerminalFixtures"));
+ }
+ 
+@@ -68,13 +71,52 @@
+ void ADungeonBossEncounter::ConfigureRewardExit(UStaticMesh* LeafMesh,const FVector& Position,
+     const FVector& Travel,const FVector& ClearSize,AActor* Chest,ASceneTestPortal* ReturnPortal)
+ {
+-    // Preserve travel and walkable structure without pretending the old boss was killed.
+-    // The reward chest remains locked until new gameplay rules are authored.
++    RewardChest=Chest;RewardPortal=ReturnPortal;RewardClosed=Position;RewardTravel=Travel;
++    RewardOpenAlpha=0.f;bRewardReleased=false;
+     RewardGate->SetStaticMesh(LeafMesh);
+-    RewardGate->SetRelativeLocation(Position+Travel);
+-    RewardGateCollision->SetRelativeLocation(Position+Travel+FVector(0,0,ClearSize.Z*.5));
++    RewardGate->SetRelativeLocation(Position);
++    RewardGateCollision->SetRelativeLocation(Position+FVector(0,0,ClearSize.Z*.5));
+     RewardGateCollision->SetBoxExtent(ClearSize*.5);
+-    RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+     if(Chest)Chest->Tags.AddUnique(TEXT("DungeonReward.Locked"));
+-    if(ReturnPortal)ReturnPortal->Tags.Remove(TEXT("DungeonReward.Locked"));
++    if(ReturnPortal)ReturnPortal->Tags.AddUnique(TEXT("DungeonReward.Locked"));
+ }
++
++void ADungeonBossEncounter::BeginPlay()
++{
++    Super::BeginPlay();
++    GetWorldTimerManager().SetTimer(ProgressTimer,this,&ADungeonBossEncounter::UpdateFinalProgress,.1f,true);
++}
++
++void ADungeonBossEncounter::UpdateFinalProgress()
++{
++    const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++    if(!Run||!Run->IsRunActive())return;
++    // Generated fixtures exist locally on each peer. Read only the shared
++    // server outcome; never infer a kill from a missing local monster.
++    if(!bRewardReleased&&Run->IsFinalBossDefeated())
++    {
++        bRewardReleased=true;SetActorTickEnabled(true);
++        if(RewardChest.IsValid())RewardChest->Tags.Remove(TEXT("DungeonReward.Locked"));
++    }
++    if(Run->CanUseFinalReturn())
++    {
++        if(RewardPortal.IsValid())RewardPortal->Tags.Remove(TEXT("DungeonReward.Locked"));
++        GetWorldTimerManager().ClearTimer(ProgressTimer);
++    }
++}
++
++void ADungeonBossEncounter::Tick(float Dt)
++{
++    Super::Tick(Dt);
++    if(!bRewardReleased){SetActorTickEnabled(false);return;}
++    RewardOpenAlpha=FMath::FInterpConstantTo(RewardOpenAlpha,1.f,Dt,1.f/.9f);
++    RewardGate->SetRelativeLocation(RewardClosed+RewardTravel*FMath::SmoothStep(0.f,1.f,RewardOpenAlpha));
++    if(RewardOpenAlpha>=1.f)
++    {RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);SetActorTickEnabled(false);}
++}
++
++void ADungeonBossEncounter::EndPlay(const EEndPlayReason::Type Reason)
++{
++    GetWorldTimerManager().ClearTimer(ProgressTimer);Super::EndPlay(Reason);
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonBossEncounter.h b/Source/FPSGAME/Dungeons/DungeonBossEncounter.h
+--- a/Source/FPSGAME/Dungeons/DungeonBossEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonBossEncounter.h
+@@ -10,7 +10,7 @@
+ class UStaticMeshComponent;
+ class ASceneTestPortal;
+ 
+-/** Legacy class name retained for saved maps; now only passive terminal walk supports and open gates. */
++/** Authored terminal walk supports and reward fixtures; combat lives in the room encounter. */
+ UCLASS()
+ class FPSGAME_API ADungeonBossEncounter : public AActor
+ {
+@@ -21,9 +21,19 @@
+     UPROPERTY(EditAnywhere, Category="Dungeon|Fixtures") FVector2D DoorSize=FVector2D(300,280);
+     UPROPERTY(EditAnywhere, Category="Dungeon|Fixtures") TObjectPtr<UMaterialInterface> GateMaterial;
+     virtual void OnConstruction(const FTransform& Transform) override;
++    virtual void BeginPlay() override;
++    virtual void Tick(float DeltaSeconds) override;
++    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+     void ConfigureRewardExit(UStaticMesh* LeafMesh,const FVector& Position,const FVector& Travel,
+         const FVector& ClearSize,AActor* Chest,ASceneTestPortal* ReturnPortal);
+ private:
++    void UpdateFinalProgress();
++    TWeakObjectPtr<AActor> RewardChest;
++    TWeakObjectPtr<ASceneTestPortal> RewardPortal;
++    FVector RewardClosed=FVector::ZeroVector,RewardTravel=FVector::ZeroVector;
++    float RewardOpenAlpha=0.f;
++    bool bRewardReleased=false;
++    FTimerHandle ProgressTimer;
+     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Gate;
+     UPROPERTY() TObjectPtr<UBoxComponent> GateCollision;
+     UPROPERTY() TObjectPtr<UStaticMeshComponent> RewardGate;
+diff --git a/Source/FPSGAME/SceneTestPortal.cpp b/Source/FPSGAME/SceneTestPortal.cpp
+--- a/Source/FPSGAME/SceneTestPortal.cpp
++++ b/Source/FPSGAME/SceneTestPortal.cpp
+@@ -1,4 +1,5 @@
+ #include "SceneTestPortal.h"
++#include "Dungeons/DungeonRunSubsystem.h"
+ #include "Multiplayer/ColdSteelPlayerState.h"
+ #include "Net/UnrealNetwork.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -18,6 +19,7 @@
+ #include "TimerManager.h"
+ #include "InputCoreTypes.h"
+ #include "UI/TransitLoadingSubsystem.h"
++#include "UI/ColdSteelStatusModel.h"
+ #include "Engine/GameInstance.h"
+ 
+ namespace ScenePortalMaps
+@@ -108,6 +110,8 @@
+ bool ASceneTestPortal::IsWithinInteractionRange(const APawn* Pawn) const
+ {
+     if(!Pawn||ActorHasTag(TEXT("DungeonReward.Locked")))return false;
++    if(ActorHasTag(TEXT("DungeonFinalReturn")))
++    {const auto* Run=UDungeonRunSubsystem::Get(GetWorld());if(!Run||!Run->CanUseFinalReturn())return false;}
+     const FVector Delta=Pawn->GetActorLocation()-GetActorLocation();
+     return Delta.SizeSquared2D()<=FMath::Square(200.f)&&FMath::Abs(Delta.Z)<=250.f;
+ }
+@@ -147,6 +151,16 @@
+ void ASceneTestPortal::OpenDestination()
+ {
+     if(!bTravelling)return;
++    if(ActorHasTag(TEXT("DungeonFinalReturn")))
++    {
++        auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        if(!Run||!Run->CanUseFinalReturn()||!IsWithinInteractionRange(UGameplayStatics::GetPlayerPawn(this,0)))
++        {CancelLoading();return;}
++        Run->MarkFinalReturnUsed(this);
++        if(!Model||Model->Snapshot().DungeonRun.RunId!=Run->RunId()||!Model->Snapshot().DungeonRun.bCompleted)
++        {Run->CancelFinalReturn(this);CancelLoading();return;}
++    }
+     UE_LOG(LogTemp, Display, TEXT("ScenePortal: Travel %s"), *Destination);
+     UGameplayStatics::OpenLevel(this, FName(*Destination), true, DestinationOptions);
+ }
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp b/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelPlayerState.h"
++#include "../Dungeons/DungeonRunSubsystem.h"
+ #include "ColdSteelAuthorityContext.h"
+ #include "ColdSteelNetSessionSubsystem.h"
+ #include "ColdSteelSharedInventorySubsystem.h"
+@@ -23,6 +24,7 @@
+ #include "GameFramework/GameModeBase.h"
+ #include "GameFramework/PlayerController.h"
+ #include "Misc/PackageName.h"
++#include "Misc/ScopeExit.h"
+ 
+ bool AColdSteelPlayerState::RequestTeamTravel(AActor* Entrance)
+ {
+@@ -44,6 +46,7 @@
+     if(Destination.IsEmpty()||!FPackageName::DoesPackageExist(Destination))return;
+     for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)if(!It->TeamDestination.IsEmpty())return;
+     TeamDestination=Destination;TeamOptions=Options;TeamTravelStarted=GetWorld()->GetRealTimeSeconds();
++    TeamTravelEntrance=Entrance;
+     const FGuid TravelId=FGuid::NewGuid();
+     for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+         if(auto* State=It->Get()->GetPlayerState<AColdSteelPlayerState>())
+@@ -96,6 +99,13 @@
+     if(auto* Blizzard=GetPawn()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
+     if(!CloseStationSessions()){AbortTeamTravel(TEXT("工作站结算或档案保存失败，请稍后重试"));return false;}
+     M->SyncRuntime();
++    if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsRunActive())
++    {
++        Run->EnsurePlayerRun(M);
++        const auto& SavedRun=M->Snapshot().DungeonRun;
++        if(SavedRun.RunId!=Run->RunId()||SavedRun.bCompleted!=Run->IsRunCompleted())
++        {AbortTeamTravel(TEXT("队员地牢进度保存失败，请稍后重试"));return false;}
++    }
+     const auto* PC=Cast<APlayerController>(GetOwner());
+     if(!(PC&&PC->IsLocalController()?M->SaveNow():SaveShadowToHostDisk()))
+     {AbortTeamTravel(TEXT("队员档案保存失败，请稍后重试"));return false;}
+@@ -114,7 +124,7 @@
+     {
+         if(!It->TeamTravelId.IsValid())continue;
+         const FGuid Cancelled=It->TeamTravelId;
+-        It->TeamDestination.Reset();It->TeamOptions.Reset();It->bTravelReady=false;
++        It->TeamDestination.Reset();It->TeamOptions.Reset();It->bTravelReady=false;It->TeamTravelEntrance.Reset();
+         It->ClientTeamTravelSaveFailed(Cancelled,Reason);It->TeamTravelId.Invalidate();
+     }
+ }
+@@ -127,7 +137,7 @@
+ void AColdSteelPlayerState::TickTeamTravel()
+ {
+     if(TeamTravelId.IsValid()&&TeamTravelWorld.Get()!=GetWorld())
+-    {TeamTravelId.Invalidate();TeamDestination.Reset();TeamOptions.Reset();bTravelFlush=bTravelReady=bTravelNeedsFreshUpload=false;}
++    {TeamTravelId.Invalidate();TeamDestination.Reset();TeamOptions.Reset();TeamTravelEntrance.Reset();bTravelFlush=bTravelReady=bTravelNeedsFreshUpload=false;}
+     if(bTravelFlush&&!bInventoryRequestPending&&!bCampfirePending)
+     {
+         auto* PC=Cast<APlayerController>(GetOwner());
+@@ -153,6 +163,32 @@
+         {AbortTeamTravel(TEXT("篝火交易尚待恢复，暂时无法换图"));return;}
+     // Readiness may be followed by host-local edits or a death before another peer finishes uploading.
+     // Commit the final authority state for every participant in this same game-thread transition.
++    if(!TeamTravelEntrance.IsValid()||TeamTravelEntrance->GetWorld()!=GetWorld())
++    {AbortTeamTravel(TEXT("换图入口已失效，请重新交互"));return;}
++    auto* ReturnPortal=Cast<ASceneTestPortal>(TeamTravelEntrance.Get());
++    auto* ReturnRun=ReturnPortal&&ReturnPortal->ActorHasTag(TEXT("DungeonFinalReturn"))?UDungeonRunSubsystem::Get(GetWorld()):nullptr;
++    if(ReturnRun&&(!ReturnPortal->IsWithinInteractionRange(GetPawn())||!ReturnRun->CanUseFinalReturn()))
++    {AbortTeamTravel(TEXT("返程入口已不可用，请靠近传送门重试"));return;}
++    bool StagedCompletion=false,TravelAccepted=false;
++    ON_SCOPE_EXIT
++    {
++        if(!StagedCompletion||TravelAccepted)return;
++        ReturnRun->CancelFinalReturn(ReturnPortal);
++        // A failed participant save or rejected ServerTravel must not leave
++        // another participant's disk copy marked complete while still here.
++        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>())
++            {
++                auto* M=ColdSteelAuthority::ForPawn(PS->GetPawn());
++                const bool Saved=It->Get()->IsLocalController()?(M&&M->SaveNow()):PS->SaveShadowToHostDisk();
++                if(!Saved)UE_LOG(LogTemp,Error,TEXT("[FinalBoss] Failed to persist cancelled return for %s"),*PS->GetName());
++            }
++    };
++    if(ReturnRun)
++    {
++        ReturnRun->MarkFinalReturnUsed(ReturnPortal);StagedCompletion=ReturnRun->IsRunCompleted();
++        if(!StagedCompletion){AbortTeamTravel(TEXT("地牢返程进度尚未就绪"));return;}
++    }
+     for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+         if(auto* PS=It->Get()->GetPlayerState<AColdSteelPlayerState>();PS&&!PS->SaveTeamTravelParticipant())return;
+     for(TActorIterator<AVoxelBuildWorld> It(GetWorld());It;++It)if(!It->FlushCampfirePersistence()){AbortTeamTravel(TEXT("建筑存档保存失败，请稍后重试"));return;}
+@@ -164,7 +200,9 @@
+     }
+     TeamDestination.Reset();
+     if(auto* Mode=GetWorld()->GetAuthGameMode())Mode->bUseSeamlessTravel=true;
+-    if(!GetWorld()->ServerTravel(URL,false))AbortTeamTravel(TEXT("换图请求未被服务器接受，请稍后重试"));
++    TravelAccepted=GetWorld()->ServerTravel(URL,false);
++    if(!TravelAccepted)AbortTeamTravel(TEXT("换图请求未被服务器接受，请稍后重试"));
++    TeamTravelEntrance.Reset();
+ }
+ void AColdSteelPlayerState::CopyProperties(APlayerState* Other)
+ {
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -316,6 +316,7 @@
+     TWeakObjectPtr<UWorld> TeamTravelWorld;
+     TWeakObjectPtr<APawn> TeamTravelPawn;
+     FString TeamDestination,TeamOptions;
++    TWeakObjectPtr<AActor> TeamTravelEntrance;
+     double TeamTravelStarted=0.;
+     bool InventoryRequestPending() const {return bInventoryRequestPending;}
+     void RequestQuickCombat(float Duration,float PredictedCost);
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -161,6 +161,7 @@
+         BindEcologyTheme(InGenerator);
+         BindPowerTheme(InGenerator);
+         BindIncinerationTheme(InGenerator);
++        BindFinalBossTheme(InGenerator);
+         for (const auto& Node : Nodes)
+         {
+             ADungeonThemeEncounter* Area=AFacilityHallEncounter::IsMedical(Node.Module) ? MedicalTheme.Get()
+@@ -168,6 +169,7 @@
+                 : AFacilityHallEncounter::IsEcology(Node.Module) ? EcologyTheme.Get()
+                 : AFacilityHallEncounter::IsPower(Node.Module) ? PowerTheme.Get()
+                 : AFacilityHallEncounter::IsIncineration(Node.Module) ? IncinerationTheme.Get()
++                : AFacilityHallEncounter::IsFinalBossRoom(Node.Module) ? FinalBossTheme.Get()
+                 : AFacilityHallEncounter::IsHall(Node.Module) ? HallTheme.Get() : nullptr;
+             if (!Area) continue;
+             FActorSpawnParameters Params;
+@@ -207,6 +209,8 @@
+     PowerTheme.Reset();
+     if (IncinerationTheme.IsValid()) IncinerationTheme->Destroy();
+     IncinerationTheme.Reset();
++    if(FinalBossTheme.IsValid())FinalBossTheme->Destroy();
++    FinalBossTheme.Reset();bNetworkFinalBossDefeated=false;bFinalTreasureLooted=false;
+     bShrineClaimed=false;
+     ShrineConfig.Reset();ShrineActor.Reset();ShrineEffects.Reset();ShrineBlessing=NAME_None;
+     ShrineName.Reset();ShrineDescription.Reset();ShrineHealFraction=0;
+@@ -560,6 +564,7 @@
+     if (Area.IsEmpty())
+         Area = Room->bBossArea ? TEXT("地牢终点") : Room->Route == TEXT("Archive") ? TEXT("档案区") : TEXT("过渡区域");
+     Out.Area = FText::FromString(Area);
++    if(Room->bBossArea){AppendFinalBossObjectives(Out);return true;}
+     auto& Objective = Out.Objectives.AddDefaulted_GetRef();
+     if (bCompleted)
+     {
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -109,6 +109,12 @@
+     bool IsEcologyBossDefeated() const;
+     bool IsPowerBossDefeated() const;
+     bool IsIncinerationBossDefeated() const;
++    bool IsFinalBossDefeated() const;
++    bool IsFinalTreasureLooted() const { return bActive&&bFinalTreasureLooted; }
++    bool CanUseFinalReturn() const { return IsFinalBossDefeated()&&IsFinalTreasureLooted(); }
++    void MarkFinalTreasureLooted(AActor* Chest);
++    void MarkFinalReturnUsed(AActor* Portal);
++    void CancelFinalReturn(AActor* Portal);
+     virtual void AppendTrackedTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out) override;
+     bool GetTrackingView(const FVector& PlayerPosition, int32& InOutLastRoom, FTrackedTaskView& Out) const;
+     const FVector& EntryPosition() const { return StartPosition; }
+@@ -168,6 +174,8 @@
+     bool bNetworkEcologyBossDefeated=false;
+     bool bNetworkPowerBossDefeated=false;
+     bool bNetworkIncinerationBossDefeated=false;
++    bool bNetworkFinalBossDefeated=false;
++    bool bFinalTreasureLooted=false;
+     FDungeonSharedProgress SharedProgressMirror;
+     UColdSteelStatusModel* StatusModel() const;
+ 
+@@ -183,6 +191,9 @@
+     void BindPowerTheme(AAuthoredDungeonGenerator* InGenerator);
+     TWeakObjectPtr<class ADungeonThemeEncounter> IncinerationTheme;
+     void BindIncinerationTheme(AAuthoredDungeonGenerator* InGenerator);
++    TWeakObjectPtr<class ADungeonThemeEncounter> FinalBossTheme;
++    void BindFinalBossTheme(AAuthoredDungeonGenerator* InGenerator);
++    void AppendFinalBossObjectives(FTrackedTaskView& Out) const;
+     TArray<FDungeonRunNode> Nodes;
+     TArray<FString> RoomIds;
+     TMap<FString, FString> ModuleTrackingAreas;
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+@@ -37,6 +37,7 @@
+     State.bEcologyBossDefeated=IsEcologyBossDefeated();
+     State.bPowerBossDefeated=IsPowerBossDefeated();
+     State.bIncinerationBossDefeated=IsIncinerationBossDefeated();
++    State.bFinalBossDefeated=IsFinalBossDefeated();State.bFinalTreasureLooted=bFinalTreasureLooted;
+     State.Cleared=Cleared.Array();State.Explored=Explored.Array();
+     State.Cleared.Sort(FNameLexicalLess());State.Explored.Sort(FNameLexicalLess());
+     Generator->ForceNetUpdate();
+@@ -55,6 +56,7 @@
+     bNetworkEcologyBossDefeated=State.bEcologyBossDefeated;
+     bNetworkPowerBossDefeated=State.bPowerBossDefeated;
+     bNetworkIncinerationBossDefeated=State.bIncinerationBossDefeated;
++    bNetworkFinalBossDefeated=State.bFinalBossDefeated;bFinalTreasureLooted=State.bFinalTreasureLooted;
+     // This is a read-only client mirror. Do not save, grant rewards, or open local gates here.
+ }
+ 
+diff --git a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+--- a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
++++ b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+@@ -16,6 +16,8 @@
+     UPROPERTY() bool bEcologyBossDefeated = false;
+     UPROPERTY() bool bPowerBossDefeated = false;
+     UPROPERTY() bool bIncinerationBossDefeated = false;
++    UPROPERTY() bool bFinalBossDefeated = false;
++    UPROPERTY() bool bFinalTreasureLooted = false;
+     UPROPERTY() bool bCompleted = false;
+     UPROPERTY() TArray<FName> Cleared;
+     UPROPERTY() TArray<FName> Explored;
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+@@ -7,7 +7,7 @@
+ class AAuthoredDungeonGenerator;
+ class ADungeonRoomGate;
+ struct FDungeonRunDoor;
+-enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, FreightBoss, EcologyBoss, PowerBoss, IncinerationBoss };
++enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, FreightBoss, EcologyBoss, PowerBoss, IncinerationBoss, FinalBoss };
+ 
+ /** Room spawners own kills; each configured area's objective unlocks its boundary gates. */
+ UCLASS(NotBlueprintable, Transient)
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+@@ -109,6 +109,7 @@
+     if (Objective==EDungeonThemeObjective::EcologyBoss) return Run->IsEcologyBossDefeated();
+     if (Objective==EDungeonThemeObjective::PowerBoss) return Run->IsPowerBossDefeated();
+     if (Objective==EDungeonThemeObjective::IncinerationBoss) return Run->IsIncinerationBossDefeated();
++    if (Objective==EDungeonThemeObjective::FinalBoss) return Run->IsFinalBossDefeated();
+     return Run->IsWelcomeEliteDefeated();
+ }
+ 
+@@ -119,6 +120,7 @@
+     if (Objective==EDungeonThemeObjective::EcologyBoss) return TEXT("ecology.root_crown");
+     if (Objective==EDungeonThemeObjective::PowerBoss) return TEXT("power.vortex_coffer");
+     if (Objective==EDungeonThemeObjective::IncinerationBoss) return TEXT("treatment.incinerator_m66");
++    if (Objective==EDungeonThemeObjective::FinalBoss) return TEXT("final.heque");
+     return TEXT("welcome.elite");
+ }
+ 
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+@@ -22,6 +22,7 @@
+     bool bEcologyBoss = false;
+     bool bPowerBoss = false;
+     bool bIncinerationBoss = false;
++    bool bFinalBoss = false;
+     bool bIncinerationBasement = false;
+     int32 IncinerationPosition = INDEX_NONE;
+     int32 FreightPosition = INDEX_NONE;
+@@ -87,6 +88,8 @@
+     static TArray<FString> PowerMonsterClassPaths();
+     static bool IsIncineration(const FString& Module);
+     static TArray<FString> IncinerationMonsterClassPaths();
++    static bool IsFinalBossRoom(const FString& Module);
++    static TArray<FString> FinalBossClassPaths();
+     static bool IsDoorLeaf(const FString& Module, const FString& Mesh);
+     static TArray<FString> MonsterClassPaths();
+     static TArray<FString> SelectedMonsterClassPaths(int32 RunSeed);
+@@ -98,6 +101,7 @@
+     bool IsEcologyBossDefeated() const;
+     bool IsPowerBossDefeated() const;
+     bool IsIncinerationBossDefeated() const;
++    bool IsFinalBossDefeated() const;
+     void Configure(UDungeonRunSubsystem* InRun, int32 InNode, AAuthoredDungeonGenerator* InGenerator, class ADungeonThemeEncounter* InTheme);
+     virtual void Tick(float DeltaSeconds) override;
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+@@ -131,6 +135,8 @@
+     void ConfigurePower();
+     bool FindPowerSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     void ConfigureIncineration();
++    void ConfigureFinalBoss();
++    bool FindFinalBossSpawn(const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     bool FindIncinerationSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     void UpdateIncinerationBasement();
+     bool IsSlotReleased(const FFacilityHallSlot& Slot) const { return !Slot.bIncinerationBasement || bIncinerationBasementEntered; }
+@@ -181,6 +187,8 @@
+     bool bPower = false;
+     int32 IncinerationBossSlot = INDEX_NONE;
+     bool bIncineration = false, bIncinerationBasementEntered = false;
++    int32 FinalBossSlot = INDEX_NONE;
++    bool bFinalBossRoom = false;
+     float ObjectiveEliteFootprint = 0.f;
+     int32 NextDoor = 0;
+     int32 NextSlot = 0;
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -1,4 +1,5 @@
+ #include "FacilityHallEncounter.h"
++#include "../Monsters/HeQueMonster.h"
+ #include "FacilityMonsterGpuWarmup.h"
+ #include "FacilityHallSpawnSubsystem.h"
+ #include "../UI/FPSPerformanceMetrics.h"
+@@ -122,12 +123,14 @@
+ {
+     if (!HasAuthority() || !InRun || !InGenerator) return;
+     const auto* Node = InRun->NodeById(InNode);
+-    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module) && !IsIncineration(Node->Module))) return;
++    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module) && !IsIncineration(Node->Module) && !IsFinalBossRoom(Node->Module))) return;
+     Run = InRun;
+     Generator = InGenerator;
+     Theme = InTheme;
+     InGenerator->OnDestroyed.AddDynamic(this, &AFacilityHallEncounter::DungeonDestroyed);
+     Room = *Node;
++    bFinalBossRoom=IsFinalBossRoom(Room.Module);
++    if(bFinalBossRoom){ConfigureFinalBoss();return;}
+     bMedical = IsMedical(Room.Module);
+     if (bMedical) { ConfigureMedical(); return; }
+     bFreight = IsFreight(Room.Module);
+@@ -286,6 +289,7 @@
+ 
+ bool AFacilityHallEncounter::FindInitialSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing)
+ {
++    if (bFinalBossRoom) return FindFinalBossSpawn(Defaults,Location,Facing);
+     if (bMedical) return FindMedicalSpawn(Slot, Defaults, Location, Facing);
+     if (bFreight) return FindFreightSpawn(Slot, Defaults, Location, Facing);
+     if (bEcology) return FindEcologySpawn(Slot, Defaults, Location, Facing);
+@@ -434,6 +438,16 @@
+         CastChecked<AM66IncineratorMonster>(Monster)->Rank = EMonsterRank::Boss;
+         Monster->Tags.AddUnique(TEXT("DungeonObjective.IncinerationBoss"));
+     }
++    if(Slot.bFinalBoss)
++    {
++        auto* FinalBoss=CastChecked<AHeQueMonster>(Monster);
++        FinalBoss->Rank=EMonsterRank::Boss;
++        // The authored preview deliberately used zero rewards. The final-room
++        // replacement inherits the former level-12 HandBrain base reward;
++        // normal level/rank scaling and per-slot dedup still apply downstream.
++        if(FinalBoss->ExperienceReward<=0)FinalBoss->ExperienceReward=2892;
++        Monster->Tags.AddUnique(TEXT("DungeonObjective.FinalBoss"));
++    }
+     if (Slot.bObjectiveElite)
+     {
+         // Set before component BeginPlay so rank, toughness and kill rewards all
+@@ -449,7 +463,7 @@
+     if (Slot.BellowPosition != INDEX_NONE)
+         Monster->Tags.AddUnique(Slot.BellowPosition >= 2 ? TEXT("FacilityHallBellow.Upper") : TEXT("FacilityHallBellow.Ground"));
+     Slot.Monster = Monster;
+-    if (!bMedical && !bFreight && !bEcology && !bPower && !bIncineration && !Slot.bObjectiveElite)
++    if (!bMedical && !bFreight && !bEcology && !bPower && !bIncineration && !bFinalBossRoom && !Slot.bObjectiveElite)
+     {
+         Monster->OnTakeAnyDamage.AddDynamic(this, &AFacilityHallEncounter::MonsterDamaged);
+         Monster->OnDestroyed.AddDynamic(this, &AFacilityHallEncounter::MonsterDestroyed);
+@@ -462,14 +476,14 @@
+     if (!IsValid(Monster)) return false;
+     // BeginPlay can reject placement or initialization. Bind objective death
+     // callbacks only after a live spawn, so failure cannot complete the task.
+-    if (bMedical || bFreight || bEcology || bPower || bIncineration || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || Slot.bObjectiveElite)
+     {
+         const auto* Combat = Monster->FindComponentByClass<UMonsterCombatComponent>();
+         float Health=0.f, MaxHealth=0.f; FText Name;
+         if (!Combat || !Combat->GetVitals(Health, MaxHealth, Name) || Health <= 0.f)
+         { Slot.Monster.Reset(); Monster->Destroy(); return false; }
+     }
+-    if (bMedical || bFreight || bEcology || bPower || bIncineration || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || Slot.bObjectiveElite)
+     {
+         Monster->OnTakeAnyDamage.AddDynamic(this, &AFacilityHallEncounter::MonsterDamaged);
+         Monster->OnDestroyed.AddDynamic(this, &AFacilityHallEncounter::MonsterDestroyed);
+@@ -527,7 +541,7 @@
+         {
+             Run->RecordRoomDefeat(Room.Id);
+             // Any player's authoritative kill completes the same team objective.
+-            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss || Slot.bIncinerationBoss )Run->PublishSharedProgress();
++            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss || Slot.bIncinerationBoss || Slot.bFinalBoss)Run->PublishSharedProgress();
+         }
+         if (Index < FirstWaveCount && !Slot.bObjectiveElite) ++FirstWaveKills;
+         const int32 OrdinaryFirstWaveCount = FirstWaveCount - (ObjectiveEliteSlot != INDEX_NONE ? 1 : 0);
+diff --git a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1048,6 +1048,13 @@
+         {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+         for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+     }
++    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
++        {return AFacilityHallEncounter::IsFinalBossRoom(Plan.Modules[Piece.Module].Id);}))
++    {
++        for(const FString& Path:AFacilityHallEncounter::FinalBossClassPaths())
++        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
++        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
++    }
+     PendingJobResources.Reset();
+     bool RequireNavigation=false;Catalog->TryGetBoolField(TEXT("navigation_required"),RequireNavigation);
+     if(RequireNavigation&&GetNetMode()!=NM_Client)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
+@@ -1320,6 +1327,7 @@
+             if(Prop->TryGetStringField(TEXT("role"),PropRole)&&PropRole==TEXT("final_reward_chest"))
+             {
+                 A->Tags.Add(TEXT("DungeonFinalTreasure"));A->Tags.Add(TEXT("DungeonReward.Locked"));
++                A->Tags.Remove(TEXT("DungeonTreasure.PendingLoot"));A->Tags.AddUnique(TEXT("DungeonTreasureChest"));
+                 State->FinalRewardChests.Add(Index,A);
+             }
+             auto* C=A->GetSkeletalMeshComponent();C->SetSkeletalMeshAsset(Mesh);C->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+@@ -1341,27 +1349,27 @@
+             ++State->Props;
+             }});
+         }
+-        if(D->HasTypedField<EJson::Object>(TEXT("boss_encounter")))
+-        {
+-            const JObject Encounter=D->GetObjectField(TEXT("boss_encounter"));
+-            QueueAsset(Encounter->GetStringField(TEXT("class")));QueueAsset(Encounter->GetStringField(TEXT("gate_material")));
++        if(D->HasTypedField<EJson::Object>(TEXT("terminal_fixtures"))||D->HasTypedField<EJson::Object>(TEXT("boss_encounter")))
++        {
++            // Legacy catalogs may retain the old HandBrain recipe. Geometry
++            // stays authored; the final encounter now always prepares HeQue.
++            const JObject Fixtures=D->GetObjectField(D->HasTypedField<EJson::Object>(TEXT("terminal_fixtures"))?TEXT("terminal_fixtures"):TEXT("boss_encounter"));
++            QueueAsset(Fixtures->GetStringField(TEXT("gate_material")));
+             const JObject Reward=D->HasTypedField<EJson::Object>(TEXT("reward_exit"))?D->GetObjectField(TEXT("reward_exit")):nullptr;
+             if(Reward)
+             {
+                 QueueAsset(Reward->GetStringField(TEXT("leaf_mesh")));
+                 for(const auto& Asset:Reward->GetArrayField(TEXT("return_assets")))QueueAsset(Asset->AsString());
+             }
+-            QueueJob({TEXT("Dungeon.BossEncounter"),[this,State,Encounter,Reward,Piece,Index]()
+-            {
+-                auto* Class=Cast<UClass>(ResolveGenerationAsset(Encounter->GetStringField(TEXT("class"))));
+-                if(!Class||!Class->IsChildOf(AHandBrainMonster::StaticClass())){State->Error=TEXT("地牢首领类无法载入");return;}
++            QueueJob({TEXT("Dungeon.TerminalFixtures"),[this,State,Fixtures,Reward,Piece,Index]()
++            {
++                // Walk supports and reward fixtures consume shared progression;
++                // the room encounter owns the actual HeQue spawn and death.
+                 auto* E=GetWorld()->SpawnActorDeferred<ADungeonBossEncounter>(ADungeonBossEncounter::StaticClass(),Piece.Transform,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+-                if(!E){State->Error=TEXT("首领入场控制器创建失败");return;}
+-                E->BossClass=Class;E->SpawnPoint=Vec(Encounter,TEXT("spawn"));
+-                E->ArenaMin=Vec(Encounter,TEXT("arena_min"));E->ArenaMax=Vec(Encounter,TEXT("arena_max"));
+-                E->DoorPoint=Vec(Encounter,TEXT("door"));
+-                const auto& Size=Encounter->GetArrayField(TEXT("door_size"));E->DoorSize=FVector2D(Size[0]->AsNumber(),Size[1]->AsNumber());
+-                E->GateMaterial=Cast<UMaterialInterface>(ResolveGenerationAsset(Encounter->GetStringField(TEXT("gate_material"))));
++                if(!E){State->Error=TEXT("终点步行支撑创建失败");return;}
++                E->DoorPoint=Vec(Fixtures,TEXT("door"));
++                const auto& Size=Fixtures->GetArrayField(TEXT("door_size"));E->DoorSize=FVector2D(Size[0]->AsNumber(),Size[1]->AsNumber());
++                E->GateMaterial=Cast<UMaterialInterface>(ResolveGenerationAsset(Fixtures->GetStringField(TEXT("gate_material"))));
+                 if(Reward)
+                 {
+                     auto* Leaf=Cast<UStaticMesh>(ResolveGenerationAsset(Reward->GetStringField(TEXT("leaf_mesh"))));
+@@ -1372,7 +1380,7 @@
+                     const FTransform ReturnTransform=Local(Return)*Piece.Transform;
+                     auto* Portal=GetWorld()->SpawnActorDeferred<ASceneTestPortal>(ASceneTestPortal::StaticClass(),ReturnTransform,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+                     if(!Portal){E->Destroy();State->Error=TEXT("最终宝箱房返程入口创建失败");return;}
+-                    Portal->Tags.Add(TEXT("DungeonReward.Locked"));Portal->Tags.Add(TEXT("DungeonFinalReturn"));
++                    Portal->Tags.Add(TEXT("DungeonFinalReturn"));
+                     Portal->Configure(Return->GetStringField(TEXT("destination")),TEXT("RETURN TO BASE"),FString(),FColor(130,230,195));
+                     Portal->FinishSpawning(ReturnTransform);OwnGenerated(Portal,Index);
+                     E->ConfigureRewardExit(Leaf,Vec(Reward,TEXT("door_position")),Vec(Reward,TEXT("door_travel")),
+@@ -2052,6 +2060,7 @@
+     auto Phases=MakeShared<FJsonObject>();for(const auto& P:S.PhaseMs)Phases->SetNumberField(P.Key.ToString(),P.Value);
+     Report->SetObjectField(TEXT("game_thread_phases_ms"),Phases);
+     Report->SetNumberField(TEXT("monster_pso_components"),S.MonsterRendering.Components.Num());
++    Report->SetBoolField(TEXT("monster_render_warmup_enabled"),FApp::CanEverRender());
+     Report->SetNumberField(TEXT("monster_pso_classes_submitted"),S.MonsterRendering.SubmitCursor);
+     Report->SetNumberField(TEXT("monster_pso_classes_requested"),S.MonsterRendering.Classes.Num());
+     Report->SetNumberField(TEXT("monster_soft_dependencies_requested"),S.MonsterRendering.DependencyPathsRequested);
+diff --git a/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp b/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp
+--- a/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp
++++ b/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp
+@@ -170,6 +170,17 @@
+ void UColdSteelContainerSearchSubsystem::ObserveChange(APlayerController* Player,const TArray<FColdSteelItem>& Before,const TArray<FColdSteelItem>& After)
+ {
+     auto* Viewer=Viewers.Find(Player);if(!Viewer||!Viewer->Anchor.IsValid())return;
++    if(Player&&Player->HasAuthority()&&Viewer->Anchor->ActorHasTag(TEXT("DungeonFinalTreasure")))
++    {
++        // This callback runs after a committed local/shared inventory change.
++        // Compare quantities by definition, so sorting/merging/splitting stacks
++        // cannot count as looting. Ammo converted to the ammo pool counts too.
++        TMap<FString,int64> Counts;
++        for(const auto& Item:Before)if(Item.Place==4&&Canonical(Item.Container)==Viewer->Key)Counts.FindOrAdd(Item.Definition)+=Item.Count;
++        for(const auto& Item:After)if(Item.Place==4&&Canonical(Item.Container)==Viewer->Key)Counts.FindOrAdd(Item.Definition)-=Item.Count;
++        for(const auto& Pair:Counts)if(Pair.Value>0)
++        {if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Run->MarkFinalTreasureLooted(Viewer->Anchor.Get());break;}
++    }
+     auto& Record=Viewer->Records.FindChecked(Viewer->Key);
+     bool Learned=false;
+     for(const auto& Item:After)if(Item.Place==4&&Canonical(Item.Container)==Viewer->Key)
+diff --git a/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h b/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h
+--- a/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h
++++ b/Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h
+@@ -16,6 +16,7 @@
+ #include "GameFramework/Actor.h"
+ #include "Rendering/SkeletalMeshRenderData.h"
+ #include "UObject/StrongObjectPtr.h"
++#include "Misc/App.h"
+ #include "../Monsters/NurseZombie.h"
+ #include "../Monsters/BellowSacLobber.h"
+ #include "../Monsters/BellowSacProjectile.h"
+@@ -93,7 +94,10 @@
+ 
+     bool Pump(double Deadline, FString& Error)
+     {
+-        while (SubmitCursor < Classes.Num() && FPlatformTime::Seconds() < Deadline)
++        // Dedicated servers and NullRHI test peers still need the gameplay soft
++        // dependencies, but cannot provide GPU render/PSO readiness.
++        const bool bNeedsRendering = FApp::CanEverRender();
++        while (bNeedsRendering && SubmitCursor < Classes.Num() && FPlatformTime::Seconds() < Deadline)
+         {
+             const UClass* Class = Classes[SubmitCursor].Get();
+             const auto* Defaults = Class ? Cast<ACharacter>(Class->GetDefaultObject()) : nullptr;
+@@ -151,7 +155,7 @@
+             }
+             ++SubmitCursor;
+         }
+-        bool bReady = SubmitCursor == Classes.Num();
++        bool bReady = !bNeedsRendering || SubmitCursor == Classes.Num();
+         for (const auto& Handle : DependencyLoads)
+             if (Handle.IsValid()) bReady &= Handle->HasLoadCompleted() || Handle->WasCanceled();
+         for (const auto& Component : Components) bReady &= !Component->IsPSOPrecaching();
+diff --git a/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp b/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp
+--- a/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp
++++ b/Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp
+@@ -93,6 +93,7 @@
+     ++Authority.Revision;Authority.bWelcomeEliteDefeated=true;
+     Authority.bMedicalBossDefeated=true;Authority.bFreightBossDefeated=true;Authority.bEcologyBossDefeated=true;
+     Authority.bPowerBossDefeated=true;
++    Authority.bFinalBossDefeated=true;
+     Authority.Cleared.Add(TEXT("shared.room"));Authority.Explored.Add(TEXT("shared.room"));
+     TArray<uint8> Bytes;
+     {FMemoryWriter Writer(Bytes);FObjectAndNameAsStringProxyArchive Archive(Writer,false);
+@@ -107,6 +108,31 @@
+     Require(!GuestView.ApplyNewer(BeforeKill,Authority.RunId)&&GuestView.bWelcomeEliteDefeated,
+         TEXT("late pre-kill progress cannot undo team completion"));
+     Require(!GuestView.ApplyNewer(Received,Authority.RunId),TEXT("duplicate completion is idempotent"));
++    Require(Received.bFinalBossDefeated&&HostView.bFinalBossDefeated&&GuestView.bFinalBossDefeated
++        &&!GuestView.bFinalTreasureLooted&&!GuestView.bCompleted,
++        TEXT("final boss death replicates without granting loot or return completion"));
++    auto Looted=Authority;++Looted.Revision;Looted.bFinalTreasureLooted=true;
++    TArray<uint8> LootBytes;
++    {FMemoryWriter Writer(LootBytes);FObjectAndNameAsStringProxyArchive Archive(Writer,false);
++        FDungeonSharedProgress::StaticStruct()->SerializeItem(Archive,&Looted,nullptr);}
++    FDungeonSharedProgress LootReceived,LootGuest;
++    {FMemoryReader Reader(LootBytes);FObjectAndNameAsStringProxyArchive Archive(Reader,false);
++        FDungeonSharedProgress::StaticStruct()->SerializeItem(Archive,&LootReceived,nullptr);}
++    Require(LootGuest.ApplyNewer(LootReceived,Authority.RunId)&&LootGuest.bFinalBossDefeated
++        &&LootGuest.bFinalTreasureLooted&&!LootGuest.bCompleted,
++        TEXT("teammate looting survives serialization without completing return"));
++    Require(!LootGuest.ApplyNewer(Received,Authority.RunId)&&LootGuest.bFinalTreasureLooted,
++        TEXT("delayed pre-loot packet cannot lock the return portal again"));
++    FDungeonSharedProgress LateLootGuest;
++    Require(!LateLootGuest.ApplyNewer(LootReceived,FString())&&LateLootGuest.ApplyNewer(LootReceived,Authority.RunId)
++        &&LateLootGuest.bFinalBossDefeated&&LateLootGuest.bFinalTreasureLooted,
++        TEXT("late join after looting restores final reward prerequisites after layout binding"));
++    auto CancelledReturn=LootReceived;++CancelledReturn.Revision;CancelledReturn.bCompleted=true;
++    Require(LootGuest.ApplyNewer(CancelledReturn,Authority.RunId)&&LootGuest.bCompleted,
++        TEXT("prepared return reaches the shared progress mirror"));
++    ++CancelledReturn.Revision;CancelledReturn.bCompleted=false;
++    Require(LootGuest.ApplyNewer(CancelledReturn,Authority.RunId)&&!LootGuest.bCompleted&&LootGuest.bFinalTreasureLooted,
++        TEXT("cancelled travel resets completion while preserving earned loot"));
+     Require(HostView.bFreightBossDefeated&&GuestView.bFreightBossDefeated&&Received.bFreightBossDefeated,
+         TEXT("freight boss completion survives serialization and is shared by host and guest"));
+     Require(HostView.bEcologyBossDefeated&&GuestView.bEcologyBossDefeated&&Received.bEcologyBossDefeated,
+@@ -128,6 +154,8 @@
+         TEXT("new run clears completion even when its revision starts at one"));
+     Require(!GuestView.bFreightBossDefeated&&!GuestView.bMedicalBossDefeated&&!GuestView.bEcologyBossDefeated&&!GuestView.bPowerBossDefeated,
+         TEXT("new run clears all regional boss completion flags"));
++    Require(LateLootGuest.ApplyNewer(NewRun,NewRun.RunId)&&!LateLootGuest.bFinalBossDefeated&&!LateLootGuest.bFinalTreasureLooted
++        &&!LateLootGuest.ApplyNewer(LootReceived,NewRun.RunId),TEXT("new run clears final rewards and rejects old-run loot packets"));
+     ++Authority.Revision;Authority.bCompleted=true;
+     Require(HostView.ApplyNewer(Authority,Authority.RunId)&&LateGuest.ApplyNewer(Authority,Authority.RunId)
+         &&HostView.bCompleted&&LateGuest.bCompleted,TEXT("run completion is shared with late participants"));
+diff --git a/Source/FPSGAME/Dungeons/DungeonRunFinalBoss.cpp b/Source/FPSGAME/Dungeons/DungeonRunFinalBoss.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunFinalBoss.cpp
+@@ -0,0 +1,75 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "Engine/World.h"
++
++void UDungeonRunSubsystem::BindFinalBossTheme(AAuthoredDungeonGenerator* InGenerator)
++{
++    TArray<int32> Rooms;TArray<FDungeonRunDoor> Boundaries;
++    for(const auto& Node:Nodes)if(AFacilityHallEncounter::IsFinalBossRoom(Node.Module))
++    {Rooms.Add(Node.Id);Boundaries.Append(Node.Doors);}
++    if(Rooms.IsEmpty())return;
++    if(Rooms.Num()==1&&!Boundaries.IsEmpty())
++    {
++        FActorSpawnParameters Params;Params.Owner=InGenerator;Params.ObjectFlags|=RF_Transient;
++        auto* Area=GetWorld()->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,Params);
++        if(Area&&Area->Configure(this,InGenerator,Rooms,Boundaries,EDungeonThemeObjective::FinalBoss))FinalBossTheme=Area;
++        else if(Area)Area->Destroy();
++    }
++    if(!FinalBossTheme.IsValid())UE_LOG(LogTemp,Error,TEXT("[FinalBoss] Expected one terminal room with authored entry; rooms=%d doors=%d"),Rooms.Num(),Boundaries.Num());
++}
++
++bool UDungeonRunSubsystem::IsFinalBossDefeated() const
++{
++    if(!bActive||!Generator.IsValid())return false;
++    if(GetWorld()->GetNetMode()==NM_Client)return bNetworkFinalBossDefeated;
++    for(const auto& Encounter:HallEncounters)
++        if(Encounter.IsValid()&&Encounter->IsFinalBossDefeated())return true;
++    return false;
++}
++
++void UDungeonRunSubsystem::MarkFinalTreasureLooted(AActor* Chest)
++{
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client||bFinalTreasureLooted||!IsFinalBossDefeated()
++        ||!IsValid(Chest)||Chest->GetOwner()!=Generator.Get()||!Chest->ActorHasTag(TEXT("DungeonFinalTreasure")))return;
++    bFinalTreasureLooted=true;PublishSharedProgress();
++}
++
++void UDungeonRunSubsystem::MarkFinalReturnUsed(AActor* Portal)
++{
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client||!CanUseFinalReturn()||!IsValid(Portal)
++        ||Portal->GetOwner()!=Generator.Get()||!Portal->ActorHasTag(TEXT("DungeonFinalReturn")))return;
++    MarkRunCompleted();
++}
++
++void UDungeonRunSubsystem::CancelFinalReturn(AActor* Portal)
++{
++    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client||!bActive||!bCompleted||!IsValid(Portal)
++        ||Portal->GetOwner()!=Generator.Get()||!Portal->ActorHasTag(TEXT("DungeonFinalReturn")))return;
++    bCompleted=false;CommitProfileRunState();
++}
++
++void UDungeonRunSubsystem::AppendFinalBossObjectives(FTrackedTaskView& Out) const
++{
++    const bool Defeated=IsFinalBossDefeated();
++    Out.Area=FText::FromString(TEXT("废弃设施 · 终末泵机大厅"));
++    Out.Stage=FText::FromString(bCompleted?TEXT("地牢完成"):Defeated?TEXT("收取战利品并撤离"):TEXT("最终首领 · 合阙"));
++    auto Add=[&Out](FName Id,const TCHAR* Text,bool Complete,bool Counted)
++    {
++        auto& Goal=Out.Objectives.AddDefaulted_GetRef();Goal.Id=Id;Goal.Text=FText::FromString(Text);
++        Goal.Current=Complete?1:0;Goal.Target=Counted?1:0;
++        Goal.State=Complete?ETrackedObjectiveState::Completed:ETrackedObjectiveState::Active;
++    };
++    Add(TEXT("final.heque"),TEXT("击败最终首领：合阙"),Defeated,true);
++    if(Defeated)
++    {
++        // Keep the completed kill row so the tracker can show its strike-through.
++        Add(TEXT("final.treasure"),TEXT("搜刮宝箱"),bFinalTreasureLooted,false);
++        Add(TEXT("final.return"),TEXT("进入传送门离开"),bCompleted,false);
++    }
++    Out.Hint=FText::FromString(bCompleted?TEXT("战利品已收取 · 正在返回主神空间"):
++        !Defeated?TEXT("中间悬心是弱点 · 利用泵机遮挡压力波，避开落地冲击波"):
++        !bFinalTreasureLooted?TEXT("进入首领后方奖励室 · 取出战利品后启动返程门"):
++        TEXT("返程门已开启 · 靠近传送门按 E 离开"));
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityFinalBossEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityFinalBossEncounter.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityFinalBossEncounter.cpp
+@@ -0,0 +1,50 @@
++#include "FacilityHallEncounter.h"
++#include "../Monsters/HeQueMonster.h"
++#include "Engine/TargetPoint.h"
++#include "Engine/World.h"
++#include "GameFramework/PlayerController.h"
++#include "TimerManager.h"
++
++bool AFacilityHallEncounter::IsFinalBossRoom(const FString& Module)
++{return Module==TEXT("BossPumpHall");}
++
++TArray<FString> AFacilityHallEncounter::FinalBossClassPaths()
++{return {TEXT("/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C")};}
++
++bool AFacilityHallEncounter::IsFinalBossDefeated() const
++{return Slots.IsValidIndex(FinalBossSlot)&&Slots[FinalBossSlot].bDefeated;}
++
++void AFacilityHallEncounter::ConfigureFinalBoss()
++{
++    UClass* Class=FSoftClassPath(FinalBossClassPaths()[0]).ResolveClass();
++    if(!Class||!Class->IsChildOf(AHeQueMonster::StaticClass()))
++    {UE_LOG(LogTemp,Error,TEXT("[FinalBoss] Prepared HeQue class missing"));return;}
++    Members.Add(Class);
++    Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement^Run->NodeRandomSalt(Room.Id))));
++    FinalBossSlot=Slots.Num();auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=0;Slot.bFinalBoss=true;
++    FirstWaveCount=1;bSecondWave=true;
++    GetWorldTimerManager().SetTimer(EncounterTimer,this,&AFacilityHallEncounter::UpdateEncounter,.2f,true);
++}
++
++bool AFacilityHallEncounter::FindFinalBossSpawn(const ACharacter* Defaults,FVector& Location,FRotator& Facing)
++{
++    const FTransform Frame(FRotator(0,Room.Yaw,0),Room.Origin);
++    FVector Origin=Frame.TransformPosition(FVector(0,-1900,0));
++    const auto Anchors=Run->RoomAnchors(Room.Id,TEXT("boss_spawn"));
++    if(!Anchors.IsEmpty())Origin=Anchors[0]->GetActorLocation();
++    for(int32 Attempt=0;Attempt<12;++Attempt)
++    {
++        const FVector Offset=Attempt==0?FVector::ZeroVector:
++            FVector(Placement.FRandRange(-180.f,180.f),Placement.FRandRange(-250.f,300.f),0);
++        const FVector Candidate=Origin+Frame.TransformVectorNoScale(Offset);
++        bool Occupied=false;
++        for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if(const APawn* Player=It->Get()?It->Get()->GetPawn().Get():nullptr)
++                Occupied|=FMath::Abs(Player->GetNavAgentLocation().Z-Candidate.Z)<180.f&&
++                    FVector::DistSquared2D(Player->GetActorLocation(),Candidate)<FMath::Square(600.f);
++        if(Occupied||!FindSpawn(Defaults,Candidate,Location,225.f))continue;
++        Facing=FRotator(0,Room.Yaw+90.f,0);return true;
++    }
++    // Retry the same objective slot; blocked navigation is never a boss defeat.
++    return false;
++}
+diff --git a/Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp b/Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp
+@@ -0,0 +1,434 @@
++#include "HeQueDungeonAudit.h"
++#include "AuthoredDungeonGenerator.h"
++#include "DungeonRunSubsystem.h"
++#include "FacilityHallEncounter.h"
++#include "../FPSGAMECharacter.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../SceneTestPortal.h"
++#include "../Monsters/HeQueMonster.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Multiplayer/ColdSteelAuthorityContext.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../UI/ColdSteelHUDWidget.h"
++#include "../UI/ColdSteelContainerSearchSubsystem.h"
++#include "../UI/ColdSteelDungeonLoot.h"
++#include "Components/CapsuleComponent.h"
++#include "Dom/JsonObject.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "GameFramework/GameStateBase.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#include "NavigationSystem.h"
++#include "Net/UnrealNetwork.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace HeQueDungeonAudit
++{
++bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("HeQueDungeonAudit"));}
++double Clock(UWorld* W){const auto* GS=W->GetGameState();return GS?GS->GetServerWorldTimeSeconds():W->GetTimeSeconds();}
++FString Encode(const TSharedRef<FJsonObject>& J)
++{FString S;FJsonSerializer::Serialize(J,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&S));return S;}
++TSharedPtr<FJsonObject> Decode(const FString& S)
++{TSharedPtr<FJsonObject> J;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(S),J);return J;}
++AActor* Named(UWorld* W,const FString& Name)
++{if(!Name.IsEmpty())for(TActorIterator<AActor> It(W);It;++It)if(It->GetName()==Name)return *It;return nullptr;}
++TMap<FString,int64> Counts(const FColdSteelProfile& P)
++{
++    TMap<FString,int64> R;
++    for(const auto& I:P.Items)if(!I.Container.StartsWith(TEXT("NetView."))&&I.Place!=2)R.FindOrAdd(I.Definition)+=I.Count;
++    for(const auto& I:P.AmmoPouch)R.FindOrAdd(I.Key)+=I.Value;
++    return R;
++}
++FString Reward(const FColdSteelProfile& P)
++{return FString::Printf(TEXT("%d/%lld/%d/%lld"),P.Kills,P.Souls,P.Level,P.Experience);}
++TSharedRef<FJsonObject> CountJson(const TMap<FString,int64>& C)
++{auto J=MakeShared<FJsonObject>();for(const auto& P:C)J->SetNumberField(P.Key,P.Value);return J;}
++bool SameCounts(const TMap<FString,int64>& A,const TMap<FString,int64>& B)
++{for(const auto& P:A)if(B.FindRef(P.Key)!=P.Value)return false;for(const auto& P:B)if(A.FindRef(P.Key)!=P.Value)return false;return true;}
++UColdSteelProfileSave* LatestLocalSave(UColdSteelStatusModel* M)
++{
++    UColdSteelProfileSave* Latest=nullptr;
++    for(const TCHAR* S:{TEXT("_A"),TEXT("_B")})
++        if(auto* V=Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromSlot(M->ProfileSlot()+S,0));V&&(!Latest||V->Profile.Generation>Latest->Profile.Generation))Latest=V;
++    return Latest;
++}
++bool Goal(const FTrackedTaskView& V,FName Id,bool Complete)
++{const auto* G=V.Objectives.FindByPredicate([Id](const auto& X){return X.Id==Id;});return G&&(G->State==ETrackedObjectiveState::Completed)==Complete;}
++}
++
++AHeQueDungeonAuditPeer::AHeQueDungeonAuditPeer()
++{bReplicates=true;bOnlyRelevantToOwner=true;PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.TickInterval=.2f;SetNetUpdateFrequency(10.f);}
++void AHeQueDungeonAuditPeer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(AHeQueDungeonAuditPeer,Phase);DOREPLIFETIME(AHeQueDungeonAuditPeer,AuditRole);DOREPLIFETIME(AHeQueDungeonAuditPeer,RunId);
++    DOREPLIFETIME(AHeQueDungeonAuditPeer,ChestName);DOREPLIFETIME(AHeQueDungeonAuditPeer,PortalName);
++    DOREPLIFETIME(AHeQueDungeonAuditPeer,ExpectedReward);
++    DOREPLIFETIME(AHeQueDungeonAuditPeer,ContainerRevision);DOREPLIFETIME(AHeQueDungeonAuditPeer,ExecuteAt);
++}
++void AHeQueDungeonAuditPeer::ServerReport_Implementation(int32 InPhase,const FString& Json)
++{
++    if(!HeQueDungeonAudit::Enabled()||InPhase!=Phase||Json.Len()>32000)return;
++    ReportPhase=InPhase;Report=Json;
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_PEER role=%s phase=%d %s"),*AuditRole,Phase,*Json);
++}
++void AHeQueDungeonAuditPeer::Tick(float Dt)
++{
++    Super::Tick(Dt);if(!HeQueDungeonAudit::Enabled()||Phase<=0||SentPhase==Phase)return;
++    auto* PC=Cast<APlayerController>(GetOwner());if(!PC||!PC->IsLocalController())return;
++    auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();auto* Pawn=Cast<AFPSGAMECharacter>(PC->GetPawn());
++    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!PS||!Pawn||!M||M->RuntimePawn()!=Pawn)return;
++    if(LocalPhase!=Phase){LocalPhase=Phase;BeganAt=FPlatformTime::Seconds();Requested=false;}
++    auto* Run=UDungeonRunSubsystem::Get(GetWorld());
++    if(!CachedChest.IsValid())CachedChest=HeQueDungeonAudit::Named(GetWorld(),ChestName);
++    if(!CachedPortal.IsValid())CachedPortal=HeQueDungeonAudit::Named(GetWorld(),PortalName);
++    auto* Chest=CachedChest.Get();auto* Portal=Cast<ASceneTestPortal>(CachedPortal.Get());
++    const double Age=FPlatformTime::Seconds()-BeganAt;
++    const bool Active=Run&&Run->IsRunActive()&&Run->RunId()==RunId;
++    bool Pass=Active;
++    if(Phase==1)Pass&=M->Snapshot().DungeonRun.RunId==RunId;
++    if(Phase==2)Pass&=Run->IsWelcomeEliteDefeated();
++    if(Phase==3)
++    {
++        Pass&=Run->AnyThemedRouteCleared();
++        for(const auto& N:Run->AllNodes())if(N.Route==TEXT("Archive")&&N.bCombatRoom)Pass&=Run->IsRoomCleared(N.Id);
++    }
++    FTrackedTaskView View;
++    if(Active)
++    {
++        TArray<FTrackedTaskView> Tasks;Run->AppendTrackedTasks(Pawn,Tasks);
++        if(const auto* Task=Tasks.FindByPredicate([](const FTrackedTaskView& T){return T.Id==TEXT("dungeon.exploration");}))View=*Task;
++    }
++    if(Phase==4||Phase==5||Phase==10)
++    {
++        const bool Defeated=Phase>=5,Looted=Phase==10;
++        Pass&=Chest&&Portal&&Run->IsFinalBossDefeated()==Defeated&&Run->IsFinalTreasureLooted()==Looted
++            &&Chest->ActorHasTag(TEXT("DungeonReward.Locked"))==!Defeated&&Portal->ActorHasTag(TEXT("DungeonReward.Locked"))==!Looted
++            &&HeQueDungeonAudit::Goal(View,TEXT("final.heque"),Defeated);
++        if(Defeated)Pass&=HeQueDungeonAudit::Goal(View,TEXT("final.treasure"),Looted)&&HeQueDungeonAudit::Goal(View,TEXT("final.return"),false);
++        if(Phase==4){int32 Bosses=0;for(TActorIterator<AHeQueMonster> It(GetWorld());It;++It)if(!It->Dead())++Bosses;Pass&=Bosses==1;}
++    }
++    if(Phase>=6&&Phase<=9)
++    {
++        Pass&=Chest&&UColdSteelContainerSearchSubsystem::CanAccess(Pawn,Chest);
++        if(Pass&&!Requested&&!PS->InventoryRequestPending()&&HeQueDungeonAudit::Clock(GetWorld())>=ExecuteAt)
++        {
++            FColdSteelInventoryRequest Request;Request.Target=Chest;Request.ContainerRevision=ContainerRevision;
++            Request.Action=(Phase==6||Phase==9)?EColdSteelInventoryAction::ContainerOpen:EColdSteelInventoryAction::ContainerRetrieveAll;
++            Requested=PS->RequestInventoryAction(Request);
++            UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_REQUEST role=%s phase=%d dispatched=%d revision=%lld"),*AuditRole,Phase,Requested,ContainerRevision);
++        }
++        Pass&=Requested&&!PS->InventoryRequestPending()&&M->HasNetworkContainerView()&&Age>1.;
++        if(Phase==6)
++        {
++            auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>();
++            Pass&=Search&&Search->IsActive(PC,Chest)&&!Search->IsSearching(PC,M->ActiveContainer);
++            for(const auto& I:M->Items())if(I.Container.StartsWith(TEXT("NetView.")))Pass&=I.Definition!=TEXT("container_unsearched");
++        }
++    }
++    if(Phase==11)
++    {
++        Pass&=Portal&&Portal->IsWithinInteractionRange(Pawn);
++        if(Pass&&!Requested&&!PS->InventoryRequestPending())
++        {
++            if(auto* FPS=Cast<AFPSGAMEPlayerController>(PC);FPS&&FPS->GetColdSteelHUD()&&FPS->GetColdSteelHUD()->IsInventoryOpen())FPS->GetColdSteelHUD()->ToggleInventory();
++            else M->EndStorageSession();
++            if(AuditRole==TEXT("guest"))Requested=PS->RequestTeamTravel(Portal);else Requested=true;
++        }
++        Pass&=Requested;
++    }
++    auto Profile=M->Snapshot();
++    if(Phase==5||Phase==10||Phase==12)Pass&=HeQueDungeonAudit::Reward(Profile)==ExpectedReward;
++    if(Phase==12)
++    {
++        Pass=HeQueDungeonAudit::Reward(Profile)==ExpectedReward&&!Active&&UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("DayNight_Lighting")
++            &&Profile.DungeonRun.RunId==RunId&&Profile.DungeonRun.bCompleted&&!PS->InventoryRequestPending();
++        if(Age<5.)return;
++    }
++    const double Timeout=Phase<=3?180.:Phase==6?90.:40.;
++    if(!Pass&&Age<Timeout)return;
++    auto J=MakeShared<FJsonObject>();J->SetBoolField(TEXT("pass"),Pass);J->SetStringField(TEXT("map"),UGameplayStatics::GetCurrentLevelName(this,true));
++    J->SetStringField(TEXT("run"),Active?Run->RunId():FString());J->SetStringField(TEXT("profile_run"),Profile.DungeonRun.RunId);
++    J->SetBoolField(TEXT("completed"),Profile.DungeonRun.bCompleted);J->SetBoolField(TEXT("boss"),Active&&Run->IsFinalBossDefeated());
++    J->SetBoolField(TEXT("looted"),Active&&Run->IsFinalTreasureLooted());J->SetNumberField(TEXT("nodes"),Active?Run->NumNodes():0);
++    J->SetNumberField(TEXT("kills"),Profile.Kills);J->SetNumberField(TEXT("souls"),Profile.Souls);J->SetNumberField(TEXT("level"),Profile.Level);
++    J->SetNumberField(TEXT("experience"),Profile.Experience);J->SetNumberField(TEXT("inventory_revision"),Profile.CampfireInventoryRevision);
++    J->SetObjectField(TEXT("items"),HeQueDungeonAudit::CountJson(HeQueDungeonAudit::Counts(Profile)));
++    J->SetStringField(TEXT("message"),M->ResultMessage());J->SetBoolField(TEXT("requested"),Requested);
++    FString Goals;for(const auto& G:View.Objectives)Goals+=FString::Printf(TEXT("%s:%d;"),*G.Id.ToString(),G.State==ETrackedObjectiveState::Completed?1:0);J->SetStringField(TEXT("goals"),Goals);
++    if(Phase==12)
++    {
++        const auto* Save=HeQueDungeonAudit::LatestLocalSave(M);
++        J->SetStringField(TEXT("slot"),M->ProfileSlot());J->SetBoolField(TEXT("disk_completed"),Save&&Save->Profile.DungeonRun.RunId==RunId&&Save->Profile.DungeonRun.bCompleted);
++        J->SetObjectField(TEXT("disk_items"),HeQueDungeonAudit::CountJson(Save?HeQueDungeonAudit::Counts(Save->Profile):TMap<FString,int64>()));
++        J->SetNumberField(TEXT("disk_souls"),Save?Save->Profile.Souls:-1);
++    }
++    SentPhase=Phase;ServerReport(Phase,HeQueDungeonAudit::Encode(J));
++}
++
++bool UHeQueDungeonAuditSubsystem::ShouldCreateSubsystem(UObject* Outer) const
++{return HeQueDungeonAudit::Enabled();}
++void UHeQueDungeonAuditSubsystem::Initialize(FSubsystemCollectionBase& Collection)
++{Super::Initialize(Collection);Started=StepAt=FPlatformTime::Seconds();}
++TStatId UHeQueDungeonAuditSubsystem::GetStatId() const
++{RETURN_QUICK_DECLARE_CYCLE_STAT(HeQueDungeonAudit,STATGROUP_Tickables);}
++void UHeQueDungeonAuditSubsystem::Check(bool Pass,const FString& Detail)
++{
++    ++Checks;if(!Pass)Failures.Add(Detail);
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_CHECK pass=%d %s"),Pass,*Detail);
++}
++void UHeQueDungeonAuditSubsystem::Finish(const FString& Reason)
++{
++    if(Done)return;Done=true;auto J=MakeShared<FJsonObject>();J->SetBoolField(TEXT("passed"),Failures.IsEmpty());
++    J->SetNumberField(TEXT("checks"),Checks);J->SetStringField(TEXT("reason"),Reason);J->SetStringField(TEXT("run"),RunId);
++    TArray<TSharedPtr<FJsonValue>> Errors;for(const auto& F:Failures)Errors.Add(MakeShared<FJsonValueString>(F));J->SetArrayField(TEXT("failures"),Errors);
++    const FString Json=HeQueDungeonAudit::Encode(J);FString Path;
++    if(FParse::Value(FCommandLine::Get(),TEXT("HeQueDungeonOutput="),Path))FFileHelper::SaveStringToFile(Json,*Path);
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_RESULT %s"),*Json);FPlatformMisc::RequestExit(false);
++}
++void UHeQueDungeonAuditSubsystem::Command(int32 Phase)
++{
++    Step=Phase;StepAt=FPlatformTime::Seconds();
++    for(AHeQueDungeonAuditPeer* P:Peers)
++    {
++        P->Phase=Phase;P->RunId=RunId;P->ChestName=Chest.IsValid()?Chest->GetName():FString();P->PortalName=Portal.IsValid()?Portal->GetName():FString();
++        P->ContainerRevision=RaceRevision;P->ExecuteAt=HeQueDungeonAudit::Clock(GetWorld())+1.;P->ForceNetUpdate();
++        if(const auto* PC=Cast<APlayerController>(P->GetOwner()))if(const auto* M=ColdSteelAuthority::ForPawn(PC->GetPawn()))P->ExpectedReward=HeQueDungeonAudit::Reward(M->Snapshot());
++    }
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_PHASE %d"),Phase);
++}
++bool UHeQueDungeonAuditSubsystem::ReportsReady(int32 Phase)
++{
++    if(ValidatedPhase==Phase)return true;
++    if(Peers.Num()!=2)return false;
++    for(const AHeQueDungeonAuditPeer* P:Peers)if(!IsValid(P)||P->ReportPhase!=Phase)return false;
++    ValidatedPhase=Phase;bool Okay=true;
++    for(const AHeQueDungeonAuditPeer* P:Peers)
++    {
++        const auto J=HeQueDungeonAudit::Decode(P->Report);const bool Pass=J&&J->GetBoolField(TEXT("pass"));
++        Check(Pass,FString::Printf(TEXT("peer %s phase %d"),*P->AuditRole,Phase));Okay&=Pass;
++    }
++    if(!Okay)Finish(TEXT("peer transition timed out"));
++    return Okay;
++}
++void UHeQueDungeonAuditSubsystem::CaptureProfiles(TMap<FString,FColdSteelProfile>& Into)
++{
++    Into.Reset();for(const AHeQueDungeonAuditPeer* P:Peers)
++        if(const auto* PC=Cast<APlayerController>(P->GetOwner()))if(auto* M=ColdSteelAuthority::ForPawn(PC->GetPawn()))Into.Add(P->AuditRole,M->Snapshot());
++}
++void UHeQueDungeonAuditSubsystem::CheckPeerProfiles()
++{
++    for(const AHeQueDungeonAuditPeer* P:Peers)
++    {
++        const auto* PC=Cast<APlayerController>(P->GetOwner());const auto* M=PC?ColdSteelAuthority::ForPawn(PC->GetPawn()):nullptr;
++        const auto J=HeQueDungeonAudit::Decode(P->Report);if(!M||!J){Check(false,TEXT("missing peer profile"));continue;}
++        const auto Profile=M->Snapshot();TMap<FString,int64> ClientCounts;
++        for(const auto& V:J->GetObjectField(TEXT("items"))->Values)ClientCounts.Add(FString(*V.Key),int64(V.Value->AsNumber()));
++        Check(HeQueDungeonAudit::SameCounts(HeQueDungeonAudit::Counts(Profile),ClientCounts),P->AuditRole+TEXT(" owner inventory equals authority"));
++        Check(int64(J->GetNumberField(TEXT("souls")))==Profile.Souls&&int32(J->GetNumberField(TEXT("kills")))==Profile.Kills
++            &&int32(J->GetNumberField(TEXT("level")))==Profile.Level&&int64(J->GetNumberField(TEXT("experience")))==Profile.Experience,P->AuditRole+TEXT(" reward/progression equals authority"));
++    }
++}
++bool UHeQueDungeonAuditSubsystem::PlaceRoom(int32 Id)
++{
++    const auto* Run=UDungeonRunSubsystem::Get(GetWorld());const auto* Node=Run?Run->NodeById(Id):nullptr;if(!Node)return false;
++    auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());int32 Index=0;
++    for(AHeQueDungeonAuditPeer* Peer:Peers)
++    {
++        auto* PC=Cast<APlayerController>(Peer->GetOwner());auto* Pawn=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;if(!Pawn)return false;
++        TArray<FVector> Candidates;for(const auto& Door:Node->Doors)Candidates.Add(Door.FloorCenter-Door.OutwardNormal*(450.f+Index*140.f));
++        for(const auto& Cell:Node->WalkCells)Candidates.Add(FVector(Cell.GetCenter().X,Cell.GetCenter().Y,Cell.Min.Z));
++        Candidates.Add(Node->Origin);bool Placed=false;
++        for(const auto& Candidate:Candidates)
++        {
++            FNavLocation At;if(!Nav||!Nav->ProjectPointToNavigation(Candidate,At,FVector(350,350,220))||!Node->AllowsSpawn(At.Location))continue;
++            Pawn->GetCharacterMovement()->StopMovementImmediately();Pawn->SetActorLocation(At.Location+FVector(0,0,Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()+3.f),false,nullptr,ETeleportType::TeleportPhysics);
++            Pawn->SetCanBeDamaged(false);Pawn->ForceNetUpdate();Placed=true;break;
++        }
++        if(!Placed){UE_LOG(LogTemp,Warning,TEXT("HEQUE_DUNGEON_PLACE waiting for nav node=%d module=%s"),Id,*Node->Module);return false;}++Index;
++    }
++    LastPlacedRoom=Id;LastMove=FPlatformTime::Seconds();UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_ROOM node=%d module=%s route=%s"),Id,*Node->Module,*Node->Route);return true;
++}
++bool UHeQueDungeonAuditSubsystem::PlaceNear(AActor* Target,bool IsPortal)
++{
++    if(!Target)return false;int32 Index=0;
++    for(AHeQueDungeonAuditPeer* Peer:Peers)
++    {
++        auto* PC=Cast<APlayerController>(Peer->GetOwner());auto* Pawn=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;if(!Pawn)return false;
++        bool Placed=false;
++        for(int32 I=0;I<24;++I)
++        {
++            const float Angle=FMath::DegreesToRadians(float(I*15+Index*180));FVector At=Target->GetActorLocation()+FVector(FMath::Cos(Angle)*145.f,FMath::Sin(Angle)*145.f,0);
++            FCollisionQueryParams Q(SCENE_QUERY_STAT(HeQueDungeonAuditGround),false,Target);for(AHeQueDungeonAuditPeer* P:Peers)if(auto* C=Cast<APlayerController>(P->GetOwner()))Q.AddIgnoredActor(C->GetPawn());
++            FHitResult Hit;if(!GetWorld()->LineTraceSingleByChannel(Hit,At+FVector(0,0,180),At-FVector(0,0,200),ECC_WorldStatic,Q))continue;
++            Pawn->GetCharacterMovement()->StopMovementImmediately();Pawn->SetActorLocation(Hit.ImpactPoint+FVector(0,0,Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()+3.f),false,nullptr,ETeleportType::TeleportPhysics);
++            Placed=IsPortal?CastChecked<ASceneTestPortal>(Target)->IsWithinInteractionRange(Pawn):UColdSteelContainerSearchSubsystem::CanAccess(Pawn,Target);
++            if(Placed){Pawn->ForceNetUpdate();break;}
++        }
++        if(!Placed)return false;++Index;
++    }
++    return true;
++}
++void UHeQueDungeonAuditSubsystem::KillSpawned()
++{
++    const double Now=FPlatformTime::Seconds();if(Now-LastKill<.25)return;LastKill=Now;
++    auto* PC=Peers.IsEmpty()?nullptr:Cast<APlayerController>(Peers[0]->GetOwner());if(!PC)return;
++    for(TActorIterator<AActor> It(GetWorld());It;++It)
++    {
++        if(It->IsA<AHeQueMonster>()||!It->Tags.ContainsByPredicate([](FName T){return T.ToString().StartsWith(TEXT("DungeonEnemy."));}))continue;
++        auto* C=It->FindComponentByClass<UMonsterCombatComponent>();float HP=0,Max=0;FText Name;
++        if(C&&C->GetVitals(HP,Max,Name)&&HP>0){UGameplayStatics::ApplyDamage(*It,1.e8f,PC,PC->GetPawn(),UDamageType::StaticClass());return;}
++    }
++}
++void UHeQueDungeonAuditSubsystem::Tick(float Dt)
++{
++    UWorld* W=GetWorld();if(Done||!W||!W->IsGameWorld()||W->GetNetMode()==NM_Client||W->GetNetMode()==NM_Standalone)return;
++    const double Now=FPlatformTime::Seconds();
++    if(!StartedLogged){StartedLogged=true;UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_HOST_READY"));}
++    if(Now-Started>1200.||Now-StepAt>(Step==0?600.:240.))
++    {Check(false,FString::Printf(TEXT("timeout phase %d map %s"),Step,*UGameplayStatics::GetCurrentLevelName(this,true)));Finish(TEXT("timeout"));return;}
++    const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
++    if(Step==0&&Now-LastDiagnostic>15.)
++    {
++        LastDiagnostic=Now;
++        const auto* PendingRun=UDungeonRunSubsystem::Get(W);
++        UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_WAIT peers=%d controllers=%d active=%d"),Peers.Num(),W->GetNumPlayerControllers(),PendingRun&&PendingRun->IsRunActive());
++        for(TActorIterator<AAuthoredDungeonGenerator> It(W);It;++It)
++        {
++            const auto Metrics=HeQueDungeonAudit::Decode(It->GetGenerationMetricsJson());
++            if(Metrics)UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_GENERATION %s"),*HeQueDungeonAudit::Encode(Metrics.ToSharedRef()));
++            if(It->ActorHasTag(TEXT("DungeonAssembly.Failed"))){Check(false,It->LayoutDescription);Finish(TEXT("dungeon generation failed"));return;}
++        }
++    }
++    if(Step==11&&Map==TEXT("DayNight_Lighting"))
++    {Peers.Reset();AuditWorld=W;Step=12;StepAt=Now;}
++    if(Step!=0&&Step!=12&&AuditWorld.Get()!=W)return;
++    if(Step==0||Step==12)
++    {
++        for(auto It=W->GetPlayerControllerIterator();It;++It)
++        {
++            auto* PC=It->Get();auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr;
++            if(!PC||!PC->GetPawn()||!PS||!ColdSteelAuthority::ForPawn(PC->GetPawn()))continue;
++            if(Peers.ContainsByPredicate([PC](const AHeQueDungeonAuditPeer* P){return IsValid(P)&&P->GetOwner()==PC;}))continue;
++            FActorSpawnParameters Params;Params.Owner=PC;auto* Peer=W->SpawnActor<AHeQueDungeonAuditPeer>(Params);
++            Peer->AuditRole=PC->IsLocalController()?TEXT("host"):TEXT("guest");Peers.Add(Peer);
++        }
++        if(Peers.Num()!=2)return;
++        if(Step==12&&Peers[0]->Phase!=12){Command(12);return;}
++    }
++    auto* Run=UDungeonRunSubsystem::Get(W);
++    if(Step==0)
++    {
++        if(!Run||!Run->IsRunActive())return;
++        RunId=Run->RunId();AuditWorld=W;
++        for(TActorIterator<AActor> It(W);It;++It){if(It->ActorHasTag(TEXT("DungeonFinalTreasure")))Chest=*It;if(It->ActorHasTag(TEXT("DungeonFinalReturn")))Portal=*It;}
++        if(!Chest.IsValid()||!Portal.IsValid())return;
++        Destination=CastChecked<ASceneTestPortal>(Portal)->DestinationMap();
++        int32 Best=MAX_int32;
++        for(int32 R=1;R<=3;++R)
++        {
++            TArray<int32> Rooms;for(const auto& N:Run->AllNodes())if(N.bCombatRoom&&N.Route==FString::Printf(TEXT("Route%d"),R))Rooms.Add(N.Id);
++            if(!Rooms.IsEmpty()&&Rooms.Num()<Best){Best=Rooms.Num();RouteRooms=MoveTemp(Rooms);}
++        }
++        Check(!RouteRooms.IsEmpty(),TEXT("generated complete themed route exists"));if(RouteRooms.IsEmpty()){Finish(TEXT("route unavailable"));return;}
++        Command(1);return;
++    }
++    if(Step==1&&ReportsReady(1))
++    {
++        for(const auto& N:Run->AllNodes())if(N.Module==TEXT("FacilityTransit"))if(PlaceRoom(N.Id)){Command(2);return;}
++    }
++    if(Step==2||Step==3)KillSpawned();
++    if(Step==2&&Run->IsWelcomeEliteDefeated()&&ReportsReady(2))
++    {if(PlaceRoom(RouteRooms[0])){RouteCursor=1;Command(3);}return;}
++    if(Step==3)
++    {
++        if(!Run->AnyThemedRouteCleared()&&Now-LastMove>6.){PlaceRoom(RouteRooms[RouteCursor%RouteRooms.Num()]);++RouteCursor;}
++        if(Run->AnyThemedRouteCleared())for(const auto& N:Run->AllNodes())if(N.Route==TEXT("Archive")&&N.bCombatRoom&&!Run->IsRoomCleared(N.Id))
++        {if(LastPlacedRoom!=N.Id)PlaceRoom(N.Id);return;}
++        if(Run->AnyThemedRouteCleared()&&ReportsReady(3))
++            for(const auto& N:Run->AllNodes())if(N.Module==TEXT("BossPumpHall"))if(PlaceRoom(N.Id)){Command(4);return;}
++    }
++    if(Step==4&&ReportsReady(4))
++    {
++        AHeQueMonster* Boss=nullptr;for(TActorIterator<AHeQueMonster> It(W);It;++It)if(!It->Dead()){Boss=*It;break;}
++        auto* Guest=Peers.FindByPredicate([](const AHeQueDungeonAuditPeer* P){return P->AuditRole==TEXT("guest");});
++        auto* PC=Guest?Cast<APlayerController>((*Guest)->GetOwner()):nullptr;auto* M=PC?ColdSteelAuthority::ForPawn(PC->GetPawn()):nullptr;
++        if(!Boss||!M){Check(false,TEXT("actual final boss or guest missing"));Finish(TEXT("boss missing"));return;}
++        const auto Before=M->Snapshot();
++        UE_LOG(LogTemp,Display,TEXT("HEQUE_DUNGEON_BOSS reward=%d health=%.1f killer=guest"),Boss->ExperienceReward,Boss->Health);
++        UGameplayStatics::ApplyDamage(Boss,1.e8f,PC,PC->GetPawn(),UDamageType::StaticClass());const auto After=M->Snapshot();
++        UGameplayStatics::ApplyDamage(Boss,1.e8f,PC,PC->GetPawn(),UDamageType::StaticClass());
++        Check(Boss->Dead()&&Run->IsFinalBossDefeated(),TEXT("real final boss death advances objective"));
++        Check(After.Kills==Before.Kills+1&&After.Souls>Before.Souls,TEXT("guest receives final boss kill reward"));
++        Check(M->Snapshot().Kills==After.Kills&&M->Snapshot().Souls==After.Souls,TEXT("duplicate fatal hit does not reward twice"));
++        Command(5);return;
++    }
++    if(Step==5&&ReportsReady(5))
++    {
++        if(Now-StepAt<3.)return;
++        CheckPeerProfiles();CaptureProfiles(BeforeLoot);
++        if(PlaceNear(Chest.Get(),false)){Command(6);return;}
++    }
++    auto* Shared=W->GetSubsystem<UColdSteelSharedInventorySubsystem>();
++    if(Step==6&&ReportsReady(6))
++    {
++        ChestKey=FColdSteelDungeonLoot::ChestStorageKey(Chest.Get());const auto* C=Shared?Shared->Data().Containers.Find(ChestKey):nullptr;
++        if(!C){Check(false,TEXT("shared final chest missing"));Finish(TEXT("chest unavailable"));return;}
++        Check(C->bSeeded&&!C->Items.IsEmpty(),TEXT("concurrent open seeds one nonempty shared chest"));
++        Loot.Reset();for(const auto& I:C->Items)Loot.FindOrAdd(I.Definition)+=I.Count;
++        RaceRevision=C->Revision;SharedSlot=Shared->WorldKey();Check(RaceRevision==1,TEXT("concurrent open did not reroll or recommit"));
++        Check(!Run->IsFinalTreasureLooted(),TEXT("opening/searching is not looting"));Command(7);return;
++    }
++    if(Step==7&&ReportsReady(7))
++    {
++        const auto* C=Shared->Data().Containers.Find(ChestKey);Check(C&&C->Items.IsEmpty()&&C->Revision==RaceRevision+1,TEXT("same revision race commits once and drains chest"));
++        if(!C){Finish(TEXT("chest lost"));return;}PostRaceRevision=C->Revision;CaptureProfiles(AfterLoot);CheckPeerProfiles();
++        TMap<FString,int64> Expected,Actual;int32 Winners=0;
++        for(const auto& Pair:BeforeLoot)for(const auto& I:HeQueDungeonAudit::Counts(Pair.Value))Expected.FindOrAdd(I.Key)+=I.Value;
++        for(const auto& I:Loot)Expected.FindOrAdd(I.Key)+=I.Value;
++        for(const auto& Pair:AfterLoot)
++        {const auto Counts=HeQueDungeonAudit::Counts(Pair.Value);for(const auto& I:Counts)Actual.FindOrAdd(I.Key)+=I.Value;Winners+=!HeQueDungeonAudit::SameCounts(Counts,HeQueDungeonAudit::Counts(BeforeLoot.FindChecked(Pair.Key)));}
++        Check(HeQueDungeonAudit::SameCounts(Expected,Actual)&&Winners==1,TEXT("loot conserved across both inventories; exactly one winner"));
++        Command(8);return;
++    }
++    if((Step==8||Step==9)&&ReportsReady(Step))
++    {
++        const auto* C=Shared->Data().Containers.Find(ChestKey);Check(C&&C->Items.IsEmpty()&&C->bSeeded&&C->Revision==PostRaceRevision,TEXT("stale retry/reopen does not duplicate rewards"));
++        TMap<FString,FColdSteelProfile> Current;CaptureProfiles(Current);
++        for(const auto& P:Current)Check(HeQueDungeonAudit::SameCounts(HeQueDungeonAudit::Counts(P.Value),HeQueDungeonAudit::Counts(AfterLoot.FindChecked(P.Key))),P.Key+TEXT(" loot unchanged by retry"));
++        Command(Step+1);return;
++    }
++    if(Step==10&&ReportsReady(10))
++    {CheckPeerProfiles();if(PlaceNear(Portal.Get(),true)){Command(11);return;}}
++    if(Step==12&&ReportsReady(12))
++    {
++        CheckPeerProfiles();
++        for(const AHeQueDungeonAuditPeer* P:Peers)
++        {
++            const auto J=HeQueDungeonAudit::Decode(P->Report);const auto* PC=Cast<APlayerController>(P->GetOwner());const auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr;
++            const auto* M=PC?ColdSteelAuthority::ForPawn(PC->GetPawn()):nullptr;
++            Check(M&&M->Snapshot().DungeonRun.RunId==RunId&&M->Snapshot().DungeonRun.bCompleted,P->AuditRole+TEXT(" authority completion survived ServerTravel"));
++            Check(J&&J->GetBoolField(TEXT("disk_completed")),P->AuditRole+TEXT(" owner disk contains completed run"));
++            TMap<FString,int64> Disk;if(J)for(const auto& V:J->GetObjectField(TEXT("disk_items"))->Values)Disk.Add(FString(*V.Key),int64(V.Value->AsNumber()));
++            Check(HeQueDungeonAudit::SameCounts(Disk,HeQueDungeonAudit::Counts(AfterLoot.FindChecked(P->AuditRole))),P->AuditRole+TEXT(" owner disk preserves loot"));
++            if(PS&&P->AuditRole==TEXT("guest"))
++            {
++                const auto* Save=Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromSlot(PS->CampfireGuestSlot(),0));
++                Check(Save&&Save->Profile.DungeonRun.RunId==RunId&&Save->Profile.DungeonRun.bCompleted&&HeQueDungeonAudit::SameCounts(HeQueDungeonAudit::Counts(Save->Profile),HeQueDungeonAudit::Counts(AfterLoot.FindChecked(P->AuditRole))),TEXT("host guest shadow disk preserves completion and loot"));
++            }
++        }
++        const auto* SavedWorld=Cast<UColdSteelSharedInventorySave>(UGameplayStatics::LoadGameFromSlot(SharedSlot,0));const auto* C=SavedWorld?SavedWorld->Data.Containers.Find(ChestKey):nullptr;
++        Check(C&&C->bSeeded&&C->Items.IsEmpty()&&C->Revision==PostRaceRevision,TEXT("dungeon shared chest persisted drained"));
++        Finish(TEXT("generated dungeon route, final boss, concurrent loot and real team return finished"));
++    }
++}
++
++
+diff --git a/Source/FPSGAME/Dungeons/HeQueDungeonAudit.h b/Source/FPSGAME/Dungeons/HeQueDungeonAudit.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/HeQueDungeonAudit.h
+@@ -0,0 +1,72 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/Actor.h"
++#include "Subsystems/GameInstanceSubsystem.h"
++#include "Tickable.h"
++#include "../UI/ColdSteelInventoryTypes.h"
++#include "HeQueDungeonAudit.generated.h"
++
++/** Opt-in test driver owned by the real player controller; gameplay requests
++ * still use the production PlayerState inventory and team-travel RPCs. */
++UCLASS()
++class AHeQueDungeonAuditPeer : public AActor
++{
++    GENERATED_BODY()
++public:
++    AHeQueDungeonAuditPeer();
++    virtual void Tick(float Dt) override;
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
++    UFUNCTION(Server,Reliable) void ServerReport(int32 InPhase,const FString& Json);
++    UPROPERTY(Replicated) int32 Phase=0;
++    UPROPERTY(Replicated) FString AuditRole;
++    UPROPERTY(Replicated) FString RunId;
++    UPROPERTY(Replicated) FString ChestName;
++    UPROPERTY(Replicated) FString PortalName;
++    UPROPERTY(Replicated) FString ExpectedReward;
++    UPROPERTY(Replicated) int64 ContainerRevision=0;
++    UPROPERTY(Replicated) double ExecuteAt=0.;
++    int32 ReportPhase=0;
++    FString Report;
++private:
++    int32 LocalPhase=0,SentPhase=0;
++    double BeganAt=0.;
++    bool Requested=false;
++    TWeakObjectPtr<AActor> CachedChest,CachedPortal;
++};
++
++/** Persists the audit across the actual dungeon -> hub ServerTravel. */
++UCLASS()
++class UHeQueDungeonAuditSubsystem : public UGameInstanceSubsystem, public FTickableGameObject
++{
++    GENERATED_BODY()
++public:
++    virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
++    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
++    virtual void Tick(float Dt) override;
++    virtual TStatId GetStatId() const override;
++    virtual bool IsTickable() const override { return !HasAnyFlags(RF_ClassDefaultObject)&&!Done; }
++    virtual UWorld* GetTickableGameObjectWorld() const override { return GetWorld(); }
++private:
++    void Finish(const FString& Reason);
++    void Check(bool Pass,const FString& Detail);
++    void Command(int32 Phase);
++    bool ReportsReady(int32 Phase);
++    bool PlaceRoom(int32 Node);
++    bool PlaceNear(AActor* Target,bool Portal);
++    void KillSpawned();
++    void CaptureProfiles(TMap<FString,FColdSteelProfile>& Into);
++    void CheckPeerProfiles();
++    UPROPERTY() TArray<TObjectPtr<AHeQueDungeonAuditPeer>> Peers;
++    TWeakObjectPtr<UWorld> AuditWorld;
++    TWeakObjectPtr<AActor> Chest,Portal;
++    TArray<int32> RouteRooms;
++    TArray<FString> Failures;
++    TMap<FString,FColdSteelProfile> BeforeLoot,AfterLoot;
++    TMap<FString,int64> Loot;
++    FString RunId,Destination,SharedSlot,ChestKey;
++    int64 RaceRevision=0,PostRaceRevision=0;
++    int32 Step=0,RouteCursor=0,Checks=0,ValidatedPhase=0,LastPlacedRoom=INDEX_NONE;
++    double Started=0.,StepAt=0.,LastMove=0.,LastKill=0.,LastDiagnostic=0.;
++    bool Done=false,StartedLogged=false;
++};
++
+diff --git a/Source/FPSGAME/Monsters/HeQueNetAudit.cpp b/Source/FPSGAME/Monsters/HeQueNetAudit.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HeQueNetAudit.cpp
+@@ -0,0 +1,133 @@
++#include "HeQueNetAudit.h"
++#include "../FPSGAMECharacter.h"
++#include "HeQueMonster.h"
++#include "MonsterAIController.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "../Combat/CombatStatusFormula.h"
++#include "Components/BoxComponent.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "GameFramework/GameStateBase.h"
++#include "Kismet/GameplayStatics.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Misc/FileHelper.h"
++#include "Net/UnrealNetwork.h"
++
++namespace HeQueNetAudit
++{
++bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("HeQueNetAudit"));}
++void Finish(bool Passed,const FString& Reason)
++{
++    const FString Result=FString::Printf(TEXT("{\"passed\":%s,\"reason\":\"%s\",\"scope\":\"real sockets: shared payload, monster status, owner push and late join; empty map\"}"),Passed?TEXT("true"):TEXT("false"),*Reason);
++    FString Path;if(FParse::Value(FCommandLine::Get(),TEXT("HeQueAuditOutput="),Path))FFileHelper::SaveStringToFile(Result,*Path);
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_NET_RESULT %s"),*Result);FPlatformMisc::RequestExit(false);
++}
++}
++AHeQueNetAuditProbe::AHeQueNetAuditProbe()
++{
++    bReplicates=true;bAlwaysRelevant=true;SetNetUpdateFrequency(30.f);
++    // The same network-addressable floor component must exist on every peer;
++    // a server-only temporary box cannot be resolved as a movement base.
++    auto* Floor=CreateDefaultSubobject<UBoxComponent>(TEXT("AuditFloor"));RootComponent=Floor;
++    Floor->InitBoxExtent(FVector(6000,6000,50));Floor->SetCollisionProfileName(TEXT("BlockAll"));
++}
++void AHeQueNetAuditProbe::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{
++    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
++    DOREPLIFETIME(AHeQueNetAuditProbe,Progress);DOREPLIFETIME(AHeQueNetAuditProbe,Phase);
++    DOREPLIFETIME(AHeQueNetAuditProbe,Boss);DOREPLIFETIME(AHeQueNetAuditProbe,PushedPawn);DOREPLIFETIME(AHeQueNetAuditProbe,ExpectedEnd);
++}
++void AHeQueNetAuditController::BeginPlay()
++{
++    Super::BeginPlay();if(!HeQueNetAudit::Enabled()||!IsLocalController())return;
++    FParse::Value(FCommandLine::Get(),TEXT("HeQueAuditLabel="),Label);ServerHello(Label);
++}
++void AHeQueNetAuditController::ServerHello_Implementation(const FString& InLabel)
++{if(HeQueNetAudit::Enabled()){Label=InLabel;UE_LOG(LogTemp,Display,TEXT("HEQUE_NET_HELLO %s"),*Label);}}
++void AHeQueNetAuditController::ServerReport_Implementation(int32 Phase,bool Pass,float Error,bool SawPush)
++{
++    if(!HeQueNetAudit::Enabled())return;
++    ReportedPhase=Phase;Failed|=!Pass;
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_NET_REPORT role=%s phase=%d pass=%d error_cm=%.3f saw_push=%d"),*Label,Phase,Pass,Error,SawPush);
++}
++void AHeQueNetAuditController::Tick(float Dt)
++{
++    Super::Tick(Dt);if(!HeQueNetAudit::Enabled()||!IsLocalController())return;
++    if(const auto* ControlledPawn=Cast<AFPSGAMECharacter>(GetPawn()))
++        bSawPush|=CastChecked<UFPSCharacterMovementComponent>(ControlledPawn->GetCharacterMovement())->HasImpactPush();
++    for(TActorIterator<AHeQueNetAuditProbe> It(GetWorld());It;++It)
++    {
++        const auto* P=*It;if(P->Phase<=SentPhase||P->Progress.RunId.IsEmpty()||!P->Boss)return;
++        const double Now=GetWorld()->GetRealTimeSeconds();
++        if(ObservedPhase!=P->Phase){ObservedPhase=P->Phase;PhaseAt=Now;}
++        Mirror.ApplyNewer(P->Progress,P->Phase==4?TEXT("heque.audit.2"):TEXT("heque.audit.1"));
++        bool Pass=Mirror.RunId==(P->Phase==4?TEXT("heque.audit.2"):TEXT("heque.audit.1"))&&!Mirror.bCompleted;
++        Pass&=Mirror.bFinalBossDefeated==(P->Phase==2||P->Phase==3)&&Mirror.bFinalTreasureLooted==(P->Phase==3);
++        float Error=0.f;
++        if(P->Phase>=2)
++        {
++            const auto* Status=P->Boss->FindComponentByClass<UCombatStatusFormula>();
++            Pass&=Status&&FMath::IsNearlyEqual(Status->MovementMultiplier(),.5f);
++            Error=P->PushedPawn?FVector::Dist2D(P->PushedPawn->GetActorLocation(),P->ExpectedEnd):10000.f;
++            Pass&=Error<3.f&&(Label!=TEXT("early")||bSawPush);
++        }
++        if(Pass||Now-PhaseAt>15.){SentPhase=P->Phase;ServerReport(P->Phase,Pass,Error,bSawPush);}
++        return;
++    }
++}
++AHeQueNetAuditGameMode::AHeQueNetAuditGameMode()
++{
++    PrimaryActorTick.bCanEverTick=true;PlayerControllerClass=AHeQueNetAuditController::StaticClass();
++    DefaultPawnClass=AFPSGAMECharacter::StaticClass();GameStateClass=AGameStateBase::StaticClass();
++}
++void AHeQueNetAuditGameMode::BeginPlay()
++{
++    Super::BeginPlay();if(!HeQueNetAudit::Enabled())return;
++    StartedAt=GetWorld()->GetRealTimeSeconds();
++    Probe=GetWorld()->SpawnActor<AHeQueNetAuditProbe>(FVector(0,0,-50),FRotator::ZeroRotator);
++    Probe->Progress.RunId=TEXT("heque.audit.1");Probe->Progress.Revision=1;
++    UClass* BossClass=LoadClass<AHeQueMonster>(nullptr,TEXT("/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C"));
++    if(!BossClass){HeQueNetAudit::Finish(false,TEXT("missing boss class"));return;}
++    Probe->Boss=GetWorld()->SpawnActor<AHeQueMonster>(BossClass,FVector(3000,3000,228),FRotator::ZeroRotator);
++    if(!Probe->Boss){HeQueNetAudit::Finish(false,TEXT("boss spawn failed"));return;}
++    if(auto* AI=Cast<AMonsterAIController>(Probe->Boss->GetController()))AI->SetDecisionEnabled(false);
++    UE_LOG(LogTemp,Display,TEXT("HEQUE_NET_HOST_READY"));
++}
++void AHeQueNetAuditGameMode::Tick(float Dt)
++{
++    Super::Tick(Dt);if(!HeQueNetAudit::Enabled()||Done||!Probe)return;
++    const double Now=GetWorld()->GetRealTimeSeconds();
++    AHeQueNetAuditController* Host=nullptr;AHeQueNetAuditController* Early=nullptr;AHeQueNetAuditController* Late=nullptr;
++    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(auto* PC=Cast<AHeQueNetAuditController>(It->Get()))
++        {
++            if(PC->Failed){Done=true;HeQueNetAudit::Finish(false,TEXT("client assertion failed"));return;}
++            if(PC->Label==TEXT("host"))Host=PC;else if(PC->Label==TEXT("early"))Early=PC;else if(PC->Label==TEXT("late"))Late=PC;
++        }
++    if(Now-StartedAt>300.){Done=true;HeQueNetAudit::Finish(false,TEXT("peer timeout"));return;}
++    if(!Host||!Early)return;
++    if(PushAt<0.&&Host->ReportedPhase==1&&Early->ReportedPhase==1)
++    {
++        Probe->PushedPawn=Cast<AFPSGAMECharacter>(Early->GetPawn());if(!Probe->PushedPawn)return;
++        Probe->PushedPawn->SetActorLocation(FVector(0,1500,98),false,nullptr,ETeleportType::TeleportPhysics);
++        // Let the relocation settle before the displacement probe.
++        PushAt=Now;Probe->ForceNetUpdate();
++    }
++    if(Probe->Phase==1&&PushAt>=0.&&Now-PushAt>1.)
++    {
++        auto* Move=CastChecked<UFPSCharacterMovementComponent>(Probe->PushedPawn->GetCharacterMovement());
++        UCombatStatusFormula::GetOrAdd(Probe->Boss)->AddSlow(180.f,.5f);
++        Probe->ExpectedEnd=Probe->PushedPawn->GetActorLocation()+FVector(1000,0,0);Move->ApplyImpactPush(FVector::ForwardVector,1000.f);
++        Probe->Phase=2;Probe->Progress.bFinalBossDefeated=true;++Probe->Progress.Revision;Probe->ForceNetUpdate();
++    }
++    if(Probe->Phase==2&&Host->ReportedPhase==2&&Early->ReportedPhase==2)
++    {
++        Probe->Phase=3;Probe->Progress.bFinalTreasureLooted=true;++Probe->Progress.Revision;Probe->ForceNetUpdate();
++        UE_LOG(LogTemp,Display,TEXT("HEQUE_NET_LATE_READY"));
++    }
++    if(Probe->Phase==3&&Late&&Host->ReportedPhase==3&&Early->ReportedPhase==3&&Late->ReportedPhase==3)
++    {Probe->Phase=4;Probe->Progress={};Probe->Progress.RunId=TEXT("heque.audit.2");Probe->Progress.Revision=1;Probe->ForceNetUpdate();}
++    if(Probe->Phase==4&&Late&&Host->ReportedPhase==4&&Early->ReportedPhase==4&&Late->ReportedPhase==4)
++    {Done=true;HeQueNetAudit::Finish(true,TEXT("host early and late peers completed all phases"));}
++}
+diff --git a/Source/FPSGAME/Monsters/HeQueNetAudit.h b/Source/FPSGAME/Monsters/HeQueNetAudit.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HeQueNetAudit.h
+@@ -0,0 +1,54 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/GameModeBase.h"
++#include "GameFramework/PlayerController.h"
++#include "../Dungeons/DungeonSharedProgress.h"
++#include "HeQueNetAudit.generated.h"
++class AHeQueMonster;
++class ACharacter;
++
++/** Opt-in real socket fixture. Normal dungeon maps never select this game mode. */
++UCLASS()
++class AHeQueNetAuditProbe : public AActor
++{
++    GENERATED_BODY()
++public:
++    AHeQueNetAuditProbe();
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
++    UPROPERTY(Replicated) FDungeonSharedProgress Progress;
++    UPROPERTY(Replicated) int32 Phase=1;
++    UPROPERTY(Replicated) TObjectPtr<AHeQueMonster> Boss;
++    UPROPERTY(Replicated) TObjectPtr<ACharacter> PushedPawn;
++    UPROPERTY(Replicated) FVector ExpectedEnd=FVector::ZeroVector;
++};
++UCLASS()
++class AHeQueNetAuditController : public APlayerController
++{
++    GENERATED_BODY()
++public:
++    virtual void BeginPlay() override;
++    virtual void Tick(float Dt) override;
++    UFUNCTION(Server,Reliable) void ServerHello(const FString& InLabel);
++    UFUNCTION(Server,Reliable) void ServerReport(int32 Phase,bool Pass,float Error,bool SawPush);
++    FString Label;
++    int32 ReportedPhase=0;
++    bool Failed=false;
++private:
++    FDungeonSharedProgress Mirror;
++    int32 SentPhase=0,ObservedPhase=0;
++    double PhaseAt=0.;
++    bool bSawPush=false;
++};
++UCLASS()
++class AHeQueNetAuditGameMode : public AGameModeBase
++{
++    GENERATED_BODY()
++public:
++    AHeQueNetAuditGameMode();
++    virtual void BeginPlay() override;
++    virtual void Tick(float Dt) override;
++private:
++    UPROPERTY() TObjectPtr<AHeQueNetAuditProbe> Probe;
++    double StartedAt=0.,PushAt=-1.;
++    bool Done=false;
++};
+diff --git a/Source/FPSGAME/Monsters/HeQueAuditCommandlet.cpp b/Source/FPSGAME/Monsters/HeQueAuditCommandlet.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HeQueAuditCommandlet.cpp
+@@ -0,0 +1,125 @@
++#include "HeQueAuditCommandlet.h"
++#include "HeQueMonster.h"
++#include "M14SoftBodyDeath.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "../Dungeons/FacilityHallEncounter.h"
++#include "../Multiplayer/FPSStatusReplicationComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Components/BoxComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/World.h"
++#include "Engine/SkeletalMesh.h"
++#include "PhysicsEngine/BodyInstance.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#include "UObject/UnrealType.h"
++
++AHeQueAuditPawn::AHeQueAuditPawn(const FObjectInitializer& Init)
++    :Super(Init.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
++{bReplicates=true;GetCharacterMovement()->bRunPhysicsWithNoController=true;}
++
++int32 UHeQueAuditCommandlet::Main(const FString&)
++{
++    int32 Checks=0,Failures=0;
++    auto Check=[&](bool Pass,const FString& Case)
++    {++Checks;if(!Pass){++Failures;UE_LOG(LogTemp,Error,TEXT("[HeQueAudit] FAIL %s"),*Case);}};
++    const FString BossPath=AFacilityHallEncounter::FinalBossClassPaths()[0];
++    UClass* BossClass=LoadClass<AHeQueMonster>(nullptr,*BossPath);
++    Check(BossClass!=nullptr,TEXT("final room resolves the saved HeQue class"));
++    if(!BossClass)return 1;
++    const auto* Boss=BossClass->GetDefaultObject<AHeQueMonster>();
++    Check(Boss->FindComponentByClass<UFPSStatusReplicationComponent>()!=nullptr,TEXT("saved HeQue class inherits replicated combat status"));
++    for(const TCHAR* Name:{TEXT("Health"),TEXT("MaxHealth"),TEXT("Sweep"),TEXT("Clamp"),TEXT("Rift"),TEXT("Psychic"),TEXT("JumpSlam"),TEXT("Reaction")})
++    {
++        const auto* Property=FindFProperty<FProperty>(BossClass,Name);
++        Check(Property&&Property->HasAnyPropertyFlags(CPF_Net),FString(TEXT("replicated boss field: "))+Name);
++    }
++    for(const TCHAR* Name:{TEXT("VisualMesh"),TEXT("HitSurfacePhysics"),TEXT("IdleClip"),TEXT("MoveClip"),
++        TEXT("TurnLeftClip"),TEXT("TurnRightClip"),TEXT("SweepClip"),TEXT("ClampClip"),TEXT("RiftClip"),TEXT("PsychicClip"),
++        TEXT("JumpChargeClip"),TEXT("JumpAirClip"),TEXT("JumpDiveClip"),TEXT("JumpRecoverClip"),TEXT("AirClip"),TEXT("LandClip"),TEXT("GetUpClip"),TEXT("StunClip"),TEXT("DeathClip"),
++        TEXT("PressureMesh"),TEXT("PressureMaterial"),TEXT("PsychicWaveMesh"),TEXT("PsychicWaveMaterial"),TEXT("PsychicFearViewMaterial"),
++        TEXT("JumpWaveMesh"),TEXT("JumpWaveMaterial"),TEXT("JumpImpactMesh"),TEXT("JumpImpactMaterial"),TEXT("SweepSound"),TEXT("ClampSound"),TEXT("PsychicFearSound")})
++    {
++        const auto* Property=FindFProperty<FObjectPropertyBase>(BossClass,Name);
++        Check(Property&&Property->GetObjectPropertyValue_InContainer(Boss)!=nullptr,FString(TEXT("saved asset: "))+Name);
++    }
++    Check(Boss->HitClips.Num()==4&&!Boss->HitClips.Contains(nullptr),TEXT("four directional hit clips"));
++    Check(!Boss->SweepFrames.IsEmpty()&&!Boss->ClampFrames.IsEmpty(),TEXT("authored kick and clamp contact samples"));
++    Check(FMath::IsNearlyEqual(Boss->JumpHeight,210.f),TEXT("saved jump height is 210cm"));
++    Check(FMath::IsNearlyEqual(Boss->SweepPushDistance,1000.f),TEXT("saved kick distance is 10m"));
++    Check(FMath::IsNearlyEqual(Boss->RiftRange,4800.f),TEXT("saved air cannon range is 48m"));
++    Check(FMath::IsNearlyEqual(Boss->PsychicCooldown,30.f),TEXT("saved psychic cooldown is 30s"));
++    Check(FMath::IsNearlyEqual(Boss->TurnSpeed,120.f),TEXT("saved turn rate is 120 degrees/s"));
++    Check(Boss->HitSurfacePhysics&&Boss->HitSurfacePhysics->SkeletalBodySetups.ContainsByPredicate(
++        [](const USkeletalBodySetup* Body){return Body&&Body->BoneName==TEXT("HQ_CoreSwing");}),TEXT("heart has an actual hit body"));
++    const auto* Binding=Boss->VisualMesh?Cast<UMonsterSoftCorpseBinding>(Boss->VisualMesh->GetAssetUserDataOfClass(UMonsterSoftCorpseBinding::StaticClass())):nullptr;
++    Check(Binding&&Binding->Data,TEXT("saved mesh retains its continuous soft-corpse binding"));
++
++    const auto Settings=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(true)
++        .RequiresHitProxies(false).CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    UWorld* World=UWorld::CreateWorld(EWorldType::Game,false,TEXT("HeQueAudit"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    if(!World)return 2;
++    auto Box=[World](FVector Center,FVector Extent)
++    {
++        auto* Actor=World->SpawnActor<AActor>();
++        auto* Shape=NewObject<UBoxComponent>(Actor);Actor->SetRootComponent(Shape);Actor->AddInstanceComponent(Shape);
++        Shape->SetBoxExtent(Extent);Shape->SetCollisionProfileName(TEXT("BlockAll"));Shape->RegisterComponent();
++        Actor->SetActorLocation(Center);return Actor;
++    };
++    Box(FVector(0,0,-50),FVector(3000,3000,50));
++    auto ExercisePush=[&](float Dt,bool Wall)
++    {
++        AActor* Obstacle=Wall?Box(FVector(500,0,200),FVector(25,2000,200)):nullptr;
++        FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++        auto* Pawn=World->SpawnActor<AHeQueAuditPawn>(FVector(0,0,98),FRotator::ZeroRotator,Spawn);
++        auto* Move=CastChecked<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
++        Move->SetMovementMode(MOVE_Walking);
++        const FVector Start=Pawn->GetActorLocation();
++        Move->ApplyImpactPush(Wall?FVector(1,.3,0):FVector::ForwardVector,1000.f);
++        for(float Time=0;Time<.4f;Time+=Dt)Move->PerformMovement(Dt);
++        const FVector End=Pawn->GetActorLocation();
++        const float Distance=FVector::Dist2D(Start,End);
++        UE_LOG(LogTemp,Display,TEXT("[HeQueAudit] push dt=%.5f wall=%d distance=%.3f end=%s"),Dt,Wall,Distance,*End.ToCompactString());
++        Check(Wall?(End.X<=475.f-Pawn->GetCapsuleComponent()->GetScaledCapsuleRadius()+1.f&&Distance>100.f):FMath::Abs(Distance-1000.f)<2.f,
++            FString::Printf(TEXT("%s push at dt %.5f"),Wall?TEXT("wall-limited"):TEXT("10m"),Dt));
++        for(int32 I=0;I<15;++I)Move->PerformMovement(Dt);
++        Check(!Move->HasImpactPush()&&FVector::DistSquared2D(End,Pawn->GetActorLocation())<1.f,TEXT("push ends without residual drift"));
++        Pawn->Destroy();if(Obstacle)Obstacle->Destroy();
++    };
++    for(float Dt:{1.f/30.f,1.f/60.f,1.f/120.f}){ExercisePush(Dt,false);ExercisePush(Dt,true);}
++
++    auto* Target=World->SpawnActor<AHeQueMonster>(BossClass,FVector(0,1500,300),FRotator::ZeroRotator);
++    if(!Target){World->DestroyWorld(false);return 2;}
++    FHitResult Forged;Forged.HitObjectHandle=FActorInstanceHandle(Target);Forged.BoneName=TEXT("HQ_CoreSwing");
++    Check(!Target->IsWeakpointHit(Forged),TEXT("a bone name without the real hit component is not a weakpoint"));
++    Forged.Component=Target->GetMesh();
++    Target->ResolveRemoteHit(FVector(0,-2000,2000),FVector(100,-2000,2000),Forged);
++    Check(!Target->IsWeakpointHit(Forged),TEXT("unverified remote heart claim is downgraded to body"));
++    auto* Mesh=Target->GetMesh();
++    Mesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);Mesh->PlayAnimation(Target->IdleClip,false);
++    Mesh->SetPosition(.2f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
++    Mesh->UpdateKinematicBonesToAnim(Mesh->GetComponentSpaceTransforms(),ETeleportType::TeleportPhysics,false,EAllowKinematicDeferral::DisallowDeferral);
++    bool HeartVerified=false,BodyRejected=false;
++    for(const USkeletalBodySetup* Setup:Target->HitSurfacePhysics->SkeletalBodySetups)
++    {
++        auto* Body=Mesh->GetBodyInstance(Setup->BoneName);if(!Body)continue;
++        const FVector Center=Body->GetBodyBounds().GetCenter();
++        for(const FVector Direction:{FVector::ForwardVector,-FVector::ForwardVector,FVector::RightVector,-FVector::RightVector})
++        {
++            const FVector Start=Center+Direction*800.f;
++            FHitResult Contact;FCollisionQueryParams Query(SCENE_QUERY_STAT(HeQueAuditHeart),true);
++            if(!Mesh->LineTraceComponent(Contact,Start,Center,Query))continue;
++            const bool Heart=Target->IsWeakpointHit(Contact);
++            const FVector Point=Contact.ImpactPoint;Contact.BoneName=TEXT("HQ_CoreSwing");
++            Target->ResolveRemoteHit(Start,Point,Contact);
++            if(Heart)HeartVerified|=Target->IsWeakpointHit(Contact);
++            else BodyRejected|=!Target->IsWeakpointHit(Contact);
++        }
++    }
++    Check(HeartVerified,TEXT("real exposed heart contact remains a server-verified weakpoint"));
++    Check(BodyRejected,TEXT("real body contact cannot claim the heart bone remotely"));
++    World->DestroyWorld(false);
++    UE_LOG(LogTemp,Display,TEXT("[HeQueAudit] checks=%d failures=%d (offline physics and assets; not a network session)"),Checks,Failures);
++    return Failures?1:0;
++}
+diff --git a/Source/FPSGAME/Monsters/HeQueAuditCommandlet.h b/Source/FPSGAME/Monsters/HeQueAuditCommandlet.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Monsters/HeQueAuditCommandlet.h
+@@ -0,0 +1,21 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "GameFramework/Character.h"
++#include "HeQueAuditCommandlet.generated.h"
++
++/** Minimal transient physics fixture: no player profile, map, UI or BeginPlay. */
++UCLASS(NotBlueprintable,Transient)
++class AHeQueAuditPawn : public ACharacter
++{
++    GENERATED_BODY()
++public:
++    AHeQueAuditPawn(const FObjectInitializer& Init=FObjectInitializer::Get());
++};
++
++UCLASS()
++class UHeQueAuditCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

@@ -1,0 +1,10 @@
+float radius=saturate(UV.y);
+float theta=UV.x*6.2831853;
+float outer=exp(-pow((radius-.92)/.037,2));
+float inner=exp(-pow((radius-.70)/.062,2));
+float ridges=.5+.5*sin(theta*22+radius*83-Phase*28);
+float feather=saturate((1-radius)/.035);
+float body=.10*sqrt(saturate(1-radius))+.065*ridges*radius;
+float opacity=saturate((body+.82*outer+.36*inner)*Alpha)*feather;
+float3 color=float3(.60,.80,.88)*(.65+2.8*outer+1.25*inner);
+return float4(color,opacity);

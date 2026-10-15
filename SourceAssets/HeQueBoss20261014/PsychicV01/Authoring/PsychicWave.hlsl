@@ -1,0 +1,11 @@
+float longitude=UV.x*6.2831853;
+float latitude=UV.y*3.1415927;
+float wrinkle=sin(longitude*9+sin(latitude*13+Phase*8)*1.2);
+float ridge=pow(saturate(1-abs(wrinkle)),9);
+float bands=pow(saturate(.5+.5*cos(latitude*18+sin(longitude*5)*.7-Phase*9)),18);
+float edge=pow(saturate(Rim),1.4);
+float opacity=saturate((.055+.48*edge+.30*ridge+.21*bands)*Alpha);
+float3 violet=float3(.28,.16,.46);
+float3 pale=float3(1.55,1.35,1.95);
+float3 color=violet*(.75+.6*ridge)+pale*(edge*.8+bands*.65+ridge*.30);
+return float4(color,opacity);

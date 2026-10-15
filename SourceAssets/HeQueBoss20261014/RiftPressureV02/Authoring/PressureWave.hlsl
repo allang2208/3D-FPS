@@ -1,0 +1,11 @@
+float r=saturate(UV.y),theta=UV.x*6.2831853;
+float eddy=.5+.5*sin(theta*7+r*22-Phase*16+sin(theta*3+Phase*9));
+float folds=pow(.5+.5*sin(r*55-theta*4-Phase*24+eddy*2),4);
+float rim=exp(-pow((r-.86)/.09,2))*(.72+.28*eddy);
+float inner=exp(-pow((r-.55)/.18,2))*(.35+.65*folds);
+float edge=1-smoothstep(.94,1,r);
+float opacity=(.26+.38*rim+.18*inner+.10*folds*(1-r))*edge*Alpha;
+float dark=exp(-pow((r-.72)/.055,2))*(.5+.5*eddy);
+float3 color=lerp(float3(.57,.59,.60),float3(1.65,1.70,1.72),saturate(rim+.45*inner));
+color=lerp(color,float3(.12,.14,.15),dark*.72);
+return float4(color,saturate(opacity));

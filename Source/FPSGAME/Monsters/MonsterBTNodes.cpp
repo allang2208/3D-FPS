@@ -2,6 +2,7 @@
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
+#include "HeQueMonster.h"
 #include "MantisM27Monster.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
@@ -80,6 +81,23 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   const FVector Feet=AI->GetPawn()->GetNavAgentLocation();
   const bool SameLevel=FMath::Abs(Dest.Z-Feet.Z)<=50.f;
   const float Stop=Returning?55.f:(B->GetValueAsBool(TEXT("Visible"))&&SameLevel?C->StopRange():40.f);
+  if(auto* HeQue=Cast<AHeQueMonster>(AI->GetPawn());HeQue&&!Returning&&B->GetValueAsBool(TEXT("Visible")))
+  {
+   APawn* Victim=HeQue->PreferredCombatTarget(Cast<APawn>(B->GetValueAsObject(TEXT("Target"))));
+   if(IsValid(Victim))
+   {
+    // A wide-agent NavMesh projection can be far from the actual player.
+    // Use the live target for melee entry/holding; the projected path only
+    // supplies travel, with a small end tolerance instead of the melee radius.
+    if(C->TryAttack(Victim))
+    {AI->ActiveAction=HeQue->IsJumpSlamming()?TEXT("HeQue: jump slam"):HeQue->IsPsychic()?TEXT("HeQue: psychic lament"):HeQue->IsRifting()?TEXT("HeQue: rift pressure"):HeQue->IsClamping()?TEXT("HeQue: heavy clamp"):TEXT("HeQue: kick");FinishLatentTask(Owner,EBTNodeResult::Succeeded);return;}
+    if(FMath::Abs(Victim->GetNavAgentLocation().Z-Feet.Z)<=50.f&&HeQue->GetHorizontalDistanceTo(Victim)<=HeQue->StoppingDistance)
+    {AI->StopMovement();C->SetLocomotion(false);}
+    else {C->SetLocomotion(true);AI->NavigateTo(Victim->GetNavAgentLocation(),40.f);}
+    if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
+    return;
+   }
+  }
   auto* M10=Cast<AM10Mawcrawler>(AI->GetPawn());
   auto* M10Victim=Cast<APawn>(B->GetValueAsObject(TEXT("Target")));
   if(M10&&!Returning&&B->GetValueAsBool(TEXT("Visible"))&&M10->PrefersRearAttack(M10Victim))

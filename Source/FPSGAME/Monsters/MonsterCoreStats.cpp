@@ -1,4 +1,5 @@
 #include "MonsterCoreStats.h"
+#include "HeQueMonster.h"
 #include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
 #include "BoundCongregate.h"
@@ -53,7 +54,8 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     FMonsterCoreStats S;bool bKnown=false;
     auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
     {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
-    if(const auto* M66=Cast<AM66IncineratorMonster>(Target))Fill(45,35,25,10.,M66->Level,M66->Rank,EMonsterToughnessClass::Colossal);
+    if(const auto* HeQue=Cast<AHeQueMonster>(Target))Fill(45,35,25,10.,HeQue->Level,HeQue->Rank,EMonsterToughnessClass::Colossal);
+    else if(const auto* M66=Cast<AM66IncineratorMonster>(Target))Fill(45,35,25,10.,M66->Level,M66->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* Crown=Cast<ARootCrownRigPreview>(Target))Fill(45,30,25,10.,Crown->Level,Crown->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* BC=Cast<ABoundCongregate>(Target))Fill(BC->PhysicalDefense,BC->MagicDefense,25,10.,BC->Level,BC->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* M25=Cast<AVortexCofferM25>(Target))Fill(M25->PhysicalDefense,M25->MagicalDefense,18,9.0,M25->Level,M25->Rank,EMonsterToughnessClass::Caster);

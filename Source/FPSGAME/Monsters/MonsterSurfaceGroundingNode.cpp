@@ -1,4 +1,5 @@
 #include "MonsterSurfaceGroundingNode.h"
+#include "HeQueMonster.h"
 #include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
 #include "MonsterGroundSupport.h"
@@ -25,7 +26,7 @@ void FMonsterSurfaceGroundingNode::Configure(const ACharacter* Owner)
     if (Owner->IsA<ARootCrownRigPreview>()) Rig=ERig::Tripod;
     else if (Owner->IsA<AVortexCofferM25>()) Rig=ERig::Tendrils;
     else if (Owner->IsA<ASpiralPillarM14>()) Rig=ERig::RootFan;
-    else if (Owner->IsA<AM66IncineratorMonster>() || Owner->IsA<ABlindSupplicantMonster>() || Owner->IsA<AMantisM27Monster>() ||
+    else if (Owner->IsA<AHeQueMonster>() || Owner->IsA<AM66IncineratorMonster>() || Owner->IsA<ABlindSupplicantMonster>() || Owner->IsA<AMantisM27Monster>() ||
         Owner->ActorHasTag(TEXT("FacelessReceptionist")) || Owner->ActorHasTag(TEXT("FacelessSecurity")) ||
         Owner->ActorHasTag(TEXT("FacelessResearcher"))) Rig=ERig::Biped;
     else return;
@@ -45,6 +46,13 @@ void FMonsterSurfaceGroundingNode::Configure(const ACharacter* Owner)
         }
         else if (Rig==ERig::Biped)
         {
+            if(Owner->IsA<AHeQueMonster>())
+            {
+                static const TCHAR* Names[2][3]={{TEXT("Bone_008"),TEXT("Bone_007"),TEXT("Bone_006")},
+                    {TEXT("Bone_015"),TEXT("Bone_014"),TEXT("Bone_013")}};
+                L.Upper.BoneName=Names[I][0];L.Lower.BoneName=Names[I][1];L.Foot.BoneName=Names[I][2];
+                continue;
+            }
             if(Owner->IsA<AM66IncineratorMonster>())
             {
                 static const TCHAR* Names[2][3]={{TEXT("Bone_012"),TEXT("Bone_011"),TEXT("Bone_010")},
@@ -155,6 +163,9 @@ void FMonsterSurfaceGroundingNode::Prepare(const ACharacter* Owner, float DeltaS
     const auto* Mesh=Owner->GetMesh();
     const auto* Move=Owner->GetCharacterMovement();
     if (!Move || !Move->IsMovingOnGround() || Mesh->IsSimulatingPhysics()) return;
+    // HeQue's melee clips author their support feet and inward knee motion.
+    // Generic IK would straighten the clamp and desync its baked body contacts.
+    if(const auto* HeQue=Cast<AHeQueMonster>(Owner);HeQue&&(HeQue->Dead()||HeQue->IsKnockedDown()||HeQue->IsSweeping()||HeQue->IsClamping()||HeQue->IsJumpSlamming()))return;
     if(const auto* M66=Cast<AM66IncineratorMonster>(Owner))
     {
         if(M66->Dead())return;

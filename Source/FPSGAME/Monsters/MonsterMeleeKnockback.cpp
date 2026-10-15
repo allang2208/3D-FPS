@@ -1,3 +1,4 @@
+#include "HeQueMonster.h"
 #include "MonsterCombatComponent.h"
 #include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
@@ -57,6 +58,8 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     // Explicit skill stun, independent of toughness stagger and its duration.
     if(!GetOwner()->HasAuthority()||IsDead())return;
     if(Seconds<=0.f){ReceiveMeleeKnockback(Attacker,KnockbackCM);return;}
+    if(auto* HeQue=Cast<AHeQueMonster>(GetOwner());HeQue&&HeQue->IsKnockedDown())
+    {RegisterExplicitStun(Seconds);HeQue->ExtendControl(Seconds);return;}
     if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner());M66&&M66->IsKnockedDown())
     {RegisterExplicitStun(Seconds);M66->ExtendControl(Seconds);return;}
     if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner());Crown&&Crown->IsKnockedDown())
@@ -75,7 +78,8 @@ void UMonsterCombatComponent::ReceiveStun(APawn* Attacker,float Seconds,float Kn
     Seconds=FMath::Max(StunSecondsRemaining(),Remaining);
     bParryReaction=false;
     if(!UsesToughnessBar()){Toughness=0.f;SinceHit=0.f;PublishToughnessState();}
-    if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))M66->InterruptAttack(Seconds);
+    if(auto* HeQue=Cast<AHeQueMonster>(GetOwner()))HeQue->InterruptAttack(Seconds);
+    else if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))M66->InterruptAttack(Seconds);
     else if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Crown->InterruptAttack(Seconds);
     else if(auto* M25=Cast<AVortexCofferM25>(GetOwner()))M25->InterruptAttack(Seconds);
     else if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))M14->InterruptAttack(Seconds);
@@ -126,7 +130,8 @@ bool UMonsterCombatComponent::ReceiveForcedLaunch(APawn* Attacker,FVector Launch
     if(!CanReceiveLaunchOrKnockdown())return false;
     const float Hold=FMath::Max(ControlSeconds,StunSecondsRemaining());
     bool Launched=false;
-    if(auto* M66=Cast<AM66IncineratorMonster>(Pawn))Launched=M66->StartLaunch(Attacker,LaunchVelocity,Hold);
+    if(auto* HeQue=Cast<AHeQueMonster>(Pawn))Launched=HeQue->StartLaunch(Attacker,LaunchVelocity,Hold);
+    else if(auto* M66=Cast<AM66IncineratorMonster>(Pawn))Launched=M66->StartLaunch(Attacker,LaunchVelocity,Hold);
     else if(auto* Crown=Cast<ARootCrownRigPreview>(Pawn))Launched=Crown->StartLaunch(Attacker,LaunchVelocity,Hold);
     else if(auto* F=Cast<AFleshHandMonster>(Pawn))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,Hold,true);
     else if(auto* N=Cast<ANurseZombie>(Pawn))Launched=N->Knockdown&&N->Knockdown->Launch(Attacker,LaunchVelocity,Hold,true);
@@ -186,7 +191,8 @@ bool UMonsterCombatComponent::ReceiveKnockdown(APawn* Attacker,FVector LaunchVel
     if(auto* M14=Cast<ASpiralPillarM14>(GetOwner())){M14->InterruptAttack(FMath::Max(.7f,DownSeconds));return true;}
     if(auto* M09=Cast<AHangingBellM09>(GetOwner())){M09->InterruptAttack(FMath::Max(.7f,DownSeconds));return true;}
     bool Launched=false;
-    if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))Launched=M66->StartLaunch(Attacker,LaunchVelocity,DownSeconds);
+    if(auto* HeQue=Cast<AHeQueMonster>(GetOwner()))Launched=HeQue->StartLaunch(Attacker,LaunchVelocity,DownSeconds);
+    else if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))Launched=M66->StartLaunch(Attacker,LaunchVelocity,DownSeconds);
     else if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))Launched=Crown->StartLaunch(Attacker,LaunchVelocity,DownSeconds);
     else if(auto* F=Cast<AFleshHandMonster>(GetOwner()))Launched=F->Knockdown&&F->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);
     else if(auto* N=Cast<ANurseZombie>(GetOwner()))Launched=N->Knockdown&&N->Knockdown->Launch(Attacker,LaunchVelocity,DownSeconds);

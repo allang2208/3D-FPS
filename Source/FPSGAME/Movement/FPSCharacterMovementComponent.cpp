@@ -164,7 +164,10 @@ void UFPSCharacterMovementComponent::PerformMovement(float DeltaSeconds)
     // Slide decay belongs to the movement timestamp, including server packets
     // and prediction replay. Actor Tick runs at a different cadence on each peer.
     if(auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);Player&&Player->IsSliding())Player->UpdateSlide(DeltaSeconds);
+    bExecutingImpactPush=HasImpactPush();
     Super::PerformMovement(DeltaSeconds);
+    if(bExecutingImpactPush&&!HasImpactPush())Velocity.X=Velocity.Y=0.f;
+    bExecutingImpactPush=false;
 }
 
 bool UFPSCharacterMovementComponent::DoJump(bool bReplayingMoves, float DeltaTime)
@@ -219,6 +222,7 @@ float UFPSCharacterMovementComponent::GetMaxSpeed() const
 bool UFPSCharacterMovementComponent::StepUp(const FVector& GravDir, const FVector& Delta,
     const FHitResult& Hit, FStepDownResult* OutStepDownResult)
 {
+    if(bExecutingImpactPush&&!IsWalkable(Hit))return false;
     const FVector Before = UpdatedComponent->GetComponentLocation();
     // Keep the engine's capsule sweeps, headroom, walkable floor, perching and rollback rules.
     const bool bStepped = Super::StepUp(GravDir, Delta, Hit, OutStepDownResult);

@@ -4171,3 +4171,11 @@ __pycache__/
 !/SourceAssets/IncinerationCollectibles20261015/VisualRefineV2/Scripts/*.ps1
 /SourceAssets/IncinerationEncounter20261015/**
 !/SourceAssets/IncinerationEncounter20261015/README.md
+
+# HeQue: publish original code/shaders only; user model, dense rig/pose data,
+# imported assets, backups, captures, saves and receipts remain on this host.
+/SourceAssets/HeQueBoss20261014/**
+!/SourceAssets/HeQueBoss20261014/**/
+!/SourceAssets/HeQueBoss20261014/**/*.hlsl
+/SourceAssets/HeQueBoss20261014/**/Before/
+/SourceAssets/HeQueBoss20261014/**/Records/

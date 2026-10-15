@@ -1,0 +1,12 @@
+float2 p=float2(frac(UV.x+Phase*.035),.15+UV.y*.70);
+float3 flow=Texture2DSample(FlowTex,FlowTexSampler,p).rgb;
+float3 fine=Texture2DSample(FlowTex,FlowTexSampler,float2(frac(p.x+flow.b*.028),saturate(p.y+(flow.r-.5)*.05))).rgb;
+float profile=pow(saturate(sin(UV.y*3.14159265)),.9);
+float front=exp(-pow((UV.y-.79)/.095,2));
+float rubble=smoothstep(.25,.72,fine.r);
+float erode=smoothstep(.52,1.10,Phase);
+float fragments=smoothstep(erode*.55,erode*.55+.3,fine.r);
+float opacity=profile*(.22+.40*rubble+.22*front)*fragments*Alpha*smoothstep(0,.035,Phase);
+float3 dust=lerp(float3(.24,.21,.18),float3(.65,.58,.47),fine.r);
+float3 color=dust+float3(.65,.60,.49)*front*(1-saturate(Phase)*.45);
+return float4(color,saturate(opacity));

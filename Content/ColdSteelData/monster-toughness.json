@@ -30,6 +30,7 @@
     "mawcrawler_m10":       { "elite": 800, "lord": 1000, "boss": 1000 },
     "spiral_pillar_m14":    { "elite": 600, "lord": 800,  "boss": 1000 },
     "vortex_coffer_m25":    { "elite": 200, "lord": 400,  "boss": 600 },
-    "mantis_m27":           { "elite": 200, "lord": 400,  "boss": 600 }
+    "mantis_m27":           { "elite": 200, "lord": 400,  "boss": 600 },
+    "heque":                { "elite": 200, "lord": 600,  "boss": 1000 }
   }
 }

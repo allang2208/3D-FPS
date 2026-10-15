@@ -16,3 +16,5 @@ description: 制作与接入 UE5 怪物，支持 Meshy 已蒙皮绑骨的人形�
 根冠的原生动画图、攻击时钟、地雷命中和混合版本恢复读 [根冠接入经验](references/root-crown-native-animation.md)；园艺师实体服装见 [无面职员衣物](references/faceless-staff-clothing.md)。
 
 M66 焚骸的不对称绑定、侧倒/起身地形支撑、缩放根骨和权威尸体交接，读 [M66 焚骸](references/m66-incinerator-boss.md)。V23 已编入原生模块，但最后的画面/主客机复查中断并由用户叫停，不能引用早期通过结果替代新修正验收。
+
+异形承重招式、链条连续软体、原生击退与悬心弱点，读 [合阙制作与控制合同](references/heque-weighty-combat.md)；与 [最终 Boss 遭遇](references/dungeon-boss-encounter.md) 配合，区分击杀、搜刮和撤离。

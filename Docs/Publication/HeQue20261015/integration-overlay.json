@@ -1,0 +1,152 @@
+[
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonBossEncounter.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "1587725196e02ce58216511886ee3b236f913351ae23a68381245d473d82879b",
+    "after_sha256": "fa74ee7351f70325521d59a9bf70bb798626cc4563af0e29ce74f3957f49e033"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonBossEncounter.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "90bcdaf9bc89a47e7c5b8d7990404c1a7ea6a2252dca44e6d1f1fefbbbd4095e",
+    "after_sha256": "6b8dfe53abd4971cc6cfb7be5f68c61edc9d1bb840df16f9179f5c0a70297dda"
+  },
+  {
+    "path": "Source/FPSGAME/SceneTestPortal.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "b5158f532600c3260884bcf08aaca49ff4f8655ae7fed4192511858f2cd3b79d",
+    "after_sha256": "7c862e8270c77b876629b3c69e176de3b69da4ed79f17f82bd65366fd20f844a"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "f21c7d8eb068f73dc94957532f0f7413167ac4947a2a1ad9483a22c29ace55d4",
+    "after_sha256": "5c12a69163254804f781adaf6cedc8d6ca8b14165783e4dddc137e1c7e7d739a"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "d6ff35afccf83b8f5f176fc9fc61f0eb57d1b082c8c3d8ea627448eb8c28107e",
+    "after_sha256": "3bcb854d592bbd906836dcc011e765832adc1a4357a60738ab44d10481cc5a4a"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "c93f373c72c6bb03a4552a0318cd774470e3767c3401cb2eaf70ac5a70187519",
+    "after_sha256": "2c17f4955cc19f8becf74b2a5e2bd69602a513ca2a7057bb84e714d6d349ab85"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "7850ce9beb0dfa1e4d5f6752d28398539b27201bf3c4dfb8caa17351ee1e13a8",
+    "after_sha256": "d00804015f3f248a0a9621af0bffa281d7875e0b3dd4fa3dd00bbb6a07f7a5fb"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "0904eb68f8a8e1bdbdda5851d8b3e4d601edb4643abef8092dd119146d467681",
+    "after_sha256": "b82a89874c29df90ea85995dd842b87d57f977de569fe088e7c8b1c5c8f7eaf1"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "9169e0f606225d09df9cf163252b2be9c2853229d6134e248174f2091ac6c9a0",
+    "after_sha256": "1bae1d9310bf06986627b99b2215d0cd229c8cb7bb458ec54a305d456ecf4e50"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "15c830cc36e8c78a5e535c0402f5517a25c2457cc725c78a650ce930b652d833",
+    "after_sha256": "3c76418d96d2d8c9a8ec7d9c7d36ba4f182fcbf5500dd395ea17cc9cf0e46852"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "70515cdb24309a41af449c331091f54df3b50a72c8f6b1f988977fd8a1fd4e9c",
+    "after_sha256": "0dae48f21db4f3a7b4fe65dc42398043d277b1d083690c8b2ce41384d9e8599f"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "e828edd7489ecc7010967c1ff8acd1352c482d8e93b4e9264b12ebfc2065a4c8",
+    "after_sha256": "ca1020164eb3d48b50973204da69d90138f7d73a564ea80a91082e7b491a20b0"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "04ed0e80b825b8292dd6aa0612060468777eb450b7c8db3f1fe5dc1f40824074",
+    "after_sha256": "8e4fb4f3fa387ab212ec692c87af857ab94730b1d7370ae3f0ecea31a88755fd"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "92accfb4e5de57c9b0b20621cf8c900ce2667a540f9cf8e289d67e941a7f0972",
+    "after_sha256": "edf4af579bdc134229c6c82bd37e726295e4a8d83b8c41e6704b76167e41faee"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "d040830bbbb42ccdf61439be45983774944bfc63874e744fe25587c2cca2046d",
+    "after_sha256": "fb92fb1843183572b82abf69fe4ee9f069d3ec61a2da03d00681d0de15d866b5"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonMonsterRenderPreparation.h",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "3b0af8cfffa5789d64f7456254f5de428c07039bfe0d5dc1adb51b9af5c9b0e8",
+    "after_sha256": "c88f5ff361e6d326581f322e31b727b03d1023dacf1e0a6afb5817c0af5e32e4"
+  },
+  {
+    "path": "Source/FPSGAME/Tasks/TaskTrackingContractCommandlet.cpp",
+    "base": "scoped pre-feature content; requires unpublished framework",
+    "before_sha256": "fd8ab185418a78bca41bcff817ff8988d69db17ea33bc087a864033732ed59f7",
+    "after_sha256": "f782cfb2a7a8daac2333d0f22041711541eaa6fcbead63db488f59375a49e7e5"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/DungeonRunFinalBoss.cpp",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "06c3957b6f3f59a0bc07cf9bbf48e4e802c162ad2afb14c67a3b897a041c09e0"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/FacilityFinalBossEncounter.cpp",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "878d47f31523b6dd4e2b870f7f4d8219ea7141ff488fc11861c36d3f377857d3"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/HeQueDungeonAudit.cpp",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "12109623543a2155c7271a7e1b7b9bdb303df3d197d87a1460b22d787006e26f"
+  },
+  {
+    "path": "Source/FPSGAME/Dungeons/HeQueDungeonAudit.h",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "ac79a6568cc9f682cccf68912d90bff1006de3a82a17b5b362edd76bccbc3f7b"
+  },
+  {
+    "path": "Source/FPSGAME/Monsters/HeQueNetAudit.cpp",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "d91755d7cf8171551e5a1412d383a733cc8d17c88b30d8ae1f528ebd201ff150"
+  },
+  {
+    "path": "Source/FPSGAME/Monsters/HeQueNetAudit.h",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "8c9114535bec5e0e5e1522f791a5f74412140b2681c0869c5f4028c727168b88"
+  },
+  {
+    "path": "Source/FPSGAME/Monsters/HeQueAuditCommandlet.cpp",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "9d76c237d709c660cb557dc9381723bfc83f965ce8baf98d9809a0b447d05af8"
+  },
+  {
+    "path": "Source/FPSGAME/Monsters/HeQueAuditCommandlet.h",
+    "base": "new own source",
+    "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "after_sha256": "4027d730f7cf3986604de1c17600c181e6e34723551672924cbaa75f948904eb"
+  }
+]

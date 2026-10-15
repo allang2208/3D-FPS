@@ -1,4 +1,5 @@
 #include "ColdSteelPlayerState.h"
+#include "../Monsters/HeQueMonster.h"
 #include "../UI/ColdSteelProfileRecovery.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
@@ -846,6 +847,9 @@ void AColdSteelPlayerState::ServerReportHit_Implementation(const FColdSteelNetHi
     Hit.BoneName = Report.BoneName;
     Hit.HitObjectHandle = FActorInstanceHandle(Report.Target.Get());
     Hit.bBlockingHit = true;
+    Hit.TraceStart=Report.AimOrigin;Hit.TraceEnd=Report.ImpactPoint;
+    if(const auto* HeQue=Cast<AHeQueMonster>(Report.Target.Get()))
+        HeQue->ResolveRemoteHit(Report.AimOrigin,Report.ImpactPoint,Hit);
 
     UColdSteelStatusModel* Model = ShadowModel;
     if (!Model)

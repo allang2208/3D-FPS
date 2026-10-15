@@ -49,6 +49,7 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("ZombieDog"), TEXT("僵尸犬"), TEXT("/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"), 100.f);
     Add(TEXT("InfectedDog"), TEXT("感染犬"), TEXT("/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C"), 100.f);
     Add(TEXT("HundredEyedSlag"), TEXT("百目炉渣"), TEXT("/Script/FPSGAME.HundredEyedSlagMonster"), 100.f);
+    Add(TEXT("HeQue"), TEXT("合阙（重夹／碾扫／压鸣／恸鸣／跃砸）"), TEXT("/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C"), 225.f);
     Add(TEXT("IncineratorBossM66Rig"), TEXT("焚骸 M-66（拢灰指扫）"), TEXT("/Game/Monsters/IncineratorBossM66/BP_M66RigPreview.BP_M66RigPreview_C"), 225.f);
 }
 

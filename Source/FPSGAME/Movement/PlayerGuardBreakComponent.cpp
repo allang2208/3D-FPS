@@ -31,6 +31,10 @@ void UPlayerGuardBreakComponent::OnRep_StunUntil()
     const float Remaining=float(StunUntil-Now);
     if(Remaining>0.f)ApplyInputLock(Remaining);else Release();
 }
+void UPlayerGuardBreakComponent::ClearTransient()
+{
+    if(GetOwner()->HasAuthority())Release();
+}
 void UPlayerGuardBreakComponent::ApplyInputLock(float Seconds)
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());

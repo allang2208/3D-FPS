@@ -13,6 +13,8 @@ public:
     UPlayerGuardBreakComponent();
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     void Apply(float Seconds);
+    /** Authority-side purge, replicated through the same expiry as normal recovery. */
+    void ClearTransient();
     bool IsActive() const { return LockedController.IsValid(); }
 protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

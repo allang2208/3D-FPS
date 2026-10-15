@@ -3,6 +3,9 @@
 #include "Components/ActorComponent.h"
 #include "HandBrainFearComponent.generated.h"
 class AController;
+class UCameraComponent;
+class UMaterialInstanceDynamic;
+class UAudioComponent;
 UCLASS(ClassGroup=(Combat),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UHandBrainFearComponent : public UActorComponent
 {
@@ -19,6 +22,13 @@ public:
 private:
     friend class UFPSStatusReplicationComponent;
  void Release();
+ void UpdatePsychicFeedback(float Dt);
+ void StopPsychicFeedback();
+ TWeakObjectPtr<UCameraComponent> PsychicCamera;
+ TWeakObjectPtr<AActor> PsychicFeedbackSource;
+ UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> PsychicView;
+ UPROPERTY(Transient) TObjectPtr<UAudioComponent> PsychicEarVoice;
+ float PsychicFeedbackAge=0.f;
  TWeakObjectPtr<AActor> Threat;
  TWeakObjectPtr<AController> LockedController;
  TArray<double> Expirations;
