@@ -1,0 +1,1920 @@
+{
+  "trash_root": "trash/warhammer-inspect-combo-retired-20261016",
+  "moved": [
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/author-run.txt",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/author-run.txt",
+      "bytes": 5330,
+      "sha256": "6cba5bc8df55ab4100636f1b4d052660b3175015298740c0bba0acbe8033b694",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/author_inspect_walk.py",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/author_inspect_walk.py",
+      "bytes": 12121,
+      "sha256": "847af3b4290137c5e2eafd5ae56835827f36bf47429d2d4ea9117081295682da",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/authored.json",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/authored.json",
+      "bytes": 3625,
+      "sha256": "f5db5a176e77a30a46d22bf9e3efaf9b9bd0111cc2044d9cac723ff5e439e665",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/build-FPSGAME.log",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/build-FPSGAME.log",
+      "bytes": 30726,
+      "sha256": "505535aa00a0c75a45f2c5da0f62a8cf5dd0c1703065e65737a4ab7f1cbde759",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/build-FPSGAMEEditor.log",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/build-FPSGAMEEditor.log",
+      "bytes": 31324,
+      "sha256": "a7aabe9af3e1829cb176eae28cbe557b52b1216ea68c5318792a396c7408588b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/build-run.txt",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/build-run.txt",
+      "bytes": 3938,
+      "sha256": "f1de369c1342f5f4ab27b3cc405d6443f76d08861948a9ed99c70b9bda745655",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/build.ps1",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/build.ps1",
+      "bytes": 2067,
+      "sha256": "fea45fa6a27a5f149d4ee8cbbade2b9be2e96ecd28fb1bb1672c63fdb540efdd",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/build_receipt.json",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/build_receipt.json",
+      "bytes": 728,
+      "sha256": "9ee1c41556247411a784b80ee2fb7b6821de86a31ccc452675968921ab5e4a87",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/Export/A_Warhammer_InspectWalk.fbx",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/Export/A_Warhammer_InspectWalk.fbx",
+      "bytes": 2636428,
+      "sha256": "c6dd6d6d6a20e836612960f960b1302bfaf17e1c5d150ed28b222405ece89db8",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import-commandlet.log",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import-commandlet.log",
+      "bytes": 288709,
+      "sha256": "0b0393e6c27dc943e82ac7da83b11c90e696fd28dd6b30a20ad721d801b53425",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import-console.log",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import-console.log",
+      "bytes": 578546,
+      "sha256": "75b05cc1f6f5c1084f06bec06faee3e35d8364a0acc20d6d8adc0a25a7d33cd0",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import-wait.txt",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import-wait.txt",
+      "bytes": 3406,
+      "sha256": "b39b377b44cef10aaf274bcf7f4857bb8149ca2a91be2f53793b1443e208ea2b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import_assets.py",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import_assets.py",
+      "bytes": 2821,
+      "sha256": "0b5ed6f31f481f44fe7a57a6e4687d51fa007e2f23f7386800207aaee5a9ef74",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import_background.ps1",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import_background.ps1",
+      "bytes": 1851,
+      "sha256": "57f03ee609a41723cb71333ba7d83c378d015d6a8f35f6c46f283167c573e9ac",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import_commandlet_receipt.json",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import_commandlet_receipt.json",
+      "bytes": 182,
+      "sha256": "415d333d0a1e3f7caa24a4b1a6c84bc642adfe57d68abcef049960f7d3d3c22b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import_receipt.json",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import_receipt.json",
+      "bytes": 267,
+      "sha256": "01e6458c799ab2fe3b29037141205284270e55ff2de6427e386402b7a594cf09",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/import_when_available.ps1",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/import_when_available.ps1",
+      "bytes": 1325,
+      "sha256": "8eb25ac438fe7ae86bb011d2ca3fde8850610abb1e63f6c713ab23581215cd35",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkV1/Warhammer_InspectWalk_Editable.blend",
+      "reason": "Walking inspect V1 (24 deg right-hand overshoot) rejected by the user; replaced by WristV2 then SpeedV3 (self-contained).",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkV1/Warhammer_InspectWalk_Editable.blend",
+      "bytes": 98444355,
+      "sha256": "ca277d0f5739dcce4cbbdb9e14ce77b148899d8f37d732914c823d29cdc9cd35",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/author-run.txt",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/author-run.txt",
+      "bytes": 5340,
+      "sha256": "e6a9cc66349f9d114c0682b325cf2d4480f4a7cd9330c8f67f869add8963bb52",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/author_inspect_walk.py",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/author_inspect_walk.py",
+      "bytes": 12560,
+      "sha256": "e7d078b7574dee3f6f4fefc719b2a8b65980870cf3b35635847de7e6e54d8d07",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/authored.json",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/authored.json",
+      "bytes": 3824,
+      "sha256": "e7fb542087b56bca7a91e63b139177edcc13c574ac7220b7f126eb09da9ad114",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/Before/A_Warhammer_InspectWalk.uasset",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/Before/A_Warhammer_InspectWalk.uasset",
+      "bytes": 1861979,
+      "sha256": "08f50247883b6524b3718aa85445e4d7378122ae262497c7bc23014764a78bac",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/Before/authored_walk_v1.json",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/Before/authored_walk_v1.json",
+      "bytes": 3625,
+      "sha256": "f5db5a176e77a30a46d22bf9e3efaf9b9bd0111cc2044d9cac723ff5e439e665",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/build.ps1",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/build.ps1",
+      "bytes": 2067,
+      "sha256": "fea45fa6a27a5f149d4ee8cbbade2b9be2e96ecd28fb1bb1672c63fdb540efdd",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/Export/A_Warhammer_InspectWalk.fbx",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/Export/A_Warhammer_InspectWalk.fbx",
+      "bytes": 2635852,
+      "sha256": "7239b532bf36ed9480aea058ea289d2ef30a01ef4738631eaf735ce4ed4691c6",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/import-bridge-01.txt",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/import-bridge-01.txt",
+      "bytes": 359,
+      "sha256": "b15af3fc5699f35a551474c89ef6130b2b6a206d754078cae6b2de60f9abfd1d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/import-wait.txt",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/import-wait.txt",
+      "bytes": 798,
+      "sha256": "9f3e24c2c8151d01cadfe0c31399ee78226d45fe077abad31299bd40c2fc0007",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/import_assets.py",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/import_assets.py",
+      "bytes": 2821,
+      "sha256": "0b5ed6f31f481f44fe7a57a6e4687d51fa007e2f23f7386800207aaee5a9ef74",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/import_background.ps1",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/import_background.ps1",
+      "bytes": 1851,
+      "sha256": "57f03ee609a41723cb71333ba7d83c378d015d6a8f35f6c46f283167c573e9ac",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/import_receipt.json",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/import_receipt.json",
+      "bytes": 266,
+      "sha256": "e86ef3a366f9d08233b557f917ffde682f627c204644f95abbed759fb0f448c6",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/import_when_available.ps1",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/import_when_available.ps1",
+      "bytes": 1325,
+      "sha256": "8eb25ac438fe7ae86bb011d2ca3fde8850610abb1e63f6c713ab23581215cd35",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkWristV2/Warhammer_InspectWalk_Editable.blend",
+      "reason": "Walking inspect V2 superseded by InspectWalkSpeedV3 at user request; SpeedV3 does not read it.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkWristV2/Warhammer_InspectWalk_Editable.blend",
+      "bytes": 98442035,
+      "sha256": "5977b2f82a196cbdebc34e43bf94fcc16e78e1b5580860902c6e0c7fb64248bc",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/author-run.txt",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/author-run.txt",
+      "bytes": 10624,
+      "sha256": "98e83a0fe64d4f1ec821db5c0429380fea17a0080e6c3592c3df330a9d1235a6",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/author_flow.py",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/author_flow.py",
+      "bytes": 22521,
+      "sha256": "e4938745dc0fb5adb67e089e7fc1af4bf2afe831a6079f33a7bf0f12254ab3b9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/authored.json",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/authored.json",
+      "bytes": 6911,
+      "sha256": "6c40ac067c03850d52a20054ffcd7da566f92aaa0b2c08802094aad1d26fa732",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/A_Warhammer_Slash1.uasset",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/A_Warhammer_Slash1.uasset",
+      "bytes": 3835337,
+      "sha256": "d0d4b60682793a194e53da0d7299742b51fc20fdf5ad3f12efca35b858910e59",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/A_Warhammer_Slash1Recover.uasset",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/A_Warhammer_Slash1Recover.uasset",
+      "bytes": 1710482,
+      "sha256": "4f59e6d44afdc498184bde712e7ca67e5ea73d56e04950ac7f05d191f9d66633",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/A_Warhammer_Slash2.uasset",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/A_Warhammer_Slash2.uasset",
+      "bytes": 4323632,
+      "sha256": "d227c92238ee742a94c1727dc4f5aa4de58fc97418c9bdf1223ae72d296eb8a7",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/A_Warhammer_Slash2Recover.uasset",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/A_Warhammer_Slash2Recover.uasset",
+      "bytes": 1942010,
+      "sha256": "65252ad2cff2d48aad7ef6ec25024560447879b6de0749abd6d85a9d5d14b7be",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/A_Warhammer_Slash3.uasset",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/A_Warhammer_Slash3.uasset",
+      "bytes": 3178889,
+      "sha256": "f764c575804a261e27d43d82df258d3dbc89c43c83f50be570b6876eaa9d212d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/A_Warhammer_Slash3Recover.uasset",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/A_Warhammer_Slash3Recover.uasset",
+      "bytes": 1409714,
+      "sha256": "7686fd3a9c8180005ee2937b9c9bb79ba131e692e58b589b0743be833ba14988",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/hashes.json",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/hashes.json",
+      "bytes": 911,
+      "sha256": "f8f6fbcc058e33fe84e9197c155d95ad85c5ec9455d2cc53a5d107926cb8d4fd",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/ProductionToolComponent.cpp.HEAD",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/ProductionToolComponent.cpp.HEAD",
+      "bytes": 46396,
+      "sha256": "c9afb221c3f85fc4249b7f646d1c7a150e76361ddf8fcb596962a5d47d870d51",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/ProductionToolComponent.h.HEAD",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/ProductionToolComponent.h.HEAD",
+      "bytes": 12048,
+      "sha256": "870bbaa3dd7221c41f32ef5d07a3d885a3c8eca95c92fb3f0f81cbfb882ba64c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Before/ProductionToolMotion.cpp.HEAD",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Before/ProductionToolMotion.cpp.HEAD",
+      "bytes": 12646,
+      "sha256": "9f9ae7e7d3619363d74f60a6398927c212eeb386a22334de976dc6c74cd4d97e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/build-FPSGAME.log",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/build-FPSGAME.log",
+      "bytes": 30548,
+      "sha256": "fed0b8d74db0bcaa02106b5a323d098425020614a5da8daa8eb0279c6976f132",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/build-FPSGAMEEditor.log",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/build-FPSGAMEEditor.log",
+      "bytes": 30878,
+      "sha256": "763638872da6c572e500a60bfe9ca766c2c0de7802ec812af4a723a861ed2d64",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/build-run.txt",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/build-run.txt",
+      "bytes": 3818,
+      "sha256": "c5382ef0a6a130ad827fe24faf9116ab8a92c46f4c5c13bb5650166a6571512c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/build.ps1",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/build.ps1",
+      "bytes": 2067,
+      "sha256": "fea45fa6a27a5f149d4ee8cbbade2b9be2e96ecd28fb1bb1672c63fdb540efdd",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/build_receipt.json",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/build_receipt.json",
+      "bytes": 736,
+      "sha256": "bb63e19546877bde10b008e65aeaaeac7a00b924732f1873d4144049dec6e12c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Export/A_Warhammer_Slash1.fbx",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Export/A_Warhammer_Slash1.fbx",
+      "bytes": 3742572,
+      "sha256": "b5e9511fe448e0cc412dd6cbd5abde00f49d35394b06033ad567d52e87f49136",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Export/A_Warhammer_Slash1Recover.fbx",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Export/A_Warhammer_Slash1Recover.fbx",
+      "bytes": 2045964,
+      "sha256": "6905ccbdf23b9cada4a4180d374aa06c7893c2e7fd0652cda35ff62c1f84ca24",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Export/A_Warhammer_Slash2.fbx",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Export/A_Warhammer_Slash2.fbx",
+      "bytes": 3800764,
+      "sha256": "e8889930c28d89efbedfdeb47d1fc0f6a93aca5da115904cb7a5cbc323b0b7c5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Export/A_Warhammer_Slash2Recover.fbx",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Export/A_Warhammer_Slash2Recover.fbx",
+      "bytes": 2069548,
+      "sha256": "db633fe8cdf896bf1576ff350b05fcb4ebcf99e530b0d3e5507c48cbe323a33e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Export/A_Warhammer_Slash3.fbx",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Export/A_Warhammer_Slash3.fbx",
+      "bytes": 3686684,
+      "sha256": "bc86169636973c81e4fe26a2d58563b35adcf01b8603bff67f514f2d7f1a711d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Export/A_Warhammer_Slash3Recover.fbx",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Export/A_Warhammer_Slash3Recover.fbx",
+      "bytes": 2008892,
+      "sha256": "f98237395e4c5a79f7864d82a476f00a4fe853fe9742d5a634d25a7dc7526ded",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import-commandlet.log",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import-commandlet.log",
+      "bytes": 294543,
+      "sha256": "3f6c24b6f7fe6b8eaf55fc5abdd1f4b8f7ef7e81cbdb84ab217541feccf9a679",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import-console.log",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import-console.log",
+      "bytes": 590254,
+      "sha256": "56b0eb12a7d8b4f5d23f2e430b0c43b0e943e074c461db600eb107e19a958237",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import-wait.txt",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import-wait.txt",
+      "bytes": 3562,
+      "sha256": "8752cc1f7be7bb3d742524710aeafbcc7a245eb440c305aaa8eb462a63b2106b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import_assets.py",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import_assets.py",
+      "bytes": 2801,
+      "sha256": "8c42ff6056203126cdfbc8ac46d2817f3b75cd6c5cbdd2824aec9ae6a96724d3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import_background.ps1",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import_background.ps1",
+      "bytes": 1851,
+      "sha256": "57f03ee609a41723cb71333ba7d83c378d015d6a8f35f6c46f283167c573e9ac",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import_commandlet_receipt.json",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import_commandlet_receipt.json",
+      "bytes": 186,
+      "sha256": "37e1be607f83b3fe3d44f29e486df62c98b8cd84699940ca38f08cac6b653f05",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import_receipt.json",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import_receipt.json",
+      "bytes": 1073,
+      "sha256": "73b17e4800d912d3e9240d05d0be4abe490a565c6accb99cbaf3c7f0f2e1cedb",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/import_when_available.ps1",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/import_when_available.ps1",
+      "bytes": 1325,
+      "sha256": "8eb25ac438fe7ae86bb011d2ca3fde8850610abb1e63f6c713ab23581215cd35",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/plan-run.txt",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/plan-run.txt",
+      "bytes": 8376,
+      "sha256": "112fe8d4f7c113dedc88aebb4afc5d431bb57a0b0d4b3e860331756ffc08ec15",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/plan.json",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/plan.json",
+      "bytes": 5172,
+      "sha256": "e474272b07aed6e1ad4e38ed6c315dbdd5184b5585040ec4ef88fb1e9c57b3c9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboFlowV6/Warhammer_Combo_Flow_Editable.blend",
+      "reason": "Normal combo V6 rejected by the user (release too slow, weak impact); replaced by NormalComboRhythmV7, which reads V4/V5 only.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboFlowV6/Warhammer_Combo_Flow_Editable.blend",
+      "bytes": 119506718,
+      "sha256": "cd31cdf3ad8ff2cf7a19d2cbb36a99741e3cfeae762dd151ff5f33869656e0af",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Before/A_Warhammer_InspectWalk.uasset",
+      "reason": "Snapshot of the superseded WristV2 runtime clip.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkSpeedV3/Before/A_Warhammer_InspectWalk.uasset",
+      "bytes": 1867169,
+      "sha256": "461d2cbc616006ae1977440dec7de466d4a530662cc1f4afa56f5b98088de41e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Before/authored_wrist_v2.json",
+      "reason": "Snapshot of the superseded WristV2 runtime clip.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkSpeedV3/Before/authored_wrist_v2.json",
+      "bytes": 3824,
+      "sha256": "e7fb542087b56bca7a91e63b139177edcc13c574ac7220b7f126eb09da9ad114",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Before/A_Warhammer_Slash2.uasset",
+      "reason": "Snapshot of the replaced right-hand-top stage-2 clips; the pose source remains in NormalComboV4.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Before/A_Warhammer_Slash2.uasset",
+      "bytes": 3650185,
+      "sha256": "84f399e16a1f3b0f4fa132d0d6d9d03b2f3d083965f6b7561f628ea083a9dff1",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Before/A_Warhammer_Slash2Recover.uasset",
+      "reason": "Snapshot of the replaced right-hand-top stage-2 clips; the pose source remains in NormalComboV4.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Before/A_Warhammer_Slash2Recover.uasset",
+      "bytes": 1633362,
+      "sha256": "8dc0b096f06494d27475fd07e0c8c12fe8ea2c0970d198d5fd9a710c674a6da9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Before/hashes.json",
+      "reason": "Snapshot of the replaced right-hand-top stage-2 clips; the pose source remains in NormalComboV4.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Before/hashes.json",
+      "bytes": 309,
+      "sha256": "252867e195aa51bc0104fc27cc34e5cb499dc6c49193da42e465f5cf796d0a2a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/A_Warhammer_Slash1.uasset",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/A_Warhammer_Slash1.uasset",
+      "bytes": 4340464,
+      "sha256": "ffad60848c48f93255c34755a92dc27322eacbbdbb4912dea5dd628792bcbf86",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/A_Warhammer_Slash1Recover.uasset",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/A_Warhammer_Slash1Recover.uasset",
+      "bytes": 1834041,
+      "sha256": "89e1da5de2b496c55c99411ee9bc4710620a21dd144eb3c719ad9ddb7ca0ed63",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/A_Warhammer_Slash2.uasset",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/A_Warhammer_Slash2.uasset",
+      "bytes": 4424624,
+      "sha256": "af53950086bd1d7a6153d63dca09c628508927a2b584e77e2dd176ec75924cb9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/A_Warhammer_Slash2Recover.uasset",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/A_Warhammer_Slash2Recover.uasset",
+      "bytes": 1965146,
+      "sha256": "dcb264d4e630a81ea5277547f5a83224d67284a1b184bb4b876a0df564621d8b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/A_Warhammer_Slash3.uasset",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/A_Warhammer_Slash3.uasset",
+      "bytes": 3751344,
+      "sha256": "8f75295bae5fe863e63c8b5282c289e2438b119789251fa07bd6ef1e9249105d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/A_Warhammer_Slash3Recover.uasset",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/A_Warhammer_Slash3Recover.uasset",
+      "bytes": 1587257,
+      "sha256": "3239eff788095c8808ea7b9520c2f88514887955e83528893c3df80cbf1f6f9c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/hashes.json",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/hashes.json",
+      "bytes": 911,
+      "sha256": "2b3465987e4f4665b83f9b2a62c2fd2195b3321e8278fc1158131b88abd49984",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/ProductionBluntCombo.h.V6",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/ProductionBluntCombo.h.V6",
+      "bytes": 9221,
+      "sha256": "61b743554d64b7e96c1e366e608d6e5eb56be8ac5b4ba7b1c46f8a7d420ec466",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Before/ProductionBluntComboTiming.h.V6",
+      "reason": "Snapshot of the rejected V6 runtime clips and V6 headers.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/Before/ProductionBluntComboTiming.h.V6",
+      "bytes": 864,
+      "sha256": "54204bcc31d44e86413842f0e3dc6ec091a5571ac5c157fcd8aa1d209a772a6b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0000.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0000.png",
+      "bytes": 67559,
+      "sha256": "f277808c4c8671dbde1f124af01d3c210fcc80c17d3c3dedcda05942dae249f3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0280.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0280.png",
+      "bytes": 71443,
+      "sha256": "980b72508f4817c89897a50f778a45b4a8d6cb7e18282c7ba59eab9eabc67472",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0340.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0340.png",
+      "bytes": 70678,
+      "sha256": "451ae72d2a181d515c35e1a29225ceb9f500620ea85114dfcdc07b49b7ceb0d5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0400.png",
+      "bytes": 67992,
+      "sha256": "5e84e21135fc58038c76b9af147b571b08521abbf86b412e746e5232e9db585c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0460.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0460.png",
+      "bytes": 86703,
+      "sha256": "eddd95fa2951a0098c2b6639a8fbd89537c5e26114e46e5c5425634052b27e55",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0520.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0520.png",
+      "bytes": 86466,
+      "sha256": "218f55ecdbe69d91cf92e7af472480532244784b4ecda0868ec4d7ccea40829c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0580.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0580.png",
+      "bytes": 78218,
+      "sha256": "ec773f380e033e5ee601cf2d7565813d5e2b4d69e35c8a2bb4f9c2972ed98ff4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0700.png",
+      "bytes": 70030,
+      "sha256": "b9e0ee10a870e8f7299db67d65b455f08aaa02320d2a13f4b821bc89e4c422bf",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0820.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0820.png",
+      "bytes": 73978,
+      "sha256": "c10a6fc4328a10ab18c8cb8e36e0471989a28d79596223a2986a73aa53a973b4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_0970.png",
+      "bytes": 59374,
+      "sha256": "82a2db1d940239b495a49695fb9640a1522f9463851eb2ab56f22294f16b853c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1100.png",
+      "bytes": 57629,
+      "sha256": "617433618044ade89e850fafaf0bb420d53c62d18baad21726daeb617483d80d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1170.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1170.png",
+      "bytes": 55599,
+      "sha256": "eabb6ed93209a8b7ead65835c7928cc83bec6310939398ec77375fa3fe9baab4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1240.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1240.png",
+      "bytes": 55687,
+      "sha256": "c91a77ba32562c5705e3d0378b82afcf7638eefaf26c91a718d5ade829c5cca3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1310.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1310.png",
+      "bytes": 63954,
+      "sha256": "2f07701d6a7c40a1abd6f8969175d6410aaf4dd50688fc9abcecd7f26fc420b1",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1400.png",
+      "bytes": 67109,
+      "sha256": "5d8d84bc06ac7fb790c977c9545112ce0217219a07baf38eca44ff336a76131a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_fp_1600.png",
+      "bytes": 68447,
+      "sha256": "570d5d8deb6b40866c60927c0973394abc6555c4005bd82cafa8e452beba97a4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0000.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0000.png",
+      "bytes": 63906,
+      "sha256": "44d9daba107ac79f5f55e1ca24117196ebe3180753304b566aa1bf6a9a028966",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0280.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0280.png",
+      "bytes": 65012,
+      "sha256": "b497b7b49c5e3d98d76e97141bef8fc77f3aabf7bf7776657b35f8cff75e80b4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0340.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0340.png",
+      "bytes": 64133,
+      "sha256": "9043ddd3d397808f028761e38b73e866e010c273bac8fd9006680b8f6e865211",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0400.png",
+      "bytes": 59566,
+      "sha256": "2374ce8637ed689db9b49344d44d049a4d1c253151a561716ec3133c4c1915c3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0460.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0460.png",
+      "bytes": 59990,
+      "sha256": "b01c9decd2527f6ac2b2c88fac145154d9e3343043d8084ad2f8769583aa7ae3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0520.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0520.png",
+      "bytes": 60466,
+      "sha256": "2ed4a457e95880a9e62abed44e79d3ddac57da757cca08912a7f44281f9ca4d3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0580.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0580.png",
+      "bytes": 60932,
+      "sha256": "49e210e26f7b26e2400ec3c5b7f08d7a40652f131cbc794a3110c040df5af50e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0700.png",
+      "bytes": 61652,
+      "sha256": "508cbd60d5c8c3d3fa085cae7085b186288e3b30e867eb9efff6b2f602074712",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0820.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0820.png",
+      "bytes": 61250,
+      "sha256": "ff247a2695346bb0189438ab25ebbcc126460d04877209024b20916d4e599bab",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_0970.png",
+      "bytes": 64395,
+      "sha256": "d3b9b45f7da85e0e23b0412c22b7bb81f1449a65c746f7e90104ba8d3326af78",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1100.png",
+      "bytes": 63158,
+      "sha256": "46ef6c727b5ebe0aa587c261f1b91160fbae0fc897f1b76fbc0ee55d226d08e6",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1170.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1170.png",
+      "bytes": 63488,
+      "sha256": "da8c82a6723256d5572a6840e09df3e4f19663034fe664aaedf2c7d3822be892",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1240.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1240.png",
+      "bytes": 63846,
+      "sha256": "e0cb66a21d0bcbf2749907409370074186d5765f2d854bd6e4b807595938f947",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1310.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1310.png",
+      "bytes": 66355,
+      "sha256": "8c6b76a146555501ee4c6f1eb40e1ba56df459cacff26c677b7a71347b68e18d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1400.png",
+      "bytes": 66639,
+      "sha256": "f9a43c3738e12e02ce75c1ffcb61888efa77350efb6234a5b89155e40e1e5308",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_front_1600.png",
+      "bytes": 64743,
+      "sha256": "d28be9e94facb78c8d864917432973b34a57d8d5a7f36ec6f363d78e269e32df",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0000.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0000.png",
+      "bytes": 58028,
+      "sha256": "5427fb3a61923cd730d5e351d2ab48e957ee82b6f780c8bd6b0c2a1e880839ab",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0280.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0280.png",
+      "bytes": 58661,
+      "sha256": "4baebccb9d4c6f9329b60300dd1acdc0f54c09b266e4bc0e7af6d637a52d4e90",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0340.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0340.png",
+      "bytes": 59373,
+      "sha256": "32f98f393400bac7079e22b6dd8968f0af6473b792f51eb2d037376eb0c2b739",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0400.png",
+      "bytes": 58540,
+      "sha256": "9806e4e73db68103b7333e7fb614cdb16421acd3c34417dd73f116e4ffc3937f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0460.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0460.png",
+      "bytes": 57614,
+      "sha256": "02ff088323d97a4a3e92eb9f194e16ba607068185670b54ddec37ececd024eae",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0520.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0520.png",
+      "bytes": 57675,
+      "sha256": "ebf52c15699e5c12298c9175ca635524a56f9811af3d2d058b334e035385861b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0580.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0580.png",
+      "bytes": 57396,
+      "sha256": "5273ca05928b6b4a97297e0ee76452e9c061ab30cb528a6c60d330abe29af17b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0700.png",
+      "bytes": 60693,
+      "sha256": "25a79c72263bb74a4d266c68b544b7f7153ee9e4c9e59391c7ff11b5c14c0815",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0820.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0820.png",
+      "bytes": 57684,
+      "sha256": "a99f75f29e3169e177e5baab94c48cf437ff554ea36387d7d50baa45a453bbba",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_0970.png",
+      "bytes": 58190,
+      "sha256": "3972278260d11b4c8a2d200b652a85fb544b14c4805e7a7db41c4d542e5d57e4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1100.png",
+      "bytes": 57562,
+      "sha256": "d617c28d43da013026d04f05da4e76293133dfd4a09cd003bd563004cff6a508",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1170.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1170.png",
+      "bytes": 57480,
+      "sha256": "bca47acc8e5e4e52cb9d0bb24facddc344f280669149d61482dcdbcdf796c297",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1240.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1240.png",
+      "bytes": 58017,
+      "sha256": "3870badd37489bb99cbed77db62c5b442ccc129d4f9cc7591ae3fd914f08ac26",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1310.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1310.png",
+      "bytes": 58600,
+      "sha256": "cc8a7e3e18a1846b2c3069b15a6316cac24979759b14ba69fcd88f1f8befd9a2",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1400.png",
+      "bytes": 58143,
+      "sha256": "ff0d58c2c675fb9472b7a5cd1a0b7b3fd35d08476f9c8a3deef1febe57e3f432",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/result_A_Warhammer_Slash2_top_1600.png",
+      "bytes": 58372,
+      "sha256": "8225501723702d23194b5cbae0c184487fc2b195735f61ee214a8815501c346b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_0000.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_0000.png",
+      "bytes": 95608,
+      "sha256": "b4142ee65639d5af0a6063bdab624cbfe123916c9ae146f5cf7072ea00587a21",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_0550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_0550.png",
+      "bytes": 105770,
+      "sha256": "f42c6192e63dd94d3229d72d01055c58467bc8ce13c99382cf4d6d631f58defd",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_0850.png",
+      "bytes": 99772,
+      "sha256": "a4e3da16b14f5f8174d5fd02141b9cb5f82d3b0d2819ce912dd7eed50a040a41",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_0930.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_0930.png",
+      "bytes": 103789,
+      "sha256": "a4094880318f93e0d697ae7f7e519648ad53a8e9a4a56e5d6c077daca5432f8b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_0970.png",
+      "bytes": 84687,
+      "sha256": "850280a531f0d883e7450a0efc52a81dc43e4bbe942bd97823e814eb02364b6f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_1050.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_1050.png",
+      "bytes": 82185,
+      "sha256": "fef4e3861ae7233779bc82924e64066a25d6892092c53bc9e8493d49b82d6b63",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_1200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_1200.png",
+      "bytes": 82369,
+      "sha256": "fbb5126757d17f42cac0068703dc8af448497d54457bfc50947d17cca7e2a65a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_1750.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_1750.png",
+      "bytes": 95609,
+      "sha256": "14be469e79662ace0cf9bdbf8cd766531e4facfaf67b6998403f080e01e83ea4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0000.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0000.png",
+      "bytes": 95641,
+      "sha256": "977d4591439bf385b145c1d97da97d8c8f771d4aca9604b5660a49d604a84003",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0550.png",
+      "bytes": 110106,
+      "sha256": "8ea8e4bc9330ccee27b256003787c244c315cf428f39b6bf9b7f172148108eff",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0850.png",
+      "bytes": 103023,
+      "sha256": "f25f504178eb02b28d085256817c3b412438760a9d0477a3f0009c7779681454",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0930.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0930.png",
+      "bytes": 107086,
+      "sha256": "4e834528791712891ef41d55a6932445edace9a7c471691cc6dd1e9ba721b273",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_0970.png",
+      "bytes": 84376,
+      "sha256": "4db725df0efa89fe216a4f7400cbdd79e4de2ae5a2df730c001d75ca16cb7802",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_1050.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_1050.png",
+      "bytes": 82273,
+      "sha256": "fea5452855f488693164cf4c39139c3a492e054f31c2f56da0aae0fdb4dc1f30",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_1200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_1200.png",
+      "bytes": 82597,
+      "sha256": "0884190b1022cb96d7d980af38a2f0d10fd56ed2ed8309f1de8f670af1157ff0",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_1750.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_1750.png",
+      "bytes": 95642,
+      "sha256": "7bfd0667b221b5ca8b0a4112f91269b1a3e570c13d9c9e1bbbc795c968ac7bb8",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0200.png",
+      "bytes": 56420,
+      "sha256": "85665f36a9ae602b483dbae77d2f205136024d9c5b073bf68c2e32328b0a29b8",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0300.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0300.png",
+      "bytes": 56257,
+      "sha256": "ac14050a13c7f5ce7b96c1c4eb6776334bfb9048d2f7e145588e6327093a3b5b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0400.png",
+      "bytes": 56586,
+      "sha256": "b66d9a7caa566c28211da937849de9376ee088124d5c7043445f29803e124954",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0500.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0500.png",
+      "bytes": 57815,
+      "sha256": "a30e67e19b3f8742b0c74a3756eb40811b8cb515987190f6456d33d88243d735",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0600.png",
+      "bytes": 57450,
+      "sha256": "e0ee6b97e00a58206edbffece179c9d7a36cc4682294abcfa7b7bf500d6c107e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0700.png",
+      "bytes": 57038,
+      "sha256": "728eb88379f25904de2f3ddfbdb72bf93c6b614a7e0f6745a1fe8d74da38d5e5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0850.png",
+      "bytes": 57004,
+      "sha256": "88c46a5c67abe25958e5a6204bf1f46ea1b6224f65483a1e3485ea8a643de69d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_0970.png",
+      "bytes": 56478,
+      "sha256": "5156ab3586b525fc38d21a4b66bdfb49f7a975939bdb5c969db37f275b6e351d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1100.png",
+      "bytes": 56826,
+      "sha256": "53b2884f0e5aa9085144476b7a81917562d2212577364be90c45cfc90108f582",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1250.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1250.png",
+      "bytes": 56576,
+      "sha256": "b29ac8a377999d714e9f3af5478b72f6fc58dbb248b96a64872e3690f94c4a8c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1400.png",
+      "bytes": 57563,
+      "sha256": "b68dcc742744ade6bc7d66c54caa309f0d2a03e701fda9c10e10520404e58f6a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_ext_1550.png",
+      "bytes": 57336,
+      "sha256": "5d63ec715ada9edcfc541874a5a808cd595cc8217aec0f7cb6711026e9caf37e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0200.png",
+      "bytes": 79033,
+      "sha256": "1875fdf2ef0101ec00aedb3b7a1967f2b550e563311e2736a2de394bc211d324",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0300.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0300.png",
+      "bytes": 77124,
+      "sha256": "b0e856007146ac9ed67ae38e1ed4779dbbef12bcc378e6c3b4642addceb6351b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0400.png",
+      "bytes": 84278,
+      "sha256": "c19ab11e0d8515be566e364c7c4be99d8d86bd10d40c8c97bf2df5ef27d65c33",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0500.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0500.png",
+      "bytes": 86109,
+      "sha256": "a11cd192d82ef9deaa56c7b94c51834acb4450b9c527968c3543937b70801c05",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0600.png",
+      "bytes": 85365,
+      "sha256": "7b63a0c9b58e71ac479eb4464e0a70e04d24d7db27a5e62dfb087400f56adff9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0700.png",
+      "bytes": 84085,
+      "sha256": "5dba90fcb9e182a9ff73e242579518553a7b3c26f94a4ba59b112e440ecdaeff",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0850.png",
+      "bytes": 83476,
+      "sha256": "dabd427eb568e9d1edb87bbeeb6b6516f67748fc9177025b42e148ea6e6f5eae",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_0970.png",
+      "bytes": 72949,
+      "sha256": "dc30dd64cc85e5e63a67a79fe75b38b5efb9e77d86cb0747ae9b1123df891005",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1100.png",
+      "bytes": 71791,
+      "sha256": "9ddf0c4326fbe7132b2243e7c444edaa28892be20939007aba17b00bfcb658e4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1250.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1250.png",
+      "bytes": 72426,
+      "sha256": "6c2a213fa88b4e03cafb68acdedf44c364e0df57016cfd6d05a914c06d44cdf7",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1400.png",
+      "bytes": 77285,
+      "sha256": "9854529d2a4dcc6ef7da722eb0eeb9635335338f9f5da8613eb79b2e55bcd843",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_fp_1550.png",
+      "bytes": 76531,
+      "sha256": "40b7374c08d6070c83f28c50428d53e365e144711386931903f95d885cd3c2fe",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0200.png",
+      "bytes": 57384,
+      "sha256": "8cf7bfec4dac3988296a54610f135683df246a8b99c56dfb6d8b9aa22e1ceb5a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0300.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0300.png",
+      "bytes": 56608,
+      "sha256": "ea6458f0c9a0cff743bdfd43df594e25720e1657e8f1b04db8b250e95e59f844",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0400.png",
+      "bytes": 57214,
+      "sha256": "d924393a494f1bdcbc77e4017681de79bf8c0e64d418808636fcd530b9d1f9e4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0500.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0500.png",
+      "bytes": 59657,
+      "sha256": "fdc4bae9b86ead38d83193681ef328f00aaad9db530cad949ec2fce769cd5a6b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0600.png",
+      "bytes": 59229,
+      "sha256": "2a93d1383edf3730e260df9f51a4f939cb60d124c6bb55f36dc0aee84b0c0958",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0700.png",
+      "bytes": 58474,
+      "sha256": "40ca3cf22e0bb19e668d8106db957520fe336c0a7708d8fecc9ab8175d5eab6f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0850.png",
+      "bytes": 58217,
+      "sha256": "c9fc6779835f9607d3a9626afa374fdbcd7134294ec0961db39784432c27b08c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_0970.png",
+      "bytes": 57391,
+      "sha256": "89c56cc5415593385990226b6c1ce8816cda2029629dae4e0a660da4b26927f1",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1100.png",
+      "bytes": 56760,
+      "sha256": "8e869c08283a12f16197dc01a014f14863bc1eb91d688f2a054e3d3b8545525f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1250.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1250.png",
+      "bytes": 57477,
+      "sha256": "71ddfafe60cee34a7a4a02741b9a07e93d4a59d7e66b8d2e2fccc02eec91e8d0",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1400.png",
+      "bytes": 57588,
+      "sha256": "3a1f71760e8c671d2b329d815a6d6b3cf4e9c663dbf6d6e77012f79fa977c28f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash1_mirrored_top_1550.png",
+      "bytes": 56711,
+      "sha256": "1b17801e07df8ae03bcaa84e232072c8eba80f3830aa60d226a138c3f67cf512",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0000.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0000.png",
+      "bytes": 95608,
+      "sha256": "604edbfc7d35fa7e22c031ca883b9b9f54df569c620a9f15edd7bec679ddbd2d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0550.png",
+      "bytes": 102581,
+      "sha256": "5430eb42177d5e5830306f183170ea7a315fe8ad2eec0cd3665a4b6a7b6b93d5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0850.png",
+      "bytes": 96137,
+      "sha256": "c47b5cb84281c8a614cc5b398dccee0abf83e6aac92e3823e4e0776841564c57",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0930.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0930.png",
+      "bytes": 108207,
+      "sha256": "96c98895e2d5c7cd894b194e8699b1014606880bf8e553e244a232e58252163e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_0970.png",
+      "bytes": 89385,
+      "sha256": "af341049bbc1e175d05853fe6532feaceff7688afbfea2f2af40675694241254",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_1050.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_1050.png",
+      "bytes": 86537,
+      "sha256": "52f02f7137b8acb66dbc05724a771d71b3925ff7666f24688e9e0d118704d77d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_1200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_1200.png",
+      "bytes": 87569,
+      "sha256": "921303456c23d699e1570debb070d336477ce138d456e77b7f8d1b4347d1433b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_1750.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_1750.png",
+      "bytes": 95609,
+      "sha256": "14be469e79662ace0cf9bdbf8cd766531e4facfaf67b6998403f080e01e83ea4",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0200.png",
+      "bytes": 57238,
+      "sha256": "36f84c88981ab3313e114bc61fe2a506803a54db0ed9d005859b1a31a905f5c6",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0300.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0300.png",
+      "bytes": 58336,
+      "sha256": "5ccfcec43949409ec5dfe1075806fdd646ee3ce812cb36bdbb0755c44639e749",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0400.png",
+      "bytes": 57381,
+      "sha256": "82c7b35c9c1dcef622f920e23b56414c3b1f4795426beec7048640c5656b9cd5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0500.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0500.png",
+      "bytes": 57439,
+      "sha256": "cc1a3e2d3caa043dc2d9b1a7bda28f2bd4b79df3b0b70f36e9ce167f8a6be93c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0600.png",
+      "bytes": 56828,
+      "sha256": "a5c9fab6a3d516008cc6d97da65c4b7d615ac691672dae5b65f2e489f6aaac03",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0700.png",
+      "bytes": 56498,
+      "sha256": "beca90cb3937e4e77f9486e49a21ce6a7eaf2fdc947e3e1efe5cbcb2a1655a76",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0850.png",
+      "bytes": 56264,
+      "sha256": "ee7a8e2c3642839a02fe6cdee8a266c237bb8c6521aae0919e2624bb8c9c5cf9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_0970.png",
+      "bytes": 57795,
+      "sha256": "250a3647ec2bcf244e060fc74f2aabaa5737e98462ff8708cf58ed3926395e25",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1100.png",
+      "bytes": 58002,
+      "sha256": "71f2d480680519dd54cde127f2fc8950cc118961177d5ec1618fe23035c7c356",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1250.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1250.png",
+      "bytes": 57746,
+      "sha256": "3e1ab3fd300ad093ab9e93e03c76a906ea25c0fa49cea566f86d3efc07cb2112",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1400.png",
+      "bytes": 58946,
+      "sha256": "9140bcb5bb46c6bacea865888125940219f46f37f7afb69e85013dff9992f67c",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_ext_1550.png",
+      "bytes": 58567,
+      "sha256": "932a17a1ecd735ae3a22b4f4573862dab55d1eb09d818fdba03b59ab2af3180b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0200.png",
+      "bytes": 78312,
+      "sha256": "d3d59ffe5346cf71c2538321342be16c5fadf24a917d19b09ae50637df3bd34e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0300.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0300.png",
+      "bytes": 80805,
+      "sha256": "f549217034ee8bda30f29f496a04e45e11d7e371acec587a05f51fd13f4775b5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0400.png",
+      "bytes": 87115,
+      "sha256": "debb1137dd8f9c77d229ee529ca3b16e474e172960108c6583cbcaae2482897b",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0500.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0500.png",
+      "bytes": 85230,
+      "sha256": "e565f0491e62cf7553ca0faa16ba1ff2a7ba3ed9bcecc735c3e7aa5be1386ccb",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0600.png",
+      "bytes": 83678,
+      "sha256": "76c7f46f06e19d87675dc3ff08f5fb90bc66edd07fd62a1d17246c4641b77429",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0700.png",
+      "bytes": 82943,
+      "sha256": "052adb29bde56f5cc3fd40a2bc4066080257ad844c9089908c0201d0ea92aa93",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0850.png",
+      "bytes": 82305,
+      "sha256": "82a85d7d8a6ad43f5d44fb26da34a7bb9247fa0ba38cfca54440a2ad027b9596",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_0970.png",
+      "bytes": 76490,
+      "sha256": "25fb278ed962eb4f57010f3786f9810a184e90576f041fe7a4621dc9e5db2f1e",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1100.png",
+      "bytes": 75330,
+      "sha256": "22b783b0f217193857fab85bea4f6463e5dc71ad5115bd6842a14352ca7da6ae",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1250.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1250.png",
+      "bytes": 75841,
+      "sha256": "cbcd792d5604c74b424a812d6f20e1d768d0c9364315a7e0c716e98633c24391",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1400.png",
+      "bytes": 77358,
+      "sha256": "9e32368b33ad2679deeecbd6fbd446e47ffa6db6e2bec7a5c59fe6ad21d98baf",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_fp_1550.png",
+      "bytes": 81384,
+      "sha256": "052dbeed28e38aedb45ce46be7467894ba9a99f96d9deceafad0dee2278b9ca9",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0200.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0200.png",
+      "bytes": 57174,
+      "sha256": "fec30b3fce288e02e1923eaec1d311f3fc375e2980e9e826b81aeca08323d241",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0300.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0300.png",
+      "bytes": 57701,
+      "sha256": "0de722bd831297f449c4014cdfeacd8e8e6d2d66ea52cb85844c69dfc1096871",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0400.png",
+      "bytes": 55784,
+      "sha256": "acad462c5187a91a5bf39f198a393d318dd1bb09ba8354acbf0c0dcbf2580e08",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0500.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0500.png",
+      "bytes": 58987,
+      "sha256": "d3590f9713b550e506851191b6b9bee4cc7d2c6dc8b5be195d4cf70a085eb788",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0600.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0600.png",
+      "bytes": 58727,
+      "sha256": "588def40208d30b4711e8bb7f9bcc8adccd555028c841c5301de300a9e1e22be",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0700.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0700.png",
+      "bytes": 58010,
+      "sha256": "e6b454c53fc5234160338eed89c71127b2fe1e328fe76fee281573643f3bbb1a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0850.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0850.png",
+      "bytes": 57729,
+      "sha256": "16e13d858fa631fa62ad7930bb9a52c9a8c3829a609503ecc4f33ecd08934572",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0970.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_0970.png",
+      "bytes": 56786,
+      "sha256": "c56abae2887b8597a8bdcdd040553047b0d4985c6602e7c8e3cb962fad681f0a",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1100.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1100.png",
+      "bytes": 56358,
+      "sha256": "d115a57fedae15a030c40ed7c4fc7c2d7996579820a07594feb8dcd035569236",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1250.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1250.png",
+      "bytes": 56830,
+      "sha256": "cfdeff09220520df46d2bf55a05ed3bc900905670b18eff2a4c1c6727230c6ce",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1400.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1400.png",
+      "bytes": 57284,
+      "sha256": "b0343beb22ba4f029aa3d189696c56fa12f17ace254028c840f0aabc18426157",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1550.png",
+      "reason": "Per-frame diagnosis renders; the contact sheets and scripts remain.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/Diagnosis/Frames/slash2_current_top_1550.png",
+      "bytes": 57995,
+      "sha256": "c1cbddb6319675ca3e42e6de4521974731faf66a8a682bc44fd3ed7fd81e0b0f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectV1/author-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectV1/author-run.txt",
+      "bytes": 5890,
+      "sha256": "77378d5b193b3809a1f34cbb30b32c1b6a043e8185112d19accac63ffe1b02a6",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectV1/build-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectV1/build-run.txt",
+      "bytes": 4150,
+      "sha256": "0aa2987afedcd2307aac8b94c57412b7f7e5514e5f2c77c109a5a749ccf83cd3",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectV1/import-wait.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectV1/import-wait.txt",
+      "bytes": 3482,
+      "sha256": "5e03ac54558f8c47ee3f0804258f24a9d27ee5fe01db99f67f0421dcda4e3098",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/author-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkSpeedV3/author-run.txt",
+      "bytes": 5356,
+      "sha256": "a6daeb8acd25577df84d4fc0054fa120d1b84966dfa0c3d661ad69272efdf9fc",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/build-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkSpeedV3/build-run.txt",
+      "bytes": 3924,
+      "sha256": "098eb1bbd57d28c6cae5868777e9d9e0e40083a6978c20521a8d89446ef0c96f",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import-wait.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/InspectWalkSpeedV3/import-wait.txt",
+      "bytes": 3406,
+      "sha256": "13ea807b787fbdc3a2a4efa56f673bd9cb49c40b378a6042f7b79d63a23de7e5",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/author-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/author-run.txt",
+      "bytes": 4622,
+      "sha256": "bf452017c73cf979a60fae1da84e7cf861e23caec2cb40445c91574a38e82cd2",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import-wait.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/import-wait.txt",
+      "bytes": 3560,
+      "sha256": "bb7ca4b761e398e3d12f2da5cd548ea67b7596e97c4aa9754b8943f43a1ab320",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/plan-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboSwapV5/plan-run.txt",
+      "bytes": 3746,
+      "sha256": "0c5c2025b61c7918d1c5a5487e7eff1ff670886f4cc0473c08051b914c1f5b25",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/author-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/author-run.txt",
+      "bytes": 11090,
+      "sha256": "0323f60e8b2f7c1cce5de3ddb4db057d2193d83cde6a20122405db0670abdb6d",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/build-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/build-run.txt",
+      "bytes": 28554,
+      "sha256": "4b8443e4f0a7782be76c8348cf0f22e29d0601a9ebfdf9ecc0e073a6c5ed66be",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import-wait.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/import-wait.txt",
+      "bytes": 2028,
+      "sha256": "f037396bf3017228ef4bdcc987b2a7ec74477049734b74f55c11ef87762e3227",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/plan-run.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/plan-run.txt",
+      "bytes": 8814,
+      "sha256": "a47304db28858747ba01eeab68742b5214481e90eeb812178b05617490361b39",
+      "verified": true
+    },
+    {
+      "source": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import-bridge-01.txt",
+      "reason": "Console run log duplicated by the stage receipts/plan JSON.",
+      "target": "trash/warhammer-inspect-combo-retired-20261016/NormalComboRhythmV7/import-bridge-01.txt",
+      "bytes": 1012,
+      "sha256": "5a6fb33ff9ca11e52d50747d8e25a812752334b2e51267a7258cd13b5bab1f87",
+      "verified": true
+    }
+  ],
+  "files": 239,
+  "bytes": 394519557,
+  "permanent_deletion": false
+}

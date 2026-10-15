@@ -1,0 +1,252 @@
+{
+  "git_baseline": "11a1e881a01718b149c9ed4167125cc7e132ecad",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntInspect.cpp",
+      "publication": "source path",
+      "local_sha256": "12d529a6b31070beb34b9318c0ef38e6431f6e79267a3effd48901e70960c36b",
+      "bytes": 2866
+    },
+    {
+      "path": "Source/FPSGAME/Production/WarhammerInspectWalkCues.h",
+      "publication": "source path",
+      "local_sha256": "50cd1fb4ca5212c59552c4c0243fb8c4298013bff3f04035625aa9decc2909b5",
+      "bytes": 600
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntFlow.cpp",
+      "publication": "source path",
+      "local_sha256": "edcb6f891b1c11b75077c60b5ee7c40fcb7b473ef55f504d055031243b265b1a",
+      "bytes": 3643
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntComboTiming.h",
+      "publication": "source path",
+      "local_sha256": "3edb41c87e315c7e8694c35e30c0cb14ba932fd2424c0fa8d5906d6ce520c4bb",
+      "bytes": 983
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "publication": "source path",
+      "local_sha256": "795e9a004421bb9ba7b5bef4d1edb0fed0b2a545038243dcc507276aac80b120",
+      "bytes": 13789
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "d6ccf22b70c60b32b58e110ed14669ec1d8d7734bfd59add404d9003958b62e3",
+      "local_lf_sha256": "18016d35ee001f98799b321be3b875493d291a83924db7e1d044ac095c7a5c15",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "479accfd9a24db20a0d99df942209e86ae689918c7e928085d0037d3e87eeaf6",
+      "local_lf_sha256": "603b1481db20cde95b73e8b719c022203c50c6b809c66f7e1fa8077171012392",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "be8e368d1cea565575ec81aa66709c89c2715110d63404d0467f7e96e688af2f",
+      "local_lf_sha256": "88382e2dc1b555423fa11d436a442ad2878c13b72d31a1abaf9aca09eb0c554d",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "f2b41f3f87466f671aa114a18abf2f050cb80af15d82e3d83ff7dcac27409e03",
+      "local_lf_sha256": "e729fd44300e0451c75f5538fcc47c864c860664e3b55faad617f4a6ff849b0e",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "ae0885fe1912f28b6e40f6278ba7e54b82afc758d20dfd4075d18b7b5384992d",
+      "local_lf_sha256": "8359f40296d8ad240cdc720125ceae6638ded12f907e1062bafa280d5f9531dd",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "d48a21d5f508c0168ed7bb8b27de93a8cef2947c3ac1593c3594e8f0364fde2b",
+      "local_lf_sha256": "e621d10ff0dd848423f2e129e87d13474f1891e8741212020b0e4ac44fab8a0b",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "cad1778f3f50f8f2fc7446f8a173f3266479c188b5e8c0f790760393cf0eb629",
+      "local_lf_sha256": "a3b4920470ca3e0885a8ea6469bf860905f14fe5ba22614a08ce238099790c39",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "bed76289ca580530751f870ce71a693492d673bb0fa6bfabb760a3cd9068a176",
+      "local_lf_sha256": "8c0504fd756050cbd45fc5b8b7456dd3d1915623688a91bf685215fa4197f9b9",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "publication": "shared-integration.patch",
+      "baseline": "current file with this task's edits reversed (local only)",
+      "baseline_lf_sha256": "bdc6aba3ddc05dd59d5aad686fbe49f062d8681dc1e72d8da58c84b7b4a346da",
+      "local_lf_sha256": "24bb8d7db04f9bd76b41ab472a51e746051b3f2670e3bb8322d55b78705605ae",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionBluntCombo.h",
+      "publication": "shared-integration.patch",
+      "baseline": "reconstructed V4 text before the first edit (local only)",
+      "baseline_lf_sha256": "0c6a8be56a06bce10e1e95e120c233d94f4a19615cc42c439bf829d910e5d662",
+      "local_lf_sha256": "fa9150de7dd044af64135390b58623a8102034b990030cdd4b73f35ebb58fe10",
+      "note": "Mixed with other warhammer/parallel work not on the public main; only this task's hunks are in the patch"
+    }
+  ],
+  "recipes": [
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/author_inspect.py",
+      "sha256": "57fe73cb6936b96c69ff9f529f37fae01b892cc28116bc13314efb589d0267f1",
+      "bytes": 18678
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/build.ps1",
+      "sha256": "b19da08d080159993f526d2e78d7acac71220e3064932b2ceab588ed4cad7205",
+      "bytes": 2064
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import_assets.py",
+      "sha256": "30a44fd8f4f49014cecc0fd10f5aa463d439814abaab882ce0f1dc0bdc8e538e",
+      "bytes": 2782
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import_background.ps1",
+      "sha256": "8d221119e9b89993846b92b9766184d79c411b62ada41b1f793929eac2cb20c1",
+      "bytes": 1848
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import_when_available.ps1",
+      "sha256": "744a89357ff4c0e009f2f081f0e551c9f09f78a2d0f99451df599b0f439eabbb",
+      "bytes": 1322
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/probe_inputs.py",
+      "sha256": "b25f848018cf75d7f2bc824a3d6efffdc21c0cb9d3f12973bb48a036e38b7c25",
+      "bytes": 2856
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Audio/analyze_sources.py",
+      "sha256": "1b2045c7709b740bba35cddd14d26a7dd23a56fc48e7331a3f51743f49cd6189",
+      "bytes": 2176
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Audio/author_cues.py",
+      "sha256": "aad8bc8bbb39ed0bf966e82360221dd56c9ac5431a2b9289947c33d0cc8a3833",
+      "bytes": 3558
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/author_inspect_walk.py",
+      "sha256": "b7eac735ed21419cff14bc60aa7897b75c86352c2ce4b3428f541845ae9d8e32",
+      "bytes": 12955
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/build.ps1",
+      "sha256": "fea45fa6a27a5f149d4ee8cbbade2b9be2e96ecd28fb1bb1672c63fdb540efdd",
+      "bytes": 2067
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import_assets.py",
+      "sha256": "0b5ed6f31f481f44fe7a57a6e4687d51fa007e2f23f7386800207aaee5a9ef74",
+      "bytes": 2821
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import_background.ps1",
+      "sha256": "57f03ee609a41723cb71333ba7d83c378d015d6a8f35f6c46f283167c573e9ac",
+      "bytes": 1851
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import_when_available.ps1",
+      "sha256": "8eb25ac438fe7ae86bb011d2ca3fde8850610abb1e63f6c713ab23581215cd35",
+      "bytes": 1325
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/author_swap.py",
+      "sha256": "2343ae9b77a874784087833457b48d76dc204393fb38708be78e1fded10eafcc",
+      "bytes": 21868
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/build.ps1",
+      "sha256": "fea45fa6a27a5f149d4ee8cbbade2b9be2e96ecd28fb1bb1672c63fdb540efdd",
+      "bytes": 2067
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/combo_rhythm_probe.py",
+      "sha256": "c993b790a4b258485bf9cb7b3a6ce51606574e18e2d4618f27390259179a3bc8",
+      "bytes": 2628
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/probe_combo.py",
+      "sha256": "e861067c41353e4b2bbfa8f8b74234d940629dc1055310129958672b38973679",
+      "bytes": 7093
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/render_compare.py",
+      "sha256": "e25d0f42e6835f3d6507629bd053d71484742c92284e4ef96fb08d9d54851f2d",
+      "bytes": 3906
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/render_result.py",
+      "sha256": "02b538adac85b087ba0d64f2359b8a693975f01679a8343208fd39855631c237",
+      "bytes": 2502
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import_assets.py",
+      "sha256": "06033567d3a7ce4b34c5887c63bb5eb2b5821b1e379d6da202e18df8b222e652",
+      "bytes": 2796
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import_background.ps1",
+      "sha256": "57f03ee609a41723cb71333ba7d83c378d015d6a8f35f6c46f283167c573e9ac",
+      "bytes": 1851
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import_when_available.ps1",
+      "sha256": "8eb25ac438fe7ae86bb011d2ca3fde8850610abb1e63f6c713ab23581215cd35",
+      "bytes": 1325
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/author_rhythm.py",
+      "sha256": "1573fbaa129dad704f0d86c4f2bd1983b7fcfed39064556b9f0ef674046a24be",
+      "bytes": 24230
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/build.ps1",
+      "sha256": "fea45fa6a27a5f149d4ee8cbbade2b9be2e96ecd28fb1bb1672c63fdb540efdd",
+      "bytes": 2067
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import_assets.py",
+      "sha256": "5fafe8731c024cc8ac051e6bef5f4d76b7d703fe19456580830a08954ed0f48e",
+      "bytes": 2800
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import_background.ps1",
+      "sha256": "57f03ee609a41723cb71333ba7d83c378d015d6a8f35f6c46f283167c573e9ac",
+      "bytes": 1851
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import_when_available.ps1",
+      "sha256": "8eb25ac438fe7ae86bb011d2ca3fde8850610abb1e63f6c713ab23581215cd35",
+      "bytes": 1325
+    }
+  ]
+}

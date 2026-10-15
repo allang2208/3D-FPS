@@ -22,6 +22,7 @@
 - 单手惯性外甩需要明确左手松握、退出视野、右手继续带动、减速回握的阶段。惯性主要来自武器轨迹和承重链，不能仅延长原地旋转或末尾硬停。回握时恢复实际柄上接触再回待机。
 - 快速近战曾出现“只扣体力、没有动画”。排查时同时看动作占用、实际时钟推进者和工具视模采样，不能只确认 clip 引用存在。当前战锤由摄像机更新前的工具路径推进一次，组件自身 Tick 不重复推进。
 - 格挡进入途中松键可反向走当前进入轨迹，完整撑挡后才切专用退出；受击插入不能把已松键的退出切回保持。
+- 绕柄检视、第二段换手镜像和普通攻击“蓄力–蓄满一拍–爆发–打击”四拍节奏（含被否定的匀加速 V6）见 [绕柄检视、换手与出击节奏](warhammer-inspect-swap-rhythm.md)。
 
 ## 本案例制作依赖
 
@@ -31,5 +32,6 @@
 - 上挑 `UppercutRightAnatomyV7` 读取 `UppercutTiltClearanceV6` 的 Blend 与表面数据；快速近战 `QuickCombatLeftWristV7` 读取 `QuickCombatReachV6`。
 - `GuardV1` 使用 `NormalComboV4` 待机和 `WhirlwindHandoffV5` 的求解函数。V1 的 0.22 秒进入、0.30 秒受击、1.50 秒破防是该动作参数，不是家族通用标准。
 - 普通攻击 V2/V3 已被否定。源版本号与 UE 资产目录号不是一回事：新上挑/旋风可导入旧名包，不能按目录号删除仍被运行时引用的资产。
+- 当前普通攻击作者版为 `NormalComboRhythmV7`，六段仍写入 `NormalComboV4` 包目录；它读取 V4 Blend 与 `NormalComboSwapV5` 的换手 Blend，V6 已归档。
 
 归档前沿脚本读取、AST 函数提取、Blend 和采样数据逐层保留依赖；日志、Before 和旧作者源分别判定。详见工程 `Docs/Publication/WarhammerCombat20261015/README.md`。

@@ -84,7 +84,12 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
             ||DisplayState.RightHand.bReloading||DisplayState.LeftHand.bReloading
             ||DisplayState.RightHand.bEquipping||DisplayState.LeftHand.bEquipping
             ||DisplayState.Family==TEXT("Bow")||Now-DisplayState.LastShotAt<.15f;
-        PresentationSendCountdown=Active?.04f:.08f;
+        // Melee downswings now last ~0.15 s: sample the release and contact
+        // densely so other players see the arc and impact, not two endpoints.
+        const bool MeleeRelease=(DisplayState.Action==EFPSBodyAction::Strike||DisplayState.Action==EFPSBodyAction::HeavyStrike)
+            &&DisplayState.bHasActionProgress&&DisplayState.ActionProgress>=DisplayState.ContactFraction-.09f
+            &&DisplayState.ActionProgress<=DisplayState.ContactFraction+.04f;
+        PresentationSendCountdown=MeleeRelease?.016f:Active?.04f:.08f;
     }
     if(GetOwner()->HasAuthority()&&(Edge||Shot||(!DisplayState.Lasers.IsEmpty()&&PresentationSendCountdown<=0.f)))
     {

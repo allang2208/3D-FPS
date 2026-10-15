@@ -1,0 +1,582 @@
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -54,6 +54,11 @@
+     bool IsQuickCombatActive() const;
+     bool GetQuickCombatStrikeProbe(FVector& Origin,float PoseSeconds);
+     bool IsEquipping() const { return EquipElapsed>=0.f; }
++    /** Warhammer inspect: cosmetic real-time clock, never IsBusy; any action or movement break cancels it.
++     *  L plays the full InspectV1; bWalking plays the accelerated shaft-turn half (InspectWalkSpeedV3). */
++    bool BeginInspect(bool bWalking=false);
++    void CancelInspect() { InspectElapsed=-1.f; }
++    bool IsInspecting() const { return InspectElapsed>=0.f; }
+     USkeletalMeshComponent* ArmsMesh() const { return bUsesArms ? Viewmodel.Get() : nullptr; }
+     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
+     void RefreshHeldTool();
+@@ -176,6 +181,20 @@
+     FVector BluntFloorPoint=FVector::ZeroVector,BluntFloorNormal=FVector::UpVector;
+     bool bBluntFloorTarget=false;
+     float BluntChargeResume(float Held) const;
++    /** V6 ordinary cut: clip seconds of the current attack (non-linear attack-speed map). */
++    float BluntClipTime() const;
++    float BluntHitClipTime() const;
++    float BluntClipRate() const;
++    /** DPS-neutral visual chain: a buffered next cut starts its load from this
++     *  cut's turnaround; gameplay still begins it when this cut ends. */
++    void StartBluntChain(float Remaining);
++    void AdvanceBluntChain(float Delta,float End);
++    float BluntChainClipTime() const;
++    float BluntStartClip=0.f;
++    bool bBluntChain=false,bBluntHandoffEntry=false;
++    void HandOffBluntPose();
++    int32 BluntChainStage=0;
++    float BluntChainAge=0.f,BluntChainSpan=0.f,BluntChainStartClip=0.f,BluntChainBlend=.3f;
+     bool ResolveBluntContact(float StunSeconds=0.f);
+     bool FindBluntGround(FHitResult& Hit) const;
+     bool BeginBluntShockwave(float StunSeconds);
+@@ -203,6 +222,13 @@
+     FString EquippedId, Kind, ToolName, Feedback;
+     float SwingSeconds=.68f, ContactSeconds=.24f, Elapsed=-1.f, HintCountdown=0, FeedbackSeconds=0;
+     float EquipElapsed=-1.f, VisualTime=0.f, SprintBlend=0.f;
++    float InspectElapsed=-1.f, WalkInspectDelay=2.5f;
++    FName InspectClip=FName(TEXT("Inspect"));
++    bool ShouldBreakInspect() const;
++    void ScheduleWalkInspect(bool bAfterInspect);
++    bool IsWalkInspectStride() const;
++    void TickWalkInspect(float Delta);
++    void PlayInspectCues(float From,float To) const;
+     float AxeStridePhase=0.f;
+     FVector AxeLocomotionOffset=FVector::ZeroVector;
+     FQuat AxeLocomotionRotation=FQuat::Identity;
+@@ -230,6 +256,10 @@
+     /** Shared single-target query for the hint and the contact event. */
+     bool TraceAxeContact(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const;
+     bool ResolveAxeEnemyContact(const FHitResult& Hit);
++    /** Owner-side cosmetic prediction of the server's ordinary hammer contact
++     *  (same sector query and enemy filter, no damage) so the hit stop lands on
++     *  the contact frame instead of one round trip later. */
++    bool PredictBluntEnemyContact() const;
+     bool TraceResource(FProductionResource& Resource,FHitResult& Hit,FString& Reason) const;
+     bool ResolveContact();
+     bool HasReadyPresentation() const;
+--- a/Source/FPSGAME/Production/ProductionToolComponent.cpp
++++ b/Source/FPSGAME/Production/ProductionToolComponent.cpp
+@@ -1,6 +1,7 @@
+ #include "ProductionToolComponent.h"
+ #include "WarhammerCombat.h"
+ #include "WarhammerAudioPaths.h"
++#include "WarhammerInspectWalkCues.h"
+ #include "WarhammerQuickCombatMotion.h"
+ #include "WarhammerGuardMotion.h"
+ #include "../Skills/FPSQuickCombatComponent.h"
+@@ -53,6 +54,8 @@
+     const FSoftObjectPath WarhammerOrdinarySwingSoundPath(TEXT("/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing.S_Warhammer_NormalSwing"));
+     const FSoftObjectPath WarhammerWhirlwindPath(TEXT("/Game/Weapons/SteelWarhammer20261014/WhirlwindV1/A_Warhammer_Whirlwind.A_Warhammer_Whirlwind"));
+     const FSoftObjectPath WarhammerUppercutPath(TEXT("/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut.A_Warhammer_Uppercut"));
++    const FSoftObjectPath WarhammerInspectPath(TEXT("/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_Inspect.A_Warhammer_Inspect"));
++    const FSoftObjectPath WarhammerInspectWalkPath(TEXT("/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_InspectWalk.A_Warhammer_InspectWalk"));
+     const FSoftObjectPath WarhammerWhirlwindFocusPath(TEXT("/Game/Skills/Whirlwind20260920/M_WhirlwindFocus.M_WhirlwindFocus"));
+     // The shovel digs where the crosshair points; the heightfield keeps its 20 cm
+     // layer rule, so one swing is one whole layer instead of a melee poke.
+@@ -167,7 +170,7 @@
+     const bool SameModules=!Item||!ColdSteelModularSword::Supports(*Item)||
+         ToolMesh->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
+     if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
+-    CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset();
++    CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset(); ScheduleWalkInspect(false);
+     ColdSteelModularSword::Clear(ToolMesh);
+     ToolMesh->ComponentTags.Remove(TEXT("WarhammerModule"));
+     ToolMesh->AttachToComponent(Pivot,FAttachmentTransformRules::KeepRelativeTransform);
+@@ -228,6 +231,10 @@
+         Paths.Add(WarhammerAudioPaths::Uppercut);
+         Paths.Add(WarhammerWhirlwindPath);
+         Paths.Add(WarhammerUppercutPath);
++        Paths.Add(WarhammerInspectPath);
++        Paths.Add(WarhammerInspectWalkPath);
++        // The walking-inspect air cue stays resident with the hammer; never load on cue.
++        for(const auto& Cue:WarhammerInspectWalkCues::Cues)Paths.AddUnique(FSoftObjectPath(Cue.Sound));
+         Paths.Add(FSoftObjectPath(WarhammerQuickCombat::Asset));
+         for(const TCHAR* Clip:WarhammerGuard::Clips)Paths.Add(FSoftObjectPath(WarhammerGuard::ClipPath(Clip)));
+         for(const TCHAR* Sound:WarhammerGuard::Sounds)Paths.Add(FSoftObjectPath(Sound));
+@@ -257,6 +264,8 @@
+                         Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(ComboMotionPrefix,Clip).ResolveObject()));
+                     Motions.Add(TEXT("Whirlwind"),Cast<UAnimSequence>(WarhammerWhirlwindPath.ResolveObject()));
+                     Motions.Add(TEXT("Uppercut"),Cast<UAnimSequence>(WarhammerUppercutPath.ResolveObject()));
++                    Motions.Add(TEXT("Inspect"),Cast<UAnimSequence>(WarhammerInspectPath.ResolveObject()));
++                    Motions.Add(TEXT("InspectWalk"),Cast<UAnimSequence>(WarhammerInspectWalkPath.ResolveObject()));
+                     Motions.Add(TEXT("QuickCombat"),Cast<UAnimSequence>(FSoftObjectPath(WarhammerQuickCombat::Asset).ResolveObject()));
+                     for(const TCHAR* Clip:WarhammerGuard::Clips)
+                         Motions.Add(Clip,Cast<UAnimSequence>(FSoftObjectPath(WarhammerGuard::ClipPath(Clip)).ResolveObject()));
+@@ -378,7 +387,7 @@
+         Motions.Add(TEXT("ActiveHitRecover"),Motions.FindRef(TEXT("HitRecover")));
+     }
+     Elapsed=0; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
+-    bQueuedBluntAttack=false;
++    bQueuedBluntAttack=false;BluntStartClip=0.f;
+     if(bBluntHeavy)
+     {
+         SwingSeconds=WarhammerHeavy::Duration;ContactSeconds=WarhammerHeavy::Contact;
+@@ -404,6 +413,8 @@
+ void UProductionToolComponent::FinishUse()
+ {
+     const bool Queued=Kind==TEXT("warhammer")&&bQueuedBluntAttack;
++    const bool Chain=Queued&&bBluntChain;const int32 ChainStage=BluntChainStage;const float ChainClip=BluntChainStartClip;
++    bBluntChain=false;BluntStartClip=0.f;
+     if(Kind==TEXT("warhammer"))
+     {
+         NextBluntStage=bBluntHeavy||bBluntSprintAttack?0:(BluntStage+1)%3;
+@@ -414,6 +425,13 @@
+     if(UsesTwoHandMotion())VisualTime=0.f;
+     if(Pivot)Pivot->SetRelativeRotation(FRotator::ZeroRotator);
+     if(Queued)BeginUse();
++    // The chained cut has already shown its early load: continue from there.
++    // A refused cut simply blends back to idle from the visible pose.
++    if(Chain&&Elapsed>=0.f&&!bBluntHeavy)
++    {
++        if(BluntStage==ChainStage)BluntStartClip=ChainClip;
++        else HandOffBluntPose();
++    }
+ }
+ 
+ void UProductionToolComponent::CancelUse()
+@@ -426,8 +444,9 @@
+     FinishBluntUppercut();
+     if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(BluntContactTimer);
+     if((UsesTwoHandMotion()) && (Elapsed>=0.f || EquipElapsed>=0.f))VisualTime=0.f;
+-    Elapsed=-1; EquipElapsed=-1; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
++    Elapsed=-1; EquipElapsed=-1; InspectElapsed=-1; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
+     BluntStage=NextBluntStage=BluntServerNextStage=0;LastBluntEnd=-100.;bQueuedBluntAttack=false;
++    bBluntChain=false;BluntStartClip=0.f;
+     BluntServerComboExpires=0.;BluntServerGroundSlamUntil=0.;
+     BluntServerReadyAt=0.;
+     bBluntCharging=bBluntHeavy=bBluntReleaseCharge=bBluntServerCharging=bBluntFloorTarget=false;
+@@ -548,8 +567,11 @@
+         const float Contact=RealContactSeconds(), Swing=RealSwingSeconds();
+         // The overhead pickaxe starts accelerating 100 ms before contact;
+         // its whoosh belongs to that downstroke, after the raised hold.
+-        const float WhooshTime=bBluntHeavy?BluntLiftSeconds():
+-            (Kind==TEXT("warhammer")?ProductionBluntCombo::WhooshTime(ContactSeconds):Kind==TEXT("axe")?AxeMotion.SwingSoundSeconds:
++        // V6 hammer cuts: the sound follows each stage's downswing on the same
++        // non-linear clip map (and a chained cut's already-played early load).
++        const float WhooshTime=bBluntHeavy?BluntLiftSeconds():Kind==TEXT("warhammer")?
++            ProductionBluntCombo::RealForWindupClip(ProductionBluntCombo::WhooshClip(BluntStage),Contact,ContactSeconds,RateScale,BluntStage,BluntStartClip):
++            (Kind==TEXT("axe")?AxeMotion.SwingSoundSeconds:
+             (UsesPickaxeMotion()?FMath::Max(0.f,ContactSeconds-.10f):ContactSeconds*.65f))/RateScale;
+         if(bUsesArms && !bSwingSoundPlayed && Elapsed>=WhooshTime)
+         {
+@@ -572,6 +594,10 @@
+         if (!bContacted && Elapsed>=Contact)
+         {
+             bContacted=true; bHitConfirmed=ResolveContact();
++            // Networked ordinary hammer cuts settle on the server timer; predict
++            // the hit locally (presentation only) so the impact is not delayed.
++            if(!bHitConfirmed&&Kind==TEXT("warhammer")&&!bBluntHeavy&&GetNetMode()!=NM_Standalone)
++                bHitConfirmed=PredictBluntEnemyContact();
+             // Start the confirmed impact at zero age, even on a late frame, so
+             // a hitch cannot skip the lodged pose and its first camera impulse.
+             if(bHitConfirmed && UsesTwoHandMotion()&&!bBluntHeavy)Elapsed=Contact;
+@@ -579,6 +605,7 @@
+         const float End=bBluntHeavy?Swing:bHitConfirmed && Kind==TEXT("axe")?Contact+AxeMotion.HitRecoverSeconds/RateScale:
+             bHitConfirmed && Kind==TEXT("warhammer")?Contact+ProductionBluntCombo::HitRecoverSeconds/RateScale:
+             bHitConfirmed && UsesPickaxeMotion()?Contact+ProductionPickaxeImpact::HitRecoverSeconds/RateScale:Swing;
++        AdvanceBluntChain(Delta,End);
+         if (Elapsed>=End) FinishUse();
+     }
+ }
+--- a/Source/FPSGAME/Production/ProductionToolMotion.cpp
++++ b/Source/FPSGAME/Production/ProductionToolMotion.cpp
+@@ -93,15 +93,20 @@
+         const bool MatchedNormal=Kind==TEXT("warhammer")&&!bBluntHeavy&&CurrentMotion&&
+             (Clip==TEXT("ActiveSwing")||Clip==TEXT("ActiveHitRecover"))&&
+             CurrentMotion->GetName().StartsWith(TEXT("A_Warhammer_Slash"));
+-        if(MatchedNormal)
++        if(MatchedNormal&&!bBluntHandoffEntry)
+             if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
++        bBluntHandoffEntry=false;
+         const bool ContactEntry=Clip==TEXT("ActiveHitRecover")&&CurrentMotion==Motions.FindRef(TEXT("ActiveSwing"));
++        // An interrupted inspect can be mid-turn with loose palms: hand off around the shaft.
++        const bool LeavingInspect=CurrentMotion&&(CurrentMotion==Motions.FindRef(TEXT("Inspect"))||CurrentMotion==Motions.FindRef(TEXT("InspectWalk")));
+         if(Kind==TEXT("warhammer")&&CurrentMotion&&!GuardClip&&Clip!=TEXT("QuickCombat")&&Clip!=TEXT("Uppercut")&&Clip!=TEXT("Whirlwind")&&Clip!=TEXT("HitRecover")&&!ContactEntry&&!MatchedNormal&&
+             !(bBluntHeavy&&Clip==TEXT("ActiveSwing")))
+             if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(
+-                Clip==TEXT("ActiveSwing")&&Elapsed<RealContactSeconds()?
++                // A visual chain hands the turnaround into the next cut's load around the shaft.
++                bBluntChain&&Clip==ProductionBluntCombo::Swing(BluntChainStage)?BluntChainBlend:
++                Clip==TEXT("Inspect")||Clip==TEXT("InspectWalk")?.14f:Clip==TEXT("ActiveSwing")&&Elapsed<RealContactSeconds()?
+                     FMath::Min(.14f/RateScale,FMath::Max(.001f,RealContactSeconds()-Elapsed)):.14f/RateScale,
+-                !bBluntHeavy&&!bBluntCharging&&Elapsed>=0.f);
++                (!bBluntHeavy&&!bBluntCharging&&Elapsed>=0.f)||LeavingInspect);
+         if(bBluntHeavy&&Clip==TEXT("ActiveSwing"))
+             if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+             {
+@@ -143,7 +148,10 @@
+ void UProductionToolComponent::UpdateHandPresentation(float Delta)
+ {
+     VisualTime+=Delta;
++    // Every action, sprint, jump or dodge takes over from the cosmetic inspect.
++    if(InspectElapsed>=0.f&&ShouldBreakInspect())InspectElapsed=-1.f;
+     if(PresentGuardPose())return;
++    TickWalkInspect(Delta);
+     if(IsQuickCombatActive())
+     {
+         if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))Arms->SetFloorContact(FVector::ZeroVector,0.f);
+@@ -197,7 +205,9 @@
+         // Only a confirmed resource/enemy hit chooses braced recovery; misses follow through.
+         // 挥砍速度改造只压缩真实时钟：动画仍按作者时间采样，RateScale=1 时逐帧等价。
+         const float Authored=AuthoredElapsed();
+-        if(bBluntHeavy)SampleMotion(TEXT("ActiveSwing"),Authored);
++        // Buffered next cut: its load is already visible during this cut's tail.
++        if(bBluntChain)SampleMotion(ProductionBluntCombo::Swing(BluntChainStage),BluntChainClipTime());
++        else if(bBluntHeavy)SampleMotion(TEXT("ActiveSwing"),Authored);
+         else if(bHitConfirmed)
+             SampleMotion(Motions.FindRef(TEXT("ActiveHitRecover"))?TEXT("ActiveHitRecover"):TEXT("HitRecover"),Kind==TEXT("warhammer")?
+                 ProductionBluntCombo::HitSourceTime(Authored-ContactSeconds):UsesPickaxeMotion()?
+@@ -205,7 +215,7 @@
+                 .44f*(Authored-ContactSeconds)/(Kind==TEXT("axe")?AxeMotion.HitRecoverSeconds:SwingSeconds-ContactSeconds));
+         else
+         {
+-            const float SourceTime=bBluntSprintAttack?Authored:Kind==TEXT("warhammer")?ProductionBluntCombo::SwingSourceTime(Authored,ContactSeconds,SwingSeconds):
++            const float SourceTime=bBluntSprintAttack?Authored:Kind==TEXT("warhammer")?BluntClipTime():
+                 (Authored<ContactSeconds?.24f*Authored/ContactSeconds:.24f+.44f*(Authored-ContactSeconds)/(SwingSeconds-ContactSeconds));
+             SampleMotion(Motions.FindRef(TEXT("ActiveSwing"))?TEXT("ActiveSwing"):TEXT("Swing"),SourceTime);
+         }
+@@ -218,6 +228,20 @@
+         {
+             EquipElapsed=-1.f;
+             if(bTwoHand)VisualTime=0.f;
++        }
++    }
++    else if(InspectElapsed>=0.f)
++    {
++        // Own real-time clock: no attack rate, stamina or hit window.
++        const UAnimSequence* Inspect=Motions.FindRef(InspectClip);
++        const float CueFrom=InspectElapsed;
++        InspectElapsed+=Delta;
++        PlayInspectCues(CueFrom,InspectElapsed);
++        if(Inspect&&InspectElapsed<Inspect->GetPlayLength())SampleMotion(InspectClip,InspectElapsed);
++        else
++        {
++            // The authored last frame is the idle start; resume idle from there.
++            InspectElapsed=-1.f;VisualTime=0.f;SampleMotion(TEXT("Idle"),0.f);
+         }
+     }
+     else if(Kind==TEXT("warhammer")&&SprintBlend>.001f)
+@@ -289,7 +313,15 @@
+     // 镜头关键帧是作者秒；改造后的真实时间先换算回作者时间再采样。
+     if(Kind==TEXT("warhammer"))
+     {
+-        ProductionBluntCombo::SampleCamera(AuthoredElapsed(),ContactSeconds,SwingSeconds,BluntStage,bHitConfirmed,Location,Rotation);
++        ProductionBluntCombo::SampleCamera(bHitConfirmed?BluntHitClipTime():BluntClipTime(),BluntStage,bHitConfirmed,Location,Rotation);
++        if(bBluntChain)
++        {
++            // Hand the camera to the chained cut's load by the time it begins.
++            FVector NextLocation;FRotator NextRotation;
++            ProductionBluntCombo::SampleCamera(BluntChainClipTime(),BluntChainStage,false,NextLocation,NextRotation);
++            const float W=ProductionBluntCombo::Ease(BluntChainAge/FMath::Max(.001f,FMath::Min(BluntChainBlend,BluntChainSpan)));
++            Location=FMath::Lerp(Location,NextLocation,W);Rotation=FMath::Lerp(Rotation,NextRotation,W);
++        }
+         return;
+     }
+     const float Authored=AuthoredElapsed();
+--- a/Source/FPSGAME/Production/ProductionAxeContact.cpp
++++ b/Source/FPSGAME/Production/ProductionAxeContact.cpp
+@@ -3,6 +3,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../Monsters/MonsterCombatComponent.h"
+ #include "../Skills/ColdSteelSkillRules.h"
++#include "../Weapons/RuneSwordHitQuery.h"
+ #include "../WorldGeneration/TemperateHillsWorld.h"
+ #include "Components/InstancedStaticMeshComponent.h"
+ #include "Engine/World.h"
+@@ -128,6 +129,19 @@
+     return bFound;
+ }
+ 
++bool UProductionToolComponent::PredictBluntEnemyContact() const
++{
++    // Mirrors ResolveBluntContact's sector and the enemy filter below; the
++    // server still settles damage and only its result changes gameplay.
++    auto* Pawn=Character.Get();if(!Pawn||!GetWorld())return false;
++    const FTransform Aim=Pawn->GetMeleeAimTransform();
++    const FVector Forward=Aim.GetUnitAxis(EAxis::X).GetSafeNormal2D(UE_SMALL_NUMBER,Pawn->GetActorForwardVector());
++    const TSet<TWeakObjectPtr<AActor>> Empty;
++    for(const auto& Hit:RuneSwordCombat::QuerySector(GetWorld(),Pawn,Pawn->GetActorLocation(),Forward,AxeCombatReach,BluntArcDegrees,Empty))
++        if(IsAxeEnemy(Hit.GetActor(),Pawn))return true;
++    return false;
++}
++
+ bool UProductionToolComponent::ResolveAxeEnemyContact(const FHitResult& Hit)
+ {
+     auto* Pawn=Character.Get();auto* Target=Hit.GetActor();
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -22,6 +22,8 @@
+ 
+ void AFPSGAMECharacter::InterruptWeaponInspection()
+ {
++    // The warhammer inspect is a presentation clock only; any interrupt drops it.
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>())Tools->CancelInspect();
+     if(WeaponState!=EAKMWeaponState::Inspecting)return;
+     // FinishWeaponAction advances the shot deadline to the original clip end.
+     // An interrupted inspect must release its pose and input gate immediately.
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1597,6 +1597,12 @@
+         if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
+         ExitSprintForWeapon();RuneSword->BeginInspect();return;
+     }
++    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsWarhammerEquipped())
++    {
++        // Two-handed blunt: raise, rock, flick and one full turn about the shaft.
++        if(IsCastBlockingLeftHandAction() || IsWeaponBusy() || Tools->IsBusy())return;
++        ExitSprintForWeapon();Tools->BeginInspect();return;
++    }
+     if (IsCastBlockingLeftHandAction() || IsWeaponBusy() || IsChoosingAmmo()) return;
+     UAnimSequence* Clip=bUseM1911 && DualPistols && (MagazineAmmo==0 || NeedsReloadCycle())
+         ?DualPistols->SingleEmptyInspect():InspectAnimation.Get();
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -234,10 +234,14 @@
+             State.ContactFraction=Tool->ContactSeconds/FMath::Max(.01f,Tool->SwingSeconds);
+             if(Tool->Kind==TEXT("warhammer")&&!Tool->bBluntHeavy)
+             {
++                // Non-linear clip clock: report its real rate so remote progress
++                // extrapolation follows the hold/release instead of a flat rate.
+                 Timed(Diagonal?EFPSBodyAction::Strike:EFPSBodyAction::HeavyStrike,
+-                    ProductionBluntCombo::SwingSourceTime(ToolTime,Tool->ContactSeconds,Tool->SwingSeconds),
+-                    ProductionBluntCombo::SwingSeconds,Tool->RateScale);
++                    Tool->BluntClipTime(),ProductionBluntCombo::SwingSeconds,Tool->BluntClipRate());
+                 State.ContactFraction=ProductionBluntCombo::ContactSeconds/ProductionBluntCombo::SwingSeconds;
++                // A chained cut's hands already show its early load; ease the body
++                // effort in from the previous cut's settled torso instead of popping.
++                if(Tool->BluntStartClip>0.f)State.ActionWeight=FMath::SmoothStep(0.f,.22f,Tool->Elapsed);
+             }
+             if(Tool->bHitConfirmed&&!Tool->bBluntHeavy)
+             {
+--- a/Source/FPSGAME/Characters/FPSBodyMeleePose.h
++++ b/Source/FPSGAME/Characters/FPSBodyMeleePose.h
+@@ -32,7 +32,7 @@
+         const bool Hit=S.Action==EFPSBodyAction::ToolRecover;
+         const float Side=S.ActionVariant==TEXT("WarhammerSlash1")?1.f:S.ActionVariant==TEXT("WarhammerSlash2")?-1.f:0.f;
+         const float Time=T*(Hit?ProductionBluntCombo::HitRecoverSeconds:ProductionBluntCombo::SwingSeconds);
+-        float Load,Follow;ProductionBluntCombo::Effort(Time,Hit,Load,Follow);
++        float Load,Follow;ProductionBluntCombo::Effort(Time,Hit,Load,Follow,Side>0.f?0:Side<0.f?1:2);
+         Load*=S.ActionWeight;Follow*=S.ActionWeight;
+         P.ChestYaw=Side*(-25.f*Load+29.f*Follow);
+         P.HipYaw=Side*(-8.f*Load+11.f*Follow);
+--- a/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntAuthority.cpp
+@@ -71,7 +71,15 @@
+         BluntServerNextStage=0;BluntServerComboExpires=0.;bBluntServerCharging=false;
+         ClientBluntAttackResult(AttackId,0,false,false,false);
+     };
+-    if(!World||bBluntUppercut||bBluntWhirlwind||!CanCommitBlunt(Pawn,Profile)||World->GetTimeSeconds()<BluntServerReadyAt){Reject();return;}
++    // A buffered cut leaves the owner on the frame its previous cut ends, so
++    // network jitter (or float/double clock drift on a listen host) can land
++    // it a few ms before this clock. Accept such an ordinary cut but start its
++    // server clock at the ready time: contact, cadence and DPS stay exactly
++    // server-timed. Charge releases and sprint attacks keep the strict check.
++    constexpr double BufferedCutTolerance=.12;
++    const double Now=World?World->GetTimeSeconds():0.;
++    const double Early=bReleaseCharge||bSprintAttack?0.:FMath::Clamp(BluntServerReadyAt-Now,0.,BufferedCutTolerance);
++    if(!World||bBluntUppercut||bBluntWhirlwind||!CanCommitBlunt(Pawn,Profile)||Now+Early<BluntServerReadyAt){Reject();return;}
+     const auto* Item=Profile->ActiveProductionTool();const FString SourceInstance=Item->InstanceId;
+     if(bSprintAttack&&(bReleaseCharge||BluntSprintInstance!=SourceInstance||World->GetTimeSeconds()-BluntSprintReadyAt>.35))
+     {Reject();return;}
+@@ -97,8 +105,8 @@
+     AxeStrike.ToughnessDamageMultiplier=float(Stats.ToughnessDamage);
+     const float ActionRate=bSprintAttack?1.f:RateScale;
+     const float Lift=bSprintAttack?WarhammerSprint::LiftSeconds:0.f;
+-    const float Contact=Heavy?Lift+WarhammerHeavy::Contact/ActionRate:float(Stats.ContactSeconds)-Resume;
+-    BluntServerReadyAt=World->GetTimeSeconds()+(Heavy?Lift+WarhammerHeavy::RealDuration(ActionRate):Stats.SwingSeconds-Resume);
++    const float Contact=float(Early)+(Heavy?Lift+WarhammerHeavy::Contact/ActionRate:float(Stats.ContactSeconds)-Resume);
++    BluntServerReadyAt=Now+Early+(Heavy?Lift+WarhammerHeavy::RealDuration(ActionRate):Stats.SwingSeconds-Resume);
+     BluntServerGroundSlamUntil=Heavy?BluntServerReadyAt:0.;
+     if(Heavy)
+     {
+@@ -145,6 +153,8 @@
+     if(Kind!=TEXT("warhammer")||AttackId!=BluntAttackId||(!bBluntCharging&&Elapsed<0.f))return;
+     if(!bAccepted){if(bBluntCharging)CancelHeavyCharge();else CancelUse();return;}
+     if(bBluntHeavy!=bHeavy)Elapsed=0.f;
++    // The server owns the combo stage; a chained cut predicted another stage.
++    if(Stage!=BluntStage&&BluntStartClip>0.f){BluntStartClip=0.f;HandOffBluntPose();}
+     bBluntHeavy=bHeavy;bBluntSprintAttack=bSprint;BluntStage=Stage;
+     if(bHeavy&&!bBluntFloorTarget)
+     {
+@@ -158,6 +168,10 @@
+     SelectBluntMotion();
+     if(bConfirmed&&Elapsed>=0.f)
+     {
++        // The owner already predicted this hit at contact: keep its running hit stop.
++        if(!bHeavy&&bHitConfirmed){bContacted=true;return;}
++        // A late confirmation can arrive after a miss chain already began.
++        if(!bHeavy&&(bBluntChain||Elapsed>RealContactSeconds()+.02f)){bBluntChain=false;HandOffBluntPose();}
+         bHitConfirmed=true;bContacted=true;
+         if(!bHeavy)Elapsed=RealContactSeconds();
+     }
+--- a/Source/FPSGAME/Production/ProductionBluntCombo.h
++++ b/Source/FPSGAME/Production/ProductionBluntCombo.h
+@@ -1,13 +1,17 @@
+ #pragma once
+ #include "CoreMinimal.h"
++#include "ProductionBluntComboTiming.h"
+ 
+ namespace ProductionBluntCombo
+ {
+     // Same post-recovery input window as the two-handed sword.
+     inline constexpr double ResetSeconds=.85;
+     inline constexpr float ExtraWindupSeconds=.15f;
+-    inline constexpr float LoadSeconds=.85f,ContactSeconds=.97f,SwingSeconds=1.75f;
+-    inline constexpr float HitStopSeconds=.07f,HitRecoverSeconds=.80f,FollowEndSeconds=1.10f;
++    inline constexpr float ContactSeconds=.97f,SwingSeconds=1.75f;
++    inline constexpr float HitRecoverSeconds=.80f;
++    // Attack speed shortens the release and the miss brake by at most this
++    // factor; load and settle absorb the rest, so a fast hammer still swings.
++    inline constexpr float MaxProtectedRate=1.15f;
+     inline double DamageMultiplier(int32 Stage){return Stage==2?1.25:1.;}
+     inline FName Swing(int32 Stage)
+     {
+@@ -57,46 +61,123 @@
+         if(T<=1.24f)return .306785714f+.123214286f*Hermite((T-.97f)/.27f,0.f,1.2f);
+         return .43f+.25f*Hermite((T-1.24f)/.36f,1.1f,0.f);
+     }
+-    inline float SwingSourceTime(float Time,float Contact,float Duration)
++    inline int32 SafeStage(int32 Stage){return FMath::Clamp(Stage,0,2);}
++    inline float Hold(int32 Stage){return ProductionBluntComboTiming::HoldClip[SafeStage(Stage)];}
++    inline float Apex(int32 Stage){return ProductionBluntComboTiming::ApexClip[SafeStage(Stage)];}
++    inline float Turn(int32 Stage){return ProductionBluntComboTiming::TurnClip[SafeStage(Stage)];}
++    inline float WhooshClip(int32 Stage){return ProductionBluntComboTiming::WhooshClip[SafeStage(Stage)];}
++    // Real seconds of the protected downswing before contact. BaseContact is
++    // the rate-1 contact time; clip and base time are proportional.
++    inline float ReleaseReal(float RealContact,float BaseContact,float Rate,int32 Stage)
+     {
+-        // NormalComboV4 retimes the restored joint poses in the authored clip.
+-        return Time<=Contact?ContactSeconds*Time/FMath::Max(.001f,Contact):
+-            ContactSeconds+(SwingSeconds-ContactSeconds)*(Time-Contact)/FMath::Max(.001f,Duration-Contact);
++        const float ClipToReal=BaseContact/ContactSeconds;
++        return FMath::Min((ContactSeconds-Apex(Stage))*ClipToReal/FMath::Max(.01f,FMath::Min(Rate,MaxProtectedRate)),RealContact*.6f);
++    }
++    // Real attack age -> clip seconds of the V6 ordinary cut. At rate 1 the
++    // load and release keep the contact-scaled clock; the miss brake keeps
++    // that same scale so the hammer's speed is continuous through contact.
++    // StartClip continues a visual chain that already played the first part
++    // of this cut's load (same load speed).
++    inline float ClipTime(float Real,float RealContact,float RealSwing,float BaseContact,float Rate,int32 Stage,float StartClip=0.f)
++    {
++        const float ApexClip=Apex(Stage);
++        if(Real<=RealContact)
++        {
++            const float Release=ReleaseReal(RealContact,BaseContact,Rate,Stage);
++            const float Load=FMath::Max(.001f,RealContact-Release);
++            const float From=FMath::Clamp(StartClip,0.f,ApexClip);
++            if(Real<=Load)return From+(ApexClip-From)*FMath::Max(0.f,Real)/Load;
++            return ApexClip+(ContactSeconds-ApexClip)*(Real-Load)/FMath::Max(.001f,Release);
++        }
++        const float ClipToReal=BaseContact/ContactSeconds,TurnClip=Turn(Stage);
++        const float Post=FMath::Max(.001f,RealSwing-RealContact);
++        const float Brake=FMath::Min((TurnClip-ContactSeconds)*ClipToReal/FMath::Max(.01f,FMath::Min(Rate,MaxProtectedRate)),Post*.6f);
++        const float U=Real-RealContact;
++        if(U<=Brake)return ContactSeconds+(TurnClip-ContactSeconds)*U/FMath::Max(.001f,Brake);
++        return TurnClip+(SwingSeconds-TurnClip)*FMath::Clamp((U-Brake)/FMath::Max(.001f,Post-Brake),0.f,1.f);
++    }
++    // Inverse of ClipTime before contact (swing sound).
++    inline float RealForWindupClip(float Clip,float RealContact,float BaseContact,float Rate,int32 Stage,float StartClip=0.f)
++    {
++        const float ApexClip=Apex(Stage);
++        const float Release=ReleaseReal(RealContact,BaseContact,Rate,Stage);
++        const float Load=FMath::Max(.001f,RealContact-Release);
++        const float From=FMath::Clamp(StartClip,0.f,ApexClip);
++        if(Clip<=ApexClip)return Load*FMath::Clamp((Clip-From)/FMath::Max(.001f,ApexClip-From),0.f,1.f);
++        return Load+Release*FMath::Clamp((Clip-ApexClip)/(ContactSeconds-ApexClip),0.f,1.f);
+     }
+     inline float HitSourceTime(float Age){return FMath::Clamp(Age,0.f,HitRecoverSeconds);}
+     inline float Ease(float U){U=FMath::Clamp(U,0.f,1.f);return U*U*U*(10.f+U*(-15.f+6.f*U));}
+-    inline void Effort(float Time,bool Hit,float& Load,float& Follow)
++    inline float Smooth(float U){U=FMath::Clamp(U,0.f,1.f);return U*U*(3.f-2.f*U);}
++    // Slightly underdamped settle (about 8% overshoot) instead of a linear return.
++    inline float Settle(float X){X=FMath::Max(0.f,X);return FMath::Exp(-6.5f*X)*(FMath::Cos(8.f*X)+6.5f/8.f*FMath::Sin(8.f*X));}
++    // Body/camera effort on the cut's clip clock. Stage picks the V6 apex/turn.
++    inline void Effort(float Time,bool Hit,float& Load,float& Follow,int32 Stage=0)
+     {
+         if(Hit)
+         {
++            const float Hold=ProductionBluntComboTiming::HitStopClip[SafeStage(Stage)]+.10f;
+             Load=0.f;
+-            Follow=1.f-Ease((Time-.20f)/(HitRecoverSeconds-.20f));
++            Follow=(Time<=Hold?1.f:Settle(Time-Hold))*(1.f-Smooth((Time-(HitRecoverSeconds-.14f))/.14f));
+             return;
+         }
+-        const float U=FMath::Clamp((Time-LoadSeconds)/(ContactSeconds-LoadSeconds),0.f,1.f);
+-        const float Cut=U*U*(2.f-U);
+-        Load=Ease(Time/LoadSeconds)*(1.f-Cut);
+-        Follow=Cut*(1.f-Ease((Time-FollowEndSeconds)/(SwingSeconds-FollowEndSeconds)));
++        const float ApexClip=Apex(Stage);
++        const float U=FMath::Clamp((Time-ApexClip)/(ContactSeconds-ApexClip),0.f,1.f);
++        // V7 rhythm: full load through the tension beat, then an explosive cut
++        // whose effort lands in the last frames before contact.
++        const float Cut=U*U*U;
++        Load=Ease(Time/Hold(Stage))*(1.f-Cut);
++        Follow=Cut*(Time<=Turn(Stage)?1.f:Settle(Time-Turn(Stage)))*(1.f-Smooth((Time-(SwingSeconds-.14f))/.14f));
+     }
+-    inline void SampleCamera(float Time,float Contact,float Duration,int32 Stage,bool Hit,FVector& Position,FRotator& Rotation)
++    inline void SampleCamera(float Clock,int32 Stage,bool Hit,FVector& Position,FRotator& Rotation)
+     {
+-        const float Clock=Hit?HitSourceTime(Time-Contact):SwingSourceTime(Time,Contact,Duration);
+-        float Load,Follow;Effort(Clock,Hit,Load,Follow);
++        // The head/chest leads the arms by a few frames through load and cut.
++        float Load,Follow;Effort(Hit?Clock:FMath::Min(Clock+.03f,SwingSeconds),Hit,Load,Follow,Stage);
+         const float Side=Stage==0?1.f:Stage==1?-1.f:0.f;
++        const bool Heavy=Stage==2;
+         Position=FVector(-7.f,-Side*4.f,2.f)*Load+FVector(14.f,Side*8.f,-6.f)*Follow;
+         Rotation=FRotator(5.f,-Side*6.f,-Side*4.f)*Load+FRotator(-6.f,Side*9.f,Side*7.f)*Follow;
+-        // A single forward drive and short damped contact impulse. The common
++        // One forward drive and a short damped contact impulse. The common
+         // character camera scale still applies; ordinary cuts never aim-lock.
+-        if(!Hit&&Clock>LoadSeconds&&Clock<ContactSeconds)
++        const float Drive=Heavy?11.f:9.f;
++        if(!Hit)
+         {
+-            const float U=(Clock-LoadSeconds)/(ContactSeconds-LoadSeconds);
+-            Position.X+=7.f*FMath::Square(FMath::Sin(PI*U));
++            const float ApexClip=Apex(Stage),Beat=Hold(Stage)-.03f;
++            // Anticipation: the gather tightens through the tension beat and
++            // is released exactly as the downswing fires.
++            const float Gather=FMath::Square(FMath::Sin(PI*FMath::Clamp((Clock-Beat)/FMath::Max(.02f,ApexClip+.01f-Beat),0.f,1.f)));
++            Position.X-=2.5f*Gather;Rotation.Pitch+=1.2f*Gather;
++            // The forward drive accelerates with the cut and peaks on contact;
++            // a miss is braked with the swing-on.
++            if(Clock>ApexClip)
++            {
++                const float U=FMath::Clamp((Clock-ApexClip)/(ContactSeconds-ApexClip),0.f,1.f);
++                Position.X+=Drive*(Clock<=ContactSeconds?U*U:FMath::Exp(-(Clock-ContactSeconds)/.07f));
++            }
++            if(Heavy)
++            {
++                // The third cut commits its weight: a step-in dip that lingers past contact.
++                const float Step=FMath::Square(FMath::Sin(PI*FMath::Clamp((Clock-ApexClip)/(ContactSeconds+.32f-ApexClip),0.f,1.f)));
++                Position.X+=4.f*Step;Position.Z-=2.5f*Step;
++            }
+         }
+-        if(Hit&&Clock<.18f)
++        else
+         {
+-            const float Kick=FMath::Exp(-24.f*Clock)*FMath::Sin(66.f*Clock)*(1.f-Ease(Clock/.18f));
+-            Position.X-=3.f*Kick;Rotation.Pitch-=2.2f*Kick;Rotation.Roll+=Side*1.5f*Kick;
++            // Impact: the drive is stopped dead by the target (continuous with
++            // the swing at contact), a shudder through the hit stop, a recoil kick.
++            const float Strength=Heavy?1.4f:1.f;
++            Position.X+=Drive*FMath::Exp(-Clock/.035f);
++            const float Stop=ProductionBluntComboTiming::HitStopClip[SafeStage(Stage)]+.05f;
++            if(Clock<Stop)
++            {
++                const float Shudder=FMath::Sin(2.f*PI*27.f*Clock)*FMath::Exp(-Clock/.05f)*Strength;
++                Rotation.Pitch+=.7f*Shudder;Rotation.Roll+=Side*.5f*Shudder;Position.Z+=.4f*Shudder;
++            }
++            if(Clock<.18f)
++            {
++                const float Kick=FMath::Exp(-24.f*Clock)*FMath::Sin(66.f*Clock)*(1.f-Ease(Clock/.18f))*1.6f*Strength;
++                Position.X-=3.f*Kick;Rotation.Pitch-=2.2f*Kick;Rotation.Roll+=Side*1.5f*Kick;
++            }
+         }
+     }
+-    inline float WhooshTime(float Contact){return Contact*((.74f+ExtraWindupSeconds)/(.82f+ExtraWindupSeconds));}
+ }

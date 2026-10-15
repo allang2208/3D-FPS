@@ -1,0 +1,356 @@
+{
+  "scope": "Local-only binaries, receipts and measurements; not redistributed. Hashes only.",
+  "files": [
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/authored.json",
+      "sha256": "fe30b8c558477bf35d79b1ca944413b4e99b02b3300fe63c399cba03ee15ff1b",
+      "bytes": 4542
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/build-FPSGAME.log",
+      "sha256": "c24772f109d2b810fc65423eba447d0f607a00e5052f3866a4a7780d5226841f",
+      "bytes": 2044
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/build-FPSGAMEEditor.log",
+      "sha256": "c0f9bd952d7acd2c00f4cb91c05934aae09b4943e19dac7854d10866952dba6c",
+      "bytes": 1956
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/build_receipt.json",
+      "sha256": "25d17459cdf7eb48fc8e940f8f3e7dbb7458e04e58175ea3de7b6e44df63dbd6",
+      "bytes": 720
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/Export/A_Warhammer_Inspect.fbx",
+      "sha256": "2df7910af2adda245e24d66c77054df461009ac160e4cc3cb8d6fa7f96bef607",
+      "bytes": 5708172
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import-commandlet.log",
+      "sha256": "ba23233e8b64d5f8abe8ddca55c43d31b77aeae4e6b111b07667cbc1cb3d94bd",
+      "bytes": 288386
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import-console.log",
+      "sha256": "90b13a8571974761766957ccfc0561aa465b2fa74c47756974744c2c51f3b905",
+      "bytes": 578030
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import_commandlet_receipt.json",
+      "sha256": "0102fca9882a5ad2133df7606d1792f88bbded31b5b09ffc37c4c247a79d8b76",
+      "bytes": 178
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/import_receipt.json",
+      "sha256": "aa698e31202179833b443c7685b435e7afed428112d512041cd2f39d2eb36409",
+      "bytes": 258
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/probe.json",
+      "sha256": "4b571ab919cf5407f0811a8caae75203f5f27087603fb5318b90c777006632e0",
+      "bytes": 50206
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/search.json",
+      "sha256": "6d8b3c664ba8ea24bc0fed871a1f09082bab66073250b4c2bdfe626bb5fc05af",
+      "bytes": 107340
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectV1/Warhammer_Inspect_Editable.blend",
+      "sha256": "11756517a29dc12c5f4a914503e3d49bb086aae8925ea2bb6fdd5e496df678da",
+      "bytes": 102537573
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Audio/cues.json",
+      "sha256": "c7cd0879fcec9a9ad70598fd289ebb261e43cf5dacb3ed8bef50ae8017700c8e",
+      "bytes": 664
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Audio/source_profile.json",
+      "sha256": "1d0ca6aa22c0244f89dea9390976be77d257fa1973318a6d7d5c8bef13fbeff8",
+      "bytes": 2130
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/authored.json",
+      "sha256": "c770ea299b64cc81a3dfd983836607ca2019067e197a35095d321af1f94381b8",
+      "bytes": 3883
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/build-FPSGAME.log",
+      "sha256": "b5520763d46c834d1b8fda30c16b126eacf987c1bff696528bdf844b4e0f5467",
+      "bytes": 1894
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/build-FPSGAMEEditor.log",
+      "sha256": "3c5ec4dba78cd10f89162d0d90d436996e9f965600d29e1a50187dc7c3e44711",
+      "bytes": 1956
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/build_receipt.json",
+      "sha256": "dae5e4a35f8d1e67db1d4528a3915cfdc99239519938d76785e02cd544595a6c",
+      "bytes": 738
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Export/A_Warhammer_InspectWalk.fbx",
+      "sha256": "1401b6c3e22593d1e385ec1ea2874245a513cb3b19c14581dabf7a4be45c6ddf",
+      "bytes": 2373692
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import-commandlet.log",
+      "sha256": "8012c69fae6e1b570fcd053a508c3439eefeed541498901eb6a0f3f7f26628b2",
+      "bytes": 281834
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import-console.log",
+      "sha256": "2e3937effeeb1842df6b18e798f3722f2374b7bffb8089ba91808c33a08d598a",
+      "bytes": 564836
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import_commandlet_receipt.json",
+      "sha256": "492d9e9f864a0215581ddd01776f68d729cbf4e0e18baf5df0b90b1b5fb4761e",
+      "bytes": 187
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/import_receipt.json",
+      "sha256": "a1163cb5cdbaf495917216b579e713796250759d9333872af1c5cdc34188d59b",
+      "bytes": 266
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/InspectWalkSpeedV3/Warhammer_InspectWalk_Editable.blend",
+      "sha256": "a7636c9c56c7ba792e8891c3b261d5287c64687222a5082652ab96fb97da242f",
+      "bytes": 98119653
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/authored.json",
+      "sha256": "fe26416a3331858e99128e2c1338a23840e104fa03fd32d4c27d312ecf6b7be3",
+      "bytes": 14738
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/combo_rhythm.json",
+      "sha256": "2c5d630d3edcd41e18f4db6ae60617df091e485e74cc686d9ebc71ca686b234e",
+      "bytes": 2803
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/dense_slash1_mirrored_ext.png",
+      "sha256": "53b21e5989ac5246d7a75e34bf3b79f12047eeefcc8f30245a33670b0269f292",
+      "bytes": 615731
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/dense_slash1_mirrored_fp.png",
+      "sha256": "0067a7703fc4b51ae6885e7c89a2a15b261dbc208d5acbf500f800b7f4a02951",
+      "bytes": 737331
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/dense_slash1_mirrored_top.png",
+      "sha256": "ea32407a84ec99d922482c3a1c4cd9d1c559487f83075c890296b9f162e04b95",
+      "bytes": 632041
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/dense_slash2_current_ext.png",
+      "sha256": "862063462cfd284f3e237bdb0bf4fb39bdba58830c4773333a9d03fda92ee41a",
+      "bytes": 627357
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/dense_slash2_current_fp.png",
+      "sha256": "2fb126c9adeb695bd6a33f1d0aac98c9e80f1b5ebb4a02ba41d9aa003a647a4f",
+      "bytes": 755069
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/dense_slash2_current_top.png",
+      "sha256": "c062796c9c1a141b0a75f7759be547629d2cdc5f0721877990c3fa53700153d3",
+      "bytes": 626540
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/probe.json",
+      "sha256": "176c93fa801b50c276ce7ab43c10b6006f221b49edd61b5eab6cdf9afd259d17",
+      "bytes": 23048
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/result_A_Warhammer_Slash2_fp.png",
+      "sha256": "587fba4cf114599909a16ddf4868d8e5501bbc778caaa203622f0f5633005d88",
+      "bytes": 1058528
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/result_A_Warhammer_Slash2_front.png",
+      "sha256": "d1c93aec0ccc218994852aa2723789f17494965ddb0556be66b8613088c92ee1",
+      "bytes": 942555
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/result_A_Warhammer_Slash2_top.png",
+      "sha256": "3849f354f46500bdafacaad8bb364221ada32481c5877b090a4627eda508fe58",
+      "bytes": 853961
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/sheet_slash1.png",
+      "sha256": "831f850b143daaa40ae5d695185e07146e543ad61b3275625d08e343542fcf94",
+      "bytes": 722477
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/sheet_slash1_mirrored.png",
+      "sha256": "5f965ffd5ef516e50a10b0f9936ad91abeaa6cc569c560e2a887469f9164a8a0",
+      "bytes": 719928
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Diagnosis/sheet_slash2_current.png",
+      "sha256": "37682b5d762d7d8aee9d2f5f63e57a4777d63c15fb63e72ab3b8b153ff045982",
+      "bytes": 742875
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Export/A_Warhammer_Slash2.fbx",
+      "sha256": "269534ed0b849fca1af508d5f8077645905e28d113fefeeea0acb4f367c5c88a",
+      "bytes": 3758812
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Export/A_Warhammer_Slash2Recover.fbx",
+      "sha256": "e73c84a9c49ef96c2a2f7a7715dae4136723c925740e895ca6fd77d0fabbae60",
+      "bytes": 2043708
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import-commandlet.log",
+      "sha256": "79700f27ffac5abd75a65b7212cfaa1ef1aa735ccba4488c1d9f616a10ffb78c",
+      "bytes": 284226
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import-console.log",
+      "sha256": "c7cadaafde57522d35d3a6ff3ac318ed8ad0ce41241147b85310e42daf4082b0",
+      "bytes": 569580
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import_commandlet_receipt.json",
+      "sha256": "858d9bd232ec704767330f1de6b92b1e4af29c9673f500d2b9b33426dc3d4f2a",
+      "bytes": 186
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/import_receipt.json",
+      "sha256": "d64d1465d873e442e9a603c490bc18bc9780ffbb60c1bcd1d2ef191ebd5ede7f",
+      "bytes": 435
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/plan.json",
+      "sha256": "97817a44300ddd0fccd30cb7dbb483c8d7c02060c60435262b842f12f55ab60f",
+      "bytes": 9031
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/plan_frames.json",
+      "sha256": "02e10d49872f177d0b88eb71faaec411efe537f1ce8e78d56b0c01c3f5454bd3",
+      "bytes": 227508
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboSwapV5/Warhammer_Combo_Swap_Editable.blend",
+      "sha256": "0788685fc2d13ba5d08c8497ad9213bd32af515502ccddc2f413b97588325880",
+      "bytes": 96267471
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/authored.json",
+      "sha256": "2e4b97e438574e1441bc4910ff599fd7e993b036bf64490a132d1cccea13c7b6",
+      "bytes": 7671
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/build-FPSGAME.log",
+      "sha256": "82af31abf45e706b86edd937e127b2039a9376009bf48ee19f5caf08a2226cb0",
+      "bytes": 1894
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/build-FPSGAMEEditor.log",
+      "sha256": "ac6190672df1532230e1547cb9460f41b79d27def0df2501f7e7172957dde85a",
+      "bytes": 28330
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/build_receipt.json",
+      "sha256": "d267d73fef51f2f7671eef23bcc23111a0d00bfb4da76123676a98d964a05042",
+      "bytes": 740
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Export/A_Warhammer_Slash1.fbx",
+      "sha256": "e8bcf5079e8e11e02f7315ad58b067958bfc0ef91bae453d9d519d56ed6ffbe5",
+      "bytes": 3742972
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Export/A_Warhammer_Slash1Recover.fbx",
+      "sha256": "b2bb8d8fbe523d8f776bb21caee425a5718c71e0bbd13b167562bf1b079d2028",
+      "bytes": 2066588
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Export/A_Warhammer_Slash2.fbx",
+      "sha256": "6ed9b802941ec8c3eb6b7db725031827a8f3f0faa0a737d96ff3be1524cba5f3",
+      "bytes": 3801276
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Export/A_Warhammer_Slash2Recover.fbx",
+      "sha256": "50affb5421b91734c763f8d376c265c4867adf2fb069133bc6f8be76636eeb54",
+      "bytes": 2090940
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Export/A_Warhammer_Slash3.fbx",
+      "sha256": "8a3a53e436419f07c18274b0abe0b88c7a72b5ce29e570d1b4788fb409d835a0",
+      "bytes": 3688636
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Export/A_Warhammer_Slash3Recover.fbx",
+      "sha256": "8fff849f3e2fe65237925d0cc9d2349cbe89a8a62d91ec0d95e66b086f6e197d",
+      "bytes": 2037468
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/import_receipt.json",
+      "sha256": "eeeb83ab0400881e55868bfc631bbc2324b82f125a67fd1d062f3c39671cb63e",
+      "bytes": 1075
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/plan.json",
+      "sha256": "eba606df5c5462716dd67daa4cd991e75eae9117d02453bb6adf997b2c6e78e2",
+      "bytes": 5688
+    },
+    {
+      "path": "SourceAssets/SteelWarhammer20261014/NormalComboRhythmV7/Warhammer_Combo_Rhythm_Editable.blend",
+      "sha256": "ba44da074c396ef701032cf516322ff03fe1c9f4c05b323f64909fb963d02ff9",
+      "bytes": 119858312
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_Inspect.uasset",
+      "sha256": "01d0b09c3dc4a05412a1bc522cdc9ae5b082cc2e31f6d4db641222b4ea89dcf2",
+      "bytes": 4849076
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_InspectWalk.uasset",
+      "sha256": "9ba802f11bc4c8774b46ccdf58ef9dde7bed2754d18f02d9deb4d1012730bd11",
+      "bytes": 1617252
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash1.uasset",
+      "sha256": "bc7a6d0b5df1291c7af532c606732196e6228927edc4d7c77b8e72aaa296aaea",
+      "bytes": 4360978,
+      "revision": "NormalComboRhythmV7_20261015"
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash1Recover.uasset",
+      "sha256": "c77b6de452e8d699859f4ca4151673cb93a87733d31b8db3ba2c43e226587406",
+      "bytes": 1883887,
+      "revision": "NormalComboRhythmV7_20261015"
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash2.uasset",
+      "sha256": "f3514cb50cedc1f6447562ddb9e211a3e62c115d46c12245196bcd6eabb7841a",
+      "bytes": 4428299,
+      "revision": "NormalComboRhythmV7_20261015"
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash2Recover.uasset",
+      "sha256": "0a65a132b046cd1880584f967b21afe9f2ac35fd463ba845bf44309214e3acbd",
+      "bytes": 1968693,
+      "revision": "NormalComboRhythmV7_20261015"
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash3.uasset",
+      "sha256": "1cb97f4a259db75e2916fd5946c710eb3e6e9a23450f106924835074bdcb5321",
+      "bytes": 3721377,
+      "revision": "NormalComboRhythmV7_20261015"
+    },
+    {
+      "path": "Content/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash3Recover.uasset",
+      "sha256": "85925d7cc734e30d2e5e76b388efed2e3f302819387b6e40a28547b328495749",
+      "bytes": 1559979,
+      "revision": "NormalComboRhythmV7_20261015"
+    }
+  ]
+}

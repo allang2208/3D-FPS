@@ -1,0 +1,43 @@
+"""Replace only all six ordinary hammer clips (rhythm V7); never mesh/materials."""
+import unreal as u
+import json
+from pathlib import Path
+
+P=Path(__file__).resolve().parent
+R=P.parents[2]
+D='/Game/Weapons/SteelWarhammer20261014/NormalComboV4'
+if Path(u.Paths.project_dir()).resolve()!=R:raise RuntimeError('Wrong project')
+source=json.loads((P/'authored.json').read_text())
+dirty={p.get_path_name() for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages()}
+if any(D+'/'+n in dirty for n in source['clips']):raise RuntimeError('Normal combo clips have unsaved editor edits; preserve them')
+receipt={'saved':[],'complete':False,'revision':source['revision'],'runtime_tested':False}
+mesh=u.load_asset('/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1')
+compression=u.load_asset('/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel')
+u.SystemLibrary.execute_console_command(None,'Interchange.FeatureFlags.Import.FBX 0')
+for name in source['clips']:
+    opt=u.FbxImportUI()
+    opt.automated_import_should_detect_type=False
+    opt.mesh_type_to_import=u.FBXImportType.FBXIT_ANIMATION
+    opt.import_mesh=False;opt.import_animations=True
+    opt.import_materials=False;opt.import_textures=False
+    opt.skeleton=mesh.get_editor_property('skeleton')
+    opt.anim_sequence_import_data.set_editor_property('use_default_sample_rate',False)
+    opt.anim_sequence_import_data.set_editor_property('custom_sample_rate',source['fps'])
+    task=u.AssetImportTask()
+    task.filename=str(P/'Export'/(name+'.fbx'))
+    task.destination_path=D;task.destination_name=name
+    task.automated=True;task.save=False
+    task.replace_existing=True;task.replace_existing_settings=True;task.options=opt
+    u.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
+    anim=u.load_asset(D+'/'+name)
+    if not anim:raise RuntimeError('Animation import failed: '+name)
+    anim.set_editor_property('bone_compression_settings',compression)
+    u.EditorAssetLibrary.set_metadata_tag(anim,'WarhammerCombo.Revision',source['revision'])
+    u.EditorAssetLibrary.set_metadata_tag(anim,'WarhammerCombo.Authoring',str(P/'author_rhythm.py'))
+    if not u.WeaponAnimationAuthoring.finalize_authored_animation(anim):raise RuntimeError('Animation finalization failed: '+name)
+    if not u.EditorLoadingAndSavingUtils.save_packages([anim.get_outermost()],False):raise RuntimeError('Animation save failed: '+name)
+    receipt['saved'].append({'asset':anim.get_path_name(),'seconds':anim.get_play_length() if hasattr(anim,'get_play_length') else None})
+    (P/'import_receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
+receipt['complete']=True
+(P/'import_receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
+print('WARHAMMER_SWAP_SAVED '+json.dumps(receipt))
