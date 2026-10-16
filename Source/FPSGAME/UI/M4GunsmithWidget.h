@@ -140,7 +140,7 @@ private:
     FVector2D PreviewOrbit=FVector2D::ZeroVector;
     float PreviewZoom=1.f;
     TArray<FGunsmithOverviewRow> Overview;
-    FString SelectedCategory=TEXT("magazine");
+    FString SelectedCategory;
     FString StatusText;
     bool bCompareFactory=false;
     FDelegateHandle GunsmithHandle,ProfileHandle;

@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -77,6 +77,8 @@
+     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetHeadAndHair(FName HeadId,FName HairId);
+ 
+ private:
++    friend class AShotgunWireAuditController;
++    friend class AShotgunWireAuditGameMode;
+     UPROPERTY(ReplicatedUsing=OnRep_BodyState) FFPSBodyState ReplicatedState;
+     UPROPERTY(ReplicatedUsing=OnRep_Equipment) TArray<FFPSBodyWeapon> ReplicatedWeapons;
+     UPROPERTY(ReplicatedUsing=OnRep_Outfit) TArray<FFPSBodyOutfitSlot> ReplicatedOutfit;

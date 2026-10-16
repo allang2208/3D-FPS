@@ -1,0 +1,7 @@
+{
+  "mode": "built-in imagegen edit",
+  "target": "SourceAssets/Super90DuckbillV2_20261016/muzzle_shotgun_duckbill.png",
+  "geometry": "References/shotgun_duckbill_actual_model.png",
+  "output": "muzzle_shotgun_duckbill.png",
+  "prompt": "Precise game inventory icon edit. Image 1 is the current approved framed icon, the edit target. Image 2 is the updated actual mesh and authoritative reference for the ONE requested geometry change. Close BOTH lateral openings between the upper and lower duckbill tongues using continuous solid graphite-gray metal sidewalls, exactly following image 2. Keep the large horizontal FRONT opening fully open. The near visible side must now be a solid subtly tapered smooth side panel between the two lips, from the rear shoulder all the way to the front rim; the far side is equally closed and visible as the opposite inner sidewall through the front opening. Match image 2 closely. Preserve every other feature from image 1: existing upper/lower lip silhouette, two shallow top relief grooves, rear recessed fastener, shoulder, collar bands, dimensions, camera, neutral grayscale steel finish, lighting, scale and placement. Do not add vents, holes, extra screws, text or new ornament. Preserve the exact square metal frame, four corner rivets, inner silver ring, dark textured backplate and transparent outer margin of image 1 without redesigning them. Smooth planar surfaces and clean small edge highlights. Same square icon, with real alpha transparency outside the frame; opaque dark backplate inside."
+}

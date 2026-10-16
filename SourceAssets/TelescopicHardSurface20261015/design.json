@@ -1,0 +1,18 @@
+{
+  "part": "tactical_telescopic",
+  "target_weapon": "M16",
+  "method": "new procedural Blender hard-surface geometry",
+  "reference": "existing selected stock silhouette and user screenshots; rejected generated surface is not reused",
+  "authoring_units": "meters",
+  "author_frame": "+X toward buttpad, +Z up, +Y lateral",
+  "body_front_x": 0.006,
+  "buttpad_rear_x": 0.242,
+  "top_z": 0.024,
+  "heel_z": -0.100,
+  "tube_radius": 0.0117,
+  "mount": {"m16_translation_m": [-0.000038, 0.041045, 0.0917], "blender_yaw_degrees": 90},
+  "retained_geometry": "M16_InterfaceMetal closed receiver interface only",
+  "construction": ["turned buffer tube and retaining collar", "drilled indexing rail", "bored cheek carrier", "polymer cheek panels", "fluted adjustment knob", "locking paddle", "skeleton lower support", "rubber recoil pad with molded grooves", "hex recess fasteners and sling eyelet"],
+  "surface": "geometric bevels with weighted corner normals; private WS1 metal/polymer/rubber materials using neutral tangent normal",
+  "gameplay_tested": false
+}

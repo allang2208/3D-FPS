@@ -9107,6 +9107,91 @@
             "description": "使用 M4 Super90 原装结构。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "shotgun_choke",
+            "name": "收束器",
+            "description": "方形深灰金属外壳，圆角切边与分段接缝，沿枪管前端安装。",
+            "effects": [
+              {
+                "text": "弹丸散布减少35%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "pellet_spread_mult": 0.65
+            }
+          },
+          {
+            "id": "shotgun_birdcage_flash_hider",
+            "name": "鸟笼消焰器",
+            "description": "短筒式深灰金属外壳，纵向开槽与环形前缘，后端接座贴合枪管。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少15%",
+                "benefit": 1
+              }
+            ],
+            "special_effects": [
+              "消焰｜减弱枪口火光及瞬时照明。"
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "hip_spread_mult": 0.85
+            }
+          },
+          {
+            "id": "shotgun_suppressor",
+            "name": "散弹枪消音器",
+            "description": "深灰圆角长壳体，上置出口、下置主体，侧面带有纵向浅筋，独立后座贴合枪管。",
+            "effects": [
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "special_effects": [
+              "消音｜使用专属消音枪声，减弱枪口火光，并缩短敌人听声警戒范围。"
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.85,
+              "ads_percent": 0.1
+            }
+          },
+          {
+            "id": "shotgun_duckbill",
+            "name": "鸭舌收束器",
+            "description": "封闭侧壁将上下鸭舌连接成扁宽壳体，前方保留横向开口；收腰肩部、浅槽与刻槽安装环采用分区金属表面。",
+            "effects": [
+              {
+                "text": "腰射散布降低25%",
+                "benefit": 1
+              }
+            ],
+            "special_effects": [
+              "横向散布｜多弹丸沿水平方向呈扇形展开，腰射和开镜均生效；独头弹保持单发直射。"
+            ],
+            "stats": {
+              "hip_spread_mult": 0.75
+            }
           }
         ],
         "underbarrel": [
@@ -9374,6 +9459,28 @@
             "description": "使用 M4 Super90 原装结构。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "super90_extended_tube",
+            "name": "加长管式弹仓",
+            "description": "细长深灰管体沿原厂弹仓向前延伸，端部保留原厂端帽的轮廓和环纹。",
+            "effects": [
+              {
+                "text": "弹仓容量增加3发",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "special_effects": [
+              "组合适配｜与收束器、散弹枪消音器同时安装时，自动使用兼容外壳。"
+            ],
+            "stats": {
+              "mag_delta": 3,
+              "ads_percent": 0.1
+            }
           }
         ],
         "reload_device": [

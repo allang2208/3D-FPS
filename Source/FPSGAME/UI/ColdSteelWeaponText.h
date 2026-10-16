@@ -33,6 +33,7 @@ inline constexpr const TCHAR* HoldTime=TEXT("满弓保持时间");
 inline constexpr const TCHAR* Sway=TEXT("瞄准晃动强度");
 inline constexpr const TCHAR* HipSpreadAngle=TEXT("腰射散布半角");
 inline constexpr const TCHAR* HipSpreadMultiplier=TEXT("腰射散布倍率");
+inline constexpr const TCHAR* PelletSpreadMultiplier=TEXT("弹丸散布倍率");
 inline constexpr const TCHAR* EffectiveRange=TEXT("有效射程");
 inline constexpr const TCHAR* FlightLimit=TEXT("最大飞行距离");
 inline constexpr const TCHAR* Reload=TEXT("普通换弹");

@@ -260,6 +260,9 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     AddValue(ColdSteelWeaponText::Stability,Before.Handling.Stability,After.Handling.Stability,1,TEXT(" /100"),false,Ratio(Before.Handling.Stability,After.Handling.Stability));
     if(!FMath::IsNearlyEqual(Option->Shake,1.0))AddValue(TEXT("开火抖动指数"),Before.Shake,After.Shake,1,TEXT(""),true,Ratio(Before.Shake,After.Shake));
     AddValue(ColdSteelWeaponText::HipSpreadMultiplier,Before.Spread,After.Spread,2,TEXT("×"),true,Ratio(Before.Spread,After.Spread));
+    const double BeforePellet=Gunsmith->PelletSpreadMultiplier(Gunsmith->Definition(),WithoutPart);
+    const double AfterPellet=Gunsmith->PelletSpreadMultiplier(Gunsmith->Definition(),Gunsmith->Draft());
+    AddValue(ColdSteelWeaponText::PelletSpreadMultiplier,BeforePellet,AfterPellet,2,TEXT("×"),true,Ratio(BeforePellet,AfterPellet));
     AddValue(ColdSteelWeaponText::EffectiveRange,Before.Range,After.Range,0,TEXT(" m"),false,Ratio(Before.Range,After.Range));
     AddValue(ColdSteelWeaponText::ProjectileSpeed,Before.Speed,After.Speed,0,TEXT(" m/s"),false,Ratio(Before.Speed,After.Speed));
     // 脚架类配件的架设机制只有 effects 文案（部署增益与卸下限制不进数值行），

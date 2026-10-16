@@ -1,0 +1,20 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -284,6 +284,7 @@
+         const float Border=FMath::Max(.65f,.85f*Scale);
+         // Keep the inner edge at the existing spread boundary, as with the bars.
+         const float Radius=FMath::Max(Extent.X,Extent.Y)+Stroke*.5f;
++        const FVector2D Radii=Character->HasShotgunDuckbill()?Extent+FVector2D(Stroke*.5f):FVector2D(Radius);
+         TArray<FVector2D> Points;
+         Points.SetNumUninitialized(UnitArc.Num());
+         for(int32 Quadrant=0;Quadrant<4;++Quadrant)
+@@ -293,7 +294,7 @@
+                 const FVector2D P=UnitArc[I];
+                 const FVector2D Direction=Quadrant==0?P:Quadrant==1?FVector2D(-P.Y,P.X)
+                     :Quadrant==2?-P:FVector2D(P.Y,-P.X);
+-                Points[I]=Center+Direction*Radius;
++                Points[I]=Center+Direction*Radii;
+             }
+             FSlateDrawElement::MakeLines(Elements,Result+1,Geometry.ToPaintGeometry(),Points,
+                 ESlateDrawEffect::None,FLinearColor(0,0,0,.72f)*Style.GetColorAndOpacityTint(),true,Stroke+Border*2.f);

@@ -26,8 +26,11 @@ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotK
     const bool VipGrip=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("reargrip")&&Id==TEXT("pit_viper_vip_scales");
     const bool SiMuzzle=Weapon==TEXT("ue_pit_viper2011")&&SlotKey==TEXT("muzzle")&&Id==TEXT("pit_viper_si_compensator");
     const bool G18Drum=Weapon==TEXT("ue_g18")&&SlotKey==TEXT("magazine")&&Id==TEXT("g18_drum_50");
+    const bool ShotgunMuzzle=SlotKey==TEXT("muzzle")&&
+        (Id==TEXT("shotgun_choke")||Id==TEXT("shotgun_birdcage_flash_hider")||Id==TEXT("shotgun_suppressor")||Id==TEXT("shotgun_duckbill"));
+    const bool Super90Tube=Weapon==TEXT("ue_super90")&&SlotKey==TEXT("magazine")&&Id==TEXT("super90_extended_tube");
     const bool Special=
-        VipGrip || SiMuzzle || G18Drum ||
+        VipGrip || SiMuzzle || G18Drum || ShotgunMuzzle || Super90Tube ||
         ((Weapon==TEXT("ue_frost_crystal_sword")||Weapon==TEXT("ue_rune_sword")) &&
             SlotKey==TEXT("pommel") && (Id==TEXT("pommel_mana_orb")||Id==TEXT("ballast_rune"))) ||
         (Weapon==TEXT("ue_xuanchi_zhenyue") && SlotKey==TEXT("guard") && Id==TEXT("panchi_zhanyue")) ||

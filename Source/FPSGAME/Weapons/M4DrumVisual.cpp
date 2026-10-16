@@ -11,6 +11,7 @@
 #include "M1911MagazineVisual.h"
 #include "G18WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
+#include "Super90TubeMagazineAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -56,6 +57,18 @@ bool AFPSGAMECharacter::HasLMG201ClothBox() const
 
 void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
+    if(IsSuper90Weapon())
+    {
+        LargeDrum=Super90TubeMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
+            bInventoryWeaponReady&&Id==Super90TubeMagazineAssets::Part);
+        MagazineAttachmentId=LargeDrum&&LargeDrum->IsVisible()?Id:FString();
+        bDrumVisual=false;bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
+        if(LargeDrum)DrumMount=LargeDrum->GetRelativeTransform();
+        // The magazine and muzzle slots retain independent IDs and stats.
+        // Refresh only the fitted exterior when this tube is installed/removed.
+        SetGunsmithMuzzle(MuzzleVariant);
+        return;
+    }
     if (IsHK416Weapon())
     {
         const bool Drum=Id==TEXT("large_drum")&&bInventoryWeaponReady;
@@ -248,6 +261,11 @@ bool AFPSGAMECharacter::ValidateDrumAttachment() const
 void AFPSGAMECharacter::UpdateDrumDropVisual()
 {
     if(!LargeDrum)return;
+    if(IsSuper90Weapon()&&MagazineAttachmentId==Super90TubeMagazineAssets::Part)
+    {
+        bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
+        LargeDrum->SetVisibility(bInventoryWeaponReady);return;
+    }
     if(MagazineAttachmentId==TEXT("ext_mag")||MagazineAttachmentId==G18WeaponAssets::Drum50Id)
     {
         // The universal magazine is socket-bound and rides the authored

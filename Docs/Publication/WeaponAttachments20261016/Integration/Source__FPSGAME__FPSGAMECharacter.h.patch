@@ -1,0 +1,41 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.h b/Source/FPSGAME/FPSGAMECharacter.h
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -51,6 +51,9 @@
+     friend class FDualPistolQuickCombatRegression;
+     friend class UFPSConsumableAuditCommandlet;
+     friend class UWarhammerSprintAuditCommandlet;
++    friend class UShotgunAttachmentAuditCommandlet;
++    friend class AShotgunWireAuditController;
++    friend class AShotgunWireAuditGameMode;
+     friend class URuneSwordComponent;
+     friend class UProductionToolComponent;
+     friend class UM4TacticalSprintComponent;
+@@ -188,6 +191,7 @@
+ public:
+     void SetGunsmithMagazineAttachment(const FString& Id);
+     void SetGunsmithMuzzle(const FString& Variant);
++    const FString& GetGunsmithMuzzle() const { return MuzzleVariant; }
+     void SetGunsmithHandstop(const FString& Variant);
+     void SetGunsmithBipod(const FString& Variant);
+     FString GetBipodDeploymentHint() const;
+@@ -219,7 +223,9 @@
+     FTransform GetNativeMuzzleTransform() const;
+     FVector GetEffectiveMuzzleLocation() const;
+     FVector GetEffectiveMuzzleForward() const;
+-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
++    float GetShotgunPelletSpreadMultiplier() const;
++    bool HasShotgunDuckbill() const;
++    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||(IsSuper90Weapon()&&MuzzleVariant==TEXT("shotgun_suppressor"));}
+     void SetGunsmithInspection(bool bInspect);
+     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
+     bool HasGunsmithDrum() const {return bDrumVisual;}
+@@ -313,6 +319,8 @@
+     float ProjectileSpeedCM=9000.f;
+     float EffectiveWeaponRangeCM=100000.f;
+     float HipSpreadMultiplier=1.f;
++    float ShotgunPelletSpreadMultiplier=1.f;
++    bool bShotgunDuckbillInstalled=false;
+     int32 ADSHorizontalRecoilIndex=0;
+     void RunMuzzleMigrationAudit();
+     FWeaponHandling WeaponHandling;

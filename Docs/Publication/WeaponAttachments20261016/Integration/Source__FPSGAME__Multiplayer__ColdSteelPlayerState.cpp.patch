@@ -1,0 +1,20 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -447,8 +447,15 @@
+         bool FootprintChanged=false;FString FootprintReason;
+         if(!ColdSteelInventory::MigrateAuthoredGridFootprints(Adopted,FootprintChanged,FootprintReason))
+         {ClientProfileSyncRejected(FootprintReason);return false;}
++        const bool TubeCapacityChanged=Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision;
+         ShadowModel->AdoptNetMirror(Adopted);
+-
++        if(TubeCapacityChanged)
++        {
++            RecordSuper90PouchChange(Prev,Adopted);
++            // A magazine resize ends the old reload plan. The receipt waits for
++            // this inventory revision on the owner before interrupting its pose.
++            if(Super90Reload.Active){Super90Reload.Active=false;SendSuper90Ammo(true);}
++        }
+     }
+     bRestoreGuestAmmo=false;
+     ApplyShadowToServerPawn();

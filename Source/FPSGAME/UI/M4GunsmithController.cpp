@@ -7,6 +7,16 @@
 #include "WeatherControlWidget.h"
 #include "Engine/GameInstance.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Misc/ConfigCacheIni.h"
+
+namespace
+{
+FString GunsmithNavigationSection(const UColdSteelStatusModel& Profile)
+{
+    return TEXT("FPSGAME.Gunsmith.Navigation.")+Profile.ProfileSlot();
+}
+}
+
 bool AFPSGAMEPlayerController::OpenGunsmith(const FString& Instance)
 {
     CloseExpedition();
@@ -19,7 +29,11 @@ bool AFPSGAMEPlayerController::OpenGunsmith(const FString& Instance)
     if(WeatherPanel&&WeatherPanel->IsPanelOpen())WeatherPanel->SetPanelOpen(false);
     if(ColdSteelHUD){ColdSteelHUD->HideItemTooltip(true);if(ColdSteelHUD->IsInventoryOpen())ColdSteelHUD->ToggleInventory();}
     if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->SuspendWeaponForMenu();
-    GunsmithPanel=CreateWidget<UM4GunsmithWidget>(this);GunsmithPanel->AddToViewport(60);
+    GunsmithPanel=CreateWidget<UM4GunsmithWidget>(this);
+    // RebuildWidget resolves a missing or unavailable category to the first
+    // available row. Navigation belongs to this profile and inventory instance.
+    GConfig->GetString(*GunsmithNavigationSection(*P),*Id,GunsmithPanel->SelectedCategory,GGameUserSettingsIni);
+    GunsmithPanel->AddToViewport(60);
     SetIgnoreMoveInput(true);SetIgnoreLookInput(true);bShowMouseCursor=true;
     FInputModeUIOnly Mode;Mode.SetWidgetToFocus(GunsmithPanel->TakeWidget());Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);SetInputMode(Mode);
     GunsmithPanel->SetKeyboardFocus();return true;
@@ -27,8 +41,17 @@ bool AFPSGAMEPlayerController::OpenGunsmith(const FString& Instance)
 void AFPSGAMEPlayerController::CloseGunsmith()
 {
     if(!GunsmithPanel)return;
+    auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    // Capture before widget teardown and Close() clear the active instance.
+    // This stores only the viewed category; unapplied part drafts remain transient.
+    if(!G->Instance().IsEmpty()&&GunsmithPanel->IsCategoryAvailable(GunsmithPanel->SelectedCategory))
+    {
+        GConfig->SetString(*GunsmithNavigationSection(*P),*G->Instance(),*GunsmithPanel->SelectedCategory,GGameUserSettingsIni);
+        GConfig->Flush(false,GGameUserSettingsIni);
+    }
     GunsmithPanel->SetAimPreview(false);GunsmithPanel->RemoveFromParent();GunsmithPanel=nullptr;
-    GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Close();
+    G->Close();
     if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->ApplyColdSteelProfile(GetGameInstance()->GetSubsystem<UColdSteelStatusModel>());
     SetIgnoreMoveInput(false);SetIgnoreLookInput(false);bShowMouseCursor=false;SetInputMode(FInputModeGameOnly());
 }

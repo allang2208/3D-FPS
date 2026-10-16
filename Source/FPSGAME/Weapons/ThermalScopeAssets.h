@@ -16,7 +16,10 @@ inline FString Family(const FString& D)
     return TEXT("Common");
 }
 inline FString MeshPath(const FString& D)
-{return TEXT("/Game/Weapons/ThermalScope20261006/Runtime/SM_Thermal_")+Family(D);}
+{
+    if(D==TEXT("ue_ash12"))return TEXT("/Game/Weapons/ASH12/UniversalAttachments20260919/Meshes/SM_ASH12_thermal_scope");
+    return TEXT("/Game/Weapons/ThermalScope20261006/Runtime/SM_Thermal_")+Family(D);
+}
 inline FString SelectorPath(const FString& D)
 {return TEXT("/Game/Weapons/ThermalScope20261006/Runtime/SM_ThermalSelector_")+Family(D);}
 }

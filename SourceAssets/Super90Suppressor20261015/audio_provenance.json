@@ -1,0 +1,18 @@
+{
+  "revision": "Super90SuppressedV1_20261015",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90GameDevAudio20261007\\Wav\\S_Super90_Fire.wav",
+  "source_sha256": "1ebb47d27e098ef34f807be31ca02696a71e8d7b1e74fc691bd7e12d639ca4b5",
+  "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90Suppressor20261015\\Audio\\S_Super90_Suppressed.wav",
+  "output_sha256": "63ed5acbd049d714eb0cab46082fcf97aafed510173a5e69cf80f924562f448f",
+  "normal_asset": "/Game/Weapons/Super90/GameDevAudio20261007/S_Super90_Fire",
+  "asset": "/Game/Weapons/CommonShotgun/Suppressor20261015/Audio/S_Super90_Suppressed",
+  "sample_rate": 44100,
+  "channels": 1,
+  "duration_seconds": 0.6,
+  "processing": "Filtered source body, restrained crack, shortened tail; original pitch and duration",
+  "attack_100ms_rms_delta_db": -6.015520983945183,
+  "license_note": "Existing gamedev assets explicitly selected by the user. Upstream rights are not established by this transfer; the previous Mossberg CC0 provenance does not apply.",
+  "recording_type": "Designed game cue, not a recording of a real suppressed shotgun",
+  "auditioned": false,
+  "runtime_tested": false
+}

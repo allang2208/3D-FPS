@@ -154,7 +154,8 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         // Reload cartridge visibility is carried by the motion section mask.
         // Only arms and intentionally replaced factory parts stay hidden.
         if(FPSBodyEquipment::IsArmMaterial(Slot.ToString()))Result.HiddenMaterials.Add(I);
-        if(bSuper90&&(Slot==TEXT("S90_FactoryRearGrip")||Slot.ToString().StartsWith(TEXT("S90_FactoryStock_")))&&!Source->IsMaterialSectionShown(I,0))
+        if(bSuper90&&(Slot==TEXT("S90_FactoryRearGrip")||Slot.ToString().StartsWith(TEXT("S90_FactoryStock_"))
+            ||Slot.ToString().StartsWith(TEXT("S90_FactoryTubeCap_")))&&!Source->IsMaterialSectionShown(I,0))
             Result.HiddenMaterials.AddUnique(I);
         if(Slot==TEXT("M_SteelWarhammerSurface")&&!Source->IsMaterialSectionShown(I,0))
             Result.HiddenMaterials.AddUnique(I);

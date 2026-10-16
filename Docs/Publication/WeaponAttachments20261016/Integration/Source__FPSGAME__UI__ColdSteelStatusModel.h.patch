@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -515,6 +515,9 @@
+     friend class UFPSPotionUseComponent;
+     friend class AColdSteelPlayerState;
+     friend class USkillNetworkAuditCommandlet;
++    friend class UShotgunAttachmentAuditCommandlet;
++    friend class AShotgunWireAuditController;
++    friend class AShotgunWireAuditGameMode;
+     friend class ASkillWireAuditController;
+     friend class ASkillWireAuditGameMode;
+     friend class UColdSteelSharedInventorySubsystem;

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "super90_extended_tube",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90ExtendedTube20261015\\Super90_ExtendedTube_Editable.blend",
+    "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90ExtendedTube20261015\\References\\super90_extended_tube_actual_model.png",
+    "forward": "+Y projects left",
+    "up": "+Z",
+    "camera_eye": [
+      -4,
+      0.75,
+      0
+    ],
+    "resolution": [
+      1024,
+      1024
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterSuper90.cpp b/Source/FPSGAME/FPSGAMECharacterSuper90.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterSuper90.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterSuper90.cpp
+@@ -35,11 +35,12 @@
+         :HasInfiniteReserveAmmo()?MagazineCapacity:ReserveAmmo;
+     Super90ReloadCount=CycleOnly?0:FMath::Min(MagazineCapacity-(Switching?0:MagazineAmmo),Available);
+     bSuper90SpeedReload=bSuper90LoaderInstalled;
++    if(bSuper90SpeedReload)Super90ReloadCount=FMath::Min(Super90ReloadCount,Super90SpeedloaderAssets::Capacity);
+     UAnimSequence* Clip=bPendingEmptyReload?ReloadEmptyAnimation.Get():ReloadAnimation.Get();
+     if(bSuper90SpeedReload)
+     {
+-        // The loader refills the magazine in one push. Its authored shell
+-        // variants cap the visual count, never the amount the weapon can take.
++        // One physical loader carries at most seven shells. A second reload
++        // action fills the remaining space in a larger tube.
+         const int32 ClipCount=FMath::Min(Super90ReloadCount,Super90SpeedloaderAssets::Capacity);
+         const auto& Clips=bPendingEmptyReload?Super90LoaderEmpty:Super90LoaderNormal;
+         Clip=Clips.IsValidIndex(ClipCount)?Clips[ClipCount].Get():nullptr;
+@@ -112,11 +113,11 @@
+         }
+         else
+         {
+-            MechanicalCueTimes.Add(IsM870Weapon()?6.48f:NativeBoltReleaseCue);
++            MechanicalCueTimes.Add(Super90ReloadTail+(IsM870Weapon()?6.48f:NativeBoltReleaseCue)-TailBegin);
+             MechanicalCueSounds.Add(ChargeReleaseSound);
+         }
+     }
+-    const float SourceTime=Super90ReloadSourceTime(WeaponStateElapsed);
++    const float SourceTime=bReloadCycleOnly?Super90ReloadSourceTime(WeaponStateElapsed):WeaponStateElapsed*Super90ReloadRate;
+     while(NextMechanicalCue<MechanicalCueTimes.Num()&&MechanicalCueTimes[NextMechanicalCue]<SourceTime)
+         ++NextMechanicalCue;
+ }
+@@ -170,9 +171,7 @@
+         return FMath::Min(Time,Super90SingleLength);
+     // Skip unused feed loops only once, after the last shell. Both variants
+     // stay canted until this boundary; only the empty variant closes the bolt.
+-    return Time>=Super90ReloadTail
+-        ? FMath::Min(Super90SingleLength,TailBegin+Time-Super90ReloadTail)
+-        : FMath::Min(Time,Super90SingleLength);
++    return FeedClipTime(Time,Super90ReloadTail,Super90SingleLength);
+ }
+ 
+ bool AFPSGAMECharacter::AdvanceSuper90Reload()
+@@ -230,12 +229,7 @@
+             Super90ReloadCount=StopAfter;
+             Super90ReloadTail=TailForCount(StopAfter);
+             WeaponStateDuration=ActionDuration=(Super90ReloadTail+Super90SingleLength-TailBegin)/Super90ReloadRate;
+-            MechanicalCueTimes.SetNum(StopAfter);MechanicalCueSounds.SetNum(StopAfter);
+-            if(bPendingEmptyReload)
+-            {
+-                MechanicalCueTimes.Add(NativeBoltReleaseCue);
+-                MechanicalCueSounds.Add(ChargeReleaseSound);
+-            }
++            SetSuper90ReloadCues();
+         }
+     }
+     while(Super90ReloadCommitted<Super90ReloadCount && FeedTime+1.e-6f>=Insert+Super90ReloadCommitted*LoopStep)

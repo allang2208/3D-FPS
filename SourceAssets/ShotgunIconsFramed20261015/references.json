@@ -1,0 +1,50 @@
+[
+  {
+    "id": "shotgun_choke",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90Choke20261015\\ShotgunChoke_Box01_Editable.blend",
+    "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ShotgunIconsFramed20261015\\References\\shotgun_choke_actual_model.png",
+    "forward": "+X projects left",
+    "up": "+Z",
+    "camera_eye": [
+      0.75,
+      4,
+      0
+    ],
+    "resolution": [
+      1024,
+      1024
+    ]
+  },
+  {
+    "id": "shotgun_birdcage_flash_hider",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90Birdcage20261015\\ShotgunBirdcage01_Editable.blend",
+    "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ShotgunIconsFramed20261015\\References\\shotgun_birdcage_flash_hider_actual_model.png",
+    "forward": "+X projects left",
+    "up": "+Z",
+    "camera_eye": [
+      0.75,
+      4,
+      0
+    ],
+    "resolution": [
+      1024,
+      1024
+    ]
+  },
+  {
+    "id": "shotgun_suppressor",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90Suppressor20261015\\ShotgunSuppressor01_Editable.blend",
+    "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ShotgunIconsFramed20261015\\References\\shotgun_suppressor_actual_model.png",
+    "forward": "+X projects left",
+    "up": "+Z",
+    "camera_eye": [
+      0.75,
+      4,
+      0
+    ],
+    "resolution": [
+      1024,
+      1024
+    ]
+  }
+]

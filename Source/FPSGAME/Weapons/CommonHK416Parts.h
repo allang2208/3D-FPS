@@ -21,6 +21,8 @@ namespace CommonHK416Parts
     {
         if (Definition == PitViper2011WeaponAssets::Definition)
             return PitViper2011WeaponAssets::AttachmentPath(Variant);
+        if (Variant == Optic && Definition == TEXT("ue_ash12"))
+            return TEXT("/Game/Weapons/ASH12/UniversalAttachments20260919/Meshes/SM_ASH12_eoth_holographic");
         const FString Family = Variant == Optic ? OpticFamily(Definition)
             : Definition == TEXT("ue_hk416") ? TEXT("HK416")
             : (Definition == TEXT("ue_m1911") || Definition == TEXT("ue_g18")) ? TEXT("Pistol") : TEXT("Common");

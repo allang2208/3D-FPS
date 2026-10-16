@@ -104,6 +104,8 @@ void UM4GunsmithWidget::NativeConstruct()
     GunsmithHandle=Model()->OnChanged.AddUObject(this,&UM4GunsmithWidget::RefreshPresentation);
     ProfileHandle=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->OnChanged.AddUObject(this,&UM4GunsmithWidget::RefreshPresentation);
     SetSidePreview(true);InitializePreview();RefreshPresentation();
+    if(CategoryScroll&&CategoryButtons.Contains(SelectedCategory))
+        CategoryScroll->ScrollDescendantIntoView(CategoryButtons.FindChecked(SelectedCategory),false);
 }
 void UM4GunsmithWidget::NativeDestruct()
 {

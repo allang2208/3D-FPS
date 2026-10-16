@@ -1,0 +1,67 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -3,6 +3,7 @@
+ #include "Multiplayer/FPSStatusReplicationComponent.h"
+ #include "Weapons/Super90WeaponAssets.h"
+ #include "Weapons/TubeShotgunAssets.h"
++#include "Weapons/ShotgunSuppressorAssets.h"
+ #include "Weapons/Super90Spread.h"
+ #include "Weapons/Super90SpeedloaderAssets.h"
+ #include "Weapons/JingangRuneComponent.h"
+@@ -753,6 +754,8 @@
+     {
+         // The user-selected gamedev one-shot replaces the previous Mossberg variants.
+         if(FireSound)RifleFireVariants.Add(FireSound);
++        SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
++        if(SuppressedFireSound)RifleSuppressedVariants.Add(SuppressedFireSound);
+         RifleFireConcurrency=NewObject<USoundConcurrency>(this);
+         RifleFireConcurrency->Concurrency.MaxCount=4;
+         RifleFireConcurrency->Concurrency.bLimitToOwner=true;
+@@ -2703,14 +2706,17 @@
+     const auto* ShotItem=ShotProfile?ShotProfile->FindItem(ActiveInventoryWeapon):nullptr;
+     const int32 NativePelletCount=IsTubeShotgunWeapon()?Super90WeaponAssets::PelletCount:1;
+     const int32 PelletCount=ShotItem?ShotProfile->AmmoProjectileCount(*ShotItem,NativePelletCount):NativePelletCount;
+-    const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim);
++    const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim,GetShotgunPelletSpreadMultiplier());
++    const bool Duckbill=PelletCount>1&&HasShotgunDuckbill();
+     const float ShotDamage=DamagePerShot*ConvergenceScale/PelletCount;
+     const auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
+     const auto Effects=ColdSteelCombat::Snapshot(this);
+     TArray<FVector_NetQuantizeNormal> ShotDirections;
+     for(int32 Pellet=0;Pellet<PelletCount;++Pellet)
+     {
+-    const FVector PelletDirection=PelletCount>1?(PredictSuper90?Super90Random.VRandCone(TraceDirection,PelletCone):FMath::VRandCone(TraceDirection,PelletCone)):TraceDirection;
++    const FVector PelletDirection=Duckbill?
++        Super90Spread::HorizontalFan(TraceDirection,PelletCone,Pellet,PelletCount,PredictSuper90?Super90Random.FRand():FMath::FRand()):
++        PelletCount>1?(PredictSuper90?Super90Random.VRandCone(TraceDirection,PelletCone):FMath::VRandCone(TraceDirection,PelletCone)):TraceDirection;
+     FHitResult Hit;
+     FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
+     Params.bReturnPhysicalMaterial = true;
+@@ -2937,19 +2943,20 @@
+     int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
+     if(Width<=0||Height<=0)return FVector2D::ZeroVector;
+     const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
+-    float SpreadTangent=GetHipSpread();
++    FVector2D SpreadTangents(GetHipSpread());
+     if(IsTubeShotgunWeapon())
+     {
+         const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+         const auto* Item=Model?Model->FindItem(ActiveInventoryWeapon):nullptr;
+         const int32 Pellets=Item?Model->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):Super90WeaponAssets::PelletCount;
+-        SpreadTangent=Super90Spread::RingTangent(SpreadTangent,Pellets);
+-    }
+-    const float Spread=SpreadTangent*1000.f;
++        SpreadTangents=HasShotgunDuckbill()?Super90Spread::FanRingTangents(SpreadTangents.X,Pellets,GetShotgunPelletSpreadMultiplier()):
++            FVector2D(Super90Spread::RingTangent(SpreadTangents.X,Pellets,GetShotgunPelletSpreadMultiplier()));
++    }
++    const FVector2D Spread=SpreadTangents*1000.f;
+     FVector2D ScreenCenter,Right,Up;
+     if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
+-        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread,Right,true)
+-        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread,Up,true))return FVector2D::ZeroVector;
++        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread.X,Right,true)
++        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread.Y,Up,true))return FVector2D::ZeroVector;
+     return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
+         FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
+ }

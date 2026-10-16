@@ -1,0 +1,75 @@
+diff --git a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
+--- a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
+@@ -3,6 +3,7 @@
+ #include "Camera/PlayerCameraManager.h"
+ #include "Super90WeaponAssets.h"
+ #include "TubeShotgunAssets.h"
++#include "ShotgunBirdcageAssets.h"
+ #include "FPSImpactFXSubsystem.h"
+ #include "NiagaraComponent.h"
+ #include "NiagaraSystem.h"
+@@ -1028,6 +1029,21 @@
+         ?WeaponFX::TracerPistolMaxCM:WeaponFX::TracerRifleMaxCM);
+ }
+ 
++float UFPSWeaponFXComponent::MuzzleFlashVisualScale() const
++{
++    if(bWorldGun)
++    {
++        const auto* Part=WorldMuzzlePart.Get();
++        const UStaticMesh* Mesh=Part?Part->GetStaticMesh():nullptr;
++        return Mesh&&Mesh->GetPathName()==ShotgunBirdcageAssets::MeshObjectPath
++            ?ShotgunBirdcageAssets::FlashVisualScale:1.f;
++    }
++    if(bIndependentPistol)return 1.f;
++    const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
++    return Character&&Character->IsSuper90Weapon()&&Character->GetGunsmithMuzzle()==ShotgunBirdcageAssets::Part
++        ?ShotgunBirdcageAssets::FlashVisualScale:1.f;
++}
++
+ bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float Scale)
+ {
+     UNiagaraSystem* System=EpicMuzzleSystem.Get();
+@@ -1063,14 +1079,15 @@
+         FNiagaraVariable(FNiagaraTypeDefinition::GetColorDef(),TEXT("User.Flash Base Color")));
+     const auto* FlashOwner = Cast<AFPSGAMECharacter>(GetOwner());
+     const bool bAiming = FlashOwner && FlashOwner->IsAiming();
+-    const float FlashGain = (bScope ? .35f : bAiming ? .42f : .55f) * FMath::FRandRange(.92f, 1.08f);
++    const float FlashGain = (bScope ? .35f : bAiming ? .42f : .55f) * FMath::FRandRange(.92f, 1.08f)
++        * MuzzleFlashVisualScale();
+     FX->SetVariableLinearColor(TEXT("User.Flash Base Color"),FLinearColor(
+         SourceFlash.R*FlashGain,SourceFlash.G*FlashGain,SourceFlash.B*FlashGain,SourceFlash.A));
+     if(EpicMuzzleBursts==0)UE_LOG(LogTemp,Display,TEXT("EPIC_GUN_FX source_flash=%s"),*SourceFlash.ToString());
+     FX->SetVariableBool(TEXT("User.Use Bullet Shell"),false);
+     FX->SetVariableBool(TEXT("User.Use Smoke"),false);
+     FX->SetVariableBool(TEXT("User.Use Sparks"),false);
+-    FX->SetVariableBool(TEXT("User.Use Flash Side"),LastSuppression>.5f);
++    FX->SetVariableBool(TEXT("User.Use Flash Side"),LastSuppression>.5f&&MuzzleFlashVisualScale()>=1.f);
+     FX->Activate(true);
+     ++EpicMuzzleBursts;
+     return true;
+@@ -1199,6 +1216,8 @@
+     LastADSMultiplier = bADS ? (bRSH12?.88f:.78f) : 1.0f;
+     LastWeaponFlashMultiplier = (bWorldGun?bWorldPistol:(bIndependentPistol || (Character && Character->IsPistolWeapon()))) ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
+     if(bRSH12)LastWeaponFlashMultiplier=.88f;
++    const float AttachmentFlashScale=MuzzleFlashVisualScale();
++    LastWeaponFlashMultiplier*=AttachmentFlashScale;
+     const float Scale = FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier;
+     LastFXShotTime=GetWorld()->GetTimeSeconds();
+     const bool bScope = ShouldHideCasings();
+@@ -1217,12 +1236,12 @@
+             P->Rotation.Roll = FMath::FRandRange(-180.0f, 180.0f);
+             P->Material->SetVectorParameterValue(TEXT("Tint"), Layer == 0 ? WeaponFX::HotCore : WeaponFX::Flame);
+             P->Material->SetScalarParameterValue(TEXT("Emission"), Layer == 0 ? 5.0f : 3.0f);
+-            P->Opacity = (Layer == 0 ? 0.8f : 0.42f)*Suppression;
++            P->Opacity = (Layer == 0 ? 0.8f : 0.42f)*Suppression*AttachmentFlashScale;
+             P->Position = MuzzleLocation() + MuzzleForward() * P->ForwardOffset;
+             ApplyParticleTransform(*P);
+         }
+     }
+-    for (int32 I = 0; I < (Epic||Suppression<1.f?0:2); ++I)
++    for (int32 I = 0; I < (Epic||Suppression<1.f||AttachmentFlashScale<1.f?0:2); ++I)
+     {
+         if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Spark, CardMesh, FlashMaterial))
+         {

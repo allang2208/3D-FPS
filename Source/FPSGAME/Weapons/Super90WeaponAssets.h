@@ -32,6 +32,14 @@ inline FString AnimationPath(const TCHAR* Kind)
     return FString::Printf(TEXT("/Game/Weapons/Super90/Cransh20261006/Animations/A_Super90_%s.A_Super90_%s"),Kind,Kind);
 }
 inline float TailForCount(int32 Count){return Count>0?1.f+(Count-1)*LoopStep:0.f;}
+// Preserve the native return/bolt tail while repeating its final shell loop
+// when a larger tube requires more than the authored seven feed contacts.
+inline float FeedClipTime(float Time,float Tail,float Length)
+{
+    if(Time>=Tail)return FMath::Min(Length,TailBegin+Time-Tail);
+    if(Time>=TailBegin)return TailBegin-LoopStep+FMath::Fmod(Time-TailBegin,LoopStep);
+    return FMath::Min(Time,Length);
+}
 inline FString SprintAnimationPath(const TCHAR* Kind)
 {
     const FString Name=FString::Printf(TEXT("A_Super90_sprint_%s"),Kind);

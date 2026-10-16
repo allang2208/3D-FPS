@@ -98,6 +98,10 @@ void UM4GunsmithWidget::RefreshPresentation()
     Row(TEXT("枪械稳定性·抖动指数 ↓"),B.Shake,S.Shake,1,TEXT(""),true);
     Row(TEXT("枪械稳定性·回稳90%"),B.Handling.ADSRecoveryMilliseconds(),S.Handling.ADSRecoveryMilliseconds(),0,TEXT(" ms"),true);
     Row(ColdSteelWeaponText::HipSpreadMultiplier,B.Spread,S.Spread,2,TEXT("×"),true);
+    if(const auto* W=G->Weapon(G->Definition());W&&W->Ammo==TEXT("ammo_12g"))
+        Row(ColdSteelWeaponText::PelletSpreadMultiplier,
+            G->PelletSpreadMultiplier(G->Definition(),bCompareFactory?FGunsmithParts():G->Installed(*I)),
+            G->PelletSpreadMultiplier(G->Definition(),G->Draft()),2,TEXT("×"),true);
     Row(TEXT("有效射程（全伤害）"),B.Range,S.Range,0,TEXT(" m"));
     if(S.Speed<=0)Overview.Add({ColdSteelWeaponText::ProjectileSpeed,TEXT("即时命中"),TEXT("即时命中"),TEXT("—"),0});
     else Row(ColdSteelWeaponText::ProjectileSpeed,B.Speed,S.Speed,0,TEXT(" m/s"));

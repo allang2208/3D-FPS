@@ -1,0 +1,18 @@
+[
+  {
+    "id": "shotgun_duckbill",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90DuckbillV2_20261016\\ShotgunDuckbillV2_Editable.blend",
+    "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90DuckbillV2_20261016\\References\\shotgun_duckbill_actual_model.png",
+    "forward": "+X projects left",
+    "up": "+Z",
+    "camera_eye": [
+      2.4,
+      4,
+      1.6
+    ],
+    "resolution": [
+      1024,
+      1024
+    ]
+  }
+]

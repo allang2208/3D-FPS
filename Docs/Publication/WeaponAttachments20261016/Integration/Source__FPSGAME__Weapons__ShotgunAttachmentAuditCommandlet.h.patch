@@ -1,0 +1,16 @@
+diff --git a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+@@ -0,0 +1,11 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "ShotgunAttachmentAuditCommandlet.generated.h"
++
++UCLASS()
++class UShotgunAttachmentAuditCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

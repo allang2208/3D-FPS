@@ -20,6 +20,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ## 霰弹枪弹药与联机收尾
 
+- 伸缩后托/幻影握把表面、M16/ASH 瞄具座、SUPER90 枪口与加长弹仓组合及改造导航记忆，读取 [配件表面与霰弹枪组合](references/attachment-surface-and-shotgun-combinations.md)。保护有效恢复输入，区分视觉草稿与已应用玩法配方。
+
 - SUPER90 弹药快照、权威装填回执、远端道具／枪口和轮盘缺图处理，读取 [霰弹枪权威与表现](references/shotgun-authority-and-presentation.md)。记录实际构建与尚未进行的联机体验，避免用保存或编译替代运行验收。
 
 - 腰射／ADS 镭射归零、联机光点一致及架枪确认交互，读取 [战术灯与镭射](references/tactical-devices.md) 的最新规则；枪声、火光、退壳与每手机械事件见 [武器音效](references/weapon-audio.md)。

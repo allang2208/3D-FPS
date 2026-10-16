@@ -1,0 +1,30 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterProfile.cpp b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -21,6 +21,7 @@
+ #include "Weapons/LMG201WeaponAssets.h"
+ #include "Weapons/RSH12WeaponAssets.h"
+ #include "Weapons/Super90SpeedloaderAssets.h"
++#include "Weapons/ShotgunDuckbillAssets.h"
+ #include "Weapons/WeaponStatEvaluation.h"
+ #include "Weapons/ColdSteelEnchantmentCombat.h"
+ #include "Weapons/DealerEnchantmentComponent.h"
+@@ -151,6 +152,7 @@
+     TraceDistance=Defaults->TraceDistance;
+     EffectiveWeaponRangeCM=Defaults->TraceDistance;
+     HipSpreadMultiplier=1.f;
++    ShotgunPelletSpreadMultiplier=1.f;bShotgunDuckbillInstalled=false;
+     FirearmEquipRate=1.f;
+     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
+     FireInterval=Defaults->FireInterval;
+@@ -161,6 +163,10 @@
+     if(auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+     {
+         const auto Parts=I?Gunsmith->Installed(*I):FGunsmithParts();
++        // Ballistics use the committed equipment, never the local workbench's
++        // preview. Cache once per profile publication on owner and authority.
++        if(I&&IsTubeShotgunWeapon())ShotgunPelletSpreadMultiplier=float(Gunsmith->PelletSpreadMultiplier(I->Definition,Parts));
++        bShotgunDuckbillInstalled=I&&IsSuper90Weapon()&&Parts.FindRef(TEXT("muzzle"))==ShotgunDuckbillAssets::Part;
+         bSelectableAutoTrigger=I&&FullAutoTrigger::Installed(I->Definition,Parts);
+         bAutomaticTrigger=I&&FullAutoTrigger::Automatic(*I,bSelectableAutoTrigger);
+         // Gameplay transactions can refresh stats while the gunsmith is open;

@@ -1,0 +1,132 @@
+{
+  "capturedGitHead": "e75b75abfd1e18fc88ff0fd544a35bda2e223637",
+  "mode": "exact task excerpts; host preimages include unpublished parallel prerequisites",
+  "patches": [
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "requiredPreimageSha256": "033499a85a14fb528aecccb0ef6c0b6d9f7eb5184182544955a63296033d5466",
+      "workingResultSha256": "da09dfb16d5100ecb1d53bd19814a4b8909daeb14a1b2e8937003ec0fe2d13ab",
+      "reason": "Task-owned changes in shared host source; integrate after the recorded host prerequisites, not blindly into public HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__FPSGAMECharacter.h.patch",
+      "requiredPreimageSha256": "95c90929a651a7585e706bb734d4091f509f33fd7e249d8581ba3919b2c573e4",
+      "workingResultSha256": "204b521372eace9087531ac38b81193fa4320db2e5858149aac43dd59c4f4ccb",
+      "reason": "Task-owned changes in shared host source; integrate after the recorded host prerequisites, not blindly into public HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Multiplayer__ColdSteelSuper90Authority.cpp.patch",
+      "requiredPreimageSha256": "21d16d0676056bba2174237025595ffaa37ebfd37ae232b126a7f1f1f31c431a",
+      "workingResultSha256": "cfa5c16f49cb46d5d88b17926062def5791e69c5fd3acb65c13335fa70e23344",
+      "reason": "Task-owned changes in shared host source; integrate after the recorded host prerequisites, not blindly into public HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterSuper90.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__FPSGAMECharacterSuper90.cpp.patch",
+      "requiredPreimageSha256": "5381f24cdae017e71e63669dc65d6b150b5954c734370a998b0a0b04678ae7bb",
+      "workingResultSha256": "ea3f96f124ec095c93032bb0d9ccff151c71b7dddb9dd0d3db636622618f61cb",
+      "reason": "Task-owned changes in shared host source; integrate after the recorded host prerequisites, not blindly into public HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__M4MuzzleVisual.cpp.patch",
+      "requiredPreimageSha256": "dd0604ede10aa7a9cf46e900f2fe5defec375fcbce6bf5f4ffc08110da9f4c60",
+      "workingResultSha256": "5273247355b3bd76eb847ee42af9312ce938c0b12cc2bee1c81658cc2d3591a0",
+      "reason": "Task-owned changes in shared host source; integrate after the recorded host prerequisites, not blindly into public HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__FPSWeaponFXComponent.cpp.patch",
+      "requiredPreimageSha256": "7f1a0e979f077e4cf73d6e8520b47bfefb139bab069c7085725099d36d7ced17",
+      "workingResultSha256": "a3a95c05c045f97805634ab5129fc2f36e7ce8f4098cd42b5275d257ec41c173",
+      "reason": "Task-owned changes in shared host source; integrate after the recorded host prerequisites, not blindly into public HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+      "requiredPreimageSha256": "af19ff751ae269005f7589a21f1837d838984128d16c2619a5a6140e8b8b89f0",
+      "workingResultSha256": "c6cf2e029cf03e26b32097721f08bc81955a0edca76aee1c3e642ade6adc71aa",
+      "reason": "Committed recipe cache; existing IsTubeShotgunWeapon belongs to the parallel tube-shotgun integration"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "requiredPreimageSha256": "73a19bbbbddf70408248bcc6aeccf2b261dccb68a34ef4ed02cb4c94f47f7344",
+      "workingResultSha256": "8c1765b6f7b1a0a443b01f15a9e1971a3d52708c59b0477da1d8788dc7aee1b7",
+      "reason": "Resize receipt and old reload cancellation; leave unrelated shared profile transactions intact"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "requiredPreimageSha256": "3bcb854d592bbd906836dcc011e765832adc1a4357a60738ab44d10481cc5a4a",
+      "workingResultSha256": "ae505d490f38f5de4d41dcea251c6ff5fe1ddf38c3aba35e82583aaee4acc637",
+      "reason": "Access for explicit shotgun audit fixtures only"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+      "requiredPreimageSha256": "6b4853992a426488590d3ad5b9e46616363ec961bfa3e0e38bc7772b0cbb4471",
+      "workingResultSha256": "db241556d157b88e6ee7ee4ef051dec1f66d9190308efd944df0dea23f41f6f2",
+      "reason": "Access for explicit shotgun audit fixtures only"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+      "requiredPreimageSha256": "83024764a8aa0223699560f9ee9625d3f053d65bff61b07245bec00385b0f06b",
+      "workingResultSha256": "2b6f7669d1bbeceaebfaa161d568d83176456f0319cba636ff7543ca8ca8b39a",
+      "reason": "Access for explicit shotgun audit fixtures only"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__FPSBallisticsComponent.h.patch",
+      "requiredPreimageSha256": "c3e3d37ae4ea9c229e8372df4bf1a0771fa0b96f057e1ce416b521efbbbb8d08",
+      "workingResultSha256": "d5100c18a3b9a06fb05505f01a6ed0d90eb47ec5cc6c1e09283b589dfe12bbfb",
+      "reason": "Access for explicit shotgun audit fixtures only"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__FPSWeaponFXComponent.h.patch",
+      "requiredPreimageSha256": "1b17a13917800c4011c711cb9ca3d2c08540946aab4eb0b0d5b10a08a2bd5e60",
+      "workingResultSha256": "bdbf7626c5d60a1435e06f4f8ace10a0828c3b73fe9c2aa46bedc64130afa8e4",
+      "reason": "Birdcage flash helper declaration; pump-eject changes excluded"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+      "requiredPreimageSha256": "d7e02e898ec0f33f650908551ce4744af1a6d2a0abb4dae562f5c06b1b6e347b",
+      "workingResultSha256": "257718fcd35d231b6031ea14628ae0dd1dd195fb273d5bb1692407050b28f746",
+      "reason": "Horizontal fan crosshair; broad M870 UI predicate is not changed by this patch"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.cpp.patch",
+      "requiredPreimageSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "workingResultSha256": "a39d9d3d8a50e72109522b5713d3a05cd748259f990d485e547ec3d29c6864f2",
+      "reason": "Optional audit fixture; not automatically invoked or compiled into the public source subset"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.h.patch",
+      "requiredPreimageSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "workingResultSha256": "b208836eee14c2384c7713b07de1ef49dff04a0c097976d10ebb8a87dba95932",
+      "reason": "Optional audit fixture; not automatically invoked or compiled into the public source subset"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__ShotgunWireAudit.cpp.patch",
+      "requiredPreimageSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "workingResultSha256": "b95e0bcdbf184f503fcaa5ac1b8553bf2712a3417a8f26d9449d7328ab9a8bb9",
+      "reason": "Optional audit fixture; not automatically invoked or compiled into the public source subset"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "patch": "Docs/Publication/WeaponAttachments20261016/Integration/Source__FPSGAME__Weapons__ShotgunWireAudit.h.patch",
+      "requiredPreimageSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "workingResultSha256": "5183eec7812f270d0d06afd45705a649d53a6edd65a67da61679a4c2604e7cf5",
+      "reason": "Optional audit fixture; not automatically invoked or compiled into the public source subset"
+    }
+  ]
+}

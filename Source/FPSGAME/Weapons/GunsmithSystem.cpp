@@ -196,6 +196,24 @@ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
     if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O)&&O->TryGetObjectField(TEXT("gunsmith_parts"),Parts))for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->Type==EJson::Boolean)Value=Pair.Value->AsBool()?TEXT("true"):TEXT("false");else if(Pair.Value->Type==EJson::String)Value=Pair.Value->AsString();P.Add(FString(*Pair.Key),Value);}
     return Normalize(I.Definition,P);
 }
+double UGunsmithSystem::PelletSpreadMultiplier(const FString& D,const FGunsmithParts& P) const
+{
+    const auto* W=Weapon(D);
+    const auto* Id=P.Find(TEXT("muzzle"));
+    if(!W||W->Ammo!=TEXT("ammo_12g")||!Id||!Option(D,TEXT("muzzle"),*Id))return 1.;
+    // Read the already-loaded catalog. No file access, profile reconstruction,
+    // or new reflected layout is needed for this optional muzzle attribute.
+    const auto Options=W->Source->GetObjectField(TEXT("options"));
+    const TArray<TSharedPtr<FJsonValue>>* Entries=nullptr;
+    if(Options->TryGetArrayField(TEXT("muzzle"),Entries))
+        for(const auto& Entry:*Entries)
+        {
+            const auto O=Entry->AsObject();
+            if(O->GetStringField(TEXT("id"))==*Id)
+                return FMath::Max(0.,Num(O->GetObjectField(TEXT("stats")),TEXT("pellet_spread_mult"),1.));
+        }
+    return 1.;
+}
 FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P,bool bUnsupportedForegrip)const
 {
     const auto* W=ModifiableWeapon(D);if(!W)return {};auto R=W->Base;

@@ -177,6 +177,8 @@ public:
     FGunsmithParts Installed(const FColdSteelItem&) const;
     FGunsmithParts Normalize(const FString& Definition,const FGunsmithParts&) const;
     FGunsmithStats Calculate(const FString& Definition,const FGunsmithParts&,bool bUnsupportedForegrip=false) const;
+    // Shotgun pellet cone only; hip aiming jitter remains a separate attribute.
+    double PelletSpreadMultiplier(const FString& Definition,const FGunsmithParts& Parts) const;
     bool HasUnsupportedForegrip(const FColdSteelItem& Item) const;
     FGunsmithStats CalculateItem(const FColdSteelItem& Item,const FGunsmithParts&) const;
     bool Begin(const FString& Instance);

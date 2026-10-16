@@ -1,0 +1,498 @@
+{
+  "version": "A762-NeutralNormal-20261015",
+  "texture": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\A762ADSSurface20261015\\Textures\\T_A762_FlatNormal.png",
+    "path": "/Game/Weapons/A762/ADSSurface20261015/Textures/T_A762_FlatNormal",
+    "sha256": "75dd10c19da9c854c8a26620fc7ce7e0788684b2f474afda20e0a8ccbcde8629"
+  },
+  "targets": [
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Inside.MI_A762_WS_Inside",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Inside",
+      "clone": false,
+      "sha256": "1c995555485a5a25a8b0f5a227ba06e95b1caad994ef48c9f34fa73020e288d2",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontAssembly_Rebuilt.MI_A762_WS_FrontAssembly_Rebuilt",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontAssembly_Rebuilt",
+      "clone": false,
+      "sha256": "941decfd041007adf5141661035308632d84e4a966b0cbdccad9183ef22136a9",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Rail.MI_A762_WS_Rail",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_Rail",
+      "clone": false,
+      "sha256": "35002e39530bcfa7f31b58802d1c24d2b252beaa27f9995c728ecfe572c4cc0e",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight03.MI_A762_WS_RearSight03",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight03",
+      "clone": false,
+      "sha256": "c63bdd8aead2ebd810b93855ba0a963fbf4299165f00a4e40b1019e821c19d52",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_Rebuilt.MI_A762_WS_FrontSight_Rebuilt",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_Rebuilt",
+      "clone": false,
+      "sha256": "09f219734dc6bdf0766ae345974ac60baef932ef11110591299825f140148d80",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineInside_Rebuilt.MI_A762_WS_MagazineInside_Rebuilt",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_MagazineInside_Rebuilt",
+      "clone": false,
+      "sha256": "4dae97ebed32b3c56ec6ace72314f5fbe7d4aa776418da6ad43109e8a4c7cb87",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_SightInner.MI_A762_WS_SightInner",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_SightInner",
+      "clone": false,
+      "sha256": "908743006b1ab2859293dd92c8610a93ef543e5be41596cbc9ae70a24d7a14f9",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_angled_Interface.MI_A762_WS_angled_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_angled_Interface",
+      "clone": false,
+      "sha256": "90803a61c171e52fda805b3aebd59d591b6356955606a8746f1b4f5554cfec8e",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_angled_0.MI_A762_WS_angled_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_angled_0",
+      "clone": false,
+      "sha256": "80674828b3e726fccac67f1cb02a08fd08f149cb4bfb4f6c181e7e4ad748ad00",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_Interface.MI_A762_WS_balanced_reargrip_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_Interface",
+      "clone": false,
+      "sha256": "53fb83301238f800ab3b11c6f1c0a50bcb0d24ce0c5bd4cad693951ee0a34caa",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_2abef30c4c1b.MI_RG01_balanced_2abef30c4c1b",
+      "destination": "/Game/Weapons/A762/ADSSurface20261015/Materials/MI_A762_RG01_balanced_2abef30c4c1b",
+      "clone": true,
+      "sha256": "69eea4430c6f67f7b2744aaab5064bcbcbe6d803b0f8a5de3683431d7ff2a0d8",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_1.MI_A762_WS_balanced_reargrip_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_balanced_reargrip_1",
+      "clone": false,
+      "sha256": "ef7dd3eadbf587a026f0ac7a2fad5e6c91eba2b7a8727c0b0ba60a939aaf13eb",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_canted_Interface.MI_A762_WS_canted_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_canted_Interface",
+      "clone": false,
+      "sha256": "3c92329c9c737d89f099697e2aad43e48e6005c51e365ce84a112d37c5195da3",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_canted_1.MI_A762_WS_canted_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_canted_1",
+      "clone": false,
+      "sha256": "075ddb3ba13cffcb007c675362122dcdab5e8cc12a0a3985fe1981dd58dc3d41",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_Interface.MI_A762_WS_core_stock_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_Interface",
+      "clone": false,
+      "sha256": "6c7d54d71acd0ad01e45d35ed306e6869b5d0f1484becb92679373f030ed18e6",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_0.MI_A762_WS_core_stock_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_0",
+      "clone": false,
+      "sha256": "319af59e05c9eab2ca099d6b465161b5f68ef421a7bbdc143dd79f36f8e3d058",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_1.MI_A762_WS_core_stock_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_1",
+      "clone": false,
+      "sha256": "cda335d5253146ed2671212e4a7d4f360528df2bb1f7ca95cec5fa207fec428a",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_2.MI_A762_WS_core_stock_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_core_stock_2",
+      "clone": false,
+      "sha256": "1311ba418b67b0301d6fdbdb79d58e3c83f53c8d1e7f90072617343b64e36ce9",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_0.MI_A762_WS_drum_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_0",
+      "clone": false,
+      "sha256": "7a08932660cc5c57633f93607568056666589faa938714a84b57cdab6388da55",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_1.MI_A762_WS_drum_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_1",
+      "clone": false,
+      "sha256": "e66ec52bc346e8da8bb215cc6a661cd6fe0a83d4d7f4e3a58764d7089bf1c622",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_2.MI_A762_WS_drum_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_2",
+      "clone": false,
+      "sha256": "e596bec006bfca51188c2ef2b18d02735d8e7d9bdc931258829224f6536f33d6",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_Neck.MI_A762_WS_drum_Neck",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_Neck",
+      "clone": false,
+      "sha256": "19d75532687b3225f54400a10bd55023120c284843dbc2e6c600adb7637bb800",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_Inside.MI_A762_WS_drum_Inside",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_drum_Inside",
+      "clone": false,
+      "sha256": "ac769a076d5c7eee1c4cc11b3d8a0fa44a488bfb780e1d45c068f3c5e4290fbe",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_ext_mag_A762_MagazineInside_Rebuilt.MI_A762_WS_ext_mag_A762_MagazineInside_Rebuilt",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_ext_mag_A762_MagazineInside_Rebuilt",
+      "clone": false,
+      "sha256": "7ece144afe657bc85241c04ebe7781756af97bbbd701374e1439f7043bb6eeae",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_Interface.MI_A762_WS_flashlight_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_Interface",
+      "clone": false,
+      "sha256": "29eec2e145ef5936e439424aa6da06190e75e40bcf7d1b8ceba87fc3c2615a64",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_0.MI_A762_WS_flashlight_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_0",
+      "clone": false,
+      "sha256": "69d0548ed431acc69d0c0029ef2a574d2299e5d06bca8c42b3f557ce92808c6c",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_1.MI_A762_WS_flashlight_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_flashlight_1",
+      "clone": false,
+      "sha256": "a29f30d22126fd557dd3ac1832dc9940ff9736a8525005e34c04b18f96a0478b",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_FrontSight_Rebuilt.MI_A762_WS_FrontSight_FrontSight_Rebuilt",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_FrontSight_Rebuilt",
+      "clone": false,
+      "sha256": "cc8f09e6be48a9f50ba43a2d0c65e82cf77dafb3b1f0ef45c85b46c6de1e8a79",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_SightInner.MI_A762_WS_FrontSight_SightInner",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_FrontSight_SightInner",
+      "clone": false,
+      "sha256": "6fa90b7c75d0ee9fe067f0c3759a73dcdaa3004a58ff0a5ba017a66155425880",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_Interface.MI_A762_WS_laser_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_Interface",
+      "clone": false,
+      "sha256": "24e767fcd85c4d26e83162db90028521530e668932422db0e7450ef2d0d74384",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_0.MI_A762_WS_laser_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_0",
+      "clone": false,
+      "sha256": "c757ef68cac99ac11e0cb253fc62570dafd3f220659a531249c2a0a02d234d09",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_1.MI_A762_WS_laser_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_laser_1",
+      "clone": false,
+      "sha256": "025bdbea8225088daf4c2d72338a99c80f63dc1e99f8b71a960c67904319e028",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_lpvo_1_6x_2.MI_A762_WS_lpvo_1_6x_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_lpvo_1_6x_2",
+      "clone": false,
+      "sha256": "9fe8f4ff0f8c61f44d3bd2fecafa66f9b47e2f9a0cd3d0f72d20774fca1133b0",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_lpvo_ring_0.MI_A762_WS_lpvo_ring_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_lpvo_ring_0",
+      "clone": false,
+      "sha256": "0e92a34ce7deb74e8cb7ae438c0014d8b1b8c0889f42f0c7378b1fb7fc7bdd85",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_panoramic_red_dot_2.MI_A762_WS_panoramic_red_dot_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_panoramic_red_dot_2",
+      "clone": false,
+      "sha256": "d7f319349f463764191f60c4a1780419f6bce96fae5461ce0a17ba23f74a7506",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_Interface.MI_A762_WS_phantom_reargrip_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_Interface",
+      "clone": false,
+      "sha256": "453b2150915fb39b0d4461c123df9582f95a0fd7f84a0711dd1740432f2c2165",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_5b91da8baec4.MI_RG01_phantom_5b91da8baec4",
+      "destination": "/Game/Weapons/A762/ADSSurface20261015/Materials/MI_A762_RG01_phantom_5b91da8baec4",
+      "clone": true,
+      "sha256": "c3722cce1decaf2c0f7653f24d1314726391b2afe3fc09f9514742c99d7e8377",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_1.MI_A762_WS_phantom_reargrip_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_phantom_reargrip_1",
+      "clone": false,
+      "sha256": "1c25863323598d875c803318ddfc6ce31f922bd609778cde0bf371827a056070",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_Interface.MI_A762_WS_prism_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_Interface",
+      "clone": false,
+      "sha256": "e2eaf879a33c3d3d1f398a9f681b1926f6f8c03fc632c8684cfa020650673f25",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_0.MI_A762_WS_prism_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_0",
+      "clone": false,
+      "sha256": "22a85c1fe33230d29783b03b8e20fc3da6f48e14bc61a0a61e017d8915aee06c",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_1.MI_A762_WS_prism_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_1",
+      "clone": false,
+      "sha256": "e096567b7007d65691aa53095c36fa9f2972948717d0504d94cf591812aa8d39",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_2.MI_A762_WS_prism_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_2",
+      "clone": false,
+      "sha256": "db9337cd887862324807fb82c72e71cc74c902aa71b48a38258d4df9d32749ae",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_scope_2x_2.MI_A762_WS_prism_scope_2x_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_prism_scope_2x_2",
+      "clone": false,
+      "sha256": "fb32aa3479043f9182c48a4d186cf863304569b1afa4e26686e576b0d5fe5054",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_Interface.MI_A762_WS_qr_performance_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_Interface",
+      "clone": false,
+      "sha256": "2f32ed67ba4636aba0b621e846e3f63d7c5f77d4e6fb3d151714b95ca8985469",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_0.MI_A762_WS_qr_performance_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_0",
+      "clone": false,
+      "sha256": "c5ebd6fc8951d0e1f122453a8dc15e7377e843443b288745a9895d122097f857",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_1.MI_A762_WS_qr_performance_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_1",
+      "clone": false,
+      "sha256": "4ba3a2849eb78fd551e0622f72a375967c98be43bee6ac82fa854c02a34bf435",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_2.MI_A762_WS_qr_performance_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_2",
+      "clone": false,
+      "sha256": "95e607a8a84c9258e84f0779bf5a319e5074c2d2e01cd0bee9bab0ede3e45a34",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_3.MI_A762_WS_qr_performance_3",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_qr_performance_3",
+      "clone": false,
+      "sha256": "94c4641fa4a30f263f3aa27149696d9aa14c055adfcf351325416f1f5730db7d",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_RearSight03.MI_A762_WS_RearSight_RearSight03",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_RearSight03",
+      "clone": false,
+      "sha256": "b56a586be0080c1de704f4db9eecd0caf3c5328a7834c5db475ba945d841cae7",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_SightInner.MI_A762_WS_RearSight_SightInner",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Materials/MI_A762_WS_RearSight_SightInner",
+      "clone": false,
+      "sha256": "240e436c7c9cca1c766c17d27ec680b1ab4bfc20a1818884c0bdf612f9f535fa",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_Interface.MI_A762_WS_skeleton_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_Interface",
+      "clone": false,
+      "sha256": "97586410b9ff14bd9fc47408066a708683ea2fa29db35fefcbd209f4ab68030c",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_0.MI_A762_WS_skeleton_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_0",
+      "clone": false,
+      "sha256": "946cfed67011eeb88f8e561bf65c6034d2a08c043f7e243fcce3416efb308777",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_1.MI_A762_WS_skeleton_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_1",
+      "clone": false,
+      "sha256": "21a08d9c1e8b235996e1fa3a03d4f002fb55a631df85d22453080380b500b414",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_2.MI_A762_WS_skeleton_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_skeleton_2",
+      "clone": false,
+      "sha256": "24df9dd1e5b6cbd25c19e9b586bceeee5affacee1a5f5598f9ed58772f5281b2",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_Interface.MI_A762_WS_stable_antislip_reargrip_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_Interface",
+      "clone": false,
+      "sha256": "47f791532c2e7fa78764baf799555e2db8bcdc416e9c9e8bc2a6f4279a5cc178",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_f792970f28fb.MI_RG01_stable_f792970f28fb",
+      "destination": "/Game/Weapons/A762/ADSSurface20261015/Materials/MI_A762_RG01_stable_f792970f28fb",
+      "clone": true,
+      "sha256": "a89b58f514c608db78cdf78a68a5faba277221009c92e032131851a0f9ab41cd",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_1.MI_A762_WS_stable_antislip_reargrip_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_stable_antislip_reargrip_1",
+      "clone": false,
+      "sha256": "39a93bf3af5454898fdf4119cc4de8afc3df39e47e70df9c5629af070dbca128",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_suppressor_0.MI_A762_WS_tactical_suppressor_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_suppressor_0",
+      "clone": false,
+      "sha256": "08f83d084c801ffdc37b20088c25e7ac98f6d48043cc0d5f97622cabcac9790f",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_suppressor_2.MI_A762_WS_tactical_suppressor_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_suppressor_2",
+      "clone": false,
+      "sha256": "072d893eeca0bbe8dc552433d4313c86ff91b2b2b272a64550ae9527d84fca1b",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_telescopic_Interface.MI_A762_WS_tactical_telescopic_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_telescopic_Interface",
+      "clone": false,
+      "sha256": "9df1d05a519c3a0192793e0d1e3e100db33f75f2e14ec156753966e1e8589b21",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_telescopic_3.MI_A762_WS_tactical_telescopic_3",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_telescopic_3",
+      "clone": false,
+      "sha256": "b38187b40cd0be59b53fff70733ebbd679ec4c02af2db11b5fbb16d675489a8c",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_vertical_Interface.MI_A762_WS_tactical_vertical_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_vertical_Interface",
+      "clone": false,
+      "sha256": "bd210363876e6d1fd2e888b1ecbb6d35c3cb5f06b1214e2b3b7134cff125d623",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_vertical_0.MI_A762_WS_tactical_vertical_0",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_vertical_0",
+      "clone": false,
+      "sha256": "9afef376a6a99273a03c7002c883a48fb43191e020cb9907aa6920317bfc8b2a",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_vertical_2.MI_A762_WS_tactical_vertical_2",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_tactical_vertical_2",
+      "clone": false,
+      "sha256": "f063c179bcb4fd7738da1dd65e39c7a1c4591327cda01eba68326c1d3e907963",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_vertical_Interface.MI_A762_WS_vertical_Interface",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_vertical_Interface",
+      "clone": false,
+      "sha256": "ddbd8a1198ee55fea64cb899fcbe0b738c50598cd13198ad4c328d2dbdf19740",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    },
+    {
+      "source": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_vertical_1.MI_A762_WS_vertical_1",
+      "destination": "/Game/Weapons/A762/SurfaceStandard08/Accessories/Materials/MI_A762_WS_vertical_1",
+      "clone": false,
+      "sha256": "72eaa854030c8b35a45b5203f4cb3fec00901342654b4799465ed104344fc08b",
+      "old_normal": "/Engine/EngineMaterials/DefaultNormal.DefaultNormal"
+    }
+  ],
+  "bindings": {
+    "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_balanced_reargrip": [
+      {
+        "index": 1,
+        "slot": "A762_balanced_reargrip_0",
+        "before": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_balanced_2abef30c4c1b.MI_RG01_balanced_2abef30c4c1b",
+        "after": "/Game/Weapons/A762/ADSSurface20261015/Materials/MI_A762_RG01_balanced_2abef30c4c1b"
+      }
+    ],
+    "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_phantom_reargrip": [
+      {
+        "index": 1,
+        "slot": "A762_phantom_reargrip_0",
+        "before": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_phantom_5b91da8baec4.MI_RG01_phantom_5b91da8baec4",
+        "after": "/Game/Weapons/A762/ADSSurface20261015/Materials/MI_A762_RG01_phantom_5b91da8baec4"
+      }
+    ],
+    "/Game/Weapons/A762/Accessories05/Meshes/SM_A762_stable_antislip_reargrip": [
+      {
+        "index": 1,
+        "slot": "A762_stable_antislip_reargrip_0",
+        "before": "/Game/Weapons/RearGripSurface20261007/Materials/MI_RG01_stable_f792970f28fb.MI_RG01_stable_f792970f28fb",
+        "after": "/Game/Weapons/A762/ADSSurface20261015/Materials/MI_A762_RG01_stable_f792970f28fb"
+      }
+    ]
+  }
+}

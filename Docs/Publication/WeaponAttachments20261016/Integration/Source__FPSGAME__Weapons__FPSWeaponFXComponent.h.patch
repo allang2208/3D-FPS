@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.h b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.h
+--- a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.h
++++ b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.h
+@@ -114,6 +114,7 @@
+     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
+     /** The trigger captures this frame before restarting fire animation/recoil. */
+     void OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle);
++    float MuzzleFlashVisualScale() const;
+     /** Detached reload geometry; Frame uses centimetres and unit mesh scale. */
+     void OnReloadCartridge(UStaticMesh* Geometry,const FTransform& Frame,const FVector& Velocity,float InitialAge);
+     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);

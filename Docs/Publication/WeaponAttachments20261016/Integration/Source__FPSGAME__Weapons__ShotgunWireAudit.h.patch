@@ -1,0 +1,60 @@
+diff --git a/Source/FPSGAME/Weapons/ShotgunWireAudit.h b/Source/FPSGAME/Weapons/ShotgunWireAudit.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/ShotgunWireAudit.h
+@@ -0,0 +1,55 @@
++#pragma once
++#include "CoreMinimal.h"
++#include "GameFramework/GameModeBase.h"
++#include "GameFramework/PlayerController.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "ShotgunWireAudit.generated.h"
++class AFPSGAMECharacter;
++class FJsonValue;
++
++UCLASS()
++class AShotgunWireAuditPlayerState : public AColdSteelPlayerState
++{
++    GENERATED_BODY()
++public:
++    // This isolated fixture pins profiles while production shot/ammo RPCs run.
++    virtual void Tick(float Delta) override {}
++};
++UCLASS()
++class AShotgunWireAuditController : public APlayerController
++{
++    GENERATED_BODY()
++public:
++    virtual void Tick(float Delta) override;
++    UFUNCTION(Client,Reliable) void ClientSetup(int32 Case,const FString& Id,AFPSGAMECharacter* HostPawn);
++    UFUNCTION(Server,Reliable) void ServerReady(int32 Case);
++    UFUNCTION(Server,Reliable) void ServerProbeShot(int32 Case,FVector Eye,FVector Muzzle,FVector Aim,double FiredAt);
++    UFUNCTION(Server,Reliable) void ServerCaseResult(int32 Case,bool OwnerOK,bool RemoteOK,const TArray<FVector_NetQuantizeNormal>& Predicted);
++    UFUNCTION(Client,Reliable) void ClientFinish(bool Passed);
++    int32 Finished=0,Expected=INDEX_NONE;
++    bool bAllPassed=true;
++    TArray<TSharedPtr<FJsonValue>> Results;
++private:
++    UPROPERTY() TObjectPtr<AFPSGAMECharacter> ObserverSubject;
++    FString Weapon;
++    int32 Current=INDEX_NONE;
++    double Started=0,SentAt=-1,ExitAt=-1;
++    TArray<FVector_NetQuantizeNormal> Prediction;
++    bool bSent=false,bReported=false;
++};
++UCLASS()
++class AShotgunWireAuditGameMode : public AGameModeBase
++{
++    GENERATED_BODY()
++public:
++    AShotgunWireAuditGameMode();
++    virtual void BeginPlay() override;
++    virtual void PostLogin(APlayerController* Player) override;
++    virtual void Tick(float Delta) override;
++private:
++    UPROPERTY() TObjectPtr<AShotgunWireAuditController> Guest;
++    UPROPERTY() TObjectPtr<AFPSGAMECharacter> HostPawn;
++    FString Weapon;
++    int32 Prepared=INDEX_NONE;
++    double Joined=0,LastSetup=-10,ExitAt=-1;
++};
