@@ -1,4 +1,5 @@
 #include "ColdSteelPlayerState.h"
+#include "../Building/AlchemySystem.h"
 #include "../UI/ColdSteelShopModel.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 #include "../Building/WoodworkingSystem.h"
@@ -202,7 +203,7 @@ void AColdSteelPlayerState::QueueInventoryReply(const FColdSteelInventoryRequest
         }
     Reply->ServerSoulCredits=After.ServerSoulCredits;Reply->ServerSoulDebits=After.ServerSoulDebits;
     Reply->bWorldAction=Request.Action>=EColdSteelInventoryAction::Shrine&&Request.Action<=EColdSteelInventoryAction::Workstation;
-    if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;Reply->WoodworkingJob=After.WoodworkingJob;}
+    if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;Reply->WoodworkingJob=After.WoodworkingJob;Reply->AlchemyJob=After.AlchemyJob;}
     if(Success)
     {
         for(const auto& Item:After.Items)
@@ -279,6 +280,9 @@ void AColdSteelPlayerState::ClientInventoryReplyChunk_Implementation(uint32 Sequ
     {
         Model->SetCampfireInventoryPending(false);
         const bool Applied=Decoded&&(!Reply->bSuccess||Model->ApplyNetworkInventoryReply(Reply,InventoryRequestPawn.Get()));
+        if(PendingInventoryRequest.Mode.StartsWith(TEXT("alchemy.")))
+            GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>()->NetworkFinished(PendingInventoryRequest.Mode,Decoded&&Reply->bSuccess&&Applied,
+                Decoded&&Applied?Reply->Message:TEXT("炼药结果正在重新同步"));
         if(PendingInventoryRequest.Mode.StartsWith(TEXT("wood.")))
             GetGameInstance()->GetSubsystem<UWoodworkingSystem>()->NetworkTransactionFinished(PendingInventoryRequest.Mode,Decoded&&Reply->bSuccess&&Applied,
                 Decoded&&Applied?Reply->Message:TEXT("工件结算正在重新同步"));

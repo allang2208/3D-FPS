@@ -1,0 +1,65 @@
+{
+  "purpose": "Current physical-manual implementation maintained separately; required by the present alchemy runtime/UI call sites. Do not overwrite local implementation with old ManualV3 source.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualArtwork.h",
+      "sha256": "bfffea7ea3b9d66fedcf6ec3ea5e3df4f80ac055dde93e1d1970edee7f0a313b",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualComponent.cpp",
+      "sha256": "d1e059bd67a8a87cd3a7b58663bdf1fa5ceb6b3741e5d33f87638ffab1d7e047",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualComponent.h",
+      "sha256": "8a56e02f7eaf09f47484ddb47b206913710600b55ac509d51399d0403f8ebe17",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualGeometry.h",
+      "sha256": "1c15b6439cb38123dfc486f45c465e910e9b48044e98255d8bf3be432088acc3",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualView.h",
+      "sha256": "2c5e40226534995e3702583d767deec5a780583260954fd84f9d4d7af04b4b49",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/BookLeafComponent.cpp",
+      "sha256": "ec2367b47abf635c39f6f14b214b3673c1369dc3aa0aa603432e0fa0dcb07f41",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/BookLeafComponent.h",
+      "sha256": "ab2ab16004f94645834b78ab982c76fe5a9d5521e69d7e54fddc2ae2b5973ae1",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyBookPreview.cpp",
+      "sha256": "4e88e3440d50c321dca6fb705a33e8e2ad9787cc7dc230e85a5eb457d34a1a7b",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+      "sha256": "ae12b6849bec4622876157570f12ea116221da5ad9810f41bae7f8ea49a6a469",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.h",
+      "sha256": "6e8a929691a57a61ce7662ff003ed1f49d9692b2ab4ac494efe8164f0f382e8f",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualLayout.cpp",
+      "sha256": "e6c5f102c752d1c6aeba3f8196fe6592606ee490e3b94adb3adfce8e1d4d9fd9",
+      "published_by_this_batch": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualLayout.h",
+      "sha256": "1a4185112456751d34b1a786dbdb762a2b236357960ce519c8036741ff9d7b1c",
+      "published_by_this_batch": false
+    }
+  ]
+}

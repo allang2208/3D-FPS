@@ -1,0 +1,679 @@
+{
+  "captured_head": "243c408631846503dcf01e6ec617cf02d625aacb",
+  "source_worktree": "D:/FPS3D/FPSGAME",
+  "publication_is_complete_runtime_package": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 783,
+      "sha256_lf": "80125b027e6535121fe8d898436b1da907c12f0c9ff3c16f60bf7c994bd12d15",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 245935,
+      "sha256_lf": "b2d5164d8ba4b1865e9baecd04faa2ec4e5e1fdb7e3beafebde79866ce16d992",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 24017,
+      "sha256_lf": "c00fedbab63101445ecd92d21bdc5e52e3fb5c113ee763f65d5f1b81ec2095b4",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Content/ColdSteelData/alchemy-recipes.json",
+      "bytes": 18312,
+      "sha256_lf": "9b68195cf0199255d43255015e551ef1741837bd0fc039480ff2028e8eb22a02",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 118343,
+      "sha256_lf": "aff21a58db0fff4b5fcb88f9c2fc489eb2c5de058e8bce5cbfc0752f41f9f816",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Docs/Multiplayer/alchemy-network-v8-review-20261016.md",
+      "bytes": 7496,
+      "sha256_lf": "bb470c63c9e3085bbf89773a2f593354b286935cf28a223cd1b774c318e32aec",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/Integration/AlchemyManualNetAudit.cpp.patch",
+      "bytes": 2590,
+      "sha256_lf": "b7fbc4868312511891eb9d709d98677163ac0019f50422f6b0908c6623cad486",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/Integration/AlchemyManualNetAudit.h.patch",
+      "bytes": 943,
+      "sha256_lf": "4430edf8de1b4bee4083f298774fd2c1846b5ce2084106d6db7435ef030cb99b",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/Integration/player-profile-alchemy.patch",
+      "bytes": 3967,
+      "sha256_lf": "f9a084e70c230f937617582bea456c022e3d461e221449725302b9fc1809cbde",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/README.md",
+      "bytes": 6445,
+      "sha256_lf": "87497d551d4022ef49f9b73aed626fe7a35971f1177e6b0ecbbdca00b7f32468",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/archive-manifest.json",
+      "bytes": 111751,
+      "sha256_lf": "4f331b71f64ac84e6d9f31570536b2345f5afe86f5d39fd028c10e7bfbb1608d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/integration-manifest.json",
+      "bytes": 1621,
+      "sha256_lf": "54b95193fe469cf1d572a890853f705e0fbc335fe267144bee65bb63ce30d5de",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/Publication/AlchemyWorkbench20261016/manual-prerequisites.json",
+      "bytes": 2610,
+      "sha256_lf": "5193fd7389d1641f20c095e4be60754678113447d434bdba08b87078200bdcc6",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-entry-v11-plan-20261016.md",
+      "bytes": 2514,
+      "sha256_lf": "472182f6d7fabf9d7d540395439d705ec7ac49d4bae1faabafe8e4363756fe59",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-entry-v12-source-review-20261016.md",
+      "bytes": 5785,
+      "sha256_lf": "e05896757cffa486a355adc1d746fa6b633c22961dcdb45cc65d2e89444da08d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-gameplay-v5-plan-20261016.md",
+      "bytes": 3217,
+      "sha256_lf": "90209a031b8c0bba00a03d5dd3d4acee65f809b8ec3c21f868164c6f322debab",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-interaction-v7-delivery-20261016.md",
+      "bytes": 4716,
+      "sha256_lf": "128b73fbbe8546a2d172608d487f87567e1806a408e39f51cb28b62b64e39740",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-interaction-v7-plan-20261016.md",
+      "bytes": 2451,
+      "sha256_lf": "b906c99beb5d9f5ec58754f5e2b0c016de3432f7a8208fef3b4a4e5769f36536",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-stir-bottling-v10-20261016.md",
+      "bytes": 2904,
+      "sha256_lf": "e95be250fad19a87694b3636711e68949315a5879b2468074cb3da3fd4ca9b22",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-tabletop-v6-plan-20261016.md",
+      "bytes": 2691,
+      "sha256_lf": "8af86d8cba356e11d954738b557599923c05eaebf1c039c83c26cfa47d715caf",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/alchemy-thermometer-v9-20261016.md",
+      "bytes": 2263,
+      "sha256_lf": "5fc1c3cfb93eee58114ec621959c7ff7730b12b2c832bb9bcc0c5243ff3ff87c",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Docs/UI/potion-workbench-magic-brewing-plan-20261015.md",
+      "bytes": 32976,
+      "sha256_lf": "b719be0e3fd0b09948922713e208f1dfd297d9a02173fdabdbcaa337030537da",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyBottlingMotion.h",
+      "bytes": 1581,
+      "sha256_lf": "ca3657a1491b9256c8c28f70364dec96016c80af4a773d89eaebcd08aaeac9b9",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyBottlingVisual.cpp",
+      "bytes": 2174,
+      "sha256_lf": "b524b1e973a87c402c5b8f0a0595586124ff409e4b50b33bbefcde5a2575b383",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyInteractionAssets.h",
+      "bytes": 1605,
+      "sha256_lf": "6850c7d8a737bddd9560cac5a0599f3cd40de421414f4ff459d45feeb4099423",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemySystem.cpp",
+      "bytes": 41438,
+      "sha256_lf": "20eb18deef10d697a8e97748c949b869bcabfd53dfa00b13bf9715193758e04f",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemySystem.h",
+      "bytes": 4375,
+      "sha256_lf": "dba461372935e963c33333d41c308a80acd412dfa8f69d330013bddc0da95468",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyTabletop.h",
+      "bytes": 720,
+      "sha256_lf": "82b15ed3365d5b28d92cad46a120d7b82f3e9cd3ea7e9091f2b7c2fb87dc35e8",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+      "bytes": 6468,
+      "sha256_lf": "9267e8253c0572813670a933464d04f6e4cb887123f0c39cc85e857bc56244ca",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyThermometerLayout.h",
+      "bytes": 316,
+      "sha256_lf": "f899ed562fc146a0cceb6f0c431dce7d28711cf0543d307c54f7222ca7858bb9",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyTransferVisual.cpp",
+      "bytes": 16685,
+      "sha256_lf": "4dfcc624c6c26190f936399e5e4e737e6aad4b1e4439530776616eca42ddc4ea",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyTypes.h",
+      "bytes": 2813,
+      "sha256_lf": "ce9ab7bf29c71db7c0989643976c1d217acae5e166b0a1947d6b957fa521568f",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyWorkbenchLayout.h",
+      "bytes": 733,
+      "sha256_lf": "36c5255f27745fdbb0148505e1c67609c1cc63791c41f54fa4122de5e6bbded4",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyWorldView.cpp",
+      "bytes": 8924,
+      "sha256_lf": "b8148d0d71c7a4037a0a657bdef35bf7c5ee3b25c3f6643a05e1468f0869e482",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyWorldView.h",
+      "bytes": 1593,
+      "sha256_lf": "9e04b829f1f4314392d19875fa9083202a6b96b6eb8cbb234930aa87c33e34da",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+      "bytes": 26011,
+      "sha256_lf": "ab5ed232fadacee651a370d09e1557983f4d26e478634a69a94d017c707acabb",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+      "bytes": 4767,
+      "sha256_lf": "e519a72a6357a7b08bf67ef0f02e44e7f62cfe864fceb41155ef098d28d371f0",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+      "bytes": 7734,
+      "sha256_lf": "92a62d6a5cd33267b8bed87963444fa93323e058d0da924056f2033f611b4c11",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+      "bytes": 4034,
+      "sha256_lf": "1949fa95e044f4e7cf18534e05b7bda9fbad4ef3b6a6d772823bf29195f60905",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEGameMenu.cpp",
+      "bytes": 3416,
+      "sha256_lf": "7ed515fe87fa87d442438f7b37f156ad6a7460c745a5400c1b117afc4b27c1f2",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "bytes": 36967,
+      "sha256_lf": "12c7a13c134383bba2e854794247b7e954140b792b3546283cecc122a363053f",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "bytes": 4809,
+      "sha256_lf": "30b789ce98cbeb562c56081ec7728f88575842ebda1a93ad13d8bc080a6884ac",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "bytes": 9057,
+      "sha256_lf": "b736da13cf5cc53cfa97c44f53e88cb21e8ec0d7eb085548cc0c259487646820",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+      "bytes": 9659,
+      "sha256_lf": "0ed96e4dd196ac78ec9d1e011ad44fd00b75f61af885bab9f4eba7de3c02df4a",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "bytes": 3344,
+      "sha256_lf": "cbd1715c79db9f3c505969303a6b47cbe87f2643c08cfdf7b905bdbb5534088c",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "bytes": 18751,
+      "sha256_lf": "ac4458e6c96ea7a3a2b9e4125e9f1f9f5f6f2095f5884aee33a6a7cb039700b7",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "bytes": 26561,
+      "sha256_lf": "aff9416094e49f6c7362e8a7f944cf8ca2eb9754fd2f0d3ea5ae25085fa94fea",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+      "bytes": 15924,
+      "sha256_lf": "15d68e6cedb85cf1c1ca9bb0afe83eadd11fff37ba663bc56d35b995197a666f",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+      "bytes": 2585,
+      "sha256_lf": "87a6b4b780d9433938fb274d3ac0ee13b615af226f69ea07bf30a0ce314dfc72",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyController.cpp",
+      "bytes": 3615,
+      "sha256_lf": "1a97b0267f757774480bccf3ab6edb2fe4bcdbcc8df39fcacbd0c4f9c7d624aa",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyEntry.cpp",
+      "bytes": 11835,
+      "sha256_lf": "5601ebc1ec453c81c7618a09654cec349fd8f9416765c9450e40d3320e190c34",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyEntryData.cpp",
+      "bytes": 7126,
+      "sha256_lf": "04c1cf90fda26addde4b51bd576e1af4a431d90dc87691811102bf529eaa88aa",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyEntryStyle.cpp",
+      "bytes": 5432,
+      "sha256_lf": "33ddecdaadf829cce31ced5058f70127d9799941f6d1c7a0e383ecc9d07e9806",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+      "bytes": 13033,
+      "sha256_lf": "561e0c85638ef0c816c814d522206ca5e7c765fe4bd69174003d1c800e9adb05",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+      "bytes": 26317,
+      "sha256_lf": "ed133ad79253d1ad0f0f3b385b2766281df3d1464a0d6ace5a65762968224c09",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+      "bytes": 8625,
+      "sha256_lf": "86a91935c923c5c821b48414aed1c6396a3eba1f38474aa894aab2f59d9723ee",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "bytes": 90699,
+      "sha256_lf": "0f18aa9a3090f73f89d38dcd8508e71f3d7d7be31f58e6f4546a134e98ab7c28",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "bytes": 33195,
+      "sha256_lf": "df6257a037b234598bd84f09a73baba760208826aebd1ed27bcd9d9d7ea1810c",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "bytes": 37616,
+      "sha256_lf": "2393392198287e4469d7b68246d2d5028bed66cbad6fcf56612a6c5657ff2ea4",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+      "bytes": 7894,
+      "sha256_lf": "a05bc41acd81699c6d1cbc6cef80791f7ebe2e2f527f3c7522485938771fa077",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "bytes": 20303,
+      "sha256_lf": "3285de3ba571c5dd93f10c98be17f7a4e13251e24fecfb61c5c2944d7001b19e",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+      "bytes": 2939,
+      "sha256_lf": "d8fd5811e1015cb32dc830bbccf2e2cbc06abb6eef8c5ba389e08b2afd75b3d3",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "bytes": 7257,
+      "sha256_lf": "a32d00be35e31a885f71cb68a9149f3e8378d2da5a53fdd9738a664178999d83",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "bytes": 36884,
+      "sha256_lf": "5831ac54634fab5d39a11163608656b0c7697ce889ad7a836010dc91d47b615e",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "bytes": 9540,
+      "sha256_lf": "7e1783bddb5408de4a78eca7912e57849d21841ff48a1ad392674129c8504565",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "bytes": 20860,
+      "sha256_lf": "750b52cefa98d3fb73f40fecac1232a0974543e7c9ada3872893dc813d719d7c",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+      "bytes": 2845,
+      "sha256_lf": "86b8af2fb6551ba68847fc6b63cb72fdedbc438f8efb9c6b19b9ea66e4290f0e",
+      "mode": "scoped_shared_candidate"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1",
+      "bytes": 1811,
+      "sha256_lf": "fea5e7b10e911967267f97217f9661b56fee89b9195c7ba1704a2ceef7343e9d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-editor.ps1",
+      "bytes": 1027,
+      "sha256_lf": "d34bd234f52f227077c80a01d24c54b8d7427d3a69373c1fcf6140291c187b3d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/write_delivery.py",
+      "bytes": 1339,
+      "sha256_lf": "3e547fdd54ad2de99630381d758976f9e8cd40b5805a8f0d9bbb591da0de2092",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/review.md",
+      "bytes": 4490,
+      "sha256_lf": "c7c4a2e12eb88980805b295cc00acab08bda7533263be39849cfde0ae171d102",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Scripts/import_assets.py",
+      "bytes": 9200,
+      "sha256_lf": "d22c6a2ddac6d56a1571413f547ab7134b6fa0cf5af2fcbb04ef809154bdd9eb",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Scripts/import_background.ps1",
+      "bytes": 727,
+      "sha256_lf": "a5b3b1ff96d99d2a6454ef7b57a4a5b78f558750a3eeffac54b49efc4d27ae47",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Scripts/install_and_register.py",
+      "bytes": 6367,
+      "sha256_lf": "05b018eb21435f0feff944c44ad1ebd160e8c4b4df08b8003b0c4449fdd8f397",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Scripts/prepare_buildable.py",
+      "bytes": 5481,
+      "sha256_lf": "0a841ad537931ab9f24e58d25cfda300eaf7371175c08a26ca002d3f1d562220",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Scripts/register_background.ps1",
+      "bytes": 1290,
+      "sha256_lf": "d7f7fda1c3ea04f457de7e9f2aedd6158655d5882189651ea76e2070e6642154",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/author_materials.py",
+      "bytes": 3086,
+      "sha256_lf": "26c305a8fe8eedf9638a1ac5cfcaccc760dab152c4c439e7661c5d417692742b",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/install_assets.py",
+      "bytes": 1240,
+      "sha256_lf": "d4f4cbe695cf30341914eb6005b5bbd1c83500839d1e2d2dfa3db4a2a5b655fc",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/author_assets.py",
+      "bytes": 6870,
+      "sha256_lf": "57c29d883aac4e5181e1c973803c69645a0f828a2de33a4c1cec0ee31f39b35a",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/check_geometry.py",
+      "bytes": 3819,
+      "sha256_lf": "1a64d510615974092bf92ffb8ac9321e0650b2ad362d31e3d7106248881a24d0",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/hover_outline.hlsl",
+      "bytes": 1356,
+      "sha256_lf": "653b2acfa77ca28e5ae5a53a61e6269fe78ad06ff967632e606aaa5d9623fba6",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/import_assets.py",
+      "bytes": 6408,
+      "sha256_lf": "dba0ca5022e1b6ff074e5e6621989428fb4f84e5c028d7095fe43d5cce21dd80",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/inspect_assets.py",
+      "bytes": 1319,
+      "sha256_lf": "44fc8d58df0b19c1f1d30648134e875fdb325cb20da8e2c25170c5e62202a33f",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/ATTRIBUTION.md",
+      "bytes": 949,
+      "sha256_lf": "085a40ad0fc6841f0b782177e99fe7409382757c056794e448b8c41be8810b03",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/author_manual.py",
+      "bytes": 5921,
+      "sha256_lf": "9aeb6083f097b44acdb437cc1c4754e511037a1e8441b2ee8a83ca9c567b8317",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/import_manual.py",
+      "bytes": 5118,
+      "sha256_lf": "d790878e9c9c57c094faf12dcfcc3f9cb91cd0e234169c041ac2a749dc140d3d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/install_manual.py",
+      "bytes": 1169,
+      "sha256_lf": "ee3c115d96e3b427f3212c89974f2450429c265f13551e2c1fc964b70e1fde8c",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ModelV1/Scripts/author_workbench.py",
+      "bytes": 39043,
+      "sha256_lf": "4a4f185428417c8eb12ae0df0886d156c120d59bef4648a2d093ee1e766daf8c",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ModelV1/Scripts/build_background.ps1",
+      "bytes": 1197,
+      "sha256_lf": "0e9f5a813c1f08c21e951b20b14a339c73b48521586b44428453d3458f77682d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ModelV1/Scripts/geometry.py",
+      "bytes": 14766,
+      "sha256_lf": "1ab9d8e55938924e78d61fbe261249519ffc7b381adc5f35d39e8fa8b42d364d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ModelV1/Scripts/prepare_sources.py",
+      "bytes": 1351,
+      "sha256_lf": "b959cb25a1565147145b6d135921ecd09fd4f48df377704e85ab4e59a47f3a5d",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ModelV1/Scripts/prepare_textures.py",
+      "bytes": 5679,
+      "sha256_lf": "af2de9494285f51ac8d20649e549c87ea49a998444d048067d2302a8ff5008f3",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/author_layout.py",
+      "bytes": 5265,
+      "sha256_lf": "6bd4970a2efc4046b9df45b6e17f663ff5d268e8b25a7e885e998b5a60150840",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/import_rests.py",
+      "bytes": 2013,
+      "sha256_lf": "3ac965a0462567e079413d042138fb30ed88425b9d2f14c4393c578ec7ad8425",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/inspect_recipes.py",
+      "bytes": 2548,
+      "sha256_lf": "7c4412a09988a73b31c36761bc82b1a0f43a08e487a428deac7f2f51041420de",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/review.md",
+      "bytes": 5285,
+      "sha256_lf": "69bafb84e02724f500c0e15208b136e8026af97997d10e5a332b870d3786cc37",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/review.md",
+      "bytes": 4389,
+      "sha256_lf": "c56003ce2c1b5c8e9c8a3dda2c28592e3b1e2d7221dced1fe6d4f6af4ee02432",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/author_audio.py",
+      "bytes": 2252,
+      "sha256_lf": "a41af1dbd0ce837d51abca131cdbb9c419577bab69b6643f04a85629e889b2b3",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/author_runtime.py",
+      "bytes": 7132,
+      "sha256_lf": "c12d5df048a7a25741f6cb7cbdf2bb4dfe8b26a70227ed107d4e1c93dc93a9bb",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/import_audio.py",
+      "bytes": 1233,
+      "sha256_lf": "8f6d75d38c019150c4d12f8d4e5e4af8800d131e11942a89e145cc2df958ace7",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/import_background.ps1",
+      "bytes": 785,
+      "sha256_lf": "2376fc65ee0fcdf15c43712209aa9586c7b2d3c352bf19b44ba66f5def643762",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/import_runtime.py",
+      "bytes": 6161,
+      "sha256_lf": "af1a6291fbe305d9be9323e2b63e2545949a787aa02942db948a3081ecb512da",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/install_runtime.py",
+      "bytes": 2071,
+      "sha256_lf": "a18f6de2c7b4dae8dd27e91e3aca39ad7eed616aa688620584850bf6b229c342",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/delivery-notes.md",
+      "bytes": 3117,
+      "sha256_lf": "25fbb180e7e11cff3c06470b44ac8c0d0f93f19c3ca1ac76dd1f13bfcfbc6163",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/author_thermometer.py",
+      "bytes": 6889,
+      "sha256_lf": "389ff960e733dd80eff86e63e203a6784cec8ee064644e9e9a8d2b4b21a147a7",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/import_assets.py",
+      "bytes": 4404,
+      "sha256_lf": "1f17b8ce5706e6a9a2a2fbc7f7e354b5e6fe38cdf842ee6652df210040c14468",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/install_assets.py",
+      "bytes": 1235,
+      "sha256_lf": "ca6da824007370e1ce6e2cef933af91cb8f336507438894808ae0032106971ad",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/paid-workpiece-quality.md",
+      "bytes": 5096,
+      "sha256_lf": "52c75dff211c6d10742e4a07b83f7fa6254873ca60d910b0eb733057175f0707",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/SKILL.md",
+      "bytes": 1009,
+      "sha256_lf": "adf3fe3275f7d833a7776bee576651821458075c519f475994f63f821b420dfc",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/references/product-preview-readiness.md",
+      "bytes": 2671,
+      "sha256_lf": "574aa4f8a8514b1f38421df0d2928c733389a77f579f7fbd1f62cb779f0670df",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "skills/ue5-world-interaction/SKILL.md",
+      "bytes": 1233,
+      "sha256_lf": "0f468490a71229fc0c6a56e61f678dd959b82c32421ab561f7fb4fa299e28c1b",
+      "mode": "task_source_or_document"
+    },
+    {
+      "path": "skills/ue5-world-interaction/references/alchemy-tabletop-interaction.md",
+      "bytes": 2652,
+      "sha256_lf": "9db3d1ece36698d29328dbd7eea8167252da9cc4db5426497f7cbd26fc21be24",
+      "mode": "task_source_or_document"
+    }
+  ]
+}

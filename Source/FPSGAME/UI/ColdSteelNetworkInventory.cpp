@@ -39,7 +39,8 @@ bool UColdSteelStatusModel::ApplyNetworkInventoryReply(const UColdSteelInventory
     {Next.Mana=FMath::Min(float(ResourceMaximum(Next,true)),Next.Mana+Reply->ManaRestored);}
     if(SameLivingPawn&&Reply->StaminaSpent>0.f)
     {Next.Stamina=FMath::Max(0.f,Next.Stamina-Reply->StaminaSpent);Next.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;}
-    if(Reply->bWorldAction){Next.DungeonRun=Reply->DungeonRun;Next.ForgeJob=Reply->ForgeJob;Next.GunAssemblyJob=Reply->GunAssemblyJob;Next.WoodworkingJob=Reply->WoodworkingJob;}
+    if(Reply->bWorldAction){Next.DungeonRun=Reply->DungeonRun;Next.ForgeJob=Reply->ForgeJob;Next.GunAssemblyJob=Reply->GunAssemblyJob;Next.WoodworkingJob=Reply->WoodworkingJob;Next.AlchemyJob=Reply->AlchemyJob;}
+    ColdSteelProfileRecovery::AlchemyProgress(Next,Current);
     FString Reason;
     if(!ColdSteelInventory::Validate(Next,Reason)){Message=Reason;return false;}
     AdoptNetMirror(Next,true);

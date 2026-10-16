@@ -37,7 +37,7 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     const bool bGunOut=bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
     // 制造栏 2026-09-28 起全宽（打铁/装配同规格）：非枪械工作台打开时连同抽屉对半夹取。
     const bool bWBOut=!bGunWorkbenchPanel&&(bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>.001f);
-    if(bForgeOut||bGunOut||bWBOut||bWoodworkingManagement)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
+    if(bForgeOut||bGunOut||bWBOut||bWoodworkingManagement||bAlchemyManagement)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-12.f)*.5f);
     const float Forge=bForgeOut?Width:0.f;
     // 冶炼面板（2026-09-23 起独立于背包）：背包开着时**零缝拼接**贴抽屉左缘（2026-09-24 用户要求），
     // 背包关着时贴视口右缘（12px 边距）。宽＝背包实际宽的一半；仓库同开时再按剩余空间夹一次，

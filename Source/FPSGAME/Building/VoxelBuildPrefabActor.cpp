@@ -3,6 +3,7 @@
 #include "ColdSteelCampfire.h"
 #include "CastingToolRackComponent.h"
 #include "WoodworkingSawVisualComponent.h"
+#include "PotionWorkbenchVisualComponent.h"
 #include "Engine/World.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -24,6 +25,7 @@ AVoxelBuildPrefabActor::AVoxelBuildPrefabActor()
 void AVoxelBuildPrefabActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AVoxelBuildPrefabActor,AlchemyState);
     DOREPLIFETIME(AVoxelBuildPrefabActor,Id);DOREPLIFETIME(AVoxelBuildPrefabActor,Cell);DOREPLIFETIME(AVoxelBuildPrefabActor,QuarterTurns);
     DOREPLIFETIME(AVoxelBuildPrefabActor,NetMesh);DOREPLIFETIME(AVoxelBuildPrefabActor,NetSurface);DOREPLIFETIME(AVoxelBuildPrefabActor,LogicActor);DOREPLIFETIME(AVoxelBuildPrefabActor,bFalling);
 }
@@ -50,10 +52,16 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
     if(!MeshComponent)return;
     if(auto* PreviousRack=FindComponentByClass<UCastingToolRackComponent>())PreviousRack->DestroyComponent();
     if(auto* PreviousSaw=FindComponentByClass<UWoodworkingSawVisualComponent>())PreviousSaw->DestroyComponent();
+    if(auto* PreviousAlchemy=FindComponentByClass<UPotionWorkbenchVisualComponent>())PreviousAlchemy->DestroyComponent();
     MeshComponent->SetStaticMesh(Mesh);
     if(Surface)MeshComponent->SetMaterial(0,Surface);
     if(Contact)MeshComponent->SetPhysMaterialOverride(Contact);
     Tags.AddUnique(TEXT("VoxelBuildPrefab"));
+    if(Id==FName(TEXT("potion_workbench"))&&GetWorld()->IsGameWorld())
+    {
+        auto* View=NewObject<UPotionWorkbenchVisualComponent>(this,NAME_None,RF_Transient);
+        AddInstanceComponent(View);View->RegisterComponent();View->Configure(MeshComponent);View->Present(AlchemyState);
+    }
     if(Id==VoxelCastingStationId&&GetWorld()->IsGameWorld())
     {
         auto* Rack=NewObject<UCastingToolRackComponent>(this,NAME_None,RF_Transient);
@@ -64,6 +72,15 @@ void AVoxelBuildPrefabActor::Configure(FName InId,FIntVector InCell,int32 InYaw,
         auto* Saw=NewObject<UWoodworkingSawVisualComponent>(this,NAME_None,RF_Transient);
         AddInstanceComponent(Saw);Saw->RegisterComponent();Saw->Configure(MeshComponent);
     }
+}
+
+void AVoxelBuildPrefabActor::SetAlchemyPresentation(const FAlchemyBenchState& State)
+{
+    if(!HasAuthority())return;AlchemyState=State;OnRep_AlchemyState();ForceNetUpdate();
+}
+void AVoxelBuildPrefabActor::OnRep_AlchemyState()
+{
+    if(auto* View=FindComponentByClass<UPotionWorkbenchVisualComponent>())View->Present(AlchemyState);
 }
 
 bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSeconds)

@@ -1,0 +1,703 @@
+{
+  "version": 1,
+  "recipes": [
+    {
+      "id": "brew_hp_basic",
+      "version": 2,
+      "name": "治疗药水",
+      "output": "hp_potion",
+      "description": "入门温浸配方。基液开炉时自动入锅；加入主料，低火温热并搅匀两圈即可装瓶，无需研磨或计时。",
+      "count": 2,
+      "bonus": 1,
+      "color": [
+        0.58,
+        0.025,
+        0.035
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 1
+        },
+        {
+          "item": "alchemy_redvein_extract",
+          "count": 1
+        }
+      ],
+      "steps": [
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 1 份赤脉花萃取液，冷锅或温热时均可。",
+          "item": "alchemy_redvein_extract",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 60,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "stir",
+          "text": "调至低火，药液温热后搅匀两圈，两个方向均可。色泽融合后直接温热装瓶。",
+          "item": "",
+          "amount": 2,
+          "minHeat": 30,
+          "maxHeat": 60,
+          "direction": 0,
+          "id": "s02"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 65
+    },
+    {
+      "id": "brew_hp_medium",
+      "version": 2,
+      "name": "中级生命药水",
+      "output": "hp_potion_medium",
+      "description": "短煮配方。温热搅拌后短煮，沙漏仅供估时；工艺影响额外产量。",
+      "count": 1,
+      "bonus": 1,
+      "color": [
+        0.58,
+        0.025,
+        0.035
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 1
+        },
+        {
+          "item": "alchemy_redvein_extract",
+          "count": 2
+        }
+      ],
+      "steps": [
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 2 份赤脉花萃取液，此时药液不高于 45 °C。",
+          "item": "alchemy_redvein_extract",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "stir",
+          "text": "调至中火，温热后顺时针搅拌，让药材充分融合。",
+          "item": "",
+          "amount": 3,
+          "minHeat": 45,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s02"
+        },
+        {
+          "action": "heat",
+          "text": "保持中火短煮；十秒沙漏可辅助估时。",
+          "item": "",
+          "amount": 6,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s03"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 65
+    },
+    {
+      "id": "brew_hp_high",
+      "version": 2,
+      "name": "高级生命药水",
+      "output": "hp_potion_high",
+      "description": "催化配方。先短煮萃取，收火加入催化晶，再反向融合。",
+      "count": 1,
+      "bonus": 1,
+      "color": [
+        0.58,
+        0.025,
+        0.035
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 2
+        },
+        {
+          "item": "alchemy_redvein_extract",
+          "count": 2
+        },
+        {
+          "item": "alchemy_active_catalyst",
+          "count": 1
+        }
+      ],
+      "steps": [
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 2 份赤脉花萃取液，此时药液不高于 45 °C。",
+          "item": "alchemy_redvein_extract",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "stir",
+          "text": "调至中火，温热后顺时针搅拌，让药材充分融合。",
+          "item": "",
+          "amount": 3,
+          "minHeat": 45,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s02"
+        },
+        {
+          "action": "heat",
+          "text": "保持中火短煮；十秒沙漏可辅助估时。",
+          "item": "",
+          "amount": 8,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s03"
+        },
+        {
+          "action": "grind",
+          "text": "将活性催化晶研细。可在短煮时提前准备。",
+          "item": "alchemy_active_catalyst",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s04"
+        },
+        {
+          "action": "cool",
+          "text": "收火，待药液不高于 45 °C，再加入催化晶。",
+          "item": "",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s05"
+        },
+        {
+          "action": "pour",
+          "text": "加入 1 份研细的活性催化晶。",
+          "item": "alchemy_active_catalyst",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s06"
+        },
+        {
+          "action": "stir",
+          "text": "逆时针搅拌，均匀融合催化晶。",
+          "item": "",
+          "amount": 2,
+          "minHeat": 20,
+          "maxHeat": 50,
+          "direction": -1,
+          "id": "s07"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 50
+    },
+    {
+      "id": "brew_hp_special",
+      "version": 2,
+      "name": "特级生命药水",
+      "output": "hp_potion_special",
+      "description": "复煮配方。催化融合后再次熬煮，收火冷却封瓶。",
+      "count": 1,
+      "bonus": 0,
+      "color": [
+        0.58,
+        0.025,
+        0.035
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 2
+        },
+        {
+          "item": "alchemy_redvein_extract",
+          "count": 3
+        },
+        {
+          "item": "alchemy_active_catalyst",
+          "count": 2
+        }
+      ],
+      "steps": [
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 3 份赤脉花萃取液，此时药液不高于 45 °C。",
+          "item": "alchemy_redvein_extract",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "stir",
+          "text": "调至中火，温热后顺时针搅拌，让药材充分融合。",
+          "item": "",
+          "amount": 3,
+          "minHeat": 45,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s02"
+        },
+        {
+          "action": "heat",
+          "text": "保持中火短煮；十秒沙漏可辅助估时。",
+          "item": "",
+          "amount": 8,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s03"
+        },
+        {
+          "action": "grind",
+          "text": "将活性催化晶研细。可在短煮时提前准备。",
+          "item": "alchemy_active_catalyst",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s04"
+        },
+        {
+          "action": "cool",
+          "text": "收火，待药液不高于 45 °C，再加入催化晶。",
+          "item": "",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s05"
+        },
+        {
+          "action": "pour",
+          "text": "加入 2 份研细的活性催化晶。",
+          "item": "alchemy_active_catalyst",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s06"
+        },
+        {
+          "action": "stir",
+          "text": "逆时针搅拌，均匀融合催化晶。",
+          "item": "",
+          "amount": 2,
+          "minHeat": 20,
+          "maxHeat": 50,
+          "direction": -1,
+          "id": "s07"
+        },
+        {
+          "action": "heat",
+          "text": "再次调中火复煮，完成第二次萃取。",
+          "item": "",
+          "amount": 8,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s08"
+        },
+        {
+          "action": "cool",
+          "text": "收火，待药液不高于 40 °C 后装瓶。",
+          "item": "",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 40,
+          "direction": 1,
+          "id": "s09"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 40
+    },
+    {
+      "id": "brew_mp_basic",
+      "version": 2,
+      "name": "魔力药水",
+      "output": "mp_potion",
+      "description": "入门温浸配方。基液开炉时自动入锅；加入主料，低火温热并搅匀两圈即可装瓶，无需研磨或计时。",
+      "count": 2,
+      "bonus": 1,
+      "color": [
+        0.025,
+        0.2,
+        0.65
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 1
+        },
+        {
+          "item": "alchemy_bluemarrow_crystals",
+          "count": 1
+        }
+      ],
+      "steps": [
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 1 份蓝髓菌结晶，冷锅或温热时均可。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 60,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "stir",
+          "text": "调至低火，药液温热后搅匀两圈，两个方向均可。色泽融合后直接温热装瓶。",
+          "item": "",
+          "amount": 2,
+          "minHeat": 30,
+          "maxHeat": 60,
+          "direction": 0,
+          "id": "s02"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 65
+    },
+    {
+      "id": "brew_mp_medium",
+      "version": 2,
+      "name": "中级魔力药水",
+      "output": "mp_potion_medium",
+      "description": "短煮配方。温热搅拌后短煮，沙漏仅供估时；工艺影响额外产量。",
+      "count": 1,
+      "bonus": 1,
+      "color": [
+        0.025,
+        0.2,
+        0.65
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 1
+        },
+        {
+          "item": "alchemy_bluemarrow_crystals",
+          "count": 2
+        }
+      ],
+      "steps": [
+        {
+          "action": "grind",
+          "text": "先将蓝髓菌结晶研细。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 2 份蓝髓菌结晶，此时药液不高于 45 °C。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s02"
+        },
+        {
+          "action": "stir",
+          "text": "调至中火，温热后顺时针搅拌，让药材充分融合。",
+          "item": "",
+          "amount": 3,
+          "minHeat": 45,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s03"
+        },
+        {
+          "action": "heat",
+          "text": "保持中火短煮；十秒沙漏可辅助估时。",
+          "item": "",
+          "amount": 6,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s04"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 65
+    },
+    {
+      "id": "brew_mp_high",
+      "version": 2,
+      "name": "高级魔力药水",
+      "output": "mp_potion_high",
+      "description": "催化配方。先短煮萃取，收火加入催化晶，再反向融合。",
+      "count": 1,
+      "bonus": 1,
+      "color": [
+        0.025,
+        0.2,
+        0.65
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 2
+        },
+        {
+          "item": "alchemy_bluemarrow_crystals",
+          "count": 2
+        },
+        {
+          "item": "alchemy_active_catalyst",
+          "count": 1
+        }
+      ],
+      "steps": [
+        {
+          "action": "grind",
+          "text": "先将蓝髓菌结晶研细。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 2 份蓝髓菌结晶，此时药液不高于 45 °C。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s02"
+        },
+        {
+          "action": "stir",
+          "text": "调至中火，温热后顺时针搅拌，让药材充分融合。",
+          "item": "",
+          "amount": 3,
+          "minHeat": 45,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s03"
+        },
+        {
+          "action": "heat",
+          "text": "保持中火短煮；十秒沙漏可辅助估时。",
+          "item": "",
+          "amount": 8,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s04"
+        },
+        {
+          "action": "grind",
+          "text": "将活性催化晶研细。可在短煮时提前准备。",
+          "item": "alchemy_active_catalyst",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s05"
+        },
+        {
+          "action": "cool",
+          "text": "收火，待药液不高于 45 °C，再加入催化晶。",
+          "item": "",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s06"
+        },
+        {
+          "action": "pour",
+          "text": "加入 1 份研细的活性催化晶。",
+          "item": "alchemy_active_catalyst",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s07"
+        },
+        {
+          "action": "stir",
+          "text": "逆时针搅拌，均匀融合催化晶。",
+          "item": "",
+          "amount": 2,
+          "minHeat": 20,
+          "maxHeat": 50,
+          "direction": -1,
+          "id": "s08"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 50
+    },
+    {
+      "id": "brew_mp_special",
+      "version": 2,
+      "name": "特级魔力药水",
+      "output": "mp_potion_special",
+      "description": "复煮配方。催化融合后再次熬煮，收火冷却封瓶。",
+      "count": 1,
+      "bonus": 0,
+      "color": [
+        0.025,
+        0.2,
+        0.65
+      ],
+      "inputs": [
+        {
+          "item": "alchemy_pure_base_fluid",
+          "count": 2
+        },
+        {
+          "item": "alchemy_bluemarrow_crystals",
+          "count": 3
+        },
+        {
+          "item": "alchemy_active_catalyst",
+          "count": 2
+        }
+      ],
+      "steps": [
+        {
+          "action": "grind",
+          "text": "先将蓝髓菌结晶研细。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s01"
+        },
+        {
+          "action": "pour",
+          "text": "基液已在锅中。加入 3 份蓝髓菌结晶，此时药液不高于 45 °C。",
+          "item": "alchemy_bluemarrow_crystals",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s02"
+        },
+        {
+          "action": "stir",
+          "text": "调至中火，温热后顺时针搅拌，让药材充分融合。",
+          "item": "",
+          "amount": 3,
+          "minHeat": 45,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s03"
+        },
+        {
+          "action": "heat",
+          "text": "保持中火短煮；十秒沙漏可辅助估时。",
+          "item": "",
+          "amount": 8,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s04"
+        },
+        {
+          "action": "grind",
+          "text": "将活性催化晶研细。可在短煮时提前准备。",
+          "item": "alchemy_active_catalyst",
+          "amount": 3,
+          "minHeat": 0,
+          "maxHeat": 100,
+          "direction": 1,
+          "id": "s05"
+        },
+        {
+          "action": "cool",
+          "text": "收火，待药液不高于 45 °C，再加入催化晶。",
+          "item": "",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s06"
+        },
+        {
+          "action": "pour",
+          "text": "加入 2 份研细的活性催化晶。",
+          "item": "alchemy_active_catalyst",
+          "amount": 2,
+          "minHeat": 0,
+          "maxHeat": 45,
+          "direction": 1,
+          "id": "s07"
+        },
+        {
+          "action": "stir",
+          "text": "逆时针搅拌，均匀融合催化晶。",
+          "item": "",
+          "amount": 2,
+          "minHeat": 20,
+          "maxHeat": 50,
+          "direction": -1,
+          "id": "s08"
+        },
+        {
+          "action": "heat",
+          "text": "再次调中火复煮，完成第二次萃取。",
+          "item": "",
+          "amount": 8,
+          "minHeat": 55,
+          "maxHeat": 75,
+          "direction": 1,
+          "id": "s09"
+        },
+        {
+          "action": "cool",
+          "text": "收火，待药液不高于 40 °C 后装瓶。",
+          "item": "",
+          "amount": 1,
+          "minHeat": 0,
+          "maxHeat": 40,
+          "direction": 1,
+          "id": "s10"
+        }
+      ],
+      "autoBase": true,
+      "freeBrewing": true,
+      "bottleHeat": 40
+    }
+  ]
+}

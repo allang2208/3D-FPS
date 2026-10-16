@@ -1213,6 +1213,10 @@ void UColdSteelHUDWidget::SetExternalDrawerOpen(bool bOpen)
 
 void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
 {
+    if(!bOpen&&bAlchemyManagement&&!bAlchemyInventoryTransition)
+    {
+        if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer());PC&&PC->IsAlchemyOpen()){PC->CloseAlchemy();return;}
+    }
     if(!bOpen&&bWoodworkingManagement&&!bWoodworkingInventoryTransition)
     {
         if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer());PC&&PC->IsWoodworkingOpen()){PC->CloseWoodworking();return;}
@@ -1244,7 +1248,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
         InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
         InventoryPanel->SetVisibility(ESlateVisibility::Visible);
     }
-    if (APlayerController* PC = GetOwningPlayer();PC&&!bWoodworkingInventoryTransition)
+    if (APlayerController* PC = GetOwningPlayer();PC&&!bWoodworkingInventoryTransition&&!bAlchemyInventoryTransition)
     {
         PC->SetIgnoreMoveInput(bOpen);
         PC->SetIgnoreLookInput(bOpen);

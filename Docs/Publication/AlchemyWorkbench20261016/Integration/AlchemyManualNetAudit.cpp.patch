@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/UI/AlchemyManualNetAudit.cpp
++++ b/Source/FPSGAME/UI/AlchemyManualNetAudit.cpp
+@@ -35,16 +35,16 @@
+     Sphere->SetSphereRadius(10);Sphere->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+ }
+ AAlchemyManualNetAuditProbe::AAlchemyManualNetAuditProbe(){bReplicates=true;bAlwaysRelevant=true;SetNetUpdateFrequency(20.f);}
+-void AAlchemyManualNetAuditProbe::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const
+-{Super::GetLifetimeReplicatedProps(Out);DOREPLIFETIME(AAlchemyManualNetAuditProbe,Bench);DOREPLIFETIME(AAlchemyManualNetAuditProbe,Phase);DOREPLIFETIME(AAlchemyManualNetAuditProbe,ExpectedPage);DOREPLIFETIME(AAlchemyManualNetAuditProbe,ExpectedOpen);}
++void AAlchemyManualNetAuditProbe::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
++{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AAlchemyManualNetAuditProbe,Bench);DOREPLIFETIME(AAlchemyManualNetAuditProbe,Phase);DOREPLIFETIME(AAlchemyManualNetAuditProbe,ExpectedPage);DOREPLIFETIME(AAlchemyManualNetAuditProbe,ExpectedOpen);}
+ void AAlchemyManualNetAuditController::BeginPlay()
+ {
+     Super::BeginPlay();if(!ManualWire::Enabled())return;
+     if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->SetActorTickEnabled(false);
+     if(IsLocalController()){FParse::Value(FCommandLine::Get(),TEXT("ManualNetRole="),Label);ServerHello(Label);}
+ }
+-void AAlchemyManualNetAuditController::ServerHello_Implementation(const FString& Role)
+-{if(ManualWire::Enabled())Label=Role;}
++void AAlchemyManualNetAuditController::ServerHello_Implementation(const FString& InRole)
++{if(ManualWire::Enabled())Label=InRole;}
+ void AAlchemyManualNetAuditController::ServerReport_Implementation(int32 Phase,bool Pass)
+ {
+     if(!ManualWire::Enabled())return;ReportedPhase=Phase;Failed|=!Pass;
+@@ -65,8 +65,8 @@
+             SeenPhase=Probe->Phase;SeenAt=Now;
+             if(Label==TEXT("early"))
+             {
+-                auto Send=[&](APawn* Pawn,const FString& Job,int32 Page,uint32 Sequence)
+-                {PS->ServerStationInput(Pawn,Job,TEXT("alchemy"),uint8(EAlchemyOp::Book),NAME_None,Page,FVector2D::ZeroVector,FVector2D::ZeroVector,Sequence);};
++                auto Send=[&](APawn* InputPawn,const FString& Job,int32 Page,uint32 Sequence)
++                {PS->ServerStationInput(InputPawn,Job,TEXT("alchemy"),uint8(EAlchemyOp::Book),NAME_None,Page,FVector2D::ZeroVector,FVector2D::ZeroVector,Sequence);};
+                 if(SeenPhase==2)Send(GetPawn(),TEXT("manual.audit.early"),1,1);
+                 if(SeenPhase==3)
+                 {

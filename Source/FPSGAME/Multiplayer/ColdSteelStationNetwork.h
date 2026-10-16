@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "../UI/ColdSteelInventoryTypes.h"
+#include "../Building/AlchemyTypes.h"
 #include "ColdSteelStationNetwork.generated.h"
 USTRUCT()
 struct FColdSteelForgeNetState

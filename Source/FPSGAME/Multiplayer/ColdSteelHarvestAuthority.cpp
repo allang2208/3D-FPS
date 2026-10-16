@@ -89,7 +89,10 @@ bool UColdSteelSharedInventorySubsystem::WorldAction(UColdSteelStatusModel* M,AC
         }
         else if(R.Action==EColdSteelInventoryAction::Workstation)
         {
-            for(TActorIterator<AVoxelBuildWorld> It(GetWorld());It;++It)if(It->IsReady()){Building=*It;break;}
+            // Alchemy mutates a personal batch and a transient lease, never building geometry.
+            // Do not rebuild every prefab from an old world snapshot when its payment fails.
+            if(!R.Mode.StartsWith(TEXT("alchemy.")))
+                for(TActorIterator<AVoxelBuildWorld> It(GetWorld());It;++It)if(It->IsReady()){Building=*It;break;}
             if(Building)Building->MakeNetworkSnapshot(BuildingBefore);
             TGuardValue<bool> WorldStage(Building?Building->bNetworkTransaction:bCommitting,true);
             auto* State=M->RuntimePawn()->GetPlayerState<AColdSteelPlayerState>();

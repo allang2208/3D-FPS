@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-16",
+  "scope": "repository publication checks only",
+  "authorized_remote": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "captured_base": "243c408631846503dcf01e6ec617cf02d625aacb",
+  "archive_files_sha256_verified": 151,
+  "shared_candidate_scope_reviewed": true,
+  "staged_files_matched_manifest": true,
+  "staged_diff_check_exit": 0,
+  "sensitive_patterns_found": 0,
+  "binary_payloads_staged": 0,
+  "oversized_payloads_staged": 0,
+  "skill_references_mirrored": [
+    "ue5-ui-umg-slate/references/product-preview-readiness.md",
+    "ue5-cpp-gameplay/references/paid-workpiece-quality.md",
+    "ue5-world-interaction/references/alchemy-tabletop-interaction.md"
+  ],
+  "runtime_or_game_tests_run": false,
+  "editor_started": false,
+  "new_build_run": false,
+  "clean_checkout_build_verified": false,
+  "known_dependencies": [
+    "12 separately maintained physical-manual source files",
+    "current authoritative inventory/mirror host for player-profile-alchemy.patch",
+    "local authorized source models, textures, sounds, fonts, UE packages and import-host content"
+  ]
+}

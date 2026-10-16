@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/UI/AlchemyManualNetAudit.h
++++ b/Source/FPSGAME/UI/AlchemyManualNetAudit.h
+@@ -20,7 +20,7 @@
+     GENERATED_BODY()
+ public:
+     AAlchemyManualNetAuditProbe();
+-    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
++    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+     UPROPERTY(Replicated) TObjectPtr<AVoxelBuildPrefabActor> Bench;
+     UPROPERTY(Replicated) int32 Phase=0;
+     UPROPERTY(Replicated) int32 ExpectedPage=0;
+@@ -33,7 +33,7 @@
+ public:
+     virtual void BeginPlay() override;
+     virtual void Tick(float Delta) override;
+-    UFUNCTION(Server,Reliable) void ServerHello(const FString& Role);
++    UFUNCTION(Server,Reliable) void ServerHello(const FString& InRole);
+     UFUNCTION(Server,Reliable) void ServerReport(int32 Phase,bool Pass);
+     UFUNCTION(Client,Reliable) void ClientLeave();
+     FString Label;

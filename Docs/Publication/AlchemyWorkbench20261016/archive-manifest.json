@@ -1,0 +1,1216 @@
+{
+    "scope":  "PotionWorkbenchDesign20261015 only",
+    "files":  [
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+                      "bytes":  4739,
+                      "sha256":  "65c64eee2187ae10f3acff96611abe3f72405d61fcb1f6aa042b2fd294054a43",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelAlchemyController.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelAlchemyController.cpp",
+                      "bytes":  3451,
+                      "sha256":  "74e96b49c5cdc51f2fb8afd21044e1b3633291afac0a3c5ab59a19cd14b85f85",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  27348,
+                      "sha256":  "68308efb5c858460bba8d52dd4992d5e9eaf8ec476d9556b272501389f6fab76",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  5752,
+                      "sha256":  "55322168eb56d772207dd97d238a65a6219382efdcddab6f342df0ceeea10c97",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/Before/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+                      "bytes":  12012,
+                      "sha256":  "77838706e72f407188dcaec506d97d92c7c1d813ca0d1c2036d8ff7d07186f20",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/finish-builds.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/finish-builds.ps1",
+                      "bytes":  1813,
+                      "sha256":  "4f3972256e2ff531413ca3af3b8457613ce9c18548011e7f5e2f52a4ca8e6292",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/finish-editor.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/finish-editor.ps1",
+                      "bytes":  1027,
+                      "sha256":  "3e156c2c7b413a6bdc5b300e5b2322ea0218021a8d23a021c5af5a2e93a889f2",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV11/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV11/write_delivery.py",
+                      "bytes":  1096,
+                      "sha256":  "fc70f8406b34a88859c6b3c2896f03ba917aa93b36d6be7fb7ae8c3e4f9e0eab",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/CompileUnblock/AlchemyManualNetAudit.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/CompileUnblock/AlchemyManualNetAudit.cpp",
+                      "bytes":  10695,
+                      "sha256":  "e58764ec603fbb284c67ccc470fb77b887a8a71ab71e165dcfe76b473492a3e9",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/CompileUnblock/AlchemyManualNetAudit.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/CompileUnblock/AlchemyManualNetAudit.h",
+                      "bytes":  1992,
+                      "sha256":  "52e427a08de93746632f696f34060a6f4f7cb8d35fc6270bbd6da011fbddbab2",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  40451,
+                      "sha256":  "4c83a9c8e17ccb7dd9a66750fcd1dab2f5c59e05ddc2328ce4ae5491cb227a44",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "bytes":  4283,
+                      "sha256":  "6a8286a860ffc7f6f2a063a0dadb69b96cf877fd9488a457673fd0956ce75388",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/UI/ColdSteelAlchemyEntryData.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/UI/ColdSteelAlchemyEntryData.cpp",
+                      "bytes":  7126,
+                      "sha256":  "04c1cf90fda26addde4b51bd576e1af4a431d90dc87691811102bf529eaa88aa",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  23290,
+                      "sha256":  "86909976d137cf0b875dc9dfb92a5762e1fd6a358724d10f04f82e3368d6b13a",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/EntryV12/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  8449,
+                      "sha256":  "c9d3645a4662481116fd1737bb2640024bdff05d7bba3169c5bba71155b7843d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Config/DefaultGame.ini",
+                      "bytes":  25186,
+                      "sha256":  "f5aebb03268e183a278666db720c22e16535acfe5e87eaec397979a71d79706d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Content/ColdSteelData/alchemy-recipes.json",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Content/ColdSteelData/alchemy-recipes.json",
+                      "bytes":  24719,
+                      "sha256":  "58a680b87263cfdb9b1c15651f8e16603476b41c02b7cef109ccc43bfcb69faa",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  32354,
+                      "sha256":  "73c2649962a3e4a6cbc75ac3dccef0f848b28407042763ecc831012e54186dff",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "bytes":  3933,
+                      "sha256":  "81d48d8d62572d9ebd9c293c7d80940f88618177fa169a26828dc4407409015f",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "bytes":  2569,
+                      "sha256":  "43774392bc91267e334c926e210fa6bdff4eadba0fb52d369b253070ad78edf0",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  18959,
+                      "sha256":  "e14035380e1903bc646cc8c4945714551421efc7ebe00156d7c09feaa2fd9fe6",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  2350,
+                      "sha256":  "4c993be4194560b1be15d3ed9333fa732cb7392de8501c2a71e267a224969147",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+                      "bytes":  6453,
+                      "sha256":  "d9b908d650295b49d4484e4b3e5c875be125ab1a9a32546e33d8c34779d427ed",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  28179,
+                      "sha256":  "94859a27ab219c3d108e96dfe2259becee6c78e1351a199afb93bc2c48bee7c1",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  4260,
+                      "sha256":  "f627a4143ef3b024757421ab863ba963edc628d0d69fdf62d2d419914ba2e5ea",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/build.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/build.ps1",
+                      "bytes":  1505,
+                      "sha256":  "3b1f8abaef4015d327e97d7913af261288e0772dd29544669dc406c5834f8117",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/review_data.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/review_data.py",
+                      "bytes":  2793,
+                      "sha256":  "4a9656211ab0e2a6364ea73545ab5cb02ab9d7b2878b1ce01fc8af0cfd180b80",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/update_recipes.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/update_recipes.py",
+                      "bytes":  3398,
+                      "sha256":  "2310b0b8bb4cf74a6dc0f69501f39780541745535f83247247d31eb6c91ef3ed",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/GameplayV5/write_delivery.py",
+                      "bytes":  2705,
+                      "sha256":  "47b4560a7d2d70d5ae2f720ed1610bdb39f27afb787837ec4c0c930b0b9a7839",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Receipts/Registration_20261015T084450197298Z/DA_VoxelBuildPalette.uasset",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/IntegrationV1/Receipts/Registration_20261015T084450197298Z/DA_VoxelBuildPalette.uasset",
+                      "bytes":  30406,
+                      "sha256":  "a33f9fc1090df7e929b50ad37dd14b7ed4aafa5e8ca9e421d8c8523ec936bb85",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Config/DefaultGame.ini",
+                      "bytes":  26440,
+                      "sha256":  "272afb7311a8f516efc661585c8ba40262537cde3d99e322a38f72defb51da28",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemyInteractionAssets.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemyInteractionAssets.h",
+                      "bytes":  1423,
+                      "sha256":  "0f7b78311a6a47f584fcfe4ab251a9303f86948f067a189cb26b673015349597",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  40442,
+                      "sha256":  "4a435e9318ea604abfa72433399598722fe10d9d123866a14da3160b1c47a748",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+                      "bytes":  6387,
+                      "sha256":  "625f2ecd8c902dc2abb067657bde1365f013b8b77cf8bcba6581b45813e37a0d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemyTransferVisual.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/AlchemyTransferVisual.cpp",
+                      "bytes":  14294,
+                      "sha256":  "2a8412c003a484b6efed664a0d0311c0be018ae44d2a76b31e597a5600ee50ef",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  27008,
+                      "sha256":  "cf3c4ca5c20b858762fac9922f8ce305e69dd03d38f33be4556c741c5b4d79a0",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  4497,
+                      "sha256":  "961e82bfd414a75e4a4400bbe9cb228d6ad06a5261cdca0166af783a67a73f47",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+                      "bytes":  12176,
+                      "sha256":  "b35c99c7058a4eeab487057f17cb08b82719df55b6f036b22ad859eb3e4f80be",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  27345,
+                      "sha256":  "aa549b6f116c55e0dc767d8539857622463179376a4ad4e56ef4483e9860b71e",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  5615,
+                      "sha256":  "b4caa1c3cce5ee42ce6de0994e5427da586e0b69dda692d308a3c12d04cd1217",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/finish-builds.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/finish-builds.ps1",
+                      "bytes":  1825,
+                      "sha256":  "f1e4c0d2ff213f070080fcbdf774e87ac06eb67fef2d407b92bf8d5badb0f051",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV10/write_delivery.py",
+                      "bytes":  930,
+                      "sha256":  "1b73623d2994baafdec46702b7ac9131eaf61d1bd3761844cc326197a2aa2061",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/CompileUnblock/NurseZombie.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/CompileUnblock/NurseZombie.cpp",
+                      "bytes":  25403,
+                      "sha256":  "f1fe8a00675149310f61f5656f3025b0eaab311225521f09814c1f9385887dbd",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/CompileUnblock/NurseZombie.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/CompileUnblock/NurseZombie.h",
+                      "bytes":  8141,
+                      "sha256":  "878a52d6e2c7d6fb5ad97bf851d61bddb12163ad72bbd5f04d5dad08dd655cd3",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Config/DefaultGame.ini",
+                      "bytes":  26035,
+                      "sha256":  "ccbacfbbeb178c60b92646803fe4c0814f960d63defc13da86d3b6b33e6a62d7",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  36370,
+                      "sha256":  "5b7e2c30ac0951bee2420c2259e187d2ce95a892624e483d394467cea23fc8f9",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyTabletop.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyTabletop.h",
+                      "bytes":  644,
+                      "sha256":  "f26b164be29d34d3b343e2f66b00b51edda4267bef5e399fbb0f4057b1f927d1",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+                      "bytes":  4769,
+                      "sha256":  "d190f7308bf56babf98b33b4af4684dd0014738b03cc09ea0c7557c181745823",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "bytes":  2637,
+                      "sha256":  "3e8e7da6fd0b2a62b483134a0a1109e62e76f6a0bb3d72948fed596e04d54fc8",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyWorldView.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyWorldView.cpp",
+                      "bytes":  8491,
+                      "sha256":  "812ee37e5683105f65b91d8b242500699f2827f8de3244936741c82622c13045",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyWorldView.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/AlchemyWorldView.h",
+                      "bytes":  1593,
+                      "sha256":  "9e04b829f1f4314392d19875fa9083202a6b96b6eb8cbb234930aa87c33e34da",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  22543,
+                      "sha256":  "1a6cac326249987d179a8d799846e3f296ba03e4eb276680b7fd99745b33feec",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  2985,
+                      "sha256":  "a87b4c50bd9c3f47352c723a1aa280393dfa8f33e21cdf1b28e90d572d0addad",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+                      "bytes":  8312,
+                      "sha256":  "d5b4c22e05fc5a6ab68bd684c8d4a51045dc85898e457d616b1a74cb91114c78",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  25751,
+                      "sha256":  "d034b3423739df7d7f4b69c9df0a719a9eacf0e3ef96f0701f976ed6e03e42cd",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  5163,
+                      "sha256":  "758cc548586b769061810e9bd9b86e71f4b264f94fdc37b784f16b12c18bb84f",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/edit_runtime.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/edit_runtime.py",
+                      "bytes":  10533,
+                      "sha256":  "ceeae75340f881db9472d628a9c66df5ce1157eb65f7ff415d90d4aa73fefbca",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/edit_ui.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/edit_ui.py",
+                      "bytes":  10200,
+                      "sha256":  "7b2825f113a167ce5ebbad5d5777b2ec3f44e9cb4cb95cffd8560d20c5e5e028",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/finish-builds.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/finish-builds.ps1",
+                      "bytes":  1864,
+                      "sha256":  "12eaa372ac038bc0b63719fbba88cd1eaae59253f73b07579db254b8385417e6",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/InteractionV7/write_delivery.py",
+                      "bytes":  2379,
+                      "sha256":  "8f231033f3ea9981c1c491d1e99270c60afe7b6dd89e3043c5935f139fa1a006",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Config/DefaultGame.ini",
+                      "bytes":  25100,
+                      "sha256":  "a03cb513060fc4461b781f2bec1bf51622fcf4c81fa7ef426c72f7385838f33e",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Docs/UI/potion-workbench-magic-brewing-plan-20261015.md",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Docs/UI/potion-workbench-magic-brewing-plan-20261015.md",
+                      "bytes":  25052,
+                      "sha256":  "a404f3ddfaf59f26669e353b7103d0c99a41e5dbfb7e808541886016bece3e64",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  17244,
+                      "sha256":  "75e02de26598fda596b549496351627de3a2f4385f4979dfbe09c3deda7735f8",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  2340,
+                      "sha256":  "2b93bf3575eb4667ee1552fb43500b8711b8666c9df8de29cbd655252a1be436",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/Items/FoodSpoilageAuditCommandlet.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/Items/FoodSpoilageAuditCommandlet.cpp",
+                      "bytes":  37434,
+                      "sha256":  "55efa5c2526160f9b2415ecf32b52b8c87bf80383df7826293755c28ccbfc789",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+                      "bytes":  3595,
+                      "sha256":  "24503a2b2a11430c5ec36f2944787ceb4625b3729d1dbb3ae1cae84539281186",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.h",
+                      "bytes":  770,
+                      "sha256":  "662c002e286eeb965aa49e1207a4a955347835762bd4a0e90c5408d5a6a7bc91",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  25848,
+                      "sha256":  "f1885228384c5e8c7912713535cc49a1e9b1b88d44360fe6c99d67afd1e13a87",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ManualV3/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  3977,
+                      "sha256":  "10802b9114593e161ed6aa8120a9c8ccae433068ea441c2d04288795784d5402",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  37106,
+                      "sha256":  "61d4945f614d152b96b9aed156b1c494b8d52bf81e74f3de2e7df953e6f8abb0",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "bytes":  4052,
+                      "sha256":  "6e55eac82209a352e1893c6efe11553e51e7ff2788e9455a151855f9a96d98b8",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemyTabletopInteraction.cpp",
+                      "bytes":  6305,
+                      "sha256":  "d7b932a353b4fcded4d9e8265c7e3c0211194f3ef94e30567f07c1666ad3fc06",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "bytes":  2637,
+                      "sha256":  "3e8e7da6fd0b2a62b483134a0a1109e62e76f6a0bb3d72948fed596e04d54fc8",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  24157,
+                      "sha256":  "5804e49709c3162d82c02ee9a8857b94c44968529f11adc3e74f31decd7c41fe",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  4137,
+                      "sha256":  "297ea12f6ef20a0edbf5b4a4d98f6afe4714d4e38c48f57afda45ad5ae3ec00d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+                      "bytes":  28420,
+                      "sha256":  "ae505d490f38f5de4d41dcea251c6ff5fe1ddf38c3aba35e82583aaee4acc637",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+                      "bytes":  16112,
+                      "sha256":  "4c31f3e7d583b2eab71207c084e526de69ab66f544061af1218223bc63279ecf",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/Before/Source/FPSGAME/UI/ColdSteelAlchemyTabletop.cpp",
+                      "bytes":  11725,
+                      "sha256":  "b72a53fd3de9270685e4f13bc7392237503eef0ad4e6fb13d5465b82a101ec33",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/finish-builds.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/finish-builds.ps1",
+                      "bytes":  1862,
+                      "sha256":  "897fc5892f9f3fcf983202942c5489c909ab62c3a34067987f36f8b1749ba1a8",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/NetworkV8/write_delivery.py",
+                      "bytes":  1858,
+                      "sha256":  "b6fd5981babce6624c70eb59927f03bcfac89c94be90a9e2aabf32a0fe175117",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Config/DefaultGame.ini",
+                      "bytes":  25237,
+                      "sha256":  "2369be09d7ae98414b3ad1ab276bed6b55e80d109c915d3ca5e09ac47f75b2e6",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyManualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyManualComponent.cpp",
+                      "bytes":  5756,
+                      "sha256":  "02cd4331433149c4aa1862283cc751d8f9b631ae74526ad0f808908d6ab9abb4",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  30870,
+                      "sha256":  "b302dce17dd236367228056c549fa6c862efeb080780b5c73fb612b1febcc750",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemySystem.h",
+                      "bytes":  3849,
+                      "sha256":  "4a5ab43bff8ef978c112039c41d1fb4fb9a1e9cbe40ff5b22802f69b2941f500",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyTypes.h",
+                      "bytes":  2482,
+                      "sha256":  "f30b760e84951f55467a1b19bb7ba69b2afd65d40480b0dd3e456bbdbe3d6810",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyWorldView.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyWorldView.cpp",
+                      "bytes":  8623,
+                      "sha256":  "e50b1f807c205dd0b65007266ffbf872faa42916d420d25201ef0da8173270db",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyWorldView.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/AlchemyWorldView.h",
+                      "bytes":  1566,
+                      "sha256":  "fa01e9a86f7bde05591d200197a6180992eaacaab5f62fa73e8474dc70530688",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  16380,
+                      "sha256":  "49062a847be9312125c8ee96d22ed7ce8941c251eff66d1f160110485e5c09c0",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  2180,
+                      "sha256":  "1db044bf0073af48464cf5d3eca1b37e4fa532c54d8c98e88ec0522fa910eefe",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  25900,
+                      "sha256":  "e381713806c43de8391f83ecdcf6fe49bc4b3cc20cf32bcdb43fb4bf306fc701",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  3991,
+                      "sha256":  "aaac5603c4b6b1b23d6a496631293f97881fe8e553f3e3265fa336ca51afcf09",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/build-final.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/build-final.ps1",
+                      "bytes":  1771,
+                      "sha256":  "3a65bfb61cf41ced7b40f4149741a1ef0daffb696110d07d18ea5a69c4c2117d",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RefinementV4/write_delivery.py",
+                      "bytes":  3089,
+                      "sha256":  "3bfd5d1829c83c5ca3a5bc2d523152cde9585c02333920bfd7d1db3dcd4bf3a0",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Config/DefaultGame.ini",
+                      "bytes":  24689,
+                      "sha256":  "9e8bb3c98ae2e05df0bcb481c02465f6b22b7734f87c2081d95a413a4230717e",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+                      "bytes":  6881,
+                      "sha256":  "8444c77840320509cc05681a5b25fe68ef7c6d0e0db37d65d1f63678cca38648",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+                      "bytes":  3735,
+                      "sha256":  "bdddb8a92f75db4392b9b4151334add976e5be861fe4fd786c9e681e749ed84c",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/FPSGAMEPlayerController.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/FPSGAMEPlayerController.cpp",
+                      "bytes":  36676,
+                      "sha256":  "dcf4bfc588d050a68927253a7ce487f0311db02037f6e1f35e079c048e8dcd03",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/FPSGAMEPlayerController.h",
+                      "bytes":  4492,
+                      "sha256":  "5a5c92d2891932886e12e15b27ac1f9664e97d9da11efdcad92f7544dc2ce91d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+                      "bytes":  8907,
+                      "sha256":  "4202aa27ca446f1e1b74f0f588f99601d9aac3af82eb04b41404ba9bcfbdc094",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+                      "bytes":  18686,
+                      "sha256":  "56b7c7a29f29efbd28f33577abaabe1d91889f3cda9f9788d7e92fb72e2576e9",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+                      "bytes":  3646,
+                      "sha256":  "6af9c1cecb17882998f816e8984f898a69f01328955259b5670d6df8f882b95b",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+                      "bytes":  92339,
+                      "sha256":  "74329897e8c86ab2c8501edb6cc2b844a116c56b3dfff48d1356eaf0caf10060",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+                      "bytes":  27242,
+                      "sha256":  "ad19ac8829c1ab51745b96df28f07cb7a4a001f9bac01272d2da75dda896a2e4",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+                      "bytes":  13768,
+                      "sha256":  "79554590f478a5eb2cd02637137ee1c9e0a7e8161b9d593115233da9fc849d41",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.h",
+                      "bytes":  2547,
+                      "sha256":  "e388f2c7aa1706b9209ca68eea8c1b28a7210afc1c0640cc41132829a4ebe9d9",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+                      "bytes":  92529,
+                      "sha256":  "5288cdc0f1912cf3e3d9ae8664ab335157c41b3fe8d046f648036a6d47076f79",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+                      "bytes":  34645,
+                      "sha256":  "f9e7da83d1512d79ba72848d562e249fea1f0bc688eb09f346b264a764c33b0a",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+                      "bytes":  37189,
+                      "sha256":  "68f576cab1999ae9633daf756a8a7dd0cbadf1a831f3629d0d5059bde44fb3e4",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+                      "bytes":  8311,
+                      "sha256":  "9c30a6b95c37eb74e0f6babddcb0ce9d4e506028ce2725a8e4052d3c644f8f42",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+                      "bytes":  20914,
+                      "sha256":  "971fbbcb38fcfe3e3d2199b3c4c0576985c4135d98e3f2e53beda22dd1d97a3e",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+                      "bytes":  2844,
+                      "sha256":  "7a50e233a3b009575d43dfb869be71285885ca10486b07b4ed24ed2ddb263764",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+                      "bytes":  6898,
+                      "sha256":  "60eacff2ef41acc9c53087643800c55a18c701aa3fa9f2ad8d5c6b722552154a",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+                      "bytes":  40649,
+                      "sha256":  "eb5329ba03df2bcdeb79da0caab6a51e68f9b2e4eea35621c94535527603bc47",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+                      "bytes":  20927,
+                      "sha256":  "58a6fd9f6b1aeb97fe79dcba40705e583b55dcc3512aa39dc2baa4b988d39b58",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Before/Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+                      "bytes":  2798,
+                      "sha256":  "bdbced93044d4a88ecd793b859111fe90f9638df11a1a9ab9a974567bfd0250d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/AlchemySystem.cpp",
+                      "bytes":  30080,
+                      "sha256":  "a6babc4c7e9b760f105ec8b0474deb19837f814c0a70368e6d98a49c41c0c77a",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/AlchemySystem.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/AlchemySystem.h",
+                      "bytes":  3799,
+                      "sha256":  "8724f41bee2a248f7f94987f0c69fe2d1e289ecaf1f295f7587aee561c40514b",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  24990,
+                      "sha256":  "eca84425418b7fdd6404a7fcdd1c9907431d0c320cdbcfa1fb9b13a0450fc0ae",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/delivery-status.json",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/delivery-status.json",
+                      "bytes":  2950,
+                      "sha256":  "74e7397bff188c0fe0c1fc27e3afd4f2c6e85c499dd73fde0c68893b4e8e4553",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/potion-workbench-magic-brewing-plan-20261015.md",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/FinishedRefund20261015/Before/potion-workbench-magic-brewing-plan-20261015.md",
+                      "bytes":  23143,
+                      "sha256":  "6865e7eb0e704da497998139ef0f13f7729cd31fa9f368389bb0d3af4fd7eea1",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/AlchemySystem.cpp",
+                      "bytes":  26630,
+                      "sha256":  "df0713ba040e8f10660309322bc40507a4fe2668d2c74879637fa0beb8e72f5c",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/AlchemySystem.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/AlchemySystem.h",
+                      "bytes":  3488,
+                      "sha256":  "4236b54b8eb8e3e504b815fd95fa3c12db317481d01fc061ad0e7c257d7973d7",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/AlchemyWorldView.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/AlchemyWorldView.cpp",
+                      "bytes":  8623,
+                      "sha256":  "e50b1f807c205dd0b65007266ffbf872faa42916d420d25201ef0da8173270db",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  17244,
+                      "sha256":  "75e02de26598fda596b549496351627de3a2f4385f4979dfbe09c3deda7735f8",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelHarvestAuthority.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelHarvestAuthority.cpp",
+                      "bytes":  9573,
+                      "sha256":  "f07a42260dcd890a7a879f856efac3b7ccdd03cdfabe331cff285761eae6c921",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelPlayerState.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelPlayerState.cpp",
+                      "bytes":  92792,
+                      "sha256":  "c0b50df07c772b9ec2f448f1c9aeb90f240af3fa7d093f935d2682daf931a89f",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelPlayerState.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelPlayerState.h",
+                      "bytes":  27640,
+                      "sha256":  "6a7790855f9657b48ede1d2b4bdacf05ae7720f0b7d38a91b1b20cea423ac1a5",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelStationNetwork.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/Multiplayer/ColdSteelStationNetwork.cpp",
+                      "bytes":  15881,
+                      "sha256":  "ce36a3e302e7c8654c39e192b443d07a26650669802a7b4ca84e475a02090c3f",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  24634,
+                      "sha256":  "8fd4b41a49a84561e8a82c7da66a1146dbc730dbd2d189865bd8bc868ad115e3",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  3989,
+                      "sha256":  "fffcf23131b8ba8736bfe4b01f681a49acf59af024bed59b4dd3c32a5be50254",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelNetworkInventory.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelNetworkInventory.cpp",
+                      "bytes":  2878,
+                      "sha256":  "903ccceafb5b8f6e08671968b349f598d4049465c033cadd32ef55572ed2f7e7",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelStatusModel.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Review20261015/Before/UI/ColdSteelStatusModel.h",
+                      "bytes":  40794,
+                      "sha256":  "88646c3be50ff03080601735075a0ffb883eb9e27e58ae9b25fd6a358c26535f",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/integrate_core.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/integrate_core.py",
+                      "bytes":  4823,
+                      "sha256":  "46cbf81e6465f70f39fb63d14a5750da018b2bf9d81a02463b7f1f172b28c27b",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/integrate_network.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/integrate_network.py",
+                      "bytes":  5586,
+                      "sha256":  "7dfc63359f3ec3a3adb6dfa923bccb5167ec77c32ed59aec5500fe90fbb48b1e",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/integrate_ui.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/integrate_ui.py",
+                      "bytes":  5128,
+                      "sha256":  "a0c7cd695420bdb0c028f78aa04b2d532405e3ca55f42c4cb69a17d6f6cc0508",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/write_recipes.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/RuntimeV2/Scripts/write_recipes.py",
+                      "bytes":  2953,
+                      "sha256":  "f673098b8624bd120fbba835c44131513bc7a0d50ae72933c4511e56816ee1fd",
+                      "reason":  "One-time source/catalog migration superseded by final files; rerunning would restore obsolete stages.",
+                      "replacement":  "Published final C++ and Content/ColdSteelData/alchemy-recipes.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/AlchemySystem.cpp",
+                      "bytes":  36149,
+                      "sha256":  "a43f107b37382bc1f539490559ddab80857bb50049ce75298b9599cb8fb8d5d9",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/AlchemyWorldView.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/AlchemyWorldView.cpp",
+                      "bytes":  8669,
+                      "sha256":  "1dd483c9664138579e628b3296cd64b08862b1a62188e661a5bbca91199540b3",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/AlchemyWorldView.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/AlchemyWorldView.h",
+                      "bytes":  1566,
+                      "sha256":  "fa01e9a86f7bde05591d200197a6180992eaacaab5f62fa73e8474dc70530688",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  21232,
+                      "sha256":  "93b74359740c1cb71c7fa87bfc00c96738c5866e0db03f3d0478bca89f68e41f",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  2567,
+                      "sha256":  "075f62c465e0286bea9e6a5bea287012ef5f70250748a1bb6d4cf8509db4e1e2",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.cpp",
+                      "bytes":  30635,
+                      "sha256":  "1b5babb4d3d23299f8c165b2f6c2ab4e310c6f359a3d528b3503c24aa886f35d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/Before/Source/FPSGAME/UI/ColdSteelAlchemyWidget.h",
+                      "bytes":  4613,
+                      "sha256":  "ba2861c6219de60aee6c4e538ce74d15eb97439a1ec9173965b68ea7ef2b2d5d",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/build.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/build.ps1",
+                      "bytes":  1540,
+                      "sha256":  "5466c31def9c45c8acb68dd512a8cce8615740d9498f9892e91963d988ac1be6",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/TabletopV6/write_delivery.py",
+                      "bytes":  2557,
+                      "sha256":  "3eb0e7628f73050459bf1db19df19827cc6fb6ffcec7e0614c448b90fd22b704",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Config/DefaultGame.ini",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Config/DefaultGame.ini",
+                      "bytes":  26352,
+                      "sha256":  "35de98c20f973006c7a6edcd827e8715bd74680f2f5cc5fcc592fe1aa04f5fff",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Source/FPSGAME/Building/AlchemyTabletop.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Source/FPSGAME/Building/AlchemyTabletop.h",
+                      "bytes":  655,
+                      "sha256":  "51c78b07df0e5830cb4899543283150a4faea0bdcb3e265140e67a0949500f99",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp",
+                      "bytes":  24600,
+                      "sha256":  "53066245c5952685a03611eb57ed67ba73a3af5e8d53bfe4bac556a3bc4035ec",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/Before/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.h",
+                      "bytes":  4319,
+                      "sha256":  "d8aa712c7ccb70ea393ada3892c71006126a58ead821d7610597c856173794ba",
+                      "reason":  "Superseded pre-edit rollback snapshot; current source/assets and historical receipts remain.",
+                      "replacement":  "Current Source/FPSGAME, saved Content and EntryV12 delivery"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/finish-builds.ps1",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/finish-builds.ps1",
+                      "bytes":  1812,
+                      "sha256":  "76b9cbac6945f40bfef85c37aeeca02704dfae57246ab6aeb76f18139c27c5f4",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  },
+                  {
+                      "original":  "SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/write_delivery.py",
+                      "destination":  "trash/alchemy-workbench-retired-20261016/SourceAssets/PotionWorkbenchDesign20261015/ThermometerV9/write_delivery.py",
+                      "bytes":  871,
+                      "sha256":  "3426ce7eb350e2ca07befd4fcf6bcc4035cc6d47a5d46e802575bab386a4e78a",
+                      "reason":  "Completed-stage build/receipt driver; historical output remains and latest build entry supersedes this driver.",
+                      "replacement":  "SourceAssets/PotionWorkbenchDesign20261015/EntryV12/finish-builds.ps1 and delivery.json"
+                  }
+              ],
+    "file_count":  151,
+    "total_bytes":  2183980,
+    "move_verified":  true
+}

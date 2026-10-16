@@ -10,6 +10,7 @@
 #include "../Building/ColdSteelCampfire.h"
 #include "../Building/SmeltingSystem.h"
 #include "../Building/WoodworkingSystem.h"
+#include "../Building/AlchemySystem.h"
 #include "../Building/ForgingSystem.h"
 #include "../Building/GunAssemblySystem.h"
 #include "../Building/VoxelBuildWorld.h"
@@ -126,6 +127,7 @@ void AColdSteelPlayerState::EndPlay(const EEndPlayReason::Type Reason)
     const auto* OwningPlayer=Cast<APlayerController>(GetOwner());
     if(bWasLocalOwner||(OwningPlayer&&OwningPlayer->IsLocalController())||(!OwningPlayer&&GetNetMode()==NM_Client&&(bCampfirePending||bInventoryRequestPending)))
     {
+        if(auto* Alchemy=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>():nullptr)Alchemy->NetworkEnded();
         if(auto* Wood=GetGameInstance()?GetGameInstance()->GetSubsystem<UWoodworkingSystem>():nullptr)Wood->NetworkSessionEnded();
         if(auto* Forge=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>():nullptr)Forge->NetworkSessionEnded();
         if(auto* Assembly=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunAssemblySystem>():nullptr)Assembly->NetworkSessionEnded();

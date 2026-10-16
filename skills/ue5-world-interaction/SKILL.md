@@ -12,3 +12,5 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
 
 涉及设施搜索柜、掉落池、共享取物与旧档迁移时，读取本项目镜像 [搜索容器合同](references/facility-search-containers.md)。个人维护源保留同名参考。
+
+- FPSGAME 炼药台的器具命中、金色悬停提示、捕获搅拌、旋钮、温度计和装瓶液体，读取 [炼药台交互](references/alchemy-tabletop-interaction.md)。

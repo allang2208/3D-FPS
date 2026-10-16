@@ -352,6 +352,28 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
     for(const auto& Pair:P.AmmoPouch)if(Pair.Key.IsEmpty()||Pair.Value<0||Pair.Value>9007199254740991ll){Reason=TEXT("弹药袋数量无效");return false;}
     if(!ColdSteelSkills::Validate(P,Reason))return false;
     if(!ColdSteelQuickBar::Validate(P,Reason))return false;
+    if(!P.AlchemyJob.Id.IsEmpty())
+    {
+        const auto& J=P.AlchemyJob;
+        if(J.Version!=1||J.Recipe.IsNone()||J.RecipeSnapshot.IsEmpty()||J.RecipeSnapshot.Len()>65536||
+            J.Revision<0||J.Escrow.IsEmpty()||J.Escrow.Num()>96||J.Progress.Num()>24||J.Progress.IsEmpty()||
+            !FMath::IsFinite(J.Temperature)||J.Temperature<0||J.Temperature>100||
+            !FMath::IsFinite(J.Penalty)||J.Penalty<0||J.Penalty>100||!FMath::IsFinite(J.Elapsed)||J.Elapsed<0||
+            !FMath::IsFinite(J.ScorchSeconds)||J.ScorchSeconds<0||J.OutputCount<0||J.OutputCount>10||
+            (J.bPassed&&!J.bFinished)||J.Product.Data.IsEmpty()||J.Product.InstanceId.IsEmpty())
+        {Reason=TEXT("炼药批次数据无效，原记录保留");return false;}
+        TMap<FString,int64> Reserved;
+        for(const auto& I:J.Escrow)
+        {
+            if(I.Count<=0||I.Count>100||I.Definition.IsEmpty()||I.InstanceId.IsEmpty()||!Object(I)||
+                P.Items.ContainsByPredicate([&](const auto& In){return In.InstanceId==I.InstanceId;}))
+            {Reason=TEXT("炼药备料记录无效");return false;}
+            Reserved.FindOrAdd(I.Definition)+=I.Count;
+        }
+        for(const auto& Pair:J.Opened)if(Pair.Value<0||Pair.Value>Reserved.FindRef(Pair.Key)){Reason=TEXT("炼药开封记录无效");return false;}
+        for(const auto& Pair:J.Poured)if(Pair.Value<0||Pair.Value>J.Opened.FindRef(Pair.Key)){Reason=TEXT("炼药投料记录无效");return false;}
+        for(float Progress:J.Progress)if(!FMath::IsFinite(Progress)||Progress<0||Progress>120){Reason=TEXT("炼药进度无效");return false;}
+    }
     if(!P.WoodworkingJob.Id.IsEmpty())
     {
         const auto& J=P.WoodworkingJob;

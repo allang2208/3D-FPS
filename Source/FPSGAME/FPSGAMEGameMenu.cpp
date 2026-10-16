@@ -3,6 +3,7 @@
 #include "UI/ColdSteelGameMenuWidget.h"
 #include "UI/ColdSteelHUDWidget.h"
 #include "UI/ColdSteelWoodworkingWidget.h"
+#include "UI/ColdSteelAlchemyWidget.h"
 #include "UI/TransitLoadingSubsystem.h"
 #include "UI/WeatherControlWidget.h"
 #include "Building/VoxelBuildComponent.h"
@@ -23,7 +24,7 @@ bool AFPSGAMEPlayerController::CanOpenGameMenu() const
     const auto* Loading = GetGameInstance() ? GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>() : nullptr;
     if (Loading && Loading->OwnsPlayerCursor()) return false;
     // Existing drawers, drags and stations keep their own close/back semantics.
-    return !WoodworkingPanel && !ExpeditionPanel && !GunsmithPanel && !EnhancementPanel
+    return !AlchemyPanel && !WoodworkingPanel && !ExpeditionPanel && !GunsmithPanel && !EnhancementPanel
         && (!WeatherPanel || !WeatherPanel->IsPanelOpen())
         && (!VoxelBuilder || !VoxelBuilder->IsPanelOpen())
         && (!ColdSteelHUD || (!ColdSteelHUD->IsInventoryOpen() && !ColdSteelHUD->IsQuickDragging()

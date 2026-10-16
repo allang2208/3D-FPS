@@ -99,6 +99,7 @@ public:
     UPROPERTY() FColdSteelForgeJob ForgeJob;
     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
     UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;
+    UPROPERTY() FColdSteelAlchemyJob AlchemyJob;
     UPROPERTY() bool bContainerView=false;
     UPROPERTY() FString ContainerKey;
     UPROPERTY() FString ContainerCaption;

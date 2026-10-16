@@ -241,6 +241,12 @@ FString ColdSteelWorldInteraction::SmeltingFurnacePrompt(const AActor* Target)
     return TEXT("冶炼高炉 · 打开冶炼面板");
 }
 
+bool ColdSteelWorldInteraction::IsAlchemyBench(const AActor* Target)
+{
+    const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
+    return Piece&&Piece->PrefabId()==FName(TEXT("potion_workbench"))&&!Piece->IsFalling();
+}
+
 bool ColdSteelWorldInteraction::IsWoodworkingBench(const AActor* Target)
 {
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Target);
@@ -370,6 +376,7 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     if(Cast<AColdSteelCampfire>(Target))
     {Hint.Text=SmeltingFurnacePrompt(Target);Hint.bAction=CastChecked<AColdSteelCampfire>(Target)->IsAvailable();return Hint;}
     if(IsSmeltingFurnace(Target)){Hint.Text=SmeltingFurnacePrompt(Target);return Hint;}
+    if(IsAlchemyBench(Target)){Hint.Text=TEXT("药水工作台 · 魔法药水炼制");return Hint;}
     if(IsWoodworkingBench(Target)){Hint.Text=TEXT("木工工作台 · 打开加工界面");return Hint;}
     if(IsWorkbench(Target)){Hint.Text=WorkbenchPrompt(Target);return Hint;}
     if(UColdSteelDoorInteraction::IsDoor(Target))

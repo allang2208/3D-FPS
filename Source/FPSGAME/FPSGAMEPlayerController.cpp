@@ -1,5 +1,6 @@
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelWoodworkingWidget.h"
+#include "UI/ColdSteelAlchemyWidget.h"
 #include "UI/ColdSteelQuickBarTypes.h"
 #include "UI/TransitLoadingSubsystem.h"
 #include "Dungeons/DungeonRunSubsystem.h"
@@ -387,6 +388,11 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     }
     // Action handlers own inspection interruption. Raw keys and look/move axes
     // also describe ordinary locomotion, empty shortcuts and UI-only input.
+    if(AlchemyPanel)
+    {
+        if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::Tab))AlchemyPanel->RequestClose();
+        return true;
+    }
     if(WoodworkingPanel)
     {
         if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::Tab))WoodworkingPanel->RequestClose();
@@ -496,6 +502,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
             {ColdSteelHUD->OpenSmelting(Target);return true;}
             // 工作台：E 同时打开背包与制作面板（格式复刻冶炼面板，制作内容后续设计；
             // Docs/UI/workbench-panel-plan-20260924.md）。与高炉判定并列、互斥同贴位。
+            if(ColdSteelWorldInteraction::IsAlchemyBench(Target)){OpenAlchemy(Target);return true;}
             if(ColdSteelWorldInteraction::IsWoodworkingBench(Target)){OpenWoodworking(Target);return true;}
             if(ColdSteelWorldInteraction::IsWorkbench(Target)&&ColdSteelHUD)
             {ColdSteelHUD->OpenWorkbench(Target);return true;}
@@ -534,7 +541,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
-    if(IsLocalController()&&!IsGameMenuOpen()&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
+    if(IsLocalController()&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
         &&(!ColdSteelHUD||(!ColdSteelHUD->IsWorldForging()&&!ColdSteelHUD->IsGunAssembly()))
         &&(!WeatherPanel||!WeatherPanel->IsPanelOpen())
         &&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
@@ -572,7 +579,7 @@ void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 void AFPSGAMEPlayerController::ToggleInventory()
 {
     if (IsGameMenuOpen()) return;
-    if(WoodworkingPanel)return;
+    if(AlchemyPanel||WoodworkingPanel)return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) WeatherPanel->SetPanelOpen(false);
     if (ColdSteelHUD)
     {
@@ -590,7 +597,7 @@ bool AFPSGAMEPlayerController::IsItemIconPanelOpen() const
 bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 {
     return bShowMouseCursor && !IsGameMenuOpen() && !IsMoveInputIgnored() && !IsLookInputIgnored() &&
-        !WoodworkingPanel && !GunsmithPanel && !EnhancementPanel && !ExpeditionPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
+        !AlchemyPanel && !WoodworkingPanel && !GunsmithPanel && !EnhancementPanel && !ExpeditionPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
         ColdSteelHUD && !ColdSteelHUD->IsInventoryOpen() && (!VoxelBuilder || !VoxelBuilder->IsPanelOpen());
 }
 
@@ -605,7 +612,7 @@ void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
     if (IsGameMenuOpen()) return;
     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return;
-    if (WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
+    if (AlchemyPanel || WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
     if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
     if (bShowMouseCursor)
@@ -631,7 +638,7 @@ void AFPSGAMEPlayerController::ToggleWeatherPanel()
 void AFPSGAMEPlayerController::ToggleDevelopmentPanel()
 {
     if (IsGameMenuOpen()) return;
-    if(WoodworkingPanel)return;
+    if(AlchemyPanel||WoodworkingPanel)return;
     if (!WeatherPanel) return;
     CloseExpedition();
     if (GunsmithPanel) CloseGunsmith();

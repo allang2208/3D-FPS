@@ -8,6 +8,7 @@
 #include "../Building/ForgingSystem.h"
 #include "../Building/GunAssemblySystem.h"
 #include "../Building/WoodworkingSystem.h"
+#include "../Building/AlchemySystem.h"
 #include "../Building/CraftingSystem.h"
 #include "../Building/SmeltingSystem.h"
 #include "../Building/VoxelBuildWorld.h"
@@ -26,6 +27,7 @@ thread_local int32 InputDepth=0;
 FString StationInputJobId(const UColdSteelStatusModel* Model,FName Kind)
 {
     if(!Model)return {};
+    if(Kind==TEXT("alchemy"))return Model->AlchemyJob().Id;
     return Kind==TEXT("forge")?Model->ForgeJob().Id:Kind==TEXT("assembly")?Model->GunAssemblyJob().Id:Model->WoodworkingJob().Id;
 }
 }
@@ -36,6 +38,8 @@ bool ColdSteelStationNet::Request(const UObject* C,const FString& Mode,FName Rec
 {
     auto* PC=UGameplayStatics::GetPlayerController(C,0);auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr;
     if(!PS)return false;FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Workstation;R.Mode=Mode;R.Definition=Recipe;R.Count=Count;R.Target=Target;R.Anchor=Cell;
+    if(Mode.StartsWith(TEXT("alchemy."))&&Mode!=TEXT("alchemy.start"))
+        if(const auto* M=ColdSteelAuthority::Model(C))R.Item=M->AlchemyJob().Id;
     if(Mode.StartsWith(TEXT("wood."))&&Mode!=TEXT("wood.start"))
         if(const auto* M=ColdSteelAuthority::Model(C))R.Item=M->WoodworkingJob().Id;
     return PS->RequestInventoryAction(R);
@@ -44,7 +48,7 @@ void ColdSteelStationNet::Input(const UObject* C,FName System,uint8 Op,FName Rec
 {
     if(!IsClient(C))return;auto* PC=UGameplayStatics::GetPlayerController(C,0);
     if(auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr)
-        PS->ServerStationInput(PC->GetPawn(),StationInputJobId(ColdSteelAuthority::ForPawn(PC->GetPawn()),System),System,Op,Recipe,Index,A,B,System==TEXT("wood")?++PS->WoodInputSerial:0);
+        PS->ServerStationInput(PC->GetPawn(),StationInputJobId(ColdSteelAuthority::ForPawn(PC->GetPawn()),System),System,Op,Recipe,Index,A,B,System==TEXT("wood")?++PS->WoodInputSerial:System==TEXT("alchemy")?++PS->AlchemyInputSerial:0);
 }
 bool AColdSteelPlayerState::StationReach(FName Kind) const
 {
@@ -70,19 +74,29 @@ void AColdSteelPlayerState::InitializeStations(UColdSteelStatusModel* M)
     if(!GuestForge)GuestForge=GI->GetSubsystem<UColdSteelForgingSystem>()->CreateNetworkSession(M);
     if(!GuestAssembly)GuestAssembly=GI->GetSubsystem<UGunAssemblySystem>()->CreateNetworkSession(M);
     if(!GuestWood)GuestWood=GI->GetSubsystem<UWoodworkingSystem>()->CreateNetworkSession(M);
+    if(!GuestAlchemy)GuestAlchemy=GI->GetSubsystem<UColdSteelAlchemySystem>()->CreateNetworkSession(M,CampfireGuestSlot());
 }
 bool AColdSteelPlayerState::ExecuteWorldAction(const FColdSteelInventoryRequest& R,UColdSteelStatusModel* M,FString& Reason)
 {
     if(R.Action==EColdSteelInventoryAction::Harvest||R.Action==EColdSteelInventoryAction::SoilRefill)
     {const double Now=GetWorld()->GetTimeSeconds();if(Now<HarvestAt){Reason=TEXT("工具尚未收势");return false;}HarvestAt=Now+.35;}
     auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();auto* PC=Cast<APlayerController>(GetOwner());
-    return Shared&&PC&&Shared->WorldAction(M,PC->IsLocalController()?nullptr:this,R,Reason);
+    const bool Success=Shared&&PC&&Shared->WorldAction(M,PC->IsLocalController()?nullptr:this,R,Reason);
+    if(R.Action==EColdSteelInventoryAction::Workstation&&R.Mode.StartsWith(TEXT("alchemy."))&&GuestAlchemy)
+        GuestAlchemy->AuthorityTransactionFinished(Success,Reason);
+    return Success;
 }
 bool AColdSteelPlayerState::ExecuteStation(const FColdSteelInventoryRequest& R,UColdSteelStatusModel* M,FString& Reason)
 {
     InitializeStations(M);const FString& Mode=R.Mode;bool Ok=false;
     ColdSteelAuthority::FScope Context(M);
-    if(Mode.StartsWith(TEXT("forge.")))
+    if(Mode.StartsWith(TEXT("alchemy.")))
+    {
+        if(Mode!=TEXT("alchemy.start")&&(R.Item.IsEmpty()||R.Item!=M->AlchemyJob().Id))
+        {Reason=TEXT("炼药批次已变化，请同步后重试");return false;}
+        Ok=GuestAlchemy->Transaction(Mode,R.Definition,R.Target,GetPawn(),Reason);
+    }
+    else if(Mode.StartsWith(TEXT("forge.")))
     {
         if(!StationReach(TEXT("forge"))){Reason=TEXT("请靠近铸造台");return false;}
         if(Mode==TEXT("forge.start"))Ok=GuestForge->Start(R.Definition,Reason);
@@ -138,6 +152,13 @@ void AColdSteelPlayerState::ServerStationInput_Implementation(APawn* InputPawn,c
     }
     if(InputPawn!=GetPawn()||JobId!=StationInputJobId(M,System)){bStationDirty=true;return;}
     InvalidateTeamTravelReady();
+    if(System==TEXT("alchemy"))
+    {
+        if(!Sequence||static_cast<int32>(Sequence-AlchemyAuthoritySequence)<=0||Op>uint8(EAlchemyOp::Timer))return;
+        AlchemyAuthoritySequence=Sequence;
+        GuestAlchemy->Input(EAlchemyOp(Op),Index,float(A.X));
+        bStationDirty=true;bServerDirty=true;return;
+    }
     // Pausing is cleanup, so permit it after leaving the bench. Pawn/job
     // identity was checked above; progress input still requires station reach.
     if(System==TEXT("assembly")&&Op==2)
@@ -188,6 +209,11 @@ void AColdSteelPlayerState::TickStations(float Delta)
     const double Now=GetWorld()->GetRealTimeSeconds();if(Now<StationPublishAt)return;StationPublishAt=Now+.25;
     if(GuestForge&&GuestForge->Active()&&!StationReach(TEXT("forge")))
     {FString Reason;GuestForge->Finish(Reason);bStationDirty=true;bServerDirty=true;}
+    if(GuestAlchemy&&(GuestAlchemy->Active()||GuestAlchemy->Job().Id!=LastAlchemyStateId||GuestAlchemy->Job().Revision!=LastAlchemyStateRevision||bAlchemyWasActive||GuestAlchemy->Saving()!=bAlchemyWasSaving))
+    {
+        ClientAlchemyState(GuestAlchemy->NetworkState(),GetPawn());LastAlchemyStateId=GuestAlchemy->Job().Id;
+        LastAlchemyStateRevision=GuestAlchemy->Job().Revision;bAlchemyWasActive=GuestAlchemy->Active();bAlchemyWasSaving=GuestAlchemy->Saving();
+    }
     if(!bStationDirty&&(!GuestForge||GuestForge->Job().Id.IsEmpty()))return;bStationDirty=false;
     auto Forge=GuestForge?GuestForge->NetworkState():FColdSteelForgeNetState{};
     FColdSteelAssemblyNetState Assembly;
@@ -218,6 +244,12 @@ void AColdSteelPlayerState::ClientStationState_Implementation(const FColdSteelFo
     GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>()->ApplyNetworkState(Forge);M->NotifyChanged();
 }
 
+void AColdSteelPlayerState::ClientAlchemyState_Implementation(const FColdSteelAlchemyNetState& State,APawn* SourcePawn)
+{
+    if(!SourcePawn||SourcePawn!=GetPawn())return;
+    GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>()->ApplyNetworkState(State);
+}
+
 bool AColdSteelPlayerState::CloseStationSessions()
 {
     if(!HasAuthority())return true;
@@ -226,6 +258,8 @@ bool AColdSteelPlayerState::CloseStationSessions()
     auto* Forge=Local?GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>():GuestForge.Get();
     auto* Wood=Local?GetGameInstance()->GetSubsystem<UWoodworkingSystem>():GuestWood.Get();
     auto* Assembly=Local?GetGameInstance()->GetSubsystem<UGunAssemblySystem>():GuestAssembly.Get();
+    auto* Alchemy=Local?GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>():GuestAlchemy.Get();
+    if(Alchemy&&!Alchemy->Suspend())return false;
     FString Reason;
     if(Assembly&&!Assembly->Pause(Reason))return false;
     if(Forge&&Forge->Active()&&!Forge->Finish(Reason))return false;

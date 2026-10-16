@@ -434,6 +434,10 @@ public:
     const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
     const FColdSteelWoodworkingJob& WoodworkingJob() const {return Current.WoodworkingJob;}
     bool CommitWoodworkingProgress(const FColdSteelWoodworkingJob& Job);
+    const FColdSteelAlchemyJob& AlchemyJob() const {return Current.AlchemyJob;}
+    bool CommitAlchemyProgress(const FColdSteelAlchemyJob& Job,const FString& GuestSaveSlot=FString());
+    void MirrorAlchemyProgress(const FColdSteelAlchemyJob& Job);
+    int64 InventoryRevision() const {return Current.CampfireInventoryRevision;}
     void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
     // Hit feedback cannot run the synchronous checked-save transaction every click.
     void StageForgeHit(const FString& JobId,int32 Hits);

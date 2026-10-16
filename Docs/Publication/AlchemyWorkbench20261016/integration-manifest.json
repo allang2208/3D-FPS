@@ -1,0 +1,26 @@
+[
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "patch": "Integration/player-profile-alchemy.patch",
+    "captured_head": "243c408631846503dcf01e6ec617cf02d625aacb",
+    "preimage_sha256_lf": "6cf8f9ec0425f21588cdea947c6411339f3f49ba5c391eb2dc906e78c2fcf79b",
+    "result_sha256_lf": "8c1765b6f7b1a0a443b01f15a9e1971a3d52708c59b0477da1d8788dc7aee1b7",
+    "reason": "Requires the current inventory mirror, authoritative recovery and checkpoint host; captured HEAD is not that host preimage."
+  },
+  {
+    "target": "Source/FPSGAME/UI/AlchemyManualNetAudit.h",
+    "patch": "Integration/AlchemyManualNetAudit.h.patch",
+    "captured_head": "243c408631846503dcf01e6ec617cf02d625aacb",
+    "preimage_sha256_lf": "52e427a08de93746632f696f34060a6f4f7cb8d35fc6270bbd6da011fbddbab2",
+    "result_sha256_lf": "12f48e0c226d9de2a5f4d64c8457186056b6e958c3dfd555e5a46f76ef2f8489",
+    "reason": "Only parameter naming repairs made for the V12 build; the independent manual audit implementation is not published by this batch and was not executed."
+  },
+  {
+    "target": "Source/FPSGAME/UI/AlchemyManualNetAudit.cpp",
+    "patch": "Integration/AlchemyManualNetAudit.cpp.patch",
+    "captured_head": "243c408631846503dcf01e6ec617cf02d625aacb",
+    "preimage_sha256_lf": "e58764ec603fbb284c67ccc470fb77b887a8a71ab71e165dcfe76b473492a3e9",
+    "result_sha256_lf": "3c9cd187bea3aa202dc390401a2fbefc96eb3ad99fd3e7b26422d6575a1a6559",
+    "reason": "Only parameter naming repairs made for the V12 build; the independent manual audit implementation is not published by this batch and was not executed."
+  }
+]

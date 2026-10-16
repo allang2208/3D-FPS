@@ -260,6 +260,12 @@ public:
     bool StationReach(FName Kind) const;
     void InitializeStations(UColdSteelStatusModel* M);
     void TickStations(float Delta);
+    UFUNCTION(Client,Reliable) void ClientAlchemyState(const FColdSteelAlchemyNetState& State,APawn* SourcePawn);
+    UPROPERTY() TObjectPtr<class UColdSteelAlchemySystem> GuestAlchemy;
+    uint32 AlchemyInputSerial=0,AlchemyAuthoritySequence=0;
+    FString LastAlchemyStateId;
+    int64 LastAlchemyStateRevision=-1;
+    bool bAlchemyWasActive=false,bAlchemyWasSaving=false;
     bool CloseStationSessions();
     UFUNCTION(Server,Reliable) void ServerStationInput(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B,uint32 Sequence);
     void TickWoodNetwork();

@@ -3,6 +3,7 @@
 #include "GameFramework/Actor.h"
 #include "VoxelBuildTypes.h"
 #include "VoxelBuildPalette.h"
+#include "AlchemyTypes.h"
 #include "VoxelBuildPrefabActor.generated.h"
 
 class UMaterialInterface;
@@ -26,6 +27,10 @@ public:
     FIntVector AnchorCell() const {return Cell;}
     int32 Yaw() const {return QuarterTurns;}
     UStaticMeshComponent* Body() const {return MeshComponent;}
+    const FAlchemyBenchState& AlchemyPresentation() const {return AlchemyState;}
+    void SetAlchemyPresentation(const FAlchemyBenchState& State);
+    UFUNCTION() void OnRep_AlchemyState();
+    UPROPERTY(ReplicatedUsing=OnRep_AlchemyState) FAlchemyBenchState AlchemyState;
     /** 逻辑构件（门等自带 Actor 的构件）挂在占位记录下的实例；拆除时一并销毁。 */
     void AttachLogicActor(AActor* InLogicActor) {LogicActor=InLogicActor;}
     AActor* Logic() const {return LogicActor;}

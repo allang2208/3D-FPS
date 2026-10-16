@@ -83,6 +83,13 @@ inline bool InterruptedSpells(FColdSteelProfile& Clean,float MaxMana)
     return AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedDragon||AbandonedQuick;
 }
 
+inline void AlchemyProgress(FColdSteelProfile& Into,const FColdSteelProfile& Other)
+{
+    auto& Job=Into.AlchemyJob;const auto& Previous=Other.AlchemyJob;
+    if(!Job.Id.IsEmpty()&&Job.Id==Previous.Id&&(Previous.Revision>Job.Revision||
+        (Previous.Revision==Job.Revision&&Previous.Elapsed>Job.Elapsed)))Job=Previous;
+}
+
 // A slow profile mirror must not rewind newer station RPC progress for the same paid job.
 inline void StationProgress(FColdSteelProfile& Into,const FColdSteelProfile& Other)
 {
@@ -109,6 +116,7 @@ inline void StationProgress(FColdSteelProfile& Into,const FColdSteelProfile& Oth
             Assembly.CalibrationError=PreviousAssembly.CalibrationError;
         }
     }
+    AlchemyProgress(Into,Other);
     auto& Wood=Into.WoodworkingJob;const auto& PreviousWood=Other.WoodworkingJob;
     if(!Wood.Id.IsEmpty()&&Wood.Id==PreviousWood.Id&&
         ((PreviousWood.bFinished&&!Wood.bFinished)||(!Wood.bFinished&&PreviousWood.Elapsed>Wood.Elapsed)))Wood=PreviousWood;

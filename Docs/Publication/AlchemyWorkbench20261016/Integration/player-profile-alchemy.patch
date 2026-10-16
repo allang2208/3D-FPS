@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -395,7 +395,7 @@
+         Adopted.SwordUppercutCooldown=Prev.SwordUppercutCooldown;
+         Adopted.SwordUppercutCooldownDuration=Prev.SwordUppercutCooldownDuration;
+         Adopted.CampfireWorldReceipts=Prev.CampfireWorldReceipts;
+-        Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.WoodworkingJob=Prev.WoodworkingJob;Adopted.DungeonRun=Prev.DungeonRun;
++        Adopted.ForgeJob=Prev.ForgeJob;Adopted.GunAssemblyJob=Prev.GunAssemblyJob;Adopted.WoodworkingJob=Prev.WoodworkingJob;Adopted.AlchemyJob=Prev.AlchemyJob;Adopted.DungeonRun=Prev.DungeonRun;
+         ColdSteelWoodQuality::PreserveAuthoritative(Adopted.Items,Prev.Items);
+         // Preserve age even when the inventory receipt is equal (moves/splits
+         // can upload independently of the periodic authority settlement).
+@@ -631,7 +631,7 @@
+     P.IceWallReservedMana = 0.f;
+     P.TreeGrowthDay = 0.0;
+     P.FoodClockDay = 0.0;
+-    P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};
++    P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};P.AlchemyJob={};
+     P.Infection = FInfectionState();
+     P.DungeonRun = FDungeonRunState();
+     // 弹药经济随每次开火/装填漂移（SyncRuntime 把 MagazineAmmo 回写进 item），
+@@ -791,7 +791,7 @@
+         Save->Profile.Items=CurrentInventory.Items;
+         Save->Profile.ActiveWeaponSlot=CurrentInventory.ActiveWeaponSlot;Save->Profile.ActiveProductionTool=CurrentInventory.ActiveProductionTool;
+         Save->Profile.ForgeJob=CurrentInventory.ForgeJob;Save->Profile.GunAssemblyJob=CurrentInventory.GunAssemblyJob;
+-        Save->Profile.WoodworkingJob=CurrentInventory.WoodworkingJob;Save->Profile.DungeonRun=CurrentInventory.DungeonRun;
++        Save->Profile.WoodworkingJob=CurrentInventory.WoodworkingJob;Save->Profile.AlchemyJob=CurrentInventory.AlchemyJob;Save->Profile.DungeonRun=CurrentInventory.DungeonRun;
+         Save->Profile.AmmoPouch=CurrentInventory.AmmoPouch;
+         Save->Profile.CampfireInventoryRevision=CurrentInventory.CampfireInventoryRevision;
+         Save->Profile.CampfireWorldReceipts=CurrentInventory.CampfireWorldReceipts;
+@@ -871,7 +871,7 @@
+         Merged.SoulCurrencyVersion=CurrencyState.SoulCurrencyVersion;
+         if(!bInventoryRequestPending&&Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
+         {
+-            Merged.ForgeJob=Save->Profile.ForgeJob;Merged.GunAssemblyJob=Save->Profile.GunAssemblyJob;Merged.WoodworkingJob=Save->Profile.WoodworkingJob;Merged.DungeonRun=Save->Profile.DungeonRun;
++            Merged.ForgeJob=Save->Profile.ForgeJob;Merged.GunAssemblyJob=Save->Profile.GunAssemblyJob;Merged.WoodworkingJob=Save->Profile.WoodworkingJob;Merged.AlchemyJob=Save->Profile.AlchemyJob;Merged.DungeonRun=Save->Profile.DungeonRun;
+             ColdSteelWoodQuality::PreserveAuthoritative(Merged.Items,Save->Profile.Items);
+         }
+         Merged.Survival=Save->Profile.Survival;
+@@ -885,7 +885,8 @@
+     if(bCampfireInventoryChanged||
+         !FColdSteelForgeJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.ForgeJob,&Save->Profile.ForgeJob,0)||
+         !FColdSteelGunAssemblyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.GunAssemblyJob,&Save->Profile.GunAssemblyJob,0)||
+-        !FColdSteelWoodworkingJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.WoodworkingJob,&Save->Profile.WoodworkingJob,0))
++        !FColdSteelWoodworkingJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.WoodworkingJob,&Save->Profile.WoodworkingJob,0)||
++        !FColdSteelAlchemyJob::StaticStruct()->CompareScriptStruct(&CurrentInventory.AlchemyJob,&Save->Profile.AlchemyJob,0))
+         Model->NotifyChanged();
+     UE_LOG(LogTemp, Warning, TEXT("MPTEST mirror applied: %dB lv=%d"), MirrorBlob.Num(), Save->Profile.Level);
+     TickSuper90Recovery();

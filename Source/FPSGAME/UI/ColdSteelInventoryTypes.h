@@ -169,6 +169,33 @@ struct FColdSteelGunAssemblyJob
     UPROPERTY() bool bFinished=false;
 };
 
+/** Paid alchemy batch; unfinished mixtures and unopened ingredients survive UI/world changes. */
+USTRUCT()
+struct FColdSteelAlchemyJob
+{
+    GENERATED_BODY()
+    UPROPERTY() int32 Version=1;
+    UPROPERTY() FString Id;
+    UPROPERTY() FName Recipe;
+    UPROPERTY() FString RecipeSnapshot;
+    UPROPERTY() FString Name;
+    UPROPERTY() int64 Revision=0;
+    UPROPERTY() TArray<FColdSteelItem> Escrow;
+    UPROPERTY() TMap<FString,int64> Opened;
+    UPROPERTY() TMap<FString,int64> Poured;
+    UPROPERTY() TArray<float> Progress;
+    UPROPERTY() FColdSteelItem Product;
+    UPROPERTY() int32 OutputCount=0;
+    UPROPERTY() float Temperature=20;
+    UPROPERTY() double Elapsed=0;
+    UPROPERTY() float Penalty=0;
+    UPROPERTY() float ScorchSeconds=0;
+    UPROPERTY() TArray<FString> Faults;
+    UPROPERTY() bool bFinished=false;
+    UPROPERTY() bool bPassed=false;
+    UPROPERTY() FString Result;
+};
+
 USTRUCT()
 struct FColdSteelProfile
 {
@@ -258,6 +285,7 @@ struct FColdSteelProfile
     UPROPERTY() FColdSteelForgeJob ForgeJob;
     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
     UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;
+    UPROPERTY() FColdSteelAlchemyJob AlchemyJob;
     // Skill schema v17: the preparation reserves cooldown, release starts its clock.
     UPROPERTY() float IceWallCooldown = 0;
     UPROPERTY() float IceWallCooldownDuration = 0;

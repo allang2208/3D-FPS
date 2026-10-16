@@ -4534,3 +4534,16 @@ __pycache__/
 /SourceAssets/TelescopicStockSurface20261014/**/__pycache__/
 /SourceAssets/TelescopicStockSurface20261014/**/Wire/
 /SourceAssets/WeaponAttachmentsCloseout20261016/
+
+# Alchemy workbench: publish authored recipes/prose/shaders only.
+# Source geometry, textures, UE import hosts, receipts and rollback data stay local.
+/SourceAssets/PotionWorkbenchDesign20261015/**
+!/SourceAssets/PotionWorkbenchDesign20261015/**/
+!/SourceAssets/PotionWorkbenchDesign20261015/**/*.py
+!/SourceAssets/PotionWorkbenchDesign20261015/**/*.ps1
+!/SourceAssets/PotionWorkbenchDesign20261015/**/*.md
+!/SourceAssets/PotionWorkbenchDesign20261015/**/*.hlsl
+/SourceAssets/PotionWorkbenchDesign20261015/**/Before/
+/SourceAssets/PotionWorkbenchDesign20261015/**/UEImportHost/
+/SourceAssets/PotionWorkbenchDesign20261015/**/__pycache__/
+/SourceAssets/PotionWorkbenchDesign20261015/Publication20261016/

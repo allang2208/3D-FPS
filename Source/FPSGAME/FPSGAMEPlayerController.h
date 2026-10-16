@@ -36,6 +36,10 @@ public:
     bool OpenWoodworking(AActor* Station,bool PracticeOnly=false);
     bool IsWoodworkingOpen() const { return WoodworkingPanel!=nullptr; }
     void CloseWoodworking();
+    bool OpenAlchemy(AActor* Station);
+    bool IsAlchemyOpen() const {return AlchemyPanel!=nullptr;}
+    bool IsAlchemyPanelUnderLocation(FVector2D ScreenPosition) const;
+    void CloseAlchemy();
     /** Manual development practice entry; never consumes materials or grants rewards. */
     bool OpenEnhancement(const FString& Instance=TEXT(""));
     void CloseEnhancement();
@@ -94,4 +98,6 @@ private:
     TObjectPtr<UWeatherControlWidget> WeatherPanel;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelWoodworkingWidget> WoodworkingPanel;
     bool bWoodworkingReturnToCursor=false;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelAlchemyWidget> AlchemyPanel;
+    bool bAlchemyReturnToCursor=false;
 };
