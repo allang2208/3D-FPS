@@ -50,3 +50,8 @@
   modify()"都可能静默不写盘**（mtime 不变、`save_loaded_asset` 返回 false）。正确姿势：无条件
   `asset.modify()` → `set_editor_property` → `save_loaded_asset(asset)`，并用 **mtime 变化**作落盘证据，
   最后**全新进程读回**复核（编辑器内存态 ≠ 磁盘态）。
+
+## 合并后的主 UV 与空材质接口
+
+- 书壳案例（2026-10-16）：局部对象使用本地化 UV 名称，合并后与 UVMap 并存；新增金属/皮革面的主通道全为零，真实展开在第二通道，导致退化切线和近零副法线。先定位具体材质区与通道，只复制这些面的有效 loop UV 到导出主通道，保留其余 UV 与 MikkTSpace；不要通过关闭切线计算掩盖问题。
+- 骨骼纸页的槽名/槽数正确仍可能全部 MaterialInterface=null。沿上文 struct 数组逐索引写回规则处理；MID 的 Material index invalid 日志也应核对材质接口，不只怀疑索引越界。保存回执与实际组件读取是两种证据，运行检查仍遵守用户授权。

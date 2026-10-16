@@ -1,0 +1,390 @@
+{
+  "captured_head": "fbd732d3d0a9c386b3bd24b25d38887031f93e23",
+  "files": [
+    {
+      "path": "Docs/Publication/AlchemyManual20261016/README.md",
+      "mode": "exact_file",
+      "sha256": "3394c09114d81eda43565a337de63c561134323914de3b45bd55bd8dcdb940b9"
+    },
+    {
+      "path": "Docs/Publication/AlchemyManual20261016/archive-summary.json",
+      "mode": "exact_file",
+      "sha256": "a3e1b6198ccf3ca3377a01c6af9a603de063faa1b4a242a72720cd8a71ca6e85"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-binding-tangents-20261016.md",
+      "mode": "exact_file",
+      "sha256": "79a07d3fc87685f77eeb8a0b26f60e244c98b6ab1f01cf1baa12e9d47ff2e435"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-bookmark-lighting-20261016.md",
+      "mode": "exact_file",
+      "sha256": "8c83719984ee63ec7e2c415f8703d1c01ec3dfd053c1e66dc073a4b76ca5450f"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-bookmark-material-fix-20261016.md",
+      "mode": "exact_file",
+      "sha256": "2c2557b3ea4d5f4cecceae6e92a75d205ed4eac8589fb9a7c149d7e16bd58790"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-continuous-turn-20261016.md",
+      "mode": "exact_file",
+      "sha256": "2cfc08baf7bd94b932c4b30e8960810caeb9221398ae9bd85b6971d473334aad"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-fine-press-plan-20261016.md",
+      "mode": "exact_file",
+      "sha256": "2536874ea5ad2e506317d05b3e1f9e8118e003fd36589d8cdaa0db1f25265eda"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-flow-audit-20261016.md",
+      "mode": "exact_file",
+      "sha256": "ce4e6749002351f7d67d54edce9364b44a92bcdd0e2012e0630f2554d687fe9b"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-load-repair-20261016.md",
+      "mode": "exact_file",
+      "sha256": "d2175d73fb5b25d60c3e4a930caa7ed734c88a16a72a5f1d384773cf9af6a46a"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-network-audit-20261016.md",
+      "mode": "exact_file",
+      "sha256": "18c89bf6d77eca7053b1ace786ef03583ac1ed44550e2b7f2176d67cc12e6dcf"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-open-crash-20261016.md",
+      "mode": "exact_file",
+      "sha256": "184ff8adcc6c6cac468df0924d2ca68c20893e5cd9c56909820906ed63b94f02"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-paging-fix-20261016.md",
+      "mode": "exact_file",
+      "sha256": "d47cbb0cc3eefb44d07358de827ffe1e58cbc382199c4b39891967d250aa228b"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-persistent-leaves-20261016.md",
+      "mode": "exact_file",
+      "sha256": "6e62ba3138e9e96224a365b94823a9ca283a80a6a1642d383d6a49fb0717092b"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-reader-plan-20261016.md",
+      "mode": "exact_file",
+      "sha256": "1e87d0a471368dc0c32fba1dc1bb6ae9373398252d3a92ecf79f6d21d3d36442"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-reading-fit-20261016.md",
+      "mode": "exact_file",
+      "sha256": "7509287856016969ac2ea86a82e9a189f726629c6874dd5723cf2775ffe810f3"
+    },
+    {
+      "path": "Docs/UI/alchemy-manual-usability-20261016.md",
+      "mode": "exact_file",
+      "sha256": "329a1541c9d472ec99d3bf4f4161e175e8a4adbd0c124e1db0f0056fad5267ec"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualArtwork.h",
+      "mode": "exact_file",
+      "sha256": "bfffea7ea3b9d66fedcf6ec3ea5e3df4f80ac055dde93e1d1970edee7f0a313b"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualComponent.cpp",
+      "mode": "exact_file",
+      "sha256": "d1e059bd67a8a87cd3a7b58663bdf1fa5ceb6b3741e5d33f87638ffab1d7e047"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualComponent.h",
+      "mode": "exact_file",
+      "sha256": "8a56e02f7eaf09f47484ddb47b206913710600b55ac509d51399d0403f8ebe17"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualGeometry.h",
+      "mode": "exact_file",
+      "sha256": "1c15b6439cb38123dfc486f45c465e910e9b48044e98255d8bf3be432088acc3"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyManualView.h",
+      "mode": "exact_file",
+      "sha256": "2c5e40226534995e3702583d767deec5a780583260954fd84f9d4d7af04b4b49"
+    },
+    {
+      "path": "Source/FPSGAME/Building/BookLeafComponent.cpp",
+      "mode": "exact_file",
+      "sha256": "ec2367b47abf635c39f6f14b214b3673c1369dc3aa0aa603432e0fa0dcb07f41"
+    },
+    {
+      "path": "Source/FPSGAME/Building/BookLeafComponent.h",
+      "mode": "exact_file",
+      "sha256": "ab2ab16004f94645834b78ab982c76fe5a9d5521e69d7e54fddc2ae2b5973ae1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualFlowAuditCommandlet.cpp",
+      "mode": "exact_file",
+      "sha256": "04b755d1b59d3882aca871757cb5ddbdb7103623ca4b4a3da852b29a0d69ab72"
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualFlowAuditCommandlet.h",
+      "mode": "exact_file",
+      "sha256": "b315a45050ae865e0d87f194912f4d03cef25db3e0950ac2819a1c5bcd8b0296"
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualLayout.cpp",
+      "mode": "exact_file",
+      "sha256": "e6c5f102c752d1c6aeba3f8196fe6592606ee490e3b94adb3adfce8e1d4d9fd9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualLayout.h",
+      "mode": "exact_file",
+      "sha256": "1a4185112456751d34b1a786dbdb762a2b236357960ce519c8036741ff9d7b1c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualNetAudit.cpp",
+      "mode": "exact_file",
+      "sha256": "7db29c97102df816287c9b32196991004ad455146066b090c976abee71a4d08d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/AlchemyManualNetAudit.h",
+      "mode": "exact_file",
+      "sha256": "d1a1fa4efcc2f7d7692b11a85549b53ca35e405f3d6177435842328fc8a235bb"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyBookPreview.cpp",
+      "mode": "exact_file",
+      "sha256": "4e88e3440d50c321dca6fb705a33e8e2ad9787cc7dc230e85a5eb457d34a1a7b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.cpp",
+      "mode": "exact_file",
+      "sha256": "ae12b6849bec4622876157570f12ea116221da5ad9810f41bae7f8ea49a6a469"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAlchemyBookWidget.h",
+      "mode": "exact_file",
+      "sha256": "6e8a929691a57a61ce7662ff003ed1f49d9692b2ab4ac494efe8164f0f382e8f"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/ATTRIBUTION.md",
+      "mode": "exact_file",
+      "sha256": "34eaabc6c601d089ca3978861cd521602bc069aacded950956f567b5b21ad225"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/author_binding.py",
+      "mode": "exact_file",
+      "sha256": "64df75537d897829da4a657439fd603bd14d3973643e330eca8c837e1ba00fd1"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/import.ps1",
+      "mode": "exact_file",
+      "sha256": "2407bcdca9632e4831e4c6106d9960b2d2eb67d38ebac40e0f2f624295607f06"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/import_binding.py",
+      "mode": "exact_file",
+      "sha256": "c2242982c2026cc049d2422e7271c53ed3e8494942b874e6531dd2047605847c"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/inspect_binding.py",
+      "mode": "exact_file",
+      "sha256": "f289c93f9e5db10230b8850c69ec2cf899a30b3ee3d21dcecb630843b4123b96"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/install_assets.py",
+      "mode": "exact_file",
+      "sha256": "0734594c2899563317153cc4b7a3f86a6943efa189b16a51f2eee16bab21bbca"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualBindingTangents20261016/repair_binding_uv.py",
+      "mode": "exact_file",
+      "sha256": "e960698bcaa1e374827820947c3d642160a88fb808d4354150c9f233b12a02c0"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualContinuousTurn20261016/author_bookmark_print.py",
+      "mode": "exact_file",
+      "sha256": "9c76eeee0f060071bccb51691b96d11d8a260d3da5a256a2d45f5c4838694846"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualContinuousTurn20261016/import.ps1",
+      "mode": "exact_file",
+      "sha256": "0ecc7a24860c6f29883d3bbe56fbe33641da8334dcfa4663ce09f6daab9b978e"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualContinuousTurn20261016/import_bookmarks.py",
+      "mode": "exact_file",
+      "sha256": "7d51b19e1aa7117023e5810c491ffe397acbc5fa4f97afd66f29758c5c05c71b"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualContinuousTurn20261016/install_assets.py",
+      "mode": "exact_file",
+      "sha256": "3ae2dd64682503bf8ff693edbe1d63c8cebbbf5e195f5ff399d01adcd5933af4"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/ATTRIBUTION.md",
+      "mode": "exact_file",
+      "sha256": "9ae895eb404a8d504b9c33dc8899b0c7146d490d3e9e5285bf2b3b1472b72009"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/author_fonts.py",
+      "mode": "exact_file",
+      "sha256": "bf3daa894300c68d7b6c88641f62fa3004967400bfb4f809a1ca11909a5ccd06"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/author_model.py",
+      "mode": "exact_file",
+      "sha256": "17b1ddddeb20322b46050316fc42c538f7e90b31e294d84d23ce6de85bd7ddfd"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/author_surfaces.py",
+      "mode": "exact_file",
+      "sha256": "2ff227da25d443572db2cb2ab2d3c796407f2c55217c5c82f357a6c465518775"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/import.ps1",
+      "mode": "exact_file",
+      "sha256": "61c5ad8ce1339abceffcdcc55092ba18cd6a19bcc4efce72b44eb80260df24f3"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/import_assets.py",
+      "mode": "exact_file",
+      "sha256": "e938aa4f1983b0979536cec6021ebfcb25c0de91f0e0c8b425386d08ec7405ed"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualFinePress20261016/install_assets.py",
+      "mode": "exact_file",
+      "sha256": "79b91798a3ea9f3decaa2bc133699a291fdd68688cf527dd69af02f565c0518d"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualLoadRepair20261016/read_assets.py",
+      "mode": "exact_file",
+      "sha256": "ab2ea45f7f5d904f719098d7d316c8ae7ded34c3a5173633c4f342e6f6a3f39b"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualLoadRepair20261016/repair_material_slots.py",
+      "mode": "exact_file",
+      "sha256": "2ebe310bcc209bb50216a7ecc1cc49dafc9399e379751b92d1810627c9f0da5a"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualLoadRepair20261016/save_headless.ps1",
+      "mode": "exact_file",
+      "sha256": "44d45194343bb45bca41130f653760711a0e0860e91c50872aab37913ae48551"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualNetworkAudit20261016/build.ps1",
+      "mode": "exact_file",
+      "sha256": "f8bb3407107604fe9687a8654b83a07c8a5a31c9e0bd33773f9133d751ac9cef"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualNetworkAudit20261016/run_audit.ps1",
+      "mode": "exact_file",
+      "sha256": "4331044260a5607f951a687829afea84dc1f2d7e4779bc1759d81d6494f5eb3f"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualNetworkAudit20261016/run_network.ps1",
+      "mode": "exact_file",
+      "sha256": "64951f68ed0889e68e7099329448e110e361c060f781d747935621dfe95851b8"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualPersistentLeaves20261016/ATTRIBUTION.md",
+      "mode": "exact_file",
+      "sha256": "bdc8dbf0aba412708713ed616a9d0e88ff8a72de35ebe5bb36d68fd3c6374576"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualPersistentLeaves20261016/author_model.py",
+      "mode": "exact_file",
+      "sha256": "d289a3025af5395fd325610468351ab01079c751afa61e46c36a490a12cb3268"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualPersistentLeaves20261016/import.ps1",
+      "mode": "exact_file",
+      "sha256": "d533b53056d7ea045b4ab50480895207b09e2bfb590df83396499941075dcff1"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualPersistentLeaves20261016/import_assets.py",
+      "mode": "exact_file",
+      "sha256": "3954f761473fdc607fd25714e7d563de1cf622918035a969dc9002d9ca430b62"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualPersistentLeaves20261016/install_assets.py",
+      "mode": "exact_file",
+      "sha256": "7e3295415b7e8921b4d05b088b0ced3ea93e093fab6b5da19e9b4db1ab6c3ab5"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualReadingFit20261016/author_bookmarks.py",
+      "mode": "exact_file",
+      "sha256": "48170231b8d127b76a68f2006e5c035c8335b1aa87bea011deb802657303ff62"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualReadingFit20261016/author_textiles.py",
+      "mode": "exact_file",
+      "sha256": "28785891982cfa8603070057698b939f287d0e244e737b79e6584093a0ead291"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualReadingFit20261016/import.ps1",
+      "mode": "exact_file",
+      "sha256": "d93c1b84a96a677285e7650a600f9e57a56a1a4162dcb9f91d99d083c05e22f6"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualReadingFit20261016/import_assets.py",
+      "mode": "exact_file",
+      "sha256": "5df87cba0ebceb92e379300ad1b4209e3182a6528da9a62e55dc624e29142829"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualReadingFit20261016/install_assets.py",
+      "mode": "exact_file",
+      "sha256": "6f9aef4c6d28d0e57af084f75fe6e0cad75742f085d27789cb5cddfee9793da4"
+    },
+    {
+      "path": "SourceAssets/AlchemyManualReadingFit20261016/read_host.py",
+      "mode": "exact_file",
+      "sha256": "4177ac6f86b27b253b522902f8b3f56c2d1fb4eda9d8d20cf633e34478318e15"
+    },
+    {
+      "path": "skills/asset-model-workflow/references/blender-hardsurface-checklist.md",
+      "mode": "exact_file",
+      "sha256": "80924cc3af11e5d1cdb3d8ea8676452c96e4d6e760ed9440bc456e4ca5593dcd"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/multiplayer-lifecycle-and-coverage.md",
+      "mode": "exact_file",
+      "sha256": "61db854682a2239eaa3e917e1ea7a67b48f760a0ec2e45f6015c4b64a23fa523"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/multi-process-runtime-evidence.md",
+      "mode": "exact_file",
+      "sha256": "f23b75cf4cfe7ea56bb08b5a7ab4830bc7439edf70cbcdbbbb62aebb287734fc"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/SKILL.md",
+      "mode": "exact_file",
+      "sha256": "a05a71d64328a2703abfd8b9fd67dcfb80b90833e291216ae5264a593da94023"
+    },
+    {
+      "path": "skills/ue5-ui-umg-slate/references/physical-book-reader.md",
+      "mode": "exact_file",
+      "sha256": "acfe1d7a613bb47b36f8179cf7160104eef6d9e737e810cca9798fa2377a2ecc"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "scoped_index_content",
+      "sha256_lf": "3cfa23f6c3f82221164b04f1b78501c48c5fea37ef1967cdfe57552e7801cdfd"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "mode": "scoped_index_content",
+      "sha256_lf": "ef7ddb4966fa1031086ab5e5e6b4b2f2a1d5be9e69b807ce779907808c8d1a03"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "mode": "scoped_index_content",
+      "sha256_lf": "81f1a983dabcea8654fe1364e332d8fdb7374928f9343fff45fb5b8a567d69c5"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "mode": "scoped_index_content",
+      "sha256_lf": "dc746d917106bf8f571322a4942d346a30aa253af46a111f76ef07d23661afe0"
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemySystem.cpp",
+      "mode": "scoped_index_content",
+      "sha256_lf": "1f06032f6fc12d5bafe2c0bc25cd65f423e8a9a00872aeebfc2985c49a0b6f84"
+    }
+  ]
+}

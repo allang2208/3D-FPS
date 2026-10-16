@@ -205,8 +205,17 @@ bool UColdSteelAlchemySystem::Acquire()
 }
 void UColdSteelAlchemySystem::Release()
 {
-    if(auto* B=Bench.Get();B&&B->HasAuthority()&&B->AlchemyPresentation().Operator==WorkingPawn.Get())
-        B->SetAlchemyPresentation(FAlchemyBenchState{});
+    if(auto* B=Bench.Get();B&&B->HasAuthority())
+    {
+        const auto& State=B->AlchemyPresentation();
+        const bool OwnsLiveOperator=WorkingPawn.IsValid()&&State.Operator==WorkingPawn.Get();
+        // Logout may destroy the pawn before this session is suspended. Its
+        // weak pointer is then empty, while the replicated bench still retains
+        // that dead operator. Match the paid batch only when no live owner is
+        // present, so a late cleanup cannot release a newly acquired bench.
+        const bool OwnsExpiredBatch=!IsValid(State.Operator)&&!Working.Id.IsEmpty()&&State.JobId==Working.Id;
+        if(OwnsLiveOperator||OwnsExpiredBatch)B->SetAlchemyPresentation(FAlchemyBenchState{});
+    }
 }
 bool UColdSteelAlchemySystem::Request(const FString& Operation,FName Id)
 {

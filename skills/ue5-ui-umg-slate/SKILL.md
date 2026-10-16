@@ -15,3 +15,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
 
 - 锻造/炼药成品预览、配方切换和异步进入状态，读取 [成品参数与准备提示](references/product-preview-readiness.md)。
+
+物理书本、纸面文字/图片、长按拖动与书签跳转，读取 [物理书本阅读器](references/physical-book-reader.md)。

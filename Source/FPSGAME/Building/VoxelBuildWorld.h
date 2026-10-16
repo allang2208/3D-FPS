@@ -49,6 +49,7 @@ UCLASS(BlueprintType)
 class FPSGAME_API AVoxelBuildWorld : public AActor
 {
     GENERATED_BODY()
+    friend class AAlchemyManualNetAuditGameMode;
 public:
     AVoxelBuildWorld();
     AVoxelBuildWorld(FVTableHelper& Helper);
