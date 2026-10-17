@@ -1007,6 +1007,290 @@
           "weight": 10
         }
       ]
+    },
+    {
+      "id": "staff_personal_locker",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 30
+        },
+        {
+          "id": "soda_can",
+          "weight": 20
+        },
+        {
+          "id": "bread",
+          "weight": 18
+        },
+        {
+          "id": "baguette_bread",
+          "weight": 8
+        },
+        {
+          "id": "search_usb_drive",
+          "weight": 12
+        },
+        {
+          "id": "search_private_perfume",
+          "weight": 7
+        },
+        {
+          "id": "search_portable_music_player",
+          "weight": 3
+        },
+        {
+          "id": "search_compact_camera",
+          "weight": 1
+        },
+        {
+          "id": "search_business_laptop",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "staff_changing_personal",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 40
+        },
+        {
+          "id": "soda_can",
+          "weight": 24
+        },
+        {
+          "id": "bread",
+          "weight": 14
+        },
+        {
+          "id": "search_usb_drive",
+          "weight": 12
+        },
+        {
+          "id": "search_private_perfume",
+          "weight": 7
+        },
+        {
+          "id": "search_portable_music_player",
+          "weight": 2
+        },
+        {
+          "id": "search_compact_camera",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "staff_bedside",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 26
+        },
+        {
+          "id": "soda_can",
+          "weight": 18
+        },
+        {
+          "id": "bread",
+          "weight": 18
+        },
+        {
+          "id": "search_usb_drive",
+          "weight": 20
+        },
+        {
+          "id": "search_private_perfume",
+          "weight": 10
+        },
+        {
+          "id": "search_portable_music_player",
+          "weight": 5
+        },
+        {
+          "id": "search_compact_camera",
+          "weight": 2
+        },
+        {
+          "id": "search_business_laptop",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "staff_documents",
+      "group": "documents",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 66
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 24
+        },
+        {
+          "id": "search_certified_admin_archive",
+          "weight": 8
+        },
+        {
+          "id": "search_encrypted_archive_case",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": "staff_personal_electronics",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "search_usb_drive",
+          "weight": 65
+        },
+        {
+          "id": "search_hard_disk",
+          "weight": 15
+        },
+        {
+          "id": "search_ssd",
+          "weight": 8
+        },
+        {
+          "id": "search_archive_tape",
+          "weight": 7
+        },
+        {
+          "id": "search_portable_music_player",
+          "weight": 3
+        },
+        {
+          "id": "search_compact_camera",
+          "weight": 1
+        },
+        {
+          "id": "search_business_laptop",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "staff_pantry",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 35
+        },
+        {
+          "id": "soda_can",
+          "weight": 30
+        },
+        {
+          "id": "bread",
+          "weight": 25
+        },
+        {
+          "id": "baguette_bread",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "staff_refrigerated",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "mineral_water",
+          "weight": 40
+        },
+        {
+          "id": "soda_can",
+          "weight": 30
+        },
+        {
+          "id": "raw_sausage",
+          "weight": 20
+        },
+        {
+          "id": "raw_chicken_leg",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "id": "staff_frozen",
+      "group": "daily_supplies",
+      "count_weights": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "id": "raw_sausage",
+          "weight": 35
+        },
+        {
+          "id": "raw_chicken_leg",
+          "weight": 35
+        },
+        {
+          "id": "raw_lamb_ribs",
+          "weight": 25
+        },
+        {
+          "id": "raw_large_lamb",
+          "weight": 5
+        }
+      ]
     }
   ],
   "bindings": [
@@ -2282,6 +2566,420 @@
       "pool": "incineration_maintenance",
       "module": "AbandonedFlueGasStation",
       "caption": "检修工具箱"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_101_0",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_101_1",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_102_0",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_102_1",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_103_0",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_103_1",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_104_0",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_104_1",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_105_0",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_105_1",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_106_0",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Locker_106_1",
+      "pool": "staff_personal_locker",
+      "module": "StaffDormitory",
+      "caption": "员工衣柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookcase_101",
+      "pool": "staff_documents",
+      "module": "StaffDormitory",
+      "caption": "员工书柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookshelf_101",
+      "pool": "staff_personal_electronics",
+      "module": "StaffDormitory",
+      "caption": "员工书架"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside0_101",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside1_101",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookcase_102",
+      "pool": "staff_documents",
+      "module": "StaffDormitory",
+      "caption": "员工书柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookshelf_102",
+      "pool": "staff_personal_electronics",
+      "module": "StaffDormitory",
+      "caption": "员工书架"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside0_102",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside1_102",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookcase_103",
+      "pool": "staff_documents",
+      "module": "StaffDormitory",
+      "caption": "员工书柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookshelf_103",
+      "pool": "staff_personal_electronics",
+      "module": "StaffDormitory",
+      "caption": "员工书架"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside0_103",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside1_103",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookcase_104",
+      "pool": "staff_documents",
+      "module": "StaffDormitory",
+      "caption": "员工书柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookshelf_104",
+      "pool": "staff_personal_electronics",
+      "module": "StaffDormitory",
+      "caption": "员工书架"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside0_104",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside1_104",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookcase_105",
+      "pool": "staff_documents",
+      "module": "StaffDormitory",
+      "caption": "员工书柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookshelf_105",
+      "pool": "staff_personal_electronics",
+      "module": "StaffDormitory",
+      "caption": "员工书架"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside0_105",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside1_105",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookcase_106",
+      "pool": "staff_documents",
+      "module": "StaffDormitory",
+      "caption": "员工书柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bookshelf_106",
+      "pool": "staff_personal_electronics",
+      "module": "StaffDormitory",
+      "caption": "员工书架"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside0_106",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffDormitory.Bedside1_106",
+      "pool": "staff_bedside",
+      "module": "StaffDormitory",
+      "caption": "床头柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_0",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_1",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_2",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_3",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_4",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_5",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_6",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_7",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_8",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_9",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_10",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_11",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_12",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_13",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_14",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_15",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_16",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_17",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_18",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_19",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_20",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_21",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_22",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffChangingShowers.ChangingLocker_23",
+      "pool": "staff_changing_personal",
+      "module": "StaffChangingShowers",
+      "caption": "员工更衣柜"
+    },
+    {
+      "container_id": "StaffRecreation.CounterCabinet_0",
+      "pool": "staff_pantry",
+      "module": "StaffRecreation",
+      "caption": "茶水台储物柜"
+    },
+    {
+      "container_id": "StaffRecreation.CounterCabinet_1",
+      "pool": "staff_pantry",
+      "module": "StaffRecreation",
+      "caption": "茶水台储物柜"
+    },
+    {
+      "container_id": "StaffRecreation.CounterCabinet_2",
+      "pool": "staff_pantry",
+      "module": "StaffRecreation",
+      "caption": "茶水台储物柜"
+    },
+    {
+      "container_id": "StaffRecreation.CounterCabinet_3",
+      "pool": "staff_pantry",
+      "module": "StaffRecreation",
+      "caption": "茶水台储物柜"
+    },
+    {
+      "container_id": "StaffRecreation.CounterCabinet_4",
+      "pool": "staff_pantry",
+      "module": "StaffRecreation",
+      "caption": "茶水台储物柜"
+    },
+    {
+      "container_id": "StaffRecreation.FridgeLower",
+      "pool": "staff_refrigerated",
+      "module": "StaffRecreation",
+      "caption": "冰箱冷藏室"
+    },
+    {
+      "container_id": "StaffRecreation.FridgeUpper",
+      "pool": "staff_frozen",
+      "module": "StaffRecreation",
+      "caption": "冰箱冷冻室"
+    },
+    {
+      "container_id": "Hospital.Drainage.Tools.Entry",
+      "pool": "research_maintenance",
+      "module": "Drainage",
+      "caption": "排水检修工具箱 · 入口"
+    },
+    {
+      "container_id": "Hospital.Drainage.Tools.Service",
+      "pool": "research_maintenance",
+      "module": "Drainage",
+      "caption": "排水检修工具箱 · 检修位置"
     }
   ]
 }

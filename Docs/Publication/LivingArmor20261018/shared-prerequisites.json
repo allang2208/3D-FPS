@@ -1,0 +1,281 @@
+{
+  "repository_head": "b99fd4162437665a372ffdb0aa77da543d86cfa1",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "baseline_sha256_lf_utf8": "b52735762d3ed43bd7fd4e732c930929ba9d976440d4fe5de4042c43c6e6a622",
+      "result_sha256_lf_utf8": "282d76c27b25068dd33e4cad898e3e699b166e4bc34bb76be56ea7b10c71a278",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "baseline_sha256_lf_utf8": "8053a490a48488fb0c7748080157b8fc2b54da9784c10696296a0ed0ba963cfc",
+      "result_sha256_lf_utf8": "c176332c046c22cd0b2226775ac8b6eb8b9d49da84f09ab54abfba1a5ac384f9",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "baseline_sha256_lf_utf8": "927c40afe3918216eb29a99346cda4e8f15b10d255a14bb63ea709e9ddd4a93f",
+      "result_sha256_lf_utf8": "c2e6e7a49f62a3e11c771d6aad2b3b9f21c5768f7f59d7323f07dacf2c1e0e6e",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "baseline_sha256_lf_utf8": "024fe4edad74536d74833d1129ae79b5e4d538b0e5f4763b6e72df2a95dca5bb",
+      "result_sha256_lf_utf8": "0fd41888d291dfc71117fd4aa6f78fd455867c6fb1b94d3c804c065d2be67651",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "baseline_sha256_lf_utf8": "573abd4af87ad33d5f6a36ae849b308bf32af6ed5fce3bd881e0315f17d06c24",
+      "result_sha256_lf_utf8": "dc8823550d708955b6d128cc4aa13ff2c7e94e5d37c6f82e366f40834bea483d",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "baseline_sha256_lf_utf8": "aa91144b69b4bb56f87885e5dde68c8c0a07389fcab19a6f4d2ad526b36e3a0c",
+      "result_sha256_lf_utf8": "c294dd3c404f3a2b8a9dddd172d577162318dc9d279f3e436bc620a973aea177",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "baseline_sha256_lf_utf8": "66a833627e75c9708ad4e8b5a8d14f6af4956e0ee1d1a1e7ceee5cb8fcfdf61b",
+      "result_sha256_lf_utf8": "d673a5245db932465435ef03e9d85e03df3de25c2aec850375abdaf262c284c7",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "baseline_sha256_lf_utf8": "a514d47d30cf19e94fa479cc2b7c6e83a0c5ebb5ade57733dae453784314d331",
+      "result_sha256_lf_utf8": "fac03a7d44e393b23bdbdcba48e13ec8c31c27046d4eda26fe3505f4a6476108",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp",
+      "baseline_sha256_lf_utf8": "9a2d2de31e70909be8769a24997622c8a718045a4965073a0e2be0a54ec0d1ee",
+      "result_sha256_lf_utf8": "78feaca33e8d2060ef404e5306adf71e5005e44a57aea9cc2e9f200219e32120",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ColdSteelDevelopmentTuning.cpp",
+      "baseline_sha256_lf_utf8": "58ddade0da656f62066b42775815311fe335ecde41be71da44a578771d97250e",
+      "result_sha256_lf_utf8": "2f6fbbd4aa090ce66d86d4b80d0b2f44d59d4a19e3f2221fc2b7a6356aafefb9",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "baseline_sha256_lf_utf8": "dd5ce1f61491bcb54a2b29f2ce63318606ffecca2d9a89681ce8be818bdaeb40",
+      "result_sha256_lf_utf8": "f2eed70f9aa461ac6f472653b863568541308640f4f41514f7131ec3c38aa943",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "baseline_sha256_lf_utf8": "e3ace53c7cb91ac28bfb500f097f49aa3d1a97635f8781a4362768b1d0fbcc95",
+      "result_sha256_lf_utf8": "4d3a83f43d4ffccb867a35899b0e77902d37e5ca3884ec78aa0b0f9e9f9dc9b9",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "baseline_sha256_lf_utf8": "148c7b731ef475bec08f4b9db3964f5b65e75cf313a4df9705aa3f5fb9b038a3",
+      "result_sha256_lf_utf8": "619cc954908ce441b6ab850ad2c4d9a611a5f06640cebe5eea364fda0c9578ff",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline_sha256_lf_utf8": "b4f526be6d1d409ff495fbf1af48c7e2442ac6a8002d98b1a1a3419196730e58",
+      "result_sha256_lf_utf8": "fa2b2af9beed0b175d8b0117568578b585eb4d0bc22dee118b4ed913eed4aec7",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline_sha256_lf_utf8": "7cec1ae7771f1c4a4cdd1c1a3bd1819e07d1fc0c373484e1ee46a389ce9559c3",
+      "result_sha256_lf_utf8": "2ea5a4e7c41b0dc88ed1f75cde9bd53e629d4018db5593f115863342e2317f5a",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "baseline_sha256_lf_utf8": "93e8a004bcf08bf9a3909a4492bf37ed9da755aec5b18f0ec14bebf4a257ac4e",
+      "result_sha256_lf_utf8": "2fe03f4f0581d53c9220f15b9ded8dbf4639c5aed41af0fafb2e8cf7e3ac0068",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "baseline_sha256_lf_utf8": "c988620e3b8b1adb2e5763609299c8fa1ab4857d6a8a0e4b04fa9fc9ec9db052",
+      "result_sha256_lf_utf8": "1d728df21f38925c48ca05149698009b8a072696ded7f1af9a6fda04f9ea3efb",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "baseline_sha256_lf_utf8": "56585ac4398baf2617d8d9bea1724cd984ec5b14c75a31c6452f27d86df050e1",
+      "result_sha256_lf_utf8": "49ab6ebae449573dafea8c2f59dd5ed61115ece4f1e43394023d8fa99657319c",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "baseline_sha256_lf_utf8": "86e927fbd15006bc95122c54b9147ec80c417000c459f678f54f5cbb4d36c80e",
+      "result_sha256_lf_utf8": "e17b2b261100c766afcc075d84942bd9e6d3db6e61d0a50069cf9e8996a2871e",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "baseline_sha256_lf_utf8": "50199dc32340aaae8241495c0127b4062a34bdeef486aba7b4bcae3a94045a96",
+      "result_sha256_lf_utf8": "e350d11621f151bc0a54b2382aeddaa4e55fbc240e8ebb47e9ba9e15ec01db70",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "baseline_sha256_lf_utf8": "d644644dc8b499003b886dc7b9b78efe3aa7aab4282624fc544beba42061af0b",
+      "result_sha256_lf_utf8": "ad01a2d90421b2df68e11d1d07d2d60c55b64539baeaa330c5aecb7ac5ee97a3",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "baseline_sha256_lf_utf8": "2054d52735f6410474b7908a7cfb4a1461ccdf6f27ba73c7667a8534ddba431e",
+      "result_sha256_lf_utf8": "6f4c3f7191881af09c507c23b3838c0053836d7398b20e7f25327e66d729800a",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+      "baseline_sha256_lf_utf8": "59859d84be8c26b34cb769147fc12b5890092181508e1c4bf1db9178d70342ab",
+      "result_sha256_lf_utf8": "832a46499b1a0409f7cd9c17f02fe32c36873ee628c1592a94e9f81466f92043",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "baseline_sha256_lf_utf8": "087e8a5393e5b0e1c14a4aa8573abc997179d62ae5b93fff518f9d0de40c7cf3",
+      "result_sha256_lf_utf8": "ffd31494b576f00e17ebd683d6cf63391803426be8ab544f32b48a83d990001a",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "baseline_sha256_lf_utf8": "842c3e731a5d54090f5507aa0dd35726bcb918ff99902ba80fdd9d03727d63e9",
+      "result_sha256_lf_utf8": "1797367f92d900d866a4a708b97594c2469f8a5bd005a69de725f78e7d2fb853",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "baseline_sha256_lf_utf8": "20a9f03a767b53bc6185a3ed0c91c64e39090efb43992430aea9f15d46444de6",
+      "result_sha256_lf_utf8": "dd9f0dd90ba6368399f8f56d777180252769782df433c65833846100febb891e",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireMagicTypes.h",
+      "baseline_sha256_lf_utf8": "de6229861cd654ec48ace20cfc29393202329efee75694ae45807247b3de4435",
+      "result_sha256_lf_utf8": "7fcfa8f7f3cdaf9dde9fb4053e355b7364e2ad81168539c81052fb6b84d88785",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "baseline_sha256_lf_utf8": "23932feefd84f24127a43a108c473e84d176cffe99411c84b9e047bdf9564ccc",
+      "result_sha256_lf_utf8": "1738a5749ba3b547cd5a0fb527cca0c7a76216ad7c877234e46489298c4b8136",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "baseline_sha256_lf_utf8": "3f95f256c4b859f3d38066b122db78beddb5ce66dd14e58719937c586f2aa0f5",
+      "result_sha256_lf_utf8": "f85de7220a3fc6b087a3c1df339dbaad14aff3b081e64fc334e1f2afcdb68d86",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "baseline_sha256_lf_utf8": "376c006442c2e8cd734da6400a29e62681f3143134a7cff7eb8879d8b1dbec5b",
+      "result_sha256_lf_utf8": "85aafe993e571a8e7f557a7f169cd0aad071fa907f2d3c3e147f68d335ae6e2e",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "baseline_sha256_lf_utf8": "8726736d60d0adfcadfa07935fac987903906957d0d279290b76c293559806c7",
+      "result_sha256_lf_utf8": "8a43f344208fd96bc88ed2932a658ac05a52a104b33c072702c1f044806a176a",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "baseline_sha256_lf_utf8": "1461307eb13b085d4e1f8b3fdaaae57cf244fa3e83d69bba7cd74b0e0e538eaf",
+      "result_sha256_lf_utf8": "2b343412b6910a2d1fd752bbeb82289b0d54791599145fe2a7673283de283e61",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "baseline_sha256_lf_utf8": "f94797eda8494c5711915da533fb7287d60c9226146ef1c775d5ff5ddbf58237",
+      "result_sha256_lf_utf8": "1e09255fb804c646a19a94e63e431f17d139c5d616007a0b0be73264e13dbe1d",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMagicQuickCast.cpp",
+      "baseline_sha256_lf_utf8": "0a892f737250c1af12f382d90e0e81a79be778c38c0d6c6e2dec7acc545d1b9a",
+      "result_sha256_lf_utf8": "123ad677399acd1e81c9c7dcf93ff8391b00a7a462c86288154dc5e2e3e13321",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "baseline_sha256_lf_utf8": "5c17ea06dff522141ce6b71971ca72fb9f472369cdcb2c82782549b71b9cdaf6",
+      "result_sha256_lf_utf8": "abb9d4e886cf5640296e1ebfe16da531971d6f4e146919dda495c4a00d125f0a",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRecovery.h",
+      "baseline_sha256_lf_utf8": "a32d00be35e31a885f71cb68a9149f3e8378d2da5a53fdd9738a664178999d83",
+      "result_sha256_lf_utf8": "99dc49b0c16deb25d5a1e85298c57fb641f7e1fbf11693598f29a8dc8a3c82b9",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "baseline_sha256_lf_utf8": "a705f1b74d9da20f589d32a4f99e9735c77ab2a1a1509b6c018d1fc83e4bb49c",
+      "result_sha256_lf_utf8": "e2d89c77498d20d610e51252ba9b3a53039e8fa914094d38f2108ee81d2630a9",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "baseline_sha256_lf_utf8": "734800aa162287e411568d7a8a56152014107404bcfa39286e9afe78da449147",
+      "result_sha256_lf_utf8": "cf58fee90351c33a5105e0bd68dc62c08ecb0cbac4fb64e25aa023e39416a02c",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "baseline_sha256_lf_utf8": "73bba14593e5a8029c7f4d27017c81defc79fb24dc308a8ec85c33265bdcec1a",
+      "result_sha256_lf_utf8": "91882ff9acf9a972d9489a11ed3ed28f04864f15bead8996f7b5643847a5f260",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "baseline_sha256_lf_utf8": "693d6ad5b617c371c4953cfd20dc6c77b6a08bee7673ecbfcb1866041ce4c61b",
+      "result_sha256_lf_utf8": "55ef252eee1ab6cf7d468b285bb4baad777b536de3dbc6d4219d8d77839562bb",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "baseline_sha256_lf_utf8": "b8340c56974e9ace163cb3215a017764c63f6734fb26ff682f23bbd8b3a06805",
+      "result_sha256_lf_utf8": "51f702e5b2e71a15e56a1e8e8f908b33b96c6d6b9ccd7e7e620e37a6bf3ae832",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "baseline_sha256_lf_utf8": "aaa9829c1a2f2263816b3cefe96ea3cb01c3927e16ff4a0c9dec1ab571547803",
+      "result_sha256_lf_utf8": "6dc62ff1c4ad571c20b33f976b288b149c0c459b09505194e059047669ce7533",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline_sha256_lf_utf8": "39a19a521cc5db9647baf11c89a29040554377b697f8b638b6d99e8484211b57",
+      "result_sha256_lf_utf8": "33c73d78e21b3e1e21c4aac194621c817e9ff2a946ba7190e292cbe51d141546",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "baseline_sha256_lf_utf8": "361b72f1d8fb3c83b30374896569e9d7d88a3baa5b6ce121864eaa56709dbf51",
+      "result_sha256_lf_utf8": "12292382173d5f2c35266bff33dcaeafbaacb267de72896978de90edfc6f487b",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "baseline_sha256_lf_utf8": "22894195c4c27778afe266224362df736156e51abe04a5d94ec2ca3642ecb5af",
+      "result_sha256_lf_utf8": "1591b9b19fcbda15b355732c63bb1dc683140e3c00894d6d2f5852f62e5f3e33",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "baseline_sha256_lf_utf8": "0b680deeb8e13819be12c0260ffabe4f6c2e76c766c4e909ae5cb8d389b89d9d",
+      "result_sha256_lf_utf8": "b25b9e606629e16c4ecc35550bc3c832d805a374ec874457be142a4b77037f13",
+      "baseline": "local current file with only identified conversation edits reversed; other parallel changes are prerequisites"
+    }
+  ]
+}

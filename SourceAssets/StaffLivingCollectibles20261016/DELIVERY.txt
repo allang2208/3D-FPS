@@ -1,0 +1,25 @@
+生活区收集品｜正式接入状态
+
+四件非装备收集品已登记到 items.json：
+  珍藏香水：1×2，稀有，回收 900 灵魂。
+  便携音乐播放器：1×2，稀有，回收 1200 灵魂。
+  袖珍数码相机：2×2，史诗，回收 2400 灵魂。
+  商务笔记本电脑：3×2，史诗，回收 3600 灵魂。
+
+生活区 67 个入口已绑定 8 类搜索池：衣柜 12、更衣柜 24、床头柜 12、书柜 6、书架 6、茶水柜 5、冷藏室 1、冷冻室 1。首次固定生成 1 件；具体内容与百分比见 GAMEPLAY-INTEGRATION.txt 和 loot_plan.active.json。
+只投放收集品、资料、食品及饮水，不投放衣服、鞋、手套、背包或其他装备。独立宝箱、其他地区、首领与闸门没有改动。
+
+源码：ColdSteelPickupConsumable.cpp 已接四件世界模型，ColdSteelSceneLoot.cpp 既有测试数量预期同步更新，但未运行测试。Config/DefaultGame.ini 已添加 V1/V2 Cook 目录。现有共享库存、首次生成和已领取状态逻辑保留。
+相机背面 MENU/DISP/播放文字方向已修正。重新导出并后台保存 V2 网格，活动路径为 /Game/Items/StaffLivingCollectibles20261016/V2/Meshes/SM_Living_CompactCamera；复用 V1 材质。其余三件与笔记本闭合备用版仍用 V1。源模型、FBX/GLB 及相机图标已更新。
+
+构建状态：
+  常规 Editor 构建等待既有 UBT 后，遇到已打开的项目编辑器而未执行覆盖；保留该编辑器。
+  现有编辑器 LiveCoding 编译桥返回 NoChanges；本任务没有生成新的热补丁，亦未把该返回当成基础 DLL 构建回执。
+  Game 目标构建失败（exit 6）。失败源为本轮未修改的炼金手册函数签名不一致：ColdSteelAlchemyBookWidget.cpp:112 与 ColdSteelAlchemyWidget.cpp:273。该组文件在构建期间有继续修改，本任务保留现场，不覆盖其实现。
+  当前交付为源码、正式配置、已保存资产；完整 Game 构建尚未完成，不宣称游戏/联机已验收。
+
+后续构建入口：Scripts/build_integration.ps1（项目编辑器退出后）；仅 Game 构建为 Scripts/build_game_only.ps1。
+配置按进程缓存，完整构建完成后重新启动读取。已生成、取空或保存的柜内结果不会重抽；新运行使用新的运行与领取状态。
+
+文件：Authored 保存可编辑母版，Export 保存 FBX/GLB；model_manifest.json 和 delivery.json 记录活动路径；item_definitions.json 为已安装物品；loot_plan.active.json 为已安装搜索池。*.proposed.json 保留为前期方案，不再是活动配置。
+必要构建和资产回执在 Receipts；未启动交互编辑器、游戏、PIE、自动化或主客机测试。本轮只渲染更新的生产图标，没有追加验收截图。

@@ -1,0 +1,16 @@
+{
+  "scope": "Publication-only review; no new gameplay/build/visual/network tests",
+  "staged_files_before_review_receipt": 126,
+  "staged_diff_bytes": 907867,
+  "whitespace_check_exit_code": 0,
+  "recognized_secret_patterns_found": [],
+  "unapproved_binary_or_large_files": 0,
+  "shared_patches_replayed_to_recorded_result": 46,
+  "loot_changes": {
+    "pools": 8,
+    "bindings": 69
+  },
+  "source_licensing": "Only original code/recipes/data/text and hashes selected; proprietary asset packages and dense exports remain local.",
+  "git_base": "b99fd4162437665a372ffdb0aa77da543d86cfa1",
+  "additional_reviewed_delta": "Ice armour status icon mapping and snowflake accent; unrelated exhaustion icon not staged."
+}

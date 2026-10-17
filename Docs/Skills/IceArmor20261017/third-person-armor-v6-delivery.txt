@@ -1,0 +1,43 @@
+坚冰铠甲：第三人称厚冰铠甲 V6
+制作参考：SourceAssets/IceArmor20261017/ThirdPersonDesignV6/ice-armour-third-person-v2.png
+
+模型与装备适配
+新增开放式头盔、整片曲面胸背甲、三段腹甲、腰背护片、肩甲、上臂甲、护腕、髋侧甲、大腿前后甲、护膝、胫甲、后侧护片及脚背甲。
+每块冰甲有内壁、外表面与封闭厚边，主体厚度约 1.6–3 cm，胸肩约 3 cm，沿实际身体/衣物表面预留约 1–1.5 cm 间隙；头盔额外预留头皮/短发空间。
+头盔脸部开口为真实几何留空；腋下、肘窝、膝窝、裆部及手指保留动作空间。脚背甲止于脚趾关节之前。
+身体、头部及骨架取 Jason；衣物参考现有毛衣、锁甲、手套、钢手套、裤装、皮靴及铠甲靴源文件。
+运行时四组蒙皮：躯干、双臂、双腿和头盔，共用人物骨骼姿态。
+制作组合为 3 套躯干、9 套上衣/手套组合、9 套裤装/鞋靴组合、1 套头盔，共 22 个骨骼网格；运行时按装备选取四组，不同时显示全部版本。
+四组最高精度源几何合计 14,656 个三角形、7,390 个位置点；这是制作几何量，不代表实测帧率或包含所有渲染通道的提交次数。
+修正旧实现把鞋靴槽 13 当作裤装槽的问题：裤装改读槽 15，鞋靴仍读槽 13；手套槽 3、上衣槽 7。
+背包遮罩按当前已适配的背包及肩带几何烘入 UV1；装备背包时只对接触区域隐去冰甲，保留周围背甲。运行时识别静态与骨骼背包。
+长袍/长外套继续沿用大腿护甲让位逻辑；新增装备和发型需要按实际轮廓继续适配。
+
+材质与表现
+独立材质 /Game/Skills/IceArmor20261017/ThirdPersonV6/M_IceArmorV6_World。
+透明蓝冰芯、宽磨砂霜边、三层视差裂纹、两层稀疏气泡、冰内厚度吸收、局部粗糙度和低强度冰缘亮度。
+沿用项目已有裂纹、冰纹和法线素材；细节 UV 按各部位实际尺寸调整，避免所有护甲使用同一拉伸图案。
+第三人称开启正常深度测试，使用单面闭合网格与轻微折射；不使用镜头头盔的禁用深度设置。
+默认参数：CoreOpacity=.34，FrostOpacity=.52，InternalDepth=.035，CrackContrast=.90，BubbleDensity=.055，NormalStrength=.22，RimGlow=.09，IceRefraction=1.015。
+继续共用技能时钟的凝结、2 秒脉冲、局部受击裂纹和结束消散；技能数值、经验、存档与复制合同不改。
+第一人称继续使用已认可的 HelmetV5。第三人称与远端角色使用 V6 四组网格；专用服务器不创建视觉组件。
+头盔采用自己的骨骼网格边界，避免沿用去头身体的边界造成头部过早剔除。
+
+制作入口
+Tools/Skills/author_ice_armor_v6.py
+Tools/Skills/import_ice_armor_v6.py
+SourceAssets/IceArmor20261017/ThirdPersonV6/IceArmorThirdPersonV6.blend
+SourceAssets/IceArmor20261017/ThirdPersonV6/geometry-manifest.json
+SourceAssets/IceArmor20261017/ThirdPersonV6/install.ps1
+SourceAssets/IceArmor20261017/ThirdPersonV6/build.ps1
+SourceAssets/IceArmor20261017/ThirdPersonV6/assets-saved.json
+SourceAssets/IceArmor20261017/ThirdPersonV6/import.log
+SourceAssets/IceArmor20261017/ThirdPersonV6/build-receipt.json
+SourceAssets/IceArmor20261017/ThirdPersonV6/build-FPSGAMEEditor.log
+SourceAssets/IceArmor20261017/ThirdPersonV6/build-FPSGAME.log
+
+交付状态
+模型及可编辑 Blender 源已生成；源码接入已完成。
+后台 commandlet 已完成必要材质编译、22 个骨骼网格的构建和保存，返回码 0；共 23 个 uasset 已实际保存。
+FPSGAMEEditor 与 FPSGAME 的 Win64 Development 正式构建均成功。复用本轮共享工程构建，其日志均包含 IceArmorPresentation.cpp 编译记录，构建启动晚于两份接入源码的修改时间；原始日志、源码时间与散列记入 build-receipt.json，未重复启动相同构建。
+按用户规则未进行运行、视觉、动画动作或联机测试；最终外观和动作贴合由用户测试。

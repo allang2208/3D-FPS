@@ -1,0 +1,767 @@
+{
+  "hash_format": "SHA-256 of the exact staged Git blob; excludes this manifest to avoid recursion.",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "publication": "prepared-index",
+      "git_blob_sha256": "78498c1e61bc22f8a0d06e7c783895e14772f9808b02e1897a1b049b0fcea3ea",
+      "bytes": 930
+    },
+    {
+      "path": ".gitignore",
+      "publication": "prepared-index",
+      "git_blob_sha256": "b58278ace4f1030d2040fc01ae00029258fb704a71145357b66b863fa5645d42",
+      "bytes": 252237
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "publication": "prepared-index",
+      "git_blob_sha256": "74d55544c1a8a7aca05f12622c89206e04ecc28540feab9d8a5eaf09adee0fc7",
+      "bytes": 24905
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "publication": "prepared-index",
+      "git_blob_sha256": "ab49910ce12e62f27a142338935b3aa7783c4131d322c8df774d9400259f96f1",
+      "bytes": 167602
+    },
+    {
+      "path": "Content/ColdSteelData/scene_search_loot.json",
+      "publication": "prepared-index",
+      "git_blob_sha256": "524e7aa20bf6bee3a3021151bc27a5da779a2f262d2a56dc03028fe62ba824f6",
+      "bytes": 77227
+    },
+    {
+      "path": "Content/ColdSteelData/skills.json",
+      "publication": "prepared-index",
+      "git_blob_sha256": "c26cfb236f838c28c3208b7fa96fc60992d2cbbf9d9bef0a7086646e9fe1bf2d",
+      "bytes": 27766
+    },
+    {
+      "path": "Content/ColdSteelData/status_effects.json",
+      "publication": "prepared-index",
+      "git_blob_sha256": "69dc505f17ada231870a5eb30aa4a0cac390cf1071d83df4b8604e829350609a",
+      "bytes": 38460
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "publication": "prepared-index",
+      "git_blob_sha256": "708b425ae8944ac738ee631bed773e6604f2bfc032949ece855f3e7897ecb23e",
+      "bytes": 120896
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/README.md",
+      "publication": "file",
+      "git_blob_sha256": "37424c3b3feccc2270b58939408b439d4cbc0660b0c2a9e259a56f7eb8b636f8",
+      "bytes": 7986
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/archive-plan.json",
+      "publication": "file",
+      "git_blob_sha256": "e72c232fceada8656bafc045ba9df88ee9c685b4f54cc52361f5a4b809d546e4",
+      "bytes": 74430
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/archive-receipt.json",
+      "publication": "file",
+      "git_blob_sha256": "99891bd9403d7a1b3d7667d718291dda0200d74a21374117c942accf81f08367",
+      "bytes": 212
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/local-inputs.json",
+      "publication": "file",
+      "git_blob_sha256": "63eddcc2a2497bf955495805dcdf5065e3240de1c46afe576fa6e006d2945890",
+      "bytes": 73377
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/publication-review.json",
+      "publication": "file",
+      "git_blob_sha256": "8459aee5d1e099d326df32f92170c7d0854b8df75443c44e748c7b867d1d68b2",
+      "bytes": 716
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/shared-integration.patch",
+      "publication": "file",
+      "git_blob_sha256": "bf357da0ff34cd2ce9df56417b54f86de523a1baeb1c072f9218c76ef3ac1b2a",
+      "bytes": 127198
+    },
+    {
+      "path": "Docs/Publication/LivingArmor20261018/shared-prerequisites.json",
+      "publication": "file",
+      "git_blob_sha256": "1522e30b3ff98aa34e1ec34a2e340b922fed9294b0e6be137f4a086d3c7d3082",
+      "bytes": 18821
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/coverage.json",
+      "publication": "file",
+      "git_blob_sha256": "43f5eef3782a8e392463587623453a8a9f16140d0b4d5f73297e3a4956fb67a0",
+      "bytes": 8139
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/fire-ring-v4-production.txt",
+      "publication": "file",
+      "git_blob_sha256": "5d7f5d96d3b599b1a792c2c4caedbe4a1cac94ef7d5f3729cea3cc1797ef25c6",
+      "bytes": 2590
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/fire-ring-v5-visibility.txt",
+      "publication": "file",
+      "git_blob_sha256": "04cedbce17bcd5287457bf843a7ec9c8307cc7376dad536c9ed10c3033b57123",
+      "bytes": 3301
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/fireball-v3-production.txt",
+      "publication": "file",
+      "git_blob_sha256": "317ca7195382910d69d9274ad84855c8ad852c8a10d988b1eb626af88215e556",
+      "bytes": 3843
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/hammer-attachment-build.txt",
+      "publication": "file",
+      "git_blob_sha256": "98d20fb023ac95d649c26edae9d01d6614b246c149513fce5ce7658a109600ff",
+      "bytes": 1458
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/network-audit-20261017.txt",
+      "publication": "file",
+      "git_blob_sha256": "c4ebea51303dbb5807a462b3cd9028bd1cfae2646d3fda1ddd0dbfbef9b37743",
+      "bytes": 5233
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/ring-and-weapon-only-20261017.txt",
+      "publication": "file",
+      "git_blob_sha256": "087df56a5eb5db95c721e664575f43a10e789c2eff29e4cf2f24572e9d06196d",
+      "bytes": 882
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/stats-audit-20261017.txt",
+      "publication": "file",
+      "git_blob_sha256": "f8c2cc499a9e5e41cf90d27dc2e03011448857402ee7ab13e3dfedaa501f4c6b",
+      "bytes": 5710
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/torch-v2-production.txt",
+      "publication": "file",
+      "git_blob_sha256": "622c32d96a60088936f776c91963fb1abafcb4b031f0f1e5662a02ce47b28ec5",
+      "bytes": 4120
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/upgrade-plan.txt",
+      "publication": "file",
+      "git_blob_sha256": "19e20ccb7ba0a8415780a5068441f8bcdd7c1dc4c372c9ca2c95b48f86ae2dc9",
+      "bytes": 8153
+    },
+    {
+      "path": "Docs/Skills/FlameArmor20261016/visibility-fix.txt",
+      "publication": "file",
+      "git_blob_sha256": "a64fb6acc14688f823842b8e7c00750ad0effcdaf6c453403892a41778ed2012",
+      "bytes": 4605
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/crystal-v2-delivery.txt",
+      "publication": "file",
+      "git_blob_sha256": "a6ed904af9a53382d31058b6790fa2e395087ca023b41fc4649d49f5035d7504",
+      "bytes": 3995
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/design-and-delivery.txt",
+      "publication": "file",
+      "git_blob_sha256": "0785c22d570daba491b9b1135cca1cd014a198c1e59f3f04b2891e6c8aedb014",
+      "bytes": 5814
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/first-person-helmet-v5-delivery.txt",
+      "publication": "file",
+      "git_blob_sha256": "9aeca71d11b09ad493e1202d204e1778aa339a13444ccf8ea279fad1b2b332ec",
+      "bytes": 3981
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/network-review-20261018.txt",
+      "publication": "file",
+      "git_blob_sha256": "47d9442f14a8678823713a9aa7bcd3d7ea91b6b800be2478eceff0d99b65bdf4",
+      "bytes": 5198
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/runtime-visibility-v4-fix.txt",
+      "publication": "file",
+      "git_blob_sha256": "0f3a53a1a03aa74788a306b93b8a7c0c73c40bcdf9dbac61ad30130fa72f3219",
+      "bytes": 2739
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/third-person-armor-v6-delivery.txt",
+      "publication": "file",
+      "git_blob_sha256": "a78b49f726e49f4b2fac3ddd17a9b9ef9cca6735de4737dcfeed27ae485c4f72",
+      "bytes": 4034
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/upgrade-v2-plan.txt",
+      "publication": "file",
+      "git_blob_sha256": "d73ede49e1e86bcc6116c2a3b90874a3657bab4fd1c4e56f8d99b3fdb19bde49",
+      "bytes": 5717
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/visibility-fix.txt",
+      "publication": "file",
+      "git_blob_sha256": "3b1856b215de92816dbf68a14d613894e882b56d05b1167370deef9e7678548d",
+      "bytes": 1980
+    },
+    {
+      "path": "Docs/Skills/IceArmor20261017/visibility-v3-fix.txt",
+      "publication": "file",
+      "git_blob_sha256": "4546e445a42d85d9883f723f7facfd5e045a52114ba6f0a2bd7cfaaf9538fe89",
+      "bytes": 3393
+    },
+    {
+      "path": "Docs/Weapons/warhammer-left-cast-arm-fix-20261017.txt",
+      "publication": "file",
+      "git_blob_sha256": "f7e728acedd6f4d33e2178911a754347ea5c2b0e558d7ffa433ce20638185272",
+      "bytes": 2939
+    },
+    {
+      "path": "Docs/Weapons/warhammer-left-cast-direction-fix-20261017.txt",
+      "publication": "file",
+      "git_blob_sha256": "31f6af65a16cf6f023862b80f7dc731ad459daab98570d3cb5dde7699ab08657",
+      "bytes": 4144
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHammerCastPose.inl",
+      "publication": "file",
+      "git_blob_sha256": "e5df7c4488a2d702e2bf3612216149386f111d21272a3275bed5010eaad87eb3",
+      "bytes": 10131
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerHammerCastDiagnosis.cpp",
+      "publication": "file",
+      "git_blob_sha256": "7808806615f9e9a0b1df0939660869512503666cacb393675346f16787f9d165",
+      "bytes": 7764
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceArmorModel.cpp",
+      "publication": "file",
+      "git_blob_sha256": "25b52a1a909dc0f1b4688727b57ffd71043ec72028fa7a202a674fff646dc763",
+      "bytes": 2660
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+      "publication": "file",
+      "git_blob_sha256": "87c797d540b252837b2b19c16ed732c546bfe421210995edf019b6f5b756b895",
+      "bytes": 7117
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceArmorComponent.cpp",
+      "publication": "file",
+      "git_blob_sha256": "47e8a025b2fb9511fdd5a3d545f4189bff4b2b3639ec7306a475f770814b938c",
+      "bytes": 14586
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSIceArmorComponent.h",
+      "publication": "file",
+      "git_blob_sha256": "8e080f50921067c5c01f987239e05465d4ae4ea0b3603457c9afc327c0d0b94a",
+      "bytes": 4655
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorAssets.h",
+      "publication": "file",
+      "git_blob_sha256": "a6658b2da4f2d86c5553ccf997a693cce97175630b6707f2ebc22d9c74f7190e",
+      "bytes": 451
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorAttachments.cpp",
+      "publication": "file",
+      "git_blob_sha256": "b451ad50d1612a4234ceac9282340080e135a187bd224f62e12c4df6ec0d2bfe",
+      "bytes": 15634
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorAttachments.h",
+      "publication": "file",
+      "git_blob_sha256": "21a488825fe202a42f72afa67f9409f29ba2d18b7d7e395a0379926f78c3c9b7",
+      "bytes": 973
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorNetworkAudit.cpp",
+      "publication": "file",
+      "git_blob_sha256": "f7a46634af5759d1d647855bcde31c08e0ecdf12d547f63d0170cb5a0dc2b365",
+      "bytes": 9410
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorStatsAudit.cpp",
+      "publication": "file",
+      "git_blob_sha256": "750295aacef5ff426509e0eecf3d471f5333c079724f77fb3b6dd676dd3bae19",
+      "bytes": 14635
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorVisibilityProbe.cpp",
+      "publication": "file",
+      "git_blob_sha256": "1b8bc06ec61d20d9bf0f60cec969bc36f7071393fe524c12c36adde1d3557957",
+      "bytes": 10281
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FlameArmorWireAudit.cpp",
+      "publication": "file",
+      "git_blob_sha256": "810d0795b9abd3f22330a0432ae5db372acacd5063e9be97be0bf35d89b4ee0d",
+      "bytes": 8194
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceArmorFragments.cpp",
+      "publication": "file",
+      "git_blob_sha256": "40db03d7f44c3818bc3144dbf7d1fed7696352627df5898f90d4fe953815e820",
+      "bytes": 4467
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceArmorNetworkAudit.cpp",
+      "publication": "file",
+      "git_blob_sha256": "9e20941020f3bd7d72a8e16048e27d542037e0473c9a0eaa089b8b5679fc8e69",
+      "bytes": 9247
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceArmorPresentation.cpp",
+      "publication": "file",
+      "git_blob_sha256": "7db9f6497ad52f731f2254186ac0c9e7adffabae99d7c8e7562578fd49322c26",
+      "bytes": 12547
+    },
+    {
+      "path": "Source/FPSGAME/Skills/IceArmorTypes.h",
+      "publication": "file",
+      "git_blob_sha256": "d28ea6b6c126a03f7098e893376f2412fe36c3f0fc1e285524552b216ee873dc",
+      "bytes": 5019
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "publication": "file",
+      "git_blob_sha256": "3d08ee59ce13013a6499750c9dcd99f1ad0b028a236c79c84fee3450d57dc6b8",
+      "bytes": 17288
+    },
+    {
+      "path": "Source/FPSGAME/UI/StatusEffectIconPainter.cpp",
+      "publication": "prepared-index",
+      "git_blob_sha256": "9cfb111c18342a6fd1b15ce6318202393ec84a20a972fa65f0338d2a189151e7",
+      "bytes": 15495
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrowFlame.cpp",
+      "publication": "file",
+      "git_blob_sha256": "04b5e3fa03e633fb71f801efa280d5bf4826cece3876064326322bbd3cc935e6",
+      "bytes": 3950
+    },
+    {
+      "path": "SourceAssets/DrainageToolboxLoot20261016/DELIVERY.txt",
+      "publication": "file",
+      "git_blob_sha256": "9440e46b20ced61f6c5871f1e9ee7202fe79912c021cad062b1a553a9d68f18c",
+      "bytes": 599
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/FireRing.hlsl",
+      "publication": "file",
+      "git_blob_sha256": "bd021322df685cc00322817d895bb3d2c23a0882b8af1588973b688a3e714035",
+      "bytes": 2208
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/install.py",
+      "publication": "file",
+      "git_blob_sha256": "796558da893870edb96dde197c4fcb6b623579c0ac6a4af906adda9694747832",
+      "bytes": 162
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/install.py",
+      "publication": "file",
+      "git_blob_sha256": "a97d83aaa34859307239491f82d9c3a2bcc3c8635432e61ee0ee3f0a20bdd144",
+      "bytes": 230
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/read_fireball_source.py",
+      "publication": "file",
+      "git_blob_sha256": "74f32da1e5df6e72da06b457d39596486509313d318952bf7b2dfd5583456236",
+      "bytes": 1863
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/build.ps1",
+      "publication": "file",
+      "git_blob_sha256": "533acf1526ce3eb60b4939bff730a2a794fa05365fdfad7bb32f00ceb2251c33",
+      "bytes": 1701
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/check_assets.py",
+      "publication": "file",
+      "git_blob_sha256": "e3b97bcb8a2a5d3ee05358951eedf9ebe05a67dd9597a70212a8a8b3f2a1229c",
+      "bytes": 997
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/run_authority.ps1",
+      "publication": "file",
+      "git_blob_sha256": "64e6f1531256ce2d422425a2964a25cfc85cf87d2c0105924f462923dad9259d",
+      "bytes": 1416
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/run_wire.ps1",
+      "publication": "file",
+      "git_blob_sha256": "dfb318990a9f61fe536039e7b13851445405a1c88c96a883d6174f85899b4b27",
+      "bytes": 3413
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/RingAndWeaponOnly/install.py",
+      "publication": "file",
+      "git_blob_sha256": "4d70f2f7ec8fb6ba21845187ddfee1ca261b40f8a012bb71a46f2a8421005230",
+      "bytes": 1345
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/build.ps1",
+      "publication": "file",
+      "git_blob_sha256": "533acf1526ce3eb60b4939bff730a2a794fa05365fdfad7bb32f00ceb2251c33",
+      "bytes": 1701
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/run.ps1",
+      "publication": "file",
+      "git_blob_sha256": "a9c1f7b32222aa1bb4c08589eee4eb187184353a4dd1412924faefcf94aa9b32",
+      "bytes": 1234
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/build.ps1",
+      "publication": "file",
+      "git_blob_sha256": "533acf1526ce3eb60b4939bff730a2a794fa05365fdfad7bb32f00ceb2251c33",
+      "bytes": 1701
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/import.ps1",
+      "publication": "file",
+      "git_blob_sha256": "fcb7d808885b06294ec818b5ea642c61a108c480ae0f7dc5b8c0d1e3ca11b31c",
+      "bytes": 1959
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/FirstPersonDesignV5/ice-helmet-v2-prompt.txt",
+      "publication": "file",
+      "git_blob_sha256": "e45a58d6d81f5493ef9a12b3c19cfa34e76663bb005f857a1254639e65e85088",
+      "bytes": 4702
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/build.ps1",
+      "publication": "file",
+      "git_blob_sha256": "99c5a9366138ca24f1fb05becc256b8e0652437ef2305e10cda0d34d42ef5dc3",
+      "bytes": 2554
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/design-notes.txt",
+      "publication": "file",
+      "git_blob_sha256": "43425949efda086f89f310547b8ce95638426a24f577f0da2dc251e6cc099c33",
+      "bytes": 1618
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/design-prompt.txt",
+      "publication": "file",
+      "git_blob_sha256": "987aaea55c52a7bc5e44d2332493236eeb33b8c2ce2255b12ac69d11d563d284",
+      "bytes": 4368
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/refinement-prompt.txt",
+      "publication": "file",
+      "git_blob_sha256": "ff32470070767a692c71894c223b1d9792b7363c14472a9afda72092b44a1ec4",
+      "bytes": 1372
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/build.ps1",
+      "publication": "file",
+      "git_blob_sha256": "99c5a9366138ca24f1fb05becc256b8e0652437ef2305e10cda0d34d42ef5dc3",
+      "bytes": 2554
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/install.ps1",
+      "publication": "file",
+      "git_blob_sha256": "242ae67c026a53314c3594573a228af7c8ce5e3835038acf0c06a7376842482e",
+      "bytes": 2057
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/DELIVERY.txt",
+      "publication": "file",
+      "git_blob_sha256": "5b2fe72f73acc8d2236098109d01d1cf135071a8d579d869d939d85d22ebaba9",
+      "bytes": 2788
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/GAMEPLAY-INTEGRATION.txt",
+      "publication": "file",
+      "git_blob_sha256": "410a15961de37e90c991dc837c1c7a5453afd81cbd210a412b883f047c0a264c",
+      "bytes": 2764
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/author_models.py",
+      "publication": "file",
+      "git_blob_sha256": "a5ed202fb3b425168695797deaa282593c91ad7e7fcbf474fea85996189dca0b",
+      "bytes": 5451
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/build_game_only.ps1",
+      "publication": "file",
+      "git_blob_sha256": "2c88e1382e9ee1e93edade4ec30b8f16859861bf6d1c03e96f90013a895dd21c",
+      "bytes": 1212
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/build_integration.ps1",
+      "publication": "file",
+      "git_blob_sha256": "8a8d01423c4251d9066edb2c0e0f5164be4b14a078cc0266ce1bcffc5ea09b0f",
+      "bytes": 1826
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/geometry.py",
+      "publication": "file",
+      "git_blob_sha256": "53174375f39468e20bd3a79e4bad466f77746be8ec833d40a6d26dc3a7183928",
+      "bytes": 9600
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/import_assets.py",
+      "publication": "file",
+      "git_blob_sha256": "c4576b51edc0900ce6ec92e320eb288ce4e4101d854ed3c122213c7bcd7afae6",
+      "bytes": 8273
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/import_camera_text_v2.ps1",
+      "publication": "file",
+      "git_blob_sha256": "f6ca25be6ea4d090967914467dc42349d511daeaf6f594f5b47bef0be6e89006",
+      "bytes": 1340
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/import_camera_text_v2.py",
+      "publication": "file",
+      "git_blob_sha256": "83e5dd84ad4906457cca365a06e182e48abdbd3e0864573289947f8ba78f561c",
+      "bytes": 3118
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/import_staged.ps1",
+      "publication": "file",
+      "git_blob_sha256": "f8add3fe7dfe692b19efda3fb496625d5c20d9afe987291cb9f92fb9fdb13ddd",
+      "bytes": 1323
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/install_assets.ps1",
+      "publication": "file",
+      "git_blob_sha256": "49c6882baaa27ab2940df48cc74781972e8b16c0e4c6ff1f1530ae034714a175",
+      "bytes": 530
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/install_assets.py",
+      "publication": "file",
+      "git_blob_sha256": "ae7825356bd6a9bf70134a4595ef2b302ae6ee7b4bf35e21577e461071d80dc8",
+      "bytes": 7653
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/integrate_gameplay.ps1",
+      "publication": "file",
+      "git_blob_sha256": "6e0d2e8ce606f613d97eb85884d464181061444eb3ac8ecea8d2a19b138a56fb",
+      "bytes": 537
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/integrate_gameplay.py",
+      "publication": "file",
+      "git_blob_sha256": "9b4090c964303532a956b449b0c4d8ff1c9c4914eaa840daf8a9ceefab9267a5",
+      "bytes": 8955
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/models.py",
+      "publication": "file",
+      "git_blob_sha256": "98f3015653024a3422df7fd4f6f3649b57e0cfe2e9e87a26f4f6255910884323",
+      "bytes": 15512
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/prepare_surfaces.py",
+      "publication": "file",
+      "git_blob_sha256": "7d2195760a7f52a2c7c72414e76a280c7f4ff9ce60f2a734b87aed26455d02b9",
+      "bytes": 5297
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/render_icons.py",
+      "publication": "file",
+      "git_blob_sha256": "a7161d1d8df3ad9df7edc555278781a4ee9937b25d095fa92a2486eee67376dd",
+      "bytes": 6264
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/render_requested_details.py",
+      "publication": "file",
+      "git_blob_sha256": "e7762fbc0497892527d4806ea1196848a8947f3251d31342f1833c7ccc69932e",
+      "bytes": 6254
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Scripts/setup.py",
+      "publication": "file",
+      "git_blob_sha256": "fc023d23946fb1219540cb3caf8a1b1a079aa5406ed576006dc634277edb1efc",
+      "bytes": 3045
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/build.ps1",
+      "publication": "file",
+      "git_blob_sha256": "99c5a9366138ca24f1fb05becc256b8e0652437ef2305e10cda0d34d42ef5dc3",
+      "bytes": 2554
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/run-diagnosis.ps1",
+      "publication": "file",
+      "git_blob_sha256": "328d08674d9edcc7e582a4539a4de7bfe14c521d0bed493dfe17e77ba6c4d78e",
+      "bytes": 1675
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-all.ps1",
+      "publication": "file",
+      "git_blob_sha256": "99c5a9366138ca24f1fb05becc256b8e0652437ef2305e10cda0d34d42ef5dc3",
+      "bytes": 2554
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-game.ps1",
+      "publication": "file",
+      "git_blob_sha256": "10bc2ceb104a1e70dff84306f147e291aa2bfddc40436355b19484c15116dc4f",
+      "bytes": 1038
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/run-authority-audit.ps1",
+      "publication": "file",
+      "git_blob_sha256": "57977492a244d8096ec5c50687b072feb3a2ffa94170793e94dacb173bda893d",
+      "bytes": 1677
+    },
+    {
+      "path": "Tools/Fluids/author_flame_armor_fireball_v3.py",
+      "publication": "file",
+      "git_blob_sha256": "7f16d709ad8b7ec8af76d2da03315122897a602dae10bad1508754edc28a6d13",
+      "bytes": 11785
+    },
+    {
+      "path": "Tools/Fluids/author_flame_armor_ring_v4.py",
+      "publication": "file",
+      "git_blob_sha256": "9c199f0b7f8a617f73691b7844bf0c890c690697d09391ffad82fc1f378a9d9a",
+      "bytes": 11901
+    },
+    {
+      "path": "Tools/Fluids/author_flame_armor_v2.py",
+      "publication": "file",
+      "git_blob_sha256": "9f664398fcae881429683ff97b964fc14c72a5cbe5c1dc15bd09cfe169ce3321",
+      "bytes": 15165
+    },
+    {
+      "path": "Tools/PlayerBody/diagnose_hammer_cast_basis20261017.py",
+      "publication": "file",
+      "git_blob_sha256": "1124728d7e37cc70aa58cf32466c6b19ed5e4979423bd4a43d5b81e93488c2bb",
+      "bytes": 2940
+    },
+    {
+      "path": "Tools/PlayerBody/read_hammer_cast_scene20261017.py",
+      "publication": "file",
+      "git_blob_sha256": "813874bcaf2be99170a42284f878a3982e0a45edf889eac10b5125b8fedbb587",
+      "bytes": 2179
+    },
+    {
+      "path": "Tools/PlayerBody/run_hammer_cast_diagnosis20261017.py",
+      "publication": "file",
+      "git_blob_sha256": "23e444d396e530b8c2b4f8e2efe8b0ee6e432dab090e8a45b4ecd873dffbc51e",
+      "bytes": 353
+    },
+    {
+      "path": "Tools/PlayerBody/summarize_hammer_cast_diagnosis20261017.py",
+      "publication": "file",
+      "git_blob_sha256": "7f1274ee7ff54eb30c028ec83463639cdcc5299963163a32715cc0730a3fda27",
+      "bytes": 1227
+    },
+    {
+      "path": "Tools/Publication/archive_living_armor_20261018.py",
+      "publication": "file",
+      "git_blob_sha256": "b21ea3b9d9734b0e3fcffe1f4f9f33307201007e7a0b09b91575d82865f9c55d",
+      "bytes": 2636
+    },
+    {
+      "path": "Tools/Skills/author_ice_armor_v2.py",
+      "publication": "file",
+      "git_blob_sha256": "31f4ecd14598076b91bcbaa614c04f58723efe66fe84fc40dc7d64b8f210bf2c",
+      "bytes": 10754
+    },
+    {
+      "path": "Tools/Skills/author_ice_armor_v6.py",
+      "publication": "file",
+      "git_blob_sha256": "6a02635fa2e2b41bfd1fc256e059a3351f23bc11941706cf14dcbec547f58be8",
+      "bytes": 17466
+    },
+    {
+      "path": "Tools/Skills/author_ice_helmet_v5.py",
+      "publication": "file",
+      "git_blob_sha256": "4ef466ea23c90a3d3ca5c3bd0b131f035fe1eecea0b4aeec6312bbe7abaaf82b",
+      "bytes": 4852
+    },
+    {
+      "path": "Tools/Skills/build_ice_armor_v2.py",
+      "publication": "file",
+      "git_blob_sha256": "50e96ec7058c9261d431b2ecf83c4f058db5b72570b6d23d603e009cc0b41150",
+      "bytes": 15715
+    },
+    {
+      "path": "Tools/Skills/import_ice_armor_v6.py",
+      "publication": "file",
+      "git_blob_sha256": "24e1bb3ee74daa887631d86d940678bb69e1252ba2cfa73a25b506f977a56c8c",
+      "bytes": 9472
+    },
+    {
+      "path": "Tools/Skills/import_ice_helmet_v5.py",
+      "publication": "file",
+      "git_blob_sha256": "3e6ba0affa784a7b0f7141c4b54e22dc2a01b858e0e15771abc16d4a90aba803",
+      "bytes": 8734
+    },
+    {
+      "path": "Tools/Skills/restore_ice_armor_icon.py",
+      "publication": "file",
+      "git_blob_sha256": "6953fe899aa93782f8973e294ed5bd9213e7040259789ce544c5b87e3a9bcc0d",
+      "bytes": 290
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/SKILL.md",
+      "publication": "prepared-index",
+      "git_blob_sha256": "bf0bb69827a202f999c5769eedcf94fca00ff0b28e0fb9cf1f6ba58ca591705d",
+      "bytes": 10584
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/profile-progress-publication.md",
+      "publication": "file",
+      "git_blob_sha256": "f16d4bb3797bd72893dd6e79d8ccf4b1973be38918bbb5d5315b4fe13c4d23dd",
+      "bytes": 1358
+    },
+    {
+      "path": "skills/ue5-fluid-vfx-workflow/SKILL.md",
+      "publication": "prepared-index",
+      "git_blob_sha256": "262caa04f8c4ff2168275a92ca2fb0fcec54c66a97eae6661af18241f9194a29",
+      "bytes": 1658
+    },
+    {
+      "path": "skills/ue5-fluid-vfx-workflow/references/attached-flame-and-fire-ring.md",
+      "publication": "file",
+      "git_blob_sha256": "0c96fed988739a104108ed217c26be1b41d099f22d32346d8efa07f12451c353",
+      "bytes": 2076
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "publication": "prepared-index",
+      "git_blob_sha256": "dd204df835e029460cb83813a59f7700d4467431fd82005c9cad582d39c0090b",
+      "bytes": 2689
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/third-person-casting-arm.md",
+      "publication": "file",
+      "git_blob_sha256": "8d3c973dc2d765d37575cb4ef9e8c92de4c6b9e536d243af8101bfc4afe26457",
+      "bytes": 2086
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+      "publication": "prepared-index",
+      "git_blob_sha256": "14257e9972bd8f8df304d1613df86162b0a7b43fb98d35facdec64617a9c5518",
+      "bytes": 7153
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/references/ice-armor-presentation.md",
+      "publication": "file",
+      "git_blob_sha256": "d7e4898b8d2c0712dde5c0626ff959f4e815e6f67f7cd32f1a0e20c8775c6bf5",
+      "bytes": 3018
+    },
+    {
+      "path": "skills/ue5-world-interaction/SKILL.md",
+      "publication": "prepared-index",
+      "git_blob_sha256": "cf95c118f65350ac203721913d76f02c7e47df67b2410fbf67fda898338cecb6",
+      "bytes": 1408
+    },
+    {
+      "path": "skills/ue5-world-interaction/references/staff-living-collectibles.md",
+      "publication": "file",
+      "git_blob_sha256": "51055d6d99320e8eafbf51b382e15fdaf749c8f0fa5f7782800d939d27e04aeb",
+      "bytes": 1759
+    }
+  ]
+}

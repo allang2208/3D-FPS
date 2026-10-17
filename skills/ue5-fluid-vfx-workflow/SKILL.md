@@ -18,3 +18,5 @@ description: 为 FPSGAME 制作和优化 UE5 流体特效，包括枪口烟、�
 ## 龙息体积喷流
 
 持续喷火、三维温度场、喷射坐标、主体过白和旧 Sprite 方案归档时，读取 [龙息体积喷流制作与失败经验](references/dragon-volume-production.md)。
+
+- [武器附着火焰与脚下火环](references/attached-flame-and-fire-ring.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。

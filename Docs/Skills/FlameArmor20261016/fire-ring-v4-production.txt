@@ -1,0 +1,37 @@
+灼锋焰甲脚下火环 V4（2026-10-16）
+
+用户要求：脚下火焰太细碎，改成火环。
+
+后续用户反馈第三人称不明显，当前运行资源已升级为 V5；尺寸、亮度与排查结论见 fire-ring-v5-visibility.txt。
+下文保留 V4 初版制作记录。
+
+已完成
+- 移除脚下 FootFireballCores / FootFireballTongues 的随机小火团。
+- 新建完整闭合的中空环形网格：环形底带加内外两层微外扩火墙，96 段，共 1728 三角形。
+  网格制作半径为 50 cm；运行时 XY 按 User.Radius/50 缩放，沿已有脚部位置跟随角色。
+  火墙网格高度 32 cm，上缘由材质侵蚀形成不同高度的火舌；中间为空，不覆盖脚部成圆盘。
+- 材质底部保持连续密度，上缘使用周期噪声与火球同源 Mantaflow 火焰/温度/烟炱纹理形成翻卷。
+  角度输入使用 sin/cos，环首尾相接；保留深度测试、预乘透明与单次曝光补偿。
+- 主环体只生成一个持续存在的网格粒子，随技能 Fade 统一淡入淡出；结束由既有焰甲组件清理。
+  不用分段小粒子的出生/死亡拼凑环形。脚边仅保留每秒 3 个短寿命火星作点缀。
+- 原 BodyEmbers 在第一人称关闭，第三人称保留，避免脚边再次被零散火星抢占主体。
+- 周身上半部火焰、武器、双手锤挂点和箭尾保持当前 FireballV3。技能伤害、范围和持续时间没有变化。
+  火环是随身表现，不表示光环完整伤害边界；没有添加地形射线或动态灯。
+
+实际资源
+/Game/Skills/FlameArmor20261016/TorchV2/FireRingV4/M_FA_FireRingV4
+/Game/Skills/FlameArmor20261016/TorchV2/FireRingV4/SM_FA_FireRingV4
+/Game/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorBodyV2
+
+作者与恢复
+Tools/Fluids/author_flame_armor_ring_v4.py
+SourceAssets/FlameArmor20261016/FireRingV4/FireRing.hlsl
+SourceAssets/FlameArmor20261016/FireRingV4/ring-mesh-source.json
+SourceAssets/FlameArmor20261016/FireRingV4/Before/NS_FlameArmorBodyV2.uasset
+当前 V3 的完整 body 重建入口已接入 add_ring_layers，不再恢复被否定的零散脚边火团。
+
+交付状态
+2026-10-16 20:09（Asia/Shanghai）通过后台 commandlet 实际创建并保存两份新资产，重编译并保存周身 Niagara。
+成功日志 install-commandlet-03.log：退出码 0，0 errors；保存回执 delivery.json。
+原运行 NS 路径、预载与 AlwaysCook 目录继续生效，无原生 C++ 改动，不需要再次构建二进制。
+未启动 GUI、PIE、截图、渲染或运行验收；效果和性能由用户重新施法复测。

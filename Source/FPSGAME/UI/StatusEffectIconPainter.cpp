@@ -32,7 +32,7 @@ FIcon ResolveIcon(const FStatusEffectView& V)
         {TEXT("holyWard"),{EGlyph::Shield,1}}, {TEXT("chainSpell"),{EGlyph::Chain,0}},
         {TEXT("weaponHaste"),{EGlyph::Arrow,0}}, {TEXT("chill"),{EGlyph::Snow,0}},
         {TEXT("burn"),{EGlyph::Flame,0}}, {TEXT("frozen"),{EGlyph::Crystal,0}},
-        {TEXT("petrified"),{EGlyph::Stone,1}}, {TEXT("flameArmor"),{EGlyph::Armor,2}},
+        {TEXT("petrified"),{EGlyph::Stone,1}}, {TEXT("flameArmor"),{EGlyph::Armor,2}}, {TEXT("iceArmor"),{EGlyph::Armor,4}},
         {TEXT("riposteInspiration"),{EGlyph::Arrow,1}}, {TEXT("runeMagicVulnerability"),{EGlyph::Crystal,2}},
         {TEXT("electrified"),{EGlyph::Lightning,0}}, {TEXT("haste"),{EGlyph::Stride,0}},
         {TEXT("inspire"),{EGlyph::Sun,2}}, {TEXT("statusImmune"),{EGlyph::Shield,2}},
@@ -182,7 +182,8 @@ int32 ColdSteelUI::PaintStatusEffectIcon(const FGeometry& G,FSlateWindowElementL
         AccentLine({{16,13},{9,11},{6,6},{12,6},{16,13},{21,7},{27,6},{24,12},{16,13}});break;
     case EGlyph::Armor:
         Line({{11,5},{8,9},{4,11},{7,18},{10,16},{9,27},{23,27},{22,16},{25,18},{28,11},{24,9},{21,5},{19,9},{13,9},{11,5}});
-        AccentLine({{16,12},{16,23}});Line({{11,19},{21,19}});break;
+        AccentLine({{16,12},{16,23}});Line({{11,19},{21,19}});
+        if(Icon.Variant==4){AccentLine({{12,14},{20,22}});AccentLine({{20,14},{12,22}});}break;
     case EGlyph::Lotus:
         Line({{16,25},{10,18},{10,11},{16,5},{22,11},{22,18},{16,25}});
         Line({{16,25},{8,23},{4,17},{4,12},{10,15}});Line({{16,25},{24,23},{28,17},{28,12},{22,15}});AccentLine({{16,10},{16,21}});break;

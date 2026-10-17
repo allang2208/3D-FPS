@@ -1,0 +1,34 @@
+双手锤：第三人称左手施法手臂修复
+
+后续反馈：用户仍反馈整条左臂穿入身体，以下为第一版历史记录，不代表视觉问题已解决。后续方向与路径修订见 warhammer-left-cast-direction-fix-20261017.txt。
+
+本次范围
+用户反馈装备双手锤时，第三人称左手施法手臂扭曲。只修改该武器的第三人称施法姿态路径；技能时钟、伤害、第一人称施法和其他武器的动作保持原有入口。
+
+源码定位
+1. FPSPlayerBodyMotion.cpp 中 HammerCarry 原来仅匹配待机/检视。进入 Cast 后会重新走 NativeMelee，采样第一人称双手与锤体轨迹；后置左手施法采样只替换左腕，因此右腕仍被第一人称近战路径重设。
+2. FPSPlayerBodyAnimInstance.cpp 的通用 Solve 只修改上臂、前臂和手腕。第三人称 Jason 的扭转/肘部修正骨仍继承持锤动作的局部变换，与施法 IK 的主骨不一致。
+3. 原 Recover 先从 CastRecoveryEntry 向目标混合，随后 ActionWristMask 对应的 ActionHands 又覆盖目标，导致收手路径没有完整交还当前第三人称持握。
+
+修复
+施法期间冻结世界武器的第一人称源机械/握持参考，保持现有第三人称原生右臂持锤姿态。
+新增 FPSBodyHammerCastPose.inl，单独拥有双手锤左手施法的整条手臂，放在全身动作混合之后。
+掌向与手指继续读取实际施法采样；左腕目标限制在原生上臂+前臂总长的 95.5% 内，保留屈肘余量，不拉长骨骼。
+按 Jason 绑定姿态解算肘部和前臂旋转，前臂轴向旋转限制为 ±85 度，腕部相对中立朝向限制为 40 度。
+上臂/前臂辅助骨按原生绑定重建，前臂辅助骨按实际轴向位置分配旋转，不保留持锤动作的旧修正姿态。
+起手、阶段切换和收手混合完整局部骨链；Recover 从上一帧已显示姿态回到当前移动/蹲姿下的原生持锤姿态，不再被第一人称腕部恢复覆盖。
+Hold 的进度固定为 1，其短过渡使用阶段实际时间，避免相减后永久停在起始姿态。
+本地第三人称和远端角色共用同一个动画求值路径，继续使用原有复制字段；未新增网络消息或客户端玩法结算。
+
+文件
+Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+Source/FPSGAME/Characters/FPSBodyHammerCastPose.inl
+SourceAssets/WarhammerCastArm20261017/build.ps1
+SourceAssets/WarhammerCastArm20261017/build-receipt.json
+SourceAssets/WarhammerCastArm20261017/build-FPSGAMEEditor.log
+SourceAssets/WarhammerCastArm20261017/build-FPSGAME.log
+
+状态
+已完成源码路径排查和修复；FPSGAMEEditor 与 FPSGAME 的 Win64 Development 正式构建均成功，返回码 0，模块与游戏可执行文件已生成。
+未启动游戏、PIE、画面渲染或联机复测；编译结果与手臂自然度的用户确认分别记录。

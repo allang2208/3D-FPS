@@ -1,0 +1,1760 @@
+{
+  "policy": "Local-only authoring, dense exports, licensed inputs and historical receipts. A path/hash is not redistribution permission.",
+  "files": [
+    {
+      "path": "SourceAssets/IceArmor20261017/assets-restored-visibility.json",
+      "bytes": 723,
+      "sha256": "7a72b7afabe54539af7be1737b554099e35f26cac1ffaf5053f59ce58cb86130"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/assets-saved.json",
+      "bytes": 641,
+      "sha256": "d4fce6cfdc93cf82f5e973eb4bc9322d95536fd27672eac1714c8bfbcbd86628"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/author-v2.log",
+      "bytes": 410,
+      "sha256": "8390179d1661ed17386b299c06674cb37fec75a9f61a829ecc41fa03e70c8b59"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/build-FPSGAME.log",
+      "bytes": 30670,
+      "sha256": "aa4381e451b5451be0957e873b8ba8c7377282018b34d91c8f200e4bc6c2b474"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/build-FPSGAMEEditor-first-attempt.log",
+      "bytes": 84310,
+      "sha256": "160e4c0962904c1043fb7431d8d1f07aa0bca1bf74ced329f60e7ac0187c47fa"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/build-FPSGAMEEditor.log",
+      "bytes": 2106,
+      "sha256": "09cab0a13f5bac10ba6dab480acd1747078ca1a8fba298dcc328f86c9f3472aa"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/build-receipt.json",
+      "bytes": 662,
+      "sha256": "f2f7cd2f486d7735ee3cb2bf097f09b6c0b6cfa96a11c32866db963bcd4b7250"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/build.ps1",
+      "bytes": 1701,
+      "sha256": "533acf1526ce3eb60b4939bff730a2a794fa05365fdfad7bb32f00ceb2251c33"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ice_armor_cold_steel.png",
+      "bytes": 2980680,
+      "sha256": "d72e8e8c20dd961ca535ed9699578e91d30fdb00f46adc969a991cc6ab9559a4"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/import-backup-2026.10.17-01.22.35.log",
+      "bytes": 280708,
+      "sha256": "f0f891fe60c96c0981ea5bd1c53e239f9ac0b6348fd3e4e231940bc30415028a"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/import-console.log",
+      "bytes": 66688,
+      "sha256": "bd91b9c82b13b176cea2ec879a4f119cf56621a5075cbb67de645fa83c2a999f"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/import-first-attempt.log",
+      "bytes": 280708,
+      "sha256": "f0f891fe60c96c0981ea5bd1c53e239f9ac0b6348fd3e4e231940bc30415028a"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/import.log",
+      "bytes": 286600,
+      "sha256": "e8395c6de0b663ddc7dc82c9856642fc081d5a672dc30a3eecd9a53b6c05608f"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-readback.json",
+      "bytes": 1411,
+      "sha256": "536883028498a357decf3e9908a07a180ff8ba9afcad1c131aa333bb157bfd45"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-restore-20261017.txt",
+      "bytes": 1748,
+      "sha256": "29e0d95ede60d5e4739b5278caeb283e7fb70875ffa0b1b07da67adade05b3af"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-restore-backup-2026.10.17-02.30.02.log",
+      "bytes": 283949,
+      "sha256": "f850a155f3b5d8fe39725d91fe3be16f2d42f942c3b7d6b1a3d3caf330355ae0"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-restore-console.log",
+      "bytes": 64000,
+      "sha256": "d978ed1427a0aab4afb7c13ead77967bb8464d6fde478155b0473f19c724f4d3"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-restore-editor-02.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-restore.log",
+      "bytes": 281427,
+      "sha256": "5ae66b10110ad4bdc8e0baba789033ace4cf3be3de66ba294f76aa0fa285ceff"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/visibility-stop-pie.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/assets-saved.json",
+      "bytes": 2077,
+      "sha256": "d884dc773fe957eb41786107939cadd37bc1b8419a284b65d11da3dc354863f3"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/build-FPSGAME.log",
+      "bytes": 946,
+      "sha256": "89419ca36e675e42698521f77fc34ad351bf95a63508d80f7e5b11b5e35a1f91"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/build-FPSGAMEEditor-attempt1.log",
+      "bytes": 82784,
+      "sha256": "2e1f873b84b009d9b908429b40a1e214685deb52ecd6f5c9842d09846cdb52d1"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/build-FPSGAMEEditor.log",
+      "bytes": 1052,
+      "sha256": "1b37712c61a630aa8932ba3e71e3169514bf26482831f4a95d6b0aa2400de177"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/build-receipt.json",
+      "bytes": 448,
+      "sha256": "3a3aece30d1878cc758c396cc26209f1820d29c83bb75c684967a690f3d45245"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/geometry-manifest.json",
+      "bytes": 1383,
+      "sha256": "6b2e89f36a5b0b06a498fbb174865074c91b143618c15b3de36c8d56a6342aef"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/IceArmorV2.blend",
+      "bytes": 788509,
+      "sha256": "c669604abdc3f7cd97ad3e14c0da190847a801522fb7f2b04c2bbde670f17c14"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/import-attempt1.log",
+      "bytes": 145506,
+      "sha256": "f5f75369bd0e6a08d5d50ecb3f7940eaa3eba80f14cd22ad4b6a9c006897d4d3"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/import-backup-2026.10.17-07.25.17.log",
+      "bytes": 145506,
+      "sha256": "f5f75369bd0e6a08d5d50ecb3f7940eaa3eba80f14cd22ad4b6a9c006897d4d3"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/import-console.log",
+      "bytes": 35665,
+      "sha256": "75a40e0b20e4096aeda733a9536ab22f4740634ddf38236b4a53eb4a81267e32"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/import.log",
+      "bytes": 308400,
+      "sha256": "35a37ca2cedd4e87dddaf43e2d1a70a74a6558e2101dbc0f789810b6fab782b6"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Arms_0.json",
+      "bytes": 567741,
+      "sha256": "05dadd1319160c83f243151a6c1627f421f60575451bfb3b1a6fca78da4e81e5"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Arms_1.json",
+      "bytes": 567722,
+      "sha256": "736a4dee3ce8f5b6b6296d81402f0a7914e9e7bed725ab9e42e76cbba459cc6e"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Arms_2.json",
+      "bytes": 567738,
+      "sha256": "956b791356e88d922a89d4c71bf6d102e6d2ee4c3ba877e56cc1b063133e04cc"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Legs_0.json",
+      "bytes": 949311,
+      "sha256": "944d737667bf3974b825ae8d633a8faae277a48f358f2fcc8f2d577a72c93a54"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Legs_1.json",
+      "bytes": 948850,
+      "sha256": "82f0ec295423fe4e7e79317d5fbc93f8dbb61c5beda60c473cdc9f712d99917e"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Legs_2.json",
+      "bytes": 948007,
+      "sha256": "7e7aeb9c4946a5cc5a5d7cc08142188a58b881ed046d2649070053238d674f6c"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Torso_0.json",
+      "bytes": 1654953,
+      "sha256": "5b9b69dfd37fe6892cde7ecef1908a01bebe9e34e1f2838bd402c2a91d6703a7"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Torso_1.json",
+      "bytes": 1654969,
+      "sha256": "eb97257b5ff4d33c347afbc9a3818c0fcde56059d26a2a7bf804eb1867147bdd"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SK_IceArmor_Torso_2.json",
+      "bytes": 1654965,
+      "sha256": "0d90991a8bf4be1d21ec83121f2a1e36d464f086daaa27a9e36907f829cfd3c5"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SM_IceArmor_Chip.json",
+      "bytes": 9605,
+      "sha256": "587c7a92aa114f0da458d08ee16b2ab4b7fe931586468777659056825149b83e"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/CrystalV2/SM_IceArmor_Clusters.json",
+      "bytes": 2793354,
+      "sha256": "e3c4dfc456f207d9dec4e7ba78a93f9d3aa9d54f8cf96de1290a21062595e87e"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/FirstPersonDesignV5/design-prompt.txt",
+      "bytes": 4012,
+      "sha256": "90bfe37235ff378e58152611a6ad8d32745a772738a74d9878eb97c8750a10d5"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/FirstPersonDesignV5/first-person-design-v1.png",
+      "bytes": 2331624,
+      "sha256": "be110341d8ea10cb49ac285c93f06bd57deadbff612f82ed2c9a00dca07c8949"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/FirstPersonDesignV5/ice-helmet-first-person-v2.png",
+      "bytes": 2357480,
+      "sha256": "558d24de45e279f853902ae27f97db0d6bd7c485f28e1e25dff13e60aa70c59d"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/assets-saved.json",
+      "bytes": 340,
+      "sha256": "5023a476de0bf720e4d608db7720f086e679ddaf11437ced60da78858bd5569f"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/author.log",
+      "bytes": 403,
+      "sha256": "ddad51a5bb5503e823be96130d1f033ac71d3239f015e9c4ecf32704350a8399"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/authoring-manifest.json",
+      "bytes": 421,
+      "sha256": "04c40478d68988360b0d77d1f82d83abcbfebbc8295bcd54fb766eb3ebd847b7"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/build-FPSGAME.log",
+      "bytes": 16349,
+      "sha256": "67ad19126f7c107aa2d8f737963b4d55e5cb401334fcba34de9c271c2cea4457"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/build-FPSGAMEEditor.log",
+      "bytes": 37343,
+      "sha256": "ec8f23dc8b2e4a0b35cd3abb9e78b19f2e52558b61451df8353bb821ce8c1977"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/build-receipt.json",
+      "bytes": 446,
+      "sha256": "58ffe8a6b4e410ae8312e96e937e86e945290f5f962c47e724942de42eb5538b"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/IceHelmetV5.blend",
+      "bytes": 220970,
+      "sha256": "5d9aef310c6d4f35718da5f1c82db162aac9816bcfa67f97cd2b5855d9915b35"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/import-bridge.txt",
+      "bytes": 120,
+      "sha256": "581af82904fe726536706fc2747f04f199b59fa2afe07d6b4e1210595200c160"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/material-parameters.json",
+      "bytes": 466,
+      "sha256": "6670c81cc85c13c58edf40f2d8d06bb933f39caf2f741883c051568848dbe885"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/HelmetV5/SM_IceHelmet_FirstPerson.json",
+      "bytes": 2116269,
+      "sha256": "fe0bd115d254d4606f0c6a0d9bfe5a753c50c7634ede27d3229fbbae50e117ec"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/ice-armour-third-person-v1.png",
+      "bytes": 2300718,
+      "sha256": "912f011b36c196b9005a606fc31f2a77e759717ffb4204f1da38f80d2873cac8"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/ice-armour-third-person-v2.png",
+      "bytes": 2201551,
+      "sha256": "5e9ff2c84b5515e4e59f084c4857e0f619539bf23d9fb92469773f04b7c854dc"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/jason-proportion-reference.blend",
+      "bytes": 3910617,
+      "sha256": "dbb6f698a2c428de3b64b2619fb7539a40b341d9e7cc48003699bd67c2d0c91c"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/jason-proportion-reference.png",
+      "bytes": 3137292,
+      "sha256": "173f5ff75873895d4ece19fb486542dd31e0565195d133c5552a8006f23dd9f3"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/reference-geometry.json",
+      "bytes": 1295,
+      "sha256": "d0248660a23b7ca3451f5296efe9f949cf6c762f81a88c43f2f8d9a69fbf21b0"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/reference-render.log",
+      "bytes": 573,
+      "sha256": "e452a46f5de078b987fe76717682ef8a25ca1dc5688293fd189d07f7f5a49636"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonDesignV6/render_body_reference.py",
+      "bytes": 2882,
+      "sha256": "c13e06a768940a61d756bda0d244bb9800f23270ff66b6fdd6aba94eac480ec8"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/assets-saved.json",
+      "bytes": 3422,
+      "sha256": "365ec4985aa18f3abc0ddd33f5401051a0249c28746d10b3056b8fc8e0ecc8e2"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/author.log",
+      "bytes": 424,
+      "sha256": "56410bcb4f3f7d457389869193626a1fd2e4a66f27620e6fb49587253f600879"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/build-FPSGAME.log",
+      "bytes": 43708,
+      "sha256": "2debcc29763e881ce1fdf51128f01c8a31202562660335c217a2b78160834559"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/build-FPSGAMEEditor.log",
+      "bytes": 48321,
+      "sha256": "72c03c29f20ebc98a818d8d332bbec003a29cd73ab3b45d8029aeb967dd0af94"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/build-receipt.json",
+      "bytes": 1660,
+      "sha256": "503805b01e6ca19698ffe366982e76bc2767d1518756b21c64facf55381514d9"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/geometry-manifest.json",
+      "bytes": 40602,
+      "sha256": "f00a6bc51fed41b50f73fb659064a6a9a26515dca1c75e770d50d37478f5e85e"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/IceArmorThirdPersonV6.blend",
+      "bytes": 2444898,
+      "sha256": "659b6a39dc1d024e3d8f5103c7d2a41ae2476df299f1f478ad49299d606be1dc"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/import-bridge-20261017-231809.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/import-bridge.txt",
+      "bytes": 663,
+      "sha256": "3a002a2e58426cdc5d95e2bea231e0ccd3bd268b03f93f08a2815a5f8493d0c7"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/import-console.txt",
+      "bytes": 70594,
+      "sha256": "1f1e37dbc2334bfd26ad41da5290bafb0c625bc1d494a97f7fbe0f6a7cefdc1d"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/import.log",
+      "bytes": 369351,
+      "sha256": "a1cad4c88a2a6aae0b5bf8c33eedede0be0dac8f9517b3807fd52194c0bc695c"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/material-parameters.json",
+      "bytes": 506,
+      "sha256": "d18d5f63ef91f0c00663368070cc95e76769942d8bf36b4c2d6effa77afa36ab"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_0_0.json",
+      "bytes": 494585,
+      "sha256": "ff867ed1c313f1d989bb37ec06bdf76c06f1a0fb89aca9a241144582ea0ae344"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_0_1.json",
+      "bytes": 494585,
+      "sha256": "629871fd65dce47dda103a15b710fcd7fbe659f85650a500a357e168d9968c12"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_0_2.json",
+      "bytes": 494593,
+      "sha256": "ac4bfdb87b3c3a10672a3213cfa6638189a57b4be4f3963995386e0586499082"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_1_0.json",
+      "bytes": 494588,
+      "sha256": "f114cf1f5e86d987c8966b4c90f5eea8b1dfa883e50254e1d1be0b813775224b"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_1_1.json",
+      "bytes": 494588,
+      "sha256": "e0bf435f5f2c7f0d6154148053970f16846fe67c45f3e86050fbbb5f6a9484a6"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_1_2.json",
+      "bytes": 494596,
+      "sha256": "8b6df8f1679b3470ce4b6ec9a613c13ebcec303016560024ab8ae9fb61c99273"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_2_0.json",
+      "bytes": 494592,
+      "sha256": "3baa5f350b37ded4ad05754a4e36ff782bf44218440fa9eb7ac6a06928a2f800"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_2_1.json",
+      "bytes": 494592,
+      "sha256": "a6d4c16cee85b1bda80d73d17abba9e35f3d9b83359c56a3b6ed77630fe323cc"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Arms_2_2.json",
+      "bytes": 494600,
+      "sha256": "572befa11087ef79fe48531c4ebafee515b765891ea5bb18bb62510949982225"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Helmet.json",
+      "bytes": 557523,
+      "sha256": "6d4aa5d5eda5946be08fe5c706dc09737fc42d1316563a72ea8d3ac3ac68d95a"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_0_0.json",
+      "bytes": 1020187,
+      "sha256": "d15be546c0d23f2ddb588244647660ff421d75d3860fc36424fad563a78ac76b"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_0_1.json",
+      "bytes": 1020505,
+      "sha256": "bb742bf9f1e9d84a17abe8936e43c2919fee692992096fb7f74dfe0e33005c3b"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_0_2.json",
+      "bytes": 1020331,
+      "sha256": "202ac34df08a81ca006de6848c529dbbe06967e48ae79dee4ddd36eda011025a"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_1_0.json",
+      "bytes": 1020290,
+      "sha256": "9f77ce05dd0ad64d7fde1a125eedd72e5cafbcebf03ab39b56d8ac105390f279"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_1_1.json",
+      "bytes": 1020729,
+      "sha256": "c6941033c5308f0878517f56160562d9399785b97fba54e2f373270552411420"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_1_2.json",
+      "bytes": 1020560,
+      "sha256": "68b13eeb3ab29e7d9ba426eacde3de1008d82060befe3eadbd6f462191897c24"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_2_0.json",
+      "bytes": 1020065,
+      "sha256": "ca1f45817cd7f1ab19d80017dd949a1266c0fb8546645208def01a919612e611"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_2_1.json",
+      "bytes": 1020508,
+      "sha256": "a2dc7c67a4243cd053787f30dd51c2ee11871f6ee006053a1c98f9619fa90bab"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Legs_2_2.json",
+      "bytes": 1020290,
+      "sha256": "676a8f3ec946bea1ac8e61836f3d9ce7178773cc679f8dac99f54c5d9bfc9ec6"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Torso_0.json",
+      "bytes": 478694,
+      "sha256": "776688142b67dc1c6c3de3ff3635a0f4620305d424980965e799b4792090b7a6"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Torso_1.json",
+      "bytes": 478701,
+      "sha256": "0dd75221c4056d0666f7ec5caac95c8b514ce57ebf01ca8dc85250dd9dba3288"
+    },
+    {
+      "path": "SourceAssets/IceArmor20261017/ThirdPersonV6/SK_IceArmorV6_Torso_2.json",
+      "bytes": 478705,
+      "sha256": "6ae8e8cfc92c590b787d17602f19666983a88ddbd6508bac86cd6ed0e4ea44b9"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/delivery.json",
+      "bytes": 954,
+      "sha256": "5847166e1ab83d1036488606139e670948c8e938fa42d0032040d2474dc7b156"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/fireball-source.json",
+      "bytes": 51820,
+      "sha256": "7a1d6a697bc62aaecfc6c01cd28e64ba221071fae311ba2cdc25a81ce4874318"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/install-bridge-01.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/install-commandlet-01-console.txt",
+      "bytes": 41738,
+      "sha256": "4c6e5fdf9cd97a76208615dcf27c7d55704f919461cf8920243621703f62d9ac"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/install-commandlet-01.log",
+      "bytes": 322504,
+      "sha256": "c82b9fbf964f6b682c29d9f808a17a9ab603a06fed48f9d255692c1eb6e6690d"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/source-bridge-01.txt",
+      "bytes": 758,
+      "sha256": "ba09ef2247fb478b4a2f55906ae6809381ef3962d4b9608cbee60099e353eca9"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/Receipts/arrow-saved.json",
+      "bytes": 661,
+      "sha256": "442dd79f043cc03d04d0bff8809c7f41a443b66be6e129d646878c910c37db42"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/Receipts/body-saved.json",
+      "bytes": 656,
+      "sha256": "8af4df018536d73e50cac296e0bef930f7488a641185cf48a93b06b9693ec969"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/Receipts/materials-saved.json",
+      "bytes": 566,
+      "sha256": "dafcf71fea1ecddc543a9af07ad21ad609f48025baf26bf39f3f2b3c3b87ac73"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireballV3/Receipts/weapon-saved.json",
+      "bytes": 666,
+      "sha256": "0449f2ffad769e6a0755f620af6a94ab98714db6200ea719c8b1b0ba9f6ccd24"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/after-bootstrap-runtime.json",
+      "bytes": 4703,
+      "sha256": "89687a6db5b97649a3e80b2bd03243d0d3ddbe8de828ce54763656d359faac8a"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/after-runtime.json",
+      "bytes": 1698,
+      "sha256": "f1133fe2c5f2596a37e85703a55cbb0fbced2d74744ffe4724c84388faeba9c4"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/before-asset.json",
+      "bytes": 19024,
+      "sha256": "be5cf0bc946fd346591a95e81a6881d8d248a665bdabaef60c48b1c6922a5ef5"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/before-runtime.json",
+      "bytes": 1311,
+      "sha256": "91e7d36e1277cfe1c1423eebe7dfc0c8ac1408dfd3727924b3af0d1b5c1ae92b"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/bootstrap-runtime.json",
+      "bytes": 4703,
+      "sha256": "3729d5d20f3111e4029fc99fd8538cd251cdbd53e58852b4f2ada42a4604c59f"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/delivery.json",
+      "bytes": 1060,
+      "sha256": "99ba43f71beb87407ee4d2aa3509d213b31d93c43ee1226a08a2091a2be68154"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/inspect_ring.py",
+      "bytes": 2230,
+      "sha256": "ad39785621404e6673d40d60e5219285edb0c9a20a72a5091acf91aed6059422"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/install-commandlet-01-console.txt",
+      "bytes": 37069,
+      "sha256": "6081d1112f50687b4fdc5532d3b7cf535b6d6723c311351245f76a6bc089a798"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/install-commandlet-01.log",
+      "bytes": 290049,
+      "sha256": "9f2e1f5e17940a733f2c262629c696d4511422a7fb86882f3956c354cda37f1b"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/probe_after.py",
+      "bytes": 218,
+      "sha256": "86cbb97ba2d48724eb32d2c8a4be387980508f42871ce60cb239ad8655314906"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/probe_ring.py",
+      "bytes": 2452,
+      "sha256": "8a7b127c997f30da27d33ae99194cde51caf3b29d7fad2f9540ee351e69df442"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/read-commandlet-01-console.txt",
+      "bytes": 31771,
+      "sha256": "6957fbebac18494f1a0df7065eca74df0bf2e08a096ac8355d47848de91c1fa4"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/read-commandlet-01.log",
+      "bytes": 282672,
+      "sha256": "f3f72551fa6126645633d306679d6496fc955bb5adef7b5da5b1876f7d805109"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/ring-mesh-source.json",
+      "bytes": 166407,
+      "sha256": "e5189383cbb9e531146da18b809a052c8d7ddeec52d22a92331c51572d025241"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/runtime-after-01-console.txt",
+      "bytes": 48593,
+      "sha256": "96778521012b3dee2dd321119659cd17312f0599ad5f57cded742764ae590a18"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/runtime-after-01.log",
+      "bytes": 305798,
+      "sha256": "d4ea8a001132b26c929347185e1569b46cb62a31de02569cdc86ca76dfe1f51e"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/runtime-before-01-console.txt",
+      "bytes": 40267,
+      "sha256": "0f0dac5b140d3a0eff868ae7f8b45b4301dca05c26c4e6210071aa8f8af1fd73"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/FireRingV5/runtime-before-01.log",
+      "bytes": 296589,
+      "sha256": "458663da099891321d663ebd051d78cdc34fb176c83dd37ab81946f7516fbe65"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/delivery.json",
+      "bytes": 5604,
+      "sha256": "cca091d56170d137f04e814fcebe189969df10be6df67e48f0673e8c2f5f5aa3"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/run_all.py",
+      "bytes": 221,
+      "sha256": "384124a9d2ff9c4183036d1a6906d9432c8dc6211c968c6ad03a2b6bdab62b31"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/run_arrow.py",
+      "bytes": 126,
+      "sha256": "d335b885bd71c4fb5556ce1fc26287893a41fc330b501dd682be8f419c0db3d9"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/run_body.py",
+      "bytes": 125,
+      "sha256": "df108ee081fe7a81dafe0ed2e05f89b6c9c2b34404326324a16e7ddaa4a7dbec"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/run_materials.py",
+      "bytes": 130,
+      "sha256": "d3f7f606f418282a21988ebfeee4e1fdc38cbbe4e513583a5f12dbb8f5c574c3"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/run_weapon.py",
+      "bytes": 127,
+      "sha256": "8f6ff163cb95ee7573c679241794bc6d445fe4cb879247473bd3414f3b2af73b"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/arrow-saved.json",
+      "bytes": 235,
+      "sha256": "07d3c9a82dd717d5a1770a111993a75c992345428d1eb6c0843b653c96558c78"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/author-01-console.log",
+      "bytes": 35507,
+      "sha256": "e6bc005f4e38bb4657756d37ca23cbc947109fd90a53c7561392743dc79c4f74"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/author-01.log",
+      "bytes": 284545,
+      "sha256": "5c45a27d0a460c77b89bf4a0d8bab80e35165507c131d87af71c9d4f6f3e13ab"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/author-02-console.log",
+      "bytes": 45840,
+      "sha256": "5ef3ef374c60d9e8c360c6dc0f874266e7210ef3c6d1baf423438a956adfd569"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/author-02.log",
+      "bytes": 321763,
+      "sha256": "504d1181671dff68f9268facc93c5dbeed024bd3d3c434033eb02a5e96beaa76"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/body-saved.json",
+      "bytes": 232,
+      "sha256": "1005ebfbff1fba828f0078d1b264d13845e4161bafd1974d743dfcb9db5f93ce"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/editor-compile-01-console.log",
+      "bytes": 1269,
+      "sha256": "80ec00d0457c56ccb7d417c74b11263d9987e5522323d67e6446d3d4e71cc97d"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/editor-compile-01.json",
+      "bytes": 25524,
+      "sha256": "0c939fb234f9c7ee9d22f55da23a40df7484116a493bd3f2692d31cf4f18eb1b"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/editor-compile-01.log",
+      "bytes": 7757,
+      "sha256": "aae12d3caf60ac4b93fe4c29703c2fb309ac87b141122b66963c04f327f34002"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/editor-linked-shared-build.log",
+      "bytes": 33491,
+      "sha256": "8be86d37fbc29c02e0837adc41bc0ab59ddcea6812913ca0702294935049043c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/game-build-01-console.log",
+      "bytes": 21024,
+      "sha256": "4add887de8b745465a7f32dcdd57ef7c0c288dc877d98b67ccc357d77a238cb2"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/game-build-01.json",
+      "bytes": 79281,
+      "sha256": "2e9249b88b34f6e940db2cdbe734262627d9f805366046b7e6c274229263cbaa"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/game-build-01.log",
+      "bytes": 30179,
+      "sha256": "1390c2cd63a413a85908c3d57c171a3fb133acd5a3bf52d04ded0ee0558c418c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/materials-mcp-01.json",
+      "bytes": 163,
+      "sha256": "801e07f43bfee5cb578c245a542c3e7cf11ed97c52f6e47aef7eca2ff42d18ea"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/materials-saved.json",
+      "bytes": 496,
+      "sha256": "40221131e58aed5d6edbe00ec8a33c0fae3043ad5c42a1fb4b42641126638eda"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/preload-generation.log",
+      "bytes": 14166,
+      "sha256": "24915944f49a6d8615a272eed348eac31a7746aac2417eb5ebcc0d479187ca4c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/TorchV2/Receipts/weapon-saved.json",
+      "bytes": 238,
+      "sha256": "16b7ce3e5eb7ee302e8def6d968aeebed302610d9f572ae7931aa34d8a577e97"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/cold-runtime-01-console.log",
+      "bytes": 85431,
+      "sha256": "627ca1ccbe1f006789a26323c6f52f0237c373f822bbdbb56b93f441d022ad52"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/cold-runtime-01.log",
+      "bytes": 340517,
+      "sha256": "9c28cb5eb78eadbdda5f9432884d9de56d4d0749db9daa11508b7e6fe671cffc"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/cold-runtime.json",
+      "bytes": 4440,
+      "sha256": "f0998a62e54420ff224507c697ced3c4daf9b41b0e2de6a40d1e67eb29faf691"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/cold_runtime_probe.py",
+      "bytes": 468,
+      "sha256": "ea3e4402db19003ea44b8c44ee93234b86eabae5f4271b0097f0fe3f90f9aa44"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/compile_hammer_attachment.py",
+      "bytes": 565,
+      "sha256": "0679688f6d30782c8a435fed2656150d19a9b744fa49aefc06201e2000b28897"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/delivery.json",
+      "bytes": 1955,
+      "sha256": "634cd76ccd5be5c0ea569a107d4d65f6ca9e166dc60d020e23620ce9b1a3a4cb"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/diagnostic-build-01-console.log",
+      "bytes": 27656,
+      "sha256": "7bb861582fed86c036d0a1e195baebfe2bde4c183cc6899273b7faf6e87b2b8a"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/diagnostic-build-01.json",
+      "bytes": 106927,
+      "sha256": "433dde030946a896a8e4a2ee197fe99349a27d9c04e206221f269311b6f01766"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/diagnostic-build-01.log",
+      "bytes": 40560,
+      "sha256": "1a668c79429fa0bc0ad6efc6d7175dbed3590347e29b8914b1d43ac34357083c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/diagnostic-build-02-console.log",
+      "bytes": 16335,
+      "sha256": "8bfb015540962be71e39f924d5bb6a2501c490e65c009f170ce6699f02d41b37"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/diagnostic-build-02.json",
+      "bytes": 63630,
+      "sha256": "d51b5d4f20ca852be6326ea2fe2216f6246aadca0b653244f07729e1a322a2e8"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/diagnostic-build-02.log",
+      "bytes": 24421,
+      "sha256": "6ded413c5f8b7fcb37d28110b927ac42fe308f12c7855810c0694de3a4d22af2"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/finalize-01-console.log",
+      "bytes": 87152,
+      "sha256": "bdd70dd1f12856d419ff697cd6e686b6278e0765ad30707fc4ab2ad82ae8a9ae"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/finalize-01.log",
+      "bytes": 346000,
+      "sha256": "12089f78784a51d2b5a120f0ef7154cd6791c7fb98dba29657cbc7f4894630b7"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/finalize_runtime.py",
+      "bytes": 968,
+      "sha256": "1bca331f358db0d55f3cbb870d438caed453feece78a3d6def7d9ddb2b172887"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-bridge-01.json",
+      "bytes": 1973,
+      "sha256": "f4aadb4304d1608fc24214e83c7fac2da32c85da79f5ad8c9353bf91463b8ffb"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-bridge-02.json",
+      "bytes": 7912,
+      "sha256": "a8964afe5caf7f12e7a056be271c95ad6fd1643c1b98d433dde82431e226decf"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-build-receipt.json",
+      "bytes": 1077,
+      "sha256": "7da4838cbdd457541442dacba50f96b4db8ce43c5ad75fa15017198b7e1a9962"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-editor-build-reused.log",
+      "bytes": 20559,
+      "sha256": "a046ab4d93c1ed071e66039dd35fcd76dbb05fb90e1da978afd0ac483abc79ec"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-game-build-01-console.txt",
+      "bytes": 36695,
+      "sha256": "d1370ff6d2652ba2a9d263ca538c8042466aac3afa67bc7642e3efcc14deeb6b"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-game-build-01.json",
+      "bytes": 104248,
+      "sha256": "e042cc4df33df0bbd153851b6058dbe5d4412aa199860333ecc521518be07cfb"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-game-build-01.log",
+      "bytes": 42419,
+      "sha256": "cf944afb5d927d908740a28df22653182f565831eaf2bfc1d32cfee9d0977d27"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-live-compile-01.json",
+      "bytes": 496,
+      "sha256": "074a502aac7f1aadb459bd90720b897f1ed7ca3d1ebe3db5157614cce56bc9da"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-live-compile-02.json",
+      "bytes": 225,
+      "sha256": "a94165e1c88669ad03872d9f0f2555a67cb82f39f228cc183afd2b6f6d539946"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-live-ubt-canceled.txt",
+      "bytes": 18227,
+      "sha256": "ec0ed554223436d01e121977d94a004065b4e65015e92ce474e038c1007438f9"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/hammer-live.json",
+      "bytes": 11265,
+      "sha256": "f25763f3e23a59612ac048cf0ba30c972c67f387cd4889ded3ae47f5570da6e1"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/initial-mcp.json",
+      "bytes": 882,
+      "sha256": "eb76d2ed12fc9623dec370884aa47d61efba184002e366ee0a56351eb98f7338"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/initial-state.json",
+      "bytes": 562810,
+      "sha256": "c40c2f6b39dc401ba3efeda2f7d0628a508e15df7ef955d152114ce1f8f22a23"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/material-graphs.json",
+      "bytes": 21076,
+      "sha256": "70c8c85ab2a7048360f661321365bcece4c241357198764bdf7bd74385db531e"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-after-01-console.log",
+      "bytes": 84285,
+      "sha256": "3fc2cef77ddaf283ebbf4813975c377f4a1ab3f207c2e11363f527e7ef754973"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-after-01.log",
+      "bytes": 343043,
+      "sha256": "fbb8105e35cb233c06444ee4d921e8d74e87f5f4b60b620d28c2e7e8d668bd57"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-after.json",
+      "bytes": 954,
+      "sha256": "6ebf94642f56eb06eee76d57a290bfb23254d0e5fed83b657c41d58e091a2f00"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-before.json",
+      "bytes": 4440,
+      "sha256": "f0998a62e54420ff224507c697ced3c4daf9b41b0e2de6a40d1e67eb29faf691"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-finalized.json",
+      "bytes": 4440,
+      "sha256": "f0998a62e54420ff224507c697ced3c4daf9b41b0e2de6a40d1e67eb29faf691"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-probe-01-console.log",
+      "bytes": 87573,
+      "sha256": "a6b45ea84cf0e6092e994d5201c1fe4bbcac8a63ab2d0fc249a44f531c04eea6"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/native-probe-01.log",
+      "bytes": 344949,
+      "sha256": "1364fb0cbc13f53324eb214ec8b3d45d6cf447f0f20782ad1316415a76014373"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-01-console.log",
+      "bytes": 32111,
+      "sha256": "908b017fb7e3b50b8d79554a155e0a88f91d13df7b4dc7d7e32c3b92486b206f"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-01.log",
+      "bytes": 277666,
+      "sha256": "f7d228a6cf7d68b84e80ddee2187c6e3e1971cd53eb72b3a465c885bd69fa3d7"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-02-console.log",
+      "bytes": 87835,
+      "sha256": "86f4fb08a1a783a956963e1dfdc0aba49bab0cc36edb1eb3fb110f48bfcad211"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-02.log",
+      "bytes": 343072,
+      "sha256": "431bf4c40106b461bc51154828d8904af56d8a276cf3ff6bb93584322d0251bc"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-03-console.log",
+      "bytes": 87117,
+      "sha256": "63455a6c956d7b147fb9d89649be574eebdcb632c7182fad40e87d04bafae355"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-03.log",
+      "bytes": 343320,
+      "sha256": "4d9622c37ce79c9a3417e2c120f54f03d3d1385c5f9290c54631ec4ffd926d73"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particle-probe-before.json",
+      "bytes": 405,
+      "sha256": "9e993cd7e6750b568e63b7d45d42e49cea5c4d1a70c8456bf183881f15a3b433"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/particles-before-mcp.json",
+      "bytes": 863,
+      "sha256": "dcb436a6dad764abad1ba6c444091b71b8890b47928c7f6c2b66d1ddda1ddda2"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/presenter-before.json",
+      "bytes": 1055,
+      "sha256": "ee866a62d22f0b4ed230348c16ce8cd5609d31e7fbee53567847b570e79b1d88"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/presenter-probe-01-console.log",
+      "bytes": 7801,
+      "sha256": "80ea4e2a810c85416d9a457a186aa143102ea3d65822270497d7a04de2921432"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/presenter-probe-01.log",
+      "bytes": 97492,
+      "sha256": "2e401b3ca3fcf371f31110e62fb811cffff5c4ef5d30635c38f4e4d6d4dd92a1"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/presenter-probe-02-console.log",
+      "bytes": 106073,
+      "sha256": "74bd08a6cf0235b550645f90f46fa0b4b15228388fcff3f5898b75b4bc01d36c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/presenter-probe-02.log",
+      "bytes": 362169,
+      "sha256": "248d16fab63f03c3c4eea6a0dbdcee837078dccd3957e00397a31183d347e229"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/repair-01-console.log",
+      "bytes": 44632,
+      "sha256": "a68f60fe6930b095475a86edd09fe11676e262dac17fa348eb36f7b428f4e6e6"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/repair-01.log",
+      "bytes": 325415,
+      "sha256": "4b70e6503d3a14416af8af666eb7152c4d93499161862c2fb70ac0ec47555b41"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/repair-saved.json",
+      "bytes": 15642,
+      "sha256": "ab5869f2208472fbde4af9876fc79543942cab91c2796f246f755d1ec5fa9343"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/repair_systems.py",
+      "bytes": 1208,
+      "sha256": "578c94ee2f829acdf80e34d306c16d2c55adca9876da8c85d1be4711d88f8fdc"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/runtime-finalized.json",
+      "bytes": 319,
+      "sha256": "05032cbaf4c3dbdceadd7a6e67bc05bbd9a6ad0a5f005996b0fa685628f5c711"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/run_after_probe.py",
+      "bytes": 174,
+      "sha256": "0d38ab70462fafba26c727e3a8e4d811ef468dd5858ca60a90e185f187d1180d"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/run_native_probe.py",
+      "bytes": 908,
+      "sha256": "6d742a9fff5eac0c46cfe26538b637497ba4b7c8023d32d04977546dbc028963"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/run_particle_probe.py",
+      "bytes": 129,
+      "sha256": "15c19f5d379b8b6e70d4d980aa56fa181808f620cb87b0c51d36d89fd7aab612"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/run_presenter_probe.py",
+      "bytes": 1105,
+      "sha256": "eb0328287cdaa1ff94e4dc0be29bdd67518c004c0fb68fab6477f655091f7828"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261016/VisibilityFix/system-lifecycle.json",
+      "bytes": 2337,
+      "sha256": "e4721dc9d685c9734a4afa4781521e97a5607fe010c128b61d343730d5c4758b"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/assets-console.txt",
+      "bytes": 31765,
+      "sha256": "79acdfb7b15bd763fa90f9d71afc52629a0800223d1b7860a8bbc5b7712fba9e"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/assets.json",
+      "bytes": 755,
+      "sha256": "e307e37ab0e6452558080e9fa671b2ede0f61afb1d921b6428f6d831baa6116f"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/assets.log",
+      "bytes": 279238,
+      "sha256": "f61709efc82684be8be9f9ff5a0920974a2a59b23ee76a0889feb00c649fc096"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/authority-console.txt",
+      "bytes": 34521,
+      "sha256": "0f37e6ebff31b2b57509fe5df55cbf358343e6620cb42a7e4497f423dd3cbf78"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/authority.json",
+      "bytes": 2100,
+      "sha256": "cdb9ae2adda6523c48809971f661bca2cc52a89b12d90ef878e8738f8d9ebacf"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/authority.log",
+      "bytes": 280698,
+      "sha256": "186fc37a4e6865ee90a836f44c28071086fe58421383a2c9251c7af9e3af7efe"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/build-FPSGAME.log",
+      "bytes": 14552,
+      "sha256": "89e298a7ea61d94016f8df8c266efbea038a464022d40db1a7ec91a2b7f2c825"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/build-FPSGAMEEditor-attempt1.log",
+      "bytes": 77567,
+      "sha256": "0c8b52db7893ae19c2c2b6b64c84aea8d2308cdfa4c44c0e8ff5be60d914efa7"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/build-FPSGAMEEditor.log",
+      "bytes": 14771,
+      "sha256": "ab640969f57022d547bc67b4e7ebf38ceabb3258c95ad87996b12b5d64bac04c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/build-receipt.json",
+      "bytes": 458,
+      "sha256": "e60450f457febfe954550a904bf42daf811a8993f63d4174964cea5acabf013c"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/effective-build.json",
+      "bytes": 3562,
+      "sha256": "8d8282c2f59acc128b9bd368057ae25a782d41a2040477b901a45cb4143bb3f1"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/wire-receipt.json",
+      "bytes": 281,
+      "sha256": "423039355e0c97b773efd034c0df42b9a691c5c77c77760dca68e561e3dcfc83"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/Wire/20261017-003817/client.json",
+      "bytes": 115,
+      "sha256": "2c03ec7ad5c938537dcfef0916b10be86324cf54fd4eb527161b8d4b09538abd"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/Wire/20261017-003817/client.log",
+      "bytes": 281120,
+      "sha256": "faa093e03f3eb52caab94037c741cf1500057d09a20b540b336da6ad22046c10"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/Wire/20261017-003817/host.json",
+      "bytes": 136,
+      "sha256": "5c7e46b297d5fbb2dd7f77a133f02719cb0c53dfe1d5628d5b1d091c17ab6406"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/NetworkAudit/Wire/20261017-003817/host.log",
+      "bytes": 272846,
+      "sha256": "0fe7886df9985649b5bcccb8818a177d68511d356b3eeb80d6e3c9f8f712b9c8"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/RingAndWeaponOnly/delivery.json",
+      "bytes": 482,
+      "sha256": "d4036cb2038b6ca0c0d4037afeef70abc4b47338909727ccfca95fe23dedc792"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/RingAndWeaponOnly/install-bridge-01.txt",
+      "bytes": 574,
+      "sha256": "ebe72a2956dbad51883b2f9c4a7a48a94f9d82b14d0f7d375fcf2a5b8c616f00"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/build-FPSGAME.log",
+      "bytes": 946,
+      "sha256": "bcff767c1391fe4446a95e93e81d6fab207e6d1907a3b73c2c8513c0edf40979"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/build-FPSGAMEEditor.log",
+      "bytes": 977,
+      "sha256": "330b826f85c00ba0fd6ef47626577bce3a3e7e4008b82aed5fb0c56645c5afbd"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/build-receipt.json",
+      "bytes": 454,
+      "sha256": "082dffe4fe2fd0f0eef1522177375584aeaf68eb1bf23450a6bfc7b1d81eb340"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/stats-console.txt",
+      "bytes": 41818,
+      "sha256": "899527cccea927f91c7701512512ad09a1d3a8afbf3c70a4f88009984c9b2051"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/stats.json",
+      "bytes": 10824,
+      "sha256": "65558a65ab3cad9d03cbe6359e85c2f0ecb49abcadb8c70ca0fbca7088431662"
+    },
+    {
+      "path": "SourceAssets/FlameArmor20261017/StatsAudit/stats.log",
+      "bytes": 288459,
+      "sha256": "7f06a6a894ecef73dc4c3963d4323d5181a1cfa545e5468e12dcaba245b43d06"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/delivery.json",
+      "bytes": 59979,
+      "sha256": "bb48d96de9216a2f9f185e697c36c78d549cac0d7a290b19569f6889348ac386"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/design.json",
+      "bytes": 2437,
+      "sha256": "4245d5c23a8527e957795148055d72777d0ba8c5f57d9827598c20606fdb58b1"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/item_definitions.json",
+      "bytes": 3969,
+      "sha256": "4086d440acebdd174d1dd158a2910f0e0b527d451d38c4fb869af6c987148e69"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/item_definitions.proposed.json",
+      "bytes": 3823,
+      "sha256": "e2048d18c1e070394a13c9d2349a497da5009ec0dd78e823659e6d7d130eb3db"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/loot_plan.active.json",
+      "bytes": 17893,
+      "sha256": "39fb09d669c6e4425384b10e0170c18442a84640805782edbfc37b4a6049a891"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/loot_plan.proposed.json",
+      "bytes": 1616,
+      "sha256": "be22771cfb4248e965b7ef6983468f912a9712ac8d24dd59e54f01b6cce06b4b"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/model_manifest.json",
+      "bytes": 28375,
+      "sha256": "29019c0d0b9e4e0a122b7239250cb5fc0492e889a6a27a0e2130a6c2ed0d22ad"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/presentation.json",
+      "bytes": 4172,
+      "sha256": "90e7f9de8d57cf3fa8ec40fd6f071c2fb82aaadad7fc86454f7c292d4e5bcf98"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/texture_manifest.json",
+      "bytes": 10524,
+      "sha256": "9a62f2ab1fabc388b8739cd89c106e1b5de2643dd6192bc737bf752dff41d304"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_CompactCamera_Source.blend",
+      "bytes": 4127962,
+      "sha256": "51aed36cddbeb3b7db104eb280c4d07923a3b841c2bcdbdfe5069239572b6bba"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_Laptop_Closed_Source.blend",
+      "bytes": 4253182,
+      "sha256": "ab236c3f5a5a67a7613c815e5d0673ae2af2927345989423206197077334f4e4"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_Laptop_Source.blend",
+      "bytes": 4253127,
+      "sha256": "589e1dfa0a825bcf886b2b74ff75274f969cd8299add5b4b81db1dbb39196b62"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_MusicPlayer_Source.blend",
+      "bytes": 3912152,
+      "sha256": "8a4acfab2fafd43956565f5c20a40ec98354d9519f61c21c6e9f630bd27a8184"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_Perfume_Source.blend",
+      "bytes": 3960911,
+      "sha256": "7a76e7c5dfb47d5e2f421371747cc28ecc5d09750daab3e50984930191b54fae"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_CompactCamera.fbx",
+      "bytes": 4485420,
+      "sha256": "95b1541a4fa8501572d6d98bfe91b28fa5e8c6c4be0e15ff9c333741a62be351"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_CompactCamera.glb",
+      "bytes": 7048240,
+      "sha256": "c13f7d5c59e178b074ecc572e0383e6e94a806ed07fa9f7c16a89a4c063f8770"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_Laptop.fbx",
+      "bytes": 6911276,
+      "sha256": "c73647da7a95a698ab036ec914b8e4deaa17f76175246e4ab26ec2be27126a22"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_Laptop.glb",
+      "bytes": 9060144,
+      "sha256": "70b85c9e8b03716c2fc9b3bd13562e9f68e62e07bbbfe629351b6a4619e23a16"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_Laptop_Closed.fbx",
+      "bytes": 6865228,
+      "sha256": "0ac10c5e1f4ce9bc0738be4821e520822718385be1d1e960b11f04f2304b2051"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_Laptop_Closed.glb",
+      "bytes": 9050200,
+      "sha256": "3dd697fd6ad16fa1e48596cf35f159ecb3053b623acb9f66b396eab85224e898"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_MusicPlayer.fbx",
+      "bytes": 1897804,
+      "sha256": "1e5faccd8286582f50dce453d748d87e3b4e1759d879d41ad17d71e5caaf20d8"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_MusicPlayer.glb",
+      "bytes": 4919052,
+      "sha256": "5a38029e80926c217b6d90e82e4170a072dafe7e4a4564b31f1badf30c6b03b6"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_Perfume.fbx",
+      "bytes": 1659068,
+      "sha256": "619a3aa0fa91ef4553c1602c36260d3a696eea02b1ba8e2ca7078dad1daa2254"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_Perfume.glb",
+      "bytes": 4862572,
+      "sha256": "7c82275b1d2342e786151be06b509bba7c53b8820120c72abbf37b6ab0cc7793"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Icons/search_business_laptop.png",
+      "bytes": 1022490,
+      "sha256": "d0a7178338fd26c661042e6980bb63634ca50dfc7c13797e64e8124762d4d68e"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Icons/search_compact_camera.png",
+      "bytes": 937382,
+      "sha256": "aa5579724a6f1978c4df430aae345e4e3871ee9e11cf3aa59e17ca7a6a8812cf"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Icons/search_portable_music_player.png",
+      "bytes": 490152,
+      "sha256": "759c355be00b0bfba3bf3e1985c81ffc1d58cbb16ca9987bd67ab36c38d09bcc"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Icons/search_private_perfume.png",
+      "bytes": 535794,
+      "sha256": "646c1136f9d390423cc5c537e2a1bfa18a0b85e4d05bbd72b3062b16e913f12b"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/Camera_detail.png",
+      "bytes": 1829750,
+      "sha256": "c2f6df4df9874173a565bc3e09753a90781528b0b12bc40e982f1a6acb8e44c5"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/Camera_front.png",
+      "bytes": 2222437,
+      "sha256": "cfd8e5ae53cc60ecae516ccd861d479ed47dd2d982666a1ab7667380c026e89d"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/Camera_rear.png",
+      "bytes": 2179591,
+      "sha256": "b78a01b4eb8cabffbdcd7502389a81278f284af38d88702f853e84d37d203cbe"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/MusicPlayer_detail.png",
+      "bytes": 1775374,
+      "sha256": "3df89f840960cf7d5a84168eabd41e776068a6f7a758232014871dd6e69f7c33"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/MusicPlayer_front.png",
+      "bytes": 2030368,
+      "sha256": "f97e38b6ca9647ecdbd212da947bfbf427a16cd6dbd7e55ab78b7f38fbcad4d7"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/MusicPlayer_rear.png",
+      "bytes": 2037876,
+      "sha256": "010bfb510ee75775c5e475902891789dc87fb70e0d8d336a0a1a457e0b492d33"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/Perfume_detail.png",
+      "bytes": 1914320,
+      "sha256": "a4fe7d56eebdedc95edf7301cb207682a20dc9f647af4fb3b111beaf6f5ff3bb"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/Perfume_front.png",
+      "bytes": 2294499,
+      "sha256": "8b40ab8b3dbb7f2d929ae0ebf233a58c4aed798f152e309ad09e6a2039a8f9ad"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/Perfume_rear.png",
+      "bytes": 2315402,
+      "sha256": "59fa8c9cff818e918f40b06c7a94c02a00319a5658717ea98ea5c6370ee304d7"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Previews/DetailReview20261016/render-receipt.json",
+      "bytes": 4239,
+      "sha256": "66723004e364cf0647bb8bb633915a6284fdd8b191e01ef8baddbc45c0c48bd8"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/attempt1-build-FPSGAME-stdout.log",
+      "bytes": 46915,
+      "sha256": "cb55d5287b9d3a91e9c84070b7c9f90e261ecd08099e57986b20286d3fbff05b"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/attempt1-build-FPSGAME.log",
+      "bytes": 54400,
+      "sha256": "2befbfc6ed6295c9820c2302ef689b0038e3825fd4d4b6c46a5f73679d41e223"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/attempt1-native-game-build.json",
+      "bytes": 257,
+      "sha256": "681d67341777692da7ba59a15eb52ccf07d1f43ece136e35bea31e90d71a89fa"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/blender-authoring.log",
+      "bytes": 5916,
+      "sha256": "9357df07639f7b87317eee6e2d0a606d49d02baa32307c726bcf686da242da2b"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/build-FPSGAME-stdout.log",
+      "bytes": 46915,
+      "sha256": "cb55d5287b9d3a91e9c84070b7c9f90e261ecd08099e57986b20286d3fbff05b"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/build-FPSGAME.json",
+      "bytes": 162958,
+      "sha256": "3ab1be7c78110fa7c5f8bf011096eff740d1618e131bc0a770025bb1ed81bd19"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/build-FPSGAME.log",
+      "bytes": 54400,
+      "sha256": "2befbfc6ed6295c9820c2302ef689b0038e3825fd4d4b6c46a5f73679d41e223"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/camera-text-v2-authoring.log",
+      "bytes": 980,
+      "sha256": "704c2f021606a55f134b2673d3bfb2f65a160d5197cb921f38f785e2f95f4ef1"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/camera-text-v2-import.json",
+      "bytes": 531,
+      "sha256": "5873e78ffa39409e07a9a513b437c58a3c592ca03479bfae285227a4701124b1"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/camera-v2-icon.log",
+      "bytes": 893,
+      "sha256": "d8bc44e608e76eb02119ccfa5b6b650656f56ad3a7a5bff936b8524830044220"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/camera-v2-import-stdout.log",
+      "bytes": 21231,
+      "sha256": "bdc66794b5a9c4e9acf7060814e3c21a2e974ac0d621fe825715f455b41ad635"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/camera-v2-ue-import.log",
+      "bytes": 237214,
+      "sha256": "8f3088d16ea0cfdd1eb7f59c8d950be87450fbbb643581e261c873b08c00dfb7"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/gameplay-data-installation.json",
+      "bytes": 22850,
+      "sha256": "588afd9f6a142b5c3c12ada1bb3a635ff1369db660d2ae8be7938e68364ea55d"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/installation.json",
+      "bytes": 3273,
+      "sha256": "44b78e343f05d0e3c2e119dc26b63aadc80529b364ebc1efbd020d6a4e61af9a"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/integration-before.json",
+      "bytes": 2559,
+      "sha256": "9678f20ed03cbac3cfde38d92184ba49fc67a219a618a8e7be48da307eca7aa9"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/inventory-icons.log",
+      "bytes": 3281,
+      "sha256": "d5a0924ca459b1b2cf86a49f1114799ade56b06bd04cdef28b6bba4f75845a6d"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/live-coding-request.json",
+      "bytes": 118,
+      "sha256": "18f1f4114ed987d721756d1d10cd4c3dbcd2576e9f48c4178787d186d4c65509"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/live-coding-result-20261016.json",
+      "bytes": 136,
+      "sha256": "94dc99f2527269d2c4c5a62fe0925238db32bd7163af507351194436b9fd6480"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/live-coding-schema-20261016.json",
+      "bytes": 721,
+      "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/native-game-build.json",
+      "bytes": 257,
+      "sha256": "681d67341777692da7ba59a15eb52ccf07d1f43ece136e35bea31e90d71a89fa"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/requested-details.log",
+      "bytes": 3880,
+      "sha256": "bfca822a4dff6ae991e94572aee55a729671dc6df03a136f54423a56a5a76655"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/staged-import-stdout.log",
+      "bytes": 25640,
+      "sha256": "d4bf84b25a31444af94b55278f1eaa9f5b0fecfbd14007abe3d6371142512716"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/ue-build-toolsets-20261016.json",
+      "bytes": 13635,
+      "sha256": "47a60c22be108bccd051f9906be9f3df4641716d7ffd11004e74760f8fbf844f"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/ue-import.json",
+      "bytes": 2707,
+      "sha256": "88eac18976db55d57932b3055c57fde5a508681b610a961a0d156a53ca51ad83"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Receipts/ue-staged-import.log",
+      "bytes": 268779,
+      "sha256": "7642cab3e09af15e53ed26cf68a23826508ce3a80e89d6ec879495f0f54210ef"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Textures/T_StaffPrivate_BaseColor.png",
+      "bytes": 1292891,
+      "sha256": "23d0008e6d6c0d91c968092ea584956c46f86692124dbd233b15fa5868ad5606"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Textures/T_StaffPrivate_Normal.png",
+      "bytes": 1065517,
+      "sha256": "702a2cea684bf793b9fc278b7caec7a60e7ae8b65a65ebf45b41b3c253755506"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/Textures/T_StaffPrivate_ORM.png",
+      "bytes": 1488598,
+      "sha256": "a8c73635872595aa24c9f7255275265dddfd51f0820b3a10cb15c4086086a880"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/LivingCollectiblesImport.uproject",
+      "bytes": 330,
+      "sha256": "39a2a198843d5423f2d0cfab7b326586a9f5d2e1394b66d7ac399db5b813dc06"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Config/DefaultEngine.ini",
+      "bytes": 617,
+      "sha256": "07b4ca8ef11d20970cc0dbeedb36834c7b856e0b7b897acfd4c9eecc63e2c2be"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Materials/M_Living_GlassClear.uasset",
+      "bytes": 7701,
+      "sha256": "305aa36f7fb5fbfd59b4bcdb0286a801431bf52ce019bc99e0e4d30ac298de8c"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Materials/M_Living_GlassSmoked.uasset",
+      "bytes": 7706,
+      "sha256": "8e9537f71246ee0430add65c9ac23ab6f860743cee566f276ac4f27a1bf9a5cd"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Materials/M_Living_PerfumeLiquid.uasset",
+      "bytes": 7716,
+      "sha256": "1ad7acc76a7497de048d50a15265a15f016fcb20c8c3c8adb3be920c6e8b793d"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Materials/M_Living_Surface.uasset",
+      "bytes": 7899,
+      "sha256": "83019280ffa2465b31d25c4c0b41fdecad336e3a5ca12f683f1f25a818266748"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_CompactCamera.uasset",
+      "bytes": 1278197,
+      "sha256": "622c92d05d94f8e96744428e8d8844f017274bdfa674539e74f42f3df6602b18"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Laptop.uasset",
+      "bytes": 2981730,
+      "sha256": "18285f55c30ad4e14d7264541a25d319aab520f887338435421177fc86e5b25b"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Laptop_Closed.uasset",
+      "bytes": 2961394,
+      "sha256": "c25a3e63bbeaae67780054c1053b3aa8544aa67087f5ec87941ead490f17cfe0"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_MusicPlayer.uasset",
+      "bytes": 561966,
+      "sha256": "a98c1a3a187d9c669025980d027412e9605abfafcc93fddb7e36c3733f12fb4a"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Perfume.uasset",
+      "bytes": 484336,
+      "sha256": "bc8bd264bfd8dc11d09bdd003f74e9125a0ac45e7e37f1fcda905a9b7fa78098"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Textures/T_Living_BaseColor.uasset",
+      "bytes": 1471545,
+      "sha256": "775d920e9eeb3dccda6214062a098fe837912256d4d533f4895b0e72ce185ba3"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Textures/T_Living_Normal.uasset",
+      "bytes": 1171664,
+      "sha256": "e60a82cdc001ab24aa619be00db180c71b562c39c79f25b503614d5187a49170"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V1/Textures/T_Living_ORM.uasset",
+      "bytes": 1585427,
+      "sha256": "403ac7d363803c37dd576ed490312f6aa9fa3520ee8d05bbbd1069ae7b62079c"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Content/Items/StaffLivingCollectibles20261016/V2/Meshes/SM_Living_CompactCamera.uasset",
+      "bytes": 1278572,
+      "sha256": "6ac8613b5cc893da2d1157c11480340d220b0cab950f4f408eb96135ec4c3053"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 18709,
+      "sha256": "314de6fa71efac64e7e9e04ed46bcb55087472e0e2dadaeeb974239e1068f7bf"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 18808,
+      "sha256": "f85e4560aef648dc3f7c2d006f22646012e844c0e84d7111ca4eb213c529bb43"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Saved/Config/CrashReportClient/UECC-Windows-88BD9AE544A4D13D0654A893C89F037C/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Saved/Config/CrashReportClient/UECC-Windows-E69DC7924936F0DFA9B1A086BE70F66F/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 71155,
+      "sha256": "b1c86ddff8a799b70142e29c596d0ce947ee2e64f991bfc8060267340998a3b9"
+    },
+    {
+      "path": "SourceAssets/StaffLivingCollectibles20261016/UEImportHost/Saved/SourceControl/UncontrolledChangelists.json",
+      "bytes": 4660,
+      "sha256": "5c3568de5c4d369670e09f92a8efece945db8689781805ba2493c590ed49ae34"
+    },
+    {
+      "path": "SourceAssets/DrainageToolboxLoot20261016/delivery.json",
+      "bytes": 1445,
+      "sha256": "283dc0a96361fd54fc474d5aa6d5f798ae2748be16c2dd23295a7088c86dcf1d"
+    },
+    {
+      "path": "SourceAssets/DrainageToolboxLoot20261016/scene_search_loot.before.json",
+      "bytes": 79822,
+      "sha256": "dacfbabdd45d1471a4064bd78bfc3e1bc403b3ac7c8f07ac8852c832c652dc67"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/build-FPSGAME.log",
+      "bytes": 15653,
+      "sha256": "9eb6fcdabeec35b49d7df062f483d4690d3a7b2b01cbe556a808526efdc328e5"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/build-FPSGAMEEditor.log",
+      "bytes": 15872,
+      "sha256": "485c600cf7d2590caf8fbfb99d34363e457e5abc0edcd1fc3192e7ddd4ff8847"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/build-receipt.json",
+      "bytes": 442,
+      "sha256": "65e4d305b22a07526a17603f0550f8e81f413134417dfb43ad6b0fae3a9a628c"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/build.ps1",
+      "bytes": 2554,
+      "sha256": "99c5a9366138ca24f1fb05becc256b8e0652437ef2305e10cda0d34d42ef5dc3"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/build-FPSGAME.log",
+      "bytes": 946,
+      "sha256": "17af60033d06080b9d6cac34eee9a848c84037ccd7703b345d8b80528d550669"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/build-FPSGAMEEditor-attempt1.log",
+      "bytes": 34961,
+      "sha256": "e726bb998e60a4e34a7c71ea5727798b3b050d48c20137180cd07297b556dbdf"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/build-FPSGAMEEditor.log",
+      "bytes": 977,
+      "sha256": "a77ea5970197dda7d6de80c8c2610613e4c3f228fefa5121829a3fac6a71fdcb"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/build-receipt.json",
+      "bytes": 468,
+      "sha256": "5ec45c54a7147ca63d7095c28c2df542d421a5d2ddf3bcef0032b2330363f2fb"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/current-scene.json",
+      "bytes": 187726,
+      "sha256": "7b0d0371b45034e6b6bf27049b6bf8b33020aa1822efc960895f53c6325afce7"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/native-graph-diagnosis.json",
+      "bytes": 18947863,
+      "sha256": "f222cfe1a6fa63d7c73eed85b7446cd38408cb2cf2a05ac2bcf5d36fc03ba2f1"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/native-graph-receipt.json",
+      "bytes": 132,
+      "sha256": "6ed8306109b64fb1b77bf7d8abfe45fbf6e661935d75feece8edb8cac9971da1"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/native-graph-stdout.log",
+      "bytes": 35424,
+      "sha256": "407c0cc9165292ae10c1705019fa31b730c706df607cac3370f2f556f35b73e5"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/native-graph-summary.json",
+      "bytes": 4599,
+      "sha256": "2942ecc7978520c1b4c07fcaf41037e048003bd1fefc2f0d4ff16a0ba831548c"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/native-graph.log",
+      "bytes": 280998,
+      "sha256": "d5d07907cc0db12a9fb3042c8a40d5b6773893820c27975c71356b721643b2aa"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/scene-read-01.txt",
+      "bytes": 908,
+      "sha256": "e0b32e2bb47a6dac9f35eab51388d92d9a194c9a5cde3e4ae49570b5acf63334"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/scene-read-02.txt",
+      "bytes": 233,
+      "sha256": "641f2207d75eedad06b7ab5a003c6bfa777a130605437a9c2a3d9e65ba92aa80"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261017/DirectionV2/source-basis-diagnosis.json",
+      "bytes": 12040,
+      "sha256": "3e69f2b2d3530552e2c361e5763e32e4d5b602c33a6564523dcfce1199c651fe"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/asset-references.json",
+      "bytes": 4245,
+      "sha256": "81605a540517cf3b6bb7c7caf4753eb818396a7b1a84761a8cfe06514bae8df5"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/authority-audit-receipt.json",
+      "bytes": 147,
+      "sha256": "f0703dd5f256c7ec18a745227f82cb6068505fddca6c0e398eb931381dd8dab0"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/authority-audit-stdout.log",
+      "bytes": 38422,
+      "sha256": "0a6ab975f809949a8918f112530407444ccbde7a04400c1d59854f47296a322f"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/authority-audit.log",
+      "bytes": 284157,
+      "sha256": "84e4eef3a88904ade8b7ded5fc1c12d5d2463f39fd20af0770f3d30f44f14160"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/authority-result.json",
+      "bytes": 1882,
+      "sha256": "984455593b882bb37ffc082757b97cb2288b4087fe2d26956ba545890d932177"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-editor-queue-conflict.log",
+      "bytes": 564,
+      "sha256": "4088af0aeb7aceaf3a529e257255742cbcd4f6f32180edc08f57dbb75c833aed"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-FPSGAME.log",
+      "bytes": 946,
+      "sha256": "e70201887905584fb681e9c051bb49bd7c015be7266b9f993437d63280aec8eb"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-FPSGAMEEditor.log",
+      "bytes": 977,
+      "sha256": "1efc4b7739202fd68eadd3f420feb4d2b7ea95a205fac18bf7fb16db06bda816"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-game-receipt.json",
+      "bytes": 86,
+      "sha256": "3a100b1d6b3685dbc1546fb46e1099b686cb405590037cd8d407488b62638f6f"
+    },
+    {
+      "path": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/build-receipt.json",
+      "bytes": 470,
+      "sha256": "caea3916abe2e2205e74355bfd6e3fca671615ee0b12e16080e35a966db4a390"
+    }
+  ]
+}

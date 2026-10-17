@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-16",
+  "scope": "当前目录武器与空手的焰甲附着；源码与资产制作源排查",
+  "entries": [
+    {
+      "id": "ue_m4a1",
+      "name": "M4A1",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_akm",
+      "name": "AKM",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_qbz191",
+      "name": "QBZ-191",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_m1911",
+      "name": "M1911",
+      "family": "pistol",
+      "before": "主手固定枪口线段；双持另一手/法杖副手缺失",
+      "source_adjustment": "每只手独立枪口与部件；继承第一人称渲染空间"
+    },
+    {
+      "id": "ue_rune_sword",
+      "name": "苍蓝星辉·双手符文剑",
+      "family": "sword",
+      "before": "已有单段火；使用攻击辅助端点，检视和世界装备存在偏离风险",
+      "source_adjustment": "可见模块/刚性武器骨骼；刀刃端点，独立于伤害辅助轨迹"
+    },
+    {
+      "id": "ue_frost_crystal_sword",
+      "name": "寒晶·双手剑",
+      "family": "sword",
+      "before": "已有单段火；使用攻击辅助端点，检视和世界装备存在偏离风险",
+      "source_adjustment": "可见模块/刚性武器骨骼；刀刃端点，独立于伤害辅助轨迹"
+    },
+    {
+      "id": "ue_dan_wesson715",
+      "name": "Dan-Wesson 715",
+      "family": "pistol",
+      "before": "主手固定枪口线段；双持另一手/法杖副手缺失",
+      "source_adjustment": "每只手独立枪口与部件；继承第一人称渲染空间"
+    },
+    {
+      "id": "ue_ash12",
+      "name": "ASH-12",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_m16a2",
+      "name": "M16A2",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_a762",
+      "name": "A762",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_svd",
+      "name": "SVD",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_pkm_lowpoly",
+      "name": "PKM",
+      "family": "machineGun",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口和枪管前段；瞄准弱化、收起停发射"
+    },
+    {
+      "id": "ue_highland_claymore",
+      "name": "高地·双手剑",
+      "family": "sword",
+      "before": "已有单段火；使用攻击辅助端点，检视和世界装备存在偏离风险",
+      "source_adjustment": "可见模块/刚性武器骨骼；刀刃端点，独立于伤害辅助轨迹"
+    },
+    {
+      "id": "ue_lmg201",
+      "name": "201轻机枪",
+      "family": "machineGun",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口和枪管前段；瞄准弱化、收起停发射"
+    },
+    {
+      "id": "ue_g18",
+      "name": "G18",
+      "family": "pistol",
+      "before": "主手固定枪口线段；双持另一手/法杖副手缺失",
+      "source_adjustment": "每只手独立枪口与部件；继承第一人称渲染空间"
+    },
+    {
+      "id": "ue_hk416",
+      "name": "HK416",
+      "family": "rifle",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "实际枪口/消音器端点，按握持至枪口距离确定前段覆盖，ADS 降强度"
+    },
+    {
+      "id": "ue_tang_dao",
+      "name": "唐刀",
+      "family": "sword",
+      "before": "已有单段火；使用攻击辅助端点，检视和世界装备存在偏离风险",
+      "source_adjustment": "可见模块/刚性武器骨骼；刀刃端点，独立于伤害辅助轨迹"
+    },
+    {
+      "id": "ue_pit_viper2011",
+      "name": "Pit Viper 2011",
+      "family": "pistol",
+      "before": "主手固定枪口线段；双持另一手/法杖副手缺失",
+      "source_adjustment": "每只手独立枪口与部件；继承第一人称渲染空间"
+    },
+    {
+      "id": "ue_rsh12",
+      "name": "RSH-12",
+      "family": "pistol",
+      "before": "主手固定枪口线段；双持另一手/法杖副手缺失",
+      "source_adjustment": "每只手独立枪口与部件；继承第一人称渲染空间"
+    },
+    {
+      "id": "ue_xuanchi_zhenyue",
+      "name": "玄螭镇岳",
+      "family": "sword",
+      "before": "已有单段火；使用攻击辅助端点，检视和世界装备存在偏离风险",
+      "source_adjustment": "可见模块/刚性武器骨骼；刀刃端点，独立于伤害辅助轨迹"
+    },
+    {
+      "id": "ue_super90",
+      "name": "M4 Super90",
+      "family": "shotgun",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "当前枪口附件与枪管前段；换附件更新位置"
+    },
+    {
+      "id": "ue_steel_warhammer",
+      "name": "锻钢战锤",
+      "family": "blunt",
+      "before": "未接入锤系分支",
+      "source_adjustment": "实际 hammer_heads 模块的两端，兼容当前改造锤头"
+    },
+    {
+      "id": "ue_m870",
+      "name": "M870 Tactical",
+      "family": "shotgun",
+      "before": "主手共用固定 28 cm 枪口线段",
+      "source_adjustment": "当前枪口附件与枪管前段；换附件更新位置"
+    },
+    {
+      "id": "bow_dark",
+      "name": "猎手长弓",
+      "family": "bow",
+      "before": "缺失",
+      "source_adjustment": "跟随当前弯曲弓梢的上下弓臂 + 可见弦上箭前端"
+    },
+    {
+      "id": "ue_apprentice_staff",
+      "name": "学徒长杖",
+      "family": "staff",
+      "before": "缺失",
+      "source_adjustment": "真实法杖上段与最高杖首部件；并行保留副手手枪"
+    },
+    {
+      "id": "unarmed",
+      "name": "空手 / 副手魔法书时的空闲拳",
+      "family": "unarmed",
+      "before": "缺失",
+      "source_adjustment": "实际手腕至指节，持书左手不生成拳火"
+    }
+  ],
+  "runtime_tested": false,
+  "visual_tested": false,
+  "shared_adjustments": [
+    "第三人称和远端读取世界装备；F6 枪械无需依赖仅远端存在的枪械特效组件",
+    "武器/部件切换、瞬移、显隐恢复时清除旧世界空间尾迹",
+    "每角色至多4个武器火焰组件；远端50米外停模拟；专用服务器不创建表现",
+    "手枪沿用第一人称渲染空间；光学镜隐藏武器时同步隐藏火焰"
+  ],
+  "planned_only": [],
+  "torch_v2_production": {
+    "date": "2026-10-16",
+    "saved_systems": [
+      "NS_FlameArmorBodyV2",
+      "NS_FlameArmorWeaponV2",
+      "NS_FlameArmorArrowV2"
+    ],
+    "asset_root": "/Game/Skills/FlameArmor20261016/TorchV2",
+    "materials_saved": 5,
+    "authoring_receipts": "SourceAssets/FlameArmor20261016/TorchV2/Receipts",
+    "runtime_tested": false,
+    "visual_tested": false,
+    "multiplayer_tested": false,
+    "flying_arrow": "Server initial-only cosmetic snapshot, 3 layers, maximum 8 components per world including dying tails; no damage or velocity changes.",
+    "visibility_fix": "SourceAssets/FlameArmor20261016/VisibilityFix/delivery.json"
+  }
+}

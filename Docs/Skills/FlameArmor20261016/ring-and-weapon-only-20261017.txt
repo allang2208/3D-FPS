@@ -1,0 +1,15 @@
+灼锋焰甲表现调整（2026-10-17）
+
+按用户要求取消第三人称身体火焰，仅保留武器火焰和脚下火环。
+已从运行中的 NS_FlameArmorBodyV2 移除四个发射器：
+BoundFireballCores、BoundFireballTongues、RisingFireballCurls、BodyEmbers。
+脚下 FireRingV5 环体及其少量火星、武器火焰保留。
+
+author_flame_armor_fireball_v3.py 的完整 body 重建入口仅创建火环；
+author_flame_armor_ring_v4.py 的环体安装入口也移除上述身体层，避免重建时恢复。
+原生参数合同保持，无 C++ 修改，无需重新构建程序。
+
+已通过现有编辑器桥完整编译并保存周身 Niagara 包。
+回执：SourceAssets/FlameArmor20261017/RingAndWeaponOnly/delivery.json。
+修改前包：同目录 Before/NS_FlameArmorBodyV2.uasset。
+本轮未启动游戏、截图或测试；重新施放后由用户查看。

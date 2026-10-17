@@ -1196,6 +1196,15 @@
       "description": "强化升龙正在冷却，仍可通过格挡蓄势。冷却就绪后由下一次主动上挑触发免准备的升龙金阵。切换武器不重置冷却。",
       "kind": "cooldown",
       "group": "triggered"
+    },
+    {
+      "type": "iceArmor",
+      "icon": "冰",
+      "name": "坚冰铠甲",
+      "color": "#8ED9F4",
+      "description": "冰甲提高物理与魔法防御。近战受伤向攻击者施加寒冷，每2秒对附近敌人施加寒冷。",
+      "kind": "buff",
+      "group": "combat"
     }
   ]
 }

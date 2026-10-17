@@ -1,0 +1,1005 @@
+{
+  "scope": "Only this conversation; no deletion. Verify paths and SHA before and after each move.",
+  "files": [
+    {
+      "source": "SourceAssets/IceArmor20261017/CrystalV2/IceArmorV2.blend1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/CrystalV2/IceArmorV2.blend1",
+      "bytes": 788526,
+      "sha256": "94d6c0a165fee146db3149b5584ab2a93da542e0a973060688da48b035a94c55",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/ThirdPersonV6/IceArmorThirdPersonV6.blend1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/ThirdPersonV6/IceArmorThirdPersonV6.blend1",
+      "bytes": 2288324,
+      "sha256": "11155db7bc09cc9ed9f8818cf2cb345671c41c624bae0fdb37419226e0c6ec31",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireballV3/Before/NS_FlameArmorArrowV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireballV3/Before/NS_FlameArmorArrowV2.uasset",
+      "bytes": 1136587,
+      "sha256": "014cd315e6010a13f34e9ae90cdb5b4419eacd0b29571423e8a4edde4c90fbc5",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireballV3/Before/NS_FlameArmorBodyV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireballV3/Before/NS_FlameArmorBodyV2.uasset",
+      "bytes": 1880390,
+      "sha256": "a5e5600ba6bb6392fd3a79280031f05a24d038b5fd5855d2578f4b94ec9ea062",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireballV3/Before/NS_FlameArmorWeaponV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireballV3/Before/NS_FlameArmorWeaponV2.uasset",
+      "bytes": 1903233,
+      "sha256": "2a2d3d65744fe862f2047344847aafe04394b3064a670d7bd46af46ad17c4849",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/Before/NS_FlameArmorBodyV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/Before/NS_FlameArmorBodyV2.uasset",
+      "bytes": 2297738,
+      "sha256": "a28b2d5598c460839da390fed5c123237c4b394efe11931f349320c257907658",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV5/Before/M_FA_FireRingV4.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV5/Before/M_FA_FireRingV4.uasset",
+      "bytes": 16278,
+      "sha256": "721dbafa02de9222d3d2c6d96ad798251b853bab4be4e31c9832f93eab9f8c50",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV5/Before/NS_FlameArmorBodyV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV5/Before/NS_FlameArmorBodyV2.uasset",
+      "bytes": 2251301,
+      "sha256": "2ffa652c2fb79e8736929b34f9a4a246d0898fdebd00e07dcad2dc938c74bb4a",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV5/Before/SM_FA_FireRingV4.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV5/Before/SM_FA_FireRingV4.uasset",
+      "bytes": 42368,
+      "sha256": "75b352aeec1b60c826431c796e50063537994bec72de584475ab4fbc26ba8150",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Config/DefaultGame.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Config/DefaultGame.ini",
+      "bytes": 26123,
+      "sha256": "71bd63aef7e52e18466c5fd23e2d5af0d56c875d0b7a828efca2753f140c05d8",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "bytes": 27857,
+      "sha256": "4084ab51cf10aa14eed84c62718d3ed5a35cf0025c1e7dcd4e56db2ffe526daf",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "bytes": 32045,
+      "sha256": "0b8722adec3f4df79dd8de6e838a2c4509ae0b7a251d4f2313f8679fa6f311e7",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "bytes": 6370,
+      "sha256": "23f2038b2f8437b58c315b227cd415b23ccdf2aeaf45a775b7a883c5a10f27a8",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+      "bytes": 4045,
+      "sha256": "82219bb235246566431e49bef6c0ef353d63d2a2b7c34425bb4bdd4fb0142481",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "bytes": 17919,
+      "sha256": "c9a54f8afb8558755e030e8c9fa1904a086f1a7e623b7486676023563c5ea09a",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "bytes": 17414,
+      "sha256": "361b72f1d8fb3c83b30374896569e9d7d88a3baa5b6ce121864eaa56709dbf51",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/TorchV2/Before/Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "bytes": 4107,
+      "sha256": "22894195c4c27778afe266224362df736156e51abe04a5d94ec2ca3642ecb5af",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Ember.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Ember.uasset",
+      "bytes": 7529,
+      "sha256": "df58125c7f4ff5e81cc85aa92a2ca2eb52e41cc958ee41277ebc84b34dc80d9b",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Heat.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Heat.uasset",
+      "bytes": 14824,
+      "sha256": "fff60339c6d3f532838b81feda8da01dde106082abf659d68904a8710385d9e2",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Roll.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Roll.uasset",
+      "bytes": 21134,
+      "sha256": "3ad58c5239b582a6306d618483793cda673825f2e58a5251d47500dd6d2181ad",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Smoke.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Smoke.uasset",
+      "bytes": 13370,
+      "sha256": "80d6cb09d9ab95c85fa1aa27e726e7b1c0694612c23737fe2eda2bb43b145a57",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Torch.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/M_FA_Torch.uasset",
+      "bytes": 20943,
+      "sha256": "3750c9be3f5944de90beb2d1c597a2cca9005d6bd69deebc03f7d2eed63e2924",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorArrowV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorArrowV2.uasset",
+      "bytes": 1127769,
+      "sha256": "2eae0c286874b900a7a7f0a5699460b51f700a470b7d89021ae7bcb260fea338",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorBodyV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorBodyV2.uasset",
+      "bytes": 1842373,
+      "sha256": "e6ce8dd6f95df21181c536d132edc7068ac9011192d62c82b0eb7754d1360c32",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorWeaponV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Content/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorWeaponV2.uasset",
+      "bytes": 1865338,
+      "sha256": "0246638912ecc9d8241e266cdcf1e02fc39b9ea40a14b5a835d08758b996bb1b",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Source/FPSGAME/Skills/FPSFlameArmorPresentation.cpp",
+      "bytes": 8317,
+      "sha256": "59ee3a9801c02222ddec5ce81a910a37a512100ff908ea87ea0e2210c5627661",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/VisibilityFix/Before/Tools/Fluids/author_flame_armor_v2.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/VisibilityFix/Before/Tools/Fluids/author_flame_armor_v2.py",
+      "bytes": 15223,
+      "sha256": "5b875912381a8a10acc84479cbfea646974116202c4a9b0eddec016b993982cc",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261017/RingAndWeaponOnly/Before/NS_FlameArmorBodyV2.uasset",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261017/RingAndWeaponOnly/Before/NS_FlameArmorBodyV2.uasset",
+      "bytes": 2244967,
+      "sha256": "505c2ba85a01d9f6857ef5e3abe73874af9aed0abbf4ac1d120396da09042e3d",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_CompactCamera_Source.blend1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_CompactCamera_Source.blend1",
+      "bytes": 4127735,
+      "sha256": "9b7906fbcf2a0c78ca805b0779c486cf3a9f27893cd8b4674ba8b0ed8cd41a07",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Config/DefaultGame.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Config/DefaultGame.ini",
+      "bytes": 25400,
+      "sha256": "c159145aff6f0b083e1091769ecd51da853c8d176b0c21c58119ac40cf20fb50",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Content/ColdSteelData/items.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Content/ColdSteelData/items.json",
+      "bytes": 179023,
+      "sha256": "245842279b6fe27eae99d4be1f943b6b66004e6884e8bbeb82e31826e08bd9d6",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Content/ColdSteelData/scene_search_loot.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Content/ColdSteelData/scene_search_loot.json",
+      "bytes": 62059,
+      "sha256": "c7bbef4a13fa1ae80da5d8faa08f8142132afb56624844323c4065a04ad65868",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Content/ColdSteelData/Icons/StaffLivingCollectibles20261016/search_compact_camera.png",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Content/ColdSteelData/Icons/StaffLivingCollectibles20261016/search_compact_camera.png",
+      "bytes": 937474,
+      "sha256": "8519bd0ea3c1b5cd0168e127559be15e5d49fa40859630c0c04b0ce99057c4f5",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "bytes": 8350,
+      "sha256": "0aa4793fee5ff91fbbeb2b2faff671f78cf2eb165528b2db75ef74e4304d79a9",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/Source/FPSGAME/UI/ColdSteelSceneLoot.cpp",
+      "bytes": 17271,
+      "sha256": "3389a65624bbb970e9d5c54ff2f47bd92cda7a881f0163afa411eda37fbfdd9d",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/delivery.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/delivery.json",
+      "bytes": 36512,
+      "sha256": "cd64d4ccd11cc4e2e232cf7a053719d01b12e1497c2a1b63993c561c2da2da13",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/DELIVERY.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/DELIVERY.txt",
+      "bytes": 3273,
+      "sha256": "4239ef67b3f739db5111c7f84ff8a028be6959cf2484aeb9b8f11fae0d5e79c6",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/model_manifest.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/model_manifest.json",
+      "bytes": 28161,
+      "sha256": "fa7a9a66fc60ece8cabfaf872359d7eafb6e384bcbf9ae3e1251a3f306cdccb6",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/presentation.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/presentation.json",
+      "bytes": 3615,
+      "sha256": "9ac169204f84c4298ca0067ff87ffc0f2c32ad6c91d0410cf177e142e5bf52b1",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_CompactCamera_Source.blend",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Authored/SM_Living_CompactCamera_Source.blend",
+      "bytes": 4127735,
+      "sha256": "9b7906fbcf2a0c78ca805b0779c486cf3a9f27893cd8b4674ba8b0ed8cd41a07",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_CompactCamera.fbx",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_CompactCamera.fbx",
+      "bytes": 4485356,
+      "sha256": "d3133783c6460eb5fd3c33f7efb5c43717a94087456a34bccf3d721bc0739637",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_CompactCamera.glb",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Export/SM_Living_CompactCamera.glb",
+      "bytes": 7048240,
+      "sha256": "28f8a91dbaefd2cdbdd00f9d34fb3cd8538e8e6d2bd4011e5f4d5bf2caa63853",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Icons/search_compact_camera.png",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Icons/search_compact_camera.png",
+      "bytes": 937474,
+      "sha256": "8519bd0ea3c1b5cd0168e127559be15e5d49fa40859630c0c04b0ce99057c4f5",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Scripts/models.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Scripts/models.py",
+      "bytes": 15513,
+      "sha256": "a5ad3325ab0ae00ed6b786f6869dd2388e3a996b52a4d4284699b41d6d196bc9",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Scripts/render_icons.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Before/GameplayIntegration20261016/SourceAssets/StaffLivingCollectibles20261016/Scripts/render_icons.py",
+      "bytes": 6301,
+      "sha256": "7e4f5a1a5c11f617f785a8d5cda7e1aed7950d886202441e011923503b73f3a8",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Scripts/__pycache__/geometry.cpython-313.pyc",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Scripts/__pycache__/geometry.cpython-313.pyc",
+      "bytes": 24738,
+      "sha256": "be5d11cb9fdc123e875f582145c62b55491a06272f6da4901fefc8558743b837",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/StaffLivingCollectibles20261016/Scripts/__pycache__/models.cpython-313.pyc",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/StaffLivingCollectibles20261016/Scripts/__pycache__/models.cpython-313.pyc",
+      "bytes": 30971,
+      "sha256": "e54dacc5cf62e3945e3d74f04a3952978d03259763f7c224e0147d5078a7d90c",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Config/CrashReportClient/UECC-Windows-A862EC6A491C2D78397FA388AF7FA913/CrashReportClient.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Config/CrashReportClient/UECC-Windows-A862EC6A491C2D78397FA388AF7FA913/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 77931,
+      "sha256": "1836fe2a130b63e9f81330e806629dfcea144e20bf2fd4bab367604d17ed28d8",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "f159a44f61fb54991b8556590fefef110c4ff0b49ffc24af0a1138ec1fe353ff",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/CommandletUser/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "8d055e722e507f02d50e5b7567be5c719fa2ebb24f117784514632909fc99174",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Config/CrashReportClient/UECC-Windows-0A20E8A24D66ADA2B8608DA3A67B64A4/CrashReportClient.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Config/CrashReportClient/UECC-Windows-0A20E8A24D66ADA2B8608DA3A67B64A4/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 77931,
+      "sha256": "22cb017f9c79bd40d09556ea2af9d0cbd01fd3a2e31ee6ca3b7cecd26a4f9c4c",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "4b420e2cbda79949cdbec3cf3bbeadc16fc1e564d968af3019bd9fe75a67ec02",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "8bc8d4f069c1c038054ba2eb5883e4e64b5cbb23db0e7601df0cd495f2c62df7",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_A.sav",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_A.sav",
+      "bytes": 92999,
+      "sha256": "132c37ad20f5ffd37d39f80bbe5507c64d939833693978dcafce25c8de864b86",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_A.sha1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_A.sha1",
+      "bytes": 40,
+      "sha256": "c75195ccf90588966d49cb3a90d0fbb03f01281e748e02a6e81f07821ba7b678",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_B.sav",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_B.sav",
+      "bytes": 92999,
+      "sha256": "970833a794efd201d56041e8f13090b30c94033584fa7468b7590cd91e2d617f",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_B.sha1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261018/NetworkAudit/CommandletUser/Saved/SaveGames/ColdSteel_SkillNetworkAudit_Ice_70CAC0894BA03F7B345547875B288912_B.sha1",
+      "bytes": 40,
+      "sha256": "34ab9da52e3171ae3e5e0d12401623adff6ce007b226dd0a2c1ac98639d98835",
+      "reason": "Superseded before-snapshot or task-local generated cache/autosave; never a current runtime package.",
+      "replacement": "Current authoring inputs and receipts retained at the original task root."
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/delivery.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/delivery.json",
+      "bytes": 734,
+      "sha256": "7bd95038a5fbbfaaf5eb445f0a5e4bb864da37feb6bc87f87b8acb3ffd9a2bc5",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/FireRing.hlsl",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/FireRing.hlsl",
+      "bytes": 2215,
+      "sha256": "39dc91ded0db5cc22fafe6660f839399289a02c7a4ff9cb28335479f31bc4caf",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-01-console.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-01-console.txt",
+      "bytes": 34694,
+      "sha256": "3476f95a6ea63e1b499c03a96119e5d6c1f4a3df7bec13fa021edda101e23733",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-01.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-01.log",
+      "bytes": 280682,
+      "sha256": "9387952608e58c0cf46f57b677b57aae0e671617b2de25f1a11ae3c95825e464",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-02-console.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-02-console.txt",
+      "bytes": 34773,
+      "sha256": "5649c228fb6b445a595f8b48031bcf2451c691fd87f8163b1b43b38f93907f23",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-02.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-02.log",
+      "bytes": 283864,
+      "sha256": "474ac10828edb07449e78e78705625374afe999a176113d8d42f177124216f8b",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-03-console.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-03-console.txt",
+      "bytes": 34685,
+      "sha256": "34106029771f10b7f01107ea44aa7f343725b188e477d5463dcbf0022638ff25",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-03.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install-commandlet-03.log",
+      "bytes": 288288,
+      "sha256": "fd1df450b6f1589b1fcec619e5d003f770aa88fdbc155d0b8ab59bfd49ef3f12",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/install.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/install.py",
+      "bytes": 162,
+      "sha256": "796558da893870edb96dde197c4fcb6b623579c0ac6a4af906adda9694747832",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/FlameArmor20261016/FireRingV4/ring-mesh-source.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/FlameArmor20261016/FireRingV4/ring-mesh-source.json",
+      "bytes": 158851,
+      "sha256": "8b204e9573318d23a3cd6e371c1aa541cd6361b908fd0a97b103b85a12b3301c",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "SourceAssets/FlameArmor20261016/FireRingV5; runtime Content/TorchV2/FireRingV4 remains active"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/assets-saved.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/assets-saved.json",
+      "bytes": 576,
+      "sha256": "59aad1d8e7a793504a2b351ccce526a393260871b240313bb2de3b61d6ae649d",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/author.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/author.log",
+      "bytes": 410,
+      "sha256": "8390179d1661ed17386b299c06674cb37fec75a9f61a829ecc41fa03e70c8b59",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/before.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/before.json",
+      "bytes": 5573,
+      "sha256": "830fee387569e595bacaaf1d0b6710495ea9f99a3d14ff9b63e8d3fbfee8ab20",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install-attempt1.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install-attempt1.log",
+      "bytes": 421901,
+      "sha256": "7b1723a4f76df9078e9fad60703af9e738459af794a70dca81b76d71bb1ffdb6",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install-backup-2026.10.17-09.58.25.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install-backup-2026.10.17-09.58.25.log",
+      "bytes": 421901,
+      "sha256": "7b1723a4f76df9078e9fad60703af9e738459af794a70dca81b76d71bb1ffdb6",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install-bridge.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install-bridge.txt",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install-console.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install-console.log",
+      "bytes": 86560,
+      "sha256": "9b0e86290a7960443357806693d8aca1a6b5bab2c7b93873c14b0e5474d73dcf",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install-receipt.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install-receipt.json",
+      "bytes": 154,
+      "sha256": "172f603e4f796739f62b9df4f1c8fc130ece31689588d2528775a614ae94e2eb",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install.log",
+      "bytes": 346399,
+      "sha256": "b96fbd514cc2ff43905314d223325a4909329f5ebed865376e9131a4d7a07cac",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/install.ps1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/install.ps1",
+      "bytes": 1947,
+      "sha256": "d29358d1d68e3bf46955adbc02c18dd31eb380230b4cf9580fe13634b54e65c3",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/material-settings.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/material-settings.json",
+      "bytes": 1019,
+      "sha256": "454140dcfafce289f840d98ac58c23e5b52789aa19513d35aa7378a265987c23",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/readback-bridge.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/readback-bridge.txt",
+      "bytes": 4772,
+      "sha256": "45fb5eea6e6efc7599d006a6724700689cf4db567d2804d1d3dc3d6d34041e37",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/VisibilityV3/shader-compilation.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/VisibilityV3/shader-compilation.json",
+      "bytes": 427,
+      "sha256": "ba01f6a47f9e60dc189fe369accbbf2aa587f2378985724bc9fe382c4c783fa8",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/assets-saved.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/assets-saved.json",
+      "bytes": 1544,
+      "sha256": "0e0672e0861b43afa0e29d5ce2a248db1b498ea7ca4e8d8e9af6b5e97ef69223",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/author.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/author.log",
+      "bytes": 410,
+      "sha256": "8390179d1661ed17386b299c06674cb37fec75a9f61a829ecc41fa03e70c8b59",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/install-console.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/install-console.log",
+      "bytes": 48887,
+      "sha256": "b8f3bcbf23414a36b313eaedeff94ea456c48ffb42427ae139521b971b2c5363",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/install-receipt.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/install-receipt.json",
+      "bytes": 150,
+      "sha256": "96fcd1ab4ec659b2336cd1e245e21ff2196ab773872d4a0cd926c08e5b22b2d3",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/install.log",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/install.log",
+      "bytes": 317135,
+      "sha256": "512d57be330814a6af69a9caf3233af5a55c1f2cc573b68b1b75ca4de0b5df23",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/object-tools.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/object-tools.txt",
+      "bytes": 5616,
+      "sha256": "cb406ed382c3bde778507411d42ac86f4cbbbd522d3eedea08cd41855ff9e9a5",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/read-winding.ps1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/read-winding.ps1",
+      "bytes": 1899,
+      "sha256": "c461b4f5a3e9f947b1cde03f9ef2a28b5c2ab30ddbf088064d950ec07879ca4c",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-dump-bridge-02.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-dump-bridge-02.txt",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-dump-bridge.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-dump-bridge.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-initial-bridge.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-initial-bridge.txt",
+      "bytes": 37266,
+      "sha256": "f973c825b0cc28d8db6dd8b3fd26e1a8141aeb387877ad81c35927ba51a42b01",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-initial.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/runtime-initial.json",
+      "bytes": 49995,
+      "sha256": "bbd8258f81a1fc0399186ec3a88e17574cb863a5a120ac7a1f55ff3a4ba36fa6",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/toolsets.txt",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/toolsets.txt",
+      "bytes": 13635,
+      "sha256": "5ca6637c93b1631941da3a846161180e7fb13ab3256ec51e1305c0f756826229",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/winding-after.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/winding-after.json",
+      "bytes": 31437,
+      "sha256": "81bbbec573e3e1937141e184cdd09931d53c3f7e168847ceb4acf14b932484e4",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/RuntimeVisibilityV4/winding-before.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/RuntimeVisibilityV4/winding-before.json",
+      "bytes": 6538,
+      "sha256": "9af695924ff72280d8107955d6599b2a3fbe2d7c7546094bb59f108593987b19",
+      "reason": "Retired visual iteration; superseded by the accepted helmet/armour or continuous V5 flame ring.",
+      "replacement": "HelmetV5 and ThirdPersonV6"
+    },
+    {
+      "source": "SourceAssets/WarhammerCastArm20261017/DirectionV2/previous-cast-solver.inl",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/WarhammerCastArm20261017/DirectionV2/previous-cast-solver.inl",
+      "bytes": 7441,
+      "sha256": "0b9c87967301e7f8ba3f51b9197f4d93c96734ada4ad12c91d2f005ccd6f0160",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "Tools/Skills/author_ice_armor.py",
+      "destination": "trash/living-armor-retired-20261018/Tools/Skills/author_ice_armor.py",
+      "bytes": 4000,
+      "sha256": "1f82179b4f533f2adb59af38dea8de2be8f736512ae5197101ba388b16f2fb8f",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "Tools/Skills/import_ice_armor.py",
+      "destination": "trash/living-armor-retired-20261018/Tools/Skills/import_ice_armor.py",
+      "bytes": 9184,
+      "sha256": "b86ff87f7dc0986945093669ffc4dd4961755ab1bbd56f52db7c43570725ab67",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "Tools/Skills/restore_ice_armor_visibility.py",
+      "destination": "trash/living-armor-retired-20261018/Tools/Skills/restore_ice_armor_visibility.py",
+      "bytes": 1747,
+      "sha256": "0a61cd466abd252967b8adcdbff0814eee2072cdd766cddc4489f88aa2392d05",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "Tools/Skills/import_ice_armor_visibility_v3.py",
+      "destination": "trash/living-armor-retired-20261018/Tools/Skills/import_ice_armor_visibility_v3.py",
+      "bytes": 2168,
+      "sha256": "a44639bffd93ba9f0c8de67123f9736d1c1fbe887fa60ebb40e032d5b04fc8ee",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "Tools/Skills/import_ice_armor_winding_v4.py",
+      "destination": "trash/living-armor-retired-20261018/Tools/Skills/import_ice_armor_winding_v4.py",
+      "bytes": 1417,
+      "sha256": "31c88dbf9873c6a54e97de6720debd5d86ab9c18ebdebd90a1bf478b53ac3e96",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/IceArmor.blend",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/IceArmor.blend",
+      "bytes": 103773,
+      "sha256": "c91b709776f0a204b3dc1ed555a3d766c99d7119d404e8ea6ec8533f4dd6824b",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/SM_IceArmorLens.fbx",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/SM_IceArmorLens.fbx",
+      "bytes": 29532,
+      "sha256": "132b9d3692919ba92d68e5fc2f8a59efb018ff526f24d4e684fce17dae3de70e",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/SM_IceArmorPlate.fbx",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/SM_IceArmorPlate.fbx",
+      "bytes": 14828,
+      "sha256": "c5ef99c1300b3524ffe8164fea037c283adb31b0a4aab73d94bf337985281968",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/geometry.json",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/geometry.json",
+      "bytes": 548,
+      "sha256": "f2267cb6d5beef787b44e0c707bce1629ff38efcc81edacfc52dbc1a198d4337",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/import.ps1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/import.ps1",
+      "bytes": 1957,
+      "sha256": "87add127d2429ba6ae3af566c445cccb4c19d4f2a3bca39080372ed472dad95f",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/restore-visibility.ps1",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/restore-visibility.ps1",
+      "bytes": 1993,
+      "sha256": "77afa758d2bb8a7e401eccd04ffc083c52c447db44021bb1713cabf9ac13ca37",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/stop_pie_for_restore.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/stop_pie_for_restore.py",
+      "bytes": 309,
+      "sha256": "f85b5e6ed5d9ca922a8b45d9187b8290d466f1106bea2ea40f4c2fecff982f68",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/integrate.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/integrate.py",
+      "bytes": 15838,
+      "sha256": "8d49e23faef385a899ff42afb5d3b42785589e176f2f724ace3cbc46dd0d4eaf",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    },
+    {
+      "source": "SourceAssets/IceArmor20261017/integrate_ui.py",
+      "destination": "trash/living-armor-retired-20261018/SourceAssets/IceArmor20261017/integrate_ui.py",
+      "bytes": 7991,
+      "sha256": "3dfd6c06435b091f2103f7f5522d50ab4bf6c4230707f76ae8aebddd1f46170b",
+      "reason": "Rejected initial plate/fragment appearance, obsolete import/integration launcher, or superseded torso-penetrating solver.",
+      "replacement": "HelmetV5, ThirdPersonV6, FPSBodyHammerCastPose.inl and shared-integration.patch; V2 common importer retained"
+    }
+  ]
+}

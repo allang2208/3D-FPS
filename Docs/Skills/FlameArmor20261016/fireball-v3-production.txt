@@ -1,0 +1,49 @@
+灼锋焰甲 Fireball V3（2026-10-16）
+
+用户反馈：火焰很淡，几乎看不出；要求直接使用火球火焰重新制作。
+
+后续脚下表现已被 FireRingV4 替换为连续立体火环，见 fire-ring-v4-production.txt。
+本文中的脚边小火团尺寸为 V3 历史记录；上半身、武器与箭尾继续使用本版。
+
+实际来源
+从当前 NS_FireballSlowBurnCore / NS_FireballVelocityTrail 读取到：
+- TorchBurnCohesiveCore -> Fireball/TorchBurn20260921/M_FireballCohesiveCore
+- TorchBurnTongues / TorchBurnTrail -> Fireball/TorchBurn20260921/MI_FireballTorch01
+这是 1x1 连续流动侵蚀材质，不是历史火球 8x8 图集或焰甲前版篝火图集。
+火球原资源只读；焰甲使用独立副本，保留其连续焰芯、流体温度细节、侵蚀火舌和单次曝光补偿。
+
+修改
+- 周身：脚边与身体挂点均有焰芯和火舌，补充上升卷焰与火星，共六层。
+  脚边主火舌从 14x24 cm 提到 22x42 cm；身体主火舌从 13x28 cm 提到 20x43 cm，另保留随机尺寸。
+  第一人称仍保留脚边火焰；上半身在第三人称/其他玩家视角显示，不把火片放到镜头正中。
+- 武器：连续焰芯、主火舌、翻卷、挥动拖尾、火星，共五层。
+  发射密度原乘 Coverage，改为 .65+.35*Coverage，避免短锤头和小部件只剩零散火星。
+  锤头 Coverage=.3 时此项由 .3 提到 .755；原有四层同时存在时的 .85 细节系数继续保留。
+  主火舌基准从 17x31 提到 20x42，再按每类武器的实际 WeaponSize / FlameProfile 缩放。
+  双手锤正反面挂点、骨骼跟随、弓箭/空手/剑/法杖/枪械既有附着保持。
+- 箭头与箭尾同步使用火球火舌，持续时间、投射物和附伤逻辑保持。
+- 材质：火舌 Emissive_Intensity=6.5，沿火球原参数从 5.5 适度提高；Noises_OpacityBoost=1.2。
+  火舌 DepthFade 从火球的 5 cm 调整为 1 cm；焰芯从 4 cm 调整为 .8 cm，降低贴表面时被削薄的问题。
+  侵蚀动态参数采用火球 X=侵蚀量的约定，使用 1x1 UV，不混用旧图集的 RGB 幂指数。
+  延长粒子主体可见阶段，寿命最后 30% 淡出；焰芯最后 22% 淡出。
+
+资源与作者
+当前作者：Tools/Fluids/author_flame_armor_fireball_v3.py。
+旧 author_flame_armor_v2.run 已转发到 V3，避免常用重建入口恢复旧外观；旧版本函数保留作共享帮助函数与恢复源。
+运行 NS 路径继续使用 FlameArmor20261016/TorchV2 下原来的 Body/Weapon/Arrow 三个包。
+新材质位于该目录的 FireballV3 子目录；原预载入口和 AlwaysCook 目录已覆盖，无新增原生引用或构建需求。
+修改前的三份系统保存在 SourceAssets/FlameArmor20261016/FireballV3/Before。
+制作与保存回执位于同目录 Receipts；执行入口为 install.py。
+
+实际落盘结果
+2026-10-16 19:49（Asia/Shanghai）已通过后台 Python commandlet 完成四个制作阶段，退出码 0。
+三份材质与三套 Niagara 均实际编译保存；日志报告 0 errors。
+原编辑器在安装前已退出，未再启动 GUI，已结束本任务失去连接的桥请求后转为无界面落盘。
+本轮没有原生 C++ 修改，不需要再次构建 Editor/Game 二进制。
+总回执：SourceAssets/FlameArmor20261016/FireballV3/delivery.json。
+下次重新施放会使用原路径下的 V3 系统；不依赖热编译补丁。
+
+成本与交付边界
+保留周身一组件、武器最多四组件、箭尾全世界最多八组件和原有距离细节裁减；没有新增动态灯、碰撞查询或每帧加载。
+调整发射率、尺寸与可见阶段会增加透明覆盖，未做性能采样，不承诺零开销。
+本轮仅制作、编译和保存资源；没有启动 PIE、截图、渲染或运行探针。实际观感与性能交由用户复测。

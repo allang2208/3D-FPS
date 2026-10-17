@@ -1,0 +1,30 @@
+坚冰铠甲：第一 / 第三人称均无特效的修复
+2026-10-17
+
+已定位的故障
+用户确认释放后有冰甲持续状态，但两个视角都没有特效。
+Saved/Logs/FPSGAME.log 的 10:11:58 记录了四次 SkipPackage / asset unavailable：
+/Game/Skills/IceArmor20261017/SM_IceArmorPlate
+/Game/Skills/IceArmor20261017/SM_IceArmorLens
+/Game/Skills/IceArmor20261017/M_IceArmor
+/Game/Skills/IceArmor20261017/M_IceArmorLens
+10:17:54 同样再次记录四项加载失败。
+本轮开始时 Content/Skills/IceArmor20261017 目录不存在，技能图标 PNG 与 UAsset 仍在。
+旧导入日志曾在 09:24 记录上述四包保存到正式目录；仅凭现有记录无法确定随后缺失的原因。
+
+修复方式
+使用保留的 Blender / FBX 与材质作者脚本恢复原运行路径，不改变技能 ID、数值、修炼、冷却或联机状态。
+导入脚本增加仅恢复缺失包的入口，以及实际磁盘文件存在 / 非零大小的保存核对。
+保留已存在的图标与正常资产。C++ 无修改，不需要新的原生构建。
+恢复入口：Tools/Skills/restore_ice_armor_visibility.py
+导入入口：Tools/Skills/import_ice_armor.py
+无界面执行：SourceAssets/IceArmor20261017/restore-visibility.ps1
+
+核对范围
+10:37 后台恢复完成，命令退出码 0。四个运行资源均成功解析，且对应 UAsset 文件实际存在。
+身体冰甲网格尺寸为 X=4.165 / Y=38 / Z=44 cm，镜头围边为 X=1.428 / Y=100 / Z=100 cm；薄面位于 YZ 平面，与运行时沿 X 面向镜头 / 身体外侧的代码一致。
+两份模型的材质槽分别指向 M_IceArmor、M_IceArmorLens。
+按本次排查要求读取四个真实包、资源类型、模型尺寸和材质引用。
+结果：SourceAssets/IceArmor20261017/visibility-readback.json
+保存回执：SourceAssets/IceArmor20261017/assets-restored-visibility.json
+没有主动启动 PIE、施放技能、截图或进行联机验收；实际镜头效果仍由用户测试。

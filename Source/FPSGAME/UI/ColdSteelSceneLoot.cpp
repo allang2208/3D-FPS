@@ -200,8 +200,8 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSceneSearchPoolTest,"FPSGAME.SceneSearch.Pools
 bool FSceneSearchPoolTest::RunTest(const FString& Parameters)
 {
     const auto& Data=Table();if(!TestTrue(TEXT("valid production table"),Data.Valid))return false;
-    TestEqual(TEXT("171 prior fixed, 40 incineration and one bedside family bindings"),Data.Bindings.Num(),212);
-    TestEqual(TEXT("26 prior and five incineration profiles"),Data.Pools.Num(),31);
+    TestEqual(TEXT("212 prior, 67 staff living and two drainage toolbox bindings"),Data.Bindings.Num(),281);
+    TestEqual(TEXT("31 prior and eight staff living profiles"),Data.Pools.Num(),39);
     TArray<TPair<FString,int64>> Unknown;
     TestFalse(TEXT("outside scope has no roll"),ColdSteelSceneLoot::Roll(TEXT("FacilityTransit.Unknown"),7,Unknown));
     TestFalse(TEXT("unknown generated identity has no roll"),ColdSteelSceneLoot::Roll(TEXT("Run7.Node3.StationWorkshop.Unknown"),7,Unknown));
@@ -253,7 +253,7 @@ bool FSceneSearchPoolTest::RunTest(const FString& Parameters)
             TestTrue(*(Pair.Key+TEXT(" ")+Entry.Id+TEXT(" marginal probability")),FMath::Abs(double(Hits.FindRef(Entry.Id))/Samples-Expected)<.005);
         }
     }
-    TestEqual(TEXT("36 prior items and six incineration collectibles"),Items.Num(),42);
+    TestEqual(TEXT("42 prior items, four living collectibles and four existing raw foods"),Items.Num(),50);
     FSearchTable Bad;
     TestFalse(TEXT("missing pools rejected"),ParseTable(TEXT("{\"version\":1}"),Bad));
     TestFalse(TEXT("unknown schema rejected"),ParseTable(TEXT("{\"version\":2,\"pools\":[],\"bindings\":[]}"),Bad));

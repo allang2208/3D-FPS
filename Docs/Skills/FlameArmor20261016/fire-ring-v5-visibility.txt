@@ -1,0 +1,42 @@
+灼锋焰甲火环 V5：第三人称可见度（2026-10-16）
+
+用户反馈：第三人称几乎看不到火焰环，要求继续排查与优化。
+
+2026-10-17 后续要求：身体火焰已取消，只保留武器与脚下火环；见 ring-and-weapon-only-20261017.txt。
+下文关于“周身上半部保持”的描述属于本次 V5 可见度调整时的历史范围。
+
+排查证据
+- 实际资产读回：环形网格 1728 三角形、一个材质槽，正确绑定 M_FA_FireRingV4；Niagara Mesh 使用标志存在。
+- FootRingV4 渲染器启用，网格引用有效，Particles.Color / Scale / MeshOrientation 均绑定存在的粒子属性。
+  没有开启该渲染器的相机距离剔除。
+- 运行源码：本地玩家 ArmorDetail 始终为 1；F6 只切换上半身火焰的 UpperVisibility，未隐藏火环。
+  F6 自由第三人称沿视线后退 300 cm，默认垂直 FOV=75 度。
+- 隔离、隐藏的 Niagara 模拟（Radius=44、Fade=1、Detail=1）在 0.5 / 2 / 8 秒均保持一个环形粒子，
+  位置为局部原点，XY Scale=.88、Z=1，Color Alpha=1。未发现提前消失或被淡出清零。
+- 上述检查不等于复现用户实际第三人称像素；没有确认“只有一个根因”。
+  原版几何和强度偏保守：按角色默认胶囊半径 42 cm（User.Radius=52）计算，外径约 113 cm、底带约 12 cm，
+  主火舌有效轮廓低于 32 cm 网格上限，容易在脚部遮挡和远视角下失去存在感。本次按此可见度问题调整。
+
+本次修改
+- 半径计算改为 max(62, User.Radius+18)，保持随角色尺寸变化。
+- 在默认角色尺寸下：最大外径约 168 cm，底带宽约 28 cm；环体中间留空，位于脚部外侧。
+- 火墙网格高度由 32 cm 提到 52 cm；提升材质火舌上缘，增加连续根部高度，保留向上翻卷与高低变化。
+- 自发光参数从 2.8 提到 6.2，底带与根部密度提高；继续沿火球的火焰/温度/烟炱纹理着色，保留单次曝光补偿。
+- 火星出生位置跟随新的环半径，仍为每秒 3 个；主环仍是一个持续网格粒子，1728 三角形。
+- 深度测试保持开启，未改全场景曝光、相机、伤害范围、周身上半部和武器火焰。
+
+制作与数据位置
+Tools/Fluids/author_flame_armor_ring_v4.py 现在制作 V5，旧资产名称与运行路径保持，避免新增软引用。
+SourceAssets/FlameArmor20261016/FireRingV5/FireRing.hlsl
+SourceAssets/FlameArmor20261016/FireRingV5/ring-mesh-source.json
+SourceAssets/FlameArmor20261016/FireRingV5/before-asset.json
+SourceAssets/FlameArmor20261016/FireRingV5/before-runtime.json
+SourceAssets/FlameArmor20261016/FireRingV5/after-runtime.json
+SourceAssets/FlameArmor20261016/FireRingV5/delivery.json
+
+交付状态
+材质、网格与周身系统均已通过后台 commandlet 编译并保存，退出码 0、0 errors。
+修改后同样在 0.5 / 2 / 8 秒保持一个环形粒子，Alpha=1，Radius=44 的 XY Scale 已变为 1.24，旋转为单位四元数。
+原版三个包保存在 FireRingV5/Before；当前 Body 的 FootRevision 为 FireRingV5。
+没有原生 C++ 修改，不需要重新构建 Editor/Game。
+本轮执行了用户所要求的定向资产/粒子诊断，未启动游戏或输出截图；实际第三人称画面仍待用户复测。

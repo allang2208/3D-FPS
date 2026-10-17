@@ -1,0 +1,54 @@
+灼锋焰甲不可见：定向排查与参数修复（2026-10-16）
+
+用户现象：施放后有持续状态，但看不到身体和武器火焰。
+
+已获取的证据
+1. 运行日志显示 flameArmor 预载完成。保存的三个新版系统均可加载，发射器与渲染器启用。
+2. 独立后台 Niagara 模拟中，Body / Weapon / Arrow 都激活成功，有非零粒子数、非零尺寸和非零 Alpha。
+3. 隔离的焰甲组件复现通过正式 NetRelease 入口激活，持续时间由 12 秒降至 11.33 秒。
+   周身与武器组件均 active=true、visible=true、hidden=false、rendering=true，Fade 与 Detail 非零，并有粒子输出。
+   该复现检查组件逻辑，不等于用户装备的实际画面或挂点验收；测试角色没有完整初始化所有武器资源。
+
+明确发现并修复的问题
+新版作者脚本把 TorchFire 的动态材质参数沿用了另一套火焰的偏移形式：
+    错误：float4(0, 颜色曲线, 溶解曲线, 0)
+TorchFire 材质实际使用 X=Emissive 颜色幂曲线、Y=Dissolve Alpha 幂曲线。
+篝火原作者中的“Index 0 Param 1 / Param 2”是从 1 开始编号，对应 X / Y。
+修复为：
+    float4(1.15 + .25*粒子随机值, .9 + .4*寿命后段平滑淡出, 1, 1)
+主火焰恢复与原材质一致的通道合同，避免把颜色幂指数写成 0，溶解参数也回到正确通道。
+另外将未被渲染器读取的 Particles.SpriteUVScale 改为实际绑定的 Particles.UVScale=(1,1)。
+UV 缺失时引擎原本有 (1,1) 回退，因此此项是绑定纠正，不作为单独的不可见根因。
+
+实际落盘
+- Tools/Fluids/author_flame_armor_v2.py 已同步修正。
+- NS_FlameArmorBodyV2、NS_FlameArmorWeaponV2、NS_FlameArmorArrowV2 已重新制作、编译有效并保存。
+- 未修改技能伤害、消耗、持续时间、附伤与装备附着规则。
+- 修改前的八个资产与作者脚本保存在 SourceAssets/FlameArmor20261016/VisibilityFix/Before。
+- repair-saved.json 包含每个发射器的实际动态参数与 UV 绑定读回。
+- 图表读回后曾观察到 valid=true 但 ready=false、controller=false，不能仅凭 IsValid 判断能运行。
+  三套资源已执行强制完整重编译后保存；作者脚本的保存入口也改为强制完整编译。
+  原生定向模拟记录 native-finalized.json 中，三套资源 ready/active/capture 均为 true，粒子总数依次为 49/24/7。
+  新进程冷载记录 cold-runtime.json 不先打开 Niagara 编辑器图表，避免诊断读取本身排入图表编译、干扰就绪状态。
+
+结果边界
+本轮定位并修正了明确的主火焰材质通道错误，粒子生成与组件激活链路的定向检查正常。
+尚未取得用户原视角的修复后画面，不能把非零粒子数称为实际画面已验收，亦未证明此错误是用户现象的唯一原因。
+后台诊断没有打开编辑器 GUI、启动 PIE 或操作用户游戏存档；只有隔离世界的粒子与组件模拟，没有输出游戏截图。
+保留的诊断命令仅手动调用，正常游戏不会自动运行：fps.FlameArmor.Probe / fps.FlameArmor.PresenterProbe。
+
+双手锤补充修复（用户确认测试武器后）
+1. 沿正式 ProductionToolMesh -> 模块化 hammer_heads 槽读取附着。
+   当前 PIE 中读到玩家已装配 pointed_hammer 尖头锤模块，槽标签 SwordSlot=hammer_heads 存在。
+   读取时工具处于隐藏状态，也没有正在持续的焰甲组件；不据此认定此前施法失败原因。
+2. 已读取六种锤头资产的真实包围盒。厚度 Y 依次为：
+   factory 8.49 cm、heavy_forged 11.40 cm、flanged_breaker 11.80 cm、
+   light_drum 8.10 cm、pointed_hammer 9.60 cm、meteor_core 14.23 cm。
+   原附着沿实心锤头中心线，而发射抖动半径最大只有 2.66 cm，有根部和热流埋入金属的遮挡风险。
+3. HammerHeads 改为按当前模块包围盒，在两端锤头的正反面各布置一条火焰带，
+   比表面向外留 3.2 cm 世界空间间隙，超过现有发射抖动半径；端点每帧经当前锤头变换。
+   第一人称与第三人称共用此计算，仍使用现有上限四个组件与现有远距细节规则。
+   新增的反面火焰带沿用锤头 FlameProfile，保留热流、火舌、卷焰、拖尾与火星。
+4. 此次修改仅现有两个 C++ 函数体；没有修改资产、伤害或物品配置。
+   18:19 的 Live Coding 请求被取消，没有生成本次补丁，不称为当前编辑器已生效。
+   后续构建状态见同目录 hammer-attachment-build.txt；实际画面由用户复测。

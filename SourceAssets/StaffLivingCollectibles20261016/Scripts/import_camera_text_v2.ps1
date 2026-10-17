@@ -1,0 +1,20 @@
+﻿$ErrorActionPreference='Stop'
+$taskRoot=Split-Path -Parent $PSScriptRoot
+$taskMutex=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000')
+$taskHeld=$false
+$taskPreviousSdkSkip=$env:UE_SKIP_UBT_SDK_SETUP
+try {
+    try {$taskHeld=$taskMutex.WaitOne(60000)} catch [Threading.AbandonedMutexException] {$taskHeld=$true}
+    if(-not $taskHeld){throw 'UE batch mutex unavailable; authored models preserved'}
+    # Content-only authoring uses the existing SDK state and does not need a UBT platform validation build.
+    $env:UE_SKIP_UBT_SDK_SETUP='1'
+    & 'E:\Program Files (x86)\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe' (Join-Path $taskRoot 'UEImportHost/LivingCollectiblesImport.uproject') '-run=pythonscript' "-script=$PSScriptRoot\import_camera_text_v2.py" '-unattended' '-nop4' '-nosplash' '-nullrhi' '-nosound' "-abslog=$taskRoot\Receipts\camera-v2-ue-import.log" *> (Join-Path $taskRoot 'Receipts/camera-v2-import-stdout.log')
+    $taskExit=$LASTEXITCODE
+    Write-Output "LIVING_S_STAGED_IMPORT_EXIT=$taskExit"
+    Select-String -LiteralPath (Join-Path $taskRoot 'Receipts/camera-v2-import-stdout.log') -Pattern 'LIVING_|Error:|Traceback' | Select-Object -Last 12
+    exit $taskExit
+} finally {
+    $env:UE_SKIP_UBT_SDK_SETUP=$taskPreviousSdkSkip
+    if($taskHeld){$taskMutex.ReleaseMutex()}
+    $taskMutex.Dispose()
+}

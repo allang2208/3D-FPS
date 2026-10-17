@@ -1,0 +1,45 @@
+坚冰铠甲：第一人称寒冰头盔 V5
+用户批准参考：SourceAssets/IceArmor20261017/FirstPersonDesignV5/ice-helmet-first-person-v2.png。
+
+外观制作
+额甲、颞颊甲、护颌连接成完整的内凹冰壳，采用一个封闭截面沿观察开口连续成形。
+中央观察区域为空洞，没有透明覆面、屏幕折射层或遮挡瞄准的冰片。
+模型原生参考眼距 42 cm，内沿前后表面位于 42/45 cm，形成 3 cm 的真实边缘厚度；两侧壳体向眼睛方向回包到约 26.5 cm。
+中央 NDC [-0.68,+0.68]×[-0.62,+0.62] 是设计留空区；实际轮廓在两侧/上下继续向外扩展。该范围由开口顶点构造保证，不是整屏透明度遮罩。
+表面采用连续大曲面、较宽切面和实体内唇；没有沿屏幕排列的独立小碎片。
+原生 JSON 使用 V4 修正后的 UE 顺时针正面规则；Blender 编辑源保留向外法线。
+
+冰材质
+复用项目已有 Ice6 法线、IceSurfaceColor 与 MIT CrackedIceSelected 三通道裂纹素材。
+裂纹三层视差按冰体厚度错开；两层稀疏气泡具有球面亮边、内部暗部及微小法线起伏。
+透明蓝冰芯、宽磨砂霜边、局部冻结云纹与掠射高光分别计算，表面粗糙度随霜层变化。
+材质仅覆盖冰壳几何，在景深后呈现；内部纹理使用视差，中央空洞不作场景折射。
+常用外观参数：CoreOpacity=0.23、FrostOpacity=0.58、InternalDepth=0.026、CrackContrast=0.85、BubbleDensity=0.07、NormalStrength=0.23、RimGlow=0.13，可在专用材质中继续精调。
+沿用既有 Growth/Fade/Dissolve/Pulse/PulsePhase/Impact/HitPosition 参数，继续表现凝结、寒气脉冲、局部受击和结束消散。
+
+运行接入
+Lens 与 LensMaterial 指向 /Game/Skills/IceArmor20261017/HelmetV5 下的新模型和材质；现有技能预加载列表通过常量同步引用，父目录已有打包保留配置。
+镜头冰盔挂在角色根部，使用绝对世界变换，逐帧匹配最终相机位置、朝向，并使用引擎最终投影矩阵计算覆盖范围，遵循项目 MaintainYFOV 与约束宽高比设置。
+不再作为武器相机的子组件，因此不会被手枪等武器的 FirstPersonScale 深度压缩，仍使用 OnlyOwnerSee 和既有第一/第三人称切换清理逻辑。
+模型每个深度截面按眼距进行投影补偿；改变 FOV/宽高比时观察开口保持屏幕比例。转向惯性限制为 0.12°，避免头盔漂移进中央。
+只改第一人称头盔显示。第三人称分区冰甲、伤害/防御/寒冷、修炼、存档及联网状态保持原合同。
+一个静态网格组件、一个动态材质实例；无额外动态灯、碰撞、反射追踪或粒子系统。
+
+制作入口与成果
+Tools/Skills/author_ice_helmet_v5.py
+Tools/Skills/import_ice_helmet_v5.py
+SourceAssets/IceArmor20261017/HelmetV5/IceHelmetV5.blend
+SourceAssets/IceArmor20261017/HelmetV5/SM_IceHelmet_FirstPerson.json
+SourceAssets/IceArmor20261017/HelmetV5/authoring-manifest.json
+SourceAssets/IceArmor20261017/HelmetV5/material-parameters.json
+SourceAssets/IceArmor20261017/HelmetV5/assets-saved.json
+SourceAssets/IceArmor20261017/HelmetV5/import-bridge.txt
+SourceAssets/IceArmor20261017/HelmetV5/build-receipt.json
+SourceAssets/IceArmor20261017/HelmetV5/build-FPSGAMEEditor.log
+SourceAssets/IceArmor20261017/HelmetV5/build-FPSGAME.log
+
+交付状态
+模型、专用材质和必要着色器编译已在现有编辑器内完成，2 个 uasset 实际保存。
+第一人称接入源码已完成。用户关闭编辑器后，FPSGAMEEditor 与 FPSGAME 的 Win64 Development 正式构建均成功，返回码均为 0；模块与游戏可执行文件已生成。
+相机缓存读取使用当前 UE 5.8 的 GetCameraCacheView 接口。构建记录与两目标日志见上列文件。
+按用户规则未启动游戏、PIE、截图、渲染预览或视觉/联机测试。参考图为已批准的概念，不冒充实现后的画面；最终观感由用户确认。

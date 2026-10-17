@@ -1,0 +1,1731 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -420,6 +420,7 @@
+         State.bUppercutLungeBlocked=R.bUppercutLungeBlocked;
+         State.RightHand=R.RightHand;State.LeftHand=R.LeftHand;
+         State.ActionProgressRate=R.ActionProgressRate;
++        State.CastPalmProgressRate=R.CastPalmProgressRate;
+         // Keep one cosmetic shot clock. Mixing the server receipt time with
+         // the owner's fire time can present one shot as two separate kicks.
+         State.LastShotAt=R.LastShotAt;
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -213,6 +213,15 @@
+     TArray<FCompactPoseBoneIndex> GripBones[2];
+     TArray<uint8> SwordSupportThumbBones;
+     TArray<FCompactPoseBoneIndex> StaffArmHelpers;
++    TArray<FCompactPoseBoneIndex> HammerCastBones,HammerCastHelpers;
++    TArray<FTransform> LastHammerCastPose,HammerCastEntryPose;
++    FQuat HammerCastChestBind=FQuat::Identity,HammerCastPalmCorrection=FQuat::Identity;
++    FVector HammerCastPalmAcross=FVector::RightVector;
++    FName HammerCastPhase;
++    FString HammerCastWeaponInstance;
++    float HammerCastStartedAt=0.f,HammerCastTravel=0.f;
++    float HammerCastEntryProgress=0.f,HammerCastEntryReleaseFraction=0.f,HammerCastPhaseAge=0.f;
++    bool bHadHammerCast=false;
+     float GripWeights[2]={0.f,0.f};
+     bool bSwordGrip=false;
+     TArray<FTransform> EquipmentFingers;
+@@ -282,6 +291,7 @@
+         for(auto& B:Hands)B.Initialize(Bones);for(auto& B:Feet)B.Initialize(Bones);for(auto& B:Toes)B.Initialize(Bones);
+         const auto& Ref=Bones.GetReferenceSkeleton();
+         StaffArmHelpers.Reset();
++        HammerCastBones.Reset();HammerCastHelpers.Reset();LastHammerCastPose.Reset();HammerCastEntryPose.Reset();bHadHammerCast=false;
+         const int32 StaffUpper=Ref.FindBoneIndex(TEXT("upperarm_r"));
+         const int32 StaffLower=Ref.FindBoneIndex(TEXT("lowerarm_r"));
+         const int32 StaffHand=Ref.FindBoneIndex(TEXT("hand_r"));
+@@ -292,6 +302,15 @@
+                 const int32 MeshBone=Bones.MakeMeshPoseIndex(Bone).GetInt();
+                 if(MeshBone!=StaffLower&&MeshBone!=StaffHand&&Ref.BoneIsChildOf(MeshBone,StaffUpper)
+                     &&!Ref.BoneIsChildOf(MeshBone,StaffHand))StaffArmHelpers.Add(Bone);
++            }
++        const int32 CastClavicle=Ref.FindBoneIndex(TEXT("clavicle_l")),CastUpper=Ref.FindBoneIndex(TEXT("upperarm_l"));
++        const int32 CastLower=Ref.FindBoneIndex(TEXT("lowerarm_l")),CastHand=Ref.FindBoneIndex(TEXT("hand_l"));
++        if(CastClavicle!=INDEX_NONE&&CastUpper!=INDEX_NONE&&CastHand!=INDEX_NONE)
++            for(int32 I=0;I<Bones.GetCompactPoseNumBones();++I)
++            {
++                const FCompactPoseBoneIndex B(I);const int32 MeshBone=Bones.MakeMeshPoseIndex(B).GetInt();
++                if((MeshBone==CastClavicle||Ref.BoneIsChildOf(MeshBone,CastClavicle))&&!Ref.BoneIsChildOf(MeshBone,CastHand))HammerCastBones.Add(B);
++                if(MeshBone!=CastLower&&MeshBone!=CastHand&&Ref.BoneIsChildOf(MeshBone,CastUpper)&&!Ref.BoneIsChildOf(MeshBone,CastHand))HammerCastHelpers.Add(B);
+             }
+         LastSwordPose.Reset();SwordEntryPose.Reset();LastSwordGripRoll=0.f;SwordEntryGripRoll=0.f;
+         LastSwordGripSlide=0.f;SwordEntryGripSlide=0.f;
+@@ -331,6 +350,20 @@
+         auto ConsumeReference=Ref.GetRefBonePose();
+         for(int32 I=0;I<ConsumeReference.Num();++I)
+             if(const int32 P=Ref.GetParentIndex(I);P!=INDEX_NONE)ConsumeReference[I]=ConsumeReference[I]*ConsumeReference[P];
++        if(CastClavicle!=INDEX_NONE&&CastHand!=INDEX_NONE)
++        {
++            const int32 Chest=Ref.GetParentIndex(CastClavicle);
++            if(Chest!=INDEX_NONE)HammerCastChestBind=ConsumeReference[Chest].GetRotation();
++            const int32 Index=Ref.FindBoneIndex(TEXT("index_01_l")),Middle=Ref.FindBoneIndex(TEXT("middle_01_l")),Pinky=Ref.FindBoneIndex(TEXT("pinky_01_l"));
++            if(Index!=INDEX_NONE&&Middle!=INDEX_NONE&&Pinky!=INDEX_NONE)
++            {
++                const auto& Hand=ConsumeReference[CastHand];const FVector Origin=Hand.GetLocation();
++                const FVector Normal=(ConsumeReference[Index].GetLocation()-Origin)^(ConsumeReference[Pinky].GetLocation()-Origin);
++                const FQuat Palm=FRotationMatrix::MakeFromXZ(ConsumeReference[Middle].GetLocation()-Origin,Normal).ToQuat();
++                HammerCastPalmCorrection=(Palm.Inverse()*Hand.GetRotation()).GetNormalized();
++                HammerCastPalmAcross=Hand.GetRotation().UnrotateVector(Palm.GetAxisY());
++            }
++        }
+         for(int32 Side=0;Side<2;++Side)
+         {
+             const TCHAR* Suffix=Side==0?TEXT("_r"):TEXT("_l");
+@@ -395,6 +428,7 @@
+     void BlendBookCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendStaffCast(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void FitStaffArm(FCSPose<FCompactPose>& Pose);
++    void BlendHammerCast(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendSword(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void RememberHammerPose(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+     void BlendHammerWaist(FCSPose<FCompactPose>& Pose,const FQuat& BaseLower,const FQuat& BaseMiddle);
+@@ -708,6 +742,7 @@
+         // library. Keep camera pitch out of the carry and transition poses too;
+         // otherwise it tilts the inherited head whenever the library fades out.
+         const bool Warhammer=State.Family==TEXT("Tool")&&State.Weapon==TEXT("warhammer");
++        const bool HammerLeftCast=Warhammer&&State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast")&&!Traversing;
+         const float ViewPitch=Warhammer?0.f:FMath::Clamp(State.AimPitch,-70.f,70.f);
+         const float Pitch=ViewPitch*(State.Family==TEXT("Rifle")?.35f:.65f)-4.f*Shot-6.f*Crouch+MotionPitch*PostureWeight;
+         SpinePose.SetRotation(FQuat(FVector::ForwardVector,FMath::DegreesToRadians(Pitch))*SpinePose.GetRotation());
+@@ -715,7 +750,7 @@
+             SpinePose.SetRotation(FQuat(FVector::RightVector,.16f*MotionState.MotionDirection.X*FMath::Sin(PI*MT)*MotionWeight)*SpinePose.GetRotation());
+         TArray<FBoneTransform,TInlineAllocator<1>> SpineChange;SpineChange.Emplace(Spine.GetCompactPoseIndex(Bones),SpinePose);
+         Pose.LocalBlendCSBoneTransforms(SpineChange,1.f);
+-        if(!bHammerLocomotion&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++        if(!bHammerLocomotion&&!HammerLeftCast&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
+         {
+             FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones))};
+             const bool Melee=State.Family==TEXT("Melee")||State.Family==TEXT("Tool");
+@@ -970,7 +1005,7 @@
+             }
+             bHasHandHistory=true;bHadSwordPair=SwordPair;bHadRiflePair=RiflePair;
+         }
+-        else if(bHammerLocomotion&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++        else if((bHammerLocomotion||HammerLeftCast)&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
+         {
+             // The gait already contains the complete fitted arm chains. Keep
+             // its live elbows/shoulders instead of solving toward a static
+@@ -983,6 +1018,7 @@
+         bStaffNativeArmApplied=false;
+         BlendStaffCarry(Out,Pose);
+         BlendSword(Out,Pose);
++        BlendHammerCast(Out,Pose);
+         // A left jab's torso layer can otherwise drag the preserved right wrist
+         // and re-solve its elbow. Restore the complete current support chain.
+         if(bStaffQuickCarry&&SwordWeight>ZERO_ANIMWEIGHT_THRESH)BlendStaffCarry(Out,Pose);
+@@ -1098,6 +1134,14 @@
+             }
+         }
+         else GripWeights[0]=GripWeights[1]=0.f;
++        // Keep the actual displayed chain, including helper bones, for the next
++        // cast phase. Finger pose remains owned by the shared hand capture.
++        if(Warhammer)
++        {
++            LastHammerCastPose.SetNum(Bones.GetCompactPoseNumBones());
++            for(const auto B:HammerCastBones)LastHammerCastPose[B.GetInt()]=Out.Pose[B];
++        }
++        else {LastHammerCastPose.Reset();bHadHammerCast=false;}
+         if(bConsumeFood&&State.Contacts.Consumable==TEXT("bread")&&ConsumeWeight>ZERO_ANIMWEIGHT_THRESH&&BreadThumbInner.IsValidToEvaluate(Bones))
+         {
+             // The bread grip creases three triangles between the thumb pad
+@@ -1125,6 +1169,7 @@
+ #include "FPSBodyStaffStrikePose.inl"
+ #include "FPSBodyBookCarryPose.inl"
+ #include "FPSBodyStaffArmPose.inl"
++#include "FPSBodyHammerCastPose.inl"
+ #include "FPSBodyConsumePose.inl"
+ #include "FPSBodyStunPose.inl"
+ #include "FPSBodyTraversalLayer.inl"
+@@ -1221,7 +1266,8 @@
+         // Source carry already stabilizes the head in the character frame.
+         // A neutral LOCAL neck would erase its counter-turn and make the head
+         // face along Kwang's deliberately angled chest instead of forwards.
+-        Controls.bHammerSourceCarry=Controls.bHammerLocomotion&&bHasHammerSourceCarry;
++        const bool HammerLeftCast=HammerFamily&&D->BodyState.Action==EFPSBodyAction::Cast&&D->BodyState.Contacts.Channel!=TEXT("StaffCast")&&!FPSBodyPoses::Traversing(D->BodyState.Motion);
++        Controls.bHammerSourceCarry=(Controls.bHammerLocomotion||HammerLeftCast)&&bHasHammerSourceCarry;
+         const auto Set=[](FAnimNode_SequenceEvaluator_Standalone& Node,UAnimSequence* Asset,float Time,bool Loop)
+         {
+             Node.SetSequence(Asset);Node.SetShouldLoop(Loop);Node.SetTeleportToExplicitTime(true);
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -75,6 +75,8 @@
+     void ReportGunMechanicalStop(uint8 Hand);
+     void ReportGunCartridge(uint8 Hand,class UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age);
+     class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}
++    /** Sample visible replicated equipment, including independently posed offhand weapons. */
++    void GetFlameArmorAttachments(struct FFlameArmorAttachmentBuffer& Out) const;
+     /** Existing equipped sources/copies only, with their actual hand and item identity. */
+     void GetWeatherWeaponMeshes(TArray<FFPSWeatherWeaponMesh>& Out) const;
+     /** Per-rig consume gate, including both lowering and recovery transitions. */
+@@ -89,6 +91,7 @@
+     friend class AShotgunWireAuditController;
+     friend class AShotgunWireAuditGameMode;
+     friend class UShotgunAttachmentAuditCommandlet;
++    friend class USkillNetworkAuditCommandlet;
+     UPROPERTY(ReplicatedUsing=OnRep_BodyState) FFPSBodyState ReplicatedState;
+     UPROPERTY(ReplicatedUsing=OnRep_Equipment) TArray<FFPSBodyWeapon> ReplicatedWeapons;
+     UPROPERTY(ReplicatedUsing=OnRep_Outfit) TArray<FFPSBodyOutfitSlot> ReplicatedOutfit;
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -277,7 +277,7 @@
+         if(Tool->bUsesArms)
+         {
+             auto& Entry=Weapons.Add_GetRef(CaptureWeapon(Tool->Viewmodel,Tool->Motions.FindRef(TEXT("Idle")),TEXT("hand_r")));
+-            Entry.PoseFamily=TEXT("Tool");
++            Entry.PoseFamily=TEXT("Tool");Tool->GetEnchantmentBladeSpan(Entry.ToolEdgeBase,Entry.ToolEdgeTip);
+         }
+         else if(Tool->ToolMesh&&Tool->ToolMesh->GetStaticMesh())
+         {
+@@ -357,6 +357,7 @@
+         for(const auto& Sound:W.GunSounds)Key+=TEXT("|")+Sound.ToSoftObjectPath().ToString();
+         for(const auto& Material:W.ReloadPropMaterials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
+         if(W.MuzzlePart!=INDEX_NONE)Key+=FString::Printf(TEXT("|exit:%d|%s|%s"),W.MuzzlePart,*W.MuzzleTip.ToString(),*W.MuzzleAxis.ToString());
++        if(W.PoseFamily==TEXT("Tool"))Key+=TEXT("|edge:")+W.ToolEdgeBase.ToString()+W.ToolEdgeTip.ToString();
+         // Discard cached fitted mounts/palm poses when this source-sharing
+         // implementation replaces the old third-person-only grip table.
+         if(W.PoseFamily==TEXT("Staff"))Key+=TEXT("|StaffFromFirstPerson20261009|UnarmedFreeHand20261009|StaffSurfaceFit20261009");
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -241,10 +241,12 @@
+         // An authored third-person action owns the wrists. Use only the frozen
+         // equipment bind for fingers, sword bones and attachments; an FPS swing
+         // must not rotate the blade a second time after the body has moved it.
+-        // Hammer carry / inspection keep the native third-person carry pose.
++        // Hammer carry / inspection and the supporting right hand during a
++        // left-palm cast keep the native third-person carry pose.
+         // Freeze fingers, haft bones and installed parts together so the FPS
+         // idle flourish, inspection and sprint carry cannot leak into the body.
+-        const bool HammerCarry=D.PoseFamily==TEXT("Tool")&&FPSBodyWarhammerMotion::IsCarry(State);
++        const bool HammerLeftCast=D.PoseFamily==TEXT("Tool")&&State.Weapon==TEXT("warhammer")&&Cast&&!Magic->IsStaffCasting();
++        const bool HammerCarry=D.PoseFamily==TEXT("Tool")&&(FPSBodyWarhammerMotion::IsCarry(State)||HammerLeftCast);
+         const bool FrozenMelee=(FullBodySword||FullBodyWarhammer||HammerCarry)&&MotionBindings.IsValidIndex(I)&&!MotionBindings[I].FrozenPose.IsEmpty();
+         const auto& SourcePose=FrozenMelee?MotionBindings[I].FrozenPose:
+             (CarryRig?CarryRig->GetComponentSpaceTransforms():Source->GetComponentSpaceTransforms());
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -19,6 +19,7 @@
+             ||X.Sections!=Y.Sections||X.VisibleParts!=Y.VisibleParts)return true;
+     }
+     return A.Weapon!=B.Weapon||A.Family!=B.Family||A.Action!=B.Action||A.ActionVariant!=B.ActionVariant||A.Motion!=B.Motion
++        ||(A.Action==EFPSBodyAction::Cast&&A.ActionStartedAt!=B.ActionStartedAt)
+         ||A.Contacts.Channel!=B.Contacts.Channel||A.Contacts.ConsumableSerial!=B.Contacts.ConsumableSerial
+         ||A.Contacts.DiscardFlags!=B.Contacts.DiscardFlags
+         ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow
+@@ -55,8 +56,13 @@
+     {
+         const auto& P=PreviousLocalPresentation;
+         if(DisplayState.Action==P.Action&&DisplayState.ActionVariant==P.ActionVariant
++            &&(DisplayState.Action!=EFPSBodyAction::Cast||DisplayState.ActionStartedAt==P.ActionStartedAt)
+             &&(DisplayState.Action==EFPSBodyAction::Guard||DisplayState.ActionProgress+.08f>=P.ActionProgress))
++        {
+             DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
++            if(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))
++                DisplayState.CastPalmProgressRate=Rate(DisplayState.ReleaseFraction,P.ReleaseFraction,Delta);
++        }
+         if(DisplayState.Motion==P.Motion&&DisplayState.MotionProgress+.08f>=P.MotionProgress)
+             DisplayState.MotionProgressRate=Rate(DisplayState.MotionProgress,P.MotionProgress,Delta);
+         const auto HandRate=[&](FFPSBodyHandState& Hand,const FFPSBodyHandState& Before)
+@@ -138,6 +144,7 @@
+     Next.AzureEntryTime=FMath::IsFinite(Next.AzureEntryTime)?FMath::Clamp(Next.AzureEntryTime,0.f,Next.AzureSourceLength):0.f;
+     Next.AzureChargeStartedAt=FMath::IsFinite(Next.AzureChargeStartedAt)?FMath::Clamp(Next.AzureChargeStartedAt,Now-30.f,Now):Now;
+     Next.ActionProgressRate=SafeRate(Next.ActionProgressRate);Next.MotionProgressRate=SafeRate(Next.MotionProgressRate);
++    Next.CastPalmProgressRate=Next.Action==EFPSBodyAction::Cast&&Next.Contacts.Channel!=TEXT("StaffCast")?SafeRate(Next.CastPalmProgressRate):0.f;
+     Next.MotionProgress=Unit(Next.MotionProgress);Next.MotionContact=Unit(Next.MotionContact,.25f);
+     Next.MotionRelease=FMath::Max(Next.MotionContact,Unit(Next.MotionRelease,.75f));
+     Next.MotionHandContact=Unit(Next.MotionHandContact);
+@@ -169,6 +176,8 @@
+     State.BowClipTime=FMath::Clamp(State.BowClipTime+State.BowClipRate*Age,0.f,60.f);
+     if(State.bBowClipLooping&&State.BowClipLength>SMALL_NUMBER)State.BowClipTime=FMath::Fmod(State.BowClipTime,State.BowClipLength);
+     if(State.bHasActionProgress)State.ActionProgress=FMath::Clamp(State.ActionProgress+State.ActionProgressRate*Age,0.f,1.f);
++    if(State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast"))
++        State.ReleaseFraction=FMath::Clamp(State.ReleaseFraction+State.CastPalmProgressRate*Age,0.f,1.f);
+     State.RightHand.Progress=FMath::Clamp(State.RightHand.Progress+State.RightHand.ProgressRate*Age,0.f,1.f);
+     State.LeftHand.Progress=FMath::Clamp(State.LeftHand.Progress+State.LeftHand.ProgressRate*Age,0.f,1.f);
+     State.MotionProgress=FMath::Clamp(State.MotionProgress+State.MotionProgressRate*FMath::Clamp(Now-State.MotionSampledAt,0.f,.12f),0.f,1.f);
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+@@ -111,6 +111,9 @@
+     // Bounded interpolation between cosmetic snapshots; never used for gameplay.
+     UPROPERTY() float PresentationSampledAt = 0.f;
+     UPROPERTY() float ActionProgressRate = 0.f;
++    // Only Cast uses ReleaseFraction as a moving palm value. Other actions
++    // use it as a fixed timing threshold and must never extrapolate it.
++    UPROPERTY() float CastPalmProgressRate = 0.f;
+     UPROPERTY() float MotionSampledAt = 0.f;
+     UPROPERTY() float MotionProgressRate = 0.f;
+     // Cosmetic bow sampling; asset names are resolved only against server equipment.
+@@ -200,6 +203,9 @@
+     UPROPERTY() TSoftObjectPtr<class UStaticMesh> StaticMesh;
+     UPROPERTY() FTransform StaticGrip = FTransform::Identity;
+     UPROPERTY() FName PoseFamily;
++    // Tool edge endpoints in WPN_root space, shared with the first-person FX.
++    UPROPERTY() FVector ToolEdgeBase=FVector::ZeroVector;
++    UPROPERTY() FVector ToolEdgeTip=FVector::ZeroVector;
+     UPROPERTY() uint8 AttachHand = 0;
+     UPROPERTY() TSoftObjectPtr<class UWeaponGripProfile> GripProfile;
+     UPROPERTY() int32 StaffVariant = 0;
+--- a/Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h
++++ b/Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h
+@@ -320,10 +320,28 @@
+         TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/S_FireballImpactLayered"),
+         TEXT("/Game/Skills/Fireball/NS_FireballSlowBurnCore"),
+         TEXT("/Game/Skills/Fireball/NS_FireballVelocityTrail"),
++        TEXT("/Game/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorArrowV2"),
++        TEXT("/Game/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorBodyV2"),
++        TEXT("/Game/Skills/FlameArmor20261016/TorchV2/NS_FlameArmorWeaponV2"),
+         TEXT("/Game/Skills/HolyLight/M_HolyBeam"),
+         TEXT("/Game/Skills/HolyLight/M_HolyPool"),
+         TEXT("/Game/Skills/HolyLight/NS_HolyLightMotes"),
+         TEXT("/Game/Skills/HolyLight/S_HolyLightCast"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/M_IceArmor_Chip"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/M_IceArmor_World"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/NS_IceArmor_Condensation"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Arms_0"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Arms_1"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Arms_2"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Legs_0"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Legs_1"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Legs_2"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Torso_0"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Torso_1"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SK_IceArmor_Torso_2"),
++        TEXT("/Game/Skills/IceArmor20261017/CrystalV2/SM_IceArmor_Chip"),
++        TEXT("/Game/Skills/IceArmor20261017/HelmetV5/M_IceHelmet_FirstPerson"),
++        TEXT("/Game/Skills/IceArmor20261017/HelmetV5/SM_IceHelmet_FirstPerson"),
+         TEXT("/Game/Skills/IceSpike/FrostV2/M_IceHeart"),
+         TEXT("/Game/Skills/IceSpike/FrostV2/M_IceShell"),
+         TEXT("/Game/Skills/IceSpike/FrostV2/NS_ColdMist"),
+--- a/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp
++++ b/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp
+@@ -54,7 +54,7 @@
+         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
+         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
+         TEXT("heavyStrike"),TEXT("swordUppercut"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
+-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("meteor"),TEXT("flameArmor"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
++        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("meteor"),TEXT("flameArmor"),TEXT("iceArmor"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
+     return Ids;
+ }
+ 
+@@ -72,6 +72,7 @@
+     if(Id==TEXT("lightningStrike"))return LightningDefinition();
+     if(ElectricMagic::IsSkill(Id))return ElectricMagicDefinition(Id);
+     if(FireMagic::IsSkill(Id))return FireMagicDefinition(Id);
++    if(Id==TEXT("iceArmor"))return IceArmorDefinition();
+     if(Id==TEXT("holyLight"))return HolyLightDefinition();
+     if(Id==TEXT("quickCombat"))return QuickCombatDefinition();
+     return MasteryDefinition(Id);
+--- a/Source/FPSGAME/Development/ColdSteelDevelopmentTuning.cpp
++++ b/Source/FPSGAME/Development/ColdSteelDevelopmentTuning.cpp
+@@ -35,5 +35,6 @@
+     if (HasNoAbilityCooldown()) Current.LightningCooldown = 0.f;
+     if (HasNoAbilityCooldown()) Current.HolyLightCooldown = 0.f;
+     if (HasNoAbilityCooldown()) Current.FlameArmorCooldown = Current.FlameArmorCooldownDuration = 0.f;
++    if (HasNoAbilityCooldown()) Current.IceArmorCooldown=Current.IceArmorCooldownDuration=0.f;
+     OnChanged.Broadcast();
+ }
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -51,6 +51,7 @@
+ #include "Weapons/FPSMeleeLightningComponent.h"
+ #include "Weapons/FPSRiftBladeComponent.h"
+ #include "Skills/FPSHolyLightComponent.h"
++#include "Skills/FPSIceArmorComponent.h"
+ #include "Skills/FPSFireMagicComponent.h"
+ #include "Skills/FPSQuickCombatComponent.h"
+ #include "WorldGeneration/GrassDeform/GrassFootstepFeedbackComponent.h"
+@@ -269,6 +270,7 @@
+     CreateDefaultSubobject<UFPSMeleeLightningComponent>(TEXT("MeleeLightningEnchantment"));
+     CreateDefaultSubobject<UFPSRiftBladeComponent>(TEXT("RiftBladeEnchantment"));
+     CreateDefaultSubobject<UFPSHolyLightComponent>(TEXT("HolyLightSkill"));
++    CreateDefaultSubobject<UFPSIceArmorComponent>(TEXT("IceArmorSkill"));
+     CreateDefaultSubobject<UFPSFireMagicComponent>(TEXT("FireMagicSkills"));
+     QuickCombatPistol=CreateDefaultSubobject<UFPSQuickCombatComponent>(TEXT("QuickCombatPistol"));
+     // Grass interaction feedback (grass-deform M3): footstep puff + decal trail + trample stamp.
+@@ -3685,6 +3687,7 @@
+     if(auto* Lightning=FindComponentByClass<UFPSLightningComponent>())Lightning->Cancel();
+     if(auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending();
+     if(auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>())HolyLight->Cancel();
++    if(auto* IceArmor=FindComponentByClass<UFPSIceArmorComponent>())IceArmor->Cancel();
+     if(auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
+     if(auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>())Blizzard->SuspendPreview();
+ }
+@@ -3713,7 +3716,7 @@
+     const auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>();
+     if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&FireMagic->HasQueuedAction())return true;
+     if(const auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Blizzard->HasQueuedAction())return true;
+-    return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Lightning&&Lightning->HasQueuedAction())||(HolyLight&&HolyLight->HasQueuedAction());
++    return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Lightning&&Lightning->HasQueuedAction())||(HolyLight&&HolyLight->HasQueuedAction())||(FindComponentByClass<UFPSIceArmorComponent>()&&FindComponentByClass<UFPSIceArmorComponent>()->HasQueuedAction());
+ }
+ void AFPSGAMECharacter::ServiceReloadAfterCasting()
+ {
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSCombatHealthComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+ #include "../Weapons/JingangRuneComponent.h"
+@@ -198,7 +199,10 @@
+         IsInvulnerable() && (!(Type&&Type->IsA<UCombatDirectDamage>())||UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Cast<APawn>(Actor),EDevelopmentTuningOption::Invincible)))return;
+     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
+     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
++    const float AcceptedDamage=FMath::Min(Health,Damage);
+     Health = FMath::Max(0.f, Health - Damage);
++    if(!bSurvivalLoss)if(auto* Ice=Actor->FindComponentByClass<UFPSIceArmorComponent>())
++        Ice->ObserveAcceptedDamage(Instigator&&Instigator->GetPawn()?Instigator->GetPawn():Attacker,Type,AcceptedDamage);
+     // Only accepted damage interrupts focus; dodge, guard and immunity have
+     // already rejected their hits. Hunger/dehydration are not weapon impacts.
+     if(!bSurvivalLoss)if(auto* Book=Actor->FindComponentByClass<USpellbookComponent>())Book->InterruptFocusFromDamage();
+--- a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+@@ -1,5 +1,6 @@
+ #include "ColdSteelPlayerState.h"
+ #include "../Skills/FPSFireMagicComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "../Skills/FPSBlizzardComponent.h"
+ #include "../FPSGAMECharacter.h"
+@@ -111,6 +112,7 @@
+     // Settle confirmed hits before the guest profile is saved or remembered.
+     APawn* CastPawn=GetPawn()?GetPawn():ShadowPawn.Get();
+     if(CastPawn)if(auto* Fire=CastPawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishFireMagicForRemoval();
++    if(CastPawn)if(auto* Ice=CastPawn->FindComponentByClass<UFPSIceArmorComponent>())Ice->FinishForRemoval();
+     if(CastPawn)if(auto* Electric=CastPawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
+     if(CastPawn)if(auto* Blizzard=CastPawn->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
+     const bool Closed=CloseStationSessions();
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -35,6 +35,7 @@
+ #include "../Skills/FPSIceWallComponent.h"
+ #include "../Skills/FPSBlizzardComponent.h"
+ #include "../Skills/FPSHolyLightComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Skills/FPSLightningComponent.h"
+ #include "../Skills/FPSFireMagicComponent.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+@@ -149,11 +150,12 @@
+             }
+         }
+         TickInventoryReply();
+-        if(PendingCastSkill==TEXT("dragonBreath")||PendingCastSkill==TEXT("stormDomain"))
++        if(PendingCastSkill==TEXT("dragonBreath")||PendingCastSkill==TEXT("stormDomain")||PendingCastSkill==TEXT("flameArmor")||PendingCastSkill==TEXT("iceArmor"))
+         {
+             const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+             const double Limit=PendingCastSkill==TEXT("stormDomain")?35.:10.;
+-            if(!Pawn||(Health&&Health->IsDead())||!ShadowModel||!ShadowModel->HasEquippedStaff()||World->GetTimeSeconds()-PendingCastAt>Limit)
++            const bool MissingStaff=PendingCastSkill!=TEXT("flameArmor")&&PendingCastSkill!=TEXT("iceArmor")&&ShadowModel&&!ShadowModel->HasEquippedStaff();
++            if(!Pawn||(Health&&Health->IsDead())||!ShadowModel||MissingStaff||World->GetTimeSeconds()-PendingCastAt>Limit)
+             {
+                 const FName Skill=PendingCastSkill;
+                 const uint32 CastId=PendingIdentifiedCastId;auto* CastPawn=PendingCastPawn.Get();
+@@ -1379,7 +1381,7 @@
+ {
+     Request.SourcePawn=GetPawn();Request.Sequence=++LocalCastSequence;
+     if(!Request.Sequence)Request.Sequence=++LocalCastSequence;
+-    if((Request.SkillId==TEXT("dragonBreath")||Request.SkillId==TEXT("stormDomain"))&&Request.Phase==0)Request.CastId=Request.Sequence;
++    if((Request.SkillId==TEXT("dragonBreath")||Request.SkillId==TEXT("stormDomain")||Request.SkillId==TEXT("flameArmor")||Request.SkillId==TEXT("iceArmor"))&&Request.Phase==0)Request.CastId=Request.Sequence;
+     ServerCastSpell(Request);
+     return Request.Sequence;
+ }
+@@ -1407,7 +1409,7 @@
+ struct FNetCastSkill { FName Id; };
+ const FNetCastSkill NetCastSkills[] = {
+     { TEXT("fireball") }, { TEXT("iceSpike") }, { TEXT("iceWall") }, { TEXT("blizzard") },
+-    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("dragonBreath") },
++    { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("iceArmor") }, { TEXT("dragonBreath") },
+     { TEXT("stormDomain") }, { TEXT("thunderLance") },
+ };
+ bool IsNetCastSkill(FName Id)
+@@ -1424,13 +1426,13 @@
+     const auto Reject = [&](uint8 Code)
+     {
+         if(Request.Phase==1&&PendingCastSkill==Request.SkillId&&
+-            ((Request.SkillId!=TEXT("dragonBreath")&&Request.SkillId!=TEXT("stormDomain"))||Request.CastId==PendingIdentifiedCastId))CancelPendingNetworkCast();
++            ((Request.SkillId!=TEXT("dragonBreath")&&Request.SkillId!=TEXT("stormDomain")&&Request.SkillId!=TEXT("flameArmor")&&Request.SkillId!=TEXT("iceArmor"))||Request.CastId==PendingIdentifiedCastId))CancelPendingNetworkCast();
+         ClientCastResult(Request.SkillId, Request.Phase, Code,Request.SourcePawn,Request.Sequence,Request.CastId);
+     };
+     const auto Accept = [&]() { ClientCastResult(Request.SkillId, Request.Phase, 0,Request.SourcePawn,Request.Sequence,Request.CastId); };
+     if (!ShadowModel) { Reject(1); return; }
+     const bool Dragon=Request.SkillId==TEXT("dragonBreath");
+-    const bool Identified=Dragon||Request.SkillId==TEXT("stormDomain");
++    const bool Identified=Dragon||Request.SkillId==TEXT("stormDomain")||Request.SkillId==TEXT("flameArmor")||Request.SkillId==TEXT("iceArmor");
+     if (!IsNetCastSkill(Request.SkillId)||Request.Phase>(Dragon?4:3)) { Reject(2); return; }
+     if(Identified&&(!Request.CastId||(Request.Phase==0&&Request.CastId!=Request.Sequence))){Reject(2);return;}
+     const double Now = GetWorld()->GetTimeSeconds();
+@@ -1512,6 +1514,12 @@
+             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+             Accept(); return;
+         }
++        if(Request.SkillId==TEXT("iceArmor"))
++        {
++            auto* Ice=Pawn->FindComponentByClass<UFPSIceArmorComponent>();
++            if(PendingCastSkill!=Request.SkillId||!Ice||!Ice->NetRelease(Pawn,Request,ShadowModel,PendingIceArmorStats)){Reject(7);return;}
++            PendingCastSkill=NAME_None;PendingCastPaidMana=0;PendingIdentifiedCastId=0;Accept();return;
++        }
+         if (Request.SkillId == TEXT("holyLight"))
+         {
+             if (PendingCastSkill != TEXT("holyLight")) { Reject(3); return; }
+@@ -1584,6 +1592,12 @@
+         PendingCastPaidMana = Stats.ManaCost;
+         PendingBlizzardStats = Stats;
+     }
++    else if(Request.SkillId==TEXT("iceArmor"))
++    {
++        const auto Stats=ShadowModel->IceArmorStats();const float Before=ShadowModel->Snapshot().Mana;
++        if(!ShadowModel->BeginIceArmorCast(Stats)){Reject(6);return;}
++        PendingCastPaidMana=FMath::Max(0.f,Before-ShadowModel->Snapshot().Mana);PendingIceArmorStats=Stats;
++    }
+     else if (Request.SkillId == TEXT("holyLight"))
+     {
+         const FHolyLightCast Stats = ShadowModel->HolyLightStats();
+@@ -1634,6 +1648,12 @@
+         if(auto* Electric=Pawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->NetDomainCastResult(Phase,Code,CastId);
+         return;
+     }
++    if(SkillId==TEXT("flameArmor"))
++    {
++        if(auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->NetArmorCastResult(Phase,Code,CastId);
++        return;
++    }
++    if(SkillId==TEXT("iceArmor")){if(auto* Ice=Pawn->FindComponentByClass<UFPSIceArmorComponent>())Ice->NetCastResult(Phase,Code,CastId);return;}
+     if(Sequence<LocalCastSequence)return;
+     // 把回执路由到发起技能的组件；各组件自己决定拒收/取消的本地收尾。
+     const auto Receipt = [Phase, Code](auto* C)
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -6,6 +6,7 @@
+ #include "../Skills/IceWallTypes.h"
+ #include "../Skills/BlizzardTypes.h"
+ #include "../Skills/HolyLightTypes.h"
++#include "../Skills/IceArmorTypes.h"
+ #include "../Skills/LightningTypes.h"
+ #include "../Skills/FireMagicTypes.h"
+ #include "../Skills/ElectricMagicTypes.h"
+@@ -465,6 +466,7 @@
+     FIceWallCast PendingIceWallStats;
+     FBlizzardCast PendingBlizzardStats;
+     FHolyLightCast PendingHolyLightStats;
++    FIceArmorCast PendingIceArmorStats;
+     FLightningCast PendingLightningStats;
+     FFireMagicCast PendingFireMagicStats;
+     FElectricMagicCast PendingElectricMagicStats;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
+@@ -8,6 +8,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../Skills/FPSFireballComponent.h"
+ #include "../Skills/FPSFireMagicComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "../Skills/FPSIceSpikeComponent.h"
+ #include "../Skills/FPSIceWallComponent.h"
+@@ -96,6 +97,7 @@
+     CancelPendingNetworkCast();
+     SettleSwordUppercut();
+     if(auto* Fire=GetPawn()->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishFireMagicForRemoval();
++    if(auto* Ice=GetPawn()->FindComponentByClass<UFPSIceArmorComponent>())Ice->FinishForRemoval();
+     if(auto* Electric=GetPawn()->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
+     if(auto* Blizzard=GetPawn()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
+     if(!CloseStationSessions()){AbortTeamTravel(TEXT("工作站结算或档案保存失败，请稍后重试"));return false;}
+--- a/Source/FPSGAME/Production/ProductionToolComponent.h
++++ b/Source/FPSGAME/Production/ProductionToolComponent.h
+@@ -61,6 +61,7 @@
+     bool IsInspecting() const { return InspectElapsed>=0.f; }
+     USkeletalMeshComponent* ArmsMesh() const { return bUsesArms ? Viewmodel.Get() : nullptr; }
+     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
++    void GetFlameArmorAttachments(struct FFlameArmorAttachmentBuffer& Out) const;
+     void RefreshHeldTool();
+     void BeginUse();
+     void BeginPrimaryAttack();
+--- a/Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp
+@@ -71,6 +71,8 @@
+ bool UColdSteelStatusModel::BeginFireMagicCast(const FFireMagicCast& Spell)
+ {
+     if(!FireMagic::IsSkill(Spell.Skill)||FireMagicCooldown(Spell.Skill)>0||!CanSpendMana(Spell.ManaCost))return false;
++    if(Spell.Skill==TEXT("flameArmor"))
++        if(const auto* Pawn=RuntimePawn())if(const auto* Status=Pawn->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())return false;
+     if(Spell.Skill==TEXT("dragonBreath")&&Current.bDragonBreathReserved)return false;
+     if(FireMagicDefinition(Spell.Skill).FireMagic.bRequiresStaff&&!HasEquippedStaff())return false;
+     SyncRuntime();auto P=Snapshot();if(!HasInfiniteMana())P.Mana-=Spell.ManaCost;
+--- a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+@@ -141,6 +141,7 @@
+     else if(Skill==TEXT("lightning"))Clear(P.LightningCooldown,P.LightningCooldownDuration);
+     else if(Skill==TEXT("meteor"))Clear(P.MeteorCooldown,P.MeteorCooldownDuration);
+     else if(Skill==TEXT("flameArmor"))Clear(P.FlameArmorCooldown,P.FlameArmorCooldownDuration);
++    else if(Skill==TEXT("iceArmor"))Clear(P.IceArmorCooldown,P.IceArmorCooldownDuration);
+     else if(Skill==TEXT("dragonBreath")){P.bDragonBreathReserved=false;P.DragonBreathReservedMana=0;Clear(P.DragonBreathCooldown,P.DragonBreathCooldownDuration);}
+     else if(Skill==TEXT("fireball")){P.bFireballReserved=false;Clear(P.FireballCooldown,P.FireballCooldownDuration);}
+     else if(Skill==TEXT("blizzard")){P.bBlizzardReserved=false;P.BlizzardReservedMana=0;Clear(P.BlizzardCooldown,P.BlizzardCooldownDuration);}
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -412,7 +412,7 @@
+         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
+         ProgressNotices.Add(MoveTemp(N));
+     }
+-    const FColdSteelSkillDefinition* NoticeDefinitions[]={&StormDomainSkill,&ThunderLanceSkill,&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&IceWallSkill,&BlizzardSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&DragonBreathSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("swordUppercut")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
++    const FColdSteelSkillDefinition* NoticeDefinitions[]={&StormDomainSkill,&ThunderLanceSkill,&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&IceWallSkill,&BlizzardSkill,&LightningSkill,&HolyLightSkill,&MeteorSkill,&FlameArmorSkill,&IceArmorSkill,&DragonBreathSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike")),&MasteryDefinition(TEXT("swordUppercut")),&MasteryDefinition(TEXT("whirlwind")),&MasteryDefinition(TEXT("dashAttack"))};
+     for(const auto* Definition:NoticeDefinitions)
+     {
+     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
+@@ -424,6 +424,7 @@
+         if(Definition->Id==TEXT("swordUppercut")){const auto E=ColdSteelSkills::Effect(*Definition,New->Level);N.Detail=FString::Printf(TEXT("上挑 ×%.2f · 力量 +%d · 距离 ×%.3f"),SwordUppercut::HeavyDamageScale*E.HeavyMultiplier,E.Strength,E.UppercutReachMultiplier);}
+         if(Definition->Id==TEXT("fireball"))N.Detail=FString::Printf(TEXT("火球威力提升 · 爆炸半径 %.2f 米"),FireballStats(New->Level).Radius/100);
+         if(Definition->Id==TEXT("iceSpike"))N.Detail=FString::Printf(TEXT("冰锥威力提升 · 当前 %d 枚"),IceSpikeStats(New->Level).Count);
++        if(Definition->Id==TEXT("iceArmor")){const auto C=IceArmorStats(New->Level);N.Detail=FString::Printf(TEXT("物防 +%.0f · 魔防 +%.0f · 持续 %.0f 秒"),C.PhysicalDefense,C.MagicDefense,C.Duration);}
+         if(Definition->Id==TEXT("iceWall"))N.Detail=FString::Printf(TEXT("冰墙成长 · %d 段 · %.1f 秒"),IceWallStats(New->Level).Count,IceWallStats(New->Level).Duration);
+         if(Definition->Id==TEXT("blizzard")){const auto C=BlizzardStats(New->Level);N.Detail=FString::Printf(TEXT("暴风雪成长 · 范围 %.2f × %.2f 米 · 持续 %.0f 秒"),C.RadiusX*.02f,C.RadiusY*.02f,C.Duration);}
+         if(FireMagic::IsSkill(Definition->Id))N.Detail=FString::Printf(TEXT("火系魔法提升 · 持续 %.0f 秒"),FireMagicStats(Definition->Id,New->Level).Duration);
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -201,6 +201,34 @@
+         F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillDuration=Num(TEXT("chillDuration"),2.5);F.ChillSlow=Num(TEXT("chillSlowPercent"),.035);
+         F.HitExperience=Num(TEXT("hitExperience"),3);F.KillExperience=Num(TEXT("killExperience"),10);F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);
+     }
++    if(Id==TEXT("iceArmor"))
++    {
++        auto& T=D.IceArmor;
++        T.PhysicalBase=Num(TEXT("physicalDefenseBase"),T.PhysicalBase);
++        T.PhysicalPerLevel=Num(TEXT("physicalDefensePerLevel"),T.PhysicalPerLevel);
++        T.PhysicalMagic=Num(TEXT("physicalDefenseMagicFactor"),T.PhysicalMagic);
++        T.MagicBase=Num(TEXT("magicDefenseBase"),T.MagicBase);
++        T.MagicPerLevel=Num(TEXT("magicDefensePerLevel"),T.MagicPerLevel);
++        T.MagicMagic=Num(TEXT("magicDefenseMagicFactor"),T.MagicMagic);
++        T.DurationBase=Num(TEXT("durationBase"),T.DurationBase);
++        T.DurationGrowth=Num(TEXT("durationGrowth"),T.DurationGrowth);
++        T.ManaBase=Num(TEXT("manaBase"),T.ManaBase);
++        T.ManaPerLevel=Num(TEXT("manaPerLevel"),T.ManaPerLevel);
++        T.Cooldown=Num(TEXT("cooldown"),T.Cooldown);
++        T.CooldownReduction=Num(TEXT("cooldownReduction"),T.CooldownReduction);
++        T.RadiusBase=Num(TEXT("radiusBaseCM"),T.RadiusBase);
++        T.RadiusGrowth=Num(TEXT("radiusGrowthCM"),T.RadiusGrowth);
++        T.PulseSeconds=Num(TEXT("pulseSeconds"),T.PulseSeconds);
++        T.ChillSeconds=Num(TEXT("chillSeconds"),T.ChillSeconds);
++        T.ChillGrowth=Num(TEXT("chillDurationGrowth"),T.ChillGrowth);
++        T.SlowPerStack=Num(TEXT("slowPerStack"),T.SlowPerStack);
++        T.TrainingSourceInterval=Num(TEXT("trainingSourceInterval"),T.TrainingSourceInterval);
++        T.CastExperience=Num(TEXT("castExperience"),T.CastExperience);
++        T.MeleeExperience=Num(TEXT("meleeHitExperience"),T.MeleeExperience);
++        T.RangedExperience=Num(TEXT("rangedHitExperience"),T.RangedExperience);
++        T.ExperienceCap=Num(TEXT("experienceCapPerCast"),T.ExperienceCap);
++        T.PulseSeconds=FMath::Max(.1f,T.PulseSeconds);T.DurationBase=FMath::Max(.1f,T.DurationBase);T.TrainingSourceInterval=FMath::Max(.1f,T.TrainingSourceInterval);
++    }
+     if(FireMagic::IsSkill(Id))
+     {
+         auto& F=D.FireMagic;
+@@ -295,11 +323,13 @@
+ }
+ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
+ {
+-    if (P.SkillProgressVersion >= 22) return false;
++    if (P.SkillProgressVersion >= 23) return false;
++    P.Skills.FindOrAdd(TEXT("iceArmor"));P.IceArmorCooldown=P.IceArmorCooldownDuration=0;
++    if(P.SkillProgressVersion==22){P.SkillProgressVersion=23;return true;}
+     P.Skills.FindOrAdd(TEXT("dragonBreath"));
+     P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
+     P.bDragonBreathReserved=false;
+-    if(P.SkillProgressVersion==21){P.SkillProgressVersion=22;return true;}
++    if(P.SkillProgressVersion==21){P.SkillProgressVersion=23;return true;}
+     if (P.SkillProgressVersion < 8)
+     {
+         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
+@@ -332,12 +362,13 @@
+     for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
+     P.Skills.FindOrAdd(TEXT("swordUppercut"));
+     P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
+-    P.SkillProgressVersion=22;
++    P.SkillProgressVersion=23;
+     return true;
+ }
+ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
+ {
+-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>22 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
++    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>23 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
++    if(P.SkillProgressVersion>=23&&(!P.Skills.Contains(TEXT("iceArmor"))||!FMath::IsFinite(P.IceArmorCooldown)||!FMath::IsFinite(P.IceArmorCooldownDuration)||P.IceArmorCooldown<0||P.IceArmorCooldownDuration<P.IceArmorCooldown||P.IceArmorCooldownDuration>300)){Reason=TEXT("坚冰铠甲进度或冷却无效");return false;}
+     if(P.SkillProgressVersion>=22&&(!P.Skills.Contains(TEXT("dragonBreath"))||!FMath::IsFinite(P.DragonBreathCooldown)||
+         !FMath::IsFinite(P.DragonBreathCooldownDuration)||P.DragonBreathCooldown<0||P.DragonBreathCooldownDuration<P.DragonBreathCooldown||
+         P.DragonBreathCooldownDuration>300||!FMath::IsFinite(P.DragonBreathReservedMana)||P.DragonBreathReservedMana<0||
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -7,6 +7,7 @@
+ #include "LightningTypes.h"
+ #include "ElectricMagicTypes.h"
+ #include "HolyLightTypes.h"
++#include "IceArmorTypes.h"
+ #include "FireMagicTypes.h"
+ #include "WhirlwindTypes.h"
+ #include "DashAttackTypes.h"
+@@ -81,6 +82,7 @@
+     FLightningTuning Lightning;
+     FElectricMagicTuning ElectricMagic;
+     FHolyLightTuning HolyLight;
++    FIceArmorTuning IceArmor;
+     FQuickCombatTuning QuickCombat;
+     FWhirlwindTuning Whirlwind;
+     FDashAttackTuning DashAttack;
+--- a/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
+@@ -27,6 +27,7 @@
+     else if(Id==TEXT("blizzard"))Cost=D->Blizzard.ManaCost;
+     else if(Id==TEXT("lightningStrike"))Cost=D->Lightning.ManaCost;
+     else if(Id==TEXT("holyLight"))Cost=D->HolyLight.ManaCost;
++    else if(Id==TEXT("iceArmor"))Cost=D->IceArmor.ManaBase+(L-1)*D->IceArmor.ManaPerLevel;
+     else if(FireMagic::IsSkill(Id))Cost=D->FireMagic.ManaBase+FMath::FloorToFloat(Growth*D->FireMagic.ManaGrowth);
+     else if(ElectricMagic::IsSkill(Id))Cost=D->ElectricMagic.ManaBase+FMath::FloorToFloat(Growth*D->ElectricMagic.ManaGrowth);
+     else return 0.f;
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+@@ -1,8 +1,10 @@
+ #include "FPSFireMagicComponent.h"
++#include "FlameArmorAssets.h"
+ #include "PlayerSkillPreparation.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "MagicOcclusion.h"
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "../Weapons/ThermalTargetSubsystem.h"
+ #include "../Dungeons/WardBreakableGlass.h"
+ #include "FPSMeteorStrike.h"
+ #include "FPSFireballComponent.h"
+@@ -13,6 +15,11 @@
+ #include "../UI/StatusEffectsComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Staff/StaffWeaponComponent.h"
++#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
++#include "../Production/ProductionToolComponent.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
+ #include "Camera/CameraComponent.h"
+ #include "Components/CapsuleComponent.h"
+ #include "Components/DecalComponent.h"
+@@ -39,13 +46,21 @@
+ {
+     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
+     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
++    if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())AddTickPrerequisiteComponent(Body);
++    if(auto* Bow=GetOwner()->FindComponentByClass<UBowWeaponComponent>())AddTickPrerequisiteComponent(Bow);
++    if(auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>())AddTickPrerequisiteComponent(Staff);
++    if(auto* Tool=GetOwner()->FindComponentByClass<UProductionToolComponent>())AddTickPrerequisiteComponent(Tool);
++    if(auto* Empty=GetOwner()->FindComponentByClass<UFPSUnarmedIdleComponent>())AddTickPrerequisiteComponent(Empty);
+     if(GetNetMode()==NM_DedicatedServer)return;
+     PlayerSkillAssets::Defer(GetOwner(),TEXT("flameArmor"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+     {
+-        AuraSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_ArmorNaturalAura.NS_ArmorNaturalAura"));
+-        WeaponSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_ArmorNaturalFire.NS_ArmorNaturalFire"));
++        AuraSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(FlameArmorAssets::Body);
++        WeaponSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(FlameArmorAssets::Weapon);
++        ArrowSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(FlameArmorAssets::Arrow);
+         SparkSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/FireMagic20260921/NS_FireMagicSparks.NS_FireMagicSparks"));
+         CastSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast"));
++        // Remote armor may already be active when its presentation arrives.
++        RefreshArmorVisuals();
+     }));
+     PlayerSkillAssets::Defer(GetOwner(),TEXT("meteor"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+     {
+@@ -245,6 +260,11 @@
+     if(GetWorld()->GetNetMode()==NM_Client)
+     {
+         bNetPaid=true;const uint32 Sequence=NetCast::Send(Player,Spell.Skill,0);
++        if(Spell.Skill==TEXT("flameArmor"))
++        {
++            ArmorLocalCastId=Sequence;ArmorPendingRefund=0.f;
++            if(!Sequence){CancelPending();Feedback(Spell.Skill,TEXT("联机施法未就绪"));}
++        }
+         if(Spell.Skill==TEXT("dragonBreath"))
+         {
+             DragonLocalCastId=Sequence;DragonPrediction=FDragonBreathState();
+@@ -256,6 +276,15 @@
+ {
+     if(CommittedSkill.IsNone())return;const FName Skill=CommittedSkill;CommittedSkill=NAME_None;
+     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());if(!Player)return;
++    if(Skill==TEXT("flameArmor"))
++        if(const auto* Status=Player->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())
++        {
++            if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);
++            if(GetNetMode()==NM_Client&&bNetPaid)
++                NetCast::Send(Player,Skill,2,FVector::ZeroVector,FVector::UpVector,0,nullptr,0,FVector::ForwardVector,ArmorLocalCastId);
++            bNetPaid=false;if(auto* H=Hands())H->CancelSpellGesture(this);
++            Feedback(Skill,TEXT("状态免疫"));return;
++        }
+     if(auto* M=Model();M&&CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff())
+     {
+         M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,Skill);
+@@ -309,24 +338,31 @@
+     else
+     {
+         // 联机客人：焰甲激活上报——服务端跑权威灼烧，远端副本靠 bNetArmor 演火环。
+-        if(GetWorld()->GetNetMode()==NM_Client){NetCast::Send(Player,Skill,1);bNetPaid=false;}
++        if(GetWorld()->GetNetMode()==NM_Client)
++        {
++            ArmorPendingRefund=Hands()?Hands()->TakeGesturePayment():0.f;
++            NetCast::Send(Player,Skill,1,FVector::ZeroVector,FVector::UpVector,0,nullptr,0,FVector::ForwardVector,ArmorLocalCastId);
++            bNetPaid=false;
++        }
++        else if(auto* H=Hands())H->TakeGesturePayment();
+         StartArmor();
+     }
+     if(Skill!=TEXT("dragonBreath"))UGameplayStatics::PlaySoundAtLocation(this,CastSound,Player->GetActorLocation());
+     if(auto* Status=UCombatStatusFormula::GetOrAdd(Player))
+     {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
+ }
+-void UFPSFireMagicComponent::StartArmor()
++void UFPSFireMagicComponent::StartArmor(UColdSteelStatusModel* RewardModel,uint32 CastId)
+ {
+     EndArmor(true);ArmorSnapshot=CastSnapshot;ArmorTime=ArmorSnapshot.Duration;AuraTimer=0;
++    if(GetOwner()->HasAuthority())ArmorRewardModel=RewardModel?RewardModel:NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()->GetGameInstance());
++    else bArmorAwaitingReplication=ArmorLocalCastId!=0;
+     SpawnArmorFX();
+     TickArmor(0);
+-    if(AuraFX)AuraFX->Activate(true);if(WeaponFX)WeaponFX->Activate(true);
+     // 旧 flame-armor-system：命中即刷 🔥 护盾卡片，duration 跟随技能面板。
+     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("flameArmor"),ArmorSnapshot.Duration);
+     if(GetOwner()->HasAuthority())
+     {
+-        NetArmor.Cast=ArmorSnapshot;NetArmor.bActive=true;++NetArmor.Serial;
++        NetArmor.Cast=ArmorSnapshot;NetArmor.CastId=CastId;NetArmor.bActive=true;++NetArmor.Serial;
+         NetArmor.StartedAt=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+         GetOwner()->ForceNetUpdate();
+     }
+@@ -334,27 +370,49 @@
+ // 光环/武器火焰的 FX 壳——本地激活与远端 OnRep 共用。
+ void UFPSFireMagicComponent::SpawnArmorFX()
+ {
++    if(GetNetMode()==NM_DedicatedServer||!AuraSystem||IsValid(AuraFX))return;
+     AuraFX=UNiagaraFunctionLibrary::SpawnSystemAttached(AuraSystem,GetOwner()->GetRootComponent(),NAME_None,FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,false,false);
+-    WeaponFX=UNiagaraFunctionLibrary::SpawnSystemAttached(WeaponSystem,GetOwner()->GetRootComponent(),NAME_None,FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,false,false);
+-    if(AuraFX){AuraFX->SetAbsolute(false,true,true);AuraFX->SetVariableFloat(TEXT("User.Fade"),1);}
+-    if(WeaponFX)
+-    {
+-        WeaponFX->SetAbsolute(false,true,true);WeaponFX->SetVariableFloat(TEXT("User.Fade"),0);
+-        WeaponFX->AddTickPrerequisiteComponent(this);WeaponFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
+-    }
+-    if(AuraFX)AuraFX->Activate(true);if(WeaponFX)WeaponFX->Activate(true);
++    if(AuraFX)
++    {
++        AuraFX->SetAbsolute(true,true,true);AuraFX->SetWorldRotation(FRotator::ZeroRotator);
++        AuraFX->SetVariableFloat(TEXT("User.Fade"),0.f);
++        AuraFX->SetCastShadow(false);AuraFX->SetVisibleInRayTracing(false);
++        AuraFX->AddTickPrerequisiteComponent(this);AuraFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
++        // The ring component is now at the feet; the old torso-relative -55 cm
++        // offset placed its thermal proxy underground. Match the V5 ring wall.
++        const auto* Capsule=GetOwner()->FindComponentByClass<UCapsuleComponent>();
++        const float RingRadius=1.2f*FMath::Max(62.f,(Capsule?Capsule->GetScaledCapsuleRadius():42.f)+28.f);
++        UThermalTargetSubsystem::RegisterFire(AuraFX,FVector(RingRadius,RingRadius,28),FVector(0,0,28));
++    }
++}
++void UFPSFireMagicComponent::RefreshArmorVisuals()
++{
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
++    // Asset arrival is not a rejection of a locally predicted release. The
++    // reliable receipt / matching replicated cast owns that reconciliation.
++    if(GetOwner()->HasAuthority()||bArmorAwaitingReplication)
++    {if(ArmorTime>0){SpawnArmorFX();TickArmor(0.f);}return;}
++    OnRep_Armor();
+ }
+ void UFPSFireMagicComponent::OnRep_Armor()
+ {
++    if(bArmorAwaitingReplication&&NetArmor.CastId!=ArmorLocalCastId)return;
++    if(NetArmor.CastId&&NetArmor.CastId==ArmorLocalCastId)
++    {ArmorConfirmedCastId=NetArmor.CastId;ArmorPendingRefund=0.f;}
++    bArmorAwaitingReplication=false;
++    if(const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())
++    {EndArmor(false);AppliedArmorSerial=NetArmor.Serial;return;}
+     const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+     const float Remaining=FMath::Max(0.,NetArmor.StartedAt+NetArmor.Cast.Duration-Now);
+     if(!NetArmor.bActive||Remaining<=0.f){EndArmor(false);AppliedArmorSerial=NetArmor.Serial;return;}
+-    if(AppliedArmorSerial!=NetArmor.Serial||ArmorTime<=0.f)
++    if(AppliedArmorSerial!=NetArmor.Serial||ArmorTime<=0.f||(!AuraFX&&AuraSystem))
+     {
+         EndArmor(false);ArmorSnapshot=NetArmor.Cast;SpawnArmorFX();
+         AppliedArmorSerial=NetArmor.Serial;
+     }
+     ArmorTime=Remaining;AuraTimer=0;
++    auto* Status=UStatusEffectsComponent::GetOrCreate(GetOwner());
++    Status->Remove(TEXT("flameArmor"));Status->SetTimed(TEXT("flameArmor"),Remaining);
+     TickArmor(0.f);
+ }
+ void UFPSFireMagicComponent::Sparks(const FVector& Point)
+@@ -362,7 +420,7 @@
+ void UFPSFireMagicComponent::OnWeaponHit(AActor* Target,const FVector& Point)
+ {
+     if(ArmorTime<=0||!GetOwner()->HasAuthority())return;
+-    auto* Player=Cast<APawn>(GetOwner());auto* M=NetCast::AuthorityModel(Player,GetWorld()?GetWorld()->GetGameInstance():nullptr);
++    auto* Player=Cast<APawn>(GetOwner());auto* M=ArmorRewardModel.Get();
+     if(M&&M->ApplyFireMagicHit(Player,Target,ArmorSnapshot,ArmorSnapshot.Damage,ArmorRewards))Sparks(Point);
+ }
+ void UFPSFireMagicComponent::TickArmor(float Delta)
+@@ -370,9 +428,14 @@
+     if(ArmorTime<=0)return;
+     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+     const bool Authority=GetOwner()->HasAuthority();
+-    auto* M=Authority?NetCast::AuthorityModel(Player,GetWorld()?GetWorld()->GetGameInstance():nullptr):nullptr;
++    auto* M=Authority?ArmorRewardModel.Get():nullptr;
+     if(!Player||(Authority&&!M)){EndArmor(false);return;}
+     const float ActiveDelta=FMath::Min(Delta,ArmorTime);ArmorTime=FMath::Max(0.f,ArmorTime-Delta);AuraTimer+=ActiveDelta;
++    if(!Authority&&!bArmorAwaitingReplication&&NetArmor.bActive&&AppliedArmorSerial==NetArmor.Serial)
++    {
++        const double Now=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
++        ArmorTime=FMath::Max(0.,NetArmor.StartedAt+NetArmor.Cast.Duration-Now);
++    }
+     const FVector Feet=Player->GetActorLocation()-FVector(0,0,Player->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-5);
+     while(Authority&&AuraTimer+UE_KINDA_SMALL_NUMBER>=ArmorSnapshot.TickSeconds)
+     {
+@@ -388,47 +451,37 @@
+     }
+     const float Onset=FMath::Clamp((ArmorSnapshot.Duration-ArmorTime)/.18f,0.f,1.f);
+     const float Fade=FMath::Min(1.f,ArmorTime/.5f)*Onset*Onset*(3-2*Onset);
+-    if(AuraFX){AuraFX->SetWorldLocation(Feet);AuraFX->SetVariableFloat(TEXT("User.Radius"),Player->GetCapsuleComponent()->GetScaledCapsuleRadius()+16);AuraFX->SetVariableFloat(TEXT("User.Fade"),Fade);}
+-    if(WeaponFX)
+-    {
+-        FVector Base=FVector::ZeroVector,Tip=FVector::ZeroVector;bool bWeapon=false;
+-        if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsEquipped())bWeapon=Sword->GetFireMagicBladePoints(Base,Tip);
+-        else if(Player->HasInventoryWeapon()){Tip=Player->GetEffectiveMuzzleLocation();Base=Tip-Player->GetEffectiveMuzzleForward()*28;bWeapon=true;}
+-        WeaponFX->SetVisibility(bWeapon);
+-        if(bWeapon)
+-        {
+-            // Teleports / weapon swaps must not draw a streak across the previous weapon.
+-            if(!bWeaponSampleValid||FVector::DistSquared(Base,PreviousWeaponBase)>FMath::Square(180.f)||FVector::DistSquared(Tip,PreviousWeaponTip)>FMath::Square(240.f))
+-            {PreviousWeaponBase=Base;PreviousWeaponTip=Tip;}
+-            const FVector Velocity=Delta>0?((Base+Tip-PreviousWeaponBase-PreviousWeaponTip)*(.5f/Delta)).GetClampedToMaxSize(1400):FVector::ZeroVector;
+-            WeaponFX->SetWorldLocation(Base);WeaponFX->SetVariableVec3(TEXT("User.WeaponEnd"),Tip-Base);
+-            WeaponFX->SetVariablePosition(TEXT("User.WeaponStartWorld"),Base);WeaponFX->SetVariablePosition(TEXT("User.WeaponEndWorld"),Tip);
+-            WeaponFX->SetVariablePosition(TEXT("User.PreviousStart"),PreviousWeaponBase);WeaponFX->SetVariablePosition(TEXT("User.PreviousEnd"),PreviousWeaponTip);
+-            WeaponFX->SetVariableVec3(TEXT("User.WeaponVelocity"),Velocity);
+-            WeaponFX->SetVariableFloat(TEXT("User.WeaponSize"),FMath::Clamp(float(FVector::Distance(Base,Tip)/80.),.55f,1.f));
+-            WeaponFX->SetVariableFloat(TEXT("User.Fade"),Fade);PreviousWeaponBase=Base;PreviousWeaponTip=Tip;bWeaponSampleValid=true;
+-        }
+-        else{bWeaponSampleValid=false;WeaponFX->SetVariableFloat(TEXT("User.Fade"),0);}
+-    }
++    UpdateArmorBodyFX(Fade,Feet);
++    UpdateArmorWeaponFX(Delta,Fade);
+     if(ArmorTime<=0)EndArmor(true);
+ }
+ void UFPSFireMagicComponent::EndArmor(bool bTrain)
+ {
+     if(GetOwner()->HasAuthority()&&NetArmor.bActive){NetArmor.bActive=false;GetOwner()->ForceNetUpdate();}
+-    if(bTrain&&GetOwner()->HasAuthority())if(auto* M=NetCast::AuthorityModel(Cast<APawn>(GetOwner()),GetWorld()?GetWorld()->GetGameInstance():nullptr))M->FinishFireMagicCast(TEXT("flameArmor"),ArmorRewards);
+-    if(ArmorTime>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("flameArmor"));
+-    ArmorTime=0;AuraTimer=0;ArmorRewards={};bWeaponSampleValid=false;
+-    if(AuraFX){AuraFX->DestroyComponent();AuraFX=nullptr;}if(WeaponFX){WeaponFX->DestroyComponent();WeaponFX=nullptr;}
++    auto* RewardModel=ArmorRewardModel.Get();const FFireMagicRewards Rewards=ArmorRewards;
++    ArmorRewardModel.Reset();bArmorAwaitingReplication=false;
++    if(auto* Status=GetOwner()->FindComponentByClass<UStatusEffectsComponent>())Status->Remove(TEXT("flameArmor"));
++    ArmorTime=0;AuraTimer=0;ArmorRewards={};
++    if(AuraFX){AuraFX->DestroyComponent();AuraFX=nullptr;}
++    for(auto& FX:WeaponFX)if(FX)FX->DestroyComponent();WeaponFX.Reset();
++    for(auto& History:WeaponHistory)History=FFlameArmorHistory();
++    bArmorFeetValid=false;
++    // Clear the batch before callbacks; removal and EndPlay may both settle it.
++    const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
++    if(bTrain&&GetOwner()->HasAuthority()&&RewardModel&&(!Health||!Health->IsDead()))RewardModel->FinishFireMagicCast(TEXT("flameArmor"),Rewards);
+ }
+ void UFPSFireMagicComponent::CancelPending()
+ {
+     SetMeteorAimPreview(false);
+     const bool PendingDragon=CommittedSkill==TEXT("dragonBreath");
+-    if(PendingDragon)if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
++    if(PendingDragon||CommittedSkill==TEXT("flameArmor"))
++        if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
+     if(PendingDragon||IsDragonBreathActive()||bDragonAwaitingRelease)RequestDragonStop();
+     if(!CommittedSkill.IsNone())Feedback(CommittedSkill,TEXT("施法中断"));
+     // 联机客人：凝聚期中断——服务端按 Phase2 退预留。
+-    if(!PendingDragon&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid&&!CommittedSkill.IsNone())NetCast::Send(GetOwner(),CommittedSkill,2);
++    if(!PendingDragon&&GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&bNetPaid&&!CommittedSkill.IsNone())
++        NetCast::Send(GetOwner(),CommittedSkill,2,FVector::ZeroVector,FVector::UpVector,0,nullptr,0,FVector::ForwardVector,
++            CommittedSkill==TEXT("flameArmor")?ArmorLocalCastId:0);
+     bNetPaid=false;
+     QueuedSkill=NAME_None;CommittedSkill=NAME_None;if(auto* H=Hands())H->CancelSpellGesture(this);
+ }
+@@ -441,6 +494,10 @@
+ // ── 联机服务端入口：陨星定点生成（复制各端）/焰甲服务端权威激活 ──
+ bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell)
+ {
++    if(!Caster||!Caster->HasAuthority()||!Shadow||
++        (Shadow->FireMagicDefinition(Req.SkillId).FireMagic.bRequiresStaff&&!Shadow->HasEquippedStaff()))return false;
++    if(Req.SkillId==TEXT("flameArmor"))
++        if(const auto* Status=Caster->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())return false;
+     CastSnapshot=Spell;
+     if(Req.SkillId==TEXT("dragonBreath"))
+     {
+@@ -464,7 +521,8 @@
+         return true;
+     }
+     // flameArmor：服务端组件 TickArmor 走影子档案结算灼烧；bNetArmor 复制表现。
+-    StartArmor();
++    if(Req.SkillId!=TEXT("flameArmor")||Spell.Skill!=Req.SkillId||!Req.CastId)return false;
++    StartArmor(Shadow,Req.CastId);
+     if(CastSound)UGameplayStatics::PlaySoundAtLocation(this,CastSound,Caster->GetActorLocation());
+     if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
+     {if(Spell.bGrantChain)Status->AddChainSpell();if(Spell.CastHasteStacks>0)Status->AddHaste(Spell.CastHasteStacks,Spell.CastHasteDuration);}
+@@ -485,10 +543,34 @@
+ {
+     bNetPaid=false;
+ }
++void UFPSFireMagicComponent::NetArmorCastResult(uint8 Phase,uint8 Code,uint32 CastId)
++{
++    if(!CastId||CastId!=ArmorLocalCastId)return;
++    if(Code==0)
++    {
++        if(Phase==1){ArmorConfirmedCastId=CastId;ArmorPendingRefund=0.f;}
++        // Keep prediction until its matching state arrives, even if the RPC
++        // receipt beat property replication to this client.
++        if(Phase>=2&&CommittedSkill==TEXT("flameArmor"))bNetPaid=false;
++        return;
++    }
++    if(Phase>1||ArmorConfirmedCastId==CastId||ArmorRejectedCastId==CastId)return;
++    ArmorRejectedCastId=CastId;
++    const bool Pending=CommittedSkill==TEXT("flameArmor");
++    const float Refund=Pending&&Hands()?Hands()->TakeGesturePayment():ArmorPendingRefund;ArmorPendingRefund=0.f;
++    if(auto* M=Model())M->RefundUnreleasedCast(Refund,TEXT("flameArmor"));
++    if(bArmorAwaitingReplication)EndArmor(false);
++    if(Pending){CommittedSkill=NAME_None;bNetPaid=false;if(auto* H=Hands())H->CancelSpellGesture(this);}
++    if(QueuedSkill==TEXT("flameArmor"))QueuedSkill=NAME_None;
++    // A rejected refresh must restore a still-active preceding authority cast.
++    if(!GetOwner()->HasAuthority())OnRep_Armor();
++    Feedback(TEXT("flameArmor"),TEXT("施法失败"));
++}
+ void UFPSFireMagicComponent::FinishFireMagicForRemoval()
+ {
+     if(!GetOwner()->HasAuthority())return;
+     FinishDragonBreathForRemoval();
++    EndArmor(true);
+     auto Active=MoveTemp(Strikes);Strikes.Reset();
+     for(auto& Strike:Active)if(Strike.IsValid())Strike->FinishForRemoval();
+ }
+@@ -521,6 +603,7 @@
+     {if(!CommittedSkill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);ClearEffects();return;}
+     if(!CommittedSkill.IsNone()&&(!Hands()||!Hands()->IsSpellGesture(this)))
+     {
++        if(CommittedSkill==TEXT("flameArmor"))CancelPending();
+         if(CommittedSkill==TEXT("dragonBreath"))
+         {
+             if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
+@@ -548,7 +631,7 @@
+ }
+ void UFPSFireMagicComponent::EndPlay(EEndPlayReason::Type Reason)
+ {
+-    FinishDragonBreathForRemoval();ClearEffects();
++    FinishFireMagicForRemoval();ClearEffects();
+     if(MeteorAimLoad)MeteorAimLoad->CancelHandle();MeteorAimLoad.Reset();
+     if(MeteorAimDecal){MeteorAimDecal->DestroyComponent();MeteorAimDecal=nullptr;}
+     if(DragonLoad)DragonLoad->CancelHandle();DragonLoad.Reset();Super::EndPlay(Reason);
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.h
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.h
+@@ -3,6 +3,7 @@
+ #include "Components/ActorComponent.h"
+ #include "FireMagicTypes.h"
+ #include "FPSLeftHandNotice.h"
++#include "FlameArmorAttachments.h"
+ #include "FPSFireMagicComponent.generated.h"
+ class UColdSteelStatusModel;
+ class UFPSFireballComponent;
+@@ -35,6 +36,7 @@
+     float HandNoticeAlpha() const;
+     float HandNoticeRise() const;
+     float ArmorRemaining() const{return ArmorTime;}
++    UNiagaraSystem* GetArmorArrowSystem() const{return ArrowSystem;}
+     void OnWeaponHit(AActor* Target,const FVector& Point);
+     void NotifyMeteorImpact(const FVector& Point);
+     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;
+@@ -43,6 +45,7 @@
+     void NetCastRejected(uint8 Phase,uint8 Code);
+     void NetCastCancelled(uint8 Phase);
+     void NetDragonCastResult(uint8 Phase,uint8 Code,uint32 CastId);
++    void NetArmorCastResult(uint8 Phase,uint8 Code,uint32 CastId);
+     void NetStopDragonBreath(uint32 CastId);
+     void FinishDragonBreathForRemoval();
+     void FinishFireMagicForRemoval();
+@@ -54,6 +57,8 @@
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ private:
+     friend class USkillNetworkAuditCommandlet;
++    friend class ASkillWireAuditController;
++    friend class ASkillWireAuditGameMode;
+     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> DragonSystem;
+     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> DragonFX;
+     UPROPERTY(ReplicatedUsing=OnRep_DragonBreath) FDragonBreathState DragonState;
+@@ -84,10 +89,11 @@
+     void UpdateDragonBreathOcclusion(const FVector& Origin,const FQuat& Rotation);
+     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> AuraSystem;
+     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> WeaponSystem;
++    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> ArrowSystem;
+     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> SparkSystem;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> CastSound;
+     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> AuraFX;
+-    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> WeaponFX;
++    UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> WeaponFX;
+     UPROPERTY(Transient) TArray<TObjectPtr<UObject>> MeteorAssets;
+     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MeteorAimMaterial;
+     UPROPERTY(Transient) TObjectPtr<UDecalComponent> MeteorAimDecal;
+@@ -100,6 +106,10 @@
+     FName QueuedSkill,CommittedSkill,MessageSkill,NoticeSkill;
+     FFireMagicCast CastSnapshot,ArmorSnapshot;
+     FFireMagicRewards ArmorRewards;
++    TWeakObjectPtr<UColdSteelStatusModel> ArmorRewardModel;
++    uint32 ArmorLocalCastId=0,ArmorConfirmedCastId=0,ArmorRejectedCastId=0;
++    float ArmorPendingRefund=0.f;
++    bool bArmorAwaitingReplication=false;
+     FFPSLeftHandNotice HandNotice;
+     FVector LockedPoint,LockedNormal;
+     float ArmorTime=0,AuraTimer=0;
+@@ -120,13 +130,17 @@
+     void ReleaseAtContact();
+     void Feedback(FName Skill,const FString& Text);
+     void RejectHeldHand(FName Skill);
+-    void StartArmor();
++    void StartArmor(UColdSteelStatusModel* RewardModel=nullptr,uint32 CastId=0);
++    void RefreshArmorVisuals();
+     void TickArmor(float Delta);
+     void EndArmor(bool bTrain);
+     void ClearEffects();
+     void Sparks(const FVector& Point);
+-    FVector PreviousWeaponBase=FVector::ZeroVector,PreviousWeaponTip=FVector::ZeroVector;
+-    bool bWeaponSampleValid=false;
++    FFlameArmorHistory WeaponHistory[FlameArmorAttachments::MaxLayers];
++    FVector PreviousArmorFeet=FVector::ZeroVector;
++    bool bArmorFeetValid=false;
++    void UpdateArmorBodyFX(float Fade,const FVector& Feet);
++    void UpdateArmorWeaponFX(float Delta,float Fade);
+     // ── 联机：焰甲激活态复制——远端副本仅演火环/武器火，伤害结算留在服务端 ──
+     UPROPERTY(ReplicatedUsing=OnRep_Armor) FFlameArmorNetState NetArmor;
+     uint32 AppliedArmorSerial=0;
+--- a/Source/FPSGAME/Skills/FPSFireballComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireballComponent.cpp
+@@ -14,6 +14,7 @@
+ #include "FPSLightningComponent.h"
+ #include "FPSElectricMagicComponent.h"
+ #include "FPSHolyLightComponent.h"
++#include "FPSIceArmorComponent.h"
+ #include "FPSFireMagicComponent.h"
+ #include "../Weapons/RuneOrbBladesComponent.h"
+ #include "FPSCastingMeshComponent.h"
+@@ -494,6 +495,7 @@
+     FName Unreleased=NAME_None;
+     if(auto* Electric=GetOwner()->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&!Electric->UnreleasedSkill().IsNone())Unreleased=Electric->UnreleasedSkill();
+     else if(auto* Holy=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>();Holy&&Holy->HasUnreleasedCast())Unreleased=TEXT("holyLight");
++    else if(auto* IceArmor=GetOwner()->FindComponentByClass<UFPSIceArmorComponent>();IceArmor&&IceArmor->HasUnreleasedCast())Unreleased=TEXT("iceArmor");
+     else if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>();Lightning&&Lightning->HasUnreleasedCast())Unreleased=TEXT("lightning");
+     else if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&!FireMagic->UnreleasedSkill().IsNone())Unreleased=FireMagic->UnreleasedSkill();
+     else if(Refund>0.f&&!Spell)Unreleased=TEXT("fireball");
+@@ -507,6 +509,7 @@
+     if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>())Lightning->InterruptPending();
+     if(auto* Electric=GetOwner()->FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending(false);
+     if(auto* HolyLight=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>())HolyLight->InterruptPending();
++    if(auto* IceArmor=GetOwner()->FindComponentByClass<UFPSIceArmorComponent>())IceArmor->Cancel();
+     if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
+     if(auto* Blizzard=GetOwner()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->InterruptPending(Spell==Blizzard&&PendingContact);
+     if(auto* Blades=GetOwner()->FindComponentByClass<URuneOrbBladesComponent>())Blades->InterruptPending(Spell==Blades&&Gathering);
+--- a/Source/FPSGAME/Skills/FireMagicTypes.h
++++ b/Source/FPSGAME/Skills/FireMagicTypes.h
+@@ -45,6 +45,7 @@
+     UPROPERTY() FFireMagicCast Cast;
+     UPROPERTY() double StartedAt=0;
+     UPROPERTY() uint32 Serial=0;
++    UPROPERTY() uint32 CastId=0;
+     UPROPERTY() bool bActive=false;
+ };
+ 
+--- a/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
+@@ -1,4 +1,6 @@
+ #include "PlayerSkillPreparation.h"
++#include "FlameArmorAssets.h"
++#include "IceArmorTypes.h"
+ #include "FPSBlizzardZone.h"
+ #include "../UI/ColdSteelInventoryTypes.h"
+ #include "../Weapons/ModularSwordVisual.h"
+@@ -82,10 +84,16 @@
+             TEXT("/Game/Skills/FireMagic20260921/S_MeteorBurn.S_MeteorBurn"),
+             TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave"),
+             TEXT("/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast")}) AddSkillAsset(Out, Path);
++    if (Skill == TEXT("iceArmor"))
++    {
++        for(const TCHAR* Path:IceArmorAssets::Shells)AddSkillAsset(Out,Path);
++        for(const TCHAR* Path:{IceArmorAssets::Lens,IceArmorAssets::Material,IceArmorAssets::LensMaterial,IceArmorAssets::Chip,IceArmorAssets::ChipMaterial,IceArmorAssets::Mist,IceArmorAssets::CastSound})AddSkillAsset(Out,Path);
++    }
+     if (Skill == TEXT("flameArmor"))
+         for (const TCHAR* Path : {
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_ArmorNaturalAura.NS_ArmorNaturalAura"),
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_ArmorNaturalFire.NS_ArmorNaturalFire"),
++            FlameArmorAssets::Body,
++            FlameArmorAssets::Weapon,
++            FlameArmorAssets::Arrow,
+             TEXT("/Game/Skills/FireMagic20260921/NS_FireMagicSparks.NS_FireMagicSparks"),
+             TEXT("/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast")}) AddSkillAsset(Out, Path);
+     if (Skill == TEXT("dragonBreath"))
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+@@ -28,6 +28,9 @@
+ 
+ int32 USkillNetworkAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("IceArmorOnly")))return RunIceArmorAudit(Params);
++    if(FParse::Param(*Params,TEXT("FlameArmorStatsOnly")))return RunFlameArmorStatsAudit(Params);
++    if(FParse::Param(*Params,TEXT("FlameArmorOnly")))return RunFlameArmorAudit(Params);
+     const FString Original=FCommandLine::Get(),Slot=TEXT("SkillNetworkAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
+     FCommandLine::Set(*(TEXT("SkillNetworkAudit -ColdSteelProfile=")+Slot));
+     auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("SkillNetworkAuditWorld"));
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
+@@ -17,4 +17,7 @@
+     GENERATED_BODY()
+ public:
+     virtual int32 Main(const FString& Params) override;
++    int32 RunFlameArmorAudit(const FString& Params);
++    int32 RunFlameArmorStatsAudit(const FString& Params);
++    int32 RunIceArmorAudit(const FString& Params);
+ };
+--- a/Source/FPSGAME/Skills/SkillWireAudit.cpp
++++ b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+@@ -61,6 +61,7 @@
+ }
+ void ASkillWireAuditController::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("FlameArmorWireAudit"))){Super::Tick(Delta);TickFlameArmor();return;}
+     Super::Tick(Delta);if(!SkillWire::Enabled()||HasAuthority()||!IsLocalController())return;
+     const double Now=GetWorld()->GetRealTimeSeconds();
+     if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
+@@ -128,6 +129,7 @@
+ {if(SkillWire::Enabled()&&Damage>0.f)++Contacts;}
+ void ASkillWireAuditGameMode::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("FlameArmorWireAudit"))){Super::Tick(Delta);TickFlameArmor();return;}
+     Super::Tick(Delta);if(!SkillWire::Enabled())return;
+     const double Now=GetWorld()->GetRealTimeSeconds();
+     if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -27,6 +27,8 @@
+     UFUNCTION(Client,Reliable) void ClientSetup(ANurseZombie* InSubject,const FString& InWeapon,float Stamina,float Cost);
+     UFUNCTION(Client,Reliable) void ClientRestoreStamina();
+     UFUNCTION(Server,Reliable) void ServerResult(bool Paid,bool Cooldown,bool Locked,bool Unlocked,bool Meteor);
++    UFUNCTION(Client,Reliable) void ClientSetupArmor(class AFPSGAMECharacter* ExistingArmor);
++    void TickFlameArmor();
+     bool bReported=false,bPassed=false;
+ private:
+     UPROPERTY() TObjectPtr<ANurseZombie> Subject;
+@@ -34,6 +36,9 @@
+     float InitialStamina=0.f,ExpectedCost=0.f;
+     bool bSetup=false,bHit=false,bPaid=false,bCooldown=false,bLocked=false,bUnlocked=false,bMeteor=false,bDone=false;
+     double Started=-1.,ExitAt=-1.;
++    UPROPERTY() TObjectPtr<class AFPSGAMECharacter> OtherArmor;
++    uint32 ArmorCastId=0;
++    bool bArmorOwn=false,bArmorOther=false,bArmorOwnEnded=false,bArmorOtherEnded=false;
+ };
+ 
+ /** Opt-in empty-map fixture. Uses production PlayerState RPCs and actor replicas. */
+@@ -47,6 +52,7 @@
+     virtual void PostLogin(APlayerController* Player) override;
+     virtual void Tick(float Delta) override;
+     UFUNCTION() void CountContact(AActor* Actor,float Damage,const class UDamageType* Type,class AController* DamageController,AActor* Causer);
++    void TickFlameArmor();
+ private:
+     UPROPERTY() TObjectPtr<ASkillWireAuditController> Guest;
+     UPROPERTY() TObjectPtr<UColdSteelStatusModel> GuestModel;
+@@ -56,4 +62,7 @@
+     int32 Contacts=0,Stage=0;
+     float InitialStamina=0.f,ExpectedCost=0.f;
+     double Joined=-1.,LastSetup=-1.,ExhaustedAt=-1.,MeteorAt=-1.,ExitAt=-1.;
++    UPROPERTY() TObjectPtr<class AFPSGAMECharacter> ExistingArmor;
++    float ArmorInitialMana=0.f,ArmorManaCost=0.f;
++    int32 ArmorHostXP=0;
+ };
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -301,6 +301,8 @@
+     UPROPERTY() float MeteorCooldownDuration = 0;
+     UPROPERTY() float FlameArmorCooldown = 0;
+     UPROPERTY() float FlameArmorCooldownDuration = 0;
++    UPROPERTY() float IceArmorCooldown = 0;
++    UPROPERTY() float IceArmorCooldownDuration = 0;
+     UPROPERTY() float DragonBreathCooldown = 0;
+     UPROPERTY() float DragonBreathCooldownDuration = 0;
+     UPROPERTY() float DragonBreathReservedMana = 0;
+--- a/Source/FPSGAME/UI/ColdSteelMagicQuickCast.cpp
++++ b/Source/FPSGAME/UI/ColdSteelMagicQuickCast.cpp
+@@ -7,7 +7,7 @@
+ {
+     return ElectricMagic::IsSkill(Skill)||FireMagic::IsSkill(Skill)||Skill==TEXT("fireball")||
+         Skill==TEXT("iceSpike")||Skill==TEXT("iceWall")||Skill==TEXT("blizzard")||
+-        Skill==TEXT("holyLight")||Skill==TEXT("lightningStrike");
++        Skill==TEXT("holyLight")||Skill==TEXT("iceArmor")||Skill==TEXT("lightningStrike");
+ }
+ bool Migrate(FColdSteelProfile& Profile)
+ {
+@@ -45,6 +45,7 @@
+     if(Skill==TEXT("iceWall"))return IceWallCooldown();
+     if(Skill==TEXT("blizzard"))return BlizzardCooldown();
+     if(Skill==TEXT("holyLight"))return HolyLightCooldown();
++    if(Skill==TEXT("iceArmor"))return IceArmorCooldown();
+     if(Skill==TEXT("lightningStrike"))return LightningCooldown();
+     return 0.f;
+ }
+--- a/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
++++ b/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
+@@ -89,7 +89,9 @@
+     const bool bIncinerationCollectible=Id==TEXT("search_sealed_respirator_filter")||Id==TEXT("search_refractory_ceramic_module")||
+         Id==TEXT("search_high_temperature_thermocouple")||Id==TEXT("search_industrial_filter_cartridge")||
+         Id==TEXT("search_sealed_incineration_archive")||Id==TEXT("search_flue_gas_catalytic_core");
+-    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||Id==TEXT("raw_chicken_leg")||Id==TEXT("roasted_chicken_leg")||Id==TEXT("raw_lamb_ribs")||Id==TEXT("roasted_lamb_ribs")||Id==TEXT("raw_large_lamb")||Id==TEXT("roasted_large_lamb")||Id==TEXT("raw_sausage")||Id==TEXT("roasted_sausage")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible)
++    const bool bLivingCollectible=Id==TEXT("search_private_perfume")||Id==TEXT("search_business_laptop")||
++        Id==TEXT("search_portable_music_player")||Id==TEXT("search_compact_camera");
++    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||Id==TEXT("raw_chicken_leg")||Id==TEXT("roasted_chicken_leg")||Id==TEXT("raw_lamb_ribs")||Id==TEXT("roasted_lamb_ribs")||Id==TEXT("raw_large_lamb")||Id==TEXT("roasted_large_lamb")||Id==TEXT("raw_sausage")||Id==TEXT("roasted_sausage")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible||bLivingCollectible)
+     {
+         auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
+         if(!Asset)return false;
+--- a/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
++++ b/Source/FPSGAME/UI/ColdSteelProfileRecovery.h
+@@ -30,6 +30,7 @@
+     Into.HolyLightCooldown=Remaining(From.HolyLightCooldown);Into.HolyLightCooldownDuration=From.HolyLightCooldownDuration;
+     Into.MeteorCooldown=Remaining(From.MeteorCooldown);Into.MeteorCooldownDuration=From.MeteorCooldownDuration;
+     Into.FlameArmorCooldown=Remaining(From.FlameArmorCooldown);Into.FlameArmorCooldownDuration=From.FlameArmorCooldownDuration;
++    Into.IceArmorCooldown=Remaining(From.IceArmorCooldown);Into.IceArmorCooldownDuration=From.IceArmorCooldownDuration;
+     Into.DragonBreathCooldown=Remaining(From.DragonBreathCooldown,From.bDragonBreathReserved);Into.DragonBreathCooldownDuration=From.DragonBreathCooldownDuration;
+     Into.IceWallCooldown=Remaining(From.IceWallCooldown,From.bIceWallReserved);Into.IceWallCooldownDuration=From.IceWallCooldownDuration;
+     Into.BlizzardCooldown=Remaining(From.BlizzardCooldown,From.bBlizzardReserved);Into.BlizzardCooldownDuration=From.BlizzardCooldownDuration;
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -125,6 +125,7 @@
+     HolyLightSkill=ColdSteelSkills::LoadDefinition(TEXT("holyLight"));
+     MeteorSkill=ColdSteelSkills::LoadDefinition(TEXT("meteor"));
+     FlameArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("flameArmor"));
++    IceArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("iceArmor"));
+     DragonBreathSkill=ColdSteelSkills::LoadDefinition(TEXT("dragonBreath"));
+     DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
+     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
+@@ -214,6 +215,7 @@
+     Shadow->HolyLightSkill=HolyLightSkill;
+     Shadow->MeteorSkill=MeteorSkill;
+     Shadow->FlameArmorSkill=FlameArmorSkill;
++    Shadow->IceArmorSkill=IceArmorSkill;
+     Shadow->DragonBreathSkill=DragonBreathSkill;
+     Shadow->QuickCombatSkill=QuickCombatSkill;
+     Shadow->RuneBladesSkill=RuneBladesSkill;
+@@ -360,15 +362,27 @@
+         if(!Before||Pair.Value.Level>Before->Level){bLeveled=true;break;}
+     }
+     bLeveled|=State.Level>Current.Level;
++    // A level-up owns a progress notice plus derived stat changes, so it keeps
++    // the immediate checked transaction. Keep Current as the before-state and
++    // persist the reward directly: Snapshot() still carries the old public Level
++    // and AttributePoints until Publish(), and would discard the earned level.
++    if(bLeveled)
++    {
++        if(PersistState(State,true)){QueueExperienceNotice(GainedExperience);return true;}
++        // The reward is still accepted in memory when disk persistence fails.
++        // Publish the public mirrors as well, so a later snapshot cannot roll it
++        // back; callers must also mark these kills rewarded to prevent duplicates.
++        NormalizeStamina(State);
++        if(State.Health>0)State.Health=FMath::Clamp(double(State.Health)+ResourceMaximum(State,false)-ResourceMaximum(Current,false),0.,ResourceMaximum(State,false));
++        State.Mana=FMath::Clamp(double(State.Mana)+ResourceMaximum(State,true)-ResourceMaximum(Current,true),0.,ResourceMaximum(State,true));
++        QueueProgressNotices(Current,State);
++        QueueAcquisitionNotices(Current,State);
++        Publish(State);
++        bTrainingDirty=true;TrainingFlushAccumulator=0.f;
++        QueueExperienceNotice(GainedExperience);
++        ApplyToPawn();OnChanged.Broadcast();return true;
++    }
+     Current=MoveTemp(State);
+-    // A level-up owns a progress notice plus derived stat changes, so it keeps
+-    // the immediate checked transaction. Ordinary hit experience does not.
+-    if(bLeveled)
+-    {
+-        if(PersistState(Snapshot(),true)){QueueExperienceNotice(GainedExperience);return true;}
+-        // A rejected save keeps the staged training queued for the next autosave.
+-        bTrainingDirty=true;TrainingFlushAccumulator=0.f;return false;
+-    }
+     QueueExperienceNotice(GainedExperience);
+     bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+     // Coalesced panel refresh: readings already come from the live profile, so
+@@ -1059,6 +1073,7 @@
+     if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Seconds);
+     Current.LightningCooldown=FMath::Max(0.f,Current.LightningCooldown-Seconds);
+     Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
++    Current.IceArmorCooldown=FMath::Max(0.f,Current.IceArmorCooldown-Seconds);
+     Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
+     Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
+     if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=FMath::Max(0.f,Current.DragonBreathCooldown-Seconds);
+@@ -1084,6 +1099,7 @@
+     else if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Delta);
+     Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);
+     Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
++    Current.IceArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.IceArmorCooldown-Delta);
+     Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);
+     Current.FlameArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.FlameArmorCooldown-Delta);
+     if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.DragonBreathCooldown-Delta);
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -9,6 +9,7 @@
+ #include "../Skills/FPSLightningComponent.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "../Skills/FPSHolyLightComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Skills/FPSFireMagicComponent.h"
+ #include "GameFramework/PlayerController.h"
+ #include "../Weapons/RuneSwordComponent.h"
+@@ -69,7 +70,7 @@
+     {
+         if(!B.Skill.IsNone())
+         {
+-            if((!ElectricMagic::IsSkill(B.Skill)&&!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("iceWall")&&B.Skill!=TEXT("blizzard")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind")&&B.Skill!=TEXT("swordUppercut"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
++            if((!ElectricMagic::IsSkill(B.Skill)&&!FireMagic::IsSkill(B.Skill)&&B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("iceWall")&&B.Skill!=TEXT("blizzard")&&B.Skill!=TEXT("lightningStrike")&&B.Skill!=TEXT("holyLight")&&B.Skill!=TEXT("iceArmor")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat")&&B.Skill!=TEXT("whirlwind")&&B.Skill!=TEXT("swordUppercut"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
+             Skills.Add(B.Skill);
+         }
+         else if(!B.ItemDefinition.IsEmpty())
+@@ -86,7 +87,7 @@
+ FColdSteelQuickBinding UColdSteelStatusModel::QuickBinding(int32 Index) const
+ { return Current.QuickBindings.IsValidIndex(Index)?Current.QuickBindings[Index]:FColdSteelQuickBinding(); }
+ const FColdSteelSkillDefinition* UColdSteelStatusModel::QuickSkillDefinition(FName Id) const
+-{ if(Id==TEXT("swordUppercut"))return &MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return &ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return &BlizzardSkill;if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
++{ if(Id==TEXT("swordUppercut"))return &MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return &ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return &BlizzardSkill;if(Id==TEXT("iceWall"))return &IceWallSkill;if(Id==TEXT("staffLight"))return &StaffLightSkill;if(FireMagic::IsSkill(Id))return &FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return &HolyLightSkill;if(Id==TEXT("iceArmor"))return &IceArmorSkill;if(Id==TEXT("lightningStrike"))return &LightningSkill;if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike")||Id==TEXT("whirlwind"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;if(Id==TEXT("runeBlades"))return &RuneBladesSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
+ bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
+ { if(Id==TEXT("runeBlades")||Id==TEXT("staffLight"))return false;if(Id==TEXT("swordUppercut"))return true;const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
+ const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
+@@ -182,6 +183,7 @@
+     if(Skill==TEXT("iceSpike"))if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>()){Ability->Trigger();return true;}
+     if(Skill==TEXT("blizzard"))if(auto* Ability=Player->FindComponentByClass<UFPSBlizzardComponent>()){Ability->Trigger();return true;}
+     if(Skill==TEXT("iceWall"))if(auto* Ability=Player->FindComponentByClass<UFPSIceWallComponent>()){Ability->Trigger();return true;}
++    if(Skill==TEXT("iceArmor"))if(auto* Ability=Player->FindComponentByClass<UFPSIceArmorComponent>()){Ability->Trigger();return true;}
+     if(Skill==TEXT("holyLight"))if(auto* Ability=Player->FindComponentByClass<UFPSHolyLightComponent>())
+     {const auto* PC=Cast<APlayerController>(Player->GetController());Ability->Trigger(PC&&(PC->IsInputKeyDown(EKeys::LeftAlt)||PC->IsInputKeyDown(EKeys::RightAlt)));return true;}
+     if(ElectricMagic::IsSkill(Skill))if(auto* Ability=Player->FindComponentByClass<UFPSElectricMagicComponent>()){Ability->Trigger(Skill);return true;}
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -1,5 +1,6 @@
+ #include "ColdSteelQuickSlot.h"
+ #include "../Skills/FPSFireMagicComponent.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Weapons/RuneOrbBladesComponent.h"
+@@ -133,6 +134,11 @@
+             if(const auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>())
+             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+         }
++        else if(Displayed.Skill==TEXT("iceArmor"))
++        {
++            if(const auto* Ability=Player->FindComponentByClass<UFPSIceArmorComponent>())
++            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
++        }
+         else if(Displayed.Skill==TEXT("iceSpike"))
+         {
+             if(const auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>())
+@@ -207,7 +213,14 @@
+     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
+     bGoldPrepared=false;
+     Count->SetText(FText::GetEmpty());
+-    if(FireMagic::IsSkill(Binding.Skill))
++    if(Binding.Skill==TEXT("iceArmor"))
++    {
++        const auto* Player=GetOwningPlayerPawn();const auto* A=Player?Player->FindComponentByClass<UFPSIceArmorComponent>():nullptr;
++        if(A){Message=A->StatusText();Fraction=A->CooldownFraction();if(A->Remaining()>0)Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(A->Remaining()))));}
++        if(Fraction>0&&!(A&&A->IsHandOccupiedNotice()))Remaining=Model->IceArmorCooldown();
++        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
++    }
++    else if(FireMagic::IsSkill(Binding.Skill))
+     {
+         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSFireMagicComponent>():nullptr;
+         if(Ability)
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+@@ -28,7 +28,7 @@
+     PendingDragSkill=NAME_None;
+     if(!bDetail&&HUD.IsValid()&&E.GetEffectingButton()==EKeys::LeftMouseButton)
+     {
+-        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("swordUppercut"),UppercutDetailButton},{TEXT("stormDomain"),ElectricDetailButtons.FindRef(TEXT("stormDomain"))},{TEXT("thunderLance"),ElectricDetailButtons.FindRef(TEXT("thunderLance"))},{TEXT("blizzard"),BlizzardDetailButton},{TEXT("iceWall"),IceWallDetailButton},{TEXT("dragonBreath"),DragonBreathDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
++        const TPair<FName,TSharedPtr<SButton>> Cards[]={{TEXT("iceArmor"),IceArmorDetailButton},{TEXT("swordUppercut"),UppercutDetailButton},{TEXT("stormDomain"),ElectricDetailButtons.FindRef(TEXT("stormDomain"))},{TEXT("thunderLance"),ElectricDetailButtons.FindRef(TEXT("thunderLance"))},{TEXT("blizzard"),BlizzardDetailButton},{TEXT("iceWall"),IceWallDetailButton},{TEXT("dragonBreath"),DragonBreathDetailButton},{TEXT("meteor"),MeteorDetailButton},{TEXT("flameArmor"),FlameArmorDetailButton},{TEXT("holyLight"),HolyLightDetailButton},{TEXT("lightningStrike"),LightningDetailButton},{TEXT("iceSpike"),IceSpikeDetailButton},{TEXT("fireball"),FireballDetailButton},{TEXT("dodge"),DodgeDetailButton},{TEXT("heavyStrike"),HeavyDetailButton},{TEXT("quickCombat"),QuickCombatDetailButton},{TEXT("whirlwind"),WhirlwindDetailButton}};
+         for(const auto& Card:Cards)
+         {
+             if(!Card.Value||!Card.Value->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition()))continue;
+@@ -51,7 +51,7 @@
+     const FName Id=PendingDragSkill;PendingDragSkill=NAME_None;
+     if(Id==TEXT("swordUppercut")&&HUD.IsValid())
+     {Out=HUD->StartQuickDrag(Id,INDEX_NONE,&UppercutIconBrush,E.GetScreenSpacePosition());return;}
+-    if(!Id.IsNone()&&HUD.IsValid())Out=HUD->StartQuickDrag(Id,INDEX_NONE,ElectricMagic::IsSkill(Id)?ElectricIconBrushes.Find(Id):Id==TEXT("blizzard")?&BlizzardIconBrush:Id==TEXT("iceWall")?&IceWallIconBrush:Id==TEXT("dragonBreath")?&DragonBreathIconBrush:Id==TEXT("meteor")?&MeteorIconBrush:Id==TEXT("flameArmor")?&FlameArmorIconBrush:Id==TEXT("holyLight")?&HolyLightIconBrush:Id==TEXT("lightningStrike")?&LightningIconBrush:Id==TEXT("whirlwind")?&WhirlwindIconBrush:Id==TEXT("iceSpike")?&IceSpikeIconBrush:Id==TEXT("heavyStrike")?&HeavyIconBrush:Id==TEXT("fireball")?&FireballIconBrush:Id==TEXT("quickCombat")?&QuickCombatIconBrush:&DodgeIconBrush,E.GetScreenSpacePosition());
++    if(!Id.IsNone()&&HUD.IsValid())Out=HUD->StartQuickDrag(Id,INDEX_NONE,Id==TEXT("iceArmor")?&IceArmorIconBrush:ElectricMagic::IsSkill(Id)?ElectricIconBrushes.Find(Id):Id==TEXT("blizzard")?&BlizzardIconBrush:Id==TEXT("iceWall")?&IceWallIconBrush:Id==TEXT("dragonBreath")?&DragonBreathIconBrush:Id==TEXT("meteor")?&MeteorIconBrush:Id==TEXT("flameArmor")?&FlameArmorIconBrush:Id==TEXT("holyLight")?&HolyLightIconBrush:Id==TEXT("lightningStrike")?&LightningIconBrush:Id==TEXT("whirlwind")?&WhirlwindIconBrush:Id==TEXT("iceSpike")?&IceSpikeIconBrush:Id==TEXT("heavyStrike")?&HeavyIconBrush:Id==TEXT("fireball")?&FireballIconBrush:Id==TEXT("quickCombat")?&QuickCombatIconBrush:&DodgeIconBrush,E.GetScreenSpacePosition());
+ }
+ 
+ TSharedRef<SWidget> UColdSteelSkillPage::RebuildWidget()
+@@ -79,11 +79,11 @@
+     SAssignNew(Root,SBox); RefreshLayout(); return Root.ToSharedRef();
+ }
+ const FColdSteelSkillDefinition& UColdSteelSkillPage::Definition(FName Id) const
+-{ if(Id==TEXT("swordUppercut"))return Model->MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return Model->BlizzardDefinition();if(Id==TEXT("iceWall"))return Model->IceWallDefinition();if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
++{ if(Id==TEXT("iceArmor"))return Model->IceArmorDefinition();if(Id==TEXT("swordUppercut"))return Model->MasteryDefinition(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicDefinition(Id);if(Id==TEXT("blizzard"))return Model->BlizzardDefinition();if(Id==TEXT("iceWall"))return Model->IceWallDefinition();if(FireMagic::IsSkill(Id))return Model->FireMagicDefinition(Id);if(Id==TEXT("holyLight"))return Model->HolyLightDefinition();if(Id==TEXT("lightningStrike"))return Model->LightningDefinition();if(Id==TEXT("iceSpike"))return Model->IceSpikeDefinition();if(Id==TEXT("quickCombat"))return Model->QuickCombatDefinition();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryDefinition(Id);if(Id==TEXT("fireball"))return Model->FireballDefinition();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeDefinition();if(Id==TEXT("pistolMastery"))return Model->PistolDefinition();return Id==TEXT("dodge")?Model->DodgeDefinition():(Id==TEXT("dexterousHands")?Model->DexterousHandsDefinition():Model->RifleDefinition()); }
+ FColdSteelSkillProgress UColdSteelSkillPage::Progress(FName Id) const
+-{ if(Id==TEXT("swordUppercut"))return Model->MasteryProgress(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicProgress(Id);if(Id==TEXT("blizzard"))return Model->BlizzardProgress();if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
++{ if(Id==TEXT("iceArmor"))return Model->MasteryProgress(Id);if(Id==TEXT("swordUppercut"))return Model->MasteryProgress(Id);if(ElectricMagic::IsSkill(Id))return Model->ElectricMagicProgress(Id);if(Id==TEXT("blizzard"))return Model->BlizzardProgress();if(Id==TEXT("iceWall"))return Model->IceWallProgress();if(FireMagic::IsSkill(Id))return Model->FireMagicProgress(Id);if(Id==TEXT("holyLight"))return Model->HolyLightProgress();if(Id==TEXT("lightningStrike"))return Model->LightningProgress();if(Id==TEXT("iceSpike"))return Model->IceSpikeProgress();if(Id==TEXT("quickCombat"))return Model->QuickCombatProgress();if(Additional(Id)||Id==TEXT("heavyStrike")||Id==TEXT("whirlwind")||Id==TEXT("dashAttack"))return Model->MasteryProgress(Id);if(Id==TEXT("fireball"))return Model->FireballProgress();if(Id==TEXT("criticalStrike"))return Model->CriticalStrikeProgress();if(Id==TEXT("pistolMastery"))return Model->PistolProgress();return Id==TEXT("dodge")?Model->DodgeProgress():(Id==TEXT("dexterousHands")?Model->DexterousHandsProgress():Model->RifleProgress()); }
+ void UColdSteelSkillPage::ReleaseSlateResources(bool bReleaseChildren)
+-{ UppercutDetailButton.Reset();ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();DragonBreathDetailButton.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
++{ IceArmorDetailButton.Reset();UppercutDetailButton.Reset();ElectricDetailButtons.Reset();BlizzardDetailButton.Reset();IceWallDetailButton.Reset();Super::ReleaseSlateResources(bReleaseChildren); Scroll.Reset(); Root.Reset();DragonBreathDetailButton.Reset();MeteorDetailButton.Reset();FlameArmorDetailButton.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();IceSpikeDetailButton.Reset(); DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();QuickCombatDetailButton.Reset();WhirlwindDetailButton.Reset();DashAttackDetailButton.Reset(); BackButton.Reset(); FilterButtons.Reset(); }
+ void UColdSteelSkillPage::NativeTick(const FGeometry& Geometry,float Delta)
+ {
+     Super::NativeTick(Geometry,Delta);
+@@ -121,6 +121,13 @@
+     }
+     FireballIconBrush.ImageSize=FVector2D(48/Scale);
+     IceSpikeIconBrush.ImageSize=FVector2D(48/Scale);
++    IceArmorIconBrush.ImageSize=FVector2D(48/Scale);
++    if(Model&&!IceArmorIconTexture)
++    {
++        TArray<uint8> Bytes;
++        if(FFileHelper::LoadFileToArray(Bytes,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Model->IceArmorDefinition().Icon)))IceArmorIconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
++        if(IceArmorIconTexture){IceArmorIconBrush.SetResourceObject(IceArmorIconTexture);IceArmorIconBrush.DrawAs=ESlateBrushDrawType::Image;}
++    }
+     for(const FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))})
+     {
+         auto& Brush=ElectricIconBrushes.FindOrAdd(Id);Brush.ImageSize=FVector2D(48/Scale);
+@@ -258,6 +265,7 @@
+     if(Id==TEXT("pistolMastery")){Tags=TEXT("手枪 / 远程 / 被动");SkillIcon=&PistolIconBrush;}
+     if(Id==TEXT("criticalStrike")){Tags=TEXT("暴击 / 幸运 / 被动");SkillIcon=&CriticalIconBrush;}
+     if(Id==TEXT("fireball")){Tags=TEXT("火焰 / 范围 / 主动魔法");SkillIcon=&FireballIconBrush;}
++    if(Id==TEXT("iceArmor")){Tags=TEXT("寒冰 / 防护 / 初级魔法 · 无需法杖");SkillIcon=&IceArmorIconBrush;}
+     if(Id==TEXT("iceSpike")){Tags=TEXT("寒冰 / 齐射 / 主动魔法");SkillIcon=&IceSpikeIconBrush;}
+     if(Id==TEXT("blizzard")){Tags=TEXT("寒冰 / 区域 / 高级魔法");SkillIcon=&BlizzardIconBrush;}
+     if(Id==TEXT("iceWall")){Tags=TEXT("寒冰 / 掩体 / 主动魔法");SkillIcon=&IceWallIconBrush;}
+@@ -303,6 +311,22 @@
+ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
+ {
+     if(bNext&&Progress(SelectedSkill).Level>=Definition(SelectedSkill).MaxLevel)return TEXT("MAX");
++    if(SelectedSkill==TEXT("iceArmor"))
++    {
++        const auto C=Model->IceArmorStats(Progress(SelectedSkill).Level+(bNext?1:0));
++        switch(Index)
++        {
++        case 0:return FString::Printf(TEXT("+%.0f"),C.PhysicalDefense);
++        case 1:return FString::Printf(TEXT("+%.0f"),C.MagicDefense);
++        case 2:return FString::Printf(TEXT("%.0f s"),C.Duration);
++        case 3:return FString::Printf(TEXT("%.2f m"),C.Radius/100);
++        case 4:return FString::Printf(TEXT("1 层 / %.1f s"),C.PulseSeconds);
++        case 5:return FString::Printf(TEXT("%.1f s"),C.ChillSeconds);
++        case 6:return FString::Printf(TEXT("%.0f%%"),C.SlowPerStack*100);
++        case 7:return FString::Printf(TEXT("%.0f"),C.ManaCost);
++        default:return FString::Printf(TEXT("%.1f s"),C.Cooldown);
++        }
++    }
+     if(FireMagic::IsSkill(SelectedSkill))
+     {
+         const auto C=Model->FireMagicStats(SelectedSkill,Progress(SelectedSkill).Level+(bNext?1:0));
+@@ -671,6 +695,14 @@
+         AddReward(TEXT("一拍命中至少两个"),D.Blizzard.MultiHitExperience);AddReward(TEXT("整场击杀至少两个"),D.Blizzard.MultiKillExperience);
+         Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("每 0.5 秒分别计命中与击杀，持续结束统一结算；两个额外奖励每场各一次。召唤物、友方、尸体与无修炼目标不计经验；死亡或离场清除未结束区域，不结算该场修炼。随机暴击同时修炼暴击技能。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
+     }
++    else if(SelectedSkill==TEXT("iceArmor"))
++    {
++        const auto& T=D.IceArmor;
++        AddReward(TEXT("成功施放"),T.CastExperience);
++        AddReward(TEXT("承受一次有效近战伤害"),T.MeleeExperience);
++        AddReward(TEXT("承受一次有效远程直接伤害"),T.RangedExperience);
++        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(FString::Printf(TEXT("奖励可叠加；同一攻击者每 %.1f 秒最多记一次受击修炼，每次施法总上限 %d。失效、重新施放、死亡或离场时统一结算已经获得的经验。格挡、闪避、零伤害、持续毒伤、环境伤害、友方和召唤物不提供受击修炼；寒冷脉冲不刷经验。每级所需经验 = %d × 当前等级，最高 %d 级。"),T.TrainingSourceInterval,T.ExperienceCap,D.ExperiencePerLevel,D.MaxLevel),12,ColdSteelUI::TextTertiary,PageWidth-76)];
++    }
+     else if(SelectedSkill==TEXT("iceWall"))
+     {
+         AddReward(TEXT("每次落点有效命中"),D.IceWall.HitExperience);AddReward(TEXT("每次直接击杀"),D.IceWall.KillExperience);
+@@ -720,7 +752,7 @@
+ {
+     Scroll.Reset();
+     ElectricDetailButtons.Reset();LightningDetailButton.Reset();HolyLightDetailButton.Reset();
+-    IceSpikeDetailButton.Reset();
++    IceArmorDetailButton.Reset();IceSpikeDetailButton.Reset();
+     BlizzardDetailButton.Reset();IceWallDetailButton.Reset();
+     UppercutDetailButton.Reset();DetailButton.Reset();PistolDetailButton.Reset();CriticalDetailButton.Reset();FireballDetailButton.Reset();HeavyDetailButton.Reset();DodgeDetailButton.Reset();DexterousHandsDetailButton.Reset();BackButton.Reset();FilterButtons.Reset();
+     if (!Model) return Label(TEXT("技能数据暂不可用"),14,ColdSteelUI::TextSecondary);
+@@ -767,6 +799,9 @@
+             [SAssignNew(IceSpikeDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
+                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("iceSpike")))[Overview(true,TEXT("iceSpike"))]];
+         if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
++            [SAssignNew(IceArmorDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
++                .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("iceArmor")))[Overview(true,TEXT("iceArmor"))]];
++        if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
+             [SAssignNew(IceWallDetailButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale)
+                 .OnClicked_UObject(this,&ThisClass::OpenDetail,FName(TEXT("iceWall")))[Overview(true,TEXT("iceWall"))]];
+         if(Category==0||Category==2||Category==3)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
+@@ -893,6 +928,16 @@
+             const auto& T=Model->IceSpikeDefinition().IceSpike;
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(TEXT("每枚伤害 = 向下取整〔%.0f + %.1f × 等级 + 魔攻 ×（%.3f + %.3f × 等级）〕，再计法杖改造增伤并取整；不再单独计算智力，与火球同口径。基础枚数 = %d + 向下取整〔（等级 − 1）÷ %d〕。蓝耗 = %.0f +（等级 − 1）× %.0f，基础冷却由 1 级 %.1f 秒逐级降至满级 %.1f 秒。凝聚仅扣一次魔法；全部结束或悬浮超时才开始冷却。更换武器或升级不改变已凝聚的这一组。"),T.DamageBase,T.DamagePerLevel,T.MagicBase,T.MagicPerLevel,T.CountBase,T.CountLevelStep,T.ManaCost,T.ManaCostPerLevel,T.Cooldown,T.MinimumCooldown),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+         }
++        else if(SelectedSkill==TEXT("iceArmor"))
++        {
++            const TCHAR* Rows[]={TEXT("物理防御增加"),TEXT("魔法防御增加"),TEXT("冰甲持续时间"),TEXT("寒冷脉冲半径"),TEXT("脉冲寒冷／间隔"),TEXT("寒冷刷新时长"),TEXT("每层减速"),TEXT("消耗魔法"),TEXT("起手冷却")};
++            for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
++            Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("无需法杖，按快捷键后以左手凝结冰甲。提高防御数值，不是独立护盾；受到有效近战直接伤害时，对攻击者叠加 1 层寒冷。周期脉冲对范围内未被实墙阻挡的敌人叠加 1 层寒冷，不造成直接伤害。寒冷只刷新时长，沿用寒冰体系的叠层减速与冻结。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            const auto& T=Model->IceArmorDefinition().IceArmor;
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(FString::Printf(TEXT("物防增加 = 向下取整〔%.0f + %.1f × (等级−1) + 魔攻 × %.2f〕；魔防增加 = 向下取整〔%.0f + %.1f × (等级−1) + 魔攻 × %.2f〕。持续、范围、寒冷时长及冷却随等级成长，上表显示当前装备下的本级与下一级数值。"),T.PhysicalBase,T.PhysicalPerLevel,T.PhysicalMagic,T.MagicBase,T.MagicPerLevel,T.MagicMagic),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("短时占手会排队，持续左手占用会提示。起手扣蓝并开始冷却；未释放取消或服务器拒绝会退款，生效后不退款。重新施放刷新冰甲，不叠加防御。数值在起手锁定，升级或换装在下次施法生效。等级、经验、冷却及快捷栏保存；活动冰甲不跨场景或读档恢复。第一人称显示镜头边缘透明冰片，第三人称显示随身体运动的分片冰甲。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
++        }
+         else if(SelectedSkill==TEXT("dragonBreath"))
+         {
+             const auto& D=Model->FireMagicDefinition(SelectedSkill);const auto& T=D.FireMagic;
+@@ -1020,4 +1065,4 @@
+ FReply UColdSteelSkillPage::OpenDetail(FName Id)
+ { SelectedSkill=Id;bDetail=true; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout(); return FReply::Handled().SetUserFocus(BackButton.ToSharedRef(),EFocusCause::Navigation); }
+ bool UColdSteelSkillPage::GoBack()
+-{ if(!bDetail)return false; bDetail=false; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout();auto Button=SelectedSkill==TEXT("dodge")?DodgeDetailButton:(SelectedSkill==TEXT("dexterousHands")?DexterousHandsDetailButton:DetailButton);if(SelectedSkill==TEXT("swordUppercut"))Button=UppercutDetailButton;if(SelectedSkill==TEXT("pistolMastery"))Button=PistolDetailButton;if(SelectedSkill==TEXT("criticalStrike"))Button=CriticalDetailButton;if(SelectedSkill==TEXT("fireball"))Button=FireballDetailButton;if(SelectedSkill==TEXT("heavyStrike"))Button=HeavyDetailButton;if(SelectedSkill==TEXT("quickCombat"))Button=QuickCombatDetailButton;if(SelectedSkill==TEXT("whirlwind"))Button=WhirlwindDetailButton;if(SelectedSkill==TEXT("dashAttack"))Button=DashAttackDetailButton;if(ElectricMagic::IsSkill(SelectedSkill))Button=ElectricDetailButtons.FindRef(SelectedSkill);if(SelectedSkill==TEXT("lightningStrike"))Button=LightningDetailButton;if(SelectedSkill==TEXT("holyLight"))Button=HolyLightDetailButton;if(SelectedSkill==TEXT("dragonBreath"))Button=DragonBreathDetailButton;if(SelectedSkill==TEXT("meteor"))Button=MeteorDetailButton;if(SelectedSkill==TEXT("flameArmor"))Button=FlameArmorDetailButton;if(SelectedSkill==TEXT("iceWall"))Button=IceWallDetailButton;if(SelectedSkill==TEXT("blizzard"))Button=BlizzardDetailButton;if(Button)FSlateApplication::Get().SetKeyboardFocus(Button,EFocusCause::Navigation); return true; }
++{ if(!bDetail)return false; bDetail=false; if(Scroll)Scroll->SetScrollOffset(0); RefreshLayout();auto Button=SelectedSkill==TEXT("dodge")?DodgeDetailButton:(SelectedSkill==TEXT("dexterousHands")?DexterousHandsDetailButton:DetailButton);if(SelectedSkill==TEXT("swordUppercut"))Button=UppercutDetailButton;if(SelectedSkill==TEXT("pistolMastery"))Button=PistolDetailButton;if(SelectedSkill==TEXT("criticalStrike"))Button=CriticalDetailButton;if(SelectedSkill==TEXT("fireball"))Button=FireballDetailButton;if(SelectedSkill==TEXT("heavyStrike"))Button=HeavyDetailButton;if(SelectedSkill==TEXT("quickCombat"))Button=QuickCombatDetailButton;if(SelectedSkill==TEXT("whirlwind"))Button=WhirlwindDetailButton;if(SelectedSkill==TEXT("dashAttack"))Button=DashAttackDetailButton;if(ElectricMagic::IsSkill(SelectedSkill))Button=ElectricDetailButtons.FindRef(SelectedSkill);if(SelectedSkill==TEXT("lightningStrike"))Button=LightningDetailButton;if(SelectedSkill==TEXT("holyLight"))Button=HolyLightDetailButton;if(SelectedSkill==TEXT("dragonBreath"))Button=DragonBreathDetailButton;if(SelectedSkill==TEXT("meteor"))Button=MeteorDetailButton;if(SelectedSkill==TEXT("flameArmor"))Button=FlameArmorDetailButton;if(SelectedSkill==TEXT("iceArmor"))Button=IceArmorDetailButton;if(SelectedSkill==TEXT("iceWall"))Button=IceWallDetailButton;if(SelectedSkill==TEXT("blizzard"))Button=BlizzardDetailButton;if(Button)FSlateApplication::Get().SetKeyboardFocus(Button,EFocusCause::Navigation); return true; }
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.h
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.h
+@@ -39,6 +39,9 @@
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> PistolIconTexture;
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> CriticalIconTexture;
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> FireballIconTexture;
++    UPROPERTY(Transient) TObjectPtr<UTexture2D> IceArmorIconTexture;
++    TSharedPtr<SButton> IceArmorDetailButton;
++    FSlateBrush IceArmorIconBrush;
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceSpikeIconTexture;
+     UPROPERTY(Transient) TObjectPtr<UTexture2D> LightningIconTexture;
+     TSharedPtr<SButton> LightningDetailButton;
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelStatusModel.h"
++#include "../Skills/FPSIceArmorComponent.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "ColdSteelEnhancementSystem.h"
+@@ -108,10 +109,12 @@
+     const auto Resources=CoreCombatFormula::Player(Raw,Level);
+     const auto* Jingang=(Key==TEXT("def")||Key==TEXT("mdef")||Key==TEXT("aspd"))?UJingangRuneComponent::From(this):nullptr;
+     const float JingangDefense=Jingang?Jingang->DefenseMultiplier():1.f;
++    const auto* IceArmor=(Key==TEXT("def")||Key==TEXT("mdef"))&&RuntimePawn()?RuntimePawn()->FindComponentByClass<UFPSIceArmorComponent>():nullptr;
++    const float IceDefense=IceArmor?IceArmor->DefenseBonus(Key==TEXT("mdef")):0.f;
+     if (Key == TEXT("atk")) return AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)));
+-    if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value)*JingangDefense;}
++    if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value)*JingangDefense+IceDefense;}
+     if (Key == TEXT("matk")) return AdjustCombatStat(Key,S.Matk+CoreCombatFormula::Round(EquipmentBonus(Key))+EquipmentMagicAttack());
+-    if (Key == TEXT("mdef")) return AdjustCombatStat(Key,S.Mdef)*JingangDefense;
++    if (Key == TEXT("mdef")) return AdjustCombatStat(Key,S.Mdef)*JingangDefense+IceDefense;
+     if (Key == TEXT("critRes")) return S.CritRes;
+     if (Key == TEXT("crit")) return AdjustCombatStat(Key,S.Crit+CoreCombatFormula::Round(EquipmentBonus(Key)))+ColdSteelMelee::EquippedModifiers(this).CriticalChanceAdd;
+     if (Key == TEXT("speed")) return std::floor(S.Speed*CombatMoveMultiplier());
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -503,6 +503,12 @@
+     bool AuditFailNextSave = false;
+     FString ProfileSlot() const { return SaveSlot; }
+     const FColdSteelSkillDefinition& FireMagicDefinition(FName Id) const;
++    const FColdSteelSkillDefinition& IceArmorDefinition() const{return IceArmorSkill;}
++    FIceArmorCast IceArmorStats(int32 AtLevel=-1) const;
++    float IceArmorCooldown() const{return HasNoAbilityCooldown()?0.f:Current.IceArmorCooldown;}
++    float IceArmorCooldownDuration() const{return Current.IceArmorCooldownDuration;}
++    bool BeginIceArmorCast(const FIceArmorCast& Spell);
++    void FinishIceArmorTraining(int32 Experience);
+     bool CommitDragonBreathRelease();
+     FColdSteelSkillProgress FireMagicProgress(FName Id) const;
+     FFireMagicCast FireMagicStats(FName Id,int32 AtLevel=-1) const;
+@@ -615,6 +621,7 @@
+     void StampProductionDrop(FColdSteelItem& Item) const;
+     friend class AColdSteelPickup;
+     FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill,DragonBreathSkill;
++    FColdSteelSkillDefinition IceArmorSkill;
+     FColdSteelSkillDefinition IceWallSkill;
+     FColdSteelSkillDefinition BlizzardSkill;
+     TSet<TWeakObjectPtr<AActor>> KillStaminaVictims;
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+@@ -3,6 +3,7 @@
+ #include "../../Dungeons/WardBreakableGlass.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "../../Skills/ColdSteelSkillRules.h"
++#include "../../Skills/FPSFireMagicComponent.h"
+ #include "../../Monsters/MonsterDamageAlert.h"
+ #include "../../UI/ColdSteelStatusModel.h"
+ #include "../../UI/ColdSteelWorldInteraction.h"
+@@ -72,7 +73,11 @@
+     AmmoId = InAmmoId;
+     bRecoverable = bInRecoverable;
+     if(HasAuthority())
+-    {Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;ForceNetUpdate();}
++    {
++        Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;
++        const auto* Fire=GetInstigator()?GetInstigator()->FindComponentByClass<UFPSFireMagicComponent>():nullptr;
++        Presentation.bFlameArmor=Fire&&Fire->ArmorRemaining()>0.f;ForceNetUpdate();
++    }
+     RecoverySeconds = FMath::Clamp(InRecoverySeconds, 8.f, 300.f);
+     if (const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+         RecoveryCaption = FString::Printf(TEXT("拾回 %s ×1"), *Profile->AmmoLabel(AmmoId));
+@@ -122,7 +127,7 @@
+ void ABowArrow::Tick(float Delta)
+ {
+     Super::Tick(Delta);
+-    if(!HasAuthority())return;
++    if(!HasAuthority()){UpdateFlameVisual(Delta);return;}
+     Delta = FMath::Max(0.f, Delta);
+     Age += Delta;
+     if (bStuck) return;
+@@ -159,6 +164,7 @@
+         }
+     }
+     SetActorLocation(Previous);
++    UpdateFlameVisual(Delta);
+     if (TravelledCM >= MaxDistanceCM || Age > 8.f) Destroy();
+ }
+ 
+@@ -206,6 +212,7 @@
+ void ABowArrow::FinishStuck(const FHitResult& Hit)
+ {
+     bStuck = true;
++    StopFlameVisual();
+     Velocity = FVector::ZeroVector;
+     SetActorTickEnabled(false);
+     // Even an infinite-reserve arrow can be gathered out of the world. Only
+@@ -227,6 +234,7 @@
+ void ABowArrow::EndPlay(const EEndPlayReason::Type Reason)
+ {
+     GetWorldTimerManager().ClearTimer(RecoveryTimer);
++    StopFlameVisual();
+     Super::EndPlay(Reason);
+ }
+ 
+@@ -354,5 +362,6 @@
+     SetActorEnableCollision(bStuck);
+     RecoveryShape->SetCollisionEnabled(bStuck&&bRecoverable?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+     AutoRecovery->SetCollisionEnabled(bStuck?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+-    SetActorTickEnabled(false);
+-}
++    if(bStuck)StopFlameVisual();
++    SetActorTickEnabled(!bStuck&&Presentation.bFlameArmor);
++}
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.h
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.h
+@@ -14,6 +14,8 @@
+ class UCapsuleComponent;
+ class USphereComponent;
+ class UPrimitiveComponent;
++class UNiagaraComponent;
++struct FStreamableHandle;
+ 
+ USTRUCT()
+ struct FBowArrowPresentation
+@@ -24,6 +26,8 @@
+     UPROPERTY() FString Ammo;
+     UPROPERTY() float Radius=.3f;
+     UPROPERTY() float Length=76.f;
++    // Cosmetic snapshot at release; does not alter the projectile's damage snapshot.
++    UPROPERTY() bool bFlameArmor=false;
+ };
+ 
+ UCLASS()
+@@ -55,6 +59,12 @@
+     void ApplyHit(const FHitResult& Hit);
+     /** 命中后插住：只留实弹箭的拾取查询，随被击组件移动，超时消失。 */
+     void FinishStuck(const FHitResult& Hit);
++    void UpdateFlameVisual(float Delta);
++    void StopFlameVisual();
++    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> FlameFX;
++    TSharedPtr<FStreamableHandle> FlameLoad;
++    FVector PreviousFlamePosition=FVector::ZeroVector,FlameVelocity=FVector::ZeroVector;
++    bool bFlameHistoryValid=false,bFlameLoadRequested=false;
+ 
+     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;
+     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Shaft;
+--- a/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h
+@@ -116,4 +116,5 @@
+     void GetCameraMotion(FVector& Location, FRotator& Rotation) const;
+ 
++    void GetFlameArmorAttachments(struct FFlameArmorAttachmentBuffer& Out) const;
+     FString Definition() const { return EquippedDefinition; }
+     FString ArrowDefinition() const { return ArrowId; }

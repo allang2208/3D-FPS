@@ -53,3 +53,5 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 ### 首次火焰必须包含实际绘制材质准备（2026-10-15 实测）
 
 重新进入游戏的真实画面曾出现：Niagara/GPU 实例已就绪且扣蓝正常，但首次火焰仍缺失。龙息预热使用可参与渲染的组件，同时将 Strength 置零，使发光、密度和温度消光均不可见；按帧等待实际 MI/MID 对应的 ShaderMap、编译与 PSO 可用，再暂停隐藏驻留。不能只看系统实例，也不能拿未使用的基材 ShaderMap 当作实例材质状态。准备不得加入进场放行条件或同步等待。R6 外观与玩法保持；本轮验证源和截图见 `Docs/Skills/dragon-first-cast-regression-20261015.md`。
+
+- [坚冰铠甲表现与联机](references/ice-armor-presentation.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。

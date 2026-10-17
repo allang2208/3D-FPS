@@ -1,0 +1,34 @@
+双手锤第三人称左手施法：方向与整臂路径修订 V2
+
+触发：上一版限制了臂长并重建辅助骨后，用户仍反馈整条左臂进入身体，怀疑方向错误；用户暂时无法操作，授权自行排查。
+
+定位证据
+读取当前发布的 SourceGripV16 双手锤待机/步态原生骨轨道，以及 Jason 原生绑定姿态，按 spine_05 的实际旋转还原身体左、前、上方向。
+旧 CastHand 的固定组件空间目标 (32,40,136) 在原生待机第一帧相对左肩的胸口前向距离为 -13.90 cm，旧固定肘极解出的肘部为 -8.27 cm；右移步态对应 -26.30 cm、-10.90 cm。负值表示落到肩部所在平面的后方。仅限制上臂与前臂总长不会纠正这条向身体后方的路径。
+第一人称镜头腕部位置也不适合直接驱动侧转的双手锤世界身体。脚本中的 level_view_example 是基于配置的示例转换，不是用户实机施法采样。当前排查不把用户未施法、手持其他武器时的现场读数当作双手锤复现证据。
+
+修订
+1. 世界身体施法位置改为原生胸口朝向中的左/前/上坐标，使用实际左肩作为起点，随待机、走动、蹲姿的躯干转向移动。镜头腕部的位置不再覆盖它；手掌朝向、手指与施法阶段继续沿用现有动作数据。
+2. 凝聚/预备时左腕保持在肩前约 29–32 cm；推出时约 43 cm。按原生臂长适配，保留伸展余量，抬头/低头只做有界抬升调整。
+3. 肘极随胸口朝向放在左外侧、前侧、下方。起手和收手沿外侧弧线逐帧解肩—肘—腕；取消整条局部骨链直接插值造成的中途扫入胸腔。
+4. 上臂/前臂的过渡只混合已经对齐骨段方向的轴向旋转。掌宽决定前臂翻转，腕部背屈不再混入整条前臂扭转；辅助骨随同重建，收手交还实时原生持锤姿态。
+5. 独立推掌在 Ready 后的掌形进度从 0.48 开始，Release 减去入场值再插值，防止切阶段跳动。晚到完整阶段使用短交接，避免进度相减为零而停住。
+
+涉及文件
+Source/FPSGAME/Characters/FPSBodyHammerCastPose.inl
+Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+Source/FPSGAME/Characters/FPSPlayerHammerCastDiagnosis.cpp（仅 WITH_EDITOR，显式控制台调用才执行）
+Tools/PlayerBody/diagnose_hammer_cast_basis20261017.py
+Tools/PlayerBody/run_hammer_cast_diagnosis20261017.py
+SourceAssets/WarhammerCastArm20261017/DirectionV2/
+
+联机范围
+本地第三人称和远端观察者共用同一世界身体求值路径，读取已有施法阶段、进度、瞄准和接触快照；没有修改 RPC、存档或玩法结算。联机实机尚未复测。
+
+交付状态
+源码修订已写入。2026-10-18 00:02，FPSGAMEEditor 和 FPSGAME 的 Win64 Development 正式构建均成功，返回码 0，当前目标已是最新。回执位于 DirectionV2/build-receipt.json。
+本轮构建同时暴露练习靶 RecordHit 的 Instigator 参数遮蔽 AActor 成员（C4458），仅将 cpp 内该形参和使用处改名为 HitInstigator 解除构建阻碍，未修改练习靶业务逻辑。
+2026-10-18 00:03，后台无渲染 commandlet 完成原生动画图求值，正常退出码 0。读取实际角色网格和当前发布的动画资产；接触输入为明确标注的合成镜头采样，不是实机玩家录制。
+覆盖待机、向前走动、蹲姿、低头 -55 度、抬头 +55 度五组，逐段经过 Gather/Hold/Ready/Release/Recover，保存 175 个姿态快照。五组的凝聚结束左腕前向距离约 32.03 cm，推掌结束约 43.04 cm；肘部各阶段结束时均在肩前侧。上臂长度约 25.75188 cm、前臂约 25.59851 cm，在采样中保持不变；所有输出变换有限。
+原生输出与汇总：DirectionV2/native-graph-diagnosis.json、native-graph-summary.json、native-graph-receipt.json。上述数值确认最终骨骼输出的方向和骨长，不等同于实际衣物/冰甲蒙皮的画面认可，也不等同于联机实测。
+未主动打开编辑器、启动游戏、PIE、截图或渲染；最终游戏中的自然度和穿模表现交由用户体验。

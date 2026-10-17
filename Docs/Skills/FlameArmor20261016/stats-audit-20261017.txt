@@ -1,0 +1,63 @@
+灼锋焰甲：可配置数值、等级成长和行为排查（2026-10-17）
+
+配置入口
+Content/ColdSteelData/skills.json 的 flameArmor 对象。
+ColdSteelSkills::LoadDefinition 读取数值，ColdSteelFireMagicModel::FireMagicStats 统一计算运行快照和技能详情的当前/下一级预览。
+定义在状态模型初始化时读取；改 JSON 后应重新进入新的游戏会话，不是运行中的即时调参。
+开发面板已有升一级、满级、无限魔力及无 CD；没有逐项编辑本技能伤害系数的界面。
+
+当前成长公式（L=1..20；g=(L-1)/19；M=施法时魔攻，I=施法时智力）
+武器附伤基础值 = floor(10 + 2.5L + M*(0.35+0.06L) + I*(0.35+0.06L))。
+光环每跳基础值 = floor(5 + 2L + M*(0.12+0.03L) + I*(0.12+0.03L))。
+光环半径 = (130+6L)*1.5 厘米，即 1 级 2.04 米、20 级 3.75 米。
+持续时间 = 12+floor(18g) 秒，即 12→30 秒；1→2 级仍为12秒，是整数台阶，不是没有升级。
+基础蓝耗 = 40+floor(40g)，即40→80。
+基础冷却 = 60-floor(0*g)，当前各级均60秒；cooldownReduction 调为非零后才随等级缩短。
+伤害间隔固定0.5秒，由 tickSeconds 配置，不随等级改变；读取下限0.05秒。
+
+等级示例（无装备/词条修正）
+等级      1       5       10       15       20
+半径米    2.04    2.40    2.85     3.30     3.75
+持续秒    12      15      20       25       30
+基础蓝耗  40      48      58       69       80
+基础CD秒  60      60      60       60       60
+
+有效配置字段
+武器伤害：damageBase、damagePerLevel、magicBase、magicPerLevel、intelligenceBase、intelligencePerLevel。
+光环伤害：auraDamageBase、auraDamagePerLevel、auraMagicBase、auraMagicPerLevel、auraIntelligenceBase、auraIntelligencePerLevel。
+半径与单位：auraRadiusBase、auraRadiusPerLevel、unitsToCM。
+持续/消耗/CD：durationBase、durationGrowth、manaBase、manaGrowth、cooldown、cooldownReduction。
+周期：tickSeconds。
+修炼：experiencePerLevel、hitExperience、killExperience、multiHitExperience、multiKillExperience。
+施放限制：requiresStaff。
+上述 durationGrowth、manaGrowth、cooldownReduction 是1级到满级的总变化量，不是每级增加量；PerLevel 字段才是每级系数。
+正常使用非负伤害、成本和经验、正持续时间、正周期；本轮没有增加任意非法配置的通用修复层。
+
+哪些不是本技能的有效可调项
+- maxLevel 未从 JSON 读取，当前技能/存档规则固定20级，不能只加一个同名字段改变上限。
+- radiusBase、radiusPerLevel、maxRange、stunSeconds、burnStacks、auraBurnStacks 是共享火系配置中的保留项，本技能当前没有消费它们。把 burnStacks 改大不会让焰甲自动叠加额外灼烧状态。
+- 当前“近身灼烧”是光环周期魔法伤害，不是附带灼烧状态层；法杖挂坠的额外灼烧走独立词条。
+- 不增加防御、护盾值或减伤；没有这些数值字段。
+- 武器火焰强度、覆盖、脚环形状/尺寸在表现代码和作者脚本中调整，未做技能面板滑条。
+- 脚环视觉半径与实际伤害半径分离，不因技能升级扩大。这符合前面的脚环设计，不代表伤害半径没成长。
+
+运行与联机口径
+- 武器有效非魔法命中后才触发独立魔法附伤，火环按快照半径和周期处理敌人；法术不会递归触发。
+- 等级、属性、装备词条在起手时算出快照；本轮施法途中升级/换装不重算基础快照，下次施法使用新等级。
+- 最终扣血还经过目标魔防、暴击、来源/目标状态与条件词条，不要求等于面板基础值。
+- 客机提交施法意图；服务器从该客机的 ShadowModel 读取等级和属性，生成 PendingFireMagicStats，再复制 NetArmor.Cast，不能用房主等级代替。
+- 修炼在效果结束/统一离场结算时汇总。空放没有命中不加经验；每次有效命中1，直接击杀额外8，同轮命中至少两个额外5（每次施法一次），同次击杀至少两个额外10。
+- 当前升级门槛为100*当前技能等级；满级经验清零。没有更改当前平衡配置。
+
+本轮修复
+1. 状态免疫以前只有本地前置检查。共享起手和服务器释放现在也检查；起手后才获得免疫的释放会被拒绝并退回服务器预留。单机接触释放也再次检查。
+2. 菜单/直接取消未释放焰甲可能漏退本地预扣魔力。CancelPending 现在取回手势付款并退还，重复取消不重复退款；失去手势时走同一取消路径。
+3. 开发面板“无 CD”原本仅临时忽略焰甲冷却。现在清零剩余及原始冷却，关闭开关后不会重新出现旧CD。
+4. 技能说明从“中断保留资源”修正为实际预扣/未释放退款/已生效不退款规则，并明确快照和脚环范围。
+5. 火环伤害间隔及持续时间显示保留两位小数，避免可配置的0.05秒周期或小数持续被面板舍入成其他数值。
+
+本轮结果：81项数值专项检查全部通过，Editor和Game正式构建通过。
+其中包含1～20级成长/预览一致、22个战斗参数的独立修改、4个奖励参数及升级门槛、实际附伤随等级增加、3米目标的光环范围/周期判断、主客档案等级隔离、免疫拒绝及退款、菜单取消退款、无CD关闭后不恢复旧冷却。
+原始结果见 SourceAssets/FlameArmor20261017/StatsAudit/stats.json 和 build-receipt.json。
+专项检查使用独立 Audit 档案、生产公式和实际伤害入口；不会改动用户角色存档。
+没有打开编辑器或做画面验收；本轮未重跑此前的双进程通信检查。

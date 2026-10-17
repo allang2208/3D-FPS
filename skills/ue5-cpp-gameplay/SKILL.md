@@ -147,3 +147,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 - 已支付工件、评分品质与联机结算：[工件品质契约](references/paid-workpiece-quality.md)。
 
 - FPSGAME 联机归属、事务中断与重连／重生／换图：[生命周期与覆盖记录](references/multiplayer-lifecycle-and-coverage.md)。
+
+- [升级奖励与公开镜像](references/profile-progress-publication.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。

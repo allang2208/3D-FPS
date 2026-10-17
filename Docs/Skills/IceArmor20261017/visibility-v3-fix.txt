@@ -1,0 +1,35 @@
+坚冰铠甲 CrystalV2 可见性修复 V3（2026-10-17）
+
+反馈：第一、第三人称都很淡，几乎看不到。
+
+本轮证据
+通过现有编辑器只读查询：世界/镜头/碎冰材质、镜头网格及躯干/四肢骨骼网格都可加载，网格材质与 Jason 骨架引用正确。
+实际加载材质的 CoreOpacity：镜头 0.17，世界 0.27，碎冰 0.27，与作者源一致。
+当次 PIE 快照未捕获到持续中的冰甲网格，因此不把这次资源读回当作已复现运行时显示状态。
+当前日志未发现 IceArmor 材质编译回落记录；其他材质告警不属于本次修改范围。
+
+定位与处理
+原冰芯不透明度低、霜边遮罩再次衰减，核心底色偏暗；持续发光表达式只有 F*0.055，几乎没有稳定的冰甲轮廓。
+镜头晶簇原中心在画面横向 86%-96%、顶部 97% 附近，部分模型超出视野，进一步降低可见面积。
+新镜头冰芯不透明度 0.30、世界 0.46、碎冰 0.55；独立 FrostOpacity 分别为 0.48/0.55/0.55。只让磨砂切边接近不透明，中间保留透光。
+提高霜边遮罩与蓝白表面反差，新增掠射角冰缘、低强度持续冷光，冷光只在自身材质做一次曝光补偿。
+受击、凝结、脉冲、消散继续受原覆盖遮罩控制；被背包/长衣隐藏的分区现在同时屏蔽发光。
+8 组晶簇中心向内调整、局部扩大，保持中心视野与片间空隙，不恢复矩形框。
+本次不改 C++、属性、施法、修炼、网络或第三人称骨骼几何；无需重新编译原生模块。
+
+接入时另外发现：UE 5.8 MaterialEditingLibrary::DeleteAllMaterialExpressions 遍历原节点集合并同时删除，导致重建时旧节点残留、重复 CoreOpacity 默认值取旧值，并产生临时 Custom missing input 告警。
+本次作者入口改为 GetMaterialExpressions 返回的节点快照逐个删除，再重建；保存过程针对 CoreOpacity 实际读回及重复标量参数添加定向断言。
+该问题是在本轮资产重建时发现并处理，不把它倒推为用户此前画面过淡的已确认唯一原因。
+
+作者与交付
+Tools/Skills/build_ice_armor_v2.py 同步维护材质公式。
+Tools/Skills/author_ice_armor_v2.py 同步维护镜头形状与源 blend/JSON。
+Tools/Skills/import_ice_armor_visibility_v3.py 仅重建 3 材质、1 镜头网格。
+SourceAssets/IceArmor20261017/VisibilityV3/before.json 为修改前编辑器读回。
+实际落盘以同目录 assets-saved.json / material-settings.json 与桥接执行结果为准。
+2026-10-17 18:11:29 实际保存完成，3 材质及 1 镜头网格共 4 个 uasset；后台进程于 18:11:40 正常退出，退出码 0。
+CoreOpacity 读回为世界 0.46、镜头 0.30、碎冰 0.55，三个材质均无重复标量参数。
+针对三个材质调用 MaterialEditingLibrary.GetStatistics 完成各自的 FMaterialResource::FinishCompilation；生成 shader-compilation.json。本次最终 install.log 未出现 Failed to compile Material 或 Python Error。
+世界/镜头/碎冰材质分别记录有效像素着色器指令数 1960/1960/1967，仅为编译信息，不代表游戏性能实测。
+用户结束运行时一并关闭了编辑器，最终使用无界面 commandlet 保存，没有重新打开 GUI 编辑器。
+没有启动新游戏、PIE、截图或运行视觉/联机回归；观感仍由用户确认。
