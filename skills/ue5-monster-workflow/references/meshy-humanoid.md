@@ -46,3 +46,5 @@
 - 当前成功流程以 `Docs/fat-zombie-workflow-publication-20260914.md` 和 SourceAssets README 为入口。原修复报告保留历史时序，后续确认与数值更新独立注明。
 - 错误的 100 倍动画、已替代物理/材质/地图副本和旧 WorkProject 进入 `trash/fat-zombie-workflow-20260914`；恢复路径、大小与 SHA-256 见 `Docs/AssetArchives/fat-zombie-20260914.json`。不能用归档整张地图覆盖并行场景更新。
 - 默认按用户规则由用户测试；构建记录、用户确认和新任务的实际测试分开表述。后续复用本例不自动触发游戏、截图或渲染验收。
+
+守寝者的失败案例与恢复边界见 [重定向、联动与支撑脚经验](night-warden-retarget-lessons.md)：V18 数值检查通过后仍被用户否定，不能据此推广为成功模板。

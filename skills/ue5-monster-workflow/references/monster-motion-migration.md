@@ -30,3 +30,5 @@
 4. 同步当前 README、合同/恢复入口和个人技能镜像。历史记录不伪改成当前结果；Git 发布文本与移除清单，二进制、缓存及 trash 按仓库规则保留本机。完整恢复需要资产备份，Git 克隆不等于恢复 UE 内容。
 
 本例归档与发布入口：`Docs/mutant3-animation-publication-20260919.md`、`Docs/AssetArchives/mutant3-animation-20260919.json`。只做用户授权的仓库归档/推送检查，未追加游戏测试。
+
+守寝者的失败案例与恢复边界见 [重定向、联动与支撑脚经验](night-warden-retarget-lessons.md)：V18 数值检查通过后仍被用户否定，不能据此推广为成功模板。

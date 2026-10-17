@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "NightWardenMonster.h"
 #include "HeQueMonster.h"
 #include "M66IncineratorMonster.h"
 #include "RootCrownRigPreview.h"
@@ -119,6 +120,7 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
 }
 bool UMonsterCombatComponent::IsDead() const
 {
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->IsActorBeingDestroyed();
  if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->Dead();
  if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->Dead();
  if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Dead();
@@ -137,6 +139,7 @@ bool UMonsterCombatComponent::IsDead() const
 }
 bool UMonsterCombatComponent::IsControlled() const
 {
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->IsControlled();
  if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->Controlled();
  if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->Controlled();
  if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Controlled();
@@ -165,6 +168,7 @@ bool UMonsterCombatComponent::IsKnockedDown() const
 bool UMonsterCombatComponent::IsBusy() const
 {
  if(IsDead()||IsControlled())return true;
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->IsAttacking();
  if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->Busy();
  if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->Busy();
  if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Busy();
@@ -201,6 +205,7 @@ void UMonsterCombatComponent::SetTarget(APawn* P)
 bool UMonsterCombatComponent::CanAttack(APawn* P) const
 {
  if(!IsValid(P)||IsBusy())return false;
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->CanAttack(P);
  if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->CanAttack(P);
  if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->CanAttack(P);
  if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->CanAttack(P);
@@ -227,6 +232,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
 bool UMonsterCombatComponent::TryAttack(APawn* P)
 {
  if(!GetOwner()->HasAuthority()||!CanAttack(P))return false;SetTarget(P);
+ if(auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->StartAttack(P);
  if(auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->StartAttack(P);
  if(auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->StartAttack(P);
  if(auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->StartAttack(P);
@@ -271,15 +277,18 @@ void UMonsterCombatComponent::SetLocomotion(bool Moving,bool Returning)
  if(auto* H=Cast<AHandBrainMonster>(GetOwner())){auto S=Moving?(Returning?EHandBrainState::Returning:EHandBrainState::Chase):EHandBrainState::Idle;if(H->State!=S)H->SetState(S);}
 }
 float UMonsterCombatComponent::AggroRange() const{if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->AggroRadius;if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->AggroRadius;if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->AggroRadius;if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->AggroRadius;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->AggroRadius;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->AggroRadius;
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->AggroRadius;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->AggroRadius;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->AggroRadius;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->AggroRadius;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->AggroRadius;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->AggroRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->AggroRadius;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->AggroRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->AggroRadius;return 0;}
 float UMonsterCombatComponent::LeashRange() const{if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->LeashRadius;if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->LeashRadius;if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->LeashRadius;if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->LeashRadius;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->LeashRadius;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->LeashRadius;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->LeashRadius;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->LeashRadius;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->LeashRadius;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->LeashRadius;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->LeashRadius;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->LeashRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->LeashRadius;return 2400;}
 float UMonsterCombatComponent::StopRange() const{if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->StoppingDistance;if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->StoppingDistance;if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->CombatStoppingRange();if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->BiteTriggerRange-15.f;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->StoppingDistance;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->AttackStopRange();
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->StoppingDistance;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return 180.f;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->BiteTriggerRange-15.f;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return FMath::Clamp(S->MeleeRange-35.f,80.f,155.f);if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->bMinion?5.f:F->HammerRange*.8f;if(auto* Witch=Cast<AWitchMonster>(GetOwner()))return FMath::Max(40.f,Witch->SpellRange*.75f);if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(const auto* M07=Cast<ABlindSupplicantMonster>(GetOwner()))return M07->CombatStoppingRange();if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
 FVector UMonsterCombatComponent::Home() const{if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner()))return HeQue->Home;if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner()))return M66->Home;if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner()))return Crown->Home;if(const auto* BC=Cast<ABoundCongregate>(GetOwner()))return BC->Home;if(const auto* M25=Cast<AVortexCofferM25>(GetOwner()))return M25->Home;if(auto* M14=Cast<ASpiralPillarM14>(GetOwner()))return M14->Home;
+ if(const auto* Warden=Cast<ANightWardenMonster>(GetOwner()))return Warden->Home;
  if(auto* M09=Cast<AHangingBellM09>(GetOwner()))return M09->Home;
  if(auto* M10=Cast<AM10Mawcrawler>(GetOwner()))return M10->Home;if(auto* S=Cast<AHundredEyedSlagMonster>(GetOwner()))return S->Home;if(auto* F=Cast<AFleshHandMonster>(GetOwner()))return F->Home;if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->Home;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
 void UMonsterCombatComponent::ReachedHome(){if(auto* HeQue=Cast<AHeQueMonster>(GetOwner());HeQue&&!HeQue->Dead()){HeQue->Health=HeQue->MaxHealth;HeQue->ForceNetUpdate();}
@@ -412,7 +421,8 @@ void UMonsterCombatComponent::BeginReaction(float Duration)
  if(auto* C=Cast<ACharacter>(GetOwner()))
  {
   if(auto* AI=Cast<AMonsterAIController>(C->GetController())){AI->StopMovement();AI->UpdateKnowledge();}
-  if(C->IsA<ARootCrownRigPreview>()||C->IsA<AHeQueMonster>()||C->IsA<AM66IncineratorMonster>()) {} // Replicated slash state fades through the native player.
+  if(auto* Warden=Cast<ANightWardenMonster>(C))Warden->StopForControl(Duration);
+  else if(C->IsA<ARootCrownRigPreview>()||C->IsA<AHeQueMonster>()||C->IsA<AM66IncineratorMonster>()) {} // Replicated slash state fades through the native player.
   else if(auto* BC=Cast<ABoundCongregate>(C))BC->StartHitPresentation();
   else if(auto* M25=Cast<AVortexCofferM25>(C))M25->StartHitPresentation();
  else if(auto* M14=Cast<ASpiralPillarM14>(C))M14->StartHitPresentation();

@@ -4594,3 +4594,13 @@ __pycache__/
 /Tools/Weapons/M870*/**/*.gz
 /Tools/Weapons/M870*/**/Before/
 /Tools/Weapons/M870*/**/__pycache__/
+
+# Night Warden closeout 20261017: publish recipes only, never donor keys or binaries.
+/SourceAssets/NightWarden20261015/**
+!/SourceAssets/NightWarden20261015/**/
+!/SourceAssets/NightWarden20261015/Scripts/*.py
+!/SourceAssets/NightWarden20261015/Scripts/*.ps1
+!/SourceAssets/NightWarden20261015/README.md
+!/SourceAssets/NightWarden20261015/ATTRIBUTION.md
+!/SourceAssets/NightWarden20261015/RecoveryInputs/README.md
+/SourceAssets/NightWarden20261015/Closeout20261017/

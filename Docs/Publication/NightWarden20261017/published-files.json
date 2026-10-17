@@ -1,0 +1,378 @@
+{
+  "scope": "Night Warden rejected checkpoint closeout; no binary assets or donor keys",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 248474,
+      "sha256": "4948a61c30b102f71ff4ffc29d6c605363f06321ba6249f85dadf74558df7ff8",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 24605,
+      "sha256": "5854381d83653e69976afe52ab0445e9330ff7024846ca0411816d365583ed68",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 120150,
+      "sha256": "74c96e5636d9ac4c1272ae3d42689144ef77004f5ea6a31700691a52c24cfe74",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "bytes": 60215,
+      "sha256": "d0f817d711aff60442b69b987ddae819cad2718b370f135ba16d1ee18abbf209",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenAIMovementV08.md",
+      "bytes": 4163,
+      "sha256": "8a4a83ad1315f47e7b74eccf7b9e15394326eeefa32a3726bc7ad8047285f65d",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenBareBodyHandV14.md",
+      "bytes": 2495,
+      "sha256": "3cfbd3c697c53dee1e18e99d994d3da786d96ae39c20416a6de9566b15ae7875",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenBentForwardV16.md",
+      "bytes": 3266,
+      "sha256": "8fe6a261e20a3def6f90a21326cdc4f88ef803f6fc7c6652b280f9397f61be51",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenCoupledLocomotionV18.md",
+      "bytes": 6055,
+      "sha256": "a19c21364c174c90d2616d1fae2b655434d27b6a7954921fb3c43da8dbc0fa17",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenDragRightLegV15.md",
+      "bytes": 3456,
+      "sha256": "9e33853b38b33269b00d19a750668f5ed29da53f1904fecc2066f59f8068932e",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenGiantArmMeleeV09.md",
+      "bytes": 5435,
+      "sha256": "d21cfa990540fdb222659298d85f96c312d641abdaf71d68c34546f103f6a05e",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenHundredEyeSweepV12.md",
+      "bytes": 4583,
+      "sha256": "dac4d6cc7d8babdfa12b1e6410fa0390ab7e600fd287f11f387b681851762529",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenLocomotionV01.md",
+      "bytes": 3954,
+      "sha256": "a9b3b18fd437ad5f4af97a60f0fe6c3a7ed5eacf6017a2aa440652c84873aa0d",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenLocomotionV02BasisFix.md",
+      "bytes": 3829,
+      "sha256": "fb594423b5fe3a210540a9be6afa0cbf4afc71b1e3fae40b60b922031144c8ad",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenOriginalRestoreV06.md",
+      "bytes": 3358,
+      "sha256": "d031b1fc65bcf5c78bcc78a0fe716669f4e285cffbc66f0a3b368db92dbc8032",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenRampageBipedV17.md",
+      "bytes": 3480,
+      "sha256": "9848e77ad3060cc786218b32cd395fa73d67e09f3957d2a0bb63a1ebfe7b42f2",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenTailoredWaistV13.md",
+      "bytes": 4000,
+      "sha256": "44987c73d67d455eeb26a5d78ec2092cb9aa11f4b24e895a39fb56f757607775",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenTurningClothRepairV10.md",
+      "bytes": 4672,
+      "sha256": "f5c48285f851d6bc01a2d6c71b634bf66a6f0de5c5f81a2f112ccc59b4a2e7d4",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenV03Upgrade20261015.md",
+      "bytes": 5212,
+      "sha256": "a58b8b049705a74c67bdb5bf6df43ce68a1840e75d118fdce03c9ffaf08a1f41",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenV04Clothing20261015.md",
+      "bytes": 4444,
+      "sha256": "79b7f13014dd26499490ac51377356afad324e8772ea2cd525a87370fb00f62f",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenV05ExplosionFix20261015.md",
+      "bytes": 3914,
+      "sha256": "28bf7394d2e3d30a76c7ced80f56ca565f7c581688dad0ada97d7b226da11a5a",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Monsters/NightWardenWaistStrideV07.md",
+      "bytes": 5500,
+      "sha256": "8b700d60d348abc789755ae464f1844e0c7829cbdd981bb0a56e196f44875ecf",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Publication/NightWarden20261017/README.md",
+      "bytes": 4550,
+      "sha256": "7311d7b818decef2b55abd9f28f56b3de6053ccfc6ee0d94caa5035b1d59216b",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Publication/NightWarden20261017/archive-summary.json",
+      "bytes": 536,
+      "sha256": "76e15fd435c6af1b493d1c4b14fa8391a8c69ca5766e3cecfd21eae1ec5a41ce",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Docs/Publication/NightWarden20261017/retained-assets.json",
+      "bytes": 5000,
+      "sha256": "976ba8a0c784d55065486ad4133943848d86aa1a8555c55f65dc12916983d261",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "bytes": 29542,
+      "sha256": "74b8342d01f7b99ceea4c90e96faf3de85a38e4169fa20a9858b6206eb3a0cc1",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "bytes": 14981,
+      "sha256": "25682508139a3f2acc6c104b0a6a0a96276c04ccf74ee0938983cdee50da6fb2",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterBTNodes.cpp",
+      "bytes": 11457,
+      "sha256": "dbd969d8657675b3d3656d0951aa4bd0f618ae42cee296f6f011c27ed8b6db88",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 41200,
+      "sha256": "46636096cff98e4e0ee8204c4777d8c5bbc618958d083895fe566440a7daddcd",
+      "source": "HEAD plus Night Warden hunks"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenAnimInstance.cpp",
+      "bytes": 4706,
+      "sha256": "62f77d50a89b904f683fccca0c907410ffb759abbb3e900ffe11969bfc56a26c",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenAnimInstance.h",
+      "bytes": 958,
+      "sha256": "bb110db6e8baf27ff5eee6910627c81ee29395837a8ba09e51aec2e6addee3a4",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenFootPlantNode.cpp",
+      "bytes": 5871,
+      "sha256": "46bd2be06ea5326d2415bdfb8ff48582627400d2b4a1b97e1f4e7bb2d88f38ef",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenFootPlantNode.h",
+      "bytes": 1196,
+      "sha256": "4ae0571442760d5c90a96c16bcdbaf9b5f8bd7cca95942685c772a98b47c3822",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMelee.cpp",
+      "bytes": 9074,
+      "sha256": "b6885e07a18d4528b5c7b1c14d43d51a591127046e980e5bda4252488dd59812",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMonster.cpp",
+      "bytes": 4490,
+      "sha256": "05bd99e95f274331ee9ea71c6e13a291149583805466fbff612f592e96c70206",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMonster.h",
+      "bytes": 4324,
+      "sha256": "e47004aa21cecf5ff539f0f974e4d94ff7b4b4efb1462f7968647e6cc7917be6",
+      "source": "task-owned file"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenWaistClothAuthoring.cpp",
+      "bytes": 11252,
+      "sha256": "e19e6acef3181f8302cf6f13f8ae2e567c738318687f8f649e366def850ab3ec",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/ATTRIBUTION.md",
+      "bytes": 1378,
+      "sha256": "3fe2e3eb2c2dfa44595ad1de08f076ea6b376fadff5de48e18dc9860ddd36a8c",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/README.md",
+      "bytes": 949,
+      "sha256": "42024f98b8ebbf1cbd15bd99cf7b99d49af3777608d865aceace687a0c0d4ce4",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/RecoveryInputs/README.md",
+      "bytes": 842,
+      "sha256": "ed54040501daa03840af158d25e69d448f6df7481a481662d25f356156b91c93",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/author_bare_body_hand_v14.py",
+      "bytes": 5874,
+      "sha256": "42483fb1fd2ccbe3403df3239dde7c645db667299f03c67ab3607e4e5a47e1a9",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/author_coupled_stride_v18.py",
+      "bytes": 11910,
+      "sha256": "eb694064c8a3107460f39ade5cda4c61ab6a18ea56a1622e5ea5e2d02fd6bd5e",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/author_hundred_eye_sweep_v12.py",
+      "bytes": 8886,
+      "sha256": "48a33f154e3384971174256d1091b41598362595dd989f583595ea7c77eb744a",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/author_idle_v08.py",
+      "bytes": 5321,
+      "sha256": "0ae974b6e48f9283627132ad45c8f9851e351080b6520f9206de297663fb7e58",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/build_coupled_stride_v18.ps1",
+      "bytes": 1933,
+      "sha256": "cda6ec9d846f7fd21d843ab5e952871cce1cb7347308436bfa68997a9f2451b0",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/diagnose_locomotion_v18.py",
+      "bytes": 5674,
+      "sha256": "6f28b97afe50bd6f62f8ef3b03df53d0b257f1e717484f3ca542f5ee44ac4c78",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/install_bare_body_hand_v14.py",
+      "bytes": 6197,
+      "sha256": "9e61d2e6171c8973c416ab4a81c1ac2825c2bf9b187de7e90981930016681542",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/install_coupled_stride_v18.py",
+      "bytes": 6548,
+      "sha256": "cca63a0bee1babe9d301c4e3478f9491fba4e66a4ae0219ffe1a5d95c7dde6ba",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/install_hundred_eye_sweep_v12.py",
+      "bytes": 5713,
+      "sha256": "86d9a620c8f1cd858c1b2c493622dc235985685a178e46ac5ad919f5cbba88c4",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/prepare_hundred_eye_sweep_v12.py",
+      "bytes": 8339,
+      "sha256": "0d658e081ff51915d9896506cdb656989b3f0eec758577d3e6d3d408d6b003d0",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/prepare_original_v06.py",
+      "bytes": 3574,
+      "sha256": "b006932349d81557f1c739231a7221bedb0b5664a5c82784a4b2367af57f6759",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/read_biped_source_v17.py",
+      "bytes": 2021,
+      "sha256": "58cde6e846ba498c5b88fc18adbc935d81ac0bab5a28f136fbac14583e1df3c7",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/read_installed_stride_v18.py",
+      "bytes": 3255,
+      "sha256": "bd85208df56d23c2713e629b9f859d596a6113e73f0c1463f9592956cc0c6a04",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/read_retarget_state_v18.py",
+      "bytes": 2758,
+      "sha256": "fac45e1509237d8fdaf3613f6826337f9d803dbee3486476777a655f55459429",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/retarget_rampage_stride_v17.py",
+      "bytes": 8077,
+      "sha256": "c57b8c8c94dad854bec2bbfa283d0b2ef61cec4773776703845c78b6955917c6",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/v12_background.ps1",
+      "bytes": 2252,
+      "sha256": "242743f22c6eef46472088a45a71fb4fbf297afd42fba3d7f254106f928791d4",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/v14_background.ps1",
+      "bytes": 2122,
+      "sha256": "a904fdff1f65a5cd997b27956a62e0ae493efc9656b3f1281a7b0b945ad379a9",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/v18_background.ps1",
+      "bytes": 2465,
+      "sha256": "798b310559369c22326c56a24425cffb93d8ca7ba1a3b953725075d0e9f0c2b9",
+      "source": "task-owned file"
+    },
+    {
+      "path": "SourceAssets/NightWarden20261015/Scripts/validate_coupled_stride_v18.py",
+      "bytes": 7304,
+      "sha256": "179c7dbb217a156c3f4494dfc65bad09a78e4fe4d524c9b1b6948d1df4ed40f5",
+      "source": "task-owned file"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "bytes": 2224,
+      "sha256": "0d93fa9bc96178a1852b373b423ddbb98f853f3ca0aff87a2a3b242a067141cc",
+      "source": "task-owned file"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/meshy-humanoid.md",
+      "bytes": 8709,
+      "sha256": "c4a71276f21aa1e95c8bf37a8c0d922bbb2600020adca7ccd2df24b2680964f3",
+      "source": "task-owned file"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/monster-motion-migration.md",
+      "bytes": 4731,
+      "sha256": "410cbd01c35cf714f8eadfa059fa16a08b6bf34549d7b6d5681182c255a4c7fe",
+      "source": "task-owned file"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/night-warden-retarget-lessons.md",
+      "bytes": 4286,
+      "sha256": "42ed3ca37a253b6a81c75e0733d7005eb7f6fa7594d85ad9b21a3dc9242f7e26",
+      "source": "task-owned file"
+    }
+  ],
+  "manifest_excludes_itself": true
+}

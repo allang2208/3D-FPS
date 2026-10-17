@@ -9,7 +9,7 @@
 
 namespace FPSPreloadRegistry
 {
-    inline constexpr int32 PathCount = 361;
+    inline constexpr int32 PathCount = 362;
     inline const TCHAR* const Paths[] = {
         TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01"),
         TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02"),
@@ -95,6 +95,7 @@ namespace FPSPreloadRegistry
         TEXT("/Game/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceLand"),
         TEXT("/Game/Monsters/Mutant3Meshy/KhaimeraV2/Animations/A_Mutant3_PounceWindup"),
         TEXT("/Game/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw"),
+        TEXT("/Game/Monsters/NightWarden/BP_NightWarden"),
         TEXT("/Game/Monsters/NurseZombie/BP_NurseZombie"),
         TEXT("/Game/Monsters/PoisonMaggot/BP_PoisonMaggot"),
         TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomDroplet"),

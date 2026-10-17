@@ -2,6 +2,7 @@
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
+#include "NightWardenMonster.h"
 #include "HeQueMonster.h"
 #include "MantisM27Monster.h"
 #include "Mutant3.h"
@@ -154,7 +155,10 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   {
    AI->StopMovement();C->SetLocomotion(false);
    if(!Returning&&B->GetValueAsBool(TEXT("Visible")))
+   {
     if(auto* M25=Cast<AVortexCofferM25>(AI->GetPawn()))M25->FaceNearbyTarget(M10Victim,Dt);
+    if(auto* Warden=Cast<ANightWardenMonster>(AI->GetPawn()))Warden->FaceMeleeTarget(Cast<APawn>(B->GetValueAsObject(TEXT("Target"))),Dt);
+   }
   }
   else{C->SetLocomotion(true,Returning);AI->NavigateTo(Dest,Stop);}
  }
