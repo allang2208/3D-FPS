@@ -73,6 +73,7 @@ void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
     if(Profile && !bWeaponSwitch)Profile->SyncRuntime();
     {
         TGuardValue<bool> Resolving(bResolvingActionInterrupt,true);
+        PreserveInterruptedM870Pump();
         if(DoorPush)DoorPush->Cancel();
         if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
         if(auto* Magic=FindComponentByClass<UFPSFireballComponent>())Magic->InterruptForPriority();

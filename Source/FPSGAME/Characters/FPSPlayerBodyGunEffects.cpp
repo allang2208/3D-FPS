@@ -4,6 +4,7 @@
 #include "../Weapons/FPSWeaponFXComponent.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
 #include "../Weapons/PKMLowpolyWeaponAssets.h"
 #include "../Weapons/LMG201WeaponAssets.h"
 #include "Components/AudioComponent.h"
@@ -120,7 +121,7 @@ void UFPSPlayerBodyComponent::SendGunEvent(FFPSGunEvent E)
     if(!Character.IsValid()||!Character->IsLocallyControlled()||GetNetMode()==NM_Standalone)return;
     FFPSBodyWeapon W;if(!CurrentGun(E.Hand,W))return;
     // Super90 has its own accepted-shot multicast and predicted owner effects.
-    if(E.Kind==EFPSGunEvent::Shot&&W.GunDefinition==TEXT("ue_super90"))return;
+    if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return;
     E.Instance=W.GunInstance;E.bSuppressed=W.bGunSuppressed;E.SentAt=ServerClock();E.Sequence=++SentGunSequence;
     if(E.Kind==EFPSGunEvent::Shot)ServerGunShot(E);else ServerGunMechanical(E);
 }
@@ -142,7 +143,7 @@ bool UFPSPlayerBodyComponent::AcceptGunEvent(FFPSGunEvent& E)
     }
     if(E.Kind!=EFPSGunEvent::Shot&&E.Kind!=EFPSGunEvent::Mechanical)return false;
     if(!E.Sound.IsNull()&&!W.GunSounds.Contains(E.Sound))return false;
-    if(E.Kind==EFPSGunEvent::Shot&&W.GunDefinition==TEXT("ue_super90"))return false;
+    if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return false;
     Received=E.Sequence;return true;
 }
 void UFPSPlayerBodyComponent::RelayGunEvent(const FFPSGunEvent& Event)
@@ -228,7 +229,7 @@ void UFPSPlayerBodyComponent::BuildGunPresentation(const FFPSBodyWeapon& W,UFPSB
     for(const auto& Binding:MotionBindings)if(Binding.Mesh.Get()==Mesh&&Binding.Parts.IsValidIndex(W.MuzzlePart))
         FX->SetWorldMuzzle(Binding.Parts[W.MuzzlePart].Get(),W.MuzzleTip,W.MuzzleAxis);
     FX->Initialize(Mesh,Character->FirstPersonCamera);
-    if(W.GunDefinition==TEXT("ue_super90"))RemoteGunFX=FX;
+    if(TubeShotgunAssets::Supports(W.GunDefinition))RemoteGunFX=FX;
     TArray<FSoftObjectPath> Assets;
     for(const auto& S:W.GunSounds)Assets.AddUnique(S.ToSoftObjectPath());
     for(const auto& M:W.GunCartridges)Assets.AddUnique(M.ToSoftObjectPath());
@@ -260,11 +261,11 @@ bool UFPSPlayerBodyComponent::PresentGunEvent(const FFPSGunEvent& E,float Age)
         }
         const bool Shot=E.Kind==EFPSGunEvent::Shot;
         auto SoundRef=E.Sound;
-        if(Shot&&B.Definition.GunDefinition==TEXT("ue_super90"))
+        if(Shot&&TubeShotgunAssets::Supports(B.Definition.GunDefinition))
             SoundRef=E.bSuppressed&&!B.Definition.GunSuppressedSound.IsNull()?B.Definition.GunSuppressedSound:B.Definition.GunFireSound;
         if(!SoundRef.IsNull()&&!B.Definition.GunSounds.Contains(SoundRef))return true;
         auto* Sound=SoundRef.Get();if(!SoundRef.IsNull()&&!Sound)return false;
-        if(Shot){H.FX->SetWorldGunSuppressed(E.bSuppressed);H.FX->OnShot(E.bAiming);}
+        if(Shot){H.FX->SetWorldGunSuppressed(E.bSuppressed);H.FX->OnReplicatedShot(E.bAiming,E.PumpRate,Age);}
         if(!Sound)return true;
         // Preserve short contact attacks across network latency. Source-clock
         // lateness/pre-roll is already supplied by the native cue executor.
@@ -286,10 +287,10 @@ bool UFPSPlayerBodyComponent::PresentGunEvent(const FFPSGunEvent& E,float Age)
     }
     return false;
 }
-void UFPSPlayerBodyComponent::PresentSuper90Shot(const FString& Instance,float FiredAt,bool Aiming,bool Suppressed)
+void UFPSPlayerBodyComponent::PresentSuper90Shot(const FString& Instance,float FiredAt,bool Aiming,bool Suppressed,float PumpRate)
 {
     // The accepted-shot RPC carries identity even if its equipment property is
     // still in flight. The same bounded queue resolves that ordering below.
     FFPSGunEvent E;E.Instance=Instance;E.SentAt=FiredAt;E.bAiming=Aiming;E.bSuppressed=Suppressed;
-    E.Volume=Suppressed?.65f:1.f;QueueGunEvent(E);
+    E.PumpRate=PumpRate;E.Volume=Suppressed?.65f:1.f;QueueGunEvent(E);
 }

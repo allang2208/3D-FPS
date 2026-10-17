@@ -169,15 +169,18 @@ public:
     uint32 RequestSuper90Shot(const FString& Weapon,const FVector& Eye,const FVector& Muzzle,const FVector& Aim,bool Aiming,int32 PredictedRounds);
     void RequestSuper90Reload(const FString& Weapon,const FString& Ammo);
     void CancelSuper90Reload(bool Soft);
+    void RequestM870PumpInterrupt(const FString& Weapon,uint32 ShotSequence);
     bool IsSuper90ReloadPending() const {return bSuper90ReloadPending;}
     bool IsSuper90ServerReady(const FString& Weapon) const {return Super90ServerWeapons.Contains(Weapon);}
     UFUNCTION(Server,Reliable) void ServerSuper90Shot(uint32 Sequence,const FString& Weapon,FVector_NetQuantize Eye,
         FVector_NetQuantize Muzzle,FVector_NetQuantizeNormal Aim,bool Aiming,double FiredAt,APawn* SourcePawn);
     UFUNCTION(Server,Reliable) void ServerSuper90Reload(uint32 Sequence,const FString& Weapon,const FString& Ammo,APawn* SourcePawn);
     UFUNCTION(Server,Reliable) void ServerSuper90Cancel(uint32 Sequence,bool Soft,APawn* SourcePawn);
+    UFUNCTION(Server,Reliable) void ServerM870PumpInterrupt(uint32 Sequence,const FString& Weapon,
+        uint32 ShotSequence,double InterruptedAt,APawn* SourcePawn);
     UFUNCTION(Client,Reliable) void ClientSuper90Ammo(const FSuper90NetAmmoState& State);
     UFUNCTION(NetMulticast,Unreliable) void MulticastSuper90Shot(class AFPSGAMECharacter* Shooter,FVector_NetQuantize Muzzle,
-        const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt);
+        const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt,float PumpRate);
 
     /** 客户端命中上报：只报开火几何与武器声明，数值由服务端按影子档案重算。 */
     UFUNCTION(Server, Reliable)
@@ -317,7 +320,7 @@ private:
     bool bContainerNeedsRefresh=false;
     friend class UColdSteelAcquisitionAuditCommandlet;
     void TickContainerRefresh();
-    uint32 QuickCombatSequence=0,QuickCombatServerSequence=0;
+    uint32 QuickCombatSequence=0,QuickCombatServerSequence=0,QuickCombatRequestSequence=0;
     double QuickCombatUntil=0.;
     TMap<uint32,float> QuickCombatPredictedCosts;
     TWeakObjectPtr<APawn> QuickCombatPawn;
@@ -347,12 +350,17 @@ private:
     uint32 Super90LocalSequence=0,Super90ProcessedSequence=0,Super90Revision=0,Super90AppliedRevision=0;
     uint32 PendingSuper90Revision=0,IncomingSuper90Revision=0;
     TArray<FSuper90PredictedShot> Super90PredictedShots;
+    TMap<FString,uint32> M870PredictedPumpInterrupts;
     TSet<FString> Super90ServerWeapons;
     TArray<int64> Super90PouchDelta={0,0,0},Super90AppliedPouchDelta={0,0,0};
     TMap<uint32,TArray<int64>> Super90PouchHistory;
     FSuper90ServerReload Super90Reload;
     bool bSuper90ReloadPending=false,bSuper90SoftCancelSent=false;
     double Super90LastFireTime=-100.,Super90NextFireTime=-100.;
+    uint32 M870AuthorityShotSequence=0;
+    FString M870AuthorityShotWeapon;
+    TWeakObjectPtr<APawn> M870AuthorityShotPawn;
+    double M870AuthorityShotTime=-100.,M870AuthorityPumpClosedTime=-100.;
     void TickSuper90Authority(float DeltaSeconds);
     void TickSuper90Recovery();
     TWeakObjectPtr<APawn> Super90ClientPawn;

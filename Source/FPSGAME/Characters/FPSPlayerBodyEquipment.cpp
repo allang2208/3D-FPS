@@ -8,6 +8,8 @@
 #include "../Weapons/FPSGunplayAnimInstance.h"
 #include "../Weapons/WeaponGripProfile.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
+#include "../Weapons/WeaponPresentationMaterials.h"
 #include "../Weapons/TacticalDeviceComponent.h"
 #include "../Weapons/TacticalDeviceVariants.h"
 #include "../Weapons/FPSWeaponFXComponent.h"
@@ -81,14 +83,6 @@ static UMaterialInterface* PersistentMaterial(UMaterialInterface* Material)
     while(auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;
     return Material;
 }
-static bool IsArmMaterial(const FString& Slot)
-{
-    const FString Name=Slot.ToLower();
-    // "Handguard" is a weapon part, not a first-person hand section.
-    return Name.Contains(TEXT("manny"))||Name==TEXT("hand")||Name==TEXT("hands")
-        ||Name.EndsWith(TEXT("_hand"))||Name.EndsWith(TEXT("_hands"))
-        ||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin");
-}
 static void WorldVisibility(UPrimitiveComponent* Mesh)
 {
     Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetGenerateOverlapEvents(false);
@@ -150,10 +144,17 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
     for(int32 I=0;I<Asset->GetMaterials().Num();++I)
     {
         Result.Materials.Add(FPSBodyEquipment::PersistentMaterial(Source->GetMaterial(I)));
-        const FName Slot=Asset->GetMaterials()[I].MaterialSlotName;
+        const auto& NativeMaterial=Asset->GetMaterials()[I];
+        const FName Slot=NativeMaterial.MaterialSlotName;
         // Reload cartridge visibility is carried by the motion section mask.
         // Only arms and intentionally replaced factory parts stay hidden.
-        if(FPSBodyEquipment::IsArmMaterial(Slot.ToString()))Result.HiddenMaterials.Add(I);
+        // Use the authored material as well as the display slot: slot labels can
+        // change during mesh edits, and equipped clothing can override Source's
+        // material. The native skin section remains absent from the world copy.
+        if(WeaponPresentationMaterials::IsArmSection(NativeMaterial))
+            Result.HiddenMaterials.Add(I);
+        if((Slot==TEXT("M870_FactoryFurniture")||Slot==TEXT("M870_FactoryTubeCap"))
+            &&!Source->IsMaterialSectionShown(I,0))Result.HiddenMaterials.AddUnique(I);
         if(bSuper90&&(Slot==TEXT("S90_FactoryRearGrip")||Slot.ToString().StartsWith(TEXT("S90_FactoryStock_"))
             ||Slot.ToString().StartsWith(TEXT("S90_FactoryTubeCap_")))&&!Source->IsMaterialSectionShown(I,0))
             Result.HiddenMaterials.AddUnique(I);
@@ -531,7 +532,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
             {
                 const int32 Material=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                const bool ParkedShell=Asset->GetPathName()==Super90WeaponAssets::MeshPath
+                const bool ParkedShell=TubeShotgunAssets::MatchesMesh(Asset->GetPathName())
                     &&Asset->GetMaterials()[Material].MaterialSlotName==Super90WeaponAssets::LooseShellMaterial;
                 Weapon->ShowMaterialSection(Material,S,!Definition.HiddenMaterials.Contains(Material)&&!ParkedShell,L);
             }

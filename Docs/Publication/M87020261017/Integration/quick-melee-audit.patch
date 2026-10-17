@@ -1,0 +1,55 @@
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
+@@ -1,6 +1,10 @@
+ #include "ShotgunAttachmentAuditCommandlet.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Skills/SkillNetworkAuditCommandlet.h"
++#include "../Skills/FPSQuickCombatComponent.h"
++#include "../Skills/FPSCastingMeshComponent.h"
++#include "../Skills/QuickCombatRifleMotion.h"
++#include "WeaponGripProfile.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "GunsmithSystem.h"
+@@ -22,6 +26,8 @@
+ #include "Super90SpeedloaderAssets.h"
+ #include "FPSBallisticsComponent.h"
+ #include "Components/CapsuleComponent.h"
++#include "Components/BoxComponent.h"
++#include "Animation/AnimSequence.h"
+ #include "Components/SkeletalMeshComponent.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Engine/Engine.h"
+@@ -97,17 +103,17 @@
+         if(auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>())
+         {
+             const auto Captured=Body->CaptureWeapon(Pawn->AKMViewmodel,Pawn->IdleAnimation,TEXT("Gun"));
+-            bool ArmsHidden=true,CapHidden=false,TubeAttached=false;
++            bool ArmsHidden=true,CapHidden=false,TubeAttached=false;int32 ArmSections=0;
+             const auto* Asset=Pawn->AKMViewmodel->GetSkeletalMeshAsset();
+             for(int32 I=0;I<Asset->GetMaterials().Num();++I)
+             {
+                 const auto& Material=Asset->GetMaterials()[I];
+-                if(WeaponPresentationMaterials::IsArmSection(Material))ArmsHidden&=Captured.HiddenMaterials.Contains(I);
++                if(WeaponPresentationMaterials::IsArmSection(Material)){++ArmSections;ArmsHidden&=Captured.HiddenMaterials.Contains(I);}
+                 if(Material.MaterialSlotName==TEXT("M870_FactoryTubeCap"))CapHidden=Captured.HiddenMaterials.Contains(I);
+             }
+             for(const auto& Part:Captured.Parts)if(Part.Mesh.ToSoftObjectPath().ToString().StartsWith(M870TubeMagazineAssets::MeshPath))
+                 TubeAttached=Part.bVisible&&Part.Socket==TEXT("WPN_root");
+-            Check(ArmsHidden&&CapHidden&&TubeAttached,TEXT("M870 world recipe excludes arms and cap and retains attached tube"));
++            Check(ArmSections>0&&ArmsHidden&&CapHidden&&TubeAttached,TEXT("M870 world recipe excludes arms and cap and retains attached tube"));
+         }
+         auto* FX=Pawn->WeaponFX.Get();
+         FX->SchedulePumpEjection(4.f/3.f,.1f);
+@@ -278,6 +284,11 @@
+         OwnerPS->ClientSuper90Ammo_Implementation(Receipt);
+         Check(OwnerPS->M870PredictedPumpInterrupts.IsEmpty()&&!WeaponReloadStages::NeedsCycle(*Model->FindItem(Item.InstanceId)),TEXT("fresh pawn receipt clears stale M870 pump prediction"));
+     }
++    if(M870)
++    {
++        // R3 audit revision 2 includes the late-rejection / ordinary-punch case.
++#include "M870QuickMeleeAudit.inl"
++    }
+     auto Root=MakeShared<FJsonObject>();Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failures"),Failures);Root->SetArrayField(TEXT("results"),Rows);
+     Root->SetStringField(TEXT("mode"),TEXT("isolated authority implementation and asset execution; not socket replication"));
+     FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));

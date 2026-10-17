@@ -18,6 +18,7 @@
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Animation/AnimSequence.h"
@@ -494,7 +495,7 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
                 if(auto* Mesh=Binding.Mesh.Get())
                 {
                     Mesh->PublishMechanicalPose(Binding.FrozenPose);
-                    if(Binding.Definition.Mesh.ToSoftObjectPath().ToString()==Super90WeaponAssets::MeshPath)
+                    if(TubeShotgunAssets::MatchesMesh(Binding.Definition.Mesh.ToSoftObjectPath().ToString()))
                         Super90WeaponAssets::SetLooseShellVisible(Mesh,false);
                 }
                 for(int32 P=0;P<Binding.Parts.Num();++P)if(Binding.Parts[P].IsValid())Binding.Parts[P]->SetRelativeTransform(Binding.FrozenParts[P]);

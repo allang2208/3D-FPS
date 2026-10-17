@@ -21,6 +21,9 @@ struct FFPSGunEvent
     UPROPERTY() float StartTime=0.f;
     UPROPERTY() bool bAiming=false;
     UPROPERTY() bool bSuppressed=false;
+    // The accepted tube-shot RPC supplies this; observer pawns do not own the
+    // shooter's evaluated gunsmith stats. Start time accounts for queue latency.
+    UPROPERTY() float PumpRate=1.f;
     UPROPERTY() TSoftObjectPtr<class UStaticMesh> Cartridge;
     // Release frame and velocity relative to WPN_root, never the owner's camera.
     UPROPERTY() FTransform Release=FTransform::Identity;

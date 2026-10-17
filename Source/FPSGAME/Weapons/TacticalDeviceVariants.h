@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "M870TacticalAssets.h"
 
 namespace TacticalDeviceVariants
 {
@@ -33,6 +34,7 @@ inline FString Super90MeshPath(const FString& Id)
 inline FString FittedMeshPath(const FString& Family,const FString& Id,bool OppositeSide)
 {
     if(Family==TEXT("Super90"))return Super90MeshPath(Id);
+    if(Family==TEXT("M870"))return M870TacticalAssets::MeshPath(Id);
     return FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/DualFit20261008/%s/SM_%s_%d"),*Family,*Id,OppositeSide?2:1);
 }
 // Canonical device kind for shared behaviour and legacy fitting paths.
@@ -40,6 +42,7 @@ inline FString MeshVariant(const FString& Id) { return Id==BlessedLaser?FString(
 inline FString BlessedMeshPath(const FString& Family)
 {
     if(Family==TEXT("Super90"))return Super90MeshPath(BlessedLaser);
+    if(Family==TEXT("M870"))return M870TacticalAssets::MeshPath(BlessedLaser);
     return TEXT("/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_")+Family;
 }
 inline FString FamilyForDefinition(const FString& Definition)
@@ -59,6 +62,7 @@ inline FString FamilyForDefinition(const FString& Definition)
     if(Definition==TEXT("ue_lmg201"))return TEXT("LMG201");
     if(Definition==TEXT("ue_hk416"))return TEXT("HK416");
     if(Definition==TEXT("ue_super90"))return TEXT("Super90");
+    if(Definition==TEXT("ue_m870"))return TEXT("M870");
     return TEXT("M4");
 }
 }

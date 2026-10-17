@@ -50,6 +50,9 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UPistolDualWieldComponent;
     friend class FDualPistolQuickCombatRegression;
     friend class UFPSConsumableAuditCommandlet;
+    friend class UShotgunAttachmentAuditCommandlet;
+    friend class AShotgunWireAuditController;
+    friend class AShotgunWireAuditGameMode;
     friend class URuneSwordComponent;
     friend class UProductionToolComponent;
     friend class UM4TacticalSprintComponent;
@@ -80,6 +83,14 @@ public:
     bool IsG18Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_g18"); }
     bool IsPitViperWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_pit_viper2011"); }
     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
+    bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
+    bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }
+    float M870PumpPlayRate() const;
+    void UpdateM870PumpAudio();
+    void PreserveInterruptedM870Pump();
+    uint8 M870PumpCueMask=0;
+    uint32 M870ShotSequence=0;
+    TSet<FString> M870PendingCasingWeapons;
     bool IsHK416Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_hk416"); }
     bool UsesSingleShotTrigger() const { return !IsG18Weapon() && !bAutomaticTrigger && (IsPistolWeapon() || bSingleShotTrigger); }
     FString GetFireModeHint(int32 HandIndex = 0) const;
@@ -182,6 +193,7 @@ private:
 public:
     void SetGunsmithMagazineAttachment(const FString& Id);
     void SetGunsmithMuzzle(const FString& Variant);
+    const FString& GetGunsmithMuzzle() const { return MuzzleVariant; }
     void SetGunsmithHandstop(const FString& Variant);
     void SetGunsmithBipod(const FString& Variant);
     FString GetBipodDeploymentHint() const;
@@ -213,7 +225,9 @@ public:
     FTransform GetNativeMuzzleTransform() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
+    float GetShotgunPelletSpreadMultiplier() const;
+    bool HasShotgunDuckbill() const;
+    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsSuper90Weapon()&&MuzzleVariant==TEXT("shotgun_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
@@ -306,6 +320,8 @@ protected:
     float ProjectileSpeedCM=9000.f;
     float EffectiveWeaponRangeCM=100000.f;
     float HipSpreadMultiplier=1.f;
+    float ShotgunPelletSpreadMultiplier=1.f;
+    bool bShotgunDuckbillInstalled=false;
     int32 ADSHorizontalRecoilIndex=0;
     void RunMuzzleMigrationAudit();
     FWeaponHandling WeaponHandling;
@@ -592,6 +608,7 @@ private:
     void SetDanWesson715Optic(const FString& Variant);
     void SetRSH12Optic(const FString& Variant);
     void SetSuper90Optic(const FString& Variant);
+    void SetM870Optic(const FString& Variant);
     void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
     void FinishWeaponAction();
@@ -667,6 +684,8 @@ private:
     bool CanStand() const;
     // Traversal may replace inspection after accepting a valid hand-supported route.
     bool IsWeaponBusy(bool bAllowInspection = false) const;
+    // Aim may continue through the M870's shot/pump cycle; other action gates remain shared.
+    bool IsWeaponBusyForAim(bool bAllowInspection = false) const;
     float HorizontalSpeed() const;
     float VerticalToHorizontalFOV(float VerticalFOV) const;
     static void AdvanceSpring(FVector& Position, FVector& Velocity, float Stiffness, float Damping, float DeltaSeconds);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TimerManager.h"
 #include "Components/ActorComponent.h"
 #include "FPSWeaponFXComponent.generated.h"
 
@@ -112,7 +113,10 @@ public:
     bool bUseCharacterMuzzle=true;
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
     /** The trigger captures this frame before restarting fire animation/recoil. */
-    void OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle);
+    void OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle,float AcceptedPumpRate=0.f,float ShotAge=0.f);
+    void OnReplicatedShot(bool bADS,float PumpRate,float ShotAge);
+    bool PausePumpEjection();
+    void EjectPumpCasing();
     /** Detached reload geometry; Frame uses centimetres and unit mesh scale. */
     void OnReloadCartridge(UStaticMesh* Geometry,const FTransform& Frame,const FVector& Velocity,float InitialAge);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
@@ -144,8 +148,11 @@ public:
     UPROPERTY(EditAnywhere, Category="Weapon FX|Smoke", meta=(ClampMin="1.0", ClampMax="2.5")) float SmokeSpreadScale = 1.6f;
 
 private:
+    friend class UShotgunAttachmentAuditCommandlet;
+    void SchedulePumpEjection(float Rate,float ShotAge);
     bool bIndependentPistol=false, bIndependentRevolver=false;
     UPROPERTY(Transient) TObjectPtr<class USceneComponent> IndependentExit;
+    FTimerHandle PumpEjectTimer;
     void SpawnCasing();
     bool ShouldHideCasings() const;
     bool SpawnEpicFX(FVector Position, FVector Forward, float Scale);

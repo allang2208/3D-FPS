@@ -6,6 +6,8 @@
 #include "../Weapons/ThermalScopeAssets.h"
 #include "ColdSteelWeaponIcons.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/M870OpticAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
 #include "../Weapons/Super90SpeedloaderAssets.h"
 #include "ColdSteelEquipmentIconSource.h"
 #include "ColdSteelMeleePreview.h"
@@ -37,11 +39,13 @@
 #include "../Weapons/Super90ForegripAssets.h"
 #include "../Weapons/Super90RearGripAssets.h"
 #include "../Weapons/Super90StockAssets.h"
+#include "../Weapons/M870FurnitureAssets.h"
 #include "../Weapons/ShotgunChokeAssets.h"
 #include "../Weapons/ShotgunDuckbillAssets.h"
 #include "../Weapons/ShotgunBirdcageAssets.h"
 #include "../Weapons/ShotgunSuppressorAssets.h"
 #include "../Weapons/Super90TubeMagazineAssets.h"
+#include "../Weapons/M870TubeMagazineAssets.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/RSH12TacticalAssets.h"
 #include "../Weapons/TacticalDeviceVariants.h"
@@ -140,6 +144,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     else
     {
         if(D==TEXT("ue_super90")){Add(Super90WeaponAssets::MeshPath,true);Add(Super90WeaponAssets::AnimationPath(TEXT("idle")),true);}
+        if(D==M870WeaponAssets::Definition){Add(M870WeaponAssets::MeshPath,true);Add(M870WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_lmg201"))
         {
@@ -178,6 +183,26 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         for(const auto& Part:Parts)
         {
             FString Key=Part.Value;
+            if(D==TEXT("ue_m870")&&Part.Key==TEXT("stock"))
+            {
+                const FString Stock=Parts.FindRef(TEXT("stock"));
+                if(M870FurnitureAssets::SupportsStock(Stock))
+                {
+                    Add(M870FurnitureAssets::MeshPath(Stock),true);
+                    Add(M870FurnitureAssets::MeshPath(TEXT("factory_reargrip")),true);
+                }
+                continue;
+            }
+            if(D==TEXT("ue_m870")&&Part.Key==TEXT("underbarrel"))
+            {
+                const FString FamilyKey=M870FurnitureAssets::ForegripFamily(Key);
+                if(!FamilyKey.IsEmpty())
+                {
+                    Add(M870FurnitureAssets::MeshPath(FamilyKey),true);
+                    Add(M870FurnitureAssets::ProfilePath(FName(FamilyKey==TEXT("tactical_vertical")?TEXT("vertical"):*FamilyKey)),true);
+                }
+                continue;
+            }
             if(D==Super90WeaponAssets::Definition&&Part.Key==TEXT("muzzle")
                 &&(Key==ShotgunChokeAssets::Part||Key==ShotgunBirdcageAssets::Part||Key==ShotgunSuppressorAssets::Part||Key==ShotgunDuckbillAssets::Part))
             {
@@ -198,12 +223,16 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             {
                 Add(Super90TubeMagazineAssets::MeshPath,true);continue;
             }
+            if(D==M870WeaponAssets::Definition&&Part.Key==TEXT("magazine")&&Key==M870TubeMagazineAssets::Part)
+            {
+                Add(M870TubeMagazineAssets::MeshPath,true);continue;
+            }
             if(Part.Key==TEXT("stock")&&Key==LegendaryTacticalStock::Part)
             {
                 Add(LegendaryTacticalStock::MeshPath(D),true);
                 continue;
             }
-            if(TacticalDeviceVariants::IsSlot(Part.Key)&&(TacticalDeviceVariants::SupportsSecondary(D)||D==Super90WeaponAssets::Definition))
+            if(TacticalDeviceVariants::IsSlot(Part.Key)&&(TacticalDeviceVariants::SupportsSecondary(D)||D==Super90WeaponAssets::Definition||D==M870WeaponAssets::Definition))
             {
                 if(TacticalDeviceVariants::IsLaser(Key)||Key==TEXT("flashlight"))
                     Add(TacticalDeviceVariants::FittedMeshPath(TacticalDeviceVariants::FamilyForDefinition(D),Key,Part.Key==TacticalDeviceVariants::SecondarySlot),true);
@@ -228,9 +257,9 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
                 }
                 continue;
             }
-            if(D==Super90WeaponAssets::Definition&&Part.Key==TEXT("reload_device")&&Key==Super90SpeedloaderAssets::Id)
+            if((D==Super90WeaponAssets::Definition||D==M870WeaponAssets::Definition)&&Part.Key==TEXT("reload_device")&&Key==Super90SpeedloaderAssets::Id)
             {
-                Add(Super90SpeedloaderAssets::Guide,true);
+                Add(Super90SpeedloaderAssets::GuideFor(D==M870WeaponAssets::Definition),true);
                 continue;
             }
             if(D==PitViper2011WeaponAssets::Definition && Part.Key==TEXT("muzzle") && Key==PitViper2011SICompensator::Part)
@@ -251,6 +280,14 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             if (D == RSH12WeaponAssets::Definition && Part.Key == TEXT("muzzle") && RSH12MuzzleAssets::Supports(Key))
             {
                 Add(RSH12MuzzleAssets::FittedMeshPath(Key), true);
+                continue;
+            }
+            if(D==TEXT("ue_m870") && Part.Key==TEXT("optic") && M870OpticAssets::Supports(Key))
+            {
+                Add(M870OpticAssets::MeshPath(Key),true);
+                Add(M870OpticAssets::SeatPath(Key),true);
+                if(Key==TEXT("lpvo_1_6x"))Add(M870OpticAssets::MeshPath(TEXT("lpvo_ring")),true);
+                if(Key==TEXT("thermal_scope"))Add(M870OpticAssets::MeshPath(TEXT("thermal_selector")),true);
                 continue;
             }
             if(Part.Key==TEXT("optic")&&Key==TEXT("thermal_scope"))

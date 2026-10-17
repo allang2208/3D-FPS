@@ -9,7 +9,7 @@ namespace RifleHipFraming
 bool Supports(const FString& Definition)
 {
     // Explicit scope: do not change either machine gun, including their grip families.
-    return Definition == TEXT("ue_super90") || Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
+    return (Definition == TEXT("ue_super90") || Definition == TEXT("ue_m870")) || Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
         || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_akm")
         || Definition == TEXT("ue_m16a2") || Definition == TEXT("ue_ash12")
         || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd");
@@ -20,6 +20,10 @@ FVector PresentationOffset(const FString& Definition)
     // Camera-space centimetres, independent of the shared authoring basis.
     // Restore receiver/bolt detail cropped by forcing every wrist to M4 depth.
     // Move the gun and both arms together; ADS keeps its own sight calibration.
+    // Match SUPER90's rear-sight position, not just its wrist: M870's native
+    // idle places the receiver lower relative to hand_r. Baked from saved idles
+    // in SourceAssets/M870HipFraming20261017/hip-calibration.json.
+    if (Definition == TEXT("ue_m870")) return FVector(-1.900510f, 1.680418f, 9.498009f);
     float Forward = 0.f;
     if (Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_m16a2")) Forward = 5.f;
     else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")) Forward = 9.f;
@@ -85,7 +89,7 @@ void FRifleHipFraming::Initialize(const FString& Definition, UAnimSequence* Idle
     bAKMSights = bMeasuredAKMSights;
     // Super90 retains its native UE bind: physical up is bone-local -Y.
     // The shared M4 ruler above still uses its own bone-local Z.
-    GunUpAxis = Definition == TEXT("ue_super90") ? -FVector::RightVector : FVector::UpVector;
+    GunUpAxis = (Definition == TEXT("ue_super90") || Definition == TEXT("ue_m870")) ? -FVector::RightVector : FVector::UpVector;
     const FVector ReferenceHand = Anchor + BaseRotation.RotateVector(Hand);
     TargetHand = ReferenceHand + RifleHipFraming::PresentationOffset(Definition);
     TargetAxis = BaseRotation.Quaternion() * Axis;

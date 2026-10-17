@@ -1,0 +1,19 @@
+{
+  "base": "a0956a64d2721e72eafd1c9bcba9ff50cb67509b",
+  "publication_paths": 342,
+  "catalog_changes": "M870 entries only; unrelated recipe formatting retained",
+  "diff_check": true,
+  "binary_files": 0,
+  "credential_findings": 0,
+  "sibling_task_symbols_in_added_cpp": 0,
+  "archive_files": 317,
+  "archive_bytes": 711948844,
+  "archive_sha256_readback": true,
+  "skill_mirrors": [
+    "ue5-fps-arms-animation",
+    "ue5-weapon-workflow"
+  ],
+  "gameplay_tests_this_publication": false,
+  "editor_started": false,
+  "staged_diff_sha256_before_receipt": "d202fbbd9bee1a6e66c7b7398c404ebf493b2e750d1640e7f786108e2e0d39cd"
+}

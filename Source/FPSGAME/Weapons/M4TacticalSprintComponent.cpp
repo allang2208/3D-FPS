@@ -11,6 +11,7 @@
 #include "A762WeaponAssets.h"
 #include "SVDWeaponAssets.h"
 #include "Super90WeaponAssets.h"
+#include "TubeShotgunAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
@@ -52,6 +53,13 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
                 SharedClips.Add(Profile?Layer->Playback():Layer->Base.Get());
             }
         if(SharedClips.Num()==18){Clips=MoveTemp(SharedClips);return;}
+    }
+    if (Weapon==ERifleSprintWeapon::M870)
+    {
+        for(int32 Grip=0;Grip<6;++Grip)
+            for(const TCHAR* Role:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*M870WeaponAssets::AnimationPath(Role)));
+        return;
     }
     if (Weapon==ERifleSprintWeapon::Super90)
     {

@@ -1,0 +1,7 @@
+{
+  "target": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+  "before_sha256": "e870419bb11cd99040b619e7d9f50494f4edd2958d2d1c02fe58fc29331a0dba",
+  "after_sha256": "f6649be0c3b0248cf7e0a8ed1890f0c60d757fc02469882a21e2cee2ba914a47",
+  "context": "Local shared fixture captured before R3 audit; HEAD alone is not this prerequisite.",
+  "automatic_apply": false
+}

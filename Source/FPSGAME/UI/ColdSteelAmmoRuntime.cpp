@@ -203,3 +203,15 @@ bool UColdSteelStatusModel::CompleteWeaponReloadCycle(const FString& WeaponId)
     if(!Gun || !WeaponReloadStages::SetNeedsCycle(*Gun,false))return false;
     return CommitState(MoveTemp(State));
 }
+
+void UColdSteelStatusModel::MarkM870PumpInterrupted(const FString& WeaponId)
+{
+    // Do not call SyncRuntime here: equipment publication can already refer
+    // to the incoming gun while the character still presents the outgoing one.
+    auto State=Snapshot();
+    auto* Gun=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==WeaponId&&I.Definition==TEXT("ue_m870");});
+    if(!Gun||WeaponReloadStages::NeedsCycle(*Gun)||!WeaponReloadStages::SetNeedsCycle(*Gun,1))return;
+    // Keep the mechanical gate in memory even if an ordinary save is deferred.
+    // The next profile save carries it; no ammunition is added or refunded.
+    if(!PersistState(State,false))Publish(State);
+}

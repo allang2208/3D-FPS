@@ -1,0 +1,9 @@
+# M870 Tactical sources
+
+- Gun mesh and four PBR maps: **M870 Tactical**, **WillisChiejina**, [Sketchfab publication](https://sketchfab.com/3d-models/m870-tactical-fad4289d1083447d9c8cc833362b04c6), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Original files and API metadata are retained in this directory. Changes: scale normalization, complete-shell mechanical separation, skeletal binding, game materials, inventory icon and workbench pieces.
+- Arm geometry: the project's current V7 bare arms, read from the installed Super90 mesh. Existing arm and equipment provenance remains applicable; the gun's CC BY license does not replace it. The original bind and root name are retained so existing fitted clothing can follow the same pose.
+- Motion and loose shell donor: the installed Super90 family, originally derived from Cransh's [FPS Benelli M4 Animations](https://sketchfab.com/3d-models/fps-benelli-m4-animations-225a62190f6043ca975eaa2798ab7e2c), CC BY 4.0. Original publication credits haoliu95 and teenjust500. M870 adaptations include the traditional-stock grip, support-hand placement, pump cycle, empty-reload closure, inspect and sprint actions. No Super90 gun mesh is included in the M870.
+- Fire sound: retained Mossberg cut from [The Free Firearm Sound Library](https://opengameart.org/content/the-free-firearm-sound-library), CC0, credited to Ben Jaszczak, Brian Nelson, Kevin Heras and Matthew Nanney. This is game audio, not a claimed M870 field recording.
+- Shell insertion and mechanical audio: existing project sources documented in `SourceAssets/Super90GameDevAudio20261007/provenance.json`; separate rights/provenance from the CC0 fire recording and Sketchfab model. New cuts and hashes are recorded in `audio_provenance.json`.
+
+The download credential was used only for the authorized acquisition. It is not stored in these files or game configuration. No public redistribution or Git publication is performed by this task.

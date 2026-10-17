@@ -1,5 +1,6 @@
 #include "HK416Attachments.h"
 #include "Super90RearGripAssets.h"
+#include "M870FurnitureAssets.h"
 #include "HK416WeaponAssets.h"
 #include "AR416Furniture.h"
 #include "LMG201Attachments.h"
@@ -28,6 +29,14 @@ bool IsFactoryRearGrip(const FName& Slot)
 
 void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
 {
+    if(IsM870Weapon())
+    {
+        auto* Stock=StockAttachment.Get();auto* Grip=RearGripAttachment.Get();
+        M870FurnitureAssets::ConfigureRear(this,AKMViewmodel,Stock,Grip,M870FurnitureAssets::InstalledPart(Stock),bInventoryWeaponReady);
+        StockAttachment=Stock;RearGripAttachment=Grip;
+        bSkeletonStock=Stock&&Stock->IsVisible();if(Stock)StockMount=Stock->GetRelativeTransform();
+        return;
+    }
     if(IsSuper90Weapon())
     {
         RearGripAttachment=Super90RearGripAssets::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady);

@@ -17,6 +17,13 @@
 #include "TacticalSuppressorAssets.h"
 #include "DanWesson715FittedParts.h"
 #include "RSH12MuzzleAssets.h"
+#include "ShotgunChokeAssets.h"
+#include "ShotgunDuckbillAssets.h"
+#include "ShotgunBirdcageAssets.h"
+#include "ShotgunSuppressorAssets.h"
+#include "Super90TubeMagazineAssets.h"
+#include "GunsmithSystem.h"
+#include "Engine/GameInstance.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "PistolAudioAssets.h"
 #include "Components/StaticMeshComponent.h"
@@ -29,6 +36,55 @@
 
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
+    if(IsSuper90Weapon())
+    {
+        SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
+        const bool Birdcage=Variant==ShotgunBirdcageAssets::Part;
+        const bool Suppressor=Variant==ShotgunSuppressorAssets::Part;
+        const bool Duckbill=Variant==ShotgunDuckbillAssets::Part;
+        const bool Enabled=bInventoryWeaponReady&&(Variant==ShotgunChokeAssets::Part||Birdcage||Suppressor||Duckbill);
+        if(!Enabled)
+        {
+            if(MuzzleAttachment){MuzzleAttachment->DestroyComponent();MuzzleAttachment=nullptr;}
+            MuzzleVariant.Reset();
+            return;
+        }
+        if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return;
+        const bool ExtendedTube=MagazineAttachmentId==Super90TubeMagazineAssets::Part;
+        const TCHAR* PartPath=Duckbill?ShotgunDuckbillAssets::MeshPath:Suppressor?(ExtendedTube?Super90TubeMagazineAssets::SuppressorMeshPath:ShotgunSuppressorAssets::MeshPath):
+            Birdcage?ShotgunBirdcageAssets::MeshPath:(ExtendedTube?Super90TubeMagazineAssets::ChokeMeshPath:ShotgunChokeAssets::MeshPath);
+        auto* Part=LoadObject<UStaticMesh>(nullptr,PartPath);
+        if(!Part){UE_LOG(LogTemp,Error,TEXT("Shotgun muzzle mesh is unavailable: %s"),*Variant);return;}
+        if(!MuzzleAttachment)
+        {
+            MuzzleAttachment=NewObject<UStaticMeshComponent>(this,TEXT("Super90Muzzle"));
+            MuzzleAttachment->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
+            MuzzleAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            MuzzleAttachment->SetCastShadow(false);
+            MuzzleAttachment->bReceivesDecals=false;
+            MuzzleAttachment->RegisterComponent();
+        }
+        MuzzleAttachment->EmptyOverrideMaterials();
+        MuzzleAttachment->SetStaticMesh(Part);
+        MuzzleAttachment->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);
+        MuzzleAttachment->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
+        const auto& Ref=AKMViewmodel->GetSkeletalMeshAsset()->GetRefSkeleton();
+        FTransform Root=FTransform::Identity;
+        for(int32 I=Ref.FindBoneIndex(TEXT("WPN_root"));I!=INDEX_NONE;I=Ref.GetParentIndex(I))
+            Root=Root*Ref.GetRefBonePose()[I];
+        // Actual upper barrel rim, in native component centimetres. The legacy
+        // muzzle marker sits below this rim and is not the attachment seat.
+        const FTransform Seat(FRotationMatrix::MakeFromXZ(FVector(0,-1,0),FVector::UpVector).ToQuat(),
+            FVector(0,-49.9307f,-74.43155f));
+        MuzzleAttachment->SetRelativeTransform(Seat.GetRelativeTransform(Root));
+        MuzzleAttachment->SetVisibility(true);
+        MuzzleLocalTip=FVector(Duckbill?ShotgunDuckbillAssets::TipCM:Suppressor?ShotgunSuppressorAssets::TipCM:
+            Birdcage?ShotgunBirdcageAssets::TipCM:ShotgunChokeAssets::TipCM,0,0);
+        if(const auto* Tip=Part->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
+        MuzzleLocalAxis=FVector::ForwardVector;
+        MuzzleVariant=Variant;
+        return;
+    }
     if (IsRSH12Weapon())
     {
         const bool Enabled = bInventoryWeaponReady && RSH12MuzzleAssets::Supports(Variant);
@@ -245,7 +301,7 @@ FTransform AFPSGAMECharacter::GetNativeMuzzleTransform() const
         else if(AKMSoviet::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
         else Position=AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
         if(bUseM16)Forward=AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
-        else if(IsPistolWeapon()||IsSuper90Weapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+        else if(IsPistolWeapon()||IsTubeShotgunWeapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
         else
         {
             Forward=AKMViewmodel->GetSocketQuaternion(TEXT("WPN_SOCKET_Muzzle")).GetAxisY();
@@ -253,6 +309,16 @@ FTransform AFPSGAMECharacter::GetNativeMuzzleTransform() const
         }
     }
     return FTransform(Forward.Rotation(),Position);
+}
+float AFPSGAMECharacter::GetShotgunPelletSpreadMultiplier() const
+{
+    return IsTubeShotgunWeapon()?ShotgunPelletSpreadMultiplier:1.f;
+}
+bool AFPSGAMECharacter::HasShotgunDuckbill() const
+{
+    // Gameplay follows the saved/equipped recipe, including server pawns
+    // without loaded cosmetic meshes. Switching/removing the part clears it.
+    return (IsSuper90Weapon())&&bShotgunDuckbillInstalled;
 }
 FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
 {

@@ -1,6 +1,7 @@
 #include "../FPSGAMECharacter.h"
 #include "Super90SpeedloaderAssets.h"
 #include "Super90WeaponAssets.h"
+#include "TubeShotgunAssets.h"
 #include "Super90LoaderAudioReference.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -21,7 +22,10 @@ void SetLooseShellVisible(USkeletalMeshComponent* Mesh,bool Show)
         for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
         {
             const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-            if(Asset->GetMaterials().IsValidIndex(M)&&Asset->GetMaterials()[M].MaterialSlotName==LooseShellMaterial
+            // M870 carries the same WPN_Shell cartridge under its imported slot
+            // name; the loader tube reuses that bone, so it must hide there too.
+            if(Asset->GetMaterials().IsValidIndex(M)
+                &&(Asset->GetMaterials()[M].MaterialSlotName==LooseShellMaterial||Asset->GetMaterials()[M].MaterialSlotName==TEXT("M_S90_12gauge"))
                 &&Mesh->IsMaterialSectionShown(M,L)!=Show)
                 Mesh->ShowMaterialSection(M,S,Show,L);
         }
@@ -31,13 +35,15 @@ void SetLooseShellVisible(USkeletalMeshComponent* Mesh,bool Show)
 void AFPSGAMECharacter::InitializeSuper90Speedloader()
 {
     Super90LoaderNormal.Reset();Super90LoaderEmpty.Reset();Super90LoaderSounds.Reset();Super90LoaderPropMesh=nullptr;
-    if(!IsSuper90Weapon())return;
+    if(!IsTubeShotgunWeapon())return;
     using namespace Super90SpeedloaderAssets;
+    // Index 0 is the standalone chamber cycle (M870: its own pump cycle).
+    const bool M870=IsM870Weapon();
     Super90LoaderNormal.SetNum(Capacity+1);Super90LoaderEmpty.SetNum(Capacity+1);
     for(int32 Count=0;Count<=Capacity;++Count)
     {
-        if(Count)Super90LoaderNormal[Count]=LoadObject<UAnimSequence>(nullptr,*Animation(Count,false));
-        Super90LoaderEmpty[Count]=LoadObject<UAnimSequence>(nullptr,*Animation(Count,true));
+        if(Count)Super90LoaderNormal[Count]=LoadObject<UAnimSequence>(nullptr,*Animation(Count,false,M870));
+        Super90LoaderEmpty[Count]=LoadObject<UAnimSequence>(nullptr,*Animation(Count,true,M870));
     }
     Super90LoaderPropMesh=LoadObject<USkeletalMesh>(nullptr,Props);
     // Load once with the equipped weapon, never at a mechanical contact/tick.
@@ -47,13 +53,17 @@ void AFPSGAMECharacter::InitializeSuper90Speedloader()
 
 void AFPSGAMECharacter::SetSuper90Speedloader(bool bEnabled)
 {
-    bEnabled=bEnabled&&bInventoryWeaponReady&&IsSuper90Weapon();
+    bEnabled=bEnabled&&bInventoryWeaponReady&&IsTubeShotgunWeapon();
     if(!bEnabled)
     {
         if(Super90LoaderGuide){Super90LoaderGuide->DestroyComponent();Super90LoaderGuide=nullptr;}
         if(Super90LoaderProps){Super90LoaderProps->DestroyComponent();Super90LoaderProps=nullptr;}
         return;
     }
+    // Each tube shotgun has its own port adapter; a swap between two guns that
+    // both carry the loader must not keep the previous gun's guide mesh.
+    auto* GuideMesh=LoadObject<UStaticMesh>(nullptr,Super90SpeedloaderAssets::GuideFor(IsM870Weapon()));
+    if(!GuideMesh)return;
     if(!Super90LoaderGuide)
     {
         auto* GuideMesh=LoadObject<UStaticMesh>(nullptr,Super90SpeedloaderAssets::Guide);
@@ -92,7 +102,7 @@ void AFPSGAMECharacter::SetSuper90Speedloader(bool bEnabled)
 
 void AFPSGAMECharacter::UpdateSuper90SpeedloaderVisual()
 {
-    if(!IsSuper90Weapon())return;
+    if(!IsTubeShotgunWeapon())return;
     const float Time=Super90ReloadSourceTime(WeaponStateElapsed);
     // Native feed clips need the cartridge; idle and loader clips retain its
     // off-screen parking pose. Keep it hidden while blending out of idle too.
@@ -109,7 +119,7 @@ void AFPSGAMECharacter::UpdateSuper90SpeedloaderVisual()
 void AFPSGAMECharacter::ClearSuper90SpeedloaderAction()
 {
     if(Super90LoaderProps)Super90LoaderProps->SetVisibility(false);
-    if(IsSuper90Weapon())Super90WeaponAssets::SetLooseShellVisible(AKMViewmodel,false);
+    if(IsTubeShotgunWeapon())Super90WeaponAssets::SetLooseShellVisible(AKMViewmodel,false);
     bSuper90SpeedReload=false;
 }
 
@@ -128,8 +138,16 @@ void AFPSGAMECharacter::SetSuper90LoaderCues()
         }
         ++Index;
     }
-    const float Ready=Super90SpeedloaderAssets::Release(Super90ReloadCount);
-    if(bPendingEmptyReload)
+    const bool M870=IsM870Weapon();
+    const float Ready=Super90SpeedloaderAssets::Release(Super90ReloadCount,M870);
+    if(bPendingEmptyReload&&M870)
+    {
+        // Pump pull and forward stroke of the appended (or standalone) cycle.
+        const float Start=Super90ReloadCount>0?M870LoaderTiming::CycleStart:0.f;
+        MechanicalCueTimes.Append({Start+.12f,Start+M870WeaponAssets::PumpPush});
+        MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
+    }
+    else if(bPendingEmptyReload)
     {
         MechanicalCueTimes.Add(Ready);
         MechanicalCueSounds.Add(ChargeReleaseSound);

@@ -1,5 +1,6 @@
 #include "Super90SupportArmNode.h"
 #include "Super90WeaponAssets.h"
+#include "TubeShotgunAssets.h"
 #include "Animation/AnimInstanceProxy.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -33,7 +34,7 @@ void FSuper90SupportArmNode::Configure(const USkeletalMeshComponent& Mesh)
     USkeletalMesh* Asset=Mesh.GetSkeletalMeshAsset();
     if(CachedMesh.Get()==Asset)return;
     CachedMesh=Asset;
-    bEnabled=Asset && Asset->GetPathName()==Super90WeaponAssets::MeshPath;
+    bEnabled=Asset && TubeShotgunAssets::MatchesMesh(Asset->GetPathName());
 }
 
 void FSuper90SupportArmNode::CacheBones_AnyThread(const FAnimationCacheBonesContext& Context)

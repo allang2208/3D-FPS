@@ -336,7 +336,10 @@ void Super90Loader(float Time, float End, bool bEmpty, bool bCycle, float Horizo
     }
     if (bEmpty)
     {
-        const float Release = bCycle ? Super90ReleaseTiming::CycleClosed : Super90ReleaseTiming::Closed;
+        // The caller's closure contact is authoritative (M870 closes its pump
+        // later than the SUPER90 button press); fall back to the SUPER90 frames.
+        const float Release = Contacts.Num() > 2 ? Contacts[2]
+            : bCycle ? Super90ReleaseTiming::CycleClosed : Super90ReleaseTiming::Closed;
         // A short closure beat accompanies the press, with no preceding pull.
         Impact(Impacts, ResponseTime, Release, FMath::Min(.22f, ResponseEnd - Release),
             {-.45f, .05f, 0.f}, {.10f, .01f, -.06f});

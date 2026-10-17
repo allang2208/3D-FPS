@@ -31,6 +31,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
     if(Variant==TEXT("thermal_scope")){SetThermalOptic();return;}
     if(HasThermalScope()&&LPVORing){LPVORing->DestroyComponent();LPVORing=nullptr;}
+    if (IsM870Weapon()) { SetM870Optic(Variant); return; }
     if (IsSuper90Weapon()) { SetSuper90Optic(Variant); return; }
     if (IsRSH12Weapon()) { SetRSH12Optic(Variant); return; }
     if (Variant == CommonHK416Parts::Optic)
@@ -258,7 +259,6 @@ FVector AFPSGAMECharacter::OpticLocalAimPoint() const
     if (IsPitViperWeapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
             return Center->RelativeLocation;
-    if ((IsSuper90Weapon() || IsHK416Weapon() || OpticVariant == CommonHK416Parts::Optic) && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))
             return Center->RelativeLocation;
     if ((bUseDanWesson715 || OpticVariant==PSO1AttachmentAssets::Variant) && HolographicOptic && HolographicOptic->GetStaticMesh())

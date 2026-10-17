@@ -5064,5 +5064,31 @@
     "ue_icon": "Icons/IncinerationCollectibles20261015/search_flue_gas_catalytic_core.png",
     "icon_fallback": "烟气净化催化芯",
     "world_mesh": "/Game/Items/IncinerationCollectibles20261015/V1/Meshes/SM_Incineration_CatalyticCore.SM_Incineration_CatalyticCore"
+  },
+  "ue_m870": {
+    "id": "ue_m870",
+    "name": "M870 Tactical",
+    "category": "weapon",
+    "type": "武器",
+    "equipSlot": "weapon",
+    "weaponType": "shotgun",
+    "weaponTypeTag": "霰弹枪",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 4,
+    "grid_h": 2,
+    "icon": "Icons/ue_m870.png",
+    "ue_icon": "Icons/ue_m870.png",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "80"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "7"
+      }
+    ],
+    "desc": "雷明顿 870 系列的战术型泵动霰弹枪，采用管式弹仓和传统枪托。每次射击后拉动护木退壳，再前推完成供弹。适合近距离掌握节奏逐发射击；装填时从机匣下方逐发补弹，也可提前结束补弹。"
   }
 }

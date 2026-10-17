@@ -27,3 +27,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 腰射／ADS 镭射归零、联机光点一致及架枪确认交互，读取 [战术灯与镭射](references/tactical-devices.md) 的最新规则；枪声、火光、退壳与每手机械事件见 [武器音效](references/weapon-audio.md)。
 
 - 木工成品评分、弓物理伤害与法杖魔攻通道：[工件品质契约](../ue5-cpp-gameplay/references/paid-workpiece-quality.md)。
+
+- M870 的泵动中断、ADS 保持、枪托近战权威、通用配件衔接及图标手臂剔除：[M870 泵动枪接入](references/m870-pump-integration.md)。按武器实例维护机械状态，区分离线权威检查与真实联机。

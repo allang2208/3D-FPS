@@ -1,0 +1,2538 @@
+[
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/ads_after.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/ads_after.png",
+    "bytes": 410487,
+    "sha256": "9374a1dcad9c8d9feacc03f7480fab34269116f687b41cc52e908633d545c5a4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/ads_before.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/ads_before.png",
+    "bytes": 411676,
+    "sha256": "2aba5dfbd7334ff06d803cd2dbe0dc92036c5c4069a375f15a9ab294f418eec5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/authoring.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/authoring.json",
+    "bytes": 5434,
+    "sha256": "58037be89b93edb4513b6f8ade95de5600486fc1f3e5a1245d4936c765b203d1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/author_thumb.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/author_thumb.log",
+    "bytes": 3488,
+    "sha256": "31a4ccca457f4efb8e7695dfd6797b1d36f479dd0a7cf131ea6d926420b6b778",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/author_thumb.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/author_thumb.py",
+    "bytes": 5030,
+    "sha256": "37f1bc3abe474585ee33ea9d6c9dfda4f912b800fc8978e5fab801bc989c62b7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/body_roll_distance.npz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/body_roll_distance.npz",
+    "bytes": 1039150,
+    "sha256": "77c105401405c830ef65d78bb8b8eedfe4b0fe0a84bf31a6a73713bf6b39a980",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/check_thumb_surface.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/check_thumb_surface.log",
+    "bytes": 1530,
+    "sha256": "293b19e25ed349de61b2968cf462addb66e0e240dcf86bc228dc9475571dda32",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/check_thumb_surface.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/check_thumb_surface.py",
+    "bytes": 2632,
+    "sha256": "d9306ab92c9f04aba74792f6c4723a9c3c3ddca28ec0b041003ec4d33a38213d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/delivery.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/delivery.json",
+    "bytes": 4006,
+    "sha256": "c4014ca68bd096251757d0708b73eaa21bdc0b73678532d145fe26ecb8691698",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/edge_targets.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/edge_targets.json",
+    "bytes": 838,
+    "sha256": "93239546840367bd4280ef4d50a3231367ab2414d5db8c15c3677dfd368c34ae",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/finalize_delivery.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/finalize_delivery.py",
+    "bytes": 3110,
+    "sha256": "c7e23d603ca33f1ae78b5b91094b7a6b672e51da5c0acb3a04128c5ff95209ba",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/fit_roll_contacts.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/fit_roll_contacts.log",
+    "bytes": 1008,
+    "sha256": "ac7f5bfc872acdc03e5c3eb22610b20857971911f90931ee4622db3553174ba6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/fit_roll_contacts.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/fit_roll_contacts.py",
+    "bytes": 3911,
+    "sha256": "532d0e5f0eb745c558d5009e59fc43b0da107e3615acfb14822fa314b17c088f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/fit_roll_refine.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/fit_roll_refine.log",
+    "bytes": 191,
+    "sha256": "941fdf0d4685f5b61d5fd5261dc6839e80d8f969551f6f87c48c8fc904bdc866",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/fit_thumb.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/fit_thumb.py",
+    "bytes": 2753,
+    "sha256": "3ad3c88b5f934837666f611a7f866c6c3184d7bfe5f7d98e89b2a37599a434cb",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/hip_after.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/hip_after.png",
+    "bytes": 438988,
+    "sha256": "1066c83af7569e122643b57e0a16efb17c525fe05dc2c88652620b95bd210828",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/hip_before.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/hip_before.png",
+    "bytes": 440845,
+    "sha256": "970429ab2a34617e598276bd07fcbaf0682acee8fa95aea7a8f08b82c13bf6b4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/install.ps1",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/install.ps1",
+    "bytes": 1573,
+    "sha256": "e1858d63df60ca913c34aef5e58cd6138576cd3ed0acea397dacef21e193f100",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/install_animations.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/install_animations.log",
+    "bytes": 371830,
+    "sha256": "2c48cbdb7fdd9aa965cfcaac3ad97b5e1db55ddfd8f0217279e8d9126a49d746",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/install_animations.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/install_animations.py",
+    "bytes": 3965,
+    "sha256": "f1d81e8cc4e1f0f9131ee1c2cf120a84aa065edbc61fa294945a3b072f5ae1bb",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/install_console.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/install_console.log",
+    "bytes": 96382,
+    "sha256": "65da1234d0e56e66c20f48d6231df0ed91234765acc7ea5a35c5d318a3e305ec",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/install_receipt.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/install_receipt.json",
+    "bytes": 4955,
+    "sha256": "dd806aff13cfb46a3669afdc4799d19dc1b5a837578c727a92269c80f199159d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/M870_ThumbCandidate.blend",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/M870_ThumbCandidate.blend",
+    "bytes": 66179094,
+    "sha256": "f33c2e8bbf35078da2f302cf40a6f30d12d107195113941197a8fb138a612587",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/M870_ThumbEdge_Editable.blend",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/M870_ThumbEdge_Editable.blend",
+    "bytes": 74585454,
+    "sha256": "9f3c46365194dff9550999cdb598454a2087508b725cf989be3e02022870573f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/pad_after.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/pad_after.png",
+    "bytes": 651963,
+    "sha256": "2229918e06df537b1a55900959d0196d30859b2541f4be659477c4ed4103eec3",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/pad_before.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/pad_before.png",
+    "bytes": 658450,
+    "sha256": "282ccf5cd73b06ec8df8ccd6e0c0f47fe1bae717ed10ba7117af60977a98ebdb",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/prepare_roll_contacts.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/prepare_roll_contacts.log",
+    "bytes": 8171,
+    "sha256": "6824b62a09827fcc958daf130528a06dcdca34fad5d8eadab961679b0e349226",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/prepare_roll_contacts.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/prepare_roll_contacts.py",
+    "bytes": 2799,
+    "sha256": "1c82a4b751750a9ff64e4b7cfdae776da7052cc86b310b2c129e69d94c6dcf76",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/preview_after.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/preview_after.log",
+    "bytes": 968,
+    "sha256": "755f414e3c6def191cfb604614177680d3ab79a5061b5287397e8ecc3e0956a1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/preview_before.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/preview_before.log",
+    "bytes": 923,
+    "sha256": "81aff5a6d87d4b8196116d30453d75818c6a878c1b4a77c1f0a98bb3832fdcc1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/preview_thumb.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/preview_thumb.py",
+    "bytes": 2798,
+    "sha256": "307543d3eda661aeed2a42b153b640f4a1942126b0c8fefdf2bb68c8f6745fcc",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/pump.npz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/pump.npz",
+    "bytes": 8523,
+    "sha256": "b75aec63b7bbece1d5e04e68558a7822c971b1d2992ecfbe24d2d49a7eb36457",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/pump_distance.npz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/pump_distance.npz",
+    "bytes": 129393,
+    "sha256": "8acd54e7fbbe766246d5c6bd4a385563a0232135b6782d3b925c32b41057f731",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/pump_roll_distance.npz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/pump_roll_distance.npz",
+    "bytes": 259163,
+    "sha256": "181efec6511ae145b39c30cce629ed914a834f9380d399ff8fde8d0f0cbc787b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/README.md",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/README.md",
+    "bytes": 2165,
+    "sha256": "91d882ee9fc4381d976683d11ffcd5eafff6376097c86e3d5ecdc07119b0aebb",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/read_thumb.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/read_thumb.log",
+    "bytes": 3651,
+    "sha256": "329d81a4deae7b317cf5bedaaf3b744e4a1177663f0679f308f34089dbcb5225",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/read_thumb.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/read_thumb.py",
+    "bytes": 4222,
+    "sha256": "71f7252eea5198973d3464ba94ab9d2029ff729a02b621492e5fff6b48ab9b42",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/review_native.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/review_native.log",
+    "bytes": 7284,
+    "sha256": "9d416be5de510d7554ac16ac9cb1089f5eb78cea99efe6ddc8dec7d122c3e29c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/review_native.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/review_native.py",
+    "bytes": 337,
+    "sha256": "f640e2f6a6136e29ea293cb726df3d16f722a5436c5fa0ea4aabf870d5abb3bf",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/roll_solution.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/roll_solution.json",
+    "bytes": 86492,
+    "sha256": "2762226374195f6ce64e6320a61a099e070e83856018bb43a110114782e630f5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/roll_targets.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/roll_targets.json",
+    "bytes": 10689,
+    "sha256": "cf5a485a97d7b127ad9b56d98826659988d49ee93c990d76a2313e6ef0dae8e7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/side_after.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/side_after.png",
+    "bytes": 672766,
+    "sha256": "9c30d83a3eeb6a0ddbcd5027561af8d6aa314e339c60df0463671eb446e74ac8",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/side_before.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/side_before.png",
+    "bytes": 672828,
+    "sha256": "e93814cd859df4759d4e68a2d3a783580dbb3527784fd2cf0dcd9694ecb8bd7d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/surface_check.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/surface_check.json",
+    "bytes": 57112,
+    "sha256": "769d40b576aad46be30fec7bf9a69544543b983dd97a671e40a1d34739e35767",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/thumb_closeup_comparison.jpg",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/thumb_closeup_comparison.jpg",
+    "bytes": 54388,
+    "sha256": "c44954e03db9a15c3b2fd0b202c72c4d6fb9d8b4fbf1429914b5df8f3a2c76aa",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/thumb_inputs.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/thumb_inputs.json",
+    "bytes": 19124,
+    "sha256": "7351e2289e689fb185453a2e69da71efacd6d410fb04f54b61196cecb7eeeda5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/thumb_inputs.npz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/thumb_inputs.npz",
+    "bytes": 95873,
+    "sha256": "eec85306b47f944abda23b5ffde6299289aaf34032cbccc5b9d1688186801672",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/thumb_solution.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/thumb_solution.json",
+    "bytes": 3212,
+    "sha256": "04fbac9a6ea1900e2e138eaf480a7ae57e0c1052dba8ebd5c3894f6029452eb3",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_cycle.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_cycle.uasset",
+    "bytes": 391715,
+    "sha256": "112154f400d744ab66d184a3509d632cbbf545eabfe9b63099cbdbd1cffcb537",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_equip.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_equip.uasset",
+    "bytes": 228649,
+    "sha256": "bdaf89851a62acc2a794dfec519eea1a4b17a58a0bbe7fa949edffe799c6555b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_fire.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_fire.uasset",
+    "bytes": 348032,
+    "sha256": "17dbae42aa1dc14ebd23ac703ebd7c73a054f25c24335bca48c15a600dcb4417",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_idle.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_idle.uasset",
+    "bytes": 436266,
+    "sha256": "5a97921b96f6b8ce6b786bdfd6d301d3c97f262ba673a81fa720389d2b80e4ea",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_inspect.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_inspect.uasset",
+    "bytes": 411731,
+    "sha256": "cfae6831fcef39251bc2aaf70fc36904c8d992e414336984a230c8b75004df96",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_quick_melee.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_quick_melee.uasset",
+    "bytes": 288783,
+    "sha256": "15150eb5a0fed32ed3b123b4a37221537a5eae8e257a0cc660c5da18ee303993",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_reload_continuous.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_reload_continuous.uasset",
+    "bytes": 2134336,
+    "sha256": "15adad34c0cd9c35edd76d7a30d20272eb4110013a26c805050322c96398eca9",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_reload_full.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_reload_full.uasset",
+    "bytes": 2303916,
+    "sha256": "1746b579fa3fa8203a8b8d35a32e5ddda6c6d295ed5633ca1a76e6f00175ed0f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_run.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_run.uasset",
+    "bytes": 125209,
+    "sha256": "e7e35994a3535da1f0cfaa973ca668c524c195316601d18e83e2b200111fea65",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_sprint_enter.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_sprint_enter.uasset",
+    "bytes": 111831,
+    "sha256": "41be3f5b41e8b8f56cecc1833375752847309954f1f013e80a4aed76cf5ac1a6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_sprint_exit.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_sprint_exit.uasset",
+    "bytes": 113422,
+    "sha256": "a5b40bd47e2212595ca1a75c9c40caca7694334217d848d4f3c283e42f995b15",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_sprint_loop.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_sprint_loop.uasset",
+    "bytes": 73359,
+    "sha256": "c0416b1c2b042988ad040f18ec183ed75e1555688eb63f6aa090cdc20402a028",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_walk.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Before/Animations/A_M870_walk.uasset",
+    "bytes": 180899,
+    "sha256": "4918f6138b91e4b382f70aa60f1ac457115a996bc780e3154b446a188bad5524",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_cycle.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_cycle.fbx",
+    "bytes": 690684,
+    "sha256": "790fb88a8cd40ac381ab3f635e3144611897b603d070ba6f06f3591e427309ff",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_equip.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_equip.fbx",
+    "bytes": 577356,
+    "sha256": "ef22160c4fe672f60f2fe4ede5e8810a46296d300a631c029ad48563299d8361",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_fire.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_fire.fbx",
+    "bytes": 656892,
+    "sha256": "c1e940f62d34ab65b24ff2f11e27e2eaf4f63100993ba93057da44a471d1fbbd",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_idle.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_idle.fbx",
+    "bytes": 1139996,
+    "sha256": "3c70b15f72de8867d6b0e20c52f06d48bf5135348c243897461694fd04cd6dd8",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_inspect.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_inspect.fbx",
+    "bytes": 1015388,
+    "sha256": "6244c54f7aab9a703d8fdf5bf5970ac58190a02b17ced60c8330952f199871f8",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_quick_melee.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_quick_melee.fbx",
+    "bytes": 663820,
+    "sha256": "13dd68918964575ef1494d28b50b4afa57e476d92bd162a484f81e04b3e0e1e3",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_reload_continuous.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_reload_continuous.fbx",
+    "bytes": 1800972,
+    "sha256": "1e1cd0e699bb67f4299c1f7994927674b8b6b1df76d27aab8ac4f70169d662e7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_reload_full.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_reload_full.fbx",
+    "bytes": 1896076,
+    "sha256": "c53b7721c285e426c2ed0721090615a4e476bf173bc7082e27e7d5de1bae9b35",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_run.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_run.fbx",
+    "bytes": 576076,
+    "sha256": "116a0ec6b2f41e2bad30d4588c48f8396e63b569203c4082e43da0f5e87fff44",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_sprint_enter.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_sprint_enter.fbx",
+    "bytes": 544876,
+    "sha256": "9bdf9f683a835c45c1ad3856fc19f58e5f8e551b3212c5cf65fa5664de484a1e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_sprint_exit.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_sprint_exit.fbx",
+    "bytes": 544876,
+    "sha256": "a1fcee0b14d72090435dd6f4db205ec336744629c73a3f1a3aa689108ae77d20",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_sprint_loop.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_sprint_loop.fbx",
+    "bytes": 617676,
+    "sha256": "2273a4721473fe0db53a09f289f8d5db659ae7fd7f7079b544018d59781599dc",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_walk.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Exports/Animations/A_M870_walk.fbx",
+    "bytes": 672076,
+    "sha256": "2de7080879446f7d477e72480974e41fb809b7b965d4039b18730e1f6aac5d4a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_ads.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_ads.png",
+    "bytes": 914742,
+    "sha256": "b51350091555a6c438ea5754cfca5ac7a9e30c5eb1a9753ea8a6d55ee0a51e6e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_fire_back.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_fire_back.png",
+    "bytes": 921542,
+    "sha256": "d66292a7e7044fb9a0b9d1082f5ea8c353afef4ad9439addb4dd904007f40240",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_fire_closed.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_fire_closed.png",
+    "bytes": 931074,
+    "sha256": "4610575023ec8ea349188ee6c9f7e941ecc474e41ed9ebb9aa6b71a9aa857134",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_hip.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_hip.png",
+    "bytes": 930005,
+    "sha256": "72d82300be8d3dc966fa8586009b8f210554adf22867f933814b9023e5c075e2",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_000.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_000.png",
+    "bytes": 929922,
+    "sha256": "586fc8f2fd8460e53c43e5595bb7ef899c5185d89ed750b6520d81604bd8c939",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_022.png",
+    "bytes": 946517,
+    "sha256": "47ade00ad03621d18ec0499ed034416b07cbaa2ef341e6b73dd04addeff76d44",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_044.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_044.png",
+    "bytes": 951363,
+    "sha256": "2bc7a59485a511198619c35d3020e66fe498a2376210a5120e03cf79f0eca743",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_094.png",
+    "bytes": 951533,
+    "sha256": "c5d106f3073cc937fe9f21d02ca2170aa792c3f5b43712e71e3e590b44d33447",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_194.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_194.png",
+    "bytes": 951533,
+    "sha256": "2b8b9f4e3c9d227e98cb53050b38c144ab6ecc76c588b76397f61f1a92d6ad88",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_294.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_294.png",
+    "bytes": 951533,
+    "sha256": "d9f2c4d8252e56b5d87a1288fe74dfd4f05ca722889eca75a746a70721695b10",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_344.png",
+    "bytes": 951533,
+    "sha256": "3db10759861de470ee5f88afc2b3bceb5f112aa9718788e15ba3608e09049b19",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_360.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_360.png",
+    "bytes": 947736,
+    "sha256": "3d9ebf401ca516283a302a6ef313c8c8e86b154fb7967d14589061b009b9f139",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_380.png",
+    "bytes": 930912,
+    "sha256": "35212359987a3ecd490c9606e5bb996e4ed7c320a12461fd0b74884603c04ef5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_391.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_391.png",
+    "bytes": 931183,
+    "sha256": "fd5fa859ffd1f363cb504d6a553c19859eaf9d883beb0a995520d5c35f26fb09",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_continuous_399.png",
+    "bytes": 930144,
+    "sha256": "fa4c9b1a9895a5ed0937e76a381d2bceb00a86f3b72103aa94c7838879013783",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_000.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_000.png",
+    "bytes": 929922,
+    "sha256": "c05a1b64bc957639af1960b1e98ccbecbb47aea5f8b8989217ed9909f06ae383",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_022.png",
+    "bytes": 946517,
+    "sha256": "b055dfa21695239f3e28540334191b35ccaa68cc7c0394df85959bec630d10a5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_044.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_044.png",
+    "bytes": 951363,
+    "sha256": "c2b74f85398bc54b52f67399109a69429c61378f38df944b0d7c493c5563e112",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_094.png",
+    "bytes": 951533,
+    "sha256": "c7370d891e4d1bf19408908937c29c7aede5114fe46e75b06779b2f60c3b021d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_194.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_194.png",
+    "bytes": 951533,
+    "sha256": "e97528b08089cc4142d8df2224f0668d226b6a4e72dfbc490e045a5a7bb02eac",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_294.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_294.png",
+    "bytes": 951533,
+    "sha256": "aab1f2c2375d1115878f49b68d39e95ac7d53f4ac1dc95037fe06ff82e4e15aa",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_344.png",
+    "bytes": 951533,
+    "sha256": "302b4be16c994c12a33a7e9d3caa9a03e77f84d6d1f1ab4bf97835d2bc734ce3",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_360.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_360.png",
+    "bytes": 947817,
+    "sha256": "436f42bf78a1b5272ec34a4a9f29df2d37553cd06c65b01d6a038e47a5437cea",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_380.png",
+    "bytes": 931177,
+    "sha256": "d0373323fd5ad335daf082ff1c6ba1a9bb81d76c11c2d25f7f00997d704c39c7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_391.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_391.png",
+    "bytes": 928169,
+    "sha256": "ca61526545d15b66659e70a4ff0a37764faa6d7868d56c9b949c667da5300098",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_399.png",
+    "bytes": 933063,
+    "sha256": "f0c04d600aa25a6a04bb16d02c10b89177dcea006f0580e240033964009a0819",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_424.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/bare_reload_full_424.png",
+    "bytes": 930144,
+    "sha256": "f569a8b1a646a32c8a32d22d5f4d5f0381b15011886c887c353fdbb6b573839f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_ads.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_ads.png",
+    "bytes": 914742,
+    "sha256": "cceef4c044857706ba1f3b5a80de0404cddf20eabfaa951f3b4ec646b5b95316",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_fire_back.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_fire_back.png",
+    "bytes": 921542,
+    "sha256": "6535c21e6610a038e01328a7c4da0b776637c2314b2f0ad1adaf37e9a9e5f055",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_fire_closed.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_fire_closed.png",
+    "bytes": 931744,
+    "sha256": "9f3539806fa74cd8cf556fc865ae7dc18ba51b245e591eb3f8a83aed5fedf724",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_hip.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_hip.png",
+    "bytes": 930005,
+    "sha256": "b3f6d35b08f2fe1a04647c4998bffbcdf24b0e5961c5539f41dd8cc253dfb0fd",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_000.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_000.png",
+    "bytes": 929922,
+    "sha256": "e92a03b38b5c829e3dbe42a948b77e4388d85123dea8b2fa0a9cc3f8cd859bb5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_022.png",
+    "bytes": 947518,
+    "sha256": "b8cb71ee7ff8f02f9882edf34202d7e6e9c88733b816c473bcbed7c5e221c549",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_044.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_044.png",
+    "bytes": 952844,
+    "sha256": "868b0f1cb0535d290ca2eb9a894d77d3b77c7d65ce1c7aa0e27642720572372c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_094.png",
+    "bytes": 953306,
+    "sha256": "8993780c1f95501b05066a8e6b34ef11ee3ae66e14c6f883ab5afbebdb5fcdd9",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_194.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_194.png",
+    "bytes": 953306,
+    "sha256": "a59e93bcc6ff8650601f6ae793551e337d325ce412a2717dd01b6114a4e0a3d1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_294.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_294.png",
+    "bytes": 953306,
+    "sha256": "874de1e02cd1197d5a2f6c856deee59a2c7879ed06a91e5ba54809481d625763",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_344.png",
+    "bytes": 953306,
+    "sha256": "3ed1c8fffd8f22652a66c67e7a0a5e8324e661149eab7553d5d678a81525a4d4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_360.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_360.png",
+    "bytes": 948503,
+    "sha256": "7f535b8d346a0f1a76a5f1fc1605e3e6156d116a56fa5712cdb766bb1a5b2a13",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_380.png",
+    "bytes": 932481,
+    "sha256": "d81d21212d66377eda52c09f202e6ba410558090319392db7f7a1f705a3fd91e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_391.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_391.png",
+    "bytes": 931183,
+    "sha256": "28454cf63630ff02a790a29a14386f83861905af10d0d0d3c7af4af77dbb0720",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_continuous_399.png",
+    "bytes": 930144,
+    "sha256": "c7d1293341e475c23516e1885011b57c983b6241ed8dca6983dd57475e461e76",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_000.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_000.png",
+    "bytes": 929922,
+    "sha256": "7ca9de3ef3d637c547252354029ed1a71f4a284d426cb56123e37233227a6a8b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_022.png",
+    "bytes": 947518,
+    "sha256": "df5c7586076d53087a92a038108d91695a813d1c9702a0572167221f236f4f04",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_044.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_044.png",
+    "bytes": 952844,
+    "sha256": "ec7767dd5aa29f41ef2954b0c36852effbad42dd2dcf84c7546db182f20ce1f5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_094.png",
+    "bytes": 953306,
+    "sha256": "f8f105978c81ed090781cbe39773f841d25168ac9e1738c5a1ce611c79320c45",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_194.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_194.png",
+    "bytes": 953306,
+    "sha256": "66be4aec6f713d39c4f7390d7247978c757eb7ef068f5dc459b23e67a17481e8",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_294.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_294.png",
+    "bytes": 953306,
+    "sha256": "e6eb8711d5bf64c2a214a782fad988e5f5a7b7e81eb3c9541a123cb15975aea7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_344.png",
+    "bytes": 953306,
+    "sha256": "8f72b98bf96188ce2486cabfd1c1362d7d55ae2f21e6fe59fa318d5084fe1dc8",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_360.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_360.png",
+    "bytes": 948554,
+    "sha256": "0a896fb0c91541aec682a7c1b473c379ddddfa2578fbe23fbb941929ab96d069",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_380.png",
+    "bytes": 931357,
+    "sha256": "e0386e857baefb25474061b3867a3c3a7fda2e91abb74b13ed5495d5c8474ee5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_391.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_391.png",
+    "bytes": 928169,
+    "sha256": "8344aa1941b34d3fd799090f47965c1a48579cbc2c3cb657cb9543397cfa1a44",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_399.png",
+    "bytes": 934088,
+    "sha256": "4023190497233cbecd70275b8413cc12bb61161885e84cb42385ed855b237153",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_424.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/chain_reload_full_424.png",
+    "bytes": 930144,
+    "sha256": "b9abd6c189625d1b43725205d8b149db45b65f8d741565c4becdb2880fdf786a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/shots.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/shots.json",
+    "bytes": 6591,
+    "sha256": "020e19f070a8eaff045dc3eef1542f34641741d06e8f0545bdf7fb2514e8c672",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbEdge20261016/Review/thumb_sequence.jpg",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbEdge20261016/Review/thumb_sequence.jpg",
+    "bytes": 74003,
+    "sha256": "346dcd211b4634d80b5e588e68cb05191de30332eb64149b9770c590fa957db1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/anatomy.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/anatomy.json",
+    "bytes": 14230,
+    "sha256": "8c1c6246c067d468485716b63dd99746354fb45d0ca1487352c8fe8805d4e20c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/authoring.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/authoring.json",
+    "bytes": 5512,
+    "sha256": "af68455518a7578ba6f17260ca4a6e543de7c15ead380c76fb50581f416db9a1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/author_thumb.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/author_thumb.log",
+    "bytes": 3538,
+    "sha256": "2f8fc38684e3c65277524c246d5b9401aca0ce4ad3138ae683078d6400904d6a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/author_thumb.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/author_thumb.py",
+    "bytes": 5096,
+    "sha256": "ec801d61bf243217de0dce43a12d5ad0255b799c69742f8bb14775b161864bbd",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/current_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/current_palm.png",
+    "bytes": 725550,
+    "sha256": "75d5e200cf25c381c478fbcfe73bc7f9575156c49746d52659bd19d421662b71",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/current_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/current_player.png",
+    "bytes": 738014,
+    "sha256": "52f645b07749634725f70661988bacbccc3621204fb81ec116c7aa5d64593609",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/current_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/current_side.png",
+    "bytes": 765730,
+    "sha256": "7cd99382127dca4ae6e4547478fd21284405bb99771790cb2a41e954d4d5109d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/delivery.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/delivery.json",
+    "bytes": 394,
+    "sha256": "3cb8f868f2d567863e0b73cd9b2e68e94a23dbe289f417a886bee83a51f693bf",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/fit_natural.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/fit_natural.py",
+    "bytes": 3387,
+    "sha256": "03314a077cae1c0abc77735fdfd0bc054a156b9a4e69f564f3a43bd32f4d131e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/fit_roll.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/fit_roll.log",
+    "bytes": 1749,
+    "sha256": "a338780080660173a1161a9fbd6695ca18aebc4c69213a1415210fdb1cf08118",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/fit_roll.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/fit_roll.py",
+    "bytes": 1505,
+    "sha256": "d8a264263a3c7027f2da7f9ef6e4f7f73f3863d746761965ab1c13a6eaf709fa",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/flex_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/flex_palm.png",
+    "bytes": 722355,
+    "sha256": "ea98b9721a30380be4f29395ba292217a86a8ddc7028a257fb78fabaea110de5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/flex_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/flex_player.png",
+    "bytes": 737747,
+    "sha256": "1cc53b0545b279a5ec3b089327beb46e70c5a10c3d164caf1adab4d97b4c64a6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/flex_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/flex_side.png",
+    "bytes": 770359,
+    "sha256": "4de9c0f747641c17feb8ff0b9d9136ce0b387c94cbb1a46d52f1e37866b7ec71",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/gentle_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/gentle_palm.png",
+    "bytes": 721415,
+    "sha256": "c90befcc40113c7e3adebcee659d6c7a32ea7e1c60d82d4153a21634c1b6e180",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/gentle_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/gentle_player.png",
+    "bytes": 737505,
+    "sha256": "8334619e3e88af9846af1cfee250999ae126ed490d0198a555305511f3d82850",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/gentle_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/gentle_side.png",
+    "bytes": 768114,
+    "sha256": "22bb3ea819e9d78bb9196c6e1ec7d98f77b11fd5121087741e413dcf44408870",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/install.ps1",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/install.ps1",
+    "bytes": 1582,
+    "sha256": "1d0b1ab22efc2a77317bf0e21454a906120efb3d52154a8228c15fdcef5db0f2",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/install_animations.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/install_animations.py",
+    "bytes": 4227,
+    "sha256": "6f20099ae8d777572d24321e4e640e362b6eecbff3419486693265afa413be07",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/install_bridge_d7893f54f75d4d5592eb3ca7c1abde6f.txt",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/install_bridge_d7893f54f75d4d5592eb3ca7c1abde6f.txt",
+    "bytes": 122,
+    "sha256": "c62ffa77e9097c6d1928d0205aaa5d35fa456680950f43d2cd6d076f6ac8e3a6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/install_receipt.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/install_receipt.json",
+    "bytes": 4994,
+    "sha256": "8b93628da02fe292d0305f1694d67583aa1a0128f0d042a70a51c98de2540fe7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/M870_NaturalThumb_Editable.blend",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/M870_NaturalThumb_Editable.blend",
+    "bytes": 74539763,
+    "sha256": "e190d6cbd36b64127a4ed0e430d8426ae3beeaeb21289cc04476302e512acc66",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_ads.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_ads.png",
+    "bytes": 701996,
+    "sha256": "c178b5115520e7547bd715cddb97e6b9217efbab160be4694c39f90fb7c0070e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_below.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_below.png",
+    "bytes": 753861,
+    "sha256": "7f606606381e5a9d241c0998cf3f246030bbc423d13a2392796981a2c12fe0cf",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_front.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_front.png",
+    "bytes": 792557,
+    "sha256": "9a8db1991543344cbadcceeaa5dd96318ec8480f799f83eadf3b9be6f2646d20",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_hip.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_hip.png",
+    "bytes": 720022,
+    "sha256": "a9a846ba93cbd4245496d73834c9700c367906aa8c4ee33a020a624d3cc814b3",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_palm.png",
+    "bytes": 724236,
+    "sha256": "13141207be6c9068cb03df15566512d016e3c578e6d55ec6398802f67244bbb4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_player.png",
+    "bytes": 738560,
+    "sha256": "bf4b6e583a335b71c30b47f9aaf82a11c38bb60aafe0e53f7ec5530e2412d20e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_pose.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_pose.json",
+    "bytes": 3138,
+    "sha256": "ab0dcb4f4e905e9c0b231ac1155d343785d90066950017c6f19a93af06ad09f6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/natural_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/natural_side.png",
+    "bytes": 770772,
+    "sha256": "17132905c2308079233b649d80d244ac2ff055b226dd447f2d090aabd95da9bc",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/preview.jpg",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/preview.jpg",
+    "bytes": 66861,
+    "sha256": "afdb49437890cf8f988ba858a897ab09f43b91573f9dd1423f7fc9102c11d3ad",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/preview_natural.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/preview_natural.log",
+    "bytes": 1258,
+    "sha256": "86044e1078d35cb013f79d5981bb6496591b39a2916b60a07f0cb95c0e0cf2d4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/preview_natural.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/preview_natural.py",
+    "bytes": 1184,
+    "sha256": "342f93bb3ee34eed0f03b3a8c61250f79d3beffa6360ec533a8f65eb9d8b5235",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/R1_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/R1_palm.png",
+    "bytes": 724961,
+    "sha256": "bed1c5fa03dbe9b6608e8f181c869e534bd37462ae6750e359e043ba9aec3205",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/R1_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/R1_player.png",
+    "bytes": 741301,
+    "sha256": "248856c10e665f68c54c3116e91f20ed38654644117df32da335fef4fa33219d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/R1_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/R1_side.png",
+    "bytes": 769869,
+    "sha256": "6b100808b2254fb3983d8df3c00bd2ffc5560a648317104c5a58b4963da2d71b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/README.md",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/README.md",
+    "bytes": 1989,
+    "sha256": "c58f0898c2604decdcce8df8712df557676c1c6a6e16e3c4dc3a99987cc52748",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/rest_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/rest_palm.png",
+    "bytes": 720939,
+    "sha256": "d1781ba4105e428e941785fe7de7a3c8da1da35d51ee8f63ca52b2b06646244a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/rest_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/rest_player.png",
+    "bytes": 736668,
+    "sha256": "9cc9dc583d2a3762e003882526ee433d94df01475522cae8866b3d7ecd178ca4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/rest_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/rest_side.png",
+    "bytes": 765190,
+    "sha256": "610aecf5f7774603ac0861880de6d03cf04da95ebede1552b3a1635155d0ccac",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/review_native.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/review_native.log",
+    "bytes": 4320,
+    "sha256": "ae344559bfbe1c9c651f69aef9837b255a2da9461674e9292833b862ba619846",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/review_native.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/review_native.py",
+    "bytes": 456,
+    "sha256": "6be2e8574a9a3f0d067f922cc9f7b22b94aa4331aad66880556e234733e51220",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/roll_solution.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/roll_solution.json",
+    "bytes": 75944,
+    "sha256": "3cc0b6e1db7ded9fb8ba3d70967016fb0934044ca3d9f31bb800f072edf98a1a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/study.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/study.log",
+    "bytes": 2138,
+    "sha256": "92cb7ad21e8fe693e7967e195504de4faa6b96ad5c203c98248a6983b2e2433c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/study.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/study.py",
+    "bytes": 4155,
+    "sha256": "92ca5f8be420dca35c30b7b8ebdb9a2acad15cfe38f578e606ecc2d71b96f687",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/study_grid.jpg",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/study_grid.jpg",
+    "bytes": 50327,
+    "sha256": "0ea368d12096d15105f1042b28d872bfd9fb688ac91d0a95c4d09b760167520c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_cycle.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_cycle.uasset",
+    "bytes": 391712,
+    "sha256": "d2aa0a41a757568db0c5a5fbf47495ca05d87aaf3460758ba5cb7a1d0535cab4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_equip.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_equip.uasset",
+    "bytes": 231014,
+    "sha256": "6d2bff0ed988573a6332c25887128872a402e1bff723536d7c479de2b54425b5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_fire.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_fire.uasset",
+    "bytes": 348029,
+    "sha256": "b7435f98b756e74e434874fac07fca5cf00de49ed29b06ebf803ed331b90329a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_idle.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_idle.uasset",
+    "bytes": 488104,
+    "sha256": "7620245b94e9e1b75546ff1e6136c88233491d5e6986eaf6128c4d249fc8aa0b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_inspect.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_inspect.uasset",
+    "bytes": 455216,
+    "sha256": "a319667a341f595fb370439cd935629786b3fda56a047254d26e7e16ed49e36f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_quick_melee.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_quick_melee.uasset",
+    "bytes": 299340,
+    "sha256": "508b7a52c5985e348af30c9bb7f9e1ef5e2a1993d4c5e21296d2de3e769c574e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_reload_continuous.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_reload_continuous.uasset",
+    "bytes": 2147133,
+    "sha256": "8596379616f6d902e3bc240b80c97d7f562f2905d346cbcc25c4efb4b7d1989b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_reload_full.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_reload_full.uasset",
+    "bytes": 2303913,
+    "sha256": "8282b3e3659aaf4d7bab8aa58400746374dfd839081d9d146fe7f19c5e16891d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_run.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_run.uasset",
+    "bytes": 133846,
+    "sha256": "800a9fcd49bbd044b9fd79d318f3cb282960b0d46d80cbec5238a661653eed1a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_sprint_enter.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_sprint_enter.uasset",
+    "bytes": 119028,
+    "sha256": "8905dcf270d8421ad43cbd2075ce04d079996661a757f90b4f09eb0c21f515a2",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_sprint_exit.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_sprint_exit.uasset",
+    "bytes": 120619,
+    "sha256": "c7e226af97e4a3fcaa828f08e64d2b393bdb9d6cf07ad95c0b2b672c4cbf5e0b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_sprint_loop.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_sprint_loop.uasset",
+    "bytes": 73356,
+    "sha256": "39980b96218dc6e4a0a2be432fb36c19ba5e860fc35eee9e23a4851622076c6a",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_walk.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Before/Animations/A_M870_walk.uasset",
+    "bytes": 198176,
+    "sha256": "65514326b4c81272cbdcc636e7cf464a48706026763cc2bdd16614a8673f06b1",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_cycle.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_cycle.fbx",
+    "bytes": 689564,
+    "sha256": "97e98a10c0fa4319a3b7f7717fe25fc6c09e022d86fe728ab12c825283de9de2",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_equip.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_equip.fbx",
+    "bytes": 576828,
+    "sha256": "17d003f9ac4230ab47ccd56f9c2255ac7a5c3bfa524922ac679245e90fd8e846",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_fire.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_fire.fbx",
+    "bytes": 655916,
+    "sha256": "c11c5feb1894ac7600c39b976e4647a938d3e1068326835389f99c10d4cc15bf",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_idle.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_idle.fbx",
+    "bytes": 1136476,
+    "sha256": "6a157a081cf5d3cac79813f66808ae71db1d469a37df430fd9feb0bcddbe1412",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_inspect.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_inspect.fbx",
+    "bytes": 1013596,
+    "sha256": "394f5aeca8989b1ca89c74d2a3e65f068f4674df34b57c86f812db5b8d074d64",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_quick_melee.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_quick_melee.fbx",
+    "bytes": 663420,
+    "sha256": "771bf181b46ff2ac62eee3cbaf22c3775938eb2ebfd5e3b902454f7d58f8ad95",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_reload_continuous.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_reload_continuous.fbx",
+    "bytes": 1799932,
+    "sha256": "bd8fc8ef57c9f44ba35b51ab8675c01622d0dc236faa867a476800cc62ad77ad",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_reload_full.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_reload_full.fbx",
+    "bytes": 1894812,
+    "sha256": "67d4ebd7e5e765179dc53fdd5bf013fd85e969534d3eac84c2011c4ac92e3edc",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_run.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_run.fbx",
+    "bytes": 576076,
+    "sha256": "4783c482a0388b03a868575ffc5859728bf13bfa9a9cfb2cced7c0443d444619",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_sprint_enter.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_sprint_enter.fbx",
+    "bytes": 544876,
+    "sha256": "896897af78194dc6bd66709f6be142cf26b94a071159afa6f57505ce2b9b6989",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_sprint_exit.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_sprint_exit.fbx",
+    "bytes": 544876,
+    "sha256": "d69a8585594c4dea02b11bb0236027368e266b7d39375fc338611b64b4cb2af7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_sprint_loop.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_sprint_loop.fbx",
+    "bytes": 617676,
+    "sha256": "7f6a34099c152d85ffa10ce071e315c125e6e414ec31f3afd56a5cb840416ffc",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_walk.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Exports/Animations/A_M870_walk.fbx",
+    "bytes": 670684,
+    "sha256": "ce2938318dd8b9f52944b5a5b7d3a43510a8ba8c773976beba7687cdac575464",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_ads.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_ads.png",
+    "bytes": 914413,
+    "sha256": "18594402bb4daaaa5633cdbb324d1a865ed9eea07dc90ecb7d96e5c13ef40616",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_fire_back.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_fire_back.png",
+    "bytes": 923716,
+    "sha256": "5d8a88ef9ca31b42abcd50e1513b659daf858ab95311f353caa1d2ed5cdacc23",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_fire_closed.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_fire_closed.png",
+    "bytes": 933916,
+    "sha256": "7f38d0896bb6a865a15862244ff940a1cb5892f3af2122f136b97cb4ff28a3da",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_hip.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_hip.png",
+    "bytes": 933141,
+    "sha256": "13e9e800be34eb4cc4b1d38dd430525e8e6bfddf94bd45ecd1a885410abcad11",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_022.png",
+    "bytes": 946946,
+    "sha256": "6984fbf85dd41a9acf88f916230be9b01c7f50a9ec3b1adf250c48a4addfa8e9",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_094.png",
+    "bytes": 951300,
+    "sha256": "178a3506d38e605de3446a3a65a64ee6803f03643c2416af054d1826b9a197f0",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_344.png",
+    "bytes": 951300,
+    "sha256": "7fecae03f3549ab930a0d21803ef00c7c1d0c2a2c2cba997d207722a02afbf7f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_380.png",
+    "bytes": 934063,
+    "sha256": "19c5112565d82b9357a67e8a8138cd8c690eb71e531a8506d3456a27e9837f1f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_continuous_399.png",
+    "bytes": 933193,
+    "sha256": "73e38edca165ecc446e099f2916a5f43b054241b2a82c98eb6a0f70aad13d612",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_022.png",
+    "bytes": 946946,
+    "sha256": "040a19b6790cc12fe1c88381d30d713c3d8357358b68cb9448e8a4ad8b97112d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_094.png",
+    "bytes": 951300,
+    "sha256": "dae49abd7b036376475268593e9d58b1d6cba90543d764dab4c28b95cb7a0490",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_344.png",
+    "bytes": 951300,
+    "sha256": "3b64ab28c2235b18c9de1c2459eef3dd9a69ed6c16bced97041ca82f3322c36e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_380.png",
+    "bytes": 933870,
+    "sha256": "2d25ccba143466336871d0f299ef250c1ceb95cff4c8bb61b16c8e0cfa28195d",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_399.png",
+    "bytes": 935569,
+    "sha256": "b29df8b7ff4e1f1b0cc5d071c665beacaed6337a2528ef856147480f253ecbdd",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_424.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/bare_reload_full_424.png",
+    "bytes": 933193,
+    "sha256": "acb13bc3d9ea8782fd1be7c085a3ad8ad4c4832eeb74c1413f3555b3995470e6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_ads.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_ads.png",
+    "bytes": 914413,
+    "sha256": "79ed4a16113ba0fa200d34bcc1f386f7f4d185efe07e424a807bf091f623479f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_fire_back.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_fire_back.png",
+    "bytes": 923716,
+    "sha256": "0f7bfb6c7b9ae9dbe09a3aa52d63432216d3eb0e22224c0bcc994a1822570e6e",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_fire_closed.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_fire_closed.png",
+    "bytes": 934344,
+    "sha256": "5d970e13e196e765b9c1317335e9db43caad120cfb73bfab1e6980633c31fba5",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_hip.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_hip.png",
+    "bytes": 933081,
+    "sha256": "e8ff1694fd406e91d9c6079cd67a1290727de93b57a8e7094ac98f47f1881516",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_022.png",
+    "bytes": 947713,
+    "sha256": "479c4f658fbb27c24c851539278fe40f16c1a61421923799bdbfae600462e68f",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_094.png",
+    "bytes": 952649,
+    "sha256": "303c4f03c5cc34c4023e10c0c1de925206b00232c76974002f94f443a9238384",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_344.png",
+    "bytes": 952649,
+    "sha256": "481e06b61d1d28b4c4ae66f845a57f933fa3a0e6334d7813c106cb41939984e0",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_380.png",
+    "bytes": 935392,
+    "sha256": "87290f94ddb09f4e99e60fc53c7f51a198a4b66d9111e8351b968d7d3052b7d4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_continuous_399.png",
+    "bytes": 933239,
+    "sha256": "2a67acb65e39400848b2218f2b5de80e80e37ed1440704e2e4fd7672ee46feea",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_022.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_022.png",
+    "bytes": 947713,
+    "sha256": "f7e33fba6a1e98cdc2493ee6cd371c5595e1b2914f5e50a6f403afd1a45bae15",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_094.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_094.png",
+    "bytes": 952649,
+    "sha256": "7a26cad8378a5ee00ed76fa008d430cf4195373a3648504065ddabb38579cce9",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_344.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_344.png",
+    "bytes": 952649,
+    "sha256": "7a013ebe7ad1bf7b7c6101ef430bedd12cc57e9864fac0484e71ff3193f1c2f4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_380.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_380.png",
+    "bytes": 933877,
+    "sha256": "3a02f90a28ad5b46c1b87aa33d250efd8713253b555a4a27c08c778c483d4143",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_399.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_399.png",
+    "bytes": 936685,
+    "sha256": "0637566e9deef733d60417ff985ad33e2c255bc9a6d8a55d05281476fc5e9ba6",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_424.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/chain_reload_full_424.png",
+    "bytes": 933239,
+    "sha256": "23b30aab63e759482e55348bd4f1c1cc2e30e486ae2dcb1a5739fbf6f21ca99c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/shots.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/shots.json",
+    "bytes": 3579,
+    "sha256": "2ba143d26af823926f967c9cd0f4feb311bd78cf18978a49300811745e837171",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870NaturalThumb20261016/Review/source_keyframes.jpg",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870NaturalThumb20261016/Review/source_keyframes.jpg",
+    "bytes": 50074,
+    "sha256": "72a789776c2396df5896f45587a739d6ef54d3eb5f2787a6cb16aadc9389d778",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/anatomy.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/anatomy.json",
+    "bytes": 14230,
+    "sha256": "8c1c6246c067d468485716b63dd99746354fb45d0ca1487352c8fe8805d4e20c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/arms_before.json.gz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/arms_before.json.gz",
+    "bytes": 4480330,
+    "sha256": "14353d7696c535ba45d529ef4c790239afaa8d5a32f2dc71d91113c2be5f4eba",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/author_bind_correction.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/author_bind_correction.py",
+    "bytes": 2251,
+    "sha256": "c67dfb5fa05784a3e6ce4ccb6de0eeef4071380a143f17d52004aa1c7b9e448c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/author_surface.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/author_surface.py",
+    "bytes": 3899,
+    "sha256": "f8b210c5a3a7134c18170cdcf1884cab9e7c76bd99001e89231989a90e958b2b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/author_thenar.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/author_thenar.py",
+    "bytes": 2800,
+    "sha256": "e0047d7fef332f72f8da72e359352be5764c625862ba7832b04c22c77a264b66",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/before_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/before_palm.png",
+    "bytes": 723722,
+    "sha256": "9adfd610256f4ea44e5d4f8f68ff0a635e50273158c2695c74ad45b848bbd1f9",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/before_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/before_player.png",
+    "bytes": 738667,
+    "sha256": "2ce5f4de037101224fd8495c5535f50b3fc3d90be9de69c760c70bcf79f5d1f4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/before_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/before_side.png",
+    "bytes": 770524,
+    "sha256": "f3a4aa02df18fb470b7dbe43259a82bdf3eca1bf575c609421d6d90afedc0a54",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/export.ps1",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/export.ps1",
+    "bytes": 1572,
+    "sha256": "7152491977721925c0492a07b7c639f4c5747e0dcea11ecce809e8631cc6cae4",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/export_inputs.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/export_inputs.log",
+    "bytes": 342063,
+    "sha256": "587105ee3cd2b445a80bc556940e5b302933ccf0939d94e8ca170d1a90f21356",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/export_inputs.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/export_inputs.py",
+    "bytes": 2784,
+    "sha256": "5c48e09130671a8295e12dcb09d2089a540820f8257443b8200917cfe6c039b7",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/full_before.json.gz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/full_before.json.gz",
+    "bytes": 5059441,
+    "sha256": "48c55399529f4d1d0a2ec4c893ae2926caf84cd685a1f607ca052f4ebdbf1630",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/natural_pose.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/natural_pose.json",
+    "bytes": 3076,
+    "sha256": "5b40f01d1add64fb7df69b0f772dc708969aeebc8dd9fb6bb3e8b656dbe87e0c",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/NOT_PUBLISHED.md",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/NOT_PUBLISHED.md",
+    "bytes": 360,
+    "sha256": "f40d06110836b04472e3c07c61e21a25c5ed80a09ba6de414f981d03017faabe",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/pose.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/pose.py",
+    "bytes": 2604,
+    "sha256": "89ebb61b9626bbadf1babfdf70e73471c13fe26cf96465e418e7c54c6f9f8d58",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/preview.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/preview.log",
+    "bytes": 1495,
+    "sha256": "26ceeb1a6c57478fecbfa627947fdee56e35f3f6e47f461cdf582d096b370c04",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/preview.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/preview.py",
+    "bytes": 1116,
+    "sha256": "60ea6a903bdb15bf86b1a89a4b854d7008f23f64a668010c1c912ac90b097114",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/probe.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/probe.log",
+    "bytes": 9436,
+    "sha256": "6574e4e1d91a0150ca00516e50ee2124c3bcfe0212aaf87c9a919901b7f44a54",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/probe_surface.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/probe_surface.py",
+    "bytes": 2233,
+    "sha256": "888dfe37a411c4b7a06444181df66790e447416cbd3dcf92b934452fb43f8b52",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/read_donor.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/read_donor.log",
+    "bytes": 496,
+    "sha256": "34fe2cd9218b08fe02b81b1a130741d7e528b7d264f6d0dd3c1e6f6ad5bf0ce0",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/read_donor.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/read_donor.py",
+    "bytes": 1106,
+    "sha256": "5a804d0286e1dba9418e565b3214228c0b5dec3afefd8b76c4eeaa7a65e26a27",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/skin_pose.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/skin_pose.json",
+    "bytes": 5084536,
+    "sha256": "b449a53cf696627ee2f5487a32834db865970e07e4b5c391933e5052a6806477",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/surface_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/surface_palm.png",
+    "bytes": 723967,
+    "sha256": "b69596196f5786684fffb01c8f122c915d462f9264656369c2221c70af5737fa",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/surface_patch.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/surface_patch.json",
+    "bytes": 377838,
+    "sha256": "0797c463eb3cd9bb257d4596dcbdd3c9b6887e800fab75bca5f8b5044004164b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/surface_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/surface_player.png",
+    "bytes": 737773,
+    "sha256": "78c0eb6e9307fba17f4b7e11cf51a2f5d291b05a683eda4e59ff03b56150ef80",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/surface_probes.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/surface_probes.json",
+    "bytes": 8962,
+    "sha256": "81a32ef5d0d003588ad6e65ef7620da91bd809a25fa771f801fe65ab026f6cea",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/surface_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/surface_side.png",
+    "bytes": 767061,
+    "sha256": "dd55ef8f1ed65d099cd572b1600e48fc75407854b3a23f872e829d0c7e83f75b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/swing_palm.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/swing_palm.png",
+    "bytes": 723685,
+    "sha256": "f8129eec0f638fef4f2fbb4ece1eeef9233215027eadfed62a8778deb23ca8ab",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/swing_player.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/swing_player.png",
+    "bytes": 737451,
+    "sha256": "63850e245ba895ab14cad658ff1209a0944b6fc7f6232eb4db7994c8b99f7353",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/swing_side.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/swing_side.png",
+    "bytes": 769691,
+    "sha256": "02d3cbc81a168a32e67ecd96cffcc54ebd58860c428efca3723fc014705e9c5b",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870ThumbRootSwing20261016/v7_donor.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870ThumbRootSwing20261016/v7_donor.json",
+    "bytes": 5140453,
+    "sha256": "939fe0bc829dfe34ecb58cc3b203e88f9ec7b96b6002a291f9d7060386d9e2c2",
+    "reason": "Rejected isolated thumb/thenar experiments; superseded by accepted whole-hand donor workflow.",
+    "replacement": "SourceAssets/M870AKMGrip20261016; SourceAssets/M870LeftArm20261016"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/animation_patch.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/animation_patch.json",
+    "bytes": 3106617,
+    "sha256": "7a963285f375d1caf8365591bd56131b736b97093637d93bbb850f37e45464e4",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/authoring.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/authoring.json",
+    "bytes": 1640,
+    "sha256": "cd93a978c4d1cd1f5e73ea7243229b8e1e93a9c49f8065580115d02136aec5de",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/authoring.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/authoring.log",
+    "bytes": 251,
+    "sha256": "8c5378dd989f9e763a4b186ce0f8d828c03e7cf9c624cb477768fb13aac3d5f8",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/authoring_controls.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/authoring_controls.json",
+    "bytes": 173496,
+    "sha256": "ff6fb88aea031be5c5f13dbc14e4fed3781301056d6fd94642202be4a758c429",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/A_M870_QuickMelee_Super90_R1.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/A_M870_QuickMelee_Super90_R1.fbx",
+    "bytes": 1246076,
+    "sha256": "9d64858b012b601f926569178ebc49e50766fb6224f826310819beed7a057368",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_angled.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_angled.uasset",
+    "bytes": 4149740,
+    "sha256": "aca722a5b4c4df0bcdd608f483c89cee94ebcd7036420a9190204f25e60a1a47",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_canted.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_canted.uasset",
+    "bytes": 4149740,
+    "sha256": "66c3f8e88978066f977e06ae85d84132fbcdd4bd186815dfd541b40b0d52844c",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_prism.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_prism.uasset",
+    "bytes": 4260489,
+    "sha256": "a332c3ac07cdd3c0eb9086f4e75d83b468b43c9ac88fdb601b77ff6a8a3e392d",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_vertical.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_vertical.uasset",
+    "bytes": 4260504,
+    "sha256": "f4442e4d934898127cdd111354e24f5c9e8c49bed73f230cfcb988bdd533b181",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/Tactical20261015/Animations/A_M870_quick_melee.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/Before/Content/Weapons/M870/Tactical20261015/Animations/A_M870_quick_melee.uasset",
+    "bytes": 157059,
+    "sha256": "94eedf73df8625b40707c3ff7564a15691b1fe2d1c2fa9053be3131247544ff6",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/delivery.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/delivery.json",
+    "bytes": 1499,
+    "sha256": "a49832f3a75255e1d643dc3f26a81f7747813d77d87a264b543ebb589f56e61d",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/inputs.json.gz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/inputs.json.gz",
+    "bytes": 31930551,
+    "sha256": "98fd00e8f2072cf47ad6e0f138379ee2cb913afafd48975f6c6b2f11a4d38d51",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/M870_QuickMelee_Super90_R1.blend",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/M870_QuickMelee_Super90_R1.blend",
+    "bytes": 108912610,
+    "sha256": "ba357dc06de7d89e0dbd23b7fbd6a0abac9058155e7ccfee47098de01595bf4d",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/read_inputs.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/read_inputs.py",
+    "bytes": 4181,
+    "sha256": "9c944116ba6d517709053ad6396d772fea1cb86144c1ef76c62d5f86544190ec",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/read_inputs.py-commandlet-20261017-180639.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/read_inputs.py-commandlet-20261017-180639.log",
+    "bytes": 279391,
+    "sha256": "36a2160a0c9fd31f0038a3288ede8e3656d459acd05da0700b13e41f88484634",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/read_inputs.py-console-20261017-180639.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/read_inputs.py-console-20261017-180639.log",
+    "bytes": 33735,
+    "sha256": "604fe94d4f72a24feb0bc239d2ba1dc97768afd9ea766c4f369796edffbe287f",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/read_inputs_bridge.txt",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/read_inputs_bridge.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/read_inputs_bridge_02.txt",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/read_inputs_bridge_02.txt",
+    "bytes": 210,
+    "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/run_asset.ps1",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/run_asset.ps1",
+    "bytes": 2344,
+    "sha256": "6b53fc3372e149d1d140087d0e02f337d175ffba5a3ef9a6c4fefec13a7e1d4a",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/save_assets.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/save_assets.py",
+    "bytes": 4961,
+    "sha256": "52c364680a3aae65c6998c3d13c22f070b7304cfd0077b144d829c3072fe994d",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/save_assets.py-commandlet-20261017-181637.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/save_assets.py-commandlet-20261017-181637.log",
+    "bytes": 284731,
+    "sha256": "b05ef0341b1658eeec043ef25ebcc215e44e8856e2813ef599fbc7aad48a21b8",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/save_assets.py-console-20261017-181637.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/save_assets.py-console-20261017-181637.log",
+    "bytes": 35288,
+    "sha256": "389a934dec58ffd7b307ccc4ae2fc4d6f95b16efae3770b0aed473fa5fbd8725",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/save_editable.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/save_editable.log",
+    "bytes": 612,
+    "sha256": "b6404585324b12105e573e7f93e16fa8398a20a2b3536c6bce1b75a0f15048a2",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/save_editable.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/save_editable.py",
+    "bytes": 4247,
+    "sha256": "24c60f722f3ca68e5f0e24da73cdf8a03ca6e6edb58d2c2bb2313c9aba19e82a",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeSuper9020261017/save_receipt.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeSuper9020261017/save_receipt.json",
+    "bytes": 758,
+    "sha256": "4d9ffcfbfd5845e6c7a5e3ceb2033b47302f1a0c7dca0a5f67f7230c2522918b",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/animation_patch.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/animation_patch.json",
+    "bytes": 3144770,
+    "sha256": "c4d9daf7f8357f34a2e03b616c5f0173abf5c7932d0cfcf5a0c64e6fc59ea89c",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/authoring.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/authoring.json",
+    "bytes": 527,
+    "sha256": "1ef9b599fd012f7b30389fa7e2d1570d447cd513ccb146d423b024eaded85b79",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/authoring.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/authoring.log",
+    "bytes": 298,
+    "sha256": "6700eb56e241b1fe2674868f1e4c5c93aaef673ec83cc16867b5412be0c57ea6",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/authoring_controls.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/authoring_controls.json",
+    "bytes": 86311,
+    "sha256": "171940fa487d47e4aecd90f25ae0be8d39b6d3fa1179f95a8f0d431f890eac4c",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/A_M870_QuickMelee_RightArm_R2.fbx",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/A_M870_QuickMelee_RightArm_R2.fbx",
+    "bytes": 1246844,
+    "sha256": "3986a1c1bf1de8f52d2a0bbb161eac23a95a9d01c8ce369fbc8df1787c3a7b28",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_angled.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_angled.uasset",
+    "bytes": 4225002,
+    "sha256": "33582fbddc3b25c101ee9cf08782405359991f83fc20380b983aaa122748d422",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_canted.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_canted.uasset",
+    "bytes": 4225002,
+    "sha256": "320e9d08fa96f8c93282181b0fcef3038d03a845bf0f77c8b69d89dd95909dc5",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_prism.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_prism.uasset",
+    "bytes": 4335751,
+    "sha256": "ee15387f5b09e7df1ea21233ae247496729a1f6aa6d12ef81c171716fe7ff393",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_vertical.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/CommonFurniture20261016/Profiles/DA_M870_vertical.uasset",
+    "bytes": 4335766,
+    "sha256": "1354a5c960211d7d02a5914ce10ecd2971c83285c400ed3a6993dc49e778d99c",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/Tactical20261015/Animations/A_M870_quick_melee.uasset",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/Before/Content/Weapons/M870/Tactical20261015/Animations/A_M870_quick_melee.uasset",
+    "bytes": 401500,
+    "sha256": "8bc1e365ec85ecb356eaf7584f87423deab83b0c0087983929da719afa5aeeac",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/blender_export.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/blender_export.log",
+    "bytes": 610,
+    "sha256": "5ec9b7fa2a605b0cebe66027287a2cc44290b2e8db4c3667cec7c72f8314bf9d",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/delivery.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/delivery.json",
+    "bytes": 1677,
+    "sha256": "127e30cdba6c3411597abc14675bc9263dd2910e59e07b162916b8cb0bc9794f",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/inputs.json.gz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/inputs.json.gz",
+    "bytes": 32647853,
+    "sha256": "31823c490a0ad481b8f038a1616fddc12c5ea279eb86e74b176dd25fa451b84a",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/M870_QuickMelee_RightArm_R2.blend",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/M870_QuickMelee_RightArm_R2.blend",
+    "bytes": 108923374,
+    "sha256": "ce5dfa4d11cdc6343839f89b56e441626041fe7c31dd10845922ae80b18e2c2f",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/native_skin.json.gz",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/native_skin.json.gz",
+    "bytes": 1129105,
+    "sha256": "012b6c7846844867748b43568cf71031c82babce78e234a8f90a970dda6659bf",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/read_inputs.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/read_inputs.py",
+    "bytes": 5851,
+    "sha256": "6a2b55ab963bfa35a359690b93822aab407b99297f4d2df68e728c79261b4528",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/read_inputs.py-commandlet-20261017-193856.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/read_inputs.py-commandlet-20261017-193856.log",
+    "bytes": 279624,
+    "sha256": "15f64a5fe4f07f1d831c1723b831474751b89ce2ac114c3eb205af14c13e856b",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/read_inputs.py-console-20261017-193856.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/read_inputs.py-console-20261017-193856.log",
+    "bytes": 33881,
+    "sha256": "7f882c9f741602ab30c7f6cce7bb9d48c852edbfcc8628a1973b298bd9141f72",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/run_asset.ps1",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/run_asset.ps1",
+    "bytes": 2433,
+    "sha256": "eea1a09a7f2c0d24585332b604e8b8724dc6be9bc20aa76279d1784a9deecee6",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/save_assets.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/save_assets.py",
+    "bytes": 4968,
+    "sha256": "abe812eb6cf4f2eaa74a4dfc5094ced5e8a9cd8c3dc8cd9db2928266c258abb4",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/save_assets.py-commandlet-20261017-195606.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/save_assets.py-commandlet-20261017-195606.log",
+    "bytes": 283768,
+    "sha256": "e9518e13a2a5e6b244776be38529b13d2b5d4fd9798fb5a2bf99dbe913b690da",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/save_assets.py-console-20261017-195606.log",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/save_assets.py-console-20261017-195606.log",
+    "bytes": 34327,
+    "sha256": "dff78d45aaf9e55534bdb6f560c64e52840ead70df35097948743cbcb5bee324",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/save_editable.py",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/save_editable.py",
+    "bytes": 4250,
+    "sha256": "5b9dd994101893ab82f6296dc2bf552f5ab2604e5b2bb54d20d85b0d2499d804",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/save_receipt.json",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/save_receipt.json",
+    "bytes": 764,
+    "sha256": "6fd479f4f6e7b795f252fd2b4f121cd2ba3babd0f2ec153162dcab2b5b675f15",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "SourceAssets/M870QuickMeleeR2_20261017/user_rejected_r1.png",
+    "destination": "trash/m870-retired-20261017/SourceAssets/M870QuickMeleeR2_20261017/user_rejected_r1.png",
+    "bytes": 1417265,
+    "sha256": "2d8a42f058ae4f42ba2ec7230fe49bf7de68792adcc323c8cdc5eb6981595a8e",
+    "reason": "Superseded R1/R2 outputs; only imported helper prefix and README remain active.",
+    "replacement": "SourceAssets/M870QuickMeleeElbowR3_20261017"
+  },
+  {
+    "source": "Tools/Weapons/M870ThirdPerson20261017/FPSPlayerBodyEquipment.before.cpp",
+    "destination": "trash/m870-retired-20261017/Tools/Weapons/M870ThirdPerson20261017/FPSPlayerBodyEquipment.before.cpp",
+    "bytes": 47948,
+    "sha256": "5feaa1c705d83fddf880b1dc9c5812d60a406cb851fbf7120b60a82db3da9358",
+    "reason": "One-off pre-edit source snapshot; current production path retained.",
+    "replacement": "Current Source/FPSGAME and M870 authoring scripts"
+  },
+  {
+    "source": "Tools/Weapons/M870ThirdPerson20261017/install_furniture.before.py",
+    "destination": "trash/m870-retired-20261017/Tools/Weapons/M870ThirdPerson20261017/install_furniture.before.py",
+    "bytes": 9010,
+    "sha256": "ae008636c7bd41393b9cf7bba0985b9eca877e2f7d1bb8ca1594470d95f7f26e",
+    "reason": "One-off pre-edit source snapshot; current production path retained.",
+    "replacement": "Current Source/FPSGAME and M870 authoring scripts"
+  }
+]

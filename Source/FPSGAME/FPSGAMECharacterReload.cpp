@@ -85,7 +85,7 @@ void AFPSGAMECharacter::InitializeReloadStages(bool CycleOnly)
 
 bool AFPSGAMECharacter::AdvanceReloadStages()
 {
-    if(IsSuper90Weapon())return AdvanceSuper90Reload();
+    if(IsTubeShotgunWeapon())return AdvanceSuper90Reload();
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile || !ActiveActionAnimation){InterruptReload();return false;}
     const float Source=ReloadSourceTime(WeaponStateElapsed);
@@ -136,7 +136,7 @@ bool AFPSGAMECharacter::AdvanceReloadStages()
 
 void AFPSGAMECharacter::InterruptReload()
 {
-    if(IsSuper90Weapon()&&GetNetMode()==NM_Client)
+    if(IsTubeShotgunWeapon()&&GetNetMode()==NM_Client)
         if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->CancelSuper90Reload(false);
     if(WeaponState!=EAKMWeaponState::Reloading && WeaponState!=EAKMWeaponState::ReloadingEmpty)return;
     StopMechanicalAudio();
@@ -149,7 +149,7 @@ void AFPSGAMECharacter::InterruptReload()
 
 void AFPSGAMECharacter::ServicePendingReloadCycle()
 {
-    if(IsSuper90Weapon()&&GetNetMode()==NM_Client)
+    if(IsTubeShotgunWeapon()&&GetNetMode()==NM_Client)
         if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsSuper90ReloadPending())return;
     if(IsDualWieldingPistols() || !bInventoryWeaponReady || IsWeaponBusy() || IsChoosingAmmo()
         || IsCastBlockingLeftHandAction() || !NeedsReloadCycle())return;

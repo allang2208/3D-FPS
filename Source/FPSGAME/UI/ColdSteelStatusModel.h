@@ -403,6 +403,7 @@ public:
     bool CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity,
         int32 NeedsCycle=0,int32 LoadLimit=MAX_int32,bool Completed=true);
     bool CompleteWeaponReloadCycle(const FString& WeaponId);
+    void MarkM870PumpInterrupted(const FString& WeaponId);
     float AmmoDamageMultiplier(const FColdSteelItem& Item) const;
     float AmmoArmorPenetration(const FColdSteelItem& Item) const;
     int32 AmmoProjectileCount(const FColdSteelItem& Item,int32 DefaultCount=1) const;

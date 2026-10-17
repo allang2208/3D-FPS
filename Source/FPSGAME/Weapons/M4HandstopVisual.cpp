@@ -19,6 +19,7 @@
 #include "VerticalGripAnimationFamily.h"
 #include "RSH12ForegripAssets.h"
 #include "Super90ForegripAssets.h"
+#include "M870FurnitureAssets.h"
 
 void AFPSGAMECharacter::InitializePrismGripAnimations()
 {
@@ -56,6 +57,15 @@ void AFPSGAMECharacter::InitializePrismGripAnimations()
 
 void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
 {
+    if(IsM870Weapon())
+    {
+        AngledForegrip=M870FurnitureAssets::ConfigureForegrip(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));
+        CantedForegrip=M870FurnitureAssets::ConfigureForegrip(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bInventoryWeaponReady&&Variant==TEXT("canted_foregrip"));
+        const bool Tactical=Variant==TEXT("tactical_vertical_foregrip");
+        VerticalForegrip=M870FurnitureAssets::ConfigureForegrip(this,AKMViewmodel,VerticalForegrip,Tactical?TEXT("tactical_vertical"):TEXT("vertical"),bInventoryWeaponReady&&(Tactical||Variant==TEXT("vertical_foregrip")));
+        PrismHandstop=M870FurnitureAssets::ConfigureForegrip(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Variant==TEXT("prism_handstop"));
+        return;
+    }
     if(IsSuper90Weapon())
     {
         AngledForegrip=Super90ForegripAssets::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));

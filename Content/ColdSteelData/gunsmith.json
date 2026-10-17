@@ -9654,6 +9654,518 @@
           "text": "瞄具、枪口、弹匣、后握把、枪托、战术挂件、前握把与装填装置全部可改造"
         }
       ]
+    },
+    {
+      "id": "ue_m870",
+      "model": "M870",
+      "name": "M870 Tactical",
+      "allowed": [
+        "optic",
+        "muzzle",
+        "trigger",
+        "underbarrel",
+        "stock",
+        "magazine",
+        "reload_device",
+        "tactical"
+      ],
+      "base": {
+        "ammo_item_id": "ammo_12g",
+        "mag_size": 7,
+        "ads_smooth": 12,
+        "recoil": 290,
+        "camera_shake": 120,
+        "spread_mult": 1.2375,
+        "fire_interval": 0.9,
+        "reload_time": 1.65,
+        "empty_reload_time": 7.066666666666666,
+        "damage": 80,
+        "bullet_speed": 380,
+        "effective_range": 35,
+        "stability_mult": 1
+      },
+      "options": {
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂机械瞄具",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "安装于机匣顶部导轨的环形分划全息瞄准镜。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            }
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂枪口",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          }
+        ],
+        "underbarrel": [
+          {
+            "id": "false",
+            "name": "泵动护木",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "vertical_foregrip",
+            "name": "垂直握把",
+            "description": "直筒式前握把，四指环握与拇指对握，使用专用支撑及换弹回握动作。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "canted_foregrip",
+            "name": "45°侧倾握把",
+            "description": "向枪身左下方侧倾，左手外侧包握，使用专用支撑及换弹回握动作。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "腰射随机散布减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 0.85,
+              "hip_spread_mult": 0.8
+            }
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            }
+          },
+          {
+            "id": "prism_handstop",
+            "name": "棱镜阻手器",
+            "description": "棱面短阻手器，带防滑纹理，安装于 M4 护木下方。",
+            "effects": [
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.95
+            }
+          },
+          {
+            "id": "angled_foregrip",
+            "name": "共振二代前握把",
+            "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 M4 金属与防滑材质。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15
+            }
+          }
+        ],
+        "stock": [
+          {
+            "id": "false",
+            "name": "原厂枪托",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "skeleton",
+            "name": "骨架枪托",
+            "description": "双管上梁、镂空后架与橡胶抵肩垫，通过 M870 专用连接杆安装。",
+            "effects": [
+              {
+                "text": "开镜耗时减少20%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力增加15%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.2,
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空托架配橡胶肩垫，前端通过连接杆接入原装接座。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
+            }
+          },
+          {
+            "id": "qr_performance",
+            "name": "高性能后托",
+            "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，配有 M870 专用连接杆。",
+            "effects": [
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            }
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "带贴腮面与伸缩套筒的战术枪托，通过连接杆与原装前端接座衔接。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮面、镂空托架与宽橡胶肩垫，保留香槟色饰条和红色嵌片，以连接杆固定。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂管式弹仓",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "m870_tube_extension",
+            "name": "弹仓延长管",
+            "description": "深灰管身沿原厂弹仓向前延伸，收口套环与端盖延续原枪的简洁轮廓。",
+            "effects": [
+              {
+                "text": "弹仓容量增加3发",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "mag_delta": 3
+            }
+          }
+        ],
+        "reload_device": [
+          {
+            "id": "false",
+            "name": "逐发装填",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "super90_tube_loader",
+            "name": "管式快速装填器",
+            "description": "通过 M870 装填口导向件成组补弹。左手推送到位后张掌回握护木，装填管与推杆脱手下落。",
+            "effects": [
+              {
+                "text": "推送到位后一次补满弹仓；备弹不足时装入剩余弹药",
+                "benefit": 1
+              },
+              {
+                "text": "按住开火或瞄准时，完成整次装填后接续操作",
+                "benefit": 0
+              },
+              {
+                "text": "空仓完成后回握护木泵动上膛；未入仓的弹药不扣除",
+                "benefit": 0
+              }
+            ],
+            "stats": {
+              "reload_mult": 1.5294117647058825,
+              "empty_reload_mult": 1.5294117647058825
+            }
+          }
+        ],
+        "tactical": [
+          {
+            "id": "false",
+            "name": "无战术装置",
+            "description": "使用 M870 Tactical 的原装结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "laser",
+            "name": "红色激光镭射",
+            "description": "80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+            "effects": [
+              {
+                "text": "腰射随机散布减少50%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.5,
+              "ads_percent": -0.2
+            }
+          },
+          {
+            "id": "flashlight",
+            "name": "战术手电筒",
+            "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+            "effects": [
+              {
+                "text": "提供前向照明",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          }
+        ],
+        "trigger": [
+          {
+            "id": "false",
+            "name": "原厂扳机套件",
+            "description": "M870 原厂扳机组件。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "m870_lightweight_trigger_kit",
+            "name": "轻量化扳机套件",
+            "description": "M870 专用的轻量化扳机组件，保留原厂扳机外形与安装接口。",
+            "effects": [
+              {
+                "text": "射击间隔减少25%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提升5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "fire_interval_mult": 0.75,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.05
+            }
+          }
+        ]
+      },
+      "traits": [
+        {
+          "icon": "special",
+          "text": "泵动上膛：每发射击后完成后拉退壳与前推供弹。"
+        },
+        {
+          "icon": "special",
+          "text": "管式弹仓逐发补弹，开火或瞄准可在当前入弹完成后结束装填。"
+        }
+      ]
     }
   ],
   "common_options": {

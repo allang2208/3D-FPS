@@ -1,5 +1,7 @@
 #include "FPSGAMECharacter.h"
 #include "Weapons/Super90WeaponAssets.h"
+#include "Weapons/TubeShotgunAssets.h"
+#include "Weapons/ShotgunSuppressorAssets.h"
 #include "Weapons/Super90Spread.h"
 #include "Weapons/Super90SpeedloaderAssets.h"
 #include "Weapons/JingangRuneComponent.h"
@@ -553,15 +555,15 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         ADSRearEyeDistance=20.f;
         if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*PKMLowpolyWeaponAssets::AnimationPath(TEXT("quick_melee")));
     }
-    if (IsSuper90Weapon())
+    if (IsTubeShotgunWeapon())
     {
-        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,Super90WeaponAssets::MeshPath);
+        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,IsM870Weapon()?M870WeaponAssets::MeshPath:Super90WeaponAssets::MeshPath);
         bUsingM4Infima=ViewmodelMesh!=nullptr;
         bSingleShotTrigger=true;
         bPistolShotPending=false;
         HipViewmodelLocation=M4HipViewmodelLocation;
         ADSRearEyeDistance=18.f;
-        if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*Super90WeaponAssets::AnimationPath(TEXT("quick_melee")));
+        if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*(IsM870Weapon()?M870WeaponAssets::AnimationPath(TEXT("quick_melee")):Super90WeaponAssets::AnimationPath(TEXT("quick_melee"))));
     }
     bUsingReplacement = ViewmodelMesh != nullptr;
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
@@ -578,7 +580,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         // unchanged. M4 suppressor/drum section indices are unrelated to AKM.
         for(int32 L=0;L<ViewmodelMesh->GetLODNum();++L)AKMViewmodel->ShowAllMaterialSections(L);
         // Also applies to icon/pickup rigs, which return before combat setup.
-        if(IsSuper90Weapon())Super90WeaponAssets::SetLooseShellVisible(AKMViewmodel,false);
+        if(IsTubeShotgunWeapon())Super90WeaponAssets::SetLooseShellVisible(AKMViewmodel,false);
         InitializeFoldingSights();
         PKMLowpolyWeaponAssets::SetSections(AKMViewmodel,false,false,0.f,100);
         LMG201WeaponAssets::SetMagazineSections(AKMViewmodel,LMG201FeedVisibility);
@@ -604,8 +606,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         return;
     }
     InitializeSuper90Speedloader();
-    Super90WalkAnimation=IsSuper90Weapon()?LoadAKMAnimation(TEXT("A_AKM_walk")):nullptr;
-    Super90RunAnimation=IsSuper90Weapon()?LoadAKMAnimation(TEXT("A_AKM_run")):nullptr;
+    Super90WalkAnimation=IsTubeShotgunWeapon()?LoadAKMAnimation(TEXT("A_AKM_walk")):nullptr;
+    Super90RunAnimation=IsTubeShotgunWeapon()?LoadAKMAnimation(TEXT("A_AKM_run")):nullptr;
     AimAnimation = LoadAKMAnimation(TEXT("A_AKM_aim"));
     FireAnimation = LoadAKMAnimation(TEXT("A_AKM_fire"));
     AimFireAnimation = LoadAKMAnimation(TEXT("A_AKM_aim_fire"));
@@ -618,8 +620,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     }
     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
-    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsSuper90Weapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
-    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsSuper90Weapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
+    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
+    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
     if(AKMSoviet::Matches(AKMViewmodel)){
         ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
         ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
@@ -636,7 +638,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
     }
     // DW715 retains its original inspect; M1911 uses that clip's native-grip adaptation.
-    InspectAnimation = IsSuper90Weapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+    InspectAnimation = IsTubeShotgunWeapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
     if(bUseM1911 && DualPistols)DualPistols->PrepareSingleInspect();
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
@@ -654,7 +656,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
             if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Pair.Value,TEXT("drum"))))DrumSupportAnimations.Add(Pair.Key,Clip);
     }
 
-    if (!bSharedDrum && bUsingM4Infima && !IsSuper90Weapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+    if (!bSharedDrum && bUsingM4Infima && !IsTubeShotgunWeapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
             if (Base)
             {
@@ -690,7 +692,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     PistolSprintEmptyAnimation = bUseM1911
         ? LoadObject<UAnimSequence>(nullptr, *(IsPitViperWeapon() ? PitViper2011WeaponAssets::AnimationPath(TEXT("sprint_empty")) : IsG18Weapon() ? G18WeaponAssets::AnimationPath(TEXT("sprint_empty")) : PistolLocomotionAssets::AnimationPath(false, true))) : nullptr;
     PistolAimEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_empty")) : nullptr;
-    PistolFireLastAnimation = (bUseM1911 || IsSuper90Weapon()) ? LoadAKMAnimation(TEXT("A_AKM_fire_last")) : nullptr;
+    PistolFireLastAnimation = (bUseM1911 || IsTubeShotgunWeapon()) ? LoadAKMAnimation(TEXT("A_AKM_fire_last")) : nullptr;
     PistolAimFireLastAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_fire_last")) : nullptr;
     if (IsPistolWeapon()) { DrumReloadAnimation = nullptr; DrumReloadEmptyAnimation = nullptr; }
     LMG201ClothReloadAnimation=nullptr;LMG201ClothReloadEmptyAnimation=nullptr;
@@ -705,6 +707,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
     if (auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>())
         Sprint->Configure(IsPistolWeapon() ? ERifleSprintWeapon::None
+            : IsM870Weapon() ? ERifleSprintWeapon::M870
             : IsSuper90Weapon() ? ERifleSprintWeapon::Super90
             : SVDWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::SVD
             : PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::PKM
@@ -735,7 +738,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     RifleFireVariants.Reset();
     RifleSuppressedVariants.Reset();
     LastRifleFireVariant = INDEX_NONE;
-    if(IsSuper90Weapon())
+    if(IsTubeShotgunWeapon())
     {
         // The user-selected gamedev one-shot replaces the previous Mossberg variants.
         if(FireSound)RifleFireVariants.Add(FireSound);
@@ -765,7 +768,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         // Dual-wield main-hand audio reads this binding as well.
         SuppressedFireSound=LoadObject<USoundBase>(nullptr,PistolAudioAssets::Suppressed);
     }
-    if (bUsingM4Infima && !IsSuper90Weapon() && !IsPistolWeapon() && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+    if (bUsingM4Infima && !IsTubeShotgunWeapon() && !IsPistolWeapon() && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
     {
         const TCHAR* AudioWeapon = bUseQBZ191 ? TEXT("QBZ191") : TEXT("M4");
         for (int32 Index = 1; Index <= 4; ++Index)
@@ -824,7 +827,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     ChargeReleaseSound = LoadAKMSound(TEXT("S_AKM_ChargeRelease"));
     DryClickSound = LoadAKMSound(TEXT("S_AKM_DryClick"));
     CriticalHitSound = LoadAKMSound(TEXT("S_AKM_CriticalHit"));
-    BoltReleaseSound = IsSuper90Weapon() ? ChargeReleaseSound.Get() : bUsingM4Infima ? LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease.S_HK416_BoltRelease")) : nullptr;
+    BoltReleaseSound = IsTubeShotgunWeapon() ? ChargeReleaseSound.Get() : bUsingM4Infima ? LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease.S_HK416_BoltRelease")) : nullptr;
 
 }
 
@@ -906,6 +909,7 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateWeaponState(DeltaSeconds);
     ServicePendingReloadCycle();
     ServiceReloadAfterCasting();
+    UpdateM870PumpAudio();
     ServiceRevolverReloadAfterFire();
     // Also recover an empty magazine loaded from a saved profile after equipping.
     if (!IsDualWieldingPistols() && (HasInfiniteReserveAmmo() || (bUseM16 && ReserveAmmo > 0))
@@ -1097,7 +1101,7 @@ void AFPSGAMECharacter::FirePressed()
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(true);return;}
-    if(IsSuper90Weapon()&&IsReloading())bSuper90CancelReload=true;
+    if(IsTubeShotgunWeapon()&&IsReloading())bSuper90CancelReload=true;
     if (bUseM16)
     {
         if (bBurstTriggerHeld) return;
@@ -1161,10 +1165,15 @@ void AFPSGAMECharacter::AimPressed()
     if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetSteadyHeld(true);return;}
     // Right-click with a production tool out is the shovel's refill, never ADS.
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped()){Tools->BeginRefill();return;}
-    if(IsSuper90Weapon()&&IsReloading())bSuper90CancelReload=true;
+    if(IsTubeShotgunWeapon()&&IsReloading())bSuper90CancelReload=true;
     bAimHeld = true;
     ExitSprintForWeapon();
-    if (!IsWeaponBusy()) { SetAimingState(true); ResumeWeaponPose(); }
+    if (!IsWeaponBusyForAim())
+    {
+        SetAimingState(true);
+        // Entering ADS during a shot must not restart its pump/casing clock.
+        if (!IsWeaponBusy()) ResumeWeaponPose();
+    }
 }
 
 void AFPSGAMECharacter::AimReleased()
@@ -1190,7 +1199,7 @@ void AFPSGAMECharacter::ReloadPressed()
         if(bInventoryWeaponReady && (MagazineAmmo==0 || NeedsReloadCycle()))bReloadAfterCasting=true;
         return;
     }
-    if(IsSuper90Weapon()){BeginSuper90Reload();return;}
+    if(IsTubeShotgunWeapon()){BeginSuper90Reload();return;}
     const bool ResumeCycle=PendingAmmoType.IsEmpty() && NeedsReloadCycle();
     if (!bInventoryWeaponReady || (IsWeaponBusy() && !IsRevolverFireActionPlaying()) || (!ResumeCycle && PendingAmmoType.IsEmpty() && (MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)))) return;
     if (IsRevolverFireActionPlaying())
@@ -1632,7 +1641,7 @@ EM4SprintGrip AFPSGAMECharacter::ResolveRifleGripProfile() const
 
 UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
 {
-    if(IsSuper90Weapon())return QuickCombatAnimation;
+    if(IsTubeShotgunWeapon())return QuickCombatAnimation;
     if(const auto* Profile=WeaponGripProfileFor(Grip))
         if(const auto* Layer=Profile->FindAction(TEXT("quick_melee")))return Layer->Playback();
     if (IsHK416Weapon())
@@ -1736,7 +1745,7 @@ bool AFPSGAMECharacter::TriggerRifleStockMelee()
         WeaponStateElapsed=0.0f;
         WeaponStateDuration=PlaybackDuration;
         PlayWeaponAnimation(Clip,false,PlayRate);
-        if(bUseASH12&&GunplayAnimation)
+        if((bUseASH12||IsM870Weapon())&&GunplayAnimation)
         {
             // The contact sampler can run on the first update after a hitch.
             // Publish this action now so it cannot evaluate an earlier fire clip.
@@ -1767,7 +1776,9 @@ void AFPSGAMECharacter::RefreshMovementState()
     const bool bPreviouslySprinting = bIsSprinting;
     const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Guarding=RuneSword && RuneSword->IsGuarding();
-    SetAimingState(bAimHeld && !IsWeaponBusy());
+    const auto* MovementStatus=FindComponentByClass<UCombatStatusFormula>();
+    const bool Exhausted=MovementStatus&&MovementStatus->ExhaustionRemaining()>0.f;
+    SetAimingState(bAimHeld && !IsWeaponBusyForAim());
     const bool bMovementAiming = bIsAiming || (Bow && Bow->IsAimHeld());
     bIsSprinting = !IsMeleeSkillMovementLocked() && !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bMovementAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
     if (!bIsSprinting && bMPAutoInputActive && bSprintHeld) bIsSprinting = true; // 测试钩子：自驾强制冲刺（绕过无法复现的输入门组合）
@@ -1867,6 +1878,14 @@ void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
     if(bUseASH12&&QuickCombatPistol&&WeaponState!=EAKMWeaponState::QuickCombat)
         QuickCombatPistol->Cancel();
     if (WeaponState == EAKMWeaponState::Idle) return;
+    if(WeaponState==EAKMWeaponState::QuickCombat&&QuickCombatPistol&&!QuickCombatPistol->IsOccupyingLeftHand())
+    {
+        // A server rejection/cancel ends the action component before the clip
+        // duration expires. Release the firearm pose and its input lock too.
+        WeaponStateDuration=FMath::Min(WeaponStateDuration,
+            static_cast<float>(FMath::Max(0.0,GetWorld()->GetTimeSeconds()-WeaponActionStartedAt)));
+        FinishWeaponAction();return;
+    }
     if(IsReloading())
     {
         const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
@@ -1887,7 +1906,9 @@ void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
     // action for the elapsed interval which preceded the input event.
     WeaponStateElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - WeaponActionStartedAt));
     if(IsReloading() && !AdvanceReloadStages())return;
-    const float CueClock = (bUsingM4Infima||HasLMG201ClothBox()||IsSuper90Weapon()) && IsReloading() ? ReloadSourceTime(WeaponStateElapsed) : WeaponStateElapsed;
+    const bool TubeFeedCues=IsTubeShotgunWeapon()&&IsReloading()&&!bSuper90SpeedReload&&!bReloadCycleOnly;
+    const float CueClock=TubeFeedCues?WeaponStateElapsed*Super90ReloadRate:
+        (bUsingM4Infima||HasLMG201ClothBox()||IsTubeShotgunWeapon())&&IsReloading()?ReloadSourceTime(WeaponStateElapsed):WeaponStateElapsed;
     while (NextMechanicalCue < MechanicalCueTimes.Num() && CueClock + 0.000001f >= MechanicalCueTimes[NextMechanicalCue])
     {
         EmitMechanicalCue(NextMechanicalCue);
@@ -2110,7 +2131,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         // The 201 cloth box reload shares PKM's belt-box camera; its other actions stay unchanged.
         const bool b201ClothCamera = HasLMG201ClothBox() && IsReloading();
         const bool bRSHReloadCamera = IsRSH12Weapon() && IsReloading();
-        const bool bSuper90LoaderCamera = IsSuper90Weapon() && bSuper90SpeedReload && IsReloading();
+        const bool bSuper90LoaderCamera = IsTubeShotgunWeapon() && bSuper90SpeedReload && IsReloading();
         const bool bActionCamera = bInventoryWeaponReady
             && (((bUsingM4Infima || bPKMActionCamera) && (bUseM4Infima || bUseASH12 || bUseM16 || bPKMActionCamera)) || b201ClothCamera || bRSHReloadCamera || bSuper90LoaderCamera)
             && !bUseQBZ191 && (!IsPistolWeapon() || bRSHReloadCamera) && !IsDualWieldingPistols()
@@ -2126,7 +2147,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
                     CameraAction = Super90ReloadCount == 0 ? EM4CameraAction::Super90LoaderCycle
                         : bPendingEmptyReload ? EM4CameraAction::Super90LoaderEmpty : EM4CameraAction::Super90Loader;
                     ClothCameraContacts = {Super90SpeedloaderAssets::Dock, Super90SpeedloaderAssets::LastContact(Super90ReloadCount),
-                        Super90SpeedloaderAssets::Release(Super90ReloadCount)};
+                        Super90SpeedloaderAssets::Release(Super90ReloadCount, IsM870Weapon())};
                     CameraContacts = ClothCameraContacts;
                 }
                 else if (bRSHReloadCamera)
@@ -2202,7 +2223,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     // this weapon's hip anchor and must not visit the centered action framing.
     const bool bPKMReloadFraming = PKMLowpolyWeaponAssets::Matches(AKMViewmodel);
     const bool bClothReloadFraming=HasLMG201ClothBox()&&IsReloading();
-    const bool bUseActionFraming = !IsSuper90Weapon() && (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
+    const bool bUseActionFraming = !IsTubeShotgunWeapon() && (bUsingM4Infima||bClothReloadFraming||RifleHipFraming.IsReady())
         && !IsPistolWeapon() && !IsTraversing() && !Traversal->IsWeaponRecovering()
         && !IsDoorPushActive() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
@@ -2435,7 +2456,7 @@ double AFPSGAMECharacter::EffectiveFireInterval() const
 {
     const double Base = FMath::Max(0.001, static_cast<double>(FireInterval));
     const double Interval = Base * ColdSteelCombat::TurboIntervalMultiplier(TurboRampParams, TurboRampSeconds);
-    return IsSuper90Weapon()?FMath::Max(Super90WeaponAssets::MinimumAttackInterval,Interval):Interval;
+    return IsTubeShotgunWeapon()?FMath::Max(TubeShotgunAssets::MinimumInterval(ActiveInventoryWeaponDefinition),Interval):Interval;
 }
 
 void AFPSGAMECharacter::UpdateTurboRamp(float DeltaSeconds)
@@ -2487,8 +2508,8 @@ void AFPSGAMECharacter::FireShot()
     if(IsDualWieldingPistols())return;
     if(BipodDeployment && BipodDeployment->BlocksFire())return;
     if (!bInventoryWeaponReady) return;
-    auto* Super90PS=IsSuper90Weapon()?GetPlayerState<AColdSteelPlayerState>():nullptr;
-    const bool PredictSuper90=IsSuper90Weapon()&&GetNetMode()==NM_Client;
+    auto* Super90PS=IsTubeShotgunWeapon()?GetPlayerState<AColdSteelPlayerState>():nullptr;
+    const bool PredictSuper90=IsTubeShotgunWeapon()&&GetNetMode()==NM_Client;
     if(PredictSuper90&&(!Super90PS||!Super90PS->IsSuper90ServerReady(ActiveInventoryWeapon)||Super90PS->IsSuper90ReloadPending()))return;
     if (bUseM16 && BurstShotsRemaining <= 0) return;
     const float WeaponAudioGain = bUseQBZ191 || IsRSH12Weapon() ? 1.0f : 2.0f;
@@ -2543,6 +2564,7 @@ void AFPSGAMECharacter::FireShot()
     {
         const FVector Aim=PreciseSuper90Aim?TraceDirection:FirstPersonCamera->GetForwardVector();
         const uint32 Sequence=Super90PS->RequestSuper90Shot(ActiveInventoryWeapon,TraceStart,Muzzle,Aim,PreciseSuper90Aim,ConvergenceRounds);
+        if(IsM870Weapon())M870ShotSequence=Sequence;
         Super90Random.Initialize(Super90Spread::Seed(Sequence));
         const FRotationMatrix Basis(Aim.Rotation());
         const float Spread=PreciseSuper90Aim?0.f:GetHipSpread();
@@ -2552,7 +2574,7 @@ void AFPSGAMECharacter::FireShot()
     UAnimSequence* Animation = bIsAiming ? AimFireAnimation : FireAnimation;
     if (bUseM1911 && MagazineAmmo == 0)
         Animation = bIsAiming ? PistolAimFireLastAnimation : PistolFireLastAnimation;
-    if(IsSuper90Weapon()&&MagazineAmmo==0)Animation=PistolFireLastAnimation;
+    if(IsTubeShotgunWeapon()&&MagazineAmmo==0)Animation=PistolFireLastAnimation;
     // PKM advances one belt pitch per shot. Complete the authored cycle before
     // the next shot even when the effective fire interval is shortened.
     float ShotAnimationRate = 1.0f;
@@ -2560,15 +2582,16 @@ void AFPSGAMECharacter::FireShot()
         ShotAnimationRate = FMath::Max(1.0f, Animation->GetPlayLength() / FMath::Max(0.01f, static_cast<float>(ShotInterval)));
     if(Animation && IsRSH12Weapon())
         ShotAnimationRate=Animation->GetPlayLength()/FMath::Max(.01f,float(ShotInterval));
-    if(Animation && IsSuper90Weapon())
+    if(Animation && IsTubeShotgunWeapon())
     {
         // Fit recoil/bolt cycling to the new 60 ms cadence. The last-round
         // source appends an inspection, which is not part of a shot cycle.
-        const float ShotLength=Animation==PistolFireLastAnimation
+        const float ShotLength=!IsM870Weapon()&&Animation==PistolFireLastAnimation
             ?FMath::Min(Animation->GetPlayLength(),22.f/60.f):Animation->GetPlayLength();
         ShotAnimationRate=FMath::Max(1.f,ShotLength/FMath::Max(.01f,float(ShotInterval)));
     }
     PlayWeaponAnimation(Animation, false, ShotAnimationRate);
+    if(IsM870Weapon()){M870PumpCueMask=0;M870PendingCasingWeapons.Remove(ActiveInventoryWeapon);}
     if(IsRSH12Weapon())
     {
         // The double-action trigger cycle fits the effective cadence; no thumb latch.
@@ -2612,16 +2635,19 @@ void AFPSGAMECharacter::FireShot()
     // 汇聚把整匣伤害聚合到这一发；伤害类型仍由 Shot.DamagePanel 的比例决定，不因缩放改变。
     const auto* ShotProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* ShotItem=ShotProfile?ShotProfile->FindItem(ActiveInventoryWeapon):nullptr;
-    const int32 NativePelletCount=IsSuper90Weapon()?Super90WeaponAssets::PelletCount:1;
+    const int32 NativePelletCount=IsTubeShotgunWeapon()?Super90WeaponAssets::PelletCount:1;
     const int32 PelletCount=ShotItem?ShotProfile->AmmoProjectileCount(*ShotItem,NativePelletCount):NativePelletCount;
-    const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim);
+    const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim,GetShotgunPelletSpreadMultiplier());
+    const bool Duckbill=PelletCount>1&&HasShotgunDuckbill();
     const float ShotDamage=DamagePerShot*ConvergenceScale/PelletCount;
     const auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
     const auto Effects=ColdSteelCombat::Snapshot(this);
     TArray<FVector_NetQuantizeNormal> ShotDirections;
     for(int32 Pellet=0;Pellet<PelletCount;++Pellet)
     {
-    const FVector PelletDirection=PelletCount>1?(PredictSuper90?Super90Random.VRandCone(TraceDirection,PelletCone):FMath::VRandCone(TraceDirection,PelletCone)):TraceDirection;
+    const FVector PelletDirection=Duckbill?
+        Super90Spread::HorizontalFan(TraceDirection,PelletCone,Pellet,PelletCount,PredictSuper90?Super90Random.FRand():FMath::FRand()):
+        PelletCount>1?(PredictSuper90?Super90Random.VRandCone(TraceDirection,PelletCone):FMath::VRandCone(TraceDirection,PelletCone)):TraceDirection;
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
     Params.bReturnPhysicalMaterial = true;
@@ -2637,7 +2663,7 @@ void AFPSGAMECharacter::FireShot()
         if(ProjectileSpeedCM>0)
         {
             const FVector Flight=(AimTarget-Muzzle).GetSafeNormal();
-            if(IsSuper90Weapon())ShotDirections.Add(Flight);
+            if(IsTubeShotgunWeapon())ShotDirections.Add(Flight);
             Ballistics->Launch(Muzzle,Flight,ProjectileSpeedCM,TraceDistance,ShotDamage,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM,ShotItem,ConvergenceParams.Enabled,PredictSuper90);
         }
         else
@@ -2674,7 +2700,7 @@ void AFPSGAMECharacter::FireShot()
     if (bHit) WeaponFX->OnImpact(Hit);
     }
     if(Super90PS&&HasAuthority()&&GetNetMode()!=NM_Standalone)
-        Super90PS->MulticastSuper90Shot(this,Muzzle,ShotDirections,ProjectileSpeedCM,TraceDistance,PreciseSuper90Aim,bSuppressedNoise,ActiveInventoryWeapon,GetWorld()->GetTimeSeconds());
+        Super90PS->MulticastSuper90Shot(this,Muzzle,ShotDirections,ProjectileSpeedCM,TraceDistance,PreciseSuper90Aim,bSuppressedNoise,ActiveInventoryWeapon,GetWorld()->GetTimeSeconds(),M870PumpPlayRate());
     WeaponFX->OnShotAtMuzzle(bIsAiming,ShotMuzzle);
     ApplyShotFeedback();
     if(!bIsAiming)CurrentSpread = FMath::Min(0.018f, CurrentSpread + 0.003f);
@@ -2848,19 +2874,20 @@ FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
     int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
     if(Width<=0||Height<=0)return FVector2D::ZeroVector;
     const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
-    float SpreadTangent=GetHipSpread();
-    if(IsSuper90Weapon())
+    FVector2D SpreadTangents(GetHipSpread());
+    if(IsTubeShotgunWeapon())
     {
         const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         const auto* Item=Model?Model->FindItem(ActiveInventoryWeapon):nullptr;
         const int32 Pellets=Item?Model->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):Super90WeaponAssets::PelletCount;
-        SpreadTangent=Super90Spread::RingTangent(SpreadTangent,Pellets);
+        SpreadTangents=HasShotgunDuckbill()?Super90Spread::FanRingTangents(SpreadTangents.X,Pellets,GetShotgunPelletSpreadMultiplier()):
+            FVector2D(Super90Spread::RingTangent(SpreadTangents.X,Pellets,GetShotgunPelletSpreadMultiplier()));
     }
-    const float Spread=SpreadTangent*1000.f;
+    const FVector2D Spread=SpreadTangents*1000.f;
     FVector2D ScreenCenter,Right,Up;
     if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
-        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread,Right,true)
-        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread,Up,true))return FVector2D::ZeroVector;
+        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread.X,Right,true)
+        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread.Y,Up,true))return FVector2D::ZeroVector;
     return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
         FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
 }
@@ -3009,7 +3036,7 @@ void AFPSGAMECharacter::StartEquipCharge()
         MechanicalCueTimes={SVDWeaponAssets::EquipPull,SVDWeaponAssets::EquipRelease};
         MechanicalCueSounds={ChargePullSound,ChargeReleaseSound};
     }
-    else if (IsSuper90Weapon())
+    else if (IsTubeShotgunWeapon())
     {
         // Gamedev's selected equip cue is one complete sound, not two contacts.
         PlayMechanicalSound(EquipSound, AKMSource::ActionVolume);
@@ -3067,7 +3094,7 @@ void AFPSGAMECharacter::FinishWeaponAction()
     const bool bFinishedQuickCombat = WeaponState == EAKMWeaponState::QuickCombat;
     const bool bFinishedRifleReload = (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) || bUseM16
         || (bUseQBZ191 && WeaponState == EAKMWeaponState::Reloading) || SVDWeaponAssets::Matches(AKMViewmodel)
-        || PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||HasLMG201ClothBox()||IsSuper90Weapon()) && IsReloading();
+        || PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||HasLMG201ClothBox()||IsTubeShotgunWeapon()) && IsReloading();
     const double CompletedAt = bFinishedQuickCombat && bUseASH12
         ? GetWorld()->GetTimeSeconds() : WeaponActionStartedAt + WeaponStateDuration;
     // Only the eligible tail after completion can catch up. Keep a newer input
@@ -3090,7 +3117,7 @@ void AFPSGAMECharacter::FinishWeaponAction()
 
 void AFPSGAMECharacter::FinishReload()
 {
-    if(IsSuper90Weapon()){FinishSuper90Reload();return;}
+    if(IsTubeShotgunWeapon()){FinishSuper90Reload();return;}
     // Ammunition was committed at insertion. The tail only returns the pose.
     RecoilPatternIndex = 0;
     bPendingEmptyReload = false;
@@ -3221,7 +3248,7 @@ void AFPSGAMECharacter::StopMechanicalAudio()
 
 UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 {
-    if(IsSuper90Weapon())
+    if(IsTubeShotgunWeapon())
     {
         FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
         if(Clip==TEXT("aim"))Clip=TEXT("idle");
@@ -3229,7 +3256,8 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
         else if(Clip==TEXT("reload"))Clip=TEXT("reload_continuous");
         else if(Clip==TEXT("reload_empty"))Clip=TEXT("reload_full");
         else if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
-        return LoadObject<UAnimSequence>(nullptr,*Super90WeaponAssets::AnimationPath(*Clip));
+        if(IsM870Weapon()&&Clip==TEXT("fire_last"))Clip=TEXT("fire");
+        return LoadObject<UAnimSequence>(nullptr,*(IsM870Weapon()?M870WeaponAssets::AnimationPath(*Clip):Super90WeaponAssets::AnimationPath(*Clip)));
     }
     if (IsHK416Weapon())
     {
@@ -3325,7 +3353,7 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 
 USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
 {
-    if(IsSuper90Weapon())
+    if(IsTubeShotgunWeapon())
     {
         const TCHAR* Cue=nullptr;
         if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)Cue=TEXT("Fire");
@@ -3335,6 +3363,13 @@ USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
         else if(FCString::Strcmp(AssetName,TEXT("S_AKM_Equip"))==0
             || FCString::Strcmp(AssetName,TEXT("S_AKM_ChargePull"))==0
             || FCString::Strcmp(AssetName,TEXT("S_AKM_ChargeRelease"))==0)Cue=TEXT("Bolt");
+        if(IsM870Weapon())
+        {
+            if(FCString::Strcmp(AssetName,TEXT("S_AKM_ChargePull"))==0)Cue=TEXT("PumpPull");
+            else if(FCString::Strcmp(AssetName,TEXT("S_AKM_ChargeRelease"))==0)Cue=TEXT("PumpPush");
+            else if(FCString::Strcmp(AssetName,TEXT("S_AKM_Equip"))==0)Cue=TEXT("Equip");
+            if(Cue)return LoadObject<USoundBase>(nullptr,*M870WeaponAssets::SoundPath(Cue));
+        }
         if(Cue)return LoadObject<USoundBase>(nullptr,*FString::Printf(
             TEXT("/Game/Weapons/Super90/GameDevAudio20261007/S_Super90_%s.S_Super90_%s"),Cue,Cue));
     }
@@ -3556,14 +3591,14 @@ void AFPSGAMECharacter::ServiceReloadAfterCasting()
 }
 bool AFPSGAMECharacter::IsRevolverFireActionPlaying() const
 {
-    return (bUseDanWesson715 || IsSuper90Weapon()) && ActiveActionAnimation
-        && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || (IsSuper90Weapon()&&ActiveActionAnimation==PistolFireLastAnimation))
+    return (bUseDanWesson715 || IsTubeShotgunWeapon()) && ActiveActionAnimation
+        && (ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || (IsTubeShotgunWeapon()&&ActiveActionAnimation==PistolFireLastAnimation))
         && GetWorld()->GetTimeSeconds() < LastShotWorldTime + ActionDuration;
 }
 void AFPSGAMECharacter::ServiceRevolverReloadAfterFire()
 {
     if (!bRevolverReloadAfterFire) return;
-    if (!bInventoryWeaponReady || (!bUseDanWesson715&&!IsSuper90Weapon()) || MagazineAmmo >= MagazineCapacity
+    if (!bInventoryWeaponReady || (!bUseDanWesson715&&!IsTubeShotgunWeapon()) || MagazineAmmo >= MagazineCapacity
         || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0))
     {
         bRevolverReloadAfterFire = false;
@@ -3584,6 +3619,11 @@ bool AFPSGAMECharacter::IsWeaponFireHeld() const { return HasOffhandPistol()?Dua
 bool AFPSGAMECharacter::IsReloading() const { return HasOffhandPistol()?DualPistols->IsReloading():WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
 bool AFPSGAMECharacter::IsDoorPushActive() const {return DoorPush&&DoorPush->IsActive();}
 bool AFPSGAMECharacter::IsWeaponBusy(bool bAllowInspection) const
+{
+    const bool bPumpBusy=IsM870Weapon()&&IsRevolverFireActionPlaying();
+    return bPumpBusy || IsWeaponBusyForAim(bAllowInspection);
+}
+bool AFPSGAMECharacter::IsWeaponBusyForAim(bool bAllowInspection) const
 {
     const bool bGunBusy=HasOffhandPistol()?DualPistols->IsReloading():
         (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
@@ -3700,7 +3740,7 @@ void AFPSGAMECharacter::UpdateADSPose()
             Root=Root*Local;
         }
         const FTransform Mount=HolographicMount*Root;
-        if ((IsSuper90Weapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
+        if ((HasThermalScope() || IsTubeShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
         {
             const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
             const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
@@ -3726,7 +3766,7 @@ void AFPSGAMECharacter::UpdateADSPose()
     CalibratedADSRotation = FQuat::FindBetweenNormals(Base.RotateVector(Axis), FVector::ForwardVector) * Base;
     // Mapping a single axis leaves roll unconstrained. Align the complete optic
     // frame with camera forward/up so ADS is level without twisting it off the rail.
-    if ((IsPistolWeapon() || IsHK416Weapon() || IsSuper90Weapon() || bUseQBZ191) && !bHolographicOptic)
+    if ((IsPistolWeapon() || IsHK416Weapon() || IsTubeShotgunWeapon() || bUseQBZ191) && !bHolographicOptic)
     {
         FTransform Root = FTransform::Identity;
         for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
@@ -3735,12 +3775,12 @@ void AFPSGAMECharacter::UpdateADSPose()
             AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
             Root=Root*Local;
         }
-        SightUp=Root.GetRotation().RotateVector(IsSuper90Weapon() ? -FVector::RightVector : FVector::UpVector);
+        SightUp=Root.GetRotation().RotateVector(IsTubeShotgunWeapon() ? -FVector::RightVector : FVector::UpVector);
     }
     // QBZ191's aim carries about 4.88 degrees of left roll. Its iron sights need
     // the gun-root up axis, just as hip framing does, while retaining their own
     // sight line and eye distance. The location below uses this corrected frame.
-    if(bHolographicOptic || IsSuper90Weapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
+    if(bHolographicOptic || IsTubeShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
     // Keep the revolver at arm's length; its ocular is not a rifle eye box.
     const float EyeDistance = HasHandgunScope() ? 42.f : bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
     CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
@@ -3750,7 +3790,7 @@ void AFPSGAMECharacter::UpdateADSPose()
 
 float AFPSGAMECharacter::ReloadSourceTime(float RuntimeTime) const
 {
-    if(IsSuper90Weapon())return Super90ReloadSourceTime(RuntimeTime);
+    if(IsTubeShotgunWeapon())return Super90ReloadSourceTime(RuntimeTime);
     if (bUsingM4Infima)
     {
         const UAnimSequence* Clip = ActiveActionAnimation;
@@ -3781,11 +3821,14 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
 {
     USoundBase* Sound = MechanicalCueSounds.IsValidIndex(CueIndex) ? MechanicalCueSounds[CueIndex].Get() : nullptr;
     const bool bSourceCueClock = (bUsingM4Infima||HasLMG201ClothBox()) && IsReloading();
-    const bool bSuper90CueClock = IsSuper90Weapon() && IsReloading();
+    const bool bSuper90CueClock = IsTubeShotgunWeapon() && IsReloading();
     const auto CueRuntimeTime = [this,bSourceCueClock,bSuper90CueClock](float Time)
     {
         if(bSuper90CueClock)
         {
+            // Feed cues keep an unwrapped clock even when extra shells reuse
+            // the last native gesture. Loader/cycle cues keep their own source.
+            if(!bSuper90SpeedReload&&!bReloadCycleOnly)return Time/FMath::Max(.001f,Super90ReloadRate);
             // Invert the same source clock used by both hands and the bolt:
             // it includes skipped shell loops and the paced ordinary tail.
             return ReloadRuntimeTime(Time);
@@ -3825,7 +3868,7 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
     }
     // PKM's gun/hand impulses are baked; its camera contacts are sampled by
     // WeaponActionCamera. Do not add the M4 index-based impulse to either layer.
-    if (!IsSuper90Weapon() && !bUseDanWesson715 && !bPKMReload && !HasLMG201ClothBox() && (CueIndex == 2 || CueIndex == BoltReleaseCueIndex))
+    if (!IsTubeShotgunWeapon() && !bUseDanWesson715 && !bPKMReload && !HasLMG201ClothBox() && (CueIndex == 2 || CueIndex == BoltReleaseCueIndex))
     {
         // A seated magazine and released bolt push the whole supported weapon; wrists retain their source pose.
         const float ContactKickScale = bM16ChargeRelease ? .45f : 1.f;
@@ -3923,7 +3966,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     // Native walk/run is only the non-tactical locomotion channel. Replacing
     // SprintClip after Apply mixed its two-handed run with the one-handed loop
     // and skipped the authored left-arm release/return, including grip layers.
-    if(IsSuper90Weapon() && !bTacticalSprintActive)
+    if(IsTubeShotgunWeapon() && !bTacticalSprintActive)
     {
         GunplayAnimation->SprintClip=bIsSprinting?Super90RunAnimation:Super90WalkAnimation;
         const float Length=GunplayAnimation->SprintClip?GunplayAnimation->SprintClip->GetPlayLength():1.f;
@@ -3933,7 +3976,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     }
     // Keep entry and return under the same owner until progress reaches zero,
     // just as on M4/AKM/QBZ191; releasing Shift must not switch back mid-return.
-    if(Sprint && (!IsSuper90Weapon() || bTacticalSprintActive))Sprint->Apply(*GunplayAnimation);
+    if(Sprint && (!IsTubeShotgunWeapon() || bTacticalSprintActive))Sprint->Apply(*GunplayAnimation);
     if (ActiveActionAnimation)
     {
         // A reload can start during input, before this frame's Tick. Adding
@@ -3943,7 +3986,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         const bool bQuickCombatAction = WeaponState == EAKMWeaponState::QuickCombat;
         // Pit Viper's fast slide cycle shares the actual shot clock; input may
         // arrive after the interval covered by this frame's DeltaSeconds.
-        if ((bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsSuper90Weapon()
+        if ((bUseDanWesson715 || bPKMWeapon || IsPitViperWeapon() || IsTubeShotgunWeapon()
             || bUseASH12 || RifleAxialRecoil::ForWeapon(ActiveInventoryWeaponDefinition)!=RifleAxialRecoil::EProfile::None) && bFireAction)
             ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
         else if (bQuickCombatAction || IsReloading() || WeaponState == EAKMWeaponState::Inspecting || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;

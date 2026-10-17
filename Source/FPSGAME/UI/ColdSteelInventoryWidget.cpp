@@ -100,7 +100,8 @@ void UColdSteelInventoryWidget::LoadIcons()
         // warning and a transient UTexture2D allocation that GC then has to reap.
         if(!Texture){FailedIcons.Add(IconKey);continue;}
         Icons.Add(IconKey,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;
-        if(const auto* P=Presentation.Find(I.InstanceId);P&&P->StaffArt)ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
+        if(const auto* P=Presentation.Find(I.InstanceId);(P&&P->StaffArt)||I.Definition==TEXT("ue_m870"))
+            ColdSteelStaffIcon::FrameImportedTexture(Brush,Texture);
         IconBrushes.Add(IconKey,Brush);
     }
     // Item data and asynchronous images are painted directly, outside child-widget bindings.

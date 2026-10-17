@@ -334,12 +334,14 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         &&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==
             (D==RSH12WeaponAssets::Definition?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader))
     {R.Reload=DanWesson715WeaponAssets::EmptyReload;R.EmptyReload=DanWesson715WeaponAssets::EmptyReload;}
-    if(D==Super90WeaponAssets::Definition&&Part(Normalize(D,P),TEXT("reload_device"))==Super90SpeedloaderAssets::Id)
+    if((D==Super90WeaponAssets::Definition||D==M870WeaponAssets::Definition)
+        &&Part(Normalize(D,P),TEXT("reload_device"))==Super90SpeedloaderAssets::Id)
     {
         // Catalog seconds describe the complete loader operation in this mode.
         // Keep the existing base speed increase and all later skill multipliers.
+        // M870 shares the base feed references; only its pump-cycle empty tail differs.
         R.Reload*=Super90SpeedloaderAssets::NormalPacedReference/Super90WeaponAssets::SingleReload;
-        R.EmptyReload*=Super90SpeedloaderAssets::EmptyPacedReference/Super90WeaponAssets::FullReload;
+        R.EmptyReload*=Super90SpeedloaderAssets::EmptyPacedReferenceFor(D==M870WeaponAssets::Definition)/Super90WeaponAssets::FullReload;
     }
     const auto NormalizedParts=Normalize(D,P);
     const FString ActiveLaser=TacticalDeviceVariants::ActiveLaserSlot(

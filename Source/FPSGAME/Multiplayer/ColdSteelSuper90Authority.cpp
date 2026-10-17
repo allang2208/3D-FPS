@@ -5,8 +5,10 @@
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Weapons/FPSBallisticsComponent.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
 #include "../Weapons/Super90SpeedloaderAssets.h"
 #include "../Weapons/Super90Spread.h"
+#include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -52,12 +54,41 @@ void AColdSteelPlayerState::CancelSuper90Reload(bool Soft)
     ServerSuper90Cancel(++Super90LocalSequence,Soft,GetPawn());
 }
 
+void AColdSteelPlayerState::RequestM870PumpInterrupt(const FString& Weapon,uint32 ShotSequence)
+{
+    const uint32 Sequence=++Super90LocalSequence;
+    M870PredictedPumpInterrupts.Add(Weapon,Sequence);
+    ServerM870PumpInterrupt(Sequence,Weapon,ShotSequence,Super90Net::Clock(GetWorld()),GetPawn());
+}
+
+void AColdSteelPlayerState::ServerM870PumpInterrupt_Implementation(uint32 Sequence,const FString& Weapon,
+    uint32 ShotSequence,double InterruptedAt,APawn* SourcePawn)
+{
+    if(static_cast<int32>(Sequence-Super90ProcessedSequence)<=0)return;
+    Super90ProcessedSequence=Sequence;
+    const double Now=Super90Net::Clock(GetWorld());
+    // Validate against the accepted shot, including its original rate. The
+    // outgoing gun need not still occupy the active slot when this arrives.
+    // Do not call Super90AuthorityPawn: it would select that old slot again.
+    if(!ShadowModel||!SourcePawn||SourcePawn!=GetPawn()||SourcePawn!=M870AuthorityShotPawn.Get()
+        ||Weapon!=M870AuthorityShotWeapon||ShotSequence!=M870AuthorityShotSequence
+        ||!FMath::IsFinite(InterruptedAt)||InterruptedAt<Now-.9||InterruptedAt>Now+.1
+        ||InterruptedAt+1.e-4<M870AuthorityShotTime||InterruptedAt>=M870AuthorityPumpClosedTime)
+    {SendSuper90Ammo(true);return;}
+    auto State=ShadowModel->Snapshot();
+    auto* Gun=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Weapon&&I.Definition==M870WeaponAssets::Definition;});
+    if(!Gun||!WeaponReloadStages::SetNeedsCycle(*Gun,1)){SendSuper90Ammo(true);return;}
+    ShadowModel->AdoptNetMirror(State);
+    bServerDirty=true;ServerSaveTimer=20.f;
+    SendSuper90Ammo();
+}
+
 AFPSGAMECharacter* AColdSteelPlayerState::Super90AuthorityPawn(const FString& Weapon)
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
     if(!HasAuthority()||!ShadowModel||!Pawn||Pawn->IsLocallyControlled())return nullptr;
     const auto* Gun=ShadowModel->FindItem(Weapon);
-    if(!Gun||Gun->Definition!=Super90WeaponAssets::Definition||Gun->Place!=1)return nullptr;
+    if(!Gun||!TubeShotgunAssets::Supports(Gun->Definition)||Gun->Place!=1)return nullptr;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return nullptr;
     // The intent names an owned, equipped instance. Do not wait for the slow
     // profile heartbeat to discover an ordinary active-weapon-slot change.
@@ -98,6 +129,8 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     const float Damage=Pawn->DamagePerShot*Scale/Pellets;
     const float Speed=Pawn->ProjectileSpeedCM,Range=Pawn->TraceDistance,EffectiveRange=Pawn->EffectiveWeaponRangeCM;
     const float Spread=Aiming?0.f:Pawn->GetHipSpread();
+    const float PelletCone=Super90Spread::ConeRadians(Pellets,Aiming,Pawn->GetShotgunPelletSpreadMultiplier());
+    const bool Duckbill=Pellets>1&&Pawn->HasShotgunDuckbill();
     FRandomStream Random(Super90Spread::Seed(Sequence));
     const FRotationMatrix Basis(Direction.Rotation());
     const float X=Random.FRandRange(-Spread,Spread),Y=Random.FRandRange(-Spread,Spread);
@@ -113,7 +146,8 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     TArray<FVector_NetQuantizeNormal> Directions;Directions.Reserve(Pellets);
     for(int32 P=0;P<Pellets;++P)
     {
-        const FVector Ray=Pellets>1?Random.VRandCone(Center,Super90Spread::ConeRadians(Pellets,Aiming)):Center;
+        const FVector Ray=Duckbill?Super90Spread::HorizontalFan(Center,PelletCone,P,Pellets,Random.FRand()):
+            Pellets>1?Random.VRandCone(Center,PelletCone):Center;
         FHitResult Target;
         const FVector End=FVector(Eye)+Ray*Range;
         const FVector AimPoint=Blocked?Obstruction.ImpactPoint:
@@ -128,11 +162,17 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     {Item->Magazine-=Spent;Item->VirtualMagazineAmmo=FMath::Max(0,Item->VirtualMagazineAmmo-Spent);}
     ShadowModel->AdoptNetMirror(State);Pawn->MagazineAmmo=FMath::Max(0,FiredWeapon.Magazine-Spent);
     Super90LastFireTime=FiredAt;Super90NextFireTime=FiredAt+Pawn->EffectiveFireInterval();
+    if(Pawn->IsM870Weapon())
+    {
+        M870AuthorityShotSequence=Sequence;M870AuthorityShotWeapon=Weapon;M870AuthorityShotPawn=Pawn;
+        M870AuthorityShotTime=FiredAt;
+        M870AuthorityPumpClosedTime=FiredAt+M870WeaponAssets::PumpClosed/Pawn->M870PumpPlayRate();
+    }
     if(!Aiming)Pawn->CurrentSpread=FMath::Min(.018f,Pawn->CurrentSpread+.003f);
     LastValidatedShotAt=Now;bServerDirty=true;ServerSaveTimer=20.f;
     UAISense_Hearing::ReportNoiseEvent(Pawn,Pawn->GetActorLocation(),1.f,Pawn,Suppressed?1000.f:3600.f,
         Suppressed?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
-    MulticastSuper90Shot(Pawn,Start,Directions,Speed,TravelRange,Aiming,Suppressed,Weapon,GetWorld()->GetTimeSeconds());
+    MulticastSuper90Shot(Pawn,Start,Directions,Speed,TravelRange,Aiming,Suppressed,Weapon,GetWorld()->GetTimeSeconds(),Pawn->M870PumpPlayRate());
     SendSuper90Ammo();
 }
 
@@ -154,6 +194,7 @@ void AColdSteelPlayerState::ServerSuper90Reload_Implementation(uint32 Sequence,c
     const int32 Available=Switch?int32(FMath::Min<int64>(Pawn->MagazineCapacity,ShadowModel->PouchCount(Ammo))):
         Pawn->HasInfiniteReserveAmmo()?Pawn->MagazineCapacity:ShadowModel->AmmoCount();
     R.Count=R.CycleOnly?0:FMath::Min(Pawn->MagazineCapacity-(Switch?0:Gun->Magazine),Available);
+    if(R.Loader)R.Count=FMath::Min(R.Count,Super90SpeedloaderAssets::Capacity);
     if(!R.CycleOnly&&R.Count<=0){SendSuper90Ammo(true);return;}
     UAnimSequence* Clip=R.Empty?Pawn->ReloadEmptyAnimation.Get():Pawn->ReloadAnimation.Get();
     if(R.Loader)
@@ -166,7 +207,7 @@ void AColdSteelPlayerState::ServerSuper90Reload_Implementation(uint32 Sequence,c
     if(!Clip){SendSuper90Ammo(true);return;}
     R.Length=Clip->GetPlayLength();
     R.Rate=R.Empty?FullReload/FMath::Max(.01f,Pawn->EmptyReloadDuration):SingleReload/FMath::Max(.01f,Pawn->ReloadDuration);
-    if(R.Loader)R.Rate=R.Empty?Super90SpeedloaderAssets::EmptyPacedReference/FMath::Max(.01f,Pawn->EmptyReloadDuration):
+    if(R.Loader)R.Rate=R.Empty?Super90SpeedloaderAssets::EmptyPacedReferenceFor(Pawn->IsM870Weapon())/FMath::Max(.01f,Pawn->EmptyReloadDuration):
         Super90SpeedloaderAssets::NormalPacedReference/FMath::Max(.01f,Pawn->ReloadDuration);
     R.Tail=TailForCount(R.Count);
     R.Duration=(R.Tail+R.Length-TailBegin)/R.Rate;
@@ -190,7 +231,7 @@ void AColdSteelPlayerState::ServerSuper90Cancel_Implementation(uint32 Sequence,b
 void AColdSteelPlayerState::TickSuper90Authority(float Delta)
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
-    if(Pawn&&!Pawn->IsLocallyControlled()&&Pawn->IsSuper90Weapon())
+    if(Pawn&&!Pawn->IsLocallyControlled()&&Pawn->IsTubeShotgunWeapon())
     {
         // Same movement/bloom response as the owner; only cosmetic recoil is local.
         Pawn->CurrentSpread=FMath::Max(0.f,Pawn->CurrentSpread-Delta*.018f);
@@ -213,7 +254,7 @@ void AColdSteelPlayerState::TickSuper90Authority(float Delta)
         if(Stop<R.Count){R.Count=Stop;R.Tail=TailForCount(Stop);R.Duration=(R.Tail+R.Length-TailBegin)/R.Rate;SendSuper90Ammo();}
     }
     const float Source=R.Loader?(R.Count?Super90LoaderPushTiming::SourceTime(Time):Time):
-        R.CycleOnly?Time:Time>=R.Tail?TailBegin+Time-R.Tail:Time;
+        R.CycleOnly?Time:FeedClipTime(Time,R.Tail,R.Length);
     const bool LoaderContact=R.Loader&&R.Count>0&&R.Committed==0&&Source+1.e-6f>=Super90SpeedloaderAssets::LastContact(R.Count);
     while(R.Committed<R.Count&&(LoaderContact||(!R.Loader&&Time+1.e-6f>=Insert+R.Committed*LoopStep)))
     {
@@ -230,7 +271,7 @@ void AColdSteelPlayerState::TickSuper90Authority(float Delta)
         R.Committed+=Loaded;RecordSuper90PouchChange(Before,ShadowModel->Snapshot());SendSuper90Ammo();
         if(R.Loader)break;
     }
-    const float Ready=R.Loader?Super90SpeedloaderAssets::Release(R.Count):R.CycleOnly?CycleBoltReady:BoltRelease;
+    const float Ready=R.Loader?Super90SpeedloaderAssets::Release(R.Count,Pawn->IsM870Weapon()):Pawn->IsM870Weapon()?(R.CycleOnly?M870WeaponAssets::PumpClosed:M870WeaponAssets::ReloadClosed):(R.CycleOnly?CycleBoltReady:BoltRelease);
     if(R.Empty&&Source+1.e-6f>=Ready)
     {
         const auto* Current=ShadowModel->FindItem(R.Weapon);
@@ -262,8 +303,34 @@ bool AColdSteelPlayerState::RebaseSuper90Upload(FColdSteelProfile& Incoming,cons
         auto& Count=Incoming.AmmoPouch.FindOrAdd(Super90Net::AmmoIds[I]);
         Count=KeepServerPouch?Previous.AmmoPouch.FindRef(Super90Net::AmmoIds[I]):FMath::Clamp<int64>(Count+Super90PouchDelta[I]-(*Base)[I],0,ColdSteelAmmo::MaxCount);
     }
-    for(auto& Item:Incoming.Items)if(Item.Definition==Super90WeaponAssets::Definition)
-        if(const auto* Old=Previous.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Item.InstanceId;}))Super90Net::CopyMagazine(Item,*Old);
+    const auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    TMap<FString,int64> ResizeRefunds;bool Resized=false;
+    for(auto& Item:Incoming.Items)if(TubeShotgunAssets::Supports(Item.Definition))
+        if(const auto* Old=Previous.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Item.InstanceId;}))
+        {
+            Super90Net::CopyMagazine(Item,*Old);
+            if(!Gunsmith)continue;
+            const int32 Capacity=Gunsmith->CalculateItem(Item,Gunsmith->Installed(Item)).Capacity;
+            const int32 OldCapacity=Gunsmith->CalculateItem(*Old,Gunsmith->Installed(*Old)).Capacity;
+            if(Capacity==OldCapacity&&Item.Magazine<=Capacity)continue;
+            Resized=true;
+            const int32 Overflow=FMath::Max(0,Item.Magazine-Capacity);
+            const int32 Virtual=FMath::Min(Overflow,Item.VirtualMagazineAmmo);
+            Item.Magazine-=Overflow;Item.VirtualMagazineAmmo-=Virtual;
+            // The owner already predicted a refund. Recompute this ammo type
+            // from authority, including shots/reloads accepted after that preview.
+            if(Capacity<OldCapacity||Overflow>0)
+                ResizeRefunds.FindOrAdd(ShadowModel->AmmoDefinitionFor(Item))+=Overflow-Virtual;
+        }
+    for(const auto& Refund:ResizeRefunds)
+    {
+        const int64 Count=Previous.AmmoPouch.FindRef(Refund.Key)+Refund.Value;
+        if(Count>ColdSteelAmmo::MaxCount)return false;
+        Incoming.AmmoPouch.Add(Refund.Key,Count);
+    }
+    // Make the resize/refund one authoritative inventory revision. Repeated
+    // or stale uploads then take the existing KeepServerPouch/items path.
+    if(Resized)Incoming.CampfireInventoryRevision=Previous.CampfireInventoryRevision+1;
     return true;
 }
 void AColdSteelPlayerState::SendSuper90Ammo(bool Rejected)
@@ -277,7 +344,7 @@ void AColdSteelPlayerState::SendSuper90Ammo(bool Rejected)
     State.ReloadRate=Super90Reload.Rate;State.ReloadEmpty=Super90Reload.Empty;
     State.ReloadLoader=Super90Reload.Loader;State.ReloadCycleOnly=Super90Reload.CycleOnly;
     State.ReloadStopRequested=Super90Reload.StopRequested;
-    for(const auto& I:ShadowModel->Items())if(I.Definition==Super90WeaponAssets::Definition)
+    for(const auto& I:ShadowModel->Items())if(TubeShotgunAssets::Supports(I.Definition))
     {
         auto& Mag=State.Magazines.AddDefaulted_GetRef();Mag.Instance=I.InstanceId;Mag.Ammo=ShadowModel->AmmoDefinitionFor(I);
         Mag.Count=I.Magazine;Mag.Virtual=I.VirtualMagazineAmmo;Mag.NeedsCycle=WeaponReloadStages::NeedsCycle(I);
@@ -289,12 +356,13 @@ void AColdSteelPlayerState::TickSuper90Recovery()
     if(GetNetMode()!=NM_Client)return;
     if(Super90ClientPawn.Get()!=GetPawn())
     {
-        Super90ClientPawn=GetPawn();Super90PredictedShots.Reset();
+        Super90ClientPawn=GetPawn();Super90PredictedShots.Reset();M870PredictedPumpInterrupts.Reset();
+        Super90ServerWeapons.Reset();
         bSuper90ReloadPending=bSuper90SoftCancelSent=false;
     }
     if(!bPendingSuper90State)return;
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(!Model||!GetPawn()||Model->RuntimePawn()!=GetPawn()||PendingSuper90State.InventoryRevision>Model->InventoryRevision())return;
+    if(!Model||!GetPawn()||PendingSuper90State.SourcePawn!=GetPawn()||Model->RuntimePawn()!=GetPawn()||PendingSuper90State.InventoryRevision>Model->InventoryRevision())return;
     const auto Receipt=PendingSuper90State;bPendingSuper90State=false;
     ClientSuper90Ammo_Implementation(Receipt);
 }
@@ -303,10 +371,13 @@ void AColdSteelPlayerState::ClientSuper90Ammo_Implementation(const FSuper90NetAm
     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Model||Receipt.PouchDelta.Num()!=3||Receipt.PouchCounts.Num()!=3)return;
-    if(!Pawn||!Pawn->IsLocallyControlled()||Model->RuntimePawn()!=Pawn||Receipt.InventoryRevision>Model->InventoryRevision())
+    // The new pawn's receipt may precede possession on another actor channel.
+    // Retain it until its identity matches; an old-pawn receipt never writes
+    // magazine/chamber state into a different life while waiting.
+    if(!Pawn||Receipt.SourcePawn!=Pawn||!Pawn->IsLocallyControlled()||Model->RuntimePawn()!=Pawn||Receipt.InventoryRevision>Model->InventoryRevision())
     {PendingSuper90State=Receipt;bPendingSuper90State=true;return;}
     if(Super90ClientPawn.Get()!=Pawn)
-    {Super90ClientPawn=Pawn;Super90PredictedShots.Reset();bSuper90ReloadPending=bSuper90SoftCancelSent=false;}
+    {Super90ClientPawn=Pawn;Super90PredictedShots.Reset();M870PredictedPumpInterrupts.Reset();Super90ServerWeapons.Reset();bSuper90ReloadPending=bSuper90SoftCancelSent=false;}
     if(static_cast<int32>(Receipt.Revision-Super90AppliedRevision)<0)return;
     bPendingSuper90State=false;Model->SyncRuntime();auto State=Model->Snapshot();
     for(int32 I=0;I<3;++I)
@@ -320,10 +391,12 @@ void AColdSteelPlayerState::ClientSuper90Ammo_Implementation(const FSuper90NetAm
     Super90ServerWeapons.Reset();
     for(const auto& Mag:Receipt.Magazines)Super90ServerWeapons.Add(Mag.Instance);
     Super90PredictedShots.RemoveAll([&](const auto& Shot){return static_cast<int32>(Shot.Sequence-Receipt.Acknowledged)<=0;});
+    for(auto It=M870PredictedPumpInterrupts.CreateIterator();It;++It)
+        if(static_cast<int32>(It.Value()-Receipt.Acknowledged)<=0)It.RemoveCurrent();
     for(const auto& Mag:Receipt.Magazines)if(auto* Item=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Mag.Instance;}))
     {
         Item->Magazine=Mag.Count;Item->VirtualMagazineAmmo=Mag.Virtual;Item->LoadedAmmoType=Mag.Ammo;
-        WeaponReloadStages::SetNeedsCycle(*Item,Mag.NeedsCycle?1:0);
+        WeaponReloadStages::SetNeedsCycle(*Item,(Mag.NeedsCycle||M870PredictedPumpInterrupts.Contains(Mag.Instance))?1:0);
         for(const auto& Prediction:Super90PredictedShots)if(Prediction.Weapon==Mag.Instance)
         {Item->Magazine=FMath::Max(0,Item->Magazine-Prediction.Rounds);Item->VirtualMagazineAmmo=FMath::Max(0,Item->VirtualMagazineAmmo-Prediction.Rounds);}
     }
@@ -335,7 +408,7 @@ void AColdSteelPlayerState::ClientSuper90Ammo_Implementation(const FSuper90NetAm
         bSuper90ReloadPending=Receipt.Reloading;
         if(Receipt.Reloading)Pawn->ReconcileSuper90Reload(Receipt);
         // A rejected stale profile upload is not a rejected active reload.
-        if(Receipt.Rejected&&!Receipt.Reloading&&Pawn->IsSuper90Weapon()&&Pawn->IsReloading())Pawn->InterruptReload();
+        if(Receipt.Rejected&&!Receipt.Reloading&&Pawn->IsTubeShotgunWeapon()&&Pawn->IsReloading())Pawn->InterruptReload();
         if(FinishedReload)Model->SaveNow();
     }
 }
@@ -344,15 +417,15 @@ void AColdSteelPlayerState::PreserveSuper90ClientAmmo(FColdSteelProfile& Incomin
     const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Model)return;
     const auto Current=Model->Snapshot();
     for(const auto* Id:Super90Net::AmmoIds)Incoming.AmmoPouch.Add(Id,Current.AmmoPouch.FindRef(Id));
-    for(auto& I:Incoming.Items)if(I.Definition==Super90WeaponAssets::Definition)
+    for(auto& I:Incoming.Items)if(TubeShotgunAssets::Supports(I.Definition))
         if(const auto* Local=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==I.InstanceId;}))Super90Net::CopyMagazine(I,*Local);
 }
 void AColdSteelPlayerState::MulticastSuper90Shot_Implementation(AFPSGAMECharacter* Shooter,FVector_NetQuantize Muzzle,
-    const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt)
+    const TArray<FVector_NetQuantizeNormal>& Directions,float Speed,float Range,bool Aiming,bool Suppressed,const FString& Weapon,float FiredAt,float PumpRate)
 {
     if(!Shooter||Shooter->IsLocallyControlled()||GetNetMode()==NM_DedicatedServer)return;
     auto* Body=Shooter->FindComponentByClass<UFPSPlayerBodyComponent>();
-    if(Body)Body->PresentSuper90Shot(Weapon,FiredAt,Aiming,Suppressed);
+    if(Body)Body->PresentSuper90Shot(Weapon,FiredAt,Aiming,Suppressed,PumpRate);
     // Remote tracers are cosmetic; only the server rounds above can apply hits.
     // Listen-server observers already have the authoritative rounds above.
     // Give those rounds their world FX at launch, never launch a duplicate here.

@@ -536,7 +536,7 @@ void UFPSQuickCombatComponent::ContactHit()
     FVector Start=Aim.GetLocation();
     FVector ProbeOrigin=FVector::ZeroVector;
     auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
-    if(Player->bUseASH12&&Viewmodel&&IsRifleStyle())
+    if((Player->bUseASH12||Player->IsM870Weapon())&&Viewmodel&&IsRifleStyle())
     {
         // Evaluate the exact contact pose once before the sweep. The faster
         // entry must not trace from the previous frame's wind-up position.

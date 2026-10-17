@@ -143,6 +143,9 @@ bool UColdSteelWeaponIcons::PublishReadback(const FString& K,const TArray<FColor
     FMemory::Memcpy(Data,Pixels.GetData(),Pixels.Num()*sizeof(FColor));Mip.BulkData.Unlock();Texture->UpdateResource();
     if(Cache.Num()>=64){FString Old;uint64 Use=MAX_uint64;for(const auto& Pair:Cache)if(Pair.Value.Use<Use){Use=Pair.Value.Use;Old=Pair.Key;}Cache.Remove(Old);Textures.Remove(Old);}
     Textures.Add(K,Texture);auto& E=Cache.Add(K);E.Use=++Serial;E.Brush.SetResourceObject(Texture);E.Brush.ImageSize=FVector2D(Width,Height);E.Brush.DrawAs=ESlateBrushDrawType::Image;
-    if(!Queue.IsEmpty()&&ColdSteelStaff::IsStaff(Queue[0].Item))ColdSteelStaffIcon::FrameVisiblePixels(E.Brush,Pixels.GetData(),Width,Height);
+    // M870 also needs silhouette framing: the equipment card is much wider
+    // than the inventory canvas, so transparent top/bottom margins shrink it.
+    if(!Queue.IsEmpty()&&(ColdSteelStaff::IsStaff(Queue[0].Item)||Queue[0].Item.Definition==TEXT("ue_m870")))
+        ColdSteelStaffIcon::FrameVisiblePixels(E.Brush,Pixels.GetData(),Width,Height);
     ++Completed;UE_LOG(LogTemp,Display,TEXT("WeaponIcon: ready key=%s visible=%d renders=%d"),*K,Visible,Completed);return true;
 }

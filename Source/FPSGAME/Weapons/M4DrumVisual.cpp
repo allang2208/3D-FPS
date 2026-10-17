@@ -12,6 +12,7 @@
 #include "G18WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
 #include "Super90TubeMagazineAssets.h"
+#include "M870TubeMagazineAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -57,6 +58,15 @@ bool AFPSGAMECharacter::HasLMG201ClothBox() const
 
 void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
+    if(IsM870Weapon())
+    {
+        LargeDrum=M870TubeMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
+            bInventoryWeaponReady&&Id==M870TubeMagazineAssets::Part);
+        MagazineAttachmentId=LargeDrum&&LargeDrum->IsVisible()?Id:FString();
+        bDrumVisual=false;bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
+        if(LargeDrum)DrumMount=LargeDrum->GetRelativeTransform();
+        return;
+    }
     if(IsSuper90Weapon())
     {
         LargeDrum=Super90TubeMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
@@ -261,7 +271,8 @@ bool AFPSGAMECharacter::ValidateDrumAttachment() const
 void AFPSGAMECharacter::UpdateDrumDropVisual()
 {
     if(!LargeDrum)return;
-    if(IsSuper90Weapon()&&MagazineAttachmentId==Super90TubeMagazineAssets::Part)
+    if((IsSuper90Weapon()&&MagazineAttachmentId==Super90TubeMagazineAssets::Part)
+        ||(IsM870Weapon()&&MagazineAttachmentId==M870TubeMagazineAssets::Part))
     {
         bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
         LargeDrum->SetVisibility(bInventoryWeaponReady);return;

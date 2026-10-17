@@ -6,6 +6,7 @@
 #include "Weapons/LMG201WeaponAssets.h"
 #include "Weapons/PKMLowpolyWeaponAssets.h"
 #include "Weapons/Super90WeaponAssets.h"
+#include "Weapons/M870WeaponAssets.h"
 #include "Weapons/Super90SpeedloaderAssets.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Animation/AnimSequence.h"
@@ -53,10 +54,10 @@ void AFPSGAMECharacter::BuildReloadCameraTracks(FWeaponReloadCameraTracks& Track
         Track.Time=ReloadSourceTime(WeaponStateElapsed);Track.End=ReloadSourceTime(WeaponStateDuration);
         Track.Begin=bReloadCycleOnly?ReloadSourceTime(ReloadResumeElapsed):0.f;
         Track.FamilyScale=IsPistolWeapon()?WeaponReloadCamera::PistolScale:
-            (IsSuper90Weapon()||bUseASH12||IsRSH12Weapon()||PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel))
+            (IsTubeShotgunWeapon()||bUseASH12||IsRSH12Weapon()||PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel))
                 ?WeaponReloadCamera::HeavyScale:WeaponReloadCamera::RifleScale;
         if(IsRSH12Weapon())Track.FamilyScale=WeaponReloadCamera::RifleScale;
-        if(IsSuper90Weapon())
+        if(IsTubeShotgunWeapon())
         {
             using namespace Super90WeaponAssets;
             if(bSuper90SpeedReload)
@@ -67,7 +68,7 @@ void AFPSGAMECharacter::BuildReloadCameraTracks(FWeaponReloadCameraTracks& Track
                     // One continuous tube stroke: do not stack seven cartridge pulses.
                     Track.Add(Super90SpeedloaderAssets::LastContact(Super90ReloadCount),E::Seat);
                 }
-                if(bPendingEmptyReload)Track.Add(Super90SpeedloaderAssets::Release(Super90ReloadCount),E::Release);
+                if(bPendingEmptyReload)Track.Add(Super90SpeedloaderAssets::Release(Super90ReloadCount,IsM870Weapon()),E::Release);
             }
             else
             {
@@ -76,8 +77,9 @@ void AFPSGAMECharacter::BuildReloadCameraTracks(FWeaponReloadCameraTracks& Track
                 Track.Time=WeaponStateElapsed*Super90ReloadRate;
                 Track.End=WeaponStateDuration*Super90ReloadRate;Track.Begin=0.f;
                 for(int32 I=0;I<Super90ReloadCount;++I)Track.Add(Insert+I*LoopStep,E::Round);
-                if(bPendingEmptyReload)Track.Add(bReloadCycleOnly?CycleBoltReady:
-                    Super90ReloadTail+BoltRelease-TailBegin,E::Release);
+                if(bPendingEmptyReload)Track.Add(IsM870Weapon()
+                    ?(bReloadCycleOnly?M870WeaponAssets::PumpClosed:Super90ReloadTail+M870WeaponAssets::ReloadClosed-TailBegin)
+                    :(bReloadCycleOnly?CycleBoltReady:Super90ReloadTail+BoltRelease-TailBegin),E::Release);
             }
         }
         else if(bUseDanWesson715)

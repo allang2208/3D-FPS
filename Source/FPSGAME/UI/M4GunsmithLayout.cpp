@@ -345,12 +345,14 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     auto Frame=[Neon,Selected,Exclusive,Legendary](){auto C=ColdSteelUI::Success;C.A=.32f;return Neon()?C:Selected()?GunsmithUI::Silver:Legendary?ColdSteelUI::LegendaryBorder:Exclusive?ColdSteelUI::ExclusiveBorder:FLinearColor::Transparent;};
     FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
     // Retained RSH models keep their existing pictograms; only catalog identity changes.
-    const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id):Id;
+    const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id)
+        :Weapon==TEXT("ue_m870")&&SlotKey==TEXT("magazine")&&Id==TEXT("m870_tube_extension")?TEXT("super90_extended_tube"):Id;
     const FString IconSlot=Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?
         TEXT("blade_2"):TacticalDeviceVariants::IconSlot(SlotKey);
     const FString WeaponIconKey=Model()->Definition()+TEXT("_")+IconSlot+TEXT("_")+IconId;
-    // The shared fast-trigger pictogram also represents Pit Viper's numeric option.
-    const FString CommonIconKey=SlotKey==TEXT("trigger")&&Id==TEXT("pit_viper_lightweight_fast")
+    // Numeric trigger kits share the established lightweight-trigger pictogram.
+    const FString CommonIconKey=SlotKey==TEXT("trigger")&&(Id==TEXT("pit_viper_lightweight_fast")
+        ||(Weapon==TEXT("ue_m870")&&Id==TEXT("m870_lightweight_trigger_kit")))
         ?TEXT("trigger_m1911_lightweight_fast"):IconSlot+TEXT("_")+IconId;
     const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
     const bool SharedFirearmOption=!IsStandaloneWorkbench()&&Id!=TEXT("false")

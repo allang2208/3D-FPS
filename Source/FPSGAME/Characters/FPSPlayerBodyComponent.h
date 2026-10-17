@@ -60,7 +60,7 @@ public:
     void ApplyReactionCamera(float Delta,struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
-    void PresentSuper90Shot(const FString& Instance,float FiredAt,bool bAiming,bool bSuppressed);
+    void PresentSuper90Shot(const FString& Instance,float FiredAt,bool bAiming,bool bSuppressed,float PumpRate);
     void ReportGunShot(uint8 Hand, class USoundBase* Sound,float Volume,float Pitch,bool bAiming);
     void ReportGunMechanical(uint8 Hand,class USoundBase* Sound,float Volume,float StartTime=0.f);
     void ReportGunMechanicalStop(uint8 Hand);
@@ -73,6 +73,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetHeadAndHair(FName HeadId,FName HairId);
 
 private:
+    friend class AShotgunWireAuditController;
+    friend class AShotgunWireAuditGameMode;
+    friend class UShotgunAttachmentAuditCommandlet;
     UPROPERTY(ReplicatedUsing=OnRep_BodyState) FFPSBodyState ReplicatedState;
     UPROPERTY(ReplicatedUsing=OnRep_Equipment) TArray<FFPSBodyWeapon> ReplicatedWeapons;
     UPROPERTY(ReplicatedUsing=OnRep_Outfit) TArray<FFPSBodyOutfitSlot> ReplicatedOutfit;

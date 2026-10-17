@@ -6,6 +6,8 @@
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
+#include "../Weapons/WeaponPresentationMaterials.h"
 #include "../FPSGAMECharacter.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -20,21 +22,6 @@
 #include "Engine/TextureCube.h"
 #include "Rendering/SkeletalMeshRenderData.h"
 #include "Framework/Application/SlateApplication.h"
-
-namespace GunsmithStudioVisibility
-{
-bool IsArmMaterial(FName Slot)
-{
-    const FString Name=Slot.ToString().ToLower();
-    // Native V7 meshes preserve their original arm slots. Standalone bare-arm
-    // meshes use BareUpperArms / BareLowerArms / BareHandsOriginalGrip instead.
-    // Match hands explicitly so the weapon's Handguard remains visible.
-    return Name.Contains(TEXT("manny"))||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))
-        ||Name==TEXT("skin")||Name==TEXT("hand")||Name==TEXT("hands")
-        ||Name.EndsWith(TEXT("_hand"))||Name.EndsWith(TEXT("_hands"))
-        ||(Name.StartsWith(TEXT("bare"))&&(Name.Contains(TEXT("arms"))||Name.Contains(TEXT("hands"))));
-}
-}
 
 void UM4GunsmithWidget::InitializePreview()
 {
@@ -148,10 +135,10 @@ void UM4GunsmithWidget::SyncStudioPreview()
                 auto* SkinnedCopy=Cast<USkeletalMeshComponent>(Copy);
                 // The loose reload shell belongs to the animation, not the
                 // assembled shotgun. Exclude its section before fitting bounds.
-                const bool bSuper90=Asset->GetPathName()==Super90WeaponAssets::MeshPath;
+                const bool bSuper90=TubeShotgunAssets::MatchesMesh(Asset->GetPathName());
                 TArray<bool,TInlineAllocator<32>> ExcludedMaterials;
                 for(const auto& Material:Asset->GetMaterials())
-                    ExcludedMaterials.Add((!bAimPreview&&GunsmithStudioVisibility::IsArmMaterial(Material.MaterialSlotName))
+                    ExcludedMaterials.Add((!bAimPreview&&WeaponPresentationMaterials::IsArmSection(Material))
                         ||(bSuper90&&Material.MaterialSlotName==TEXT("12gauge")));
                 for(int32 L=0;L<Render->LODRenderData.Num();++L)
                     for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)

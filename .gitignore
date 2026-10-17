@@ -4572,3 +4572,25 @@ __pycache__/
 !/SourceAssets/AlchemyManualNetworkAudit20261016/*.ps1
 !/SourceAssets/AlchemyManualNetworkAudit20261016/*.md
 /SourceAssets/AlchemyManualPublication20261016/**
+
+# M870 publication: original tools and notes only; licensed sources/outputs stay local.
+/SourceAssets/M870*/**
+!/SourceAssets/M870*/**/
+!/SourceAssets/M870*/**/*.py
+!/SourceAssets/M870*/**/*.ps1
+!/SourceAssets/M870*/**/*.md
+!/SourceAssets/M870*/**/*.hlsl
+/SourceAssets/M870*/**/Before/
+/SourceAssets/M870*/**/CodeBefore/
+/SourceAssets/M870*/**/Backups/
+/SourceAssets/M870*/**/Original/
+/SourceAssets/M870*/**/PythonLibs/
+/SourceAssets/M870*/**/__pycache__/
+/SourceAssets/M870*/**/Wire/
+/Tools/Weapons/M870*/**/*.json
+/Tools/Weapons/M870*/**/*.txt
+/Tools/Weapons/M870*/**/*.png
+/Tools/Weapons/M870*/**/*.jpg
+/Tools/Weapons/M870*/**/*.gz
+/Tools/Weapons/M870*/**/Before/
+/Tools/Weapons/M870*/**/__pycache__/

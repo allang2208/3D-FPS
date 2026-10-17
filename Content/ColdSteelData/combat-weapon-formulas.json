@@ -389,5 +389,22 @@
       }
     ],
     "source": "Super90 (eight-pellet aggregate)"
+  },
+  "ue_m870": {
+    "base": 80,
+    "enhanceFlat": 8,
+    "attrs": [
+      {
+        "key": "con",
+        "base": 1.6,
+        "perEnhance": 0.8
+      },
+      {
+        "key": "wis",
+        "base": 4.0,
+        "perEnhance": 1.2
+      }
+    ],
+    "source": "M870 (whole-cartridge aggregate)"
   }
 }

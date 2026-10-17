@@ -4,6 +4,7 @@
 #include "RSH12WeaponAssets.h"
 #include "RSH12ForegripAssets.h"
 #include "Super90ForegripAssets.h"
+#include "M870FurnitureAssets.h"
 #include "LMG201WeaponAssets.h"
 #include "G18WeaponAssets.h"
 #include "Animation/AnimSequence.h"
@@ -19,6 +20,7 @@ bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<
         :IsRSH12Weapon()&&Family!=TEXT("drum")?RSH12ForegripAssets::ProfilePath(Family)
         :IsG18Weapon()&&Family==TEXT("drum")?FString(G18WeaponAssets::Drum50ReloadProfile)
         :IsSuper90Weapon()&&Family!=TEXT("base")&&Family!=TEXT("drum")?Super90ForegripAssets::ProfilePath(Family)
+        :IsM870Weapon()&&Family!=TEXT("base")&&Family!=TEXT("drum")?M870FurnitureAssets::ProfilePath(Family)
         :TEXT("/Game/Weapons/AnimationProfiles20261001/")+ActiveInventoryWeaponDefinition+TEXT("/DA_")+Family.ToString();
     UWeaponGripProfile* Profile=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);
     if(!Profile||Profile->Family!=Family||Profile->Clips.IsEmpty())return false;

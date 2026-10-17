@@ -1,5 +1,6 @@
 #include "WeaponStatEvaluation.h"
 #include "Super90WeaponAssets.h"
+#include "TubeShotgunAssets.h"
 #include "WeaponDamagePanel.h"
 #include "Bow/BowDamageTuning.h"
 #include "GunsmithSystem.h"
@@ -33,8 +34,8 @@ double ColdSteelWeaponStats::BowDrawSpeedBonus(const FColdSteelItem* Item,const 
 }
 double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdSteelStatusModel* Model,double Base)
 {
-    const bool bSuper90=Item&&Item->Definition==Super90WeaponAssets::Definition;
-    if(!Model)return bSuper90?FMath::Max(Super90WeaponAssets::MinimumAttackInterval,Base):Base;
+    const bool bSuper90=Item&&TubeShotgunAssets::Supports(Item->Definition);
+    if(!Model)return bSuper90?FMath::Max(TubeShotgunAssets::MinimumInterval(Item->Definition),Base):Base;
     // Firearms are catalog-tuned: the character's attack rate no longer shortens
     // the fire interval (2026-09-17). Melee keeps its own dex-based attack rate.
     // Only item and skill sources still modify the interval here.
@@ -48,7 +49,7 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         Result*=Enhancement->Effect(*Item,TEXT("attackIntervalMul"),1);
     if(Item&&Model->WeaponMastery(Item)==TEXT("bowMastery"))Result*=1-Model->MasteryEffect(TEXT("bowMastery")).CooldownReduction;
-    return bSuper90?FMath::Max(Super90WeaponAssets::MinimumAttackInterval,double(Result)):Result;
+    return bSuper90?FMath::Max(TubeShotgunAssets::MinimumInterval(Item->Definition),double(Result)):Result;
 }
 double ColdSteelWeaponStats::Reload(const FColdSteelItem* Item,const UColdSteelStatusModel* Model,double Base)
 {

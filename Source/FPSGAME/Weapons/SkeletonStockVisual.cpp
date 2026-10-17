@@ -3,6 +3,7 @@
 #include "AR416Furniture.h"
 #include "LegendaryTacticalStock.h"
 #include "Super90StockAssets.h"
+#include "M870FurnitureAssets.h"
 #include "Super90WeaponAssets.h"
 #include "LMG201Attachments.h"
 #include "../FPSGAMECharacter.h"
@@ -47,6 +48,14 @@ FTransform ASHCheekRestMount(const USkeletalMesh* Asset)
 void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
 {
     if (IsPistolWeapon()) return;
+    if(IsM870Weapon())
+    {
+        auto* Stock=StockAttachment.Get();auto* Grip=RearGripAttachment.Get();
+        M870FurnitureAssets::ConfigureRear(this,AKMViewmodel,Stock,Grip,Variant,bInventoryWeaponReady);
+        StockAttachment=Stock;RearGripAttachment=Grip;
+        bSkeletonStock=Stock&&Stock->IsVisible();if(Stock)StockMount=Stock->GetRelativeTransform();
+        return;
+    }
     if(ActiveInventoryWeaponDefinition==Super90WeaponAssets::Definition)
     {
         StockAttachment=Super90StockAssets::Configure(this,AKMViewmodel,StockAttachment,Variant,bInventoryWeaponReady);

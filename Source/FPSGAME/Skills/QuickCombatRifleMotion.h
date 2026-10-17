@@ -23,6 +23,9 @@ namespace QuickCombatRifleMotion
     // Bone-space Y reverses on FBX import; these are no-scale centimetres.
     inline FVector ReferenceStockPointCM(const FString& MeshPath)
     {
+        // M870 shares the native +Z rear axis, but has its own buttpad surface.
+        // No-scale centimetres from M870QuickMeleeAudit20261017/stock_contact.json.
+        if (MeshPath.Contains(TEXT("/M870/"))) return FVector(.000004f, 1.538691f, 50.571123f);
         // Super90 has a native +Z rear axis. Buttplate from the author's
         // installed body, converted to no-scale UE bone-space centimetres.
         if (MeshPath.Contains(TEXT("/Super90/"))) return FVector(.030971f, 5.224671f, 51.443630f);

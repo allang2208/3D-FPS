@@ -19,6 +19,7 @@
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/Super90SpeedloaderAssets.h"
+#include "../Weapons/WeaponPresentationMaterials.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -48,7 +49,7 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_super90")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_super90")||I.Definition==TEXT("ue_m870")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
@@ -65,6 +66,7 @@ FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
     if(ColdSteelEquipmentIconMesh(I).IsValid())return I.Definition;
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Result=I.Definition;
+    if(I.Definition==M870WeaponAssets::Definition)Result+=TEXT("|gun_only=2");
     if(I.Definition==TEXT("ue_rsh12"))Result+=TEXT("|barrel_frame=2|mechanism=1");
     for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
@@ -226,9 +228,10 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         case 3:Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));break;
         case 4:Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));break;
         case 5:Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")),bCatalogExport?nullptr:GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition),Parts.FindRef(TEXT("grip_body")));break;
-        case 6:Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));break;
+        case 6:Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")),Parts.FindRef(TEXT("tactical_secondary")));break;
         case 7:Rig->SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));break;
-        case 8:Rig->SetSuper90Speedloader(I.Definition==Super90WeaponAssets::Definition&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);break;
+        case 8:Rig->SetSuper90Speedloader((I.Definition==Super90WeaponAssets::Definition||I.Definition==M870WeaponAssets::Definition)
+            &&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);break;
         default:Rig->UpdateFoldingSights(1.f);break;
         }
         return true;
@@ -237,7 +240,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
         // Handguard is a gun surface, not part of the first-person hands.
         const bool HandMaterial=Name.Contains(TEXT("hand"))&&!Name.Contains(TEXT("handguard"))&&!Name.Contains(TEXT("charginghandle"))&&!Name.Contains(TEXT("carryhandle"));
-        if(Name.Contains(TEXT("manny"))||HandMaterial||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin"))Mesh->ShowMaterialSection(M,S,false,L);
+        if(HandMaterial||WeaponPresentationMaterials::IsArmSection(Asset->GetMaterials()[M]))Mesh->ShowMaterialSection(M,S,false,L);
     }
     const FVector Pivot=Mesh->GetSocketLocation(TEXT("WPN_SOCKET_Magazine"));
     FVector Barrel=(Mesh->GetSocketLocation(TEXT("WPN_FrontSight"))-Mesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();

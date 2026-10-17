@@ -10,6 +10,7 @@
 void AFPSGAMECharacter::SetThermalOptic()
 {
     if(!bInventoryWeaponReady){SetGunsmithOpticVariant(TEXT("false"));return;}
+    if(IsM870Weapon()){SetM870Optic(ThermalScopeAssets::Id);return;}
     if(HasThermalScope()&&HolographicOptic&&HolographicOptic->GetStaticMesh())
     {
         HolographicOptic->SetVisibility(true);if(LPVORing)LPVORing->SetVisibility(true);

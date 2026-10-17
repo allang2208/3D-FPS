@@ -264,7 +264,7 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     if(!bBow&&Character->IsAiming())return Result+2;
     const float BowAim=bBow?Bow->AimAlpha():0.f;
     const FVector2D Extent=Character->GetCrosshairHalfExtent(Geometry.GetLocalSize());
-    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsSuper90Weapon())
+    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsTubeShotgunWeapon())
     {
         // Four open quadrants, with gaps on the horizontal/vertical axes.
         // Cache the unit arc; only its projected radius changes with hip spread.

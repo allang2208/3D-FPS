@@ -1,6 +1,9 @@
 #include "FPSWeaponFXComponent.h"
+#include "TimerManager.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Super90WeaponAssets.h"
+#include "TubeShotgunAssets.h"
+#include "ShotgunBirdcageAssets.h"
 #include "FPSImpactFXSubsystem.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
@@ -360,7 +363,8 @@ void UFPSWeaponFXComponent::UpdateBigBlindGlow()
 }
 void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
 {
-    if(InWeaponMesh&&InWeaponMesh->GetSkeletalMeshAsset()&&InWeaponMesh->GetSkeletalMeshAsset()->GetPathName()==Super90WeaponAssets::MeshPath&&!Super90CasingMesh)
+    if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(PumpEjectTimer);
+    if(InWeaponMesh&&InWeaponMesh->GetSkeletalMeshAsset()&&(TubeShotgunAssets::MatchesMesh(InWeaponMesh->GetSkeletalMeshAsset()->GetPathName()))&&!Super90CasingMesh)
     {
         Super90CasingMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Parts/SM_Super90_Casing"));
         Super90CasingMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Materials/M_S90_12gauge"));
@@ -486,7 +490,7 @@ void UFPSWeaponFXComponent::PrewarmShotFX()
         const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
         const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
         const bool bSuper90 = bRifle && WeaponMesh && WeaponMesh->GetSkeletalMeshAsset()
-            &&WeaponMesh->GetSkeletalMeshAsset()->GetPathName()==Super90WeaponAssets::MeshPath;
+            &&(TubeShotgunAssets::MatchesMesh(WeaponMesh->GetSkeletalMeshAsset()->GetPathName()));
         UStaticMesh* Geometry = nullptr;
         UMaterialInterface* Surface = nullptr;
         ResolveCasingAsset(bRifle, bSuper90, Geometry, Surface);
@@ -1183,7 +1187,20 @@ void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
 void UFPSWeaponFXComponent::OnShot(bool bADS)
 {if(bReady)OnShotAtMuzzle(bADS,MuzzleTransform());}
 
-void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle)
+void UFPSWeaponFXComponent::OnReplicatedShot(bool bADS,float PumpRate,float ShotAge)
+{if(bReady)OnShotAtMuzzle(bADS,MuzzleTransform(),PumpRate,ShotAge);}
+
+void UFPSWeaponFXComponent::SchedulePumpEjection(float Rate,float ShotAge)
+{
+    const float Delay=M870WeaponAssets::PumpEject/FMath::Max(.01f,Rate)-FMath::Max(0.f,ShotAge);
+    GetWorld()->GetTimerManager().ClearTimer(PumpEjectTimer);
+    if(Delay<=0.f){SpawnCasing();return;}
+    const TWeakObjectPtr<USkeletalMeshComponent> FiredMesh=WeaponMesh;
+    GetWorld()->GetTimerManager().SetTimer(PumpEjectTimer,FTimerDelegate::CreateWeakLambda(this,[this,FiredMesh]()
+    {if(FiredMesh.IsValid()&&WeaponMesh==FiredMesh.Get())SpawnCasing();}),Delay,false);
+}
+
+void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzle,float AcceptedPumpRate,float ShotAge)
 {
     if (!bReady) return;
     TGuardValue<FTransform> FrameGuard(MuzzleSnapshot,ShotMuzzle);
@@ -1231,7 +1248,14 @@ void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzl
             ApplyParticleTransform(*P);
         }
     }
-    if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); bWorldGun?!bWorldRevolver:(bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter || !OwnerCharacter->bUseDanWesson715))) SpawnCasing();
+    const auto* OwnerCharacter=Cast<AFPSGAMECharacter>(GetOwner());
+    const bool Pump=bWorldGun?WorldGunDefinition==FName(M870WeaponAssets::Definition):OwnerCharacter&&OwnerCharacter->IsM870Weapon();
+    if(Pump)
+    {
+        const float Rate=AcceptedPumpRate>0.f?AcceptedPumpRate:OwnerCharacter?OwnerCharacter->M870PumpPlayRate():1.f;
+        SchedulePumpEjection(Rate,ShotAge);
+    }
+    else if(bWorldGun?!bWorldRevolver:(bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter||!OwnerCharacter->bUseDanWesson715)))SpawnCasing();
     PendingHeat = FMath::Min(1.0f, PendingHeat + (bRSH12?.24f:.18f));
     SmokeHeatAtLastShot = FMath::Min(1.f, BarrelHeat + PendingHeat);
     SmokeFeedUntil = LastFXShotTime + FMath::Lerp(.14f, .20f, SmokeHeatAtLastShot);
@@ -1264,13 +1288,27 @@ bool UFPSWeaponFXComponent::ShouldHideCasings() const
         && (Character->IsAiming() || Character->GetScopePresentationAlpha() > 0.0f);
 }
 
+bool UFPSWeaponFXComponent::PausePumpEjection()
+{
+    if(!GetWorld())return false;
+    auto& Timers=GetWorld()->GetTimerManager();
+    const bool Pending=Timers.IsTimerActive(PumpEjectTimer);
+    Timers.ClearTimer(PumpEjectTimer);
+    return Pending;
+}
+
+void UFPSWeaponFXComponent::EjectPumpCasing()
+{
+    SpawnCasing();
+}
+
 void UFPSWeaponFXComponent::SpawnCasing()
 {
     if (ShouldHideCasings()) return;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
     const bool bSuper90=bRifle&&WeaponMesh&&WeaponMesh->GetSkeletalMeshAsset()
-        &&WeaponMesh->GetSkeletalMeshAsset()->GetPathName()==Super90WeaponAssets::MeshPath;
+        &&(TubeShotgunAssets::MatchesMesh(WeaponMesh->GetSkeletalMeshAsset()->GetPathName()));
     UStaticMesh* Geometry=nullptr;
     UMaterialInterface* Surface=nullptr;
     ResolveCasingAsset(bRifle,bSuper90,Geometry,Surface);
@@ -1594,6 +1632,7 @@ int32 UFPSWeaponFXComponent::GetActiveParticleCount() const
 
 void UFPSWeaponFXComponent::StopEmission()
 {
+    if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(PumpEjectTimer);
     SetBigBlindEnabled(false);
     for(const auto& FX:EpicFXPool)if(FX)FX->DeactivateImmediate();
     if (SmokeStream) SmokeStream->DeactivateImmediate();

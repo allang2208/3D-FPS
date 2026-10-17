@@ -26,3 +26,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 第三人称持剑握柄接触、旋风方向和版本恢复：[持剑接触与方向](references/third-person-sword-contact.md)。
 
 - 冲刺屏幕幅度、全枪换弹镜头标准及双持甩匣／开巢节奏：[镜头反馈与双持发力](references/reload-camera-and-dual-tempo.md)。
+
+- M870 的 AKM 整手复用、UC 装备／装填继承与快速近战右肘修订：[M870 动作与抓握](references/m870-source-motion-and-grip.md)。保留本枪接触、真实蒙皮铰链及仍有效的旧版工具依赖。
