@@ -1,0 +1,472 @@
+diff --git a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+@@ -8,4 +8,5 @@
+     GENERATED_BODY()
+ public:
+     virtual int32 Main(const FString& Params) override;
++    int32 RunM870PresentationAudit(const FString& Params);
+ };
+diff --git a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
+@@ -58,6 +58,7 @@
+ }
+ int32 UShotgunAttachmentAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("M870Presentation")))return RunM870PresentationAudit(Params);
+     using namespace ShotgunAudit;
+     const bool M870=FParse::Param(*Params,TEXT("M870"));
+     const TCHAR* TubeId=M870?M870TubeMagazineAssets::Part:Super90TubeMagazineAssets::Part;
+diff --git a/Source/FPSGAME/Weapons/ShotgunWireAudit.h b/Source/FPSGAME/Weapons/ShotgunWireAudit.h
+--- a/Source/FPSGAME/Weapons/ShotgunWireAudit.h
++++ b/Source/FPSGAME/Weapons/ShotgunWireAudit.h
+@@ -26,6 +26,10 @@
+     UFUNCTION(Server,Reliable) void ServerProbeShot(int32 Case,FVector Eye,FVector Muzzle,FVector Aim,double FiredAt);
+     UFUNCTION(Server,Reliable) void ServerCaseResult(int32 Case,bool OwnerOK,bool RemoteOK,const TArray<FVector_NetQuantizeNormal>& Predicted);
+     UFUNCTION(Client,Reliable) void ClientFinish(bool Passed);
++    UFUNCTION(Server,Reliable) void ServerPresentationResult(int32 Phase,bool ObserverOK,FVector HostLaser,FVector OwnerLaser,FVector OwnerGrip);
++    bool TickM870Presentation(float Delta);
++    void SetupM870Presentation(int32 Phase,const FString& Id,AFPSGAMECharacter* Host);
++    static void PoseM870Presentation(AFPSGAMECharacter* Pawn,int32 Phase,bool Muted);
+     int32 Finished=0,Expected=INDEX_NONE;
+     bool bAllPassed=true;
+     TArray<TSharedPtr<FJsonValue>> Results;
+@@ -52,4 +56,8 @@
+     FString Weapon;
+     int32 Prepared=INDEX_NONE;
+     double Joined=0,LastSetup=-10,ExitAt=-1;
++    bool TickM870Presentation(float Delta);
++    int32 PresentationConnections=0;
++    bool bPresentationPassed=true;
++    TArray<TSharedPtr<FJsonValue>> PresentationHistory;
+ };
+diff --git a/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp b/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp
+--- a/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp
++++ b/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp
+@@ -58,6 +58,7 @@
+ }
+ void AShotgunWireAuditController::ClientSetup_Implementation(int32 Case,const FString& Id,AFPSGAMECharacter* Host)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("M870PresentationWire"))){SetupM870Presentation(Case,Id,Host);return;}
+     if(!ShotgunWire::Enabled()||HasAuthority()||Case==Current||!Host)return;
+     auto* AuditPawn=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();auto* PS=GetPlayerState<AColdSteelPlayerState>();
+     if(!AuditPawn||!Model||!Model->IsAudit()||!PS||PS->GetPawn()!=AuditPawn)return;
+@@ -80,6 +81,7 @@
+ }
+ void AShotgunWireAuditController::ServerReady_Implementation(int32 Case)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("M870PresentationWire")))return;
+     if(!ShotgunWire::Enabled()||Case!=Expected)return;
+     auto* PS=GetPlayerState<AColdSteelPlayerState>();if(PS)PS->SendSuper90Ammo();
+     for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+@@ -89,6 +91,7 @@
+ }
+ void AShotgunWireAuditController::Tick(float Delta)
+ {
++    if(TickM870Presentation(Delta))return;
+     Super::Tick(Delta);if(!ShotgunWire::Enabled()||HasAuthority()||!IsLocalController())return;
+     const double Now=GetWorld()->GetRealTimeSeconds();if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
+     if(Current<0||bReported)return;
+@@ -185,6 +188,7 @@
+ {Super::PostLogin(Player);if(ShotgunWire::Enabled()&&!Player->IsLocalController()){Guest=Cast<AShotgunWireAuditController>(Player);Joined=GetWorld()->GetRealTimeSeconds();}}
+ void AShotgunWireAuditGameMode::Tick(float Delta)
+ {
++    if(TickM870Presentation(Delta))return;
+     Super::Tick(Delta);if(!ShotgunWire::Enabled())return;const double Now=GetWorld()->GetRealTimeSeconds();
+     if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
+     if(!Guest)return;auto* Pawn=Cast<AFPSGAMECharacter>(Guest->GetPawn());auto* PS=Guest->GetPlayerState<AColdSteelPlayerState>();
+diff --git a/Source/FPSGAME/Weapons/M870ThirdPersonAudit.cpp b/Source/FPSGAME/Weapons/M870ThirdPersonAudit.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M870ThirdPersonAudit.cpp
+@@ -0,0 +1,173 @@
++#include "ShotgunAttachmentAuditCommandlet.h"
++#include "M870WeaponAssets.h"
++#include "M870FurnitureAssets.h"
++#include "TacticalDeviceComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../Characters/FPSPlayerBodyAnimInstance.h"
++#include "../Characters/FPSBodyWeaponMeshComponent.h"
++#include "../Characters/FPSBodyRifleHold.h"
++#include "../Skills/SkillNetworkAuditCommandlet.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "Engine/StaticMesh.h"
++#include "EngineUtils.h"
++#include "HAL/FileManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++#include "Serialization/MemoryReader.h"
++#include "Serialization/MemoryWriter.h"
++#include "Serialization/NameAsStringProxyArchive.h"
++
++// Explicit, isolated regression scope. No profile save, map play, screenshot,
++// damage or ammo operation. RPC implementations are invoked without sockets.
++int32 UShotgunAttachmentAuditCommandlet::RunM870PresentationAudit(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    FCommandLine::Set(*(Original+TEXT(" -ShotgunAttachmentAudit -ColdSteelProfile=M870Presentation_")+FGuid::NewGuid().ToString(EGuidFormats::Digits)));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("M870PresentationAuditWorld"));
++    auto* World=GI->GetWorld();auto* Model=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!World||!Model||!Model->IsAudit())return 2;
++    int32 Failures=0;TArray<TSharedPtr<FJsonValue>> Rows;
++    const auto Check=[&](bool Pass,const TCHAR* Name)
++    {
++        auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("case"),Name);R->SetBoolField(TEXT("passed"),Pass);
++        Rows.Add(MakeShared<FJsonValueObject>(R));Failures+=!Pass;
++        UE_LOG(LogTemp,Display,TEXT("M870_PRESENTATION %s %s"),Pass?TEXT("PASS"):TEXT("FAIL"),Name);
++    };
++    auto Base=Model->Snapshot();Base.Items.Reset();Base.ActiveWeaponSlot=6;Base.ActiveProductionTool.Reset();Base.DungeonRun={};
++    auto Item=Model->CreateItem(M870WeaponAssets::Definition);Item.Place=1;Item.Cell=6;Item.Magazine=7;Base.Items={Item};Model->Current=Base;
++    auto* PC=World->SpawnActor<APlayerController>();PC->SetAsLocalPlayerController();
++    auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,500),FRotator::ZeroRotator);PC->Possess(Pawn);
++    Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);Pawn->DispatchBeginPlay();
++    Model->CurrentPawn=Pawn;Pawn->ApplyColdSteelProfile(Model);Pawn->WeaponState=EAKMWeaponState::Idle;
++    auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
++    if(!Body||!Body->BodyAnimation||!Pawn->IdleAnimation||!Pawn->FireAnimation)return 2;
++    Pawn->SetGunsmithTactical(TEXT("laser"),FString());Body->DisplayState=Body->SampleLocalState();Body->CaptureEquipment();
++    Check(Body->BodyAnimation->RifleHold.bValid&&Body->BodyAnimation->bHasLeftGrip,TEXT("owner M870 has calibrated shoulder and two-hand grip"));
++    Check(Body->MotionBindings.Num()==1,TEXT("single M870 world rig"));
++    if(Body->MotionBindings.Num()!=1)return 2;
++    const auto Definition=Body->MotionBindings[0].Definition;
++    auto* Weapon=Body->MotionBindings[0].Mesh.Get();
++    const FTransform Root=Weapon->GetSocketTransform(TEXT("WPN_root"),RTS_Component);
++    const FVector Sight=(Weapon->GetSocketLocation(TEXT("WPN_FrontSight"))-Weapon->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
++    const auto Hold=Body->BodyAnimation->RifleHold;
++    const FVector Fitted=Weapon->GetAttachParent()->GetSocketQuaternion(TEXT("hand_r")).RotateVector(Hold.BarrelInHand.GetForwardVector());
++    Check(FVector::DotProduct(Sight,Fitted)>.9999,TEXT("measured M870 barrel agrees with hold axis"));
++    for(const TCHAR* Id:{TEXT("skeleton"),TEXT("core_stock"),TEXT("qr_performance"),TEXT("tactical_telescopic"),TEXT("legendary_adjustable_tactical_stock")})
++    {
++        auto D=Definition;D.Parts.Reset();auto& Part=D.Parts.AddDefaulted_GetRef();
++        // CaptureWeapon stores an object path from the loaded component, not
++        // the package-only string accepted by the furniture loader.
++        auto* Stock=LoadObject<UStaticMesh>(nullptr,*M870FurnitureAssets::MeshPath(Id));
++        Part.Mesh=Stock;Part.Socket=TEXT("WPN_root");
++        Part.RelativeTransform=Root.Inverse();
++        const auto H=BuildFPSBodyRifleHold(*Weapon,D);
++        UE_LOG(LogTemp,Display,TEXT("M870_STOCK %s contact=%s factory=%s"),Id,*H.StockInHand.ToString(),*Hold.StockInHand.ToString());
++        Check(Stock&&H.bValid&&!H.StockInHand.ContainsNaN()&&!H.StockInHand.Equals(Hold.StockInHand,.01),
++            *FString::Printf(TEXT("replacement stock %s has measured shoulder contact"),Id));
++    }
++
++    auto* Source=Pawn->AKMViewmodel.Get();Source->SetAnimationMode(EAnimationMode::AnimationSingleNode);
++    const auto Sample=[&](UAnimSequence* Clip,float Time,bool Pump)
++    {
++        Source->PlayAnimation(Clip,false);Source->SetPlayRate(0.f);Source->SetPosition(Time,false);Source->TickAnimation(0.f,false);Source->RefreshBoneTransforms();Source->UpdateChildTransforms();
++        Pawn->ActiveActionAnimation=Pump?Pawn->FireAnimation.Get():nullptr;Pawn->ActionDuration=.9f;Pawn->LastShotWorldTime=World->GetTimeSeconds();
++        auto S=Body->SampleLocalState();Body->CaptureMotion(S);return S;
++    };
++    const auto Idle=Sample(Pawn->IdleAnimation,0.f,false),Pump=Sample(Pawn->FireAnimation,.35f,true);
++    Check(Idle.Contacts.HasSupportGrip&&Pump.Contacts.HasSupportGrip&&Pump.Contacts.Wrists==0
++        &&FVector::Distance(Idle.Contacts.SupportGrip.GetLocation(),Pump.Contacts.SupportGrip.GetLocation())>5.f,
++        TEXT("pump moves support grip while body still owns wrists"));
++    Check(Pump.Contacts.Channel==TEXT("Pump")&&Pump.Action==EFPSBodyAction::None,TEXT("pump network channel preserves gameplay Idle"));
++    Check(Pawn->IsWeaponBusy()&&!Pawn->IsWeaponBusyForAim(),TEXT("pump locks fire while preserving ADS and laser aim gate"));
++    auto Sent=Pump.Contacts;TArray<uint8> Bytes;bool Saved=false,Loaded=false;
++    {FMemoryWriter Memory(Bytes);FNameAsStringProxyArchive Archive(Memory);Sent.NetSerialize(Archive,nullptr,Saved);}
++    FFPSBodyMotionSample Received;
++    {FMemoryReader Memory(Bytes);FNameAsStringProxyArchive Archive(Memory);Received.NetSerialize(Archive,nullptr,Loaded);}
++    Check(Saved&&Loaded&&Received.IsSane()&&Received.Channel==TEXT("Pump")&&Received.HasSupportGrip
++        &&Received.SupportGrip.GetLocation().Equals(Sent.SupportGrip.GetLocation(),.02)
++        &&Received.Rigs.Num()==Sent.Rigs.Num()&&Received.Rigs[0].Schema==Sent.Rigs[0].Schema,
++        TEXT("production NetSerialize roundtrip retains pump grip and rig identity"));
++    Body->DisplayState=Pump;Body->DisplayState.LastShotAt=Body->ServerClock()-.35f;
++    Body->PreviousLocalPresentation=Body->DisplayState;Body->bHasLocalPresentation=true;Body->PresentationSendCountdown=0.f;
++    Body->SendBodyPresentation(.016f);
++    Check(FMath::IsNearlyEqual(Body->PresentationSendCountdown,.04f),TEXT("listen-host pump keeps 25 Hz beyond initial recoil"));
++    Body->DisplayState=Pump;Body->ApplyMotion(.016f);
++    Check(Body->HasMatchingMotionRig(0)&&Body->BodyAnimation->LeftGripFromRight.Equals(Pump.Contacts.SupportGrip,.001),TEXT("matching pump drives the support hand"));
++    Body->DisplayState.WeaponInstance=TEXT("different-copy-of-M870");Body->ApplyMotion(.016f);
++    Check(!Body->HasMatchingMotionRig(0)&&Body->BodyAnimation->LeftGripFromRight.Equals(Body->BaseSupportGrip,.001),TEXT("same-schema different gun cannot inherit old pump"));
++    Body->DisplayState=Pump;Body->DisplayState.Contacts.Rigs[0].Schema^=1;Body->ApplyMotion(.016f);
++    Check(!Body->HasMatchingMotionRig(0)&&Body->BodyAnimation->LeftGripFromRight.Equals(Body->BaseSupportGrip,.001),TEXT("out-of-order equipment schema rejects support grip"));
++    Body->DisplayState=Pump;Body->ApplyMotion(.016f);Body->RebuildWeapons(Body->LocalWeapons);
++    Check(!Body->bMotionSampleValid&&!Body->SmoothedContacts.HasSupportGrip,TEXT("equipment rebuild clears previous grip interpolation"));
++
++    auto* RemotePC=World->SpawnActor<ASkillAuditRemoteController>();auto* PS=World->SpawnActor<AColdSteelPlayerState>();
++    auto* Remote=World->SpawnActor<AFPSGAMECharacter>(FVector(0,1000,500),FRotator::ZeroRotator);
++    PS->SetOwner(RemotePC);RemotePC->SetPlayerState(PS);RemotePC->Possess(Remote);Remote->SetPlayerState(PS);
++    auto* Shadow=Model->CreateShadowModel(Base);PS->ShadowModel=Shadow;Remote->NetShadowProfile=Shadow;Shadow->CurrentPawn=Remote;
++    Remote->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);Remote->DispatchBeginPlay();Remote->ApplyColdSteelProfile(Shadow);
++    Remote->SetGunsmithTactical(TEXT("laser"),FString());
++    auto* RemoteBody=Remote->FindComponentByClass<UFPSPlayerBodyComponent>();
++    RemoteBody->DisplayState=RemoteBody->SampleRemoteAuthorityState();RemoteBody->CaptureEquipment();
++    Check(!Remote->IsLocallyControlled()&&RemoteBody->BodyAnimation&&RemoteBody->BodyAnimation->RifleHold.bValid,TEXT("remote authority builds calibrated M870"));
++    RemotePC->SetControlRotation(FRotator(32.f,18.f,0));
++    auto* Move=Cast<UFPSCharacterMovementComponent>(Remote->GetCharacterMovement());Move->bWantsToAim=true;
++    auto Incoming=Pump;Incoming.Contacts=Received;Incoming.AimPitch=-60.f;Incoming.bAiming=false;
++    Incoming.PresentationSampledAt=RemoteBody->ServerClock();RemoteBody->AcceptBodyPresentation(Incoming,10);
++    Check(RemoteBody->ReplicatedState.Contacts.Channel==TEXT("Pump")&&RemoteBody->ReplicatedState.Contacts.HasSupportGrip
++        &&FMath::IsNearlyEqual(RemoteBody->ReplicatedState.AimPitch,32.f)&&RemoteBody->ReplicatedState.bAiming,
++        TEXT("authority relays pump but derives aim from controller and movement"));
++    RemoteBody->ApplyMotion(1.f);
++    Check(RemoteBody->HasMatchingMotionRig(0)&&RemoteBody->BodyAnimation->LeftGripFromRight.GetLocation().Equals(Received.SupportGrip.GetLocation(),.02),
++        TEXT("remote world rig consumes owner support and mechanical sample together"));
++    auto Old=Incoming;Old.Contacts=Idle.Contacts;RemoteBody->AcceptBodyPresentation(Old,9);
++    Check(RemoteBody->ReceivedPresentationSequence==10&&RemoteBody->ReplicatedState.Contacts.Channel==TEXT("Pump"),TEXT("older snapshot cannot rewind accepted pump"));
++    auto Wrong=Incoming;Wrong.WeaponInstance=TEXT("old-gun");RemoteBody->AcceptBodyPresentation(Wrong,11);
++    Check(!RemoteBody->ReplicatedState.Contacts.HasSupportGrip,TEXT("authority rejects old weapon contacts"));
++    RemoteBody->AcceptBodyPresentation(Incoming,12);
++    RemoteBody->LastPresentationReceivedAt=RemoteBody->ServerClock()-.61f;
++    Check(!RemoteBody->SampleRemoteAuthorityState().Contacts.HasSupportGrip,TEXT("missing end or owner timeout clears pump contacts"));
++    int32 LaserPart=INDEX_NONE;
++    for(int32 I=0;I<RemoteBody->LocalWeapons[0].Parts.Num();++I)
++        if(RemoteBody->LocalWeapons[0].Parts[I].TacticalKind==TEXT("laser")){LaserPart=I;break;}
++    Check(LaserPart!=INDEX_NONE,TEXT("remote M870 manifest has real laser part"));
++    if(LaserPart!=INDEX_NONE)
++    {
++        auto LaserState=RemoteBody->SampleRemoteAuthorityState();auto& L=LaserState.Lasers.AddDefaulted_GetRef();
++        L.PartIndex=LaserPart;L.Schema=RemoteBody->LocalWeapons[0].MotionSchema;
++        L.End=Remote->GetActorLocation()+FVector(1000,0,0);L.Normal=FVector(-1,0,0);L.bDot=true;
++        RemoteBody->SanitizeLaserPresentation(LaserState);
++        Check(LaserState.Lasers.Num()==1,TEXT("authority accepts matching owner laser endpoint"));
++        RemoteBody->DisplayState=LaserState;RemoteBody->DisplayState.PresentationSampledAt=RemoteBody->ServerClock();FFPSBodyLaserSample Out;
++        Check(RemoteBody->ResolveLaserSample(0,LaserPart,RemoteBody->LocalWeapons[0].MotionSchema,Out)
++            &&FVector(Out.End).Equals(Remote->GetActorLocation()+FVector(1000,0,0),.02),TEXT("observer uses owner endpoint without retracing aim"));
++        RemoteBody->DisplayState.PresentationSampledAt-=.61f;
++        Check(!RemoteBody->ResolveLaserSample(0,LaserPart,RemoteBody->LocalWeapons[0].MotionSchema,Out),TEXT("stale laser sample turns off"));
++        auto WrongLaser=LaserState;WrongLaser.Lasers[0].Schema^=1;RemoteBody->SanitizeLaserPresentation(WrongLaser);
++        Check(WrongLaser.Lasers.IsEmpty(),TEXT("wrong laser layout rejected"));
++        WrongLaser=LaserState;WrongLaser.WeaponInstance=TEXT("old-gun");RemoteBody->SanitizeLaserPresentation(WrongLaser);
++        Check(WrongLaser.Lasers.IsEmpty(),TEXT("old gun laser rejected"));
++    }
++    auto Result=MakeShared<FJsonObject>();Result->SetNumberField(TEXT("checks"),Rows.Num());Result->SetNumberField(TEXT("failures"),Failures);Result->SetArrayField(TEXT("results"),Rows);
++    Result->SetStringField(TEXT("mode"),TEXT("isolated real assets, contact NetSerialize, authority/observer entrypoints; no socket transport or rendered acceptance"));
++    FString Json;FJsonSerializer::Serialize(Result,TJsonWriterFactory<>::Create(&Json));
++    const FString Path=FPaths::ProjectSavedDir()/TEXT("M870ThirdPersonReview20261018/result.json");
++    IFileManager::Get().MakeDirectory(*FPaths::GetPath(Path),true);FFileHelper::SaveStringToFile(Json,*Path);
++    Model->CurrentPawn.Reset();Shadow->CurrentPawn.Reset();
++    for(TActorIterator<AActor> It(World);It;++It)if(It->HasActorBegunPlay())
++    {
++        It->RouteEndPlay(EEndPlayReason::Quit);TInlineComponentArray<UActorComponent*> Components;It->GetComponents(Components);
++        for(auto* C:Components)if(C->HasBegunPlay())C->EndPlay(EEndPlayReason::Quit);
++    }
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return Failures?1:0;
++}
+diff --git a/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp b/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
+@@ -0,0 +1,211 @@
++#include "ShotgunWireAudit.h"
++#include "M870WeaponAssets.h"
++#include "FPSGunplayAnimInstance.h"
++#include "TacticalDeviceComponent.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Characters/FPSPlayerBodyComponent.h"
++#include "../Characters/FPSPlayerBodyAnimInstance.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Animation/AnimSingleNodeInstance.h"
++#include "Components/CapsuleComponent.h"
++#include "Camera/CameraComponent.h"
++#include "Engine/GameInstance.h"
++#include "Engine/NetDriver.h"
++#include "Engine/World.h"
++#include "HAL/PlatformMisc.h"
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace ShotgunWire
++{
++void Save(const TArray<TSharedPtr<FJsonValue>>& Rows,bool Pass,const TCHAR* Role);
++}
++namespace M870Wire
++{
++bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("M870PresentationWire"));}
++float Pitch(int32 P){return P==0?25.f:P==1?-30.f:P==2?40.f:-15.f;}
++bool Pump(int32 P){return P==2||P==3;}
++FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Id,int32 Phase)
++{
++    auto S=Model->Snapshot();S.Items.Reset();S.ActiveWeaponSlot=6;S.ActiveProductionTool.Reset();S.DungeonRun={};
++    auto W=Model->CreateItem(M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=7;
++    TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(W.Data),Data);
++    auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("tactical"),Phase==1?TEXT("blessed_laser"):TEXT("laser"));
++    if(Phase>=3)Parts->SetStringField(TEXT("stock"),TEXT("skeleton"));
++    Data->SetObjectField(TEXT("gunsmith_parts"),Parts);W.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&W.Data));
++    S.Items={W};return S;
++}
++void Network(UWorld* World)
++{
++#if DO_ENABLE_NET_TEST
++    if(auto* Driver=World->GetNetDriver())
++    {
++        FPacketSimulationSettings Settings;Settings.PktLag=60;Settings.PktLoss=5;
++        Driver->SetPacketSimulationSettings(Settings);
++        UE_LOG(LogTemp,Display,TEXT("M870_PRESENTATION_NET lag_ms=%d loss_percent=%d role=%d"),
++            Driver->PacketSimulationSettings.PktLag,Driver->PacketSimulationSettings.PktLoss,int32(World->GetNetMode()));
++    }
++#endif
++}
++}
++
++void AShotgunWireAuditController::PoseM870Presentation(AFPSGAMECharacter* Pawn,int32 Phase,bool Muted)
++{
++    if(!Pawn)return;
++    Pawn->SetActorTickEnabled(false);Pawn->GetCharacterMovement()->SetComponentTickEnabled(false);
++    Pawn->GetCharacterMovement()->DisableMovement();Pawn->GetCharacterMovement()->StopMovementImmediately();
++    Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    Pawn->WeaponState=EAKMWeaponState::Idle;Pawn->bIsSprinting=false;Pawn->SprintPoseFactor=0;
++    Pawn->bIsAiming=Phase!=0;Pawn->WeaponADSFactor=Pawn->bIsAiming?1.f:0.f;
++    if(auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))Move->bWantsToAim=Pawn->bIsAiming;
++    if(auto* Controller=Pawn->GetController())Controller->SetControlRotation(FRotator(M870Wire::Pitch(Phase),0,0));
++    // Actor ticking is paused for deterministic source frames. Normally its
++    // UpdateCamera synchronizes this component; GetBaseAimRotation reads the
++    // player camera cache, not just Controller.ControlRotation.
++    Pawn->FirstPersonCamera->SetWorldRotation(FRotator(M870Wire::Pitch(Phase),0,0));
++    auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();if(Body)Body->SetComponentTickEnabled(!Muted);
++    if(!Pawn->IsLocallyControlled())return;
++    // The fixture samples held authored frames with SingleNode. Keep the real
++    // manifest captured before that temporary sampling mode; runtime uses its
++    // gunplay anim instance and does not need this fixture-only refresh pause.
++    if(Body){Body->RefreshCountdown=600.f;Body->bEquipmentDirty=false;}
++    const bool Pump=M870Wire::Pump(Phase);
++    if(Pump&&Pawn->ActiveActionAnimation!=Pawn->FireAnimation)Pawn->LastShotWorldTime=Pawn->GetWorld()->GetTimeSeconds();
++    Pawn->ActiveActionAnimation=Pump?Pawn->FireAnimation.Get():nullptr;Pawn->ActionDuration=600.f;
++    auto* Mesh=Pawn->AKMViewmodel.Get();auto* Clip=Pump?Pawn->FireAnimation.Get():Pawn->IdleAnimation.Get();
++    if(!Mesh||!Clip)return;
++    if(!Mesh->GetSingleNodeInstance()||Mesh->GetSingleNodeInstance()->GetCurrentAsset()!=Clip)Mesh->PlayAnimation(Clip,false);
++    Mesh->SetPlayRate(0.f);Mesh->SetPosition(Pump?.35f:0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateChildTransforms();
++}
++
++void AShotgunWireAuditController::SetupM870Presentation(int32 Phase,const FString& Id,AFPSGAMECharacter* Host)
++{
++    if(HasAuthority()||Phase==Current||!Host)return;
++    auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Subject||!Model||!Model->IsAudit())return;
++    if(Current<0)M870Wire::Network(GetWorld());
++    Model->Current=M870Wire::Seed(Model,Id,Phase);Model->CurrentPawn=Subject;
++    Subject->AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());Subject->ApplyColdSteelProfile(Model);
++    Subject->SetActorLocationAndRotation(FVector(0,0,500),FRotator::ZeroRotator);
++    auto* Body=Subject->FindComponentByClass<UFPSPlayerBodyComponent>();
++    Body->DisplayState=Body->SampleLocalState();Body->CaptureEquipment();
++    ObserverSubject=Host;Current=Phase;Weapon=Id;Started=GetWorld()->GetRealTimeSeconds();bReported=false;
++    PoseM870Presentation(Subject,Phase,Phase==4);
++    UE_LOG(LogTemp,Display,TEXT("M870_PRESENTATION_CLIENT_SETUP phase=%d"),Phase);
++}
++
++bool AShotgunWireAuditController::TickM870Presentation(float Delta)
++{
++    if(!M870Wire::Enabled())return false;
++    Super::Tick(Delta);if(HasAuthority()||!IsLocalController())return true;
++    const double Now=GetWorld()->GetRealTimeSeconds();
++    if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return true;}
++    if(Current<0||bReported)return true;
++    auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());PoseM870Presentation(Subject,Current,Current==4);
++    if(Now-Started<5.)return true;
++    auto* Seen=ObserverSubject?ObserverSubject->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    auto* Own=Subject?Subject->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    if(!Seen||!Own)return true;
++    const auto& State=Seen->ReplicatedState;
++    const bool Aim=FMath::IsNearlyEqual(State.AimPitch,M870Wire::Pitch(Current),1.f)&&State.bAiming==(Current!=0);
++    const bool Rig=Seen->BodyAnimation&&Seen->BodyAnimation->RifleHold.bValid&&Seen->HasMatchingMotionRig(0);
++    const bool Pump=(State.Contacts.Channel==TEXT("Pump"))==M870Wire::Pump(Current);
++    FFPSBodyLaserSample Laser;bool Beam=false;
++    if(State.Lasers.Num()==1)Beam=Seen->ResolveLaserSample(0,State.Lasers[0].PartIndex,State.Lasers[0].Schema,Laser);
++    const bool Applied=Seen->BodyAnimation&&Seen->BodyAnimation->LeftGripFromRight.GetLocation().Equals(State.Contacts.SupportGrip.GetLocation(),.15);
++    auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Current);
++    Row->SetBoolField(TEXT("remote_aim"),Aim);Row->SetBoolField(TEXT("remote_rig"),Rig);Row->SetBoolField(TEXT("remote_pump"),Pump);
++    Row->SetBoolField(TEXT("remote_laser"),Beam);Row->SetBoolField(TEXT("remote_applied_grip"),Applied);
++    Row->SetNumberField(TEXT("aim_pitch"),State.AimPitch);Row->SetBoolField(TEXT("aiming"),State.bAiming);
++    Row->SetNumberField(TEXT("grip_error_cm"),Seen->BodyAnimation?FVector::Distance(Seen->BodyAnimation->LeftGripFromRight.GetLocation(),State.Contacts.SupportGrip.GetLocation()):-1.);
++    Results.Add(MakeShared<FJsonValueObject>(Row));bAllPassed&=Aim&&Rig&&Pump&&Beam&&Applied;bReported=true;
++    const FVector OwnerEnd=Own->DisplayState.Lasers.Num()==1?FVector(Own->DisplayState.Lasers[0].End):FVector::ZeroVector;
++    ServerPresentationResult(Current,Aim&&Rig&&Pump&&Beam&&Applied,Laser.End,OwnerEnd,Own->DisplayState.Contacts.SupportGrip.GetLocation());
++    ShotgunWire::Save(Results,bAllPassed,TEXT("client"));
++    return true;
++}
++
++void AShotgunWireAuditController::ServerPresentationResult_Implementation(int32 Phase,bool ObserverOK,FVector HostLaser,FVector OwnerLaser,FVector OwnerGrip)
++{
++    if(!M870Wire::Enabled()||Phase!=Expected||Finished!=Phase)return;
++    auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());auto* Body=Subject?Subject->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    UFPSPlayerBodyComponent* HostBody=nullptr;
++    for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(It->IsValid()&&It->Get()->IsLocalController()&&It->Get()->GetPawn())HostBody=It->Get()->GetPawn()->FindComponentByClass<UFPSPlayerBodyComponent>();
++    bool Identity=false,Aim=false,Support=false,Laser=false,HostEnd=false;
++    if(Body&&HostBody)
++    {
++        const auto& State=Body->ReplicatedState;
++        const auto* PS=GetPlayerState<AColdSteelPlayerState>();
++        const auto* Item=PS&&PS->ShadowModel?PS->ShadowModel->Equipped():nullptr;
++        Identity=Item&&State.WeaponInstance==Item->InstanceId;
++        Aim=FMath::IsNearlyEqual(State.AimPitch,M870Wire::Pitch(Phase),1.f)&&State.bAiming==(Phase!=0);
++        if(Phase==4){Support=!State.Contacts.HasSupportGrip;Laser=State.Lasers.IsEmpty();}
++        else
++        {
++            Support=Body->HasMatchingMotionRig(0)&&State.Contacts.HasSupportGrip&&State.Contacts.SupportGrip.GetLocation().Equals(OwnerGrip,.05)
++                &&(State.Contacts.Channel==TEXT("Pump"))==M870Wire::Pump(Phase);
++            Laser=State.Lasers.Num()==1&&FVector(State.Lasers[0].End).Equals(OwnerLaser,.5);
++        }
++        HostEnd=HostBody->DisplayState.Lasers.Num()==1&&FVector(HostBody->DisplayState.Lasers[0].End).Equals(HostLaser,.5);
++    }
++    auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Phase);
++    Row->SetBoolField(TEXT("client_observer"),ObserverOK);Row->SetBoolField(TEXT("server_identity"),Identity);Row->SetBoolField(TEXT("server_aim"),Aim);
++    Row->SetBoolField(TEXT("server_support_or_expiry"),Support);Row->SetBoolField(TEXT("owner_laser_or_expiry"),Laser);Row->SetBoolField(TEXT("host_laser_endpoint"),HostEnd);
++    if(Body)
++    {
++        Row->SetNumberField(TEXT("aim_pitch"),Body->ReplicatedState.AimPitch);Row->SetBoolField(TEXT("aiming"),Body->ReplicatedState.bAiming);
++        Row->SetBoolField(TEXT("rig_matches"),Body->HasMatchingMotionRig(0));Row->SetBoolField(TEXT("has_support"),Body->ReplicatedState.Contacts.HasSupportGrip);
++        Row->SetStringField(TEXT("motion_channel"),Body->ReplicatedState.Contacts.Channel.ToString());
++        Row->SetNumberField(TEXT("grip_error_cm"),FVector::Distance(Body->ReplicatedState.Contacts.SupportGrip.GetLocation(),OwnerGrip));
++        Row->SetNumberField(TEXT("received_age"),Body->ServerClock()-Body->LastPresentationReceivedAt);
++    }
++    Results.Add(MakeShared<FJsonValueObject>(Row));bAllPassed&=ObserverOK&&Identity&&Aim&&Support&&Laser&&HostEnd;++Finished;
++    UE_LOG(LogTemp,Display,TEXT("M870_PRESENTATION_WIRE_CASE phase=%d observer=%d identity=%d aim=%d grip=%d laser=%d host_end=%d"),Phase,ObserverOK,Identity,Aim,Support,Laser,HostEnd);
++}
++
++bool AShotgunWireAuditGameMode::TickM870Presentation(float Delta)
++{
++    if(!M870Wire::Enabled())return false;
++    Super::Tick(Delta);const double Now=GetWorld()->GetRealTimeSeconds();
++    if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return true;}
++    if(!Guest)return true;
++    auto* Pawn=Cast<AFPSGAMECharacter>(Guest->GetPawn());auto* PS=Guest->GetPlayerState<AColdSteelPlayerState>();
++    auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Pawn||!PS||!Model||!Model->IsAudit())return true;
++    if(!HostPawn)for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
++        if(It->IsValid()&&It->Get()->IsLocalController())HostPawn=Cast<AFPSGAMECharacter>(It->Get()->GetPawn());
++    if(!HostPawn)return true;
++    if(Guest->Finished>=6||Now-Joined>150.)
++    {
++        bPresentationPassed&=Guest->Finished==6&&Guest->bAllPassed;PresentationHistory.Append(Guest->Results);
++        Guest->ClientFinish(Guest->Finished==6&&Guest->bAllPassed);++PresentationConnections;
++        if(PresentationConnections==1)
++        {
++            Guest=nullptr;Prepared=INDEX_NONE;
++            UE_LOG(LogTemp,Display,TEXT("M870_PRESENTATION_REJOIN_READY"));return true;
++        }
++        ShotgunWire::Save(PresentationHistory,bPresentationPassed,TEXT("listen_host"));ExitAt=Now+3.;return true;
++    }
++    if(Prepared!=Guest->Finished)
++    {
++        if(Prepared==INDEX_NONE)M870Wire::Network(GetWorld());
++        Prepared=Guest->Finished;if(Prepared!=4)Weapon=FGuid::NewGuid().ToString();Guest->Expected=Prepared;
++        const auto Seed=M870Wire::Seed(Model,Weapon,Prepared);
++        if(!PS->ShadowModel)PS->ShadowModel=Model->CreateShadowModel(Seed);else PS->ShadowModel->Current=Seed;
++        PS->ShadowModel->CurrentPawn=Pawn;Pawn->NetShadowProfile=PS->ShadowModel;
++        Pawn->AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());Pawn->ApplyColdSteelProfile(PS->ShadowModel);
++        Model->Current=M870Wire::Seed(Model,TEXT("M870Host_")+Weapon,Prepared);Model->CurrentPawn=HostPawn;
++        HostPawn->AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());HostPawn->ApplyColdSteelProfile(Model);
++        Pawn->SetActorLocationAndRotation(FVector(0,0,500),FRotator::ZeroRotator);HostPawn->SetActorLocationAndRotation(FVector(0,1000,500),FRotator::ZeroRotator);
++        for(auto* C:{Pawn,HostPawn.Get()})if(auto* B=C->FindComponentByClass<UFPSPlayerBodyComponent>())
++        {B->SetComponentTickEnabled(true);B->DisplayState=C->IsLocallyControlled()?B->SampleLocalState():B->SampleRemoteAuthorityState();B->CaptureEquipment();}
++        LastSetup=-10;
++    }
++    AShotgunWireAuditController::PoseM870Presentation(Pawn,Prepared,false);
++    AShotgunWireAuditController::PoseM870Presentation(HostPawn,Prepared,false);
++    if(Now-LastSetup>2.){LastSetup=Now;Guest->ClientSetup(Prepared,Weapon,HostPawn);}
++    return true;
++}

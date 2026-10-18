@@ -215,6 +215,7 @@ private:
     TArray<TPair<int32,int32>> MotionHalfBones[2];
     FFPSBodyGripRig* MotionMap(class USkeletalMeshComponent* Source,FName Hand,int32 Side);
     void CaptureMotion(FFPSBodyState& State);
+    bool HasMatchingMotionRig(int32 Index) const;
     void ApplyMotion(float Delta);
     void UpdateFloatingBook(const FFPSBodyMotionSample& Sample,float Alpha);
     void ClearFloatingBook();

@@ -260,7 +260,12 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
     State.bDual=Pawn->IsDualWieldingPistols();
     if(State.bDual)State.Family=TEXT("Pistol");
     State.bOffhandPistol=Pawn->HasOffhandPistol();
-    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Pawn->GetBaseAimRotation().Pitch));
+    // GetBaseAimRotation on a remote PlayerController reads its camera cache.
+    // Engine client-camera RPCs are movement-gated, so looking around while
+    // stationary can leave that cache stale. CMC owns the current control aim.
+    const FRotator Aim=Pawn->GetController()?Pawn->GetControlRotation():Pawn->GetBaseAimRotation();
+    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Aim.Pitch));
+    State.AimYaw=FRotator::NormalizeAxis(Aim.Yaw-Pawn->GetActorRotation().Yaw);
     // 开火戳：服务端已接受的命中时刻 / 客户端开火上报（unreliable，偶发丢包只影响枪响姿势）。
     if(const auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())
         State.LastShotAt=PS->LastValidatedShotAt;

@@ -1,0 +1,133 @@
+{
+  "base_commit": "f9a9024bb45bc8f7f78e13da3d5dc10ddacfa393",
+  "target": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "excludes": "This index itself, trash payloads, third-party/binary content, dense geometry/poses, raw logs, build products, unrelated changes",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+      "sha256_lf_utf8": "37f7461eb29655d539ac5eae1210ee429aa4a820dee76b9b8c180d51cb526919",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+      "sha256_lf_utf8": "25cdeee805c24f50b6d1fac0ef8358c232c3f7e35ff1f16d973691772d040144",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "SourceAssets/ThirdPersonRifleShoulder20261006/read_stock_contacts.py",
+      "sha256_lf_utf8": "a9de70d1b7161964d25187dd8b9f2f217eace2aad75ce3821d15088bcd8b8277",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "sha256_lf_utf8": "6aa06feecf1914b34c18daeae9b901d741bec9a3add442d9db1f2555e9eafab7",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "sha256_lf_utf8": "4d4c8468d67284f13636fdf85a33f3169a4ebeb33e9876753fd46893f9a0e3a4",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "sha256_lf_utf8": "aa91144b69b4bb56f87885e5dde68c8c0a07389fcab19a6f4d2ad526b36e3a0c",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "sha256_lf_utf8": "2eaba30384f4c2b5d247603d0f119cdfae114ae5739133492546f264a0d5ae74",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "sha256_lf_utf8": "0c3b2ec2c12e7a25168005b8c924186dc4bb58a199acc074edd63f14a0b5350a",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "sha256_lf_utf8": "1f3f8172765189773fda2eac7ca10a9011055e8a2c431fe1cec5ea5dcbb400bf",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "sha256_lf_utf8": "bbcffdff6c1aa97283a27f621847da208b517a24ec4c696e65f3ecb698c56bc1",
+      "mode": "task hunks replayed onto HEAD"
+    },
+    {
+      "path": "Docs/Weapons/m870-third-person-aim-laser-20261018.md",
+      "sha256_lf_utf8": "212192af3e429c0392cb63802f4e7e939938adcc718c40dd06d518387568d0a3",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "Docs/Weapons/m870-third-person-network-review-20261018.md",
+      "sha256_lf_utf8": "c98362e4bf2692cbb30c9a30b8cc1ccd864184a36f14fe68f95b2210697fd560",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "Docs/Publication/M870ThirdPerson20261018/README.md",
+      "sha256_lf_utf8": "38835c7e66bd8cb69bba35fe77b308fba499a7814d3311de7546b0ab7b70a2f1",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "Docs/Publication/M870ThirdPerson20261018/retired-files.json",
+      "sha256_lf_utf8": "a8d13e4d56d50de50f0c7eca7f1df8aa221af57ec4053dd5eca187e1e3aa7e4d",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "Docs/Publication/M870ThirdPerson20261018/audit-prerequisites.json",
+      "sha256_lf_utf8": "edfbba2662172a8c5c72d669c6e890818eccdd45ab73c999f965b5214de00463",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "Docs/Publication/M870ThirdPerson20261018/Integration/presentation-audits.patch",
+      "sha256_lf_utf8": "cea48bb7ac51d2432377d09525d786aa38715fc2c3156dc21e9f1d2eff4d6beb",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "Docs/Publication/M870ThirdPerson20261018/evidence-summary.json",
+      "sha256_lf_utf8": "90eda6c109ef7d0f0334bb9c8d3905ecd2152437763cc30a962cb2edad6ead67",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/m870-pump-integration.md",
+      "sha256_lf_utf8": "2b78b34ed2744c1c14188ba997b6f4deb8178bcae97361b7f94201c2457a5ee8",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/player-world-body.md",
+      "sha256_lf_utf8": "b09a3309e65453f7eaa28eba46a7883be9e0d900747dec88bdcb3b9f27c59d00",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "sha256_lf_utf8": "479d4b582a5197569803ce91dd5a5bd3becf14d859c73bca97a2441e319c5d8b",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/read_geometry.py",
+      "sha256_lf_utf8": "c4759c13c48b35cc4ec439580f459cd84f98e713831b5842dc5e5a8a3599193d",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/read_geometry.ps1",
+      "sha256_lf_utf8": "96ad0467a8488b57d7c7cd89eec90b5b2fbadb74def7b4e57cd53f1885696c39",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/record_build.py",
+      "sha256_lf_utf8": "8ff1b43333e172fa60cbfc99f73be401794fc5bc42df8f7295b43be65bcd925b",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/run.ps1",
+      "sha256_lf_utf8": "b34012fe2b2380bc909823dcb473467c7572c9ef829c24d6280c143d86b1e73a",
+      "mode": "reviewed task-owned file"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/run_wire.ps1",
+      "sha256_lf_utf8": "e0cd08613cdcc9f68ef538310d982db9bd9dd088b30252c6864c683064a9c19c",
+      "mode": "reviewed task-owned file"
+    }
+  ]
+}

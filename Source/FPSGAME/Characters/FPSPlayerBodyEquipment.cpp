@@ -400,6 +400,8 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
     for(auto Weapon:WorldWeapons)if(Weapon)Weapon->DestroyComponent();WorldWeapons.Reset();
     WorldEquipmentHands.Reset();
     MotionBindings.Reset();MotionMaps.Reset();MotionEquipmentIndices.Reset();
+    // New equipment must not interpolate from the preceding gun's support hand.
+    SmoothedContacts=FFPSBodyMotionSample();bMotionSampleValid=false;
     if(WorldStaffLight){WorldStaffLight->DestroyComponent();WorldStaffLight=nullptr;}WorldStaffMaterials.Reset();LastWorldLight=-1.f;
     ClearBow();
     if(BodyAnimation){BodyAnimation->bHasLeftGrip=false;BodyAnimation->RifleHold=FFPSBodyRifleHold();BodyAnimation->EquipmentGripHands=0;BodyAnimation->SpellbookEquipmentIndex=INDEX_NONE;BodyAnimation->EquipmentFingers.Reset();BodyAnimation->bBowPose=false;}
@@ -626,11 +628,7 @@ void UFPSPlayerBodyComponent::UpdateWorldWeaponPresentation()
     const auto Apply=[&](UPrimitiveComponent* Mesh)
     {
         if(!Mesh)return;
-        if(const auto* Index=MotionEquipmentIndices.Find(Mesh);Index&&DisplayState.Contacts.Rigs.IsValidIndex(*Index)&&MotionBindings.IsValidIndex(*Index))
-        {
-            const auto& Sample=DisplayState.Contacts.Rigs[*Index];const auto& Binding=MotionBindings[*Index];
-            if(Sample.Valid&&Sample.Schema==Binding.Definition.MotionSchema&&Sample.Bones.Num()==Binding.Definition.MotionBones.Num()&&Sample.Parts.Num()==Binding.Parts.Num())return;
-        }
+        if(const auto* Index=MotionEquipmentIndices.Find(Mesh);Index&&HasMatchingMotionRig(*Index))return;
         const bool Stowed=IsWorldWeaponStowed(Mesh);
         const bool Visible=BodyVisible&&!Stowed;
         if(Mesh->IsVisible()!=Visible)Mesh->SetVisibility(Visible);

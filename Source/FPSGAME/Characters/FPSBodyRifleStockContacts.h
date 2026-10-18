@@ -27,6 +27,10 @@ inline const FVector* Find(const FString& Mesh)
     if(Mesh==TEXT("/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10"))return &Stock8;
     static const FVector Stock9(-0.0000338962,-0.3587398376,0.0272986952);
     if(Mesh==TEXT("/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular"))return &Stock9;
+    // Installed M870 buttpad, measured by M870ThirdPersonAim20261018/read_geometry.py.
+    // Its native root has scale 100, matching the units of the existing table.
+    static const FVector StockM870(.0000000381,.0697706106,.5068294271);
+    if(Mesh==TEXT("/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7"))return &StockM870;
     return nullptr;
 }
 }

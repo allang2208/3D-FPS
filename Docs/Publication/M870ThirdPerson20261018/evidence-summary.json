@@ -1,0 +1,82 @@
+{
+  "historical_only": true,
+  "public_slice_rebuilt": false,
+  "editor_build": "Succeeded",
+  "game_build": "Succeeded",
+  "isolated_checks": 29,
+  "isolated_failures": 0,
+  "wire_metrics": {
+    "host_cases": 12,
+    "client_cases": 6,
+    "rejoin_cases": 6,
+    "all_passed": true,
+    "max_active_grip_error_cm": 0.0072277390153621494
+  },
+  "runtime_net_settings": {
+    "host": [
+      [
+        "60",
+        "5",
+        "2"
+      ],
+      [
+        "60",
+        "5",
+        "2"
+      ]
+    ],
+    "client": [
+      [
+        "60",
+        "5",
+        "3"
+      ]
+    ],
+    "rejoin": [
+      [
+        "60",
+        "5",
+        "3"
+      ]
+    ]
+  },
+  "scope": "real localhost UDP, source held frames, synthetic aim inputs, fresh client reconnect; no rendered acceptance or Internet transport",
+  "source_receipts": [
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/completed-build.json",
+      "sha256": "0e44afcddc443f1a1ad7eed23c0969f73affb4d1f417c4da6c4f27573c058c3c"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/wire-completed-build.json",
+      "sha256": "ca2831461ca799f40f274221bf0eae79fedf339f3e99c7616872e6fe806fcc67"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/wire-receipt.json",
+      "sha256": "22cbd5e16def33f406bf73e7d566a66db8836b45d6f0b8a8dab5ee8378371a54"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/AfterWire/result.json",
+      "sha256": "994b32f15339553f809391d4f886895df5373411a6c17e801c0dc6a61edec40f"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/AfterWire/receipt.json",
+      "sha256": "2e04faaeaf3ebf9e8b0ccc593ec5840baf42d7cd1ebbdd45190acdbf1d955d5e"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-094854/host.json",
+      "sha256": "83ce601e8e77c93ea51a1d52a3ae171921f791713201cfe3bd51aaf972bae44c"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-094854/client.json",
+      "sha256": "05f30b1d29d8a82f1c14d81657338780eb715c1a2ea3b6dff7f667fd0a048607"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-094854/rejoin.json",
+      "sha256": "05f30b1d29d8a82f1c14d81657338780eb715c1a2ea3b6dff7f667fd0a048607"
+    },
+    {
+      "path": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/game-build-receipt.json",
+      "sha256": "642fa9f3171b7af75dd65ba28514ead7e1f247799ca2627c6fd71858a270f6e5"
+    }
+  ]
+}

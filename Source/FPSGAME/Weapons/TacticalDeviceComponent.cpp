@@ -393,7 +393,9 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
         // A single pistol is still ready while being raised/lowered. Releasing
         // zero here made its beam sweep to the barrel and then back to the sight.
         // Retain the rifles' deliberately delayed ADS convergence.
-        Ready=C->GetWeaponState()==EAKMWeaponState::Idle&&!C->IsWeaponBusy()
+        // M870 pumping blocks another shot, but its established ADS gate keeps
+        // aiming active. The laser must use that same gate throughout the pump.
+        Ready=C->GetWeaponState()==EAKMWeaponState::Idle&&!C->IsWeaponBusyForAim()
             &&FMath::SmoothStep(0.f,1.f,C->SprintPoseFactor)<.01f
             &&(ContinuousPistolAim||HipReady||ADSReady);
     }

@@ -248,7 +248,14 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             ||(D.PoseFamily==TEXT("Gun")&&State.Action==EFPSBodyAction::Equip);
         const bool Rifle=State.Family==TEXT("Rifle")&&D.PoseFamily==TEXT("Gun")&&I==0;
         const TArray<FTransform>* RifleCarryPose=nullptr;
-        if(Rifle&&!Drive&&MotionBindings.IsValidIndex(I))
+        // A firing M870's support palm follows its moving fore-end. Capture
+        // that live grip relation while the world-body rifle hold still owns
+        // both arm targets and aim; no camera-space wrist targets are driven.
+        const bool PumpingM870=Rifle&&Pawn->IsM870Weapon()&&Pawn->IsRevolverFireActionPlaying();
+        // Preserve the complete pump as an active network presentation, even
+        // though it intentionally leaves gameplay action/ADS in Idle.
+        if(PumpingM870&&!Drive&&Sample.Channel.IsNone())Sample.Channel=TEXT("Pump");
+        if(Rifle&&!Drive&&!PumpingM870&&MotionBindings.IsValidIndex(I))
         {
             auto& Binding=MotionBindings[I];const int32 Root=Binding.NativeWeaponRoot;
             if(Binding.FrozenPose.IsValidIndex(Root)&&SourcePose.IsValidIndex(Root))
@@ -409,6 +416,16 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     {Sample.Wrists=Sample.Fingers=0;Sample.PropVisibility=0;Sample.HasSupportGrip=false;Sample.Light=0.f;Sample.FloatingBook=false;Sample.BookPose.Reset();}
 }
 
+bool UFPSPlayerBodyComponent::HasMatchingMotionRig(int32 Index) const
+{
+    if(!MotionBindings.IsValidIndex(Index)||!DisplayState.Contacts.Rigs.IsValidIndex(Index))return false;
+    const auto& Binding=MotionBindings[Index];const auto& Rig=DisplayState.Contacts.Rigs[Index];
+    const auto& Weapon=Binding.Definition;
+    const FString& Instance=Weapon.AttachHand==1?DisplayState.OffhandInstance:DisplayState.WeaponInstance;
+    return Rig.Valid&&Rig.Schema==Weapon.MotionSchema&&Rig.Bones.Num()==Weapon.MotionBones.Num()
+        &&Rig.Parts.Num()==Binding.Parts.Num()&&(Weapon.GunInstance.IsEmpty()||Weapon.GunInstance==Instance);
+}
+
 void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
 {
     if(!BodyAnimation||!GetBodyMesh()||!GetBodyMesh()->GetSkeletalMeshAsset())return;
@@ -425,13 +442,16 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
     SmoothedContacts.Wrists=Incoming.Wrists;bMotionSampleValid=true;
     BodyAnimation->ActionFingerMask=Incoming.Fingers;BodyAnimation->ActionWristMask=Incoming.Wrists;
     BodyAnimation->bCoupledActionWrists=Incoming.CoupledWrists;
-    if(Incoming.HasSupportGrip)
+    // Equipment and pose properties can arrive in either order. Never apply an
+    // old pump's support target to the new gun while its mechanical rig rejects it.
+    const bool SupportReady=Incoming.HasSupportGrip&&HasMatchingMotionRig(0);
+    if(SupportReady)
     {
         SmoothedContacts.SupportGrip.Blend(SmoothedContacts.SupportGrip,Incoming.SupportGrip,SmoothedContacts.HasSupportGrip?Alpha:1.f);
         BodyAnimation->LeftGripFromRight=SmoothedContacts.SupportGrip;
     }
     else if(SmoothedContacts.HasSupportGrip)BodyAnimation->LeftGripFromRight=BaseSupportGrip;
-    SmoothedContacts.HasSupportGrip=Incoming.HasSupportGrip;
+    SmoothedContacts.HasSupportGrip=SupportReady;
     const auto& Ref=GetBodyMesh()->GetSkeletalMeshAsset()->GetRefSkeleton();
     if(MotionFingerAsset!=GetBodyMesh()->GetSkeletalMeshAsset())
     {
@@ -485,7 +505,7 @@ void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
         auto& Binding=MotionBindings[I];const auto& R=Incoming.Rigs.IsValidIndex(I)?Incoming.Rigs[I]:Empty;
         if(Binding.Definition.PoseFamily==TEXT("Bow"))continue;
         auto* Root=Binding.Mesh.IsValid()?static_cast<UPrimitiveComponent*>(Binding.Mesh.Get()):Binding.Static.Get();if(!Root)continue;
-        if(!R.Valid||R.Schema!=Binding.Definition.MotionSchema||R.Bones.Num()!=Binding.Definition.MotionBones.Num()||R.Parts.Num()!=Binding.Parts.Num())
+        if(!HasMatchingMotionRig(I))
         {
             if(auto* Prop=Binding.ReloadProp.Get())
             {Prop->SetVisibility(false);Prop->SetHiddenInGame(true);FPSBodyEquipment::ApplyShadowFlags(Prop,false);}

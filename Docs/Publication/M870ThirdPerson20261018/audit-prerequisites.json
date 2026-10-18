@@ -1,0 +1,46 @@
+{
+  "automatic_apply": false,
+  "encoding": "SHA256 of UTF-8 without BOM, LF line endings",
+  "requirements": [
+    "existing shared shotgun audit fixtures",
+    "SkillNetworkAuditCommandlet definition",
+    "isolated audit profile support and existing fixture friend declarations",
+    "licensed local M870/body assets"
+  ],
+  "files": [
+    {
+      "target": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+      "before_sha256_lf_utf8": "b208836eee14c2384c7713b07de1ef49dff04a0c097976d10ebb8a87dba95932",
+      "after_sha256_lf_utf8": "3f0cfbdabd161c87f603abe7caba935c99964ad67f2a497f3c72b603c52500b3",
+      "base": "local shared shotgun fixture; not present in public HEAD"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+      "before_sha256_lf_utf8": "f6649be0c3b0248cf7e0a8ed1890f0c60d757fc02469882a21e2cee2ba914a47",
+      "after_sha256_lf_utf8": "008ae691e255ded6ca4fb64710b0ac6634be072f8e78aca2d6cdf58a1cccd9a9",
+      "base": "local shared shotgun fixture; not present in public HEAD"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "before_sha256_lf_utf8": "5183eec7812f270d0d06afd45705a649d53a6edd65a67da61679a4c2604e7cf5",
+      "after_sha256_lf_utf8": "b37596f0cfb99a527dc6c50bdf4a2bbb50889de8392c8705d9a7e752f863f3b6",
+      "base": "local shared shotgun fixture; not present in public HEAD"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "before_sha256_lf_utf8": "17cf2cfab8d471194f3e870e14088ebe1a2f732e2ce320041453c65261c75ca6",
+      "after_sha256_lf_utf8": "b8c1584f090b2a2c9af729d634a0af30075b45583af4fad572fdd56436c2508c",
+      "base": "local shared shotgun fixture; not present in public HEAD"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/M870ThirdPersonAudit.cpp",
+      "before": "absent",
+      "after_sha256_lf_utf8": "b012bada186d988abedd6a0e9e4dfceadf3db3e15cb2cbeb3dc57fa00a707e79"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+      "before": "absent",
+      "after_sha256_lf_utf8": "082c627196891b0b9a0a026e62a8cbf9fdd00ee409de1e8c6335cfe963f4fb94"
+    }
+  ]
+}

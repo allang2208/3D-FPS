@@ -1,0 +1,906 @@
+{
+  "empty_directories": [
+    "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-012541"
+  ],
+  "file_count": 128,
+  "files": [
+    {
+      "sha256": "9ce1f85870f04ad3229f8bc783f7df0df5d0ee0fcbf67bb67eca76d83b5fb46d",
+      "destination": "trash/m870-third-person-retired-20261018/build-blocked-editor-lock.log",
+      "reason": "Editor DLL was occupied; replaced by completed-build.log",
+      "bytes": 27077,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/build-blocked-editor-lock.log"
+    },
+    {
+      "sha256": "ad9b0fdd153ca7c4b7e324cc3a2f22a8ed86421b4f8988beb0583d7fe54b8ffc",
+      "destination": "trash/m870-third-person-retired-20261018/read-engine-backup-2026.10.17-16.31.36.log",
+      "reason": "Retired reader run; successful read-receipt.json and geometry.json retained",
+      "bytes": 287506,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/read-engine-backup-2026.10.17-16.31.36.log"
+    },
+    {
+      "sha256": "fcb77f453715e32b0fb0a7e875998435a2df680606ecdc54706fe60e1a4b8e6f",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/audit-engine-backup-2026.10.17-17.08.37.log",
+      "reason": "Duplicate of the archived attempt-1 audit-engine.log",
+      "bytes": 288514,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/audit-engine-backup-2026.10.17-17.08.37.log"
+    },
+    {
+      "sha256": "dba6417265fe4531b0950bf7f44bd40e2b1ad4c3c33efb26217cf790062ee009",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/attempt-1/audit-console.log",
+      "reason": "Superseded fixture stock-path failure; final AfterWire has 29 passing checks",
+      "bytes": 288423,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/attempt-1/audit-console.log"
+    },
+    {
+      "sha256": "fcb77f453715e32b0fb0a7e875998435a2df680606ecdc54706fe60e1a4b8e6f",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/attempt-1/audit-engine.log",
+      "reason": "Superseded fixture stock-path failure; final AfterWire has 29 passing checks",
+      "bytes": 288514,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/attempt-1/audit-engine.log"
+    },
+    {
+      "sha256": "7aea4af5f9b55fb1591c33a53f585300b0d2dae876313e04818ef4ab2c6698c3",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/attempt-1/audit-receipt.json",
+      "reason": "Superseded fixture stock-path failure; final AfterWire has 29 passing checks",
+      "bytes": 151,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/attempt-1/audit-receipt.json"
+    },
+    {
+      "sha256": "f410e38dfdaab40af38c489c6f9808ce2706208a3702f2eef3902d2c091e6c6a",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/attempt-1/build-editor.log",
+      "reason": "Superseded fixture stock-path failure; final AfterWire has 29 passing checks",
+      "bytes": 20411,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/attempt-1/build-editor.log"
+    },
+    {
+      "sha256": "8fa579e0be7f0e542f306674d949c3fcbc9a29735acc7b44048578adbb4625f8",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/attempt-1/result.json",
+      "reason": "Superseded fixture stock-path failure; final AfterWire has 29 passing checks",
+      "bytes": 2485,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/attempt-1/result.json"
+    },
+    {
+      "sha256": "cf0916ce1d64e970e2bf16c3a170403acf9060ee11523a9ef763ef31a3a07f22",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-011940/build-editor.log",
+      "reason": "Unrelated compile blocker; later Editor/Game builds succeeded",
+      "bytes": 18993,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-011940/build-editor.log"
+    },
+    {
+      "sha256": "63bce3ba99928982032b7951838b76be9d686c7e611904ab8ca96b959099f4c7",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-012449/build-editor.log",
+      "reason": "Unrelated compile blocker; later Editor/Game builds succeeded",
+      "bytes": 18115,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-012449/build-editor.log"
+    },
+    {
+      "sha256": "3dbea8f76aa9009b13be0f57001ea00e99f4402b7e82eb5a4d0cc0c9d6c74a5c",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/client.log",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 89902,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/client.log"
+    },
+    {
+      "sha256": "8221482883e6728e2bf445343eed76f57edb21d3a833eadbd6b855f544e36ab8",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host.log",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 237733,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host.log"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/client/Saved/Config/CrashReportClient/UECC-Windows-5FCC7E2240AF5D97DCA35B9B2D8DC4BE/CrashReportClient.ini",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/client/Saved/Config/CrashReportClient/UECC-Windows-5FCC7E2240AF5D97DCA35B9B2D8DC4BE/CrashReportClient.ini"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/extra_urls.txt",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/merged_requirements.in",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 108,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/Config/CrashReportClient/UECC-Windows-E2F64342483ADA0D3CFD638B5FD023CF/CrashReportClient.ini",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/Config/CrashReportClient/UECC-Windows-E2F64342483ADA0D3CFD638B5FD023CF/CrashReportClient.ini"
+    },
+    {
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 4464,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "sha256": "26fa5f7c5ab94b8383ea44cb093602b6e1e0661f530f130500ec30f22cecb876",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/Logs/AutoSDKInfo.json",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 12551,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/Logs/AutoSDKInfo.json"
+    },
+    {
+      "sha256": "5eea16cd8ed6019bdd73106e26c0f871e8949d95f6011bfbb84d3a84160f2705",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/Logs/AutoSDKInfo.txt",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 4134,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/Logs/AutoSDKInfo.txt"
+    },
+    {
+      "sha256": "f0fd7c8efa663079fba8ada2b139ee5b11a404a4d4a53f86b037d3f98fa9d8c0",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_A.sav",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 107724,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_A.sav"
+    },
+    {
+      "sha256": "807a5fd5d3afc02fc124027e7d60880187cb8d58d985d38fa9df2784f82e3cc1",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_A.sha1",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_A.sha1"
+    },
+    {
+      "sha256": "ff8e6a328c24501429ea804f74192fb2caf91dacac62989f3584168313fb7cca",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_B.sav",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 119368,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_B.sav"
+    },
+    {
+      "sha256": "1ab9062ac4e6a625f008b9a903e6ffc994cf979c06cc3b3b103e26c42961fe46",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_B.sha1",
+      "reason": "Interrupted startup; no completed result",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-013939/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-013939_host_B.sha1"
+    },
+    {
+      "sha256": "03da9b3f384a07204b527ef6005614ed158a9b55fcf3b3e4de0450277c74b67f",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client.json",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 1013,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client.json"
+    },
+    {
+      "sha256": "4ab71ff04c49a1d9765b63035d27b2a0288cb52cf351b5d2609329a14d456ffd",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client.log",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 259367,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client.log"
+    },
+    {
+      "sha256": "e870c2ff590050b11a6a7898adf0ac5a2e9bfe28f5af4017be2e72cbd75df753",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host.json",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 2657,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host.json"
+    },
+    {
+      "sha256": "f82f7e74284d8ff4b5af16315b6e460d1ba688f07782008da9e84570cdc3181c",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host.log",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 288287,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host.log"
+    },
+    {
+      "sha256": "03da9b3f384a07204b527ef6005614ed158a9b55fcf3b3e4de0450277c74b67f",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin.json",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 1013,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin.json"
+    },
+    {
+      "sha256": "06ca08ff9ee8713118b3d3be0cae8bc407a31a4ef0c782e745d90f20439158a6",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin.log",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 269681,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin.log"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/extra_urls.txt",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/merged_requirements.in",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 108,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/CrashReportClient/UECC-Windows-34BA25E14248E4F5753079A5EAEA01B8/CrashReportClient.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/CrashReportClient/UECC-Windows-34BA25E14248E4F5753079A5EAEA01B8/CrashReportClient.ini"
+    },
+    {
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/Editor.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 95,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/Editor.ini"
+    },
+    {
+      "sha256": "4d0b6b3b072af658e44e0669a189953cb54deb17f703c10385c3a4fdf1bf7ca5",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 48847,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/Engine.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 111,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/Engine.ini"
+    },
+    {
+      "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 1380,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/Config/WindowsEditor/GameUserSettings.ini"
+    },
+    {
+      "sha256": "d38e617020c0095dc1f4b081006be0e6a7dda11d2ea05d7f620bb6c0d6baf688",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_A.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12862,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_A.sav"
+    },
+    {
+      "sha256": "afbbe1c85941645aaf8efd372e25ed4148c8925927fc4f45ff3ef992872c80ea",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_A.sha1",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_A.sha1"
+    },
+    {
+      "sha256": "308f7516281db33e1588912f5bade715db482f0f5f4878d5668095193fdfe292",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_B.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12862,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_B.sav"
+    },
+    {
+      "sha256": "14fb36581786708503c4da4bb564f0c79fbef2927eedd43a2603009e8c71b0f3",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_B.sha1",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_client_B.sha1"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/extra_urls.txt",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/merged_requirements.in",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 108,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/CrashReportClient/UECC-Windows-7B5C1B15450318352676A49860D0F690/CrashReportClient.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/CrashReportClient/UECC-Windows-7B5C1B15450318352676A49860D0F690/CrashReportClient.ini"
+    },
+    {
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/WindowsEditor/Editor.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 95,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/WindowsEditor/Editor.ini"
+    },
+    {
+      "sha256": "682dbcac3acc3dc852f82094b59b0a022f544bd6e9cd6d77d168720b0a3c3434",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 49097,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 1380,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/Config/WindowsEditor/GameUserSettings.ini"
+    },
+    {
+      "sha256": "5d5cca6b1dac245cb0c50893eca1d13852f97972b1b2cc29df9998e7af23ff7b",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_A.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12785,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_A.sav"
+    },
+    {
+      "sha256": "2d2bfdc37f4ff93ee8ee636e8da9cfc56a5602ca9ef2d54939596cd75bcaa179",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_A.sha1",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_A.sha1"
+    },
+    {
+      "sha256": "949b72b027ed2a532aec1a652acf70e1146a102343df8226f6319676d4b7e9d8",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_B.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12785,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_B.sav"
+    },
+    {
+      "sha256": "edced9f1ca149c17d21deb4b198a245d5cb6119741cb5740206f276fa4da21ad",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_B.sha1",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_B.sha1"
+    },
+    {
+      "sha256": "69560d26d8f3d1ae1234807a19133d26d68aaea6e0f8e99d0b08a45b96296ec7",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_Shared_d76a53d8.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 2312,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_host_Shared_d76a53d8.sav"
+    },
+    {
+      "sha256": "871013a567ddf27624a62c956d38654558f65271eda3c69fb1267a857d800361",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP1237_e4125ebc.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12776,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP1237_e4125ebc.sav"
+    },
+    {
+      "sha256": "913b2ef700cedce4290de44975623e0b7d95427fcc2c6fbea55049afc69b8316",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP4A5E_cac6b13e.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12776,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP4A5E_cac6b13e.sav"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/extra_urls.txt",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/merged_requirements.in",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 108,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/CrashReportClient/UECC-Windows-A63029D4480FD17EA837E1A70E8800A0/CrashReportClient.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/CrashReportClient/UECC-Windows-A63029D4480FD17EA837E1A70E8800A0/CrashReportClient.ini"
+    },
+    {
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/Editor.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 95,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/Editor.ini"
+    },
+    {
+      "sha256": "e9fa3db501a7142421676987a5fef3e18ccc8f6c32415cf29d75e33844a4e061",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 48847,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 111,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/Engine.ini"
+    },
+    {
+      "sha256": "c68320d52b083577efd58b4f4b895088828a8404e80470c58d9446b81de6c0d7",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 1380,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini"
+    },
+    {
+      "sha256": "daebf3280ec24508f86823e4554f5b8e0ce5e968ed6d30c08f2caa6f8adf5f06",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_A.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12839,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_A.sav"
+    },
+    {
+      "sha256": "0761b64610502dd1b3d8a3b1667c59661151438ee6477ae8b80a1999fa3bb256",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_A.sha1",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_A.sha1"
+    },
+    {
+      "sha256": "a82360d46398d65227d91c5cdd466b1199f4ee72712f3cb5c9ad7c5d1716d0f6",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_B.sav",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 12839,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_B.sav"
+    },
+    {
+      "sha256": "407dc248ad787d52c5cb78cd0f4e6e6fe75329528d8330f71bb62eb1fc7e264f",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_B.sha1",
+      "reason": "Failed aim scenarios preserved as historical evidence; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015041/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015041_rejoin_B.sha1"
+    },
+    {
+      "sha256": "f03f349976758a45ef8b04a1d8bda6d2ebeb791433e51f108f0fd1d7d0721913",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/build-editor.log",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 16998,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/build-editor.log"
+    },
+    {
+      "sha256": "054b56452d17aa6029f8b20804d4dd7f08b12885bb7fadf02938d233b659b975",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client.log",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 198520,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client.log"
+    },
+    {
+      "sha256": "e73333482878acad945bf204177dd899d97ab339f61827c08859532cda8c0552",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host.log",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 203061,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host.log"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/extra_urls.txt",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/merged_requirements.in",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 108,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/Config/CrashReportClient/UECC-Windows-5CEADD1F41E3A187B350DC866207A6E5/CrashReportClient.ini",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/Config/CrashReportClient/UECC-Windows-5CEADD1F41E3A187B350DC866207A6E5/CrashReportClient.ini"
+    },
+    {
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 4464,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/Config/WindowsEditor/Engine.ini",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 111,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/Config/WindowsEditor/Engine.ini"
+    },
+    {
+      "sha256": "c2c7ac2f180916009d4f70b0109956bbf701a3d39d28fbf9d186223d4319b8b3",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_A.sav",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 16336,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_A.sav"
+    },
+    {
+      "sha256": "7ff490a8377ecad03bb9baba57d0be6f66f15c0ac2239bda2f22ec38ee8dc6ab",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_A.sha1",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_A.sha1"
+    },
+    {
+      "sha256": "a1fad4a1306426e7a7717f9deb3cfad67d4ad93fe5b9a56d6e7391fd9761af88",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_B.sav",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 96458,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_B.sav"
+    },
+    {
+      "sha256": "ced799154e762fcdf4026b637694ba3e47c017dcd25bf22a859d91123dfbdbb1",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_B.sha1",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_client_B.sha1"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/extra_urls.txt",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/merged_requirements.in",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 0,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 108,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 17202,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Saved/Config/CrashReportClient/UECC-Windows-4A47A0734295C18C77814C8FDDA1E291/CrashReportClient.ini",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 239,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Saved/Config/CrashReportClient/UECC-Windows-4A47A0734295C18C77814C8FDDA1E291/CrashReportClient.ini"
+    },
+    {
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 4464,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "sha256": "d2078a0ddde5dc01a31656d9a473105599ec12aa26b231988b8e15e5afebf73a",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_A.sav",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 107724,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_A.sav"
+    },
+    {
+      "sha256": "8c515f9205200435b47d684e80e9fef1b86106daec2415bf7cabc7d86c2b5440",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_A.sha1",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_A.sha1"
+    },
+    {
+      "sha256": "f97186d05175466778ba1add11ce274146f430d2e4635613ffe2e07273e5e7a9",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_B.sav",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 119368,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_B.sav"
+    },
+    {
+      "sha256": "ecfe87ceb69fefc0891819f5f17170a1a1e5bbb869da9140b5533d1e6d00a439",
+      "destination": "trash/m870-third-person-retired-20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_B.sha1",
+      "reason": "Interrupted resource loading; final run 20261018-094854 passed",
+      "bytes": 40,
+      "source": "SourceAssets/M870ThirdPersonAim20261018/NetworkReview/Wire/20261018-015557/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-015557_host_B.sha1"
+    },
+    {
+      "bytes": 121602,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Docs/AssetSetup.md",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Docs/AssetSetup.md",
+      "sha256": "8702ddce48dabcdc76392829b3b9d90b10b7368f3ab88e85e53cdd597783a6a7"
+    },
+    {
+      "bytes": 3761,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+      "sha256": "25cdeee805c24f50b6d1fac0ef8358c232c3f7e35ff1f16d973691772d040144"
+    },
+    {
+      "bytes": 2504,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+      "sha256": "37f7461eb29655d539ac5eae1210ee429aa4a820dee76b9b8c180d51cb526919"
+    },
+    {
+      "bytes": 23780,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "sha256": "0c3b2ec2c12e7a25168005b8c924186dc4bb58a199acc074edd63f14a0b5350a"
+    },
+    {
+      "bytes": 17659,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "sha256": "6aa06feecf1914b34c18daeae9b901d741bec9a3add442d9db1f2555e9eafab7"
+    },
+    {
+      "bytes": 46929,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "sha256": "2eaba30384f4c2b5d247603d0f119cdfae114ae5739133492546f264a0d5ae74"
+    },
+    {
+      "bytes": 36042,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "sha256": "4d4c8468d67284f13636fdf85a33f3169a4ebeb33e9876753fd46893f9a0e3a4"
+    },
+    {
+      "bytes": 13625,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "sha256": "aa91144b69b4bb56f87885e5dde68c8c0a07389fcab19a6f4d2ad526b36e3a0c"
+    },
+    {
+      "bytes": 30632,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "sha256": "1f3f8172765189773fda2eac7ca10a9011055e8a2c431fe1cec5ea5dcbb400bf"
+    },
+    {
+      "bytes": 4369,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/IndexCandidates/SourceAssets/ThirdPersonRifleShoulder20261006/read_stock_contacts.py",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/IndexCandidates/SourceAssets/ThirdPersonRifleShoulder20261006/read_stock_contacts.py",
+      "sha256": "a9de70d1b7161964d25187dd8b9f2f217eace2aad75ce3821d15088bcd8b8277"
+    },
+    {
+      "bytes": 14173,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/AuditBaseline/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/AuditBaseline/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+      "sha256": "082c627196891b0b9a0a026e62a8cbf9fdd00ee409de1e8c6335cfe963f4fb94"
+    },
+    {
+      "bytes": 14076,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/AuditBaseline/Source/FPSGAME/Weapons/M870ThirdPersonAudit.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/AuditBaseline/Source/FPSGAME/Weapons/M870ThirdPersonAudit.cpp",
+      "sha256": "b012bada186d988abedd6a0e9e4dfceadf3db3e15cb2cbeb3dc57fa00a707e79"
+    },
+    {
+      "bytes": 25621,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/AuditBaseline/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/AuditBaseline/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+      "sha256": "008ae691e255ded6ca4fb64710b0ac6634be072f8e78aca2d6cdf58a1cccd9a9"
+    },
+    {
+      "bytes": 325,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/AuditBaseline/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/AuditBaseline/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+      "sha256": "3f0cfbdabd161c87f603abe7caba935c99964ad67f2a497f3c72b603c52500b3"
+    },
+    {
+      "bytes": 18304,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/AuditBaseline/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/AuditBaseline/Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "sha256": "b8c1584f090b2a2c9af729d634a0af30075b45583af4fad572fdd56436c2508c"
+    },
+    {
+      "bytes": 2536,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/AuditBaseline/Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/AuditBaseline/Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "sha256": "b37596f0cfb99a527dc6c50bdf4a2bbb50889de8392c8705d9a7e752f863f3b6"
+    },
+    {
+      "bytes": 13999,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/prepare.py",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/prepare.py",
+      "sha256": "ef4b2c46c97bf187b9e255596a498139dfea178a25eb8d0a3d68ecff8c12a705"
+    },
+    {
+      "bytes": 5225,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/stage.py",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/stage.py",
+      "sha256": "b9bc05ce1b5842470fa2a9c0756cf0e5a17eed5b50a990ed40b961da21343ab4"
+    },
+    {
+      "bytes": 4133,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/archive.ps1",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/archive.ps1",
+      "sha256": "5db08e31e7a778d132bf1d4fff1a61baa1b2816921c719581eb921b56aec0346"
+    },
+    {
+      "bytes": 17163,
+      "reason": "Completed publication baseline, index candidate or one-time preparation helper; final Git tree and published-files.json retained",
+      "source": "Saved/M870Publication20261018/production-candidate.patch",
+      "destination": "trash/m870-third-person-retired-20261018/PublicationWork/production-candidate.patch",
+      "sha256": "f71d64eee3626cc4e02cd49b997de0c0f7130a619dfa86d6fd13ef8139269064"
+    }
+  ],
+  "bytes": 4287544.0,
+  "status": "moved_and_sha256_verified"
+}

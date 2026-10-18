@@ -73,6 +73,7 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
         }
     }
     PresentationSendCountdown-=Delta;
+    const bool Continuous=!DisplayState.Lasers.IsEmpty()||DisplayState.Contacts.Channel==TEXT("Pump");
     if(GetNetMode()==NM_Client&&(Edge||Shot||PresentationSendCountdown<=0.f))
     {
         ++SentPresentationSequence;
@@ -80,7 +81,7 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
         else ServerBodySnapshot(DisplayState,SentPresentationSequence);
         // A short wrist throw or bolt cycle can fit between the former 80 ms
         // samples. Active poses use 25 Hz; idle presentation retains 12.5 Hz.
-        const bool Active=!DisplayState.Lasers.IsEmpty()||DisplayState.Action!=EFPSBodyAction::None||DisplayState.Contacts.Wrists!=0
+        const bool Active=Continuous||DisplayState.Action!=EFPSBodyAction::None||DisplayState.Contacts.Wrists!=0
             ||DisplayState.RightHand.bReloading||DisplayState.LeftHand.bReloading
             ||DisplayState.RightHand.bEquipping||DisplayState.LeftHand.bEquipping
             ||DisplayState.Family==TEXT("Bow")||Now-DisplayState.LastShotAt<.15f;
@@ -91,10 +92,10 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
             &&DisplayState.ActionProgress<=DisplayState.ContactFraction+.04f;
         PresentationSendCountdown=MeleeRelease?.016f:Active?.04f:.08f;
     }
-    if(GetOwner()->HasAuthority()&&(Edge||Shot||(!DisplayState.Lasers.IsEmpty()&&PresentationSendCountdown<=0.f)))
+    if(GetOwner()->HasAuthority()&&(Edge||Shot||(Continuous&&PresentationSendCountdown<=0.f)))
     {
         GetOwner()->ForceNetUpdate();
-        if(!DisplayState.Lasers.IsEmpty())PresentationSendCountdown=.04f;
+        if(Continuous)PresentationSendCountdown=.04f;
     }
     PreviousLocalPresentation=DisplayState;bHasLocalPresentation=true;
 }

@@ -9,7 +9,7 @@ sources={
  'ue_m4a1':'/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416',
  'ue_qbz191':'/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny'}
 for key,header in [('ue_hk416','HK416'),('ue_ash12','ASH12'),('ue_m16a2','M16'),('ue_a762','A762'),
-                   ('ue_svd','SVD'),('ue_lmg201','LMG201'),('ue_pkm_lowpoly','PKMLowpoly')]:
+                   ('ue_svd','SVD'),('ue_lmg201','LMG201'),('ue_pkm_lowpoly','PKMLowpoly'),('ue_m870','M870')]:
     s=(P/f'Source/FPSGAME/Weapons/{header}WeaponAssets.h').read_text(encoding='utf-8-sig')
     sources[key]=re.search(r'\bMeshPath\s*=\s*TEXT\("([^"]+)',s)[1]
 
@@ -24,6 +24,10 @@ for key,path in sources.items():
     rear=mod.get_bone_transform('WPN_RearSight',True).translation
     front=mod.get_bone_transform('WPN_FrontSight',True).translation
     up=root.rotation.rotate_vector(u.Vector(0,0,1))
+    if key=='ue_m870':
+        # The shotgun root +Z is longitudinal, not the gun's physical up.
+        # Match the installed M870 world-hold calibration when regenerating.
+        barrel=(front-rear).normal();up=(u.Vector(0,0,1)-barrel*barrel.z).normal()
     axis=front-rear;axis=(axis-up*axis.dot(up)).normal()
     side=up.cross(axis).normal()
     dm,status=G.copy_mesh_from_skeletal_mesh(a,u.DynamicMesh(),u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD())

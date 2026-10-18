@@ -27,3 +27,13 @@
 - 统一腰射构图应对齐认可枪型的机匣／后瞄位置，并计入动画骨架与相机锚点；只对齐手腕不能保证枪位一致，ADS 独立校准继续保留。
 
 当前入口：`FPSGAMECharacterM870.cpp`、`TubeShotgunAssets.h`、`M870WeaponAssets.h`、`ColdSteelSuper90Authority.cpp`。2026-10-17 历史快速近战检查记录在 `SourceAssets/M870QuickMeleeAudit20261017/coverage.md`；完整恢复与发布边界见 `Docs/Publication/M87020261017/README.md`。
+
+## 第三人称抵肩、泵动与瞄准
+
+- 沿实际调用链确认枪型已进入 `FPSBodyRifleStock::Find` / `BuildFPSBodyRifleHold`。缺少枪托表项会让整套抵肩求解提前失效，不能靠叠加手臂旋转补救。原厂接触点和改装后托都按当前保存网格及安装变换取值，改装件按配方识别，不假设名称都含 `Stock`。
+- M870 V7 的 `WPN_root` 含 100 倍导入缩放，+Z 沿枪身纵向；它不是普通步枪的向上轴。枪托点使用表内根空间单位，瞄线及向上轴用同一完整坐标系转换；不能拿纵轴当法向投影瞄线。修改运行时标定时同步 `read_stock_contacts.py`，避免重生成丢掉本枪条目。换模型后重新取该模型坐标，不沿用 V7 数值。
+- 普通持枪可以冻结双手关系，射后泵动必须采集同帧护木机械骨和真实支撑握点。全身持枪层继续负责肩肘、抵肩和瞄准，保持 `Drive=false`，不把第一人称相机空间腕部轨迹写进全身骨架。
+- 泵动仍可处于玩法 Idle，表现不能仅凭射击后的短窗口判为活动。用已有 `Pump` 通道贯穿整个动作，保留连续快照频率及可靠启停边沿；不新增机械伤害或弹药 RPC。激光归零遵从 `IsWeaponBusyForAim()`，与 ADS 保持一致；下一枪仍由开火闭锁管控。
+- 远端取向来源、装备乱序及支撑握点身份约束，见[全身表现的联机瞄准与接触](../../ue5-cpp-gameplay/references/player-world-body.md#联机瞄准与接触)。
+
+2026-10-18 案例、历史构建和受控联机结果见 `Docs/Weapons/m870-third-person-network-review-20261018.md`。固定源帧／本地 UDP 的通过记录不能替代连续动画自然度、鼠标输入、互联网或存档恢复验收。
