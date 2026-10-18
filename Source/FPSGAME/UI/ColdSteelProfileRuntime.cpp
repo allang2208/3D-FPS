@@ -321,7 +321,10 @@ bool UColdSteelStatusModel::ReloadProfile()
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
-        if(I.Definition==TEXT("ue_alchemy_spellbook"))
+        // The hardknuckle gloves and ST6 sleeves switched from an icon display
+        // mesh to catalog PNGs; without the refresh their stored instances keep
+        // routing through the mesh path and render blank.
+        if(I.Definition==TEXT("ue_alchemy_spellbook")||I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves"))
         {
             // Refresh definition-owned presentation and balance fields; retain instance enhancement.
             const FString* Catalog=Definitions.Find(I.Definition);
@@ -525,6 +528,16 @@ bool UColdSteelStatusModel::ReloadProfile()
                     }
                 }
             }
+            // 硬壳手套/ST6 的换弹、ADS、奔跑体力等数值按既有约定放在
+            // source-combat-items 覆盖层；实例里若残留早期 items.json 写入的
+            // bonusStats 会挡住覆盖层，清掉后按覆盖层读取。
+            if((I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves"))&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData&&
+                ItemData->HasField(TEXT("bonusStats")))
+            {
+                ItemData->RemoveField(TEXT("bonusStats"));
+                I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+            }
             // Existing modular gloves retain their original catalog snapshot.
             // Refresh appearance when loading, including gloves left on the
             // ground, while keeping instance stats and equipment state intact.
@@ -574,7 +587,7 @@ bool UColdSteelStatusModel::ReloadProfile()
                 FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
             {
                 bool PotionUpdated=false;
-                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("stats"),TEXT("useDuration")})
+                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("buffs"),TEXT("stats"),TEXT("useDuration")})
                 {
                     const auto* CatalogValue=CatalogData->Values.Find(Key);
                     const auto* StoredValue=ItemData->Values.Find(Key);

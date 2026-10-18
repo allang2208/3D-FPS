@@ -22,7 +22,7 @@ int32 PaintBowRhythm(const UBowWeaponComponent& Bow,const FGeometry& Geometry,
     FBowDrawRhythm Rhythm;
     if (!Bow.GetDrawRhythm(Rhythm)) return Layer;
     constexpr float Width=208.f,TrackWidth=192.f;
-    const FVector2D At=Geometry.GetLocalSize()*.5f+FVector2D(-Width*.5f,50.f)*S;
+    const FVector2D At=Geometry.GetLocalSize()*.5f+FVector2D(-Width*.5f,96.f)*S;
     const float Duration=Rhythm.FullDrawSeconds+ColdSteelBow::PerfectReleaseWindow+.30f;
     const float Progress=FMath::Clamp(Rhythm.Elapsed/Duration,0.f,1.f);
     const float WindowStart=Rhythm.FullDrawSeconds/Duration;
@@ -35,25 +35,27 @@ int32 PaintBowRhythm(const UBowWeaponComponent& Bow,const FGeometry& Geometry,
         FSlateDrawElement::MakeBox(Elements,Layer+Z,Geometry.ToPaintGeometry(Size*S,FSlateLayoutTransform(At+Offset*S)),
             White,ESlateDrawEffect::None,Tint(Color));
     };
-    const auto Frame=ColdSteelUI::RoundedBrush(FLinearColor::White,ColdSteelUI::ButtonRadius*S,
-        Tint(Rhythm.bPerfect?ColdSteelUI::HUDGold:ColdSteelUI::Border),S);
-    FSlateDrawElement::MakeBox(Elements,Layer+1,Geometry.ToPaintGeometry(FVector2D(Width,38.f)*S,FSlateLayoutTransform(At)),
-        &Frame,ESlateDrawEffect::None,Tint(ColdSteelUI::GlassTint));
-    Box(2,FVector2D(8,24),FVector2D(TrackWidth,6),ColdSteelUI::Content);
+    // 用户要求只保留进度条：无外框、无轨道底线、无提示文字；
+    // 进度填充改金色系，避免浅灰近白的观感被当成底色。
+    // 进度落在金色判定区间时，给整条进度条外缘加一圈呼吸式金色脉冲。
+    if (Rhythm.bPerfect)
+    {
+        const float Wave=.5f+.5f*FMath::Sin(float(FPlatformTime::Seconds())*2.f*PI*2.2f);
+        const float Glow=2.f+2.5f*Wave;
+        auto GlowBrush=ColdSteelUI::RoundedBrush(FLinearColor(0,0,0,0),3.f*S,
+            FLinearColor::White,1.5f*S);
+        FSlateDrawElement::MakeBox(Elements,Layer+2,
+            Geometry.ToPaintGeometry(FVector2D(TrackWidth+Glow*2.f,6.f+Glow*2.f)*S,
+                FSlateLayoutTransform(At+FVector2D(8.f-Glow,24.f-Glow)*S)),
+            &GlowBrush,ESlateDrawEffect::None,
+            Tint(ColdSteelUI::HUDGoldLight*FLinearColor(1.f,1.f,1.f,.35f+.55f*Wave)));
+    }
     if (Progress>0.f)
-        Box(3,FVector2D(8,24),FVector2D(TrackWidth*Progress,6),Late?ColdSteelUI::TextTertiary:ColdSteelUI::Accent);
+        Box(3,FVector2D(8,24),FVector2D(TrackWidth*Progress,6),Late?ColdSteelUI::HUDGoldDim:ColdSteelUI::HUDGold);
     Box(4,FVector2D(8+TrackWidth*WindowStart,23),FVector2D(TrackWidth*WindowWidth,8),
-        Rhythm.bPerfect?ColdSteelUI::HUDGoldLight:Late?ColdSteelUI::HUDGoldDim:ColdSteelUI::HUDGold);
+        Rhythm.bPerfect?ColdSteelUI::HUDGoldLight:Late?ColdSteelUI::HUDGoldDim:ColdSteelUI::HUDGoldLight);
     // The marker reads the combat clock directly; UI easing must not shift the release window.
     Box(5,FVector2D(7+TrackWidth*Progress,21),FVector2D(2,12),ColdSteelUI::TextPrimary);
-    static const FString DrawLabel=TEXT("拉弓 · 金色区间松手");
-    static const FString LateLabel=TEXT("节拍已过 · 满拉");
-    static const FString PerfectLabel=FString::Printf(TEXT("松手 · 伤害 +%.0f%%"),(ColdSteelBow::PerfectReleaseMultiplier-1.f)*100.f);
-    static const FString ReleasedLabel=FString::Printf(TEXT("完美释放 · 伤害 +%.0f%%"),(ColdSteelBow::PerfectReleaseMultiplier-1.f)*100.f);
-    const FString& Label=Rhythm.bReleased?ReleasedLabel:Rhythm.bPerfect?PerfectLabel:Late?LateLabel:DrawLabel;
-    FSlateDrawElement::MakeText(Elements,Layer+5,Geometry.ToPaintGeometry(FVector2D(TrackWidth,18)*S,FSlateLayoutTransform(At+FVector2D(8,4)*S)),
-        Label,ColdSteelUI::TextFont(12.f*.75f*S),ESlateDrawEffect::None,
-        Tint(Rhythm.bPerfect?ColdSteelUI::HUDGoldLight:ColdSteelUI::TextSecondary));
     return Layer+5;
 }
 }

@@ -1,5 +1,6 @@
 # 当前 UE5 UI 与库存
 
+- [消耗品浮窗标准（食物／饮料／药水，2026-10-18）](../Items/consumable-tooltip-standard-20261018.md)
 - [商店买卖面板与快捷键（2026-10-13）](shop-panel-plan-20261013.md)
 
 - [任务与目标标准工作流](../../TASK-WORKFLOW.md)

@@ -1,4 +1,7 @@
 #include "ColdSteelItemTooltipData.h"
+#include "ColdSteelConsumablePresentation.h"
+#include "ColdSteelFoodPresentation.h"
+#include "../Items/FoodSpoilage.h"
 #include "ColdSteelItemRarity.h"
 #include "../Building/WoodworkingQuality.h"
 #include "ColdSteelWeaponText.h"
@@ -56,13 +59,29 @@ FString RateMultiplier(double IntervalMultiplier){return IntervalMultiplier>1.?F
 J Reference(){static J Root;static bool Loaded=false;if(!Loaded){Loaded=true;FString Text;if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/tooltip-reference.json"))))FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root);}return Root;}
 }
 
+void RefreshColdSteelFoodTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,FColdSteelTooltipContent& Out)
+{
+    if(Out.FoodLifetimeDays<=0)return;
+    const double Remaining=Model?Model->FoodRemainingDays(I):Out.FoodLifetimeDays;
+    Out.FoodProgress=ColdSteelFoodUI::Progress(Remaining,Out.FoodLifetimeDays);
+    FString Value;int32 Tone=0;
+    ColdSteelConsumable::FormatFreshness(Remaining,Out.FoodLifetimeDays,Value,Tone);
+    const auto RefreshRows=[&](TArray<FColdSteelTooltipRow>& Rows)
+    {
+        for(auto& Row:Rows)if(!Row.bSection&&Row.Label==TEXT("新鲜度"))
+        {Row.Value=Value;Row.Tone=Tone;}
+    };
+    RefreshRows(Out.Summary);
+    for(auto& Card:Out.Cards)RefreshRows(Card.Rows);
+}
+
 FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G)
 {
     FColdSteelTooltipContent Out;TArray<FColdSteelTooltipRow> ForgeSummary;J O;
     O=CombatItemFormula::Read(I);if(!O)return Out;
     Out.Name=String(O,TEXT("name"),I.Definition);Out.Type=String(O,TEXT("type"),Category(String(O,TEXT("category"))));
     if(ColdSteelInventory::IsBow(I))Out.Type=String(O,TEXT("weaponTypeTag"),TEXT("弓"));
-    Out.Rarity=ColdSteelItemRarity::IsEquipment(*O)?FString():String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=String(O,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
+    Out.Rarity=ColdSteelItemRarity::IsEquipment(*O)?FString():String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=ColdSteelInventory::Text(I,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
     const int32 Enhance=Number(O,TEXT("enhanceLevel"));if(Enhance>0)Out.Enhancement=FString::Printf(TEXT("已强化 +%d"),Enhance);
     // 采集工具的「强化」是外观档位（独立字段 tool_enhance_level），与武器「已强化 +N」
     // 同一位置口径但不同措辞：这里写档位与材质名，不进武器的数值语义。铁铲无目录等级。
@@ -357,7 +376,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     auto& Main=Out.Cards.AddDefaulted_GetRef();Main.MinimumWidth=460;
     const TArray<TSharedPtr<FJsonValue>>* Stats=nullptr;
     FGunsmithStats S;if(Weapon)S=G->CalculateItem(I,Parts);
-    if(O->TryGetArrayField(TEXT("stats"),Stats))for(const auto& V:*Stats){const auto St=V->AsObject();const FString Label=String(St,TEXT("name"),String(St,TEXT("label")));FString Val=St->HasField(TEXT("value"))?Value(St->Values[TEXT("value")]):TEXT("");
+    const bool bConsumable=ColdSteelConsumable::IsConsumable(O.Get());
+    if(!bConsumable&&O->TryGetArrayField(TEXT("stats"),Stats))for(const auto& V:*Stats){const auto St=V->AsObject();const FString Label=String(St,TEXT("name"),String(St,TEXT("label")));FString Val=St->HasField(TEXT("value"))?Value(St->Values[TEXT("value")]):TEXT("");
         // 枪/剑/杖的攻防展示走下面的计算行，目录 stats 里的静态行（含转轮的
         // 弹巢容量）是创建时快照，会与实算的武器总伤害、装备魔攻重复或冲突。
         const bool bStaff=ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff");
@@ -365,10 +385,22 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(bStaff&&Label==TEXT("魔法攻击"))continue;
         if(Weapon&&(Label==ColdSteelWeaponText::Capacity||Label==TEXT("弹巢容量")))continue;
         bool Positive=false;St->TryGetBoolField(TEXT("pos"),Positive);if(!Label.IsEmpty())Row(Main,Label,Val,Positive?1:0);}
+    if(bConsumable)
+    {
+        // 食物／饮料／药水的数值与效果统一走 ColdSteelConsumable：简略浮窗读同一份行序。
+        TArray<ColdSteelConsumable::FRow> ConsumableRows;
+        ColdSteelConsumable::BuildDetailRows(I,Model,O.Get(),ConsumableRows);
+        for(const auto& R:ConsumableRows)
+        {
+            if(R.bSection)Section(Main,R.Label);
+            else if(R.Label.IsEmpty())Note(Main,TEXT(""),R.Value,R.Tone);
+            else Row(Main,R.Label,R.Value,R.Tone);
+        }
+    }
     Section(Main,TEXT("物品信息"));Row(Main,TEXT("分类"),Category(String(O,TEXT("category"))));
     const FString WeaponType=String(O,TEXT("weaponTypeTag"),String(O,TEXT("weaponType")));
     Row(Main,TEXT("武器类型"),WeaponType==TEXT("spellbook")?TEXT("魔法书"):WeaponType);Row(Main,TEXT("装备槽位"),EquipSlotLabel(String(O,TEXT("equipSlot"))));
-    const FString Cat=String(O,TEXT("category"));const J Defense=Object(O,TEXT("defense"));
+    const J Defense=Object(O,TEXT("defense"));
     if(ColdSteelInventory::IsTwoHandedSword(I)){
         Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
         const auto Melee=ColdSteelMelee::Evaluate(I,Model);
@@ -497,8 +529,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
         Row(Main,ColdSteelWeaponText::DrawTime,N(Bow.Draw)+TEXT(" s"));
-        Note(Main,TEXT("完美节拍"),FString::Printf(TEXT("满拉后 %.2f s 内手动松手，本箭伤害 +%.0f%%；力竭自动放箭无加成"),
-            ColdSteelBow::PerfectReleaseWindow,(ColdSteelBow::PerfectReleaseMultiplier-1.f)*100.f));
+        Note(Main,TEXT("完美节拍"),FString::Printf(TEXT("满拉后 %.2f s 内手动松手，下一次拉弓速度 +%.0f%%；力竭自动放箭无加成"),
+            ColdSteelBow::PerfectReleaseWindow,ColdSteelBow::PerfectNextDrawSpeedBonus*100.f));
         Row(Main,TEXT("拉弓速度加成"),N(Bow.DrawSpeedBonus*100.)+TEXT("%"));
         Row(Main,ColdSteelWeaponText::NockTime,N(Bow.Nock)+TEXT(" s"));
         Row(Main,ColdSteelWeaponText::ProjectileSpeed,N(Bow.Speed)+TEXT(" m/s"));
@@ -655,6 +687,11 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 }
             }
         }
+    }
+    Out.FoodLifetimeDays=ColdSteelFood::LifetimeDays(I);
+    if(Out.FoodLifetimeDays>0)
+    {
+        RefreshColdSteelFoodTooltip(I,Model,Out);
     }
     CompleteColdSteelTooltipSummary(I,Model,G,Out);
     if(!ForgeSummary.IsEmpty())

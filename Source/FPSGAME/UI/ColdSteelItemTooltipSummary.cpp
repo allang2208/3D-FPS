@@ -1,4 +1,5 @@
 #include "ColdSteelWeaponText.h"
+#include "ColdSteelConsumablePresentation.h"
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelEnhancementSystem.h"
@@ -151,13 +152,13 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         const TSharedPtr<FJsonObject>* Bonus=nullptr;
         if(Data->TryGetObjectField(TEXT("bonusStats"),Bonus)&&*Bonus)
         {
-            const TPair<const TCHAR*,const TCHAR*> Fields[]={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("crit"),TEXT("暴击率")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")}};
+            const TPair<const TCHAR*,const TCHAR*> Fields[]={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("crit"),TEXT("暴击率")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")},{TEXT("adsPercent"),TEXT("ADS 瞄准时间")},{TEXT("sprintStaminaCost"),TEXT("奔跑体力消耗")}};
             for(const auto& Field:Fields)
             {
                 double Value=0;if((*Bonus)->TryGetNumberField(Field.Key,Value)&&Value!=0)
                 {
-                    const bool Percent=FCString::Strcmp(Field.Key,TEXT("crit"))==0||FCString::Strcmp(Field.Key,TEXT("meleeAttackSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("moveSpeedPercent"))==0||FCString::Strcmp(Field.Key,TEXT("reloadSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("bowDrawSpeed"))==0;
-                    const bool LowerBetter=FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0;
+                    const bool Percent=FCString::Strcmp(Field.Key,TEXT("crit"))==0||FCString::Strcmp(Field.Key,TEXT("meleeAttackSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("moveSpeedPercent"))==0||FCString::Strcmp(Field.Key,TEXT("reloadSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("bowDrawSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("adsPercent"))==0||FCString::Strcmp(Field.Key,TEXT("sprintStaminaCost"))==0;
+                    const bool LowerBetter=FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("adsPercent"))==0||FCString::Strcmp(Field.Key,TEXT("sprintStaminaCost"))==0;
                     Add(*(FString(TEXT("bonus:"))+Field.Key),Field.Value,Value*(Percent&&FCString::Strcmp(Field.Key,TEXT("crit"))!=0?100.:1.),Percent?TEXT("%"):TEXT(""),2,LowerBetter);
                 }
             }
@@ -178,6 +179,18 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
     if(Item.Place==1&&SlotNames().IsValidIndex(Item.Cell))Out.Location+=TEXT(" · ")+SlotNames()[Item.Cell];
     if(Model&&Model->Equipped()&&Model->Equipped()->InstanceId==Item.InstanceId)Out.Location+=TEXT(" · 当前武器");
     if(Weapon)Out.Location+=TEXT(" · ")+ColdSteelWeaponStats::AmmoName(Weapon->Ammo);
+    // 食物／饮料／药水的简略浮窗与详细浮窗共用同一套标准行序；不走武器指标与对比。
+    const auto ConsumableData=CombatItemFormula::ReadOnly(Item);
+    if(ConsumableData&&ColdSteelConsumable::IsConsumable(ConsumableData.Get()))
+    {
+        TArray<ColdSteelConsumable::FRow> Rows;
+        ColdSteelConsumable::BuildSummaryRows(Item,Model,ConsumableData.Get(),Rows,4);
+        for(const auto& R:Rows)
+            if(!R.bSection&&!R.Label.IsEmpty())Out.Summary.Add({R.Label,R.Value,R.Tone});
+        if(Out.Summary.IsEmpty())Out.Summary.Add({TEXT("分类"),Out.Type});
+        Out.ValueScope=ColdSteelConsumable::ValueScope(Item,ConsumableData.Get());
+        return;
+    }
     auto Values=Metrics(Item,Model,G);
     if(Weapon)
     {

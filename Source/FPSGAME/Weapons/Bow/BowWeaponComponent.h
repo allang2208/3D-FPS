@@ -81,6 +81,8 @@ public:
     /** 0 = 未拉，1 = 拉满；节拍奖励另按同一动作时钟判定。 */
     UFUNCTION(BlueprintPure, Category="Bow") float DrawFraction() const;
     bool GetDrawRhythm(FBowDrawRhythm& Out) const;
+    /** 服务器拒绝射击时清除本机预测的完美节拍加速。 */
+    void ClearPerfectSpeedPending() { bPerfectSpeedPending = false; }
     UFUNCTION(BlueprintPure, Category="Bow") EBowStage GetStage() const { return Stage; }
     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
 
@@ -187,6 +189,8 @@ private:
     FRotator ArmsRotation = FRotator::ZeroRotator;
     bool bUsesArms = false, bArrowNocked = false, bSteadyHeld = false, bTriggerHeld = false,
          bHasRightHandBone = false;
+    /** 完美节拍命中后的下一次拉弓 +25%（本地即时置位；联机另读服务器复制标记）。 */
+    bool bPerfectSpeedPending = false;
 
     static const TCHAR* ClipIdle;
     static const TCHAR* ClipDraw;

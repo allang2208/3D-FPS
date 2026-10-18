@@ -206,6 +206,13 @@ public:
     UFUNCTION(Server, Reliable)
     void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds);
 
+    /** 完美节拍奖励是否待生效：下一条箭拉弓速度 +25%（服务器判定，拥有者同步）。 */
+    bool BowPerfectSpeedBonusPending() const { return bBowPerfectSpeedBonus; }
+
+    /** 射击被拒时清除拥有者本机预测的完美节拍加速，避免之后每箭都按基础时长判定。 */
+    UFUNCTION(Client, Reliable)
+    void ClientClearBowPerfectSpeedBonus();
+
     /** 施法意图上报：见 FColdSteelNetCastRequest。 */
     UFUNCTION(Server, Reliable)
     void ServerCastSpell(const FColdSteelNetCastRequest& Request);
@@ -339,6 +346,8 @@ private:
     FString BowDrawWeapon;
     double BowDrawStartedAt=-1.;
     float BowDrawSeconds=0.f;
+    /** 完美节拍奖励：服务器判定后复制给拥有者，下一条箭的拉弓速度 +25%。 */
+    UPROPERTY(Replicated) bool bBowPerfectSpeedBonus=false;
     TWeakObjectPtr<APawn> InventoryRequestPawn;
     uint32 InventoryRequestSequence=0,LastInventoryRequestSequence=0,ReplySequence=0;
     TArray<uint8> InventoryReplyOutgoing,InventoryReplyIncoming;

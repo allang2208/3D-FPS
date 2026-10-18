@@ -263,6 +263,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     {
         EquippedDataHash = DataHash;
         ApplyNumbers(Item);
+        if(Profile){const float AimTime=float(Profile->ADSTimeMultiplier());AimInSeconds*=AimTime;AimOutSeconds*=AimTime;}
         ApplyParts(Item);
         return;
     }
@@ -314,12 +315,15 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     {
         Stage = EBowStage::Stowed;
         Elapsed = -1.f;
+        // 卸下弓时丢弃待生效的完美节拍加速，避免长时间挂起后换回弓仍生效。
+        bPerfectSpeedPending = false;
         for (auto& Pair : Parts) if (Pair.Value) Pair.Value->SetPartVisible(false);
         return;
     }
     EquippedDefinition = Item->Definition;
     DisplayName = ColdSteelInventory::Text(*Item, TEXT("name"));
     ApplyNumbers(Item);
+    if(Profile){const float AimTime=float(Profile->ADSTimeMultiplier());AimInSeconds*=AimTime;AimOutSeconds*=AimTime;}
 
     // 部件表先定下来（槽名、细杆条数、半径），再收集各槽资源做一次异步加载。
     ApplyParts(Item);
@@ -769,9 +773,17 @@ void UBowWeaponComponent::SetStage(EBowStage Next, float Seconds, float StartSec
     StopDrawAudio();
     if (Next == EBowStage::Drawing)
     {
+        // 完美节拍奖励：下一次拉弓速度 +25%。本地即时置位（服务器确认前也能
+        // 让本机动作先对齐），联机同时读服务器复制标记，保证满拉时长一致。
+        bool bSpeedBonus = bPerfectSpeedPending;
+        if (!bSpeedBonus)
+            if (auto* Pawn = Character.Get())
+                if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
+                    bSpeedBonus = PS->BowPerfectSpeedBonusPending();
         if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
             if (const auto* Item = Profile->ActiveBow())
-                DrawSeconds = float(ColdSteelBow::Evaluate(*Item, Profile).Draw);
+                DrawSeconds = float(ColdSteelBow::Evaluate(*Item, Profile).Draw)
+                    * ColdSteelBow::DrawSpeedScale(bSpeedBonus);
         bLastPerfectRelease = false;
         if (auto* Pawn = Character.Get(); Pawn && Pawn->GetNetMode() == NM_Client)
             if (auto* PS = Pawn->GetPlayerState<AColdSteelPlayerState>())
@@ -924,6 +936,7 @@ void UBowWeaponComponent::ReleasePrimaryAttack(bool bAutomatic)
     if (LooseArrow(ReleaseRatio, bPerfect))
     {
         bLastPerfectRelease = bPerfect;
+        bPerfectSpeedPending = bPerfect;
         LastReleaseElapsed = ReleasedAt;
         ReleaseFeedbackAge = 0.f;
         SetStage(EBowStage::Release, ReleaseSeconds);
@@ -1110,8 +1123,7 @@ bool UBowWeaponComponent::LooseArrow(float Ratio,bool bPerfect)
         const auto* Item = Profile->ActiveBow();
         const float BaseDamage = Shot.DamagePanel.Total() > 0.f ? Shot.DamagePanel.Total() : FullDamage;
         const float Damage = BaseDamage * ChargeDamage
-            * (Item ? Profile->AmmoDamageMultiplier(*Item) : 1.f)
-            * (bPerfect ? ColdSteelBow::PerfectReleaseMultiplier : 1.f);
+            * (Item ? Profile->AmmoDamageMultiplier(*Item) : 1.f);
         if (CriticalChance >= 0.f) Shot.CriticalChance = FMath::Max(Shot.CriticalChance, CriticalChance);
         if (ToughnessMultiplier > 0.f) Shot.ToughnessDamageMultiplier = ToughnessMultiplier;
         // 箭模取自 arrow 部件：已选箭种的弦上网格与飞行网格一致，箭台保持独立。

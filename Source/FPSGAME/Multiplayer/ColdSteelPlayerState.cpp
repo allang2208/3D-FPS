@@ -104,6 +104,7 @@ void AColdSteelPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AColdSteelPlayerState, PublicInfo);
     DOREPLIFETIME_CONDITION(AColdSteelPlayerState, MirrorBlob, COND_OwnerOnly);
+    DOREPLIFETIME_CONDITION(AColdSteelPlayerState,bBowPerfectSpeedBonus,COND_OwnerOnly);
 }
 
 void AColdSteelPlayerState::Tick(float DeltaSeconds)

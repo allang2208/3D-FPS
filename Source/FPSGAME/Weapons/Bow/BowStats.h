@@ -6,7 +6,12 @@ namespace ColdSteelBow
 {
 inline constexpr float MinimumFireDrawFraction = .5f;
 inline constexpr float PerfectReleaseWindow = .20f;
-inline constexpr float PerfectReleaseMultiplier = 1.25f;
+// 命中节拍不再加成伤害：下一次拉弓速度 +25%，与其它拉弓速度加成同一乘区。
+inline constexpr float PerfectNextDrawSpeedBonus = .25f;
+inline float DrawSpeedScale(bool bPendingBonus)
+{
+    return bPendingBonus ? 1.f/(1.f+PerfectNextDrawSpeedBonus) : 1.f;
+}
 inline bool IsPerfectRelease(float Elapsed,float FullDrawSeconds)
 {
     return FMath::IsFinite(Elapsed) && Elapsed >= FullDrawSeconds

@@ -321,3 +321,27 @@ FPSGAME 源码与实施记录：[图鉴栏系统规划](../../../Docs/UI/codex-p
 - **路由位置**：`Entries()`/`Categories()` 的附魔分支必须排在「怪物登记表」分支（条件恒真）之前，与状态/祭品分支同一条纪律。
 
 规划：`Docs/UI/codex-enchant-plan-20261003.md`；未实机测试，由用户测试。
+
+## 消耗品浮窗标准（2026-10-18）
+
+- 食物／饮料／药水的简略浮窗与详细浮窗由 `ColdSteelConsumablePresentation` 统一生成；目录只填 `useEffect`（hp/mp/hunger/hydration/sanity + `maxHpPercent`/`maxMpPercent`/`maxHungerPercent`）、`spoilDays`、`useDuration`、`useCooldown`、`maxUses`、`buffs`；消耗品不再填 `stats`，浮窗会忽略它，避免与 `useEffect` 重复。
+- 简略浮窗 4 行优先级：食物＝恢复饱腹→恢复/消耗水分→体力上限/体力恢复速度→新鲜度；饮料＝水分→SAN→剩余次数→使用时长；药水＝恢复生命/魔法→冷却→剩余次数→次数；生食材＝新鲜度→用途。
+- 详细浮窗顺序：使用效果（固定值+%上限合并）→持续增益（每条 buff、增益持续、buff note 整行）→新鲜度（剩余/共 X 天，≥50% 绿、20–50% 中性、<20% 与已腐败 红；食物附腐败提示，生食材附需烤熟）→使用（时长/冷却/剩余次数/瓶内水量/右键提示）→物品信息。
+- `buffs[]` 是展示与机制的同一份声明；烤香肠、大份烤羊排的机制常量在 `FFPSSurvivalState`，两处数值必须一致（展示优先读 `buffs`，缺省退回常量表）。旧存档由 `ColdSteelProfileRuntime` 的消耗品目录同步键刷新，键列表已含 `buffs`。
+- 实现：`ColdSteelConsumablePresentation.*`、`ColdSteelItemTooltipData.cpp`、`ColdSteelItemTooltipSummary.cpp`、`ColdSteelProfileRuntime.cpp`、`Content/ColdSteelData/items.json`；标准 [消耗品浮窗标准](../../../Docs/Items/consumable-tooltip-standard-20261018.md)。Game 与 Editor 已编译并链接（FPSGAME.exe 10:48:19、Editor DLL 10:48:44）；未运行游戏或测试。
+
+## 装备浮窗数值（2026-10-18）
+
+- 装备数值分两层：`defense {base, perEnhance}` 写在 items.json；战斗/手感 `bonusStats` 写在 `Content/ColdSteelData/source-combat-items.json`（`CombatItemFormula::Read` 对实例缺失的顶层字段做覆盖，皮手套 +10% 换弹、钢护手 −10% 都在此表）。`UColdSteelEnhancementSystem::Defense`＝`floor(base + perEnhance×enhanceLevel)`（强化上限 10），`Derived("def")` 把所有装备槽防御相加，减免公式 `max(Damage×(1−Def/(Def+60)), Damage×10%)`。
+- 简略浮窗已自动输出「防御力 + bonusStats」；详细浮窗输出「防御参数」（防御力/防御基础/每级强化防御）与「属性加成」；新增装备不必改 UI。
+- `bonusStats` 真实生效键：`str/dex/int/con/wis/luck`、`maxHp/maxMp`、`atk/matk/crit`、`meleeAttackSpeed`、`meleeStaminaCost`、`moveSpeedPercent`、`reloadSpeed`、`bowDrawSpeed`、`adsPercent`、`sprintStaminaCost`；百分比用小数。
+- ADS 开镜耗时本来就是武器属性（配件 `ads_percent`/`ads_seconds`、弓 `ads_mult`、`FGunsmithStats::ADS`）；装备层键 `adsPercent` 与 `ads_percent` 同语义（负值更快），经 `UColdSteelStatusModel::ADSTimeMultiplier()` 作用于枪械 `ADSInDuration`、弓 `AimIn/AimOut` 与武器浮窗开镜耗时；`sprintStaminaCost` 作用于 `SprintStaminaPerSecond()`。`defense.damageReduction`／`staminaCost` 仅盾牌有消费端；`armorSet` 需要头盔(1)+铠甲(7)+鞋靴(13) 三件同 ID 并在 `SetEffect` 注册才生效。
+- 本次：硬壳手套 8/+1（items.json）＋换弹+5%、开镜−5%（source-combat-items）；ST6 上衣 12/+2＋奔跑体力−10%、换弹+5%。装备标准 [硬壳手套/ST6 数值](../../../Docs/Items/tactical-gear-values-20261018.md)。修正后 Game 11:45:43 / Editor 11:54:22 均已编入；未测试。
+
+## 弓节拍器（2026-10-18）
+
+- `UI/ColdSteelCrosshair.cpp::PaintBowRhythm`：准星中心下方 `+96px`（原 50px）；圆角框填充改全透明、只留描边（`RoundedBrush(FLinearColor(0,0,0,0), radius, 描边色, S)` 后以白色 tint 绘制，避免透明度被乘两次）；轨道/进度/金色窗口/亮标不变。
+- 完美节拍奖励改为**下一次拉弓速度 +25%**：`ColdSteelBow::PerfectNextDrawSpeedBonus`、`DrawSpeedScale()`；满拉耗时 = 基础 / (1+0.25)，与装备/附魔/改造/巧手同一乘区。原 ×1.25 本箭伤害已移除。
+- 触发与消耗：手动满拉且 0.20s 窗口内松手并成功放箭 → 置位；下一次成功放箭后按本次是否完美重设（完美保留、非完美清除）；收弓/取消不消耗。
+- 联机：`AColdSteelPlayerState::bBowPerfectSpeedBonus`（`UPROPERTY(Replicated)`，`COND_OwnerOnly`，只读 `BowPerfectSpeedBonusPending()`）；客户端 `bPerfectSpeedPending` 即时置位；`ServerSetBowDraw` 用同一 `DrawSpeedScale` 计算 `BowDrawSeconds`，两端满拉窗口一致。
+- 文案：节拍条“松手/完美释放 · 下次拉弓 +25%”；武器详情「完美节拍」同步。记录 [弓节拍器改动](../../../Docs/Weapons/bow-rhythm-perfect-draw-speed-20261018.md)；未运行游戏/联机测试。
