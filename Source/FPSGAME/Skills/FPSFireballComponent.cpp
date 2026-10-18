@@ -4,6 +4,7 @@
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffChargeFlow.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
 #include "FPSFireballProjectile.h"
 #include "FPSMagicPreview.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
@@ -87,9 +88,13 @@ void UFPSFireballComponent::SetHandPhase(EFireballHandPhase Phase)
         RecoveryFromFraction=HandPhase==EFireballHandPhase::Releasing?
             PhaseAge/GesturePhaseDuration(EFireballHandPhase::Releasing):HandPhaseFraction();
     }
-    if(Phase==EFireballHandPhase::Raising||Phase==EFireballHandPhase::ReadyingRelease)BeginStaffGesture();
+    if(Phase==EFireballHandPhase::Raising||Phase==EFireballHandPhase::ReadyingRelease)
+    {
+        BeginStaffGesture();bBowGesture=false;
+        if(!bStaffGesture)if(auto* Bow=GetOwner()->FindComponentByClass<UBowWeaponComponent>())bBowGesture=Bow->BeginCastHandoff();
+    }
     HandPhase=Phase;PhaseAge=0.f;
-    if(Phase==EFireballHandPhase::None){bPowerFistGesture=false;PowerFistRecoveryStartAge=0.f;bStaffGesture=false;CastingStaff.Reset();}
+    if(Phase==EFireballHandPhase::None){bPowerFistGesture=false;PowerFistRecoveryStartAge=0.f;bStaffGesture=false;bBowGesture=false;CastingStaff.Reset();}
     if(Phase==EFireballHandPhase::Releasing)
     {
         ReleaseHoldEndAge=0.f;
@@ -103,6 +108,11 @@ void UFPSFireballComponent::CaptureHandEntry(const FTransform& Hand,const FTrans
 {
     if(bHandEntryCaptured)return;
     EntryHand=Hand;EntryClavicle=Clavicle;EntryShoulder=Shoulder;EntryElbow=Elbow;bHandEntryCaptured=true;
+}
+bool UFPSFireballComponent::IsBowHandTransferActive() const
+{
+    const auto* Bow=bBowGesture?GetOwner()->FindComponentByClass<UBowWeaponComponent>():nullptr;
+    return IsOccupyingLeftHand()&&Bow&&Bow->IsEquipped()&&!Bow->IsCastHandoffReady();
 }
 float UFPSFireballComponent::HandReleaseFraction() const
 {
@@ -377,6 +387,9 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     }
     if(bQueuedCast){TryBeginQueuedCast();return;}
     if(HandPhase==EFireballHandPhase::None){TryBeginQueuedLaunch();return;}
+    // Physical hand transfer precedes the shared gesture clock/contact. Casting
+    // haste never lets a projectile launch before the right palm holds the bow.
+    if(IsBowHandTransferActive())return;
     PhaseAge+=Delta*GestureSpeed;
     // Carry frame overshoot between phases so the timing is not frame-rate dependent.
     for(int32 Transition=0;Transition<3;++Transition)

@@ -1,0 +1,29 @@
+// Rest-pose anchored fabric: the body keeps its existing geometry and skinning.
+float3 p=RestPosition;
+float3 n=abs(normalize(RestNormal));
+float3 blend=pow(n,4);blend/=max(dot(blend,float3(1,1,1)),0.0001);
+// Mirror tiling keeps the sampled clean fabric patch continuous at its border.
+float3 uv=p/18.0;
+float3 tiled=1.0-abs(frac(uv*0.5)*2.0-1.0);
+float2 lo=float2(0.10,0.78),size=float2(0.17,0.15);
+float3 colour=Texture2DSample(Fabric,FabricSampler,lo+tiled.yz*size).rgb*blend.x
+             +Texture2DSample(Fabric,FabricSampler,lo+tiled.xz*size).rgb*blend.y
+             +Texture2DSample(Fabric,FabricSampler,lo+tiled.xy*size).rgb*blend.z;
+float3 local=p-Origin;
+float x=dot(local,WidthAxis),h=dot(local,UpAxis),front=dot(local,FrontAxis);
+float facing=smoothstep(0.05,0.65,dot(normalize(RestNormal),FrontAxis));
+float sides=smoothstep(13.0,18.0,abs(x));
+float shoulder=smoothstep(ShoulderHeight-10.0,ShoulderHeight-5.0,h);
+float panel=saturate(sides*.55+shoulder*.35)*TorsoMode;
+colour*=lerp(1.0,.76,panel);
+// Narrow center placket and paired chest seams are material details only.
+float placket=(1.0-smoothstep(.45,.75,abs(x)))*facing*TorsoMode;
+float chest=smoothstep(ShoulderHeight-24.0,ShoulderHeight-22.0,h)
+           *(1.0-smoothstep(ShoulderHeight-13.0,ShoulderHeight-11.0,h));
+float edge=1.0-smoothstep(.07,.18,abs(abs(x)-10.8));
+float horizontal=1.0-smoothstep(.07,.18,abs(h-(ShoulderHeight-22.0)));
+float stitch=saturate(edge*chest+horizontal*smoothstep(3.0,4.0,abs(x))*(1.0-smoothstep(10.6,11.0,abs(x))))*facing*TorsoMode;
+float dash=smoothstep(.28,.42,frac((h+x)*1.8));
+colour=colour*(1.0-.22*placket)+stitch*dash*.006;
+OutRoughness=clamp(.83+.025*sin(dot(p,float3(1.2,.9,1.7))),.78,.89);
+return colour;

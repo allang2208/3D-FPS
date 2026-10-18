@@ -22,12 +22,58 @@ void FPotionUseMotion::Load(bool bMana,const TCHAR* Definition)
     Recover=Times->GetNumberField(TEXT("recover"));Duration=Times->GetNumberField(TEXT("duration"));
     Vec(Root,TEXT("shoulder"),Shoulder);Vec(Root,TEXT("elbow_pole"),Pole);
     Vec(Family,TEXT("grip_in_palm"),GripInPalm);GripHeight=Family->GetNumberField(TEXT("grip_height"));
+    bHasObjectGrip=Family->HasField(TEXT("grip_in_object"));
+    ObjectGrip=FVector::ZeroVector;Vec(Family,TEXT("grip_in_object"),ObjectGrip);
+    bTwoHanded=false;Family->TryGetBoolField(TEXT("two_handed"),bTwoHanded);
+    Vec(Family,TEXT("right_grip_in_object"),RightObjectGrip);Vec(Family,TEXT("right_grip_in_palm"),RightGripInPalm);
+    BiteInObject=FVector::ZeroVector;Vec(Family,TEXT("bite_in_object"),BiteInObject);
+    FVector ObjectEuler=FVector::ZeroVector;Vec(Family,TEXT("object_rotation"),ObjectEuler);
+    ObjectRotation=FRotator(ObjectEuler.X,ObjectEuler.Y,ObjectEuler.Z).Quaternion();
+    FVector PalmEuler=FVector::ZeroVector,RightPalmEuler=FVector::ZeroVector;
+    Vec(Family,TEXT("palm_rotation"),PalmEuler);Vec(Family,TEXT("right_palm_rotation"),RightPalmEuler);
+    PalmRotation=FRotator(PalmEuler.X,PalmEuler.Y,PalmEuler.Z).Quaternion();
+    RightPalmRotation=FRotator(RightPalmEuler.X,RightPalmEuler.Y,RightPalmEuler.Z).Quaternion();
     bOpensContainer=true;Family->TryGetBoolField(TEXT("opens_container"),bOpensContainer);
+    const auto ReadLocalRotations=[](const TSharedPtr<FJsonObject>& O,FPotionDigitPose& D)
+    {
+        D.bHasLocalRotations=false;
+        const TArray<TSharedPtr<FJsonValue>>* Rotations=nullptr;
+        if(!O->TryGetArrayField(TEXT("local_rotations"),Rotations)||Rotations->Num()!=3)return;
+        for(int32 I=0;I<3;++I)
+        {
+            const TArray<TSharedPtr<FJsonValue>>* Q=nullptr;
+            if(!(*Rotations)[I]->TryGetArray(Q)||Q->Num()!=4)return;
+            D.LocalRotations[I]=FQuat((*Q)[0]->AsNumber(),(*Q)[1]->AsNumber(),(*Q)[2]->AsNumber(),(*Q)[3]->AsNumber()).GetNormalized();
+        }
+        D.bHasLocalRotations=true;
+    };
     Digits.Reset();
     for(const auto& Pair:Family->GetObjectField(TEXT("digits"))->Values)
     {
         FPotionDigitPose D;Vec(Pair.Value->AsObject(),TEXT("spread"),D.Spread);Vec(Pair.Value->AsObject(),TEXT("flex"),D.Flex);
+        Pair.Value->AsObject()->TryGetBoolField(TEXT("preserve_native_roll"),D.bPreserveNativeRoll);
+        ReadLocalRotations(Pair.Value->AsObject(),D);
         Digits.Add(FName(*Pair.Key),D);
+    }
+    RightDigits.Reset();
+    const TSharedPtr<FJsonObject>* RightDigitData=nullptr;
+    if(Family->TryGetObjectField(TEXT("right_digits"),RightDigitData))
+        for(const auto& Pair:(*RightDigitData)->Values)
+        {
+            FPotionDigitPose D;Vec(Pair.Value->AsObject(),TEXT("spread"),D.Spread);Vec(Pair.Value->AsObject(),TEXT("flex"),D.Flex);
+            Pair.Value->AsObject()->TryGetBoolField(TEXT("preserve_native_roll"),D.bPreserveNativeRoll);
+            ReadLocalRotations(Pair.Value->AsObject(),D);
+            RightDigits.Add(FName(*Pair.Key),D);
+        }
+    const TSharedPtr<FJsonObject>* RightThumbData=nullptr;
+    bHasRightThumb=Family->TryGetObjectField(TEXT("right_thumb"),RightThumbData);
+    if(bHasRightThumb)
+    {
+        RightThumb.bPreserveNativeRoll=false;
+        (*RightThumbData)->TryGetBoolField(TEXT("preserve_native_roll"),RightThumb.bPreserveNativeRoll);
+        Vec(*RightThumbData,TEXT("spread"),RightThumb.Spread);
+        Vec(*RightThumbData,TEXT("flex"),RightThumb.Flex);
+        ReadLocalRotations(*RightThumbData,RightThumb);
     }
     Keys.Reset();
     for(const auto& Value:(Family->HasField(TEXT("keys"))?Family->GetArrayField(TEXT("keys")):Root->GetArrayField(TEXT("keys"))))
@@ -61,12 +107,18 @@ FTransform FPotionUseMotion::GripAt(float Age) const
 FTransform FPotionUseMotion::BottleAt(float Age) const
 {
     const FTransform G=GripAt(Age);
-    return FTransform(G.GetRotation(),G.TransformPosition(FVector(0,0,-GripHeight)));
+    const FQuat Rotation=G.GetRotation()*ObjectRotation;
+    return FTransform(Rotation,G.GetLocation()-Rotation.RotateVector(ObjectGripPoint()));
+}
+FQuat FPotionUseMotion::PalmBasis(bool bRight) const
+{
+    return FRotationMatrix::MakeFromXZ(FVector::ForwardVector,bRight?-FVector::RightVector:FVector::RightVector).ToQuat()*
+        (bRight?RightPalmRotation:PalmRotation);
 }
 FTransform FPotionUseMotion::PalmAt(float Age) const
 {
     const FTransform G=GripAt(Age);
-    const FQuat Palm=G.GetRotation()*FRotationMatrix::MakeFromXZ(FVector::ForwardVector,FVector::RightVector).ToQuat();
+    const FQuat Palm=G.GetRotation()*PalmBasis();
     return FTransform(Palm,G.GetLocation()-Palm.RotateVector(GripInPalm));
 }
 float FPotionUseMotion::Layer(float Age) const
@@ -75,5 +127,7 @@ float FPotionUseMotion::Layer(float Age) const
 }
 float FPotionUseMotion::FingerClosure(float Age) const
 {
-    return Ease((Age-Grab*.42f)/(Grab*.58f))*(1.f-Ease((Age-(Release-.025f))/.08f));
+    // A two-hand food stays grasped until its visibility window has ended.
+    const float OpenAt=bTwoHanded?Release:Release-.025f;
+    return Ease((Age-Grab*.42f)/(Grab*.58f))*(1.f-Ease((Age-OpenAt)/.08f));
 }

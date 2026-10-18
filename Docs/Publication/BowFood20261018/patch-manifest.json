@@ -1,0 +1,100 @@
+[
+  {
+    "target": "Source/FPSGAME/Weapons/FPSOutfitArmClearance.cpp",
+    "patch": "Patches/Source__FPSGAME__Weapons__FPSOutfitArmClearance.cpp.patch",
+    "base_sha256_lf": "a7c7a3d1e8d2de2a03fe64cce17fd63fd8c428895b04f013b0f1edf4dc3d8ada",
+    "result_sha256_lf": "b9909d0b9304943dc244928662f160adaaed87a99b43e72c70524fb245ade055",
+    "reason": "Requires local M870ArmOpeningControls.inl generated from licensed bare-arm and sleeve meshes by write_controls.py."
+  },
+  {
+    "target": "Source/FPSGAME/Characters/BowSparrowPresentationAudit.cpp",
+    "patch": "Patches/Source__FPSGAME__Characters__BowSparrowPresentationAudit.cpp.patch",
+    "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "result_sha256_lf": "cf242bb0940f7dae596123121081611f15db03d74fe53689e949e0d3ac0f4f09",
+    "reason": "Optional diagnostic implementation; requires the unpublished shared audit host. Do not apply or run as a standalone test."
+  },
+  {
+    "target": "Source/FPSGAME/Characters/BowPresentationAuditContact.h",
+    "patch": "Patches/Source__FPSGAME__Characters__BowPresentationAuditContact.h.patch",
+    "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "result_sha256_lf": "7edd313249f383f04514fb0393333a970e6250ca455f9667bf4c8ae05c043ec2",
+    "reason": "Optional diagnostic implementation; requires the unpublished shared audit host. Do not apply or run as a standalone test."
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp",
+    "patch": "Patches/Source__FPSGAME__Weapons__Bow__BowSparrowWireAudit.cpp.patch",
+    "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "result_sha256_lf": "acc2c916ede234c5c2fa53922649ca0dbf81dbc3f84d672fac325920057730b4",
+    "reason": "Optional diagnostic implementation; requires the unpublished shared audit host. Do not apply or run as a standalone test."
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSFoodPoseDiagnosis.cpp",
+    "patch": "Patches/Source__FPSGAME__Characters__FPSFoodPoseDiagnosis.cpp.patch",
+    "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "result_sha256_lf": "79c23648868e7ca6331ff3f448505030ecf9645be47829726b0f3a52ce85808a",
+    "reason": "Optional diagnostic implementation; requires the unpublished shared audit host. Do not apply or run as a standalone test."
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSUpperBodyContinuityDiagnosis.cpp",
+    "patch": "Patches/Source__FPSGAME__Characters__FPSUpperBodyContinuityDiagnosis.cpp.patch",
+    "base_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "result_sha256_lf": "5b8161f558a243c584b83796136be1c7d38790b19465ea7552a3af8e4b9ba3cd",
+    "reason": "Optional diagnostic implementation; requires the unpublished shared audit host. Do not apply or run as a standalone test."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelFoodPresentation.h",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelFoodPresentation.h.patch",
+    "base_sha256_lf": "a4c9175408c6d507b9bba60feb625e1e5aee73e0d091d16fa72b4ffadbbf0c5b",
+    "result_sha256_lf": "b78bb428b099bfe91e96a38649ce101e037e06ad6c863ba566c781cc6c3d73e9",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelInventoryPresentation.cpp.patch",
+    "base_sha256_lf": "af087bff02283b2566a54d514b1ad7a14dc1640ad0570feb06a4874a4fd836a4",
+    "result_sha256_lf": "604c05be15ec48e811e60fd5dc55009b8137ad05c3992f12c49c674a60377f9f",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelInventoryWidget.h.patch",
+    "base_sha256_lf": "de13524e40609ccfc251d5791ffe184510d5b34722bfb7a2a1504a78ded13b4d",
+    "result_sha256_lf": "75a36359566e5ba2fb339315dfe23885ce53bd0d0d979211cb7a2fe941cb924b",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelItemTooltip.cpp",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelItemTooltip.cpp.patch",
+    "base_sha256_lf": "ad74ee4f5471f657e063c3fb89d171dd996509d32e318fe8d5a8ec3c6fad8bf2",
+    "result_sha256_lf": "60f2f890ed8abc0a465ade40dbc83829b745fa689ad30eee3a84260faf5a6a08",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelItemTooltip.h",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelItemTooltip.h.patch",
+    "base_sha256_lf": "21240bc475f95e5dab580f2b81b358fadbea54ab18252a552e8a992b0bdd2b22",
+    "result_sha256_lf": "7cef34e49b8cca5cfef84f174f175210ebd0417537687a90192cb1f4f7f460d4",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelItemTooltipData.cpp.patch",
+    "base_sha256_lf": "f29776f5456a278dc77b823925b0d62496a072e9223d666515176fe3757aea78",
+    "result_sha256_lf": "96d5c01f8d57e4679e57b94c011d190ad4f7673ac1b9737aa86cabc901233ad6",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelItemTooltipData.h",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelItemTooltipData.h.patch",
+    "base_sha256_lf": "4c671f19959df3418e02d8a0d540a9221c6408b14099afb10f5525242f779e87",
+    "result_sha256_lf": "6b95a04af4a94833f11e1a83b3a73c51b77bcb9383f78894df4e27ca4f3f510a",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  },
+  {
+    "target": "Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp",
+    "patch": "Patches/Source__FPSGAME__UI__ColdSteelItemTooltipLayout.cpp.patch",
+    "base_sha256_lf": "38ef3872af4aa9411ca8193aa2f7e63a296d13e84d7df2a4bbb3d2b7bbc2ef3e",
+    "result_sha256_lf": "f572cc9db5b9631b69760363764bf3b6734f477c29c39fe48d27c1a553cbc569",
+    "reason": "Food-progress UI delta requires the existing FoodSpoilage host; unrelated later tooltip/skill changes excluded."
+  }
+]

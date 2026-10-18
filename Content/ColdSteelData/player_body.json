@@ -127,7 +127,13 @@
     "Staff.BookPush": "/Game/Characters/JasonPlayer20261003/BookPush20261010/Animations/J_BookPush_NativeArm.J_BookPush_NativeArm",
     "Traversal.Vault": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Vault_1_0_stand_F_Lfoot.J_M_Neutral_Traversal_Vault_1_0_stand_F_Lfoot",
     "Traversal.Mantle": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Mantle_1_0_stand_F_Lfoot.J_M_Neutral_Traversal_Mantle_1_0_stand_F_Lfoot",
-    "Traversal.Climb": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot.J_M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot"
+    "Traversal.Climb": "/Game/Characters/JasonPlayer20261003/TraversalGASP20261012/Animations/J_M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot.J_M_Neutral_Traversal_Climb_Start_2_5_stand_F_Lfoot",
+    "Consume.EatLargeLamb": "/Game/Characters/JasonPlayer20261003/FoodNative20261010/Animations/J_LargeLamb_TwoHands_20261017.J_LargeLamb_TwoHands_20261017",
+    "Bow.Sparrow.Carry": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Carry.J_SparrowBowV3_Carry",
+    "Bow.Sparrow.Draw": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Draw.J_SparrowBowV3_Draw",
+    "Bow.Sparrow.Ready": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Ready.J_SparrowBowV3_Ready",
+    "Bow.Sparrow.Hold": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Hold.J_SparrowBowV3_Hold",
+    "Bow.Sparrow.Release": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Release.J_SparrowBowV3_Release"
   },
   "outfits": {
     "ue_mountain_backpack": {

@@ -11,6 +11,7 @@
 #include "../FPSGAMECharacter.h"
 #include "PistolDualWieldComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
+#include "../Items/FPSPotionUseComponent.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "GunsmithSystem.h"
@@ -29,6 +30,17 @@
 
 namespace
 {
+bool ConsumableStowsTacticalEffects(const AActor* Owner,const USkeletalMeshComponent* Host)
+{
+    const auto* Use=Owner?Owner->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
+    if(!Use||!Use->IsStowingOffhand())return false;
+    if(Use->IsTwoHanded())return true;
+    // One-hand food/drinks stow only the equipped left pistol. Compare the
+    // actual rig so the right gun and both of its tactical slots stay independent.
+    const auto* Player=Cast<AFPSGAMECharacter>(Owner);
+    return Player&&Player->HasOffhandPistol()&&Player->DualPistols->Hand(1).Mesh==Host;
+}
+
 FTransform ASH12TacticalMount(const USkeletalMeshComponent* Mesh,bool OppositeSide)
 {
     const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
@@ -160,7 +172,8 @@ bool UTacticalDeviceComponent::DescribePart(const UStaticMeshComponent* Part,FNa
 }
 bool UTacticalDeviceComponent::ReadLaserSample(FFPSBodyLaserSample& Out) const
 {
-    if(bWorldPresentation||!bLaserSampleValid||!IsComponentTickEnabled()
+    if(bWorldPresentation||bPresentationHidden||!bLaserSampleValid||!IsComponentTickEnabled()
+        ||ConsumableStowsTacticalEffects(GetOwner(),Host)
         ||!GetWorld()||GetWorld()->GetTimeSeconds()-LaserSampleAt>.15)return false;
     Out.End=LaserSampleEnd;Out.Normal=LaserSampleNormal;Out.bDot=bLaserSampleDot;return true;
 }
@@ -298,6 +311,10 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // resolved once below, or cleared immediately by an inactive/occluded path.
     if(bPresentationHidden){HideEffects();return;}
     const auto* C=Cast<AFPSGAMECharacter>(GetOwner());
+    // Food/drinks lower the offhand pistol or, for two-hand food, the whole rig.
+    // Beam/dot/light are independent world primitives and do not inherit it.
+    // Keep the configured switch state; normal emission resumes after recovery.
+    if(ConsumableStowsTacticalEffects(C,Host)){HideEffects();return;}
     // Preview and dropped-weapon rigs keep geometry, never illuminate the live world.
     if(!C||C->IsHidden()||!Host||!Host->IsVisible()||Host->bHiddenInGame||!Body||!Body->IsVisible()||Body->bHiddenInGame||!Body->GetStaticMesh()){HideEffects();return;}
     if(!bWorldPresentation&&(!C->GetController()||!C->FirstPersonCamera||!C->IsLocallyControlled()||(!C->HasInventoryWeapon()&&!C->HasOffhandPistol())||C->IsTraversing())){HideEffects();return;}
@@ -305,6 +322,10 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     USkeletalMeshComponent* VisibleHost=Host;
     UStaticMeshComponent* VisibleDevice=Body;
     const auto* WorldBody=C->FindComponentByClass<UFPSPlayerBodyComponent>();
+    // Remote flashlights return before ResolveLaserSample and have no active
+    // local consumable executor. Gate all world effects on the shared body state.
+    if(bWorldPresentation&&WorldBody&&WorldBody->ConsumableStowsTacticalEffects(WorldRigIndex))
+    {HideEffects();return;}
     const bool ThirdPerson=bWorldPresentation||(WorldBody&&WorldBody->IsThirdPersonViewEnabled());
     if(ThirdPerson&&!bWorldPresentation&&!WorldBody->ResolveWorldWeaponPart(Host,Body,VisibleHost,VisibleDevice))
     {HideEffects();return;}

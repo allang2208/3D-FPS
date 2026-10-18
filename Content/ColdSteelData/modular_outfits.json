@@ -590,7 +590,7 @@
     "ue_st6_sleeves": {
       "slot": 7,
       "material": "",
-      "appearance_family": "Super90Source20261006",
+      "appearance_family": "ST6NativeBody20261017",
       "rig_meshes": {
         "Super90": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ST6Sleeves.SK_Super90_ST6Sleeves",
         "M4": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_st6_sleeves.SK_M4_ue_st6_sleeves",
@@ -618,19 +618,114 @@
         "SVD": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_st6_sleeves.SK_SVD_ue_st6_sleeves",
         "Traversal": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_st6_sleeves.SK_Traversal_ue_st6_sleeves"
       },
-      "world_covers": [
-        0,
-        1
-      ],
-      "rig_world_covers": {
-        "Body": [
-          0,
-          1
-        ],
-        "Jason": [
-          0,
-          1
-        ]
+      "world_covers": [],
+      "part": "shirt",
+      "covers": [],
+      "base_material_overrides": {
+        "Super90": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "M4": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "A762": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "AKM": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "ASH12": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "Axe": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "Body": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "3": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/MI_ST6Torso_Body.MI_ST6Torso_Body"
+        },
+        "Bow": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "DW715": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "DW715_l": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "DW715_r": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "FrostArms": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "FrostSword": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "Jason": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "3": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/MI_ST6Torso_Jason.MI_ST6Torso_Jason",
+          "8": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/MI_ST6Torso_Jason.MI_ST6Torso_Jason",
+          "9": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/MI_ST6Torso_Jason.MI_ST6Torso_Jason"
+        },
+        "LMG201": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "M16": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "M1911": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "M1911_l": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "M1911_r": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "Pickaxe": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "PKM": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "QBZ191": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "RuneSword": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "SVD": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        },
+        "Traversal": {
+          "0": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric",
+          "1": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6NativeBody20261017/Materials/M_ST6NativeFabric.M_ST6NativeFabric"
+        }
       }
     }
   },

@@ -7,6 +7,7 @@
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
+#include "../Items/SpoiledFoodVisuals.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 
 namespace ColdSteelInventory
@@ -27,6 +28,7 @@ static TSharedPtr<const FJsonObject> ReadOnlyObject(const FColdSteelItem& Item)
 }
 FString Text(const FColdSteelItem& Item, const TCHAR* Key)
 {
+    if(Item.Definition==TEXT("spoiled_food")&&FCString::Strcmp(Key,TEXT("ue_icon"))==0)return SpoiledFoodVisuals::Icon;
     auto O=ReadOnlyObject(Item);FString V;
     if(O)
     {
@@ -517,6 +519,7 @@ bool MigrateAuthoredItemFootprint(FColdSteelItem& Item,bool& Changed,FString& Re
         {nullptr,TEXT("ue_alchemy_spellbook"),2,2},
         {nullptr,TEXT("search_graphics_card"),2,1},
         {nullptr,TEXT("alchemy_compound_stabilizer"),1,2},
+        {nullptr,TEXT("ue_st6_sleeves"),3,3},
     };
     int32 W=0,H=0;
     for(const auto& Rule:Rules)

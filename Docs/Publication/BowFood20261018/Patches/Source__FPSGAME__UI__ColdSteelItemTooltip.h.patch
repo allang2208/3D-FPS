@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltip.h
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltip.h
+@@ -52,6 +52,7 @@
+     UPROPERTY() TObjectPtr<UTextBlock> ComparisonText;
+     UPROPERTY() TObjectPtr<UTextBlock> MissingIcon;
+     UPROPERTY() TObjectPtr<class UImage> Icon;
++    UPROPERTY() TObjectPtr<class UProgressBar> FoodProgressBar;
+     UPROPERTY() TObjectPtr<class UColdSteelWeaponIcons> WeaponIcons;
+     UPROPERTY() TMap<FString,TObjectPtr<class UTexture2D>> TextureCache;
+     UPROPERTY() TMap<FString,TObjectPtr<class UExpandableArea>> Sections;

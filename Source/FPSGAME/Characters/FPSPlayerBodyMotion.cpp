@@ -162,7 +162,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     auto* Door=Pawn->FindComponentByClass<UFPSDoorPushComponent>();
     const bool Reload=State.Action==EFPSBodyAction::Reload||State.Action==EFPSBodyAction::ReloadEmpty;
     const bool Inspect=State.Action==EFPSBodyAction::Inspect;
-    const bool Cast=Magic&&Magic->IsGestureActive();
+    const bool Cast=Magic&&Magic->IsGestureActive()&&!Magic->IsBowHandTransferActive();
     const bool Bash=Quick&&Quick->IsOccupyingLeftHand();
     const bool Mount=Bipod&&Bipod->GetDeploymentBlend()>0.f;
     Sample.Channel=Reload?FName(TEXT("Reload")):Inspect?FName(TEXT("Inspect")):FName(NAME_None);
@@ -184,7 +184,13 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     for(int32 I=0;I<Sample.Rigs.Num();++I)
     {
         const auto& D=LocalWeapons[I];auto& Rig=Sample.Rigs[I];auto* Source=D.Source.Get();
-        if(D.PoseFamily==TEXT("Bow"))continue; // bow owns its existing marker/string sampler
+        if(D.PoseFamily==TEXT("Bow"))
+        {
+            if(State.Family==TEXT("Bow")&&!Cast&&State.Action!=EFPSBodyAction::Consume
+                &&State.Action!=EFPSBodyAction::Dead&&!FPSBodyPoses::Traversing(State.Motion))
+                CaptureBowMotion(D,Sample,Rig);
+            continue;
+        }
         if(D.PoseFamily.IsNone()&&!Inspect)continue;
         if(D.PoseFamily==TEXT("Spellbook")&&!Drawn(Source))
         {
@@ -323,7 +329,7 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
         }
         // The consumable owns the left wrist while its equipped gun is stowed.
         // Carry this visibility to the world body and remote presentation too.
-        if(Side==1&&Potion&&Potion->IsOffhandWeaponHidden())Rig.Visible=false;
+        if(Potion&&(Side==1||Potion->IsTwoHanded())&&Potion->IsOffhandWeaponHidden())Rig.Visible=false;
         for(int32 Bone:D.MotionBones)
         {
             const FTransform Transform=SourcePose.IsValidIndex(Bone)?SourcePose[Bone]:FTransform::Identity;
@@ -375,30 +381,45 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     if(Potion&&!Potion->IsActive()&&ServerClock()>PendingDiscardUntil)PendingDiscardFlags=0;
     if(Potion&&(Potion->IsActive()||PendingDiscardFlags))
     {
-        Sample.Channel=TEXT("Consume");State.Action=EFPSBodyAction::Consume;
         // Both views follow the item's real use clock, including offhand stow.
         // Body markers retime the donor; no animation notify consumes an item.
-        const auto& Use=Potion->Motion;const float Age=Potion->Age();
-        State.ActionVariant=Potion->PresentationDefinition;
-        State.ActionDuration=Use.Duration;State.ActionStartedAt=ServerClock()-Age;
-        State.bHasActionProgress=true;
-        State.ActionProgress=FMath::Clamp(Age/FMath::Max(Use.Duration,SMALL_NUMBER),0.f,1.f);
-        State.ActionWeight=Potion->IsActive()?Use.Layer(Age):0.f;
-        State.ContactFraction=Use.DrinkStart/Use.Duration;
-        State.ReleaseFraction=Use.DrinkEnd/Use.Duration;
-        State.ActionEntryFraction=Use.Grab/Use.Duration;
+        if(Potion->IsActive())
+        {
+            Sample.Channel=TEXT("Consume");State.Action=EFPSBodyAction::Consume;
+            const auto& Use=Potion->Motion;const float Age=Potion->Age();
+            State.ActionVariant=Potion->PresentationDefinition;
+            State.ActionDuration=Use.Duration;State.ActionStartedAt=ServerClock()-Age;
+            State.bHasActionProgress=true;
+            State.ActionProgress=FMath::Clamp(Age/FMath::Max(Use.Duration,SMALL_NUMBER),0.f,1.f);
+            State.ActionWeight=Use.Layer(Age);
+            State.ContactFraction=Use.DrinkStart/Use.Duration;
+            State.ReleaseFraction=Use.DrinkEnd/Use.Duration;
+            State.ActionEntryFraction=Use.Grab/Use.Duration;
+            Sample.CoupledWrists=false;
+        }
         Sample.Consumable=Potion->PresentationDefinition;Sample.ConsumableSerial=Potion->PresentationSerial;
         Sample.DiscardFlags=PendingDiscardFlags;
-        Sample.DroppedBottle=bPendingBottleDrop;Sample.CoupledWrists=false;
+        Sample.DroppedBottle=bPendingBottleDrop;
         if(!Potion->IsActive())
         {
             for(int32 I=0;I<3;++I)Sample.Props[I]=PreviousLocalPresentation.Contacts.Props[I];
-            Sample.Hands[1]=PreviousLocalPresentation.Contacts.Hands[1];Sample.Fingers|=2;
-            // Preserve the release frame for a cancelled bottle. Subsequent
-            // frames recover through the normal body hand transition.
-            if((PendingDiscardFlags&~PreviousLocalPresentation.Contacts.DiscardFlags)!=0)Sample.Wrists|=2;
+            // The latched discard is an event, not an active drinking pose.
+            // Never let it replace death, traversal, a new weapon or a spell.
+            if(State.Action==EFPSBodyAction::None&&!FPSBodyPoses::Traversing(State.Motion)
+                &&State.WeaponInstance==PreviousLocalPresentation.WeaponInstance
+                &&State.OffhandInstance==PreviousLocalPresentation.OffhandInstance
+                &&(PendingDiscardFlags&~PreviousLocalPresentation.Contacts.DiscardFlags)!=0)
+            {
+                Sample.Hands[1]=PreviousLocalPresentation.Contacts.Hands[1];Sample.Fingers|=2;
+                Sample.Wrists|=2;Sample.CoupledWrists=false;
+            }
         }
         auto* Source=Potion->ActiveHands.Get();CaptureMotionHand(Source,TEXT("hand_l"),1,true,Sample);
+        if(Potion->IsTwoHanded())
+        {
+            CaptureMotionHand(Source,TEXT("hand_r"),0,true,Sample);
+            Sample.HasSupportGrip=false;
+        }
         if(auto* Map=MotionMap(Source,TEXT("hand_l"),1);Map&&Map->IsValid())
         {
             const FTransform Hand=BodyMotionRigidTransform(Source->GetSocketTransform(TEXT("hand_l")));

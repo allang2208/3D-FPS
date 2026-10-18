@@ -1,0 +1,344 @@
+--- /dev/null
++++ b/Source/FPSGAME/Characters/BowSparrowPresentationAudit.cpp
+@@ -0,0 +1,341 @@
++#include "../Skills/BowSkillTrainingAuditCommandlet.h"
++#include "FPSPlayerBodyComponent.h"
++#include "FPSPlayerBodyAnimInstance.h"
++#include "FPSBodyBowMotion.h"
++#include "BowPresentationAuditContact.h"
++#include "../FPSGAMECharacter.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
++#include "../Weapons/Bow/BowArmsMeshComponent.h"
++#include "../Weapons/Bow/BowPartComponent.h"
++#include "../Items/FPSPotionUseComponent.h"
++#include "../Skills/FPSFireballComponent.h"
++#include "Components/SceneComponent.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Movement/FPSCharacterMovementComponent.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "HAL/FileManager.h"
++#include "HAL/IConsoleManager.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Misc/ScopeExit.h"
++#include "Serialization/JsonSerializer.h"
++#include "Serialization/MemoryReader.h"
++#include "Serialization/MemoryWriter.h"
++#include "Serialization/NameAsStringProxyArchive.h"
++
++namespace FPSBodyNetwork { bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B); }
++
++// Explicit presentation-only scope: real assets, native graph and production
++// serialization/authority paths, isolated profiles, no shot or profile save.
++int32 UBowSkillTrainingAuditCommandlet::RunSparrowPresentation(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    FCommandLine::Set(*(Original+TEXT(" -BowSkillTrainingAudit -ColdSteelProfile=SparrowPresentation_")+FGuid::NewGuid().ToString(EGuidFormats::Digits)));
++    // This fixture does not run a world frame loop. Deliver streamable load
++    // callbacks synchronously; the real wire fixture keeps normal async ticks.
++    auto* Delay=IConsoleManager::Get().FindConsoleVariable(TEXT("s.StreamableDelegateDelayFrames"));
++    const int32 PreviousDelay=Delay?Delay->GetInt():1;
++    if(Delay)Delay->Set(0,ECVF_SetByCode);
++    ON_SCOPE_EXIT{if(Delay)Delay->Set(PreviousDelay,ECVF_SetByCode);FCommandLine::Set(*Original);};
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("SparrowPresentationWorld"));
++    auto* World=GI->GetWorld();auto* Model=GI->GetSubsystem<UColdSteelStatusModel>();
++    UColdSteelStatusModel* Shadow=nullptr;
++    ON_SCOPE_EXIT
++    {
++        if(Model)Model->CurrentPawn.Reset();if(Shadow)Shadow->CurrentPawn.Reset();
++        // Actors were individually begun in an unticked fixture world. End
++        // their components while the game instance's timer manager still lives.
++        if(World)for(TActorIterator<AActor> It(World);It;++It)if(It->HasActorBegunPlay())
++        {
++            It->RouteEndPlay(EEndPlayReason::Quit);TInlineComponentArray<UActorComponent*> Components;It->GetComponents(Components);
++            for(auto* Component:Components)if(Component->HasBegunPlay())Component->EndPlay(EEndPlayReason::Quit);
++        }
++        GI->Shutdown();if(World){GEngine->DestroyWorldContext(World);World->DestroyWorld(false);}GI->RemoveFromRoot();
++    };
++    if(!World||!Model||!Model->IsAudit())return 2;
++    int32 Failed=0;TArray<TSharedPtr<FJsonValue>> Rows;
++    const auto Check=[&](bool Pass,const FString& Name,const FString& Detail=FString())
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),Pass);
++        Row->SetStringField(TEXT("detail"),Detail);Rows.Add(MakeShared<FJsonValueObject>(Row));Failed+=!Pass;
++        UE_LOG(LogTemp,Display,TEXT("SPARROW_PRESENTATION %s %s %s"),Pass?TEXT("PASS"):TEXT("FAIL"),*Name,*Detail);
++    };
++    auto Seed=Model->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();Seed.DungeonRun={};
++    auto Item=Model->CreateItem(TEXT("bow_dark"));Item.Place=1;Item.Cell=6;Seed.Items={Item};Model->Current=Seed;
++    auto* PC=World->SpawnActor<APlayerController>();PC->SetAsLocalPlayerController();
++    auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,500),FRotator::ZeroRotator);PC->Possess(Pawn);
++    Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);Pawn->DispatchBeginPlay();
++    Model->CurrentPawn=Pawn;Pawn->ApplyColdSteelProfile(Model);
++    auto* Bow=Pawn->FindComponentByClass<UBowWeaponComponent>();
++    if(Bow&&Bow->LoadHandle)Bow->LoadHandle->WaitUntilComplete(60.f);
++    auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
++    Check(Bow&&Bow->bPresentationReady&&Body&&Body->BodyAnimation,TEXT("fixture bow assets and native body are ready"),
++        FString::Printf(TEXT("bow=%d ready=%d body=%d animation=%d"),Bow!=nullptr,Bow&&Bow->bPresentationReady,Body!=nullptr,Body&&Body->BodyAnimation));
++    if(!Bow||!Bow->bPresentationReady||!Body||!Body->BodyAnimation)return 2;
++    Bow->bArrowNocked=true;Bow->Stage=EBowStage::Holding;Bow->HoldElapsed=.2f;Bow->SampleArms();
++    Body->DisplayState=Body->SampleLocalState();Body->CaptureEquipment();Body->CaptureMotion(Body->DisplayState);
++    const FFPSBodyState Held=Body->DisplayState;
++    Check(Body->MotionBindings.Num()==1&&Body->BowRig&&Body->WorldBowParts.Num()>0,TEXT("owner builds bow world equipment"));
++    const auto OriginalEquipment=Body->LocalWeapons;
++    for(const TCHAR* Role:{TEXT("Carry"),TEXT("Ready"),TEXT("Draw"),TEXT("Hold"),TEXT("Release")})
++    {
++        auto* Clip=Body->BodyAnimation->Clips.FindRef(*FString::Printf(TEXT("Bow.Sparrow.%s"),Role)).Get();
++        Check(Clip&&Clip->GetSkeleton()==Pawn->GetMesh()->GetSkeletalMeshAsset()->GetSkeleton(),
++            FString::Printf(TEXT("saved native %s matches body skeleton"),Role));
++    }
++    auto Sent=Held.Contacts;TArray<uint8> Bytes;bool Saved=false,Loaded=false;
++    {FMemoryWriter Memory(Bytes);FNameAsStringProxyArchive Archive(Memory);Sent.NetSerialize(Archive,nullptr,Saved);}
++    FFPSBodyMotionSample Received;
++    {FMemoryReader Memory(Bytes);FNameAsStringProxyArchive Archive(Memory);Received.NetSerialize(Archive,nullptr,Loaded);}
++    Check(Saved&&Loaded&&Received.IsSane()&&Received.Channel==TEXT("Bow")&&Received.Fingers==3
++        &&Received.Rigs.Num()==1&&Received.Rigs[0].Bones.Num()==4,TEXT("production contact serialization keeps both hands, fingers and markers"));
++    if(Received.Rigs.Num()==1&&Sent.Rigs.Num()==1)
++    {
++        double Error=0.;for(int32 I=0;I<4;++I)Error=FMath::Max(Error,FVector::Distance(Received.Rigs[0].Bones[I].GetLocation(),Sent.Rigs[0].Bones[I].GetLocation()));
++        Check(Error<.02,TEXT("contact packet precision"),FString::Printf(TEXT("max_cm=%.6f bytes=%d"),Error,Bytes.Num()));
++    }
++    const auto Evaluate=[&](UFPSPlayerBodyComponent* Target,const FFPSBodyState& State,int32 Frames=16)
++    {
++        Target->DisplayState=State;Target->UpdateBow();Target->ApplyMotion(1.f/60.f);
++        auto* Anim=Target->BodyAnimation.Get();Anim->BodyState=State;Anim->Speed=0;Anim->bFalling=false;
++        for(int32 I=0;I<Frames;++I)
++        {
++            Anim->Clock=World->GetTimeSeconds()+float(I)/60.f;
++            Target->GetBodyMesh()->TickAnimation(1.f/60.f,false);Target->GetBodyMesh()->RefreshBoneTransforms();
++            Target->GetBodyMesh()->UpdateChildTransforms();
++        }
++    };
++    const auto ContactError=[&](UFPSPlayerBodyComponent* Target)
++    {
++        UBowPartComponent* String=nullptr;for(auto Part:Target->WorldBowParts)if(Part&&Part->SlotName==TEXT("string"))String=Part;
++        if(!String)return 1.e6;
++        const FVector N(Target->BodyAnimation->GetCurveValue(TEXT("SparrowBowNockX")),Target->BodyAnimation->GetCurveValue(TEXT("SparrowBowNockY")),Target->BodyAnimation->GetCurveValue(TEXT("SparrowBowNockZ")));
++        const FVector Point=Target->GetBodyMesh()->GetSocketTransform(TEXT("hand_r")).TransformPosition(N);
++        return FMath::Max(FVector::Distance(Point,BowPresentationAudit::StringEnd(String->RodVisual(0))),
++            FVector::Distance(Point,BowPresentationAudit::StringEnd(String->RodVisual(1))));
++    };
++    for(const TCHAR* Role:{TEXT("Draw"),TEXT("Hold"),TEXT("Ready"),TEXT("Release"),TEXT("Idle")})
++    {
++        auto State=Held;State.BowClip=Role;State.BowClipLength=1.f;State.BowClipTime=.5f;
++        State.BowStringContact=State.BowClip==TEXT("Draw")||State.BowClip==TEXT("Hold")||State.BowClip==TEXT("Ready")?1.f:0.f;
++        Evaluate(Body,State);
++        const float Weight=Body->BodyAnimation->GetCurveValue(FPSBodyBowMotion::WeightCurve);
++        Check(Weight>.99f,FString::Printf(TEXT("native graph selects %s"),Role),FString::Printf(TEXT("weight=%.3f"),Weight));
++        if(State.BowStringContact>0.f)Check(ContactError(Body)<.05,FString::Printf(TEXT("final %s hand and string contact"),Role),FString::Printf(TEXT("cm=%.6f"),ContactError(Body)));
++    }
++    if(FParse::Param(*Params,TEXT("MovingBowContact")))
++    {
++        for(const TCHAR* Role:{TEXT("Draw"),TEXT("Hold"),TEXT("LoadedIdle")})for(int32 Path=0;Path<3;++Path)
++        {
++            auto State=Held;State.BowClip=Role;State.BowClipLength=1.f;State.BowClipTime=.5f;State.BowStringContact=1.f;
++            auto* Anim=Body->BodyAnimation.Get();double Error=0.;float Weight=1.f;
++            for(int32 Frame=0;Frame<180;++Frame)
++            {
++                Body->DisplayState=State;Body->UpdateBow();Body->ApplyMotion(1.f/60.f);
++                Anim->BodyState=State;Anim->Speed=Path==2?480.f:240.f;Anim->Direction=Path==1?90.f:0.f;
++                Anim->Clock=World->GetTimeSeconds()+Frame/60.f;Anim->bFalling=false;
++                Body->GetBodyMesh()->TickAnimation(1.f/60.f,false);Body->GetBodyMesh()->RefreshBoneTransforms();Body->GetBodyMesh()->UpdateChildTransforms();
++                if(Frame>=16){Error=FMath::Max(Error,ContactError(Body));Weight=FMath::Min(Weight,Anim->GetCurveValue(FPSBodyBowMotion::WeightCurve));}
++            }
++            Check(Error<.05&&Weight>.99f,FString::Printf(TEXT("moving %s contact path %d"),Role,Path),FString::Printf(TEXT("max_cm=%.6f native_weight_min=%.3f"),Error,Weight));
++        }
++        Body->BodyAnimation->Speed=0.f;Body->BodyAnimation->Direction=0.f;
++    }
++    auto* RemotePC=World->SpawnActor<ABowSkillAuditRemoteController>();auto* PS=World->SpawnActor<AColdSteelPlayerState>();
++    auto* Remote=World->SpawnActor<AFPSGAMECharacter>(FVector(0,1000,500),FRotator::ZeroRotator);
++    PS->SetOwner(RemotePC);RemotePC->SetPlayerState(PS);RemotePC->Possess(Remote);Remote->SetPlayerState(PS);
++    Shadow=Model->CreateShadowModel(Seed);PS->ShadowModel=Shadow;Remote->NetShadowProfile=Shadow;Shadow->CurrentPawn=Remote;
++    Remote->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);Remote->DispatchBeginPlay();Remote->ApplyColdSteelProfile(Shadow);
++    auto* RemoteBow=Remote->FindComponentByClass<UBowWeaponComponent>();if(RemoteBow&&RemoteBow->LoadHandle)RemoteBow->LoadHandle->WaitUntilComplete(60.f);
++    auto* RemoteBody=Remote->FindComponentByClass<UFPSPlayerBodyComponent>();
++    RemoteBody->DisplayState=RemoteBody->SampleRemoteAuthorityState();RemoteBody->CaptureEquipment();
++    RemotePC->SetControlRotation(FRotator(32.f,18.f,0));
++    auto* Move=Cast<UFPSCharacterMovementComponent>(Remote->GetCharacterMovement());Move->bWantsToAim=true;
++    auto Incoming=Held;Incoming.Contacts=Received;Incoming.PresentationSampledAt=RemoteBody->ServerClock();Incoming.AimPitch=-50.f;
++    RemoteBody->AcceptBodyPresentation(Incoming,10);
++    Check(RemoteBody->ReplicatedState.BowClip==Held.BowClip&&RemoteBody->ReplicatedState.Contacts.Channel==TEXT("Bow")
++        &&FMath::IsNearlyEqual(RemoteBody->ReplicatedState.AimPitch,32.f)&&RemoteBody->ReplicatedState.bAiming,TEXT("authority relays bow but owns aim and equipment"));
++    Evaluate(RemoteBody,RemoteBody->ReplicatedState);
++    Check(RemoteBody->BodyAnimation->GetCurveValue(FPSBodyBowMotion::WeightCurve)>.99f&&ContactError(RemoteBody)<.05,
++        TEXT("remote authority uses native bow graph and final contact"),FString::Printf(TEXT("cm=%.6f"),ContactError(RemoteBody)));
++    auto Old=Incoming;Old.BowClip=TEXT("Idle");RemoteBody->AcceptBodyPresentation(Old,9);
++    Check(RemoteBody->ReceivedPresentationSequence==10&&RemoteBody->ReplicatedState.BowClip==Held.BowClip,TEXT("older snapshots cannot rewind bow"));
++    auto Wrong=Incoming;Wrong.WeaponInstance=TEXT("old-bow");RemoteBody->AcceptBodyPresentation(Wrong,11);
++    Check(RemoteBody->ReplicatedState.Contacts.Channel!=TEXT("Bow"),TEXT("authority rejects old bow instance contacts"));
++    RemoteBody->AcceptBodyPresentation(Incoming,12);RemoteBody->LastPresentationReceivedAt=RemoteBody->ServerClock()-1.f;
++    const auto Expired=RemoteBody->SampleRemoteAuthorityState();
++    Check(Expired.Contacts.Channel.IsNone()&&Expired.BowStringContact==0.f&&!Expired.bBowArrow,TEXT("expired owner sample releases string and arrow presentation"));
++    Check(FPSBodyBowMotion::Clip(Expired)==TEXT("Bow.Sparrow.Carry"),TEXT("expired sample uses native relaxed carry"));
++    Evaluate(RemoteBody,Expired);
++    UBowPartComponent* RestRiser=nullptr;UBowPartComponent* RestString=nullptr;
++    for(auto Part:RemoteBody->WorldBowParts)
++    {if(Part->SlotName==TEXT("riser"))RestRiser=Part;if(Part->SlotName==TEXT("string"))RestString=Part;}
++    const bool Rested=RestRiser&&RestString&&!RemoteBody->bHasNativeBowHeldNock
++        &&BowPresentationAudit::StringEnd(RestString->RodVisual(0)).Equals(RestRiser->GetComponentTransform().TransformPosition(RemoteBody->BowSettings.Brace),.05)
++        &&BowPresentationAudit::StringEnd(RestString->RodVisual(1)).Equals(RestRiser->GetComponentTransform().TransformPosition(RemoteBody->BowSettings.Brace),.05);
++    Check(Rested,TEXT("expired sample clears held cache and physically returns both string rods to brace"));
++    auto Earlier=Held;Earlier.BowClip=TEXT("Draw");Earlier.BowClipTime=.7f;Earlier.BowClipLength=1.f;Earlier.BowClipRate=1.f;
++    auto Cancel=Earlier;Cancel.BowClipRate=-2.f;
++    Check(FPSBodyNetwork::IsTransition(Cancel,Earlier),TEXT("draw reversal uses reliable transition"));
++    Bow->Stage=EBowStage::Drawing;Bow->Elapsed=.5f*Bow->DrawSeconds;Bow->SampleArms();
++    FFPSBodyState Drawing;Body->SampleBowState(*Bow,Drawing);
++    Check(Drawing.BowClipRate>0.f,TEXT("first draw packet has playback rate without frame history"));
++    Bow->Stage=EBowStage::LetDown;Bow->LetDownPhase=.5f;Bow->Elapsed=.05f;Bow->StageSeconds=.2f;Bow->SampleArms();
++    FFPSBodyState LetDown;Body->SampleBowState(*Bow,LetDown);
++    Check(LetDown.BowClipRate<0.f,TEXT("first let-down packet carries reverse playback"));
++    auto FastCancel=Incoming;FastCancel.BowClip=TEXT("Draw");FastCancel.BowClipRate=-12.f;
++    RemoteBody->AcceptBodyPresentation(FastCancel,13);
++    Check(FMath::IsNearlyEqual(RemoteBody->ReplicatedState.BowClipRate,-12.f),TEXT("authority preserves fast authored let-down rate"));
++    auto Forward=Earlier;Forward.PresentationSampledAt=0;UFPSPlayerBodyComponent::AdvanceBodyPresentation(Forward,.1f);
++    auto Reverse=Cancel;Reverse.PresentationSampledAt=0;UFPSPlayerBodyComponent::AdvanceBodyPresentation(Reverse,.1f);
++    Check(FMath::IsNearlyEqual(Forward.BowClipTime,.8f)&&FMath::IsNearlyEqual(Reverse.BowClipTime,.5f),TEXT("remote extrapolation advances draw and reverses cancel"));
++    auto CastCarry=Held;CastCarry.Action=EFPSBodyAction::Cast;
++    Check(FPSBodyBowMotion::Clip(CastCarry)==TEXT("Bow.Sparrow.Carry"),TEXT("cast retains the native supporting bow pose"));
++    auto ConsumeCarry=Held;ConsumeCarry.Action=EFPSBodyAction::Consume;
++    Check(FPSBodyBowMotion::Clip(ConsumeCarry)==TEXT("Bow.Sparrow.Carry"),TEXT("one-hand consumption retains the supporting bow"));
++    ConsumeCarry.bBowTwoHandConsume=true;ConsumeCarry.BowStowWeight=1.f;
++    Check(FPSBodyBowMotion::Clip(ConsumeCarry).IsNone(),TEXT("two-hand food releases bow after lowering"));
++    for(const auto Action:{EFPSBodyAction::Dead,EFPSBodyAction::GunBash,EFPSBodyAction::Traverse})
++    {auto S=Held;S.Action=Action;Check(FPSBodyBowMotion::Clip(S).IsNone(),FString::Printf(TEXT("interrupt action %d releases native bow"),int32(Action)));}
++    // Same model, distinct instance, with body state arriving before equipment.
++    auto NewItem=Held;NewItem.WeaponInstance=TEXT("replacement-bow");Evaluate(Body,NewItem);
++    bool Hidden=true;for(auto Part:Body->WorldBowParts)Hidden&=Part->bHiddenInGame;
++    Check(Hidden,TEXT("old bow equipment stays hidden while new instance is pending"));
++    Body->RebuildWeapons(OriginalEquipment);
++    Check(!Body->bHasNativeBowHeldNock,TEXT("equipment rebuild clears native string history"));
++    // Explicit review of the bow's shared left-hand executor. Use the real
++    // entry, assets and body graph, but sample before contact (no item effects).
++    auto* Use=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
++    if(Use&&Use->LoadHandle)Use->LoadHandle->WaitUntilComplete(60.f);
++    Check(Use&&Use->FallbackHands&&Use->Bottle,TEXT("consumable fixture ready"));
++    uint32 Sequence=20;
++    if(Use)for(const TCHAR* Definition:{TEXT("bread"),TEXT("baguette_bread"),TEXT("roasted_chicken_leg"),
++        TEXT("roasted_lamb_ribs"),TEXT("roasted_sausage"),TEXT("roasted_large_lamb"),TEXT("mineral_water"),TEXT("soda_can"),
++        TEXT("hp_potion"),TEXT("mp_potion"),TEXT("hp_potion_medium"),TEXT("mp_potion_medium"),TEXT("hp_potion_high"),
++        TEXT("mp_potion_high"),TEXT("hp_potion_special"),TEXT("mp_potion_special")})
++    {
++        Use->Finish();Bow->CastTransferAlpha=0.f;Bow->Viewmodel->CastTransfer=0.f;Bow->Viewmodel->ClearLeftReturn();
++        Bow->Stage=EBowStage::Holding;Bow->bArrowNocked=true;Bow->SampleArms();
++        auto Food=Model->CreateItem(Definition);Food.Place=0;Model->Current.Items.Add(Food);
++        const bool Began=Use->TryBegin(Food.InstanceId,Definition);
++        Check(Began,FString::Printf(TEXT("real bow use entry %s"),Definition),Model->ResultMessage());if(!Began)continue;
++        const bool Two=Use->Motion.bTwoHanded;
++        Check(Bow->bArrowNocked&&!Bow->bTriggerHeld&&!Bow->CanUse(),FString::Printf(TEXT("%s retains arrow and blocks draw"),Definition));
++        if(!Two)
++        {
++            Check(Use->UsesBowSupport()&&Use->bWaitingForBow&&Use->Age()<0.f&&!Use->bCommitted,
++                FString::Printf(TEXT("%s waits for supporting hand before use clock"),Definition));
++            Bow->AdvanceActionBeforeCamera(FBowCastHandPose::Seconds);
++            Use->TickComponent(0.f,LEVELTICK_All,nullptr);
++            Check(!Use->bWaitingForBow&&FMath::IsNearlyZero(Use->Age())&&Bow->IsCastHandoffReady(),
++                FString::Printf(TEXT("%s starts clock after transfer"),Definition));
++        }
++        Use->StartTime=World->GetTimeSeconds()-Use->Motion.DrinkStart;
++        Bow->SampleArms();Use->ApplyHandPose(*Use->ActiveHands.Get());
++        auto S=Body->SampleLocalState();Body->CaptureMotion(S);S.PresentationSampledAt=Body->ServerClock();
++        RemoteBody->AcceptBodyPresentation(S,++Sequence);
++        const auto Relayed=RemoteBody->ReplicatedState;
++        Check(Relayed.Action==EFPSBodyAction::Consume&&Relayed.ActionVariant==FName(Definition)
++            &&Relayed.bBowTwoHandConsume==Two&&FMath::IsNearlyEqual(Relayed.BowCastTransfer,Two?0.f:1.f),
++            FString::Printf(TEXT("authority relays %s hand ownership"),Definition));
++        Evaluate(RemoteBody,Relayed);
++        bool Finite=true;for(const auto& T:RemoteBody->GetBodyMesh()->GetComponentSpaceTransforms())Finite&=!T.ContainsNaN();
++        Check(Finite&&(Two||RemoteBody->BodyAnimation->GetCurveValue(FPSBodyBowMotion::RightHoldCurve)>.5f),
++            FString::Printf(TEXT("%s native body pose and supporting hand"),Definition));
++        if(Two)
++        {
++            Use->BeginEquipmentFrame(); // native sampling has reset the parent this frame
++            Use->Cancel();
++            Check(!Use->IsActive()&&Use->IsReturningBow()&&Use->OffhandLowerWeight()>.99f
++                &&Use->EquipmentPivot->GetRelativeLocation().Equals(FVector(-18,0,-140))&&!Bow->CanUse(),
++                TEXT("cancelled two-hand food retains lowered bow while hands recover"));
++            auto Returning=Body->SampleLocalState();Body->CaptureMotion(Returning);
++            RemoteBody->AcceptBodyPresentation(Returning,++Sequence);
++            Check(RemoteBody->ReplicatedState.bBowTwoHandConsume&&RemoteBody->ReplicatedState.BowStowWeight>.99f
++                &&RemoteBody->ReplicatedState.Action!=EFPSBodyAction::Consume,TEXT("cancel recovery is relayed after transaction ends"));
++            Use->BowReturnStartedAt=World->GetTimeSeconds()-.23f;
++            Use->TickComponent(.01f,LEVELTICK_All,nullptr);
++            Check(FMath::IsNearlyEqual(Use->OffhandLowerWeight(),.5f,.01f),TEXT("cancel recovery raises bow continuously"));
++            Use->BowReturnStartedAt=World->GetTimeSeconds()-1.f;Use->TickComponent(.01f,LEVELTICK_All,nullptr);
++            Check(!Use->IsReturningBow()&&Use->EquipmentRoots.IsEmpty()&&Bow->CanUse(),TEXT("cancel recovery releases parent and draw gate"));
++        }
++        else
++        {
++            Use->Cancel();Check(Bow->Viewmodel->IsReturningLeftHand(),FString::Printf(TEXT("%s cancelled left hand returns before bow handoff"),Definition));
++            Bow->AdvanceActionBeforeCamera(.2f);Bow->AdvanceActionBeforeCamera(.4f);
++            Check(Bow->CastTransfer()<=0.f&&Bow->bArrowNocked,FString::Printf(TEXT("%s cancel restores carry without arrow spend"),Definition));
++        }
++    }
++    if(Use)
++    {
++        Use->Finish();
++        for(const TCHAR* Definition:{TEXT("mineral_water"),TEXT("roasted_large_lamb")})
++        {
++            Bow->CastTransferAlpha=0.f;Bow->Viewmodel->CastTransfer=0.f;Bow->Viewmodel->ClearLeftReturn();Bow->Stage=EBowStage::Ready;
++            auto Food=Model->CreateItem(Definition);Food.Place=0;Model->Current.Items.Add(Food);
++            const bool Began=Use->TryBegin(Food.InstanceId,Definition);
++            Check(Began,FString::Printf(TEXT("normal finish fixture %s"),Definition));if(!Began)continue;
++            if(Use->UsesBowSupport())Bow->AdvanceActionBeforeCamera(FBowCastHandPose::Seconds);
++            // Pin a successfully committed, already hidden prop. Only the
++            // presentation tail is under test, not a fabricated inventory use.
++            Use->bWaitingForBow=false;Use->bCommitted=Use->bDiscarded=Use->bUncapped=Use->bSwallowStarted=true;
++            Use->StartTime=World->GetTimeSeconds()-Use->Motion.Duration-.3f;
++            Use->TickComponent(.01f,LEVELTICK_All,nullptr);Bow->AdvanceActionBeforeCamera(.4f);
++            Check(!Use->IsActive()&&!Use->IsReturningBow()&&Use->EquipmentRoots.IsEmpty()&&Bow->CastTransfer()==0.f
++                &&Bow->Stage==EBowStage::Ready&&Bow->bArrowNocked,FString::Printf(TEXT("%s normal tail restores bow without equip replay"),Definition));
++        }
++    }
++    // Snapshot lease and equipment identity must also release the NEW fields.
++    if(Use)
++    {
++        Use->Finish();Use->PresentationDefinition=TEXT("hp_potion");
++        Body->LocalConsumableSerial=Use->PresentationSerial;Body->PendingDiscardFlags=1;
++        Body->PendingDiscardUntil=Body->ServerClock()+.3f;
++        for(const auto Priority:{EFPSBodyAction::Dead,EFPSBodyAction::Traverse,EFPSBodyAction::Equip,EFPSBodyAction::Cast})
++        {
++            auto S=Body->SampleLocalState();S.Action=Priority;S.ActionVariant=TEXT("Priority");S.ActionProgress=.4f;
++            Body->CaptureMotion(S);
++            Check(S.Action==Priority&&S.ActionVariant==TEXT("Priority")&&FMath::IsNearlyEqual(S.ActionProgress,.4f)
++                &&S.Contacts.DiscardFlags==1,TEXT("latched discard preserves new action ")+FString::FromInt(int32(Priority)));
++        }
++        Body->PendingDiscardFlags=0;
++    }
++    auto Busy=Incoming;Busy.BowCastTransfer=1.f;Busy.bBowTwoHandConsume=true;Busy.BowStowWeight=1.f;
++    RemoteBody->AcceptBodyPresentation(Busy,++Sequence);
++    auto Stale=Busy;Stale.WeaponInstance=TEXT("other-bow");RemoteBody->AcceptBodyPresentation(Stale,++Sequence);
++    Check(RemoteBody->ReplicatedState.BowCastTransfer==0.f&&!RemoteBody->ReplicatedState.bBowTwoHandConsume
++        &&RemoteBody->ReplicatedState.BowStowWeight==0.f,TEXT("wrong bow identity clears handoff and stow"));
++    RemoteBody->AcceptBodyPresentation(Busy,++Sequence);RemoteBody->LastPresentationReceivedAt=RemoteBody->ServerClock()-1.f;
++    const auto IdleAgain=RemoteBody->SampleRemoteAuthorityState();
++    Check(IdleAgain.BowCastTransfer==0.f&&!IdleAgain.bBowTwoHandConsume&&IdleAgain.BowStowWeight==0.f,TEXT("expired handoff lease restores carry"));
++    Bow->CastTransferAlpha=0.f;Bow->Viewmodel->CastTransfer=0.f;Bow->Viewmodel->ClearLeftReturn();Bow->Stage=EBowStage::Ready;
++    if(auto* Magic=Pawn->FindComponentByClass<UFPSFireballComponent>())
++    {
++        int32 Contacts=0;
++        Check(Magic->TryBeginSpellGesture(Use,true,1.f,FSimpleDelegate::CreateLambda([&](){++Contacts;})),TEXT("real shared release gesture begins with bow"));
++        static_cast<UActorComponent*>(Magic)->TickComponent(.2f,LEVELTICK_All,nullptr);
++        Check(Magic->IsBowHandTransferActive()&&Contacts==0&&FMath::IsNearlyZero(Magic->HandPhaseFraction()),TEXT("spell contact waits for supporting palm"));
++        Bow->AdvanceActionBeforeCamera(FBowCastHandPose::Seconds);Bow->SampleArms();
++        static_cast<UActorComponent*>(Magic)->TickComponent(.1f,LEVELTICK_All,nullptr);
++        auto Casting=Body->SampleLocalState();Body->CaptureMotion(Casting);
++        RemoteBody->AcceptBodyPresentation(Casting,++Sequence);
++        Check(RemoteBody->ReplicatedState.Action==EFPSBodyAction::Cast&&RemoteBody->ReplicatedState.BowCastTransfer==1.f,
++            TEXT("shared cast keeps remote right hand on bow"));
++        Magic->InterruptForPriority();Bow->AdvanceActionBeforeCamera(.4f);
++        Check(Contacts==0&&Bow->CastTransfer()==0.f&&Bow->bArrowNocked,TEXT("interrupt before release spends no arrow and does not launch spell"));
++    }
++    FString Dir=FPaths::ProjectDir()/TEXT("SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/Isolated");FParse::Value(*Params,TEXT("ReportDir="),Dir);
++    IFileManager::Get().MakeDirectory(*Dir,true);auto Result=MakeShared<FJsonObject>();Result->SetNumberField(TEXT("failed"),Failed);
++    Result->SetNumberField(TEXT("cases"),Rows.Num());Result->SetArrayField(TEXT("results"),Rows);Result->SetBoolField(TEXT("socket_transport"),false);
++    FString Json;FJsonSerializer::Serialize(Result,TJsonWriterFactory<>::Create(&Json));FFileHelper::SaveStringToFile(Json,*(Dir/TEXT("result.json")));
++    return Failed?1:0;
++}

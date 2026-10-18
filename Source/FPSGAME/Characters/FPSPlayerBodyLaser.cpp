@@ -48,10 +48,20 @@ void UFPSPlayerBodyComponent::SanitizeLaserPresentation(FFPSBodyState& State) co
     });
 }
 
+bool UFPSPlayerBodyComponent::ConsumableStowsTacticalEffects(uint8 Rig) const
+{
+    if(DisplayState.Action!=EFPSBodyAction::Consume||!MotionBindings.IsValidIndex(Rig))return false;
+    // All consumables release a carried offhand gun. Large lamb additionally
+    // stows the main gun; the shared Consume state spans lower/use/raise.
+    return MotionBindings[Rig].Definition.AttachHand==1
+        ||DisplayState.Contacts.Consumable==TEXT("roasted_large_lamb");
+}
+
 bool UFPSPlayerBodyComponent::ResolveLaserSample(uint8 Rig,uint8 Part,uint32 Schema,FFPSBodyLaserSample& Out) const
 {
     if(!Character.IsValid()||Character->IsLocallyControlled()||ServerClock()-DisplayState.PresentationSampledAt>.6f
         ||DisplayState.Action==EFPSBodyAction::Dead||DisplayState.Motion==EFPSBodyMotion::Vault
+        ||ConsumableStowsTacticalEffects(Rig)
         ||DisplayState.Motion==EFPSBodyMotion::Mantle||!MotionBindings.IsValidIndex(Rig))return false;
     const auto& Weapon=MotionBindings[Rig].Definition;
     const FString& Instance=Weapon.AttachHand==1?DisplayState.OffhandInstance:DisplayState.WeaponInstance;

@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/UI/ColdSteelFoodPresentation.h
++++ b/Source/FPSGAME/UI/ColdSteelFoodPresentation.h
+@@ -1,27 +1,25 @@
+ #pragma once
+ #include "CoreMinimal.h"
++#include "ColdSteelUIStyle.h"
+ 
+ /** Display only: durations are game days supplied by the authoritative food model. */
+ namespace ColdSteelFoodUI
+ {
++/** Consumed lifetime: 0 fresh, 1 expired. Data and audits keep this direction. */
+ inline float Progress(double RemainingDays,double LifetimeDays)
+ {
+     return LifetimeDays>0?float(FMath::Clamp(1.-RemainingDays/LifetimeDays,0.,1.)):0.f;
+ }
+-inline FString Remaining(double Days,bool Compact=false)
++/** Bar fill direction: 1 full/fresh, 0 empty/expired. */
++inline float Remaining(float SpoilProgress)
+ {
+-    if(Days<=0)return TEXT("已到期");
+-    // Round up so a food with time left never appears to have already expired.
+-    const int64 Minutes=FMath::CeilToInt64(Days*24.*60.);
+-    const int64 WholeDays=Minutes/(24*60),Hours=(Minutes/60)%24;
+-    if(Compact)
+-    {
+-        if(WholeDays>0)return FString::Printf(TEXT("余%lld天%lld时"),WholeDays,Hours);
+-        if(Minutes>=60)return FString::Printf(TEXT("余%lld时%lld分"),Minutes/60,Minutes%60);
+-        return FString::Printf(TEXT("余%lld分"),Minutes);
+-    }
+-    if(WholeDays>0)return FString::Printf(TEXT("%lld天%lld小时（游戏时间）"),WholeDays,Hours);
+-    if(Minutes>=60)return FString::Printf(TEXT("%lld小时%lld分钟（游戏时间）"),Minutes/60,Minutes%60);
+-    return FString::Printf(TEXT("%lld分钟（游戏时间）"),Minutes);
++    return 1.f-FMath::Clamp(SpoilProgress,0.f,1.f);
++}
++inline FLinearColor Color(float SpoilProgress)
++{
++    // Inventory and both tooltip modes share explicit, recognizable stages.
++    // The bar shrinks by Remaining(); these colors still key off consumed lifetime.
++    return SpoilProgress<.5f?ColdSteelUI::Success:
++        SpoilProgress<.8f?ColdSteelUI::Warning:ColdSteelUI::Danger;
+ }
+ }

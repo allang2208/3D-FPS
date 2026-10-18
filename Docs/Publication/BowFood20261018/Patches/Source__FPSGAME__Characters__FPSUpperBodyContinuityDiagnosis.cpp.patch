@@ -1,0 +1,93 @@
+--- /dev/null
++++ b/Source/FPSGAME/Characters/FPSUpperBodyContinuityDiagnosis.cpp
+@@ -0,0 +1,90 @@
++#include "FPSPlayerBodyAnimInstance.h"
++#include "../Items/PotionUseMotion.h"
++#include "Animation/AnimSequence.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "HAL/FileManager.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++#if WITH_EDITOR
++#include "AssetCompilingManager.h"
++#endif
++
++// Explicit, read-only animation-graph diagnosis. No inventory, game-world
++// BeginPlay, rendering or source-asset mutation; locomotion clocks stay live.
++int32 RunUpperBodyContinuityDiagnosis(const FString& Params)
++{
++    FString File;FParse::Value(*Params,TEXT("Report="),File);if(File.IsEmpty())return 2;
++    FString Text;TSharedPtr<FJsonObject> Config;
++    if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/player_body.json")))||
++        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Config))return 2;
++    auto* Asset=LoadObject<USkeletalMesh>(nullptr,*Config->GetStringField(TEXT("body_mesh")));if(!Asset)return 2;
++    TMap<FName,TObjectPtr<UAnimSequence>> Clips;
++    for(const auto& Pair:Config->GetObjectField(TEXT("clips"))->Values)
++    {
++        const FString Key=*Pair.Key;
++        if(Key.StartsWith(TEXT("Unarmed."))||Key.StartsWith(TEXT("Bow.Sparrow."))||
++            Key.StartsWith(TEXT("Consume."))||Key.StartsWith(TEXT("Crouch.")))
++            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))Clips.Add(*Pair.Key,Clip);
++    }
++#if WITH_EDITOR
++    FAssetCompilingManager::Get().FinishAllCompilation();
++#endif
++    const auto Settings=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(false)
++        .RequiresHitProxies(false).CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    auto* World=UWorld::CreateWorld(EWorldType::EditorPreview,false,TEXT("UpperBodyContinuity"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    const FName Names[]={TEXT("pelvis"),TEXT("spine_01"),TEXT("spine_03"),TEXT("head"),TEXT("clavicle_r"),TEXT("upperarm_r"),TEXT("lowerarm_r"),TEXT("hand_r"),TEXT("clavicle_l"),TEXT("upperarm_l"),TEXT("lowerarm_l"),TEXT("hand_l")};
++    const auto& Ref=Asset->GetRefSkeleton();TArray<int32> Indices;TArray<TSharedPtr<FJsonValue>> BoneNames,Cases;
++    for(const FName Name:Names){Indices.Add(Ref.FindBoneIndex(Name));BoneNames.Add(MakeShared<FJsonValueString>(Name.ToString()));}
++    const auto Pack=[](const FTransform& T)
++    {
++        const auto P=T.GetLocation();const auto Q=T.GetRotation();TArray<TSharedPtr<FJsonValue>> A;
++        for(double V:{P.X,P.Y,P.Z,Q.X,Q.Y,Q.Z,Q.W})A.Add(MakeShared<FJsonValueNumber>(V));
++        return MakeShared<FJsonValueArray>(A);
++    };
++    const TCHAR* Actions[]={TEXT("base"),TEXT("bow_carry"),TEXT("bow_hold"),TEXT("bread"),TEXT("roasted_large_lamb"),TEXT("mineral_water")};
++    for(const TCHAR* Action:Actions)for(int32 Travel=0;Travel<4;++Travel)for(int32 Post=0;Post<2;++Post)
++    {
++        auto* Actor=World->SpawnActor<AActor>();auto* Mesh=NewObject<USkeletalMeshComponent>(Actor);Actor->AddInstanceComponent(Mesh);Actor->SetRootComponent(Mesh);
++        Mesh->SetSkeletalMeshAsset(Asset);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetDisablePostProcessBlueprint(Post!=0);
++        Mesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
++        Mesh->RegisterComponentWithWorld(World);Mesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);Mesh->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
++        auto* Anim=CastChecked<UFPSPlayerBodyAnimInstance>(Mesh->GetAnimInstance());Anim->Clips=Clips;
++        const auto& Scale=Config->GetArrayField(TEXT("pose_scale"));Anim->PoseScale=FVector(Scale[0]->AsNumber(),Scale[1]->AsNumber(),Scale[2]->AsNumber());
++        Anim->Speed=Travel==0?0.f:Travel==3?480.f:240.f;Anim->Direction=Travel==2?90.f:0.f;
++        const FString Name(Action);const bool Bow=Name.StartsWith(TEXT("bow_")),Consume=!Bow&&Name!=TEXT("base");
++        FPotionUseMotion Motion;if(Consume)Motion.Load(false,Action);
++        auto& State=Anim->BodyState;State.Family=Bow?TEXT("Bow"):TEXT("Unarmed");
++        State.BowClip=Name==TEXT("bow_hold")?TEXT("Hold"):TEXT("Idle");State.BowClipLength=1.f;State.bBowClipLooping=true;
++        // Fixed action pose exposes motion imported only from the gait layer.
++        // No prop correction is applied in this first isolation pass.
++        Anim->bBowPose=Bow;State.BowStringContact=Name==TEXT("bow_hold")?1.f:0.f;
++        if(Consume)
++        {
++            State.Action=EFPSBodyAction::Consume;State.Contacts.Consumable=Action;
++            State.bHasActionProgress=true;State.ActionProgress=.65f;State.ActionWeight=1.f;
++            State.ContactFraction=Motion.DrinkStart/Motion.Duration;State.ReleaseFraction=Motion.DrinkEnd/Motion.Duration;State.ActionEntryFraction=Motion.Grab/Motion.Duration;
++        }
++        constexpr float Delta=1.f/60.f;TArray<TSharedPtr<FJsonValue>> Samples;
++        for(int32 Frame=-60;Frame<300;++Frame)
++        {
++            Anim->Clock=(Frame+60)*Delta;State.BowClipTime=Name==TEXT("bow_hold")?.5f:Anim->Clock;
++            Mesh->TickAnimation(Delta,false);Mesh->RefreshBoneTransforms();
++            if(Frame<0)continue;
++            TArray<TSharedPtr<FJsonValue>> Pose;
++            const auto& CS=Mesh->GetComponentSpaceTransforms();for(int32 Bone:Indices)Pose.Add(Pack(CS[Bone]));
++            Samples.Add(MakeShared<FJsonValueArray>(Pose));
++        }
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("action"),Name);Row->SetNumberField(TEXT("speed"),Anim->Speed);
++        Row->SetNumberField(TEXT("direction"),Anim->Direction);Row->SetBoolField(TEXT("post_process"),Post==0);Row->SetArrayField(TEXT("samples"),Samples);
++        Cases.Add(MakeShared<FJsonValueObject>(Row));Actor->Destroy();
++    }
++    auto Report=MakeShared<FJsonObject>();Report->SetArrayField(TEXT("bones"),BoneNames);Report->SetArrayField(TEXT("cases"),Cases);
++    Report->SetNumberField(TEXT("fps"),60);Report->SetBoolField(TEXT("rendered"),false);Report->SetStringField(TEXT("scope"),TEXT("Fixed action pose over continuously advancing native gait; no ground traces or prop IK."));
++    Text.Reset();FJsonSerializer::Serialize(Report,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Text));
++    IFileManager::Get().MakeDirectory(*FPaths::GetPath(File),true);
++    const bool Saved=FFileHelper::SaveStringToFile(Text,*File,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM);
++    World->DestroyWorld(false);UE_LOG(LogTemp,Display,TEXT("UPPER_BODY_CONTINUITY_SAVED %s cases=%d"),*File,Cases.Num());return Saved?0:2;
++}

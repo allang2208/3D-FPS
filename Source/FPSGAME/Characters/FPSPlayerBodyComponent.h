@@ -66,6 +66,8 @@ public:
     void ReportGunMechanicalStop(uint8 Hand);
     void ReportGunCartridge(uint8 Hand,class UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age);
     class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}
+    /** Per-rig consume gate, including both lowering and recovery transitions. */
+    bool ConsumableStowsTacticalEffects(uint8 Rig) const;
     bool ResolveLaserSample(uint8 Rig,uint8 Part,uint32 Schema,FFPSBodyLaserSample& Out) const;
     // The accepted first-person consumable executor supplies visual release events.
     bool PresentConsumableDiscard(class UStaticMeshComponent* Source,const FVector& Velocity,float Lifetime);
@@ -73,6 +75,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetHeadAndHair(FName HeadId,FName HairId);
 
 private:
+    friend class UBowSkillTrainingAuditCommandlet;
     friend class AShotgunWireAuditController;
     friend class AShotgunWireAuditGameMode;
     friend class UShotgunAttachmentAuditCommandlet;
@@ -193,9 +196,11 @@ private:
     void UpdateAppearanceVisibility();
     FTransform HandRigOffsets[2] = {FTransform::Identity,FTransform::Identity};
     void CaptureBow(const class UBowWeaponComponent& Bow,FFPSBodyWeapon& Weapon) const;
+    void CaptureBowMotion(const FFPSBodyWeapon& Weapon,FFPSBodyMotionSample& Sample,FFPSBodyMotionRig& Rig);
     void SampleBowState(const class UBowWeaponComponent& Bow,FFPSBodyState& State) const;
     void BuildBow(const FFPSBodyWeapon& Definition,class USkeletalMeshComponent* Rig);
     void UpdateBow();
+    void UpdateNativeBowContacts();
     void ClearBow();
     void UpdateBowVisibility(bool HideOwner);
     UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> BowRig;
@@ -206,6 +211,9 @@ private:
     FName SampledBowClip;
     float SampledBowTime = -1.f;
     FTransform BowRiserMount = FTransform::Identity;
+    FString BowItemInstance;
+    FVector NativeBowHeldNock=FVector::ZeroVector,NativeBowHeldSourceNock=FVector::ZeroVector;
+    bool bHasNativeBowHeldNock=false;
     TArray<FFPSBodyMotionBinding> MotionBindings;
     TMap<TWeakObjectPtr<class UPrimitiveComponent>,int32> MotionEquipmentIndices;
     TArray<FFPSBodyMotionMap> MotionMaps;

@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
+@@ -112,9 +112,8 @@
+         auto* P=Presentation.Find(I.InstanceId);if(!P||P->SpoilDays<=0)continue;
+         const double Remaining=Model->FoodRemainingDays(I);
+         const float Progress=ColdSteelFoodUI::Progress(Remaining,P->SpoilDays);
+-        const FString Text=ColdSteelFoodUI::Remaining(Remaining,true);
+-        Changed|=!FMath::IsNearlyEqual(Progress,P->SpoilProgress)||Text!=P->FoodRemaining;
+-        P->SpoilProgress=Progress;P->FoodRemaining=Text;
++        Changed|=!FMath::IsNearlyEqual(Progress,P->SpoilProgress);
++        P->SpoilProgress=Progress;
+     }
+     return Changed;
+ }
+@@ -237,16 +236,12 @@
+         if(Perishable)
+         {
+             const float Progress=P->SpoilProgress;
+-            const FLinearColor Tone=Progress<.5f?FMath::Lerp(ColdSteelUI::Success,ColdSteelUI::Warning,Progress*2.f):FMath::Lerp(ColdSteelUI::Warning,ColdSteelUI::Danger,(Progress-.5f)*2.f);
++            const float Remaining=ColdSteelFoodUI::Remaining(Progress);
++            const FLinearColor Tone=ColdSteelFoodUI::Color(Progress);
+             Box(X+4,Y+H-7,W-8,4,GunsmithUI::Gray(12,235),GunsmithUI::Edge,1,1,4);
+-            Box(X+4,Y+H-7,(W-8)*Progress,4,Tone,FLinearColor::Transparent,1,0,4);
+-            // A zero-age food still has a visible green start marker; text in the tooltip carries the exact value.
+-            Box(X+4,Y+H-7,2,4,Tone,FLinearColor::Transparent,1,0,4);
+-            if(W>=92&&H>=55&&I.Count==1)
+-            {
+-                Box(X+4,Y+H-23,W-8,15,GunsmithUI::Gray(10,220),FLinearColor::Transparent,2,0,3);
+-                Label(P->FoodRemaining,X+6,Y+H-23,12,GunsmithUI::Text,W-12);
+-            }
++            // 2026-10-17：条表示剩余新鲜度，满格绿色随时间缩短；阶段色仍按已消耗寿命
++            // 由绿转黄、红。2px 最小可见填充替代旧的起点标记。
++            Box(X+4,Y+H-7,FMath::Max(2.f,(W-8)*Remaining),4,Tone,FLinearColor::Transparent,1,0,4);
+         }
+         DrawCard(FLinearColor::Transparent,SelectedItem?GunsmithUI::Silver:GunsmithUI::Edge,5);
+         Opacity=1;

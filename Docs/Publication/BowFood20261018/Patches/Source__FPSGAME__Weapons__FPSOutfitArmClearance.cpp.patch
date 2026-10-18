@@ -1,0 +1,111 @@
+--- a/Source/FPSGAME/Weapons/FPSOutfitArmClearance.cpp
++++ b/Source/FPSGAME/Weapons/FPSOutfitArmClearance.cpp
+@@ -5,6 +5,62 @@
+ #include "Components/SkeletalMeshComponent.h"
+ #include "Engine/SkeletalMesh.h"
+ #include "GameFramework/Actor.h"
++#include "M870ArmOpeningControls.inl"
++
++namespace
++{
++FQuat M870OpeningRetreat(const FTransform& Clavicle,const FTransform& Upper,
++    const FVector& Wrist,const FTransform& MeshToCamera,double VerticalTangent)
++{
++    // Fixed authored rim controls, not a bounding box: the empty box corners
++    // would lower the already-safe idle arm by another 7-9 degrees.
++    constexpr int32 Count=UE_ARRAY_COUNT(M870ArmOpening::Controls);
++    FVector Points[Count];FVector Centre=FVector::ZeroVector;
++    const FVector Normal=FVector(VerticalTangent,0.,1.).GetSafeNormal();
++    double Maximum=-DBL_MAX,Forward=-DBL_MAX;
++    for(int32 I=0;I<Count;++I)
++    {
++        const auto& Control=M870ArmOpening::Controls[I];
++        const FVector Point=FMath::Lerp(Clavicle.TransformPosition(FVector(Control.Clavicle)),
++            Upper.TransformPosition(FVector(Control.Upper)),double(Control.UpperWeight));
++        Points[I]=MeshToCamera.TransformPosition(Point);Centre+=Points[I];
++        Maximum=FMath::Max(Maximum,FVector::DotProduct(Points[I],Normal));
++        Forward=FMath::Max(Forward,Points[I].X);
++    }
++    // One centimetre of advance warning, with zero slope at its entry, keeps
++    // the actual lip below the bottom plane through inspection/reload blends.
++    const double Distance=FMath::Max(0.,Maximum+1.);
++    const double Retreat=Distance*Distance/(Distance+.75);
++    if(Forward<0.||Retreat<UE_SMALL_NUMBER)return FQuat::Identity;
++    const FVector Pivot=MeshToCamera.TransformPosition(Wrist);
++    const FVector Axis=FVector::CrossProduct(Normal,Centre/double(Count)-Pivot).GetSafeNormal();
++    if(Axis.IsNearlyZero())return FQuat::Identity;
++    double Constant[Count],Cosine[Count],Sine[Count];
++    const double NormalAxis=FVector::DotProduct(Normal,Axis);
++    const double NormalPivot=FVector::DotProduct(Normal,Pivot);
++    for(int32 I=0;I<Count;++I)
++    {
++        const FVector Reach=Points[I]-Pivot;
++        const double Axial=NormalAxis*FVector::DotProduct(Reach,Axis);
++        Constant[I]=NormalPivot+Axial;
++        Cosine[I]=FVector::DotProduct(Reach,Normal)-Axial;
++        Sine[I]=FVector::DotProduct(FVector::CrossProduct(Axis,Reach),Normal);
++    }
++    // Solve a small rigid rotation of the whole bent arm about its fixed hand.
++    // The requested saved poses need at most 12 degrees; retain a bounded limit.
++    double Low=0.,High=FMath::DegreesToRadians(35.);
++    const double Target=Maximum-Retreat;
++    for(int32 Step=0;Step<12;++Step)
++    {
++        const double Mid=(Low+High)*.5;double Sin,Cos;FMath::SinCos(&Sin,&Cos,Mid);
++        double Height=-DBL_MAX;
++        for(int32 I=0;I<Count;++I)Height=FMath::Max(Height,Constant[I]+Cosine[I]*Cos+Sine[I]*Sin);
++        if(Height>Target)Low=Mid;else High=Mid;
++    }
++    const FQuat CameraRotation(Axis,High);
++    return (MeshToCamera.GetRotation().Inverse()*CameraRotation*MeshToCamera.GetRotation()).GetNormalized();
++}
++}
+ 
+ void FFPSOutfitArmClearance::Cache(USkeletalMeshComponent& Mesh)
+ {
+@@ -37,16 +93,19 @@
+ void FFPSOutfitArmClearance::Apply(USkeletalMeshComponent& Mesh, TArray<FTransform>& Pose)
+ {
+     // Operate on the evaluated firearm leader, once, before followers receive it.
+-    // No animation loads, per-vertex work, new tick or view-dependent mesh hiding.
++    // No animation loads, mesh readback, new tick or view-dependent mesh hiding.
+     if (!Mesh.GetOwner() || !Mesh.GetSkeletalMeshAsset() || !Mesh.bOnlyOwnerSee
+         || Mesh.bOwnerNoSee || !Mesh.IsVisible() || Mesh.bHiddenInGame
+         || !Cast<UFPSGunplayAnimInstance>(Mesh.GetAnimInstance())) return;
+     if (CachedMesh.Get() != Mesh.GetSkeletalMeshAsset()) Cache(Mesh);
+     const auto* Equipment = Outfit.Get();
+     const auto* View = Camera.Get();
+-    if (!Equipment || !View || !Equipment->IsChainmailEquipped()) return;
++    static const FName M870Viewmodel(TEXT("SK_M870_V7"));
++    const bool bM870=CachedMesh->GetFName()==M870Viewmodel;
++    const bool bChainmail=Equipment&&Equipment->IsChainmailEquipped();
++    if (!View || (!bChainmail&&!bM870)) return;
+     const FTransform MeshToCamera = Mesh.GetComponentTransform().GetRelativeTransform(View->GetComponentTransform());
+-    for (int32 Side = 0; Side < 2; ++Side)
++    for (int32 Side = 0; bChainmail&&Side < 2; ++Side)
+     {
+         const FArm& Arm = Arms[Side];
+         if (!Pose.IsValidIndex(Arm.Upper) || !Pose.IsValidIndex(Arm.Lower) || !Pose.IsValidIndex(Arm.Hand)
+@@ -92,4 +151,22 @@
+         for (int32 I : Arm.UpperBones) Pose[I] = Pose[I].GetRelativeTransform(OldUpper) * NewUpper;
+         for (int32 I : Arm.LowerBones) Pose[I] = Pose[I].GetRelativeTransform(OldUpper) * NewUpper;
+     }
++    if(bM870)
++    {
++        const FArm& Arm=Arms[0];
++        if(Arm.UpperBones.IsEmpty()||!Pose.IsValidIndex(Arm.Upper)||!Pose.IsValidIndex(Arm.Hand))return;
++        // Reference skeleton parents precede children: the first cached upper
++        // bone is the clavicle. Reuse the existing cache without changing layout.
++        const int32 Clavicle=Arm.UpperBones[0];
++        const double VerticalTangent=FMath::Tan(FMath::DegreesToRadians(double(View->FieldOfView)*.5))
++            /FMath::Max(.1,double(View->AspectRatio));
++        const FVector Wrist=Pose[Arm.Hand].GetLocation();
++        const FQuat Rotation=M870OpeningRetreat(Pose[Clavicle],Pose[Arm.Upper],Wrist,MeshToCamera,VerticalTangent);
++        if(Rotation.IsIdentity())return;
++        const FTransform OldUpper=Pose[Arm.Upper];FTransform NewUpper=OldUpper;
++        NewUpper.SetLocation(Wrist+Rotation.RotateVector(OldUpper.GetLocation()-Wrist));
++        NewUpper.SetRotation((Rotation*OldUpper.GetRotation()).GetNormalized());
++        for(int32 I:Arm.UpperBones)Pose[I]=Pose[I].GetRelativeTransform(OldUpper)*NewUpper;
++        for(int32 I:Arm.LowerBones)Pose[I]=Pose[I].GetRelativeTransform(OldUpper)*NewUpper;
++    }
+ }

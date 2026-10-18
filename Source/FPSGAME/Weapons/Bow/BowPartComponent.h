@@ -66,6 +66,8 @@ public:
     /** 实体网格子件；特殊用法（挂 socket、加特效）直接拿它。 */
     UStaticMeshComponent* GetVisual() const { return Visual; }
     int32 RodCount() const { return Rods.Num(); }
+    /** The rendered arrow/rod, including its current nocking pose and authored scale. */
+    UStaticMeshComponent* RodVisual(int32 Index) const { return Rods.IsValidIndex(Index)?Rods[Index].Get():nullptr; }
 
 private:
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Visual;

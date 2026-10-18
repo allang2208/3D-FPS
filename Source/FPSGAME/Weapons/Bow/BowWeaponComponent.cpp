@@ -1,4 +1,4 @@
-﻿#include "BowWeaponComponent.h"
+#include "BowWeaponComponent.h"
 #include "../../Combat/RangedAttackQuery.h"
 #include "BowArrow.h"
 #include "../../Characters/FPSPlayerBodyComponent.h"
@@ -7,7 +7,9 @@
 #include "BowQuickCombatMotion.h"
 #include "BowStats.h"
 #include "../../Skills/FPSQuickCombatComponent.h"
+#include "../../Skills/FPSFireballComponent.h"
 #include "../../Movement/FPSDoorPushComponent.h"
+#include "../../Items/FPSPotionUseComponent.h"
 #include "../WeaponStatEvaluation.h"
 #include "../GunsmithSystem.h"
 #include "../../FPSGAMECharacter.h"
@@ -269,6 +271,7 @@ void UBowWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     }
     CancelAction();
     InstanceId = NewId;
+    CastTransferAlpha=0.f;Viewmodel->CastTransfer=0.f;Viewmodel->ClearLeftReturn();
     EquippedDataHash = DataHash;
     EquippedSignature = NewSignature;
     EquippedDefinition.Reset();
@@ -653,8 +656,12 @@ bool UBowWeaponComponent::CanPresent(bool bAllowDoorPushPresentation) const
     const bool bOwnQuickCombat = Stage == EBowStage::QuickCombat && Bash
         && Bash->GetStyle() == EQuickCombatStyle::Bow && Bash->IsOccupyingLeftHand();
     const bool bDoorPushPresentation = bAllowDoorPushPresentation && Pawn->IsDoorPushActive();
+    const auto* Magic=Pawn->FindComponentByClass<UFPSFireballComponent>();
+    const bool bCastCarry=Magic&&Magic->IsOccupyingLeftHand();
+    const auto* Use=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
+    const bool bConsumeCarry=Use&&(Use->UsesBowSupport()||Use->IsTwoHanded()||Use->IsReturningBow());
     return PC && bPresentationReady && !Pawn->IsTraversing()
-        && (!Pawn->IsCastBlockingLeftHandAction() || bOwnQuickCombat || bDoorPushPresentation)
+        && (!Pawn->IsCastBlockingLeftHandAction() || bOwnQuickCombat || bDoorPushPresentation || bCastCarry || bConsumeCarry)
         && (!Health || !Health->IsDead()) && (!Building || !Building->IsBuilding() || Building->IsPanelOpen());
 }
 
@@ -662,7 +669,9 @@ bool UBowWeaponComponent::CanUse(bool bAllowDoorPushPresentation) const
 {
     const auto* PC = Character.IsValid() ? Cast<APlayerController>(Character->GetController()) : nullptr;
     const auto* Building = PC ? PC->FindComponentByClass<UVoxelBuildComponent>() : nullptr;
-    return CanPresent(bAllowDoorPushPresentation) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC)
+    const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();
+    const auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
+    return CastTransferAlpha<=0.f&&!(Magic&&Magic->IsOccupyingLeftHand())&&!(Use&&(Use->IsActive()||Use->IsReturningBow()))&&CanPresent(bAllowDoorPushPresentation) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC)
         && (!Building || !Building->IsBuilding());
 }
 
@@ -947,6 +956,7 @@ void UBowWeaponComponent::ReleasePrimaryAttack(bool bAutomatic)
 
 bool UBowWeaponComponent::BeginQuickCombat()
 {
+    if(CastTransferAlpha>0.f)return false;
     auto* Pawn = Character.Get();
     auto* Bash = Pawn ? Pawn->QuickCombatPistol.Get() : nullptr;
     if (!Pawn || !Bash || !IsEquipped() || !bPresentationReady || !bHasGripMarker
@@ -1016,6 +1026,7 @@ void UBowWeaponComponent::CancelAction(bool bImmediate)
 
 FVector UBowWeaponComponent::NockPoint() const
 {
+    if(CastTransferAlpha>0.f)return FMath::Lerp(CastEntryNock,BraceNockCM,FMath::SmoothStep(0.f,.45f,CastTransferAlpha));
     // The string attaches to the finger contact marker only while held. After
     // release it returns to brace independently of the hand's follow-through.
     if (Stage == EBowStage::Release ||
@@ -1247,21 +1258,49 @@ void UBowWeaponComponent::AdvanceLocomotion(float Delta, bool bUsable)
         -1.3f * TravelDirection.Y - .6f * TurnFollow) * Restraint;
 }
 
+UBowArmsMeshComponent* UBowWeaponComponent::ArmsMesh() const { return Viewmodel.Get(); }
+
+bool UBowWeaponComponent::BeginCastHandoff()
+{
+    if(!IsEquipped()||!bPresentationReady||!Viewmodel)return false;
+    // Cancel draw without releasing or spending its reserved arrow. Keep the
+    // current complete pose for the short transfer into ordinary carry.
+    if(CastTransferAlpha<=0.f)
+    {
+        CastEntryNock=NockPoint();CancelAction();Viewmodel->CaptureCarry(.18f);
+        Stage=EBowStage::Ready;Elapsed=0.f;
+    }
+    return true;
+}
+
 void UBowWeaponComponent::AdvanceActionBeforeCamera(float Delta)
 {
     // A contact query refreshes the camera with Delta=0. Do not re-enter the action clock.
     if (!Character.IsValid() || !Character->IsLocallyControlled() || !IsEquipped() || Delta <= 0.f) return;
-    // Door push owns input and its separate V7 fist, but the original bow
-    // pose/locomotion clocks remain live for the shared return trajectory.
-    const bool bUsable = CanUse(true);
-    // Aim is advanced once before the camera reads its shaped weight.
+    const auto* Magic=Character->FindComponentByClass<UFPSFireballComponent>();
+    const auto* Use=Character->FindComponentByClass<UFPSPotionUseComponent>();
+    const bool CastCarry=(Magic&&Magic->IsOccupyingLeftHand())||(Use&&Use->UsesBowSupport())||Viewmodel->IsReturningLeftHand();
+    const float PreviousTransfer=CastTransferAlpha;
+    CastTransferAlpha=FMath::Clamp(CastTransferAlpha+Delta*(CastCarry?1.f:-1.f)/FBowCastHandPose::Seconds,0.f,1.f);
+    if(CastTransferAlpha>=.45f||!CastCarry)CastEntryNock=BraceNockCM;
+    if(PreviousTransfer>0.f&&CastTransferAlpha<=0.f)Viewmodel->CaptureCarry(.12f);
+    Viewmodel->CastTransfer=CastTransferAlpha;
     const auto AdvanceWeight = [Delta](float& Weight, bool bTarget, float In, float Out)
     {
         Weight = FMath::Clamp(Weight + FMath::Max(0.f, Delta) * (bTarget ? 1.f / In : -1.f / Out), 0.f, 1.f);
     };
+    AdvanceWeight(CrouchProgress, CanPresent(true) && Character->bIsCrouched,CrouchInSeconds, CrouchOutSeconds);
+    if(CastCarry||CastTransferAlpha>0.f)
+    {
+        AdvanceAimWeight(Delta,false);HipAimProgress=FMath::Max(0.f,HipAimProgress-Delta/FBowCastHandPose::Seconds);
+        AdvanceLocomotion(Delta,false);Viewmodel->AdvanceEntry(Delta);VisualTime+=Delta;
+        return;
+    }
+    // Door push owns input and its separate V7 fist, but the original bow
+    // pose/locomotion clocks remain live for the shared return trajectory.
+    const bool bUsable = CanUse(true);
+    // Aim is advanced once before the camera reads its shaped weight.
     AdvanceAimWeight(Delta, bUsable && bSteadyHeld);
-    AdvanceWeight(CrouchProgress, CanPresent(true) && Character.IsValid() && Character->bIsCrouched,
-        CrouchInSeconds, CrouchOutSeconds);
     AdvanceLocomotion(Delta, bUsable);
     // Keep the right/lower resting position. Rotate into the crosshair during
     // the same entry clock, retain the alignment for a nocked arrow, and let
@@ -1710,6 +1749,7 @@ float UBowWeaponComponent::ClipLength(const TCHAR* Name) const
 void UBowWeaponComponent::SampleArms()
 {
     if (!bUsesArms) { Viewmodel->SetVisibility(false); return; }
+    if(CastTransferAlpha>0.f){PlayClip(ClipIdle,VisualTime,true);return;}
     const auto Phase = [this](const TCHAR* Clip, float Fraction)
     { PlayClip(Clip, FMath::Clamp(Fraction, 0.f, 1.f) * ClipLength(Clip), false); };
     switch (Stage)

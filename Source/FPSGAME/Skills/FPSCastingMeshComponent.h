@@ -34,7 +34,9 @@ private:
     uint32 EntrySerial=0;
     FQuat ReferencePalm=FQuat::Identity;
     void CacheCastSkeleton();
+protected:
     void ApplyCastPose(UFPSFireballComponent* Magic);
+private:
     int32 BashHandR=INDEX_NONE;   // 打击探针读取的握把手骨
     FFPSOutfitArmClearance OutfitArmClearance;
 public:

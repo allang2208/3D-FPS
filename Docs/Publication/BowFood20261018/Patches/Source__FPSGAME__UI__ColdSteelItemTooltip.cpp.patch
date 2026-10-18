@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltip.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltip.cpp
+@@ -52,6 +52,7 @@
+ {
+     FString Result=bPinned?TEXT("detail"):TEXT("summary");
+     Result+=Presentation.bWideIcon?TEXT("|wide"):TEXT("|square");
++    Result+=Presentation.FoodLifetimeDays>0?TEXT("|food-bar"):TEXT("|no-food-bar");
+     auto Rows=[&](const TArray<FColdSteelTooltipRow>& Values)
+     {for(const auto& R:Values)Result+=FString::Printf(TEXT("|%d:%d:%d:%d:%d:%s"),R.bSection,R.bContinuation,R.bStacked,R.bDashedAfter,R.bPreview,*R.Label);};
+     Rows(Presentation.Summary);
+@@ -174,7 +175,7 @@
+             if(const auto* Item=Model?Model->FindItem(InstanceId):nullptr)
+             {
+                 RefreshColdSteelFoodTooltip(*Item,Model,Presentation);
+-                UpdateRows();SettleSeconds=.15f;
++                UpdateRows();
+             }
+         }
+     }

@@ -1,0 +1,1568 @@
+{
+  "base_commit": "e22db72ebf7392bf91b7c666448c9b26f8488a71",
+  "hash_encoding": "Exact staged Git blob bytes; text is UTF-8 LF",
+  "files": [
+    {
+      "path": "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+      "kind": "owned_source",
+      "bytes": 3134,
+      "sha256": "25f2cecdc55c7dca0d3e70ac85690a6fd01fcd3eff003254477c89e779956d27"
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.h",
+      "kind": "owned_source",
+      "bytes": 5387,
+      "sha256": "d57ba5ae5a22e56e7a4558331a2005689a5ac371b6d2f7c935fef50446e29969"
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionArmPose.cpp",
+      "kind": "owned_source",
+      "bytes": 8212,
+      "sha256": "1eb6856c56a74bf627aca0dc7c246effd63330095566a27fb098614bb8da3c75"
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionArmPose.h",
+      "kind": "owned_source",
+      "bytes": 716,
+      "sha256": "b18539bdacb4aff9b57995b26cbf914c127e22d0d905430e4f397833cb8f4d93"
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionUseMotion.cpp",
+      "kind": "owned_source",
+      "bytes": 7362,
+      "sha256": "b9fdf2b211acc9991b31401d3431c0c431d2888b1ba28652390ecd3b0f3b6ea2"
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionUseMotion.h",
+      "kind": "owned_source",
+      "bytes": 2453,
+      "sha256": "4796faae4aa31409dc92bf4da8b9b5c3c1c299fd475e59b6303b13384a26531a"
+    },
+    {
+      "path": "Source/FPSGAME/Items/PotionEquipmentStow.cpp",
+      "kind": "owned_source",
+      "bytes": 2229,
+      "sha256": "d67064e1a6224f7a71b52794ba2ad4783cdafb70c651ee4e26fc65d6304b74b5"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowCastHandPose.h",
+      "kind": "owned_source",
+      "bytes": 7055,
+      "sha256": "bf49521354907a5ae92c74ede0f8e64a57ab34e734eec97572f88103cea18e55"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.cpp",
+      "kind": "owned_source",
+      "bytes": 11384,
+      "sha256": "6662d7e533bcad7a8034f76e8de97b13f54695fb949d1e4e70ac1ae3466a31ba"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.h",
+      "kind": "owned_source",
+      "bytes": 2078,
+      "sha256": "09defb7f8be0329d846b0053c2c0f24992baa8ea563d4e10b27ddfa61f7c8f63"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "kind": "owned_source",
+      "bytes": 93232,
+      "sha256": "82a767d8db081df6fb9316b04bdc2efc0e70ba1fb8a370ef111e59711e3d673b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+      "kind": "owned_source",
+      "bytes": 16895,
+      "sha256": "c30df49d14e6db06d26369061b74f889831a63750445d3facc6a870a0c2cb24c"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "kind": "owned_source",
+      "bytes": 22797,
+      "sha256": "c3a8b7c65ef44c16dd038f915017270722a5a7ade88b1d9105869bdb5fda2a28"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBowMotion.h",
+      "kind": "owned_source",
+      "bytes": 2067,
+      "sha256": "eff0fb7ae5ae9bcb8b61c2e747f0f8b2c4a4942263a7921ea6ba390db7a82379"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBowPose.inl",
+      "kind": "owned_source",
+      "bytes": 9526,
+      "sha256": "a4e08f53d78a110eef30e53a81a00a9b75e2d5c50230b9566ca1eb371de0a6d1"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyConsumePose.inl",
+      "kind": "owned_source",
+      "bytes": 7861,
+      "sha256": "db9baf1ba9fe57ca532cfefb02e5cb0069e041bb441473d73ff26b754d0bc578"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyLaser.cpp",
+      "kind": "owned_source",
+      "bytes": 3832,
+      "sha256": "febdbe1be8c15214188fd4cb4f8127d59a9c7c67f99b44facc50ea0fb5289b21"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSCastingMeshComponent.h",
+      "kind": "owned_source",
+      "bytes": 1892,
+      "sha256": "2c71c2531b6cb5d13b3030d7304d880fc5a477a5ca1ca4df5221f536ddc8dffa"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "kind": "owned_source",
+      "bytes": 9397,
+      "sha256": "4876e7969d3e40d4e2d53b39fd5188e2f453558caad004d5ea999e6542fc7e8c"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "kind": "owned_source",
+      "bytes": 28771,
+      "sha256": "21a9cf9169dec2760170a53628abe22938c7a59d2a3d2bcaeca66ad30602be9e"
+    },
+    {
+      "path": "Source/FPSGAME/Items/SpoiledFoodVisuals.h",
+      "kind": "owned_source",
+      "bytes": 340,
+      "sha256": "6598b6a5ea371b3105452b9e2eb12247fb4a28e4b23eb9df4107857b8bf9c6c5"
+    },
+    {
+      "path": "Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+      "kind": "owned_source_without_parallel_tool_prerequisite",
+      "bytes": 28539,
+      "sha256": "2db368bcd418302f876ef929a689fd8a6a6518470c0dda82229149830cc0d1f7"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "kind": "selected_hunks",
+      "bytes": 9050,
+      "sha256": "1befb4a7b0e95514e5847408f6531c8e7aacf369042824c982d915917f3aed3c"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "kind": "selected_hunks",
+      "bytes": 252879,
+      "sha256": "1307963c16f20788ec9bd12d5e63532d27cdfbfd63eb68286560282730b2d9fa"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "kind": "selected_hunks",
+      "bytes": 24051,
+      "sha256": "ccb27d364360b5b0c8eb30dc882b0672b3c29267e5952fb375721c049fb2efeb"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "kind": "selected_hunks",
+      "bytes": 36904,
+      "sha256": "7f406b2cfbe921ab8bb661344884265e3f631cdc43128ea9414d5ecc45a87b40"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "kind": "selected_hunks",
+      "bytes": 14407,
+      "sha256": "564b2c6e6cc9589ea0bcd35fce2a3ac22553a798543d557b0d4eddb98b137c51"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "kind": "selected_hunks",
+      "bytes": 11203,
+      "sha256": "eb86624c6c1ed19370c098c4dbeff92a4898aa5bfe378d8d2dbad5421d15180d"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "kind": "selected_hunks",
+      "bytes": 18158,
+      "sha256": "5dad1b8571ca5103a88c9cde8e36d9be2c12518e15714d9c40699626fe9352b4"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "kind": "selected_hunks",
+      "bytes": 47826,
+      "sha256": "e51a614fd9ff8b3f5e81017fb46e009ccee14da0ae77114d1f3907a8a7b78325"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "kind": "selected_hunks",
+      "bytes": 35163,
+      "sha256": "0e1125ecb506fe078e81844702ad5087293536ab5611a32b15043ef324230730"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "kind": "selected_hunks",
+      "bytes": 31931,
+      "sha256": "dd9d0c606ee92fe83e324155507ac2d5134799936eb1f7ccc8b5c8044ad8d8ba"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "kind": "selected_hunks",
+      "bytes": 37823,
+      "sha256": "1e0b949f9de02ba1ea30ed912f804bdb22eeff77b77e4433ca639125d133fec7"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "kind": "selected_hunks",
+      "bytes": 88540,
+      "sha256": "0346f9b8b0f52611a9ee4e9ed0c77a984781a16aa7596fb10fa108e6e891eb8e"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "kind": "selected_catalog_fields",
+      "bytes": 30363,
+      "sha256": "13d0573f3b7fc6d686ecec8346133bb08e841c0e2c83faa4a6b3b7fa34e2fe4a"
+    },
+    {
+      "path": "Content/ColdSteelData/potion_use_motion.json",
+      "kind": "selected_catalog_fields",
+      "bytes": 40101,
+      "sha256": "dc3096ead057f7435a7bd32364ccb92aba1bf2f30c3ae3ddc9eb263e2cfa6ec8"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "kind": "selected_catalog_fields",
+      "bytes": 168241,
+      "sha256": "48bcbeee5ffa58ae9d23f487f5fd9973921bba00dd3103ef0e5a9fe29a555e8b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "kind": "selected_hunks",
+      "bytes": 8539,
+      "sha256": "6b3aae0dd2655eaec55cc1fd57fd437bf7419cb97687e89ccdc986ec310c50a4"
+    },
+    {
+      "path": "SourceAssets/AllGunConsumableTactical20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1912,
+      "sha256": "64be29f92d3ca11cdfaeeb1e651ff5a27e08e6d02ea00896db70523e7207c595"
+    },
+    {
+      "path": "SourceAssets/AllGunConsumableTactical20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1443,
+      "sha256": "a2f61231090b7471e9435d3fab937c7cf2981c2e10aa3c3f395be4892d3850ba"
+    },
+    {
+      "path": "SourceAssets/AllGunConsumableTactical20261017/record_scope.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2901,
+      "sha256": "0c94c63cd9346f5eecb1dbe0c49cc31c8806b9a35876218a516c0cb952ca84f3"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/add_st6_torso.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 241,
+      "sha256": "21ba1042188bfe4f47d7eaf5791eba9cbf8a6b170ea46c6938b24790a85420c3"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/export_glove_pickup.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1718,
+      "sha256": "8983e2e9f3e46c8fd4cc04a2dbc93260e7d5637311b9efd2b36510c32893cfb7"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/fix_glove_cuff.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 545,
+      "sha256": "3c33c8d27065307762f18bf029cda84d383a63af6ac4feb6c1dd1483df7f5b61"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/fix_st6_sleeves.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 241,
+      "sha256": "21ba1042188bfe4f47d7eaf5791eba9cbf8a6b170ea46c6938b24790a85420c3"
+    },
+    {
+      "path": "SourceAssets/BowConsumableHandoff20261018/batch_shell.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 830,
+      "sha256": "9ec53449a16de037ce299897811d45757eb3aa14ef31a35feb6c5d4bd939a19b"
+    },
+    {
+      "path": "SourceAssets/BowConsumableHandoff20261018/build-all.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 472,
+      "sha256": "5d48028040333328bae610d1b0d8836cff83b72cc5e5e0b988e184da5e4d23b1"
+    },
+    {
+      "path": "SourceAssets/BowConsumableHandoff20261018/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2835,
+      "sha256": "ce3ea6646c5518fc10f298a158abbd84b2a1c2bf839474d1c73093743629e4bf"
+    },
+    {
+      "path": "SourceAssets/BowConsumableHandoff20261018/save-delivery.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2288,
+      "sha256": "bbf6af9a87c519e8d542ab779f3112bdc865e7f079dfbab5b6719a4be05a475d"
+    },
+    {
+      "path": "SourceAssets/BowHandoffReview20261018/batch_shell.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 830,
+      "sha256": "9ec53449a16de037ce299897811d45757eb3aa14ef31a35feb6c5d4bd939a19b"
+    },
+    {
+      "path": "SourceAssets/BowHandoffReview20261018/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2831,
+      "sha256": "57392a049e2b400f21e16455a26a610f4313838af8229b504c15ddfedf934625"
+    },
+    {
+      "path": "SourceAssets/BowHandoffReview20261018/run-review.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1035,
+      "sha256": "c832262f84914be3e7b4003475a94127a6a13792f14a7aa16e138d2fc83c2662"
+    },
+    {
+      "path": "SourceAssets/BowHandoffReview20261018/run_isolated.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1436,
+      "sha256": "f0ffd6bdd391dad3fead9cb78e55ee87b8b6f4ea22caf4d1eb600b45041cb7e3"
+    },
+    {
+      "path": "SourceAssets/BowHandoffReview20261018/run_wire.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5469,
+      "sha256": "8e4f00bdb81a2c31aa6f688a5ddc7d24154844470ad8b0a5269a5de92f948d7a"
+    },
+    {
+      "path": "SourceAssets/BowHandoffReview20261018/save-delivery.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2276,
+      "sha256": "96d5a0655af7842824d9099c27e2dbdc2c45048c942f7693090a63469e510745"
+    },
+    {
+      "path": "SourceAssets/BowLeftCastHandoff20261018/batch_shell.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 830,
+      "sha256": "9ec53449a16de037ce299897811d45757eb3aa14ef31a35feb6c5d4bd939a19b"
+    },
+    {
+      "path": "SourceAssets/BowLeftCastHandoff20261018/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2390,
+      "sha256": "1604c52c973bf9e6fe9e66a8efb582fd7897d407b3da0daf3bb0fd3976d44090"
+    },
+    {
+      "path": "SourceAssets/BowLeftCastHandoff20261018/finish-build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 866,
+      "sha256": "a2d642f41d4486fd7dd9fb619a4dae5c41bfac4a6a47842c1a986aa315c228db"
+    },
+    {
+      "path": "SourceAssets/BowLeftCastHandoff20261018/save-delivery.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2408,
+      "sha256": "ccc8f43ebf8bfa132a0ccc535502391a99bf2586583dc226ad82374449334fcb"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/batch_shell.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 830,
+      "sha256": "9ec53449a16de037ce299897811d45757eb3aa14ef31a35feb6c5d4bd939a19b"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/check_authoring.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3150,
+      "sha256": "217993c71da6290ae4b3b16d86cdea0c85fc7e8419bdae24f19f6168d9d1369f"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/finalize_review.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5605,
+      "sha256": "472d28ee526a27115383f34849080ca244f348ae12013d42af55b4591f4b2cfe"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/finish_review.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1697,
+      "sha256": "8f8e9e2cb4975eeed1f9edb4785bd25252c01c547df60fac84a89e4042b4a1d7"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/run_isolated.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1436,
+      "sha256": "f0ffd6bdd391dad3fead9cb78e55ee87b8b6f4ea22caf4d1eb600b45041cb7e3"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/NetworkReview/run_wire.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5314,
+      "sha256": "510efff3b5802d5263341fd9a896ef26f58547e0552a9796e23f37502647455c"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/author.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 11145,
+      "sha256": "4f55bd2c9b522b38bb800a21cd8ee64fef65af2d2892f7dae9648c9df3384d5e"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/bow_math.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5897,
+      "sha256": "328c21cf16b4a46201cdde0ec0d19f777c5c9d6836c67f818ac7dd914db00e17"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2393,
+      "sha256": "c14f0e096474dc580e439228563c95686750eed6a491bbfc33e02663678b357d"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/finalize_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5325,
+      "sha256": "55bace28e26df8bccdad00fd92e9e4d6b7567c61f9ea80d1f8b65cf8f69f652b"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/fit_contact.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3357,
+      "sha256": "1327a0a84c4d103d0f67092dc17406f2e7719afa8d612b423234120720d4ed3f"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/prepare.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 7178,
+      "sha256": "f7a850a9e5a339dd0e301a7aef818337f45c61ad8278e96d5e8da012ff04eabe"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/publish.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1226,
+      "sha256": "21b335122dd91a0bd8c4142f65c35e2ebb50c64a8b4bd4f0f94f719cec2da8c4"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/read_retargeted.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3560,
+      "sha256": "c191e4ea13c696f5637ef94cfcb48f7bdd0d85cc78b7c83c4a64a6be0d95c361"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/retarget_remaining.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1396,
+      "sha256": "e839aa409ca95e34eb102881e8e822197d9ee122c071f3e590989ef9dc141be6"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/run_commandlet.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3213,
+      "sha256": "3798cd5ed5878f5c8a23395e984c271df189ad4ec479058fae071b27794a503a"
+    },
+    {
+      "path": "SourceAssets/BowSparrowThirdPerson20261018/save.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3298,
+      "sha256": "829e1192669d86c0aea212ccc883e2b04544a37355a57a04da1812b015998859"
+    },
+    {
+      "path": "SourceAssets/BowThirdPerson20261018/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1891,
+      "sha256": "e62d27849c1373a872be6874964fecada1259fd160ab071a0fd79d721b7078e7"
+    },
+    {
+      "path": "SourceAssets/ConsumableFlashlightStow20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1919,
+      "sha256": "a3c96a898f69ea8c858f57bcbd1dab11d62a326be6f2aab781968aab5ef6b4a7"
+    },
+    {
+      "path": "SourceAssets/ConsumableFlashlightStow20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1303,
+      "sha256": "4454835fb71ebe87234718cfcff34dc74414dce25fedf21e2bde8075a362ffc0"
+    },
+    {
+      "path": "SourceAssets/ConsumableLaserStow20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1856,
+      "sha256": "ad86b2eafab28db53ff36009398a19499aed28a1057dbe91146df30d74aab891"
+    },
+    {
+      "path": "SourceAssets/ConsumableLaserStow20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1039,
+      "sha256": "ffac9aa5e32f394e1c76109f5c2a1fc5e8a38d302b231ffcaa6aad4bd78aa908"
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/lamb_food_motion.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5115,
+      "sha256": "d63e7ad3f9d3e20b1db2ef9a3a7e05211b2068184e634de8cf50a157e74e9786"
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/lamb_thumb_profiles.json",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1014,
+      "sha256": "5fbdb8ad789af0f88f5642b624cc411c3499840376b3992069062a1b6f3d49f6"
+    },
+    {
+      "path": "SourceAssets/FoodGrip20261003/large_lamb_natural_grasp.json",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2933,
+      "sha256": "7cab308535d44e8ca92964b05392015bdded8aeba0c460fe8830eb6fa5e9a9d1"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1840,
+      "sha256": "b0eb34e0ded1b87a54df69dffb7f1b2b7ff9548790b95fa3eb5d2b0ceb0144ca"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/fit_bread_thumb_pad.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 827,
+      "sha256": "8199a49ac22a0f6e624fdd1a81ba2ee97e2e3b4674076c0a048ea1ff63238a65"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/fit_elbow_helpers.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 4034,
+      "sha256": "a33abf521ddb0f6475be7b9a000154918fec8cec2d0f31b7941c97fbdde47dcd"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/fit_final_graph.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1365,
+      "sha256": "af2315fe3d493579b08b8d2fcca208bab94a4e538587a6fe9dcc67f463e4d3b2"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/fit_thumb_hinge.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1894,
+      "sha256": "a6a91989964ab81a0dd45bc4f2b4c976b097676edf1add6442ab0821ed5871e2"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/read_assets.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3774,
+      "sha256": "31d5ec187bd366a37d00456c7d9f97849b7976938f7faa76c4492dec2192b234"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/read_graph_after.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 433,
+      "sha256": "2e4343fecf20d88dbf1028c4dfeb31bb95f321900c8a140091ae27a0a46558da"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/read_graph_before.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 415,
+      "sha256": "1df2009e79d27ec90d91833cafefdf68cfb14f3da9a71d23f774fd7720b98fd1"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/read_graph_final.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 421,
+      "sha256": "29817aac7f2d6969716cad326431023c7e17b55e4a69f3d1e74f6f204b1a7732"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2091,
+      "sha256": "139e5f10ec5aa36943d6c7fc4fb4b5c5c0868b2e1d630692ab7b04b3d056e9c2"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/refine_single_elbow.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 940,
+      "sha256": "18720fcb9532cf6d308c84450b9c7d375830376aff0d2b3375170e082c42d90f"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/render_palms.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1683,
+      "sha256": "740fb0e708a95fcd89c275945d0e87af04984ea72575ef9e100d7973d49e19bf"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/review_arm_folds.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2008,
+      "sha256": "05854c917e4c1f597a2c357c7ffa5b3e719bf817fb15beee1e3bee160b26cb81"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/review_fixed_graph.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2132,
+      "sha256": "47899d183a21b6f9b5c0bc4d86c99af38289ae2b0be3da5263d6129c89fb5ff8"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/review_geometry.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 6178,
+      "sha256": "230293bcdb4c80e6fa6606836abcbe08bf1c2a9c2c8778adaaf178052b995c48"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/review_thumb_skin.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1512,
+      "sha256": "afb27fcd29b1b54fbaf968f966b0fedd36265ad5d37771277a116190228fb212"
+    },
+    {
+      "path": "SourceAssets/FoodThirdPerson20261017/run_asset.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2930,
+      "sha256": "b83422cc42265bdebba9675ab0fd73971bd56a60e5c611e1531d53502f829b97"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/README.md",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 931,
+      "sha256": "48601de21a9aee63e8aee012a0aae901590e0331e97f5a8fdac894c901d47a4c"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/author.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 8436,
+      "sha256": "7de4128a7448eb0e029cb0999f09aea3b75d45b1f2eb834df11539594b6acd82"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/geometry.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2827,
+      "sha256": "afec0bfa807bd504672955c0132c327d91816814ed5d9b2086a9c65067d2d59b"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/import_assets.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5619,
+      "sha256": "4bd2739e4c8078f35564748518c3c36c7f56943c05813b34ead72658e716cb83"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/native_transport.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5329,
+      "sha256": "85c7037b2415c25058100655f579b66e61f745ea4e3c1a47eaf4b61d7805eaed"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/publish_sources.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1459,
+      "sha256": "8f7caa49d02959556af61edc11fba8d2bd9182cba3c700ac211e02681ffbe0fd"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/read_sources.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3833,
+      "sha256": "5f5fe40e96dcd9195129a7a831c2703f0f4546189b4905b600c79854ccec132c"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 4914,
+      "sha256": "2616fae50c35b4f25084002182455e19a98eaf200ad8f29a3a9ffac42b76e166"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/render_diagnosis.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 4578,
+      "sha256": "3d7e76766d068f3f6dc15b3ebe7d7d2eb67ff7aad72cc7a40175e74d8464f551"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/review_geometry.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2616,
+      "sha256": "e91958016af8ccd8f70057620403d589e29c449860566502e18cad26bdb0bb19"
+    },
+    {
+      "path": "SourceAssets/HardKnuckleRepair20261017/run_asset.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2934,
+      "sha256": "6df5fd17bc26b74b44c9903601052cafe46dc59b189d0873a2d19b16558fd752"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/README.md",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1488,
+      "sha256": "dbcf92320f248a8c50f0ff32eada3eb57b61257bc1f5f8320fd81f4494e693bc"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/author_thumb.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5238,
+      "sha256": "91269fe4053572f2e2dc4e0dd2d60e83535c6e68c08528a5865324554abd25b1"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3197,
+      "sha256": "d0f0079b1643acaa6c78423ed8f7a94d51f997d6bd7498b30fb23930be25b0f1"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/diagnose.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1705,
+      "sha256": "d5d2aacf82a3ef5614b7a355404076d83d6c82c22a4d486590dcc28979fbbb03"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/pose_model.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 10335,
+      "sha256": "183e1df77f6bd3d583e023771439e1660dae7068fd45a8f5fbb4b7e77de4aa6a"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/publish.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1423,
+      "sha256": "e4b623d5a78817d80ba0b2111d9b1f5048240eea4ef68c7634fd88fdce63fc36"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1657,
+      "sha256": "ae885efa278bfe52870c00e8b5ba33019e183b233f2600b74d7b3c29fc1d27de"
+    },
+    {
+      "path": "SourceAssets/LambGripV8_20261017/review_saved.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3353,
+      "sha256": "121a984876fa475813bca0a09992168ed2607a75a643edb09161cb1d5d94a552"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/Authoring/digit_search.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2062,
+      "sha256": "08ed1f3d0a11d2c857e2700edeaaeba5364aa360d17b298d8ec11751afe0335c"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/Authoring/fit_grasp.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 8959,
+      "sha256": "b3599c520ac4a9ae69b1bb716cafae1b7255dd0b65d6f159e0bc5c6882e7dee1"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/Authoring/render_final.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 646,
+      "sha256": "ae10a037ffeac1d43e7ec17845645c833a5655a35c2ccdd2b9ed4602c7cb5c51"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/Authoring/review_pose.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 9702,
+      "sha256": "2c3437e8a8ef668b537a33f5b74bb3d5f568cb5254994dac8782d294d3412e33"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/Authoring/verify_pose.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3712,
+      "sha256": "1db6d9e1b2e18d112be84d4095067bb7a51f9cfa38c78e856e27cc0066da2e17"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/EditorVerification-20261016-102758Z/inspect_editor_checksums.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2483,
+      "sha256": "db43727c74b6bdf8e124ed929daf1d31f4f01921cdaa35fc863b04b25099023f"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/EditorVerification-20261016-102758Z/task-note-before.md",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3306,
+      "sha256": "e9d2d0802698ef81df41e6c1a490dfb7476c37241ded0293f37c4f9bd96acf0d"
+    },
+    {
+      "path": "SourceAssets/LambNaturalGrip20261016/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3193,
+      "sha256": "4ed2fd9367d8f699506dd84a2bc85f2ae79648adf4effc8fe98f789894c5d4a2"
+    },
+    {
+      "path": "SourceAssets/LambPresentationFix20261015/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3130,
+      "sha256": "6570135ecfb1635117bd58badb0aaa50b7f99d274bd48bc01d6541182a42e42f"
+    },
+    {
+      "path": "SourceAssets/LambPresentationFix20261015/publish_motion.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1172,
+      "sha256": "2f378174e7b0d050f678934351296a1b59b77c1d5be8f087022ca75bebf9ebdc"
+    },
+    {
+      "path": "SourceAssets/LambPresentationFix20261015/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2387,
+      "sha256": "ac435d352503acc914c9ba18eeaf3e24d8de42a56003ab06593ea465c16081c1"
+    },
+    {
+      "path": "SourceAssets/LambPresentationFix20261015/review_geometry.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 6580,
+      "sha256": "a145917cfbb2043dfbdb7a3b18d44bac8c32594be400238b1f0a86ff5fb6de07"
+    },
+    {
+      "path": "SourceAssets/LambThumbClose20261015/author_thumb.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 13810,
+      "sha256": "8cb236e39de7c7774e9762ecf91aed2a2b7a3b5e1131a5f24c3a4fca6391ad18"
+    },
+    {
+      "path": "SourceAssets/LambThumbClose20261015/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3179,
+      "sha256": "1987ccca0ec43248331b5069ed1ec9aa75ef2e257338b6bae4a07a5ccaebb1bc"
+    },
+    {
+      "path": "SourceAssets/LambThumbClose20261015/read_contacts.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1445,
+      "sha256": "85b3cac272cd86e1c989e8c7189fae48705a33b73ae04f0fa6ca5b556c652386"
+    },
+    {
+      "path": "SourceAssets/LambThumbClose20261015/read_shared_thumb.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 485,
+      "sha256": "b3019cc11702575ca1676c4d06cd2b63e8f04098c43b7cfc9c03a4881a41d78f"
+    },
+    {
+      "path": "SourceAssets/LambThumbClose20261015/read_thumb_root.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 661,
+      "sha256": "62095aae08f35e0ee87c366b0e283257e2f55c661ceba268a836284709091e1f"
+    },
+    {
+      "path": "SourceAssets/LambThumbClose20261015/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3220,
+      "sha256": "03eba686e24e3ca6a8171d4c9153172fa42e9a50190de391d843dc24abbd784f"
+    },
+    {
+      "path": "SourceAssets/LambThumbUntwist20261016/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3195,
+      "sha256": "da4d2a8d9087643be22877f71f1ccc82be0e442300096ce6be7b24375bf1344c"
+    },
+    {
+      "path": "SourceAssets/LambThumbUntwist20261016/diagnose_thumb.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3703,
+      "sha256": "56cba59795088d17fd2fe7148625b4d4fbbd79283ca2e17779d3042029b8744b"
+    },
+    {
+      "path": "SourceAssets/LambThumbUntwist20261016/publish_thumb.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1026,
+      "sha256": "7b9cdf7ff635e5ebc1d5e5345c3f3ec82c6bcad237e04bb04caee4da8d8c7f08"
+    },
+    {
+      "path": "SourceAssets/LambThumbUntwist20261016/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2033,
+      "sha256": "23c01e87b88b1b1919d21250ede22f14f87f8f3d6a6807423a225bc016ce5eeb"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/README.md",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2802,
+      "sha256": "bd03f0085e024310b35c16bb175f6332ca6fd8a2b84134a1ea9677f0eee92c56"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/author_body.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 10222,
+      "sha256": "11c37c9e152cba59f3f9c738673f62bef04b53e99718f4fa8d550dc103e49ee4"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3192,
+      "sha256": "7decab0b1d847a36eebca2f66da2387111a6e37b7a5644088f3332b5309a47be"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/build_game.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1930,
+      "sha256": "14df68827826998ae5908aefd98ee4fd3f25eaa8aa202d89ad939f311c0472cd"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/export_grip.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 663,
+      "sha256": "7d38e16c040726438f1eb937932b417df7364627400d6300ef8afd7f1285a7ef"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/import_assets.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3448,
+      "sha256": "976e7b077a1c3c82123a137f06cea326ae29b00f43990c6aed3a3194c33e32da"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/publish_fps.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1104,
+      "sha256": "3d5f574ff4e631740085633e63cbdd194866e2fad652b0ef114352b7a4282097"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/read_body.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2031,
+      "sha256": "b5c7657bd9af8b4de3f3499a4a01d6f97af483849dfe8ab6dfa0bbea386ce2a3"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1309,
+      "sha256": "02b48ac20fb29ae1c69973f9daa052f6bbfb843bea6e00241757b94a8df9cde3"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/render_review.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5323,
+      "sha256": "184ba8e45ef76913799bc36fe43a7089e8ce591519eebbc029a509125b9c4a48"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/review_continuity.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1050,
+      "sha256": "3b76c377b17022a292bffc5a1aa21193fd6f8e6fd90709e71c0ee4fd566fb109"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/review_fps_exit.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1335,
+      "sha256": "80b58a06ab4fa88ca005600b38878f4e20926a1ac619ff76c69fdca575db4998"
+    },
+    {
+      "path": "SourceAssets/LambTwoView20261017/run_import.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2922,
+      "sha256": "7b6e271c532e7074da1053b6960abe72c5166f27bf7c9fea72117c7e10cab0b8"
+    },
+    {
+      "path": "SourceAssets/M870FactoryIcons20261016/deploy_icons.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1591,
+      "sha256": "0e13434f638533658c0732e56402d8dbd25d0b12c3cd9be7da44b4f96fda1bac"
+    },
+    {
+      "path": "SourceAssets/M870FactoryIcons20261016/import_icons.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1803,
+      "sha256": "f8ed93f2d2d5b4ca3a36e2557b75f829a490816e45ce7cef56d5650f4a089e98"
+    },
+    {
+      "path": "SourceAssets/M870FactoryIcons20261016/publish_manual_loading.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1251,
+      "sha256": "3a86bef7c84e4d8d8082df963fcff5e5a41f0deaedc064be7e04a7eb9a925840"
+    },
+    {
+      "path": "SourceAssets/M870FactoryIcons20261016/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1559,
+      "sha256": "66f3e0e1a94745c44c6fcd92ea8517f9cf4da641cf1e88473e286304981ff385"
+    },
+    {
+      "path": "SourceAssets/M870FactoryIcons20261016/render_sources.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 5515,
+      "sha256": "91462cf3e5b5a5b732a848a7d146c11df800c0da11c0e489729b0d4a0b7ef6ca"
+    },
+    {
+      "path": "SourceAssets/M870FactoryIcons20261016/run_import.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3373,
+      "sha256": "ba62dcbde0094f40bb0291df8cbe6270aa851270c4ed7ba3035a3ccd03b6a288"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/analyze.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 8327,
+      "sha256": "4777ae529ef458dd0765d0e5877bd1885d977c0169e96c3fb4f41ade203ad9cb"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1887,
+      "sha256": "2ca7c465692f73f385d7a371e88725a22c2760ac481b5e0751097eadd1970b87"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/fit_guard.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3191,
+      "sha256": "601c90f2843bef91142e0e90b64c4d27c808a0141339e90d445f51e938b117a5"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/read_inputs.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 6586,
+      "sha256": "01a265805135846042f620e0b827cd64de29c634ece4269a2d8d258f50f8853a"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/render_diagnosis.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2471,
+      "sha256": "1f0728ea6cc696dad48e4c149e0fb5bcb3f6fe41cb334edc9df9ff447b1f2ae7"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/run_ue.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1815,
+      "sha256": "bf10660a3fa63f995782dd75b40d5e8685bb107c8af4829680648c87d8f9281a"
+    },
+    {
+      "path": "SourceAssets/M870LeftRoot20261017/write_controls.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1413,
+      "sha256": "f306931af1ace951ab527590a581c8762b985e4abc82a42f00e29563da9c27a3"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/README.md",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 869,
+      "sha256": "1255d686069557c7aefdab12fb92f57d41d39d10183976e54bd1530e07d2f7e1"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/author_pickup.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1830,
+      "sha256": "ae7a5215f46c28fd0693aae59823b1e1fd4bd166ca332410169cfa42570167bc"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/author_sleeves.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2073,
+      "sha256": "8edab03962e9caf1956c8332ebb61baee337c6a12bc74205f80eb71970127d74"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1832,
+      "sha256": "c1eca1cd21786d8f2e3cee9ee439430f53553609ca91534ba07bf8b5a2779aea"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/build_materials.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 4289,
+      "sha256": "5986735c39dcc12d22f0758afd23eaf04dec2310c121d84ea7e99ae5569c2a54"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/finish_assets.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 209,
+      "sha256": "57ff5c1974e489464d6def4ec1f8e0cc9ac07b4c6d3ba31b8bdec8066cddda3c"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/import_pickup_icon.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 338,
+      "sha256": "ddd74879876301b95e27d18a502d1f66be322a36a80361ef873a227132016189"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/import_sleeves.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 4237,
+      "sha256": "604b8631d8753a158495c408a957016876a7088785790795618091a593db4636"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/native_fabric.ush",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1725,
+      "sha256": "78d1caeb13b41a04f46698952140764b18e87fc49374cceeb71dfd49a958bee2"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/publish.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2640,
+      "sha256": "316e84587f5904a4774001e8b6353541b08b6f4eac3d0c66ddb9d5441ebde07e"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/read_body_sources.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2505,
+      "sha256": "b2fc893ede719acfd3a871f8916c9d8c85a657b8e0f5074f1e2c021d27114096"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/recipe.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 905,
+      "sha256": "07ccc45bc1ec6b3c4add703972ef654d9147064a6cfdb68cb33b541b5bc3e464"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 4907,
+      "sha256": "d853d739308aa4503e677d49b9ddfd557528e2a8f032d52ae7df1d1eca7bbb24"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/render_icon.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 465,
+      "sha256": "6dd150afae35e5621e60b9375c8368a24a5332ba8047cbf97c9f82af3f1a2e1b"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/run_asset.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2916,
+      "sha256": "0a86ae3ba55cfb0294c75028d200e6823f79486ed853511e140d482e411d483f"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/author_asset.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 9315,
+      "sha256": "85f5dc394f9269e25bdcc34d82e6fcf757b4f28b04d8c06fff3efe01a297ee60"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3248,
+      "sha256": "edc55ea5be3e253e9d331fd84e372fc063838d5a1b0e5839331d40a6edeb4612"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/capture_editor_completion.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1598,
+      "sha256": "cbe1d81ba60a802c41e5dea4e8af6b1cc46c06f6213e118723bc18d24c1e92e3"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/import_assets.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3845,
+      "sha256": "3e1f22427b0e28d9b143f6167d999ee83858a082d2c660a9d11fdb107e701e25"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/publish_catalog.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 878,
+      "sha256": "1c198333d69fde43f4239470e362735df8fb76fec5ac0b5303271ae628057bf6"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/record_delivery.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2578,
+      "sha256": "23bd05ce8b1836f834c51afeea2cd3a3be13fae35c231ab3ce431c8536072aae"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/render_icon.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 483,
+      "sha256": "c1a55b5e4e1ec22a6ba63766781ebdac7c3633c5ed313bfd8fd6edb6c027715c"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/resume_mesh.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2247,
+      "sha256": "2c7e45d35a9972cdca1957b37b522093ebad6bd284cfa02dabc8f98f38ad1d0f"
+    },
+    {
+      "path": "SourceAssets/SpoiledFood20261016/run_assets.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3353,
+      "sha256": "ca3d1d8fc210bbc248062a29f9fd4ee20103fd13d88f1fc5d85a6319c2b816e3"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/README.md",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1886,
+      "sha256": "4bbd435fa96294469f2a805096c2fa53a078f80698467622f77e421e4ba9beb7"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/deploy_icons.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3622,
+      "sha256": "636a8ea3030a2834a0f58a00952afe368df6ab7ef8439f5aeeca6ef50e5ad3ec"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/finish_review.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 6059,
+      "sha256": "55e19820bf997293cf6eefeedff351ec02e4f26d1670f8724611a1af7ec763aa"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/import_icons.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2029,
+      "sha256": "be1f9aac17d7a438754a20ed223d5669e185d5ff5a8310063a8035b86f5d13f6"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/inspect_source.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1798,
+      "sha256": "1578396726caa0f2864bb498a42f0cad71d031a8786e3f43966c29ac4e0da10b"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/inventory.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3318,
+      "sha256": "adde60e8e26f56c6ee30e946efc3000e47b70d17df099bdacfe817dbe31e6a4a"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/render_sources.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 6421,
+      "sha256": "a29504aa4d06cc9d09de457d8a225698448f7722bad305d48651a85b479e6731"
+    },
+    {
+      "path": "SourceAssets/Super90IconReview20261016/run_import.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1940,
+      "sha256": "4168fc860d45a6c9ce6e353b86471bb235645f3bcacc92fda47fc563a658ad6a"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/analyze.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1669,
+      "sha256": "85db32fbaf31b44f01cd22b38d49704937e3697acce98e4d369edd8227ab6e09"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/batch_shell.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 830,
+      "sha256": "9ec53449a16de037ce299897811d45757eb3aa14ef31a35feb6c5d4bd939a19b"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/build.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 2398,
+      "sha256": "3c9ddeafcb9234fb3207ac7f98194b9d70ba0a492d17fc02c4fc43e62f6df4b4"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/compare.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3165,
+      "sha256": "9751e91ec49c2723d4029b3638cd7e61d72721b561bf83682607768f4ed55880"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/contact.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1360,
+      "sha256": "7c9e79a9ff6e8ef0dd61554f6594aa7d80d118dc886251aafa029d6534cf3941"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/diagnose.ps1",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 1352,
+      "sha256": "b65b042934fd0f529eb0905d2c148b4e0fb28cd2635805d89125691d2a4d43a5"
+    },
+    {
+      "path": "SourceAssets/UpperBodyMovementStability20261018/finalize.py",
+      "kind": "author_recipe_local_inputs_required",
+      "bytes": 3210,
+      "sha256": "b6631c97c10f22a1c7cd659d893fe4e7f792d205e995c4efd5de5a83eac9c62a"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/bow-hand-string-contact.md",
+      "kind": "skill_append_only",
+      "bytes": 7588,
+      "sha256": "16e5861f00f6c67924a7d8f83a997314659c06ab92d545cd57f4287bf6afa5fe"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/food-and-drink-grasp.md",
+      "kind": "skill_append_only",
+      "bytes": 6832,
+      "sha256": "11101172f00b44fbe0cfc243a8158069d0b35cef7b414a6416e0e64c35a81804"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/glove-clothing-surface-production.md",
+      "kind": "skill_append_only",
+      "bytes": 20688,
+      "sha256": "d3cad6ccc8dc9219d923e9f6ed28d2b65b5ab84c29f32dcc26db24f3952f3806"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/m870-source-motion-and-grip.md",
+      "kind": "skill_append_only",
+      "bytes": 4797,
+      "sha256": "0ff3b62df246ed1c1a1e32f08b94f2e644d2e741cd74d9a1c9a698fba40fad57"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/player-world-body.md",
+      "kind": "skill_append_only",
+      "bytes": 12426,
+      "sha256": "290dcf291a059e18011926e529c7283d55b7e78a17a8e20e0290196604b0aec3"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/multi-process-runtime-evidence.md",
+      "kind": "skill_append_only",
+      "bytes": 3973,
+      "sha256": "1a2975f75581d61acc6d6a1a094c14636d454486a65d5d61691f5aa7c96686c7"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/tactical-devices.md",
+      "kind": "skill_append_only",
+      "bytes": 8330,
+      "sha256": "5a989ea3de9a40e616e2ce8f49befa390f5d5e106963eb2e85848268eecaa385"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "kind": "skill_append_only",
+      "bytes": 2963,
+      "sha256": "0dac7e069650379bc642540d1adc5ad5de74c1ae917f980a36e1f5bc1fc1e783"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "kind": "skill_append_only",
+      "bytes": 2126,
+      "sha256": "348ced01b7dbe0758a657aa4db3cd6dddaefaf8f21fc281dca5d7db754a169ee"
+    },
+    {
+      "path": "Docs/Items/spoiled-food-assets-and-progress-20261016.md",
+      "kind": "scoped_work_record",
+      "bytes": 4665,
+      "sha256": "173b75e1d1608c3c4db459885dd4a50894eecbc2a3a8037f17880cd754d3c934"
+    },
+    {
+      "path": "Docs/Items/large-lamb-thumb-untwist-20261016.md",
+      "kind": "scoped_work_record",
+      "bytes": 2264,
+      "sha256": "e87d7fc447769696844fd129cecb1a207b80e3dd59dabb9bb2820120bb96645d"
+    },
+    {
+      "path": "Docs/Items/large-lamb-natural-grip-20261016.md",
+      "kind": "scoped_work_record",
+      "bytes": 4249,
+      "sha256": "d8051fb35bf64a1d241e8f5aa0e4916266977cd0f86570c74e875f5eadafce74"
+    },
+    {
+      "path": "Docs/Items/lamb-thumb-close-20261015.md",
+      "kind": "scoped_work_record",
+      "bytes": 3420,
+      "sha256": "fb8d9dd8dd0c6e59262b212ea887ef5a2094d470e3f2b7035143036f89a59378"
+    },
+    {
+      "path": "Docs/Building/lamb-presentation-fix-20261015.md",
+      "kind": "scoped_work_record",
+      "bytes": 3067,
+      "sha256": "7b195c818808698c819228881d7e936a74f3af45aabac41dab90d1f77ed758e6"
+    },
+    {
+      "path": "Docs/Survival/third-person-food-skin-repair-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 5459,
+      "sha256": "5f674b0c51ef7c681efd5cf1149773f57c2d7841e56fa66f002e4a3f64d1c1b4"
+    },
+    {
+      "path": "Docs/Survival/large-lamb-v8-native-thumb-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 3568,
+      "sha256": "434ec66bec86042c22172ef6e352e668ecadbdd3f4fe33f6691fdf7b0c894202"
+    },
+    {
+      "path": "Docs/Survival/large-lamb-two-view-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 3543,
+      "sha256": "fd624b2a51fb25955597365d6a80ebea71351a0b61127d289675339f57294e02"
+    },
+    {
+      "path": "Docs/Survival/large-lamb-laser-stow-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 1604,
+      "sha256": "798659ff2b7985d93de4e0e55dffe7b309fde0adefc59bb5c9e9e6f9c565a027"
+    },
+    {
+      "path": "Docs/Survival/large-lamb-flashlight-stow-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 2569,
+      "sha256": "0de0169d89845a565e4a0c849c6d26324dc4facf9ac2b9a6f1c71e7ab466e000"
+    },
+    {
+      "path": "Docs/Survival/all-gun-consumable-tactical-stow-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 8248,
+      "sha256": "8acf451fe822699a50faa222dbbd3abc972241881038e2b83a7cb8d25d08dbbe"
+    },
+    {
+      "path": "Docs/Characters/hardknuckle-cuff-repair-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 3665,
+      "sha256": "6f11512866398513b41d64c7c2d1e1846cdf94051ee36c2e0d0c42d3b8c57db4"
+    },
+    {
+      "path": "Docs/Characters/st6-native-body-reset-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 2789,
+      "sha256": "45359c2466cfffdc7b29f6151d064c4c12f66b2b46f7704293f6197e643e46a0"
+    },
+    {
+      "path": "Docs/Characters/bow-left-cast-handoff-20261018.md",
+      "kind": "scoped_work_record",
+      "bytes": 2776,
+      "sha256": "5fc864d69b573941f07b8f49fad4a64b25f361882d832b93afd4589ddd771361"
+    },
+    {
+      "path": "Docs/Characters/bow-consumable-handoff-20261018.md",
+      "kind": "scoped_work_record",
+      "bytes": 4366,
+      "sha256": "723bba0df35cd76c34eb00b843c78f5b9a7b3b60ff3fb0d85953f4cfc1b6a5ca"
+    },
+    {
+      "path": "Docs/Characters/bow-handoff-network-review-20261018.md",
+      "kind": "scoped_work_record",
+      "bytes": 6980,
+      "sha256": "345471a88415023b2b4232771150864891910b515ef4f72c999e25b8376b2d70"
+    },
+    {
+      "path": "Docs/Characters/upper-body-movement-stability-20261018.md",
+      "kind": "scoped_work_record",
+      "bytes": 2577,
+      "sha256": "c2722412d1b6fcfa679c6891aca9b15b8219788721f8d54c0ec47ad27606adfd"
+    },
+    {
+      "path": "Docs/Weapons/m870-left-root-clearance-20261018.md",
+      "kind": "scoped_work_record",
+      "bytes": 3307,
+      "sha256": "5e8a3679dc2cada2a87cd14b1d77201b054bc1953339a8b210fef58ca6d27d83"
+    },
+    {
+      "path": "Docs/UI/m870-factory-icons-20261016.md",
+      "kind": "scoped_work_record",
+      "bytes": 3113,
+      "sha256": "fba2e10d25918113c625d875ba5bbf88e4a829dec9f0a3b0be66793d25884a29"
+    },
+    {
+      "path": "Docs/UI/super90-icons-review-20261016.md",
+      "kind": "scoped_work_record",
+      "bytes": 8901,
+      "sha256": "d72f686a38ebee41684a43503a0ea2705877f97e97876fc9ba972f7e925264a1"
+    },
+    {
+      "path": "Docs/UI/food-spoilage-bar-remaining-20261017.md",
+      "kind": "scoped_work_record",
+      "bytes": 2863,
+      "sha256": "e2560abe223d46f9b2e4a4005608eabe6291606fc589bca10f42dace19b0d696"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "kind": "selected_packaging_paths",
+      "bytes": 25502,
+      "sha256": "6561d3b260a2b8c39fe47eab94edb29d4a04ebc397374bc9e5fd2ccee01c030d"
+    },
+    {
+      "path": ".gitignore",
+      "kind": "scope_only_ignore_rules",
+      "bytes": 270590,
+      "sha256": "1f1affba7c7287da0b5702be03a8b40eb1023cc2bcb8dcbfdbd1372293c54d1b"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "kind": "original_st6_material_recipe",
+      "bytes": 113687,
+      "sha256": "36d6554243975e74efd47a079cf0978cad6ca5bb0cb4b59fd74e969806cdffe2"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowPartComponent.h",
+      "kind": "audit_rod_accessor",
+      "bytes": 4171,
+      "sha256": "6b2686448b4e7e74e8e7bf674473faeb2b44865e89fcb04d388c4ff85a8991c8"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "kind": "publication_entry",
+      "bytes": 122234,
+      "sha256": "c647f9e537774e31e28a4c9edf50cc920fc244389750eaa7f83a7587c73541f7"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/archive-manifest.json",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 130515,
+      "sha256": "1125216af5640259ce473bdc49d1df5f6825db31c7a37d4df98f7aca7118fae4"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/patch-manifest.json",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 6615,
+      "sha256": "bd1a662ccbe22bdc0923647395bb3760671699bdc4d9a1aa4d3d373c357affc3"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Characters__BowPresentationAuditContact.h.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 828,
+      "sha256": "0c2cb9d2d6d36da5ffa6db7b4dfbe7e366a7d5e5d2a87349e01d79172fdd5aa9"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Characters__BowSparrowPresentationAudit.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 26988,
+      "sha256": "d3add697c500661dd948b8a27624d587abe4d98e5e1cbd0a3a706e1777fd0c1f"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Characters__FPSFoodPoseDiagnosis.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 10861,
+      "sha256": "d88f4ed1cd37fa714fab3be2b7a28c928ee2970a5afe6879b909ae5da844c79c"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Characters__FPSUpperBodyContinuityDiagnosis.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 6912,
+      "sha256": "b9d384d205b89a6c881b860f3e9d45ccb214c8862c955bad5767ab1b1a731184"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelFoodPresentation.h.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 1942,
+      "sha256": "0d8a466d3b55dd6594d98982ac63e2ab1e1346ddc8202b1bd282076b9cba74d8"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelInventoryPresentation.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 2197,
+      "sha256": "1ec1e735cad67dad77c3c840fa42b6d7910e7087090ac8edc2c31d1cc1621e95"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelInventoryWidget.h.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 961,
+      "sha256": "03a9a2bbf7c2cccbf6ed823668e541bb005705e8b9c624813e63acb5b471cef3"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelItemTooltip.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 883,
+      "sha256": "f291b766ca64812caed417c308691ef8e4505381a0ea5299923bd7a04bd09f8c"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelItemTooltip.h.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 553,
+      "sha256": "981d73e364b76f275751ae75d78755142a876d9b919eafe42eaa115d87694e8f"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelItemTooltipData.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 1566,
+      "sha256": "78b3f8bbe6ce90afb34e6794abcf9c3a93320fcd7d1a36cf869f966ee2602e0e"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelItemTooltipData.h.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 1232,
+      "sha256": "0da13f727066b3f54754f693b23192561818aafe8794542aa0072ad5ae603ca6"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__UI__ColdSteelItemTooltipLayout.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 3960,
+      "sha256": "f5bc213d7ce33bcfa7fb924524f34023f87803c4eef35928c5f4eb7c567dc261"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Weapons__Bow__BowSparrowWireAudit.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 17850,
+      "sha256": "aa9afe4a43843b4c6d0b0260167efe2681634f43cc88c220e02fe69287cf20e7"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Weapons__FPSOutfitArmClearance.cpp.patch",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 6114,
+      "sha256": "d45eaa3c241741590c2c30eb0853d99c6b4beb9633329e93b68d783d8072279e"
+    },
+    {
+      "path": "Docs/Publication/BowFood20261018/README.md",
+      "kind": "publication_metadata_or_patch",
+      "bytes": 6593,
+      "sha256": "22c3a64718ed489a281d29e8e6121f82c39a0d60869eea2993b8baaf869039eb"
+    },
+    {
+      "path": ".gitattributes",
+      "kind": "patch_context_whitespace",
+      "bytes": 1005,
+      "sha256": "68ecdfd2cf17722c5d3fe7ad00300374673e2ddee4683e9dcd23c99a2b721c40"
+    }
+  ],
+  "excluded": "Licensed binary assets, dense samples, generated rim controls, logs, build products, trash and unrelated changes",
+  "game_tests_run_this_publication": false
+}

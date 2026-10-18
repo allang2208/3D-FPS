@@ -61,8 +61,10 @@ class FPSGAME_API UBowWeaponComponent : public UActorComponent
     friend class UFPSPlayerBodyComponent;
     friend class UFPSConsumableAuditCommandlet;
     friend class UBowSkillTrainingAuditCommandlet;
+    friend class AShotgunWireAuditController;
 
 public:
+    UBowArmsMeshComponent* ArmsMesh() const;
     UBowWeaponComponent();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -74,7 +76,7 @@ public:
     void ShowFeedback(const FString& Message);
 
     UFUNCTION(BlueprintPure, Category="Bow") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
-    UFUNCTION(BlueprintPure, Category="Bow") bool IsBusy() const { return Stage != EBowStage::Ready; }
+    UFUNCTION(BlueprintPure, Category="Bow") bool IsBusy() const { return Stage != EBowStage::Ready||CastTransferAlpha>0.f; }
     UFUNCTION(BlueprintPure, Category="Bow") bool IsDrawing() const
     { return Stage == EBowStage::Drawing || Stage == EBowStage::Holding; }
     UFUNCTION(BlueprintPure, Category="Bow") bool HasArrowNocked() const { return bArrowNocked; }
@@ -114,6 +116,9 @@ public:
     void CancelAction(bool bImmediate = true);
     /** 弓与镜头读同一 age：角色在自己的相机合成之前推进这只时钟。 */
     void AdvanceActionBeforeCamera(float Delta);
+    bool BeginCastHandoff();
+    float CastTransfer() const { return CastTransferAlpha; }
+    bool IsCastHandoffReady() const { return CastTransferAlpha>=1.f-UE_KINDA_SMALL_NUMBER; }
     /** 相机局部位移（cm）与旋转（度），由角色叠加到既有镜头反馈上。 */
     void GetCameraMotion(FVector& Location, FRotator& Rotation) const;
 
@@ -151,6 +156,8 @@ protected:
     UPROPERTY(Transient) TObjectPtr<USoundBase> NockSound;
 
 private:
+    float CastTransferAlpha=0.f;
+    FVector CastEntryNock=FVector::ZeroVector;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     TSharedPtr<FStreamableHandle> LoadHandle;
     UPROPERTY(Transient) TObjectPtr<UColdSteelPickupPrompt> Prompt;

@@ -856,6 +856,7 @@ void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
 
 void AFPSGAMECharacter::Tick(float DeltaSeconds)
 {
+    if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->BeginEquipmentFrame();
     Super::Tick(DeltaSeconds);
     // 联机断流冻结：模拟代理超过 0.5s 无移动更新则停本地模拟，防止按旧速度自走出图；
     // OnRep_ReplicatedMovement 到达时解冻（纠正照常应用）。
@@ -3491,7 +3492,7 @@ bool AFPSGAMECharacter::IsLeftHandBusyForCast(bool bIgnoreDoorPush) const
     if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
-    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
+    if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&(Potion->IsActive()||Potion->IsReturningBow()))return true;
     if(HasOffhandPistol() && DualPistols->LeftBusy())return true;
     if(IsTraversing() || Traversal->IsWeaponRecovering() || WeaponState!=EAKMWeaponState::Idle || bAimHeld || bIsAiming || ADSProgress>UE_KINDA_SMALL_NUMBER)return true;
     if(RuneSword && RuneSword->IsBusy())return true;

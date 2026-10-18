@@ -1,0 +1,60 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp
+@@ -1,5 +1,6 @@
+ #include "ColdSteelItemTooltip.h"
+ #include "ColdSteelUIStyle.h"
++#include "ColdSteelFoodPresentation.h"
+ #include "ColdSteelDisclosureIndicator.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Components/Border.h"
+@@ -9,6 +10,7 @@
+ #include "Components/HorizontalBox.h"
+ #include "Components/HorizontalBoxSlot.h"
+ #include "Components/Image.h"
++#include "Components/ProgressBar.h"
+ #include "Components/Overlay.h"
+ #include "Components/OverlaySlot.h"
+ #include "Components/ScaleBox.h"
+@@ -269,7 +271,7 @@
+ void UColdSteelItemTooltip::BuildCards()
+ {
+     const float OldScroll=Vertical?Vertical->GetScrollOffset():0;const bool HadFocus=HasFocusedDescendants();
+-    RootColumn->ClearChildren();RowViews.Reset();Sections.Reset();Disclosures.Reset();ComparisonText=nullptr;
++    RootColumn->ClearChildren();RowViews.Reset();Sections.Reset();Disclosures.Reset();ComparisonText=nullptr;FoodProgressBar=nullptr;
+     Shadow->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(0,35),10/Scale,FLinearColor::Transparent,0));Shadow->SetRenderTranslation(FVector2D(2/Scale,4/Scale));
+     Surface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ItemTooltipSurface,8/Scale,ColdSteelUI::ItemTooltipBorder,1/Scale));Surface->SetPadding(FMargin(0));
+     Header=WidgetTree->ConstructWidget<UVerticalBox>();RootColumn->AddChildToVerticalBox(Header);
+@@ -310,6 +312,18 @@
+         for(int32 Index=0;Index<Main.Rows.Num();++Index)
+             if(Main.Rows[Index].bPreview)AddRow(Body,Main.Rows[Index],CardIndex,Index);
+     }
++    if(Presentation.FoodLifetimeDays>0)
++    {
++        FoodProgressBar=WidgetTree->ConstructWidget<UProgressBar>();
++        FProgressBarStyle Style;
++        Style.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(205),2/Scale,FLinearColor::Transparent,0));
++        Style.SetFillImage(ColdSteelUI::RoundedBrush(FLinearColor::White,2/Scale,FLinearColor::Transparent,0));
++        FoodProgressBar->SetWidgetStyle(Style);FoodProgressBar->SetBarFillType(EProgressBarFillType::LeftToRight);
++        FoodProgressBar->SetBarFillStyle(EProgressBarFillStyle::Scale);
++        FoodProgressBar->SetVisibility(ESlateVisibility::HitTestInvisible);
++        auto* BarFrame=WidgetTree->ConstructWidget<USizeBox>();BarFrame->SetHeightOverride(4/Scale);BarFrame->SetContent(FoodProgressBar);
++        Body->AddChildToVerticalBox(BarFrame)->SetPadding(FMargin(0,9/Scale,0,4/Scale));
++    }
+     if(bPinned)AddDetails(Body);
+     FooterFrame=WidgetTree->ConstructWidget<UBorder>();FooterFrame->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,0,FLinearColor::Transparent,0));FooterFrame->SetPadding(FMargin(16/Scale,10/Scale,16/Scale,12/Scale));RootColumn->AddChildToVerticalBox(FooterFrame);
+     auto* Footer=WidgetTree->ConstructWidget<UVerticalBox>();FooterFrame->SetContent(Footer);AddRule(Footer,0,9);
+@@ -326,6 +340,14 @@
+     if(Presentation.Level>0)Meta+=FString::Printf(TEXT(" · Lv.%d"),Presentation.Level);
+     if(!Presentation.Enhancement.IsEmpty())Meta+=TEXT(" · ")+Presentation.Enhancement;
+     Set(MetaText,Meta);Set(LocationText,Presentation.Location);Set(ScopeText,Presentation.ValueScope);Set(ComparisonText,Presentation.ComparisonTitle);
++    if(FoodProgressBar)
++    {
++        // Card and tooltip share the same direction: full green while fresh and
++        // shrinking as lifetime is consumed; keep a 2px visible minimum.
++        const float Remaining=ColdSteelFoodUI::Remaining(Presentation.FoodProgress);
++        FoodProgressBar->SetPercent(FMath::Max(Remaining,2.f/FMath::Max(1.f,WidthPixels-32.f)));
++        FoodProgressBar->SetFillColorAndOpacity(ColdSteelFoodUI::Color(Presentation.FoodProgress));
++    }
+     ScopeText->SetVisibility(Presentation.ValueScope.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+     for(auto& View:RowViews)
+     {

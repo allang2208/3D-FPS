@@ -22,6 +22,11 @@ bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B)
         ||A.Contacts.Channel!=B.Contacts.Channel||A.Contacts.ConsumableSerial!=B.Contacts.ConsumableSerial
         ||A.Contacts.DiscardFlags!=B.Contacts.DiscardFlags
         ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow
+        ||((A.BowCastTransfer>0.f)!=(B.BowCastTransfer>0.f))||((A.BowCastTransfer>=1.f)!=(B.BowCastTransfer>=1.f))
+        ||((A.BowCastTransferRate<0.f)!=(B.BowCastTransferRate<0.f))
+        ||A.bBowTwoHandConsume!=B.bBowTwoHandConsume
+        ||((A.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER)!=(B.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER))
+        ||((A.BowClipRate<0.f)!=(B.BowClipRate<0.f))||(A.BowStringContact>0.f)!=(B.BowStringContact>0.f)
         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
         ||A.RightHand.bEquipping!=B.RightHand.bEquipping||A.LeftHand.bEquipping!=B.LeftHand.bEquipping
@@ -54,6 +59,8 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
         &&DisplayState.OffhandInstance==PreviousLocalPresentation.OffhandInstance)
     {
         const auto& P=PreviousLocalPresentation;
+        if(DisplayState.bBowTwoHandConsume&&P.bBowTwoHandConsume)
+            DisplayState.BowStowRate=Rate(DisplayState.BowStowWeight,P.BowStowWeight,Delta);
         if(DisplayState.Action==P.Action&&DisplayState.ActionVariant==P.ActionVariant
             &&(DisplayState.Action==EFPSBodyAction::Guard||DisplayState.ActionProgress+.08f>=P.ActionProgress))
             DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
@@ -65,12 +72,6 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
                 Hand.ProgressRate=Rate(Hand.Progress,Before.Progress,Delta);
         };
         HandRate(DisplayState.RightHand,P.RightHand);HandRate(DisplayState.LeftHand,P.LeftHand);
-        if(DisplayState.BowClip==P.BowClip&&DisplayState.bBowClipLooping==P.bBowClipLooping)
-        {
-            float Travel=DisplayState.BowClipTime-P.BowClipTime;
-            if(DisplayState.bBowClipLooping&&Travel<0.f)Travel+=DisplayState.BowClipLength;
-            DisplayState.BowClipRate=Delta>SMALL_NUMBER?FMath::Clamp(Travel/Delta,-8.f,8.f):0.f;
-        }
     }
     PresentationSendCountdown-=Delta;
     const bool Continuous=!DisplayState.Lasers.IsEmpty()||DisplayState.Contacts.Channel==TEXT("Pump");
@@ -124,11 +125,16 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     Next.MotionSampledAt=Next.PresentationSampledAt;
     Next.ActionProgress=Unit(Next.ActionProgress);Next.ActionWeight=Unit(Next.ActionWeight,1.f);
     Next.BowClipTime=FMath::IsFinite(Next.BowClipTime)?FMath::Clamp(Next.BowClipTime,0.f,60.f):0.f;
-    Next.BowClipRate=FMath::IsFinite(Next.BowClipRate)?FMath::Clamp(Next.BowClipRate,-8.f,8.f):0.f;
+    // A 0.14..0.22 s let-down can traverse the authored Draw faster than 8x.
+    Next.BowClipRate=FMath::IsFinite(Next.BowClipRate)?FMath::Clamp(Next.BowClipRate,-32.f,32.f):0.f;
     Next.BowClipLength=FMath::IsFinite(Next.BowClipLength)?FMath::Clamp(Next.BowClipLength,0.f,60.f):0.f;
     Next.bBowClipLooping&=Next.BowClipLength>SMALL_NUMBER;
     Next.BowSeat=Unit(Next.BowSeat,1.f);
     Next.BowStringContact=Unit(Next.BowStringContact);
+    Next.BowCastTransfer=Unit(Next.BowCastTransfer);
+    Next.BowCastTransferRate=FMath::IsFinite(Next.BowCastTransferRate)?FMath::Clamp(Next.BowCastTransferRate,-4.f,4.f):0.f;
+    Next.BowStowWeight=Unit(Next.BowStowWeight);
+    Next.BowStowRate=SafeRate(Next.BowStowRate);
     if(Next.BowNock.ContainsNaN()||Next.BowNock.SizeSquared()>FMath::Square(250.f))
     {Next.BowClip=NAME_None;Next.BowNock=FVector::ZeroVector;Next.bBowArrow=false;}
     Next.ActionEntryFraction=FMath::Clamp(Unit(Next.ActionEntryFraction),0.f,Unit(Next.ContactFraction,.5f));
@@ -167,6 +173,8 @@ void UFPSPlayerBodyComponent::AdvanceBodyPresentation(FFPSBodyState& State,float
 {
     const float Age=FMath::Clamp(Now-State.PresentationSampledAt,0.f,.12f);
     State.BowClipTime=FMath::Clamp(State.BowClipTime+State.BowClipRate*Age,0.f,60.f);
+    State.BowCastTransfer=FMath::Clamp(State.BowCastTransfer+State.BowCastTransferRate*Age,0.f,1.f);
+    State.BowStowWeight=FMath::Clamp(State.BowStowWeight+State.BowStowRate*Age,0.f,1.f);
     if(State.bBowClipLooping&&State.BowClipLength>SMALL_NUMBER)State.BowClipTime=FMath::Fmod(State.BowClipTime,State.BowClipLength);
     if(State.bHasActionProgress)State.ActionProgress=FMath::Clamp(State.ActionProgress+State.ActionProgressRate*Age,0.f,1.f);
     State.RightHand.Progress=FMath::Clamp(State.RightHand.Progress+State.RightHand.ProgressRate*Age,0.f,1.f);

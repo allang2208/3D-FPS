@@ -43,6 +43,7 @@ public:
     bool HasOtherPreparedSpell(const UActorComponent* Requester) const;
     bool IsGestureActive() const { return HandPhase!=EFireballHandPhase::None; }
     bool IsStaffCasting() const { return bStaffGesture&&IsGestureActive(); }
+    bool IsBowHandTransferActive() const;
     UFUNCTION(BlueprintPure,Category="Skills|Fireball") bool IsOccupyingLeftHand() const { return IsGestureActive()&&!bStaffGesture; }
     /** 联机服务端入口：按影子档案口径生成权威火球 orb（资产/Prepare 自决）。 */
     AFPSFireballProjectile* SpawnOrbForCast(APawn* Caster,const FFireballCast& Stats);
@@ -123,6 +124,7 @@ private:
     TWeakObjectPtr<UStaffWeaponComponent> CastingStaff;
     FStaffCastPose StaffEntry,StaffRecoveryEntry;
     bool bStaffGesture=false,bStaffOrb=false;
+    bool bBowGesture=false;
     FVector StaffOrbHover=FVector::ZeroVector;
     void BeginStaffGesture();
     void CaptureStaffRecovery();

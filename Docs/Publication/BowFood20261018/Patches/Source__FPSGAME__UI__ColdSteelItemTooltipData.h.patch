@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.h
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.h
+@@ -36,6 +36,7 @@
+     FString Location,ValueScope,ComparisonTitle;
+     int32 Level=0;
+     double FoodLifetimeDays=0;
++    float FoodProgress=0;
+     bool bWideIcon=false;
+     TArray<FColdSteelTooltipRow> Summary,Comparison;
+     TArray<FColdSteelTooltipCard> Cards; // enchant, craft, main
+@@ -43,7 +44,7 @@
+     TArray<FColdSteelTooltipTrait> Traits;
+ };
+ FPSGAME_API FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith);
+-/** Updates only existing food rows; no widget rebuild, catalog parse or icon load. */
++/** Updates food progress and existing freshness rows; no widget rebuild, catalog parse or icon load. */
+ void RefreshColdSteelFoodTooltip(const FColdSteelItem& Item,UColdSteelStatusModel* Model,FColdSteelTooltipContent& Content);
+ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* Gunsmith,FColdSteelTooltipContent& Content);
+ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelStatusModel* Model,double WeaponBase,FColdSteelTooltipCard& Card);

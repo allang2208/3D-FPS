@@ -4239,7 +4239,7 @@
     "maxStack": 1,
     "price": 35,
     "grid_w": 3,
-    "grid_h": 2,
+    "grid_h": 3,
     "defense": {
       "base": 6,
       "perEnhance": 1
@@ -5178,5 +5178,24 @@
     "world_mesh": "/Game/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Perfume.SM_Living_Perfume",
     "icon_fallback": "珍藏香水",
     "loot_region": "staff_living"
+  },
+  "spoiled_food": {
+    "id": "spoiled_food",
+    "name": "腐败食物",
+    "category": "material",
+    "type": "腐败食物",
+    "desc": "已经腐败的食物残余，不能食用。每份占1格，最多10份堆叠。食物腐败时，每件原占1格产生1份腐败食物。",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 10,
+    "maxStack": 10,
+    "inventory_unit": "份",
+    "icon": "",
+    "ue_icon": "Icons/spoiled_food.png",
+    "icon_fallback": "腐败食物",
+    "world_mesh": "/Game/Items/Consumables/SpoiledFood20261016/SM_SpoiledFood.SM_SpoiledFood"
   }
 }

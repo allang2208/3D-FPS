@@ -124,6 +124,11 @@ struct FFPSBodyState
     UPROPERTY() bool bBowTakingArrow = false;
     UPROPERTY() float BowSeat = 1.f;
     UPROPERTY() float BowStringContact = 0.f;
+    UPROPERTY() float BowCastTransfer = 0.f;
+    UPROPERTY() float BowCastTransferRate = 0.f;
+    UPROPERTY() bool bBowTwoHandConsume = false;
+    UPROPERTY() float BowStowWeight = 0.f;
+    UPROPERTY() float BowStowRate = 0.f;
     UPROPERTY() bool bBowCarryAxis = false;
     UPROPERTY() FFPSBodyMotionSample Contacts;
     UPROPERTY() TArray<FFPSBodyLaserSample> Lasers;
@@ -188,6 +193,9 @@ USTRUCT()
 struct FFPSBodyWeapon
 {
     GENERATED_BODY()
+    // Serialized with this equipment definition, independent of body-pose and
+    // weather property arrival order. Includes non-firearm equipment too.
+    UPROPERTY() FString ItemInstance;
     UPROPERTY() TSoftObjectPtr<class USkeletalMesh> Mesh;
     UPROPERTY() TSoftObjectPtr<class UAnimSequence> HoldClip;
     UPROPERTY() TArray<TSoftObjectPtr<class UMaterialInterface>> Materials;

@@ -1,5 +1,6 @@
 #include "ColdSteelPickup.h"
 #include "../Items/PotionVisuals.h"
+#include "../Items/SpoiledFoodVisuals.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/MeleeGuardAssets.h"
 #include "../Weapons/ModularSwordVisual.h"
@@ -13,6 +14,16 @@
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
     const FString& Id=Item.Definition;
+    if(Id==TEXT("spoiled_food"))
+    {
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,SpoiledFoodVisuals::Mesh);
+        if(!Asset)return false;
+        const auto Bounds=Asset->GetBounds();
+        Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Asset);
+        Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
+        Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1.f)));
+        return true;
+    }
     if(Id==TEXT("ammo_12g")||Id==TEXT("ammo_12g_flechette")||Id==TEXT("ammo_12g_slug"))
     {
         // Resolve by definition so existing saved drops also receive the authored carton.

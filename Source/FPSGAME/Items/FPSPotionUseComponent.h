@@ -13,6 +13,7 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class USoundBase;
 class UAudioComponent;
+class USceneComponent;
 struct FStreamableHandle;
 
 /** Shared left-hand consumable use, with a single inventory/effect contact. */
@@ -22,6 +23,9 @@ class FPSGAME_API UFPSPotionUseComponent : public UActorComponent
     GENERATED_BODY()
     friend class UFPSPlayerBodyComponent;
     friend class UFPSConsumableAuditCommandlet;
+    friend class ULargeLambMealAuditCommandlet;
+    friend class UBowSkillTrainingAuditCommandlet;
+    friend class AShotgunWireAuditController;
 public:
     UFPSPotionUseComponent();
     bool TryBegin(const FString& ItemId,const FString& Definition);
@@ -29,6 +33,11 @@ public:
     bool IsStowingOffhand() const { return bActive && bStowOffhand; }
     float OffhandLowerWeight() const;
     bool IsOffhandWeaponHidden() const;
+    bool IsTwoHanded() const { return bActive&&Motion.bTwoHanded; }
+    bool UsesBowSupport() const { return bActive&&bBowSupport; }
+    bool IsReturningBow() const { return BowReturnWeight>0.f; }
+    /** Reset the transient equipment offset before native weapon sampling. */
+    void BeginEquipmentFrame();
     void Cancel();
     void ApplyHandPose(UFPSCastingMeshComponent& Mesh);
     static bool IsPotion(const FString& Definition);
@@ -52,6 +61,16 @@ private:
     TWeakObjectPtr<UFPSCastingMeshComponent> ActiveHands;
     FPotionUseMotion HealthMotion,ManaMotion,Motion;
     FPotionArmPose ArmPose;
+    FPotionArmPose RightArmPose;
+    UPROPERTY(Transient) TObjectPtr<USceneComponent> EquipmentPivot;
+    struct FEquipmentRoot
+    {
+        TWeakObjectPtr<USceneComponent> Root,Parent;
+        FName Socket;
+    };
+    TArray<FEquipmentRoot> EquipmentRoots;
+    void BeginEquipmentStow();
+    void RestoreEquipment();
     FString UsingItem;
     FName PresentationDefinition;
     uint16 PresentationSerial=0;
@@ -73,6 +92,14 @@ private:
     bool bFood=false;
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> BreadMesh;
     FPotionUseMotion BreadMotion;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> ChickenMesh;
+    FPotionUseMotion ChickenMotion;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> LambRibsMesh;
+    FPotionUseMotion LambRibsMotion;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> SausageMesh;
+    FPotionUseMotion SausageMotion;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> LargeLambMesh;
+    FPotionUseMotion LargeLambMotion;
     UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> WaterSwallowSounds;
     UPROPERTY(Transient) TObjectPtr<USoundBase> FoodSwallowSound;
     UPROPERTY(Transient) TObjectPtr<UAudioComponent> SwallowAudio;
@@ -87,6 +114,12 @@ private:
     FPotionUseMotion SodaMotion;
     bool bSoda=false;
     bool bStowOffhand=false;
+    bool bBowSupport=false,bWaitingForBow=false;
+    // Cosmetic recovery after a cancelled two-hand meal. The use transaction
+    // ends immediately; the existing presentation parent raises separately.
+    float BowReturnWeight=0.f;
+    double BowReturnStartedAt=0;
+    static constexpr float BowReturnHoldSeconds=.1f;
     static constexpr float OffhandLowerSeconds=.28f;
     static constexpr float OffhandRaiseSeconds=.26f;
 };

@@ -6,6 +6,8 @@
 #include "FPSBodyHandAttackMotion.h"
 #include "FPSBodyHandAttackData.h"
 #include "FPSBodyStaffCastData.h"
+#include "FPSBodyBowMotion.h"
+#include "../Weapons/Bow/BowCastHandPose.h"
 #include "../Movement/FPSTraversalTiming.h"
 #include "../Weapons/Spellbook/SpellbookQuickCombatMotion.h"
 #include "Animation/AnimInstanceProxy.h"
@@ -142,7 +144,17 @@ struct FUpperLayer : FAnimNode_Base
 // Small world-body corrections. Bone transforms are derived locally, never replicated.
 struct FControls : FAnimNode_Base
 {
-    FPoseLink Source,Neutral,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume;
+    FPoseLink Source,Neutral,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume,BowNative;
+    float NativeBowWeight=0.f,NativeBowProgress=0.f,NativeBowEntryAge=0.f;
+    bool bHadNativeBow=false;
+    FName NativeBowPhase,LastNativeBowPhase;
+    TArray<FTransform> LastNativeBowPose,NativeBowEntryPose,NativeBowReferencePose;
+    FBowCastHandPose NativeBowTransfer;
+    TArray<int32> NativeBowMeshIndices;
+    TArray<FTransform> NativeBowFullPose;
+    FTransform NativeBowCastEntry,NativeBowCastLast;
+    FName NativeBowCastPhase;
+    bool bHadNativeBowCast=false;
     bool bStaffCarryActive=false,bStaffNativeCast=false,bStaffNativeArmApplied=false;
     bool bStaffNativeStrike=false,bStaffQuickCarry=false;
     TArray<uint8> StaffMotionBones;
@@ -159,7 +171,20 @@ struct FControls : FAnimNode_Base
     TArray<FTransform> LastStaffCastPose,StaffCastEntryPose;
     FTransform LastStaffCastChest=FTransform::Identity,StaffCastEntryChest=FTransform::Identity;
     float ConsumeWeight=0.f,ConsumeContactWeight=0.f;
-    bool bHasConsumeProp=false,bConsumeNativeArm=false;
+    bool bHasConsumeProp=false,bConsumeNativeArm=false,bConsumeTwoHands=false,bConsumeFood=false;
+    struct FConsumeHelper
+    {
+        FBoneReference Bone;
+        FQuat ReferenceRotation=FQuat::Identity;
+        FVector ElbowOffset=FVector::ZeroVector;
+    };
+    struct FConsumeArm
+    {
+        FQuat InverseUpper=FQuat::Identity,InverseLower=FQuat::Identity;
+        FConsumeHelper Helpers[3];
+    };
+    FConsumeArm ConsumeArms[2];
+    FBoneReference BreadThumbInner;
     FVector ConsumeMouthInHead=FVector::ZeroVector,ConsumePropContact=FVector::ZeroVector;
     TArray<uint8> ConsumeBones;
     float SwordWeight=0.f,SwordLegWeight=0.f,SwordTransitionAge=1.f,SwordAttackLegOwnership=0.f;
@@ -223,16 +248,20 @@ struct FControls : FAnimNode_Base
         Feet[0].BoneName=TEXT("foot_r");Feet[1].BoneName=TEXT("foot_l");
         Toes[0].BoneName=TEXT("ball_r");Toes[1].BoneName=TEXT("ball_l");
     }
-    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);Consume.Initialize(C); }
+    virtual void Initialize_AnyThread(const FAnimationInitializeContext& C) override { Source.Initialize(C);Neutral.Initialize(C);Grip.Initialize(C);Sword.Initialize(C);StaffCast.Initialize(C);StaffCarry.Initialize(C);BookCarry.Initialize(C);BookPush.Initialize(C);Consume.Initialize(C);BowNative.Initialize(C); }
     virtual void CacheBones_AnyThread(const FAnimationCacheBonesContext& C) override
     {
         Source.CacheBones(C);Neutral.CacheBones(C);Grip.CacheBones(C);Sword.CacheBones(C);StaffCast.CacheBones(C);StaffCarry.CacheBones(C);BookCarry.CacheBones(C);BookPush.CacheBones(C);Consume.CacheBones(C);bHasHandHistory=false;bHadSwordPair=false;bHasSwordRestTorso=false;const auto& Bones=C.AnimInstanceProxy->GetRequiredBones();
         bHadBookCarry=false;BookCarryAge=0.f;LastBookCarryPose.Reset();BookCarryEntryPose.Reset();
         bHadBookPush=false;BookPushEntryDelta.Reset();
         bHadStaffCast=false;LastStaffCastPose.Reset();StaffCastEntryPose.Reset();
+        BowNative.CacheBones(C);bHadNativeBow=false;LastNativeBowPose.Reset();NativeBowEntryPose.Reset();NativeBowReferencePose.Reset();
         Pelvis.Initialize(Bones);Spine.Initialize(Bones);ChestBase.Initialize(Bones);Head.Initialize(Bones);
         for(auto& B:Hands)B.Initialize(Bones);for(auto& B:Feet)B.Initialize(Bones);for(auto& B:Toes)B.Initialize(Bones);
         const auto& Ref=Bones.GetReferenceSkeleton();
+        NativeBowTransfer.Initialize(Ref);NativeBowMeshIndices.SetNum(Bones.GetCompactPoseNumBones());
+        for(int32 I=0;I<NativeBowMeshIndices.Num();++I)NativeBowMeshIndices[I]=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();
+        bHadNativeBowCast=false;
         StaffArmHelpers.Reset();
         const int32 StaffUpper=Ref.FindBoneIndex(TEXT("upperarm_r"));
         const int32 StaffLower=Ref.FindBoneIndex(TEXT("lowerarm_r"));
@@ -269,6 +298,25 @@ struct FControls : FAnimNode_Base
             for(int32 Parent=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
                 if(Parent==UpperRoot){SwordUpperBones[I]=1;break;}
         ConsumeBones=SwordUpperBones;
+        BreadThumbInner.BoneName=TEXT("thumb_01_side_inn_l");BreadThumbInner.Initialize(Bones);
+        auto ConsumeReference=Ref.GetRefBonePose();
+        for(int32 I=0;I<ConsumeReference.Num();++I)
+            if(const int32 P=Ref.GetParentIndex(I);P!=INDEX_NONE)ConsumeReference[I]=ConsumeReference[I]*ConsumeReference[P];
+        for(int32 Side=0;Side<2;++Side)
+        {
+            const TCHAR* Suffix=Side==0?TEXT("_r"):TEXT("_l");
+            const int32 U=Ref.FindBoneIndex(FName(FString(TEXT("upperarm"))+Suffix));
+            const int32 E=Ref.FindBoneIndex(FName(FString(TEXT("lowerarm"))+Suffix));
+            if(U==INDEX_NONE||E==INDEX_NONE)continue;
+            auto& Arm=ConsumeArms[Side];Arm.InverseUpper=ConsumeReference[U].GetRotation().Inverse();Arm.InverseLower=ConsumeReference[E].GetRotation().Inverse();
+            const TCHAR* Stems[]={TEXT("upperarm_twistCor_02"),TEXT("lowerarm_correctiveRoot"),TEXT("lowerarm_twist_02")};
+            for(int32 H=0;H<3;++H)
+            {
+                auto& Helper=Arm.Helpers[H];Helper.Bone.BoneName=FName(FString(Stems[H])+Suffix);Helper.Bone.Initialize(Bones);
+                const int32 I=Ref.FindBoneIndex(Helper.Bone.BoneName);if(I==INDEX_NONE)continue;
+                Helper.ReferenceRotation=ConsumeReference[I].GetRotation();Helper.ElbowOffset=ConsumeReference[I].GetLocation()-ConsumeReference[E].GetLocation();
+            }
+        }
         const int32 RightClavicle=Ref.FindBoneIndex(TEXT("clavicle_r"));
         for(int32 I=0;I<ConsumeBones.Num();++I)
             for(int32 Parent=Bones.MakeMeshPoseIndex(FCompactPoseBoneIndex(I)).GetInt();Parent!=INDEX_NONE;Parent=Ref.GetParentIndex(Parent))
@@ -305,7 +353,8 @@ struct FControls : FAnimNode_Base
             }
         }
     }
-    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH)Sword.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C); }
+    virtual void Update_AnyThread(const FAnimationUpdateContext& C) override { Source.Update(C);Neutral.Update(C);Grip.Update(C);if(SwordWeight>ZERO_ANIMWEIGHT_THRESH)Sword.Update(C);if(bStaffCastActive)StaffCast.Update(C);if(bStaffCarryActive)StaffCarry.Update(C);if(bBookCarryActive)BookCarry.Update(C);if(bBookPushActive)BookPush.Update(C);if(ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)Consume.Update(C);if(NativeBowWeight>ZERO_ANIMWEIGHT_THRESH)BowNative.Update(C); }
+    void BlendNativeBow(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
     void BlendStaffCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
     void BlendStaffStrike(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
     void AnchorStaffArm(FPoseContext& Authored,FCSPose<FCompactPose>& Pose,int32 Side=0);
@@ -314,6 +363,7 @@ struct FControls : FAnimNode_Base
     void FitStaffArm(FCSPose<FCompactPose>& Pose);
     void BlendSword(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
     void BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose);
+    void CorrectConsumeElbows(FCSPose<FCompactPose>& Pose);
     static void Solve(FCSPose<FCompactPose>& Pose,const FBoneReference& End,const FTransform& Target,const FVector& Pole,float Weight)
     {
         const auto& Bones=Pose.GetPose().GetBoneContainer();if(!End.IsValidToEvaluate(Bones)||Weight<=0.f)return;
@@ -748,6 +798,10 @@ struct FControls : FAnimNode_Base
             }
             if(BowActive)
             {
+                // Move the two contacts together into the body's reachable
+                // space before either IK solve, keeping the right hand on the
+                // string instead of clamping it independently after the bow.
+                FitHandPair(Pose,Targets);
                 // Left wrist owns the bow. Solve it first, then derive the right
                 // contact from its achieved position, including reach clamping.
                 Solve(Pose,Hands[1],Targets[1],FVector(65,10,105-40*Crouch)*PoseScale,1.f);
@@ -766,6 +820,7 @@ struct FControls : FAnimNode_Base
         if(bStaffQuickCarry&&SwordWeight>ZERO_ANIMWEIGHT_THRESH)BlendStaffCarry(Out,Pose);
         BlendStaffCast(Out,Pose);
         BlendBookCarry(Out,Pose);
+        BlendNativeBow(Out,Pose);
         BlendConsume(Out,Pose);
         if(State.Action!=EFPSBodyAction::Dead&&ChestBase.IsValidToEvaluate(Bones))
         {
@@ -835,6 +890,13 @@ struct FControls : FAnimNode_Base
                     FTransform Target=(ActionFingerMask&(1<<Side))&&ActionFingers.IsValidIndex(MeshBone)?ActionFingers[MeshBone]
                         :EquipmentHand&&EquipmentFingers.IsValidIndex(MeshBone)?EquipmentFingers[MeshBone]
                         :(bSwordGrip?Hold.Pose[Bone]:Out.Pose[Bone]);
+                    const float BowFingerWeight=NativeBowWeight*(Side==1&&State.Action==EFPSBodyAction::Consume?1.f-ConsumeWeight:1.f);
+                    if(BowFingerWeight>ZERO_ANIMWEIGHT_THRESH&&!(Side==1&&State.Action==EFPSBodyAction::Cast))
+                    {FTransform Fitted;Fitted.Blend(Target,Out.Pose[Bone],BowFingerWeight);Target=Fitted;}
+                    if(bConsumeTwoHands&&ConsumeWeight>ZERO_ANIMWEIGHT_THRESH)
+                    {
+                        FTransform Fitted;Fitted.Blend(Target,Out.Pose[Bone],ConsumeWeight);Target=Fitted;
+                    }
                     // Only the two fitted overhead takes opt in. Keep their
                     // support thumb below the upper hand instead of restoring
                     // the equipment's extended thumb after the body blend.
@@ -849,11 +911,19 @@ struct FControls : FAnimNode_Base
             }
         }
         else GripWeights[0]=GripWeights[1]=0.f;
+        if(bConsumeFood&&State.Contacts.Consumable==TEXT("bread")&&ConsumeWeight>ZERO_ANIMWEIGHT_THRESH&&BreadThumbInner.IsValidToEvaluate(Bones))
+        {
+            // The bread grip creases three triangles between the thumb pad
+            // and index metacarpal. Move only the weighted pad helper by 2 mm;
+            // thumb joints, fingertip contact and other grips stay intact.
+            Out.Pose[BreadThumbInner.GetCompactPoseIndex(Bones)].AddToTranslation(FVector(0,.1,-.2)*ConsumeWeight);
+        }
     }
 };
 
 #include "FPSBodySwordPose.inl"
 #include "FPSBodyStaffCastPose.inl"
+#include "FPSBodyBowPose.inl"
 #include "FPSBodyStaffCarryPose.inl"
 #include "FPSBodyStaffStrikePose.inl"
 #include "FPSBodyBookCarryPose.inl"
@@ -863,8 +933,9 @@ struct FControls : FAnimNode_Base
 
 struct FProxy : FAnimInstanceProxy
 {
-    FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume;
+    FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume,BowNative;
     FAnimNode_SequenceEvaluator_Standalone Traversal;
+    UAnimSequence* NativeBowAsset=nullptr;
     FTraversalLayer TraversalLayer;
     FTraversalPlayback TraversalPlayback;
     FAnimNode_TwoWayBlend Walk,Jog,Pace,Movement,AirBlend,DeathBlend;
@@ -901,13 +972,14 @@ struct FProxy : FAnimInstanceProxy
         Controls.BookCarry.SetLinkNode(&BookCarry);
         Controls.BookPush.SetLinkNode(&BookPush);
         Controls.Consume.SetLinkNode(&Consume);
+        Controls.BowNative.SetLinkNode(&BowNative);
         TraversalLayer.Base.SetLinkNode(&Controls);TraversalLayer.Authored.SetLinkNode(&Traversal);
         DeathBlend.A.SetLinkNode(&TraversalLayer);DeathBlend.B.SetLinkNode(&Death);
     }
     virtual FAnimNode_Base* GetCustomRootNode() override {return &DeathBlend;}
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {Nodes.Append({&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
-        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
+        &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&BowNative,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
     virtual void PreUpdate(UAnimInstance* Instance,float Delta) override
     {
         FAnimInstanceProxy::PreUpdate(Instance,Delta);
@@ -928,6 +1000,18 @@ struct FProxy : FAnimInstanceProxy
         Set(Neutral,IdleClip,0.f,false);
         static const TCHAR* Directions[]={TEXT("Fwd"),TEXT("Fwd_Right"),TEXT("Right"),TEXT("Bwd_Right"),TEXT("Bwd"),TEXT("Bwd_Left"),TEXT("Left"),TEXT("Fwd_Left")};
         const float Dt=FMath::Max(Delta,0.f);
+        const FName NativeBowKey=FPSBodyBowMotion::Clip(D->BodyState);
+        auto* BowTake=D->Clips.FindRef(NativeBowKey).Get();
+        const bool NativeBowRequested=D->bBowPose&&BowTake&&IdleClip&&BowTake->GetSkeleton()==IdleClip->GetSkeleton();
+        Controls.NativeBowWeight=FMath::FInterpConstantTo(Controls.NativeBowWeight,NativeBowRequested?1.f:0.f,Dt,8.f);
+        if(NativeBowRequested)
+        {
+            NativeBowAsset=BowTake;Controls.NativeBowPhase=NativeBowKey;
+            Controls.NativeBowProgress=NativeBowKey==TEXT("Bow.Sparrow.Ready")?0.f:FPSBodyBowMotion::Phase(D->BodyState);
+            const float Time=NativeBowKey==TEXT("Bow.Sparrow.Carry")?D->Clock:Controls.NativeBowProgress*BowTake->GetPlayLength();
+            Set(BowNative,BowTake,Time,FPSBodyBowMotion::Loops(NativeBowKey));
+        }
+        else if(!NativeBowAsset)Set(BowNative,IdleClip,0.f,false);
         SmoothedSpeed=FMath::FInterpTo(SmoothedSpeed,D->Speed,Dt,10.f);
         if(D->Speed>5.f)
         {
@@ -1154,8 +1238,9 @@ struct FProxy : FAnimInstanceProxy
         const auto& Use=D->BodyState;
         FName ConsumeKey;
         if(Use.Action==EFPSBodyAction::Consume&&!FPSBodyPoses::Traversing(Use.Motion))
-            ConsumeKey=Use.Contacts.Consumable==TEXT("baguette_bread")?TEXT("Consume.EatBaguette"):
-                Use.Contacts.Consumable==TEXT("bread")?TEXT("Consume.EatBread"):TEXT("Consume.Drink");
+            ConsumeKey=Use.Contacts.Consumable==TEXT("roasted_large_lamb")?TEXT("Consume.EatLargeLamb"):
+                Use.Contacts.Consumable==TEXT("baguette_bread")?TEXT("Consume.EatBaguette"):
+                (Use.Contacts.Consumable==TEXT("bread")||Use.Contacts.Consumable==TEXT("roasted_chicken_leg")||Use.Contacts.Consumable==TEXT("roasted_lamb_ribs")||Use.Contacts.Consumable==TEXT("roasted_sausage")||Use.Contacts.Consumable==TEXT("roasted_large_lamb"))?TEXT("Consume.EatBread"):TEXT("Consume.Drink");
         auto* NextConsume=D->Clips.FindRef(ConsumeKey).Get();
         const bool HasConsume=NextConsume&&IdleClip&&NextConsume->GetSkeleton()==IdleClip->GetSkeleton();
         Controls.ConsumeContactWeight=0.f;
@@ -1163,12 +1248,14 @@ struct FProxy : FAnimInstanceProxy
         {
             if(NextConsume!=ConsumeAsset)
             {
-                ConsumeAsset=NextConsume;ConsumeContact=.3f;ConsumeRelease=.7f;Controls.bConsumeNativeArm=false;
+                ConsumeAsset=NextConsume;ConsumeContact=.3f;ConsumeRelease=.7f;Controls.bConsumeNativeArm=false;Controls.bConsumeTwoHands=false;
+                Controls.bConsumeFood=ConsumeKey!=TEXT("Consume.Drink");
                 for(const auto& Marker:ConsumeAsset->AuthoredSyncMarkers)
                 {
                     if(Marker.MarkerName==TEXT("Contact"))ConsumeContact=Marker.Time/ConsumeAsset->GetPlayLength();
                     if(Marker.MarkerName==TEXT("Release"))ConsumeRelease=Marker.Time/ConsumeAsset->GetPlayLength();
                     if(Marker.MarkerName==TEXT("NativeConsumeArm"))Controls.bConsumeNativeArm=true;
+                    if(Marker.MarkerName==TEXT("NativeTwoHandConsume"))Controls.bConsumeTwoHands=true;
                 }
             }
             const float P=FPSBodyPoses::Progress(Use,D->Clock);
@@ -1190,7 +1277,7 @@ struct FProxy : FAnimInstanceProxy
             else if(ConsumeKey==TEXT("Consume.Drink"))
                 Controls.ConsumeContactWeight=Ease((Sample-.075f)/FMath::Max(.001f,ConsumeContact-.075f))*
                     (1.f-Ease((Sample-ConsumeRelease)/FMath::Max(.001f,1.f-ConsumeRelease)));
-            Controls.ActionWristMask&=~uint8(2);Controls.bCoupledActionWrists=false;
+            Controls.ActionWristMask&=~uint8(Controls.bConsumeTwoHands?3:2);Controls.bCoupledActionWrists=false;
         }
         else if(!ConsumeAsset)Set(Consume,IdleClip,0.f,false);
         const float ConsumeTarget=HasConsume?FMath::Clamp(Use.ActionWeight,0.f,1.f):0.f;

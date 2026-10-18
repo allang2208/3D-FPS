@@ -208,6 +208,11 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
     UFPSPerformanceMetricsSubsystem::CountEquipmentCapture(this);
     FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.EquipmentCapture"));
     const auto* Pawn=Character.Get();TArray<FFPSBodyWeapon> Weapons;
+    const auto* WeatherProfile=ColdSteelAuthority::ForPawn(Pawn);
+    const auto* WeatherTool=WeatherProfile?WeatherProfile->ActiveProductionTool():nullptr;
+    const auto* WeatherHeld=WeatherProfile?WeatherProfile->Equipped():nullptr;
+    const auto* WeatherMain=WeatherTool?WeatherTool:WeatherHeld;
+    const auto* WeatherOff=WeatherHeld&&!WeatherTool?WeatherProfile->Equipped(WeatherHeld->Cell==6?8:11):nullptr;
     if(Pawn->IsDualWieldingPistols())
     {
         for(int32 I=0;I<2;++I)
@@ -320,6 +325,11 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
     for(auto& W:Weapons)
     {
         DescribeGun(W);
+        // A bow is the primary item even though its world mesh belongs to the left hand.
+        const auto* WeatherItem=W.AttachHand==1&&W.PoseFamily!=TEXT("Bow")?WeatherOff:WeatherMain;
+        W.ItemInstance=!W.GunInstance.IsEmpty()?W.GunInstance:WeatherItem?WeatherItem->InstanceId:FString();
+        if(W.AttachHand==0&&W.ItemInstance.IsEmpty()&&Pawn->HasInventoryWeapon())
+            W.ItemInstance=Pawn->bUseM4Infima?TEXT("PreviewM4"):TEXT("PreviewAKM");
         FString Schema=W.Mesh.ToSoftObjectPath().ToString()+W.StaticMesh.ToSoftObjectPath().ToString()+W.GripBone.ToString();
         for(int32 B:W.MotionBones)Schema+=FString::Printf(TEXT("|%d"),B);
         for(const auto& P:W.Parts)Schema+=TEXT("|")+P.Mesh.ToSoftObjectPath().ToString()+P.Socket.ToString()+P.TacticalKind.ToString();
@@ -334,6 +344,7 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
         Key+=TEXT("|")+W.GripProfile.ToSoftObjectPath().ToString()+FString::Printf(TEXT("|%s:%d:%d"),*W.PoseFamily.ToString(),W.AttachHand,W.StaffVariant);
         Key+=TEXT("|")+W.ReloadPropMesh.ToSoftObjectPath().ToString();
         Key+=TEXT("|")+W.GunInstance+W.GunDefinition.ToString();
+        Key+=TEXT("|")+W.ItemInstance;
         Key+=W.GunFireSound.ToSoftObjectPath().ToString()+W.GunSuppressedSound.ToSoftObjectPath().ToString();
         Key+=W.bGunSuppressed?TEXT("|suppressed"):TEXT("|open");
         for(const auto& Sound:W.GunSounds)Key+=TEXT("|")+Sound.ToSoftObjectPath().ToString();
@@ -352,7 +363,7 @@ void UFPSPlayerBodyComponent::CaptureEquipment()
             Key+=TEXT("|")+Part.Mesh.ToSoftObjectPath().ToString();
             Key+=TEXT("|")+Part.TacticalKind.ToString()+(Part.bAuthoredEmitterAxis?TEXT("|axis-authored"):TEXT("|axis-sight"));
             if(Part.Mesh.ToSoftObjectPath().GetAssetName().Contains(TEXT("Stock")))Key+=Part.bVisible?TEXT("|stock-on"):TEXT("|stock-off");
-            if(!W.Source.IsValid())Key+=TEXT("|")+Part.RelativeTransform.ToString();
+            if(!W.Source.IsValid()||W.PoseFamily==TEXT("Bow"))Key+=TEXT("|")+Part.RelativeTransform.ToString();
             Key+=TEXT("|")+Part.SkeletalMesh.ToSoftObjectPath().ToString()+Part.Slot.ToString()+TEXT("|")+Part.Socket.ToString();
             for(const auto& Material:Part.Materials)Key+=TEXT("|")+Material.ToSoftObjectPath().ToString();
             Key+=FPSBodyRuneVisual::Key(Part);
@@ -588,7 +599,7 @@ void UFPSPlayerBodyComponent::RebuildWeapons(const TArray<FFPSBodyWeapon>& Weapo
             Motion.Parts.Add(Part);
             MotionEquipmentIndices.Add(Part,Index);
             if(!Character->IsLocallyControlled()&&(TacticalDeviceVariants::IsLaser(DefinitionPart.TacticalKind.ToString())
-                ||(Definition.GunDefinition==TEXT("ue_super90")&&DefinitionPart.TacticalKind==TEXT("flashlight"))))
+                ||DefinitionPart.TacticalKind==TEXT("flashlight")))
             {
                 auto* Device=NewObject<UTacticalDeviceComponent>(GetOwner(),NAME_None,RF_Transient);
                 GetOwner()->AddInstanceComponent(Device);Device->RegisterComponent();

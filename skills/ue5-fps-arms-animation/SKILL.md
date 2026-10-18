@@ -30,3 +30,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - M870 的 AKM 整手复用、UC 装备／装填继承与快速近战右肘修订：[M870 动作与抓握](references/m870-source-motion-and-grip.md)。保留本枪接触、真实蒙皮铰链及仍有效的旧版工具依赖。
 
 - [第三人称双手锤左手施法](references/third-person-casting-arm.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。
+
+- 持弓左手施法、进食与回握，以及双手食物的取消恢复：[弓动作交接](references/bow-hand-string-contact.md#第三人称-sparrow-与左手动作交接2026-10-18)；拇指与最终蒙皮问题：[进食抓握](references/food-and-drink-grasp.md)。

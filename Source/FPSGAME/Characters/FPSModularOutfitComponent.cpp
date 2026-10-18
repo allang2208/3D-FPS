@@ -274,9 +274,10 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     const auto Recipes=Object(Configuration,TEXT("items"));
     auto Shirt=Flag(Profile,TEXT("restore_original_gloves"))?nullptr:Object(Recipes,Equipped.FindRef(7).ToString());
     const FString OwnerShirt=String(Object(Shirt,TEXT("owner_body_meshes")),*String(Profile,TEXT("rig_profile")));
+    const auto BaseMaterials=Object(Object(Shirt,TEXT("base_material_overrides")),String(Profile,TEXT("rig_profile")));
     // Only display an authored torso section set. A missing owner variant must
-    // not silently reintroduce a second pair of animated sleeves and hands.
-    if(bLowerBody&&OwnerShirt.IsEmpty())Shirt=nullptr;
+    // not introduce duplicate arms. Material-only shirts use the native body.
+    if(bLowerBody&&OwnerShirt.IsEmpty()&&(!BaseMaterials||BaseMaterials->Values.IsEmpty()))Shirt=nullptr;
     const auto GloveRecipe=Object(Recipes,Equipped.FindRef(3).ToString());
     const TSharedPtr<FJsonObject> Gloves=bLowerBody||String(GloveRecipe,TEXT("first_person_mode"))==TEXT("source_arms")
         ?nullptr:GloveRecipe;
@@ -294,6 +295,13 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
             if(Source->IsMaterialSectionShown(M,L))Section(Source,M,L,false);
         return;
     }
+    TMap<int32,FString> BaseMaterialPaths;
+    if(BaseMaterials)for(const auto& Entry:BaseMaterials->Values)
+    {
+        FString Path;
+        if(FString(*Entry.Key).IsNumeric()&&Entry.Value->TryGetString(Path)&&!Path.IsEmpty())
+            BaseMaterialPaths.Add(FCString::Atoi(*Entry.Key),MoveTemp(Path));
+    }
     const FString NativeBase=String(Profile,TEXT("native_bare_skin"));
     // Open gloves can keep the exposed fingers while omitting skin hidden
     // beneath the leather. The shared naked-hand mesh remains untouched.
@@ -307,7 +315,8 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         const FString Override=String(RigMeshes,*String(Profile,TEXT("rig_profile")));
         return RigMeshes?Override:String(Profile,Part);
     };
-    if(Shirt)
+    const bool bUseShirtMesh=Shirt&&(!bLowerBody||!OwnerShirt.IsEmpty());
+    if(bUseShirtMesh)
     {
         MeshPaths.Add(bLowerBody?OwnerShirt:PartMesh(Shirt,TEXT("shirt")));
         MaterialPaths.Add(String(Shirt,TEXT("material")));
@@ -339,6 +348,8 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     {Paths.AddUnique(FSoftObjectPath(Path));bLoaded&=Cast<UMaterialInterface>(FSoftObjectPath(Path).ResolveObject())!=nullptr;}
     for(const FString& Path:ShirtViewMaterials)
     {Paths.AddUnique(FSoftObjectPath(Path));bLoaded&=Cast<UMaterialInterface>(FSoftObjectPath(Path).ResolveObject())!=nullptr;}
+    for(const auto& Entry:BaseMaterialPaths)
+    {Paths.AddUnique(FSoftObjectPath(Entry.Value));bLoaded&=Cast<UMaterialInterface>(FSoftObjectPath(Entry.Value).ResolveObject())!=nullptr;}
     if(!bLoaded)
     {
         if(PendingLoads.Contains(Key)||FailedLoads.Contains(Key))return;
@@ -385,7 +396,10 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         Part->SetComponentTickEnabled(false);
         if(!MaterialPaths[I].IsEmpty())
             for(int32 M=0;M<Part->GetNumMaterials();++M)Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(MaterialPaths[I]).ResolveObject()));
-        if(I==1&&Shirt)
+        if(I==0)for(const auto& Entry:BaseMaterialPaths)
+            if(Entry.Key>=0&&Entry.Key<Part->GetNumMaterials())
+                Part->SetMaterial(Entry.Key,Cast<UMaterialInterface>(FSoftObjectPath(Entry.Value).ResolveObject()));
+        if(I==1&&bUseShirtMesh)
         {
             for(int32 M=0;M<FMath::Min(Part->GetNumMaterials(),ShirtViewMaterials.Num());++M)
                 Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(ShirtViewMaterials[M]).ResolveObject()));

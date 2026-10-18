@@ -187,7 +187,7 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
     // IsCastingWithLeftHand intentionally includes gun bash for input arbitration.
     // Both staff and left-palm presentation read the actual gesture clock.
     // Physical left-hand occupancy intentionally excludes staff gestures.
-    if(const auto* FireballMagic=Pawn->FindComponentByClass<UFPSFireballComponent>();FireballMagic&&FireballMagic->IsGestureActive())
+    if(const auto* FireballMagic=Pawn->FindComponentByClass<UFPSFireballComponent>();FireballMagic&&FireballMagic->IsGestureActive()&&!FireballMagic->IsBowHandTransferActive())
     {
         State.Action=EFPSBodyAction::Cast;State.bHasActionProgress=true;State.ActionDuration=0.f;
         State.ActionProgress=FireballMagic->HandPhaseFraction();State.ReleaseFraction=FireballMagic->HandReleaseFraction();
@@ -302,6 +302,8 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
             State.BowClipLength=R.BowClipLength;State.bBowClipLooping=R.bBowClipLooping;
             State.BowNock=R.BowNock;State.bBowArrow=R.bBowArrow;State.bBowTakingArrow=R.bBowTakingArrow;State.BowSeat=R.BowSeat;
             State.BowStringContact=R.BowStringContact;State.bBowCarryAxis=R.bBowCarryAxis;
+            State.BowCastTransfer=R.BowCastTransfer;State.BowCastTransferRate=R.BowCastTransferRate;
+            State.bBowTwoHandConsume=R.bBowTwoHandConsume;State.BowStowWeight=R.BowStowWeight;State.BowStowRate=R.BowStowRate;
         }
         // Movement poses below come from the action actually running on authority.
         if(State.Action==EFPSBodyAction::Traverse){State.Action=EFPSBodyAction::None;State.bHasActionProgress=false;}

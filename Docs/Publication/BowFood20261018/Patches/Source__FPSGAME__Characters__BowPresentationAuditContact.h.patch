@@ -1,0 +1,20 @@
+--- /dev/null
++++ b/Source/FPSGAME/Characters/BowPresentationAuditContact.h
+@@ -0,0 +1,17 @@
++#pragma once
++#include "Components/StaticMeshComponent.h"
++#include "Engine/StaticMesh.h"
++
++namespace BowPresentationAudit
++{
++// Inspect the rendered rod's endpoint, independently of the cached nock used
++// by the production update. This catches stale child transforms and mounts.
++inline FVector StringEnd(const UStaticMeshComponent* Rod)
++{
++    if(!Rod||!Rod->GetStaticMesh())return FVector(1.e9);
++    const auto Bounds=Rod->GetStaticMesh()->GetBounds();
++    const FVector Axis=Bounds.BoxExtent.X>Bounds.BoxExtent.Z?FVector::XAxisVector:FVector::ZAxisVector;
++    const FVector Endpoint=Axis*FVector::DotProduct(Bounds.Origin+Bounds.BoxExtent,Axis);
++    return Rod->GetComponentTransform().TransformPosition(Endpoint);
++}
++}

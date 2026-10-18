@@ -1,0 +1,1735 @@
+{
+  "scope": "Retired bow/food artifacts, final assets and source inputs retained",
+  "skipped_reparse_points": [],
+  "entries": [
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/author_asset.py",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/author_asset.py",
+      "size": 10259,
+      "sha256": "47F1BD7591135516752F9E7F95910589AC5EEE8F243DCDB23F5EACDF84E66F10",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/preparation.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/preparation.json",
+      "size": 656,
+      "sha256": "5D046978881D7F1CFCA8CD478325C258213E8E6B0083C9CD6B6EA517979BE5F6",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SM_SpoiledFood.fbx",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SM_SpoiledFood.fbx",
+      "size": 482716,
+      "sha256": "2027DFFDF0A336E8FA069649CB2F52A3A46F1A696B701927916DF74CAB079A8D",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SpoiledFood_Editable.blend",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SpoiledFood_Editable.blend",
+      "size": 2930836,
+      "sha256": "E6C57AA992E0D83B8124DB684CD1999917E36D078074471296C76B4F63E23AD7",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SpoiledFood_GeometryMaster.blend",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SpoiledFood_GeometryMaster.blend",
+      "size": 767802,
+      "sha256": "DEA86BFAADC49D594C71990C17CBCDDA816D7C62F7A2256D7E4E4F76461619CF",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SpoiledFood_Icon.blend",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/SpoiledFood_Icon.blend",
+      "size": 2933306,
+      "sha256": "147C6F98358FB92AFF66BDBDDA1406AF2098CB341AD69A6610B2A58281464DE7",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/spoiled_food.png",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/spoiled_food.png",
+      "size": 244603,
+      "sha256": "F342810A4A1DEB628366344DBA5826AD9F8EDF40EAEA5F756A52BB6218C88591",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/T_SpoiledFood_BaseColor.png",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/T_SpoiledFood_BaseColor.png",
+      "size": 2411651,
+      "sha256": "6B76E53A19A653A7BFBAA2696E4496C4FAF64437D7682DA8D4F37AB7585AE441",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/T_SpoiledFood_NormalGL.png",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/T_SpoiledFood_NormalGL.png",
+      "size": 1874423,
+      "sha256": "7A02615B1E34DBA6FA0E20CC91D064FEDD46D3BEBE1DB9814829B400B40EDF63",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/BeforeBlockOnly/T_SpoiledFood_Roughness.png",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/BeforeBlockOnly/T_SpoiledFood_Roughness.png",
+      "size": 1375340,
+      "sha256": "A7A9BB275A5EB62FFD6A17338EC614C6C8FAA62CAC575FACC82CB891E167DD24",
+      "reason": "Rejected strip-shaped draft; replaced by final block-only asset",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend1",
+      "size": 2930836,
+      "sha256": "E6C57AA992E0D83B8124DB684CD1999917E36D078074471296C76B4F63E23AD7",
+      "reason": "Superseded Blender backup; editable final source retained",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/SpoiledFood_GeometryMaster.blend1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/SpoiledFood_GeometryMaster.blend1",
+      "size": 767802,
+      "sha256": "DEA86BFAADC49D594C71990C17CBCDDA816D7C62F7A2256D7E4E4F76461619CF",
+      "reason": "Superseded Blender backup; editable final source retained",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_GeometryMaster.blend"
+    },
+    {
+      "source": "SourceAssets/SpoiledFood20261016/SpoiledFood_Icon.blend1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/SpoiledFood20261016/SpoiledFood_Icon.blend1",
+      "size": 2933306,
+      "sha256": "147C6F98358FB92AFF66BDBDDA1406AF2098CB341AD69A6610B2A58281464DE7",
+      "reason": "Superseded Blender backup; editable final source retained",
+      "retained": "SourceAssets/SpoiledFood20261016/SpoiledFood_Icon.blend"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/build.json",
+      "size": 17464,
+      "sha256": "6D438F0EB24287E31594D4282640682BBFBFF68FB7AA7F3CD7FE7FB57B8F21A6",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/build.log",
+      "size": 5386,
+      "sha256": "B650921B9AFE753FC71EE58C2088118BAA3E0078288FE0AC30AB33271AA7D82A",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/console.log",
+      "size": 1160,
+      "sha256": "20647CFEECB534708B6304FE54E01904C17804752160C932BBC3B395B4F8C8B3",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-211736-Game/result.json",
+      "size": 188,
+      "sha256": "B44256EFC72CA400D9C55D50B736DFF16F081DD5B529EA71566CBF21C935C97B",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/build.json",
+      "size": 17558,
+      "sha256": "C88B71F3DFD78882D16E83370D2F3EDE589619284C4C5790FCBE467D9E8370A7",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/build.log",
+      "size": 5434,
+      "sha256": "3C3F9E128D9DFAF3C59A335DD99B69A6EB558E3E0407146DF776DFE9FBD0D51D",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/console.log",
+      "size": 1194,
+      "sha256": "2EC659AFE598B384FFB3AF4FE5B29F143533451C13A97745435B03806408497E",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212238-Editor/result.json",
+      "size": 196,
+      "sha256": "3BF2DDD44F4B40B5043C6100FACD9F2EE33DF7FDF7C0403105070B765EF92904",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/build.json",
+      "size": 17558,
+      "sha256": "30E13F77F1DCE5980A4210428751E001C791C4EF9465ABA7BA9E634F02C3092A",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/build.log",
+      "size": 5434,
+      "sha256": "32C6A84C5A25E7B8EDA2CD4BF0024208557CA9DE376F442EDA53741BAF264104",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/console.log",
+      "size": 1194,
+      "sha256": "9A0A89943106447C16DB59595A9A654EEBC48D24FECB824E8D970E81E582F0C1",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-212652-Editor/result.json",
+      "size": 196,
+      "sha256": "FBC7EDD263AC14DB0EA736E9ED8B02522D84CCFBAC8F40E84310FB69D52F282B",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213137-Game/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213137-Game/build.json",
+      "size": 45300,
+      "sha256": "681A402468D0696995F5525A276E13065F1DCD9BB8487B74B8CE2D3467BF0B14",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213137-Game/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213137-Game/build.log",
+      "size": 20708,
+      "sha256": "C0FDCB4DC47223B0D1C7F93F0E480777C6296D2CE5921F641C7696C1B4368569",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213137-Game/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213137-Game/console.log",
+      "size": 17423,
+      "sha256": "D842A20F6EA0B3978821EC87F40FA83E9AB2945A647EC5DEF34A83E7AD1405EB",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213403-Game/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213403-Game/build.json",
+      "size": 76266,
+      "sha256": "9094FB9078550FF8D382B42E6339453CB2000FC607979D8945E2A34EA9865192",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213403-Game/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213403-Game/build.log",
+      "size": 29514,
+      "sha256": "6D1E24992D0EFC6655D99D5AB81AE7F8DA640CF9D8D08702F105DB5EBF05D264",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213403-Game/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213403-Game/console.log",
+      "size": 20268,
+      "sha256": "F8174173B65356045C706D7BA3D8F01B934B2670A2052C69A48E90B71783BB74",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213524-Editor/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213524-Editor/build.json",
+      "size": 95750,
+      "sha256": "91BB648AD877F2EF85CB848ED148F4D2D7E3104A460DA8E5789C2061F25F87C7",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213524-Editor/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213524-Editor/build.log",
+      "size": 37817,
+      "sha256": "7C97AAD645F2381025A5ED6657719691A6183A7475E7124021F905BB4CB1B5B4",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-213524-Editor/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-213524-Editor/console.log",
+      "size": 27493,
+      "sha256": "B5F2EF49DDD0ACF7CD45D95053442C645EBA2AFFFB101559CD5EA2C0F535D451",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/build.json",
+      "size": 71808,
+      "sha256": "435325EEE947CF6560BFA34A4CC4DF9E4A08C9EBDF540A017A702404F1777AC8",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/build.log",
+      "size": 28235,
+      "sha256": "728C0562A964EFDDBD57D4F93D9188E5F5B3B117B082D8EE96EBCEE92891E9FA",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/console.log",
+      "size": 19451,
+      "sha256": "941DDABCBE11BB100C993AE1C054071AA7058AC7B6F3E23234636B7F09396FD7",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214548-Editor/result.json",
+      "size": 196,
+      "sha256": "4EB425EB9218296EDF78DCAB1E62D3DD54005E45B335FD94183C3CC4C555078F",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/build.json",
+      "size": 17498,
+      "sha256": "D4FE10CA9707AE3057A3B7938B2E66126CA145F44F99A9455A6F2B974B06B633",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/build.log",
+      "size": 5403,
+      "sha256": "05FB709DD5DCF1AC9C21B0D2257B05C9B2FF5C2002093DCD0A803F761009C3F5",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/console.log",
+      "size": 1159,
+      "sha256": "E71539018AF20051C5FCAB44D45443403DEAF5E298E06823E66FA629CA9C4830",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214823-Game/result.json",
+      "size": 188,
+      "sha256": "4CF87ACA660CC22E416E66923668DC061B90D5B41E5DB218A7C4D26A441EAD00",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/build.json",
+      "size": 17558,
+      "sha256": "1FC1897FAE31D860B0BAFD53F00B3AA5D5AEE4788837270690D618456B8847B5",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/build.log",
+      "size": 5434,
+      "sha256": "A689A40AD1CAC88A5FB0445CB2DE8E0D123A81B77FBDD1DDEBFED289FBC50282",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/console.log",
+      "size": 1194,
+      "sha256": "A4813C22696078228C3B403F78586928835121975E424253DBA6F2E8511E0BB3",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-214951-Editor/result.json",
+      "size": 196,
+      "sha256": "5D684668F534F66C07A6FD18D98CEBA9A4A07C115355F351761FF5581F009671",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/build.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/build.json",
+      "size": 54350,
+      "sha256": "EC9AEE7953A046D13966819BB2B8894309A15DC149623C977210EC8834749CC9",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/build.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/build.log",
+      "size": 22697,
+      "sha256": "7F707F7923E7B705C39FD96C70DAADB75CAA142384D54E64D7EDBFF0ED63ACFD",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/console.log",
+      "size": 17981,
+      "sha256": "960E1ADA42A17962E81297CE57923BA4569C5D1B9BFCF3DC5275313BF1BFEFAF",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Build-20261018-215435-Editor/result.json",
+      "size": 196,
+      "sha256": "AC2EE044381156B9877C52FBEF7067442D50D025116715D9E672260F8B6C1C0C",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/build-memory-deferral.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/build-memory-deferral.json",
+      "size": 223,
+      "sha256": "1DD745D9D8BB9F34604225F3F008989C733A9C331D2D5FC40EC79104689AA8EC",
+      "reason": "Superseded build attempt; failure/interruption evidence retained in archive",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Isolated/20261018-212658/console.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Isolated/20261018-212658/console.log",
+      "size": 298016,
+      "sha256": "A6C60EDD531BA8B5EE7DE761DDDF9F907AF6186956987B3399226AAAECD5295B",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Isolated/20261018-212658/engine.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Isolated/20261018-212658/engine.log",
+      "size": 298107,
+      "sha256": "8F20889B06802C8013A3448B52727A6C1596709E4204407BA778206FA6B39C0E",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Isolated/20261018-212658/result.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Isolated/20261018-212658/result.json",
+      "size": 6678,
+      "sha256": "FC951FB2D3EE3A2E49DA29C9DA8EAF2896B1D9A78CD3BB019CE5A3F89155DFD4",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client.log",
+      "size": 239151,
+      "sha256": "D5C1537CE5BCF59F1997869738D294D4AF97A1DE71D75570A460D2C5E7BD3237",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host.log",
+      "size": 237227,
+      "sha256": "C5C89D75B71408E4BB83366108D8519236C768103B3E4C2479498825AB9085F8",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/extra_urls.txt",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/merged_requirements.in",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "size": 108,
+      "sha256": "C7798EF0475E3E6AD104AE5A1865DA98AED92615E5680A3A7E7D189202E67238",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "size": 17202,
+      "sha256": "F939AF64F4598A85195EBC03F855D50AC332F15BDDAE8ACEFE9D0EB973A859CE",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "size": 17202,
+      "sha256": "F939AF64F4598A85195EBC03F855D50AC332F15BDDAE8ACEFE9D0EB973A859CE",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/Config/CrashReportClient/UECC-Windows-D3827F804388E111F00651BC944F8BDA/CrashReportClient.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/Config/CrashReportClient/UECC-Windows-D3827F804388E111F00651BC944F8BDA/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "size": 4464,
+      "sha256": "76C075B648EB99025C43048E24483F3E78FA0FD47A43042A1460656D61F5F365",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/Config/WindowsEditor/Engine.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/Config/WindowsEditor/Engine.ini",
+      "size": 111,
+      "sha256": "60A10D753DCFBD25B4D5612CD5A95994DD82143DF8E48436F4DD4D02C3A60A2A",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_A.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_A.sav",
+      "size": 16336,
+      "sha256": "129D222734ACF74A3F1B7380171EDA47996D98BDB1AD0F676A57727077CA62EC",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_A.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_A.sha1",
+      "size": 40,
+      "sha256": "270A4AC83FA8CAF5A616C464FB22F4F1ED5ACEB232C8284DE23344CAE0DD64FF",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_B.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_B.sav",
+      "size": 96510,
+      "sha256": "4C5C003894B617F3D6328D18A15D71B483B2B00F93964FC35FEDBBF9C4F4AD4A",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_B.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_client_B.sha1",
+      "size": 40,
+      "sha256": "E87F78AB8E78E52A08A590EC3A4D32FA5AEF7743C2973B6A6B9FFEE075206C50",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/extra_urls.txt",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/merged_requirements.in",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "size": 108,
+      "sha256": "C7798EF0475E3E6AD104AE5A1865DA98AED92615E5680A3A7E7D189202E67238",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "size": 17202,
+      "sha256": "F939AF64F4598A85195EBC03F855D50AC332F15BDDAE8ACEFE9D0EB973A859CE",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "size": 17202,
+      "sha256": "F939AF64F4598A85195EBC03F855D50AC332F15BDDAE8ACEFE9D0EB973A859CE",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Config/CrashReportClient/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E/CrashReportClient.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Config/CrashReportClient/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "size": 4464,
+      "sha256": "76C075B648EB99025C43048E24483F3E78FA0FD47A43042A1460656D61F5F365",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/CrashContext.runtime-xml",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/CrashContext.runtime-xml",
+      "size": 167994,
+      "sha256": "EAA6EA7DB1A1F2AD7B3BE7894CB9780DC5847A5110A845BFD4EED2EE1EF96420",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/CrashReportClient.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/host.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/host.log",
+      "size": 233589,
+      "sha256": "66A9C01A96D0F6CE4A13A3937E93ED0B2C4B973A0A3058F5454E1DBE6A45A807",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/UEMinidump.dmp",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/Crashes/UECC-Windows-7788E47A4E894DF9B70D60B2A18E235E_0000/UEMinidump.dmp",
+      "size": 1802863,
+      "sha256": "98C0528DF0B055DFD7C5934316806D2F3C80BE0589486AF9504C603EBD68AD82",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_A.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_A.sav",
+      "size": 107776,
+      "sha256": "ED0A42DF14444860D5E59708C6FDAAE420AF6AFD1EE85A6032968E89ECFA52CD",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_A.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_A.sha1",
+      "size": 40,
+      "sha256": "F9E25378C48FF25C9339124F8628EE805A0465C53F429CDDC415544421021E96",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_B.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_B.sav",
+      "size": 119420,
+      "sha256": "29244D170505B0FCF4ABFEF2189313CB51FD5AEFF729DF7B0B7A69B47DF85DD2",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_B.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215123/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215123_host_B.sha1",
+      "size": 40,
+      "sha256": "7B65DD6DC968EFF23FDF9F274FA5A9091629E4670FB2C2318157ACB965996F1B",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client.json",
+      "size": 6871,
+      "sha256": "8A9834DC000BF20C68890107AD5D3357629A225AEEC694E2CCFA35CAC58DAF8C",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client.log",
+      "size": 304979,
+      "sha256": "406C02E0E38127A15C1AD40268DD0E99C59CA7ECD11BC6C8A4F22D2EAB937F23",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host.json",
+      "size": 13906,
+      "sha256": "9083AEBF68081BD5001FCC2CC0ECE95934C2EE8DC0B1FB21C9672F7FC1DB971E",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host.log",
+      "size": 263748,
+      "sha256": "E3D103905C0F391C0632876FF642530EAF3591F8866D54537139479F0834B94E",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin.json",
+      "size": 6866,
+      "sha256": "01E9CCD12E766842FF975DD05FA15A12CCAB4DA1FFD07142FFAF9332A752B13A",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin.log",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin.log",
+      "size": 307550,
+      "sha256": "63DFC835A5878FBCE9455C53D3B4A532320F3280A0BDE7E8CFDD7CCCDCA17BC6",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/extra_urls.txt",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/merged_requirements.in",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/pyreqs_plugins.list",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "size": 108,
+      "sha256": "C7798EF0475E3E6AD104AE5A1865DA98AED92615E5680A3A7E7D189202E67238",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/CrashReportClient/UECC-Windows-EAD906DA47D67C03AE1E22A426ECBE28/CrashReportClient.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/CrashReportClient/UECC-Windows-EAD906DA47D67C03AE1E22A426ECBE28/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "size": 48657,
+      "sha256": "2A2DFA95221296AB263ED63A4D5D329438403FCA12578780085A04C7E2D20734",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/WindowsEditor/Engine.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/WindowsEditor/Engine.ini",
+      "size": 111,
+      "sha256": "60A10D753DCFBD25B4D5612CD5A95994DD82143DF8E48436F4DD4D02C3A60A2A",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "size": 1380,
+      "sha256": "C68320D52B083577EFD58B4F4B895088828A8404E80470C58D9446B81DE6C0D7",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_A.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_A.sav",
+      "size": 26946,
+      "sha256": "3319E0643B2741FBA4BE851D75F2613ACE327729FE4069B7F9FEBE87F7C671AD",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_A.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_A.sha1",
+      "size": 40,
+      "sha256": "7480C72330E5F8F0045FCDA3A0EC1CDB9A54EE70F18DA305EBC323FFE492313B",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_B.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_B.sav",
+      "size": 26946,
+      "sha256": "C582B4E9E91E9EB434899BF611B77AB54E9E41757D8C1385728F8895E7C8D315",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_B.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/client/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_client_B.sha1",
+      "size": 40,
+      "sha256": "0655125AB3BDC56CEC6BF00426EEA00B36D6E452B71F7C79136138D7F1F5EA48",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/extra_urls.txt",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/merged_requirements.in",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "size": 108,
+      "sha256": "C7798EF0475E3E6AD104AE5A1865DA98AED92615E5680A3A7E7D189202E67238",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/Config/CrashReportClient/UECC-Windows-8113C05C441C60CA752A108F37A4C297/CrashReportClient.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/Config/CrashReportClient/UECC-Windows-8113C05C441C60CA752A108F37A4C297/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "size": 48907,
+      "sha256": "98285D69909F2EC22A2C2232A38034ADEE36A391DCB7D2E097E87EA7A2C89B57",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "size": 1380,
+      "sha256": "C68320D52B083577EFD58B4F4B895088828A8404E80470C58D9446B81DE6C0D7",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP83BA_8c627243.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBP83BA_8c627243.sav",
+      "size": 27046,
+      "sha256": "E36D88381042A2AD1F57220041AAD74612F3ECB0DFF23CAD941F11497EC758DA",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPC785_d3146b0b.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteelMP_DESKTOPRJGSSBPC785_d3146b0b.sav",
+      "size": 27046,
+      "sha256": "CBC4B2FD7B8997F6EAD350FD70FF9C010FE364D28056827494C00F25C326C6C0",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_A.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_A.sav",
+      "size": 27063,
+      "sha256": "144E0BFF9CEFDEA305D3B02558BD78D8F3E8CB7DCB180057A165DE6AFEF9E510",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_A.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_A.sha1",
+      "size": 40,
+      "sha256": "7407BC8FDDEDEC799174A206865BE6196AE873E5304C583354CAFAEFDD1D22E7",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_B.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_B.sav",
+      "size": 27063,
+      "sha256": "A7B906D8590E65E9F82FE0C18A2994505D4CDC829B51C1F27F60721296F836AC",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_B.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_B.sha1",
+      "size": 40,
+      "sha256": "8FD23C4B12A82261228E1BB89D1318AA90D5E0529DA557A8EDFAB43CFB010136",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_Shared_d76a53d8.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/host/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_host_Shared_d76a53d8.sav",
+      "size": 2312,
+      "sha256": "76DB63C30A413C3855F6248ADC952D300A86689B367EF379A4ADD9894D12B58B",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/extra_urls.txt",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/merged_requirements.in",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/pyreqs_plugins.list",
+      "size": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "size": 108,
+      "sha256": "C7798EF0475E3E6AD104AE5A1865DA98AED92615E5680A3A7E7D189202E67238",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/CrashReportClient/UECC-Windows-954A55D045C0DAB9EB7A198E4DE540DC/CrashReportClient.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/CrashReportClient/UECC-Windows-954A55D045C0DAB9EB7A198E4DE540DC/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "size": 48657,
+      "sha256": "3B26FA0DCBE3213D4AB4DD8472880C4135552ED172C0ADB953592A48C400BDC4",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/WindowsEditor/Engine.ini",
+      "size": 111,
+      "sha256": "60A10D753DCFBD25B4D5612CD5A95994DD82143DF8E48436F4DD4D02C3A60A2A",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/Config/WindowsEditor/GameUserSettings.ini",
+      "size": 1380,
+      "sha256": "C68320D52B083577EFD58B4F4B895088828A8404E80470C58D9446B81DE6C0D7",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_A.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_A.sav",
+      "size": 26946,
+      "sha256": "0DE036273AE30E9A44EED90528E4EF8167326311E79A2C205C560BD3F1FBE8FA",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_A.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_A.sha1",
+      "size": 40,
+      "sha256": "3B23FA8639820304F5D0C1608C7DBFE5525642F90B9FDB6F93A09A6CD3A7159D",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_B.sav",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_B.sav",
+      "size": 26946,
+      "sha256": "902607648331623843DD86EEFD957C1E8A6297551B9DE3A76B45459DA662364A",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_B.sha1",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/BowHandoffReview20261018/Wire/20261018-215514/rejoin/Saved/SaveGames/ColdSteel_ShotgunWireAudit_20261018-215514_rejoin_B.sha1",
+      "size": 40,
+      "sha256": "C963C6C1EF9C0EA1D094E0C24896F8A6A5DCA484FBFBC12E5C366A2069F113FE",
+      "reason": "Failed fixture attempt superseded by final scoped checks; not counted as passed",
+      "retained": "SourceAssets/BowHandoffReview20261018/delivery.json"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Carry.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Carry.uasset",
+      "size": 883701,
+      "sha256": "D71BFCA7C77C6844E7BBCBCA6D2EF4FADE5A77F8F01846F433842C823AE5DBAD",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Draw.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Draw.uasset",
+      "size": 600440,
+      "sha256": "0B1F6FB6BEC0800BDB4E4C7644DF38A09BC5EA1C8DACCA5CB749E0E8E97DA437",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Hold.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Hold.uasset",
+      "size": 356604,
+      "sha256": "8923D6FBC37B9F1EFFAB7839CD781E30665F91D771900379E7786BECE3DEBCA0",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Ready.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Ready.uasset",
+      "size": 324554,
+      "sha256": "B489C84A666F8FE01BCE4A4C6D882551C425CFA9F30B45F4235D0C2A54FC12A6",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Release.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/Animations/J_SparrowBow_Release.uasset",
+      "size": 441274,
+      "sha256": "8EB382EE7015B60CC665D0493B6024860D26B6FF2C81175FCE6656F5AFBF300B",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Carry.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Carry.uasset",
+      "size": 1033496,
+      "sha256": "FF3FF2450940802EAE7C2D19AE0284735D48234BAC7873D51F4988F6433D71D4",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Draw.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Draw.uasset",
+      "size": 641896,
+      "sha256": "F1E69573C72433AF7D6E8650E9032ACF989FA26E01ADF9A8316ABE0B75B5BC12",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Hold.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Hold.uasset",
+      "size": 366938,
+      "sha256": "E890D5DE87C78916EA16743E91E0AE8D3AE7ADB5386DD108EF8C828D0BDDFB12",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Ready.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Ready.uasset",
+      "size": 325703,
+      "sha256": "FE3B15AAE7C66808DC1D112996FCD37CD6AEDA3192D454BF35CA1A22BEA63D1A",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Release.uasset",
+      "destination": "trash/bow-food-closeout-20261018/Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV2/J_SparrowBowV2_Release.uasset",
+      "size": 453624,
+      "sha256": "45D99B0CCEFD46EEEB36781FA7482EBABEF012B86E2371F1E331D550EF526592",
+      "reason": "Retired Sparrow fitted candidate; active config and author target AnimationsV3",
+      "retained": "Content/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_hardknuckle_gloves.uasset",
+      "size": 11733603,
+      "sha256": "CDF64EF6795E98A278544AC6FB0410AD18E76D90F6B274C2552B943E0919D0B2",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_hardknuckle_gloves.uasset",
+      "size": 11793809,
+      "sha256": "317FE98484A7C912868C39E37D5CC029B7EE7406370A426217901F904EBA4E3D",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_hardknuckle_gloves.uasset",
+      "size": 11794454,
+      "sha256": "8822204F1A378A9D3BC0297128FE58DDA5586D480C8742A8D6CD4DBC56B83BFA",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_hardknuckle_gloves.uasset",
+      "size": 11797966,
+      "sha256": "6C5F19305A7DD4E07C7A00154A9CB8534D49DB13EAA1854E55D5AA3D706B6D33",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_hardknuckle_gloves.uasset",
+      "size": 11728870,
+      "sha256": "623A473875257291F6080C913B17455E50D1825E6ACFC6F816BD3650539FE372",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_hardknuckle_gloves.uasset",
+      "size": 11726012,
+      "sha256": "2AE97A79681699682DAE78FAC2F38941096C65355DFBC7E1E4D1044C6689B5CA",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_hardknuckle_gloves.uasset",
+      "size": 11799064,
+      "sha256": "9FBB2FC572C858F87E0DD54D3C3C7A680134905CB38760278065E380C621640B",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_hardknuckle_gloves.uasset",
+      "size": 11805839,
+      "sha256": "46C3E89DB72F68C0BB064AC573DC1E4266F966862D5B8D07C6BB339715DFE88C",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_hardknuckle_gloves.uasset",
+      "size": 11805839,
+      "sha256": "3CF48135621E48BA079FD8A7E1B73F184AA428DF6D63B719DAE53D116266C16E",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_hardknuckle_gloves.uasset",
+      "size": 11733177,
+      "sha256": "B5185C15C03AEA2D8A632BEC488899AA8C00743A713C7C22C9A7B0EAB1A15A34",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_hardknuckle_gloves.uasset",
+      "size": 11732350,
+      "sha256": "A48F39B330D7290AB959411FE5C6E54C3015C9699990CFEBBAB3BCC7C19F39C1",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_hardknuckle_gloves.uasset",
+      "size": 11784242,
+      "sha256": "0F7B68FA7CA3559E5A528DE986DAFC0D62C09C22DE64B8CD22536B3AA50AB1C8",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_hardknuckle_gloves.uasset",
+      "size": 11750114,
+      "sha256": "5935E954864FB7CF87062FF2157C885186ED323DC7208FC7BBA14A84DE1DA116",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_hardknuckle_gloves.uasset",
+      "size": 11809988,
+      "sha256": "D3780B8938D7464596AC31F808329FA7ACBD219342C9C3E078212DF61DACB3B5",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_hardknuckle_gloves.uasset",
+      "size": 11792479,
+      "sha256": "308B760014546C01BED2029077839F4207FF88624BD430102DE6E13756D444FC",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_hardknuckle_gloves.uasset",
+      "size": 11797941,
+      "sha256": "EBAA096B08C78567791570E528A8372482B948A8B52BD0FAA6B2709B94928923",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_hardknuckle_gloves.uasset",
+      "size": 11797930,
+      "sha256": "5F1CE4D1B379759E125501FC8AAD208A05CCA09DC51E0919A530A2EBDB7C6ED9",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_hardknuckle_gloves.uasset",
+      "size": 11800174,
+      "sha256": "C7B485310B8F15647E1491618E7D320B38122B6BF6F1875A4302A29B6B87CB85",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_hardknuckle_gloves.uasset",
+      "size": 11794820,
+      "sha256": "789AD1002336327EC4E0B82B1428F29A1832E0AABAD248127FD7C525639F0AD6",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_hardknuckle_gloves.uasset",
+      "size": 569357,
+      "sha256": "7ADAD60E2266443D9120DE8BFE69BEA65C979D7151CC6C8C8943939967C24E25",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_hardknuckle_gloves.uasset",
+      "size": 11754435,
+      "sha256": "214E886E43E34D87AA4ECCB08404A1C065FA35C9388620322E3A7C5436DF6527",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_hardknuckle_gloves.uasset",
+      "size": 11791911,
+      "sha256": "32CD95AEDA3F1470446C0B4C722BAB90635FCDD960E1617E520F1ACBB82776F0",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_hardknuckle_gloves.uasset",
+      "size": 11728581,
+      "sha256": "F3EB195ACFFEDFB05047D5F39CA13611536DF92F78BC4BE3E51327AA4675C7A6",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_hardknuckle_gloves.uasset",
+      "size": 11716610,
+      "sha256": "6D9104B924EF2B07E7B1CD1F4E27C81A26DA0E23C433DD50F7B48F079007CE88",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_hardknuckle_gloves.uasset",
+      "size": 11729157,
+      "sha256": "9C47D79AB01C34DF38AA5B5F0946BF5D442B72912E83F26EBF6D4DC7971D3321",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_hardknuckle_gloves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/HardKnuckleRepair20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_hardknuckle_gloves.uasset",
+      "size": 11788460,
+      "sha256": "7B62A6B7D69658933D31A91D20B473B9C6DBA564EE3898BEDFE163DD3BF715DE",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/HardKnuckleRepair20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_st6_sleeves.uasset",
+      "size": 25253635,
+      "sha256": "9CEEF0EFDD59098445565D2579C0BE13366790B082F6E098F6A093F6CE38B4F4",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_st6_sleeves.uasset",
+      "size": 25314638,
+      "sha256": "9E15997AF45797324866F1CB8B01183E392E7BB2A7EBB5DB076F5103BF72F4A9",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_st6_sleeves.uasset",
+      "size": 25576540,
+      "sha256": "ED260FF92129D273E77F0B88227667ED692F7004F119E49EE0F6E90E796D5286",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_st6_sleeves.uasset",
+      "size": 25318415,
+      "sha256": "87F83E3A92BC9E5FBB1BDB819CE94DF59BF8C09A2199D8FBCDE68996CC643625",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_st6_sleeves.uasset",
+      "size": 25239824,
+      "sha256": "5A5AAFDBA861888575CB2E22ABF5BD26E790FF67F5BDAB2C1CFCD7C0F4143A06",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_st6_sleeves.uasset",
+      "size": 25309648,
+      "sha256": "54BD0D7457D14E1A986CEDCB314F631812C71230DC07BC04DDEE7D6B22E838F4",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_st6_sleeves.uasset",
+      "size": 25320099,
+      "sha256": "F6E255E26487973088B743A3A080D946DE75D5E370E5499791B3DDE4DF798E04",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_st6_sleeves.uasset",
+      "size": 25326844,
+      "sha256": "462816C911757C47F9E583F2F35D7331750C6EFEDA5EB7D347D8BFE4A341C839",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_st6_sleeves.uasset",
+      "size": 25326844,
+      "sha256": "6B81F8DAAAA087921DE738FEA35D3243F4FCA237BEFE1001E594DCA2BD3869BB",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_st6_sleeves.uasset",
+      "size": 25719972,
+      "sha256": "D4B8345EDA0BB4B8248FDD8803FA2C5D0B863C76399DE1E4B5F2CE78710E83BE",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_st6_sleeves.uasset",
+      "size": 25251957,
+      "sha256": "D79373AC3B6F038AE0B8033B4B6E25453404488DE20C257FB79AE6C507379E16",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_st6_sleeves.uasset",
+      "size": 25323655,
+      "sha256": "8D84EE44E3CE4DE0D93EE37B53B8D18BB1B3A79DDF948E1B1E8EE960B74BE4DF",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_st6_sleeves.uasset",
+      "size": 25271254,
+      "sha256": "5DF3C8FD769AF5DC614F823580F1B7F0A0A7EF2F2C6BCA29C18458CB3EDCADD3",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_st6_sleeves.uasset",
+      "size": 25547230,
+      "sha256": "E203B79AA1E3FC4ABC9E39D77F54D100E036FBAE791E09FCF25CC6CFE018E37E",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_st6_sleeves.uasset",
+      "size": 25312786,
+      "sha256": "BCA0EF9B6FE4EC7B40BA6A7607E26D52F55C9A8A76C9760D0BC9D35A4F569C57",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_st6_sleeves.uasset",
+      "size": 25318218,
+      "sha256": "7D89CDB1882FD4751234C8943EE52832AD3259AB0413DAEC1CD921915EAB1B38",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_st6_sleeves.uasset",
+      "size": 25318207,
+      "sha256": "7F8365AEB20F28475E6E53BC1EC76794DA0F0C1BF81548398D8B4906CA6761C0",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_st6_sleeves.uasset",
+      "size": 25321138,
+      "sha256": "B67E4A7F86435A12640EB152925884002E4F63031816DD3AB7257A159FB2D009",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_st6_sleeves.uasset",
+      "size": 25315129,
+      "sha256": "092705CB726D678A3CE4CB5C5BA01751558353C63348F9A5CBDB8B322833149F",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_st6_sleeves.uasset",
+      "size": 1744990,
+      "sha256": "A9DFF004D6AF87D6B0E3044D4CBFA16E2F74824BF10D86DE05D917DA9AC09A81",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_st6_sleeves.uasset",
+      "size": 25272829,
+      "sha256": "29B8B084F4B3E8D2881ACEAF5A11F6033AFDF8EA570416F384779CDB498014E2",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_st6_sleeves.uasset",
+      "size": 25312222,
+      "sha256": "CC61FE902B4E3FF63ED125BC6A66789F8161C0E393A4C87DEB0DC9CEF2C9083D",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_st6_sleeves.uasset",
+      "size": 25248096,
+      "sha256": "785AD1DDEE1D10E3373DD5CBF475AE5E5C64718AD0A9BAE55A728C887D2570C7",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_st6_sleeves.uasset",
+      "size": 25415228,
+      "sha256": "6A20D62AA035B42B4BDB70E05C35A834BB23DAF93DAFF83754013CC4C60BF021",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_st6_sleeves.uasset",
+      "size": 25255024,
+      "sha256": "75386567DAF1727B5DD9840AA1CC48DCFB42D7CB33970B6F682E2F544336EF0F",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_st6_sleeves.uasset",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/Assets/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_st6_sleeves.uasset",
+      "size": 25308770,
+      "sha256": "EE18A66705769130782F8631D5DEF30C316AF1D2EB0E01CDA9F46BFDC7C03B98",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/ST6Reset20261017/Authored"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/A762_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/A762_ue_st6_sleeves.json",
+      "size": 19688049,
+      "sha256": "E30B56FFD9F0CA1481AD9A5CE97CA50A44AB2A2F9B24333CFE6224B0AF36BA95",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/AKM_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/AKM_ue_st6_sleeves.json",
+      "size": 19686487,
+      "sha256": "178695280758B26B4E5EA832AF13165B036512F542BCE7D78DB94DE6D89BCFA7",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/ASH12_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/ASH12_ue_st6_sleeves.json",
+      "size": 19885979,
+      "sha256": "09614754F31B86CD377DEB6E1661CE0A15F771EEDD6A126C100022A7BDAD7FC5",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Axe_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Axe_ue_st6_sleeves.json",
+      "size": 19686470,
+      "sha256": "0FEABBA8DC7FDC1AA02B847A9B0E2AEF51AAC984F4BB94AAE9AC86374AAC62E0",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Body_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Body_ue_st6_sleeves.json",
+      "size": 19654899,
+      "sha256": "F6550BF91DF626586366953D588DF8E14DCD1572ABC471575F465A4284947EF4",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Bow_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Bow_ue_st6_sleeves.json",
+      "size": 19644350,
+      "sha256": "500D973AB24D83F8F4D04E202823621438366C2D541C87395E1B0BD6E36BE3F4",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/DW715_l_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/DW715_l_ue_st6_sleeves.json",
+      "size": 19686475,
+      "sha256": "7CF9F46504EB950DCD26DD3ECE395BA013E0A1A6F2CC65B0795B6AE5805179F9",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/DW715_r_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/DW715_r_ue_st6_sleeves.json",
+      "size": 19686475,
+      "sha256": "6DE83F1C02B7C04694E241B8734DD815D6B99C109382D5A6A52317ACF6C647B5",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/DW715_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/DW715_ue_st6_sleeves.json",
+      "size": 19686467,
+      "sha256": "2B10965295AB360FF8E9F5777BEAED637D21C25A6EFC23250341C59170713FF4",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/FrostArms_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/FrostArms_ue_st6_sleeves.json",
+      "size": 19688082,
+      "sha256": "7F780357C674107291FEC343C26CA5218032FA24B07248FAE78EA17AA8738A87",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/FrostSword_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/FrostSword_ue_st6_sleeves.json",
+      "size": 19688083,
+      "sha256": "46EDEDD984D922540CEBDF161642049D31EDAD13C8330D1B0EE9EE72B3C217FA",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Jason_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Jason_ue_st6_sleeves.json",
+      "size": 19700084,
+      "sha256": "A7BEB98FC297F48EF9A5738BC877CA8FB3B14A68AC3D943D978EBBE82055BF9E",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/LMG201_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/LMG201_ue_st6_sleeves.json",
+      "size": 19687896,
+      "sha256": "CAEA188236FCB1F55FB7D7D836F4CA74CCAF6C13C70BA60CE64A43ADC725D966",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M16_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M16_ue_st6_sleeves.json",
+      "size": 19871172,
+      "sha256": "84FDC369BD93B83040D94F67363CB83FA8E267EA160FC0C43F11AE1F578FD2F4",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M1911_l_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M1911_l_ue_st6_sleeves.json",
+      "size": 19686475,
+      "sha256": "453EF0DF73F62AE8C735764DC68566B5EB059464F61CED431D415DCC78A986C8",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M1911_r_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M1911_r_ue_st6_sleeves.json",
+      "size": 19686475,
+      "sha256": "AEC2D8B2444444C1C2B5CF08B236546194BC5AF8C4EFB11EBD32BF68CA499D7D",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M1911_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M1911_ue_st6_sleeves.json",
+      "size": 19686464,
+      "sha256": "9C2507DFA404240D546FE81AF34BC461C9899BCA418B454097B44F0CA67DE9BC",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M4_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/M4_ue_st6_sleeves.json",
+      "size": 20900165,
+      "sha256": "5E890FD3F98F174EC02D0DF401175351DCEF3881A904D8C398CBF79C6A7B5ABE",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Pickaxe_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Pickaxe_ue_st6_sleeves.json",
+      "size": 19686481,
+      "sha256": "7362D28D0B1591A968378024E1D76C3B4821949EB828B86DBB0D389E39D2240F",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/PKM_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/PKM_ue_st6_sleeves.json",
+      "size": 19688071,
+      "sha256": "FB399E0B1B1D21268E217A748B6155B8B13A2E98EE78049605E023BC43219FD8",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/QBZ191_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/QBZ191_ue_st6_sleeves.json",
+      "size": 19686466,
+      "sha256": "5806C3A3FD172AA64886E8162D56804500F8C45BF8368C1CD63B745D3D82A6F1",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/RuneSword_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/RuneSword_ue_st6_sleeves.json",
+      "size": 19688073,
+      "sha256": "101C172FCC210BD6EE7872003787325BC993EB5D9E0449DC9489EA3C7196D022",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Super90_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Super90_ue_st6_sleeves.json",
+      "size": 19216668,
+      "sha256": "6D058EC036D3A5ED3AB0D65C8E32256A625B92E2B7B3547C1AA1BA82FDC36272",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/SVD_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/SVD_ue_st6_sleeves.json",
+      "size": 19687622,
+      "sha256": "9381F77D51D3F8FCF52EA98F0F7891041E6F7DD9FE16AE2698F3B76220A5E57C",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    },
+    {
+      "source": "SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Traversal_ue_st6_sleeves.json",
+      "destination": "trash/bow-food-closeout-20261018/SourceAssets/ST6Reset20261017/Before/EquipmentAuthored/Traversal_ue_st6_sleeves.json",
+      "size": 19686507,
+      "sha256": "81ECA3BCB22D0DCE236A4C3307917BAF8B7C5AD170D603466EEC27D305D8D5B5",
+      "reason": "Rejected pre-repair glove winding / expanded ST6 shell backup; intact native production inputs and final repaired assets retained",
+      "retained": "SourceAssets/BenelliM4Super9020261006/EquipmentSources/source_shirt.json"
+    }
+  ],
+  "new_game_tests": false
+}

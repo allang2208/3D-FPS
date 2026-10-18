@@ -2,6 +2,8 @@
 #include "Engine/SkeletalMesh.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
+#include "../../Skills/FPSFireballComponent.h"
+#include "../../Items/FPSPotionUseComponent.h"
 
 void UBowArmsMeshComponent::SetLocomotion(UAnimSequence* Walk, UAnimSequence* Run,
     float Phase, float Weight, float Sprint, bool bKeepBraceContact, const FVector& Brace)
@@ -116,9 +118,41 @@ void UBowArmsMeshComponent::CaptureRelease(float Seconds)
     bReleaseHandoff = true;
 }
 
+bool UBowArmsMeshComponent::IsReturningLeftHand() const
+{return !LeftReturnPose.IsEmpty()&&LeftReturnMesh.Get()==GetSkeletalMeshAsset()&&LeftReturnAge<LeftReturnSeconds;}
+
+void UBowArmsMeshComponent::CaptureLeftReturn(float Seconds)
+{
+    auto* Mesh=GetSkeletalMeshAsset();if(!Mesh)return;
+    LeftReturnMesh=Mesh;LeftReturnPose=GetComponentSpaceTransforms();LeftReturnBones.Reset();
+    const auto& Ref=Mesh->GetRefSkeleton();const int32 Shoulder=Ref.FindBoneIndex(TEXT("clavicle_l"));
+    if(Shoulder<0||LeftReturnPose.Num()!=Ref.GetNum()){ClearLeftReturn();return;}
+    for(int32 I=0;I<Ref.GetNum();++I)if(I==Shoulder||Ref.BoneIsChildOf(I,Shoulder))LeftReturnBones.Add(I);
+    // Convert backwards so each parent still has its component transform.
+    for(int32 I=LeftReturnPose.Num()-1;I>0;--I)
+        if(const int32 P=Ref.GetParentIndex(I);P>=0)LeftReturnPose[I]=LeftReturnPose[I].GetRelativeTransform(LeftReturnPose[P]);
+    LeftReturnAge=0.f;LeftReturnSeconds=FMath::Max(.001f,Seconds);
+}
+
+void UBowArmsMeshComponent::BlendLeftReturn()
+{
+    if(!IsReturningLeftHand())return;
+    auto& Pose=GetEditableComponentSpaceTransforms();if(Pose.Num()!=LeftReturnPose.Num())return;
+    const auto Incoming=Pose;const auto& Ref=GetSkeletalMeshAsset()->GetRefSkeleton();
+    const float Weight=FPotionUseMotion::Ease(LeftReturnAge/LeftReturnSeconds);
+    for(int32 I:LeftReturnBones)
+    {
+        const int32 P=Ref.GetParentIndex(I);
+        const FTransform Target=P<0?Incoming[I]:Incoming[I].GetRelativeTransform(Incoming[P]);
+        FTransform Mixed;Mixed.Blend(LeftReturnPose[I],Target,Weight);Pose[I]=P<0?Mixed:Mixed*Pose[P];
+    }
+}
+
 void UBowArmsMeshComponent::AdvanceEntry(float Delta)
 {
     EntryAge += FMath::Max(0.f, Delta);
+    LeftReturnAge+=FMath::Max(0.f,Delta);
+    if(LeftReturnAge>=LeftReturnSeconds)ClearLeftReturn();
     if (EntryAge >= EntryDuration)
     {
         EntryPose.Reset();
@@ -170,5 +204,21 @@ void UBowArmsMeshComponent::FinalizeBoneTransform()
             Pose[I] = Parent == INDEX_NONE ? Local : Local * Pose[Parent];
         }
     }
-    Super::FinalizeBoneTransform();
+    if(Mesh&&CastTransfer>0.f)
+    {
+        if(CastMesh.Get()!=Mesh){CastMesh=Mesh;CastHands.Initialize(Mesh->GetRefSkeleton());}
+        const int32 Grip=GetBoneIndex(TEXT("bow_grip"));
+        if(Pose.IsValidIndex(Grip))
+        {
+            const FTransform Mount=CastHands.Apply(Pose,Pose[Grip],CastTransfer);
+            BlendLeftReturn();
+            // The weapon marker stays with the supporting right hand while
+            // the shared spell layer is free to move the left arm and fingers.
+            if(auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();Magic&&Magic->IsOccupyingLeftHand()&&!Magic->IsBowHandTransferActive())ApplyCastPose(Magic);
+            if(auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->UsesBowSupport())Use->ApplyHandPose(*this);
+            Pose[Grip]=Mount;
+        }
+    }
+    // Bow owns its other overlays; do not invoke potion/door/weapon-belt layers.
+    USkeletalMeshComponent::FinalizeBoneTransform();
 }

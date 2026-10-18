@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -60,16 +60,9 @@
+ 
+ void RefreshColdSteelFoodTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,FColdSteelTooltipContent& Out)
+ {
+-    if(Out.FoodLifetimeDays<=0||Out.Cards.IsEmpty())return;
++    if(Out.FoodLifetimeDays<=0)return;
+     const double Remaining=Model?Model->FoodRemainingDays(I):Out.FoodLifetimeDays;
+-    const float Progress=ColdSteelFoodUI::Progress(Remaining,Out.FoodLifetimeDays);
+-    for(auto& R:Out.Cards.Last().Rows)
+-    {
+-        if(R.Label==TEXT("腐败倒计时"))R.Value=ColdSteelFoodUI::Remaining(Remaining);
+-        else if(R.Label==TEXT("腐败进度"))R.Value=FString::Printf(TEXT("%d%% · 保质%g个游戏日"),FMath::FloorToInt(Progress*100.f),Out.FoodLifetimeDays);
+-        else continue;
+-        R.Tone=Progress>=.8f?-1:0;
+-    }
++    Out.FoodProgress=ColdSteelFoodUI::Progress(Remaining,Out.FoodLifetimeDays);
+ }
+ 
+ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G)
+@@ -705,8 +698,6 @@
+     Out.FoodLifetimeDays=ColdSteelFood::LifetimeDays(I);
+     if(Out.FoodLifetimeDays>0)
+     {
+-        auto& Remaining=Main.Rows.AddDefaulted_GetRef();Remaining.Label=TEXT("腐败倒计时");Remaining.bPreview=true;
+-        auto& Progress=Main.Rows.AddDefaulted_GetRef();Progress.Label=TEXT("腐败进度");Progress.bPreview=true;
+         RefreshColdSteelFoodTooltip(I,Model,Out);
+     }
+     CompleteColdSteelTooltipSummary(I,Model,G,Out);
