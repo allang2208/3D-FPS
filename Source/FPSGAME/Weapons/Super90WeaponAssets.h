@@ -12,7 +12,7 @@ inline constexpr const TCHAR* LooseShellMaterial=TEXT("12gauge");
 // The source rig parks its reload cartridge below the gun outside feed clips.
 void SetLooseShellVisible(USkeletalMeshComponent* Mesh,bool bVisible);
 inline constexpr int32 PelletCount=8;
-inline constexpr float PelletConeDegrees=3.75f; // Original 2.5-degree cone x 1.5.
+inline constexpr float PelletConeDegrees=3.0f; // 2026-10-19: 3.75 x 0.8; Saiga/M870/Super90 all share this cone.
 inline constexpr float ADSPelletSpreadScale=.75f;
 inline constexpr double MinimumAttackInterval=0.060;
 inline constexpr float SingleReload=99.f/60.f;

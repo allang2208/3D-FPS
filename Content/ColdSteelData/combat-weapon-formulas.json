@@ -391,38 +391,38 @@
     "source": "Super90 (eight-pellet aggregate)"
   },
   "ue_m870": {
-    "base": 80,
-    "enhanceFlat": 8,
+    "base": 88,
+    "enhanceFlat": 8.8,
     "attrs": [
       {
         "key": "con",
-        "base": 1.6,
-        "perEnhance": 0.8
+        "base": 1.76,
+        "perEnhance": 0.88
       },
       {
         "key": "wis",
-        "base": 4.0,
-        "perEnhance": 1.2
+        "base": 4.4,
+        "perEnhance": 1.32
       }
     ],
-    "source": "M870 (whole-cartridge aggregate)"
+    "source": "M870 (whole-cartridge aggregate, 2026-10-19 damage tier x1.10)"
   },
   "ue_saiga12k": {
-    "base": 80,
-    "enhanceFlat": 8,
+    "base": 72,
+    "enhanceFlat": 7.2,
     "attrs": [
       {
         "key": "con",
-        "base": 1.6,
-        "perEnhance": 0.8
+        "base": 1.44,
+        "perEnhance": 0.72
       },
       {
         "key": "wis",
-        "base": 4.0,
-        "perEnhance": 1.2
+        "base": 3.6,
+        "perEnhance": 1.08
       }
     ],
-    "source": "Saiga12K (whole-shell aggregate)"
+    "source": "Saiga12K (whole-shell aggregate, 2026-10-19 damage tier x0.90)"
   },
   "ue_zhanmadao": {
     "source": "ZHANMADAO_INITIAL_ZHENYUE_BASELINE",
