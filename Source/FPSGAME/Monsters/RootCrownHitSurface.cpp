@@ -28,9 +28,9 @@ struct FRegion
 
 bool ARootCrownRigPreview::IsWeakpointHit(const FHitResult& Hit) const
 {
-    // The ten fan leaves are ordinary tissue; only the exposed central stem is a weakpoint.
+    // The ten fan leaves are ordinary tissue; the connecting stem is the weakpoint.
     return Hit.GetActor()==this&&(!Hit.GetComponent()||Hit.GetComponent()==GetMesh())&&
-        (Hit.BoneName==TEXT("Stem_Upper")||Hit.BoneName==TEXT("Crown_Base"));
+        (Hit.BoneName==TEXT("Stem_Lower")||Hit.BoneName==TEXT("Stem_Upper")||Hit.BoneName==TEXT("Crown_Base"));
 }
 UPhysicsAsset* ARootCrownRigPreview::BuildHitSurfacePhysics(USkeletalMesh* InMesh,const FString& AssetPath)
 {

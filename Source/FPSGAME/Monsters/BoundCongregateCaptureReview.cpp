@@ -52,10 +52,10 @@ int32 ReviewBoundCongregateCaptureV31()
     }
     Check(TEXT("eight required clips present on same or declared-compatible skeletons"),Clips);
     float Health=0,MaxHealth=0;FText Name;
-    Check(TEXT("vitals display name"),Monster->Combat->GetVitals(Health,MaxHealth,Name)&&Name.ToString()==TEXT("缚群 M-88"));
+    Check(TEXT("vitals display name"),Monster->Combat->GetVitals(Health,MaxHealth,Name)&&Name.ToString()==TEXT("缚群 M-32"));
     auto* Catalog=NewObject<UDevelopmentSpawnComponent>();
     const auto* Entry=Catalog->GetMonsters().FindByPredicate([](const FDevelopmentMonsterEntry& E){return E.Id==TEXT("BoundCongregate");});
-    Check(TEXT("F6 name and stable class path"),Entry&&Entry->Name.ToString()==TEXT("缚群 M-88")&&Entry->CharacterClass.ToString().Contains(TEXT("BP_BoundCongregate")));
+    Check(TEXT("F6 name and stable class path"),Entry&&Entry->Name.ToString()==TEXT("缚群 M-32")&&Entry->CharacterClass.ToString().Contains(TEXT("BP_BoundCongregate")));
     auto* Capture=UBoundCongregateCaptureComponent::GetOrAdd(Victim);
     auto SetCapture=[&]()
     {

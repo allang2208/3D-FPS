@@ -17,7 +17,7 @@ class UAudioComponent;
 class USoundBase;
 class USoundAttenuation;
 
-/** Wide-bodied M-25 with shared-tree locomotion and electrode-based electric attacks. */
+/** Wide-bodied M-30 with shared-tree locomotion and electrode-based electric attacks. */
 UCLASS()
 class FPSGAME_API AVortexCofferM25 : public ACharacter
 {
@@ -60,13 +60,13 @@ public:
     void RefreshCombatPoseTick();
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M25|Bite") TObjectPtr<UM25BiteComponent> Bite;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> BiteClip;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category="M25|Vitals", meta=(ClampMin="1")) float MaxHealth = 3000.f;
-    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Replicated, Category="M25|Vitals") float Health = 3000.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="0")) int32 PhysicalDefense = 25;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="0")) int32 MagicalDefense = 40;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category="M25|Vitals", meta=(ClampMin="1")) float MaxHealth = 2800.f;
+    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Replicated, Category="M25|Vitals") float Health = 2800.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="0")) int32 PhysicalDefense = 30;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="0")) int32 MagicalDefense = 42;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals", meta=(ClampMin="1")) int32 Level = 8;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M25|Vitals") EMonsterRank Rank = EMonsterRank::Lord;
-    UPROPERTY(EditAnywhere, Category="M25|Vitals") int32 ExperienceReward = 300;
+    UPROPERTY(EditAnywhere, Category="M25|Vitals") int32 ExperienceReward = 500;
     UPROPERTY(EditDefaultsOnly, Category="M25|Hit") TObjectPtr<UPhysicsAsset> HitSurfacePhysics;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> HitClip;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="M25|Animation") TObjectPtr<UAnimSequence> DeathClip;

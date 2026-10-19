@@ -40,9 +40,9 @@ E.set_metadata_tag(bp,'M66.Reactions','Server-owned phase/serial/start/end; shar
 u.BlueprintEditorLibrary.compile_blueprint(bp)
 if not E.save_loaded_asset(bp,False):raise RuntimeError('M66 Blueprint save failed')
 report={'complete':True,'saved':[physics.get_path_name(),bp.get_path_name()],
-    'clips':motion['clips'],'physics':physics.get_path_name(),'base_health':6000,'rank':'Boss',
+    'clips':motion['clips'],'physics':physics.get_path_name(),'base_health':6000,'rank':'Lord',
     'level':12,'death_lead_seconds':.9,'corpse_lifetime_seconds':25,
-    'f6_entry_id':'IncineratorBossM66Rig','f6_label':'焚骸 M-66（受击·死亡）',
+    'f6_entry_id':'IncineratorBossM66Rig','f6_label':'焚骸 M-35（受击·死亡）',
     'server_authoritative_reactions':True,'cosmetic_corpse_simulation':'each peer',
     'runtime_tested':False,'multiplayer_tested':False}
 (ROOT/'Records/character_install.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')

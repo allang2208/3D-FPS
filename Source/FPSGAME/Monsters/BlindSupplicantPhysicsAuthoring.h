@@ -6,7 +6,7 @@
 
 class USkeletalMesh;
 
-/** Offline production of M-07's anatomical hit volumes and death ragdoll. */
+/** Offline production of M-31's anatomical hit volumes and death ragdoll. */
 UCLASS()
 class FPSGAME_API UBlindSupplicantPhysicsAuthoring : public UBlueprintFunctionLibrary
 {

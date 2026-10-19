@@ -94,7 +94,7 @@ try:
         'material':mat.get_path_name(),'blueprint':bp.get_path_name(),
         'height_m':3.8,'front_axis':'ForceFrontXAxis at import; actor mesh yaw 0',
         'animations':[],'physics':'Importer-generated reference bodies; no dedicated ragdoll authored',
-        'development_entry':'IncineratorBossM66Rig / 焚骸 M-66（模型绑定）',
+        'development_entry':'IncineratorBossM66Rig / 焚骸 M-35（模型绑定）',
         'complete':True})
     REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print('M66_IMPORT_SAVED '+json.dumps(report,ensure_ascii=False))

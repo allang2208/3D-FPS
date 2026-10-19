@@ -64,7 +64,7 @@ struct FQuadrupedTemplateProxy : FAnimInstanceProxy
             BellowToComponent.LocalPose.SetLinkNode(&Selection);
             BellowGrounding.ComponentPose.SetLinkNode(&BellowToComponent);
             BellowToLocal.ComponentPose.SetLinkNode(&BellowGrounding);
-            // Previous snapshots already include grounding, as with the M-08 branch.
+            // Previous snapshots already include grounding, as with the M-10 branch.
             Transition.B.SetLinkNode(&BellowToLocal);
         }
     }

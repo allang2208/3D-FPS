@@ -200,7 +200,7 @@ if 'character_blueprint' not in report['completed']:
     if not ai:
         raise RuntimeError('The shared monster Behavior Tree controller asset is unavailable.')
     defaults.set_editor_property('ai_controller_class', ai)
-    LIB.set_metadata_tag(bp, 'Identity', 'M-07 盲祷者; 310 cm sensory containment experiment; whole body plus six living gill membranes')
+    LIB.set_metadata_tag(bp, 'Identity', 'M-31 盲祷者; 310 cm sensory containment experiment; whole body plus six living gill membranes')
     LIB.set_metadata_tag(bp, 'Tuning', 'Editable provisional local-playtest values; current shared health scaling and combat formulas apply')
     LIB.set_metadata_tag(bp, 'AI', 'Existing shared monster perception/Behavior Tree, melee authority, toughness and knockdown contracts')
     save(bp)
@@ -242,7 +242,7 @@ if 'navigation' not in report['completed']:
 
 report.update({'stage': 'M07 gameplay assets saved; awaiting user manual test',
                'gameplay_integrated': True, 'f6_registered': True,
-               'f6': {'id': 'BlindSupplicantM07', 'label': '盲祷者 M-07', 'class': BP_PATH + '.BP_BlindSupplicantM07_C'},
+               'f6': {'id': 'BlindSupplicantM07', 'label': '盲祷者 M-31', 'class': BP_PATH + '.BP_BlindSupplicantM07_C'},
                'runtime_tested': False, 'visual_tested': False})
 REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 print('M07 GAMEPLAY PRODUCTION SAVED; USER MANUAL TEST PENDING', flush=True)

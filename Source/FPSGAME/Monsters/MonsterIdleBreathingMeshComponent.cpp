@@ -206,14 +206,14 @@ void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
     // old shadow immediately. Never reuse a frozen silhouette for live animation.
     EndFrozenShadowCaching();
     auto* Character = Cast<ACharacter>(GetOwner());
-    // No preview/studio animation, dedicated-server work or change to M-07 poses.
+    // No preview/studio animation, dedicated-server work or change to M-31 poses.
     if (!Character || !GetWorld() || !GetWorld()->IsGameWorld() || GetNetMode() == NM_DedicatedServer)
     {
         Super::FinalizeBoneTransform();
         return;
     }
     if (!bConfigured) ConfigureBreathing(Character);
-    // Independent of idle/locomotion/attack clips, including M-07's custom proxy.
+    // Independent of idle/locomotion/attack clips, including M-31's custom proxy.
     bool bPoseChanged = false;
     const bool bGunHitFeedback = ApplyGunHitFeedback(bPoseChanged);
     const auto FinalizePose = [&]()

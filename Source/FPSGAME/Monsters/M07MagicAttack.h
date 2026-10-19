@@ -43,7 +43,7 @@ struct FM07MagicAttackPresentation
     UPROPERTY() bool bCancelled = false;
 };
 
-/** M-07's released spell. It owns no player resource, training, or target-selection logic. */
+/** M-31's released spell. It owns no player resource, training, or target-selection logic. */
 UCLASS()
 class FPSGAME_API AM07MagicAttack : public AActor
 {

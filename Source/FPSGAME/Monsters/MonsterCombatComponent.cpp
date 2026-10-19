@@ -108,15 +108,15 @@ bool UMonsterCombatComponent::ResolveNetworkHit(FHitResult& Hit,double At) const
 }
 bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
 {
- if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner())){Health=HeQue->Health;MaxHealth=HeQue->MaxHealth;Name=FText::FromString(TEXT("合阙"));return true;}
- if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner())){Health=M66->Health;MaxHealth=M66->MaxHealth;Name=FText::FromString(TEXT("焚骸 M-66"));return true;}
- if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner())){Health=Crown->Health;MaxHealth=Crown->MaxHealth;Name=FText::FromString(TEXT("根冠 M-01"));return true;}
- if(const auto* BC=Cast<ABoundCongregate>(GetOwner())){Health=BC->Health;MaxHealth=BC->MaxHealth;Name=FText::FromString(TEXT("缚群 M-88"));return true;}
- if(const auto* M25=Cast<AVortexCofferM25>(GetOwner())){Health=M25->Health;MaxHealth=M25->MaxHealth;Name=FText::FromString(TEXT("涡电匣 M-25"));return true;}
+ if(const auto* HeQue=Cast<AHeQueMonster>(GetOwner())){Health=HeQue->Health;MaxHealth=HeQue->MaxHealth;Name=FText::FromString(TEXT("合阙 M-36"));return true;}
+ if(const auto* M66=Cast<AM66IncineratorMonster>(GetOwner())){Health=M66->Health;MaxHealth=M66->MaxHealth;Name=FText::FromString(TEXT("焚骸 M-35"));return true;}
+ if(const auto* Crown=Cast<ARootCrownRigPreview>(GetOwner())){Health=Crown->Health;MaxHealth=Crown->MaxHealth;Name=FText::FromString(TEXT("根冠 M-34"));return true;}
+ if(const auto* BC=Cast<ABoundCongregate>(GetOwner())){Health=BC->Health;MaxHealth=BC->MaxHealth;Name=FText::FromString(TEXT("缚群 M-32"));return true;}
+ if(const auto* M25=Cast<AVortexCofferM25>(GetOwner())){Health=M25->Health;MaxHealth=M25->MaxHealth;Name=FText::FromString(TEXT("涡电匣 M-30"));return true;}
  if(const auto* M14=Cast<ASpiralPillarM14>(GetOwner())){Health=M14->Health;MaxHealth=M14->MaxHealth;Name=FText::FromString(TEXT("螺柱 M-14"));return true;}
- if(const auto* M09=Cast<AHangingBellM09>(GetOwner())){Health=M09->Health;MaxHealth=M09->MaxHealth;Name=FText::FromString(TEXT("悬钟 M-09"));return true;}
- if(const auto* M10=Cast<AM10Mawcrawler>(GetOwner())){Health=M10->Health;MaxHealth=M10->MaxHealth;Name=FText::FromString(TEXT("沉匣 M-10"));return true;}
- if(const auto* S=Cast<AHundredEyedSlagMonster>(GetOwner())){Health=S->Health;MaxHealth=S->MaxHealth;Name=FText::FromString(TEXT("百目炉渣"));return true;}
+ if(const auto* M09=Cast<AHangingBellM09>(GetOwner())){Health=M09->Health;MaxHealth=M09->MaxHealth;Name=FText::FromString(TEXT("悬钟 M-13"));return true;}
+ if(const auto* M10=Cast<AM10Mawcrawler>(GetOwner())){Health=M10->Health;MaxHealth=M10->MaxHealth;Name=FText::FromString(TEXT("沉匣 M-33"));return true;}
+ if(const auto* S=Cast<AHundredEyedSlagMonster>(GetOwner())){Health=S->Health;MaxHealth=S->MaxHealth;Name=FText::FromString(TEXT("百目炉渣 M-12"));return true;}
  if(const auto* F=Cast<AFleshHandMonster>(GetOwner())){Health=F->Health;MaxHealth=F->MaxHealth;Name=FText::FromString(F->bMinion?TEXT("小皮肤手"):TEXT("异变巨手"));return true;}
  if(const auto* W=Cast<AWolfMonster>(GetOwner()))
  {Health=W->Health;MaxHealth=W->MaxHealth;Name=W->MonsterDisplayName;return true;}
@@ -130,10 +130,12 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
   if(N->ActorHasTag(TEXT("LivingStaffMale")))Name=FText::FromString(TEXT("男性员工 M-01"));
   else if(N->ActorHasTag(TEXT("LivingStaffFemaleA")))Name=FText::FromString(TEXT("女性员工A M-01"));
   else if(N->ActorHasTag(TEXT("LivingStaffFemaleB")))Name=FText::FromString(TEXT("女性员工B M-01"));
-  else if(N->ActorHasTag(TEXT("FacelessSecurity")))Name=FText::FromString(TEXT("安保员 M-03"));
-  else if(N->ActorHasTag(TEXT("FacelessReceptionist")))Name=FText::FromString(TEXT("接待员 M-04"));
-  else if(N->ActorHasTag(TEXT("EcologyGardener")))Name=FText::FromString(TEXT("园艺师"));
-  else if(N->ActorHasTag(TEXT("FacelessResearcher")))Name=FText::FromString(TEXT("研究员 M-05"));
+  else if(N->ActorHasTag(TEXT("FacelessSecurity")))Name=FText::FromString(TEXT("安保员 M-01"));
+  else if(N->ActorHasTag(TEXT("CargoPorter")))Name=FText::FromString(TEXT("搬运工 M-01"));
+  else if(N->ActorHasTag(TEXT("CargoTechnician")))Name=FText::FromString(TEXT("技术员 M-01"));
+  else if(N->ActorHasTag(TEXT("FacelessReceptionist")))Name=FText::FromString(TEXT("接待员 M-01"));
+  else if(N->ActorHasTag(TEXT("EcologyGardener")))Name=FText::FromString(TEXT("园艺师 M-01"));
+  else if(N->ActorHasTag(TEXT("FacelessResearcher")))Name=FText::FromString(TEXT("研究员 M-01"));
   else Name=FText::FromString(N->ActorHasTag(TEXT("SpitterZombie"))?TEXT("毒液僵尸"):N->ActorHasTag(TEXT("Witch"))?TEXT("巫婆"):N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));
   return true;
  }

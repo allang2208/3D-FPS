@@ -25,7 +25,7 @@ ABlindSupplicantMonster::ABlindSupplicantMonster(const FObjectInitializer& Initi
 {
     Tags.Remove(TEXT("NurseZombie"));
     Tags.Add(TEXT("BlindSupplicantM07"));
-    MonsterDisplayName = FText::FromString(TEXT("M-07 盲祷者"));
+    MonsterDisplayName = FText::FromString(TEXT("M-31 盲祷者"));
     GetCapsuleComponent()->InitCapsuleSize(50.f, 155.f);
     auto* Movement = GetCharacterMovement();
     Movement->SetUpdateNavAgentWithOwnersCollisions(false);
@@ -42,7 +42,7 @@ ABlindSupplicantMonster::ABlindSupplicantMonster(const FObjectInitializer& Initi
     Movement->RotationRate = FRotator(0, 260.f, 0);
     Level = 7;
     Rank = EMonsterRank::Lord;
-    ExperienceReward = 360;
+    ExperienceReward = 550;
     RecoveryTime = .75f;
     CorpseSeconds = 18.f;
     ContactTime = LeftContactTime;

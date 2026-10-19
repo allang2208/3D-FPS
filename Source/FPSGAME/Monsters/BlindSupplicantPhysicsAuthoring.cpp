@@ -92,7 +92,7 @@ FString UBlindSupplicantPhysicsAuthoring::BuildBodyPhysics(USkeletalMesh* Mesh)
 #if WITH_EDITOR
     if (!Mesh || !Mesh->GetPathName().StartsWith(TEXT("/Game/Monsters/BlindSupplicantM07/")))
     {
-        return Fail(TEXT("Body physics authoring only accepts the M-07 mesh package."));
+        return Fail(TEXT("Body physics authoring only accepts the M-31 mesh package."));
     }
 
     const FReferenceSkeleton& Ref = Mesh->GetRefSkeleton();
@@ -307,6 +307,6 @@ FString UBlindSupplicantPhysicsAuthoring::BuildBodyPhysics(USkeletalMesh* Mesh)
     Receipt->SetNumberField(TEXT("constraints"), Asset->ConstraintSetup.Num());
     return M07BodyPhysicsAuthoring::SerializeReceipt(Receipt);
 #else
-    return Fail(TEXT("M-07 body physics authoring requires an Editor target."));
+    return Fail(TEXT("M-31 body physics authoring requires an Editor target."));
 #endif
 }

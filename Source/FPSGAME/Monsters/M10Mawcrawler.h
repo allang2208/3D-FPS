@@ -41,10 +41,10 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> MoveClip;
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> BiteClip;
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> DeathClip;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M10|Stats") float MaxHealth=3200.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalAttack=90.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalDefense=45.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MagicDefense=20.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M10|Stats") float MaxHealth=3600.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalAttack=92.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalDefense=46.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MagicDefense=24.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") int32 Level=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") EMonsterRank Rank=EMonsterRank::Lord;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") int32 ExperienceReward=650;
@@ -57,7 +57,7 @@ public:
     UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="s")) float BiteContactSeconds=.70f;
     UPROPERTY(EditAnywhere,Category="M10|Bite",meta=(Units="s")) float BiteCooldown=2.6f;
     UPROPERTY(EditAnywhere,Category="M10|Death") float CorpseSeconds=20.f;
-    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M10") float Health=1800.f;
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M10") float Health=3600.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,ReplicatedUsing=OnRep_State,Category="M10") EM10State State=EM10State::Idle;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="M10") FVector Home;
     bool Dead() const {return State==EM10State::Dying||State==EM10State::Corpse||Health<=0.f;}
@@ -187,4 +187,9 @@ private:
     UPROPERTY() TObjectPtr<UAudioComponent> GasVoice;
     float ThreatCooldownLeft=0.f;
     bool bGasVoiceStarted=false;
+    // Runtime-only authority clock; a new timestamp also identifies repeated bites.
+    UPROPERTY(ReplicatedUsing=OnRep_BiteStartedAt) double BiteStartedAt=-1.;
+    UFUNCTION() void OnRep_BiteStartedAt();
+    void PresentBite();
+    double PresentedBiteStartedAt=-1.;
 };

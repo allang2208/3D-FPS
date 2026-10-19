@@ -197,7 +197,7 @@ def run():
     component.set_editor_property('relative_location',u.Vector(0,0,-70.))
     save(bp)
     REPORT.update(state='assets_saved_and_playable_blueprint_bound',blueprint=bp.get_path_name(),
-                  animation_set=dataset.get_path_name(),f6_id='LurkerM08',f6_name='伏窥者 M-08',
+                  animation_set=dataset.get_path_name(),f6_id='LurkerM08',f6_name='伏窥者 M-10',
                   behavior='low pursuit and close pounce bite',nav_profile='PoisonMaggot R70 H140 Step40',
                   contact_windows_source_seconds={'AttackBite':[.30,.42],'AttackPounce':[.52,.64]})
     record()

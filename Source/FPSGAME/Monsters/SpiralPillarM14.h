@@ -41,13 +41,13 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> TurnRightClip;
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> BiteClip;
     UPROPERTY(EditDefaultsOnly,Category="M14|Assets") TObjectPtr<UAnimSequence> DeathClip;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M14|Stats") float MaxHealth=2000.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalAttack=70.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalDefense=40.f;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float MagicDefense=20.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M14|Stats") float MaxHealth=2200.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalAttack=72.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float PhysicalDefense=38.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") float MagicDefense=22.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 Level=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") EMonsterRank Rank=EMonsterRank::Elite;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 ExperienceReward=650;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M14|Stats") int32 ExperienceReward=480;
     UPROPERTY(EditAnywhere,Category="M14|Movement",meta=(ClampMin="0")) float WalkSpeed=150.f;
     UPROPERTY(EditAnywhere,Category="M14|Animation",meta=(ClampMin="1")) float AnimationWalkSpeed=28.f;
     UPROPERTY(EditAnywhere,Category="M14|AI") float AggroRadius=3300.f;
@@ -57,7 +57,7 @@ public:
     UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteContactSeconds=.86f;
     UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteCooldown=2.6f;
     UPROPERTY(EditAnywhere,Category="M14|Death") float CorpseSeconds=20.f;
-    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M14") float Health=1800.f;
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M14") float Health=2200.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,ReplicatedUsing=OnRep_State,Category="M14") EM14State State=EM14State::Idle;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="M14") FVector Home;
     bool Dead() const { return Health<=0.f||State==EM14State::Dying||State==EM14State::Corpse; }

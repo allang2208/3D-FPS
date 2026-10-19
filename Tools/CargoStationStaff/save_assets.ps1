@@ -7,7 +7,7 @@ try {
     if (-not $taskHeld) { throw 'UE asset window remains busy; no import launched.' }
     $taskExisting = @(Get-CimInstance Win32_Process -Filter "Name='UnrealEditor-Cmd.exe'" | Where-Object { $_.CommandLine -and $_.CommandLine.Replace('\','/').Contains("$taskRoot/FPSGAME.uproject") })
     foreach ($taskProcess in $taskExisting) {
-        Write-Output 'Waiting for the existing background asset process to finish before importing M-10/M-11.'
+        Write-Output 'Waiting for the existing background asset process to finish before importing M-01 staff.'
         try { [Diagnostics.Process]::GetProcessById($taskProcess.ProcessId).WaitForExit() } catch [ArgumentException] { }
     }
     $taskEditors = @(Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe'" | Where-Object { $_.CommandLine -and $_.CommandLine.Replace('\','/').Contains("$taskRoot/FPSGAME.uproject") })

@@ -7,7 +7,7 @@
 class UAnimSequence;
 class USkeletalMesh;
 
-/** Read existing M-07 import and render skin data without changing an asset. */
+/** Read existing M-31 import and render skin data without changing an asset. */
 UCLASS()
 class FPSGAME_API UM07SkinReadback : public UBlueprintFunctionLibrary
 {

@@ -7,7 +7,7 @@
 class USkeletalMesh;
 class UClothingAssetCommon;
 
-/** Offline authoring entry points for M-07's six separate gill membranes. */
+/** Offline authoring entry points for M-31's six separate gill membranes. */
 UCLASS()
 class FPSGAME_API UBlindSupplicantAuthoring : public UBlueprintFunctionLibrary
 {

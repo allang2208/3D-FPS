@@ -82,7 +82,7 @@ try:
     (ROOT/'Records/imported-contact-frames.json').write_text(json.dumps(rows,indent=2),encoding='utf8')
     report.update(stage='fast_clamp_and_range_saved',range_cm=float(cdo.get_editor_property('rift_range')),close_seconds=motion['close_seconds'],clip=clip.get_path_name(),blueprint=bp.get_path_name(),duration=clip.get_play_length(),
         contact_seconds=[motion['contact_start'],motion['contact_end']],contact_frames=len(frames),surface_samples=len(bindings),
-        damage=float(cdo.get_editor_property('clamp_damage')),recovery_seconds=motion['recovery_seconds'],cooldown=float(cdo.get_editor_property('clamp_cooldown')),f6_label='合阙（重夹／碾扫／压鸣）',f6_id='HeQue',
+        damage=float(cdo.get_editor_property('clamp_damage')),recovery_seconds=motion['recovery_seconds'],cooldown=float(cdo.get_editor_property('clamp_cooldown')),f6_label='合阙 M-36（重夹／碾扫／压鸣）',f6_id='HeQue',
         source_bind_heads=src,imported_bind_heads=dst)
     record();print('HEQUE_HEAVY_CLAMP_SAVED '+json.dumps(report,ensure_ascii=False),flush=True)
 except Exception:

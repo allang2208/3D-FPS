@@ -40,7 +40,7 @@ report={'complete':True,'saved':[clip.get_path_name(),bp.get_path_name()],
     'sample_frames':len(frames),'points_per_frame':len(names),'sample_bones':names,
     'contact_seconds':[1.,1.35],'duration_seconds':2.6,'cooldown_seconds':3.6,
     'damage':40.,'start_range_cm':300.,'stop_range_cm':230.,'hit_radius_cm':16.,
-    'f6_entry_id':'IncineratorBossM66Rig','f6_label':'焚骸 M-66（拢灰指扫）',
+    'f6_entry_id':'IncineratorBossM66Rig','f6_label':'焚骸 M-35（拢灰指扫）',
     'server_authoritative':True,'runtime_tested':False,'multiplayer_tested':False}
 (ROOT/'Records/contact_samples.json').write_text(json.dumps({'bones':names,'frames':rows},indent=2),encoding='utf-8')
 (ROOT/'Records/character_install.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')

@@ -1,6 +1,6 @@
 # 根冠当前制作入口
 
-当前角色为根冠 M-01，蓝图入口保持 `/Game/Monsters/RootCrown/BP_RootCrownRigPreview`。
+当前角色为根冠 M-34，蓝图入口保持 `/Game/Monsters/RootCrown/BP_RootCrownRigPreview`。
 
 当前动作/资源使用多个版本，按 [发布与恢复清单](../../Docs/Publication/RootCrownEcology20261014/README.md) 的顺序选择制作与导入阶段；不要批量运行目录内脚本。
 

@@ -49,7 +49,7 @@ return float4(Tint.rgb*(1.3+ring*2.0)/max(.08,Exposure),alpha);''',inputs,u.Cust
                   material=signal.get_path_name(),fragment_material=flesh.get_path_name(),planting_sound=planting.get_path_name(),burst_fx='FPSImpactFXSubsystem.SpawnSacRupture: shared pressure wave, dust, blood mist and droplets',
                   fragments_per_mine=10,burst_visual_seconds=1.2,preserved_body_material=defaults.get_editor_property('slash_material').get_path_name(),
                   preserved_animation=defaults.get_editor_property('root_clip').get_path_name(),
-                  entry='RootCrownRig / 根冠 M-01')
+                  entry='RootCrownRig / 根冠 M-34')
     record();print('ROOT_CROWN_MINES_SAVED '+json.dumps(report,ensure_ascii=False))
 except Exception:
     report.update(stage='failed',error=traceback.format_exc());record();raise

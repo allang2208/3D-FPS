@@ -190,7 +190,7 @@ def helmet(role,mat,trim,rig):
     return dict(name=cap.name,relative_location_cm=list(local_pivot),triangles=sum(len(p.vertices)-2 for p in cap.data.polygons))
 
 report={'source':'FacelessSecurity V13 body/outfit and native skeleton; no animation changes','rendered':False,'runtime_tested':False,'variants':{}}
-for role,number in [('CargoPorter','M-10'),('CargoTechnician','M-11')]:
+for role,number in [('CargoPorter','M-01'),('CargoTechnician','M-01')]:
     bpy.ops.wm.open_mainfile(filepath=str(BASE/'V13/Authoring/FacelessSecurity_V13.blend'))
     rig=bpy.data.objects['root'];rig.animation_data_clear()
     for b in rig.pose.bones:b.matrix_basis=Matrix.Identity(4)

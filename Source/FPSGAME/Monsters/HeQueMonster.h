@@ -187,8 +187,8 @@ public:
     UPROPERTY(EditAnywhere,Replicated,Category="HeQue|Stats") float MaxHealth=6000.f;
     UPROPERTY(VisibleAnywhere,Replicated,Category="HeQue|Stats") float Health=6000.f;
     UPROPERTY(EditAnywhere,Category="HeQue|Stats") int32 Level=12;
-    UPROPERTY(EditAnywhere,Category="HeQue|Stats") EMonsterRank Rank=EMonsterRank::Boss;
-    UPROPERTY(EditAnywhere,Category="HeQue|Stats") int32 ExperienceReward=0;
+    UPROPERTY(EditAnywhere,Category="HeQue|Stats") EMonsterRank Rank=EMonsterRank::Lord;
+    UPROPERTY(EditAnywhere,Category="HeQue|Stats") int32 ExperienceReward=800;
     UPROPERTY(EditAnywhere,Category="HeQue|Death") float CorpseSeconds=25.f;
     UPROPERTY(EditAnywhere,Category="HeQue|Movement") float WalkSpeed=100.f;
     UPROPERTY(EditAnywhere,Category="HeQue|Movement") float ReturnSpeed=80.f;

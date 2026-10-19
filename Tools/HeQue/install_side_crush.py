@@ -74,7 +74,7 @@ try:
     (ROOT/'Records/imported-contact-frames.json').write_text(json.dumps(rows,indent=2),encoding='utf8')
     report.update(stage='side_crush_saved',clip=clip.get_path_name(),blueprint=bp.get_path_name(),duration=clip.get_play_length(),
         contact_seconds=[motion['contact_start'],motion['contact_end']],contact_frames=len(frames),surface_samples=len(bindings),
-        damage=motion['damage'],push_distance_cm=180.,cooldown=motion['cooldown'],f6_label='合阙（偏身碾扫）',f6_id='HeQue',
+        damage=motion['damage'],push_distance_cm=180.,cooldown=motion['cooldown'],f6_label='合阙 M-36（偏身碾扫）',f6_id='HeQue',
         source_bind_heads=src,imported_bind_heads=dst)
     record();print('HEQUE_SIDE_CRUSH_SAVED '+json.dumps(report,ensure_ascii=False),flush=True)
 except Exception:

@@ -155,8 +155,8 @@ if spawner:templates.append(spawner)
 for template in templates:
     entries=list(template.get_editor_property('monsters'))
     for entry in entries:
-        if str(entry.get_editor_property('id'))=='M10Mawcrawler':entry.set_editor_property('name',u.Text('沉匣 M-20'))
-    for role,label in [('CargoPorter','搬运工 M-10'),('CargoTechnician','技术员 M-11')]:
+        if str(entry.get_editor_property('id'))=='M10Mawcrawler':entry.set_editor_property('name',u.Text('沉匣 M-33'))
+    for role,label in [('CargoPorter','搬运工 M-01'),('CargoTechnician','技术员 M-01')]:
         entry=next((e for e in entries if str(e.get_editor_property('id'))==role),None)
         if entry is None:entry=u.DevelopmentMonsterEntry();entries.append(entry)
         entry.set_editor_property('id',u.Name(role));entry.set_editor_property('name',u.Text(label))

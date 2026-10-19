@@ -139,8 +139,8 @@ public:
     UPROPERTY(EditAnywhere, Replicated, Category="RootCrown|Stats") float MaxHealth=4200.f;
     UPROPERTY(VisibleAnywhere, Replicated, Category="RootCrown|Stats") float Health=4200.f;
     UPROPERTY(EditAnywhere, Replicated, Category="RootCrown|Stats") int32 Level=12;
-    UPROPERTY(EditAnywhere, Replicated, Category="RootCrown|Stats") EMonsterRank Rank=EMonsterRank::Boss;
-    UPROPERTY(EditAnywhere, Category="RootCrown|Stats") int32 ExperienceReward=600;
+    UPROPERTY(EditAnywhere, Replicated, Category="RootCrown|Stats") EMonsterRank Rank=EMonsterRank::Lord;
+    UPROPERTY(EditAnywhere, Category="RootCrown|Stats") int32 ExperienceReward=700;
     UPROPERTY(EditAnywhere, Category="RootCrown|Death") float CorpseSeconds=25.f;
     UPROPERTY(VisibleAnywhere, Category="RootCrown|Death") TObjectPtr<UMonsterCorpseRagdollComponent> CorpseRagdoll;
     bool Dead() const {return Health<=0.f||Reaction.Phase==ERootCrownReaction::Dying;}

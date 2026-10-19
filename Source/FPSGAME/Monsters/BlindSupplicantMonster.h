@@ -24,7 +24,7 @@ struct FBlindSupplicantNetworkAttack
     UPROPERTY() bool bChargeStopped = false;
 };
 
-/** M-07, a 3.1 m sensory experiment. AI decisions use the shared monster tree. */
+/** M-31, a 3.1 m sensory experiment. AI decisions use the shared monster tree. */
 UCLASS(Blueprintable, Placeable)
 class FPSGAME_API ABlindSupplicantMonster : public ANurseZombie
 {
@@ -90,13 +90,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Combat", meta=(ClampMin="0", Units="s")) float LeftContactTime = .47f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Combat", meta=(ClampMin="0", Units="s")) float RightContactTime = .50f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Combat", meta=(ClampMin="0.01", Units="s")) float ContactWindowSeconds = .12f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) int32 PhysicalDefense = 16;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) int32 MagicalDefense = 24;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) int32 CriticalResistance = 12;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) int32 PhysicalDefense = 30;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) int32 MagicalDefense = 28;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) int32 CriticalResistance = 16;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|CoreStats", meta=(ClampMin="0")) float CombatAttributeWeight = 7.5f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity") bool bWallListening = true;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Identity", meta=(ClampMin="10", Units="cm")) float WallListenDistance = 120.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="M07|Identity") bool bPresentingWallListen = false;
+    // 目盲设定：无视觉感知，听觉是唯一主动发现通道（AI 控制器按此半径配听觉）。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M07|Hearing", meta=(ClampMin="0", Units="cm")) float HearingRadius = 3600.f;
 
 protected:
     virtual void StartStateAnimation(UAnimSequence* Clip, bool bLoop) override;

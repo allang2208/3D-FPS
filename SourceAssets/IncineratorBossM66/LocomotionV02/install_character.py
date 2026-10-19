@@ -47,7 +47,7 @@ report={'saved':[bp.get_path_name()],'parent':cdo.get_class().get_super_class().
     'movement_class':move.get_class().get_name(),'animation_class':'M66AnimInstance','clips':motion['clips'],
     'nav_radius_cm':225,'nav_height_cm':450,'step_cm':40,'capsule_radius_cm':100,'capsule_half_height_cm':190,
     'source_stride_cm':144,'walk_speed_cm_s':80,'return_speed_cm_s':65,'turn_deg_s':50,
-    'mesh_imported_height_cm':bounds.box_extent.z*2,'f6':'焚骸 M-66（待机·移动）',
+    'mesh_imported_height_cm':bounds.box_extent.z*2,'f6':'焚骸 M-35（待机·移动）',
     'server_authoritative_navigation':True,'runtime_tested':False,'complete':True}
 (ROOT/'Records/character_install.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print('M66_CHARACTER_SAVED '+json.dumps(report,ensure_ascii=False))

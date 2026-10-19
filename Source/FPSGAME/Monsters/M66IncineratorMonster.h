@@ -131,8 +131,8 @@ public:
     UPROPERTY(EditAnywhere,Replicated,Category="M66|Stats") float MaxHealth=6000.f;
     UPROPERTY(VisibleAnywhere,Replicated,Category="M66|Stats") float Health=6000.f;
     UPROPERTY(EditAnywhere,Category="M66|Stats") int32 Level=12;
-    UPROPERTY(EditAnywhere,Category="M66|Stats") EMonsterRank Rank=EMonsterRank::Boss;
-    UPROPERTY(EditAnywhere,Category="M66|Stats") int32 ExperienceReward=0;
+    UPROPERTY(EditAnywhere,Category="M66|Stats") EMonsterRank Rank=EMonsterRank::Lord;
+    UPROPERTY(EditAnywhere,Category="M66|Stats") int32 ExperienceReward=750;
     UPROPERTY(EditAnywhere,Category="M66|Death") float CorpseSeconds=25.f;
     UPROPERTY(EditAnywhere,Category="M66|Movement",meta=(ClampMin="1",Units="cm/s")) float WalkSpeed=160.f;
     UPROPERTY(EditAnywhere,Category="M66|Movement",meta=(ClampMin="1",Units="cm/s")) float ReturnSpeed=130.f;

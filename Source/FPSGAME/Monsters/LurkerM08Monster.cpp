@@ -16,12 +16,12 @@
 
 ALurkerM08Monster::ALurkerM08Monster(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-    MonsterDisplayName = FText::FromString(TEXT("伏窥者 M-08"));
+    MonsterDisplayName = FText::FromString(TEXT("伏窥者 M-10"));
     Tags.Remove(TEXT("Wolf")); Tags.AddUnique(TEXT("LurkerM08"));
     // Navmesh is only the ground guide hint for surface crawling; keep its points straight.
     ArcPathing.ArcStrength = 0.f; ArcPathing.ArcMidPoints = 0; ArcPathing.LaneOffset = 0.f;
     Level = 8; Rank = EMonsterRank::Elite; ExperienceReward = 300;
-    MaxHealth = 1400.f; PhysicalDefense = 24.f; MagicDefense = 14.f; CriticalResistance = 12.f;
+    MaxHealth = 1500.f; PhysicalDefense = 22.f; MagicDefense = 14.f; CriticalResistance = 14.f;
     WalkSpeed = 150.f; ChaseSpeed = 380.f;
     GetMesh()->SetAnimInstanceClass(ULurkerM08AnimInstance::StaticClass());
     AirChargeRing = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("AirChargeRing"));

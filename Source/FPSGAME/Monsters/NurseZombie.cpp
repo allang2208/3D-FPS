@@ -24,6 +24,7 @@
 #include "Animation/AnimData/IAnimationDataModel.h"
 #include "Animation/AnimData/IAnimationDataController.h"
 #endif
+#include "Components/AudioComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
@@ -32,6 +33,9 @@
 #include "EngineUtils.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundAttenuation.h"
+#include "Sound/SoundBase.h"
+#include "UObject/ConstructorHelpers.h"
 
 namespace
 {
@@ -41,6 +45,19 @@ bool UsesFacelessStaffTransitions(const AActor* Actor)
         Actor->ActorHasTag(TEXT("FacelessReceptionist")) ||
         Actor->ActorHasTag(TEXT("FacelessSecurity"));
 }
+// M-01 humanoid staff share NurseZombie defaults; role tags bias vitals within
+// ?20% so each posting reads differently without a per-variant class.
+struct FStaffVitalBias { const TCHAR* Tag; float HealthMul, DamageMul, WalkSpeed; };
+static const FStaffVitalBias StaffVitalBiases[] =
+{
+    {TEXT("FacelessSecurity"),     1.16f, 1.18f, 95.f},
+    {TEXT("CargoPorter"),          1.12f, 1.14f, 92.f},
+    {TEXT("EcologyGardener"),      1.06f, 1.09f, 95.f},
+    {TEXT("NightWarden"),          1.02f, 1.05f, 95.f},
+    {TEXT("CargoTechnician"),      0.92f, 0.95f, 92.f},
+    {TEXT("FacelessResearcher"),   0.84f, 0.86f, 90.f},
+    {TEXT("FacelessReceptionist"), 0.80f, 0.82f, 90.f},
+};
 }
 ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)
@@ -67,6 +84,22 @@ ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
     GetCharacterMovement()->bCanWalkOffLedges = false;
     Tags.Add(TEXT("Enemy"));
     Tags.Add(TEXT("NurseZombie"));
+    // Shared humanoid voice: quiet breathing loop on the body plus state-edge
+    // one-shots. Missing assets degrade silently for deferred imports.
+    BodyVoice=CreateDefaultSubobject<UAudioComponent>(TEXT("BodyVoice"));
+    BodyVoice->SetupAttachment(GetMesh());BodyVoice->bAutoActivate=false;
+    BodyVoice->bOverrideAttenuation=true;BodyVoice->AttenuationOverrides.bAttenuate=true;
+    BodyVoice->AttenuationOverrides.bSpatialize=true;BodyVoice->AttenuationOverrides.FalloffDistance=950.f;
+    const struct {const TCHAR* Key;TObjectPtr<USoundBase>* Slot;} AudioMap[]={
+        {TEXT("Idle"),&NurseIdleSound},{TEXT("Chase"),&NurseChaseSound},{TEXT("Attack"),&AttackSound},
+        {TEXT("HitA"),&HitSoundA},{TEXT("HitB"),&HitSoundB},{TEXT("Death"),&NurseDeathSound},
+        {TEXT("StepA"),&StepSoundA},{TEXT("StepB"),&StepSoundB}};
+    for(const auto& Entry:AudioMap)
+    {
+        const FString Path=FString::Printf(TEXT("/Game/Monsters/Shared/HumanoidAudioV1/S_Humanoid_%s.S_Humanoid_%s"),Entry.Key,Entry.Key);
+        ConstructorHelpers::FObjectFinder<USoundBase> Found(*Path);
+        if(Found.Succeeded())*Entry.Slot=Found.Object;
+    }
 }
 
 void ANurseZombie::PrepareDeferredAllocation()
@@ -99,10 +132,15 @@ void ANurseZombie::BeginPlay()
 {
     Super::BeginPlay();
     SpawnPosition=GetActorLocation();
-    // 全局成长层（MonsterCoreStats::HealthMultiplier）：护士/胖子/突变体3/巫婆共用此初始化点。
-    MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
+    // Living-area employees retain donor tags for animation transitions/grounding,
+    // but their Blueprint vitals are already final and must not receive the donor's job bias.
+    if (!ActorHasTag(TEXT("StaffLivingEmployee")))
+        for (const FStaffVitalBias& Bias : StaffVitalBiases)
+            if (ActorHasTag(Bias.Tag)) { MaxHealth*=Bias.HealthMul; AttackDamage*=Bias.DamageMul; WalkSpeed=Bias.WalkSpeed; break; }
+    // ?????????MonsterCoreStats::HealthMultiplier??????/???/?????/????????????????    MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
     Health = MaxHealth;
     if (VisualMesh) GetMesh()->SetSkeletalMeshAsset(VisualMesh);
+    if(BodyVoice&&NurseIdleSound)BodyVoice->SetSound(NurseIdleSound);
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     if (!GetMesh()->GetSkeletalMeshAsset() || !IdleClip || !WalkClip || !AttackClip)
     {
@@ -121,8 +159,7 @@ void ANurseZombie::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLife
 }
 void ANurseZombie::OnRep_State()
 {
-    // 远端副本：SetState 本身是表现内聚的（动画/移动标志），直接重放。
-    if(!HasAuthority())SetState(State);
+    // ????????etState ??????????????????????????????????    if(!HasAuthority())SetState(State);
 }
 void ANurseZombie::SetState(ENurseState NewState)
 {
@@ -133,8 +170,38 @@ void ANurseZombie::SetState(ENurseState NewState)
     {
         StartStateAnimation(Clip,State!=ENurseState::Attack);
     }
+    // Replicated state edges carry the one-shots to every endpoint; the loop
+    // voice only runs while the zombie is alive (dedi skips audio entirely).
+    UpdateVoice();
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        const FVector Mouth=GetActorLocation()+FVector(0,0,120);
+        if(State==ENurseState::Chase&&NurseChaseSound)
+            UGameplayStatics::PlaySoundAtLocation(this,NurseChaseSound,Mouth,.9f,1.f,0.f,OneShotAttenuation(1600.f));
+        else if(State==ENurseState::Attack&&AttackSound)
+            UGameplayStatics::PlaySoundAtLocation(this,AttackSound,Mouth,1.f,1.f,0.f,OneShotAttenuation(1400.f));
+        else if(State==ENurseState::Stagger)
+        {
+            if(USoundBase* Hit=(bAudioHitAlt=!bAudioHitAlt)?HitSoundA:HitSoundB)
+                UGameplayStatics::PlaySoundAtLocation(this,Hit,Mouth,.85f,1.f,0.f,OneShotAttenuation(1200.f));
+        }
+        else if(State==ENurseState::Dead&&NurseDeathSound)
+            UGameplayStatics::PlaySoundAtLocation(this,NurseDeathSound,Mouth,1.f,1.f,0.f,OneShotAttenuation(1800.f));
+    }
     if (State != ENurseState::Chase) GetCharacterMovement()->StopMovementImmediately();
     if (State == ENurseState::Attack) bAttackConsumed = false;
+}
+USoundAttenuation* ANurseZombie::OneShotAttenuation(float Falloff) const
+{
+    auto* Attenuation=NewObject<USoundAttenuation>(const_cast<ANurseZombie*>(this));
+    Attenuation->Attenuation.bAttenuate=true;Attenuation->Attenuation.bSpatialize=true;
+    Attenuation->Attenuation.FalloffDistance=Falloff;return Attenuation;
+}
+void ANurseZombie::UpdateVoice()
+{
+    if(GetNetMode()==NM_DedicatedServer||!BodyVoice)return;
+    if(State!=ENurseState::Dead&&BodyVoice->Sound){if(!BodyVoice->IsPlaying())BodyVoice->Play();}
+    else if(BodyVoice->IsPlaying())BodyVoice->Stop();
 }
 
 void ANurseZombie::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
@@ -268,6 +335,18 @@ float ANurseZombie::ApplyMeleeDamage(APawn* Victim)
 void ANurseZombie::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    // Shamble steps: stride-driven on the real velocity, not a chained loop.
+    if(GetNetMode()!=NM_DedicatedServer&&State==ENurseState::Chase&&GetVelocity().Size2D()>20.f)
+    {
+        AudioStepClock+=DeltaSeconds;
+        if(AudioStepClock>=FMath::Clamp(55.f/GetVelocity().Size2D(),.22f,.9f))
+        {
+            AudioStepClock=0.f;
+            if(USoundBase* Step=(bAudioStepAlt=!bAudioStepAlt)?StepSoundA:StepSoundB)
+                UGameplayStatics::PlaySoundAtLocation(this,Step,GetActorLocation()-FVector(0,0,80),.45f,1.f,0.f,OneShotAttenuation(700.f));
+        }
+    }
+    else AudioStepClock=0.f;
     if (!HasAuthority() || State == ENurseState::Dead || (Knockdown && Knockdown->IsControlling())) return;
     const float Previous = StateTime;
     StateTime += DeltaSeconds;

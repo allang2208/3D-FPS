@@ -45,14 +45,14 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag") TObjectPtr<UCombatStatusFormula> Status;
     UPROPERTY(EditDefaultsOnly, Category="Slag|Assets") TObjectPtr<USkeletalMesh> VisualMesh;
     UPROPERTY(EditDefaultsOnly, Category="Slag|Assets") TMap<FName, TObjectPtr<UAnimSequence>> Clips;
-    UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") float MaxHealth = 1800.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") float PhysicalAttack = 42.f;
+    UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") float MaxHealth = 2000.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") float PhysicalAttack = 52.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") float MagicAttack = 35.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") int32 Level = 8;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") EMonsterRank Rank = EMonsterRank::Elite;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") int32 ExperienceReward = 300;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|AI") float AggroRadius = 1500.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|AI") float LeashRadius = 2400.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Stats") int32 ExperienceReward = 380;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|AI") float AggroRadius = 2500.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|AI") float LeashRadius = 3200.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|AI") float ChaseSpeed = 340.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|AI") float ReturnSpeed = 120.f;
     /** Engagement distance. Sweep closes to 250 cm; slam closes to 215 cm. */
@@ -69,7 +69,7 @@ public:
     UPROPERTY(meta=(DeprecatedProperty, DeprecationMessage="Replaced by EyeLaser; retired attack")) float ChargeSpeed = 1000.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Death") float CorpseSeconds = 15.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Slag|Death", meta=(ClampMin="0.1", ClampMax="1.0")) float RagdollHandoffSeconds = .42f;
-    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") float Health = 1800.f;
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") float Health = 2000.f;
     /** 复制给远端：客户端 OnRep 重放 EnterState 驱动同款动画/表现切换。 */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime", ReplicatedUsing=OnRep_State) ESlagState State = ESlagState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Slag|Runtime") float StateSeconds = 0.f;

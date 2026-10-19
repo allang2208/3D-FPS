@@ -1,5 +1,6 @@
 #include "MonsterAIController.h"
 #include "HeQueMonster.h"
+#include "RootCrownRigPreview.h"
 #include "M66IncineratorMonster.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterNavigationCache.h"
@@ -16,6 +17,12 @@
 #include "VortexCofferM25.h"
 #include "LurkerM08Monster.h"
 #include "FPSCombatHealthComponent.h"
+#include "WitchMonster.h"
+#include "PoisonMaggotMonster.h"
+#include "SpiralPillarM14.h"
+#include "M10Mawcrawler.h"
+#include "HundredEyedSlagMonster.h"
+#include "HandBrainMonster.h"
 #include "../Dungeons/DungeonThemeEncounter.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -82,6 +89,8 @@ void AMonsterAIController::OnPossess(APawn* P)
  Sight->LoseSightRadius=Sight->SightRadius+(OmniSight?500.f:300.f);
  Sight->PeripheralVisionAngleDegrees=OmniSight?180.f:100.f;Sight->SetMaxAge(MemorySeconds);
  Sight->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,false);
+ // 盲祷者目盲：视觉半径归零，发现完全依赖听觉与受击。
+ if(P->IsA<ABlindSupplicantMonster>()){Sight->SightRadius=0.f;Sight->LoseSightRadius=0.f;}
  Senses->ConfigureSense(*Sight);
  if(const auto* Bellow=Cast<ABellowSacLobber>(P);Bellow&&Bellow->bSoundSensitive)
  {
@@ -94,6 +103,14 @@ void AMonsterAIController::OnPossess(APawn* P)
  {
   auto* Hearing=NewObject<UAISenseConfig_Hearing>(this);
   Hearing->HearingRange=FMath::Max(0.f,Mantis->GunshotHearingRadius);Hearing->SetMaxAge(8.f);
+  Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
+  Senses->ConfigureSense(*Hearing);
+  MemorySeconds=FMath::Max(MemorySeconds,30.f);
+ }
+ if(const auto* M07=Cast<ABlindSupplicantMonster>(P))
+ {
+  auto* Hearing=NewObject<UAISenseConfig_Hearing>(this);
+  Hearing->HearingRange=FMath::Max(0.f,M07->HearingRadius);Hearing->SetMaxAge(8.f);
   Hearing->DetectionByAffiliation=FAISenseAffiliationFilter(true,true,true);
   Senses->ConfigureSense(*Hearing);
   MemorySeconds=FMath::Max(MemorySeconds,30.f);
@@ -150,11 +167,16 @@ void AMonsterAIController::UpdateKnowledge()
    const float D=FVector::DistSquared(P->GetActorLocation(),GetPawn()->GetActorLocation());
    if((!Health||!Health->IsDead())&&D<Best&&CanSeePlayer(P,true)){Best=D;DiscoverPlayer(P,true);}
   }
-  // Sight perception samples the target center. M07 can acquire an exposed
-  // upper body over low cover through the same segment used to select spells.
-  // M25 also actively acquires visible players all around its back electrodes.
-  // Reuse the existing 10 Hz knowledge service and enumerate only players.
-  if((M07||M08||M25)&&!KnownTarget.IsValid())
+  // Native perception can miss players behind allied bodies. All ranged
+  // archetypes use the same friend-transparent sight as their firing lanes.
+  // Retain M08/M25 all-around acquisition and the others' original view cone.
+  // Reuse the existing 10 Hz service; enumerate players, never all monsters.
+  const bool RangedSight=!M07&&(M08||M09||M25||GetPawn()->IsA<ABellowSacLobber>()
+   ||GetPawn()->IsA<AWitchMonster>()||GetPawn()->IsA<APoisonMaggotMonster>()
+   ||GetPawn()->IsA<ASpiralPillarM14>()||GetPawn()->IsA<AM10Mawcrawler>()||GetPawn()->IsA<ARootCrownRigPreview>()
+   ||GetPawn()->IsA<AHundredEyedSlagMonster>()||GetPawn()->IsA<AHandBrainMonster>()
+   ||GetPawn()->IsA<ABoundCongregate>()||GetPawn()->IsA<AM66IncineratorMonster>()||GetPawn()->IsA<AHeQueMonster>());
+  if(RangedSight&&!KnownTarget.IsValid())
   {
    const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>();
    const float ConeCos=(M08||M25)?-1.f:FMath::Cos(FMath::DegreesToRadians(Sight?Sight->PeripheralVisionAngleDegrees:100.f));
@@ -167,7 +189,7 @@ void AMonsterAIController::UpdateKnowledge()
     const float D=Delta.SizeSquared();
     if((Health&&Health->IsDead())||D>=Best||
        FVector::DotProduct(GetPawn()->GetActorForwardVector().GetSafeNormal2D(),Delta.GetSafeNormal2D())<ConeCos||
-       !(M08?M08->HasHuntingSight(P):M25?LineOfSightTo(P):M07->HasMagicSight(P)))continue;
+       !CanSeePlayer(P,false))continue;
     Best=D;DiscoverPlayer(P,true);
    }
   }

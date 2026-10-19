@@ -6,7 +6,10 @@
 #include "NurseZombie.generated.h"
 
 class UAnimSequence;
+class UAudioComponent;
 class USkeletalMesh;
+class USoundAttenuation;
+class USoundBase;
 UENUM(BlueprintType)
 enum class ENurseState : uint8 { Idle, Chase, Attack, Stagger, Dead, Recovery, KnockedDown, GettingUp };
 
@@ -36,8 +39,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 250.f;
     // Source: tutorial-runtime.json enemyXp.zombie[0]. Tunable per encounter.
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 ExperienceReward = 241;
-    // 配置等级与品阶（原 enemy-config 口径；奖励按等级/品阶核算，见 MonsterCoreStats）。
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 Level = 3;
+    // ??????????????enemy-config ????????????/????????? MonsterCoreStats????    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 Level = 3;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") EMonsterRank Rank = EMonsterRank::Normal;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackDamage = 22.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AggroRadius = 1200.f;
@@ -48,7 +50,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float WalkSpeed = 90.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float CorpseSeconds = 15.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 250.f;
-    /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
+    // Shared HumanoidAudioV1 palette (CC0 OpenGameArt mixes); all NurseZombie
+    // subclasses and M-01 staff BPs inherit the same fields and playback edges.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> NurseIdleSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> NurseChaseSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> AttackSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> HitSoundA;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> HitSoundB;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> NurseDeathSound;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> StepSoundA;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> StepSoundB;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<UAudioComponent> BodyVoice;
+    /** ??????????????OnRep ??? SetState ?????????/????????*/
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat", ReplicatedUsing=OnRep_State) ENurseState State = ENurseState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") int32 SuccessfulHits = 0;
     UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") FVector SpawnPosition;
@@ -75,9 +88,14 @@ protected:
 private:
     TArray<TWeakObjectPtr<UActorComponent>> DeferredRegistration;
     void SetState(ENurseState NewState);
-    UFUNCTION() void OnRep_State();
+ UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     void TryMelee();
+    USoundAttenuation* OneShotAttenuation(float Falloff) const;
+    void UpdateVoice();
+    float AudioStepClock = 0.f;
+    bool bAudioStepAlt = false;
+    bool bAudioHitAlt = false;
     TWeakObjectPtr<APawn> Target;
     // Clip currently owned by the single-node reaction/state player, so repeated
     // bullets can refresh the pose instead of rebuilding the player per hit.

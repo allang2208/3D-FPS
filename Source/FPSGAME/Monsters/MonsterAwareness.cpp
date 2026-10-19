@@ -1,4 +1,5 @@
 #include "MonsterAIController.h"
+#include "../Combat/RangedAttackQuery.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterCombatComponent.h"
 #include "FPSCombatHealthComponent.h"
@@ -56,7 +57,14 @@ bool AMonsterAIController::CanSeePlayer(APawn* Player, bool RequireFacing) const
     if (const auto* M08 = Cast<ALurkerM08Monster>(GetPawn())) return M08->HasHuntingSight(Player);
     if (const auto* M09 = Cast<AHangingBellM09>(GetPawn())) return M09->HasAttackSight(Player);
     if (const auto* M07 = Cast<ABlindSupplicantMonster>(GetPawn())) return M07->HasMagicSight(Player);
-    return LineOfSightTo(Player);
+    if (LineOfSightTo(Player)) return true;
+    // Native AI sight may stop on a fellow monster. The shared knowledge
+    // service also polls this path, so friend-filled firing lanes remain valid
+    // even when no native perception callback was delivered.
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(MonsterFriendlySight),true,GetPawn());
+    Query.AddIgnoredActor(Player);
+    return !RangedAttackQuery::LineTraceTest(GetWorld(),GetPawn(),
+        GetPawn()->GetPawnViewLocation(),Player->GetActorLocation(),ECC_Visibility,Query);
 }
 
 void AMonsterAIController::DiscoverPlayer(APawn* Player, bool Broadcast)
@@ -89,14 +97,15 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
     {
         // An unaware monster already reacting to a hit must finish that
         // deadline; a cached sight event must not cancel it in the same frame.
-        if (!PendingDamageTarget.IsValid() && CanSeePlayer(Player, !bConfirmedTarget)) DiscoverPlayer(Player, true);
+        if (!PendingDamageTarget.IsValid() && !Cast<ABlindSupplicantMonster>(GetPawn()) && CanSeePlayer(Player, !bConfirmedTarget)) DiscoverPlayer(Player, true);
     }
     else if (Stimulus.Type == UAISense::GetSenseID<UAISense_Hearing>())
     {
         const auto* Bellow = Cast<ABellowSacLobber>(GetPawn());
         const auto* Mantis = Cast<AMantisM27Monster>(GetPawn());
-        const bool Sensitive = Mantis || (Bellow && Bellow->bSoundSensitive);
-        const float SensitiveRange = Mantis ? Mantis->GunshotHearingRadius : Bellow ? Bellow->HearingRadius : 1800.f;
+        const auto* M07 = Cast<ABlindSupplicantMonster>(GetPawn());
+        const bool Sensitive = Mantis || M07 || (Bellow && Bellow->bSoundSensitive);
+        const float SensitiveRange = Mantis ? Mantis->GunshotHearingRadius : M07 ? M07->HearingRadius : Bellow ? Bellow->HearingRadius : 1800.f;
         const bool Suppressed = Stimulus.Tag == TEXT("GunshotSuppressed");
         const bool Gunshot = Suppressed || Stimulus.Tag == TEXT("Gunshot");
         if (PendingDamageTarget.IsValid() && !(Mantis && Gunshot)) return;
@@ -117,7 +126,8 @@ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
             TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_HearingTrace);
             Occluded = GetWorld()->LineTraceSingleByChannel(Hit, From, Stimulus.StimulusLocation, ECC_Visibility, Query);
         }
-        if (Occluded && !(Mantis && Gunshot) && DistanceSq > FMath::Square((Hearing ? Hearing->HearingRange : 1800.f) * (Sensitive ? .65f : .35f))) return;
+        // M07 hunts purely by sound: occlusion does not mute what it hears.
+        if (Occluded && !(Mantis && Gunshot) && !M07 && DistanceSq > FMath::Square((Hearing ? Hearing->HearingRange : 1800.f) * (Sensitive ? .65f : .35f))) return;
         // Sensitive gunshot discovery shares the visual/group-warning path.
         // A pending 1-2 second hit-reaction deadline still takes precedence.
         if (Sensitive && Gunshot) DiscoverPlayer(Player, true);

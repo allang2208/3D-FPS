@@ -34,7 +34,7 @@ struct FLurkerAirCannonState
     UPROPERTY() FVector_NetQuantize10 AimPoint = FVector::ZeroVector;
 };
 
-/** M-08 surface ambusher: physical ground/wall/roof pursuit and swept leaps. */
+/** M-10 surface ambusher: physical ground/wall/roof pursuit and swept leaps. */
 UCLASS(Blueprintable)
 class FPSGAME_API ALurkerM08Monster : public AWolfMonster
 {

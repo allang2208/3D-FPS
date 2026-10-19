@@ -5048,3 +5048,6 @@ __pycache__/
 /Source/FPSGAME/Weapons/M870ArmOpeningControls.inl
 !/SourceAssets/FoodGrip20261003/large_lamb_natural_grasp.json
 !/SourceAssets/FoodGrip20261003/lamb_thumb_profiles.json
+
+# Shared humanoid audio batch: CC0 source packs, authored WAVs and import receipts stay local.
+/SourceAssets/SharedHumanoidAudio20261016/**
