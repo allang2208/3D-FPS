@@ -3564,10 +3564,6 @@
     "stack_max": 1,
     "stats": [
       {
-        "name": "物理攻击",
-        "value": "85"
-      },
-      {
         "name": "弹匣容量",
         "value": "10"
       }
@@ -3575,7 +3571,8 @@
     "type": "武器",
     "weaponType": "rifle",
     "weaponTypeTag": "狙击步枪",
-    "critDamageBonus": 0.5
+    "critDamageBonus": 0.5,
+    "innate_weakpoint_percent": 0.9
   },
   "ue_pkm_lowpoly": {
     "category": "weapon",

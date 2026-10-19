@@ -289,19 +289,19 @@
     ]
   },
   "ue_svd": {
-    "source": "SVD_ITEM",
-    "base": 48.75,
-    "enhanceFlat": 1.5,
+    "source": "SVD_WEAKPOINT_20261019",
+    "base": 29,
+    "enhanceFlat": 1.1,
     "attrs": [
       {
         "key": "int",
-        "base": 1.5,
-        "perEnhance": 0.1875
+        "base": 0.9,
+        "perEnhance": 0.1
       },
       {
         "key": "wis",
-        "base": 3.0,
-        "perEnhance": 0.28125
+        "base": 2.5,
+        "perEnhance": 0.23
       }
     ]
   },
