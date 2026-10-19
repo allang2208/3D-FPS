@@ -204,19 +204,19 @@
     ]
   },
   "ue_dan_wesson715": {
-    "source": "REVOLVER357_ITEM",
-    "base": 26,
-    "enhanceFlat": 1,
+    "source": "REVOLVER357_3X_PISTOLS_20261019",
+    "base": 44.9,
+    "enhanceFlat": 1.7268,
     "attrs": [
       {
         "key": "dex",
-        "base": 0.8,
-        "perEnhance": 0.1
+        "base": 1.3815,
+        "perEnhance": 0.1727
       },
       {
         "key": "wis",
-        "base": 1.6,
-        "perEnhance": 0.15
+        "base": 2.7629,
+        "perEnhance": 0.259
       }
     ]
   },
@@ -340,19 +340,19 @@
     ]
   },
   "ue_rsh12": {
-    "source": "RSH12_DW715_150_DESIGN",
-    "base": 39,
-    "enhanceFlat": 1.5,
+    "source": "RSH12_DW715_150_3X_20261019",
+    "base": 67.35,
+    "enhanceFlat": 2.5902,
     "attrs": [
       {
         "key": "dex",
-        "base": 1.2,
-        "perEnhance": 0.15
+        "base": 2.0722,
+        "perEnhance": 0.259
       },
       {
         "key": "wis",
-        "base": 2.4,
-        "perEnhance": 0.225
+        "base": 4.1444,
+        "perEnhance": 0.3885
       }
     ]
   },
