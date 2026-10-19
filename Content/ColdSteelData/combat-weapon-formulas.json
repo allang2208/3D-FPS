@@ -153,19 +153,19 @@
     ]
   },
   "ue_lmg201": {
-    "source": "REF_UE_PKM_PREV_GROWTH",
+    "source": "UE_LMG201_PKM_GROWTH_SYNC_0.94_20261019",
     "base": 7,
     "enhanceFlat": 0.6,
     "attrs": [
       {
         "key": "str",
         "base": 0.3,
-        "perEnhance": 0.06
+        "perEnhance": 0.068
       },
       {
         "key": "wis",
         "base": 0.25,
-        "perEnhance": 0.05
+        "perEnhance": 0.056
       }
     ]
   },

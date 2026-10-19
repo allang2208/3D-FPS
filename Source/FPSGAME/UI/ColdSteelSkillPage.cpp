@@ -846,8 +846,8 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             if(SelectedSkill==TEXT("swordMastery")||SelectedSkill==TEXT("bowMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("攻击速度提升"),3)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(SelectedSkill==TEXT("machineGunMastery")
-                ?TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。持机枪类武器时移动速度 ×0.67（减速 33%），收起武器或改持其他武器即恢复。")
-                :TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+                ?TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。精通加的力量计入角色属性；武器面板按原始分配与装备属性结算。持机枪类武器时移动速度 ×0.67（减速 33%），收起武器或改持其他武器即恢复。")
+                :TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。精通加的属性计入角色属性；武器面板按原始分配与装备属性结算。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else
         if(SelectedSkill==TEXT("fireball"))
@@ -1000,7 +1000,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
                 if(Pistol)return FText::FromString(ColdSteelSkills::IsPistol(Model->Equipped())&&!Model->ActiveProductionTool()?TEXT("当前已持手枪 · 全部收益生效"):TEXT("当前未持手枪 · 敏捷加成常驻，手枪伤害与移速收益在持枪时生效"));
                 return FText::FromString(ColdSteelSkills::IsRifle(Model->Equipped())?TEXT("当前已装备步枪 · 全部收益生效"):TEXT("当前未装备步枪 · 精神加成常驻，武器收益在装备步枪后生效"));})
             .Font(ColdSteelUI::TextFont(14*.75f/Scale)).ColorAndOpacity(ColdSteelUI::Success)];
-        Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(Pistol?TEXT("包含半自动手枪与左轮。伤害倍率只作用于武器贡献，不再额外叠加角色基础物攻；敏捷与巧手叠加。移速收益不改变闪避距离。暴击修炼包含随机暴击与实际要害命中。"):TEXT("伤害倍率只作用于武器贡献，不再额外叠加角色基础物攻。要害加成依实际命中部位判定。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+        Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(Pistol?TEXT("包含半自动手枪与左轮。伤害倍率只作用于武器贡献，不再额外叠加角色基础物攻；敏捷与巧手叠加。移速收益不改变闪避距离。精通加的敏捷计入角色属性与派生属性；手枪面板按原始分配与装备属性结算。暴击修炼包含随机暴击与实际要害命中。"):TEXT("伤害倍率只作用于武器贡献，不再额外叠加角色基础物攻。要害加成依实际命中部位判定。精通加的精神计入角色属性与派生属性；武器面板按原始分配与装备属性结算，不额外叠加。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         Column->AddSlot().FillHeight(1)[Scroll.ToSharedRef()];
     }

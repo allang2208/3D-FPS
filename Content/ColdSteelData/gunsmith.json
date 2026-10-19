@@ -7602,7 +7602,7 @@
         "spread_mult": 2.2,
         "ammo_item_id": "ammo_58",
         "ads_smooth": 7.4893306839,
-        "mag_size": 30,
+        "mag_size": 40,
         "recoil": 85,
         "camera_shake": 100,
         "fire_interval": 0.075,
@@ -7617,7 +7617,7 @@
       "traits": [
         {
           "icon": "mechanic",
-          "text": "全自动射击，使用5.8毫米弹药；原厂30发弹匣，可改装125发布料弹药箱。"
+          "text": "全自动射击，使用5.8毫米弹药；原厂40发弹药箱，可改装125发布料弹药箱。"
         },
         {
           "icon": "mechanic",
