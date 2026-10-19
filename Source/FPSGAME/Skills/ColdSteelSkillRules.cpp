@@ -470,7 +470,11 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
     if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))M=Character->GetNetShadowProfile();
     if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (M)
-    { Shot.bRifle=IsRifle(Item?Item:M->Equipped());Shot.bPistol=IsPistol(Item?Item:M->Equipped()); Shot.WeakpointPercent=Shot.bRifle?M->RifleEffect().WeakpointPercent:0;Shot.CriticalDamageBonus=M->CriticalStrikeEffect().CriticalDamageBonus; }
+    { Shot.bRifle=IsRifle(Item?Item:M->Equipped());Shot.bPistol=IsPistol(Item?Item:M->Equipped()); Shot.WeakpointPercent=Shot.bRifle?M->RifleEffect().WeakpointPercent:0;
+      // 枪械自带的要害伤害加成（物品定义 innate_weakpoint_percent，M1911 = 120%）：
+      // 与步枪精通同一个要害乘区，非步枪武器靠这一项获得要害收益。
+      if(const auto* I=Item?Item:M->Equipped())Shot.WeakpointPercent+=float(ColdSteelInventory::Number(*I,TEXT("innate_weakpoint_percent")));
+      Shot.CriticalDamageBonus=M->CriticalStrikeEffect().CriticalDamageBonus; }
     if(M)
     {
         Shot.CriticalChance=M->Derived(TEXT("crit"));Shot.MasteryId=M->WeaponMastery(Item?Item:M->Equipped());

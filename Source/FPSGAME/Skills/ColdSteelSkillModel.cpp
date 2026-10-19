@@ -215,7 +215,9 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     const float CriticalRoll=Shot.CriticalRoll>=0.f?Shot.CriticalRoll:FMath::FRand();
     Training.bCritical=Shot.bRicochet?Shot.bInheritedCritical:
         (Weakpoint||(Combat&&CriticalRoll*100.f<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
-    float Amount=Damage*(Shot.bRifle && Weakpoint?1+Shot.WeakpointPercent:1);
+    // 要害加成按数值生效：步枪精通与枪械自带（M1911「要害特化」）共用同一乘区，
+    // 未声明要害加成的武器 WeakpointPercent 为 0，行为与旧版按 bRifle 判定完全一致。
+    float Amount=Damage*(Weakpoint&&Shot.WeakpointPercent>0?1+Shot.WeakpointPercent:1);
     auto* TangGuard=Shooter?Shooter->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
     const bool bGuardContact=TangGuard&&bAliveBefore&&Damage>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
     float GuardToughnessBonus=0.f;

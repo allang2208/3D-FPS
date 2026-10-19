@@ -54,6 +54,9 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         // 自带护甲穿透（innate_armor_penetration）不进核心对比行，作为次要指标展示。
         if(const double InnatePenetration=ColdSteelInventory::Number(Item,TEXT("innate_armor_penetration"));InnatePenetration>0)
             Add(TEXT("armor_penetration"),TEXT("护甲穿透"),InnatePenetration*100,TEXT("%"),0,false,false);
+        // 自带要害伤害加成（innate_weakpoint_percent）同样是次要指标。
+        if(const double InnateWeakpoint=ColdSteelInventory::Number(Item,TEXT("innate_weakpoint_percent"));InnateWeakpoint>0)
+            Add(TEXT("weakpoint_damage"),TEXT("要害伤害"),InnateWeakpoint*100,TEXT("%"),0,false,false);
     }
     else if(ColdSteelInventory::IsBow(Item))
     {

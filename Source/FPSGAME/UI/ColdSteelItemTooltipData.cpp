@@ -628,6 +628,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         // 结算时按「改造 + 附魔 + 自带 + 弹种」相加后 clamp 到 100%。
         if(const double InnatePenetration=ColdSteelInventory::Number(I,TEXT("innate_armor_penetration"));InnatePenetration>0)
             Row(Main,TEXT("护甲穿透"),N(InnatePenetration*100)+TEXT("% 物理防御"));
+        // 武器自带的要害伤害加成（物品定义 innate_weakpoint_percent）：与暴击乘算。
+        if(const double InnateWeakpoint=ColdSteelInventory::Number(I,TEXT("innate_weakpoint_percent"));InnateWeakpoint>0)
+            Row(Main,TEXT("要害伤害"),TEXT("+")+N(InnateWeakpoint*100)+TEXT("%"));
     }
     if(String(O,TEXT("equipSlot"))==TEXT("backpack"))
     {
