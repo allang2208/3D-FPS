@@ -8271,7 +8271,7 @@
             "description": "布料弹箱与弹链供弹；左手开盖、换箱、铺链、合盖后回握。",
             "effects": [
               {
-                "text": "弹匣容量增加95发",
+                "text": "弹匣容量增加85发",
                 "benefit": 1
               },
               {
@@ -8280,7 +8280,7 @@
               }
             ],
             "stats": {
-              "mag_delta": 95,
+              "mag_delta": 85,
               "reload_mult": 1.860000000186,
               "empty_reload_mult": 1.4446601940625505
             }

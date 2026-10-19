@@ -134,7 +134,8 @@ bool UColdSteelStatusModel::NormalizeAmmo(FColdSteelProfile& State,bool& Changed
         const FString Default=AmmoGroupFor(Item);
         if(!Default.IsEmpty()&&Item.LoadedAmmoType.IsEmpty()){Item.LoadedAmmoType=Default;Changed=true;}
         // 201's retired box must not silently discard its excess owned rounds
-        // when the character clamps the now-standard 30-round magazine.
+        // when the character clamps the now-standard 40-round magazine
+        // (gunsmith.json `mag_size`; over-capacity rounds go back to the pouch).
         if(Item.Definition==TEXT("ue_lmg201"))
         {
             TSharedPtr<FJsonObject> Data;const TSharedPtr<FJsonObject>* Parts=nullptr;FString MagazinePart;
@@ -142,7 +143,7 @@ bool UColdSteelStatusModel::NormalizeAmmo(FColdSteelProfile& State,bool& Changed
                 Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&
                 (*Parts)->TryGetStringField(TEXT("magazine"),MagazinePart)&&MagazinePart==TEXT("lmg201_ammo_box"))
             {
-                const int32 Excess=FMath::Max(0,Item.Magazine-30);
+                const int32 Excess=FMath::Max(0,Item.Magazine-40);
                 const int32 Virtual=FMath::Min(Excess,Item.VirtualMagazineAmmo);
                 if(Excess>Virtual&&!AddAmmoToState(State,AmmoDefinitionFor(Item),Excess-Virtual))return false;
                 Item.Magazine-=Excess;Item.VirtualMagazineAmmo-=Virtual;
