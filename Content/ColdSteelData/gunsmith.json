@@ -3436,6 +3436,7 @@
       "id": "ue_dan_wesson715",
       "model": "Dan-Wesson715",
       "name": "Dan-Wesson 715",
+      "toughness_damage": true,
       "allowed": [
         "trigger",
         "reload_device",
@@ -3815,6 +3816,7 @@
       "id": "ue_rsh12",
       "model": "RSH12",
       "name": "RSH-12",
+      "toughness_damage": true,
       "allowed": [
         "trigger",
         "reload_device",
@@ -6287,6 +6289,7 @@
       "id": "ue_svd",
       "model": "SVDDragunov",
       "name": "SVD",
+      "toughness_damage": true,
       "allowed": [
         "optic",
         "muzzle",

@@ -65,6 +65,9 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         // Explicit opt-in only: firearms never stagger monsters unless the catalog
         // entry says so ("hit_stagger": true).
         O->TryGetBoolField(TEXT("hit_stagger"),W.bHitStagger);
+        // 2026-10-19 用户规则：枪械默认不造成韧性伤害（精英以上的韧性条也不削），
+        // 只有目录显式写 "toughness_damage": true 的枪才削韧。
+        O->TryGetBoolField(TEXT("toughness_damage"),W.bToughnessDamage);
         // Common numeric parts apply to every catalog weapon, including future entries.
         const TSharedPtr<FJsonObject>* Common=nullptr;
         if(Catalog->TryGetObjectField(TEXT("common_options"),Common))

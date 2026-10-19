@@ -148,6 +148,8 @@ struct FGunsmithWeapon
     FString Id, Model, Name, Ammo;
     /** 目录显式声明该枪命中会造成硬直；缺省 false = 枪械默认不硬直。 */
     bool bHitStagger = false;
+    /** 目录显式声明该枪命中会造成韧性伤害；缺省 false = 枪械默认不削韧（2026-10-19 用户规则）。 */
+    bool bToughnessDamage = false;
     TArray<FString> Allowed;
     TMap<FString,TArray<FGunsmithOption>> Options;
     FGunsmithStats Base;

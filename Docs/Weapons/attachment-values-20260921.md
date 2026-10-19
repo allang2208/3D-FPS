@@ -111,7 +111,7 @@ GetHipSpread() = 2 × (0.0175 + 连射bloom + 移动 + 腾空) × base.spread_mu
 | SVD | `ue_svd` | `ammo_pkm_762x54r` | 10 | 0.35 s | 65 | 520 | 150 | 3.6 / 4.6 s | 120 | 105 | 1.15 | 1.6 | `optic`, `muzzle`, `underbarrel`, `tactical`, `stock`, `magazine` |
 | PKM | `ue_pkm_lowpoly` | `ammo_pkm_762x54r` | 100 | 0.092308 s | 30 | 350 | 150 | 6.5 / 6.6 s | 100 | 100 | 1 | 2.5 | `optic`, `muzzle`, `underbarrel`, `stock`, `reargrip`, `tactical`, `bipod` |
 
-额外的每枪基础键：M16A2 `burst_count=3`、`burst_delay=0.18`、`hit_stagger=false`；
+额外的每枪基础键：M16A2 `burst_count=3`、`burst_delay=0.18`、`hit_stagger=false`；SVD `ue_svd`、SVCh `ue_svch`、左轮 715 `ue_dan_wesson715`、RSH-12 `ue_rsh12` 声明 `toughness_damage=true`（其余枪械缺省不造成韧性伤害，见 [枪械默认不造成韧性伤害](../Combat/firearm-toughness-damage-20261019.md)）；
 各枪基础稳定性倍率与腰射系数以本页表格及对应目录为准；下方带日期的旧修订记录不覆盖当前表格。
 
 ## 4. 全部改造件数值（按槽位）

@@ -261,12 +261,14 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     }
     WeaponHit.PhysicalPenetration=Shot.ArmorPenetration;WeaponHit.MagicPenetration=Shot.MagicPenetration;
     TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
-    // 普通怪沿用 hit_stagger 枪械闸门；精英以上枪弹削韧，破韧期可造成短硬直。
+    // 普通怪沿用 hit_stagger 枪械闸门；精英以上默认不再削韧，只有目录声明
+    // "toughness_damage": true 的枪才会累积韧性，破韧期枪弹可造成短硬直。
     // 闸门关闭时受击端只记住攻击者，不动状态机、韧性时钟或硬直动作。
     // 枪弹局部回弹单独叠到原姿态，不经过这道控制状态闸门。
     // 近战武器与手持枪械发动的近战打击（bMeleeStrike）不在闸门覆盖范围内：
     // 它们按原倍率进入受击端，否则削韧与硬直会被整段吞掉。
     bool bFirearmWithoutStagger=false;
+    bool bFirearmToughness=false;
     bool bFirearmContact=false;
     const FString WeaponDefinition=Shot.ItemDefinition.IsEmpty()?(Equipped()?Equipped()->Definition:FString()):Shot.ItemDefinition;
     if(!Shot.bMelee&&!Shot.bMeleeStrike&&!WeaponDefinition.IsEmpty())
@@ -274,6 +276,9 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
             if(const auto* W=G->Weapon(WeaponDefinition))
             {
                 bFirearmWithoutStagger=!W->bHitStagger;
+                // 2026-10-19 用户规则：枪械默认不造成韧性伤害，只有目录声明
+                // "toughness_damage": true 的枪（SVD／SVCh／左轮 715／RSH-12）才削韧。
+                bFirearmToughness=W->bToughnessDamage;
                 bFirearmContact=!G->IsMelee(WeaponDefinition)&&!G->IsTool(WeaponDefinition)
                     &&!G->IsStaff(WeaponDefinition)&&!G->IsBow(WeaponDefinition);
             }
@@ -282,7 +287,10 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     // 命中形式的唯一收口：所有武器命中都在这里标注，受击端据此折算削韧。
     const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
     const float FixedToughness=Shot.bMelee&&!Shot.bRicochet?MeleeToughness::FixedBaseFor(Shot.AttackMeta):-1.f;
-    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(Shot.ToughnessDamageMultiplier*PanChiToughness,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
+    // 目录未声明削韧的枪械整段关闭韧性通道（精英以上的韧性条同样按 0 倍率结算），
+    // 受击端不累积韧性、不刷新削韧时钟，也不会被枪弹打破韧；生命伤害照常。
+    const float ToughnessScale=bFirearmContact&&!bFirearmToughness?0.f:Shot.ToughnessDamageMultiplier*PanChiToughness;
+    auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(ToughnessScale,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
     float Applied=(Combat&&bFirearmWithoutStagger&&!Combat->UsesToughnessBar())?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     FWeaponDamageParts AppliedParts=WeaponHit.Mitigated.LimitedTo(Applied);
     // A real second damage transaction, with its own magic defense and remaining
