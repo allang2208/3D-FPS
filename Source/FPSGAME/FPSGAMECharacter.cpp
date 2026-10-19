@@ -2641,7 +2641,11 @@ void AFPSGAMECharacter::FireShot()
     const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim,GetShotgunPelletSpreadMultiplier());
     const bool Duckbill=PelletCount>1&&HasShotgunDuckbill();
     const float ShotDamage=DamagePerShot*ConvergenceScale/PelletCount;
-    const auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
+    // 暴击每发只掷一次（2026-10-19）：霰弹多弹丸、穿透多目标共用同一个样本，
+    // 面板暴击率就是这一发的真实概率；没有预掷的路径（近战/快捷进战）仍按接触点同各掷。
+    ShotCriticalRoll=FMath::FRand();
+    auto Training=ColdSteelSkills::Snapshot(this,nullptr,true);
+    Training.CriticalRoll=ShotCriticalRoll;
     const auto Effects=ColdSteelCombat::Snapshot(this);
     TArray<FVector_NetQuantizeNormal> ShotDirections;
     for(int32 Pellet=0;Pellet<PelletCount;++Pellet)

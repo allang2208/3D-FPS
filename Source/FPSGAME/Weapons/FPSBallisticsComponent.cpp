@@ -37,6 +37,9 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     Rounds.Last().Training.BulletSource=this;
     Rounds.Last().Training.BulletFX=FX;
     Rounds.Last().Training.BulletSpeedCM=Rounds.Last().Speed;
+    // 同一次射击的每颗弹丸共用开火时预掷的暴击样本（2026-10-19）。
+    if(const auto* ShotOwner=Cast<AFPSGAMECharacter>(GetOwner()))
+        Rounds.Last().Training.CriticalRoll=ShotOwner->ShotCriticalRoll;
     // Counter starts at zero, so the first round of a magazine always carries a tracer and
     // then every Nth one does — a burst reads as spaced streaks instead of a solid tube.
     Rounds.Last().bShowTracer=(TracerRoundCounter++%TracerInterval)==0;

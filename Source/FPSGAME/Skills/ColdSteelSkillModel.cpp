@@ -211,8 +211,10 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     Training.bPerfectBowHit=Shot.bPerfectBowRelease && bBowEnemy && !Shot.bRicochet
         && Shooter && Shooter->HasAuthority();
     const bool Weakpoint=!Shot.bRicochet&&ColdSteelSkills::IsCriticalHit(Hit);
+    // 枪械在开火时预掷一次（霰弹多弹丸、穿透多目标共用），近战/快捷进战仍按接触点各掷。
+    const float CriticalRoll=Shot.CriticalRoll>=0.f?Shot.CriticalRoll:FMath::FRand();
     Training.bCritical=Shot.bRicochet?Shot.bInheritedCritical:
-        (Weakpoint||(Combat&&FMath::FRand()*100<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
+        (Weakpoint||(Combat&&CriticalRoll*100.f<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
     float Amount=Damage*(Shot.bRifle && Weakpoint?1+Shot.WeakpointPercent:1);
     auto* TangGuard=Shooter?Shooter->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
     const bool bGuardContact=TangGuard&&bAliveBefore&&Damage>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter);
@@ -239,6 +241,8 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         Status->AddWager(Shot.WagerCriticalBonusPerStack,Shot.WagerSeconds,Shot.WagerMaxStacks);
         if(Training.bCritical){WagerBonus=Status->WagerCriticalBonus();Status->ConsumeWager();}
     }
+    // 武器暴击在防御前乘、法术暴击（CoreCombatFormula::CriticalDamage）在防御后乘：
+    // 两者都是乘性、可交换，只在逐段取整上差 ≤1 点，因此不搬动这条链（会牵动削韧/回血口径）。
     if(!Shot.bRicochet&&Training.bCritical&&(Shot.CriticalDamageBonus+WagerBonus)>0)Amount*=1+Shot.CriticalDamageBonus+WagerBonus;
     // The fifth valid enemy contact adds its card before scaling the entire damage panel.
     if(Shooter&&Shooter->HasAuthority()&&bAliveBefore&&Damage>0.f&&!Shot.bRicochet&&Shot.Dealer.Enabled

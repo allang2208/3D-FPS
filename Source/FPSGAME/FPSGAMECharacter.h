@@ -145,6 +145,8 @@ bool TriggerPistolQuickCombat();
     float GetHipSpread() const;
     /** 当前武器的有效射程（含弹种倍率，cm）：与距离衰减同源，供霰弹枪削韧边界读取。 */
     float GetEffectiveWeaponRangeCM() const {return EffectiveWeaponRangeCM;}
+    /** 本次开火预掷的暴击样本 [0,1)：同一次射击的每颗弹丸共用一次判定；-1 = 未预掷。 */
+    float ShotCriticalRoll=-1.f;
     float BaseLookHorizontalFOV() const {return VerticalToHorizontalFOV(BaseVerticalFieldOfView);}
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */

@@ -144,6 +144,8 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     const FVector Start=Blocked?FVector(Eye):FVector(Muzzle);
     const float TravelRange=Blocked?FMath::Min(Range,float(FVector::Distance(Eye,Obstruction.ImpactPoint))+1.f):Range;
     TArray<FVector_NetQuantizeNormal> Directions;Directions.Reserve(Pellets);
+    // 服务端这一发的全部弹丸共用一个暴击样本（与客户端开火同口径）。
+    Pawn->ShotCriticalRoll=FMath::FRand();
     for(int32 P=0;P<Pellets;++P)
     {
         const FVector Ray=Duckbill?Super90Spread::HorizontalFan(Center,PelletCone,P,Pellets,Random.FRand()):
