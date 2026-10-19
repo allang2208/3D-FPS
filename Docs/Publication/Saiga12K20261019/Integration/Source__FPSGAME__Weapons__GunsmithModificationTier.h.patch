@@ -1,0 +1,22 @@
+diff --git a/Source/FPSGAME/Weapons/GunsmithModificationTier.h b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -4,12 +4,18 @@
+ #include "TacticalDeviceVariants.h"
+ #include "LegendaryTacticalStock.h"
+ #include "FullAutoTrigger.h"
++#include "Saiga12KMagazineAssets.h"
++#include "Saiga12KSpecialStockAssets.h"
+ 
+ enum class EGunsmithModificationTier : uint8 { Common, Special, Legendary };
+ namespace ColdSteelModification
+ {
+ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
+ {
++    if(Weapon==TEXT("ue_saiga12k")&&SlotKey==TEXT("stock")&&Id==Saiga12KSpecialStockAssets::Part)
++        return EGunsmithModificationTier::Special;
++    if(Weapon==TEXT("ue_saiga12k")&&SlotKey==TEXT("magazine")&&Id==Saiga12KMagazineAssets::DrumPart)
++        return EGunsmithModificationTier::Legendary;
+     if(Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("hammer_heads")&&Id==TEXT("meteor_core"))
+         return EGunsmithModificationTier::Legendary;
+     if(SlotKey==TEXT("optic")&&Id==TEXT("thermal_scope"))return EGunsmithModificationTier::Legendary;

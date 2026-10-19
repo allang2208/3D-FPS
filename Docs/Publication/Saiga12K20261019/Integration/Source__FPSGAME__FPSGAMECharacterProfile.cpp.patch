@@ -1,0 +1,39 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterProfile.cpp b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSGAMECharacter.h"
+ #include "Weapons/FullAutoTrigger.h"
++#include "Weapons/Saiga12KMagazineAssets.h"
+ #include "Weapons/JingangRuneComponent.h"
+ #include "GameFramework/CharacterMovementComponent.h"
+ #include "Weapons/PistolDualWieldComponent.h"
+@@ -87,7 +88,7 @@
+     const FString ToolId=Tool?Tool->InstanceId:FString();
+     const bool WasWeaponReady=bInventoryWeaponReady;
+     const bool WasDual=HasOffhandPistol();
+-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_super90")||I->Definition==TEXT("ue_m870")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_svch")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
++    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_hk416"))||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_a762")||I->Definition==TEXT("ue_lmg201")||I->Definition==TEXT("ue_super90")||I->Definition==TEXT("ue_m870")||I->Definition==TEXT("ue_svd")||I->Definition==TEXT("ue_svch")||I->Definition==TEXT("ue_saiga12k")||I->Definition==TEXT("ue_pkm_lowpoly")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||((I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_g18")||I->Definition==TEXT("ue_pit_viper2011"))||(I->Definition==TEXT("ue_dan_wesson715")||I->Definition==TEXT("ue_rsh12"))));
+     const bool ChangedDual=DualPistols && !DualPistols->MatchesEquipment(Profile,bInventoryWeaponReady);
+     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||ActiveInventoryWeaponDefinition!=Definition
+         ||WasWeaponReady!=bInventoryWeaponReady||ChangedDual||ActiveProductionToolInstance!=ToolId;
+@@ -165,15 +166,16 @@
+         const auto Parts=I?Gunsmith->Installed(*I):FGunsmithParts();
+         // Ballistics use the committed equipment, never the local workbench's
+         // preview. Cache once per profile publication on owner and authority.
+-        if(I&&IsTubeShotgunWeapon())ShotgunPelletSpreadMultiplier=float(Gunsmith->PelletSpreadMultiplier(I->Definition,Parts));
+-        bShotgunDuckbillInstalled=I&&IsSuper90Weapon()&&Parts.FindRef(TEXT("muzzle"))==ShotgunDuckbillAssets::Part;
++        if(I&&IsShotgunWeapon())ShotgunPelletSpreadMultiplier=float(Gunsmith->PelletSpreadMultiplier(I->Definition,Parts));
++        bShotgunDuckbillInstalled=I&&(IsSuper90Weapon()||IsSaiga12KWeapon())&&Parts.FindRef(TEXT("muzzle"))==ShotgunDuckbillAssets::Part;
+         bSelectableAutoTrigger=I&&FullAutoTrigger::Installed(I->Definition,Parts);
+         bAutomaticTrigger=I&&FullAutoTrigger::Automatic(*I,bSelectableAutoTrigger);
+         // Gameplay transactions can refresh stats while the gunsmith is open;
+         // keep its transient preview until Apply/Undo/Close resolves it.
+         const auto& VisualParts=I&&Gunsmith->IsOpen()&&Gunsmith->Instance()==I->InstanceId?Gunsmith->Draft():Parts;
+         ApplyWeaponAttachmentPresentation(VisualParts);
+-        bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum");
++        bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum")
++            ||(IsSaiga12KWeapon()&&Parts.FindRef(TEXT("magazine"))==Saiga12KMagazineAssets::DrumPart);
+         bSuper90LoaderInstalled=IsTubeShotgunWeapon()&&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id;
+         bRevolverSpeedloaderInstalled=bUseDanWesson715&&Parts.FindRef(TEXT("reload_device"))==
+             (IsRSH12Weapon()?RSH12WeaponAssets::Speedloader:DanWesson715WeaponAssets::Speedloader);

@@ -1,0 +1,41 @@
+diff --git a/Source/FPSGAME/Weapons/M4DrumVisual.cpp b/Source/FPSGAME/Weapons/M4DrumVisual.cpp
+--- a/Source/FPSGAME/Weapons/M4DrumVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4DrumVisual.cpp
+@@ -13,6 +13,7 @@
+ #include "LMG201WeaponAssets.h"
+ #include "Super90TubeMagazineAssets.h"
+ #include "M870TubeMagazineAssets.h"
++#include "Saiga12KMagazineAssets.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+ #include "Engine/SkeletalMesh.h"
+@@ -58,6 +59,20 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
+ {
++    if(IsSaiga12KWeapon())
++    {
++        const bool Drum=bInventoryWeaponReady&&Id==Saiga12KMagazineAssets::DrumPart;
++        const bool Extended=bInventoryWeaponReady&&Id==Saiga12KMagazineAssets::Part;
++        if(MagazineAttachmentId!=Id||!Drum)bDrumReleasedDuringReload=bDrumMagazineHidden=false;
++        LargeDrum=Saiga12KMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
++            Id,Drum||Extended);
++        const bool Present=(Drum||Extended)&&LargeDrum&&LargeDrum->GetStaticMesh()&&LargeDrum->IsVisible();
++        MagazineAttachmentId=Present?Id:FString();
++        bDrumVisual=Drum&&Present;
++        if(LargeDrum)DrumMount=LargeDrum->GetRelativeTransform();
++        if(LargeDrum)LargeDrum->SetVisibility(Present&&(!Drum||!bDrumMagazineHidden));
++        return;
++    }
+     if(IsM870Weapon())
+     {
+         LargeDrum=M870TubeMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
+@@ -297,7 +312,7 @@
+     const float Frame=ReloadSourceTime(WeaponStateElapsed)*60.0f;
+     // AKM skips the hand-pull: release from the seated socket at source frame
+     // 36 / 120 Hz, while the left hand travels outside the drum to its pickup.
+-    const bool NativeFreeDrop=AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel);
++    const bool NativeFreeDrop=AKMSoviet::Matches(AKMViewmodel)||IsSaiga12KWeapon()||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel);
+     const float Release=bUseQBZ191?36.f:NativeFreeDrop?18.f:(bPendingEmptyReload?14.0f:18.0f);
+     const float Pickup=bUseQBZ191?49.f:NativeFreeDrop?56.f:(bPendingEmptyReload?31.0f:36.0f);
+     if(Frame>=Release&&!bDrumReleasedDuringReload)

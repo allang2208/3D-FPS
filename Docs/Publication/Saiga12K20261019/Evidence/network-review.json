@@ -1,0 +1,110 @@
+{
+  "complete": true,
+  "scope": [
+    "S12K native weapon and common attachments",
+    "20-round legendary drum",
+    "special bump stock",
+    "resonance grip and left-arm profile",
+    "third-person hands and direction",
+    "laser and sound publication",
+    "owner/server/observer equipment and pose synchronization"
+  ],
+  "fixed": [
+    {
+      "issue": "S12K attachment layout depended on local preview history",
+      "before": "Owner retained three uninstalled grip meshes; schema/part count differed from authority. Remote inspect/reload support targets were rejected.",
+      "after": "Clear mesh references on uninstalled S12K parts; sort captured S12K attachments by asset/socket/mount identity. Keep normal action visibility separate.",
+      "before_evidence": "Receipts/before-retry/result.json",
+      "after_evidence": "Receipts/after/result.json"
+    },
+    {
+      "issue": "Optional preload candidates referenced retired S12K surface revision",
+      "after": "Refresh the six current S12K literals while preserving all other weapons. Candidates are optional and disabled by default.",
+      "evidence": "Receipts/preload.json"
+    }
+  ],
+  "coverage": [
+    {
+      "path": "Catalog and saved dependency packages",
+      "evidence": "Receipts/catalog.json",
+      "checks": 47,
+      "failures": 0
+    },
+    {
+      "path": "Isolated real assets, NetSerialize and authority reception",
+      "evidence": "Receipts/after/result.json",
+      "checks": 25,
+      "failures": 0
+    },
+    {
+      "path": "Native third-person animation and attachment regressions",
+      "evidence": "Receipts/Wire/20261019-111005/presentation.json",
+      "checks": 145,
+      "failures": 0
+    },
+    {
+      "path": "Real local UDP host/client/fresh-client with each peer at 60 ms and 5 percent packet loss",
+      "evidence": "Receipts/Wire/20261019-111539",
+      "cases": 12,
+      "passed": true,
+      "first_client_cases": 6,
+      "fresh_client_cases": 6,
+      "scenario_names": [
+        "hip carry and resonance grip",
+        "ADS with 20-round drum, stock, suppressor and optic",
+        "inspect",
+        "empty drum reload regrip",
+        "owner presentation lease expiry",
+        "resume with vertical grip and 12-round magazine"
+      ],
+      "maximum_received_grip_error_cm": 0.005069916640387843,
+      "runner_exit_code": 0
+    },
+    {
+      "path": "Pellet damage split, trigger mode, stock/drum stats, reticle and sound paths",
+      "status": "source tracing plus catalog/native checks; no live damage target or listening acceptance"
+    }
+  ],
+  "boundaries": [
+    "Socket fixture uses controlled poses and controller angles, not a human mouse/CMC input session.",
+    "Fresh client connection is not same-player persistent profile restoration.",
+    "No visual, audible or real internet acceptance."
+  ],
+  "attempts": [
+    {
+      "path": "Receipts/before/build-editor-console.log",
+      "status": "Blocked by concurrent head-equipment compile errors; those files were preserved and later fixed outside this task."
+    },
+    {
+      "path": "Receipts/Wire/20261019-111005",
+      "status": "Initial wire run had incorrect assertions that reload/inspect turn off the physical laser. Production keeps the emitter ray and disables only sight convergence; corrected the fixture and reran."
+    }
+  ],
+  "reticle": {
+    "source": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp:269",
+    "routing": "IsShotgunWeapon includes S12K; shares shotgun arc reticle"
+  },
+  "builds": {
+    "Editor": {
+      "passed": true,
+      "log": "Saved/BuildEditor/build-20261019-111702.log"
+    },
+    "Game": {
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "completed": "2026-10-19T11:21:47.6250517+08:00"
+    }
+  },
+  "production_files": [
+    "Source/FPSGAME/Weapons/Saiga12KAttachments.cpp",
+    "Source/FPSGAME/Weapons/Saiga12KMagazineAssets.cpp",
+    "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+    "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h"
+  ],
+  "saved_asset_changes_this_review": [],
+  "binary_hashes": {
+    "Binaries/Win64/UnrealEditor-FPSGAME.dll": "372c556451beb0693a2c7a81e90d83846603367eb3a854fbf0c0908c1d024dd0",
+    "Binaries/Win64/FPSGAME.exe": "2463f642e401de03b88f010ff85696ea8aa4994599d03c7307afc82404122af6"
+  }
+}

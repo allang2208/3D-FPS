@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp b/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
+--- a/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
++++ b/Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
+@@ -64,6 +64,7 @@
+      *  name individually. Kept to the folders the equipment code actually reads. */
+     const TCHAR* const ExpandRoots[] = {
+         TEXT("/Game/Weapons/AKM/"),
++        TEXT("/Game/Weapons/Saiga12K/"),
+         TEXT("/Game/Weapons/A762/"),
+         TEXT("/Game/Weapons/PKMLowpoly20260922/"),
+         TEXT("/Game/Weapons/QBZ191/"),

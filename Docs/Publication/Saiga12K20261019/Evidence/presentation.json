@@ -1,0 +1,732 @@
+{
+	"checks": 145,
+	"failures": 0,
+	"results": [
+		{
+			"case": "12K uses calibrated rifle hold and both hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "factory buttpad calibration matches installed geometry cm",
+			"passed": true,
+			"value": 1.1515135780748496e-06
+		},
+		{
+			"case": "body animation available Rifle.Idle",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "body animation available Rifle.Walk.Fwd",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "body animation available Rifle.Walk.Bwd",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "body animation available Rifle.Jog.Fwd",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "body animation available Crouch.Idle",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "body animation available Rifle.Reload",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "body animation available Rifle.Equip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.240190073491924
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 43.138837593918353
+		},
+		{
+			"case": "grip false pitch 0 yaw 0 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "grip false pitch 0 yaw 0 support hand contact cm",
+			"passed": true,
+			"value": 1.1812772982011666e-13
+		},
+		{
+			"case": "grip false pitch 30 yaw 25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996942765923
+		},
+		{
+			"case": "grip false pitch 30 yaw 25 support hand contact cm",
+			"passed": true,
+			"value": 1.2332574043021639e-13
+		},
+		{
+			"case": "grip false pitch -30 yaw -25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999999999999989
+		},
+		{
+			"case": "grip false pitch -30 yaw -25 support hand contact cm",
+			"passed": true,
+			"value": 2.2469334198890888e-14
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.235309782867045
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.477427457060273
+		},
+		{
+			"case": "grip vertical_foregrip pitch 0 yaw 0 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996943177494
+		},
+		{
+			"case": "grip vertical_foregrip pitch 0 yaw 0 support hand contact cm",
+			"passed": true,
+			"value": 1.1784357163422488e-13
+		},
+		{
+			"case": "grip vertical_foregrip pitch 30 yaw 25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.9999999697150882
+		},
+		{
+			"case": "grip vertical_foregrip pitch 30 yaw 25 support hand contact cm",
+			"passed": true,
+			"value": 1.9131948672901813e-14
+		},
+		{
+			"case": "grip vertical_foregrip pitch -30 yaw -25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "grip vertical_foregrip pitch -30 yaw -25 support hand contact cm",
+			"passed": true,
+			"value": 2.0097183471152322e-14
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.235309782867045
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.47742745706028
+		},
+		{
+			"case": "grip tactical_vertical_foregrip pitch 0 yaw 0 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996943177505
+		},
+		{
+			"case": "grip tactical_vertical_foregrip pitch 0 yaw 0 support hand contact cm",
+			"passed": true,
+			"value": 1.5888218580782548e-14
+		},
+		{
+			"case": "grip tactical_vertical_foregrip pitch 30 yaw 25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996971508809
+		},
+		{
+			"case": "grip tactical_vertical_foregrip pitch 30 yaw 25 support hand contact cm",
+			"passed": true,
+			"value": 1.2809491335957507e-14
+		},
+		{
+			"case": "grip tactical_vertical_foregrip pitch -30 yaw -25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "grip tactical_vertical_foregrip pitch -30 yaw -25 support hand contact cm",
+			"passed": true,
+			"value": 4.3366397107056194e-14
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.235125814644
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.848844985043065
+		},
+		{
+			"case": "grip canted_foregrip pitch 0 yaw 0 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996943177494
+		},
+		{
+			"case": "grip canted_foregrip pitch 0 yaw 0 support hand contact cm",
+			"passed": true,
+			"value": 1.1730681834691165e-13
+		},
+		{
+			"case": "grip canted_foregrip pitch 30 yaw 25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996971508798
+		},
+		{
+			"case": "grip canted_foregrip pitch 30 yaw 25 support hand contact cm",
+			"passed": true,
+			"value": 2.5864145986817697e-14
+		},
+		{
+			"case": "grip canted_foregrip pitch -30 yaw -25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "grip canted_foregrip pitch -30 yaw -25 support hand contact cm",
+			"passed": true,
+			"value": 2.5618982671915014e-14
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.235310546232139
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.545965495488304
+		},
+		{
+			"case": "grip prism_handstop pitch 0 yaw 0 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996943177505
+		},
+		{
+			"case": "grip prism_handstop pitch 0 yaw 0 support hand contact cm",
+			"passed": true,
+			"value": 1.1637510051911589e-13
+		},
+		{
+			"case": "grip prism_handstop pitch 30 yaw 25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996971508787
+		},
+		{
+			"case": "grip prism_handstop pitch 30 yaw 25 support hand contact cm",
+			"passed": true,
+			"value": 5.0242958677880805e-15
+		},
+		{
+			"case": "grip prism_handstop pitch -30 yaw -25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "grip prism_handstop pitch -30 yaw -25 support hand contact cm",
+			"passed": true,
+			"value": 1.1880361659568426e-13
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.235125814643961
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 47.378097850204021
+		},
+		{
+			"case": "grip angled_foregrip pitch 0 yaw 0 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996943177505
+		},
+		{
+			"case": "grip angled_foregrip pitch 0 yaw 0 support hand contact cm",
+			"passed": true,
+			"value": 2.5864145986817697e-14
+		},
+		{
+			"case": "grip angled_foregrip pitch 30 yaw 25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 0.99999996971508831
+		},
+		{
+			"case": "grip angled_foregrip pitch 30 yaw 25 support hand contact cm",
+			"passed": true,
+			"value": 3.5527136788005009e-15
+		},
+		{
+			"case": "grip angled_foregrip pitch -30 yaw -25 barrel follows shared aim/ready pose",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "grip angled_foregrip pitch -30 yaw -25 support hand contact cm",
+			"passed": true,
+			"value": 2.8421709430404007e-14
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 0 muzzle direction",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 0 support contact cm",
+			"passed": true,
+			"value": 2.161031364628563e-14
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 1 muzzle direction",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 1 support contact cm",
+			"passed": true,
+			"value": 1.191616393558691e-13
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 2 muzzle direction",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 2 support contact cm",
+			"passed": true,
+			"value": 1.1390866590859189e-13
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 3 muzzle direction",
+			"passed": true,
+			"value": 0.99999996943177494
+		},
+		{
+			"case": "walk/jog/crouch/sprint mode 3 support contact cm",
+			"passed": true,
+			"value": 7.1054273576010019e-15
+		},
+		{
+			"case": "world stock replacement skeleton",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock barrel direction skeleton",
+			"passed": true,
+			"value": 0.99999996971508809
+		},
+		{
+			"case": "world stock replacement core_stock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock barrel direction core_stock",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "world stock replacement qr_performance",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock barrel direction qr_performance",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "world stock replacement tactical_telescopic",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock barrel direction tactical_telescopic",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "world stock replacement legendary_adjustable_tactical_stock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock barrel direction legendary_adjustable_tactical_stock",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "world stock replacement saiga12k_bump_stock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock barrel direction saiga12k_bump_stock",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.380455988190793
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.622573662384042
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.38483961180188
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.614704292388538
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.38483961180188
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.614704292388538
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.38483961180188
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.614704292388538
+		},
+		{
+			"case": "reported stock/drum/tactical grip loadout refresh 0",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.38483961180188
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.614704292388538
+		},
+		{
+			"case": "reported stock/drum/tactical grip loadout refresh 1",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.38483961180188
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.614704292388538
+		},
+		{
+			"case": "reported stock/drum/tactical grip loadout refresh 2",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "right wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 14.38483961180188
+		},
+		{
+			"case": "left wrist remains ahead of chest cm",
+			"passed": true,
+			"value": 44.614704292388538
+		},
+		{
+			"case": "F6 observer mode active for aim source reproduction",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "gameplay aim independent of observer 0/0",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "both hands stay in front with detached observer",
+			"passed": true,
+			"value": 12.417523101108985
+		},
+		{
+			"case": "F6 observer mode active for aim source reproduction",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "gameplay aim independent of observer 0/180",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "both hands stay in front with detached observer",
+			"passed": true,
+			"value": 12.417523101108985
+		},
+		{
+			"case": "F6 observer mode active for aim source reproduction",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "gameplay aim independent of observer -25/135",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "both hands stay in front with detached observer",
+			"passed": true,
+			"value": 12.417523101108985
+		},
+		{
+			"case": "20 round drum gameplay and source presentation",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world equipment contains forward-facing 12K drum",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "installed drum endcap faces muzzle",
+			"passed": true,
+			"value": 0.99999999999798272
+		},
+		{
+			"case": "world laser slot 0 emitter faces muzzle",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "world laser slot 1 emitter faces muzzle",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "both tactical slots captured laser",
+			"passed": true,
+			"value": 2
+		},
+		{
+			"case": "world blessed_laser slot 0 emitter faces muzzle",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "world blessed_laser slot 1 emitter faces muzzle",
+			"passed": true,
+			"value": 1.0000000000000002
+		},
+		{
+			"case": "both tactical slots captured blessed_laser",
+			"passed": true,
+			"value": 2
+		},
+		{
+			"case": "world flashlight slot 0 emitter faces muzzle",
+			"passed": true,
+			"value": 0.99999999999996914
+		},
+		{
+			"case": "world flashlight slot 1 emitter faces muzzle",
+			"passed": true,
+			"value": 0.99999999999996891
+		},
+		{
+			"case": "both tactical slots captured flashlight",
+			"passed": true,
+			"value": 2
+		},
+		{
+			"case": "world action false / standard reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action false / standard empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action false / drum reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action false / drum empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action false / inspect hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action false / equip hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action vertical_foregrip / standard reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action vertical_foregrip / standard empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action vertical_foregrip / drum reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action vertical_foregrip / drum empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action vertical_foregrip / inspect hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action vertical_foregrip / equip hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action canted_foregrip / standard reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action canted_foregrip / standard empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action canted_foregrip / drum reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action canted_foregrip / drum empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action canted_foregrip / inspect hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action canted_foregrip / equip hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action prism_handstop / standard reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action prism_handstop / standard empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action prism_handstop / drum reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action prism_handstop / drum empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action prism_handstop / inspect hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action prism_handstop / equip hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action angled_foregrip / standard reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action angled_foregrip / standard empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action angled_foregrip / drum reload hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action angled_foregrip / drum empty hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action angled_foregrip / inspect hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "world action angled_foregrip / equip hand and mechanical routing",
+			"passed": true,
+			"value": 0
+		}
+	],
+	"mode": "isolated native animation graph, installed assets and controlled pose samples; no rendered or multiplayer acceptance"
+}

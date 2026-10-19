@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -266,7 +266,7 @@
+     if(!bBow&&Character->IsAiming())return Result+2;
+     const float BowAim=bBow?Bow->AimAlpha():0.f;
+     const FVector2D Extent=Character->GetCrosshairHalfExtent(Geometry.GetLocalSize());
+-    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsTubeShotgunWeapon())
++    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsShotgunWeapon())
+     {
+         // Four open quadrants, with gaps on the horizontal/vertical axes.
+         // Cache the unit arc; only its projected radius changes with hip spread.

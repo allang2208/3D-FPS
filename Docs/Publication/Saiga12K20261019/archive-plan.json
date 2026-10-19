@@ -1,0 +1,529 @@
+{
+  "local_manifest": "SourceAssets/Saiga12KPublication20261019/retired-files.json",
+  "manifest_sha256": "808e33013e4c71b5a82b78771c24b1c27483799194fd7849b59ddc0593fdf22e",
+  "files": 13627,
+  "bytes": 2794406475,
+  "junctions_not_traversed": 13,
+  "groups": [
+    {
+      "source": "SourceAssets/S12KStockReference20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/S12KStockReference20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 12,
+      "bytes": 10356647
+    },
+    {
+      "source": "SourceAssets/Saiga12K20261017/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12K20261017/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 23,
+      "bytes": 1390872
+    },
+    {
+      "source": "SourceAssets/Saiga12KAudio20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KAudio20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 3,
+      "bytes": 280412
+    },
+    {
+      "source": "SourceAssets/Saiga12KBodyHands20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KBodyHands20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 3,
+      "bytes": 52927
+    },
+    {
+      "source": "SourceAssets/Saiga12KBodyHands20261018/DerivedDataCache",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KBodyHands20261018/DerivedDataCache",
+      "reason": "Completed temporary diagnostic host/cache; junction targets are not retired.",
+      "replacement": "D:/FPS3D/FPSGAME/FPSGAME.uproject and current build outputs",
+      "files": 895,
+      "bytes": 512264123
+    },
+    {
+      "source": "SourceAssets/Saiga12KBodyHands20261018/IsolatedHost",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KBodyHands20261018/IsolatedHost",
+      "reason": "Completed temporary diagnostic host/cache; junction targets are not retired.",
+      "replacement": "D:/FPS3D/FPSGAME/FPSGAME.uproject and current build outputs",
+      "files": 79,
+      "bytes": 619188251
+    },
+    {
+      "source": "SourceAssets/Saiga12KClosure20261018/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KClosure20261018/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 40,
+      "bytes": 137354148
+    },
+    {
+      "source": "SourceAssets/Saiga12KClosure20261018/DerivedDataCache",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KClosure20261018/DerivedDataCache",
+      "reason": "Completed temporary diagnostic host/cache; junction targets are not retired.",
+      "replacement": "D:/FPS3D/FPSGAME/FPSGAME.uproject and current build outputs",
+      "files": 12290,
+      "bytes": 1373176213
+    },
+    {
+      "source": "SourceAssets/Saiga12KClosure20261018/IsolatedHost",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KClosure20261018/IsolatedHost",
+      "reason": "Completed temporary diagnostic host/cache; junction targets are not retired.",
+      "replacement": "D:/FPS3D/FPSGAME/FPSGAME.uproject and current build outputs",
+      "files": 95,
+      "bytes": 76378385
+    },
+    {
+      "source": "SourceAssets/Saiga12KCommon20261017/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KCommon20261017/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 15,
+      "bytes": 1115741
+    },
+    {
+      "source": "SourceAssets/Saiga12KDetail20261018/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KDetail20261018/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 8,
+      "bytes": 2917495
+    },
+    {
+      "source": "SourceAssets/Saiga12KDrum20261018/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KDrum20261018/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 10,
+      "bytes": 686854
+    },
+    {
+      "source": "SourceAssets/Saiga12KDrumCatalogFix20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KDrumCatalogFix20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 1,
+      "bytes": 364012
+    },
+    {
+      "source": "SourceAssets/Saiga12KInspect20261018/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KInspect20261018/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 3,
+      "bytes": 272458
+    },
+    {
+      "source": "SourceAssets/Saiga12KInspectClearance20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KInspectClearance20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 1,
+      "bytes": 2449
+    },
+    {
+      "source": "SourceAssets/Saiga12KMagazine20261017/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KMagazine20261017/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 1,
+      "bytes": 361566
+    },
+    {
+      "source": "SourceAssets/Saiga12KNetwork20261019/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KNetwork20261019/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 6,
+      "bytes": 129938
+    },
+    {
+      "source": "SourceAssets/Saiga12KRefine20261017/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KRefine20261017/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 5,
+      "bytes": 226417
+    },
+    {
+      "source": "SourceAssets/Saiga12KReloadReturn20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KReloadReturn20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 6,
+      "bytes": 12158999
+    },
+    {
+      "source": "SourceAssets/Saiga12KResonance20261019/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KResonance20261019/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 2,
+      "bytes": 7690091
+    },
+    {
+      "source": "SourceAssets/Saiga12KSpecialStock20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KSpecialStock20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 3,
+      "bytes": 370629
+    },
+    {
+      "source": "SourceAssets/Saiga12KSurface20261018/SourceBefore",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KSurface20261018/SourceBefore",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 10,
+      "bytes": 3306213
+    },
+    {
+      "source": "SourceAssets/Saiga12KThirdPerson20261018/Before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KThirdPerson20261018/Before",
+      "reason": "Superseded rollback snapshot; retain recoverably, outside the active authoring chain.",
+      "replacement": "Current assets and SourceAssets/Saiga12KPublication20261019/Prerequisites",
+      "files": 5,
+      "bytes": 36921
+    },
+    {
+      "source": "SourceAssets/Saiga12KBumpStockConcept20261018",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KBumpStockConcept20261018",
+      "reason": "Old stock concept superseded by user reference.",
+      "replacement": "SourceAssets/S12KStockReference20261018/Reference/user-stock.png",
+      "files": 3,
+      "bytes": 5008
+    },
+    {
+      "source": "SourceAssets/Saiga12KSpecialStock20261018/Authoring",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KSpecialStock20261018/Authoring",
+      "reason": "Previous stock shape replaced by reference-led model.",
+      "replacement": "SourceAssets/S12KStockReference20261018/Authoring",
+      "files": 4,
+      "bytes": 20297080
+    },
+    {
+      "source": "SourceAssets/Saiga12KSpecialStock20261018/Icons",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KSpecialStock20261018/Icons",
+      "reason": "Previous stock shape replaced by reference-led model.",
+      "replacement": "SourceAssets/S12KStockReference20261018/Icons",
+      "files": 5,
+      "bytes": 6619675
+    },
+    {
+      "source": "SourceAssets/Saiga12KSpecialStock20261018/Textures",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KSpecialStock20261018/Textures",
+      "reason": "Previous stock shape replaced by reference-led model.",
+      "replacement": "SourceAssets/S12KStockReference20261018/Textures",
+      "files": 2,
+      "bytes": 3326163
+    },
+    {
+      "source": "SourceAssets/Saiga12KLegendaryDrumConcept20261018/Preview/12K_ThunderDrum_Concept_V01.png",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KLegendaryDrumConcept20261018/Preview/12K_ThunderDrum_Concept_V01.png",
+      "reason": "Rejected sideways drum orientation and old display name.",
+      "replacement": "SourceAssets/Saiga12KLegendaryDrumConcept20261018/Preview/12k_Drum_Concept_V02.png",
+      "files": 1,
+      "bytes": 2165823
+    },
+    {
+      "source": "SourceAssets/Saiga12KLegendaryDrumConcept20261018/design-prompt.txt",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KLegendaryDrumConcept20261018/design-prompt.txt",
+      "reason": "Rejected sideways drum orientation and old display name.",
+      "replacement": "SourceAssets/Saiga12KLegendaryDrumConcept20261018/Preview/12k_Drum_Concept_V02.png",
+      "files": 1,
+      "bytes": 3230
+    },
+    {
+      "source": "SourceAssets/Saiga12KLegendaryDrumConcept20261018/generation-v01.json",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KLegendaryDrumConcept20261018/generation-v01.json",
+      "reason": "Rejected sideways drum orientation and old display name.",
+      "replacement": "SourceAssets/Saiga12KLegendaryDrumConcept20261018/Preview/12k_Drum_Concept_V02.png",
+      "files": 1,
+      "bytes": 3794
+    },
+    {
+      "source": "SourceAssets/Saiga12KNetwork20261019/Receipts/before",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KNetwork20261019/Receipts/before",
+      "reason": "Completed failed/superseded diagnostic attempt; successful presentation evidence copied separately.",
+      "replacement": "Docs/Publication/Saiga12K20261019/Evidence and final Wire/20261019-111539",
+      "files": 4,
+      "bytes": 167106
+    },
+    {
+      "source": "SourceAssets/Saiga12KNetwork20261019/Receipts/catalog-initial-assumption.json",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KNetwork20261019/Receipts/catalog-initial-assumption.json",
+      "reason": "Completed failed/superseded diagnostic attempt; successful presentation evidence copied separately.",
+      "replacement": "Docs/Publication/Saiga12K20261019/Evidence and final Wire/20261019-111539",
+      "files": 1,
+      "bytes": 8512
+    },
+    {
+      "source": "SourceAssets/Saiga12KNetwork20261019/Receipts/Wire/20261019-111005",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KNetwork20261019/Receipts/Wire/20261019-111005",
+      "reason": "Completed failed/superseded diagnostic attempt; successful presentation evidence copied separately.",
+      "replacement": "Docs/Publication/Saiga12K20261019/Evidence and final Wire/20261019-111539",
+      "files": 57,
+      "bytes": 1656206
+    },
+    {
+      "source": "SourceAssets/Saiga12KResonance20261019/Receipts/read-01.txt",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KResonance20261019/Receipts/read-01.txt",
+      "reason": "Superseded input read or expired one-time editor operation.",
+      "replacement": "SourceAssets/Saiga12KResonance20261019/Inputs and Receipts/saved.json",
+      "files": 1,
+      "bytes": 1250
+    },
+    {
+      "source": "SourceAssets/Saiga12KResonance20261019/Receipts/read-02.txt",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KResonance20261019/Receipts/read-02.txt",
+      "reason": "Superseded input read or expired one-time editor operation.",
+      "replacement": "SourceAssets/Saiga12KResonance20261019/Inputs and Receipts/saved.json",
+      "files": 1,
+      "bytes": 1388
+    },
+    {
+      "source": "SourceAssets/Saiga12KResonance20261019/Receipts/stop-play.txt",
+      "destination": "trash/saiga12k-retired-20261019/SourceAssets/Saiga12KResonance20261019/Receipts/stop-play.txt",
+      "reason": "Superseded input read or expired one-time editor operation.",
+      "replacement": "SourceAssets/Saiga12KResonance20261019/Inputs and Receipts/saved.json",
+      "files": 1,
+      "bytes": 210
+    },
+    {
+      "source": "Tools/Saiga12K/integrate_source.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12K/integrate_source.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 10132
+    },
+    {
+      "source": "Tools/Saiga12K/register_data.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12K/register_data.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 3131
+    },
+    {
+      "source": "Tools/Saiga12KMagazine/close_editor.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KMagazine/close_editor.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 845
+    },
+    {
+      "source": "Tools/Saiga12KMagazine/finish_editor.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KMagazine/finish_editor.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 910
+    },
+    {
+      "source": "Tools/Saiga12KRefine/close_editor.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KRefine/close_editor.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 717
+    },
+    {
+      "source": "Tools/Saiga12KRefine/end_play.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KRefine/end_play.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 142
+    },
+    {
+      "source": "Tools/Saiga12KRefine/build_window.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KRefine/build_window.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 545
+    },
+    {
+      "source": "Tools/Saiga12KInspect/install_independent.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KInspect/install_independent.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1198
+    },
+    {
+      "source": "Tools/Saiga12KInspectClearance/save_authorized.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KInspectClearance/save_authorized.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1533
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/author_model.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/author_model.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 11555
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/bake_surface.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/bake_surface.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 2772
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/install_surface.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/install_surface.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 6700
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/refresh_surface.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/refresh_surface.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 5890
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/render_icon.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/render_icon.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 2179
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/install_icon.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/install_icon.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1160
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/save_authorized.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/save_authorized.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1466
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/run_ue.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/run_ue.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1470
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/build_editor.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/build_editor.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1270
+    },
+    {
+      "source": "Tools/Saiga12KSpecialStock/build_game.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KSpecialStock/build_game.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 650
+    },
+    {
+      "source": "Tools/Saiga12KClosure/snapshot_host.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KClosure/snapshot_host.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 4167
+    },
+    {
+      "source": "Tools/Saiga12KClosure/sync_ddc.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KClosure/sync_ddc.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1184
+    },
+    {
+      "source": "Tools/Saiga12KClosure/catalog.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KClosure/catalog.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1873
+    },
+    {
+      "source": "Tools/Saiga12KClosure/render_review.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KClosure/render_review.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1524
+    },
+    {
+      "source": "Tools/Saiga12KClosure/ue_step.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KClosure/ue_step.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1601
+    },
+    {
+      "source": "Tools/Saiga12KClosure/finalize.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KClosure/finalize.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 557
+    },
+    {
+      "source": "Tools/Saiga12KThirdPerson/run_authorized_audit.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KThirdPerson/run_authorized_audit.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1001
+    },
+    {
+      "source": "Tools/Saiga12KReloadReturn/read_scoped.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KReloadReturn/read_scoped.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1403
+    },
+    {
+      "source": "Tools/Saiga12KReloadReturn/save_scoped.ps1",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KReloadReturn/save_scoped.ps1",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 1420
+    },
+    {
+      "source": "Tools/Saiga12KResonance/stop_play.py",
+      "destination": "trash/saiga12k-retired-20261019/Tools/Saiga12KResonance/stop_play.py",
+      "reason": "One-time operation, expired lock exception, obsolete host launcher or superseded initial integration.",
+      "replacement": "Current author scripts, explicit integration patches and standard MCP batch gate",
+      "files": 1,
+      "bytes": 274
+    }
+  ]
+}

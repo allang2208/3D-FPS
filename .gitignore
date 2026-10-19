@@ -1,3 +1,8 @@
+# S12K: publish recipes and scoped integration only. Licensed media, dense
+# geometry/poses, local save receipts, temporary hosts and prerequisites stay local.
+/SourceAssets/Saiga12K*/**
+/SourceAssets/S12KStockReference20261018/**
+
 # Facility monster hit publication: recipes only; input geometry, dense probes,
 # local receipts and source prerequisites are not public asset redistribution.
 /SourceAssets/StaffLivingEmployees20261017/**

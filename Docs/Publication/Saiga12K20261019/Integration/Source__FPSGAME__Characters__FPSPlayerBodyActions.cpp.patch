@@ -1,0 +1,28 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -27,6 +27,7 @@
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "Animation/AnimSequence.h"
++#include "Camera/CameraComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+ #include "Engine/World.h"
+ #include "Engine/GameInstance.h"
+@@ -65,8 +66,14 @@
+     State.bAiming=Pawn->IsAiming();State.bSprinting=Pawn->IsSprinting();
+     State.bCrouched=Pawn->bIsCrouched;State.bSliding=Pawn->IsSliding();State.bDual=Pawn->IsDualWieldingPistols();
+     State.bOffhandPistol=Pawn->HasOffhandPistol();
+-    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Pawn->GetBaseAimRotation().Pitch));
+-    State.AimYaw=FRotator::NormalizeAxis(Pawn->GetBaseAimRotation().Yaw-Pawn->GetActorRotation().Yaw);
++    // In F6 the displayed camera may be fixed independently of the character.
++    // GetBaseAimRotation reads that observer camera cache; using it here turns
++    // the gun and both wrists behind the torso when the character turns around.
++    // Keep the world body on the gameplay eye, as ApplyInteractionView does.
++    const FRotator Aim=IsThirdPersonViewEnabled()&&Pawn->FirstPersonCamera
++        ?Pawn->FirstPersonCamera->GetComponentRotation():Pawn->GetBaseAimRotation();
++    State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Aim.Pitch));
++    State.AimYaw=FRotator::NormalizeAxis(Aim.Yaw-Pawn->GetActorRotation().Yaw);
+     State.LastShotAt=Pawn->LastShotWorldTime>=0.?Now-(LocalNow-Pawn->LastShotWorldTime):-100.f;
+     if(Pawn->HasInventoryWeapon())
+     {

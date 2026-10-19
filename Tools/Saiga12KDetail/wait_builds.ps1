@@ -1,0 +1,1 @@
+while(@(Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'UnrealBuildTool.exe' -or ($_.Name -eq 'dotnet.exe' -and $_.CommandLine -match 'UnrealBuildTool') }).Count -gt 0) { Start-Sleep -Seconds 10 }

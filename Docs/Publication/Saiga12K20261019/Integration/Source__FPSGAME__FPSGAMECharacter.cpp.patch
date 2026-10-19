@@ -1,0 +1,231 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -89,6 +89,7 @@
+ #include "Weapons/ASH12WeaponAssets.h"
+ #include "Weapons/SVDWeaponAssets.h"
+ #include "Weapons/SVCHWeaponAssets.h"
++#include "Weapons/Saiga12KWeaponAssets.h"
+ #include "Weapons/SVDAttachments.h"
+ #include "Weapons/M16WeaponAssets.h"
+ #include "Weapons/RifleSuppressedAudioAssets.h"
+@@ -547,6 +548,15 @@
+         HipViewmodelLocation = M4HipViewmodelLocation + FVector(6.f,0.f,0.f);
+         ADSRearEyeDistance = 18.f;
+     }
++    if (IsSaiga12KWeapon())
++    {
++        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,Saiga12KWeaponAssets::MeshPath);
++        bUsingM4Infima=false; // AK-pattern magazine and right charging-handle clock.
++        bSingleShotTrigger=false; // Hold the primary trigger to continue firing.
++        bPistolShotPending=false;
++        HipViewmodelLocation=M4HipViewmodelLocation+FVector(6.f,0.f,0.f);
++        ADSRearEyeDistance=18.f;
++    }
+     if (ActiveInventoryWeaponDefinition == SVCHWeaponAssets::Definition)
+     {
+         ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,SVCHWeaponAssets::MeshPath,nullptr,LOAD_NoWarn);
+@@ -659,6 +669,13 @@
+         DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload"));
+         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty"));
+     }
++    if(IsSaiga12KWeapon())
++    {
++        // The private grip profiles fit these shared, native PalmGripV3 clips
++        // to the forward-facing 12K drum without a second action clock.
++        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload"));
++        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload_empty"));
++    }
+     if (bUseQBZ191) {
+         DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload"));
+         DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty"));
+@@ -674,7 +691,7 @@
+     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
+     DrumSupportAnimations.Reset();
+     WeaponGripProfiles.Reset();
+-    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon())
++    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon() || IsSaiga12KWeapon())
+     {
+         TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
+         InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
+@@ -746,7 +763,7 @@
+             : bUseASH12 ? ERifleSprintWeapon::ASH12
+             : bUseQBZ191 ? ERifleSprintWeapon::QBZ191
+             : bUsingM4Infima && bUseM4Infima ? ERifleSprintWeapon::M4
+-            : AKMSoviet::Matches(AKMViewmodel) || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::AKM : ERifleSprintWeapon::None);
++            : AKMSoviet::Matches(AKMViewmodel) || IsSaiga12KWeapon() || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::AKM : ERifleSprintWeapon::None);
+     GunplayAnimation = Cast<UFPSGunplayAnimInstance>(AKMViewmodel->GetAnimInstance());
+     if (GunplayAnimation)
+     {
+@@ -772,14 +789,15 @@
+     const TCHAR* SuppressedBank = RifleSuppressedAudioAssets::Bank(ActiveInventoryWeaponDefinition);
+     if (bUseM16)
+         SuppressedFireSound=LoadObject<USoundBase>(nullptr,*M16WeaponAssets::SuppressedSoundPath());
+-    if(IsTubeShotgunWeapon())
+-    {
+-        // The user-selected gamedev one-shot replaces the previous Mossberg variants.
++    if(IsShotgunWeapon())
++    {
++        // Each shotgun owns its selected one-shot; suppressors share the shotgun cue.
+         if(FireSound)RifleFireVariants.Add(FireSound);
+         SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
+         if(SuppressedFireSound)RifleSuppressedVariants.Add(SuppressedFireSound);
+         RifleFireConcurrency=NewObject<USoundConcurrency>(this);
+-        RifleFireConcurrency->Concurrency.MaxCount=4;
++        // The 12K's original 600 ms tail needs up to five overlapping shots at its 120 ms floor.
++        RifleFireConcurrency->Concurrency.MaxCount=IsSaiga12KWeapon()?6:4;
+         RifleFireConcurrency->Concurrency.bLimitToOwner=true;
+         RifleFireConcurrency->Concurrency.ResolutionRule=EMaxConcurrentResolutionRule::StopOldest;
+         RifleFireConcurrency->Concurrency.VoiceStealReleaseTime=.02f;
+@@ -1389,9 +1407,9 @@
+     NextMechanicalCue = 0;
+     // AKM base/extended/drum share the insertion contact. Delay the new short
+     // sample in source time so reload-speed modifiers keep audio and pose aligned.
+-    if (AKMSoviet::Matches(AKMViewmodel) || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel)) MechanicalCueTimes[1] += .18f * Scale;
++    if (AKMSoviet::Matches(AKMViewmodel) || IsSaiga12KWeapon() || A762WeaponAssets::Matches(AKMViewmodel) || LMG201WeaponAssets::Matches(AKMViewmodel)) MechanicalCueTimes[1] += .18f * Scale;
+     // The AKM drum releases directly from the well at source frame 36 / 120 Hz.
+-    if((AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel))&&bDrumInstalled)MechanicalCueTimes[0]=.3f*Scale;
++    if((AKMSoviet::Matches(AKMViewmodel)||IsSaiga12KWeapon()||A762WeaponAssets::Matches(AKMViewmodel))&&bDrumInstalled)MechanicalCueTimes[0]=.3f*Scale;
+     if(LMG201WeaponAssets::Matches(AKMViewmodel))
+         MechanicalCueTimes=bPendingEmptyReload
+             ?TArray<float>{52.f/120.f*Scale,195.f/120.f*Scale,220.f/120.f*Scale,270.f/120.f*Scale,350.f/120.f*Scale}
+@@ -2350,7 +2368,7 @@
+             /(LMG201WeaponAssets::ClothDuration-LMG201WeaponAssets::ClothEventTime(
+                 LMG201WeaponAssets::ClothReturnStart,bPendingEmptyReload)),0.f,1.f));
+     }
+-    else if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition)
++    else if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition, bDrumInstalled)
+         && IsReloading() && ActiveActionAnimation)
+     {
+         // The calibrated hip location AND rotation must be reached before the
+@@ -2561,7 +2579,7 @@
+ {
+     const double Base = FMath::Max(0.001, static_cast<double>(FireInterval));
+     const double Interval = Base * ColdSteelCombat::TurboIntervalMultiplier(TurboRampParams, TurboRampSeconds);
+-    return IsTubeShotgunWeapon()?FMath::Max(TubeShotgunAssets::MinimumInterval(ActiveInventoryWeaponDefinition),Interval):Interval;
++    return IsSaiga12KWeapon()?FMath::Max(double(Saiga12KWeaponAssets::MinimumAttackInterval),Interval):IsTubeShotgunWeapon()?FMath::Max(TubeShotgunAssets::MinimumInterval(ActiveInventoryWeaponDefinition),Interval):Interval;
+ }
+ 
+ void AFPSGAMECharacter::UpdateTurboRamp(float DeltaSeconds)
+@@ -2651,7 +2669,7 @@
+     const double ShotInterval = EffectiveFireInterval();
+     NextAllowedShotTime += ShotInterval;
+     // Super90's minimum is an actual inter-shot gap, including after a hitch.
+-    if(IsTubeShotgunWeapon())NextAllowedShotTime=FMath::Max(NextAllowedShotTime,Now+ShotInterval);
++    if(IsShotgunWeapon())NextAllowedShotTime=FMath::Max(NextAllowedShotTime,Now+ShotInterval);
+     if (bUseM16 && (--BurstShotsRemaining == 0 || MagazineAmmo == 0))
+     {
+         BurstShotsRemaining=0;
+@@ -2740,7 +2758,7 @@
+     // 汇聚把整匣伤害聚合到这一发；伤害类型仍由 Shot.DamagePanel 的比例决定，不因缩放改变。
+     const auto* ShotProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     const auto* ShotItem=ShotProfile?ShotProfile->FindItem(ActiveInventoryWeapon):nullptr;
+-    const int32 NativePelletCount=IsTubeShotgunWeapon()?Super90WeaponAssets::PelletCount:1;
++    const int32 NativePelletCount=IsShotgunWeapon()?Super90WeaponAssets::PelletCount:1;
+     const int32 PelletCount=ShotItem?ShotProfile->AmmoProjectileCount(*ShotItem,NativePelletCount):NativePelletCount;
+     const float PelletCone=Super90Spread::ConeRadians(PelletCount,PreciseSuper90Aim,GetShotgunPelletSpreadMultiplier());
+     const bool Duckbill=PelletCount>1&&HasShotgunDuckbill();
+@@ -2980,7 +2998,7 @@
+     if(Width<=0||Height<=0)return FVector2D::ZeroVector;
+     const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
+     FVector2D SpreadTangents(GetHipSpread());
+-    if(IsTubeShotgunWeapon())
++    if(IsShotgunWeapon())
+     {
+         const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+         const auto* Item=Model?Model->FindItem(ActiveInventoryWeapon):nullptr;
+@@ -3008,6 +3026,8 @@
+     if (bHolographicOptic && bPreciseAim)
+         return (HolographicAimPoint() - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
+     const FVector Forward = FirstPersonCamera->GetForwardVector();
++    if (bPreciseAim && IsSaiga12KWeapon())
++        return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(Saiga12KWeaponAssets::Front)-FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
+     if (bPreciseAim && AKMSoviet::Matches(AKMViewmodel))
+         return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Front) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
+     if (bPreciseAim && AKMViewmodel->DoesSocketExist(TEXT("WPN_FrontSight")))
+@@ -3197,7 +3217,7 @@
+     PendingAmmoType.Reset();PendingAmmoWeapon.Reset();
+     bReloadAmmoCommitted=bReloadCycleOnly=false;ReloadResumeElapsed=0.f;
+     const bool bFinishedQuickCombat = WeaponState == EAKMWeaponState::QuickCombat;
+-    const bool bFinishedRifleReload = (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) || bUseM16
++    const bool bFinishedRifleReload = (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition, bDrumInstalled) || bUseM16
+         || (bUseQBZ191 && WeaponState == EAKMWeaponState::Reloading) || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel)
+         || PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||HasLMG201ClothBox()||IsTubeShotgunWeapon()) && IsReloading();
+     const double CompletedAt = bFinishedQuickCombat && bUseASH12
+@@ -3353,6 +3373,11 @@
+ 
+ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
+ {
++    if(IsSaiga12KWeapon())
++    {
++        FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
++        return LoadObject<UAnimSequence>(nullptr,*Saiga12KWeaponAssets::AnimationPath(*Clip));
++    }
+     if(IsTubeShotgunWeapon())
+     {
+         FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
+@@ -3461,6 +3486,16 @@
+ 
+ USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
+ {
++    if(IsSaiga12KWeapon())
++    {
++        if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)
++            return LoadObject<USoundBase>(nullptr,Saiga12KWeaponAssets::FireSoundPath);
++        const FString Cue(AssetName);
++        if(Cue.Contains(TEXT("Mag"))||Cue.Contains(TEXT("Charge")))
++            return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/VideoAudio20260921/%s"),AssetName));
++        return LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Weapons/AKM/Audio/%s"),AssetName));
++    }
++
+     if(IsTubeShotgunWeapon())
+     {
+         const TCHAR* Cue=nullptr;
+@@ -3813,7 +3848,7 @@
+     FVector Rear = PositionAtRestAim(RearIndex);
+     FVector Front = PositionAtRestAim(FrontIndex);
+     FVector SightUp = FVector::UpVector;
+-    if (AKMSoviet::Matches(AKMViewmodel))
++    if (AKMSoviet::Matches(AKMViewmodel) || IsSaiga12KWeapon())
+     {
+         FTransform Root = FTransform::Identity;
+         for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+@@ -3823,8 +3858,9 @@
+             if(SightLayer)SightLayer->ApplyLocal(Ref.GetBoneName(Index),0.f,Local);
+             Root=Root*Local;
+         }
+-        Rear=Root.TransformPosition(AKMSoviet::Rear)*ViewmodelScale;
+-        Front=Root.TransformPosition(AKMSoviet::Front)*ViewmodelScale;
++        Rear=Root.TransformPosition(IsSaiga12KWeapon()?Saiga12KWeaponAssets::Rear:AKMSoviet::Rear)*ViewmodelScale;
++        Front=Root.TransformPosition(IsSaiga12KWeapon()?Saiga12KWeaponAssets::Front:AKMSoviet::Front)*ViewmodelScale;
++        SightUp=Root.GetRotation().RotateVector(FVector::UpVector);
+     }
+     if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
+     {
+@@ -3851,7 +3887,7 @@
+             Root=Root*Local;
+         }
+         const FTransform Mount=HolographicMount*Root;
+-        if ((HasThermalScope() || IsTubeShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
++        if ((HasThermalScope() || IsShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
+         {
+             const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
+             const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
+@@ -3891,7 +3927,7 @@
+     // QBZ191's aim carries about 4.88 degrees of left roll. Its iron sights need
+     // the gun-root up axis, just as hip framing does, while retaining their own
+     // sight line and eye distance. The location below uses this corrected frame.
+-    if(bHolographicOptic || IsTubeShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
++    if(bHolographicOptic || IsShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
+     // Keep the revolver at arm's length; its ocular is not a rifle eye box.
+     const float EyeDistance = HasHandgunScope() ? 42.f : bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
+     CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
+@@ -4111,7 +4147,7 @@
+             : FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
+         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
+         GunplayAnimation->ActionAlpha = FMath::Min(In, Out);
+-        if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) && IsReloading())
++        if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition, bDrumInstalled) && IsReloading())
+         {
+             // Share the framing's source clock/end without shortening the
+             // authored hand-return arc. IdleClip/GripIdle already select the

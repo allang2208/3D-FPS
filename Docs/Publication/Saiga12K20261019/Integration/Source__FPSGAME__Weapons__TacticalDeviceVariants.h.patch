@@ -1,0 +1,28 @@
+diff --git a/Source/FPSGAME/Weapons/TacticalDeviceVariants.h b/Source/FPSGAME/Weapons/TacticalDeviceVariants.h
+--- a/Source/FPSGAME/Weapons/TacticalDeviceVariants.h
++++ b/Source/FPSGAME/Weapons/TacticalDeviceVariants.h
+@@ -23,7 +23,7 @@
+     return Definition==TEXT("ue_m4a1") || Definition==TEXT("ue_akm") || Definition==TEXT("ue_qbz191")
+         || Definition==TEXT("ue_ash12") || Definition==TEXT("ue_m16a2") || Definition==TEXT("ue_a762")
+         || Definition==TEXT("ue_svd") || Definition==TEXT("ue_svch") || Definition==TEXT("ue_pkm_lowpoly") || Definition==TEXT("ue_lmg201")
+-        || Definition==TEXT("ue_hk416");
++        || Definition==TEXT("ue_hk416") || Definition==TEXT("ue_saiga12k");
+ }
+ inline FString Super90MeshPath(const FString& Id)
+ {
+@@ -33,6 +33,7 @@
+ // scale mount transform, including authored emitter and aim-guide sockets.
+ inline FString FittedMeshPath(const FString& Family,const FString& Id,bool OppositeSide)
+ {
++    if(Family==TEXT("Saiga12K"))return FString::Printf(TEXT("/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_%s_%d"),*Id,OppositeSide?2:1);
+     if(Family==TEXT("Super90"))return Super90MeshPath(Id);
+     if(Family==TEXT("M870"))return M870TacticalAssets::MeshPath(Id);
+     return FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/DualFit20261008/%s/SM_%s_%d"),*Family,*Id,OppositeSide?2:1);
+@@ -47,6 +48,7 @@
+ }
+ inline FString FamilyForDefinition(const FString& Definition)
+ {
++    if(Definition==TEXT("ue_saiga12k"))return TEXT("Saiga12K");
+     if(Definition==TEXT("ue_akm"))return TEXT("AKM");
+     if(Definition==TEXT("ue_qbz191"))return TEXT("QBZ191");
+     if(Definition==TEXT("ue_m1911"))return TEXT("M1911");

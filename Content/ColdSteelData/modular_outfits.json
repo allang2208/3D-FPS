@@ -1794,6 +1794,28 @@
       ],
       "shirt": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ST6Sleeves.SK_Super90_ST6Sleeves",
       "gloves": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_HardKnuckle.SK_Super90_HardKnuckle"
+    },
+    "/Game/Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny.SK_Saiga12K_Manny": {
+      "base": "/Game/Characters/ModularOutfit20260924/BarePalmV7/AKM/SK_AKM_BareArmsV7.SK_AKM_BareArmsV7",
+      "shirt": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/AKM/SK_AKM_FittedSleevesV1.SK_AKM_FittedSleevesV1",
+      "gloves": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/AKM/SK_AKM_FittedFieldGlovesV1.SK_AKM_FittedFieldGlovesV1",
+      "hide_source_materials": [
+        4,
+        5
+      ],
+      "shirt_covers": [
+        0,
+        1
+      ],
+      "glove_covers": [
+        2
+      ],
+      "rig_profile": "AKM",
+      "native_bare_skin": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/AKM/SK_AKM_ca790fe739_WristCoverage.SK_AKM_ca790fe739_WristCoverage",
+      "bare_arms_candidate": "/Game/Characters/ModularOutfit20260924/BarePalmV7/AKM/SK_AKM_BareArmsV7.SK_AKM_BareArmsV7",
+      "native_bare_arms": true,
+      "original_gloved_arms": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_AKM_OriginalGlovedArms.SK_AKM_OriginalGlovedArms",
+      "original_gloved_source": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_AKM_GlovedSource.SK_AKM_GlovedSource"
     }
   },
   "native_bare_hands_default": false

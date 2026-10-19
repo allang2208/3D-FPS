@@ -1,0 +1,34 @@
+{
+  "cause": "Local third-person body aim read APawn.GetBaseAimRotation, which uses PlayerCameraManager observer cache. A detached observer can oppose the gameplay eye and put the weapon and wrists behind the torso.",
+  "fix": "In third-person view, SampleLocalState reads FirstPersonCamera component rotation. First-person sampling and remote authority control-rotation sampling remain on their existing paths.",
+  "gameplay_source": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\Characters\\FPSPlayerBodyActions.cpp",
+  "gameplay_source_sha256": "a6ec8b807123dba578dd43de2288bac702447bed140b2e117ecf8157aae40cad",
+  "before": {
+    "checks": 145,
+    "failures": 4,
+    "opposed_camera_right_y_cm": -10.261,
+    "opposed_camera_left_y_cm": -40.491
+  },
+  "after": {
+    "checks": 145,
+    "failures": 0,
+    "opposed_camera_right_y_cm": 12.418,
+    "opposed_camera_left_y_cm": 42.647
+  },
+  "builds": {
+    "editor": {
+      "target": "FPSGAMEEditor",
+      "completed": "2026-10-18T23:30:02.7634143+08:00",
+      "exit_code": 0
+    },
+    "game": {
+      "target": "FPSGAME",
+      "completed": "2026-10-18T23:30:37.7613645+08:00",
+      "exit_code": 0
+    }
+  },
+  "test_fixture": "Final commandlet fixture separately compiled and linked in IsolatedHost; real player state, initialized camera manager, 3 body LODs, user stock/drum/foregrip combination and independent observer angles.",
+  "rendered_acceptance": false,
+  "actual_user_profile_modified": false,
+  "asset_writes": false
+}

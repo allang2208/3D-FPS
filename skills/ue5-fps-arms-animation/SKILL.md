@@ -32,3 +32,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - [第三人称双手锤左手施法](references/third-person-casting-arm.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。
 
 - 持弓左手施法、进食与回握，以及双手食物的取消恢复：[弓动作交接](references/bow-hand-string-contact.md#第三人称-sparrow-与左手动作交接2026-10-18)；拇指与最终蒙皮问题：[进食抓握](references/food-and-drink-grasp.md)。
+
+- S12K 检视避让、空仓拇指回握与共振握把整臂跟随：[S12K 检视避让、空仓拇指回握与共振握把整臂跟随](references/saiga12k-grip-and-return.md)。按问题读取；历史检查不授权自动重测。

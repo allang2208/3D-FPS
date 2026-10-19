@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -997,7 +997,7 @@
+     FireTokenBucket = FMath::Min(6.f, FireTokenBucket + static_cast<float>((Now - LastFireTokenRefillAt) / Interval));
+     LastFireTokenRefillAt = Now;
+     float HitTokenCost=1.f;
+-    if(OutDeclaredItem&&TubeShotgunAssets::Supports(OutDeclaredItem->Definition)&&Report.AttackMeta==0)
++    if(OutDeclaredItem&&(TubeShotgunAssets::Supports(OutDeclaredItem->Definition)||OutDeclaredItem->Definition==TEXT("ue_saiga12k"))&&Report.AttackMeta==0)
+     {
+         const auto* Ammo=ShadowModel->AmmoType(ShadowModel->AmmoDefinitionFor(*OutDeclaredItem));
+         int32 ExtraTargets=Ammo?Ammo->TargetPenetration:0;
+@@ -1151,7 +1151,7 @@
+ 
+     // 枪械 hitscan 与弹道投射物：面板 × 汇聚(已按弹匣容量钳) × 服务端距离衰减。
+     const float Distance = FVector::Dist(FVector(Report.AimOrigin), FVector(Report.ImpactPoint));
+-    const bool bShotgun=Item&&TubeShotgunAssets::Supports(Item->Definition);
++    const bool bShotgun=Item&&(TubeShotgunAssets::Supports(Item->Definition)||Item->Definition==TEXT("ue_saiga12k"));
+     const float PelletScale=bShotgun?ShadowModel->AmmoDamageMultiplier(*Item)
+         /ShadowModel->AmmoProjectileCount(*Item,Super90WeaponAssets::PelletCount):1.f;
+     return Panel * ConvergenceScale * PelletScale

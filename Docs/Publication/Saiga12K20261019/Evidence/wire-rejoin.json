@@ -1,0 +1,78 @@
+{
+	"passed": true,
+	"role": "client",
+	"cases": [
+		{
+			"phase": 0,
+			"remote_aim": true,
+			"remote_rig": true,
+			"remote_pump": true,
+			"remote_laser": true,
+			"remote_applied_grip": true,
+			"aim_pitch": 25,
+			"aiming": false,
+			"grip_error_cm": 0,
+			"equipment_recipe": true
+		},
+		{
+			"phase": 1,
+			"remote_aim": true,
+			"remote_rig": true,
+			"remote_pump": true,
+			"remote_laser": true,
+			"remote_applied_grip": true,
+			"aim_pitch": -30,
+			"aiming": true,
+			"grip_error_cm": 0,
+			"equipment_recipe": true
+		},
+		{
+			"phase": 2,
+			"remote_aim": true,
+			"remote_rig": true,
+			"remote_pump": true,
+			"remote_laser": true,
+			"remote_applied_grip": true,
+			"aim_pitch": 40,
+			"aiming": true,
+			"grip_error_cm": 1.7763568394002505e-15,
+			"equipment_recipe": true
+		},
+		{
+			"phase": 3,
+			"remote_aim": true,
+			"remote_rig": true,
+			"remote_pump": true,
+			"remote_laser": true,
+			"remote_applied_grip": true,
+			"aim_pitch": -15,
+			"aiming": true,
+			"grip_error_cm": 0,
+			"equipment_recipe": true
+		},
+		{
+			"phase": 4,
+			"remote_aim": true,
+			"remote_rig": true,
+			"remote_pump": true,
+			"remote_laser": true,
+			"remote_applied_grip": true,
+			"aim_pitch": -15,
+			"aiming": true,
+			"grip_error_cm": 0,
+			"equipment_recipe": true
+		},
+		{
+			"phase": 5,
+			"remote_aim": true,
+			"remote_rig": true,
+			"remote_pump": true,
+			"remote_laser": true,
+			"remote_applied_grip": true,
+			"aim_pitch": -15,
+			"aiming": true,
+			"grip_error_cm": 3.5527136788005009e-15,
+			"equipment_recipe": true
+		}
+	]
+}

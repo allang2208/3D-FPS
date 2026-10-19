@@ -1,0 +1,25 @@
+diff --git a/Source/FPSGAME/Weapons/M4HandstopVisual.cpp b/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
+--- a/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
+@@ -1,3 +1,4 @@
++#include "Saiga12KAttachments.h"
+ #include "HK416Attachments.h"
+ #include "HK416WeaponAssets.h"
+ #include "LMG201Attachments.h"
+@@ -57,6 +58,16 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
+ {
++    if(IsSaiga12KWeapon())
++    {
++        const FString Family=Saiga12KAttachments::ForegripFamily(Variant);
++        AngledForegrip=Saiga12KAttachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Family==TEXT("angled"));
++        CantedForegrip=Saiga12KAttachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bInventoryWeaponReady&&Family==TEXT("canted"));
++        const bool Tactical=Family==TEXT("tactical_vertical");
++        VerticalForegrip=Saiga12KAttachments::Configure(this,AKMViewmodel,VerticalForegrip,Tactical?TEXT("tactical_vertical"):TEXT("vertical"),bInventoryWeaponReady&&(Tactical||Family==TEXT("vertical")));
++        PrismHandstop=Saiga12KAttachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Family==TEXT("prism"));
++        return;
++    }
+     if(IsM870Weapon())
+     {
+         AngledForegrip=M870FurnitureAssets::ConfigureForegrip(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));

@@ -30,3 +30,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 - 弓换手、双手进食收弓及事件滞留的复制边界：[弓与消耗品表现同步](../ue5-cpp-gameplay/references/player-world-body.md#弓换手与消耗品恢复的表现同步2026-10-18)。
 
 - 移动怪物延迟命中、弱点遮挡及器官生命池：读取 [monster-delayed-hit](references/monster-delayed-hit.md)。
+
+- S12K 试装历史导致的复制清单差异与第三人称方向：[S12K 试装历史导致的复制清单差异与第三人称方向](references/saiga12k-presentation.md)。按问题读取；历史检查不授权自动重测。

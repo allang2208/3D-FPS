@@ -1,0 +1,29 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.h b/Source/FPSGAME/FPSGAMECharacter.h
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -86,6 +86,8 @@
+     bool IsSuper90Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_super90"); }
+     bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
+     bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }
++    bool IsSaiga12KWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_saiga12k"); }
++    bool IsShotgunWeapon() const { return IsTubeShotgunWeapon() || IsSaiga12KWeapon(); }
+     float M870PumpPlayRate() const;
+     void UpdateM870PumpAudio();
+     void PreserveInterruptedM870Pump();
+@@ -228,7 +230,7 @@
+     FVector GetEffectiveMuzzleForward() const;
+     float GetShotgunPelletSpreadMultiplier() const;
+     bool HasShotgunDuckbill() const;
+-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||(IsSuper90Weapon()&&MuzzleVariant==TEXT("shotgun_suppressor"));}
++    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon()||IsSaiga12KWeapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));}
+     void SetGunsmithInspection(bool bInspect);
+     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
+     bool HasGunsmithDrum() const {return bDrumVisual;}
+@@ -613,6 +615,7 @@
+     void SetRSH12Optic(const FString& Variant);
+     void SetSuper90Optic(const FString& Variant);
+     void SetM870Optic(const FString& Variant);
++    void SetSaiga12KOptic(const FString& Variant);
+     void SetM1911Muzzle(const FString& Variant);
+     void RunEquipFramingAcceptance(float DeltaSeconds);
+     void FinishWeaponAction();

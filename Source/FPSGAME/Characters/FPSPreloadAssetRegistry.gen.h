@@ -9,7 +9,7 @@
 
 namespace FPSPreloadRegistry
 {
-    inline constexpr int32 PathCount = 362;
+    inline constexpr int32 PathCount = 392;
     inline const TCHAR* const Paths[] = {
         TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01"),
         TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02"),
@@ -363,6 +363,12 @@ namespace FPSPreloadRegistry
         TEXT("/Game/Weapons/SVDDragunov20260922/ExtendedMagazine20260927/SM_SVD_ext_mag"),
         TEXT("/Game/Weapons/SVDDragunov20260922/StockAdapter20260923"),
         TEXT("/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock"),
+        TEXT("/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_shotgun_birdcage_flash_hider"),
+        TEXT("/Game/Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny"),
+        TEXT("/Game/Weapons/Saiga12K/Detail20261018/SM_Saiga12K_Ext12"),
+        TEXT("/Game/Weapons/Saiga12K/Drum20261018/SM_Saiga12K_Drum20"),
+        TEXT("/Game/Weapons/Saiga12K/GameDevAudio20261018/S_Saiga12K_Fire"),
+        TEXT("/Game/Weapons/Saiga12K/SpecialStock20261018/SM_Saiga12K_SpecialStock"),
         TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserBeam"),
         TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopeAwareLaserDot"),
         TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopePeripheralOptics"),

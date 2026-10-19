@@ -1,0 +1,54 @@
+diff --git a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
+--- a/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
++++ b/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp
+@@ -3,6 +3,7 @@
+ #include "Camera/PlayerCameraManager.h"
+ #include "Super90WeaponAssets.h"
+ #include "TubeShotgunAssets.h"
++#include "Saiga12KWeaponAssets.h"
+ #include "ShotgunBirdcageAssets.h"
+ #include "FPSImpactFXSubsystem.h"
+ #include "NiagaraComponent.h"
+@@ -364,7 +365,7 @@
+ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
+ {
+     if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(PumpEjectTimer);
+-    if(InWeaponMesh&&InWeaponMesh->GetSkeletalMeshAsset()&&TubeShotgunAssets::MatchesMesh(InWeaponMesh->GetSkeletalMeshAsset()->GetPathName())&&!Super90CasingMesh)
++    if(InWeaponMesh&&InWeaponMesh->GetSkeletalMeshAsset()&&(TubeShotgunAssets::MatchesMesh(InWeaponMesh->GetSkeletalMeshAsset()->GetPathName())||Saiga12KWeaponAssets::Matches(InWeaponMesh))&&!Super90CasingMesh)
+     {
+         Super90CasingMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Parts/SM_Super90_Casing"));
+         Super90CasingMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/Super90/Cransh20261006/Materials/M_S90_12gauge"));
+@@ -490,7 +491,7 @@
+         const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
+         const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
+         const bool bSuper90 = bRifle && WeaponMesh && WeaponMesh->GetSkeletalMeshAsset()
+-            &&TubeShotgunAssets::MatchesMesh(WeaponMesh->GetSkeletalMeshAsset()->GetPathName());
++            &&(TubeShotgunAssets::MatchesMesh(WeaponMesh->GetSkeletalMeshAsset()->GetPathName())||Saiga12KWeaponAssets::Matches(WeaponMesh));
+         UStaticMesh* Geometry = nullptr;
+         UMaterialInterface* Surface = nullptr;
+         ResolveCasingAsset(bRifle, bSuper90, Geometry, Surface);
+@@ -1035,12 +1036,13 @@
+     {
+         const auto* Part=WorldMuzzlePart.Get();
+         const UStaticMesh* Mesh=Part?Part->GetStaticMesh():nullptr;
+-        return Mesh&&Mesh->GetPathName()==ShotgunBirdcageAssets::MeshObjectPath
++        return Mesh&&(Mesh->GetPathName()==ShotgunBirdcageAssets::MeshObjectPath
++            ||Mesh->GetPathName()==TEXT("/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_shotgun_birdcage_flash_hider.SM_Saiga12K_shotgun_birdcage_flash_hider"))
+             ?ShotgunBirdcageAssets::FlashVisualScale:1.f;
+     }
+     if(bIndependentPistol)return 1.f;
+     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+-    return Character&&Character->IsSuper90Weapon()&&Character->GetGunsmithMuzzle()==ShotgunBirdcageAssets::Part
++    return Character&&(Character->IsSuper90Weapon()||Character->IsSaiga12KWeapon())&&Character->GetGunsmithMuzzle()==ShotgunBirdcageAssets::Part
+         ?ShotgunBirdcageAssets::FlashVisualScale:1.f;
+ }
+ 
+@@ -1326,7 +1328,7 @@
+     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
+     const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
+     const bool bSuper90=bRifle&&WeaponMesh&&WeaponMesh->GetSkeletalMeshAsset()
+-        &&TubeShotgunAssets::MatchesMesh(WeaponMesh->GetSkeletalMeshAsset()->GetPathName());
++        &&(TubeShotgunAssets::MatchesMesh(WeaponMesh->GetSkeletalMeshAsset()->GetPathName())||Saiga12KWeaponAssets::Matches(WeaponMesh));
+     UStaticMesh* Geometry=nullptr;
+     UMaterialInterface* Surface=nullptr;
+     ResolveCasingAsset(bRifle,bSuper90,Geometry,Surface);

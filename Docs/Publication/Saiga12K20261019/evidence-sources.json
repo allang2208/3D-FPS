@@ -1,0 +1,11 @@
+{
+  "network-review.json": "SourceAssets/Saiga12KNetwork20261019/review.json",
+  "catalog.json": "SourceAssets/Saiga12KNetwork20261019/Receipts/catalog.json",
+  "isolated-after.json": "SourceAssets/Saiga12KNetwork20261019/Receipts/after/result.json",
+  "presentation.json": "SourceAssets/Saiga12KNetwork20261019/Receipts/Wire/20261019-111005/presentation.json",
+  "wire-host.json": "SourceAssets/Saiga12KNetwork20261019/Receipts/Wire/20261019-111539/host.json",
+  "wire-client.json": "SourceAssets/Saiga12KNetwork20261019/Receipts/Wire/20261019-111539/client.json",
+  "wire-rejoin.json": "SourceAssets/Saiga12KNetwork20261019/Receipts/Wire/20261019-111539/rejoin.json",
+  "body-hands.json": "SourceAssets/Saiga12KBodyHands20261018/repair-report.json",
+  "resonance.json": "SourceAssets/Saiga12KResonance20261019/production-manifest.json"
+}

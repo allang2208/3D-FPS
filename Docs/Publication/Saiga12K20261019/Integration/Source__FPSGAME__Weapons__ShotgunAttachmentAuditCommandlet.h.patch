@@ -1,0 +1,10 @@
+diff --git a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+@@ -9,4 +9,6 @@
+ public:
+     virtual int32 Main(const FString& Params) override;
+     int32 RunM870PresentationAudit(const FString& Params);
++    int32 RunSaiga12KPresentationAudit(const FString& Params);
++    int32 RunSaiga12KNetworkAudit(const FString& Params);
+ };

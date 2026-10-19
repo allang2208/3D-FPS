@@ -1,0 +1,56 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelIconResources.cpp b/Source/FPSGAME/UI/ColdSteelIconResources.cpp
+--- a/Source/FPSGAME/UI/ColdSteelIconResources.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIconResources.cpp
+@@ -1,3 +1,5 @@
++#include "../Weapons/Saiga12KAttachments.h"
++#include "../Weapons/Saiga12KMagazineAssets.h"
+ #include "../Weapons/LMG201WeaponAssets.h"
+ #include "../Weapons/HK416WeaponAssets.h"
+ #include "../Weapons/AR416Furniture.h"
+@@ -28,6 +30,7 @@
+ #include "../Weapons/ASH12WeaponAssets.h"
+ #include "../Weapons/SVDWeaponAssets.h"
+ #include "../Weapons/SVCHWeaponAssets.h"
++#include "../Weapons/Saiga12KWeaponAssets.h"
+ #include "../Weapons/SVDAttachments.h"
+ #include "../Weapons/M1911WeaponAssets.h"
+ #include "../Weapons/G18WeaponAssets.h"
+@@ -150,6 +153,7 @@
+         // The SVCh renders its icon from the same shared-Manny idle the SVD uses,
+         // so it needs the same preloaded pair.
+         else if(D==TEXT("ue_svch")){Add(SVCHWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
++        else if(D==TEXT("ue_saiga12k")){Add(Saiga12KWeaponAssets::MeshPath,true);Add(Saiga12KWeaponAssets::AnimationPath(TEXT("idle")),true);}
+         else if(D==TEXT("ue_lmg201"))
+         {
+             Add(LMG201WeaponAssets::MeshPath,true);Add(LMG201WeaponAssets::AnimationPath(TEXT("idle")),true);
+@@ -187,6 +191,30 @@
+         for(const auto& Part:Parts)
+         {
+             FString Key=Part.Value;
++            if(D==TEXT("ue_saiga12k"))
++            {
++                if(Key.IsEmpty()||Key==TEXT("false"))continue;
++                if(TacticalDeviceVariants::IsSlot(Part.Key))
++                    Add(TacticalDeviceVariants::FittedMeshPath(TEXT("Saiga12K"),Key,Part.Key==TEXT("tactical_secondary")),true);
++                else if(Part.Key==TEXT("underbarrel"))
++                {
++                    const FString Grip=Saiga12KAttachments::ForegripFamily(Key);
++                    if(!Grip.IsEmpty())
++                    {
++                        Add(Saiga12KAttachments::MeshPath(Grip),true);
++                        Add(Saiga12KAttachments::ProfilePath(FName(Grip==TEXT("tactical_vertical")?TEXT("vertical"):*Grip)),true);
++                    }
++                }
++                else if(Part.Key==TEXT("magazine")&&Key==Saiga12KMagazineAssets::Part)Add(Saiga12KMagazineAssets::MeshPath,true);
++                else if(Part.Key!=TEXT("magazine"))Add(Saiga12KAttachments::MeshPath(Key),true);
++                if(Part.Key==TEXT("optic")&&Saiga12KAttachments::SupportsOptic(Key))
++                {
++                    Add(Saiga12KAttachments::MeshPath(TEXT("OpticSeat_")+Key),true);
++                    if(Key==TEXT("lpvo_1_6x"))Add(Saiga12KAttachments::MeshPath(TEXT("lpvo_ring")),true);
++                    if(Key==TEXT("thermal_scope"))Add(Saiga12KAttachments::MeshPath(TEXT("thermal_selector")),true);
++                }
++                continue;
++            }
+             if(D==TEXT("ue_m870")&&Part.Key==TEXT("stock"))
+             {
+                 const FString Stock=Parts.FindRef(TEXT("stock"));

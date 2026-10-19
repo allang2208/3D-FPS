@@ -1,0 +1,28 @@
+{
+  "weapon": "ue_saiga12k",
+  "attachment": "angled_foregrip",
+  "display_name": "共振二代前握把",
+  "problem": "The inherited AKM grip top was 1.8245 cm above the S12K handguard underside.",
+  "fit": {
+    "translation_root_cm": [0.0, 0.0, -2.149744089087382],
+    "body_clearance_cm": 0.32523610351178167,
+    "interface": "Closed contour-matched saddle; 0.45 mm seating overlap at handguard surface",
+    "materials": "Preserve current S12K material instances, source UVs and normals"
+  },
+  "animation": {
+    "family": "angled",
+    "source_sample_rate": 120,
+    "clips": 14,
+    "scope": "Native support arm follows the relocated grip. Finger locals, right hand, source clocks, magazine and bolt contacts retained. Sprint loop remains unchanged.",
+    "views": "Existing first-person and third-person routes use the same fitted mesh and profile"
+  },
+  "targets": [
+    "/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_angled",
+    "/Game/Weapons/Saiga12K/InspectClearance20261018/Profiles/DA_angled"
+  ],
+  "author": "Tools/Saiga12KResonance/author_fit.py",
+  "install": "Tools/Saiga12KResonance/install_fit.py",
+  "save_receipt": "Receipts/saved.json",
+  "geometry_and_contact_report": "Receipts/scoped-check.json",
+  "runtime_tested": false
+}

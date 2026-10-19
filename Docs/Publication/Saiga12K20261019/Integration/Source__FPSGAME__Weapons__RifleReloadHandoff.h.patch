@@ -1,0 +1,29 @@
+diff --git a/Source/FPSGAME/Weapons/RifleReloadHandoff.h b/Source/FPSGAME/Weapons/RifleReloadHandoff.h
+--- a/Source/FPSGAME/Weapons/RifleReloadHandoff.h
++++ b/Source/FPSGAME/Weapons/RifleReloadHandoff.h
+@@ -9,13 +9,14 @@
+ // and stat-scaled reloads. No additional action duration or recovery timer.
+ namespace RifleReloadHandoff
+ {
+-    inline bool Supports(const FString& Definition)
++    inline bool Supports(const FString& Definition, bool bDrum = false)
+     {
+         return Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
+             || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_m16a2")
+             || Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")
+             || Definition == TEXT("ue_ash12") || Definition == TEXT("ue_svd")
+-            || Definition == TEXT("ue_svch");
++            || Definition == TEXT("ue_svch")
++            || (Definition == TEXT("ue_saiga12k") && bDrum);
+     }
+ 
+     struct FWindow
+@@ -56,7 +57,7 @@
+             // Retain the accepted normal 108..126 / empty 143..162 tails.
+             FramingStart = (bEmpty ? 143.f : 108.f) / 60.f;
+         }
+-        else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762"))
++        else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762") || Definition == TEXT("ue_saiga12k"))
+         {
+             // The drum's normal hand release ends at 278/120; standard-mag
+             // release ends earlier. Empty waits beyond bolt closure at 350/120.

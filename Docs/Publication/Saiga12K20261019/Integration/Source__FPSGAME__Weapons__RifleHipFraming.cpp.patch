@@ -1,0 +1,65 @@
+diff --git a/Source/FPSGAME/Weapons/RifleHipFraming.cpp b/Source/FPSGAME/Weapons/RifleHipFraming.cpp
+--- a/Source/FPSGAME/Weapons/RifleHipFraming.cpp
++++ b/Source/FPSGAME/Weapons/RifleHipFraming.cpp
+@@ -1,5 +1,6 @@
+ #include "RifleHipFraming.h"
+ #include "AKMSovietCalibration.h"
++#include "Saiga12KWeaponAssets.h"
+ #include "WeaponGripProfile.h"
+ #include "Animation/AnimSequence.h"
+ #include "Animation/Skeleton.h"
+@@ -13,7 +14,7 @@
+         || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_akm")
+         || Definition == TEXT("ue_m16a2") || Definition == TEXT("ue_ash12")
+         || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd")
+-        || Definition == TEXT("ue_svch");
++        || Definition == TEXT("ue_svch") || Definition == TEXT("ue_saiga12k");
+ }
+ 
+ FVector PresentationOffset(const FString& Definition)
+@@ -27,7 +28,7 @@
+     if (Definition == TEXT("ue_m870")) return FVector(-1.900510f, 1.680418f, 9.498009f);
+     float Forward = 0.f;
+     if (Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_m16a2")) Forward = 5.f;
+-    else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")) Forward = 9.f;
++    else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762") || Definition == TEXT("ue_saiga12k")) Forward = 9.f;
+     else if (Definition == TEXT("ue_ash12")) Forward = 8.f;
+     else if (Definition == TEXT("ue_svd")) Forward = 10.f;
+     // The SVCh is 1.073 m long with its butt 34 cm behind the grip, so it needs
+@@ -55,7 +56,7 @@
+ 
+ bool SampleFrame(UAnimSequence* Idle, const FVector& Scale, bool bAKMSights,
+     FVector& Hand, FQuat& AxisFrame,UWeaponGripProfile* Profile=nullptr,
+-    const FVector& GunUpAxis=FVector::UpVector)
++    const FVector& GunUpAxis=FVector::UpVector,bool bSaigaSights=false)
+ {
+     if (!Idle || !Idle->GetSkeleton()) return false;
+     FTransform HandPose, RootPose, RearPose, FrontPose;
+@@ -65,8 +66,8 @@
+         || !SampleBone(*Idle, TEXT("WPN_RearSight"), RearPose,Layer)
+         || !SampleBone(*Idle, TEXT("WPN_FrontSight"), FrontPose,Layer)) return false;
+ 
+-    const FVector Rear = bAKMSights ? RootPose.TransformPosition(AKMSoviet::Rear) : RearPose.GetLocation();
+-    const FVector Front = bAKMSights ? RootPose.TransformPosition(AKMSoviet::Front) : FrontPose.GetLocation();
++    const FVector Rear = bSaigaSights ? RootPose.TransformPosition(Saiga12KWeaponAssets::Rear) : bAKMSights ? RootPose.TransformPosition(AKMSoviet::Rear) : RearPose.GetLocation();
++    const FVector Front = bSaigaSights ? RootPose.TransformPosition(Saiga12KWeaponAssets::Front) : bAKMSights ? RootPose.TransformPosition(AKMSoviet::Front) : FrontPose.GetLocation();
+     const FVector Axis = ((Front - Rear) * Scale).GetSafeNormal();
+     const FVector Up = (RootPose.GetRotation().RotateVector(GunUpAxis) * Scale).GetSafeNormal();
+     Hand = HandPose.GetLocation() * Scale;
+@@ -91,6 +92,7 @@
+     if (!RifleHipFraming::SampleFrame(Reference, Scale, false, Hand, Axis)) return;
+     MeshScale = Scale;
+     bAKMSights = bMeasuredAKMSights;
++    bSaigaSights = Definition == Saiga12KWeaponAssets::Definition;
+     // Super90 retains its native UE bind: physical up is bone-local -Y.
+     // The shared M4 ruler above still uses its own bone-local Z.
+     GunUpAxis = (Definition == TEXT("ue_super90") || Definition == TEXT("ue_m870")) ? -FVector::RightVector : FVector::UpVector;
+@@ -109,7 +111,7 @@
+     bReady = false;
+     FVector Hand;
+     FQuat Axis;
+-    if (!RifleHipFraming::SampleFrame(Idle, MeshScale, bAKMSights, Hand, Axis,Profile,GunUpAxis)) return;
++    if (!RifleHipFraming::SampleFrame(Idle, MeshScale, bAKMSights, Hand, Axis,Profile,GunUpAxis,bSaigaSights)) return;
+ 
+     // Rigid movement of gun AND arms: common weapon axis and a per-rifle wrist depth.
+     // The presentation offset is included once in TargetHand, not accumulated on grip changes.

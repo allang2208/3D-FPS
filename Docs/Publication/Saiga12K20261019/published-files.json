@@ -1,0 +1,1381 @@
+{
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 271689,
+      "sha256_utf8_lf": "3045d78e033a63517031f5d36cb151b579da3d31ef7c7959ed2bdba6436631b1",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/body-hands.json",
+      "bytes": 1481,
+      "sha256_utf8_lf": "72d0ce84327ceddaa31b593c1d0e33f6e548f1450e61b5b73a5d26679ffeefcf",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/catalog.json",
+      "bytes": 8240,
+      "sha256_utf8_lf": "b3fc4fc8db49f8478531ab4dbceefb5a8d94981eba106456b5c58131d53b2dfe",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/isolated-after.json",
+      "bytes": 2735,
+      "sha256_utf8_lf": "bfbf492e81f9053a68ac84d15745a42e2dadee9f17cea5b8c342d12972467835",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/network-review.json",
+      "bytes": 4344,
+      "sha256_utf8_lf": "fc7b9ed0f0b15ce0d6bffebaf384027ffa94778f003ba5612eb01092217fdc05",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/presentation.json",
+      "bytes": 17520,
+      "sha256_utf8_lf": "6fe67978c0e8ae9164745574ef2bfb5d0239b9d73ab8e408e4aebd0cb46b04a0",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/resonance.json",
+      "bytes": 1275,
+      "sha256_utf8_lf": "2b11fc1213a28c363a3d3d2883686de8d1e340dc994dbf507cf8576e8c123ef4",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/wire-client.json",
+      "bytes": 1567,
+      "sha256_utf8_lf": "f55b0bf9e49aea21035a79c3fd985c67ee95d3e5471647cdfaf3a39e258815df",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/wire-host.json",
+      "bytes": 4885,
+      "sha256_utf8_lf": "e9f1f50852c2cc923817459fd564c96f3b18d1d3789d9f85f03f77d4d603bb75",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Evidence/wire-rejoin.json",
+      "bytes": 1546,
+      "sha256_utf8_lf": "17057f88dd18d25d88803160ade8e694154d82e4afcaeeff5208f64a2e40ac3e",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Characters__FPSBodyAssetPreloader.cpp.patch",
+      "bytes": 590,
+      "sha256_utf8_lf": "47bce839fa770a1689100237fefc5dfdd50347e99f855ae64f1ec4fe31c01c3e",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Characters__FPSBodyRifleHold.cpp.patch",
+      "bytes": 3158,
+      "sha256_utf8_lf": "790bb5d6db29166318bdf364aae7ab694122deecb16e51287dc31e1f8444a855",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Characters__FPSBodyRifleStockContacts.h.patch",
+      "bytes": 815,
+      "sha256_utf8_lf": "ac4787f7ab4caff120369eb92902461b9cec0b164352257e2bea33bba5c75636",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "bytes": 1785,
+      "sha256_utf8_lf": "9e7cbfe2cdde984b4cc53e08222885e452b082bfeb3b7c487683d6c51806f550",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+      "bytes": 2120,
+      "sha256_utf8_lf": "d4cee0554849c8f9711c9c07f95bd3af9b9bcb74c724576f75bf7f2981681271",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "bytes": 15119,
+      "sha256_utf8_lf": "65eebf994605870da06bf7be342d8729e8366cea2d096af487589a418fd4df5c",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__FPSGAMECharacter.h.patch",
+      "bytes": 2215,
+      "sha256_utf8_lf": "1c9c241e4cd7368be8da5cb15c9f6f83be04060698665bd30a38c4cd579c2d04",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+      "bytes": 4199,
+      "sha256_utf8_lf": "a922c490c817dc77ff0fc2216458e3369afb736641cdfd0dcf6634979051af97",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "bytes": 1516,
+      "sha256_utf8_lf": "55e53c1f3b5f26dd660106722de5d4b433cd36439125b7639950d43cfc16bc03",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+      "bytes": 729,
+      "sha256_utf8_lf": "156ca67820df7e13b05e1398d0a04eb85986404c0ac845b42819bde30138ed53",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelIconResources.cpp.patch",
+      "bytes": 3079,
+      "sha256_utf8_lf": "9c0591d668dda85bfbdb102f56d778d3b6dd5d4dcf2634d5f3253f816d74b8b8",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelPickupStudio.cpp.patch",
+      "bytes": 1924,
+      "sha256_utf8_lf": "0a6cf2a03e8916ac68fd4894291848437e96b919c468d664feaaf1a51607c127",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelPickupWeapon.cpp.patch",
+      "bytes": 2105,
+      "sha256_utf8_lf": "4cad168fa301312209163b4e05287f997061205043d61885820360c7e9ff8da8",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelWarehouseModel.cpp.patch",
+      "bytes": 3218,
+      "sha256_utf8_lf": "8612adb018d30ba38fef134ca35318adfb242bff77630ed7f96ee1cd994603b9",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelWeaponIconCatalogCommandlet.cpp.patch",
+      "bytes": 1905,
+      "sha256_utf8_lf": "fd4ce50db0f7cf7b95d3a2a5abc5a1d0c2e3adc20836c5266b6267fb80a38736",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__ColdSteelWeaponIcons.cpp.patch",
+      "bytes": 2214,
+      "sha256_utf8_lf": "9ce1713e40fcd4faa52eddc807675f90157722919b82d01ead2a029aee4f94e9",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__UI__M4GunsmithPreviewResources.cpp.patch",
+      "bytes": 3031,
+      "sha256_utf8_lf": "d88cb688fb68970a8556b21c674b8d6052ae6209fd2eab9fcf63d4b8da3c2f77",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__CasingPortCalibration.h.patch",
+      "bytes": 791,
+      "sha256_utf8_lf": "424ddea03a087616faab5fa95a2e4e15b5e988e2d94b43d5baf00f4829bc4034",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__FPSWeaponFXComponent.cpp.patch",
+      "bytes": 3670,
+      "sha256_utf8_lf": "2ca964727eda326cf39d45740111befe8bf2e6ef91aecc6a4d2a74790f2414fd",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+      "bytes": 1213,
+      "sha256_utf8_lf": "79a0dc17be185b0175a89af5b61380bb2c86d4ed551179cf2507d30ead6817ed",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__M4DrumVisual.cpp.patch",
+      "bytes": 2293,
+      "sha256_utf8_lf": "bc65e7b661b98121800866cf92e0be8118105b7a943d4387a12268df151e2789",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__M4GunsmithVisual.cpp.patch",
+      "bytes": 1519,
+      "sha256_utf8_lf": "c7b89ee90dbe47a9be8699e9044f35d77add9bc0963a1b285253e623f295ebaa",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__M4HandstopVisual.cpp.patch",
+      "bytes": 1495,
+      "sha256_utf8_lf": "18d05aa3efb4a64d591f3f56878f82db4840d0aef32d0a9fec5fbe35d0622f0c",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__M4MuzzleVisual.cpp.patch",
+      "bytes": 3619,
+      "sha256_utf8_lf": "11de5579d0fc03a3db03efb62674107cc34f4a2deadf831c2f1e9f35288525b6",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__M870PresentationWireAudit.cpp.patch",
+      "bytes": 9144,
+      "sha256_utf8_lf": "a6a7c127db08b6a5ff5919b69ed55407c25e6f1ba19d658a65d060dfb84d3b63",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__PhantomRearGripVisual.cpp.patch",
+      "bytes": 1010,
+      "sha256_utf8_lf": "26cd219d7755cec70d1fc9e6e2d89b681f7997c1ad444e4916047874eb1828e0",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__RifleHipFraming.cpp.patch",
+      "bytes": 3871,
+      "sha256_utf8_lf": "e060361b65103d39d834136399b45b966997841d64dd7c7cd3dfcf33591091d4",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__RifleHipFraming.h.patch",
+      "bytes": 480,
+      "sha256_utf8_lf": "085358b67a1596e8bd314d6179a778801547161be5b1e4af267aea99e326d80c",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__RifleReloadHandoff.h.patch",
+      "bytes": 1503,
+      "sha256_utf8_lf": "e962757ff2bf176630c7d333ea55fed13027cac2286decb8db30ba0548b4a95e",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__SVDGripProfiles.cpp.patch",
+      "bytes": 1062,
+      "sha256_utf8_lf": "080a66ccd3ba79032a801f900450a108bc4bfa78826e0ed3ccbd0cdedcbef0bc",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.cpp.patch",
+      "bytes": 751,
+      "sha256_utf8_lf": "8d06852adc8a58c763577426a4bc8d01d3782339de700929df6d8d69afb5dd17",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.h.patch",
+      "bytes": 528,
+      "sha256_utf8_lf": "c7de2b3c94976092bb0146900192b3ad2b9de747c1753f73a154a20812398735",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__SkeletonStockVisual.cpp.patch",
+      "bytes": 1067,
+      "sha256_utf8_lf": "bdfc21048840f3d25ad1e488bba41a7dfb46ed1678ca83a0ee75717fbdfb1db2",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__TacticalDeviceComponent.cpp.patch",
+      "bytes": 6106,
+      "sha256_utf8_lf": "778fe21c5f2c97e7ae4571f9b07e89cf98920fae8371b194b99974603d332f10",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__TacticalDeviceVariants.h.patch",
+      "bytes": 1694,
+      "sha256_utf8_lf": "b3ebd638ddd5c192592aee9d9d734e517b77a5e3fcbae2e451f4406ac5026cdf",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/Integration/Source__FPSGAME__Weapons__WeaponReloadStages.cpp.patch",
+      "bytes": 1060,
+      "sha256_utf8_lf": "cd902c4e5142ef946bb1ed9a1cb6e1ea26b6e80691804f8ee460d43eaaa8fdb1",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/README.md",
+      "bytes": 7472,
+      "sha256_utf8_lf": "4ba4cc2ffa8fd5e17574b0cd1386a19b60ec1f734062ed367173faa48854876b",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/archive-plan.json",
+      "bytes": 28203,
+      "sha256_utf8_lf": "db43792a8cd85c4df5cf10cf62f1941055a7a72293cb98c369692ac306ffc994",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/archive-receipt.json",
+      "bytes": 248,
+      "sha256_utf8_lf": "9b7a9ac485e980cf25afafcf403e1b21de5b4310f0ca4de6947694d59b5e75bb",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/evidence-sources.json",
+      "bytes": 840,
+      "sha256_utf8_lf": "5f57faa22e97df8e1ebe8abb49c8f987bae153973189703cc8b31053035bd7d4",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/integration-manifest.json",
+      "bytes": 35986,
+      "sha256_utf8_lf": "6a41dc9ae4f5b13546bfb973e45f0f60d4fae673d23e6a730360450dd537e24c",
+      "source": "working file"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/source-attribution.txt",
+      "bytes": 848,
+      "sha256_utf8_lf": "6f9d3d7023965f57829e4b689f5581eace4bb3b0d0b94a3f2c88af130f1f849c",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KAttachments.cpp",
+      "bytes": 2118,
+      "sha256_utf8_lf": "6daed833593e45b9e29f2f425a5a05d1d42c14c9b5d83679d510d0681439c7ae",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KAttachments.h",
+      "bytes": 2412,
+      "sha256_utf8_lf": "089089dd89431af0b30ee646709714530b30e2056495acc167c058300acf5807",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KMagazineAssets.cpp",
+      "bytes": 1727,
+      "sha256_utf8_lf": "f6b0b73cb074926e477f80418de84128394735eeeab2056e8d17e1f570b80bd3",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KMagazineAssets.h",
+      "bytes": 594,
+      "sha256_utf8_lf": "763ccead7786327f71d404104bbaee1f1ecfdd5176c7fe920e11a6585f838cc2",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KNetworkAudit.cpp",
+      "bytes": 11787,
+      "sha256_utf8_lf": "b1d991ef8dfee8c0421cc7e2322f4f78596018e5ffde71af8f2eca596920f889",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KOpticVisual.cpp",
+      "bytes": 3237,
+      "sha256_utf8_lf": "cac8027927a0fbcaf955680649d14569e73b145d2b2ec9cc0395509f08d50aad",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KSpecialStockAssets.h",
+      "bytes": 261,
+      "sha256_utf8_lf": "b735fae0340a2a36ead654dffa8606872ab4efda6d5c6ca99d987f5a2c70590f",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KSurfaceReviewCommandlet.cpp",
+      "bytes": 8772,
+      "sha256_utf8_lf": "bc2eab4ac05923aa600461eac93f2a8fddf7a4e5456ccfdd2b3ba0d18c2e46e4",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KSurfaceReviewCommandlet.h",
+      "bytes": 359,
+      "sha256_utf8_lf": "ed12078f66e94081b2bc4f9a620394037df6b9aecd9a6be74c24b68f37825f53",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KThirdPersonAudit.cpp",
+      "bytes": 21700,
+      "sha256_utf8_lf": "5c48888f094c5048ae1aad2594d67af610a6271eaa5b4926a394574f33c150a7",
+      "source": "working file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Saiga12KWeaponAssets.h",
+      "bytes": 1493,
+      "sha256_utf8_lf": "c603557d91b731cf41c3f5680ab8f37ae474c30402b23166f0551b05db6fa999",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Publication/archive_saiga12k_20261019.ps1",
+      "bytes": 3240,
+      "sha256_utf8_lf": "ba0c86aeeaef94e06826de2774b1fecef2c284f5c72fdadfa8cce4953b50eeba",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Publication/plan_saiga12k_archive_20261019.py",
+      "bytes": 5347,
+      "sha256_utf8_lf": "f7e7a1bb8e563c69a3f8c077886ca585248bf0080d6321b161baaa0534598fa2",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Publication/prepare_saiga12k_20261019.py",
+      "bytes": 1896,
+      "sha256_utf8_lf": "d0c0d0b8931a88d2b84574f1a0618d7e6e6b1d39a9bf5236400197e486c8fb5a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Publication/prepare_saiga12k_release_20261019.py",
+      "bytes": 8594,
+      "sha256_utf8_lf": "05e26d4b0dbe3a3cc036c0d5f2f7ed0960762616a698461cd0a0d72e50530e2b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/author_model.py",
+      "bytes": 12577,
+      "sha256_utf8_lf": "a845df2d801a3f545902db9821d7e0f09e1134fa5a52d6e6bb9edd21507b0726",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/bake_surface.py",
+      "bytes": 2745,
+      "sha256_utf8_lf": "b0f08d0463c08346412eb5eca13d92c663650c2743fbb40d0d6240ff1bd088c7",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/create_assets.py",
+      "bytes": 6806,
+      "sha256_utf8_lf": "41aee2b2d03ce9a7c6e5c4a34ef39b4b68ed2f501320582bd58d438b803e927b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/install_icon.py",
+      "bytes": 1213,
+      "sha256_utf8_lf": "99261e704d8033238c095023d527d6a13cd75611886f1714eca4fc5ceabd317a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/install_revision.py",
+      "bytes": 5852,
+      "sha256_utf8_lf": "29d6a495c3c70992f92429c4f2e2991dabd1f9a725b9bab5b7fdeb5840a6b2fb",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/render_icon.py",
+      "bytes": 2181,
+      "sha256_utf8_lf": "7ba4a0025fcd2ebbcae953c71cd32ccc05e492146af290a0e362c266fb119a69",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/S12KStockReference/run_ue.ps1",
+      "bytes": 1401,
+      "sha256_utf8_lf": "9a3aa225864542831171a53b61bc46f339bd6c9ee25e6df4aa9116c9fe82ffcc",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12K/build.ps1",
+      "bytes": 1073,
+      "sha256_utf8_lf": "bbe3aaca34d350ee6efd81d6fa1abe56f59b1c90eac9a5fb461a053e35a0e06a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12K/build_catalog_icon.ps1",
+      "bytes": 553,
+      "sha256_utf8_lf": "4143e1ff8b892133333a0e6a4f0a284f5005c09bc023102e866343bc3b05c094",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12K/produce_assets.py",
+      "bytes": 10151,
+      "sha256_utf8_lf": "cc0400cd0c622b159c05cde23c5e1c8b842af70c9b5b51d1738de43169e35e07",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12K/read_source.py",
+      "bytes": 2472,
+      "sha256_utf8_lf": "fd4bdcab56980f88496e72ccd174238f532fd61092555fe5b99ecfbbcafcf85f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12K/save_editable_source.py",
+      "bytes": 3256,
+      "sha256_utf8_lf": "fc387878edd3ebc8ff9f66452132c454d16ac399e541965e7af114abe6406e23",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KAudio/build_editor.ps1",
+      "bytes": 1251,
+      "sha256_utf8_lf": "7f6031c9b334446738dba0276d8a6a6aaf63e8d1fa39803bae6124867fe7c8f9",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KAudio/build_game.ps1",
+      "bytes": 636,
+      "sha256_utf8_lf": "b000112993b81cfdbaa589c218ddbde5d03de717fc229d5e37c9814e09ec1936",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KAudio/import_audio.py",
+      "bytes": 2727,
+      "sha256_utf8_lf": "d76c57aa957b730b7b6e3cd1d8e65b2863e6935bcf0dd640fcb43cec1665c90f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KAudio/run_ue.ps1",
+      "bytes": 1392,
+      "sha256_utf8_lf": "84830363070f76b172d5a254467bf7ea23639138838738f8b1c7d15032b588a9",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KBodyHands/build_editor.ps1",
+      "bytes": 1271,
+      "sha256_utf8_lf": "cd97f771c7ba00e429ea558666aec69264254612557bd17f445c60bfac5340c0",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KBodyHands/build_game.ps1",
+      "bytes": 640,
+      "sha256_utf8_lf": "5992f66f95d06d143f11bb80801a50629569edf47eda4171ca00cdc66b5e79fe",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KBodyHands/read_live.py",
+      "bytes": 1707,
+      "sha256_utf8_lf": "0ae6014f228fbd4883838ac466fa0236cdbda678e8612fc31520b74d9332065a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/author_repair.py",
+      "bytes": 8313,
+      "sha256_utf8_lf": "4aaee7572331831f1c87db302955a424a9b37270d3ab8f18999150fe2412e586",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/bake.py",
+      "bytes": 4020,
+      "sha256_utf8_lf": "7ea00bb44994b5728dda3c8efed6f45b072d3df1d57e298039c9d56abae4187d",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/build.ps1",
+      "bytes": 1660,
+      "sha256_utf8_lf": "134026d4cf0fc81839d731975f4fadf33d7ff9e48e96667b38a6c23f92fe83b0",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/check_active.py",
+      "bytes": 727,
+      "sha256_utf8_lf": "f6f4f01f403ab4d18a10ff5ff9faa0dea9ba29951b2ba7a449b0fa70850cec00",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/check_saved_assets.py",
+      "bytes": 9870,
+      "sha256_utf8_lf": "002bd0bda8b20350139c540317b3205c40ba6172b679bf763347b36d1d1c2c87",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/check_source.py",
+      "bytes": 2387,
+      "sha256_utf8_lf": "a06a1ea35dae5a86456a7148abcd188ef3596310f38b224592b2effb295da1e6",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/deliver.py",
+      "bytes": 8668,
+      "sha256_utf8_lf": "0d0021ab76d415e9f9a5288e08fd667b729374ae426f9ef841713465c47dab2b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/diagnose_and_candidate.py",
+      "bytes": 238,
+      "sha256_utf8_lf": "c13fdd3c26c8bca9289c30b56c74408a00f3055739c149c00b99e7eee826686b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/editor_state.py",
+      "bytes": 504,
+      "sha256_utf8_lf": "b6eff33b4f6c647e276cb11a16b50ba411eeb7e3b8a7feaabacd0e334b87c696",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/finish_coating.py",
+      "bytes": 1205,
+      "sha256_utf8_lf": "4ea6b556248733be019b8bdd3ee7d9d24d83513b701491cc1e743f372f2a6a95",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/finish_stage.py",
+      "bytes": 237,
+      "sha256_utf8_lf": "ca708942f1c3508e6532dc02f9a6304a866c8ad1b8c67652e82e7c78f557d8dc",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/inspect_core.py",
+      "bytes": 1353,
+      "sha256_utf8_lf": "02ad7351e713d50a0899728ddc216b34ff477017f6e9bd2f58a7752d3a714351",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/install_assets.py",
+      "bytes": 15443,
+      "sha256_utf8_lf": "c4ebf25834fa29d3dd6d9f2c8b60cc7ed0898838380eea4328d89de3f9b36aea",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/loops.py",
+      "bytes": 1603,
+      "sha256_utf8_lf": "964a34e3b1191477e478fac780c3d823f284c85c98bacfb0d6d8956e71a60ff4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/material_graph.py",
+      "bytes": 1849,
+      "sha256_utf8_lf": "71aaedf9c33650cb6a330ce7ee787c03af808685e502c22c7806d8aae8d72c2f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/mesh_contract.py",
+      "bytes": 2024,
+      "sha256_utf8_lf": "462d6c90a034f50497a49729979362c7a64f128c218f7dd1dc64afc0901ff439",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/orientation_candidate.py",
+      "bytes": 2346,
+      "sha256_utf8_lf": "1079aae078aafe0184d4718fc2623ec01de516a2503569e7044d373e2a17545b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/prepare_pipeline.py",
+      "bytes": 1870,
+      "sha256_utf8_lf": "222a4965d3e88ca8df4ba82816263ef537fd71ae09ceebd09cf0fb992c4cff67",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/promote.py",
+      "bytes": 5610,
+      "sha256_utf8_lf": "17de0536841c2d8b768cfe13d39b7434ec6a0b3fd16d05ebb91da58db6859d3b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/read_baseline.py",
+      "bytes": 2032,
+      "sha256_utf8_lf": "9490c2e3896dc004b44781fe29383fed9f97ef264a0e2af9c7a956249f2e08ee",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/read_live.py",
+      "bytes": 3709,
+      "sha256_utf8_lf": "5dcc8c01a503404305be5038eb3730473af21165fd63fbabfd203981ef3b176d",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/read_parts.py",
+      "bytes": 2988,
+      "sha256_utf8_lf": "0b3be65c49559ebbfa1d6d3e796eee3b992f6147b301f0aa93ded5b4a5f1b1aa",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/refine_accessories.py",
+      "bytes": 6664,
+      "sha256_utf8_lf": "2112ab770b49240030dfc0ccf6cf56eac8d3d8d7d6e33bcd5953e0a5be07b9f1",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/restore_accessory_build_policy.py",
+      "bytes": 1089,
+      "sha256_utf8_lf": "2fa7eacc735e06ec311e1dee37b65966559d687f5e600461c163cac30300ec18",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/stage_assets.py",
+      "bytes": 546,
+      "sha256_utf8_lf": "ea5e6bb2c062587da45c6b7d0b745bfe16a88342177c8a0db725036b14f943e5",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KClosure/topology.py",
+      "bytes": 1534,
+      "sha256_utf8_lf": "31491d0743c4022d6c40ec42303579347d58843067b3161f092226fcbf673d1e",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KCommon/build.ps1",
+      "bytes": 1090,
+      "sha256_utf8_lf": "616dc5d4fe38df945170b70bd5457535a5672b1af6bb7215a556fbfc7d059516",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KCommon/produce_assets.py",
+      "bytes": 11715,
+      "sha256_utf8_lf": "c39a1af5d9764b9310192ed6a85e6b008d6386cb3683a847019d5f26c3c656a3",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KCommon/read_inputs.py",
+      "bytes": 1345,
+      "sha256_utf8_lf": "8fa19ed3c967c6c5c178c27284e217789ca173c5cc123620d01b66abcddaf0c7",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KCommon/save_lods.py",
+      "bytes": 1588,
+      "sha256_utf8_lf": "c06cdccc486898282bda8832edb090b4347106e5a6ef0fc4fea48d010e9cf6d1",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/activate.py",
+      "bytes": 2109,
+      "sha256_utf8_lf": "040166926350f3c4cb2f9054c999be76a33111fc484c78ec4d151378b2e082d9",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/author.py",
+      "bytes": 16827,
+      "sha256_utf8_lf": "2c5f243e411bdc58f5f733648a9556d8a2a33d3298d7cfe5678b24b177816699",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/bake.py",
+      "bytes": 3678,
+      "sha256_utf8_lf": "c436d6e490708d8e40a9a695dce1868bbb31d981bab3c0f7d404881b336b20da",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/build.ps1",
+      "bytes": 1363,
+      "sha256_utf8_lf": "931583469af8ba69769a4b69a387df920b125dc2afa9b0285e65cc8c71950469",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/catalog.ps1",
+      "bytes": 1717,
+      "sha256_utf8_lf": "daacfd8c4aedb406cf1f5b3b83d6d784081331e03dccbe4133d09f5649523292",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/check_saved_assets.py",
+      "bytes": 7664,
+      "sha256_utf8_lf": "5d61e29a0dd877c21cd332a70debbb167addbef4e8b49dc462dd6efb79d5fd38",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/check_source.py",
+      "bytes": 2386,
+      "sha256_utf8_lf": "e84fbaa8fb7da449f0d04115ec489744eb4fcd5f6b46720b4639018f0ac8c41b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/details.py",
+      "bytes": 8865,
+      "sha256_utf8_lf": "525c9574d4ebce13d67cca9a2b34985da0ba4c875db4a1246a1895c0c6e42510",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/finish.ps1",
+      "bytes": 1091,
+      "sha256_utf8_lf": "70bbcd2a712d017efd4ade172c0f19a0ae3cbe780f7a457e592a99efa8ba45de",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/finish_blender.py",
+      "bytes": 269,
+      "sha256_utf8_lf": "4daf3cbe6b9db2a2f2e7c463cf4bd8b2c509004fcdb154a8b0323580caf71721",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/import_icon.py",
+      "bytes": 995,
+      "sha256_utf8_lf": "090332fb70c6dfe52ffe323a56284ab162bf5b76ccdd01fd42e7350a6a59be18",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/install_assets.py",
+      "bytes": 14892,
+      "sha256_utf8_lf": "73a3a3dcedf8a4f4f28cb230fddf4168f785573e29794a67a5fd5af25f1b2141",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/mesh_contract.py",
+      "bytes": 2024,
+      "sha256_utf8_lf": "462d6c90a034f50497a49729979362c7a64f128c218f7dd1dc64afc0901ff439",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/prepare.py",
+      "bytes": 4041,
+      "sha256_utf8_lf": "b355a63be6eda0cfc7743d558570b47b4f52dd3d6b82592c0e003f7b83199272",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/read_baseline.py",
+      "bytes": 2039,
+      "sha256_utf8_lf": "e7fe535becca4d7027297c2302f2e78694bd51c3eeee53bb633e9b61150c4d56",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/render.py",
+      "bytes": 4864,
+      "sha256_utf8_lf": "6e96b6c6ade31fb91d96deb8afdd2fc08409f61e964e05dfd8700ae37b707870",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/render_mag_icon.py",
+      "bytes": 873,
+      "sha256_utf8_lf": "52d3061af4bb0f1770556c8450b8889672aff4896434e71b717ffe51f1ed4351",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/report.py",
+      "bytes": 7547,
+      "sha256_utf8_lf": "6b7242370039040811984a95c7b2dd4077a262e9dc2e82a38bca2913cbb6d9e9",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/ue_step.ps1",
+      "bytes": 1471,
+      "sha256_utf8_lf": "d7a532f1f5b1e6a36641aefff2dd1a563a236068f904b50a152ba5ce49bf7bb4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDetail/wait_builds.ps1",
+      "bytes": 209,
+      "sha256_utf8_lf": "7ac3b84d740c83847c404bb1fd3764ff478ba44d99275eb6ed45833986e13f89",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/author_model.py",
+      "bytes": 12352,
+      "sha256_utf8_lf": "63bd3a5204fa6c203e80ef060f1437e5b61048586b8a385b81eb0435897ed09d",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/author_profiles.py",
+      "bytes": 5067,
+      "sha256_utf8_lf": "1265bfddc8439598d26adfbe68f840a8dd9513a3deeb0153efda780c04eb7a67",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/bake_surface.py",
+      "bytes": 2700,
+      "sha256_utf8_lf": "4dbd42224ae23b16870bca80431682869552a237e9a286bfb67b1a7df171381a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/build_editor.ps1",
+      "bytes": 1250,
+      "sha256_utf8_lf": "88ca4083da6a3e558aff7ce234d39ea92702e74006d2ace86b8664bfa82b04c2",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/build_game.ps1",
+      "bytes": 635,
+      "sha256_utf8_lf": "6d801f05b1574ce8098d43fe700d61a0346b33611491923c218521b731104ba3",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/fit_palm.py",
+      "bytes": 2020,
+      "sha256_utf8_lf": "7d8badcda6a9ac836f2fc842dbcf61b0fcb0d5b106263322377132aa4596cfc0",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/install_icon.py",
+      "bytes": 1126,
+      "sha256_utf8_lf": "8e64503256b638295fcc6f9c48fefa9910ea9848bca78de54c0b8a9ec81bf59e",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/install_profiles.py",
+      "bytes": 1867,
+      "sha256_utf8_lf": "adefd5cbca9c0ed5552bd7626fd9c3c0c6dd1330dcee0105ff2a27acd34f8344",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/install_remaining.py",
+      "bytes": 255,
+      "sha256_utf8_lf": "aa2dd10248625e154e34dd31a698ef4ef5901f8dce5cb464a8a49ff2cc4cd8f4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/install_surface.py",
+      "bytes": 6602,
+      "sha256_utf8_lf": "da73fb675bfd8600a63a85e3332272c4d211538e46efe45f0630b73c82cb1769",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/read_motion.py",
+      "bytes": 1639,
+      "sha256_utf8_lf": "7ad43380c9edbea1ae7ac16afa86c93ae3b0679b39aea16800614b54ff02f1e0",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/register_exclusive_parts.py",
+      "bytes": 2524,
+      "sha256_utf8_lf": "8ea42b6fc9d61a7bbb893ace2e88b8c8a1155b87cb1de45aca2b30bab30e66d9",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/render_icon.py",
+      "bytes": 1661,
+      "sha256_utf8_lf": "dedf0810b50973b51abce2d50d702778587ef808c5e21c036319dd0e1e0452d2",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KDrum/run_ue.ps1",
+      "bytes": 1390,
+      "sha256_utf8_lf": "26ca5804c9444d937744f2b95413c23671a9f3d3f52a44c4918ce18f58d2a998",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/author_profiles.py",
+      "bytes": 8284,
+      "sha256_utf8_lf": "01018338367ba6b7a61f16aab1145d458459d9e9568b2ee00b5352709b410844",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/build_editor.ps1",
+      "bytes": 1253,
+      "sha256_utf8_lf": "90da4e011bd73ffd84bd9012097642c5aea34a9287a2f03cc8ca09842d9dd45a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/build_game.ps1",
+      "bytes": 638,
+      "sha256_utf8_lf": "91b9e99faebb9f4489d0a4fd46aa7e69a8865c4d661739beb6fcbb39d8ddde01",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/describe_inputs.py",
+      "bytes": 1206,
+      "sha256_utf8_lf": "c3e000fe148741fbc553a61702a468c77c252466a92d7cc7e92dd54bbe20e869",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/fit_contact.py",
+      "bytes": 2185,
+      "sha256_utf8_lf": "068816e58e00bff4064062b9692fdcfe7525e1a0f68df00d5014a392b149b267",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/fit_held_pose.py",
+      "bytes": 4097,
+      "sha256_utf8_lf": "8eb013a5fb217ee2ac327db7c68ac22af77212d1a176a0f74b7c6dfb750f3e86",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/install_headless.ps1",
+      "bytes": 1397,
+      "sha256_utf8_lf": "2e5384292c2172128beeacc5855389ce0d90f3b5b2b45d935e53f9d91fc1977b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/install_profiles.py",
+      "bytes": 2266,
+      "sha256_utf8_lf": "ef57950ac3c0967b0399d813cbafe35f8ade5b1db3e931eb560c9c6eda23e369",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/pose_math.py",
+      "bytes": 1618,
+      "sha256_utf8_lf": "219bd7ea59b53546faeee5d54164490e75e1dbeea21a477f7595db364e31a833",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspect/read_inputs.py",
+      "bytes": 4380,
+      "sha256_utf8_lf": "3da6e6de3d24436e902cff9c958cc4b020017b190e4a1025f395af9c23a6e5e2",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/author_clearance.py",
+      "bytes": 9321,
+      "sha256_utf8_lf": "5d5c0057628fd8ca34accbfb934d81669eef030b8321f361b6851f4884e680ba",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/build_editor.ps1",
+      "bytes": 1262,
+      "sha256_utf8_lf": "864dede0742a17b123a9a7ce80785c3f92044ffa0b4eb182c9f46e3f5e53e4b1",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/build_game.ps1",
+      "bytes": 747,
+      "sha256_utf8_lf": "4a278a81befc1eb67cf1d483948c7cd0db0f31e4495fb4a2b7820413d7074274",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/install_profiles.py",
+      "bytes": 2900,
+      "sha256_utf8_lf": "fa9690027f10e0d10fb9eabe2d6cb9caa4c407a9c5522f6f5c109e9070a35c3c",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/read_inputs.py",
+      "bytes": 4401,
+      "sha256_utf8_lf": "f1ff13096b9fedbf64376f2c16ec1710f6b85143302a37f485f27bede4462737",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/read_live.py",
+      "bytes": 1185,
+      "sha256_utf8_lf": "116112362856750e3a9c7b288f4d0df3cde6c3a775623dd610f36a2f4e3f5f3f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KInspectClearance/run_ue.ps1",
+      "bytes": 1414,
+      "sha256_utf8_lf": "9c69054567e6dd4855463c055f6a8ca310436b3c1939345be1738e80e05bc19e",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KLegendaryDrumConcept/audit_common.py",
+      "bytes": 6494,
+      "sha256_utf8_lf": "4898a414b76c5ff3bbfd3237e5dff4729a18860cfb94c818da1e9d498a0f68f5",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KLegendaryDrumConcept/deliver.py",
+      "bytes": 5299,
+      "sha256_utf8_lf": "ff03f2526a314cbac0fbf987b43b2f285aac3f970282bc2de7fa8149d97abc9f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/author.py",
+      "bytes": 7851,
+      "sha256_utf8_lf": "167ac3ff12665b7e70e707ce9d3379042684587f571037656f1b4c6bb02aa265",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/build.ps1",
+      "bytes": 1018,
+      "sha256_utf8_lf": "37a9c40da38fec9cfb85d90af7d92a1f4e1a166077d38469143c2f3d9d1d9816",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/import_icon.py",
+      "bytes": 966,
+      "sha256_utf8_lf": "f38ce94eb42c19444ebacf2d79cca8c7e992cb4d644b1b3afe6b1a28f2199f65",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/install_assets.py",
+      "bytes": 4329,
+      "sha256_utf8_lf": "408bf736bd761e3b544ef411edef467beec83e9058759f44cb18738da2d25769",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/read_source.py",
+      "bytes": 3063,
+      "sha256_utf8_lf": "c89af9fa25b395aeeda30bb5ce8c867b0a7c56def9f39eee5bd4ed3c8c0cf40b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/record_delivery.py",
+      "bytes": 1176,
+      "sha256_utf8_lf": "1761ce2026bd0a4926a1f72095aed954cd63f86d77cbc0849f47610ee6a8a362",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/register_data.py",
+      "bytes": 1050,
+      "sha256_utf8_lf": "886091ffe2bf61fc5ecbf622ec3a9e84e22723448dc94aefae5b508ffa9eaf64",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KMagazine/render_icon_source.py",
+      "bytes": 4241,
+      "sha256_utf8_lf": "ef3e5fefd577e1d9b48a326adcfc69035139ff82076c49f71f6b6c53ea0ab389",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KNetwork/build_game.ps1",
+      "bytes": 589,
+      "sha256_utf8_lf": "629e6635edbed751fad68b3f9444d0a3338759398ed9eda29cf259798612d36b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KNetwork/check_catalog.py",
+      "bytes": 3002,
+      "sha256_utf8_lf": "1bbcdf0f7433af0d22a1fd5fa7d641e7afd00c827e573b4ad7677ff75bc72d0f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KNetwork/run_isolated.ps1",
+      "bytes": 3045,
+      "sha256_utf8_lf": "97c424082a7f1025a9de4fa3503eb5d9f1616bd9ab301da78ffb0f130e3e1d8d",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KNetwork/run_wire.ps1",
+      "bytes": 6387,
+      "sha256_utf8_lf": "9c1d78dc71fbeb1139b0650a7c1a7738023786d95313fee384e328f811c628aa",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KNetwork/update_preload.py",
+      "bytes": 1353,
+      "sha256_utf8_lf": "c8e7df248a08a1a70175eed2556ccc478add91914bd40bbfe87235eff3061d03",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KRefine/activate.py",
+      "bytes": 2126,
+      "sha256_utf8_lf": "1e21ae07185e6aed5450f3c43cf80f304b7dc513923f95d05349bb5d1b677d06",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KRefine/author_surface.py",
+      "bytes": 8467,
+      "sha256_utf8_lf": "74c7cd4644f763624f2764a9b2d37316cd2aea66684d69c78a74b29c04dea2c4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KRefine/build.ps1",
+      "bytes": 1016,
+      "sha256_utf8_lf": "5ae47451050c2a800bb44fb6637dc6c7db768ea6de738ce540827ca054fb548d",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KRefine/build_catalog_icon.ps1",
+      "bytes": 559,
+      "sha256_utf8_lf": "e911bd79e1810fbc5363824217d968cd2f6c845ddae6ee9c8986516eff61c996",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KRefine/install_assets.py",
+      "bytes": 15436,
+      "sha256_utf8_lf": "a4a84f38bce4a77b56aec44ad167d936fe8cc187c6b95bb4d1af944bec8e0106",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KRefine/read_inputs.py",
+      "bytes": 2409,
+      "sha256_utf8_lf": "a99f88df8e990125ed2cb9d315220b84de9ebfed2d68428c61c9e04217c5192b",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KReloadReturn/author_return.py",
+      "bytes": 3525,
+      "sha256_utf8_lf": "a7fd17d4e54b9827f3545b3f3c86799b0396ab7ad936d239b29560e42804c6fe",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KReloadReturn/install_return.py",
+      "bytes": 2934,
+      "sha256_utf8_lf": "2467800a30698b46b74f9bcf3e36184cc7d466b8deab9f6037c6c081dfabfb01",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KReloadReturn/read_motion.py",
+      "bytes": 3142,
+      "sha256_utf8_lf": "332719a81d9f27584505ec1d5fa15417c47776e943e301a20e053e119721022f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KReloadReturn/read_motion_scoped.py",
+      "bytes": 3156,
+      "sha256_utf8_lf": "469c2d6eb465ced771bbf190ff274360613830967c73f67f374f86345a9fe585",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KResonance/author_fit.py",
+      "bytes": 8513,
+      "sha256_utf8_lf": "19c24370ecbb3548bf69c6ee9738b1b5f92f7f67dd3e6afcb3721d91a4b778e9",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KResonance/check_fit.py",
+      "bytes": 3979,
+      "sha256_utf8_lf": "6aded24a62d7868165f01ea6ccc49c0ec24d955ff35f05795c8a4d92f58f040a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KResonance/install_fit.py",
+      "bytes": 5783,
+      "sha256_utf8_lf": "5156b441b97468fb6a7e4276b3e1e89886e3b54adee18713c7edfe912c2c123a",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KResonance/read_inputs.py",
+      "bytes": 3701,
+      "sha256_utf8_lf": "6d312a0752608ac2d6c234c23973652f12d0af2d4da10f21fc081f255f0c610d",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KResonance/save_headless.ps1",
+      "bytes": 1409,
+      "sha256_utf8_lf": "c9061a8b89e1ed88b218fa32b1766a351b62a6891aaa57b84cc0bf3dc7a6175e",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/activate.py",
+      "bytes": 2193,
+      "sha256_utf8_lf": "52e3635aca6db280846ff62e401cd6d9c52e5c88c923ae2da6049134bb8c019f",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/author.py",
+      "bytes": 16648,
+      "sha256_utf8_lf": "85055750de4c9cc1d21698e3655bf45b25ba17a99fcaaee97be814f8d05d3e97",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/bake.py",
+      "bytes": 3679,
+      "sha256_utf8_lf": "9b093a7e8f125fe2c9a6dcd6487a6dd2db44ec00c80fddfe929c2a8ef893a5e4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/build.ps1",
+      "bytes": 1364,
+      "sha256_utf8_lf": "b4a59f032d2da1912f91d0433d973de78a74d5c8f8b222b4a79f13f8995338d1",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/check_saved_assets.py",
+      "bytes": 6969,
+      "sha256_utf8_lf": "e01fa8f6ad2b94515f6e410312fb2e436f47c3517f3b720030ab1b74a31af3fa",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/check_source.py",
+      "bytes": 2387,
+      "sha256_utf8_lf": "6792fd70bafd4c93c2a0705d7d0b6ed801ae3aa3cc41f49c56ed41cc0a6661a6",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/diagnose_saved.py",
+      "bytes": 1379,
+      "sha256_utf8_lf": "86e465809e28e7fdf8b57500a808a4d65b6d0cd2979d06e6cda0a322b53556a7",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/import_icon.py",
+      "bytes": 1004,
+      "sha256_utf8_lf": "05404c29ca2745f07bbb1bc7f40d6c1a7a03f18259d36e3137407cee8e8b9cba",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/install_assets.py",
+      "bytes": 14514,
+      "sha256_utf8_lf": "c66f34ded726aef040a85a519902a8bd8e12721e911908817bed6b2b56abe1a4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/mesh_contract.py",
+      "bytes": 2024,
+      "sha256_utf8_lf": "462d6c90a034f50497a49729979362c7a64f128c218f7dd1dc64afc0901ff439",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/read_baseline.py",
+      "bytes": 2059,
+      "sha256_utf8_lf": "a9deed609ec0bcf22ba9ce4fd45ea4c35541fde907bcc462b98674f4f5e68031",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/render.py",
+      "bytes": 4736,
+      "sha256_utf8_lf": "db3f99d13424439a936d81f3a9ebad955a66f81c28a61889ecaa150f77842bc0",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/render_mag_icon.py",
+      "bytes": 874,
+      "sha256_utf8_lf": "c1198949f73f7452c3f92e207a71eeb19acd07b91028723c5a0647b378e8e2f8",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KSurface/report.py",
+      "bytes": 9080,
+      "sha256_utf8_lf": "bd77d9b67e48044a4ef26d0f92c3d6202380f7d8fdb60cdb69e29d7db6d81141",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KThirdPerson/build_editor.ps1",
+      "bytes": 1273,
+      "sha256_utf8_lf": "fed8b6481b2e0848e74fc0fcc6178aa50fdf0d5978d47ee83a8cb955272f1868",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KThirdPerson/build_game.ps1",
+      "bytes": 642,
+      "sha256_utf8_lf": "672ab44eacffc80643c44428d982f1150b62ef55117354e8f7ed305ecd5232f4",
+      "source": "working file"
+    },
+    {
+      "path": "Tools/Saiga12KThirdPerson/run_audit.ps1",
+      "bytes": 1247,
+      "sha256_utf8_lf": "961031e02f25ba9a13ffb50d5e29f208a3737a57fff448a70742be836593ac2f",
+      "source": "working file"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 3199,
+      "sha256_utf8_lf": "bfcb5e3606d849503b213694ce543fa9b864bc0501ce1a883a67b12cd5e41bba",
+      "source": "working file"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/saiga12k-grip-and-return.md",
+      "bytes": 2439,
+      "sha256_utf8_lf": "802514bdb7d95b92e4803efc4fdbc70203e79873bb81d79dca590d1e8a9b4623",
+      "source": "working file"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "bytes": 2489,
+      "sha256_utf8_lf": "57cfc4c992e82027b788c3cf8172e7223489837dff730f71510aa0f1271b0f7c",
+      "source": "working file"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/saiga12k-presentation.md",
+      "bytes": 2683,
+      "sha256_utf8_lf": "11060dcafe49dfe8a39e98735501df910bb7ef4568097e109a09d3b804e986ed",
+      "source": "working file"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "bytes": 2699,
+      "sha256_utf8_lf": "eac071d6412f2f380bc4853cffba4afb059be5579f86369af117885a16a0c015",
+      "source": "working file"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/saiga12k-production.md",
+      "bytes": 3662,
+      "sha256_utf8_lf": "67a70af8573e088139d251d8030950ae346acee437e7ca40a798523e5c53e665",
+      "source": "working file"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 169012,
+      "sha256_utf8_lf": "7e3f05971a9a07bb3dfc7525658d8e0fe82d2f17cdc864c413df8a742d6c1644",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": "Content/ColdSteelData/combat-weapon-formulas.json",
+      "bytes": 7452,
+      "sha256_utf8_lf": "66f43698bd0e01715cf626d346b84dba8b480154999c4dcf23f05b39c72218bb",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": "Content/ColdSteelData/gunsmith.json",
+      "bytes": 334084,
+      "sha256_utf8_lf": "f8c4a4c3be7721322502c9723e429434901ce990e111c69b307778f3323bae88",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "bytes": 114933,
+      "sha256_utf8_lf": "7ef8b10ee18122fb8dfaaf550c5c65c5111fe09b14e8c06b5c220a1554fe5b74",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 25603,
+      "sha256_utf8_lf": "d220059835acb044e6741a39f3f4e8f09faa8a409fe04d6972dfda384f7f12bc",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "bytes": 30031,
+      "sha256_utf8_lf": "1d9939df2f07627cdb11d2f5cabda0f436d563e1ecf5a19ba998ece14488272c",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 123435,
+      "sha256_utf8_lf": "8a451a507f11733871d63ea6f9ff0d69281ded632bcae531c4403fef094dabb0",
+      "source": "scoped index candidate; shared working file retained"
+    },
+    {
+      "path": ".gitattributes",
+      "source": "working file",
+      "bytes": 1212,
+      "sha256_utf8_lf": "b22abad624174aae43f532a50951d41c2b33f696ce7a3220b8e634b0114b26db"
+    },
+    {
+      "path": "Docs/Publication/Saiga12K20261019/publication-checks.json",
+      "bytes": 927,
+      "sha256_utf8_lf": "964ac6b73c39c9e4ad899ee97e8a76b83f3a3f5a58875b4c05eab675dea4ba07",
+      "source": "publication checks"
+    }
+  ],
+  "manifest_self_excluded": true,
+  "hash_encoding": "UTF-8 without BOM, LF",
+  "note": "Exact scoped publication; no binary assets or private prerequisites."
+}

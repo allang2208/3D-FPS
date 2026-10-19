@@ -1,0 +1,20 @@
+diff --git a/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp b/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
+--- a/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp
+@@ -31,6 +31,7 @@
+ {
+     if(Variant==TEXT("thermal_scope")){SetThermalOptic();return;}
+     if(HasThermalScope()&&LPVORing){LPVORing->DestroyComponent();LPVORing=nullptr;}
++    if (IsSaiga12KWeapon()) { SetSaiga12KOptic(Variant); return; }
+     if (IsM870Weapon()) { SetM870Optic(Variant); return; }
+     if (IsSuper90Weapon()) { SetSuper90Optic(Variant); return; }
+     if (IsRSH12Weapon()) { SetRSH12Optic(Variant); return; }
+@@ -259,7 +260,7 @@
+     if (IsPitViperWeapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
+         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
+             return Center->RelativeLocation;
+-    if ((IsM870Weapon() || IsSuper90Weapon() || IsHK416Weapon() || OpticVariant == CommonHK416Parts::Optic) && HolographicOptic && HolographicOptic->GetStaticMesh())
++    if ((IsSaiga12KWeapon() || IsM870Weapon() || IsSuper90Weapon() || IsHK416Weapon() || OpticVariant == CommonHK416Parts::Optic) && HolographicOptic && HolographicOptic->GetStaticMesh())
+         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))
+             return Center->RelativeLocation;
+     if ((bUseDanWesson715 || OpticVariant==PSO1AttachmentAssets::Variant) && HolographicOptic && HolographicOptic->GetStaticMesh())

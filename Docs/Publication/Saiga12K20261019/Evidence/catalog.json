@@ -1,0 +1,307 @@
+{
+  "checks": 47,
+  "failures": 0,
+  "results": [
+    {
+      "case": "optic unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "optic/holographic installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_holographic"
+      ]
+    },
+    {
+      "case": "optic/eoth_holographic installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_eoth_holographic"
+      ]
+    },
+    {
+      "case": "optic/panoramic_red_dot installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_panoramic_red_dot"
+      ]
+    },
+    {
+      "case": "optic/prism_scope_2x installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_prism_scope_2x"
+      ]
+    },
+    {
+      "case": "optic/lpvo_1_6x installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_lpvo_1_6x"
+      ]
+    },
+    {
+      "case": "muzzle unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "muzzle/shotgun_choke installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_shotgun_choke"
+      ]
+    },
+    {
+      "case": "muzzle/shotgun_birdcage_flash_hider installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_shotgun_birdcage_flash_hider"
+      ]
+    },
+    {
+      "case": "muzzle/shotgun_suppressor installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_shotgun_suppressor"
+      ]
+    },
+    {
+      "case": "muzzle/shotgun_duckbill installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_shotgun_duckbill"
+      ]
+    },
+    {
+      "case": "underbarrel unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "underbarrel/vertical_foregrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_vertical"
+      ]
+    },
+    {
+      "case": "underbarrel/canted_foregrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_canted"
+      ]
+    },
+    {
+      "case": "underbarrel/tactical_vertical_foregrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_tactical_vertical"
+      ]
+    },
+    {
+      "case": "underbarrel/prism_handstop installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_prism"
+      ]
+    },
+    {
+      "case": "underbarrel/angled_foregrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_angled"
+      ]
+    },
+    {
+      "case": "stock unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "stock/skeleton installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_skeleton"
+      ]
+    },
+    {
+      "case": "stock/core_stock installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_core_stock"
+      ]
+    },
+    {
+      "case": "stock/qr_performance installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_qr_performance"
+      ]
+    },
+    {
+      "case": "stock/tactical_telescopic installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_tactical_telescopic"
+      ]
+    },
+    {
+      "case": "stock/legendary_adjustable_tactical_stock installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_legendary_adjustable_tactical_stock"
+      ]
+    },
+    {
+      "case": "stock/saiga12k_bump_stock installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/SpecialStock20261018/SM_Saiga12K_SpecialStock"
+      ]
+    },
+    {
+      "case": "reargrip unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "reargrip/phantom_reargrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_phantom_reargrip"
+      ]
+    },
+    {
+      "case": "reargrip/stable_antislip_reargrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_stable_antislip_reargrip"
+      ]
+    },
+    {
+      "case": "reargrip/balanced_reargrip installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_balanced_reargrip"
+      ]
+    },
+    {
+      "case": "magazine unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "magazine/saiga12k_ext12 installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/SM_Saiga12K_Ext12"
+      ]
+    },
+    {
+      "case": "magazine/saiga12k_drum20 installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Drum20261018/SM_Saiga12K_Drum20"
+      ]
+    },
+    {
+      "case": "tactical unique option ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "tactical/laser installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_laser_1",
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_laser_2"
+      ]
+    },
+    {
+      "case": "tactical/flashlight installed mesh packages",
+      "passed": true,
+      "detail": [
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_flashlight_1",
+        "Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_flashlight_2"
+      ]
+    },
+    {
+      "case": "installed base pose profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "installed drum pose profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "installed angled pose profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "installed vertical pose profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "installed canted pose profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "installed prism pose profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "stock display name",
+      "passed": true,
+      "detail": "S12K撞火枪托"
+    },
+    {
+      "case": "stock +25% cadence / -25% hip spread / +10% recoil",
+      "passed": true,
+      "detail": {
+        "fire_interval_mult": 0.8,
+        "hip_spread_mult": 0.75,
+        "recoil_mult": 1.1
+      }
+    },
+    {
+      "case": "drum display name",
+      "passed": true,
+      "detail": "12k 大弹鼓"
+    },
+    {
+      "case": "drum capacity and costs",
+      "passed": true,
+      "detail": {
+        "effective_capacity": 20,
+        "mag_delta": 12,
+        "reload_mult": 1.75,
+        "ads_percent": 0.1
+      }
+    },
+    {
+      "case": "installed native dependency",
+      "passed": true,
+      "detail": "Weapons/Saiga12K/GameDevAudio20261018/S_Saiga12K_Fire"
+    },
+    {
+      "case": "installed native dependency",
+      "passed": true,
+      "detail": "Weapons/CommonShotgun/Suppressor20261015/Audio/S_Super90_Suppressed"
+    },
+    {
+      "case": "installed native dependency",
+      "passed": true,
+      "detail": "Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny"
+    }
+  ],
+  "runtime_tested": false
+}

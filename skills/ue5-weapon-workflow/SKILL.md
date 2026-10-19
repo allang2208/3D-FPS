@@ -29,3 +29,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 木工成品评分、弓物理伤害与法杖魔攻通道：[工件品质契约](../ue5-cpp-gameplay/references/paid-workpiece-quality.md)。
 
 - M870 的泵动中断、ADS 保持、枪托近战权威、通用配件衔接及图标手臂剔除：[M870 泵动枪接入](references/m870-pump-integration.md)。按武器实例维护机械状态，区分离线权威检查与真实联机。
+
+- S12K 低模封闭、材质、前向弹鼓与专属后托：[S12K 低模封闭、材质、前向弹鼓与专属后托](references/saiga12k-production.md)。按问题读取；历史检查不授权自动重测。

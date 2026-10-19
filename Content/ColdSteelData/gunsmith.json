@@ -10166,6 +10166,680 @@
           "text": "管式弹仓逐发补弹，开火或瞄准可在当前入弹完成后结束装填。"
         }
       ]
+    },
+    {
+      "id": "ue_saiga12k",
+      "model": "Saiga12K",
+      "name": "Saiga 12K",
+      "allowed": [
+        "optic",
+        "muzzle",
+        "underbarrel",
+        "stock",
+        "reargrip",
+        "magazine",
+        "tactical",
+        "tactical_secondary"
+      ],
+      "base": {
+        "ammo_item_id": "ammo_12g",
+        "mag_size": 8,
+        "ads_smooth": 11.5,
+        "recoil": 270,
+        "camera_shake": 115,
+        "spread_mult": 2.25,
+        "fire_interval": 0.22,
+        "reload_time": 3.333333,
+        "empty_reload_time": 4.291667,
+        "damage": 80,
+        "bullet_speed": 380,
+        "effective_range": 35,
+        "stability_mult": 1
+      },
+      "options": {
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂机械瞄具",
+            "description": "使用 Saiga 12K 的原厂结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "安装于机匣顶部导轨的环形分划全息瞄准镜。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            }
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            }
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂枪口",
+            "description": "使用 Saiga 12K 的原厂结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "shotgun_choke",
+            "name": "收束器",
+            "description": "方形深灰金属外壳，圆角切边与分段接缝，沿枪管前端安装。",
+            "effects": [
+              {
+                "text": "弹丸散布减少35%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "pellet_spread_mult": 0.65
+            }
+          },
+          {
+            "id": "shotgun_birdcage_flash_hider",
+            "name": "鸟笼消焰器",
+            "description": "短筒式深灰金属外壳，纵向开槽与环形前缘，后端接座贴合枪管。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少15%",
+                "benefit": 1
+              }
+            ],
+            "special_effects": [
+              "消焰｜减弱枪口火光及瞬时照明。"
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "hip_spread_mult": 0.85
+            }
+          },
+          {
+            "id": "shotgun_suppressor",
+            "name": "散弹枪消音器",
+            "description": "深灰圆角长壳体，上置出口、下置主体，侧面带有纵向浅筋，独立后座贴合枪管。",
+            "effects": [
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "special_effects": [
+              "消音｜使用专属消音枪声，减弱枪口火光，并缩短敌人听声警戒范围。"
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.85,
+              "ads_percent": 0.1
+            }
+          },
+          {
+            "id": "shotgun_duckbill",
+            "name": "鸭舌收束器",
+            "description": "封闭侧壁将上下鸭舌连接成扁宽壳体，前方保留横向开口；收腰肩部、浅槽与刻槽安装环采用分区金属表面。",
+            "effects": [
+              {
+                "text": "腰射散布降低25%",
+                "benefit": 1
+              }
+            ],
+            "special_effects": [
+              "横向散布｜多弹丸沿水平方向呈扇形展开，腰射和开镜均生效；独头弹保持单发直射。"
+            ],
+            "stats": {
+              "hip_spread_mult": 0.75
+            }
+          }
+        ],
+        "underbarrel": [
+          {
+            "id": "false",
+            "name": "原厂护木",
+            "description": "使用 Saiga 12K 的原厂结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "vertical_foregrip",
+            "name": "垂直握把",
+            "description": "直筒式前握把，四指环握与拇指对握，使用专用支撑及换弹回握动作。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "canted_foregrip",
+            "name": "45°侧倾握把",
+            "description": "向枪身左下方侧倾，左手外侧包握，使用专用支撑及换弹回握动作。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "腰射随机散布减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 0.85,
+              "hip_spread_mult": 0.8
+            }
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "缩短开镜耗时",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            }
+          },
+          {
+            "id": "prism_handstop",
+            "name": "棱镜阻手器",
+            "description": "棱面短阻手器，带防滑纹理，安装于 M4 护木下方。",
+            "effects": [
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.95
+            }
+          },
+          {
+            "id": "angled_foregrip",
+            "name": "共振二代前握把",
+            "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 M4 金属与防滑材质。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15
+            }
+          }
+        ],
+        "stock": [
+          {
+            "id": "false",
+            "name": "原厂折叠枪托",
+            "description": "使用 Saiga 12K 的原厂结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "skeleton",
+            "name": "骨架枪托",
+            "description": "双管上梁、镂空后架与橡胶抵肩垫，通过 SUPER90 专用连接杆安装。",
+            "effects": [
+              {
+                "text": "开镜耗时减少20%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力增加15%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.2,
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空托架配橡胶肩垫，前端通过连接杆接入原装接座。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
+            }
+          },
+          {
+            "id": "qr_performance",
+            "name": "高性能后托",
+            "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，配有 SUPER90 专用连接杆。",
+            "effects": [
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            }
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "带贴腮面与伸缩套筒的战术枪托，通过连接杆与原装前端接座衔接。",
+            "effects": [
+              {
+                "text": "开镜耗时减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            }
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮面、镂空托架与宽橡胶肩垫，保留香槟色饰条和红色嵌片，以连接杆固定。",
+            "effects": [
+              {
+                "text": "后坐力降低35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            }
+          },
+          {
+            "id": "saiga12k_bump_stock",
+            "name": "S12K撞火枪托",
+            "description": "12K专属。黑灰水平上梁、横向开槽贴腮部与三角镂空支撑，配窄型橡胶尾垫。",
+            "effects": [
+              {
+                "text": "射速提升25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机扩散减少25%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "fire_interval_mult": 0.8,
+              "hip_spread_mult": 0.75,
+              "recoil_mult": 1.1
+            }
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂后握把",
+            "description": "使用 Saiga 12K 的原厂结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "镂空框架后握把，带横向防滑纹理。开镜耗时增加、后坐力降低，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "开镜耗时增加15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.15,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            }
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "实心人体工学后握把，指槽与橡胶防滑面提升握持稳定性。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            }
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件，降低后坐力并提升枪械稳定性。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂八发弹匣",
+            "description": "使用 Saiga 12K 的原厂结构。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "saiga12k_ext12",
+            "name": "加长弹匣",
+            "description": "弧形聚合物匣体沿原有筋条向下延伸，保留原厂插接颈与独立底板。",
+            "effects": [
+              {
+                "text": "弹匣容量增加4发",
+                "benefit": 1
+              },
+              {
+                "text": "装填耗时增加25%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "mag_delta": 4,
+              "reload_mult": 1.25,
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "saiga12k_drum20",
+            "name": "12k 大弹鼓",
+            "description": "12K专属。朝向枪口的封闭圆鼓，黑色枪钢与聚合物防护圈结合，暗金环线嵌入分层端盖。",
+            "effects": [
+              {
+                "text": "弹匣容量增加12发",
+                "benefit": 1
+              },
+              {
+                "text": "装填耗时增加75%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "special_effects": [
+              "托鼓装填｜卸下旧鼓后托住鼓底装入，空仓时接续拉栓。"
+            ],
+            "stats": {
+              "mag_delta": 12,
+              "reload_mult": 1.75,
+              "ads_percent": 0.1
+            }
+          }
+        ],
+        "tactical": [
+          {
+            "id": "false",
+            "name": "无战术挂件",
+            "description": "卸下战术配件，关闭照明和激光。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "laser",
+            "name": "红色激光镭射",
+            "description": "80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+            "effects": [
+              {
+                "text": "腰射随机散布减少50%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.5,
+              "ads_percent": -0.2
+            }
+          },
+          {
+            "id": "flashlight",
+            "name": "战术手电筒",
+            "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+            "effects": [
+              {
+                "text": "提供前向照明",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          }
+        ]
+      },
+      "traits": [
+        {
+          "icon": "mechanic",
+          "text": "支持按住扳机连续射击，使用可拆卸弹匣补弹。"
+        },
+        {
+          "icon": "mechanic",
+          "text": "鹿弹、箭型弹与独头弹沿用同一 12 号弹药兼容组。"
+        },
+        {
+          "icon": "drawback",
+          "text": "散射弹丸随距离展开，需要控制射击距离与后坐。"
+        }
+      ],
+      "inherit_common_options": true
     }
   ],
   "common_options": {

@@ -1,0 +1,22 @@
+{
+  "scope": "S12K publication only",
+  "reference_head": "2b2e4c2220629686ebac154297954616946dd1fa",
+  "staged_files_before_this_receipt": 229,
+  "exact_manifest_match": true,
+  "sensitive_information_scan": "No API credentials or signed download URLs; 32-hex author literals are the attributed Sketchfab model UID only.",
+  "media_boundary": "No binaries, dense geometry/pose data, private prerequisites, logs or trash staged.",
+  "patches_on_named_baselines": {
+    "checked": 36,
+    "failed": 0
+  },
+  "text_whitespace_check": "passed; unified-patch context blanks use the existing scoped attribute convention",
+  "python_author_scripts": "parsed without execution",
+  "archive_files": 13627,
+  "archive_bytes": 2794406475,
+  "archive_file_hashes_matched": true,
+  "junction_targets_unchanged": 13,
+  "skill_reference_pairs_synced": 3,
+  "ue_started": false,
+  "gameplay_tests_run": false,
+  "public_slice_built": false
+}

@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h b/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h
+--- a/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h
++++ b/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h
+@@ -31,6 +31,9 @@
+     // Its native root has scale 100, matching the units of the existing table.
+     static const FVector StockM870(.0000000381,.0697706106,.5068294271);
+     if(Mesh==TEXT("/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7"))return &StockM870;
++    // 12K rubber buttpad from the current authored root-space surface, in metres.
++    static const FVector StockSaiga12K(.0008,-.30838894,-.00164716);
++    if(Mesh==TEXT("/Game/Weapons/Saiga12K/Detail20261018/SK_Saiga12K_Manny.SK_Saiga12K_Manny"))return &StockSaiga12K;
+     return nullptr;
+ }
+ }

@@ -5197,5 +5197,31 @@
     "ue_icon": "Icons/spoiled_food.png",
     "icon_fallback": "腐败食物",
     "world_mesh": "/Game/Items/Consumables/SpoiledFood20261016/SM_SpoiledFood.SM_SpoiledFood"
+  },
+  "ue_saiga12k": {
+    "id": "ue_saiga12k",
+    "name": "Saiga 12K",
+    "category": "weapon",
+    "type": "武器",
+    "equipSlot": "weapon",
+    "weaponType": "shotgun",
+    "weaponTypeTag": "霰弹枪",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 4,
+    "grid_h": 2,
+    "icon": "Icons/ue_saiga12k.png",
+    "ue_icon": "Icons/ue_saiga12k.png",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "80"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "8"
+      }
+    ],
+    "desc": "采用导气式机构与可拆卸弹匣的 12 号霰弹枪。本型支持按住扳机连续射击，八发弹匣便于集中补充弹药；紧凑枪身适合近距离交火，持续开火时需要控制后坐与射击节奏。"
   }
 }

@@ -1,0 +1,16 @@
+diff --git a/Source/FPSGAME/Weapons/SVDGripProfiles.cpp b/Source/FPSGAME/Weapons/SVDGripProfiles.cpp
+--- a/Source/FPSGAME/Weapons/SVDGripProfiles.cpp
++++ b/Source/FPSGAME/Weapons/SVDGripProfiles.cpp
+@@ -1,3 +1,4 @@
++#include "Saiga12KAttachments.h"
+ #include "../FPSGAMECharacter.h"
+ #include "WeaponGripProfile.h"
+ #include "SVDWeaponAssets.h"
+@@ -20,6 +21,7 @@
+         :IsRSH12Weapon()&&Family!=TEXT("drum")?RSH12ForegripAssets::ProfilePath(Family)
+         :IsG18Weapon()&&Family==TEXT("drum")?FString(G18WeaponAssets::Drum50ReloadProfile)
+         :IsSuper90Weapon()&&Family!=TEXT("base")&&Family!=TEXT("drum")?Super90ForegripAssets::ProfilePath(Family)
++        :IsSaiga12KWeapon()?Saiga12KAttachments::ProfilePath(Family)
+         :IsM870Weapon()&&Family!=TEXT("base")&&Family!=TEXT("drum")?M870FurnitureAssets::ProfilePath(Family)
+         :TEXT("/Game/Weapons/AnimationProfiles20261001/")+ActiveInventoryWeaponDefinition+TEXT("/DA_")+Family.ToString();
+     UWeaponGripProfile* Profile=LoadObject<UWeaponGripProfile>(nullptr,*Path,nullptr,LOAD_NoWarn);

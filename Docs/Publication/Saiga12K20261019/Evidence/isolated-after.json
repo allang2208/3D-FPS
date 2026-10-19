@@ -1,0 +1,132 @@
+{
+	"checks": 25,
+	"failures": 0,
+	"results": [
+		{
+			"case": "owner and remote authority both capture S12K",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "same final loadout has identical schema despite grip preview history",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "same final loadout has identical attachment count",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "both peers resolve current angled grip profile",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "native S12K fire sound published to observers",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "shared shotgun suppressor sound published to observers",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stock cadence agrees on owner and authority",
+			"passed": true,
+			"value": 0.17599999904632568
+		},
+		{
+			"case": "drum capacity is 20 on owner and authority",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "S12K retains hold-to-fire automatic trigger",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "20-round drum appears in both manifests",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "S12K special stock appears in both manifests",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "idle packet retains support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "idle remote accepts owner rig after equipment history divergence",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "idle remote applies owner support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "inspect packet retains support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "inspect remote accepts owner rig after equipment history divergence",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "inspect remote applies owner support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "drum reload packet retains support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "drum reload remote accepts owner rig after equipment history divergence",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "drum reload remote applies owner support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "drum empty regrip packet retains support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "drum empty regrip remote accepts owner rig after equipment history divergence",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "drum empty regrip remote applies owner support grip",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "old instance cannot overwrite current hand contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "expired presentation clears grip and laser",
+			"passed": true,
+			"value": 0
+		}
+	],
+	"socket_transport": false
+}

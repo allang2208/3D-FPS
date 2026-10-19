@@ -1,0 +1,12 @@
+diff --git a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
+@@ -58,6 +58,8 @@
+ }
+ int32 UShotgunAttachmentAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("Saiga12KNetwork")))return RunSaiga12KNetworkAudit(Params);
++    if(FParse::Param(*Params,TEXT("Saiga12KPresentation")))return RunSaiga12KPresentationAudit(Params);
+     if(FParse::Param(*Params,TEXT("M870Presentation")))return RunM870PresentationAudit(Params);
+     using namespace ShotgunAudit;
+     const bool M870=FParse::Param(*Params,TEXT("M870"));

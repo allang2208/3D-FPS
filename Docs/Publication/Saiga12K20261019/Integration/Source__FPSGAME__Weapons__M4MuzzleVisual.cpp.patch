@@ -1,0 +1,64 @@
+diff --git a/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp b/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
+--- a/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp
+@@ -1,3 +1,4 @@
++#include "Saiga12KAttachments.h"
+ #include "LMG201WeaponAssets.h"
+ #include "HK416WeaponAssets.h"
+ #include "HK416Attachments.h"
+@@ -10,6 +11,7 @@
+ #include "M16Attachments.h"
+ #include "A762WeaponAssets.h"
+ #include "AKMSovietCalibration.h"
++#include "Saiga12KWeaponAssets.h"
+ #include "AKMAttachmentVisual.h"
+ #include "ASH12WeaponAssets.h"
+ #include "M16WeaponAssets.h"
+@@ -37,6 +39,19 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
+ {
++    if(IsSaiga12KWeapon())
++    {
++        SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
++        const bool Enabled=bInventoryWeaponReady&&Saiga12KAttachments::SupportsMuzzle(Variant);
++        const FTransform Mount(FRotator(0,90,0),Saiga12KWeaponAssets::Muzzle,FVector(.01f));
++        MuzzleAttachment=Saiga12KAttachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant,Enabled,Mount);
++        if(!Enabled||!MuzzleAttachment||!MuzzleAttachment->IsVisible()){MuzzleVariant.Reset();return;}
++        MuzzleLocalTip=FVector(Variant==ShotgunDuckbillAssets::Part?ShotgunDuckbillAssets::TipCM:
++            Variant==ShotgunSuppressorAssets::Part?ShotgunSuppressorAssets::TipCM:
++            Variant==ShotgunBirdcageAssets::Part?ShotgunBirdcageAssets::TipCM:ShotgunChokeAssets::TipCM,0,0);
++        if(const auto* Tip=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
++        MuzzleLocalAxis=FVector::ForwardVector;MuzzleVariant=Variant;return;
++    }
+     if(IsSuper90Weapon())
+     {
+         SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
+@@ -308,9 +323,11 @@
+     else
+     {
+         if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
++        else if(IsSaiga12KWeapon())Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(Saiga12KWeaponAssets::Muzzle);
+         else if(AKMSoviet::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
+         else Position=AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
+         if(bUseM16)Forward=AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
++        else if(IsSaiga12KWeapon())Forward=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformVectorNoScale(Saiga12KWeaponAssets::Front-Saiga12KWeaponAssets::Rear).GetSafeNormal();
+         else if(IsPistolWeapon()||IsTubeShotgunWeapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+         else
+         {
+@@ -322,13 +339,13 @@
+ }
+ float AFPSGAMECharacter::GetShotgunPelletSpreadMultiplier() const
+ {
+-    return IsTubeShotgunWeapon()?ShotgunPelletSpreadMultiplier:1.f;
++    return IsShotgunWeapon()?ShotgunPelletSpreadMultiplier:1.f;
+ }
+ bool AFPSGAMECharacter::HasShotgunDuckbill() const
+ {
+     // Gameplay follows the saved/equipped recipe, including server pawns
+     // without loaded cosmetic meshes. Switching/removing the part clears it.
+-    return IsSuper90Weapon()&&bShotgunDuckbillInstalled;
++    return (IsSuper90Weapon()||IsSaiga12KWeapon())&&bShotgunDuckbillInstalled;
+ }
+ FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
+ {

@@ -406,5 +406,22 @@
       }
     ],
     "source": "M870 (whole-cartridge aggregate)"
+  },
+  "ue_saiga12k": {
+    "base": 80,
+    "enhanceFlat": 8,
+    "attrs": [
+      {
+        "key": "con",
+        "base": 1.6,
+        "perEnhance": 0.8
+      },
+      {
+        "key": "wis",
+        "base": 4.0,
+        "perEnhance": 1.2
+      }
+    ],
+    "source": "Saiga12K (whole-shell aggregate)"
   }
 }

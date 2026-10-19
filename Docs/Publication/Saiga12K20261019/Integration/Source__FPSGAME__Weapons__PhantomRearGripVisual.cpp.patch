@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp b/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
+--- a/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
++++ b/Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp
+@@ -1,3 +1,4 @@
++#include "Saiga12KAttachments.h"
+ #include "HK416Attachments.h"
+ #include "Super90RearGripAssets.h"
+ #include "M870FurnitureAssets.h"
+@@ -29,6 +30,12 @@
+ 
+ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
+ {
++    if(IsSaiga12KWeapon())
++    {
++        RearGripAttachment=Saiga12KAttachments::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady&&Saiga12KAttachments::SupportsRearGrip(Variant));
++        Saiga12KAttachments::FactorySection(AKMViewmodel,TEXT("Saiga12K_RearGrip"),!(RearGripAttachment&&RearGripAttachment->IsVisible()));
++        return;
++    }
+     if(IsM870Weapon())
+     {
+         auto* Stock=StockAttachment.Get();auto* Grip=RearGripAttachment.Get();
