@@ -65,3 +65,10 @@
 ## 六、验证范围
 
 本轮只做静态核对与编译；未开编辑器、未进 PIE、未做实际命中验收。浮窗显示按代码路径确认，实际排版与数字需用户进游戏复核。
+
+编译状态（2026-10-19 17:36）：
+
+- `ColdSteelSkillRules.cpp`、`ColdSteelItemTooltipData.cpp`、`ColdSteelItemTooltipSummary.cpp` 三个 TU 单独编译通过。
+- 整体构建先被另外几处并行改动阻断（`Building/AlchemyWorldView.cpp`、`Characters/FPSBodyPistolPose.inl`、未跟踪的 `Development/MageOutfitWireAudit.cpp`），这些文件由并行会话在 17:24–17:34 修好后，`UnrealEditor-FPSGAME.dll` 于 17:36:16 重新链接；随后再跑一次 UBT 返回 `Result: Succeeded` 且无待编译动作。
+- 已确认新链接的 DLL 内含 `innate_armor_penetration` 与 `护甲穿透` 字面量，即本次代码确实进入二进制。
+- 构建日志：`Saved/Diagnostics/ViperRebalance20261019/build-game-{1..7}.log`。
