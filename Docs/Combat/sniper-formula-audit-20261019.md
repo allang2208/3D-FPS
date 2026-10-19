@@ -21,7 +21,7 @@
 >
 > 修订后：身体输出低于全部步枪（2312–2910），命中要害时略高于步枪要害（最高 A762 3780），要害＋暴击时是步枪要害的 2.3–2.5 倍。SVD 主属性更纯（wis 2.5 : int 0.9）、单发更高；SVCh 保留 int 权重、射速与射程优势。SVCh 的三份目录条目尚未提交（另一会话的新枪改动），本次只提交 SVD；工作区里两把都已生效。
 >
-> **旧存档迁移：** `innate_weakpoint_percent` 写在物品定义里，而存档实例自带一份 `Data` 快照，旧档的 SVD/SVCh 没有这一项、读取默认 0，弱点收益会整段丢失。已在 `ColdSteelProfileRuntime` 的三条路径（本地档案加载、服务端影子档案、客户端镜像）按目录补写；同一处把 M1911 的 `innate_weakpoint_percent` 与 Viper 的 `innate_armor_penetration` 也纳入了补写，避免同类旧档丢特性。
+> **旧存档迁移：** `innate_weakpoint_percent` 写在物品定义里，而存档/影子档案的实例自带一份 `Data` 快照，旧档的 SVD/SVCh 没有这一项、读取默认 0，弱点收益会整段丢失；M1911 的要害、Viper 的 `innate_armor_penetration` 同理。做法是**读时按目录兜底**：`ColdSteelInventory::Number` 在实例缺这两个键时查一次定义目录缓存（只缓存声明了这两项的少数定义），单机旧档、服务端影子档案、客户端镜像、浮窗/图鉴一次覆盖，不写存档、不依赖其它会话的档案迁移。`ColdSteelProfileRuntime` 里另有同字段的写回迁移（另一会话的狙击迁移函数内），作为二次修正，随该文件一起入库。
 >
 > 以下第一～五节为修订前的排查记录，保留供回溯。
 

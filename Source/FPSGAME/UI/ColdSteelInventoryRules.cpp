@@ -7,6 +7,8 @@
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "../Items/SpoiledFoodVisuals.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 
@@ -37,7 +39,45 @@ FString Text(const FColdSteelItem& Item, const TCHAR* Key)
     }
     return V;
 }
-double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=ReadOnlyObject(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
+// 目录调校的固有加成（要害 / 护甲穿透）写在物品定义里，而存档实例自带一份 Data 快照。
+// 旧档、服务端影子档案和联机镜像里的实例早于这些字段，缺项时读 0 会把 M1911 的要害、
+// Viper 的穿甲和狙击的弱点收益整段吞掉。这里按定义目录兜底，只缓存声明了这两项的少数定义。
+struct FCatalogInnate { double Weakpoint=0., Penetration=0.; bool bWeakpoint=false, bPenetration=false; };
+static const TMap<FString,FCatalogInnate>& CatalogInnate()
+{
+    static const TMap<FString,FCatalogInnate> Catalog=[]{
+        TMap<FString,FCatalogInnate> Result;
+        FString Json; TSharedPtr<FJsonObject> Root;
+        if(!FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))
+            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root)||!Root)return Result;
+        for(const auto& Pair:Root->Values)
+        {
+            const TSharedPtr<FJsonObject> Entry=Pair.Value.IsValid()?Pair.Value->AsObject():nullptr;
+            if(!Entry)continue;
+            FCatalogInnate Values; double Value=0.;
+            Values.bWeakpoint=Entry->TryGetNumberField(TEXT("innate_weakpoint_percent"),Value);Values.Weakpoint=Value;
+            Value=0.;
+            Values.bPenetration=Entry->TryGetNumberField(TEXT("innate_armor_penetration"),Value);Values.Penetration=Value;
+            if(Values.bWeakpoint||Values.bPenetration)Result.Add(FString(*Pair.Key),Values);
+        }
+        return Result;
+    }();
+    return Catalog;
+}
+static const double* CatalogInnateValue(const FString& Definition,const TCHAR* Key)
+{
+    const FCatalogInnate* Entry=CatalogInnate().Find(Definition);if(!Entry)return nullptr;
+    if(FCString::Strcmp(Key,TEXT("innate_weakpoint_percent"))==0)return Entry->bWeakpoint?&Entry->Weakpoint:nullptr;
+    if(FCString::Strcmp(Key,TEXT("innate_armor_penetration"))==0)return Entry->bPenetration?&Entry->Penetration:nullptr;
+    return nullptr;
+}
+double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default)
+{
+    auto O=ReadOnlyObject(Item);double V=Default;
+    if(O&&O->TryGetNumberField(Key,V))return V;
+    if(const double* Innate=CatalogInnateValue(Item.Definition,Key))return *Innate;
+    return Default;
+}
 bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if((IsDualPistol(Item)||Text(Item,TEXT("weaponType"))==TEXT("staff")) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=ReadOnlyObject(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
 FIntPoint BaseFootprint(const FColdSteelItem& I)
 {

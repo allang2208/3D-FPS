@@ -16,7 +16,7 @@
 > - `ColdSteelAmmoRuntime.cpp` 里退役弹箱的迁移把余弹夹到 30，改成 **40**，否则带旧弹箱的存档会留下 30/40 的弹匣；
 > - 大弹鼓 `large_drum +30` 变成 40 → **70**（文本仍写「增加30发」，相对值正确）。
 >
-> 同一轮还补了旧存档的固有字段迁移：SVD/SVCh 的 `innate_weakpoint_percent`、M1911 的 `innate_weakpoint_percent`、Viper 的 `innate_armor_penetration` 都是目录调校，旧实例的 `Data` 里没有这一项，读取时按 0 处理会把特性整段吞掉；现在在档案加载、影子档案和联网镜像三处按目录补写（见 [狙击公式排查](sniper-formula-audit-20261019.md)）。
+> 同一轮还补了旧存档的固有字段：SVD/SVCh 的 `innate_weakpoint_percent`、M1911 的 `innate_weakpoint_percent`、Viper 的 `innate_armor_penetration` 都是目录调校，旧实例的 `Data` 里没有这一项，读取时按 0 处理会把特性整段吞掉。现在由 `ColdSteelInventory::Number` 在缺项时按定义目录兜底（`innate_armor_penetration` / `innate_weakpoint_percent`），单机、服务端影子档案和联机镜像同时生效（见 [狙击公式排查](sniper-formula-audit-20261019.md)）。
 
 ## 一、九把枪的公式
 
