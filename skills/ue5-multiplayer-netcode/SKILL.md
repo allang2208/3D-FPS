@@ -122,6 +122,15 @@ description: UE5 原生复制联机开发（监听服务器起步）的工程套
 57. **长距离近战判定的 `TraceStart`**：`ValidateHitReport` 对非投射物命中要求 `|AimOrigin − 射手位置| ≤ 600 cm`，而 `ForwardHit` 用 `Hit.TraceStart` 作为 AimOrigin。沿一条长线分段扫掠时，远段的起点离玩家十几米，会被判为“起点漂移”拒收。这类命中要把 `TraceStart` 改写为视点（`TraceEnd` 改为命中点），LOS 与回溯检查照常。专用技能的距离上限（例如上挑 ×1.25）需要按附魔放宽时，同样只按服务端看到的物品放宽。
 58. **纯表现状态搭身体同步**：在 `FFPSBodyState` 上加 `UPROPERTY()` 表现字段，拥有端在 `SampleLocalState` 里采样（**不要放在“持剑”分支里**，否则收剑或死亡后的消散传不出去）；`IsTransition` 比较标志位，变化时立即作为边沿上报；`AcceptBodyPresentation` 做范围清洗；`SampleRemoteAuthorityState` 在租期内复制。时间用源动作秒数（动作长度 × `ActionProgress`）和服务端时钟传，远端在自己的时钟上重建。远端副本对本机可见、被几何体正常遮挡，镜头震动和 HUD 只给拥有者。
 
+## 十四、客机档案消毒、攻击回执与联机准入（2026-10-20）
+
+59. **客机整档上传先消毒再合并**：`ApplyGuestProfile` 收到网络档时先复制到临时档，经主机侧 `Sanitize` 通过后才进入原合并/影子档建立；目录是权威，近战伤害/攻速、弓拉弓与伤害、枪械换弹/射程/容量等应由实例 `Data` 回归目录值，而不是只做 `catalog*4` 钳制。`ServerSoulCredits/ServerSoulDebits` 属于服务器，首档归零、合并时覆盖上一影子档；`NetView.*` 容器投影上行前剥离。详见 [服务端回执与准入](references/server-authority-receipts.md)。
+60. **每种攻击一条服务端回执，不只要 `AttackMeta`**：重击记录服务器蓄力起点/所需秒数，完成后才开释放窗口并扣耐力；裂斩必须命中该窗口；冲刺由移动授权记录 `ServerMeleeWindowUntil`；弓必须有 `ServerSetBowDraw` 会话且 `DrawAge` 匹配蓄力比例；上挑/旋风/快速近战沿用各自序列。不同 Actor 的可靠 RPC 可能乱序——“命中先到”时应把已完成的服务器蓄力转换一次释放回执，重复的释放包不再扣费。
+61. **格挡重抬不能重置弹反**：服务端拒绝已举盾时的新序号重抬，放下后再抬受 `RaiseSeconds+LowerSeconds` 门控；一次举盾只允许一次完美弹反。盘驰等远程护盾组件同样要有 `RemoteGuardLoweredAt` + `bRemoteGuardParried` 双门控，否则切盾会反复拿满层。
+62. **弹匣、连段、语义位由服务端重建**：维护 `(InstanceId, MagazineAmmo, ReloadReadyAt, LastShotStamp)` 账本，客户端 `Rounds` 只当请求量；同一发多弹丸/穿透用“客户端时刻+服务器时间”双条件去重，死亡或换实例重置。连段阶段由服务端推进、同一挥砍多目标只进一次、全几何通过后才提交。`bMelee`、`AttackForm`、`bFiredRound` 按装备推导——枪不能靠伪造近战位免弹，徒手/快战之外不允许无武器声明。
+63. **骨骼、器官池与回放**：不复制客户端 `BoneName`；用服务端最近骨骼再走 `ResolveNetworkHit`，人类弱点再验 `ResolveCriticalHit`。器官池/多段怪物先用服务端骨骼、失败再按身体重试；回溯线段用服务端眼位 + 命中点。所有客户端命中申报（含投射物）都做服务端 LOS。
+64. **反序列化与探测 RPC 要设边界**：读取数组/Map/Set 计数、字符串长度、Mask 字节数时在归档层设上限，超限整包失败；客户端可每帧调的探测类 RPC（如翻越）用令牌桶，过期序号也收费。监听房间的口令、4 人上限与连接超时要在 `InitGame/PreLogin/BeginPlay` 三处收口。
+
 ## 相关
 
 - 联机计划与断点：`Docs/MultiplayerStrategyAndPlan20260930.md`、`Docs/MultiplayerWorkLog.md`（活日志，§3.x 是逐节里程碑，§3.21 截至 2026-10-03 收口；门族/死亡/表现上行等工作在日志之后，以本文为准）。
