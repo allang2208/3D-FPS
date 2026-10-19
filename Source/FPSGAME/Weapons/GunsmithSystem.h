@@ -98,6 +98,8 @@ struct FGunsmithStats
     FToolModifiers Tool;
     FWeaponHandling Handling;
     double ADS=0.3, ADSPercent=0, ADSSeconds=0, Recoil=100, Shake=100, RecoilMultiplier=1, ShakeMultiplier=1, StabilityMultiplier=1;
+    // 武器自带的稳定系数（1 = 参考枪）：连点扩散增速/上限、移动与滞空的后坐力放大。
+    double SpreadGrowth=1, RecoilLoad=1;
     double Interval=0.13, Reload=1.5, EmptyReload=1.5, Speed=90, Range=40, Spread=1, Damage=25;
     int32 Capacity=30, ActiveParts=0;
     int32 BurstCount=1;

@@ -18,6 +18,10 @@ struct FWeaponHandling
     float ShakeScale = 1.f;
     float RecoveryTimeScale = 1.f;
     float Stability = 50.f;
+    // 武器系数（1 = 参考枪）：连点扩散的增速/上限，以及移动与滞空带来的后坐力放大。
+    // 由 `spread_growth_mult` / `recoil_load_mult` 驱动，用于"耐用"型武器不因连续或移动射击劣化。
+    float SpreadGrowthScale = 1.f;
+    float RecoilLoadScale = 1.f;
 
     static FWeaponHandling FromIndices(double Recoil, double Shake, double StabilityMultiplier = 1.);
     // Temporary stance bonus on the already-composed rating, without mutating

@@ -103,6 +103,8 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         W.Base.ADSPercent=Num(B,TEXT("ads_percent")); // Factory-mounted accessory costs; removal offsets this value.
         W.Base.Recoil=Num(B,TEXT("recoil"),100);W.Base.Shake=Num(B,TEXT("camera_shake"),100);W.Base.Interval=Num(B,TEXT("fire_interval"),.13);
         W.Base.StabilityMultiplier=Num(B,TEXT("stability_mult"),1);
+        // 稳定型武器的两个专属系数：连点扩散增速/上限、移动与滞空的后坐力放大（1 = 参考枪）。
+        W.Base.SpreadGrowth=Num(B,TEXT("spread_growth_mult"),1);W.Base.RecoilLoad=Num(B,TEXT("recoil_load_mult"),1);
         W.Base.BurstCount=FMath::Max(1,int32(Num(B,TEXT("burst_count"),1)));
         W.Base.BurstDelay=FMath::Max(0.,Num(B,TEXT("burst_delay")));
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
@@ -377,6 +379,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
     R.BurstDelay*=R.Interval/FMath::Max(.001,W->Base.Interval);
     R.ADS=FMath::Max(.001,R.ADS*(1+R.ADSPercent)+R.ADSSeconds);
     R.Handling=FWeaponHandling::FromIndices(R.Recoil*R.RecoilMultiplier,R.Shake*R.ShakeMultiplier,R.StabilityMultiplier);
+    R.Handling.SpreadGrowthScale=static_cast<float>(FMath::Clamp(R.SpreadGrowth,.05,4.));
+    R.Handling.RecoilLoadScale=static_cast<float>(FMath::Clamp(R.RecoilLoad,.05,4.));
     R.Recoil=R.Handling.RecoilIndex;R.Shake=R.Handling.ShakeIndex;return R;
 }
 bool UGunsmithSystem::Begin(const FString& Id)

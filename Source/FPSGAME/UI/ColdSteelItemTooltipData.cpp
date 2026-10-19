@@ -622,6 +622,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,ColdSteelWeaponText::EffectiveRange,N(S.Range*(Model?Model->AmmoRangeMultiplier(I):1.f))+TEXT(" m"));
         Row(Main,ColdSteelWeaponText::ProjectileSpeed,S.Speed<=0?TEXT("即时命中"):N(S.Speed)+TEXT(" m/s"));
         Row(Main,ColdSteelWeaponText::HipSpreadMultiplier,N(S.Spread)+TEXT("×"));
+        // 稳定型武器的两个专属系数（1 = 参考枪），只在偏离参考值时显示。
+        if(S.Handling.SpreadGrowthScale<0.999f)Row(Main,TEXT("连点扩散增速"),N(S.Handling.SpreadGrowthScale*100)+TEXT("%"));
+        if(S.Handling.RecoilLoadScale<0.999f)Row(Main,TEXT("移动/滞空后坐"),N(S.Handling.RecoilLoadScale*100)+TEXT("%"));
         if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
         // 武器自带护甲穿透（物品定义 innate_armor_penetration）：与弹种穿透分开显示，

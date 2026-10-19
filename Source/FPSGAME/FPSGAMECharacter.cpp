@@ -2708,7 +2708,8 @@ void AFPSGAMECharacter::FireShot()
         Super90PS->MulticastSuper90Shot(this,Muzzle,ShotDirections,ProjectileSpeedCM,TraceDistance,PreciseSuper90Aim,bSuppressedNoise,ActiveInventoryWeapon,GetWorld()->GetTimeSeconds(),M870PumpPlayRate());
     WeaponFX->OnShotAtMuzzle(bIsAiming,ShotMuzzle);
     ApplyShotFeedback();
-    if(!bIsAiming)CurrentSpread = FMath::Min(0.018f, CurrentSpread + 0.003f);
+    // 连点扩散按武器系数缩放（1 = 参考枪），上限同步缩放：耐用型武器连打不劣化。
+    if(!bIsAiming){const float Growth=WeaponHandling.SpreadGrowthScale;CurrentSpread = FMath::Min(0.018f*Growth, CurrentSpread + 0.003f*Growth);}
 }
 
 void AFPSGAMECharacter::ApplyShotFeedback()
@@ -2747,7 +2748,9 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     TimeSinceLastShot = 0.0f;
     PatternRecoveryAccumulator = 0.0f;
     const float Horizontal = FMath::Clamp(Pattern.Y / 0.003f + FMath::FRandRange(-0.35f, 0.35f), -1.0f, 1.0f);
-    const float RecoilLoad = (1.0f + FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f) * BipodRecoil;
+    // 只有"扩散/移动/滞空带来的额外部分"受武器系数缩放，静止的基础项固定 1.0。
+    const float RecoilLoadExtra = FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f;
+    const float RecoilLoad = (1.0f + RecoilLoadExtra * FeedbackHandling.RecoilLoadScale) * BipodRecoil;
     GunKickPositionVelocity += FVector(-Horizontal * 0.24f, FMath::FRandRange(0.04f, 0.10f), FMath::FRandRange(0.55f, 0.85f)) * VisualProfile.Position * AKMSource::ViewmodelGain * RecoilLoad * FeedbackHandling.RecoilScale * BurstGain;
     GunKickRotationVelocity += FVector(FMath::FRandRange(0.55f, 1.0f), Horizontal * 0.50f, FMath::FRandRange(-0.7f, 0.7f)) * VisualProfile.Rotation * AKMSource::ViewmodelGain * RecoilLoad * FeedbackHandling.RecoilScale * BurstGain;
     // Godot's ADS convergence is applied once to the common gun/camera pulse.

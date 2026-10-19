@@ -2583,19 +2583,27 @@
         "ammo_item_id": "ammo_45acp",
         "mag_size": 7,
         "ads_smooth": 16.64295707529995,
-        "recoil": 110,
+        "recoil": 88,
         "camera_shake": 95,
+        "stability_mult": 1.3,
         "fire_interval": 0.18,
         "reload_time": 1.75,
         "empty_reload_time": 2.25,
         "damage": 36,
         "bullet_speed": 253,
-        "effective_range": 50
+        "effective_range": 50,
+        "spread_mult": 0.85,
+        "spread_growth_mult": 0.5,
+        "recoil_load_mult": 0.5
       },
       "traits": [
         {
           "icon": "special",
           "text": "要害特化：命中头部或弱点时伤害 +120%，与暴击乘算；打身体仍是手枪里最弱的一档"
+        },
+        {
+          "icon": "special",
+          "text": "沉稳可靠：连点扩散增速与上限减半；移动、滞空时的抖动与后坐反馈放大减半；后坐回正快、腰射更紧"
         },
         {
           "icon": "mechanic",
