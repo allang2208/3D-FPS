@@ -478,6 +478,9 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
         {
             Shot.CriticalChance+=100*E->Effect(*I,TEXT("critRate"));
             Shot.ArmorPenetration=E->CraftEffect(*I,TEXT("armorPenetrationPercent"))+E->Effect(*I,TEXT("armorPenetrationPercent"));
+            // 武器自带护甲穿透（物品定义 innate_armor_penetration，Pit Viper 2011 = 25%）：
+            // 与改造/附魔/弹种穿透同一路相加，最终在步枪兵分支里 clamp 到 [0,1]。
+            Shot.ArmorPenetration+=float(ColdSteelInventory::Number(*I,TEXT("innate_armor_penetration")));
             Shot.MagicPenetration=E->CraftEffect(*I,TEXT("magicPenetrationPercent"))+E->Effect(*I,TEXT("magicPenetrationPercent"));
         }
         if(const auto* I=Item?Item:M->Equipped())

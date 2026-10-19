@@ -119,19 +119,19 @@
     ]
   },
   "ue_pit_viper2011": {
-    "source": "PITVIPER2011_COEFF_DESIGN",
-    "base": 7,
-    "enhanceFlat": 0.4,
+    "source": "PITVIPER2011_DEX_REBALANCE_2X_20261019",
+    "base": 14,
+    "enhanceFlat": 0.8,
     "attrs": [
       {
         "key": "dex",
-        "base": 0.3,
-        "perEnhance": 0.045
+        "base": 0.66,
+        "perEnhance": 0.102
       },
       {
         "key": "wis",
-        "base": 0.25,
-        "perEnhance": 0.04
+        "base": 0.44,
+        "perEnhance": 0.068
       }
     ]
   },

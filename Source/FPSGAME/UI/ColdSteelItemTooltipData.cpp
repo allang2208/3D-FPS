@@ -624,6 +624,10 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,ColdSteelWeaponText::HipSpreadMultiplier,N(S.Spread)+TEXT("×"));
         if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
+        // 武器自带护甲穿透（物品定义 innate_armor_penetration）：与弹种穿透分开显示，
+        // 结算时按「改造 + 附魔 + 自带 + 弹种」相加后 clamp 到 100%。
+        if(const double InnatePenetration=ColdSteelInventory::Number(I,TEXT("innate_armor_penetration"));InnatePenetration>0)
+            Row(Main,TEXT("护甲穿透"),N(InnatePenetration*100)+TEXT("% 物理防御"));
     }
     if(String(O,TEXT("equipSlot"))==TEXT("backpack"))
     {

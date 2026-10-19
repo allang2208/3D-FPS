@@ -51,6 +51,9 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
         Add(TEXT("recoil"),ColdSteelWeaponText::RecoilIndex,S.Recoil,TEXT(""),1,true,false);
         Add(TEXT("stability"),ColdSteelWeaponText::Stability,S.Handling.Stability,TEXT(" /100"),1,false,false);
         Add(TEXT("effective_range"),ColdSteelWeaponText::EffectiveRange,S.Range,TEXT(" m"),2);
+        // 自带护甲穿透（innate_armor_penetration）不进核心对比行，作为次要指标展示。
+        if(const double InnatePenetration=ColdSteelInventory::Number(Item,TEXT("innate_armor_penetration"));InnatePenetration>0)
+            Add(TEXT("armor_penetration"),TEXT("护甲穿透"),InnatePenetration*100,TEXT("%"),0,false,false);
     }
     else if(ColdSteelInventory::IsBow(Item))
     {
