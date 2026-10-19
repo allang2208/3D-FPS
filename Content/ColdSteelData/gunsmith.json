@@ -133,7 +133,7 @@
         "empty_reload_time": 2.7,
         "damage": 30,
         "bullet_speed": 350,
-        "effective_range": 70
+        "effective_range": 85
       },
       "traits": [
         {
@@ -1573,7 +1573,7 @@
         "empty_reload_time": 2.7333333333333334,
         "damage": 32,
         "bullet_speed": 350,
-        "effective_range": 85
+        "effective_range": 95
       },
       "traits": [
         {
@@ -2591,7 +2591,7 @@
         "empty_reload_time": 2.25,
         "damage": 36,
         "bullet_speed": 253,
-        "effective_range": 50,
+        "effective_range": 45,
         "spread_mult": 0.85,
         "spread_growth_mult": 0.5,
         "recoil_load_mult": 0.5,
@@ -3044,7 +3044,7 @@
         "empty_reload_time": 2.25,
         "damage": 22,
         "bullet_speed": 375,
-        "effective_range": 50,
+        "effective_range": 45,
         "spread_mult": 1.0,
         "automatic": false
       },
@@ -3418,7 +3418,7 @@
         "empty_reload_time": 2.25,
         "damage": 18,
         "bullet_speed": 375,
-        "effective_range": 40,
+        "effective_range": 35,
         "spread_mult": 1.05,
         "automatic": true
       },
@@ -3804,7 +3804,7 @@
         "empty_reload_time": 8.8,
         "damage": 68,
         "bullet_speed": 420,
-        "effective_range": 65
+        "effective_range": 55
       },
       "traits": [
         {
@@ -4348,7 +4348,7 @@
         "empty_reload_time": 7.7,
         "damage": 102,
         "bullet_speed": 300,
-        "effective_range": 60,
+        "effective_range": 50,
         "automatic": false,
         "stability_mult": 0.4270980054225096,
         "spread_mult": 4.0
@@ -4401,7 +4401,7 @@
         "empty_reload_time": 3.3,
         "damage": 48,
         "bullet_speed": 300,
-        "effective_range": 80
+        "effective_range": 85
       },
       "traits": [
         {
@@ -4883,7 +4883,7 @@
         "empty_reload_time": 2.95,
         "damage": 34,
         "bullet_speed": 350,
-        "effective_range": 110
+        "effective_range": 120
       },
       "traits": [
         {
@@ -5616,7 +5616,7 @@
         "empty_reload_time": 4.291667,
         "damage": 33.25,
         "bullet_speed": 350,
-        "effective_range": 100,
+        "effective_range": 105,
         "stability_mult": 1.25
       },
       "traits": [
@@ -6928,7 +6928,7 @@
         "empty_reload_time": 6.6,
         "damage": 30,
         "bullet_speed": 350,
-        "effective_range": 150,
+        "effective_range": 160,
         "stability_mult": 1
       },
       "traits": [
@@ -7610,7 +7610,7 @@
         "empty_reload_time": 4.291666667,
         "damage": 32,
         "bullet_speed": 350,
-        "effective_range": 120,
+        "effective_range": 130,
         "stability_mult": 1.2,
         "ads_percent": 0.1
       },
@@ -8338,7 +8338,7 @@
         "empty_reload_time": 2.7,
         "damage": 30,
         "bullet_speed": 350,
-        "effective_range": 70
+        "effective_range": 90
       },
       "traits": [
         {
@@ -9039,7 +9039,7 @@
         "empty_reload_time": 5.435897435897435,
         "damage": 80,
         "bullet_speed": 380,
-        "effective_range": 35,
+        "effective_range": 25,
         "stability_mult": 1
       },
       "options": {
@@ -9701,7 +9701,7 @@
         "empty_reload_time": 7.066666666666666,
         "damage": 80,
         "bullet_speed": 380,
-        "effective_range": 45,
+        "effective_range": 30,
         "stability_mult": 1
       },
       "options": {
@@ -10215,7 +10215,7 @@
         "empty_reload_time": 4.291667,
         "damage": 80,
         "bullet_speed": 380,
-        "effective_range": 25,
+        "effective_range": 20,
         "stability_mult": 1
       },
       "options": {
