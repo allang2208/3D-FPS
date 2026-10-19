@@ -1,5 +1,6 @@
 #include "MonsterRagdollPhysics.h"
 #include "HumanoidRagdollBudget.h"
+#include "MonsterIdleBreathingMeshComponent.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterAIController.h"
 #include "Animation/PoseSnapshot.h"
@@ -31,6 +32,8 @@ void RetireCorpseTicks(USkeletalMeshComponent* Mesh)
     }
     if (auto* Budget = Mesh->GetWorld()->GetSubsystem<UHumanoidRagdollBudget>())
         Budget->RegisterFrozenMesh(Mesh);
+    if (auto* Body = Cast<UMonsterIdleBreathingMeshComponent>(Mesh))
+        Body->BeginFrozenShadowCaching();
 }
 
 bool ReadBody(const USkeletalMeshComponent* Mesh, FName Bone, FMonsterRagdollBodyState& Out)

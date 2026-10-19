@@ -69,10 +69,30 @@ ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
     Tags.Add(TEXT("NurseZombie"));
 }
 
+void ANurseZombie::PrepareDeferredAllocation()
+{
+    TInlineComponentArray<UActorComponent*> Components(this);
+    for (auto* Component : Components)
+        if (Component->bAutoRegister)
+        {
+            DeferredRegistration.Add(Component);
+            Component->bAutoRegister=false;
+        }
+}
+
 void ANurseZombie::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
     if (VisualMesh) GetMesh()->SetSkeletalMeshAsset(VisualMesh);
+    if (!DeferredRegistration.IsEmpty())
+    {
+        for (const auto& Component : DeferredRegistration)
+            if (Component.IsValid()) Component->bAutoRegister=true;
+        DeferredRegistration.Reset();
+        // ExecuteConstruction has applied the final transform. Register here,
+        // before PostInitializeComponents/BeginPlay, never at the holding origin.
+        RegisterAllComponents();
+    }
 }
 
 void ANurseZombie::BeginPlay()

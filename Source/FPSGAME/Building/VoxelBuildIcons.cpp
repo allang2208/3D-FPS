@@ -85,6 +85,7 @@ void UVoxelBuildIcons::SetVisibleKeys(const TSet<FString>& Keys)
         if(Job.PreparedAt>0)ClearPool();
         Pending.Remove(Job.Request.Key);return true;
     });
+    if(Queue.IsEmpty()&&Studio){ClearPool();Studio->SuspendRendering();}
     while(Materials.Num()>MaxCachedIcons)
     {
         FString Oldest;uint64 Use=MAX_uint64;
@@ -109,6 +110,7 @@ void UVoxelBuildIcons::ClearPool()
 void UVoxelBuildIcons::Suspend()
 {
     Queue.Reset();Pending.Reset();SetVisibleKeys({});ClearPool();
+    if(Studio)Studio->SuspendRendering();
 }
 
 void UVoxelBuildIcons::ReleaseEntry(const FString& Key)
@@ -134,8 +136,8 @@ void UVoxelBuildIcons::Deinitialize()
 
 void UVoxelBuildIcons::EnsureStudio()
 {
-    if(Studio.IsValid())return;
-    Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false)
+    if(Studio.IsValid()){Studio->ResumeRendering();return;}
+    Studio=MakeUnique<FColdSteelPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false)
         .SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
     StudioSky=LoadObject<UTextureCube>(nullptr,StudioSkyPath);
     if(StudioSky)Studio->SetSkyCubemap(StudioSky);
@@ -345,6 +347,9 @@ void UVoxelBuildIcons::Tick(float DeltaTime)
     const FJob Job=Front;
     Queue.RemoveAt(0);
     ClearPool();
+    // Completed targets are independent of the studio. Release its unused PIE
+    // renderer without discarding icons or requesting a full-purge world GC.
+    if(Queue.IsEmpty()&&Studio)Studio->SuspendRendering();
     Pending.Remove(Job.Request.Key);
     if(!bOk)
     {

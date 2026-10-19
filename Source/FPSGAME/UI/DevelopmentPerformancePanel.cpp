@@ -1,6 +1,7 @@
 // F6 performance UI: measured observations, instrumented counts and resource inventory are distinct.
 #include "DevelopmentPanelWidget.h"
 #include "PerformanceTextUpdate.h"
+#include "FPSGpuTraceCapture.h"
 #include "Components/BackgroundBlur.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -84,12 +85,16 @@ void UDevelopmentPanelWidget::BuildPerformancePage(UVerticalBox* Page)
     PerformanceResetButton = CreatePanelButton(TEXT("清空采样"), TEXT("DevelopmentPerformanceReset"));
     PerformanceResetButton->OnClicked.AddDynamic(this, &ThisClass::PerformanceResetClicked);
     AddControl(PerformanceResetButton, 88.f);
-    PerformanceExportButton = CreatePanelButton(TEXT("导出 JSON"), TEXT("DevelopmentPerformanceExport"));
+    PerformanceExportButton = CreatePanelButton(TEXT("导出记录"), TEXT("DevelopmentPerformanceExport"));
     PerformanceExportButton->OnClicked.AddDynamic(this, &ThisClass::PerformanceExportClicked);
     AddControl(PerformanceExportButton, 100.f);
     PerformanceGpuInventoryButton=CreatePanelButton(TEXT("GPU 资源详采：关"),TEXT("DevelopmentGpuInventory"));
     PerformanceGpuInventoryButton->OnClicked.AddDynamic(this,&ThisClass::PerformanceGpuInventoryClicked);
     AddControl(PerformanceGpuInventoryButton,184.f);
+    PerformanceGpuTraceButton=CreatePanelButton(TEXT("GPU 驻留/调度：开始"),TEXT("DevelopmentGpuTrace"));
+    PerformanceGpuTraceButton->OnClicked.AddDynamic(this,&ThisClass::PerformanceGpuTraceClicked);
+    AddControl(PerformanceGpuTraceButton,224.f);
+    PerformanceGpuTraceStatus=Body(*FFPSGpuTraceCapture::ReadyStatusText());
 
     PerformanceInterval = WidgetTree->ConstructWidget<UComboBoxString>();
     for (const TCHAR* Option : {TEXT("0.25 秒"), TEXT("0.5 秒"), TEXT("1 秒"), TEXT("2 秒")})
@@ -143,7 +148,7 @@ void UDevelopmentPanelWidget::BuildPerformancePage(UVerticalBox* Page)
     PerformanceStatus = Body(TEXT("等待扫描…"));
     PerformanceList = WidgetTree->ConstructWidget<UVerticalBox>();
     Page->AddChildToVerticalBox(PerformanceList);
-    Body(TEXT("当前实际 LOD、Nanite 渲染路径、可见实例、材质复杂度和遮挡未采集。GPU 分阶段、已列分段之外的 CPU/等待归因、内存及 GC/加载事件尚未接入。"));
+    Body(TEXT("此网格列表不代表实际渲染 LOD、Nanite 路径、遮挡或材质耗时。GPU 驻留/调度记录会额外保存引擎时间线、WDDM 事件和衣服 Morph 缓冲身份，需结合导出文件分析。"));
     UpdatePerformanceLayout(Scale);
 }
 
@@ -156,7 +161,7 @@ void UDevelopmentPanelWidget::UpdatePerformanceLayout(float Scale)
             Box->SetHeightOverride(ColdSteelUI::ActionHeight / Scale);
         }
     for (auto* Button : {PerformancePauseButton.Get(), PerformanceRecordingButton.Get(),
-        PerformanceResetButton.Get(), PerformanceExportButton.Get(), PerformanceGpuInventoryButton.Get()})
+        PerformanceResetButton.Get(), PerformanceExportButton.Get(), PerformanceGpuInventoryButton.Get(), PerformanceGpuTraceButton.Get()})
     {
         if (!Button) continue;
         Button->SetStyle(ColdSteelUI::ButtonStyle(1.f / Scale));
@@ -183,6 +188,15 @@ void UDevelopmentPanelWidget::PerformanceGpuInventoryClicked()
     if(PerformanceMessage)SetPerformanceText(PerformanceMessage,FText::FromString(Enabled
         ?TEXT("已开启事件资源详采；采集耗时会写入 JSON。正常进入地牢、刷怪后再导出即可。")
         :TEXT("已关闭新的 GPU 明细请求；已完成记录保留，普通刷怪记录继续。")));
+}
+
+void UDevelopmentPanelWidget::PerformanceGpuTraceClicked()
+{
+    if(auto* World=GetWorld())if(auto* Metrics=World->GetSubsystem<UFPSPerformanceMetricsSubsystem>())
+    {
+        Metrics->ToggleGpuTraceCapture();
+        PerformanceNextUpdate=0.;
+    }
 }
 
 void UDevelopmentPanelWidget::SetPerformancePaused(bool bPaused)
@@ -212,7 +226,10 @@ void UDevelopmentPanelWidget::PerformanceResetClicked()
         {
             Metrics->ClearSamples();
             SetPerformancePaused(false);
-            if (PerformanceMessage) SetPerformanceText(PerformanceMessage, FText::FromString(TEXT("窗口、长帧历史、观察开销和事件基线已清空；图标失败状态保留。")));
+            if (PerformanceMessage) SetPerformanceText(PerformanceMessage, FText::FromString(
+                Metrics->IsGpuTraceRunning()
+                    ? TEXT("窗口、长帧历史和事件基线已清空；GPU 追踪继续记录；图标失败状态保留。")
+                    : TEXT("窗口、长帧历史、观察开销和事件基线已清空；图标失败状态保留。")));
         }
 }
 void UDevelopmentPanelWidget::PerformanceExportClicked()
@@ -227,7 +244,7 @@ void UDevelopmentPanelWidget::PerformanceExportClicked()
     const uint64 ExportGeneration = ++PerformanceExportGeneration;
     if (PerformanceExportButton) PerformanceExportButton->SetIsEnabled(false);
     if (PerformanceMessage) {
-        SetPerformanceText(PerformanceMessage, FText::FromString(TEXT("正在后台导出提交时的显示快照…")));
+        SetPerformanceText(PerformanceMessage, FText::FromString(TEXT("正在后台收尾 GPU 记录并导出显示快照…")));
         PerformanceMessage->SetColorAndOpacity(ColdSteelUI::TextSecondary);
     }
     const FString Source = FString::Printf(TEXT("session=%s generation=%llu"),*PerformanceCache.SessionId,PerformanceCache.CaptureGeneration);
@@ -235,10 +252,12 @@ void UDevelopmentPanelWidget::PerformanceExportClicked()
     const TWeakObjectPtr<UDevelopmentPanelWidget> WeakThis(this);
     const TWeakObjectPtr<UWorld> WeakWorld(GetWorld());
     FFPSPerformanceSnapshot ExportCopy = PerformanceCache;
+    if (UWorld* World = GetWorld())
+        if (auto* Metrics = World->GetSubsystem<UFPSPerformanceMetricsSubsystem>()) Metrics->AttachGpuTraceCapture(ExportCopy);
     ExportCopy.ObserverAtExport = {true, IsPanelOpen(), bPerformancePaused, ActivePage, PerformanceIntervalMs,
         Blur ? Blur->GetBlurStrength() : 0.f, Blur ? Blur->GetBlurRadius() : 0};
     UFPSPerformanceMetricsSubsystem::ExportSnapshotAsync(ExportCopy,
-        [WeakThis,WeakWorld,ExportGeneration,Source](bool bSaved,const FString& Path,double ElapsedMs)
+        [WeakThis,WeakWorld,ExportGeneration,Source,TraceCapture=ExportCopy.GpuTraceCapture](bool bSaved,const FString& Path,double ElapsedMs)
         {
             UFPSPerformanceMetricsSubsystem::RecordMarker(WeakWorld.Get(),TEXT("Panel.ExportFinished"),
                 FString::Printf(TEXT("%s success=%d async_total_wall_ms=%.3f path=%s"),*Source,bSaved,ElapsedMs,*Path));
@@ -247,10 +266,17 @@ void UDevelopmentPanelWidget::PerformanceExportClicked()
             Widget->bPerformanceExporting = false;
             if (Widget->PerformanceExportButton) Widget->PerformanceExportButton->SetIsEnabled(true);
             if (Widget->PerformanceMessage) {
-                SetPerformanceText(Widget->PerformanceMessage, FText::FromString(bSaved
-                    ? FString::Printf(TEXT("已导出提交时的快照（复制/排队/写入历时 %.1f ms，非主线程耗时）：\n%s"),ElapsedMs,*Path)
-                    : TEXT("导出失败：无法写入 Saved/PerformanceReports。")));
-                Widget->PerformanceMessage->SetColorAndOpacity(bSaved?ColdSteelUI::Success:ColdSteelUI::Warning);
+                const bool bTraceComplete = !TraceCapture || TraceCapture->HasCompleteBundle();
+                FString Message = TEXT("导出失败：无法写入 Saved/PerformanceReports。");
+                if (bSaved)
+                {
+                    Message = FString::Printf(TEXT("%s（后台历时 %.1f ms）：\n%s"),
+                        bTraceComplete ? TEXT("已导出") : TEXT("性能 JSON 已保存，但 GPU 追踪不完整"), ElapsedMs, *Path);
+                    if (TraceCapture)
+                        Message += FString::Printf(TEXT("\n%s\n请保留整份 gpu- 文件夹，不能只发送 JSON。"), *TraceCapture->StatusText());
+                }
+                SetPerformanceText(Widget->PerformanceMessage, FText::FromString(Message));
+                Widget->PerformanceMessage->SetColorAndOpacity(bSaved && bTraceComplete ? ColdSteelUI::Success : ColdSteelUI::Warning);
             }
         });
 }
@@ -283,6 +309,8 @@ void UDevelopmentPanelWidget::RefreshPerformance(float)
         PerformanceNextStatus = Now + .5;
         ButtonText(PerformanceGpuInventoryButton,Metrics->IsGpuInventoryEnabled()?TEXT("GPU 资源详采：开"):TEXT("GPU 资源详采：关"));
         ButtonText(PerformanceRecordingButton, Metrics->IsRecording() ? TEXT("停止采集") : TEXT("开始新采集"));
+        ButtonText(PerformanceGpuTraceButton, Metrics->IsGpuTraceRunning() ? TEXT("GPU 驻留/调度：停止") : TEXT("GPU 驻留/调度：开始"));
+        if(PerformanceGpuTraceStatus)SetPerformanceText(PerformanceGpuTraceStatus,FText::FromString(Metrics->GpuTraceStatusText()));
         if (PerformanceLiveState)
         {
             SetPerformanceText(PerformanceLiveState, FText::FromString(FString::Printf(

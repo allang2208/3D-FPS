@@ -1,0 +1,145 @@
+怪群出现后玩家装备也变慢：12:36 新追踪、公共输出链与源码修正
+2026-10-18
+
+后续记录：monster-shared-output-deep-chain-20261018.txt 进一步拆分 Normalize/派发间隙，
+并修复离线解码的跨记录线程配对。下文图形队列主要数字重算后不变；正式离线结果改用
+Saved/MonsterGpuSync20261018/latest-123634/ordered/，旧异步队列逐事件配对结果不再使用。
+
+本轮结论
+同一次运行、同样 37 只活怪、每帧同样 284 次 SkinCache 派发，GPU 帧时间从慢阶段平均
+133.324 ms 恢复到 20.856 ms。衣服 Morph 和玩家枪械 Morph 同时退化；不是只有怪物衣服
+本身变慢。怪物数和派发数没有随恢复而下降，单凭新增正常工作量不能解释这段异常。
+17 个已采集衣服输出缓冲在采样点保持身份稳定；571 个慢 Morph 事件均位于已提交 GPU
+工作内部，没有重叠的 UE 队列等待记录。资源访问、驻留或驱动内部调度仍是主要调查范围。
+WDDM 启动返回 error 5，当前不能在物理换页与驱动内部等待之间定案。
+
+找到并修正了另一个明确的装备资源生命周期缺陷：玩家档案通用 OnChanged 过去直接调用
+RefreshEquipment，把衣着强制标脏；即使装备没有变化，也销毁并重建衣着组件及蒙皮资源。
+现在通用通知只要求重新捕获装备，让现有内容比较决定是否重建。真实换装、武器切换、
+初始化和显式 RefreshEquipment 的重建语义保留。这项修复不能单独解释持续 GPU 高耗时。
+
+1. 本次数据与旧报告的区别
+原始目录：Saved/PerformanceReports/gpu-DD85D62E43B67A5C5DB1CCA6562B983A/。
+- engine.utrace：93,667,737 字节，已关闭。
+- performance-20261018-043634-822403424B2F0943E50F94B08E141E65.json。
+- buffers.jsonl：863 行，861 条缓冲观察与 2 条时钟锚点，没有丢弃身份记录。
+- manifest：available_files_finalized=true，ue_trace_file_closed=true；files_finalized=false。
+  capture_mode=ue_trace_only，etw_start_error=5，wddm_providers_ready=false。
+现有 UE 文件已完成落盘，但完整 WDDM bundle 未完成，不能将两者混称为完整 GPU 驻留追踪。
+采集 UTC 04:36:11.595～04:36:34.035（本地 12:36），约 22.44 秒。
+首刷相对采集开始 +11.2825859 秒，导出只覆盖其后约 11.16 秒；post_window_complete=false。
+
+这是进入战斗后的新追踪，更新了 monster-shared-gpu-buffer-chain-20261018.txt 中仅有旧详细
+trace 和 11:04 F6 的证据状态。两个报告引用不同采集，不将旧 pass 时间与本次 F6 混用。
+离线处理：Saved/MonsterGpuSync20261018/decode_latest.py、analyze_latest.py。
+结果：Saved/MonsterGpuSync20261018/latest-123634/analysis.json，附原始输入 SHA-256。
+解码只调用本机 TraceLog 库的包解压函数，没有启动 UE、Insights 应用或采集。
+UE Transport 的 0x3fff 是 Sync 包，不作为事件流解析；此次解码没有事件流错误。
+GPU 与 F6 使用本 bundle 的 QPC/platform_seconds 锚点对齐，不沿用旧 trace 时间偏移。
+
+2. 同样 37 只怪、同样派发数的对照
+窗口是首刷后的相对秒数，只统计完整落入窗口的 GPU 帧；均为当前主图形队列的 scope 时间。
+
+                                      基线 -3～0 s      慢阶段 +4.3～7.3 s    恢复 +8～11 s
+完整 GPU 帧数                              244                    21                 142
+该窗资源采样观察到的活怪数                    0                    37                  37
+GPU 帧平均时间 / ms                    12.0305               133.324             20.8564
+每帧 SkinCacheDispatch 次数                 94                   284                 284
+每帧 MorphUpdate 次数中位数                  1                    17                  17
+每帧 MorphUpdate 总跨度均值 / ms         0.02289               60.4398             0.50839
+每帧 SkinCache 外层跨度均值 / ms          0.15008               33.6037             1.43348
+
+少量帧有玩家 SVCH Morph，因此总 Morph 数可为 18。以上父/子 scope 单独统计，不相加。
+慢阶段及恢复阶段的视角、姿态不保证逐帧相同，不能称为控制变量实验；但恢复没有依赖减怪
+或减少 SkinCache 派发，不能把这段数十倍的退化直接归结为正常派发次数增长。
+
+3. 为什么连玩家装备也会受影响
+玩家和怪物各自有组件/输出资源，但经过相同 Morph/SkinCache 执行路径、图形队列和设备
+资源管理。这里的“公共”是执行和调度路径，不是所有网格写进同一个顶点输出缓冲。
+同资产 SK_SVCH_Refined_R5 的 Morph 在慢窗口中位数约 1.8863 ms，基线约 0.0233 ms，
+恢复窗口约 0.0234 ms。玩家原有网格也受影响，不能将全部退化限定在员工衣服算法内部。
+这些单网格事件按事件时间窗统计，与上面的完整帧口径略有不同。
+本次玩家背包多数派发仍很快；整个 trace 中玩家 Jason 系列 SkinCache 派发只有 6 个
+达到 1 ms，最大为皮靴约 2.795 ms。不声称所有玩家装备始终一样慢。
+
+571 个 >=1 ms 的 MorphUpdate、6 个 >=1 ms 的玩家 SkinCacheDispatch：
+- 全部落在单个已提交的 GPUWork 记录内部；UE 队列等待重叠累计为 0。
+- CPU 提交到事件开始的间隔，中位数分别约 140.52 / 116.98 ms。
+这支持排除这些区间的 CPU 未提交工作/已记录的 UE 跨队列等待作为直接解释，但提交到
+执行间隔不能全算到该 shader 身上，也不排除 WDDM 抢占、换页或驱动内部等待。
+GPU 时间戳跨度包含其间阻塞，不等于着色器指令的纯执行时间。
+
+4. 输出缓冲并未在观察点持续换新
+17 个有衣服 Morph 的组件（12 研究员、5 接待员）：
+- 共享 Morph 输入：2 个唯一 RHI 缓冲，逻辑总大小 72,529,216 字节，约 69.17 MiB。
+- 当前 Morph 输出：17 个唯一 RHI 缓冲，逻辑总大小 53,953,008 字节，约 51.45 MiB。
+- previous 观察指向与 current 相同的资源，不重复计入内存。
+- 每组件 RHI 地址、原生资源 ID、原生 GPU VA 的观察集合均未变化。
+- 输出为 DEFAULT heap 上的 placed resource，输入也为 DEFAULT；不是把输出误放进
+  CPU UPLOAD heap 的这类错误。
+采样频率 <=2 Hz。稳定身份不证明每个中间时刻都无移动，也不能证明物理页一直在本地
+显存。GetHeapProperties 的 UNKNOWN memory pool 和 DEFAULT heap 类型不提供这个答案。
+
+本地预算余量从刷怪前约 1.3 GiB 降到慢阶段约 338～406 MiB；+6.35 s 观察到余量上升约
+372 MiB，随后 +7.4 s 左右 GPU 恢复。此相关性不足以证明某个输出被迁回显存，且恢复后
+余量又下降到约 320 MiB 而 GPU 仍较快，不能将单一余量阈值当成确定判据。
+系统段统计也不是逐资源物理驻留记录。没有把逻辑资源清单大小当作实际显存占用。
+
+5. 公共同步/驻留源码追踪范围
+本机 UE 5.8.3，CL 58210709，E:/Program Files (x86)/UE_5.8/Engine/Source/Runtime/。
+- SkeletalRenderGPUSkin.cpp：Morph 输出 Static/UAV/SRV；Clear、Scatter、Normalize 之间
+  有真实依赖，不能删除 UAV 屏障。
+- D3D12UAV.cpp、D3D12DescriptorCache.cpp：清零与普通/bindless UAV、SRV 使用均登记驻留。
+- D3D12CommandList.cpp：资源跟踪和屏障进入命令列表驻留集。
+- D3D12Resources.h：placed resource 返回 backing heap 的驻留 handle。
+- D3D12Resources.cpp：heap 的驻留对象初始化并注册跟踪；未发现这里漏登记。
+- D3D12Adapter.cpp：ResidencyManagement 默认开启；ResourcesStartResident 默认关闭，
+  不再重复添加“关闭初始驻留”的无效调参。
+- GPUSkinCache：5.7 起废弃旧显式场景内存限额，不套用旧 128 MiB 建议。
+- D3D12 descriptor heap 换 block 不等同换 heap；现有日志没有 suballocated block 用尽
+  或 OnlineHeap RollOver 证据，没有据此扩大 descriptor heap。
+- D3D12Adapter.cpp 对 DXGI 预算与实际 VidMm 迁出不同步有明确说明，支持保留此调查方向，
+  但源码注释不能代替本次 WDDM 现场记录。
+研究过提升池化输出 heap 驻留优先级的可能性，未取得实际 heap 优先级和物理迁移证据，
+没有修改引擎分配器或强行提高所有资源的优先级，也没有添加推测性的预算/屏障开关。
+Microsoft 对驻留、堆和优先级语义的说明：
+https://learn.microsoft.com/en-us/windows/win32/direct3d12/residency
+https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority
+https://learn.microsoft.com/en-us/windows/win32/direct3d12/timing
+
+6. 已修复：无装备变化时仍强制重建衣着
+Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp，BeginPlay 的 Profile->OnChanged 绑定。
+旧链：通用档案通知 -> RefreshEquipment -> bOutfitDirty=true -> CaptureEquipment ->
+ApplyOutfit -> DestroyComponent/重建全部衣着组件 -> 重建对应渲染/蒙皮资源。
+OnChanged 也用于状态、训练、容器等变化，不代表换装。CaptureEquipment 原本已按武器
+配置键、衣着槽位/定义比较变化，旧绑定却每次绕过这项比较。
+新绑定是绑定当前组件生命周期的 weak lambda，只置 bEquipmentDirty=true；EndPlay 仍通过
+原 DelegateHandle 解绑。没有增加定时器、强引用或新常驻缓冲。
+
+保留的路径：
+- 初始 bOutfitDirty=true，首次装备正常初始化。
+- 武器配置键变化仍重建武器并重新应用衣着，袖子/手套随武器正确接入。
+- 衣着槽位/定义变化仍调用 ApplyOutfit。
+- 显式 RefreshEquipment 仍强制刷新，现有工具/弓/蓝图入口语义不变。
+- RefreshAppearance 独立按头发/头部状态刷新，不依赖本次移除的强制脏位。
+- 主机为远端 Pawn 读取 GetNetShadowProfile，权威装备、ReplicatedOutfit 和 OnRep_Outfit
+  路径不变；未把主机档案替代远端档案，也没有新增客户端权威决定。
+
+本次 F6 的 frame 21932 包含首刷时刻，记录 outfit_rebuilds=1、weapon_rebuilds=0、
+visibility_fields_changed=2。整个遭遇窗口也只有这一次衣着重建。
+未记录该次重建的调用栈，不能证明具体哪条 OnChanged 广播触发它，更不能把它当成持续
+数秒高 GPU 时间的完整解释。修复的是已确定的无关通知导致强制重建的代码路径。
+
+7. 交付与构建状态
+源码备份：Saved/MonsterGpuSync20261018/latest-123634/before/FPSPlayerBodyComponent.cpp。
+只有上述一个运行 CPP 的通知绑定发生本轮修改；其余交付是已有追踪的离线分析与报告。
+画质、怪物数量、动画/衣服更新质量、战斗规则及刷怪节奏均未改。
+Game Win64 Development 构建成功：35.36 秒，10 个 action，其中明确编译本次修改的
+FPSPlayerBodyComponent.cpp，并链接 Binaries/Win64/FPSGAME.exe。
+日志：Saved/MonsterGpuSync20261018/latest-123634/build-game.log。
+Editor 构建未完成：开始时没有 UE 进程；随后出现的 UnrealEditor-Cmd 锁住
+UnrealEditor-AutoFootstep.dll，链接报 LNK1104。本次已失败的 Editor 构建及其编译子进程
+已停止，已有 UE 进程保留。未重试覆盖占用中的 DLL，没有将该次构建记为成功。
+日志：Saved/MonsterGpuSync20261018/latest-123634/build-editor.log。
+本次没有启动 UE、游戏、PIE、测试或新性能采集；其他现有进程不属于本轮运行验收。
+持续 GPU 异常尚未完成主因修复；当前缺口是与慢事件同时段的 WDDM 物理驻留/调度记录。

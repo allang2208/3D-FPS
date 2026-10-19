@@ -1,0 +1,111 @@
+退出 PIE 的 Renderer/Niagara 崩溃：空场景类型错误与修复
+2026-10-18；只使用已有日志、minidump、DLL、引擎/项目源码，没有运行 UE 或复现测试。
+
+结论
+五份已有崩溃具有相同指令和对象虚表：Niagara 的积压 tick 补执行路径创建临时视图，
+Renderer 随后把 FNULLSceneInterface 当成完整 FScene，访问体积雾数组，造成越界。
+不是从模块名猜测：本轮读取了 minidump 寄存器/内存，并与本机 DLL 构造函数和虚表对齐。
+已增加编辑器场景生命周期修复，保留 r.PurgeEditorSceneDuringPIE=1 的显存节省，
+只清除被卸载编辑器空场景上的 FXSystem；真实场景恢复时在组件重新注册前恢复 FXSystem。
+
+一、崩溃证据
+五份同签名记录均来自 UE 5.8.3-58210709：
+Saved/Crashes/UECC-Windows-5F9998D142CE34F06E1A66963FA969B9_0000（本次 11:04 退出）
+Saved/Crashes/UECC-Windows-E9C300FA40AD6DFD6857D3A3236E2F9A_0000
+Saved/Crashes/UECC-Windows-8B20810A47E6C35F17777998BA59AFB8_0000
+Saved/Crashes/UECC-Windows-F03423104AF84F80F568689EDB92366C_0000
+Saved/Crashes/UECC-Windows-C19D018F4AA6478114CA709BAA7BEDAD_0000
+
+这些记录与此前 AudioInsights/AssetRegistry 的 TAsync 启动断言不同，也不是
+HumanoidKnockdownComponent::TunePhysics 的另一处游戏线程崩溃。
+
+本机缺少 Renderer/Niagara PDB，因此采用 PE 导出、异常函数表、局部反汇编和已有 dump；
+“最近导出符号”只作位置导航，不能把附近 RuntimeVirtualTexture 等名称当成崩溃函数名。
+
+关键地址（RVA，不随 ASLR 改变）：
+- Renderer 0x176BF1F：cmp byte ptr [rax+0x74],0。
+- 该函数在 0x176BED0 开始，先读取 [rbx+0x4CC8] 数量，再取 [rbx+0x4CC0] 数组。
+  与 VolumetricFog.cpp 的 ShouldRenderVolumetricFog 完整条件链一致：
+  ShouldRenderFog、GVolumetricFog、show flag、ExponentialFogs.Num、
+  ExponentialFogs[0].bEnableVolumetricFog、VolumetricFogDistance。
+- 上游为 FViewInfo::SetupUniformBufferParameters（该函数有准确的导出符号）。
+- Niagara 0x698530 的 render-command lambda 把第三参数清零，再调用 0x6C7C10；
+  与 Tick 中 ProcessPendingTicksFlush(RHICmdList, false) 对齐。
+- Niagara 返回点 0x6C8470 位于 CreateAndInitSingleView 调用之后。
+
+最新 dump 中 RBX=0x21DA27818A0，指向场景接口对象。五份 dump 的对象首指针减去
+各自 Renderer 加载基址后，都得到虚表 RVA 0x1D313E8。
+本机 Renderer DLL 在 0x11833EA 分支只分配 0x20（32）字节，0x1183417 将该虚表写入对象，
+接着写 World 到 +0x10、FXSystem 到 +0x18，并按 bCreateFXSystem 调用 World.CreateFXSystem。
+这与 FNULLSceneInterface 的布局和构造函数逐项吻合；其前 12 个虚函数都是空操作。
+因此在这 32 字节对象上访问 +0x4CC0 的 FScene 字段必然超出对象范围。
+RAX 的 UTF-16 文本样式值是误读的数组指针，不能由此推断某个材质或雾资产损坏。
+minidump 没有保留 WorldType 字段；编辑器世界归属由下面的实际调用链与配置确定。
+
+二、触发链
+本机引擎源码：E:/Program Files (x86)/UE_5.8/Engine/。
+Editor/UnrealEd/Private/Editor.cpp：切入 PIE 时调用 GEditor->EditorWorld->PurgeScene()。
+Runtime/Engine/Private/World.cpp：PurgeScene 临时设置 GUsingNullRHI=true 后 RecreateScene；
+RecreateScene 从原 FXSystem 推导 bCreateFXSystem，因此替换为空场景时仍可创建 GPU FXSystem。
+Runtime/Renderer/Private/RendererScene.cpp：AllocateScene 的 NullRHI 分支创建
+FNULLSceneInterface；该对象 GetRenderScene 返回 nullptr，但可持有 FXSystem。
+Plugins/FX/Niagara/.../NiagaraGpuComputeDispatch.cpp：Tick 的积压刷新 mode 1 创建临时
+FViewInfo，再进入视图 uniform 参数设置，未先拒绝不含真实 FScene 的接口。
+Editor/UnrealEd/Private/PlayLevel.cpp：EndPIE 后恢复编辑器世界及原有真实渲染场景。
+项目 Config/DefaultEngine.ini 明确启用了 r.PurgeEditorSceneDuringPIE=1。
+
+已对照 ColdSteelPreviewScene::SuspendRendering/ResumeRendering：它有自身的场景挂起逻辑，
+本次证据不足以判它有错，本轮不修改它，也不把所有预览场景重新常驻来回避崩溃。
+
+相关公开问题 UE-392456 也涉及 Niagara 的 dummy-view 积压刷新路径，但报告的是另一个
+数据接口参数绑定故障。这里只将其作为检索线索；本次修复依据上述本机 dump 和源码，
+没有使用它建议的全局放宽积压阈值、丢弃模拟 tick 或关闭 GPU 粒子等绕行方式。
+参考：https://issues.unrealengine.com/issue/UE-392456
+
+三、代码修复
+Source/FPSGAME/Diagnostics/FPSNiagaraSceneLifecycle.h / .cpp：
+- 仅 WITH_EDITOR 注册 OnPostRecreateScene 与 OnWorldCleanup，无逐帧扫描。
+- 仅处理 EWorldType::Editor，且 Scene->GetRenderScene()==nullptr 的对象。
+- 记录弱世界引用，按引擎已有协议 MarkPendingKill FXSystem，再清除场景/世界中的 FX 引用。
+- 真实场景恢复时只为本工具曾停用的世界恢复 FXSystem，发生在组件重新注册之前。
+- 世界清理时移除弱记录；模块退出时解除委托。
+Source/FPSGAME/FPSGAME.cpp：模块启动/退出接入上述生命周期处理。
+
+没有修改引擎 DLL、雾资产、粒子素材、模拟参数、光照质量、怪物数量、战斗或联机规则。
+PIE 客户端/游戏世界不进入这段处理；Game 构建为空实现。保留编辑器场景卸载，不将
+关闭该优化导致的额外编辑器 GPU 分配重新加回游戏过程。没有加入每帧 Flush 或 GPU 等待。
+这不是对所有可能 Renderer 崩溃的保证；它切断的是已有五份 dump 指向的 Null-scene 路径。
+
+四、活怪持续 GPU 高耗时的继续排查
+重新解析已有 20261012-154840-442768 详细 trace，+60.862～71.05 秒：
+- 快 Morph 873 次、慢 Morph 928 次、中间 1 次，全部父级均为 Frame -> SceneRender。
+- 没有一条匹配事件的父链包含 Niagara 命名 scope。
+- 额外只读解码了同区间 124 个 SceneRender 的实际 metadata，均为 ViewFamilies 标签；
+  标签未提供 World/Actor 身份，不能进一步猜成某个具体摄像机或预览窗口。
+- FNULLSceneInterface 的 GetGPUSkinCache/GetSkeletalMeshUpdater 为空，无法将该空场景
+  崩溃链直接作为这些正常 SceneRender 内的员工 Morph 异常的根因。
+  该结论定位事件所属路径，不宣称 Niagara 完全不占 GPU 或排除其他同时存在的负载。
+
+既有输出缓冲分析仍成立：快慢两组都包含 Scatter/Normalize；Normalize 中位数
+分别约 0.006 / 3.484 ms，使用每实例输出 UAV，并含 UAV 屏障和状态转换。
+不能将这部分时间全部算作算术，也不能仅凭差异声称已发生物理换页或驱动等待。
+最新 11:04 遭遇中 +5～20 秒约 35 只活怪、GPU 39～53 ms，无再次观察到的
+MeshObject/SkinCache 条目变化；持续重建不能解释该段，但 2 Hz 采样并非逐帧证明。
+原 F6 GPU trace 在刷怪前 82 秒结束，WDDM 权限失败；这些已保存资料仍缺少同次
+战斗的资源驻留/调度事件。本轮没有用未归因的画质或形变调整来宣称性能主因已修复。
+
+五、产物与状态
+Saved/PIENiagaraCrash20261018/：
+- inspect_crash.py、crash-addresses.json：5 份 dump 的寄存器、对象内存、DLL 散列及虚表证据。
+- *-disassembly.txt：崩溃指令、空场景构造及 Niagara pump 的局部反汇编。
+- analyze_morph_parent_scopes.py、morph-parent-scopes.json：已有 GPU 记录的父级路径统计。
+- read_scene_labels.py、scene-labels.json：已有 demux 包中的 SceneRender metadata 原文；
+  解析使用内存映射，没有重写原始 trace、demux 或既有分析结果。
+- before/、source-receipt.json、build-receipt.json：源码改动与实际构建记录。
+Game 和 Editor 最终共享构建均成功；本批三个源码散列未变，新增实现与模块入口的
+目标对象均晚于保存的源码，并已成功链接到 Game EXE / Editor DLL。
+Game 成功日志：Saved/BuildEditor/tactical-gear-keys-20261018-game.log。
+Editor 成功日志：SourceAssets/TrouserFit20261018/editor-build.log。
+此前在途 Editor 构建的依赖清单未收录新增 cpp，曾出现两个生命周期函数未解析的链接错误；
+该失败没有当作成功回执，最终重新收集源文件的成功构建已包含新增实现。
+未打开 UE、未运行游戏/复现/联机/性能测试；构建与运行效果分别报告。

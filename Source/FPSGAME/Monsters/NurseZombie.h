@@ -25,6 +25,7 @@ public:
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UHumanoidKnockdownComponent> Knockdown;
     virtual void OnConstruction(const FTransform& Transform) override;
+    void PrepareDeferredAllocation();
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
@@ -72,6 +73,7 @@ protected:
     virtual float ApplyMeleeDamage(APawn* Victim);
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
+    TArray<TWeakObjectPtr<UActorComponent>> DeferredRegistration;
     void SetState(ENurseState NewState);
     UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;

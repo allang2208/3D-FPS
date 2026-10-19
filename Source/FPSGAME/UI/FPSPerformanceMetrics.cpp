@@ -1,5 +1,8 @@
 #include "FPSPerformanceMetrics.h"
+#include "FPSGpuTraceCapture.h"
+#include "FPSGpuTraceSessionSubsystem.h"
 
+#include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "Framework/Application/SlateApplication.h"
@@ -65,6 +68,9 @@ void UFPSPerformanceMetricsSubsystem::Initialize(FSubsystemCollectionBase& Colle
     RecentHitches.Reserve(MaxHitches);
     WorstHitches.Reserve(MaxWorstHitches);
     SessionId = FGuid::NewGuid().ToString(EGuidFormats::Digits);
+    if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+        if (auto* TraceSession = GameInstance->GetSubsystem<UFPSGpuTraceSessionSubsystem>())
+            GpuTraceCapture = TraceSession->GetCapture();
     EndFrameHandle = FCoreDelegates::OnEndFrame.AddUObject(this, &ThisClass::SampleEngineFrame);
     WorldTickStartHandle = FWorldDelegates::OnWorldTickStart.AddUObject(this, &ThisClass::BeginWorldTick);
     WorldTickEndHandle = FWorldDelegates::OnWorldTickEnd.AddUObject(this, &ThisClass::EndWorldTick);
@@ -73,6 +79,10 @@ void UFPSPerformanceMetricsSubsystem::Initialize(FSubsystemCollectionBase& Colle
 
 void UFPSPerformanceMetricsSubsystem::Deinitialize()
 {
+    // Ordinary map travel destroys this World collector, but the GameInstance
+    // retains the user's capture and the destination World reattaches it.
+    GpuTraceCapture.Reset();
+    ++CaptureGeneration;
     FCoreDelegates::OnEndFrame.Remove(EndFrameHandle);
     FWorldDelegates::OnWorldTickStart.Remove(WorldTickStartHandle);
     FWorldDelegates::OnWorldTickEnd.Remove(WorldTickEndHandle);
@@ -93,6 +103,9 @@ void UFPSPerformanceMetricsSubsystem::Deinitialize()
 
 void UFPSPerformanceMetricsSubsystem::ClearSamples()
 {
+    // Reset the frame/event window without cutting the independent GPU trace.
+    // Its clock anchors remain valid across capture generations; explicit stop,
+    // export and the recorder's bounds still end it.
     ++CaptureGeneration;
     ResetEncounterDiagnostics();
     RenderResourceSamples.Reset();
@@ -100,7 +113,8 @@ void UFPSPerformanceMetricsSubsystem::ClearSamples()
     RenderResourceWriteIndex = 0;
     RenderResourceSamplesOverwritten = 0;
     NextRenderResourceSampleSeconds = 0.0;
-    bRenderResourceSamplePending = false;
+    // An in-flight budget observation survives a diagnostic reset. Its old
+    // detail rows are discarded on publication, without admitting a second read.
     EventsDiscardedAtBoundary = 0;
     InvalidateActiveEvents();
     EventCount = EventWriteIndex = 0;
@@ -127,7 +141,32 @@ void UFPSPerformanceMetricsSubsystem::SetRecording(bool bEnabled)
     PreviousActions = TotalActions;
     PreviousIconActions = TotalIconActions;
     if (bEnabled) ClearSamples();
-    else { ArchiveCombatWindow(false); InvalidateActiveEvents(); GpuInventoryRequests.Reset(); }
+    else
+    {
+        if (GpuTraceCapture) GpuTraceCapture->RequestStop(TEXT("recording_stopped"));
+        ArchiveCombatWindow(false); InvalidateActiveEvents(); GpuInventoryRequests.Reset();
+    }
+}
+
+void UFPSPerformanceMetricsSubsystem::ToggleGpuTraceCapture()
+{
+    if (IsGpuTraceRunning()) { GpuTraceCapture->RequestStop(TEXT("F6_stop")); return; }
+    if (!bRecording) SetRecording(true);
+    if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+        if (auto* TraceSession = GameInstance->GetSubsystem<UFPSGpuTraceSessionSubsystem>())
+            GpuTraceCapture = TraceSession->StartCapture(SessionId, CaptureGeneration);
+    NextRenderResourceSampleSeconds = 0.;
+}
+
+bool UFPSPerformanceMetricsSubsystem::IsGpuTraceRunning() const
+{
+    return GpuTraceCapture && GpuTraceCapture->IsRunning();
+}
+
+FString UFPSPerformanceMetricsSubsystem::GpuTraceStatusText() const
+{
+    return GpuTraceCapture ? GpuTraceCapture->StatusText()
+        : FFPSGpuTraceCapture::ReadyStatusText();
 }
 
 void UFPSPerformanceMetricsSubsystem::SampleEngineFrame()
@@ -232,6 +271,7 @@ void UFPSPerformanceMetricsSubsystem::ReadWindow(FFPSPerformanceSnapshot& Snapsh
     Snapshot.RequestedWindowSeconds = WindowSeconds;
     Snapshot.HitchThresholdMs = HitchThresholdMs;
     Snapshot.SessionId = SessionId;
+    Snapshot.GpuTraceCapture = GpuTraceCapture;
     Snapshot.CaptureGeneration = CaptureGeneration;
     Snapshot.SnapshotSeconds = Now;
     Snapshot.EventsOverwritten = EventsOverwritten;

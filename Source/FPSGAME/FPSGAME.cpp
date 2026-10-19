@@ -3,6 +3,7 @@
 #include "FPSGAME.h"
 
 #include "Diagnostics/FPSLoadHitchProbe.h"
+#include "Diagnostics/FPSNiagaraSceneLifecycle.h"
 
 #include "Containers/Ticker.h"
 #include "Modules/ModuleManager.h"
@@ -42,12 +43,14 @@ public:
         // and UE fell back to the Default Material. The include file lives at
         // <ProjectDir>/Shaders/ClearwaterWaves.ush; see Tools/Fluids/clearwater_generate_nodes.py.
         FFPSLoadHitchProbe::Startup();
+        FFPSNiagaraSceneLifecycle::Startup();
         GLoadHitchTicker = FTSTicker::GetCoreTicker().AddTicker(
             FTickerDelegate::CreateStatic(&TickLoadHitchProbe));
     }
 
     virtual void ShutdownModule() override
     {
+        FFPSNiagaraSceneLifecycle::Shutdown();
         if (GLoadHitchTicker.IsValid())
         {
             FTSTicker::GetCoreTicker().RemoveTicker(GLoadHitchTicker);

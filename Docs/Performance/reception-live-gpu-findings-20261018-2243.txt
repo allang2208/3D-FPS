@@ -1,0 +1,101 @@
+随机地牢 22:43 实机记录：公共形变输出链与内存证据
+2026-10-18
+
+结论
+本次再次捕获怪群存活时持续低帧，并把问题进一步收紧到部分 GPU 输出缓冲的访问/同步。
+同一帧、同一个迎宾员模型、同样 162110 个顶点的 Normalize，快的派发约 0.0082 ms，
+慢的约 3.17–3.75 ms。相同网格的输入共享，输出独立；这比“角色总面数高”更能解释异常。
+但没有取得每个输出所属堆的物理驻留映射，不能声称某块具体缓冲已证实落在系统内存。
+本轮没有性能修复收益数据；没有降低画质、减少怪物或更改战斗规则。
+
+原始数据及时间边界
+- Saved/PerformanceReports/gpu-968633B349C74C2B1133B58DC68F242B/
+  performance-20261018-144337-A7982A7346FF4FF8169A20B46995EEA1.json
+  engine.utrace、buffers.jsonl、manifest.json 均已关闭并落盘。
+- UE PID 146836，PIE/D3D12，RTX 3080 Ti，2552x1218，地牢种子 1573616704。
+- GPU trace：22:43:25.050–22:43:27.833，2.784 秒。
+  结束原因 samples_cleared，WDDM ETW 错误 5，没有完整内核调度 ETL。
+- JSON 帧窗口：约 22:43:27.945–22:43:37.283，9.338 秒，92 帧。
+  它与上述 GPU trace 的时段重叠为 0；同一 session 不等于同一时间窗口。
+  清空也丢弃了原刷怪前后窗口，此 JSON 的 encounter windows 为空。
+- 独立只读系统计数按 PID、LUID 和 QPC 对齐，覆盖两个窗口。
+  Saved/ReceptionGpuDiagnosis20261018/live-user-2242/ 保存原始计数、机器状态、日志、
+  解码结果和复算脚本 analyze.py；分析结果 analysis.json。
+
+帧与 GPU 证据
+- JSON：9.852 FPS，帧时间平均 101.503 ms，P50 88.305 ms，P95 205.717 ms。
+  GPU 发布读数平均 89.859 ms；该读数与当前 CPU 帧没有来源帧 ID，不能逐行硬对齐。
+  暂停 0 帧、后台 0 帧；资源观察中活怪持续 38，衣服/武器重建均为 0。
+- 只统计完全位于 GPU trace 起止之间的 22 个完整 Graphics Frame：
+  GPU 平均 119.038 ms，中位数 107.076 ms，一帧峰值 345.945 ms。
+  每帧 MorphUpdate 46.964 ms，其中 Scatter 14.776 ms、Normalize 29.458 ms。
+  SkinCache 外层 28.621 ms，内部 287 次派发的范围合计 6.836 ms。
+  父子范围不相加；JSON 和 trace 的平均值也不是前后优化对照。
+- SkinCache 相邻派发间隙合计每帧约 21.78 ms，99.71% 位于同 shader permutation 之间。
+  220 个超过 1 ms 的 Normalize 全位于已提交 GPUWork 内，UE 队列等待记录交集为 0。
+  这不排除 UE 未记录的驱动/系统调度或内部访问延迟。
+- 迎宾员在各帧按派发次序分组，四组 Normalize 中位数约 0.0082 ms，另四组约
+  3.17/3.40/3.69/3.75 ms；派发序号不是可靠 Actor ID，不将它冒充具体怪物身份。
+  研究员也同时存在约 0.0071 ms 与 2.34–2.64 ms 的 Normalize。
+  霜剑手臂 Normalize 中位数约 0.0041 ms，没有全局统一退化。
+- 源码 Engine/Shaders/Private/MorphTargets.usf:163 的 GPUMorphNormalizeCS 按顶点
+  从输出 UAV 读取六个整数、做尺度转换并原位写回；不读取共享压缩 morph 输入或骨骼。
+  因而相同顶点数的 Normalize 巨大差距，优先指向对应输出的访问/同步，而非 morph
+  压缩数据解码数量变化。
+- 缓冲观察：17 个独立输出合计 54.36 MiB，均为 placed DEFAULT 资源；current/previous
+  指向同一批资源，不能重复计算。两份共享输入合计 69.17 MiB，为 committed DEFAULT。
+  采样内的身份稳定不等于物理驻留稳定，也不能按原生资源地址断言父堆/物理页归属。
+
+系统内存和显卡证据
+- GPU trace 时，系统可用物理内存仅 366–541 MiB，提交余量 989–1287 MiB；
+  JSON 时，物理内存 499–684 MiB，提交余量 856–1354 MiB。
+- 期间 nvidia-smi 显存余量约 327–405 MiB，图形时钟 1935 MHz，显存时钟 9501 MHz；
+  trace 与 JSON 对齐样本未出现降频原因标志。不能用低帧率推断显卡降频。
+- 同 PID/LUID 的 D3DKMT_QUERYSTATISTICS 原始成功返回值：
+  local.Demoted 合计在 trace 中 480–533.375 MiB，JSON 中 533.375–693.375 MiB；
+  nonlocal usage 约 829–1042 MiB。它与资源访问退化假说一致。
+- 上述结构在 Microsoft 文档中标记为系统保留，字段缺乏公开支持合同；只作为本机
+  辅助证据，不作为正式产品依赖，也不能直接把数值映射到形变输出或断言驻留根因。
+  TotalBytesEvictedFromProcess 在两个性能窗口都保持 13.547 MiB，没有新增；
+  后面增加到 66.273 MiB 发生在窗口之后，不能拿它证明卡顿时反复驱逐。
+- 现场还运行过 NullRHI 资产处理 commandlet，主 UE 日志出现 TextureDerivedData
+  预计 1537 MiB、可用构建额度约 637 MiB 仍继续执行的记录。确有系统内存压力，
+  不能把这一轮所有长帧全归属怪物，也没有测得该后台进程独占了多少内存。
+
+已修正的确定问题
+- FPSPerformanceMetrics::ClearSamples 只清空帧/事件窗口，不再中止独立 GPU trace。
+  显式停止、导出、最长时限、GameInstance 结束和引擎退出仍结束追踪。
+- F6 清空提示明确说明正在进行的 GPU 追踪继续。
+- JSON 新增 gpu_trace_window_overlap_seconds 和 gpu_trace_covers_frame_window，
+  在闭合锚点和帧窗口存在时计算真实覆盖，避免“同 session”被误读成“同时间段”。
+- 源码已保存；最终构建状态见本报告后续记录，不把这项采集修正称作刷怪性能修复。
+
+构建落盘
+- 同一工程的 Editor 构建已编译本次四个文件并成功链接：FPSGAMEEditor Win64 Development，
+  Result: Succeeded，237.84 秒。日志为
+  SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/build-FPSGAMEEditor-stamina-01.log。
+  四个编译项为 DevelopmentPerformancePanel.cpp、FPSGpuTraceCapture.cpp、
+  FPSPerformanceMetrics.cpp、FPSPerformanceMetricsExport.cpp。
+- 源码与 DLL 散列/时间回执：Saved/ReceptionGpuDiagnosis20261018/live-user-2242/build-receipt.json。
+  未重新打开 UE，也未对“清空后继续追踪”进行运行复测；之前导出的旧证据未更改。
+
+优化与验证顺序
+1. 首要假说是部分热输出/共享蒙皮资源的本地显存访问退化。下一轮应在同构建、种子、
+   装备、分辨率和画质下，排除同时进行的资产编译/离屏渲染负载，保留正常怪群。
+   同步捕获快/慢 Normalize、输出/父堆身份、显存计数；普通权限仍可继续，不强制 UAC。
+2. 依据实际引用链检查可释放的编辑器/上一场景/远房间缓存及持续强制驻留请求；只有
+   确认可释放且不影响当前画面/后续正常战斗的资源才调整。不盲目扩大纹理池。
+3. 如果内存压力减轻后同一组输出仍慢，再做诊断标记单变量对照。默认画质配置保持。
+   不在缺少父堆归属证据时全局抬高资源优先级或更改屏障/同步。
+
+参考
+https://microsoft.github.io/DirectX-Specs/d3d/ResourceHeaps.html
+  显存分配/碎片问题可能让资源降级到系统内存；剩余预算不能保证分配的物理位置。
+https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmthk/ns-d3dkmthk-d3dkmt_querystatistics_process_segment_group_information
+  D3DKMT 查询结构的系统保留限制。
+
+2026-10-19 后续记录
+见 Docs/Performance/shared-buffer-residency-and-driver-findings-20261019.txt。
+已完成授权的独立游戏采集、候选资源常驻修正及 Editor/Game 构建；确认了另一类
+Bindless 描述符堆创建长停顿。该新停顿不替代本报告内持续慢 Normalize 的归因。
+原始时间线和本报告的旧窗口事实保持不变；尚未取得逐缓冲物理驻留证明。

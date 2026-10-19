@@ -11,6 +11,7 @@ class UGameViewportClient;
 class ULightComponent;
 class FSlateWindowElementList;
 class FJsonObject;
+class FFPSGpuTraceCapture;
 struct FConvexVolume;
 
 /** Valid observations only. Percentile = sorted[ceil(p * n) - 1]; empty means unknown. */
@@ -285,6 +286,8 @@ struct FFPSPerformanceSnapshot
     FFPSIconActions IconActions;
     FFPSIconTaskState IconTask;
     FString SessionId;
+    TSharedPtr<FFPSGpuTraceCapture, ESPMode::ThreadSafe> GpuTraceCapture;
+    TSharedPtr<FJsonObject> GpuTraceBundle;
     uint64 CaptureGeneration = 0, EventsOverwritten = 0;
     int32 EventsDiscardedAtBoundary = 0, ActiveEventCount = 0;
     bool bEventsCapacityLimited = false;
@@ -320,11 +323,24 @@ public:
     void ClearSamples();
     void SetRecording(bool bEnabled);
     bool IsRecording() const { return bRecording; }
+    void ToggleGpuTraceCapture();
+    bool IsGpuTraceRunning() const;
+    FString GpuTraceStatusText() const;
+    /** Export uses the current recorder even when the displayed snapshot is frozen. */
+    void AttachGpuTraceCapture(FFPSPerformanceSnapshot& Snapshot) const { Snapshot.GpuTraceCapture = GpuTraceCapture; }
+    /** Shared, at most 2Hz passive budget observation; works with diagnostics stopped. */
+    void RefreshRenderBudget();
     /** Optional preparation only; unknown/stale samples must not delay gameplay. */
     bool HasRecentRenderHeadroom(uint64 ReserveBytes) const
     {
         return RenderBudgetBytes>0 && FPlatformTime::Seconds()-RenderBudgetSeconds<2.0
             && RenderUsedBytes<RenderBudgetBytes && RenderBudgetBytes-RenderUsedBytes>=ReserveBytes;
+    }
+    /** A missing/stale sample pauses admission, but is not evidence for eviction. */
+    bool HasRecentRenderMemoryPressure(uint64 ReserveBytes) const
+    {
+        return RenderBudgetBytes>0 && FPlatformTime::Seconds()-RenderBudgetSeconds<2.0
+            && (RenderUsedBytes>=RenderBudgetBytes || RenderBudgetBytes-RenderUsedBytes<ReserveBytes);
     }
     void RecordUiUpdate(float Milliseconds);
     static bool ExportSnapshot(const FFPSPerformanceSnapshot& Snapshot, FString& OutPath);
@@ -444,6 +460,7 @@ private:
     static constexpr int32 MaxEncounterEvents=512;
     static constexpr int32 MaxGpuInventories=6;
     static constexpr int32 MaxRenderResourceSamples = 360;
+    TSharedPtr<FFPSGpuTraceCapture, ESPMode::ThreadSafe> GpuTraceCapture;
     uint64 LastObservedFrame = MAX_uint64;
     bool bRecording = true;
     static constexpr int32 MaxSamples = 8192;

@@ -50,6 +50,11 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("HairStrandsCore");
         PrivateDependencyModuleNames.Add("AnimationWarpingRuntime");
         PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });
+        if (Target.Platform == UnrealTargetPlatform.Win64)
+        {
+            PrivateDependencyModuleNames.Add("D3D12RHI"); // Public native-resource identity API for opt-in F6 capture.
+            PublicSystemLibraries.Add("advapi32.lib"); // ETW controller/provider; no external recorder process.
+        }
         PrivateDependencyModuleNames.AddRange(new[] { "ClothingSystemRuntimeCommon", "ClothingSystemRuntimeInterface" });
         PrivateDependencyModuleNames.AddRange(new[] { "PCG", "GeometryCore", "GeometryFramework" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");

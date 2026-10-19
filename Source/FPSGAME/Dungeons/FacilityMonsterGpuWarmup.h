@@ -18,6 +18,8 @@ public:
     /** Returns true only when this call submits a capture. */
     bool Tick(bool bAllowSubmission);
     bool IsReady() const;
+    FName Stage() const;
+    void Cancel();
     void RestoreForActivation();
 
 private:
@@ -27,7 +29,7 @@ private:
     TStrongObjectPtr<UTextureRenderTarget2D> Target;
     TSharedPtr<FFacilityWarmupCompletion, ESPMode::ThreadSafe> Completion;
     FTransform OriginalRelativeTransform;
-    double StartedAt = 0.;
+    FName WaitReason = TEXT("waiting_for_admission");
     int32 OriginalForcedLOD = 0;
     bool bOriginalCastShadow = false, bOriginalAffectLighting = false, bOriginalRayTracing = false;
     bool bOriginalCaptureOnly = false, bOriginalHidden = false, bOriginalVisible = true;

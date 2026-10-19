@@ -1,0 +1,62 @@
+F6：缓冲驻留与 WDDM 调度记录接入（2026-10-15）
+
+用途
+沿 FacelessReceptionist / FacelessResearcher 衣服 Morph GPU 更新继续定位：
+将实际输入／输出缓冲身份、WDDM 内存迁移／调度事件和 UE Morph/Normalize GPU 时间线放在同一次记录中。
+这批是诊断接入，不代表已证明驱动等待或驻留迁移为主因，不调整画质、怪物数量、Morph 权重、战斗或刷怪规则。
+
+用户操作（构建产物生效后）
+1. 进入要复现的游戏世界，在触发怪群之前打开 F6 的性能页，点击“GPU 驻留/调度：开始”。
+2. 等状态显示“记录中”再关闭面板复现。优先在触发本轮刷怪／资源准备之前开始，保留资源创建事件。
+   若进入地牢会切换世界，应在目标世界开始；切换世界会停止旧世界的记录。
+3. 卡顿出现后重新打开 F6，点击“导出记录”；后台会自动停止并收尾，等显示导出路径。
+   不要在导出前清空采样或退出 PIE。无需打开“GPU 资源详采”。
+4. 发送该路径所在的整个 gpu-<capture_id> 文件夹，可自行压缩；不要只发送 performance JSON。
+   默认位置：D:/FPS3D/FPSGAME/Saved/PerformanceReports/gpu-<capture_id>/。
+
+权限与界限
+- WDDM ETW 需要 Windows 允许启用该系统提供程序。如果 F6 显示权限不足，下次由用户以管理员身份启动 UE 后再开始记录。
+  程序不弹 UAC、不重启、不修改用户组或系统权限。失败信息仍可通过“导出记录”保存。
+- 记录最长 180 秒；ETL 为 512 MiB 环形文件，UE trace 达到 1 GiB 后停止（每秒观察，软上限）。
+  达到上限后仍可导出；每次开始使用独立目录，不覆盖之前的记录。一次只保留一个活动记录器。
+- 深采有自身开销。ETW 使用 64–128 个 256 KiB 缓冲，身份观察复用原有最多 2 Hz 入口；开销写入 native_buffer_observation_rhi_ms。
+  未启用深采时不启动 ETW、UE 文件 trace 或原生缓冲身份查询。
+- 已有其他 UE trace 时本次拒绝接管，并在 F6 显示原因。只停止自己命名的 ETW 会话及自己的 UE trace。
+- 已停止的记录保留；清空样本、停止普通采集、世界销毁和进程正常退出会请求收尾。
+  强制结束进程可能留下不完整文件／ETW 会话；manifest 中记录精确会话名，不扫描或停止其他会话。
+
+导出文件
+- performance-*.json：F6 原有帧、战斗窗口、怪群、Morph 权重、内存预算等记录，schema_version=12；gpu_trace_bundle 附带清单。
+- engine.utrace：cpu、frame、gpu、counters、bookmark；保留引擎已有 GPU 事件和 FPS.GpuTrace.* 标记，不打开 RDG 全量资源枚举。
+- wddm.etl：DxgKrnl 的内存、GPU VA、分页、调度与硬件调度事件，以及当前 PID 的 D3D12、UMD 映射和自定义身份标记。
+- buffers.jsonl：QPC／平台时间／UTC 锚点；两类无脸员工的 shared_morph_input、morph_output_current、morph_output_previous。
+  字段含组件／资产、观察帧、RHI 指针、D3D12 Resource 指针、适配器 LUID、GPU VA 原生基址、逻辑与原生大小、placed 属性、heap 类型。
+- manifest.json：会话／PID、原始 Windows 错误码、rundown 返回值、收尾状态、事件／缓冲丢失、身份丢弃、文件大小及停止原因。
+
+对齐和归因规则
+1. ETW 使用 QPC 时钟；同一 clock_anchor 写入 JSONL、私有 ETW 提供程序和 UE bookmark。
+2. 缓冲身份在有序 RHI 命令流读取；只短暂持有 RHI 引用至该回调完成，不在异步游戏线程发布后继续钉住缓冲。
+   不 Flush GPU、不等待 fence、不调用 MakeResident/Evict，也不通过诊断改变资源使用优先级。
+3. GPU VA / COM 指针可能复用，必须结合时间、PID、适配器和资源生命周期关联，不能只按裸地址匹配。
+   只读输入可能位于原生资源的子分配中；公开 RHI 接口不提供偏移。logical_range_matches_native_resource=false 时只知道原生分配范围。
+4. ue_resident_flag_not_physical_segment 仅是 UE 内部标志，physical_segment 故意留 null。
+   实际本地／非本地段、迁移、驱逐、分页和抢占从 ETL 对应事件还原；不能用“总预算未超限”排除迁移。
+5. 启用提供程序或请求 rundown 成功，不保证驱动输出了全部旧分配。环形 ETL 覆盖开头也不计入 events_lost。
+   分析前按文件真实时间覆盖、原始事件、映射是否可用和丢失计数判定证据，缺失不能当作“没有等待”。
+6. F6 保留“当前显示快照”导出语义，冻结显示时 JSON 的 snapshot 时间可能早于 GPU 记录；不要按单行序号强行对齐。
+   先用各自时间与 generation、capture_id 定位，再判断慢 Normalize 与分页或调度切出的重合关系。
+
+提供程序
+DxgKrnl 802ec45a-1e99-4b83-9920-87c98277ba9d，keywords 0x043084c7，系统 GPU 元数据。
+D3D12 5d8087dd-3a9b-4f56-90df-49196cdc4f11，全部关键字，当前 PID。
+UMD mapping a688ee40-d8d9-4736-b6f9-6b74935ba3b1，keyword 1，当前 PID。
+FPS identity 9c613968-e475-4f37-a16d-0ec753f84925，keyword 1，当前 PID。
+掩码依据本机 Windows SDK GPUView LDDMCore.man / UMDEtw.man / log.cmd。
+未启用 ForceVsync、StablePower、DefaultOverride 或 Cdd，不通过跟踪修改显示／功耗策略。
+
+交付状态
+源码和接入说明已落盘；本轮未打开 UE、未启动记录、未测试。
+等待现有工程构建后，后台提交 FPSGAMEEditor 与 FPSGAME（Win64 Development），均返回 Result: Succeeded / Target is up to date。
+本轮两次构建各执行 0 个增量动作；共享工程产物已由前面的构建更新，本次没有重新生成或启动应用。
+构建回执：Saved/F6GpuTrace20261015/editor-build.log、Saved/F6GpuTrace20261015/game-build.log。
+实际事件覆盖、按钮交互、权限与性能影响均尚未运行验证，待用户复现后导出。

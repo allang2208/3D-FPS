@@ -1,0 +1,59 @@
+进入游戏后无法操作：排查记录（2026-10-17）
+
+用户明确的现象
+“画面／声音还在，但无法操作”。因此当前重点是输入接管／焦点／控制器状态；不能将蒙皮加载警告直接写成这次“卡死”的根因。
+用户进一步确认：WASD、鼠标转向、Esc/F6 全部不响应，点击游戏画面也无效。光标是否可见尚不明确。
+这削弱了单纯 PIE 未自动捕获鼠标的解释；应优先区分 Slate/UIOnly、viewport IgnoreInput、CommonUI 路由，以及控制器较早的面板拦截分支。
+
+现有证据
+1. 最新 Saved/Logs/FPSGAME.log 是 11:35–11:40（北京时间）的 DayNight_Lighting PIE 会话。
+   11:36:48.883 和 11:36:50.360 都记录 TransitLoading: restore gameplay input，pawn=FPSGAMECharacter_0。
+   此后日志帧号继续变化，直到 11:40:15；没有本次 Fatal、GPU device lost、VSM 溢出或已记录的死锁栈。
+   这只证明输入恢复函数曾执行，不能证明最后焦点仍在游戏或没有后续输入拦截。
+2. 首次查询时没有存活的 UnrealEditor / FPSGAME 游戏进程，无法读取故障现场的控制器、Slate 焦点及输入栈。
+   当天最新本项目崩溃文件是 08:10 的 UnrealEditor-Cmd / Campfire::PublishSharedState，属于较早 commandlet，不能当成本次 PIE 的根因。
+   后台编译期间约 12:04 出现新的 FPSGAME 编辑器进程。通过现有 MCP 桥只读调用时返回 No existing game world，没有正在运行的游戏现场；没有启动或恢复游戏。
+3. Config/DefaultInput.ini 中 MoveForward/MoveRight、MouseX/MouseY 和动作绑定仍完整。
+   Native PlayerController 创建 HUD 后设置 GameOnly；启动菜单关闭、准备完成和遮罩移除各有恢复入口。
+   RestoreGameplayInput 清除 IgnoreInput、move/look locks、隐藏光标并切回 GameOnly；但旧日志只输出地图／Pawn，未记录最终状态。
+4. Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini 的 GameGetsMouseControl=False。
+   这是 PIE 自动获得鼠标控制的偏好，只是焦点分支的线索；启动菜单已有显式交还逻辑，不能单凭该值判定或自动改用户偏好。
+5. 本次 trace 仅在内存缓存，没有 F6 深采启动记录和新的 gpu-* 导出；不能将 WDDM 文件收尾等待套到本次启动。
+   当前天空已于 10 月 17 日切换 Ultra Dynamic Sky / Weather，旧 StormCloudComponent.cpp 已退役；没有恢复旧天空方案。
+
+另一个确实存在的启动阻塞
+11:36:14–11:36:34 同一日志帧 289 内有同步等待蒙皮资产；随后预加载一次请求 400 个资源，来源集合 870 条，470 条未入队。
+蒙皮编译日志记录估计需求 4608 MiB，高于当时调度内存限额，并持续到 11:37:12 左右。
+这些能解释进入阶段的长停顿，但不能解释用户补充的持续“画面／声音在、操作无效”。本轮未因此降低画质或改预加载策略。
+
+下一步证据与准备
+已准备 Tools/Performance/read_entry_input_state.py，只能对已经存在的游戏世界读取：
+暂停状态、Pawn、移动／视角输入锁、移动组件状态、控制器面板引用、InputComponent 的阻断属性、UMG 焦点／鼠标捕获。
+脚本不启动游戏、不模拟按键、不改焦点、不强行解锁、不加载地图、不保存资产。
+补充源码中的只读 GetInputRoutingState 接口，脚本可取得 viewport IgnoreInput、控制器/Pawn InputEnabled、CommonUI 模式/是否放行/活动叶节点、Slate 当前焦点/祖先路径及鼠标捕获。
+Development 日志在 RestoreGameplayInput 完成后、遮罩移除后输出 TransitInputState，不依赖玩家能按下 F6。没有新增逐帧采样、自动解锁或改动菜单输入规则。
+原先的 restore gameplay input 日志只代表恢复函数执行过，不能证明 CommonUI 路由也已放行；原生状态补全解决的是证据缺口，尚不是已确认的故障修复。
+完整控制器输入栈顺序仍不在诊断接口范围内。只读脚本已在新出现的编辑器中调用一次，但由于没有游戏世界而停止，尚未取得现场 JSON；必要构建结果见下，不运行游戏或测试。
+
+当前结论
+问题范围已收敛到输入失效；现有离线证据不足以确定具体拦截者。
+保留下一次故障现场，不退出 UE，再读取上述状态；先依据实值找到持有者，避免每帧重置输入而破坏背包、工作台、战斗控制等正常规则。
+
+待区分的路径（按本次症状排查优先级，不代表已确认概率）
+1. Slate 焦点/捕获仍在 UI，或 viewport_ignore_input=true：输入可能在到达控制器前就被截断；对照 focus_path_leaf_to_root、cursor_captor 与 loading_owns_input，确定持有者。
+2. CommonUI 仍处于 Menu 且 common_ui_allows_game_input=false：原生 GameOnly 不足以证明 ActionRouter 放行；对照 common_ui_leaf 找到活动控件。当前原生 HUD 默认不自动激活，不能预先归咎于 CommonUI。
+3. 控制器/Pawn InputEnabled、pause 或较早的面板分支：若前两层正常，再对照面板引用和移动组件状态。只关闭 Pawn 输入通常不足以解释控制器层的 F6 同时失效。
+本次故障的首个错误状态转换尚未知；最后已知的交接点是 11:36:50.360 遮罩移除时的 RestoreGameplayInput。
+
+用户后续自行运行时的证据
+正常进入应能移动、转向及打开 Esc/F6；若再次全部失效，保留进程以便通过现有 MCP 桥只读取得 input-state JSON，无需能按下任何游戏键。
+即使进程已退出，也可从 Saved/Logs/FPSGAME.log 中提取 TransitInputState。它只代表交接时刻；不能把启动快照当成稍后发生故障时的实况。
+application_active 和 viewport_has_focus 是读取时的状态：用户切回 Codex 后它们可能正常为 false，不能仅凭这两项判定焦点故障。
+没有新增强制解锁、修改 PIE 自动捕获偏好、削减画质、怪物数量或战斗规则。
+
+构建与落盘状态
+首轮 FPSGAMEEditor Development 后台构建完成大部分编译，但新增诊断中 auto* 推导 GetPawn() 的 TObjectPtr 返回值失败；已改为显式 APawn*。
+再次构建被当前运行编辑器的 Live Coding 拦截，日志为 Unable to build while Live Coding is active。本轮未关闭编辑器、未触发热补丁，新增接口含反射声明，应在编辑器关闭后完成常规构建。
+新增诊断仅源码落盘，尚未链接成新的 FPSGAME 模块，也没有更新独立 Game 可执行文件；不能称为诊断已在当前游戏生效，更不能称为输入故障已修复。
+构建日志：Saved/BuildEditor/entry-input-routing-20261017-editor.log、entry-input-routing-20261017-editor-final.log。
+本轮只读调用回执：Saved/InputHandoff20261017/input-read-1206.json。

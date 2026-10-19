@@ -27,6 +27,7 @@
 #include "Misc/CommandLine.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Misc/PackageName.h"
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -38,10 +39,20 @@ namespace FPSBodyPreloadPrivate
 {
     /** Only content under these roots is warmed; plugin and engine content is left alone. */
     bool IsWantedPath(const FString& Path);
+    void AddPath(TSet<FSoftObjectPath>& Out, const FString& Path);
 
     int32 GAsyncPreload = 1;
     int32 GMaxAssets = 400;
     int32 GExpandFolders = 0;
+    int32 GPreloadCandidates = 0;
+
+    FAutoConsoleVariableRef CVarPreloadCandidates(
+        TEXT("fps.body.AsyncPreloadCandidates"),
+        GPreloadCandidates,
+        TEXT("0 = preload body, class defaults and inventory only (default). 1 also retains\n")
+        TEXT("the generated equipment literal registry until GameInstance shutdown. This\n")
+        TEXT("includes unselected fallback meshes; enable only for an explicit comparison."),
+        ECVF_Default);
 
     FAutoConsoleVariableRef CVarAsyncPreload(
         TEXT("fps.body.AsyncPreload"),
@@ -141,7 +152,7 @@ namespace FPSBodyPreloadPrivate
             const FString Package = Asset.PackageName.ToString();
             if (IsWantedPath(Package) && IsUnderExpandRoot(Package))
             {
-                Out.Add(FSoftObjectPath(Package));
+                AddPath(Out, Package);
             }
         }
         UE_LOG(LogTemp, Display, TEXT("BodyAssetPreloader: %d folders expanded via the asset registry"),
@@ -174,7 +185,11 @@ namespace FPSBodyPreloadPrivate
     {
         if (IsWantedPath(Path))
         {
-            Out.Add(FSoftObjectPath(Path));
+            // Registry entries are package names; reflected/inventory references
+            // include the object name. They must share one admission/retention key.
+            const FString ObjectPath = Path.Contains(TEXT("."))
+                ? Path : Path + TEXT(".") + FPackageName::GetShortName(Path);
+            Out.Add(FSoftObjectPath(ObjectPath));
         }
     }
 
@@ -428,13 +443,6 @@ void UFPSBodyAssetPreloader::KickoffOnce()
     FPSBodyPreloadPrivate::CollectFromBodyConfig(Paths);
     FPSBodyPreloadPrivate::CollectFromClassDefaults(Paths, AFPSGAMECharacter::StaticClass());
 
-    // The equipment load sites read these compile-time constants, so this is the only
-    // complete enumeration of the weapon viewmodels, sounds and attachment meshes.
-    for (const TCHAR* Path : FPSPreloadRegistry::Paths)
-    {
-        FPSBodyPreloadPrivate::AddPath(Paths, Path);
-    }
-
     if (UColdSteelStatusModel* Model = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
     {
         FPSBodyPreloadPrivate::CollectFromInventory(Paths, Model);
@@ -452,14 +460,32 @@ void UFPSBodyAssetPreloader::KickoffOnce()
         }
     }
 
-    const int32 NamedCount = Paths.Num();
-    FPSBodyPreloadPrivate::ExpandFolders(Paths);
-
+    // Spend the bounded admission slots on the actual body/defaults/inventory
+    // before speculative weapon-family candidates. Do not depend on TSet order
+    // to keep currently needed equipment ahead of a generated registry.
     RequestAssets(Paths);
+    const int32 PrimaryCount = RequestedPaths.Num();
+
+    TSet<FSoftObjectPath> EquipmentPaths;
+    if (FPSBodyPreloadPrivate::GPreloadCandidates != 0)
+    {
+        // A literal registry is not the equipped asset set. It also contains
+        // mutually exclusive fallback revisions which runtime loaders will not
+        // select together. Do not pin all their GPU resources by default.
+        for (const TCHAR* Path : FPSPreloadRegistry::Paths)
+        {
+            FPSBodyPreloadPrivate::AddPath(EquipmentPaths, Path);
+        }
+    }
+    const int32 NamedCount = EquipmentPaths.Num();
+    if (FPSBodyPreloadPrivate::GPreloadCandidates != 0)
+        FPSBodyPreloadPrivate::ExpandFolders(EquipmentPaths);
+    RequestAssets(EquipmentPaths);
 
     UE_LOG(LogTemp, Display,
-        TEXT("BodyAssetPreloader: requested %d assets asynchronously (%d named, %d recovered by folder expansion); toggle with fps.body.AsyncPreload"),
-        RequestedPaths.Num(), NamedCount, RequestedPaths.Num() - NamedCount);
+        TEXT("BodyAssetPreloader: requested %d assets asynchronously (body/inventory=%d, additional equipment=%d, registry candidates=%d, folder candidates=%d); toggle with fps.body.AsyncPreload"),
+        RequestedPaths.Num(), PrimaryCount, RequestedPaths.Num() - PrimaryCount,
+        NamedCount, EquipmentPaths.Num() - NamedCount);
 }
 
 void UFPSBodyAssetPreloader::RequestAssets(const TSet<FSoftObjectPath>& Paths)
@@ -497,8 +523,13 @@ void UFPSBodyAssetPreloader::RequestAssets(const TSet<FSoftObjectPath>& Paths)
         {
             if (UFPSBodyAssetPreloader* Self = WeakThis.Get())
             {
-                Self->LoadedCount = Self->RequestedPaths.Num();
-                UE_LOG(LogTemp, Display, TEXT("BodyAssetPreloader: %d assets resident"), Self->LoadedCount);
+                // Primary and optional batches may complete in either order.
+                // Report resolved objects, not all requests when the first finishes.
+                Self->LoadedCount = 0;
+                for (const FSoftObjectPath& Path : Self->RequestedPaths)
+                    Self->LoadedCount += Path.ResolveObject() != nullptr;
+                UE_LOG(LogTemp, Display, TEXT("BodyAssetPreloader: %d / %d assets loaded"),
+                    Self->LoadedCount, Self->RequestedPaths.Num());
             }
         }),
         // Default priority (0): AsyncLoadHighPriority (100) competes with the streaming

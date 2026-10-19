@@ -1,0 +1,91 @@
+随机地牢 11:04 新导出：持续 GPU 开销与跨地图采集断点
+2026-10-18；仅分析用户已有文件及源码，没有启动 UE、游戏、新采集或测试。
+
+结论
+新 JSON 再次确认生成结束后仍有持续 GPU 高耗时。已有 trace 正常关闭，但它只录到
+切地图前的 3.63 秒，在首次刷怪前 82.04 秒就结束，不能用于归因这次战斗的 GPU pass。
+原因是 World 性能子系统销毁时直接停止了本应覆盖后续地牢的进程级采集。
+该生命周期问题已改为 GameInstance 持有；WDDM 本次仍因权限不足没有开启。
+本轮不把采集修复或帧率差异称为活怪 GPU 主因已修复。
+
+一、输入与时间线
+性能 JSON：Saved/PerformanceReports/performance-20261018-030430-9BC468EC4AE6380FEC124D85E328215F.json
+JSON session：B8D5D550453ECEF6D9CD8897F819473C；generation 1；导出 11:04:30。
+GPU 目录：Saved/PerformanceReports/gpu-0DF03BD44B638F401522FF87AD633B9B/
+trace 的起始 session：E65E66164255668303707EBB6E2A152D；PID 45700；manifest 3。
+
+北京时间：
+- 11:02:15.871：在 DayNight_Lighting 世界开始 GPU 追踪。
+- 11:02:19.478：日志记录 LoadMap L_Dungeon_Randomized，旧世界开始销毁。
+- 11:02:19.497：capture_stop；stop_reason=world_deinitialize。
+- 11:02:22.267：地牢世界开始运行，新 World 对应新的性能 session。
+- 约 11:03:41.536：本次遭遇首次成功刷怪，已晚于 trace 停止 82.039 秒。
+- 11:04:29.950：请求导出地牢 JSON；gpu_trace_bundle_status=not_requested。
+
+采集状态：ue_trace_stop_ok=true、ue_trace_file_closed=true、available_files_finalized=true。
+engine.utrace 为 23739485 字节；buffers.jsonl 为 427 字节，只有两条时钟锚点。
+etw_start_error=5，capture_mode=ue_trace_only，files_finalized=false；没有 wddm.etl。
+不能因存在 engine.utrace 就认定其覆盖了怪群，不能把不同 World session 的文件直接配对。
+时间边界已经证明无战斗重叠，因此没有把这 3.63 秒的 GPU pass 当作活怪开销证据。
+
+二、实际卡顿窗口
+一个完整遭遇窗口，605 帧，未发生窗口容量截断、丢弃事件、暂停帧或后台帧。
+36 次成功激活在 +3.600 秒内完成：接待员 10、研究员 9、安保 8、投掷者 8、M14 1。
+SpawnAttempt 36 次包含耗时合计 71.966 ms，单次最大 6.214 ms，不能解释后续数秒的低帧。
+
+相对首次刷怪      FPS      GPU均值ms    活怪均值     本地显存预算余量MiB
+-3～0 秒          65.85       12.81        0.00            631.7
+ 0～2 秒          23.92       37.87       10.00            525.6
+ 2～5 秒          10.88       90.49       31.50            501.8
+ 5～10 秒         18.41       52.97       35.11            435.3
+10～15 秒         23.82       40.41       35.00            479.3
+15～20 秒         23.53       39.25       34.50            541.8
+
+顶部 58.69 FPS 是导出时另外一个滚动窗口，不能代替上述遭遇窗口。
+Game/Draw/RHI/GPU 是独立异步发布的进程级计时，不相加、不同帧强行配对。
+该运行与前次镜头、种子和怪物组合不同，不能据 8 FPS -> 18/23 FPS 声称某项优化收益。
+
+三、衣服/缓冲方向进一步排查
+研究员与接待员在 +2.208 / +2.763 秒有 17 条 MeshObject 身份变化观察：
+7 个组件先变化，之后 10 个组件变化，部分组件出现两次；前后均已有对象且 LOD0。
+这是渲染对象重建/替换线索，不等于已经证明形变输出缓冲重新分配；引擎存在缓冲转移复用。
+不把这些变化按 CPU 耗时或 GPU 独占时长计入。
+
++5～20 秒没有再观察到这些组件的 MeshObject 或 SkinCache entry 变化，但 GPU 仍为
+39～53 ms。因此持续重建不能解释该稳定低帧段。此处为至多 2 Hz 采样，未观察到
+不能扩写为完全排除采样间的短时变化。
+多数观察仍仅有两个非零衣服 Morph，少量过渡为 1/4 个；没有独立 RT SkinCache entry。
+visible_flag 为真不代表实际提交、无遮挡或进入 GPU，因此不能按该标志推算每只怪的 GPU 时间。
+
+旧详细 trace 的 Normalize 输出 UAV/屏障异常仍是主线，但本次缺少同次战斗的 GPU pass、
+逐实例缓冲身份和 WDDM。不能据本地预算余量证明物理换页，或认定某个驱动等待已发生。
+本轮没有据此强改 CPU Morph、缓冲优先级、LOD、衣服帧率、阴影或怪物规则。
+
+四、跨地图采集修正
+新增 FPSGpuTraceSessionSubsystem，由 GameInstance 保留显式开启的采集。
+World 的 FPSPerformanceMetrics 只保留自身帧/事件/资源历史；销毁时解除引用，新世界
+初始化时从同一个 GameInstance 接续采集。导出仍在后台收尾，180 秒和文件大小上限保留。
+GameInstance 结束时自动停止；多实例共享进程 trace 时，仅发起实例拥有自动停止权，
+其他客户端销毁不会自动停止发起者的采集。主动停止/导出仍是用户对进程级采集的操作。
+新 PIE 会话有独立的 GameInstance 子系统，不继承上一场已停止的采集。
+UE 源码 LoadMap 在 InitWorld 前设置 GameInstance；GameInstance.Shutdown 会销毁其子系统。
+
+manifest 版本更新为 4，明确 metrics_session_id 是起始 World 的 session，记录原始
+GameInstance 及生命周期合同。JSON 标明起始 session 是否与本快照一致；不同世界应按
+共同单调时间、实际区间及组件世界路径关联，不伪装成同一场景的历史。
+没有改变权限设置、自动提权、重启 UE，WDDM 权限问题仍需具备权限的用户进程处理。
+
+五、单独的退出崩溃
+日志在导出之后、11:04:31 停止 PIE 并销毁世界，11:04:34 出现 Renderer/Niagara
+渲染线程访问异常。它与此前启动 GPU 追踪触发 AudioInsights/AssetRegistry 的断言不同。
+本轮保留为独立退出崩溃线索，没有据此推断它就是遭遇时持续 GPU 高耗时的根因。
+
+产物
+Saved/GpuTraceTravelFix20261018/analyze_export.py / analysis.json：本次时间、帧段与渲染对象分析。
+同目录 before/、source-receipt.json、build-receipt.json：源码改动与构建状态。
+Editor / Game 共享后台构建均成功，四个相关 cpp 的 obj 均晚于本批源码，源码散列未变。
+Editor 先在一个因无关命令行工具而失败的构建中完成本批编译，随后成功构建复用这些对象
+完成 DLL 链接；两阶段日志均已保留，没有把前一次整体失败报告为成功。
+Game 成功记录为 Saved/BuildEditor/tactical-gear-20261018-game-retry.log；Editor 最终链接
+记录为 SourceAssets/BowSparrowThirdPerson20261018/Build-20261018-111930-Editor/build.log。
+没有运行复现或联机测试；构建成功与用户运行效果分别记录。

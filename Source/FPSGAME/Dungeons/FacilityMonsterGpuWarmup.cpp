@@ -23,7 +23,6 @@ FFacilityMonsterGpuWarmup::FFacilityMonsterGpuWarmup(ANurseZombie* Monster)
     if (!Monster || Monster->HasActorBegunPlay() || !Monster->VisualMesh || !Monster->IdleClip) return;
     auto* Mesh = Monster->GetMesh();
     Body = Mesh;
-    StartedAt = FPlatformTime::Seconds();
     OriginalRelativeTransform = Mesh->GetRelativeTransform();
     OriginalForcedLOD = Mesh->GetForcedLOD();
     bOriginalCastShadow = Mesh->CastShadow;
@@ -82,8 +81,13 @@ bool FFacilityMonsterGpuWarmup::Tick(bool bAllowSubmission)
     }
     // Let normal end-of-frame updates register the render state. Do not block
     // the gameplay thread waiting for compilation, render commands or the GPU.
-    if (!bAllowSubmission || Mesh->IsPSOPrecaching() || !Mesh->MeshObject || Mesh->IsRenderStateDirty()) return false;
-    if (FPlatformTime::Seconds() - StartedAt > 5.) return false;
+    if (!bAllowSubmission) { WaitReason = TEXT("budget_or_spawn_priority"); return false; }
+    if (Mesh->IsPSOPrecaching()) { WaitReason = TEXT("pso_pending"); return false; }
+    if (!Mesh->MeshObject || Mesh->IsRenderStateDirty())
+    { WaitReason = TEXT("render_registration_pending"); return false; }
+    // Waiting for a budget or PSO is not a failed attempt. This reservation is
+    // bounded by the hall scheduler and consumed/cancelled at its real lifecycle
+    // boundary; an elapsed wall-clock cutoff would strand it permanently.
     Target.Reset(NewObject<UTextureRenderTarget2D>(GetTransientPackage(), NAME_None, RF_Transient));
     Target->RenderTargetFormat = RTF_RGBA8;
     Target->InitAutoFormat(64, 64);
@@ -121,6 +125,24 @@ bool FFacilityMonsterGpuWarmup::Tick(bool bAllowSubmission)
 bool FFacilityMonsterGpuWarmup::IsReady() const
 {
     return Completion.IsValid() && Completion->Ready.Load();
+}
+
+FName FFacilityMonsterGpuWarmup::Stage() const
+{
+    if (bRestored) return TEXT("released");
+    if (!Body.IsValid() || !Completion) return TEXT("unavailable");
+    if (IsReady()) return TEXT("ready");
+    if (bSubmitted) return TEXT("gpu_pending");
+    return WaitReason;
+}
+
+void FFacilityMonsterGpuWarmup::Cancel()
+{
+    // The deferred owner is about to be destroyed. Do not restore its shadow,
+    // GI and RT contribution only to enqueue another render-state teardown.
+    bRestored = true;
+    ReleaseCapture();
+    Body.Reset();
 }
 
 void FFacilityMonsterGpuWarmup::ReleaseCapture()

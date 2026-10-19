@@ -1,0 +1,774 @@
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp
+@@ -2,0 +3 @@
++#include "FacilityHallPreparationBudget.h"
+@@ -5 +6,4 @@
+-#include "Engine/GameInstance.h"
++#include "GameFramework/Character.h"
++#include "Dom/JsonObject.h"
++#include "HAL/PlatformMemory.h"
++#include "Misc/App.h"
+@@ -11,2 +15 @@
+-    if (IsValid(Hall) && Hall->GetWorld() == GetWorld() && Hall->HasAuthority())
+-        Pending.AddUnique(Hall);
++    if (IsValid(Hall) && Hall->GetWorld() == GetWorld() && Hall->HasAuthority()) Pending.AddUnique(Hall);
+@@ -16,0 +20,2 @@
++    if (Hall) Hall->PreparationRequestedAt = -1.;
++    if (PreparationCandidate.Get() == Hall) PreparationCandidate.Reset();
+@@ -24,2 +29,8 @@
+-    if (IsValid(Hall) && Hall->GetWorld()==GetWorld() && GetWorld()->GetNetMode()==NM_Standalone)
+-        PreparationPending.AddUnique(Hall);
++    if (!IsValid(Hall) || Hall->GetWorld() != GetWorld() || !Hall->HasAuthority() || GetWorld()->GetNetMode() == NM_Client) return;
++    double DistanceSquared;
++    if (Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared) == INDEX_NONE) return;
++    if (!PreparationPending.Contains(Hall))
++    {
++        Hall->PreparationRequestedAt = GetWorld()->GetTimeSeconds();
++        PreparationPending.Add(Hall);
++    }
+@@ -30,2 +41,2 @@
+-    int32 Count=0;
+-    for (const auto& Hall:PreparedHalls) if (Hall.IsValid() && Hall->PreparedMonster.IsValid()) ++Count;
++    int32 Count = 0;
++    for (const auto& Hall : PreparedHalls) if (Hall.IsValid()) Count += Hall->PreparedMonsters.Num();
+@@ -32,0 +44,167 @@
++}
++
++uint64 UFacilityHallSpawnSubsystem::PreparedBytes() const
++{
++    uint64 Bytes = 0;
++    for (const auto& Hall : PreparedHalls)
++        if (Hall.IsValid()) for (const auto& Entry : Hall->PreparedMonsters) Bytes += Entry->EstimatedBytes;
++    return Bytes;
++}
++
++bool UFacilityHallSpawnSubsystem::HasPreparationHeadroom(uint64 AdditionalBytes) const
++{
++    const uint64 Required = FacilityHallPreparation::ReserveBytes + AdditionalBytes;
++    if (AvailablePhysical < Required || AvailableVirtual < Required) return false;
++    if (GetWorld()->GetNetMode() == NM_DedicatedServer || !FApp::CanEverRender()) return true;
++    const auto* Metrics = GetWorld()->GetSubsystem<UFPSPerformanceMetricsSubsystem>();
++    return Metrics && Metrics->HasRecentRenderHeadroom(Required);
++}
++
++TSharedRef<FJsonObject> UFacilityHallSpawnSubsystem::PreparationSnapshot() const
++{
++    const auto Result = MakeShared<FJsonObject>();
++    Result->SetStringField(TEXT("policy"), TEXT("Area topology: entry passage -> welcome; connected approach within 18m -> theme. Due waves before future waves; round-robin room reservations. Server-only deferred actors, client assets/PSOs use generator preparation."));
++    Result->SetNumberField(TEXT("pending_preparations"), PreparationPending.Num());
++    Result->SetNumberField(TEXT("instance_limit"), FacilityHallPreparation::MaxInstances);
++    Result->SetNumberField(TEXT("estimated_buffer_limit_bytes"), double(FacilityHallPreparation::MaxEstimatedBytes));
++    Result->SetNumberField(TEXT("estimated_buffer_bytes"), double(PreparedBytes()));
++    Result->SetNumberField(TEXT("required_free_bytes"), double(FacilityHallPreparation::ReserveBytes));
++    const double Now = GetWorld()->GetTimeSeconds();
++    double Oldest = 0.;
++    for (const auto& WeakHall : PreparationPending)
++        if (const auto* Hall = WeakHall.Get(); Hall && Hall->PreparationRequestedAt >= 0.)
++            Oldest = FMath::Max(Oldest, Now - Hall->PreparationRequestedAt);
++    Result->SetNumberField(TEXT("oldest_request_age_seconds"), Oldest);
++    TArray<TSharedPtr<FJsonValue>> Rows;
++    for (const auto& WeakHall : PreparedHalls)
++        if (const auto* Hall = WeakHall.Get()) for (const auto& Entry : Hall->PreparedMonsters)
++        {
++            const auto Row = MakeShared<FJsonObject>();
++            double DistanceSquared;
++            Row->SetNumberField(TEXT("priority"), Hall->PreparationPriority(Entry->Slot, DistanceSquared));
++            Row->SetNumberField(TEXT("room"), Hall->Room.Id);
++            Row->SetNumberField(TEXT("slot"), Entry->Slot);
++            Row->SetStringField(TEXT("class"), Entry->Monster.IsValid() ? Entry->Monster->GetClass()->GetPathName() : FString());
++            Row->SetNumberField(TEXT("age_seconds"), Now - Entry->PreparedAt);
++            Row->SetNumberField(TEXT("estimated_buffer_bytes"), double(Entry->EstimatedBytes));
++            Row->SetStringField(TEXT("warmup"), Entry->GpuWarmup ? Entry->GpuWarmup->Stage().ToString() : TEXT("native_only"));
++            Rows.Add(MakeShared<FJsonValueObject>(Row));
++        }
++    Result->SetArrayField(TEXT("reservations"), Rows);
++    return Result;
++}
++
++void UFacilityHallSpawnSubsystem::MaintainPreparation(double Now)
++{
++    if (Now < NextPreparationMaintenanceAt) return;
++    NextPreparationMaintenanceAt = Now + .1;
++    PreparationPending.RemoveAll([](const auto& Entry)
++    {
++        auto* Hall = Entry.Get();
++        if (!Hall) return true;
++        double DistanceSquared;
++        if (Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared) == INDEX_NONE)
++        { Hall->PreparationRequestedAt = -1.; return true; }
++        return false;
++    });
++    AFacilityHallEncounter* Best = nullptr;
++    int32 BestPriority = MAX_int32, BestCount = MAX_int32;
++    double BestDistance = TNumericLimits<double>::Max();
++    for (const auto& Entry : PreparationPending)
++    {
++        auto* Hall = Entry.Get();
++        double DistanceSquared;
++        const int32 Priority = Hall->PreparationPriority(Hall->FindPreparationSlot(), DistanceSquared);
++        const int32 Count = Hall->PreparedMonsters.Num();
++        if (Priority < BestPriority || (Priority == BestPriority && (Count < BestCount
++            || (Count == BestCount && DistanceSquared < BestDistance))))
++        { Best = Hall; BestPriority = Priority; BestCount = Count; BestDistance = DistanceSquared; }
++    }
++    PreparationCandidate = Best;
++    if (bPreparationReleasePending)
++    {
++        if (!PreparationReleaseFence.IsFenceComplete()) return;
++        bPreparationReleasePending = false;
++    }
++    // Retire one stale/lower-priority reservation before any capacity guard.
++    // Memory pressure cannot strand a remote holding pool ahead of an active area.
++    AFacilityHallEncounter* Retire = nullptr;
++    bool bMustRetire = false;
++    const auto* Metrics = GetWorld()->GetSubsystem<UFPSPerformanceMetricsSubsystem>();
++    // Headroom unknown means "do not allocate", not "destroy the existing pool".
++    // A delayed render observation must not create a retire/rebuild cycle.
++    const bool bRenderPressure = GetWorld()->GetNetMode() != NM_DedicatedServer && FApp::CanEverRender()
++        && Metrics && Metrics->HasRecentRenderMemoryPressure(FacilityHallPreparation::ReserveBytes);
++    const bool bPressure = AvailablePhysical < FacilityHallPreparation::ReserveBytes
++        || AvailableVirtual < FacilityHallPreparation::ReserveBytes || bRenderPressure;
++    int32 RetireIndex = INDEX_NONE, WorstPriority = bPressure ? INDEX_NONE : BestPriority;
++    const uint64 NewBytes = Best ? Best->EstimatePreparationBytes(Best->FindPreparationSlot()) : 0;
++    const bool bFull = PreparedCount() >= FacilityHallPreparation::MaxInstances
++        || PreparedBytes() + NewBytes > FacilityHallPreparation::MaxEstimatedBytes;
++    for (const auto& WeakHall : PreparedHalls)
++    {
++        auto* Hall = WeakHall.Get();
++        if (!Hall) continue;
++        for (int32 Index = 0; Index < Hall->PreparedMonsters.Num(); ++Index)
++        {
++            const auto& Entry = Hall->PreparedMonsters[Index];
++            double DistanceSquared;
++            const int32 Priority = Hall->PreparationPriority(Entry->Slot, DistanceSquared);
++            const bool bWrongClass = Hall->Slots.IsValidIndex(Entry->Slot) && Entry->Monster.IsValid()
++                && Entry->Monster->GetClass() != Hall->Members[Hall->Slots[Entry->Slot].Member];
++            if (!Entry->Monster.IsValid() || Priority == INDEX_NONE || bWrongClass)
++            { Retire = Hall; RetireIndex = Index; bMustRetire = true; break; }
++            // Under real pressure also reclaim the least relevant reservation
++            // first; insertion order can otherwise evict the current room.
++            if ((bPressure || (Best && bFull)) && Priority > WorstPriority)
++            { Retire = Hall; RetireIndex = Index; WorstPriority = Priority; }
++        }
++        if (bMustRetire) break;
++    }
++    if (Retire)
++    {
++        Retire->DiscardPreparation(RetireIndex, bPressure ? TEXT("memory_headroom") : TEXT("area_priority_or_slot_changed"));
++        PreparationDecision = TEXT("retired_reservation");
++        PreparationReleaseFence.BeginFence();
++        bPreparationReleasePending = true;
++        // A retirement spends this optional slice even if its fence completes
++        // immediately. Due gameplay remains eligible below.
++        NextPreparationAt = FMath::Max(NextPreparationAt, Now + .1);
++        NextWarmupAt = FMath::Max(NextWarmupAt, Now + .1);
++    }
++}
++
++void UFacilityHallSpawnSubsystem::UpdatePreparation(double Now)
++{
++    if (Now < NextPreparationAt) return;
++    NextPreparationAt = Now + .1;
++    if (bPreparationReleasePending && !PreparationReleaseFence.IsFenceComplete())
++    { PreparationDecision = TEXT("preparation_release_wait"); return; }
++    bPreparationReleasePending = false;
++    auto* Best = PreparationCandidate.Get();
++    if (!Best) { PreparationDecision = TEXT("no_relevant_request"); return; }
++    const int32 Slot = Best->FindPreparationSlot();
++    double DistanceSquared;
++    const int32 Priority = Best->PreparationPriority(Slot, DistanceSquared);
++    if (Priority == INDEX_NONE) { PreparationCandidate.Reset(); return; }
++    const uint64 Bytes = Best->EstimatePreparationBytes(Slot);
++    if (PreparedCount() >= FacilityHallPreparation::MaxInstances || PreparedBytes() + Bytes > FacilityHallPreparation::MaxEstimatedBytes)
++    { PreparationDecision = TEXT("prepared_capacity"); return; }
++    if (!HasPreparationHeadroom(Bytes))
++    { PreparationDecision = TEXT("memory_unknown_or_below_reserve"); return; }
++    const double RequestAge = Best->PreparationRequestedAt >= 0. ? Now - Best->PreparationRequestedAt : 0.;
++    PreparationCandidate.Reset();
++    LastAttemptFrame = GFrameCounter;
++    if (Best->PrepareNextSlot())
++    {
++        NextWarmupAt = Now + .1;
++        PreparedHalls.AddUnique(Best);
++        Best->PreparationRequestedAt = Now;
++        PreparationDecision = TEXT("prepared_by_area_priority");
++        // Pace optional registration without making due waves wait for it.
++        PreparationRegistrationFence.BeginFence();
++        bPreparationRegistrationPending = true;
++        UFPSPerformanceMetricsSubsystem::RecordMarker(Best, TEXT("Hall.PreparationSelected"),
++            FString::Printf(TEXT("room=%d slot=%d priority=%d request_age=%.3f prepared=%d"),
++                Best->Room.Id, Slot, Priority, RequestAge, PreparedCount()), true);
++    }
+@@ -50,6 +228,33 @@
+-    PreparedHalls.RemoveAll([](const auto& Entry){return !Entry.IsValid() || !Entry->PreparedMonster.IsValid();});
+-    const auto* Metrics=World->GetSubsystem<UFPSPerformanceMetricsSubsystem>();
+-    bool bAllowWarmup=!bRenderRegistrationPending && (Pending.IsEmpty() || Now<NextAttemptAt)
+-        && Metrics && Metrics->HasRecentRenderHeadroom(1024ull*1024ull*1024ull);
+-    for(const auto& Hall:PreparedHalls)
+-        if(Hall.IsValid()&&Hall->PreparedGpuWarmup)
++    PreparedHalls.RemoveAll([](const auto& Entry) { return !Entry.IsValid() || Entry->PreparedMonsters.IsEmpty(); });
++    if (Now >= NextMemorySampleAt)
++    {
++        const auto Memory = FPlatformMemory::GetStats();
++        AvailablePhysical = Memory.AvailablePhysical; AvailableVirtual = Memory.AvailableVirtual;
++        NextMemorySampleAt = Now + .25;
++    }
++    auto* Metrics = World->GetSubsystem<UFPSPerformanceMetricsSubsystem>();
++    if (Metrics && World->GetNetMode() != NM_DedicatedServer && (!PreparationPending.IsEmpty() || !PreparedHalls.IsEmpty()))
++        Metrics->RefreshRenderBudget();
++    MaintainPreparation(Now);
++    // Poll existing warmups even if due gameplay has priority; no capture here.
++    bool bGpuWarmupPending = false;
++    for (const auto& Hall : PreparedHalls)
++        if (Hall.IsValid()) for (const auto& Entry : Hall->PreparedMonsters)
++            if (Entry->GpuWarmup)
++            {
++                Entry->GpuWarmup->Tick(false);
++                bGpuWarmupPending |= Entry->GpuWarmup->Stage() == TEXT("gpu_pending");
++            }
++    if (bRenderRegistrationPending && !SpawnRenderFence.IsFenceComplete())
++    { PreparationDecision = TEXT("render_registration_wait"); return; }
++    bRenderRegistrationPending = false;
++    Pending.RemoveAll([](const auto& Entry) { return !Entry.IsValid(); });
++    if (!Pending.IsEmpty() && Now >= NextAttemptAt)
++    {
++        const TWeakObjectPtr<AFacilityHallEncounter> Hall = Pending[0];
++        Pending.RemoveAt(0);
++        LastAttemptFrame = GFrameCounter;
++        NextAttemptAt = Now + .05;
++        PreparationDecision = TEXT("due_spawn_priority");
++        TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_Admission);
++        if (Hall.IsValid() && Hall->TrySpawnPendingSlot())
+@@ -57,2 +262,2 @@
+-            if(Hall->PreparedGpuWarmup->Tick(bAllowWarmup))
+-                bAllowWarmup=false; // At most one optional capture admission this frame.
++            SpawnRenderFence.BeginFence();
++            bRenderRegistrationPending = true;
+@@ -60,24 +264,0 @@
+-    // Poll only: a stalled render thread must not block gameplay or admit another
+-    // batch of skeletal resources. This is registration completion, not GPU readiness.
+-    if (bRenderRegistrationPending && !SpawnRenderFence.IsFenceComplete())
+-    { PreparationDecision=TEXT("render_registration_wait"); return; }
+-    bRenderRegistrationPending = false;
+-
+-    Pending.RemoveAll([](const auto& Entry) { return !Entry.IsValid(); });
+-    if (Pending.IsEmpty() || Now < NextAttemptAt)
+-    {
+-        if (Now < NextPreparationAt) return;
+-        NextPreparationAt=Now+.1;
+-        PreparationPending.RemoveAll([](const auto& Entry){return !Entry.IsValid();});
+-        PreparedHalls.RemoveAll([](const auto& Entry){return !Entry.IsValid() || !Entry->PreparedMonster.IsValid();});
+-        // Never reserve an entire wave. Use the existing passive RHI sample;
+-        // no query flush, GPU wait or new high-frequency resource scan.
+-        if (PreparationPending.IsEmpty()) {PreparationDecision=TEXT("no_request");return;}
+-        if (PreparedCount()>=2) {PreparationDecision=TEXT("prepared_capacity");return;}
+-        if (!Metrics || !Metrics->HasRecentRenderHeadroom(1024ull*1024ull*1024ull))
+-        {PreparationDecision=TEXT("budget_unknown_or_below_reserve");return;}
+-        const auto Hall=PreparationPending[0]; PreparationPending.RemoveAt(0);
+-        LastAttemptFrame=GFrameCounter;
+-        if (Hall.IsValid() && Hall->PrepareNextSlot())
+-        {PreparedHalls.AddUnique(Hall);PreparationDecision=TEXT("prepared");}
+-        else PreparationDecision=TEXT("no_eligible_slot");
+@@ -86,13 +267,18 @@
+-    const TWeakObjectPtr<AFacilityHallEncounter> Hall = Pending[0];
+-    Pending.RemoveAt(0);
+-    LastAttemptFrame = GFrameCounter;
+-    NextAttemptAt = Now + .05;
+-    PreparationDecision=TEXT("due_spawn_priority");
+-    TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_Admission);
+-    // Consume one request before calling into the actor; its lifecycle callbacks
+-    // may cancel other queued entries. Each hall retains its 200 ms request rate.
+-    if (Hall.IsValid() && Hall->TrySpawnPendingSlot())
+-    {
+-        SpawnRenderFence.BeginFence();
+-        bRenderRegistrationPending = true;
+-    }
++    // Submit at most one capture every 100ms, and never allocate or activate a
++    // monster in the same frame. Slow frames skip optional work, not due spawns.
++    if (bPreparationRegistrationPending && !PreparationRegistrationFence.IsFenceComplete())
++    { PreparationDecision = TEXT("optional_registration_pending"); return; }
++    bPreparationRegistrationPending = false;
++    if (bGpuWarmupPending) { PreparationDecision = TEXT("optional_gpu_work_pending"); return; }
++    if (DeltaTime > 1.f / 30.f) { PreparationDecision = TEXT("optional_work_yield_slow_frame"); return; }
++    if (!bPreparationReleasePending && Now >= NextWarmupAt && HasPreparationHeadroom(0))
++        for (const auto& Hall : PreparedHalls)
++            if (Hall.IsValid()) for (const auto& Entry : Hall->PreparedMonsters)
++                if (Entry->GpuWarmup && Entry->GpuWarmup->Tick(true))
++                {
++                    NextWarmupAt = Now + .1;
++                    NextPreparationAt = Now + .1;
++                    LastAttemptFrame = GFrameCounter;
++                    return;
++                }
++    UpdatePreparation(Now);
+@@ -103,3 +289,4 @@
+-    for (const auto& Hall:PreparedHalls) if (Hall.IsValid()) Hall->DiscardPreparedMonster();
+-    PreparedHalls.Reset(); PreparationPending.Reset();
+-    Pending.Reset();
++    const auto RetiringHalls = PreparedHalls;
++    PreparedHalls.Reset();
++    for (const auto& Hall : RetiringHalls) if (Hall.IsValid()) Hall->DiscardPreparedMonster(TEXT("world_cleanup"));
++    PreparationPending.Reset(); PreparationCandidate.Reset(); Pending.Reset();
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h
+@@ -8,0 +9 @@
++class FJsonObject;
+@@ -25,0 +27 @@
++    TSharedRef<FJsonObject> PreparationSnapshot() const;
+@@ -27,0 +30,4 @@
++    void MaintainPreparation(double Now);
++    void UpdatePreparation(double Now);
++    uint64 PreparedBytes() const;
++    bool HasPreparationHeadroom(uint64 AdditionalBytes) const;
+@@ -30,0 +37,2 @@
++    TWeakObjectPtr<AFacilityHallEncounter> PreparationCandidate;
++    double NextPreparationMaintenanceAt = 0.;
+@@ -31,0 +40,3 @@
++    double NextWarmupAt = 0.;
++    double NextMemorySampleAt = 0.;
++    uint64 AvailablePhysical = 0, AvailableVirtual = 0;
+@@ -32,0 +44,2 @@
++    FRenderCommandFence PreparationRegistrationFence;
++    FRenderCommandFence PreparationReleaseFence;
+@@ -35,0 +49,2 @@
++    bool bPreparationRegistrationPending = false;
++    bool bPreparationReleasePending = false;
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp b/Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp
+@@ -0,0 +1,144 @@
++#include "FacilityHallEncounter.h"
++#include "FacilityHallPreparationBudget.h"
++#include "AuthoredDungeonGenerator.h"
++#include "DungeonThemeEncounter.h"
++#include "DungeonMonsterRenderPreparation.h"
++#include "../Monsters/NurseZombie.h"
++#include "../UI/FPSPerformanceMetrics.h"
++#include "Engine/World.h"
++#include "ProfilingDebugging/CpuProfilerTrace.h"
++
++int32 AFacilityHallEncounter::FindPreparationSlot() const
++{
++    if (Slots.IsEmpty()) return INDEX_NONE;
++    const int32 DueSlots = bSecondWave ? Slots.Num() : FirstWaveCount;
++    auto Eligible = [this](int32 Index)
++    {
++        if (!Slots.IsValidIndex(Index)) return false;
++        const auto& Slot = Slots[Index];
++        return IsSlotReleased(Slot) && !Slot.bDefeated && !Slot.Monster.IsValid()
++            && Members.IsValidIndex(Slot.Member) && Members[Slot.Member]
++            && !PreparedMonsters.ContainsByPredicate([Index](const auto& Entry) { return Entry->Slot == Index; })
++            // An unavailable/oversized optional candidate must not block the
++            // remaining slots. Normal spawn eligibility is unchanged.
++            && EstimatePreparationBytes(Index) <= FacilityHallPreparation::MaxEstimatedBytes;
++    };
++    if (Eligible(ObjectiveEliteSlot)) return ObjectiveEliteSlot;
++    // Read-only lookahead: neither placement RNG nor wave/slot state advances.
++    for (int32 Offset = 0; Offset < DueSlots; ++Offset)
++    {
++        const int32 Index = (NextSlot + Offset) % DueSlots;
++        if (Eligible(Index)) return Index;
++    }
++    // At most one future-wave reservation per room, only after combat starts.
++    // The entrance budget belongs to the first wave of the entire area.
++    if (Theme.IsValid() && Theme->HasStarted()
++        && !PreparedMonsters.ContainsByPredicate([this](const auto& Entry) { return Entry->Slot >= FirstWaveCount; }))
++        for (int32 Index = DueSlots; Index < Slots.Num(); ++Index)
++            if (Eligible(Index)) return Index;
++    return INDEX_NONE;
++}
++
++int32 AFacilityHallEncounter::PreparationPriority(int32 SlotIndex, double& DistanceSquared) const
++{
++    DistanceSquared = TNumericLimits<double>::Max();
++    if (bStopping || bCleared || !HasAuthority() || GetNetMode() == NM_Client
++        || !Run.IsValid() || !Run->IsRunActive() || !Generator.IsValid() || Generator->IsPreparationPending()
++        || !Theme.IsValid() || !Slots.IsValidIndex(SlotIndex)) return INDEX_NONE;
++    const auto& Slot = Slots[SlotIndex];
++    if (!IsSlotReleased(Slot) || Slot.bDefeated || Slot.Monster.IsValid()
++        || !Members.IsValidIndex(Slot.Member) || !Members[Slot.Member]) return INDEX_NONE;
++    const int32 AreaPriority = Theme->PreparationPriority(DistanceSquared);
++    if (AreaPriority == INDEX_NONE) return INDEX_NONE;
++    const bool bFutureWave = !bSecondWave && SlotIndex >= FirstWaveCount;
++    if (bFutureWave && !Theme->HasStarted()) return INDEX_NONE;
++    // Every area's due first wave outranks optional future reinforcements.
++    return AreaPriority + (bFutureWave ? 4 : 0);
++}
++
++uint64 AFacilityHallEncounter::EstimatePreparationBytes(int32 SlotIndex) const
++{
++    if (!Slots.IsValidIndex(SlotIndex)) return 0;
++    if (GetNetMode() == NM_DedicatedServer || !FApp::CanEverRender()) return 1024ull * 1024ull;
++    const auto* Defaults = Members[Slots[SlotIndex].Member]->GetDefaultObject<ACharacter>();
++    const USkeletalMesh* Mesh = FDungeonMonsterRenderPreparation::BodyMesh(Defaults);
++    const auto* Data = Mesh && !Mesh->IsCompiling() ? Mesh->GetResourceForRendering() : nullptr;
++    // Conservative admission estimate, not a physical VRAM residency reading.
++    // Shared mesh/texture resources are already owned by the generator's run.
++    // Unknown render size must not be admitted as a cheap one-megabyte actor.
++    if (!Data || Data->LODRenderData.IsEmpty()) return FacilityHallPreparation::MaxEstimatedBytes + 1;
++    const uint64 Vertices = Data->LODRenderData[0].GetNumVertices();
++    return 1024ull * 1024ull + Vertices * 128ull;
++}
++
++bool AFacilityHallEncounter::PrepareNextSlot()
++{
++    const int32 Index = FindPreparationSlot();
++    double DistanceSquared;
++    if (PreparationPriority(Index, DistanceSquared) == INDEX_NONE) return false;
++    const auto& Slot = Slots[Index];
++    TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_PrepareNative);
++    FFPSPerformanceScope Scope(this, TEXT("Hall.PrepareNative"), FString::Printf(TEXT("room=%d slot=%d"), Room.Id, Index), true);
++    auto Entry = MakeUnique<FFacilityPreparedMonster>();
++    Entry->Slot = Index;
++    Entry->EstimatedBytes = EstimatePreparationBytes(Index);
++    FActorSpawnParameters Params;
++    Params.Owner = this;
++    Params.bDeferConstruction = true;
++    Params.ObjectFlags |= RF_Transient;
++    Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    Params.CustomPreSpawnInitialization = [&Entry](AActor* Actor)
++    {
++        Entry->bHidden = Actor->IsHidden();
++        Entry->bCollision = Actor->GetActorEnableCollision();
++        Entry->bDamage = Actor->CanBeDamaged();
++        Entry->bReplicates = Actor->GetIsReplicated();
++        Entry->Tags = Actor->Tags;
++        Actor->SetReplicates(false);
++        Actor->Tags.Reset(); Actor->Tags.Add(TEXT("Dungeon.PreparedInstance"));
++        Actor->SetActorHiddenInGame(true);
++        Actor->SetActorEnableCollision(false);
++        Actor->SetCanBeDamaged(false);
++        // Deferred allocation never starts audio/Niagara, AI, timers or rewards.
++        TInlineComponentArray<UActorComponent*> Components(Actor);
++        for (auto* Component : Components)
++            if (Component->bAutoActivate)
++            {
++                Entry->AutoActivateComponents.Add(Component);
++                Component->bAutoActivate = false;
++            }
++        if (auto* Staff = Cast<ANurseZombie>(Actor)) Staff->PrepareDeferredAllocation();
++    };
++    // Keep native registered components of other species away from the level.
++    // Their actual construction and placement still happen at normal activation.
++    const FTransform Staging(FRotator::ZeroRotator, Room.Origin + FVector(0, 0, -1000000.));
++    auto* Monster = GetWorld()->SpawnActor<ACharacter>(Members[Slot.Member], Staging, Params);
++    if (!IsValid(Monster)) return false;
++    Entry->Monster = Monster;
++    Entry->PreparedAt = GetWorld()->GetTimeSeconds();
++    // The existing same-instance GPU path is valid for ordinary staff bodies.
++    // Species-specific appendages/construction use normal activation, not an
++    // invented generic skeletal warmup recipe. Dedicated servers have no GPU work.
++    if (GetNetMode() != NM_DedicatedServer && FApp::CanEverRender() && !Slot.bObjectiveElite
++        && (!bStaffLiving || Slot.Member < 3))
++        if (auto* Staff = Cast<ANurseZombie>(Monster))
++            Entry->GpuWarmup = MakeUnique<FFacilityMonsterGpuWarmup>(Staff);
++    PreparedMonsters.Add(MoveTemp(Entry));
++    return true;
++}
++
++void AFacilityHallEncounter::DiscardPreparation(int32 PreparedIndex, const TCHAR* Reason)
++{
++    auto Entry = MoveTemp(PreparedMonsters[PreparedIndex]);
++    PreparedMonsters.RemoveAt(PreparedIndex);
++    UFPSPerformanceMetricsSubsystem::RecordMarker(this, TEXT("Hall.PreparationRetired"),
++        FString::Printf(TEXT("room=%d slot=%d age=%.3f reason=%s"), Room.Id, Entry->Slot,
++            GetWorld()->GetTimeSeconds() - Entry->PreparedAt, Reason), true);
++    if (Entry->GpuWarmup) Entry->GpuWarmup->Cancel();
++    if (Entry->Monster.IsValid()) Entry->Monster->Destroy();
++}
++
++void AFacilityHallEncounter::DiscardPreparedMonster(const TCHAR* Reason)
++{
++    while (!PreparedMonsters.IsEmpty()) DiscardPreparation(PreparedMonsters.Num() - 1, Reason);
++}
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallPreparationBudget.h b/Source/FPSGAME/Dungeons/FacilityHallPreparationBudget.h
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityHallPreparationBudget.h
+@@ -0,0 +1,9 @@
++#pragma once
++#include "CoreMinimal.h"
++
++namespace FacilityHallPreparation
++{
++constexpr int32 MaxInstances = 16;
++constexpr uint64 MaxEstimatedBytes = 256ull * 1024ull * 1024ull;
++constexpr uint64 ReserveBytes = 1024ull * 1024ull * 1024ull;
++}
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+@@ -5,0 +6,3 @@
++#include "FacilityHallEncounter.h"
++#include "FacilityHallSpawnSubsystem.h"
++#include "../UI/FPSPerformanceMetrics.h"
+@@ -21,0 +25,25 @@
++    // Cache topology once. Do not prepare a different branch merely because
++    // its volume happens to be close through a wall or on another floor.
++    if (Objective == EDungeonThemeObjective::WelcomeElite)
++    {
++        for (const auto& Node : InRun->AllNodes())
++            if (Node.Module == TEXT("FacilityEntrancePassage")) PreparationApproachNodes.Add(Node.Id);
++    }
++    else
++    {
++        TArray<int32> Pending;
++        for (int32 Id : Rooms)
++            if (const auto* Node = InRun->NodeById(Id))
++                for (int32 Neighbor : Node->Neighbors)
++                    if (!Rooms.Contains(Neighbor)) Pending.AddUnique(Neighbor);
++        for (int32 Index = 0; Index < Pending.Num(); ++Index)
++        {
++            const auto* Node = InRun->NodeById(Pending[Index]);
++            if (!Node || Rooms.Contains(Node->Id)) continue;
++            PreparationApproachNodes.AddUnique(Node->Id);
++            if (Node->bConnector)
++                for (int32 Neighbor : Node->Neighbors)
++                    if (!Rooms.Contains(Neighbor)) Pending.AddUnique(Neighbor);
++        }
++        for (const auto& Door : Boundaries) PreparationEntrances.Add(Door.FloorCenter);
++    }
+@@ -40,0 +69,54 @@
++}
++
++void ADungeonThemeEncounter::RegisterHall(AFacilityHallEncounter* Hall)
++{
++    if (HasAuthority() && IsValid(Hall) && Hall->GetWorld() == GetWorld()) Halls.AddUnique(Hall);
++}
++
++int32 ADungeonThemeEncounter::PreparationPriority(double& DistanceSquared) const
++{
++    DistanceSquared = PreparationDistanceSquared;
++    return PreparationRank;
++}
++
++void ADungeonThemeEncounter::UpdatePreparation()
++{
++    PreparationRank = INDEX_NONE;
++    PreparationDistanceSquared = TNumericLimits<double>::Max();
++    if (!Run.IsValid() || !Run->IsRunActive() || !Generator.IsValid() || Generator->IsPreparationPending()) return;
++    bool bAlivePlayer = false;
++    for (auto It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
++    {
++        const APawn* Player = It->Get() ? It->Get()->GetPawn().Get() : nullptr;
++        if (!IsValid(Player)) continue;
++        const auto* Health = Player->FindComponentByClass<UFPSCombatHealthComponent>();
++        if (Health && Health->IsDead()) continue;
++        bAlivePlayer = true;
++        const FVector At = Player->GetActorLocation();
++        if (ContainsLocation(At))
++        {
++            PreparationRank = 0;
++            PreparationDistanceSquared = 0.;
++            break;
++        }
++        bool bOnApproach = false;
++        for (int32 Id : PreparationApproachNodes)
++            if (const auto* Node = Run->NodeById(Id); Node && Node->DistanceSquared(At) <= FMath::Square(20.))
++            { bOnApproach = true; break; }
++        if (!bOnApproach) continue;
++        double Distance = 0.;
++        if (Objective != EDungeonThemeObjective::WelcomeElite)
++        {
++            Distance = TNumericLimits<double>::Max();
++            for (const FVector& Entrance : PreparationEntrances)
++                Distance = FMath::Min(Distance, FVector::DistSquared(At, Entrance));
++            if (Distance > FMath::Square(1800.)) continue;
++        }
++        PreparationRank = 2;
++        PreparationDistanceSquared = FMath::Min(PreparationDistanceSquared, Distance);
++    }
++    if (bStarted && bAlivePlayer && PreparationRank != 0) PreparationRank = 1;
++    if (PreparationRank == INDEX_NONE) return;
++    auto* Scheduler = GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>();
++    for (const auto& Hall : Halls)
++        if (Hall.IsValid()) Scheduler->RequestPreparation(Hall.Get());
+@@ -72,0 +155,10 @@
++    if (bCleared && !Halls.ContainsByPredicate([](const auto& Hall) { return Hall.IsValid() && !Hall->bCleared; }))
++    {
++        // Once every authored wave is complete there can be no new reservation.
++        // Gate opening animation has its own actor tick and must finish normally.
++        PreparationRank = INDEX_NONE;
++        PreparationDistanceSquared = TNumericLimits<double>::Max();
++        GetWorldTimerManager().ClearTimer(EncounterTimer);
++        return;
++    }
++    UpdatePreparation();
+@@ -85,0 +178,7 @@
++        // One server-owned area event submits every room, including rooms that
++        // no player has entered yet. The shared queue still admits one at a time.
++        auto* Scheduler = GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>();
++        for (const auto& Hall : Halls)
++            if (Hall.IsValid()) Scheduler->Request(Hall.Get());
++        UFPSPerformanceMetricsSubsystem::RecordMarker(this, TEXT("Hall.AreaActivationQueued"),
++            FString::Printf(TEXT("objective=%s rooms=%d prepared=%d"), ObjectiveId(), Halls.Num(), Scheduler->PreparedCount()), true);
+@@ -100 +199,3 @@
+-    GetWorldTimerManager().ClearTimer(EncounterTimer);
++    // Surviving rooms can still have ordinary waves. Keep low-frequency
++    // relevance/retirement updates after the objective opens the boundary.
++    GetWorldTimerManager().SetTimer(EncounterTimer, this, &ADungeonThemeEncounter::UpdateEncounter, .2f, true);
+diff --git a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+@@ -24,0 +25,3 @@
++    void RegisterHall(class AFacilityHallEncounter* Hall);
++    /** Cached once per area update, shared by all room preparation requests. */
++    int32 PreparationPriority(double& DistanceSquared) const;
+@@ -30,0 +34 @@
++    void UpdatePreparation();
+@@ -37,0 +42,5 @@
++    TArray<int32> PreparationApproachNodes;
++    TArray<FVector> PreparationEntrances;
++    TArray<TWeakObjectPtr<class AFacilityHallEncounter>> Halls;
++    int32 PreparationRank = INDEX_NONE;
++    double PreparationDistanceSquared = TNumericLimits<double>::Max();
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -2,0 +3 @@
++#include "FacilityMonsterGpuWarmup.h"
+@@ -3,0 +5 @@
++#include "../UI/FPSPerformanceMetrics.h"
+@@ -129,0 +132 @@
++    if (InTheme) InTheme->RegisterHall(this);
+@@ -372,0 +376,2 @@
++AFacilityHallEncounter::~AFacilityHallEncounter() = default;
++
+@@ -375,0 +381,2 @@
++    const FString PerfKey=FString::Printf(TEXT("room=%d module=%s slot=%d wave=%d"),Room.Id,*Room.Module,SlotIndex,SlotIndex>=FirstWaveCount?2:1);
++    FFPSPerformanceScope SpawnScope(this,TEXT("Hall.SpawnAttempt"),PerfKey,true);
+@@ -405,2 +412,35 @@
+-    ACharacter* Monster = GetWorld()->SpawnActorDeferred<ACharacter>(Members[Slot.Member], Transform, this, nullptr,
+-        ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding);
++    ACharacter* Monster = nullptr;
++    const int32 PreparedIndex = PreparedMonsters.IndexOfByPredicate([&](const auto& Entry)
++        { return Entry->Slot == SlotIndex && Entry->Monster.IsValid() && Entry->Monster->GetClass() == Members[Slot.Member]; });
++    const auto* Prepared = PreparedIndex != INDEX_NONE ? PreparedMonsters[PreparedIndex].Get() : nullptr;
++    const bool bPreparedHit = Prepared != nullptr;
++    const FString PreparationDetail = FString::Printf(TEXT(" preparation=%s prepared_slot=%d prepared_age=%.3f warmup=%s"),
++        bPreparedHit ? TEXT("hit") : !PreparedMonsters.IsEmpty() ? TEXT("other_slot") : TEXT("not_prepared"),
++        Prepared ? Prepared->Slot : INDEX_NONE, Prepared ? GetWorld()->GetTimeSeconds() - Prepared->PreparedAt : 0.,
++        Prepared && Prepared->GpuWarmup ? *Prepared->GpuWarmup->Stage().ToString() : TEXT("none"));
++    if (bPreparedHit)
++    {
++        TRACE_CPUPROFILER_EVENT_SCOPE(FacilityHallSpawn_ActivatePrepared);
++        auto Entry = MoveTemp(PreparedMonsters[PreparedIndex]);
++        PreparedMonsters.RemoveAt(PreparedIndex);
++        Monster = Entry->Monster.Get();
++        if (Entry->GpuWarmup) Entry->GpuWarmup->RestoreForActivation();
++        // Placement and RNG run above at the original spawn time. BeginPlay,
++        // AI possession, timers and all gameplay initialization run below once.
++        Monster->Tags = MoveTemp(Entry->Tags);
++        Monster->SetActorHiddenInGame(Entry->bHidden);
++        Monster->SetCanBeDamaged(Entry->bDamage);
++        Monster->SetActorEnableCollision(Entry->bCollision);
++        for (const auto& Component : Entry->AutoActivateComponents)
++            if (Component.IsValid()) Component->bAutoActivate = true;
++        // No prepared actor is sent to a client. Normal construction, component
++        // initialization and initial replication resume together below.
++        Monster->SetReplicates(Entry->bReplicates);
++        Monster->SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
++    }
++    else
++    {
++        FFPSPerformanceScope AllocationScope(this,TEXT("Hall.NativeAllocation"),PerfKey,true);
++        Monster = GetWorld()->SpawnActorDeferred<ACharacter>(Members[Slot.Member], Transform, this, nullptr,
++            ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding);
++    }
+@@ -474,0 +515 @@
++        FFPSPerformanceScope FinishScope(this,TEXT("Hall.FinishSpawning"),PerfKey,true);
+@@ -491,0 +533,8 @@
++    bool& WaveObserved=Reinforcement?bSecondWaveObserved:bFirstWaveObserved;
++    if(!WaveObserved)
++    {
++        WaveObserved=true;
++        UFPSPerformanceMetricsSubsystem::StartCombatWindow(this,FString::Printf(TEXT("room=%d module=%s wave=%d first_spawn"),Room.Id,*Room.Module,Reinforcement?2:1));
++    }
++    UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Hall.SpawnActivated"),
++        PerfKey+FString::Printf(TEXT(" prepared=%d actor=%s class=%s"),bPreparedHit?1:0,*Monster->GetPathName(),*Monster->GetClass()->GetPathName())+PreparationDetail,true);
+@@ -530,0 +580,2 @@
++        UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Hall.Defeated"),
++            FString::Printf(TEXT("room=%d slot=%d elite=%d actor=%s"),Room.Id,Index,Slot.bObjectiveElite?1:0,*Actor->GetPathName()),true);
+@@ -541,0 +593 @@
++            UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Hall.Wave2Triggered"),FString::Printf(TEXT("room=%d killed=%d first=%d"),Room.Id,FirstWaveKills,OrdinaryFirstWaveCount),true);
+@@ -607,0 +660,2 @@
++    if (!bCleared)
++        GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>()->RequestPreparation(this);
+@@ -720,0 +775 @@
++    DiscardPreparedMonster();
+diff --git a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+@@ -5,0 +6 @@
++#include "FacilityMonsterGpuWarmup.h"
+@@ -8,0 +10,13 @@
++
++/** One stable run/room slot, still before construction and BeginPlay. */
++struct FFacilityPreparedMonster
++{
++    TWeakObjectPtr<ACharacter> Monster;
++    TUniquePtr<FFacilityMonsterGpuWarmup> GpuWarmup;
++    TArray<FName> Tags;
++    TArray<TWeakObjectPtr<UActorComponent>> AutoActivateComponents;
++    int32 Slot = INDEX_NONE;
++    double PreparedAt = -1.;
++    uint64 EstimatedBytes = 0;
++    bool bHidden = false, bCollision = true, bDamage = true, bReplicates = false;
++};
+@@ -77,0 +92 @@
++    virtual ~AFacilityHallEncounter();
+@@ -118,0 +134 @@
++    friend class ADungeonThemeEncounter;
+@@ -121,0 +138,6 @@
++    bool PrepareNextSlot();
++    int32 FindPreparationSlot() const;
++    int32 PreparationPriority(int32 SlotIndex, double& DistanceSquared) const;
++    uint64 EstimatePreparationBytes(int32 SlotIndex) const;
++    void DiscardPreparation(int32 PreparedIndex, const TCHAR* Reason);
++    void DiscardPreparedMonster(const TCHAR* Reason = TEXT("end_play"));
+@@ -167,0 +190,3 @@
++    // Separate from Slot.Monster: never contributes to wave/kill/door state.
++    TArray<TUniquePtr<FFacilityPreparedMonster>> PreparedMonsters;
++    double PreparationRequestedAt = -1.;
+@@ -200 +225,2 @@
+-};
++    bool bFirstWaveObserved=false, bSecondWaveObserved=false;
++};
+diff --git a/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp b/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
+--- a/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
+@@ -45 +45 @@
+-        const auto* Mesh=It->GetStaticMeshComponent()->GetStaticMesh();
++        const UStaticMesh* Mesh=It->GetStaticMeshComponent()->GetStaticMesh();
+@@ -121,0 +122,2 @@
++        for (int32 I = PreparedMonsters.Num() - 1; I >= 0; --I)
++            if (PreparedMonsters[I]->Slot >= FirstWaveCount) DiscardPreparation(I, TEXT("freight_boss_defeated"));
+diff --git a/Source/FPSGAME/Building/AlchemyWorldView.cpp b/Source/FPSGAME/Building/AlchemyWorldView.cpp
+--- a/Source/FPSGAME/Building/AlchemyWorldView.cpp
++++ b/Source/FPSGAME/Building/AlchemyWorldView.cpp
+@@ -120,2 +120,2 @@
+-        const FVector Anchor=(Pose[Hands[0].Clavicle].GetLocation()+Pose[Hands[1].Clavicle].GetLocation())*.5f;
+-        const FTransform Fold(FQuat::Identity,Anchor,FVector(.01f));
++        const FVector ClavicleMidpoint=(Pose[Hands[0].Clavicle].GetLocation()+Pose[Hands[1].Clavicle].GetLocation())*.5f;
++        const FTransform Fold(FQuat::Identity,ClavicleMidpoint,FVector(.01f));
+diff --git a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
++++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp
+@@ -980,3 +980,11 @@
+-        FTextureMemoryStats Stats;RHIGetTextureMemoryStats(Stats);
+-        if(Stats.TotalGraphicsMemory>0)
+-            Target=FMath::Max(256,int32((Stats.TotalGraphicsMemory/(1024*1024))*.45));
++        // Both loading-mode policies live beside each other in TextureStreaming.
++        // A missing override retains the project's normal RHI-calculated pool.
++        float CompletePercent=0.f;
++        if(GConfig&&GConfig->GetFloat(TEXT("TextureStreaming"),TEXT("CompletePreloadPoolSizeVRAMPercentage"),CompletePercent,GEngineIni)
++            && CompletePercent>0.f)
++        {
++            FTextureMemoryStats Stats;RHIGetTextureMemoryStats(Stats);
++            if(Stats.TotalGraphicsMemory>0)
++                Target=FMath::Max(256,int32((Stats.TotalGraphicsMemory/(1024*1024))
++                    * (double(FMath::Clamp(CompletePercent,1.f,100.f))/100.)));
++        }

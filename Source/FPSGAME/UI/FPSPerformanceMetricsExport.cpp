@@ -1,4 +1,5 @@
 #include "FPSPerformanceMetrics.h"
+#include "FPSGpuTraceCapture.h"
 #include "Debugging/SlateDebugging.h"
 #include "Async/Async.h"
 
@@ -248,7 +249,7 @@ void AddRecordedDetails(const TSharedRef<FJsonObject>& Root, const FFPSPerforman
     Phases->SetStringField(TEXT("core_ticker"), TEXT("Engine.CoreTickerBoundary is an instant in the registered core ticker callback. In the normal engine loop it follows FFrameEndSync, but the interval before it also includes RHI work, cleanup and other callbacks. It is not an isolated wait measurement."));
     Phases->SetStringField(TEXT("interpretation"), TEXT("Use monotonic intervals, retain multiple invocations per frame and nested scopes; missing scope/marker means unobserved, not zero. Gaps are unattributed wall time; never add overlapping scopes."));
     Root->SetObjectField(TEXT("phase_observation_contract"), Phases);
-    Root->SetStringField(TEXT("capture_lifetime"), TEXT("Current World only; clear/restart resets history. Travel destroys this collector: cross-World loading intervals and prior World histories are not retained."));
+    Root->SetStringField(TEXT("capture_lifetime"), TEXT("Frame/event/resource snapshot history covers the current World only; clear/restart resets it. An explicitly started GPU trace bundle is retained by the GameInstance across World travel and may include earlier Worlds/loading. Its origin metrics session can differ; correlate monotonic time intervals and World/component paths."));
     const bool bHasIconWindow = Snapshot.IconTask.bAvailable && !Snapshot.Frames.IsEmpty();
     Root->SetBoolField(TEXT("window_icon_actions_available"), bHasIconWindow);
     auto IconActions = bHasIconWindow ? IconCountsJson(Snapshot.IconActions) : MakeShared<FJsonObject>();
@@ -395,7 +396,32 @@ void AddRecordedDetails(const TSharedRef<FJsonObject>& Root, const FFPSPerforman
 bool UFPSPerformanceMetricsSubsystem::ExportSnapshot(const FFPSPerformanceSnapshot& Snapshot, FString& OutPath)
 {
     const TSharedRef<FJsonObject> Root = MakeShared<FJsonObject>();
-    Root->SetNumberField(TEXT("schema_version"), 11);
+    Root->SetNumberField(TEXT("schema_version"), 12);
+    if (Snapshot.GpuTraceBundle)
+    {
+        Root->SetObjectField(TEXT("gpu_trace_bundle"), Snapshot.GpuTraceBundle);
+        FString OriginSession;
+        if (Snapshot.GpuTraceBundle->TryGetStringField(TEXT("metrics_session_id"), OriginSession))
+            Root->SetBoolField(TEXT("gpu_trace_origin_matches_snapshot_session"), OriginSession == Snapshot.SessionId);
+        // Same session does not imply the GPU trace covers this frame window:
+        // a previously stopped trace may still be attached to a later export.
+        const TSharedPtr<FJsonObject>* TraceStartAnchor = nullptr;
+        const TSharedPtr<FJsonObject>* TraceStopAnchor = nullptr;
+        double TraceStartSeconds = 0., TraceStopSeconds = 0.;
+        if (!Snapshot.Frames.IsEmpty()
+            && Snapshot.GpuTraceBundle->TryGetObjectField(TEXT("capture_start"), TraceStartAnchor)
+            && Snapshot.GpuTraceBundle->TryGetObjectField(TEXT("capture_stop"), TraceStopAnchor)
+            && (*TraceStartAnchor)->TryGetNumberField(TEXT("platform_seconds"), TraceStartSeconds)
+            && (*TraceStopAnchor)->TryGetNumberField(TEXT("platform_seconds"), TraceStopSeconds))
+        {
+            Root->SetNumberField(TEXT("gpu_trace_window_overlap_seconds"), FMath::Max(0.,
+                FMath::Min(TraceStopSeconds, Snapshot.Budget.LatestSampleSeconds)
+                - FMath::Max(TraceStartSeconds, Snapshot.WindowStartSeconds)));
+            Root->SetBoolField(TEXT("gpu_trace_covers_frame_window"),
+                TraceStartSeconds <= Snapshot.WindowStartSeconds && TraceStopSeconds >= Snapshot.Budget.LatestSampleSeconds);
+        }
+    }
+    else Root->SetStringField(TEXT("gpu_trace_bundle_status"), Snapshot.GpuTraceCapture ? TEXT("not_finalized_use_async_export") : TEXT("not_requested"));
     AddRecordedDetails(Root, Snapshot);
     auto Encounters=MakeShared<FJsonObject>();
     Encounters->SetStringField(TEXT("contract"),TEXT("Automatic on each hall wave's first successful spawn: up to 3s preceding and 20s following frames, nearby triggers merged up to 30s. Four archived windows plus one active, max 4096 frames each. Independent from UI rolling window; clear/restart discards history. Timers retain their original asynchronous/process-wide semantics. No per-actor GPU time is inferred."));
@@ -661,7 +687,9 @@ bool UFPSPerformanceMetricsSubsystem::ExportSnapshot(const FFPSPerformanceSnapsh
     Root->SetArrayField(TEXT("displayed_meshes"), Rows);
     FString Json;
     if (!FJsonSerializer::Serialize(Root, TJsonWriterFactory<>::Create(&Json))) return false;
-    const FString Directory = FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("PerformanceReports"));
+    const FString Directory = Snapshot.GpuTraceBundle && Snapshot.GpuTraceCapture
+        ? Snapshot.GpuTraceCapture->GetDirectory()
+        : FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("PerformanceReports"));
     if (!IFileManager::Get().MakeDirectory(*Directory, true)) return false;
     OutPath = Directory / FString::Printf(TEXT("performance-%s-%s.json"),
         *FDateTime::UtcNow().ToString(TEXT("%Y%m%d-%H%M%S")), *FGuid::NewGuid().ToString(EGuidFormats::Digits));
@@ -679,6 +707,7 @@ void UFPSPerformanceMetricsSubsystem::ExportSnapshotAsync(const FFPSPerformanceS
     for (auto& Cost : Copy.Costs) { Cost.Owner.Reset(); Cost.Component.Reset(); }
     Async(EAsyncExecution::ThreadPool, [Copy = MoveTemp(Copy), Completion = MoveTemp(Completion), Submitted]() mutable
     {
+        if (Copy.GpuTraceCapture) Copy.GpuTraceBundle = Copy.GpuTraceCapture->FinishForExport();
         FString Path;
         const bool bSaved = ExportSnapshot(Copy, Path);
         const double ElapsedMs = (FPlatformTime::Seconds() - Submitted) * 1000.0;

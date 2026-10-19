@@ -1,0 +1,100 @@
+怪群持续卡顿：公共蒙皮输出与同步链的继续排查
+2026-10-18
+
+历史阶段说明：本文记录截至 11:04 F6 数据的调查。随后找到的 12:36 战斗内新 trace、
+缓冲身份、同 37 活怪的恢复对照和装备通知修正，见 monster-shared-gpu-latest-capture-20261018.txt。
+以下“最新/本轮”均指本文原记录阶段，不覆盖后续记录。
+
+当前结论
+用户补充的现象是“主要连续刷怪或怪群存活时持续卡”，不是已确认单独一只怪也持续卡。
+旧追踪支持把调查范围从员工衣服扩展到公共 Morph / SkinCache 输出及 D3D12 同步链：
+不带员工衣服 Morph 的囊袋投手、保安，以及玩家原有背包、靴子也出现慢事件。
+但现有材料还不能证明具体输出缓冲已被迁出显存，或确定某个驱动等待是根因。
+本轮没有保留运行源码/配置改动，没有完成主因修复；只保存离线分析和结论。
+
+证据来源及口径
+- 原始详细追踪：Saved/DungeonEntryCaptures/20261012-154840-442768/。
+- 新分析程序与结果：Saved/MonsterGpuSync20261018/analyze_sync.py、analysis.json。
+- 最新 F6：Saved/PerformanceReports/performance-20261018-030430-9BC468EC4AE6380FEC124D85E328215F.json。
+- 本机引擎：UE 5.8.3，CL 58210709；Saved/Logs/FPSGAME.log 对应 RTX 3080 Ti、D3D12 Legacy Barriers。
+旧详细追踪与最新 F6 是不同次运行。不能把旧 pass 时间直接当成新运行的 pass 时间。
+GPU 事件跨度包含同步/调度/诊断影响，不是纯着色器执行时间；父子跨度不相加。
+
+1. 派发数量与耗时增长不成比例
+旧追踪的 56～59 秒，每秒约 76～83 个 GPU 帧；每帧 87 次 SkinCacheDispatch，
+SkinCache 外层中位数约 0.136～0.137 ms。
+到了 66 秒附近，每帧约 264 次派发，SkinCache 外层中位数约 32.511 ms。
+派发数约增至 3 倍，阶段跨度约增至 237 倍。这不是仅凭“多了一些派发”就能解释的增长。
+这里不假设每次派发顶点数相同，也不把 56～60 秒整个窗口称为零怪物基线：
+该窗口尾部已经有囊袋投手的派发；上述无员工 Morph 的窗口仅用于对比已有工作。
+
+2. 没有员工衣服 Morph 的网格也受影响
+比较完全相同的资产、LOD、分段、顶点数、骨骼格式和形变类型元数据：
+                              56～60 秒最大跨度     63～71 秒最大跨度
+玩家背包，LOD0，25,252 顶点         0.0061 ms              6.6683 ms
+玩家靴子，LOD0，第4段21,908顶点     0.0031 ms              6.1543 ms
+囊袋投手，LOD0，133,424顶点         0.0307 ms              7.6053 ms
+这些是尖峰对比，不是平均值。囊袋投手中位数两窗都约 0.0143 ms，不能写成所有实例一直慢。
+元数据不包含 Actor、缓冲 ID、实际骨骼值或派发标志，不能据此声称是同一物理缓冲。
+但这足以否定“只要重做员工衣服，就覆盖所有已观察慢路径”的推断。
+
+路径覆盖：
+- 研究员/接待员：NurseZombie + MonsterIdleBreathingMeshComponent；有 Morph 与 SkinCache 事件。
+- 保安：同一人形入口；旧 trace 的 SkinCache 元数据无 Morph 输出。
+- 囊袋投手：BellowSacLobber -> WolfMonster；有无 Morph 的 SkinCache 慢事件。
+- M14：独立 ACharacter 身体，最新 F6 有生成记录；这份旧解码没有其逐网格时间，未归责。
+- 玩家背包/靴子/身体/头部：只作公共渲染路径对照，未修改装备或显示规则。
+
+3. 约 1.155 秒位于 SkinCache 相邻派发之间
+在旧 trace +60.862～71.05 秒：
+- SkinCache 外层累计约 2587.326 ms；其中 119 个作用域含实际派发，另有空作用域。
+- 26,263 个子派发累计约 1431.907 ms。
+- 同一父作用域内，相邻派发间隙累计约 1154.992 ms，单个最大 8.376 ms。
+- 这些含派发父作用域的头部间隙累计约 0.012 ms，尾部约 0.120 ms。
+因此大差额主要在相邻派发之间，不是整个阶段最后一条 Transition 的耗时。
+其中最大间隙前后可见相同着色器排列元数据的背包/囊袋投手派发；不能统一算成换 PSO。
+这些间隙不能直接记到下一只怪身上，也不能直接换算成可消除的帧时间。
+
+4. 输出缓冲及同步源码追踪结果
+引擎目录 E:/Program Files (x86)/UE_5.8/Engine/Source/Runtime/：
+- Engine/Private/SkeletalRenderGPUSkin.cpp:211：Morph 输出是 Static + UAV + SRV。
+  D3D12Buffer.cpp:493 将该非 Dynamic 缓冲放进 DEFAULT heap，不是骨骼上传用 UPLOAD heap。
+- Morph 的 Clear -> Scatter 原子累加 -> UAV 同步 -> Normalize -> 可读状态有真实数据依赖。
+  不移除这些屏障，不把合法同步直接判为错误。
+- D3D12UAV.cpp:425～428：硬件清零后登记 UAV 资源驻留。
+- D3D12DescriptorCache.cpp：普通 UAV/SRV 及 bindless 路径均有 UpdateResidency。
+- D3D12CommandList.cpp:11、30、70：资源登记/延迟登记、状态屏障同样经过驻留集。
+  本轮没有找到这条输出写入/读取链漏登记驻留的源码证据。
+- Engine/Private/GPUSkinCache.cpp:1790：只有 Position/PositionPrevious 需要更新的分段进入派发列表。
+  排列由骨骼索引/权重格式、影响类型、形变类型组成，随后按排列和 BatchIndex 排序。
+- Engine/Public/GPUSkinCache.h:133、225：5.7 起已废弃显式 SkinCache 内存预算。
+  当前 ProcessEntry 直接创建所需输出，不存在旧版 128 MiB 限额触发的该套逐出机制。
+  因此没有添加过时的 r.SkinCache.SceneMemoryLimitInMB 调参。
+
+5. GPU 崩溃路标分支：调查过，但没有作为修复保留
+RHI.cpp:2134 的 r.GPUCrashDebugging.Breadcrumbs 默认 1；主开关 r.GPUCrashDebugging=0
+不会覆盖子项默认值。D3D12CommandContext.cpp:123、181 在 GPU 计时事件前后写崩溃路标。
+WindowsD3D12Device.cpp:2350 创建的路标缓冲来自 VirtualAlloc + OpenExistingHeapFromAddress。
+该写回是额外工作，且可能影响所见的同步跨度；它不是 Morph 顶点输出本身。
+本次 minidump 不包含 UseGPUCrashBreadcrumbs 缓存布尔值所在内存页，因此未声称读到了现场开关值。
+官方资料确认这类诊断可能有性能成本，但并未证明它造成这里的数十/上百毫秒异常：
+https://dev.epicgames.com/documentation/unreal-engine/dealing-with-a-gpu-crash-when-using-unreal-engine?application_version=5.8
+https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_writebufferimmediate_mode
+MARKER_OUT 等待前序工作完成，但其语义并不是禁止所有后续 GPU 工作启动。
+因此已撤回本轮临时草拟的关闭开关；DefaultEngine.ini 与本轮修改前备份逐字节一致。
+没有把禁用诊断的候选写成已修复主因，也没有减少 F6、Aftermath 或崩溃记录能力。
+
+6. 最新 F6 对驻留问题的限制
+最新运行 +5～20 秒仍有约 34～35 只活怪、GPU 平均约 39～53 ms；已有观察中
+没有对应的持续 MeshObject/SkinCache entry 身份变化。2Hz 观察不等于每帧缓冲身份跟踪。
+同一期间系统段使用量平均约 394～396 MiB，未显示持续线性增长；本地预算余量约435～542 MiB。
+这些预算统计不能证明某个输出在本地显存，也不能证明没有发生换页或驱动内部分段等待。
+现有 GPU bundle 在进入战斗前已经结束，WDDM 采集曾返回 error 5。
+此前已落盘的跨地图采集修正尚无更新后的战斗 bundle，因此仍缺“慢作用域 + 输出缓冲/heap身份
++ 同时段 WDDM 驻留/调度”的对应关系。不能从静态源码补造这项现场事实。
+
+交付状态
+完成已有数据离线分析和上述源码链追踪；本轮没有找到可确定修复的缓冲/同步实现缺陷。
+没有改画质、怪物数量、动画/衣服采样、光追/阴影、战斗规则或刷怪节奏。
+没有启动 UE、PIE、测试、采样、commandlet 或构建；无新的运行代码需编译。
+公共输出资源访问/同步退化仍是主线；驻留搬运和驱动内部等待尚不能二选一定案。

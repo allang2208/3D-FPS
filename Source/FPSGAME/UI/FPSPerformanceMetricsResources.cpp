@@ -1,4 +1,5 @@
 #include "FPSPerformanceMetrics.h"
+#include "FPSGpuTraceCapture.h"
 
 #include "../Monsters/FatZombieAnimInstance.h"
 #include "../Monsters/NurseZombie.h"
@@ -20,11 +21,12 @@
 #include "RHICommandList.h"
 #include "RHIStats.h"
 #include "SkeletalRenderPublic.h"
+#include "SkeletalMeshDeformerHelpers.h"
 
 namespace FPSRenderResources
 {
 TAutoConsoleVariable<int32> Sampling(TEXT("fps.Perf.RenderResourceSampling"), 1,
-    TEXT("Passively record published GPU memory and staff morph state at most twice per second."));
+    TEXT("Record published GPU memory and staff details at most twice per second. Demand-driven lightweight preparation budgets remain available when diagnostics are disabled."));
 TRACE_DECLARE_INT_COUNTER(LocalBudget, TEXT("FPS/Resources/LocalBudgetBytes"));
 TRACE_DECLARE_INT_COUNTER(LocalUsed, TEXT("FPS/Resources/LocalUsedBytes"));
 TRACE_DECLARE_INT_COUNTER(LocalOverBudget, TEXT("FPS/Resources/LocalOverBudgetBytes"));
@@ -51,16 +53,23 @@ struct FStaff
     uint32 AllMorphBatches = 0, ActiveMorphBatches = 0;
     uint64 MorphBufferBytes = 0;
     bool bRenderDataKnown = false, bSkinCacheKnown = false, bSeparateRayTracingCache = false;
+    // Keep buffers alive only through the ordered RHI metadata callback.
+    FBufferRHIRef MorphInput, MorphCurrent, MorphPrevious;
+    TArray<TSharedPtr<FJsonValue>> NativeBuffers;
 };
 
 struct FSample
 {
+    bool bCollectDetails = false;
     double GameSeconds = 0, RenderSeconds = 0, RhiSeconds = 0, GatherMs = 0;
+    double NativeObservationMs = 0;
+    TSharedPtr<FFPSGpuTraceCapture, ESPMode::ThreadSafe> GpuTrace;
     uint64 GameFrame = 0, RenderFrame = 0;
     int32 StaffCount = 0;
     int32 PreparedInstances = 0, PendingSpawns = 0;
     FName PreparationDecision;
-    struct FMonsterCounts { int32 Alive=0,Dead=0,Prepared=0,Simulating=0,MeshTick=0; };
+    TSharedPtr<FJsonObject> PreparationSnapshot;
+    struct FMonsterCounts { int32 Alive=0,Dead=0,Prepared=0,Simulating=0,MeshTick=0,RigidShadowCache=0; };
     TMap<FString,FMonsterCounts> Monsters;
     TArray<FStaff> Staff;
     FRHIMemoryStats Memory;
@@ -83,10 +92,15 @@ void SetMemorySegment(FJsonObject& Row, const TCHAR* Name, uint64 Budget, uint64
 }
 }
 
+void UFPSPerformanceMetricsSubsystem::RefreshRenderBudget()
+{
+    SampleRenderResources(FPlatformTime::Seconds());
+}
+
 void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
 {
     using namespace FPSRenderResources;
-    if (!Sampling.GetValueOnGameThread() || bRenderResourceSamplePending || Now < NextRenderResourceSampleSeconds
+    if (bRenderResourceSamplePending || Now < NextRenderResourceSampleSeconds
         || !GDynamicRHI || GetWorld()->GetNetMode() == NM_DedicatedServer)
         return;
 
@@ -95,57 +109,65 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
     const uint64 Generation = CaptureGeneration;
     const TWeakObjectPtr<UFPSPerformanceMetricsSubsystem> WeakThis(this);
     const auto Sample = MakeShared<FSample, ESPMode::ThreadSafe>();
+    if (GpuTraceCapture && GpuTraceCapture->IsCollectingBuffers()) Sample->GpuTrace = GpuTraceCapture;
+    Sample->bCollectDetails = bRecording && (Sampling.GetValueOnGameThread() != 0 || Sample->GpuTrace.IsValid());
     Sample->GameSeconds = FPlatformTime::Seconds();
     Sample->GameFrame = GFrameCounter;
-    if (const auto* Spawns=GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>())
+    if (Sample->bCollectDetails)
     {
-        Sample->PreparedInstances=Spawns->PreparedCount();
-        Sample->PendingSpawns=Spawns->PendingCount();
-        Sample->PreparationDecision=Spawns->PreparationLastDecision();
-    }
-    for (TActorIterator<ACharacter> It(GetWorld()); It; ++It)
-    {
-        const auto* Combat=It->FindComponentByClass<UMonsterCombatComponent>();
-        if(!Combat)continue;
-        auto& Counts=Sample->Monsters.FindOrAdd(It->GetClass()->GetPathName());
-        if(!It->HasActorBegunPlay())++Counts.Prepared;
-        else if(Combat->IsDead())++Counts.Dead;
-        else ++Counts.Alive;
-        if(const auto* Body=It->GetMesh())
+        if (const auto* Spawns=GetWorld()->GetSubsystem<UFacilityHallSpawnSubsystem>())
         {
-            Counts.Simulating+=Body->IsSimulatingPhysics();
-            Counts.MeshTick+=Body->IsComponentTickEnabled()&&Body->IsRegistered();
+            Sample->PreparedInstances=Spawns->PreparedCount();
+            Sample->PendingSpawns=Spawns->PendingCount();
+            Sample->PreparationDecision=Spawns->PreparationLastDecision();
+            Sample->PreparationSnapshot=Spawns->PreparationSnapshot();
         }
-        if (!It->ActorHasTag(TEXT("FacelessResearcher")) && !It->ActorHasTag(TEXT("FacelessReceptionist")))
-            continue;
-        ++Sample->StaffCount;
-        if (Sample->Staff.Num() >= MaxStaff) continue;
-        USkeletalMeshComponent* Mesh = It->GetMesh();
-        if (!Mesh) continue;
-        FStaff& Staff = Sample->Staff.AddDefaulted_GetRef();
-        Staff.Path = Mesh->GetPathName();
-        Staff.Asset = GetPathNameSafe(Mesh->GetSkeletalMeshAsset());
-        Staff.bVisible = Mesh->IsVisible();
-        Staff.bParallelEvaluation = Mesh->IsRunningParallelEvaluation();
-        Staff.MeshObject = Mesh->GetMeshObject();
-        Staff.MeshHandle = reinterpret_cast<UPTRINT>(Staff.MeshObject);
-        // Never wait for parallel animation to inspect its mutable results/proxy.
-        if (Staff.bParallelEvaluation) continue;
-        Staff.bMorphsKnown = true;
-        for (const auto& Morph : Mesh->ActiveMorphTargets)
+        for (TActorIterator<ACharacter> It(GetWorld()); It; ++It)
         {
-            if (!Morph.Key || !Mesh->MorphTargetWeights.IsValidIndex(Morph.Value)) continue;
-            const float Weight = Mesh->MorphTargetWeights[Morph.Value];
-            if (Weight != 0.f)
-                Staff.Morphs.Add({Morph.Key->GetName(), Morph.Value, Weight});
-        }
-        if (const auto* Anim = Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
-        {
-            Staff.bAnimationKnown = true;
-            Staff.Clip = GetPathNameSafe(Anim->ActiveClip);
-            Staff.OutgoingClip = GetPathNameSafe(Anim->OutgoingLoop);
-            Staff.BlendAlpha = Anim->BlendAlpha;
-            Staff.CapturedCurves = Anim->GetCapturedClothingCurveCount();
+            const auto* Combat=It->FindComponentByClass<UMonsterCombatComponent>();
+            if(!Combat)continue;
+            auto& Counts=Sample->Monsters.FindOrAdd(It->GetClass()->GetPathName());
+            if(!It->HasActorBegunPlay())++Counts.Prepared;
+            else if(Combat->IsDead())++Counts.Dead;
+            else ++Counts.Alive;
+            if(const auto* Body=It->GetMesh())
+            {
+                Counts.Simulating+=Body->IsSimulatingPhysics();
+                Counts.MeshTick+=Body->IsComponentTickEnabled()&&Body->IsRegistered();
+                Counts.RigidShadowCache+=!Body->IsComponentTickEnabled() && Body->IsRegistered()
+                    && Body->ShadowCacheInvalidationBehavior==EShadowCacheInvalidationBehavior::Rigid;
+            }
+            if (!It->ActorHasTag(TEXT("FacelessResearcher")) && !It->ActorHasTag(TEXT("FacelessReceptionist")))
+                continue;
+            ++Sample->StaffCount;
+            if (Sample->Staff.Num() >= MaxStaff) continue;
+            USkeletalMeshComponent* Mesh = It->GetMesh();
+            if (!Mesh) continue;
+            FStaff& Staff = Sample->Staff.AddDefaulted_GetRef();
+            Staff.Path = Mesh->GetPathName();
+            Staff.Asset = GetPathNameSafe(Mesh->GetSkeletalMeshAsset());
+            Staff.bVisible = Mesh->IsVisible();
+            Staff.bParallelEvaluation = Mesh->IsRunningParallelEvaluation();
+            Staff.MeshObject = Mesh->GetMeshObject();
+            Staff.MeshHandle = reinterpret_cast<UPTRINT>(Staff.MeshObject);
+            // Never wait for parallel animation to inspect its mutable results/proxy.
+            if (Staff.bParallelEvaluation) continue;
+            Staff.bMorphsKnown = true;
+            for (const auto& Morph : Mesh->ActiveMorphTargets)
+            {
+                if (!Morph.Key || !Mesh->MorphTargetWeights.IsValidIndex(Morph.Value)) continue;
+                const float Weight = Mesh->MorphTargetWeights[Morph.Value];
+                if (Weight != 0.f)
+                    Staff.Morphs.Add({Morph.Key->GetName(), Morph.Value, Weight});
+            }
+            if (const auto* Anim = Cast<UFatZombieAnimInstance>(Mesh->GetAnimInstance()))
+            {
+                Staff.bAnimationKnown = true;
+                Staff.Clip = GetPathNameSafe(Anim->ActiveClip);
+                Staff.OutgoingClip = GetPathNameSafe(Anim->OutgoingLoop);
+                Staff.BlendAlpha = Anim->BlendAlpha;
+                Staff.CapturedCurves = Anim->GetCapturedClothingCurveCount();
+            }
         }
     }
     Sample->GatherMs = (FPlatformTime::Seconds() - Sample->GameSeconds) * 1000.0;
@@ -173,6 +195,18 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
                     Staff.StoredMorphs = Morphs.GetNumMorphs();
                     Staff.AllMorphBatches = Morphs.GetNumBatches();
                     Staff.MorphBufferBytes = Morphs.MorphDataBuffer.IsValid() ? Morphs.MorphDataBuffer->GetSize() : 0;
+                    if (Sample->GpuTrace)
+                    {
+                        Staff.MorphInput = Morphs.MorphDataBuffer;
+                        if (Staff.StoredMorphs > 0 && Object->IsGPUSkinMesh()
+                            && !Object->IsNaniteMesh() && Object->HaveValidDynamicData())
+                        {
+                            if (auto* View = FSkeletalMeshDeformerHelpers::GetMorphTargetBufferForReading(Object, Staff.Lod, false))
+                                if (View->IsBuffer()) Staff.MorphCurrent = View->GetBuffer();
+                            if (auto* View = FSkeletalMeshDeformerHelpers::GetMorphTargetBufferForReading(Object, Staff.Lod, true))
+                                if (View->IsBuffer()) Staff.MorphPrevious = View->GetBuffer();
+                        }
+                    }
                     for (const auto& Morph : Staff.Morphs)
                         if (Morph.Index >= 0 && Morph.Index < Staff.StoredMorphs)
                             Staff.ActiveMorphBatches += Morphs.GetNumBatches(Morph.Index);
@@ -189,15 +223,36 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
             {
                 Sample->RhiSeconds = FPlatformTime::Seconds();
                 if (GDynamicRHI) RHIGetMemoryStats(Sample->Memory);
+                if (Sample->GpuTrace)
+                {
+                    const double ObservationStart = FPlatformTime::Seconds();
+                    for (FStaff& Staff : Sample->Staff)
+                    {
+                        if (Sample->GpuTrace->IsCollectingBuffers())
+                        {
+                            auto Observe = [&](FRHIBuffer* Buffer, const TCHAR* Role)
+                            {
+                                Staff.NativeBuffers.Add(MakeShared<FJsonValueObject>(Sample->GpuTrace->ObserveBuffer(
+                                    Buffer, Staff.Path, Staff.Asset, Role, Sample->GameFrame, Sample->RenderFrame)));
+                            };
+                            Observe(Staff.MorphInput, TEXT("shared_morph_input"));
+                            Observe(Staff.MorphCurrent, TEXT("morph_output_current"));
+                            Observe(Staff.MorphPrevious, TEXT("morph_output_previous"));
+                        }
+                        Staff.MorphInput.SafeRelease(); Staff.MorphCurrent.SafeRelease(); Staff.MorphPrevious.SafeRelease();
+                    }
+                    Sample->NativeObservationMs = (FPlatformTime::Seconds() - ObservationStart) * 1000.;
+                    Sample->GpuTrace.Reset();
+                }
                 AsyncTask(ENamedThreads::GameThread, [Sample, WeakThis, Generation]
                 {
                     UFPSPerformanceMetricsSubsystem* Self = WeakThis.Get();
-                    if (!Self || Self->CaptureGeneration != Generation) return;
+                    if (!Self) return;
                     Self->bRenderResourceSamplePending = false;
                     Self->RenderBudgetBytes = Sample->Memory.BudgetLocal;
                     Self->RenderUsedBytes = Sample->Memory.UsedLocal;
                     Self->RenderBudgetSeconds = Sample->RhiSeconds;
-                    if (!Self->bRecording) return;
+                    if (!Sample->bCollectDetails || !Self->bRecording || Self->CaptureGeneration != Generation) return;
                     const double PublishStart = FPlatformTime::Seconds();
                     const auto Row = MakeShared<FJsonObject>();
                     Row->SetNumberField(TEXT("game_seconds"), Sample->GameSeconds);
@@ -207,6 +262,7 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
                     Row->SetStringField(TEXT("game_frame"), LexToString(Sample->GameFrame));
                     Row->SetStringField(TEXT("render_frame"), LexToString(Sample->RenderFrame));
                     Row->SetNumberField(TEXT("game_gather_ms"), Sample->GatherMs);
+                    Row->SetNumberField(TEXT("native_buffer_observation_rhi_ms"), Sample->NativeObservationMs);
                     Row->SetNumberField(TEXT("async_latency_ms"), (PublishStart - Sample->GameSeconds) * 1000.0);
                     Row->SetBoolField(TEXT("memory_valid"), Sample->Memory.IsValid());
                     SetMemorySegment(*Row, TEXT("local_memory"), Sample->Memory.BudgetLocal, Sample->Memory.UsedLocal,
@@ -223,6 +279,8 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
                     Row->SetNumberField(TEXT("hall_prepared_instances"), Sample->PreparedInstances);
                     Row->SetNumberField(TEXT("hall_pending_spawn_requests"), Sample->PendingSpawns);
                     Row->SetStringField(TEXT("hall_preparation_last_decision"), Sample->PreparationDecision.ToString());
+                    if (Sample->PreparationSnapshot)
+                        Row->SetObjectField(TEXT("hall_preparation"), Sample->PreparationSnapshot);
                     TArray<TSharedPtr<FJsonValue>> MonsterRows;
                     int32 Alive=0,Dead=0,Prepared=0,Simulating=0;
                     for(const auto& Pair:Sample->Monsters)
@@ -232,6 +290,7 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
                         Counts->SetNumberField(TEXT("not_begun_play"),Pair.Value.Prepared);
                         Counts->SetNumberField(TEXT("body_simulating_physics"),Pair.Value.Simulating);
                         Counts->SetNumberField(TEXT("registered_body_tick_enabled"),Pair.Value.MeshTick);
+                        Counts->SetNumberField(TEXT("frozen_body_rigid_shadow_policy"),Pair.Value.RigidShadowCache);
                         MonsterRows.Add(MakeShared<FJsonValueObject>(Counts));
                         Alive+=Pair.Value.Alive;Dead+=Pair.Value.Dead;Prepared+=Pair.Value.Prepared;Simulating+=Pair.Value.Simulating;
                     }
@@ -251,6 +310,7 @@ void UFPSPerformanceMetricsSubsystem::SampleRenderResources(double Now)
                         const auto Item = MakeShared<FJsonObject>();
                         Item->SetStringField(TEXT("component"), Staff.Path);
                         Item->SetStringField(TEXT("asset"), Staff.Asset);
+                        if (!Staff.NativeBuffers.IsEmpty()) Item->SetArrayField(TEXT("native_buffers"), Staff.NativeBuffers);
                         Item->SetBoolField(TEXT("visible_flag"), Staff.bVisible);
                         Item->SetBoolField(TEXT("parallel_evaluation_pending"), Staff.bParallelEvaluation);
                         if (Staff.bAnimationKnown)

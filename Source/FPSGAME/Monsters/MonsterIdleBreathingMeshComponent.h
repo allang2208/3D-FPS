@@ -45,9 +45,15 @@ class FPSGAME_API UMonsterIdleBreathingMeshComponent : public USkeletalMeshCompo
     GENERATED_BODY()
 public:
     virtual void FinalizeBoneTransform() override;
+    virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
+    /** Called only after a corpse has settled and its pose/cloth ticks have retired. */
+    void BeginFrozenShadowCaching();
     /** Presentation only: never enters a reaction state or changes an animation clock. */
     void AddGunHitFeedback(const FHitResult& Hit, const FVector& ShotDirection, float Damage);
 private:
+    bool CanCacheFrozenShadow() const;
+    void EndFrozenShadowCaching();
+    bool bFrozenShadowCacheManaged = false;
     void CacheGunHitBones();
     bool ApplyGunHitFeedback(bool& bPoseChanged);
     void ConfigureBreathing(ACharacter* Character);

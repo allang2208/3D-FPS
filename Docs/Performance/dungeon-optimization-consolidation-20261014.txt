@@ -1,0 +1,66 @@
+地牢优化衔接修订与废案清理
+日期：2026-10-14
+后续活怪 GPU 排查见 live-monster-gpu-investigation-20261014.txt：同帧同网格形变快慢分组与空闲预览场景释放；未宣称活怪 GPU 主因已解决。
+范围：D:/FPS3D/FPSGAME；延续现有队列与采集器，保留画质、怪物数量、波次及战斗时序。
+
+本次修正
+
+1. 功能预算与 F6 诊断记录分离
+UFPSPerformanceMetricsSubsystem 新增按需 RefreshRenderBudget，准备调度在需要时请求现有被动显存观察。
+复用同一份预算缓存、同一条最多 2 Hz 的异步 RHI 读取队列，仍只允许一个请求在途；没有叠加第二套显存扫描器。
+停止 F6 记录或关闭资源明细时，准备所需的轻量 Budget/Used 数据仍可更新；不遍历怪物、不读取 Morph 明细、不生成或保存诊断 JSON。
+没有准备请求且没有诊断记录时，不额外发起观察。
+清空诊断记录不再清除尚在执行的预算请求标记；旧样本完成后更新预算，但通过 capture generation 丢弃旧诊断内容。
+
+2. 删除五秒永久失效路径
+FacilityMonsterGpuWarmup 的 StartedAt、创建五秒后永久返回和 submission_expired 状态均已删除。
+等待状态改为 admission/budget、PSO、render registration；条件恢复后可以提交原实例的单次预热。
+保持最多两个实例、显存余量保护、正式生成优先；实例仍在真实激活、失去区域优先级或退出世界时结束，不扩大池或改变怪物到场时间。
+
+3. 优先级维护不再等待刷怪空隙
+MaintainPreparation 按原有 0.1 秒量级独立维护候选与回收低优先级预约，即使当前每帧都有待生成请求也会推进。
+UpdatePreparation 只负责可选的新实例创建，仍放在正式生成空隙。正式生成的全局 50 ms 尝试间隔和原房间请求频率不变。
+准备释放 fence 继续独立于正式生成 fence；不新增同步等待。
+重复的 1 GiB 准备余量常量合并为一个定义，阈值未改变。
+
+4. 纹理预算配置统一来源，保留两档数值
+Config/DefaultEngine.ini 的 TextureStreaming 段现在同时声明：
+PoolSizeVRAMPercentage=30
+CompletePreloadPoolSizeVRAMPercentage=45
+删除 TransitLoadingSubsystem 内硬编码的 .45，完整档读取配置覆盖；快速档继续使用原 RHI 计算值。缺少完整档覆盖时沿用正常池策略。
+没有把两档强行统一为同一大小，没有调整 mip、纹理分辨率或显存池数值；恢复时仍检查是否被用户后续修改。
+
+清理结果
+
+旧 crowd-50-existing-project-plan-20261013.txt 的完整内容归档至：
+trash/dungeon-optimization-superseded-20261014/crowd-50-existing-project-plan-20261013.txt
+原路径保留历史入口和已完成项目清单，防止旧引用失效或重复执行。
+废弃条件说明与 SHA-256 清单位于同目录 retired-conditions.txt、archive.json。
+
+已完成的 AI 错峰、同帧导航投影缓存、随机精英 PSO 准备，不再作为新待办。
+整波隐藏实例池、另建调度器、全员回收池/动画共享、统一降 Tick、Mass/VAT 和无分项证据的全员衣物拆分，从当前实施清单撤下。这些并非已安装的现役系统，没有据此删除玩法或资产。
+保留资源加载、PSO、有限实例预热、尸体物理预算、冻结阴影缓存、辅助装配 LRU、闲置回收和预览场景生命周期修订，它们分别处理不同职责。
+
+继续排查的结果
+
+只读取已有的 2026-10-12 capture03 GPU 聚合数据及当前原生动画/渲染调用路径，没有重新运行采样。
+该旧 trace 同时覆盖阴影、Lumen、TSR、蒙皮和 Morph；不同 GPU 队列并行，包含时间与父子作用域不能相加。
+旧场景/波次不是 2026-10-14 的 140 ms 低帧窗口，不能用其总量确定本次主因，也没有证据支持把所有衣物重做或一律降 LOD。
+因此本批收敛可确定的调度、预算及等待问题，保留模型和光照；持续 GPU 根因仍需同次分项证据，不能把准备队列修复宣称为持续低帧已经根治。
+
+保存与构建
+
+修改前原样备份：Saved/DungeonOptimizationConsolidation20261014/Before/。
+Game 构建日志：Saved/DungeonOptimizationConsolidation20261014/game-build-20261014.log。
+本次没有主动打开 UE、运行游戏、采集、截图或测试；源码编译结果与游戏性能效果分别交付。
+
+构建阻塞处理
+首轮 Game 构建中，本批修改的文件完成编译；随后被同期新增 FacilityFreightReinforcements.cpp 的 TObjectPtr/auto* 类型推导错误阻塞。
+仅把该处 const auto* 改为明确的 const UStaticMesh*，保留货运增援逻辑。修改前文件也保存在本批 Before 目录。
+最终链接日志：Saved/DungeonOptimizationConsolidation20261014/game-build-final-20261014.log。
+
+最终状态
+FPSGAME Win64 Development 构建成功：最终轮 18 个 action，27.30 秒，Result: Succeeded。
+Binaries/Win64/FPSGAME.exe 已链接落盘。
+Editor 目标仍被正在使用 FPSGAME.uproject 的 UnrealEditor-Cmd.exe 制作进程占用；未关闭或干预该进程，UnrealEditor-FPSGAME.dll 未更新为本批版本。
+未运行功能、性能、画面或联机测试；本轮不宣称持续 GPU 卡顿已解决。

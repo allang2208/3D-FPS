@@ -1,0 +1,148 @@
+随机地牢：共享形变缓冲、描述符堆和多余常驻资源
+记录日期：2026-10-19；包含 10 月 18 日晚至 19 日凌晨的授权运行。
+
+结论与边界
+1. 已修正确定的资源持有问题：身体预加载器把未选择的武器备用版本也整批加载，
+   并通过 StreamableHandle 保留到 GameInstance 结束。现默认只保留原来的身体、
+   类默认资源、库存预加载；额外字面量候选表需要显式开启诊断开关。
+2. 实际运行确认：原策略请求 400 项（主资源 191，额外候选 209）；新策略请求
+   191 项且 191/191 完成。新策略没有删除资产或改变正常装备加载路径。
+3. 两组非瞬态 RHI 分配清单的战后总差为 392.214 MiB。其中 442 个武器 Owner
+   条目、合计 316.109 MiB，在新策略清单中为零。这是资源分配/持有修正的证据，
+   不是“腾出了等量物理显存”的证明；Owner 条目也不是预加载请求项数量。
+4. 新抓到另一处明确阻塞：RHI 线程创建 Bindless GPU 描述符堆，42 次累计
+   6261.79 ms，最长 656.8874 ms。它会阻塞共享提交链，涉及怪物和玩家装备。
+5. 不能把上述 CPU 分配停顿直接当成此前持续 400 倍 GPU Normalize 的答案。
+   22:43 慢状态的 2.784 秒 trace 内没有新建 Bindless 描述符堆，相关切换调用
+   最长仅 0.0655 ms。那份慢状态仍指向 GPU 内部资源访问/驻留/调度，而非这类
+   CPU 创建停顿。尚缺输出父堆到物理段、缺页/迁移的逐资源关联证据。
+6. 没有获得可宣称 FPS 提升或根治的干净性能 A/B；不能将不同启动状态、PIE、
+   独立游戏、离屏窗口尺寸和系统重启后的结果混为优化前后。
+
+实际修改
+- Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp/.h
+  fps.body.AsyncPreloadCandidates 默认 0。主资源仍先入队；只有显式设为 1 时，
+  才请求生成的 FPSPreloadRegistry 和可选目录扩展。Handles 原有生命周期保留。
+  备用模型的具体证据：FPSGAMECharacter.cpp 的 AKM 选择链按 !ViewmodelMesh
+  逐一回退，多个版本不可能同时作为选中的枪模；旧字面量表却会同时持有它们。
+- Source/FPSGAME/Diagnostics/FPSReceptionResidencyRun.cpp
+  显式开发诊断命令 fps.Perf.ReceptionRun <Saved 下的 case.json>。
+  仅独立游戏可执行，未调用不运行，Shipping 不注册。等待正常地牢准备完成，
+  采集基线、移动到指定位置、按正常规则生成怪群，再调用现有 F6 导出并退出
+  该诊断游戏进程。没有无敌、暂停 AI、改数量、改画质或默认启动钩子。
+- 先前同一任务的 F6 清样本修正保留：清空帧样本不再结束独立 GPU trace；导出
+  写入 gpu_trace_window_overlap_seconds 与 gpu_trace_covers_frame_window。
+  本次 A2 导出与 trace 的真实交集为 10.018 秒，窗口已覆盖。
+
+新抓到的共享提交链停顿
+数据：Saved/PerformanceReports/gpu-704BFFF7450CD7095D288CA2F6F8D362/
+分析：Saved/ReceptionGpuDiagnosis20261018/standalone-A/
+  cpu-events.csv、analysis.json、trace/ordered/gpu-work.json。
+时间：2026-10-18 23:42:42.360 至 23:43:18.178；普通权限，WDDM 仍为错误 5。
+窗口在显式导出之前被关闭，trace 在 GameInstance 退出时完成关闭；仅使用暂停
+之前的完整 GPU 帧。没有完整帧面板 JSON，不能冒充一次完整 F6 导出。
+
+最长一次 CPU 调用栈（各层相互包含，不相加）：
+  RHI_Translate / SceneRender / MorphUpdate
+  FD3D12BindlessResourceManager::RequestNewActiveGPUHeap
+  CreateNewBindlessHeap (65536)
+  D3D12Device::CreateDescriptorHeap(BindlessResources, 65536) = 656.8874 ms
+42 次创建累计 6261.79 ms，其中绝大多数集中在刷怪早期；后面仍出现一次长停顿。
+该记录内部分 GPU Frame 的跨度很大，但并不是全部用于执行着色器：例如跨度
+659.861 ms 的 Frame，与已提交 Graphics GPUWork 的交集只有 15.544 ms。
+另一个 HairStrandsVisibility 范围跨度 252.621 ms，GPUWork 交集仅 0.153 ms。
+不能把这些包含提交空隙的 GPU 标记范围解释为毛发或衣服真的计算了数百毫秒。
+
+本机引擎源码对应位置：
+  Engine/Source/Runtime/D3D12RHI/Private/D3D12BindlessDescriptors.cpp
+    AddActiveGPUHeap：优先复用池；池为空时调用 CreateGpuHeap。
+    CheckRequestNewActiveGPUHeap：版本化已使用的描述符堆，等待 GPU 完成后复用。
+    GarbageCollect：按使用中的堆峰值保留活动集合；闲置池默认 600 周期后释放。
+  Engine/Config/Windows/BaseWindowsEngine.ini：初始 ResourceDescriptorHeapSize=32768。
+  实际记录的创建容量为 65536。这不证明运行时发生了容量增长；不能据此盲目
+  扩大堆容量、永久保留所有堆、降低回收延迟或取消 GPU 同步。
+
+400 倍问题的继续定位
+- 22:43 原始慢态：迎宾员相同 162110 顶点的 Normalize，有些派发中位约
+  0.0082 ms，另一些约 3.17–3.75 ms。派发序号不等于可靠 Actor ID。
+- MorphTargets.usf 的 Normalize 只访问形变输出，做六个分量的转换与写回；
+  不读压缩 Morph 输入或骨骼。这把重点缩到了输出访问与 GPU 内部等待。
+- 该次已观察到的 17 个独立输出合计 54.36 MiB；current/previous 别名不能
+  重复相加。输出均为 placed DEFAULT 资源；稳定 GPU VA 不等于稳定物理驻留。
+- 该慢态 220 个超过 1 ms 的 Normalize 都在已提交 GPUWork 内，记录到的
+  UE 队列等待交集为零。仍不能排除未被 UE 时间线覆盖的驱动调度/访问等待。
+- 同 PID/LUID 的 D3DKMT 原始辅助计数显示，慢态 local Demoted 约
+  480–693 MiB，位于 normal priority 槽，nonlocal usage 约 829–1042 MiB。
+  这些结构被 Microsoft 标为系统保留，不是受支持的逐资源物理驻留接口。
+- 本轮重启后的 A2/B2 中，39 只怪全部正常存在，迎宾员 8 组 Normalize 的
+  中位都约 0.0082 ms，研究员约 0.0062–0.0072 ms，霜剑手臂约 0.0031 ms；
+  两组 raw Demoted 都为零，nonlocal 约 286/295 MiB。
+- 甚至旧常驻策略 A2 也已正常，说明候选资源修正不是本次恢复的单一原因。
+  这增强了资源/驱动状态相关性的证据，但尚未证明具体哪个父堆被放到系统内存。
+- 重启后 A2/B2 的描述符堆创建分别 40/42 次，累计 39.44/41.85 ms，单次
+  中位约 0.91 ms。与此前 42 次累计 6.26 秒相比，创建次数相近、耗时显著不同；
+  运行环境和系统状态不同，不能把差异归功于候选开关。
+
+固定构建的资源比较
+目录：Saved/ReceptionGpuDiagnosis20261018/FrozenHost/Saved/case-A2 与 case-B2。
+构建和配置来自同一冻结副本；Content/Plugins 为原项目链接，未修改游戏资产。
+独立存档来自同一份副本；用户原存档没有用于这些诊断写入。
+场景 L_Dungeon_Randomized，种子 1573616704，以用户最近机位对应的位置触发；
+日志实际房间类型为 FacilityTransit，不能将该记录改称只测了 FacilityReceptionHall。
+2552×1218，FOV 107.5，RT/HW Lumen/VSM 保持开启；没有改 LOD、材质或怪物规则。
+两组最后的存活数均为 39：研究员 9、迎宾员 8、保安 13、Bellow 8、M14 1。
+
+非瞬态 RHI 分配（MiB，排除了 transient alias，仍不是物理 VRAM 清单）：
+                 A2旧策略        B2新策略        A2-B2
+  刷怪前合计      7634.258        7221.062        413.196
+  刷怪后合计      8651.286        8259.073        392.214
+  刷怪后Buffer    4803.517        4539.022        264.495
+  刷怪后Texture   3847.770        3720.051        127.719
+
+明确消失的未使用武器资源举例（Owner 对应的合计）：
+  HK416 Reworked Manny              53.722 MiB
+  LMG201 Cover10                    35.837 MiB
+  A762 Integrated                   19.646 MiB
+  DarkBow WoodLongbow               14.068 MiB
+  ASH12 eoth holographic            14.063 MiB
+  M4 ExtMag40 Grid                  12.282 MiB
+  HK416 factory_stock               11.585 MiB
+  DanWesson715 Chrome               11.241 MiB
+  其余清单见 FrozenHost/Saved/inventory-comparison.json。
+总差中还含流送 mip、姿态缓冲和渲染目标变化，不能全部归于上述武器。
+
+仍占较大空间的项目包括 Nanite cluster page pool 544 MiB、VSM physical pool
+512 MiB、场景地砖/管道、角色皮肤纹理以及共享渲染资源。它们不因体积大就判为
+废案。早期资料中隔离病房地砖约 149 MiB、奖励通道地砖约 81 MiB、未出现在
+当前怪群的生态园丁资源约 79 MiB，仍须按具体拥有者/房间生命周期判断可否释放。
+不能把同名双缓冲自动判为重复泄漏，也不能累加 transient 别名作为物理占用。
+
+运行比较的限制
+- A2/B2 最后 10 秒分别约 50.41/49.88 FPS，没有证明帧率提升。
+- B2 在末尾按正常战斗规则死亡，视角发生变化；期间还运行过离线 trace 解析，
+  对 CPU/RAM 的对照有干扰。它仍可证明多余武器 Owner 资源消失，不能据此做
+  精确 GPU/FPS 优化收益或主机/客户端验收结论。
+- 普通权限采集保留 GPU 时间线与缓冲身份，两个 available_files_finalized 为真；
+  WDDM 缺失，complete_gpu_bundle 为假。不是完整 WDDM 物理驻留证据。
+- 更早的离屏尝试被系统夹到 888×500；编辑器实例收到 QUIT_EDITOR 的尝试、
+  窗口提前关闭的尝试、构建散列变化拦下的尝试都不作为性能前后比较。
+- 23:58 的系统重启由事件 1074 记录为 StartMenuExperienceHost 发起，不能描述
+  成已证实的 UE/GPU 崩溃。重启中断了第一轮冻结主机加载。
+- 所有测量有效性说明保存在 capture-quality-20261019.json，原始记录保留。
+
+构建与退出
+- Editor 构建成功：build-standalone-run.log，27.88 秒。
+- Game 构建成功：build-game-final.log，56.52 秒，明确重新编译身体预加载器。
+- 回执：Saved/ReceptionGpuDiagnosis20261018/final-build-receipt-20261019.json。
+- 诊断 A2/B2 均正常退出（exit 0），本任务的采样器已结束。其他任务进程未关闭。
+
+尚需闭合的主因验证
+下一步应在真正出现持续慢态时，关联输出资源、父堆、优先级与 WDDM 物理段/
+迁移/调度事件；确认具体堆访问退化后，再决定是否调整热 UAV 堆驻留策略。
+目前不具备这些逐堆证据，未修改引擎同步屏障、堆优先级或驱动配置。
+已完成的修正降低了确定的多余资源持有；“持续 GPU 慢 400 倍已根治”仍不成立。
+
+API 依据（仅用于解释资源模型，不替代本机证据）
+https://learn.microsoft.com/en-us/windows/win32/direct3d12/residency
+https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource
+https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmthk/ns-d3dkmthk-d3dkmt_querystatistics_process_segment_group_information

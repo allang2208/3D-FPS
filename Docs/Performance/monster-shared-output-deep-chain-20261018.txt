@@ -1,0 +1,115 @@
+12:36 F6：公共蒙皮输出访问、派发间隙与跨线程追踪重建
+2026-10-18，继续调查记录
+
+结论
+本轮继续分析 gpu-DD85D62E43B67A5C5DB1CCA6562B983A 的原始数据，没有新运行或采样。
+证据进一步指向输出读写/公共 GPU 执行与同步退化：玩家原有蒙皮工作量基本不变，
+连不读取 Morph 源数据、不读取骨骼的 Normalize 输出整理阶段也慢了数百倍。
+同排列派发之间的间隙占 SkinCache 慢阶段约 23.55 ms/帧，最大一次约 14.17 ms。
+这些大间隙位于已提交 GPUWork 内，期间没有 UE 异步计算工作或已记录的图形队列等待。
+
+当前仍未找到可以确定修复的游戏端输出缓冲/同步实现缺陷。没有把驻留降级、诊断标记、
+引擎屏障或驱动内部等待中的任何一项包装成已证实根因，也没有修改渲染配置去掩盖现象。
+本轮明确修复的是离线解码工具的跨线程事件配对错误；这不是游戏性能修复。
+
+1. 修复分析工具的队列顺序
+旧 decode_latest.py 以 (记录线程, GPU 队列) 保存配对栈。UE 的 GPU profiler 回调可以
+迁移到另一条 CPU 记录线程，GPU 队列作用域并不属于某一条固定 CPU 线程。
+这使部分异步队列 Frame / Slate 作用域错误跨越多个帧，产生约 15 秒的假区间。
+
+本次改为读取 Trace Protocol 的 24 位全局 serial，合并各记录线程后，按 GPU 队列配对。
+本采集 serial 位于约 201 万～425 万，未发生 24 位回绕；脚本不将该假设静默用于回绕采集。
+与本机引擎 GpuProfilerTraceAnalysis.cpp 的按 Queue.Stack 配对方式对齐。
+解析结果：
+- 1,787,843 个 GPU 事件（包括工作、作用域、统计及同步等类型）。
+- 图形队列 420,905 个作用域，异步队列 37,085 个作用域。
+- 1,370 对作用域跨记录线程；GPUWork 开始/结束没有跨线程配对。
+- 采集边界有 2 个未配对结束和 2 个未闭合异步队列作用域；不补造边界事件。
+- 原始时间戳有 1 个异步队列 -0.007 ms 区间，保留原值并标为无效，不参与耗时结论。
+- 异步队列已闭合作用域中 Frame 最大值变为约 189.898 ms，不再有错误的十几秒帧。
+
+重新计算后，先前图形队列完整帧比较没有变化：37 活怪慢阶段 133.324 ms/帧，
+恢复阶段 20.856 ms/帧；Morph 60.440 -> 0.508 ms，SkinCache 33.604 -> 1.433 ms。
+因此上一轮关于公共蒙皮异常的主要结论保留，旧异步队列逐事件配对结果退出使用。
+原始 F6 文件不变。新结果统一写入 Saved/MonsterGpuSync20261018/latest-123634/ordered/。
+decode_latest.py 已改为调用 reconstruct_gpu_order.py，不再生成旧的按记录线程配对结果。
+analyze_latest.py、deep_shared_sync.py 和 analyze_queue_overlap.py 都读取 ordered/。
+
+2. 玩家没有被额外重复蒙皮
+同资产/LOD/分段/输入输出起点/顶点数/排列等已记录元数据匹配后，每完整 GPU 帧派发数：
+                                   无怪基线       37 怪慢阶段       37 怪恢复阶段
+SK_Jason_Backpack                       1                1                1
+SK_Jason_LeatherBoots                  10               10               10
+SK_Jason_Base                         40               40               40
+SKM_Jason_head                         8                8                8
+SK_Jason_CapriTailored_HighBootsFit     10               10               10
+SK_SVD_BareArmsV7                       3                3                3
+SVCH 约 21.72 -> 22 -> 22；基线少量帧的活动状态不同，不将其称为完全相同输入。
+这些记录匹配资产及派发参数，不匹配 Actor、具体缓冲或骨骼数值，不能冒充逐实例控制实验。
+
+3. 慢在什么操作
+继续采用主报告的完整 GPU 帧窗口：基线首刷前 -3～0 s，慢 +4.3～7.3 s，恢复 +8～11 s。
+                                        慢阶段每帧平均/ms       恢复每帧平均/ms
+Morph Scatter（累加）                            20.460                 0.197
+Morph Normalize（输出转换）                      36.655                 0.128
+SkinCache 子派发区间合计                          9.789                 0.493
+SkinCache 同着色器排列的派发间隙                 23.554                 0.928
+SkinCache 不同着色器排列的派发间隙                0.259                 0.012
+玩家头部等切线重算外层                           4.878                 0.063
+父子区间不得重复相加；事件跨度包含同步/调度，不等于纯着色器运行时间。
+
+Normalize 同网格参数中位数：
+- SVCH LOD0，76,102 顶点：慢 1.5002 ms（6 次），恢复 0.0051 ms（24 次）。
+- 研究员 LOD0，119,791 顶点：慢 2.4669 ms，恢复 0.0072 ms。
+- 接待员 LOD0，162,110 顶点：慢 3.4714 ms，恢复 0.0082 ms。
+同组匹配并不消除姿态、视角、设备调度状态等变量，但 Normalize 的着色器路径本身很简单：
+MorphTargets.usf:164 起，按顶点读取 MorphVertexBuffer 的六个整数分量，转换/缩放后写回。
+它不读取 MorphDataBuffer、不访问骨骼矩阵、不遍历活动 Morph；输入顶点数也未增加。
+SkeletalRenderGPUSkin.cpp:1670 只绑定此输出 UAV、缩放常量和 NumVertices。
+因此不能用衣服源 Morph 的数量/解压复杂度解释这部分数百倍的增长；应继续追输出访问及
+Normalize 之前的 UAV 同步。作用域同时覆盖该同步，尚不能把所有跨度分配给输出读写指令。
+
+4. 相同排列派发之间的 GPU 间隙
+约 98.91% 的派发间隙总跨度位于着色器排列不变的相邻派发之间，不能统一归为换 PSO。
+最大 10 个间隙为约 12.11～14.17 ms，多出现在不带 Morph 的囊袋投手派发附近。
+每个都完整落在一个 GPUWork 内，相关 CPU 提交早于间隙约 178～239 ms：
+- 不是等 CPU 此时才提交这个 command list 的直接证据。
+- 已记录图形队列等待重叠为 0。
+- 与 UE 异步计算 GPUWork 的重叠也为 0。
+慢窗口全部 Normalize 与 SkinCache 外层区间，同样没有异步 GPUWork 重叠。
+这排除了“这些区间里 UE 异步 Lumen/Niagara 正在并行执行而争用带宽”的直接解释。
+它不排除其他进程、未记录的驱动内部工作、物理页搬运、GPU 抢占或诊断指令延迟。
+GPUWork 是 UE 提交/计时区间，不是硬件利用率，也不能用它证明 GPU 内部一直在执行算术。
+
+5. 引擎命令与剩余候选
+GPUSkinCache.cpp:1840 起，在派发循环外开始输出 UAV overlap，循环结束后才结束 overlap。
+循环按 ShaderIndex / BatchIndex 排序，只有 ShaderIndex 改变才切换 Compute PSO。
+同排列相邻 SkinCacheDispatch 计时作用域之间没有游戏代码的“重新计算全部装备”操作。
+D3D12CommandContext.cpp:123～223 显示：前一作用域结束的 timestamp 之后、后一作用域
+开始的 timestamp 之前，可能有 PIX/Aftermath 事件与 RHI 崩溃标记写回。
+崩溃标记写到 WindowsD3D12Device.cpp 的 VirtualAlloc/OpenExistingHeapFromAddress 资源。
+这是具体的公共命令路径候选，但本 trace 没有每条原生命令时间，也没有现场 WDDM 调度，
+不能把 23.55 ms 直接声称为这些标记的成本。
+
+MARKER_OUT 等前序命令完成后写回，但 Microsoft 明确说明它不阻止后续操作启动；
+因此没有以“MARKER_OUT 必定完全串行化所有后续计算”为理由关闭崩溃诊断。
+https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_writebufferimmediate_mode
+
+继续核对了输出 DEFAULT heap / placed allocation 的优先级路径、驻留登记和公共 UAV 屏障。
+没有得到“某个输出实际迁出显存”的新证据，也未确定某条屏障冗余；没有直接删除屏障或
+把所有 UAV heap 提升优先级。实时输出常驻性仍值得优先调查，不等于本轮已证实驱动换页。
+官方 UE-305620 的关闭 D3D12_RHI_RAYTRACING 导致 SetResidencyPriority 无操作问题也未套用：
+当前本机实现使用 D3D12_MAX_DEVICE_INTERFACE >= 5 条件，且本项目开启光追；不符合该问题条件。
+https://issues.unrealengine.com/issue/UE-305620
+
+6. 落盘与边界
+新增/修正的是已有追踪的离线解码与分析文件，没有游戏运行源码、引擎源码或配置修改。
+没有修改画质、怪物数、战斗规则、动画采样率或装备表现，没有启动 UE/PIE/游戏或执行测试。
+没有新增需要构建的运行模块。上一轮装备通用通知重建修复不作为本轮新增，也不作为本次
+持续 GPU 主因的解释。
+本轮产物：
+- Saved/MonsterGpuSync20261018/reconstruct_gpu_order.py
+- Saved/MonsterGpuSync20261018/deep_shared_sync.py
+- Saved/MonsterGpuSync20261018/analyze_queue_overlap.py
+- ordered/reconstruction.json、analysis.json、deep-sync-analysis.json、queue-overlap.json
+物理驻留降级与驱动/诊断执行等待之间的最终归因，仍受原采集 WDDM error 5 限制。

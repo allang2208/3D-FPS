@@ -1,0 +1,125 @@
+活怪持续 GPU 高耗时：形变输出缓冲与 10:08 新导出
+2026-10-18；仅读取既有数据及源码。没有启动 UE、游戏、采集或测试。
+
+同日后续：用户启动采集触发 AudioInsights/AssetRegistry 线程断言，已定位并修正
+UE trace 启停的线程归属。详见 f6-trace-game-thread-crash-fix-20261018.txt；manifest 更新为 3。
+
+本轮结论
+1. 新 F6 再次记录了生成结束后仍持续的 GPU 高耗时，主因没有解决。
+2. 旧详细 GPU 数据进一步指向 Morph 输出缓冲及其同步阶段：快慢两组都执行
+   Scatter 和 Normalize；Normalize 不读取共享压缩 Morph 库，却出现约 580 倍中位耗时差。
+   计时范围含 UAV 屏障，不能把差值全部解释为着色器算术、换页或驱动阻塞。
+3. 用户刚打开的 GPU 深采在 StartTraceW 即被拒绝（错误 5）。没有 WDDM ETL、
+   没有 UE trace、没有任何缓冲身份行。故不能把这次 JSON 与不存在的驱动记录关联。
+4. 修正采集链的确定性缺陷：WDDM 权限不足不再连带取消可用的 UE 时间线和缓冲身份；
+   导出成功与 GPU 记录完整分开显示。该修正是采集修复，不是 GPU 卡顿主因修复。
+
+一、新证据及时间范围
+源目录：Saved/PerformanceReports/gpu-DC5D21184F1BBCAA983DD689EF50B400/
+性能文件：performance-20261018-020836-688F4D554E5D2DA01363BC9AFF41C642.json
+会话：23352D4B4A057B9239AAC2AE60569E2F；generation 1；PID 34176；schema 12。
+导出时间 UTC 02:08:36，即北京时间 10:08:36；PIE、D3D12、2546×1212。
+
+manifest.json：
+- etw_start_error=5；stop_reason=start_failed；files_finalized=false。
+- wddm.etl 和 engine.utrace 的 bytes=-1，实际不存在。
+- buffers.jsonl 为 425 字节，只有 capture_start/capture_stop 两条时钟锚点。
+- 开始/停止 UTC 都为 02:08:33.200，没有实际采集区间。
+- GPU 按钮发生在该波首次刷怪后 23.7415 秒，显示快照在首次刷怪后 26.9630 秒。
+
+StartTraceW 的 ERROR_ACCESS_DENIED 说明事件追踪启动权限不足。管理员权限或具备
+相应事件追踪权限的账户才能控制此类会话；本次没有自动提权、修改账户组或重启 UE。
+微软 API 说明：https://learn.microsoft.com/en-us/windows/win32/api/evntrace/nf-evntrace-starttracew
+文件写入权限本身已允许创建 manifest/buffers/JSON；Windows 拒绝的是 ETW 启动调用。
+以后由用户采集完整 WDDM 时，需要在具备权限的 UE 进程中开始，并在刷怪前开始记录。
+仅普通 JSON 导出不能回补此前未开启的 GPU/驱动时间线。
+
+二、新 JSON 的遭遇窗口
+1 个完整遭遇窗口，496 帧；无窗口容量截断、丢弃事件、暂停帧或后台帧。
+34 次成功激活在 +3.297 秒内完成：研究员 9、接待员 8、安保 8、投掷者 8、潜伏者 1。
+SpawnAttempt 包含耗时合计 90.128 ms，单次最大 26.457 ms；存在一次 CPU 生成尖峰，
+但该单次尖峰不能解释生成结束后连续十余秒的低帧。其内层子阶段不重复相加。
+
+相对首怪激活       FPS      GPU均值ms     活怪均值    本地显存预算余量MiB
+-3～0 秒           87.49       9.98          0.00          1121.8
+ 0～2 秒           39.63      20.78         11.00           629.9
+ 2～5 秒            8.99     105.26         29.50           241.4
+ 5～10 秒           8.19     120.31         31.00           224.7
+10～15 秒           8.34     118.16         29.78           141.4
+15～20 秒           9.46     104.19         27.78           167.5
+
+FPS 来自原始帧时间均值；Game/Draw/RHI/GPU 为独立异步发布读数，不能同帧相加。
+显存数据是进程级预算/使用采样，含编辑器视图，不能定位特定 Morph 的物理驻留。
+非本地段使用没有在该窗口出现足以独立证明 Morph 迁移的明显跃升；它也不排除
+既有非本地分配、短时迁移或采样之间发生的缺页。
+不能将本轮与凌晨不同种子、怪物组合及镜头条件的 F6 直接作为优化前后对比。
+
+三、旧详细 GPU 时间线的新拆分
+输入：Saved/DungeonEntryCaptures/20261012-154840-442768/ 下的
+gpu-mesh-decoded.jsonl、timers.csv、gpu-events.csv。
+区间 +60.862～71.05 秒；旧 CSV 与已解码相对时间差 333.885549 秒，只用于该旧记录。
+按父 MorphUpdate 分组，匹配每个父事件中的 Scatter/Normalize，容许 CSV 舍入误差 2 微秒。
+
+分类                  数量       Scatter中位ms       Normalize中位ms
+快组 <=0.15ms          873           0.032                 0.006
+慢组 >=1ms             928           1.329                 3.484
+中间组                   1
+
+全部 1802 个匹配的父事件各有一个 Scatter 和一个 Normalize。
+快组不是跳过 Normalize，慢组也不是多执行一组形变。不能把某一排序位置当成固定 Actor。
+旧数据没有逐实例缓冲身份，且缺少 WDDM；这些结论不能直接搬成新窗口的 pass 占比。
+
+四、实际 GPU 链路与排除范围
+本机引擎：E:/Program Files (x86)/UE_5.8，UE 5.8.3。
+Engine/Source/Runtime/Engine/Private/SkeletalRenderGPUSkin.cpp：
+- FMorphVertexBuffer 是每实例、每 LOD 的输出，24 字节/顶点；GPU 路径为 Static + UAV。
+- 研究员 LOD0 为 119791 顶点（2874984 字节）；接待员 162110 顶点（3890640 字节）。
+- UpdateMorphVertexBufferGPU：清零 -> Scatter 原子累加 -> UAV 屏障 -> Normalize -> 读取状态。
+- FGPUMorphNormalizeCS 仅绑定该输出 UAV、PositionScale、NumVertices。
+  参数函数虽然接收 MorphTargetVertexInfoBuffers，但不会绑定或读取共享压缩输入。
+- Normalize 调度为该 LOD 顶点数 / 64 向上取整，没有把全部已保存 Morph 数乘进调度量。
+- MorphUpdateNormalize scope 在 UAV 屏障前开始，因此包含屏障及状态转换开销。
+- 输出池不会因正常每帧权重更新就重新 InitRHI；SkinCache 正常路径不要求输出双缓冲。
+
+Engine/Shaders/Private/MorphTargets.usf：
+- Normalize 每顶点读取 6 个 uint，转换/缩放，写回 6 个 float 位型。
+- 相同网格快慢两组的明显差异不能仅用 Normalize 固定算术工作量解释。
+
+D3D12RHI 的 Buffer/Allocation/PoolAllocator/DescriptorCache/Resources 源码：
+- 上述 Static UAV 走 DEFAULT heap；没有找到误放入 UPLOAD heap 的证据。
+- 可变状态 UAV 用 placed resource；其驻留按 backing heap 跟踪。
+- 普通和 bindless 的 UAV/SRV 绑定路径均有 UpdateResidency。
+- 资源池搬移会通知拥有者并延迟旧分配释放；没有证明该路径遗漏引用更新。
+- 旧详细 trace 的慢 Morph 位于已提交 Graphics command list 的 GPUWork 内；
+  已覆盖队列数据不支持简单 CPU 提交空洞或前置驻留栅栏解释。
+以上没有排除硬件缺页、驱动内部迁移、命令执行中的抢占或屏障等待。
+
+因此，现阶段不实施 CPU Morph 全局切换、降低 LOD、删曲线、降低更新率、关闭 RT/阴影、
+强制提升所有缓冲驻留优先级或改写全局 UAV 屏障。它们缺少定因依据，且可能改变画质
+或把压力转移到其他资源。现有数据支持继续查输出 UAV，不支持宣称主因已确认。
+
+五、已落盘的采集修正
+Source/FPSGAME/UI/FPSGpuTraceCapture.cpp / .h：
+- 分开 ETW 与 UE trace 的启动结果。ETW 拒绝后仍尝试已有的 UE trace/缓冲身份路径。
+- 保留原始错误、capture_mode、wddm_providers_ready；manifest 版本为 2。
+- available_files_finalized 仅表示实际可用文件已收尾。
+- files_finalized 仍要求完整 WDDM + UE trace + 身份文件，部分记录不冒充完整包。
+- HasCompleteBundle 还要求清单写入成功、无已报告事件丢失。
+- 沿用显式 F6 触发、180 秒/UE trace 1 GiB 上限及有界缓冲队列。
+
+Source/FPSGAME/UI/DevelopmentPerformancePanel.cpp：
+- 初始说明提示完整 WDDM 权限条件及降级行为。
+- JSON 保存成功但 GPU 记录失败/缺失/丢事件时显示警示及真实状态，不再一律绿色成功。
+- 导出完成信息使用这次导出持有的捕获对象，不误取后来新开的一次记录。
+
+六、产物及交付边界
+Saved/MorphGpuDiagnosis20261018/analyze_saved_data.py：只解析既有用户记录。
+Saved/MorphGpuDiagnosis20261018/analysis.json：来源散列、分段数据、旧 GPU 子阶段统计。
+Saved/MorphGpuDiagnosis20261018/before/：这次三个源码文件修改前副本，保留既有并行改动。
+现有共享后台 FPSGAMEEditor / FPSGAME 构建均成功，实际编译了本次两个 cpp；
+两目标 obj 均晚于本批三个源码文件，源码散列在构建后保持一致，无需另起重复构建。
+来源分别为 SourceAssets/SVCHRefinement20261018/Checks/build-corrective-check.log
+与 Saved/BuildEditor/damage-numbers-mpfix2-20261018-game.log。
+完整记录及目标产物散列保存在 build-receipt.json、shared-*-build.log。
+运行效果及采集降级行为未测试，构建成功不代表卡顿已改善。
+没有改画质、怪物数量、衣服运动、战斗或生成规则。持续 GPU 高耗时仍待完整证据定因。

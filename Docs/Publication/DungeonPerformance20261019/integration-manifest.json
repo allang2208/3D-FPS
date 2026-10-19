@@ -1,0 +1,85 @@
+{
+  "format": 1,
+  "base_commit": "d80dcaffbc8373db1146a764e527be760d5031b2",
+  "normalization": "UTF-8 without BOM, LF; SHA-256",
+  "warning": "Local source already contains the changes. Mixed-file prerequisites are reconstructed local contexts, not public HEAD. Do not apply twice. Verify every baseline hash before git apply --unidiff-zero.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.cpp",
+      "basis": "Git HEAD at publication base; requires the matching hall integration below",
+      "before_sha256_lf": "2873b8c90a109b4c678e7cffec1da9f30bb6139817836e4a659c470c8161a71a",
+      "after_sha256_lf": "2ec52746e5ec1d901e938c2f98c66f6c189820760a590106ab6f0df7fce855ff",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h",
+      "basis": "Git HEAD at publication base; requires the matching hall integration below",
+      "before_sha256_lf": "7e860657a3c1a1b9cdc4937fdc19d8a357177cf5d1fa50f55dc1846e150b2633",
+      "after_sha256_lf": "6e55b4fa791170720a2be2bfd1a8208f71a40c504cd05ed2f59b9915e7cd1037",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallPreparation.cpp",
+      "basis": "new performance-owned file; regional hall prerequisites required",
+      "before_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256_lf": "315ce15ce795f1134108b5d160ae9fba4c0cec898c609c9e9cff23b99ded38b2",
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallPreparationBudget.h",
+      "basis": "new performance-owned file; regional hall prerequisites required",
+      "before_sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after_sha256_lf": "f7cd96f9c153501d2410f7f74f830004f6705a15940ef615bfa26affaca6fc17",
+      "new_file": true
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "basis": "reconstructed local regional-objective framework, excluding this performance integration",
+      "before_sha256_lf": "3c42eaa881b2c080a2360ac63b0ce4fc193f8366a5e4ee8ab05c1ed2496a1d19",
+      "after_sha256_lf": "82c552045ad1012fac0ca281059c325a010f2e9adeba66b666a6f72e1dc948be",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "basis": "reconstructed local regional-objective declarations",
+      "before_sha256_lf": "885e01c2ff4c4a9278b285190eb0c27024a8e09c681307c668003dfb4ba100aa",
+      "after_sha256_lf": "55be7acbad2a7f29f280f576c4aa1c5b669c3502f1ea78e6686a6e26d894a85a",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "basis": "reconstructed local regional spawning, elite, floor and service-door framework; performance hooks removed",
+      "before_sha256_lf": "43b2c3a2f1494049a36cd38a0f6eb8a87a357d98685b53212099ee1eb3b95539",
+      "after_sha256_lf": "df2ab8366b628d648e9ab094afb940953e0e06ac335dabb483ca6491aa03bf5a",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "basis": "reconstructed local hall declarations, excluding performance pool and telemetry",
+      "before_sha256_lf": "f8ed1e4e9dd6492ac47995f107203c5922ddb91dc35271ddd074fdbce0b2c499",
+      "after_sha256_lf": "07ee21224de7139ae70c96629b9db56156f48698078b62fd315106b3d6c7a1ab",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp",
+      "basis": "reconstructed local freight network/door system, excluding preparation cancellation and the compile fix",
+      "before_sha256_lf": "3b84bfff4fc11240e6ac34324f9aa43765010c7142cdae3416a3f606693321de",
+      "after_sha256_lf": "3a174acb563da71548b5ccd39d451b8c501dee378c8f65aa43336c19c3c8a673",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/Building/AlchemyWorldView.cpp",
+      "basis": "local parallel alchemy work; only the two-line C4456 rename belongs to this batch",
+      "before_sha256_lf": "debd525e8b74cb2d67b58c954ad7db7a1d9cbbd16b6fcb988609389e589dba14",
+      "after_sha256_lf": "738f2fee29202c00f6f6e2e741e988b7580ef9608123a57554ad9ecbe5045d19",
+      "new_file": false
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "basis": "local entry/loading framework; budget-policy method from saved 2026-10-14 snapshot",
+      "before_sha256_lf": "48d708018cb34a2d9b6e9b9e568586cca6fa785b4f48447c9a8a7ca3072b511b",
+      "after_sha256_lf": "cd5107afd26a7deeac88275676fd954b0bba409408971c06f82b17108256e460",
+      "new_file": false
+    }
+  ]
+}

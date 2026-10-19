@@ -1,0 +1,89 @@
+衣服 Morph GPU 更新链：提交等待与驻留的进一步区分
+2026-10-14～15；本轮仅沿主链排查，没有再修改附属系统。
+
+结论边界
+已排除这批慢 MorphUpdate 是 CPU 提交空洞或 UE 已记录的跨队列栅栏等待；
+没有发现窗口内的计算 PSO 创建调用支持“持续等待计算 PSO 编译”的解释。
+已定位到命令列表执行内部的形变缓冲读写阶段；证据更支持部分实例缓冲的慢访存/非本地
+访问，但还没有物理段、分配句柄和 WDDM 调度事件，不能把“非本地驻留”宣布为已证实。
+驱动在命令列表内部的调度/访存等待与缓冲驻留问题也不是严格互斥的两种原因。
+
+本轮新增的离线证据
+全部来自已有 Saved/DungeonEntryCaptures/20261012-154840-442768/capture.utrace。
+没有重新运行游戏。UnrealInsights 仅以 -NoUI -AutoQuit 解析该文件并导出已有 CPU 事件。
+输出：Saved/MorphGpuChain20261014/；程序 decode_queue.py、analyze_cpu.py。
+CPU 导出配置 export-cpu.rsp；解析日志 export-cpu-final.log；输入哈希在 cpu-summary.json。
+这份旧 trace 与最新 10 月 14 日 F6 是不同运行，不把旧 pass 占比套到新 F6 上。
+
+1. 慢事件在命令列表内部，不是提交空洞
+对已有网格元数据中的 928 次 >=1 ms MorphUpdate，逐次匹配 GpuProfiler.EventBeginWork
+与 EventEndWork，并恢复 BeginWork 中的 CPUTimestamp：
+- 928 / 928 完整包含于单个 Graphics GpuWork（一个 D3D12 command list）的起止时间内。
+- 与已解码的 Graphics EventWait 区间重叠总和为 0 ms。
+- Morph 开始距 command-list GPU 开始：最小 0.0839 ms，中位数 25.0568 ms，最大 59.692 ms。
+- Morph 开始距 CPU 提交侧时间戳：最小 15.7048 ms，中位数 134.8063 ms，最大 182.0809 ms。
+上述 CPU 时间戳由 D3D12Submission.cpp::FlushBatchedPayloads 中的 FlushProfilerEvents
+写入，GPU 时间戳经现有校准转换到同一时钟。它不是当前系统时间，也不是游戏动画时钟。
+“距提交很久”表示此前命令/队列已有延迟，不把整段延迟都算到这个 Morph 作用域上。
+
+2. 提交、分配和 PSO 的 CPU 时间不能解释每次约 5 ms 的 Morph
+同一 +60.862～71.05 秒窗口的原生 CPU 事件：
+- FD3D12Queue::ExecuteCommandLists：15096 次，总 416.324 ms，最大 2.945 ms。
+- D3D12RHI::AllocateBuffer：4828 次，总 37.787 ms，最大 1.142 ms。
+- D3D12RHI::AllocatePoolResource：2751 次，总 16.537 ms，最大 1.141 ms；是包含关系。
+- Graphics PSO 创建：108 次，总 17.693 ms，最大 1.602 ms。
+- 窗内没有导出匹配到 RHICreateComputePipelineState 的调用。
+- DefragBufferPool：120 次，总 0.916 ms，最大 0.053 ms。
+这些是 CPU 时间，不拿来代替 GPU 拷贝/驱动内部开销；父子项不相加。
+分析排除了 Insights 自动附带的帧轨道：帧轨道的 TimerId 是帧序号，不能映射为 CPU timer。
+
+3. 驻留栅栏位于哪些位置
+本机 UE 5.8.3，CL 58210709，D3D12Queue::ExecuteCommandLists 调用 D3DX12Residency。
+其 ExecuteSubset 顺序为：ProcessPagingWork -> AsyncThreadFence.GPUWait ->
+Queue->ExecuteCommandLists。
+所以这个管理器的 MakeResident 前置等待发生在命令列表开始之前，不能解释已经位于
+单个列表内部的 928 次慢 Morph。不能把“管理器加了 paging fence”直接当成本次根因。
+这不排除 Windows 在列表执行期间的内存访问/驱动行为。
+
+4. 为什么没有超预算，仍不能排除非本地访问
+本机 d3dx12residency.h::ProcessPagingWork 的具体策略：
+- 只把内部 ResidencyStatus 为 EVICTED 的对象加入待 MakeResident 集合。
+- 每次引用都刷新 LastUsedTimestamp 和 LRU。
+- 新请求可用空间使用 Local.CurrentUsage + NonLocal.CurrentUsage，以及
+  Local.Budget + NonLocal.Budget；并以 D3D12_RESIDENCY_FLAG_NONE 提交。
+- 另外按本地内存压力进行 aged allocation trimming。
+这是通用驻留管理策略，本身不是本次驻留失败的证明；不能仅见到 Local+NonLocal 就
+将它改为只认 Local。管理器也会处理不同内存类型的对象，这种改法会破坏其预算语义。
+
+DXGIUtilities.cpp 中 DemotedLocal 的实际计算是 max(UsedLocal-BudgetLocal,0)，
+并非逐资源被移出显存的真实字节数。当前 F6 已正确将其命名为 over_budget_bytes。
+本轮确认这个字段不能用来证明 Morph 输出缓冲始终位于本地显存。
+Microsoft 的 residency 定义是 GPU 可访问，而不是“必定在独显本地显存”。
+官方资料：https://learn.microsoft.com/en-us/windows/win32/direct3d12/residency
+异步驻留接口/栅栏语义：https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device3-enqueuemakeresident
+
+5. 已追到具体输出缓冲，没有证实项目遗漏了驻留登记
+SkeletalRenderGPUSkin.cpp::FMorphVertexBuffer::InitRHI：
+GPU 输出为每实例 LodVertexCount * sizeof(FMorphGPUSkinVertex) 的 Static|UAV|SRV 缓冲。
+接待员单份输出 3,890,640 字节；研究员 2,874,984 字节（按现有 LOD0 顶点数与 24 字节步长计算）。
+这些输出与共享压缩 morph 输入是不同资源，不能混算。
+D3D12Buffer.cpp 的此路径使用 DEFAULT heap，不是 Dynamic 的 UPLOAD heap。
+D3D12PoolAllocator 对需要 UAV 多状态跟踪的 buffer 使用 placed resource。
+D3D12DescriptorCache 的普通 UAV/SRV 绑定以及 bindless 准备路径均会 UpdateResidency。
+没有找到可以据此直接补一个“漏掉的 UpdateResidency”调用的项目缺陷。
+未使用私有结构体偏移去改底层 heap，也未对 placed resource 错误调用 MakeResident；
+该 API 支持 heap/committed resource 等对象，不直接支持 placed resource 的驻留修改。
+
+现有数据的硬边界
+该 trace 的 schema 包含 RDG 逻辑 BufferMessage、GPU 作用域/队列事件、CPU 事件，
+没有分配级驻留/迁移/缺页事件；RenderTrace 仅有 CommandListCreatedMessage。
+RDG transient allocation offset 不是某个 Morph 缓冲在 WDDM 的物理驻留位置。
+因此从这些文件不能恢复“某次 5 ms Normalize 使用了哪个 heap、当时位于哪个物理段，
+期间是否被其他 GPU context 抢占”。这不是再换一个 CSV 导出参数就能补出的字段。
+严格区分最后这两项需要新的分配级 residency 与 GPU scheduler 记录；用户本轮禁止
+测试/新采样，因此没有执行，也没有用全局驻留开关、强制本地显存或降画质来猜。
+
+本轮交付
+完成上述原 trace 的补充离线解析、主链源码定位和结论修正。
+尚未确认一个可以等价修正的运行时代码缺陷，因此本轮没有修改游戏或引擎运行时代码，
+不宣称活怪 GPU 高耗时已解决。不打开 UE、不改变已有 UE 进程、不运行测试。

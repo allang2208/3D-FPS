@@ -1,0 +1,67 @@
+F6 WDDM 权限修正与手动采集步骤
+2026-10-18
+
+这次处理了什么
+12:36 数据的 etw_start_error=5 出自 StartTraceW 创建 ETW 会话，wddm.etl 不存在。
+Windows 错误 5 是访问被拒绝；管理员账户登录不代表 UnrealEditor.exe 已取得提升后的令牌。
+完整采集需要让新的 UE 进程拥有 ETW 所需权限。代码不能在原进程内完成 UAC 提权。
+
+已增加项目根目录 Launch-F6-WddmCapture.cmd，由用户手动双击调用
+Tools/Performance/Start-WddmCaptureEditor.ps1。该入口请求 Windows UAC 确认后启动指定
+UE 5.8 编辑器及 FPSGAME.uproject；不开始 PIE、采集、测试或执行控制台命令。
+如果检测到现有 FPSGAME 编辑器/commandlet，入口会提示保存退出，不关闭或重启任何进程。
+入口没有修改账户组、ETW ACL、注册表、兼容性设置、画质、怪物数量或战斗规则。
+PowerShell 的 ExecutionPolicy Bypass 仅作用于该次脚本进程，不更改机器执行策略。
+
+F6 新增明确的进程权限提示。启动 ETW 仍以实际 API 返回为准，不因未提权而阻止已获显式
+ETW 授权的非管理员用户。失败记录现在包含阶段、令牌查询状态和是否已提权。
+完整提供程序集合要求 DxgKrnl、D3D12、UMD 映射和本项目身份事件都开启成功；之前只有
+前两项参与就绪判断，现已修正，避免缺少映射/身份事件时仍声称完整。
+
+你按下面的顺序采集
+1. 保存工程，退出当前 FPSGAME 的 UE 编辑器。不要直接从 Epic 启动器再次打开工程。
+2. 在 D:\FPS3D\FPSGAME 双击 Launch-F6-WddmCapture.cmd，确认 Windows 的权限提示。
+   这个入口会打开 E:\Program Files (x86)\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
+   和 D:\FPS3D\FPSGAME\FPSGAME.uproject。取消权限提示则不开始采集。
+3. 由你正常进入游戏。在刷怪前打开 F6 的性能页；先“清空采样”，再点击
+   “GPU 驻留/调度：开始”。如果只能在进入地牢前操作，也可提前开始，采集会跨地图保留。
+4. 等待显示“WDDM + UE 正在记录（含缓冲身份，最多 180 秒）”。仅显示“当前进程已提权”
+   还不代表已启动采集。若显示“仅 UE GPU 时间线/缓冲身份记录中”或“缺少 WDDM”，
+   这轮就不是所需的完整驻留采集，不必继续专门复现卡顿。
+5. 关闭 F6 面板，先留约 3 秒基线，再正常触发刷怪。保持原来的画质、怪物数量和战斗方式。
+   第一波出现后继续约 30 秒，让记录包含连续刷怪、怪群存活，以及可能的恢复阶段。
+   整轮尽量控制在约 40～60 秒，别等到 180 秒上限或 1 GiB 引擎 trace 上限。
+6. 打开 F6，保持显示刷新，直接点“导出记录”。此按钮会停止并收尾 UE trace/WDDM，
+   无需先停止 PIE。等到导出完成后再退出游戏；开始后不要再次“清空采样”。
+7. 把 F6 显示路径中的整个 gpu-<编号> 文件夹交给我，可直接告知路径，或压缩整个文件夹。
+   默认目录：D:\FPS3D\FPSGAME\Saved\PerformanceReports\gpu-<编号>\。
+   文件夹应包含 performance-*.json、manifest.json、engine.utrace、buffers.jsonl、wddm.etl。
+   不要只发 performance JSON。
+
+如果仍然报错
+- 提示未提权/错误 5：需要退出旧 UE 后用上述入口启动新的进程，在旧进程内反复开始无效。
+- 已提权仍报错误 5：直接导出并保留整份失败文件夹，不继续反复采集；记录会区分
+  StartTraceW、EnableTraceEx2.DxgKrnl/D3D12/UMD/Identity 或 EventRegister.Identity 阶段。
+- 显示其他提供程序错误或记录丢失：仍导出整个文件夹供排查，不将其称为完整成功。
+
+分析端接收时的判据（你不需要手工编辑 JSON）
+manifest 版本 5 追加 windows_token_query_error、process_elevated、elevated_launch_entry，
+失败时追加 wddm_error_stage、wddm_error_code、wddm_failure_action。
+记录就绪要求 wddm_providers_ready=true、capture_mode=wddm_and_ue_trace；
+收尾还要求 files_finalized=true、UE trace 已关闭、ETW stop 成功、记录没有报告丢失。
+files_finalized 只表示文件封存，不单独证明零丢失、所有历史分配 rundown 或未发生环形覆盖。
+API 开启成功也不等于已经证明某个资源驻留在哪个物理段，仍需解码 ETL 后按 PID/适配器/
+时间锚点/资源生命周期关联。这次不会把“权限已修正”写成已取得运行采集结果。
+
+参考
+Microsoft StartTraceW：ERROR_ACCESS_DENIED 与 ETW 控制权限。
+https://learn.microsoft.com/en-us/windows/win32/api/evntrace/nf-evntrace-starttracew
+Microsoft EnableTraceEx2：提供程序开启权限和返回状态。
+https://learn.microsoft.com/en-us/windows/win32/api/evntrace/nf-evntrace-enabletraceex2
+
+交付状态
+源码与用户手动启动入口已落盘。Editor Win64 Development 最终构建成功（13.10 秒），
+Game Win64 Development 构建成功（27.97 秒）；普通 DLL/EXE 已更新。
+构建日志：Saved/PerformanceWddmPermission20261018/build-editor-final.log、build-game.log。
+本轮没有执行该启动入口，没有自动提权、启动 UE/PIE、开始 ETW 会话或测试。
+实际 WDDM 能否完整记录，等待你按上述步骤运行后导出确认。

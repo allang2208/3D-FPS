@@ -1,0 +1,97 @@
+活怪持续 GPU 高耗时：继续排查与确定性修订
+日期：2026-10-14
+后续主链排查：morph-gpu-submission-residency-20261014.txt，已进一步排除提交空洞和前置驻留栅栏等待，物理驻留与驱动内部行为仍未证实。
+
+本轮结论
+持续低帧的主要异常落在员工衣服形变的 GPU 更新链上，不能解释成正常的“怪多就卡”。
+新的离线拆分发现同一 GPU 帧、同一网格资产、同一 LOD 的快慢两组更新相差约百倍。
+优先怀疑的是部分实例形变缓冲的访问/驻留或驱动等待；现有数据仍不足以证明具体换页原因。
+本轮没有把这个假设冒充已修复的根因，也没有关闭形变、降面、强制低 LOD 或关闭阴影/光追。
+
+证据来源与时间边界
+1. 最新 F6：Saved/PerformanceReports/performance-20261014-115219-FAD8E9994B50BC3921D667BC5C66EC4F.json
+   首波 +5～10 秒：GPU 平均约 144.33 ms，Game 约 36.65 ms。
+   首波 +10～15 秒：GPU 约 140.21 ms，Game 约 20.59 ms。
+   最后 10 秒：GPU 约 69.54 ms，Game 约 17.56 ms。
+   这些线程值异步发布且相互重叠，不能相加。
+2. 已有详细 GPU trace：Saved/DungeonEntryCaptures/20261012-154840-442768/
+   只重读此前的 CSV、解码元数据、队列工作区间；没有运行新采样。
+   采用 +60.862～71.05 秒窗口，共 119 个完整 Graphics GPU 帧。
+   旧 trace 与最新 F6 是不同运行，旧 pass 占比不能直接套到最新 144 ms 帧。
+3. 本轮离线程序与结果：Saved/LiveMonsterGpuDiagnosis20261014/analyze_existing.py、analysis.json。
+   结果保留输入文件 SHA256、统计阈值、区间和原始帧例子，可复核来源。
+
+新定位：形变更新存在明显的快慢两组
+接待员 SK_FacelessReceptionist_V05，LOD0，162110 顶点：
+- 解码 919 次 MorphUpdate；317 次 <=0.15 ms，中位数 0.0532 ms。
+- 601 次 >=1 ms，中位数 5.1661 ms；慢组累计 3163.476 ms。
+- 101 个完整 GPU 帧中，同一资产同时出现快组和慢组。
+- 例如 +70.885179 秒的 GPU 帧内：快更新 0.0574 ms，慢更新 4.8506 ms。
+研究员 SK_FacelessResearcher_V05，LOD0，119791 顶点：
+- 解码 883 次；556 次 <=0.15 ms，中位数 0.0482 ms。
+- 327 次 >=1 ms，中位数 4.4636 ms；慢组累计 1491.607 ms。
+- 95 个完整 GPU 帧中，同一资产同时出现快组和慢组。
+- 同一例帧内：快更新 0.0515 ms，慢更新 4.2926 ms。
+这里的快慢阈值仅用于离线分类，没有加入运行时代码。
+元数据只有网格资产名，没有实例标识，不能据此给某个 Actor 指认固定慢缓冲。
+
+这 928 次慢 MorphUpdate 全部在已解码的 Graphics GpuWork 区间内；
+与已解码的 Compute GpuWork 区间重叠为 0。
+因此已覆盖的队列数据不支持将这些慢事件解释为同时运行的异步 Lumen/TSR 抢占。
+GpuWork 是队列工作跨度，不是纯着色器指令周期，仍不能排除工作内部的驻留/驱动等待。
+覆盖沿用此前解码的 profiler 工作线程 6～20、56、57，不冒充硬件全量周期分析。
+
+原生 trace 在该窗的 MorphUpdate 累计 4824.891 ms，其中 Normalize 3109.869 ms、
+Scatter 1430.527 ms；子项包含在父项中，不能重复相加。
+Non-Nanite VSM 累计约 308.274 ms / 119 帧，约 2.59 ms/帧，
+该窗不能用关闭怪物阴影去解释或“修复”数十到上百毫秒的主要异常。
+
+与代码、最新 F6 对照
+- 本机 SkeletalRenderGPUSkin.cpp 的 IsMorphUpdateNeeded 已比较活动权重/LOD。
+  Scatter 跳过零权重形变；没有证据证明每只怪每帧计算全部 181/231 个形变。
+- MorphTargets.usf 的 Normalize 对输出顶点做整数转浮点及缩放，处理范围为整个输出缓冲。
+  它不遍历全部衣服样本、灯光或三角形。同资产更新可在同帧保持约 0.05 ms，
+  因而仅用顶点数或形变库大小不足以解释慢组。
+- 最新 F6 通常只有两个非零衣服曲线；已完成过渡的旧曲线快照为 0。
+  已有 CPU 动画过渡精简应保留，但不能把它宣布成 GPU 异常的完整修复。
+- F6 观察到的 MeshObject/SkinCache 标识大多稳定，未支持频繁重建为主因；
+  这些标识不是每个 Morph 输出缓冲的身份，不能据此排除输出资源驻留问题。
+- 两资产共享压缩形变输入共约 69.17 MiB，不能按每只怪再乘一次。
+
+显存线索的正确范围
+最新 F6 首波前 4 秒平均本地余量 1633.3 MiB；+5～10 秒约 542.0 MiB；
+首波后 +50～64 秒约 460.7 MiB。所有保留观察点均未报告超预算。
+观察是至多 2 Hz 的进程级预算/使用量，既不是每资源物理驻留，也不是 page-fault 计数。
+本机 D3D12Adapter.cpp::CollectMemoryStats 的说明也明确：DXGI 预算较高时，
+Windows 仍可能把资源移出本地显存，资源再次使用可能长期变慢。
+这与快慢两组相容，但不能作为本次确实换页的证明。
+所以没有盲调纹理池、ResidencyDebugBudget、Morph 模式、GPU 时钟或驱动设置。
+
+本轮明确修复：建筑图标空闲预览场景
+Source/FPSGAME/Building/VoxelBuildIcons.cpp/.h 原先使用普通 FPreviewScene。
+关闭面板/折叠最后一组/完成最后一张图时仅清空模型、解绑目标，Studio 保留至子系统销毁。
+其 FScene 和场景级 GPU 缓存没有对应的空闲释放路径；世界也没有关闭自动 tick。
+改为复用已有 FColdSteelPreviewScene：
+- 无剩余任务时，在清空被摄组件后 SuspendRendering。
+- 下一次真正 Prepare 时 ResumeRendering，再使用原灯光、材质、镜头与分辨率。
+- 已生成的颜色/覆盖目标与 UI 材质缓存保留，不重拍已命中的图标。
+- 复用现有场景重建委托顺序，包含 DynamicWind/FX 生命周期；不新增全局 GC 或 GPU flush。
+- 该 helper 的 GPU 场景释放合同目前只在 WITH_EDITOR 有效，覆盖本次 F6 的 PIE 环境；
+  非编辑器版本沿用已有安全清理边界，世界仍由图标任务控制，不再自动 tick。
+这是确定的空闲资源保留问题。尚无该 F6 现场预览场景归属清单，不能声称它贡献了固定
+512 MiB，也不能声称释放它已解决活怪 Morph 异常。它是减少不必要竞争的附属修订。
+
+本轮未采用的方案
+不将“减少怪数/面数、关闭衣服形变、降低动画频率、关闭动态阴影或 RT”作为默认修复。
+不对正常工作的引擎 GPU 形变缓存再套一层猜测性缓存，不把未知等待改写成已确认计算成本。
+此前准备队列优先级、显存准入、冷却尸体阴影缓存的实现继续保留，各自解决其原问题；
+它们都不作为活怪持续 GPU 高耗时已解决的证据。
+
+交付边界
+只分析现有数据、修改源码及执行必要后台构建；没有启动编辑器、游戏、commandlet 或测试。
+FPSGAME Win64 Development 后台构建成功：6 个 action，125.05 秒，已输出 FPSGAME.exe。
+日志：Saved/LiveMonsterGpuDiagnosis20261014/game-build.log。
+当前已有 UnrealEditor.exe 占用项目，保持原状；未覆盖运行中的 Editor DLL，
+因此本轮 PIE 分支的空闲 FScene 释放尚未进入当前编辑器进程，不能让用户误以为已热更新。
+实时性能改善与画面表现未测试；活怪慢形变的底层资源原因仍未完全确认。
+修改前备份：Saved/LiveMonsterGpuDiagnosis20261014/Before/Source/FPSGAME/Building/。

@@ -1,0 +1,64 @@
+随机地牢显存压力：修正玩家预加载表的范围污染
+2026-10-18
+
+本轮结论
+现有 F6 数据和代码足以修正一个明确的资源加载缺陷，不需要先补一次性能采集。
+玩家身体/装备预加载表的生成器扫描整个 Source/FPSGAME 下的 .h/.cpp，将怪物作者工具中
+用来区分旧模型的路径比较，以及地牢、技能、天气等其他系统的字面量一并当成预加载依赖。
+UFPSBodyAssetPreloader 在每个 GameInstance 启动时异步请求这张表，并将加载 handle
+保存到 Deinitialize。因此，这些被误选的资源会参与启动加载并被长期保留。
+
+现有证据
+- 最新 F6：Saved/PerformanceReports/performance-20261017-170459-58CDF0CD4E124BF384C31BBCDB8CC0F9.json。
+- 刷怪前的资源清单同时列出 SK_M07、ContinuousV02、OriginalV07/V08/V09/V11/V12
+  七个历史网格，LOD0 逻辑缓冲分配合计 238.356 MiB；不是这七个网格独占的物理显存测量。
+- 当前 BlindSupplicantMonster 构造函数使用 SK_M07_BodyMotionV18。
+- 七个旧版本都在修改前的 FPSPreloadAssetRegistry.gen.h 中；其中多项来自
+  BlindSupplicantAuthoring.cpp、BlindSupplicantPhysicsAuthoring.cpp 中的历史版本判断。
+- 同进程日志两次报告 BodyAssetPreloader: 400 assets resident。这里原本只是请求数，
+  不代表逐资源物理显存驻留；旧表也会挤占真正装备资源的 400 个请求名额。
+
+已修改
+1) Tools/Performance/generate_preload_registry.py
+   只收集运行时玩家/装备代码依赖，以及其他运行时代码明确引用的 Weapons、Characters、Items。
+   排除文件名明确属于 Commandlet、Authoring、Audit、Diagnosis、Regression、Test 的工具源码。
+   继续排除生成表自身，避免旧路径自我延续。
+   保留装备代码实际引用的外部特效/声音，不按资产目录简单禁用所有 Monsters 路径。
+   地牢怪物继续由原选中路线/遭遇资源准备器加载，其他系统保持各自加载入口。
+
+2) Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h
+   已从修正后的生成器实际重新生成：711 个条目变为 362 个，移除 352 个候选、
+   同步补入当前装备源码新增的 3 个候选。修改前表中的 PathCount=710 本身已与条目数不符，
+   本次由生成器同步更新，不手工删表而留下会再次误扫的制作流程。
+   这是预加载候选表调整，没有删除 .uasset 或取消现役怪物、装备、天气功能。
+   数据驱动的现有背包资源仍由 CollectFromInventory 单独收集。
+
+3) Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp
+   - 身体配置、角色/组件默认资源和当前背包先提交；装备家族候选再使用剩余名额。
+     保留原 400 个请求上限和普通异步加载优先级，不增加常驻预算。
+   - 统一包路径和对象路径的去重键，避免同一资源因 /Game/X/A 与 /Game/X/A.A
+     两种写法重复占用请求名额；可选目录扩展也复用同一规范化入口。
+   - 两批加载可能乱序完成，完成回调按已解析对象统计，不在首批完成时把全部请求报成已加载。
+     日志明确是 assets loaded，不再暗示已测得 GPU resident。
+   - 保留工作区此前增加的 Saiga12K 目录配置及当前装备源码变更，没有回滚并行工作。
+
+影响边界
+修正的是不该由玩家预加载器主动申请并长期保留的资源，直接针对本次仅剩少量显存余量的压力。
+不能从 238.356 MiB 的逻辑分配承诺同等物理显存回收；编辑器、骨架/资产依赖等其他引用仍可持有资源。
+没有主动卸载仍被使用的对象、强制 GC、GPU flush、改变 mip/LOD、关阴影/光追或关闭衣物形变。
+模型、材质、怪物数量、生成条件、战斗时钟和联机权威逻辑均未更改。
+新策略在后续新建 GameInstance 生效；不会主动干预当前运行中的 UE。
+主要 GPU 异常的精确底层归因及本次实际帧率收益仍未测量，不把此修复描述为已经根治 110 ms GPU。
+
+文件和构建
+修改前原样备份：Saved/DungeonPreloadScope20261018/Before/；散列：before.json。
+生成回执：Saved/DungeonPreloadScope20261018/registry-change.json；生成日志：generate.log。
+Editor / Game 两个完整目标构建均成功，分别 760.18 秒、634.57 秒。
+采用同工作区已完成的完整构建：原始日志位于 SourceAssets/Zhanmadao20261018/
+build-FPSGAMEEditor-01.log、build-FPSGAME-01.log；本批保留 shared-editor-build.log、
+shared-game-build.log 副本及 build-receipt.json。两个目标均记录本批 cpp 的实际编译，
+对象文件晚于本批源码和生成头；收尾时源码散列与 source-receipt.json 一致。
+随后本任务自身的参数不同构建重新触发全量动作，确认上述完整构建包含当前修订后，
+已停止本任务的重复构建进程树，没有停止其他任务。该 build-FPSGAME.log 是中止记录，
+不作为成功凭据；取消范围保存在 canceled-own-repeat-processes.json。
+本轮不打开 UE、不运行游戏、不启动新采集或测试。

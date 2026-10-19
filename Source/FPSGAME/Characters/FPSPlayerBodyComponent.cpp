@@ -189,7 +189,14 @@ void UFPSPlayerBodyComponent::BeginPlay()
     {UE_LOG(LogTemp,Error,TEXT("PlayerBody: missing Content/ColdSteelData/player_body.json"));SetComponentTickEnabled(false);return;}
     if(GetNetMode()!=NM_DedicatedServer){InitializeDeathPresentation();InitializeBody();}
     if(Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-        ProfileChanged=Profile->OnChanged.AddUObject(this,&UFPSPlayerBodyComponent::RefreshEquipment);
+        ProfileChanged=Profile->OnChanged.AddWeakLambda(this,[this]()
+        {
+            // Status/training/container notifications also use OnChanged. Let
+            // CaptureEquipment compare the actual weapons/outfit before replacing
+            // components and their skinning buffers. Explicit RefreshEquipment,
+            // initial setup and a changed weapon still force outfit reapplication.
+            bEquipmentDirty=true;
+        });
 }
 void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
 {

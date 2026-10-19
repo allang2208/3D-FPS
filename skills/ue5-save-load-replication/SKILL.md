@@ -32,3 +32,7 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 - 移动怪物延迟命中、弱点遮挡及器官生命池：读取 [monster-delayed-hit](references/monster-delayed-hit.md)。
 
 - S12K 试装历史导致的复制清单差异与第三人称方向：[S12K 试装历史导致的复制清单差异与第三人称方向](references/saiga12k-presentation.md)。按问题读取；历史检查不授权自动重测。
+
+## 提前准备的怪物实例
+
+处理服务端延迟生成、激活复制、区域分路和取消清理时，读 [区域提前准备的联机边界](../ue5-performance-packaging/references/area-spawn-preparation.md#联机与延迟初始化边界)。客户端资产或 PSO 已加载不代表每实例蒙皮缓冲已经准备；构建结果与主客机运行覆盖分别交付。

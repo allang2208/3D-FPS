@@ -2,7 +2,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Tickable.h"
-#include "PreviewScene.h"
+#include "../UI/ColdSteelPreviewScene.h"
 #include "VoxelBuildIcons.generated.h"
 
 class UDirectionalLightComponent;
@@ -69,7 +69,7 @@ private:
     void ClearPool();
     void ReleaseEntry(const FString& Key);
     UStaticMeshComponent* TakePoolComponent();
-    TUniquePtr<FPreviewScene> Studio;
+    TUniquePtr<FColdSteelPreviewScene> Studio;
     TArray<FJob> Queue;
     TSet<FString> Pending;
     TSet<FString> VisibleKeys;

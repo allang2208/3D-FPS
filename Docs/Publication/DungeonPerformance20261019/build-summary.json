@@ -1,0 +1,19 @@
+{
+  "source_receipt": "Saved/AreaSpawnPreparationReview20261019/delivery.json",
+  "completed_at": "2026-10-19T12:21:54.618523+08:00",
+  "scope": "Previously completed local integrated Editor/Game builds; not a build of this public slice.",
+  "editor": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "result": "Succeeded",
+    "exit_code": 0,
+    "seconds": 16.99
+  },
+  "game": {
+    "target": "FPSGAME Win64 Development",
+    "result": "Succeeded",
+    "exit_code": 0,
+    "seconds": 651.31
+  },
+  "previous_attempt": "Stopped own Game build under memory/commit pressure; kept original receipt and later completed both targets.",
+  "runtime": "No UE launch, game, performance or multiplayer test in this publication turn."
+}

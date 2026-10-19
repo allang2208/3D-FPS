@@ -1,0 +1,55 @@
+后续状态：本记录保留分析/首批实施时的事实；衔接问题与清理结果以 dungeon-optimization-consolidation-20261014.txt 为准。历史未完成项不自动作为当前待办。
+
+地牢准备优先级与冻结尸体渲染优化
+日期：2026-10-14
+项目：D:/FPS3D/FPSGAME
+
+已完成
+
+1. 原准备队列按当前区域分配名额
+FacilityHallEncounter 新增只读槽位预测及区域优先级：当前玩家区域本波、当前区域下一波、已开始区域本波/下一波、30 米内邻近房间。距离只为同级待选项排序，不改变生成位置。
+保留全局最多两个准备实例、每厅一个、1 GiB 被动显存余量门槛、每帧最多一次正式生成尝试和原有生成间隔。
+远处未开始区域不再持续加入准备队列；已准备的低优先级房间可以向当前区域让出名额。同级已占名额不因距离小幅变化互相抢占。
+FindPreparationSlot 不推进 NextSlot、不消费随机数、不修改 Slot.Monster、波次、击杀或门锁。
+
+2. 准备回收与正式生成的等待分离
+过时准备实例沿原销毁路径释放；取消预热时不先恢复该隐藏身体的阴影、GI 和光追贡献，避免即将销毁的身体短暂重入这些渲染路径。
+释放 fence 仅限制下一次可选准备，不阻塞正式刷怪队列，不把后台回收转成波次延迟。所有 fence 仅轮询，没有新增同步 GPU 等待。
+
+3. 冻结尸体减少持续 VSM 缓存失效
+本机引擎 VirtualShadowMapCacheManager.cpp:1288 对 Auto 策略的骨骼网格，即使未移动也会作为可变形网格使阴影缓存失效。
+现有尸体流程虽然停止了动画、布料和物理，却没有改变这项渲染策略。
+现在只在现有接地稳定/姿态冻结流程完成后，对 MonsterIdleBreathingMeshComponent 管理的合格身体使用 Rigid 阴影缓存策略。它继续响应物体变换、灯光和重新显露导致的正常失效，不关闭投影、不改变阴影精度。
+材质有 WPO、位移、像素深度偏移、遮罩、透明或覆盖材质时保留原策略。已有非 Auto 作者策略不被接管。
+任意新骨骼姿态求值会立即恢复 Auto；尸体 LOD 重新求值后才允许重新缓存。材质/资产导致场景代理重建时重新判断是否仍可缓存。
+没有降低活怪动画频率、修改衣物 Morph、减面、关闭光追或 Lumen。
+
+4. 既有 F6 导出补齐本批状态
+每次被动资源观察新增 hall_preparation：待准备请求数、最老请求等待时间，以及两个预约实例的房间、槽位、年龄、优先级和预热阶段。
+新增 Hall.PreparationSelected、Hall.PreparationRetired 生命周期事件；Hall.SpawnActivated 保留原 prepared 字段，并补充命中/其他槽位/未准备、原槽位、年龄及预热阶段。
+monster_classes 新增 frozen_body_rigid_shadow_policy 计数。它是组件配置状态，不是实际缓存命中率或 GPU 节省毫秒。
+未启动新的采样或测试；下次用户自行运行并导出 F6 时可获得这些信息。
+
+源码范围
+Source/FPSGAME/Dungeons/FacilityHallEncounter.h/.cpp
+Source/FPSGAME/Dungeons/FacilityHallSpawnSubsystem.h/.cpp
+Source/FPSGAME/Dungeons/FacilityMonsterGpuWarmup.h/.cpp
+Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h/.cpp
+Source/FPSGAME/Monsters/MonsterRagdollPhysics.cpp
+Source/FPSGAME/Monsters/HumanoidRagdollBudget.cpp
+Source/FPSGAME/UI/FPSPerformanceMetricsResources.cpp
+修改前原样备份：Saved/DungeonCrowdOptimization20261014/Before/。
+
+构建与接入
+FPSGAME Win64 Development 后台构建成功，33 个 action，97.30 秒，FPSGAME.exe 已链接落盘。
+最终源码状态再次由 UBT 构建确认 up to date、Result: Succeeded（7.08 秒）。这属于必要构建，没有运行游戏或验收。
+日志：Saved/DungeonCrowdOptimization20261014/game-build-20261014.log
+最终日志：Saved/DungeonCrowdOptimization20261014/game-build-final-20261014.log
+产物：Binaries/Win64/FPSGAME.exe。
+
+Editor 目标尚待链接：本轮收尾仍有使用 FPSGAME.uproject 的 UnrealEditor-Cmd.exe 制作进程持有原生模块。本轮没有关闭或干预现有进程、没有另起 UE、没有通过热补丁替换已加载的类布局。现有 Editor DLL 不应当作本批已生效产物。
+
+效果范围与剩余项
+本批已修复有限准备名额的分配问题，并减少准备回收和冻结尸体的无效 GPU 工作。画质参数、怪物数量、波次条件、精英开门、攻击接触与尸体寿命均未修改。
+当前没有新性能测量，因此没有 FPS 提升结论。活怪 Morph/SkinCache、动态光追结构及 VSM 的耗时占比仍未知；最新 F6 总 GPU 耗时不能替代 pass 归因。没有把尸体优化或准备命中率修复宣称为首波 140 ms GPU 问题已解决。
+后续活怪部分需利用既有或用户提供的同次 GPU 分项继续选取实际热点；本轮遵照用户要求没有启动采集、测试或画质取舍方案。

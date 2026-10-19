@@ -11,7 +11,9 @@
 // the character begins play, which turns the later synchronous load into a cache
 // hit and takes the disk wait out of the frame.
 //
-// Diagnostic switches: `fps.body.AsyncPreload` (default 1) and `fpsbodypreload`.
+// Speculative literal-registry candidates are opt-in: the registry also contains
+// mutually exclusive fallback meshes, which must not all be pinned by default.
+// Diagnostic switches: fps.body.AsyncPreload (1), fps.body.AsyncPreloadCandidates (0).
 
 #pragma once
 
