@@ -277,6 +277,13 @@ public:
     /** Clears any held preview, e.g. when a menu opens and the key release will not arrive. */
     void CancelSpellAimPreview();
     FColdSteelItem CreateItem(const FString& Definition, int64 Count=1) const;
+    /**
+     * Host-side admission check for an item instance arriving in a guest upload.
+     * The definition must exist in this host's catalog, stack/magazine bounds are
+     * clamped to the catalog, and client-editable combat numbers are bounded.
+     * Returns false when the instance cannot be represented safely.
+     */
+    bool SanitizeNetworkItem(FColdSteelItem& Item) const;
     FColdSteelProposal ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1) const;
     bool MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1);
     bool CommitProposal(const FColdSteelProposal& Proposal);

@@ -772,6 +772,152 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
 }
 FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==ColdSteelCompartment::Place||(I&&I->Place==ColdSteelCompartment::Place&&Place!=ColdSteelWarehouse::Place))return ProposeCompartment(Id,Place,Cell,Orientation);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
 bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0){P.ActiveWeaponSlot=R.ActiveWeaponSlot;P.ActiveProductionTool.Reset();}return CommitState(P);}
+bool UColdSteelStatusModel::SanitizeNetworkItem(FColdSteelItem& Item) const
+{
+    // Guest uploads are not a trusted item factory. Every instance must be
+    // representable by this host's catalog, and catalogue-owned numeric fields
+    // are clamped here before any game rule reads Data.
+    const FString* CatalogJson=Definitions.Find(Item.Definition);
+    if(!CatalogJson||CatalogJson->IsEmpty())return false;
+    TSharedPtr<FJsonObject> Catalog;
+    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*CatalogJson),Catalog)||!Catalog)return false;
+    if(Item.InstanceId.IsEmpty()||Item.InstanceId.Len()>128)return false;
+    if(Item.Data.IsEmpty()||Item.Data.Len()>65536)return false;
+    TSharedPtr<FJsonObject> Data;
+    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return false;
+
+    double CatalogMax=1.;
+    if(!Catalog->TryGetNumberField(TEXT("maxStack"),CatalogMax))
+        if(!Catalog->TryGetNumberField(TEXT("stack_max"),CatalogMax))CatalogMax=1.;
+    int64 MaxStack=int64(FMath::Clamp(CatalogMax,1.,1000000.));
+    if(Item.Definition==TEXT("reforge_ticket"))MaxStack=FMath::Max<int64>(MaxStack,9999);
+    if(ColdSteelCurrency::IsCurrency(Item.Definition))MaxStack=FMath::Max<int64>(MaxStack,1000000000ll);
+    bool Changed=false;
+    // NetView.* keys are host-side projections, never guest inventory state.
+    if(Item.Container.StartsWith(TEXT("NetView."))){Item.Container.Reset();Changed=true;}
+    if(Item.StackMax<1||Item.StackMax>MaxStack){Item.StackMax=MaxStack;Changed=true;}
+    if(Item.Count<1||Item.Count>Item.StackMax){Item.Count=FMath::Clamp<int64>(Item.Count,1,Item.StackMax);Changed=true;}
+    if(MaxStack<=1)Item.Count=1;
+
+    // StackMax is also serialized inside Data and CreateItem reads it there.
+    double DataMax=0.;
+    if(Data->TryGetNumberField(TEXT("maxStack"),DataMax)&&DataMax>MaxStack)
+    {Data->SetNumberField(TEXT("maxStack"),double(MaxStack));Changed=true;}
+    if(Data->TryGetNumberField(TEXT("stack_max"),DataMax)&&DataMax>MaxStack)
+    {Data->SetNumberField(TEXT("stack_max"),double(MaxStack));Changed=true;}
+
+    auto ClampField=[&](const TCHAR* Key,double AbsMax,double CatalogMultiplier,double CatalogBonus)
+    {
+        double Value=0.;
+        if(!Data->TryGetNumberField(Key,Value))return;
+        double CatalogValue=0.;
+        const bool bCatalog=Catalog->TryGetNumberField(Key,CatalogValue);
+        const double Limit=bCatalog?FMath::Max(CatalogValue*CatalogMultiplier,CatalogValue+CatalogBonus):AbsMax;
+        if(Value<0.||Value>Limit)
+        {
+            Data->SetNumberField(Key,bCatalog?FMath::Max(0.,CatalogValue):FMath::Min(AbsMax,FMath::Max(0.,Value)));
+            Changed=true;
+        }
+    };
+    // Client-editable combat numbers. The server recomputes damage from the
+    // shadow model, but melee/ranged formulas still read these instance fields.
+    ClampField(TEXT("melee_damage"),20000.,4.,50.);
+    ClampField(TEXT("melee_reach_cm"),600.,4.,50.);
+    ClampField(TEXT("ranged_damage"),20000.,4.,50.);
+    ClampField(TEXT("damage"),20000.,4.,50.);
+    ClampField(TEXT("attack"),20000.,4.,50.);
+    ClampField(TEXT("crit"),100.,2.,10.);
+    ClampField(TEXT("critDamageBonus"),10.,4.,2.);
+    ClampField(TEXT("critical_chance"),1.,1.,0.);
+    ClampField(TEXT("fire_interval"),2.,2.,0.);
+    ClampField(TEXT("projectile_speed"),100000.,4.,1000.);
+    ClampField(TEXT("magazine"),1000.,4.,20.);
+    ClampField(TEXT("grid_w"),32.,1.,0.);
+    ClampField(TEXT("grid_h"),32.,1.,0.);
+    // Melee base damage/reach are catalogue tuning, not per-instance upgrade
+    // data. Enhancement/quality/parts are applied by their own systems later.
+    if(IsBow(Item))
+    {
+        // Bow draw speed and base damage are catalogue tuning; a forged
+        // draw_seconds/full_damage would otherwise bypass the server's draw
+        // session check and inflate arrow damage.
+        double CatalogValue=0.;
+        for(const TCHAR* Key:{TEXT("damage"),TEXT("full_damage"),TEXT("draw_seconds"),TEXT("nock_seconds"),
+            TEXT("hold_seconds"),TEXT("full_speed_cm"),TEXT("stamina_cost"),TEXT("sway_amplitude_cm"),
+            TEXT("bow_hip_spread"),TEXT("bow_ads_in_seconds")})
+        {
+            if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
+            double Stored=0.;
+            if(!Data->TryGetNumberField(Key,Stored)||Stored!=CatalogValue)
+            {Data->SetNumberField(Key,CatalogValue);Changed=true;}
+        }
+    }
+    if(!IsMeleeWeapon(Item)&&!IsBow(Item))
+    {
+        // Firearm/staff handling times and ranges are catalogue tuning; a
+        // forged zero reload or huge range would bypass server-side pacing.
+        double CatalogValue=0.;
+        for(const TCHAR* Key:{TEXT("damage"),TEXT("reload"),TEXT("empty_reload"),TEXT("effective_range"),
+            TEXT("bullet_speed"),TEXT("attack_interval"),TEXT("capacity")})
+        {
+            if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
+            double Stored=0.;
+            if(!Data->TryGetNumberField(Key,Stored)||Stored!=CatalogValue)
+            {Data->SetNumberField(Key,CatalogValue);Changed=true;}
+        }
+    }
+    if(IsMeleeWeapon(Item))
+    {
+        double CatalogValue=0.;
+        if(Catalog->TryGetNumberField(TEXT("melee_damage"),CatalogValue))
+        {Data->SetNumberField(TEXT("melee_damage"),CatalogValue);Changed=true;}
+        if(Catalog->TryGetNumberField(TEXT("melee_reach_cm"),CatalogValue))
+        {Data->SetNumberField(TEXT("melee_reach_cm"),CatalogValue);Changed=true;}
+        // Attack cadence and guard economy are catalogue tuning as well.
+        for(const TCHAR* Key:{TEXT("attack_seconds"),TEXT("swing_seconds"),TEXT("contact_seconds"),
+            TEXT("melee_stamina"),TEXT("block_stamina"),TEXT("block_reduction")})
+        {
+            if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
+            double Stored=0.;
+            if(!Data->TryGetNumberField(Key,Stored)||Stored!=CatalogValue)
+            {Data->SetNumberField(Key,CatalogValue);Changed=true;}
+        }
+    }
+
+    // Capacity must stay in the same envelope as the catalogue weapon.
+    double CatalogMag=30.;
+    if(!Catalog->TryGetNumberField(TEXT("gunsmith_base_mag"),CatalogMag)||CatalogMag<=0.)
+        if(!Catalog->TryGetNumberField(TEXT("capacity"),CatalogMag)||CatalogMag<=0.)CatalogMag=30.;
+    const int32 MaxMagazine=FMath::Clamp(int32(FMath::Max(1.,CatalogMag*4.)),1,1000);
+    if(!IsMeleeWeapon(Item)&&!IsBow(Item))
+    {
+        if(Item.Magazine<0||Item.Magazine>MaxMagazine){Item.Magazine=FMath::Clamp(Item.Magazine,0,MaxMagazine);Changed=true;}
+        if(Item.VirtualMagazineAmmo<0||Item.VirtualMagazineAmmo>Item.Magazine)
+        {Item.VirtualMagazineAmmo=FMath::Clamp(Item.VirtualMagazineAmmo,0,Item.Magazine);Changed=true;}
+    }
+    else if(Item.Magazine!=0){Item.Magazine=0;Changed=true;}
+    // Never let a client shrink a catalogue item's footprint to create free
+    // inventory space. Larger variants are allowed, smaller-than-catalogue is not.
+    int32 Width=FMath::Max(1,Item.Width);
+    int32 Height=FMath::Max(1,Item.Height);
+    double GridValue=0.;
+    if(Data->TryGetNumberField(TEXT("grid_w"),GridValue))Width=FMath::Max(Width,int32(GridValue));
+    if(Data->TryGetNumberField(TEXT("grid_h"),GridValue))Height=FMath::Max(Height,int32(GridValue));
+    double CatalogGrid=0.;
+    if(Catalog->TryGetNumberField(TEXT("grid_w"),CatalogGrid))Width=FMath::Max(Width,int32(CatalogGrid));
+    if(Catalog->TryGetNumberField(TEXT("grid_h"),CatalogGrid))Height=FMath::Max(Height,int32(CatalogGrid));
+    Item.Width=FMath::Clamp(Width,1,ColdSteelWarehouse::Columns);
+    Item.Height=FMath::Clamp(Height,1,ColdSteelWarehouse::Rows);
+    Data->SetNumberField(TEXT("grid_w"),Item.Width);
+    Data->SetNumberField(TEXT("grid_h"),Item.Height);
+    Changed=true;
+    if(Changed)
+    {
+        Item.Data.Reset();
+        FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Item.Data));
+    }
+    return !Item.Data.IsEmpty();
+}
 bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation)
 {
     SyncRuntime();

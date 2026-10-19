@@ -393,7 +393,9 @@ private:
     double LastCampfireRequestAt=-100;
     void FinishCampfireReceipt();
     void DispatchCampfireAfterUpload();
-    bool ApplyGuestProfile(const FColdSteelProfile& Profile);
+    bool ApplyGuestProfile(const FColdSteelProfile& Profile,bool bFromNetwork=false);
+    /** Host admission check for an uploaded profile; repairs bounded fields and rejects malformed data. */
+    bool SanitizeGuestProfile(FColdSteelProfile& Profile,FString& OutReason) const;
     UFUNCTION(Client,Reliable) void ClientProfileSyncRejected(const FString& Reason);
     void ApplyShadowToServerPawn();
     void TickUpload(float DeltaSeconds);
@@ -401,6 +403,14 @@ private:
     void TickPublicInfo(float DeltaSeconds);
     bool ValidateHitReport(const FColdSteelNetHitReport& Report, class AFPSGAMECharacter* Shooter, FString& OutReason,
         const struct FColdSteelItem*& OutDeclaredItem);
+    /** Server-side magazine ledger. Client hit reports never grant free rounds. */
+    bool ConsumeServerAmmo(const FColdSteelItem* Item,int32 Rounds,double Now,FString& OutReason);
+    int32 ServerMagazineAmmo=-1;
+    FString ServerAmmoInstance;
+    double ServerReloadReadyAt=0.,ServerLastShotClientTime=-1.,ServerLastShotServerAt=-1.;
+    int32 ServerComboStage=0,ValidatedComboStage=0;
+    double ServerComboAt=-100.,ServerComboSwingAt=-100.;
+    FString ServerComboWeapon;
     /** 服务端权威伤害：按武器族从影子档案同参复算，客户端 ClaimedDamage 只作对账参考。 */
     float ComputeServerDamage(class AFPSGAMECharacter* Shooter, const FColdSteelNetHitReport& Report,
         const struct FColdSteelSkillShot& Shot, const struct FColdSteelItem* DeclaredItem, float ConvergenceScale) const;
