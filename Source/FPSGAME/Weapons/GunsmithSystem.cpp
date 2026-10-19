@@ -68,6 +68,8 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         // 2026-10-19 用户规则：枪械默认不造成韧性伤害（精英以上的韧性条也不削），
         // 只有目录显式写 "toughness_damage": true 的枪才削韧。
         O->TryGetBoolField(TEXT("toughness_damage"),W.bToughnessDamage);
+        // 霰弹枪（2026-10-19 用户规则）：只在有效射程内削韧，超出射程的命中不累积韧性。
+        O->TryGetBoolField(TEXT("toughness_range_limited"),W.bToughnessRangeLimited);
         // Common numeric parts apply to every catalog weapon, including future entries.
         const TSharedPtr<FJsonObject>* Common=nullptr;
         if(Catalog->TryGetObjectField(TEXT("common_options"),Common))

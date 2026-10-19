@@ -9002,6 +9002,8 @@
       "id": "ue_super90",
       "model": "M4Super90",
       "name": "M4 Super90",
+      "toughness_damage": true,
+      "toughness_range_limited": true,
       "allowed": [
         "optic",
         "muzzle",
@@ -9662,6 +9664,8 @@
       "id": "ue_m870",
       "model": "M870",
       "name": "M870 Tactical",
+      "toughness_damage": true,
+      "toughness_range_limited": true,
       "allowed": [
         "optic",
         "muzzle",
@@ -9684,7 +9688,7 @@
         "empty_reload_time": 7.066666666666666,
         "damage": 80,
         "bullet_speed": 380,
-        "effective_range": 35,
+        "effective_range": 45,
         "stability_mult": 1
       },
       "options": {
@@ -10174,6 +10178,8 @@
       "id": "ue_saiga12k",
       "model": "Saiga12K",
       "name": "Saiga 12K",
+      "toughness_damage": true,
+      "toughness_range_limited": true,
       "allowed": [
         "optic",
         "muzzle",
@@ -10196,7 +10202,7 @@
         "empty_reload_time": 4.291667,
         "damage": 80,
         "bullet_speed": 380,
-        "effective_range": 35,
+        "effective_range": 25,
         "stability_mult": 1
       },
       "options": {

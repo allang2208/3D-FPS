@@ -269,6 +269,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     // 它们按原倍率进入受击端，否则削韧与硬直会被整段吞掉。
     bool bFirearmWithoutStagger=false;
     bool bFirearmToughness=false;
+    bool bFirearmToughnessRangeLimited=false;
     bool bFirearmContact=false;
     const FString WeaponDefinition=Shot.ItemDefinition.IsEmpty()?(Equipped()?Equipped()->Definition:FString()):Shot.ItemDefinition;
     if(!Shot.bMelee&&!Shot.bMeleeStrike&&!WeaponDefinition.IsEmpty())
@@ -279,6 +280,9 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
                 // 2026-10-19 用户规则：枪械默认不造成韧性伤害，只有目录声明
                 // "toughness_damage": true 的枪（SVD／SVCh／左轮 715／RSH-12）才削韧。
                 bFirearmToughness=W->bToughnessDamage;
+                // 霰弹枪（2026-10-19 用户规则）：只在有效射程内削韧，超出射程的命中不削韧。
+                // 射程与距离都在下面按命中结果现算，不在开火快照里固化。
+                bFirearmToughnessRangeLimited=W->bToughnessRangeLimited;
                 bFirearmContact=!G->IsMelee(WeaponDefinition)&&!G->IsTool(WeaponDefinition)
                     &&!G->IsStaff(WeaponDefinition)&&!G->IsBow(WeaponDefinition);
             }
@@ -289,7 +293,20 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     const float FixedToughness=Shot.bMelee&&!Shot.bRicochet?MeleeToughness::FixedBaseFor(Shot.AttackMeta):-1.f;
     // 目录未声明削韧的枪械整段关闭韧性通道（精英以上的韧性条同样按 0 倍率结算），
     // 受击端不累积韧性、不刷新削韧时钟，也不会被枪弹打破韧；生命伤害照常。
-    const float ToughnessScale=bFirearmContact&&!bFirearmToughness?0.f:Shot.ToughnessDamageMultiplier*PanChiToughness;
+    // 目录声明 toughness_range_limited 的霰弹枪只保留有效射程内的那一部分命中。
+    // 射程取射手当前武器的有效射程（含弹种倍率），距离取命中结果自带的射线起点到命中点：
+    // 枪械命中端统一把它写成枪口／发射点（弹道写 LaunchOrigin，枪口顶住的即时命中写 Muzzle，
+    // 服务端重建的远端命中写上报的 AimOrigin），因此与伤害衰减同一口径，且权威端可自行复算。
+    bool bBeyondToughnessRange=false;
+    if(bFirearmToughnessRangeLimited)
+    {
+        const auto* RangeOwner=Cast<AFPSGAMECharacter>(Shooter);
+        const float EffectiveRangeCM=RangeOwner?RangeOwner->GetEffectiveWeaponRangeCM():0.f;
+        bBeyondToughnessRange=EffectiveRangeCM<=0.f
+            ||FVector::Dist(Hit.TraceStart,Hit.ImpactPoint)>EffectiveRangeCM;
+    }
+    const bool bToughnessBlocked=bFirearmContact&&(!bFirearmToughness||bBeyondToughnessRange);
+    const float ToughnessScale=bToughnessBlocked?0.f:Shot.ToughnessDamageMultiplier*PanChiToughness;
     auto ApplyToughness=[&](){return Combat?Combat->ApplyHitWithToughnessScale(ToughnessScale,ApplyDamage,FixedToughness,GuardToughnessBonus):ApplyDamage();};
     float Applied=(Combat&&bFirearmWithoutStagger&&!Combat->UsesToughnessBar())?Combat->ApplyHitWithReactionScale(0.f,ApplyToughness):ApplyToughness();
     FWeaponDamageParts AppliedParts=WeaponHit.Mitigated.LimitedTo(Applied);

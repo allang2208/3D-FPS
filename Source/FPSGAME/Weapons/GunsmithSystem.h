@@ -150,6 +150,8 @@ struct FGunsmithWeapon
     bool bHitStagger = false;
     /** 目录显式声明该枪命中会造成韧性伤害；缺省 false = 枪械默认不削韧（2026-10-19 用户规则）。 */
     bool bToughnessDamage = false;
+    /** 目录显式声明该枪只在有效射程内削韧（霰弹枪，2026-10-19 用户规则）；缺省 false = 射程外也照常削韧。 */
+    bool bToughnessRangeLimited = false;
     TArray<FString> Allowed;
     TMap<FString,TArray<FGunsmithOption>> Options;
     FGunsmithStats Base;

@@ -143,6 +143,8 @@ bool TriggerPistolQuickCombat();
     // Single-weapon hip cone, or the real per-hand dual cone while both pistols
     // are out; the reticle and the shot direction must share this one value.
     float GetHipSpread() const;
+    /** 当前武器的有效射程（含弹种倍率，cm）：与距离衰减同源，供霰弹枪削韧边界读取。 */
+    float GetEffectiveWeaponRangeCM() const {return EffectiveWeaponRangeCM;}
     float BaseLookHorizontalFOV() const {return VerticalToHorizontalFOV(BaseVerticalFieldOfView);}
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */
