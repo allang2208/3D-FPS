@@ -2594,7 +2594,8 @@
         "effective_range": 50,
         "spread_mult": 0.85,
         "spread_growth_mult": 0.5,
-        "recoil_load_mult": 0.5
+        "recoil_load_mult": 0.5,
+        "empty_reload_mult": 0.78
       },
       "traits": [
         {

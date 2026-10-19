@@ -105,6 +105,9 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         W.Base.StabilityMultiplier=Num(B,TEXT("stability_mult"),1);
         // 稳定型武器的两个专属系数：连点扩散增速/上限、移动与滞空的后坐力放大（1 = 参考枪）。
         W.Base.SpreadGrowth=Num(B,TEXT("spread_growth_mult"),1);W.Base.RecoilLoad=Num(B,TEXT("recoil_load_mult"),1);
+        // 空仓换弹系数：只作用于 resolved 时长，Base.EmptyReload 仍是动画原长，
+        // 由角色端按 ClipLength/时长 换算播放速率，实现"加速而不是裁剪"。
+        W.Base.EmptyReloadMult=Num(B,TEXT("empty_reload_mult"),1);
         W.Base.BurstCount=FMath::Max(1,int32(Num(B,TEXT("burst_count"),1)));
         W.Base.BurstDelay=FMath::Max(0.,Num(B,TEXT("burst_delay")));
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
@@ -376,6 +379,9 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
     }
     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))
     {R.Reload*=M4DrumReloadTiming::NormalDurationScale;R.EmptyReload*=M4DrumReloadTiming::EmptyDurationScale;}
+    // 空仓换弹系数只改实际时长，不动 W->Base.EmptyReload（动画原长）；
+    // 角色端按 ClipLength/实际时长 求播放速率，动作与音效一起加速。
+    R.EmptyReload*=FMath::Clamp(R.EmptyReloadMult,.2,3.);
     R.BurstDelay*=R.Interval/FMath::Max(.001,W->Base.Interval);
     R.ADS=FMath::Max(.001,R.ADS*(1+R.ADSPercent)+R.ADSSeconds);
     R.Handling=FWeaponHandling::FromIndices(R.Recoil*R.RecoilMultiplier,R.Shake*R.ShakeMultiplier,R.StabilityMultiplier);

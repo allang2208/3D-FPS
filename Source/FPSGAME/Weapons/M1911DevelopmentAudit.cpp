@@ -124,7 +124,7 @@ void AFPSGAMECharacter::RunM1911DevelopmentAudit()
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*M1911WeaponAssets::AnimationPath(Name));
         Check(Clip&&Clip->GetPlayLength()>0&&Clip->GetSkeleton(),FString(TEXT("load action "))+Name);
     }
-    Check(FMath::IsNearlyEqual(ReloadDuration,1.75f,.001f)&&FMath::IsNearlyEqual(EmptyReloadDuration,2.25f,.001f),TEXT("stats read current 1.75/2.25 second clips"));
+    Check(FMath::IsNearlyEqual(ReloadDuration,1.75f,.001f)&&FMath::IsNearlyEqual(EmptyReloadDuration,1.755f,.01f),TEXT("stats read 1.75 s reload and 1.755 s accelerated empty reload"));
     Check(G->Calculate(TEXT("ue_m1911"),{{TEXT("trigger"),TEXT("m1911_lightweight_fast")}}).Interval==G->Weapon(TEXT("ue_m1911"))->Base.Interval*.75,TEXT("fast trigger multiplies interval by .75"));
     Check(!G->Option(TEXT("ue_m1911"),TEXT("magazine"),TEXT("large_drum"))&&!G->Option(TEXT("ue_m1911"),TEXT("stock"),TEXT("compact")),TEXT("rifle drum and stock remain unsupported"));
     for(const TCHAR* Bone:{TEXT("WPN_root"),TEXT("WPN_Slide"),TEXT("WPN_Barrel"),TEXT("WPN_RearSight"),TEXT("WPN_FrontSight"),TEXT("WPN_SOCKET_Muzzle")})
@@ -151,7 +151,7 @@ void AFPSGAMECharacter::RunM1911DevelopmentAudit()
     Later(4.2f,[this,Check,R](){
         Check(GunplayAnimation&&GunplayAnimation->IdleClip==PistolIdleEmptyAnimation,TEXT("empty idle uses locked-slide pose"));
         R->Reserve=ReserveAmmo;ReloadPressed();
-        Check(IsReloading()&&FMath::IsNearlyEqual(WeaponStateDuration,ReloadEmptyAnimation->GetPlayLength(),.001f),TEXT("empty reload uses actual empty clip length"));
+        Check(IsReloading()&&FMath::IsNearlyEqual(WeaponStateDuration,ReloadEmptyAnimation->GetPlayLength()*0.78f,.01f),TEXT("empty reload compresses the empty clip to 78% (accelerated, not trimmed)"));
         Check(MechanicalCueTimes.Num()==4&&MechanicalCueTimes.Last()<ReloadEmptyAnimation->GetPlayLength(),TEXT("slide release and magazine cues lie inside source clip"));
     });
     Later(4.8f,[this,Check,Dir](){
