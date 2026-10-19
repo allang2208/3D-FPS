@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -546,4 +546,18 @@
+                 }
+             }
++            // Zhanmadao balance tuning also applies to already owned weapons.
++            // Only replace the base clock; installed parts and enhancement data
++            // remain instance state and still contribute their speed modifiers.
++            if(I.Definition==TEXT("ue_zhanmadao")&&CatalogData&&
++                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
++            {
++                double CatalogSeconds=0.,StoredSeconds=0.;
++                if(CatalogData->TryGetNumberField(TEXT("attack_seconds"),CatalogSeconds)&&
++                    (!ItemData->TryGetNumberField(TEXT("attack_seconds"),StoredSeconds)||StoredSeconds!=CatalogSeconds))
++                {
++                    ItemData->SetNumberField(TEXT("attack_seconds"),CatalogSeconds);
++                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
++                }
++            }
+             // 条目说明同样以目录为准。物品实例存的是创建当时的目录快照，
+             // 所以只改 items.json 时，已经持有的武器仍显示旧介绍

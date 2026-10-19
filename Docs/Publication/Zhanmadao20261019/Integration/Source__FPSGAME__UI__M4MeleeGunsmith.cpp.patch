@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
++++ b/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
+@@ -112,4 +112,8 @@
+     Row(TEXT("所有技能冷却倍率"),Before.Modifiers.SkillCooldown,After.Modifiers.SkillCooldown,2,TEXT("×"),true);
+     Row(TEXT("武技冷却倍率"),Before.Modifiers.MartialCooldown,After.Modifiers.MartialCooldown,2,TEXT("×"),true);
++    if(Before.Modifiers.MartialDamage!=1.||After.Modifiers.MartialDamage!=1.)
++        Row(TEXT("武技伤害倍率"),Before.Modifiers.MartialDamage,After.Modifiers.MartialDamage,2,TEXT("×"));
++    if(Before.Modifiers.MartialRange!=1.||After.Modifiers.MartialRange!=1.)
++        Row(TEXT("武技判定范围倍率"),Before.Modifiers.MartialRange,After.Modifiers.MartialRange,2,TEXT("×"));
+     Row(TEXT("魔法技能冷却倍率"),Before.Modifiers.MagicCooldown,After.Modifiers.MagicCooldown,2,TEXT("×"),true);
+     Row(TEXT("魔法伤害倍率"),Before.Modifiers.MagicDamage,After.Modifiers.MagicDamage,2,TEXT("×"));

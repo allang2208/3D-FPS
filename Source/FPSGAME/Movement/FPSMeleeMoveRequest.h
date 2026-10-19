@@ -2,7 +2,7 @@
 #include "CoreMinimal.h"
 #include "Engine/NetSerialization.h"
 
-enum class EFPSMeleeMove : uint8 {None,Thrust,Pommel,OverheadFinisher,Uppercut,RisingDragon,Dash,AirMomentum};
+enum class EFPSMeleeMove : uint8 {None,Thrust,Pommel,OverheadFinisher,Uppercut,RisingDragon,Dash,AirMomentum,Zhufeng};
 struct FFPSMeleeMoveRequest
 {
     uint32 Sequence=0;

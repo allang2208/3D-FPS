@@ -1,0 +1,119 @@
+{
+  "options": [
+    {
+      "slot": "blade_1",
+      "option": "extended_edge",
+      "mesh": "SM_Zhanmadao_Blade_extended_edge_V2",
+      "appearance": "延展刀身中段与长锋，保留原装刀根和弯曲刀尖",
+      "material_slots": [
+        "M_Zhanmadao_Surface_V1"
+      ],
+      "rune_dimensions_cm": [
+        8.0,
+        3,
+        138.00000476837158
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "option": "heavy_spine",
+      "mesh": "SM_Zhanmadao_Blade_heavy_spine_V2",
+      "appearance": "宽肩厚脊，保留原装刀根与单侧刃线",
+      "material_slots": [
+        "M_Zhanmadao_Surface_V1"
+      ],
+      "rune_dimensions_cm": [
+        9.44,
+        3,
+        120.00000476837158
+      ]
+    },
+    {
+      "slot": "blade_1",
+      "option": "feather_edge",
+      "mesh": "SM_Zhanmadao_Blade_feather_edge_V2",
+      "appearance": "收窄轻薄刀身，保留微弧刀尖与连续刀根",
+      "material_slots": [
+        "M_Zhanmadao_Surface_V1"
+      ],
+      "rune_dimensions_cm": [
+        6.4,
+        3,
+        120.00000476837158
+      ]
+    },
+    {
+      "slot": "guard",
+      "option": "bastion_guard",
+      "mesh": "SM_Zhanmadao_Guard_bastion_guard_V2",
+      "appearance": "加宽加厚两翼，保留原厂刀座及柄口",
+      "material_slots": [
+        "M_Zhanmadao_Surface_V1"
+      ],
+      "rune_dimensions_cm": [
+        8,
+        3,
+        120.00000476837158
+      ]
+    },
+    {
+      "slot": "guard",
+      "option": "riposte_guard",
+      "mesh": "SM_Zhanmadao_Guard_riposte_guard_V2",
+      "appearance": "上挑护翼，保留原厂刀座及柄口",
+      "material_slots": [
+        "M_Zhanmadao_Surface_V1"
+      ],
+      "rune_dimensions_cm": [
+        8,
+        3,
+        120.00000476837158
+      ]
+    },
+    {
+      "slot": "guard",
+      "option": "light_guard",
+      "mesh": "SM_Zhanmadao_Guard_light_guard_V2",
+      "appearance": "收束轻薄护翼，保留原厂刀座及柄口",
+      "material_slots": [
+        "M_Zhanmadao_Surface_V1"
+      ],
+      "rune_dimensions_cm": [
+        8,
+        3,
+        120.00000476837158
+      ]
+    }
+  ],
+  "adapters": [
+    {
+      "interface": "shared_sword_pommel_v1",
+      "mesh": "SM_Zhanmadao_Adapter_shared_sword_pommel_v1_V2",
+      "depth_cm": 0.8,
+      "scale": 0.9,
+      "mount_cm": [
+        0,
+        0,
+        -34.630996947678014
+      ],
+      "material_slots": [
+        "M_SharedGrip_Steel"
+      ]
+    },
+    {
+      "interface": "frost_hilt_v1",
+      "mesh": "SM_Zhanmadao_Adapter_frost_hilt_v1_V2",
+      "depth_cm": 0.8,
+      "scale": 1.0,
+      "mount_cm": [
+        0,
+        0,
+        -34.630996947678014
+      ],
+      "material_slots": [
+        "M_SharedGrip_Steel"
+      ]
+    }
+  ],
+  "game_tested": false
+}

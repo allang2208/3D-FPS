@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp
+@@ -48,5 +48,5 @@
+ {
+     auto State=Snapshot();bool Changed=false;
+-    for (const TCHAR* Definition : {TEXT("ue_saiga12k"), TEXT("ue_m870"), TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_svch"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue"), TEXT("ue_steel_warhammer")})
++    for (const TCHAR* Definition : {TEXT("ue_saiga12k"), TEXT("ue_m870"), TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_svch"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue"), TEXT("ue_zhanmadao"), TEXT("ue_steel_warhammer")})
+     {
+         if(State.ArmoryReceived.Contains(Definition))continue;

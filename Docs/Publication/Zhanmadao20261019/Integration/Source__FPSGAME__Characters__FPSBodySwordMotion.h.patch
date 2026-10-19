@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodySwordMotion.h
+@@ -42,14 +42,20 @@
+     return FMath::Lerp(ReleasePose,1.f,FMath::Clamp((Progress-Release)/(1.f-Release),0.f,1.f));
+ }
+-inline float WhirlwindVisualYaw(const FFPSBodyState& State,float Progress)
++inline float WhirlwindModelYaw(const FFPSBodyState& State,float Progress)
+ {
+-    if(State.Action!=EFPSBodyAction::Whirlwind)return 0.f;
+     const float Ready=FMath::Clamp(State.ContactFraction,.01f,.98f);
+     const float End=FMath::Clamp(State.ReleaseFraction,Ready+.001f,.99f);
+     const float Phase=WhirlwindFeel::NormalizedPhase((Progress-Ready)/(End-Ready));
++    // World-space performance relative to the release heading. The clips have
++    // their donor root turn removed; both variants must supply this rotation.
++    return -360.f*State.WhirlwindTurns*Phase;
++}
++inline float WhirlwindVisualYaw(const FFPSBodyState& State,float Progress)
++{
++    if(State.Action!=EFPSBodyAction::Whirlwind||State.ActionVariant==TEXT("ZhufengWhirlwind"))return 0.f;
+     // The actor already contributes the gameplay turn. Subtract it twice so
+     // the world-body performance turns the other way, without reversing the
+     // authored windup/jump/plant or changing the camera and damage sweep.
+-    return FRotator::NormalizeAxis(-2.f*360.f*State.WhirlwindTurns*Phase);
++    return FRotator::NormalizeAxis(2.f*WhirlwindModelYaw(State,Progress));
+ }
+ inline float WhirlwindSample(const FFPSBodyState& State,float Progress)
+@@ -71,4 +77,5 @@
+     case EFPSBodyAction::Strike:return State.ActionVariant==TEXT("Slash2")?TEXT("Melee.FullBody.Slash2"):TEXT("Melee.FullBody.Slash1");
+     case EFPSBodyAction::HeavyStrike:
++        if(State.ActionVariant==TEXT("ChixiaoHeavy"))return TEXT("Melee.FullBody.ChixiaoHeavy");
+         if(State.ActionVariant==TEXT("Uppercut"))return TEXT("Melee.FullBody.Uppercut");
+         if(State.ActionVariant==TEXT("DashOverhead"))return TEXT("Melee.FullBody.DashOverhead");

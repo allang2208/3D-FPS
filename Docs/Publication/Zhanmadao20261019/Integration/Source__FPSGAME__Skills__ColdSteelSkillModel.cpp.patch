@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -98,5 +98,5 @@
+     const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::EquippedModifiers(this);
+     FQuickCombatCast C;
+-    C.DamageMultiplier=float((1.+Mods.QuickCombatDamageAdd)*Mods.AllAttackDamage);
++    C.DamageMultiplier=float((1.+Mods.QuickCombatDamageAdd)*Mods.AllAttackDamage*Mods.MartialDamage);
+     C.Damage=(T.DamageBase+T.DamagePerLevel*L+Strength*(T.StrengthFactorBase+T.StrengthFactorPerLevel*L))*C.DamageMultiplier;
+     C.KnockbackCM=T.KnockbackCM*float(Mods.QuickCombatKnockback*Mods.AllAttackKnockback);
+@@ -104,5 +104,5 @@
+     C.BleedChance=FMath::Clamp(float(Mods.QuickCombatBleedChance),0.f,1.f);
+     C.bAreaHit=Mods.bQuickCombatAOE;
+-    C.RangeCM=T.RangeCM;
++    C.RangeCM=T.RangeCM*Mods.MartialRange;
+     C.StaminaCost=QuickCombatStaminaCost(L,&Mods);
+     return C;

@@ -27,7 +27,7 @@ bool FFPSNetworkMoveData::Serialize(UCharacterMovementComponent& Movement,FArchi
         bool DirectionOK=true,MomentumOK=true;
         MeleeRequest.Direction.NetSerialize(Ar,Map,DirectionOK);Ar<<MeleeRequest.Distance;
         if(MeleeRequest.Kind==EFPSMeleeMove::AirMomentum)MeleeRequest.Momentum.NetSerialize(Ar,Map,MomentumOK);
-        OK=OK&&DirectionOK&&MomentumOK&&Kind<=uint8(EFPSMeleeMove::AirMomentum);
+        OK=OK&&DirectionOK&&MomentumOK&&Kind<=uint8(EFPSMeleeMove::Zhufeng);
     }
     return Base&&OK&&!Ar.IsError();
 }

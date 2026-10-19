@@ -1,0 +1,491 @@
+{
+  "version": 1,
+  "weapon": "ue_zhanmadao",
+  "interface": "zhanmadao_hilt_v1",
+  "drive_bone": "WPN_root",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "location_cm": [
+      3.573448102932689e-08,
+      5.124413562483412e-08,
+      0.04499995363627471
+    ],
+    "scale": [
+      0.009999999098201857,
+      0.010000002674481073,
+      0.010000000290294644
+    ],
+    "rotation_xyzw": [
+      9.694049930993584e-08,
+      -1.471765408433967e-07,
+      -2.965553125000755e-08,
+      -0.999999999999984
+    ]
+  },
+  "trace_from_animation": false,
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Blade_V1.SM_Zhanmadao_Blade_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "trace_base_cm": [
+          0.013264082372188568,
+          -0.0005053356289863586,
+          7.140703499317169
+        ],
+        "trace_tip_cm": [
+          -6.616351008415222,
+          0.0070742404204793274,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          8,
+          3,
+          120.00000476837158
+        ],
+        "materials": {
+          "M_Zhanmadao_Surface_V1": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_BeiweiV1"
+        },
+        "rune_layout_revision": "ZhanmadaoBladeContourV1"
+      },
+      "extended_edge": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Blade_extended_edge_V2.SM_Zhanmadao_Blade_extended_edge_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "trace_base_cm": [
+          0.013264082372188568,
+          -0.0005053356289863586,
+          7.140703499317169
+        ],
+        "trace_tip_cm": [
+          -6.616351008415222,
+          0.0070742404204793274,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          8.0,
+          3,
+          138.00000476837158
+        ],
+        "appearance": "延展刀身中段与长锋，保留原装刀根和弯曲刀尖",
+        "materials": {
+          "M_Zhanmadao_Surface_V1": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_BeiweiV1"
+        },
+        "rune_layout_revision": "ZhanmadaoBladeContourV1"
+      },
+      "heavy_spine": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Blade_heavy_spine_V2.SM_Zhanmadao_Blade_heavy_spine_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "trace_base_cm": [
+          0.013264082372188568,
+          -0.0005053356289863586,
+          7.140703499317169
+        ],
+        "trace_tip_cm": [
+          -6.616351008415222,
+          0.0070742404204793274,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          9.44,
+          3,
+          120.00000476837158
+        ],
+        "appearance": "宽肩厚脊，保留原装刀根与单侧刃线",
+        "materials": {
+          "M_Zhanmadao_Surface_V1": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_BeiweiV1"
+        },
+        "rune_layout_revision": "ZhanmadaoBladeContourV1"
+      },
+      "feather_edge": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Blade_feather_edge_V2.SM_Zhanmadao_Blade_feather_edge_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "trace_base_cm": [
+          0.013264082372188568,
+          -0.0005053356289863586,
+          7.140703499317169
+        ],
+        "trace_tip_cm": [
+          -6.616351008415222,
+          0.0070742404204793274,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          6.4,
+          3,
+          120.00000476837158
+        ],
+        "appearance": "收窄轻薄刀身，保留微弧刀尖与连续刀根",
+        "materials": {
+          "M_Zhanmadao_Surface_V1": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_BeiweiV1"
+        },
+        "rune_layout_revision": "ZhanmadaoBladeContourV1"
+      },
+      "yanling_edge": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/TangDaoBladesV1/Meshes/SM_Zhanmadao_Blade_yanling_edge_V1.SM_Zhanmadao_Blade_yanling_edge_V1",
+        "interface": "zhanmadao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "trace_base_cm": [
+          0.005440041422843933,
+          0.0023478642106056213,
+          7.1407027542591095
+        ],
+        "trace_tip_cm": [
+          -11.386364484913864,
+          3.654247753970144e-12,
+          120.00000454112137
+        ],
+        "rune_dimensions_cm": [
+          14,
+          12,
+          120.00000476837158
+        ],
+        "materials": {
+          "M_TangDaoSurface": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_BeiweiV1",
+          "M_TangDaoYanlingSteel": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_BeiweiV1"
+        },
+        "appearance": "燕翎折面刀尖、双导槽与层叠锻钢纹；保留原有龙纹。",
+        "combo_third_attack": "sprint_overhead_rectangle",
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rune_layout_revision": "ZhanmadaoBladeContourV1"
+      },
+      "tengyun_dragon": {
+        "combo_third_attack": "rising_dragon",
+        "mesh": "/Game/Weapons/Zhanmadao20261018/TangDaoBladesV1/Meshes/SM_Zhanmadao_Blade_tengyun_dragon_V1.SM_Zhanmadao_Blade_tengyun_dragon_V1",
+        "interface": "zhanmadao_hilt_v1",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "trace_base_cm": [
+          0.005440041422843933,
+          0.0023478642106056213,
+          7.1407027542591095
+        ],
+        "trace_tip_cm": [
+          -9.508093963555298,
+          5.798460302654951e-22,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          14,
+          12,
+          120.00000476837158
+        ],
+        "materials": {
+          "M_TangDaoTengyunSteel": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_BeiweiV1.M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_BeiweiV1"
+        },
+        "appearance": "弧形轻量刀尖、龙脊长导槽与鎏金游龙浮雕，流云暗纹融合水波锻钢纹。",
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rune_layout_revision": "ZhanmadaoBladeContourV1"
+      },
+      "chixiao": {
+        "trace_base_cm": [
+          0.005440041422843933,
+          0.0023478642106056213,
+          7.1407033858258195
+        ],
+        "trace_tip_cm": [
+          -13.900000000000002,
+          0.0023478642106056213,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          10,
+          3,
+          120
+        ],
+        "mesh": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Meshes/SM_Zhanmadao_Blade_chixiao_V1.SM_Zhanmadao_Blade_chixiao_V1",
+        "materials": {
+          "M_Chixiao_BladeSurface": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_chixiao_V1.M_TangDaoBladeRuneSurface_Zhanmadao_chixiao_V1",
+          "M_Chixiao_Brass": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_Chixiao_Brass_V1.M_Chixiao_Brass_V1"
+        },
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "appearance": "玄钢宽刃 · 银白开锋 · 暗红嵌脊 · 刀根金云纹",
+        "rune_layout_revision": "ChixiaoContourV1",
+        "heavy_attack": "chixiao_double_slash"
+      },
+      "zhufeng": {
+        "trace_base_cm": [
+          0.005440041422843933,
+          0.0023478642106056213,
+          7.1407033858258195
+        ],
+        "trace_tip_cm": [
+          -11.700000000000001,
+          0.0023478642106056213,
+          120.00000476837158
+        ],
+        "rune_dimensions_cm": [
+          10,
+          3,
+          120
+        ],
+        "mesh": "/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Meshes/SM_Zhanmadao_Blade_zhufeng_V1.SM_Zhanmadao_Blade_zhufeng_V1",
+        "materials": {
+          "M_Zhufeng_BladeSurface": "/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1.M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1",
+          "M_Zhufeng_Brass": "/Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_Zhufeng_Brass_V1.M_Zhufeng_Brass_V1"
+        },
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "appearance": "青灰锻钢 · 银白开锋 · 旋流刀脊",
+        "rune_layout_revision": "ZhufengContourV1",
+        "dash_attack": "zhufeng_whirlwind"
+      }
+    },
+    "guard": {
+      "factory": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Guard_V1.SM_Zhanmadao_Guard_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1"
+      },
+      "bastion_guard": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Guard_bastion_guard_V2.SM_Zhanmadao_Guard_bastion_guard_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "appearance": "加宽加厚两翼，保留原厂刀座及柄口"
+      },
+      "riposte_guard": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Guard_riposte_guard_V2.SM_Zhanmadao_Guard_riposte_guard_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "appearance": "上挑护翼，保留原厂刀座及柄口"
+      },
+      "light_guard": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Guard_light_guard_V2.SM_Zhanmadao_Guard_light_guard_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "appearance": "收束轻薄护翼，保留原厂刀座及柄口"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Grip_V1.SM_Zhanmadao_Grip_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -1.2810103595256805
+        ],
+        "interface": "zhanmadao_hilt_v1"
+      },
+      "shock_wrap": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_shock_wrap_V2.SM_Zhanmadao_Grip_shock_wrap_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -1.2810103595256805
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ],
+        "appearance": "交错吸震缠带 · 斩马刀原装上下接口"
+      },
+      "swift_grip": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_swift_grip_V2.SM_Zhanmadao_Grip_swift_grip_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -1.2810103595256805
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ],
+        "appearance": "收束握区与浅导向细脊 · 斩马刀原装接口"
+      },
+      "long_twohand": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_long_twohand_V2.SM_Zhanmadao_Grip_long_twohand_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -1.2810103595256805
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -3.5000000000000004
+        ],
+        "appearance": "加长双手握区 · 柄尾与共用配重联动",
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"
+      },
+      "iron_spine_power_grip": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_iron_spine_power_grip_V2.SM_Zhanmadao_Grip_iron_spine_power_grip_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -1.2810103595256805
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ],
+        "appearance": "贴平钢脊与三段皮革握区 · 原装接口"
+      },
+      "lockweave_guard_grip": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_lockweave_guard_grip_V2.SM_Zhanmadao_Grip_lockweave_guard_grip_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -1.2810103595256805
+        ],
+        "interface": "zhanmadao_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ],
+        "appearance": "交错锁纹织带与浅菱格 · 原装接口"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Pommel_V1.SM_Zhanmadao_Pommel_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -34.630995988845825
+        ],
+        "interface": "zhanmadao_hilt_v1"
+      }
+    }
+  },
+  "pommel_profile": {
+    "library": "shared-sword-pommels.json",
+    "finish": "silver",
+    "interfaces": {
+      "shared_sword_pommel_v1": {
+        "location_cm": [
+          0,
+          0,
+          -35.43099694767801
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9,
+          0.9,
+          0.9
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Adapter_shared_sword_pommel_v1_V2.SM_Zhanmadao_Adapter_shared_sword_pommel_v1_V2",
+          "location_cm": [
+            0,
+            0,
+            -34.630996947678014
+          ],
+          "interface": "zhanmadao_to_shared_sword_pommel_v1"
+        }
+      },
+      "frost_hilt_v1": {
+        "location_cm": [
+          0,
+          0,
+          -35.43099694767801
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Adapter_frost_hilt_v1_V2.SM_Zhanmadao_Adapter_frost_hilt_v1_V2",
+          "location_cm": [
+            0,
+            0,
+            -34.630996947678014
+          ],
+          "interface": "zhanmadao_to_frost_hilt_v1"
+        }
+      }
+    }
+  },
+  "common_modification_revision": "CommonModsV2",
+  "tangdao_blade_revision": "TangDaoBladesV1",
+  "rune_surface_revision": "ZhanmadaoNativeRuneSurfaceV1",
+  "beiwei_rune_revision": "BeiweiRuneV1",
+  "chixiao_blade_revision": "ChixiaoBladeV1",
+  "zhufeng_blade_revision": "ZhufengBladeV1"
+}

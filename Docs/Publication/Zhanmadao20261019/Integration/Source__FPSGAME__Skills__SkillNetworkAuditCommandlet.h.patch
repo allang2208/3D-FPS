@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
+@@ -21,3 +21,4 @@
+     int32 RunFlameArmorStatsAudit(const FString& Params);
+     int32 RunIceArmorAudit(const FString& Params);
++    int32 RunZhufengAudit(const FString& Params);
+ };

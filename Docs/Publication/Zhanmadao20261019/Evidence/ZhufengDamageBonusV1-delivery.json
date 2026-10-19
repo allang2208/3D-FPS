@@ -1,0 +1,38 @@
+{
+  "revision": "ZhufengDamageBonusV1",
+  "source_saved": true,
+  "catalog": {
+    "catalog_saved": true,
+    "option": "zhufeng",
+    "stats": {
+      "range_mult": 1.2,
+      "physical_damage_mult": 1.1,
+      "whirlwind_damage_add": 0.5
+    },
+    "description": "青灰长刃配银白刃口，刀脊饰旋流锻纹。",
+    "special_effects": [
+      "逐风旋斩｜冲刺攻击改为向前匀速推进的群体旋风，旋转结束或受阻时停止推进；每个目标仅命中一次。",
+      "旋风强化｜旋风伤害倍率 +0.5，旋转时显现青色剑气；主动大旋风同样生效。",
+      "施放条件｜需学会冲刺攻击。沿用大旋风等级、消耗并共用冷却；未学大旋风时按一级计算。"
+    ],
+    "bonus_semantics": "add 0.5 to the whirlwind skill multiplier before damage calculation",
+    "game_tested": false
+  },
+  "native_build_complete": true,
+  "builds": {
+    "FPSGAMEEditor": {
+      "finished": "2026-10-19T14:29:35.9985394+08:00",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "receipt": "build-FPSGAMEEditor-01-receipt.json"
+    },
+    "FPSGAME": {
+      "finished": "2026-10-19T14:35:35.6189487+08:00",
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "receipt": "build-FPSGAME-01-receipt.json"
+    }
+  },
+  "game_tested": false,
+  "editor_started": false
+}

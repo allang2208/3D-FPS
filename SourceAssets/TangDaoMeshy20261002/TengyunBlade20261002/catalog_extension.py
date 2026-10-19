@@ -22,11 +22,12 @@ def add_bindings(bindings):
 def add_option(gunsmith):
     m = manifest()
     column = next(c for c in gunsmith['columns'] if c['key']=='blade_1')
-    option = {'id':m['id'],'name':m['name'],'weapons':['ue_tang_dao'],
-        'description':'唐刀专属。弧形刀尖接修长龙脊，鎏金游龙交织流云与水波锻纹。',
-        'special_effects':['连段变化｜连段收尾改为升龙，准备时间缩短50%。', '击飞｜升龙命中无韧性或已破韧的目标时，将其击飞。'],
+    option = {'id':m['id'],'name':m['name'],'weapons':['ue_tang_dao','ue_zhanmadao'],
+        'description':'弧形刀尖接修长龙脊，鎏金游龙交织流云与水波锻纹。',
+        'special_effects':['连段变化｜第三段改为群体升龙，可命中前方挥刀范围内的多个目标；每个目标每次收尾只结算一次，准备时间缩短50%。',
+                           '收尾伤害｜第三段伤害提高30%。', '击飞｜升龙命中无韧性或已破韧的目标时，将其击飞。'],
         'effects':[{'text':'攻击速度 +10%','benefit':1},
-                   {'text':'连段收尾改为升龙 · 准备时间 -50% · 无韧性或破韧时击飞','benefit':1}],
+                   {'text':'连段收尾改为群体升龙 · 第三段伤害 +30% · 准备时间 -50% · 无韧性或破韧时击飞','benefit':1}],
         'stats':{'attack_speed_mult':1.1,'combo_third_damage_mult':1.3}}
     for index, old in enumerate(column['options']):
         if old['id']==m['id']:

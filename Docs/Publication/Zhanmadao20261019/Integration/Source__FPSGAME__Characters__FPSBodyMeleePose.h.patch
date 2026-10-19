@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Characters/FPSBodyMeleePose.h
++++ b/Source/FPSGAME/Characters/FPSBodyMeleePose.h
+@@ -28,4 +28,5 @@
+     using namespace FPSBodyPoses;
+     FPose P;if(!Active(S))return P;
++    if(S.ActionVariant==TEXT("ZhufengWhirlwind"))return P;
+     if(S.ActionVariant==TEXT("WarhammerSlash1")||S.ActionVariant==TEXT("WarhammerSlash2")||S.ActionVariant==TEXT("WarhammerSlash3"))
+     {

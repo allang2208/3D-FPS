@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -359,4 +359,6 @@
+         AddValue(TEXT("所有技能冷却倍率"),Was.Modifiers.SkillCooldown,Now.Modifiers.SkillCooldown,2,TEXT("×"),true,Percent(M.SkillCooldown));
+         AddValue(TEXT("武技冷却倍率"),Was.Modifiers.MartialCooldown,Now.Modifiers.MartialCooldown,2,TEXT("×"),true,Percent(M.MartialCooldown));
++        AddValue(TEXT("武技伤害倍率"),Was.Modifiers.MartialDamage,Now.Modifiers.MartialDamage,2,TEXT("×"),false,Percent(M.MartialDamage));
++        AddValue(TEXT("武技判定范围倍率"),Was.Modifiers.MartialRange,Now.Modifiers.MartialRange,2,TEXT("×"),false,Percent(M.MartialRange));
+         AddValue(TEXT("魔法技能冷却倍率"),Was.Modifiers.MagicCooldown,Now.Modifiers.MagicCooldown,2,TEXT("×"),true,Percent(M.MagicCooldown));
+         AddValue(TEXT("魔法值消耗倍率"),Was.Modifiers.MagicCost,Now.Modifiers.MagicCost,2,TEXT("×"),true,Percent(M.MagicCost));

@@ -17,19 +17,21 @@ struct FMeleeModifiers
     // Ability cooldowns only; attack cycles and recovery keep their own action clocks.
     double SkillCooldown=1;
     double MartialCooldown=1;
+    double MartialDamage=1, MartialRange=1;
     double MartialCooldownMultiplier() const {return SkillCooldown*MartialCooldown;}
     double MagicCooldown=1, MagicDamage=1, MagicCost=1, RuneIntelligence=0, RuneWisdom=0;
     double InnateErosionMultiplier=1;
     // Flat additions affect the action multiplier, not the panel damage.
     // Knockback distance is independent of hit-reaction duration.
     double HeavyDamage=1, HeavyDamageAdd=0, Knockback=1;
+    double WhirlwindDamageAdd=0;
     double QuickCombatDamageAdd=0, QuickCombatKnockback=1;
     // 每次近战出手按武器冷却口径缩减全部魔法技能CD（金色符文强化：0.5s→1.0s）。
     double CooldownReduceSecondsPerHit=0;
     // RuneVulnerability*=剑刃攻击通道（普攻/连段/重击/旋风/冲刺及未来的剑刃攻击）；
     // QuickCombatRuneVulnerability*=配重锤快速近战专属通道，两种改造件触发条件不同。
     double QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
-    double HeavyMultiplier(double Base) const {return Base*HeavyDamage+HeavyDamageAdd;}
+    double HeavyMultiplier(double Base) const {return (Base*HeavyDamage+HeavyDamageAdd)*MartialDamage;}
     double RuneVulnerability=0, RuneVulnerabilitySeconds=0;
     double ParryWindow=1, RiposteSpeed=1, RiposteStamina=1, RiposteSeconds=0;
     double ClovenSeconds=0, ClovenPhysical=1, ClovenToughness=1;

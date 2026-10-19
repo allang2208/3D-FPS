@@ -1,0 +1,560 @@
+[
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Zhanmadao_Fitted_Editable.blend",
+    "bytes": 11501614,
+    "sha256": "dea9a64b43e2851a385fb364e66dc2c4fcdfc13a1fb9b713ff2d03c884efbaf0",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Zhanmadao_InventoryIcon_Editable.blend",
+    "bytes": 11504110,
+    "sha256": "3f2fc6cd63373438bd524d27087dab72997c4c38e243acc43f0791cb316c94fb",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Zhanmadao_Modular_Editable.blend",
+    "bytes": 16802129,
+    "sha256": "f11be014d3bf0bc8c6f0eb05d45db2b199b11e4d00eeee6bb4d93191199da0f5",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Zhanmadao_PartIcons_Editable.blend",
+    "bytes": 12609616,
+    "sha256": "e06bb3ca44588a448ea62d878250bc60b74e6d6685d3804b256c9289fb283dd8",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/Artwork/Beiwei_Blade_Mask.png",
+    "bytes": 734635,
+    "sha256": "844bfe3c4c8d3a683fbcf771e8db2653e0a83d55c6545effa1ebd2154337d185",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/Artwork/Beiwei_Concept_V1.png",
+    "bytes": 2543895,
+    "sha256": "06c55b6be9e17c8a0eb9afc5eed68167e0fb30fc62b068c73d6eef94a975bbe0",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/Artwork/Beiwei_Icon_V1.png",
+    "bytes": 2922274,
+    "sha256": "ed6ffe3f799b727d7e48edfb7cacc9da1cf557386ab68f98bae0fc4eabf7c04a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeConceptV1/Chixiao_Blade_Concept_V1.png",
+    "bytes": 1962129,
+    "sha256": "540f630bdc9a1091c81e473c700cfa48554fc847d94154dbbe83c282c0f10941",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Chixiao_Blade_Editable.blend",
+    "bytes": 25098830,
+    "sha256": "e9addae572240b5f5dde8e03fece50a675d2d27cb9375297c5aa8544a6ce88bb",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Chixiao_Icon_Editable.blend",
+    "bytes": 25133986,
+    "sha256": "7aef15d1adbd8bb8b37f9cebeb8a525395e6da6a50174ba80b143c175f41b1d1",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Export/Chixiao_Icon_Framed.png",
+    "bytes": 2951925,
+    "sha256": "70723f99e77a220fbb924443b8c15a5f75177ef226899cb00fa18ce7659db690",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Export/Chixiao_Icon_Subject.png",
+    "bytes": 62769,
+    "sha256": "462bed688bc4fdede851e4c6849774a2f56de74038edcf482fbe5566804c8946",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Export/SM_Zhanmadao_Blade_chixiao_V1.fbx",
+    "bytes": 2837148,
+    "sha256": "76ffb172f4e52f562d2a84546d0a78c5f4ec938d90c34af0d05d17cca7de8501",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Textures/Chixiao_BaseColor.png",
+    "bytes": 5024097,
+    "sha256": "ee41e8cc57bf4e6f722823176fe4a795d54b13a8ee489e6d56e5b633211bec31",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Textures/Chixiao_Normal.png",
+    "bytes": 3350261,
+    "sha256": "4989f52ae4573592ed3105e6439b9eac34ad7b2f20adbc89244f595b83a2960a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/Textures/Chixiao_ORM.png",
+    "bytes": 3789743,
+    "sha256": "d2d9dafa4c8e5bca1075ecce5493aca798058f7d59b05111daf4388be3fd1388",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/motion_sources.json",
+    "bytes": 63277331,
+    "sha256": "b09d0bf73bfbfac614429431d71269c8faff26febb0c230a56c5fc9f40508f7f",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/Body/A_Chixiao_DoubleHeavy_Body.fbx",
+    "bytes": 8663728,
+    "sha256": "504d6a6922b10d91321ef054341f0f8bfd878aae0a7270bae7e1fc3f10664729",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/Body/editable_keys.json",
+    "bytes": 16327594,
+    "sha256": "3216422a4b693e644bc68e0fc34d0728ed8ca6ef66122fffbf2e53d2f940843b",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/LongGrip/A_Chixiao_DoubleHeavy_LongGrip.fbx",
+    "bytes": 2617408,
+    "sha256": "af138ca2c8a0da1216e429ce9e463ee83f6e4c5d2d2d185759d9d9dbbddc5a2f",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/LongGrip/Chixiao_DoubleHeavy_Editable.blend",
+    "bytes": 4494751,
+    "sha256": "444a95920a9f4aa3e52334ea18576dd6632619dd2c015c829b7a0b115a3f35c6",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/LongGrip/editable_keys.json",
+    "bytes": 5679662,
+    "sha256": "de3bcf2c2f95f6c86fae211ac0d190ea3ea0e3ab42828d17e7b6b0db063d1d99",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/Standard/A_Chixiao_DoubleHeavy_Standard.fbx",
+    "bytes": 2617408,
+    "sha256": "abb487fe8342503a003a7461caefaf3bf8fb4c8aaeff9a4c25172302a49393e4",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/Standard/Chixiao_DoubleHeavy_Editable.blend",
+    "bytes": 4489960,
+    "sha256": "1f52bf61f2f96af3323e0c43cb367e1c3901ec7bf59d92b234ec444b3228c3b7",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/Standard/editable_keys.json",
+    "bytes": 5678167,
+    "sha256": "546b68f8bee28a701f6c89f8d83afd714a4043ee5dcee3d0e746be4389bd2fb0",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/LongGrip/A_Chixiao_DoubleHeavy_LongGrip_GripV2.fbx",
+    "bytes": 2617408,
+    "sha256": "4a96338249b2999b2575f59db1f738fed7236bb4f550eebc38bdbae6c8f08f6e",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/LongGrip/Chixiao_GripV2_Editable.blend",
+    "bytes": 4383615,
+    "sha256": "3032a21ea4dbe46ec4595ab2c1707d9e02700ca088fff0d3f8c23b85ebbf97c7",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/LongGrip/editable_keys.json",
+    "bytes": 5704327,
+    "sha256": "ba539c84b9c35e223af1d637c0265e370f8365ea2c716b49837ec03a13123900",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/PoseReview/V1_24.png",
+    "bytes": 681223,
+    "sha256": "f62d0443f5ac8d645adaee735f00c60fda8158e90ef7719a6f57f12227cb16f0",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/PoseReview/V1_30.png",
+    "bytes": 747151,
+    "sha256": "6d84c4a5e197d772a4d8bf28b04f0576960adaa7d11d2bf8e84b55c8fa4504ec",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/PoseReview/V1_70.png",
+    "bytes": 726132,
+    "sha256": "794bd6893193854fb83fff4ff81abb10278b143286f9ad7905dc920b2d45f6b3",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/PoseReview/V2_24.png",
+    "bytes": 691804,
+    "sha256": "ebd4f5932e75610ff0f82c76dc4520b0e12dd72551762b66c2470c3e63837d2b",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/PoseReview/V2_30.png",
+    "bytes": 744198,
+    "sha256": "58ea700a3eb570535fed2949b2f118c08deec783e579fa62269c07964ac3d9df",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/PoseReview/V2_70.png",
+    "bytes": 734944,
+    "sha256": "3041f7ea54e64b9912bdfbdf7789b01ec60a69fa753efdc58829e8879f920a82",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/Standard/A_Chixiao_DoubleHeavy_Standard_GripV2.fbx",
+    "bytes": 2617408,
+    "sha256": "0dd37c95ff5e35f0f705291cf65b64a28fe4dd524b57155e683ac7a8186cf36a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/Standard/Chixiao_GripV2_Editable.blend",
+    "bytes": 4381745,
+    "sha256": "71653a982aff4da9cd8d4a1f9fa7c6a85e22ff79a6558e47358610daa3d3c48a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/Standard/editable_keys.json",
+    "bytes": 5698926,
+    "sha256": "4fae3fa3c5d276d258b4c69b49b84b4ab7c2859f6a335ffa59283ab9a6f39648",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/LongGrip/A_Chixiao_DoubleHeavy_LongGrip_ShoulderV3.fbx",
+    "bytes": 2617424,
+    "sha256": "5657ce585265debb535da35c8ce4c63e6518d19a819d9a36c61f6051d28368c6",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/LongGrip/Chixiao_ShoulderV3_Editable.blend",
+    "bytes": 6748623,
+    "sha256": "d1aa3a94bfd8d1aaf7e24d84d5971e0b377371783e0c1f9ab0512cdd08b2dbfb",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/LongGrip/editable_keys.json",
+    "bytes": 5709095,
+    "sha256": "a0b57dba470d68f3edba910be4c74d66b7063638495c102b3ebad768cf7e2649",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/PoseReview/LongGrip_30.png",
+    "bytes": 826412,
+    "sha256": "a6b73d37fc46ed24cb32b10f118dbb4aae62b8be114cdf393a3b39405f4f7dc0",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/PoseReview/LongGrip_62.png",
+    "bytes": 814480,
+    "sha256": "754196ab897749adfbd9ff4a20ee78cd227be1bb6dee27759c97acba5fa060d6",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/PoseReview/Standard_30.png",
+    "bytes": 826079,
+    "sha256": "b217fc37e611f1b430500ca2599228d222c4d76cbee727f09b7da55622fea50e",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/PoseReview/Standard_50.png",
+    "bytes": 822623,
+    "sha256": "17cf6166ccb05a19db0829d2c5e4fa594639829c8f97e87b3afdee4fe9b7adc3",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/PoseReview/Standard_62.png",
+    "bytes": 815556,
+    "sha256": "5382d1259b57bb8ef7baccf398b359e1fbed8c3df14fd3cc94d9a4d5a9d111f6",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/Standard/A_Chixiao_DoubleHeavy_Standard_ShoulderV3.fbx",
+    "bytes": 2617424,
+    "sha256": "0672b11f9b29dabb8e0e8fd27be3549a469a5924469c92fc37db359283c3c341",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/Standard/Chixiao_ShoulderV3_Editable.blend",
+    "bytes": 6737653,
+    "sha256": "b0d65bf041fb091010a0c19f3bdf6b68e3800eb56a6ce3fbb312cd9a2897cf3c",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/Standard/editable_keys.json",
+    "bytes": 5706217,
+    "sha256": "ee2fb5cea6b78d7f8397134ad4b7fb075c0d94838ecd65a05b29f42c757fb0c9",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Zhanmadao_CommonGrips_Editable.blend",
+    "bytes": 52917296,
+    "sha256": "7e8b7213798460c7b993625a3312c12b31b49befae353584e438b44aca98564b",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Zhanmadao_CommonVariants_Editable.blend",
+    "bytes": 24184575,
+    "sha256": "dd4cd9798e62cd603bcdda8c61268a4cb83cfad813bd07e327341d0cc4da6316",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Adapter_frost_hilt_v1_V2.fbx",
+    "bytes": 55756,
+    "sha256": "8d948e29dc5770aaccecbaf7cb6f5186acd3a924000e877bfb60d78ec578f11f",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Adapter_shared_sword_pommel_v1_V2.fbx",
+    "bytes": 55788,
+    "sha256": "5184c68fcd0c3d0a6466a8b21cffd9653198836284e2778236d5b59fa4d11692",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Blade_extended_edge_V2.fbx",
+    "bytes": 334812,
+    "sha256": "426960e4381d6caed0bbb7e7de29237e68a5b716f19a2103f83397730b6bcece",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Blade_feather_edge_V2.fbx",
+    "bytes": 334700,
+    "sha256": "431b639c86a5694d918321af101819ca2b526268ac52a7adf653b74409f043a4",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Blade_heavy_spine_V2.fbx",
+    "bytes": 334908,
+    "sha256": "2c944ef4a56e8560d0228767a2c331e91423fa546b434c8a62651b840a2fbd17",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Grip_iron_spine_power_grip_V2.fbx",
+    "bytes": 3634204,
+    "sha256": "692f5e93dd634edbd8e7b82856974de3dac93bb3b781613e6f5829d2648461fa",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Grip_lockweave_guard_grip_V2.fbx",
+    "bytes": 3649004,
+    "sha256": "742f55af5d9e651663726afbee36786ffc209a0691440dfceac9ed8b94ccc7f4",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Grip_long_twohand_V2.fbx",
+    "bytes": 3640860,
+    "sha256": "a63f7d7e6e8fea8b2b3069c2d87ba94431b00fb545aefe585c53ed879746f401",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Grip_shock_wrap_V2.fbx",
+    "bytes": 3644284,
+    "sha256": "fa47ede892ef0c2b6cba7c878ebfcc737dc19e82a5eda2f8cd6098c4b969cb07",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Grip_swift_grip_V2.fbx",
+    "bytes": 3635292,
+    "sha256": "2dd0df211574ae8a2e40da34bdbd18b088e69b22fa63f1b6dec8f9c20f4fba17",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Guard_bastion_guard_V2.fbx",
+    "bytes": 1393212,
+    "sha256": "93cebb6d12418f2aea86cfaaa4abf9daec0932f66a9da940df237aee05a8bdc7",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Guard_light_guard_V2.fbx",
+    "bytes": 1391836,
+    "sha256": "354f87e9616baf16834a01f256183a266cf6ee6936f96fce28e525553234e676",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Export/SM_Zhanmadao_Guard_riposte_guard_V2.fbx",
+    "bytes": 1393004,
+    "sha256": "3da3158c94a9695de4078949f4da2e806f03ae0b2fdd06b33018e666983f55e3",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Icons/blade_1_factory_framed_v2.png",
+    "bytes": 3025747,
+    "sha256": "66bef03d8ce5278deb9b58d608e76bd9a58f76c8fd83e40fa2e738fe3e90a60a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Icons/grip_factory_framed_v2.png",
+    "bytes": 3231565,
+    "sha256": "a818021634508b9c63f607b2b56b48e0cc548a2ea04809f19bb89474380e82c3",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Icons/guard_factory_framed_v2.png",
+    "bytes": 3281873,
+    "sha256": "5011e55c93f02e6b3dd1ffcd57625d2aadaa15e8a90db99a257317f7092a8a56",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/CommonModsV2/Icons/pommel_factory_framed_v2.png",
+    "bytes": 3183123,
+    "sha256": "8e7a84c1bc23fe45d97d831ec80f930f86b141ca9cfa75ee88e7282c32188430",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Export/SM_Zhanmadao_Blade_V1.fbx",
+    "bytes": 334636,
+    "sha256": "0d242ba9afbf2b7bca22ae45201f488167808b9a54b674cfe8e1308a29bb06ea",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Export/SM_Zhanmadao_Complete_V1.fbx",
+    "bytes": 6522252,
+    "sha256": "81ed307ffd37eb075b64263ae1e0e926755885ab95928b0482059aa99ec2a776",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Export/SM_Zhanmadao_Grip_V1.fbx",
+    "bytes": 1619532,
+    "sha256": "5f9145203e224b39fb114587536b78b15db8dbfd3840b9a95209ed01ed6bad17",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Export/SM_Zhanmadao_Guard_V1.fbx",
+    "bytes": 1388908,
+    "sha256": "fdcf8702bffcd369088aab1b155f5eae588963b0440833ddc7afad21b24e2f4f",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Export/SM_Zhanmadao_Pommel_V1.fbx",
+    "bytes": 187852,
+    "sha256": "0d3057464a874efb21af97c4051138c7caf766f50c873ef307787ce3b5f056b8",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Export/ue_zhanmadao.png",
+    "bytes": 259319,
+    "sha256": "f555db9cd23478ba46fc874748a8571822cc477fe5812494a07e45f926d52dca",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Icons/blade_1.png",
+    "bytes": 3025747,
+    "sha256": "66bef03d8ce5278deb9b58d608e76bd9a58f76c8fd83e40fa2e738fe3e90a60a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Icons/grip.png",
+    "bytes": 3231565,
+    "sha256": "a818021634508b9c63f607b2b56b48e0cc548a2ea04809f19bb89474380e82c3",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Icons/guard.png",
+    "bytes": 3281873,
+    "sha256": "5011e55c93f02e6b3dd1ffcd57625d2aadaa15e8a90db99a257317f7092a8a56",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Icons/pommel.png",
+    "bytes": 3183123,
+    "sha256": "8e7a84c1bc23fe45d97d831ec80f930f86b141ca9cfa75ee88e7282c32188430",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Original/Meshy_AI_Crimson_Crescent_Blad_1017171549_texture.glb",
+    "bytes": 10105444,
+    "sha256": "dec22736b82d56d192d2bf91a581614edf31aa6f418c8f06a05be150ea23bcb3",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/Zhanmadao_TangDaoBlades_Editable.blend",
+    "bytes": 93158315,
+    "sha256": "ff21844403ec7ec845f9b0e47711ec1cc668765c0e222a6a030709b780de155d",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/Export/SM_Zhanmadao_Blade_tengyun_dragon_V1.fbx",
+    "bytes": 8718892,
+    "sha256": "764ea213ebaa77b1d2c9fd23274b528b9cc5abcff5e451b557c4dce0e8e08098",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/Export/SM_Zhanmadao_Blade_yanling_edge_V1.fbx",
+    "bytes": 12623692,
+    "sha256": "fc8b12682b7380ce745bd0dbcf0afb0967f292b7d972d18a6f9595cd68f59c05",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Textures/Zhanmadao_BaseColor.jpg",
+    "bytes": 3149725,
+    "sha256": "b3deb0ef813a0f566276208e989c250ae9f339c1ca6e50740a721f6a32d42569",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Textures/Zhanmadao_MetallicRoughness.jpg",
+    "bytes": 1668683,
+    "sha256": "47f8a2053ad9b15e51340294e70df9c3744492c4d8edf4628e4b0056de87f40f",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/Textures/Zhanmadao_Normal.jpg",
+    "bytes": 2347304,
+    "sha256": "579b7d339405d8c1ea8e269256e4b2e4abd79d827e949d4768c53bcdb7286737",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeConceptV1/Zhufeng_Blade_Concept_V1.png",
+    "bytes": 2200119,
+    "sha256": "ac13cd8e042a4b2da70a577e8a293a0c246adca2247d616f89e19d52fc06ee16",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Zhufeng_Blade_Editable.blend",
+    "bytes": 25814246,
+    "sha256": "6eea39846745f38639037309064c01969e7b57d262f42744ebcfb4c8423e2215",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Zhufeng_Icon_Editable.blend",
+    "bytes": 25852541,
+    "sha256": "5fcca83a1d10e5ad496492f9efec2f3c23dfa8adae1eba835ef44a9113110281",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Export/SM_Zhanmadao_Blade_zhufeng_V1.fbx",
+    "bytes": 3555004,
+    "sha256": "f0a18ece15a17630ba60bfbbfe2049827a04a07cc2784fb85abdcf7fef6d901a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Export/Zhufeng_Icon_Framed.png",
+    "bytes": 2943455,
+    "sha256": "009be57ac5e3307f52a2db759111b79713db6696841c81dd917b123a1f3d42c9",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Export/Zhufeng_Icon_Subject.png",
+    "bytes": 59336,
+    "sha256": "de886f559b28b737f3db6039eb0eba7ab801ea82433a364578be1f8fc4070a00",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Textures/Zhufeng_BaseColor.png",
+    "bytes": 5487413,
+    "sha256": "1675d05cd439735bb1080a78a100f8b44ec85428f6a287b9ef72f49aa8a4fd83",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Textures/Zhufeng_Normal.png",
+    "bytes": 3350261,
+    "sha256": "4989f52ae4573592ed3105e6439b9eac34ad7b2f20adbc89244f595b83a2960a",
+    "published_binary": false
+  },
+  {
+    "path": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/Textures/Zhufeng_ORM.png",
+    "bytes": 3789743,
+    "sha256": "d2d9dafa4c8e5bca1075ecce5493aca798058f7d59b05111daf4388be3fd1388",
+    "published_binary": false
+  }
+]

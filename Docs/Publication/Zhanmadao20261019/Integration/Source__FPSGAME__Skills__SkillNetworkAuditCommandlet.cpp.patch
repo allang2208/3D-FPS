@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+@@ -29,4 +29,5 @@
+ int32 USkillNetworkAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("ZhufengOnly")))return RunZhufengAudit(Params);
+     if(FParse::Param(*Params,TEXT("IceArmorOnly")))return RunIceArmorAudit(Params);
+     if(FParse::Param(*Params,TEXT("FlameArmorStatsOnly")))return RunFlameArmorStatsAudit(Params);

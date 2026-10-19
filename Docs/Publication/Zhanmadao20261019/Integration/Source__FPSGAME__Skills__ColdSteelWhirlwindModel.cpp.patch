@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp
+@@ -2,4 +2,5 @@
+ #include "ColdSteelSkillRules.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/ModularSwordVisual.h"
+ 
+ FWhirlwindCast UColdSteelStatusModel::WhirlwindStats(int32 AtLevel) const
+@@ -18,7 +19,8 @@
+     {
+         const auto Stats=ColdSteelMelee::Evaluate(*Item,this);
++        C.DamageMultiplier+=float(Stats.Modifiers.WhirlwindDamageAdd);
+         C.StaminaCost*=Stats.Modifiers.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
+-        C.Damage=FMath::RoundToFloat(Stats.Damage*C.DamageMultiplier);
+-        C.RadiusCM*=Stats.Modifiers.Range;
++        C.Damage=FMath::RoundToFloat(Stats.Damage*C.DamageMultiplier)*Stats.Modifiers.MartialDamage;
++        C.RadiusCM*=Stats.Modifiers.Range*Stats.Modifiers.MartialRange;
+         C.KnockbackCM*=Stats.Modifiers.AllAttackKnockback;
+         if(Tool)C.CooldownSeconds=FMath::Max(0.f,T.CooldownBase-L*T.CooldownReduction)*float(Stats.Modifiers.MartialCooldownMultiplier());
+@@ -30,10 +32,11 @@
+ {return HasNoAbilityCooldown()?0.f:Current.WhirlwindCooldown;}
+ 
+-bool UColdSteelStatusModel::CommitWhirlwindCast(const FWhirlwindCast& Cast)
++bool UColdSteelStatusModel::CommitWhirlwindCast(const FWhirlwindCast& Cast,bool FromZhufengDash)
+ {
+     const auto* Tool=ActiveProductionTool();
+     const auto* Item=Tool?Tool:Equipped();
+     if(!Item||(Tool?!ColdSteelInventory::IsTwoHandedBlunt(*Item):!ColdSteelInventory::IsMeleeWeapon(*Item))||
+-        MasteryProgress(TEXT("whirlwind")).Level<1||WhirlwindCooldown()>0.f)return false;
++        (FromZhufengDash?(!ColdSteelModularSword::UsesZhufengWhirlwind(*Item)||MasteryProgress(TEXT("dashAttack")).Level<1):
++            MasteryProgress(TEXT("whirlwind")).Level<1)||WhirlwindCooldown()>0.f)return false;
+     if(!CanSpendStamina(Cast.StaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}
+     SyncRuntime();auto P=Snapshot();

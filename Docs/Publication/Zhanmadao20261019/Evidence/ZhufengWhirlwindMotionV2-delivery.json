@@ -1,0 +1,40 @@
+{
+  "revision": "ZhufengWhirlwindMotionV2",
+  "source_fix_saved": true,
+  "native_build_complete": true,
+  "editor_build_complete": true,
+  "game_build_complete": true,
+  "builds": {
+    "FPSGAMEEditor": {
+      "finished": "2026-10-19T13:43:54.1891728+08:00",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "receipt": "build-FPSGAMEEditor-01-receipt.json"
+    },
+    "FPSGAME": {
+      "exit_code": null
+    }
+  },
+  "source_sha256": {
+    "Source/FPSGAME/Characters/FPSBodySwordMotion.h": "53d6e7ad254b8e71979e649ccfbfe8814190a684de1cc1d5aa88780e4c3d1848",
+    "Source/FPSGAME/Characters/FPSBodySwordPose.inl": "3faab1c479761fcacfbbe75743835af4165592e6332ca52667135083be256b80",
+    "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp": "5af66eeaaeff7eb556d7e13582bc8a8e042c58870854144b9c32997c4eb719b7"
+  },
+  "diagnosis": "Existing Start/Loop/End clips are root-neutral; Zhufeng removed the full-body turn without restoring the upper-body turn.",
+  "animation_assets_changed": false,
+  "game_tested": false,
+  "editor_started": false,
+  "live_coding_applied": false,
+  "live_coding_attempts": [
+    "CompileNotStarted: fixed FName conditional type",
+    "connection closed during normal editor shutdown; moved to regular build"
+  ],
+  "scope": [
+    "same whirlwind model turn and phase curve",
+    "upper-body rotation preserves both hand contacts",
+    "pelvis and legs retain forward gait",
+    "entry from evaluated carry pose"
+  ],
+  "native_build_pending": false,
+  "superseding_build": "../ZhufengCyanTrailV1/delivery.json"
+}

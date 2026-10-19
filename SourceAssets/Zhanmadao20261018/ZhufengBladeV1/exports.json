@@ -1,0 +1,43 @@
+{
+  "id": "zhufeng",
+  "name": "逐风",
+  "mesh_name": "SM_Zhanmadao_Blade_zhufeng_V1",
+  "lod_triangles": [
+    34124,
+    15772,
+    7532
+  ],
+  "material_slots": [
+    "M_Zhufeng_BladeSurface",
+    "M_Zhufeng_Brass"
+  ],
+  "trace_base_cm": [
+    0.005440041422843933,
+    0.0023478642106056213,
+    7.1407033858258195
+  ],
+  "trace_tip_cm": [
+    -11.700000000000001,
+    0.0023478642106056213,
+    120.00000476837158
+  ],
+  "rune_dimensions_cm": [
+    10,
+    3,
+    120
+  ],
+  "seat_size_cm": [
+    5.92984439432621,
+    1.6344480030238628
+  ],
+  "seat_overlap_mm": 0.6,
+  "rigid_length_cm": 160.13139188289642,
+  "geometry": "fitted closed curved blade with blue-grey forged steel, silver edge and three tapered silver wind ribbons per face",
+  "texture_resolution": [
+    1024,
+    4096
+  ],
+  "source": "Zhufeng_Blade_Editable.blend",
+  "effects_applied": false,
+  "game_tested": false
+}

@@ -78,6 +78,8 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("combo_third_toughness_mult"),Part.Melee.ComboThirdToughness);
             Stats->TryGetNumberField(TEXT("skill_cooldown_mult"),Part.Melee.SkillCooldown);
             Stats->TryGetNumberField(TEXT("martial_cooldown_mult"),Part.Melee.MartialCooldown);
+            Stats->TryGetNumberField(TEXT("martial_damage_mult"),Part.Melee.MartialDamage);
+            Stats->TryGetNumberField(TEXT("martial_range_mult"),Part.Melee.MartialRange);
             Stats->TryGetNumberField(TEXT("magic_cooldown_mult"),Part.Melee.MagicCooldown);
             Stats->TryGetNumberField(TEXT("cooldown_reduce_seconds_per_hit"),Part.Melee.CooldownReduceSecondsPerHit);
             Stats->TryGetNumberField(TEXT("magic_damage_mult"),Part.Melee.MagicDamage);
@@ -85,6 +87,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("heavy_damage_mult"),Part.Melee.HeavyDamage);
             Stats->TryGetNumberField(TEXT("heavy_toughness_mult"),Part.Melee.HeavyToughness);
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
+            Stats->TryGetNumberField(TEXT("whirlwind_damage_add"),Part.Melee.WhirlwindDamageAdd);
             Stats->TryGetNumberField(TEXT("heavy_charge_speed_bonus"),Part.Melee.HeavyChargeSpeedBonus);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
             Stats->TryGetNumberField(TEXT("all_attack_knockback_mult"),Part.Melee.AllAttackKnockback);

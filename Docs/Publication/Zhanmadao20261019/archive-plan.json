@@ -1,0 +1,550 @@
+{
+  "manifest": "SourceAssets/ZhanmadaoPublication20261019/retired-files.json",
+  "manifest_sha256": "71bfc420e24427da7eaee4b098e3937abbb07f8df2a6862f53833cef9e5363f5",
+  "groups": [
+    {
+      "original": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/BeiweiRuneV1/AssetHost",
+      "files": 64,
+      "bytes": 79911780,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/AssetHost",
+      "files": 31,
+      "bytes": 20912574,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/AssetHost",
+      "files": 267,
+      "bytes": 1083805642,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoGripV2/AssetHost",
+      "files": 81,
+      "bytes": 234072702,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoLegendaryV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoLegendaryV1/AssetHost",
+      "files": 17,
+      "bytes": 135200,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/AssetHost",
+      "files": 78,
+      "bytes": 234318229,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/RuneSurfaceV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/RuneSurfaceV1/AssetHost",
+      "files": 52,
+      "bytes": 76143737,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/AssetHost",
+      "files": 31,
+      "bytes": 21845560,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengCyanTrailV1/AssetHost",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengCyanTrailV1/AssetHost",
+      "files": 17,
+      "bytes": 122061,
+      "reason": "Completed isolated authoring host; production packages already published.",
+      "replacement": "Content/Weapons/Zhanmadao20261018; retained prepare/install/publish recipes"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/partial-stage-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/BeiweiRuneV1/partial-stage-01.json",
+      "files": 1,
+      "bytes": 592,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/stage-receipt-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/BeiweiRuneV1/stage-receipt-01.json",
+      "files": 1,
+      "bytes": 102,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-state-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-state-01.json",
+      "files": 1,
+      "bytes": 196,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/CommonModsV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-state-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-state-02.json",
+      "files": 1,
+      "bytes": 758,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/CommonModsV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/commandlet-receipt-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/commandlet-receipt-01.json",
+      "files": 1,
+      "bytes": 101,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/CommonModsV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/commandlet-receipt-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/commandlet-receipt-02.json",
+      "files": 1,
+      "bytes": 102,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/CommonModsV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/RuneSurfaceV1/stage-receipt-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/RuneSurfaceV1/stage-receipt-01.json",
+      "files": 1,
+      "bytes": 142,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/RuneSurfaceV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/commandlet-receipt.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoGripV2/commandlet-receipt.json",
+      "files": 1,
+      "bytes": 85,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/install-receipt-before-compression-fix.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ChixiaoGripV2/install-receipt-before-compression-fix.json",
+      "files": 1,
+      "bytes": 1007,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ChixiaoGripV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-02-cancelled.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-02-cancelled.json",
+      "files": 1,
+      "bytes": 300,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-01.json",
+      "files": 1,
+      "bytes": 193924,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-02.json",
+      "files": 1,
+      "bytes": 74264,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-receipt-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-receipt-01.json",
+      "files": 1,
+      "bytes": 131,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-receipt-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/build-FPSGAMEEditor-receipt-02.json",
+      "files": 1,
+      "bytes": 132,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/shared-editor-build-plan.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/shared-editor-build-plan.json",
+      "files": 1,
+      "bytes": 254,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/TangDaoBladesV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/build-FPSGAMEEditor-receipt-zhufeng-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/build-FPSGAMEEditor-receipt-zhufeng-01.json",
+      "files": 1,
+      "bytes": 146,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/build-FPSGAMEEditor-zhufeng-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/build-FPSGAMEEditor-zhufeng-01.json",
+      "files": 1,
+      "bytes": 145919,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/compile-console-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/compile-console-02.txt",
+      "files": 1,
+      "bytes": 0,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/compile-error-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/compile-error-02.txt",
+      "files": 1,
+      "bytes": 526,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/compile-state.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/compile-state.json",
+      "files": 1,
+      "bytes": 161,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengBladeV1/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/build-FPSGAME-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/build-FPSGAME-02.json",
+      "files": 1,
+      "bytes": 64015,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/build-FPSGAME-02.log",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/build-FPSGAME-02.log",
+      "files": 1,
+      "bytes": 27663,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/build-FPSGAME-console-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/build-FPSGAME-console-02.txt",
+      "files": 1,
+      "bytes": 39592,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/livecoding-compile-01.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/livecoding-compile-01.txt",
+      "files": 1,
+      "bytes": 25440,
+      "reason": "Superseded failed, cancelled or diagnostic attempt; final publication/build receipts retained.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/delivery.json; ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-02-receipt.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-02-receipt.json",
+      "files": 1,
+      "bytes": 131,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-02.log",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-02.log",
+      "files": 1,
+      "bytes": 273377,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-03-receipt.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-03-receipt.json",
+      "files": 1,
+      "bytes": 131,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-03.log",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-03.log",
+      "files": 1,
+      "bytes": 282837,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-console-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-console-02.txt",
+      "files": 1,
+      "bytes": 62734,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-console-03.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/audit-console-03.txt",
+      "files": 1,
+      "bytes": 73430,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-01-receipt.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-01-receipt.json",
+      "files": 1,
+      "bytes": 118,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-01.json",
+      "files": 1,
+      "bytes": 60451,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-01.log",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-01.log",
+      "files": 1,
+      "bytes": 22978,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-02-receipt.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-02-receipt.json",
+      "files": 1,
+      "bytes": 118,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-02.json",
+      "files": 1,
+      "bytes": 48268,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-02.log",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-02.log",
+      "files": 1,
+      "bytes": 19868,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-03-receipt.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-03-receipt.json",
+      "files": 1,
+      "bytes": 118,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-03.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-03.json",
+      "files": 1,
+      "bytes": 17752,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-03.log",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-03.log",
+      "files": 1,
+      "bytes": 5525,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-console-01.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-console-01.txt",
+      "files": 1,
+      "bytes": 33308,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-console-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-console-02.txt",
+      "files": 1,
+      "bytes": 30412,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-console-03.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/build-FPSGAMEEditor-console-03.txt",
+      "files": 1,
+      "bytes": 2374,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-console-01.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-console-01.txt",
+      "files": 1,
+      "bytes": 0,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-console-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-console-02.txt",
+      "files": 1,
+      "bytes": 0,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-console-03.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-console-03.txt",
+      "files": 1,
+      "bytes": 0,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-errors-01.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-errors-01.txt",
+      "files": 1,
+      "bytes": 463,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-errors-02.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-errors-02.txt",
+      "files": 1,
+      "bytes": 494,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-errors-03.txt",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/production-errors-03.txt",
+      "files": 1,
+      "bytes": 494,
+      "reason": "Failed fixture iterations 01-03; valid level-one fixture and complete attempt 04 supersede them.",
+      "replacement": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json"
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-endplay-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-endplay-01.json",
+      "bytes": 0,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-endplay-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-endplay-02.json",
+      "bytes": 121,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-import-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-import-01.json",
+      "bytes": 0,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-import-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/bridge-import-02.json",
+      "bytes": 584,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/CommonModsV2/end_play_for_import.py",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/CommonModsV2/end_play_for_import.py",
+      "bytes": 361,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/RuneSurfaceV1/editor-import-01.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/RuneSurfaceV1/editor-import-01.json",
+      "bytes": 0,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/RuneSurfaceV1/editor-import-02.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/RuneSurfaceV1/editor-import-02.json",
+      "bytes": 210,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengCyanTrailV1/melee-gunsmith-before.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengCyanTrailV1/melee-gunsmith-before.json",
+      "bytes": 44206,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengDamageBonusV1/melee-gunsmith-before.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengDamageBonusV1/melee-gunsmith-before.json",
+      "bytes": 44682,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/livecoding-request.json",
+      "archived": "trash/zhanmadao-retired-20261019/SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/livecoding-request.json",
+      "bytes": 102,
+      "reason": "Completed one-off editor probe or superseded catalog backup; not an authoring input.",
+      "replacement": "Current Content/ColdSteelData catalogs and final delivery/review receipts",
+      "files": 1
+    },
+    {
+      "original": "Saved/ZhanmadaoPublication20261019/PatchCheck",
+      "archived": "trash/zhanmadao-retired-20261019/Saved/ZhanmadaoPublication20261019/PatchCheck",
+      "files": 34,
+      "bytes": 1171024,
+      "reason": "Completed temporary patch applicability reconstruction.",
+      "replacement": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After"
+    }
+  ]
+}

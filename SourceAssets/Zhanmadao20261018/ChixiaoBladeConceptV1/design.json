@@ -1,0 +1,46 @@
+{
+  "name": "赤霄",
+  "name_confirmed_by_user": true,
+  "weapon": "ue_zhanmadao",
+  "slot": "blade_1",
+  "status": "appearance_and_effect_integrated",
+  "user_approved": true,
+  "game_integrated": true,
+  "stats": {
+    "attack_speed_mult": 1.15
+  },
+  "effect_proposal": {
+    "status": "user_confirmed_integrated",
+    "revision": 5,
+    "effect_name": "赤霄双斩",
+    "mechanism": "重击改为快速二连斩：先下斩，再从落刀处向右上方挑斩。两刀均造成完整重击伤害，属于武技。出手体力消耗翻倍，蓄力期间每秒体力消耗不变。",
+    "hits": 2,
+    "damage_per_hit": "full_heavy_strike",
+    "category": "martial",
+    "first_cut": "current_heavy_release",
+    "second_cut": "from_first_landing_to_upper_right",
+    "charge_and_stamina": "one_original_charge_double_release_cost",
+    "release_stamina_multiplier": 2,
+    "attack_speed": "independent_martial_clock",
+    "beiwei": "both_hits_receive_martial_damage_and_range_once",
+    "game_integrated": true,
+    "source": "../ChixiaoLegendaryV1/",
+    "game_tested": false,
+    "passive_attack_speed_mult": 1.15,
+    "heavy_trail": "crimson_blade_path"
+  },
+  "rarity": null,
+  "design": {
+    "silhouette": "加宽中后段、厚脊、微弧单刃、长尖收锋",
+    "finish": "玄钢刀面、银白刃口、暗红刀脊嵌线、刀根少量旧金云纹",
+    "rune_lane": "中央刀面留白，符文属于 blade_2 可替换材质",
+    "hilt": "沿用现有黑红缠柄、小护手和金属柄尾",
+    "length_intent_cm": 160.13139188289642,
+    "interface_note": "图中刀根仅为概念结构示意；制作时以实际原装接口适配"
+  },
+  "image": "Chixiao_Blade_Concept_V1.png",
+  "generation": "built-in image_gen",
+  "reference": "SourceAssets/Zhanmadao20261018/Export/ue_zhanmadao.png",
+  "model_delivery": "../ChixiaoBladeV1/import_receipt.json",
+  "tier": "legendary"
+}

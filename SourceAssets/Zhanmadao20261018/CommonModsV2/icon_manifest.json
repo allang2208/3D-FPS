@@ -1,0 +1,31 @@
+{
+  "generator": "built-in imagegen",
+  "approved_frame": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FirearmFramedIcons20260930\\muzzle_brake_framed_v2.png",
+  "icons": [
+    {
+      "slot": "blade_1",
+      "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\blade_1_factory_framed_v2.png",
+      "prompt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\blade-prompt.txt",
+      "subject_source": "D:\\FPS3D\\FPSGAME\\trash\\zhanmadao-icons-v1-20261018\\SourceAssets\\Zhanmadao20261018\\Icons\\blade_1.png"
+    },
+    {
+      "slot": "guard",
+      "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\guard_factory_framed_v2.png",
+      "prompt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\guard-prompt.txt",
+      "subject_source": "D:\\FPS3D\\FPSGAME\\trash\\zhanmadao-icons-v1-20261018\\SourceAssets\\Zhanmadao20261018\\Icons\\guard.png"
+    },
+    {
+      "slot": "grip",
+      "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\grip_factory_framed_v2.png",
+      "prompt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\grip-prompt.txt",
+      "subject_source": "D:\\FPS3D\\FPSGAME\\trash\\zhanmadao-icons-v1-20261018\\SourceAssets\\Zhanmadao20261018\\Icons\\grip.png"
+    },
+    {
+      "slot": "pommel",
+      "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\pommel_factory_framed_v2.png",
+      "prompt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\CommonModsV2\\Icons\\pommel-prompt.txt",
+      "subject_source": "D:\\FPS3D\\FPSGAME\\trash\\zhanmadao-icons-v1-20261018\\SourceAssets\\Zhanmadao20261018\\Icons\\pommel.png"
+    }
+  ],
+  "visual_accepted": false
+}

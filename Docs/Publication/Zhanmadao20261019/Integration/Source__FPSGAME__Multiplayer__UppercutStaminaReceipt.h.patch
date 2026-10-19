@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h
++++ b/Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h
+@@ -4,5 +4,6 @@
+ namespace UppercutStaminaReceipt
+ {
+-// Confirmed uppercut stamina receipt. RPC/mirror order cannot charge twice.
++// Shared confirmed sword-martial ledger (uppercut and whirlwind). Keep the
++// persisted field name for existing saves. RPC/mirror order cannot charge twice.
+ inline void Merge(FColdSteelProfile& Profile,double Total)
+ {

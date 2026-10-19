@@ -159,6 +159,8 @@ private:
     bool AuthorizeMeleeMove(const FFPSMeleeMoveRequest& Request,float& Budget,float& Recovery) const;
     UFUNCTION(Client,Reliable) void ClientRejectMeleeMove(uint32 Sequence);
     uint32 LastServerMeleeSequence=0,RejectedMeleeSequence=0;
+    EFPSMeleeMove ServerMeleeKind=EFPSMeleeMove::None;
+    friend class USkillNetworkAuditCommandlet;
     float ServerMeleeDistance=0.f,ServerMeleeBudget=0.f;
     double ServerMeleeRecoveryUntil=0.;
     bool bServerMeleeBlocked=false;

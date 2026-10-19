@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+@@ -110,4 +110,5 @@
+     CancelPendingNetworkCast();
+     SettleSwordUppercut();
++    SettleSwordWhirlwind();
+     // Settle confirmed hits before the guest profile is saved or remembered.
+     APawn* CastPawn=GetPawn()?GetPawn():ShadowPawn.Get();

@@ -103,6 +103,7 @@ void UFPSPlayerBodyComponent::UpdateConsumable(const FFPSBodyMotionSample& Sampl
 void UFPSPlayerBodyComponent::OnBodyPoseFinalized()
 {
     UpdateSwordGripMount();
+    PresentBeiweiTrail();
     UpdateNativeBowContacts();
     if(!QueuedWorldDiscards)return;
     if(GetBodyMesh())GetBodyMesh()->UpdateChildTransforms();

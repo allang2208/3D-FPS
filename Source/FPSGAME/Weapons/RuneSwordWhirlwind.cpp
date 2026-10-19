@@ -5,6 +5,8 @@
 #include "RuneSwordWhirlwindFeel.h"
 #include "ModularSwordVisual.h"
 #include "../FPSGAMECharacter.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../Monsters/MonsterCombatComponent.h"
@@ -47,15 +49,16 @@ float WhirlwindPoseTime(float Time,const FWhirlwindTuning& T,float ClipLength)
 }
 }
 
-bool URuneSwordComponent::BeginWhirlwind()
+bool URuneSwordComponent::BeginWhirlwind(bool FromZhufengDash)
 {
     if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return false;
     if(bInspecting)CancelAction();
     if(!IsEquipped()||IsBusy()||bGuardHeld||!CanUse()||!Viewmodel||!Camera||
-        Character->IsCastBlockingLeftHandAction()||Character->IsDodging()||Character->IsSliding())return false;
+        Character->IsCastBlockingLeftHandAction()||Character->IsDodging()||(!FromZhufengDash&&Character->IsSliding()))return false;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Item=Profile?Profile->Equipped():nullptr;
     if(!Item||Profile->ActiveProductionTool()||!ColdSteelInventory::IsMeleeWeapon(*Item))return false;
+    if(FromZhufengDash&&(!ColdSteelModularSword::UsesZhufengWhirlwind(*Item)||DashReadyFraction()<1.f-UE_SMALL_NUMBER))return false;
     // Existing equipped instances survive Live Coding. Refresh only this clip
     // at the idle-to-skill boundary, before committing stamina or cooldown.
     const FString ClipPath=ColdSteelModularSword::AnimationFolder(*Item)+TEXT("/A_RuneSword_WhirlwindV5");
@@ -65,8 +68,26 @@ bool URuneSwordComponent::BeginWhirlwind()
     if(!Animations.FindRef(TEXT("Whirlwind")))
     {UE_LOG(LogTemp,Warning,TEXT("[Whirlwind] 大旋风动画缺失，未扣除体力或冷却"));return false;}
     const FWhirlwindCast Cast=Profile->WhirlwindStats();
-    if(!Profile->CommitWhirlwindCast(Cast))return false;
+    const bool RuneSwordCooldown=Item->Definition==TEXT("ue_rune_sword");
+    const bool Remote=Character->GetNetMode()==NM_Client;
+    const FVector Direction=Character->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
+    if(Remote)
+    {
+        auto* PS=Character->GetPlayerState<AColdSteelPlayerState>();
+        if(!PS||!PS->RequestSwordWhirlwind(FromZhufengDash,Direction))return false;
+    }
+    else if(!Profile->CommitWhirlwindCast(Cast,FromZhufengDash))return false;
     WhirlwindCast=Cast;WhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
+    bZhufengWhirlwind=FromZhufengDash;
+    if(bZhufengWhirlwind)
+    {
+        ZhufengSpeed=Profile->DashAttackStats().DistanceCM/RuneSwordOverheadRhythm::DashWindupSeconds;
+        ZhufengDirection=Character->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
+        bLungeBlocked=false;DashSprintSeconds=0.f;
+        // Constant forward travel must not pause at a contact accent.
+        WhirlwindTuning.HitStopSeconds=WhirlwindTuning.HitStopBudget=0.f;
+        if(Character->IsSliding())Character->StopSlide(true);
+    }
     SwingRate=1.f; // Skill phase durations are independent of weapon attack speed.
     bWhirlwind=true;bWhirlwindTrainingPending=true;bSwingCuePlayed=false;
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
@@ -80,8 +101,14 @@ bool URuneSwordComponent::BeginWhirlwind()
     // 旋风斩属剑刃攻击：导魔符文易伤通道照常挂载；金色强化按确认命中缩减CD（整个旋风只触发一次）。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
     // 命中减冷却属于符文长剑，不因共用旋风动作授予高地或其他剑。
-    SwingCooldownReduceSeconds=Item->Definition==TEXT("ue_rune_sword")?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
+    SwingCooldownReduceSeconds=RuneSwordCooldown?.5f+static_cast<float>(MeleeModifiers.CooldownReduceSecondsPerHit):0.f;bSwingCooldownReduced=false;
     StopRift();Character->StopMovementForMeleeSkill();
+    if(bZhufengWhirlwind)
+        if(auto* Movement=::Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement()))
+        {
+            Movement->PendingLaunchVelocity.X=Movement->PendingLaunchVelocity.Y=0.;
+            if(!Remote)Movement->BeginMeleeLungeRequest(EFPSMeleeMove::Zhufeng,ZhufengDirection);
+        }
     WhirlwindEntryLocation=Viewmodel->GetRelativeLocation();WhirlwindEntryRotation=Viewmodel->GetRelativeRotation();
     const auto& PP=Camera->PostProcessSettings;
     WhirlwindSavedBlur=PP.MotionBlurAmount;WhirlwindSavedBlurMax=PP.MotionBlurMax;
@@ -96,8 +123,13 @@ void URuneSwordComponent::FinishWhirlwindTraining()
 {
     if(!bWhirlwindTrainingPending)return;
     bWhirlwindTrainingPending=false;
+    // Remote casts train from accepted server hits, including kill receipts.
+    if(GetNetMode()==NM_Client)return;
     if(auto* Profile=GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
-        Profile->TrainWhirlwind(WhirlwindHits,WhirlwindKills);
+    {
+        if(bZhufengWhirlwind)Profile->TrainDashAttack(WhirlwindHits,WhirlwindKills);
+        else Profile->TrainWhirlwind(WhirlwindHits,WhirlwindKills);
+    }
 }
 
 void URuneSwordComponent::FinishWhirlwind()
@@ -105,6 +137,8 @@ void URuneSwordComponent::FinishWhirlwind()
     if(!bWhirlwind)return;
     // Clear first: saving training can refresh equipment and re-enter cancellation.
     bWhirlwind=false;
+    if(GetNetMode()==NM_Client&&Character.IsValid())
+        if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())PS->FinishSwordWhirlwind();
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
     EndWhirlwindFocus();
     if(Camera)
@@ -115,6 +149,7 @@ void URuneSwordComponent::FinishWhirlwind()
         PP.bOverride_MotionBlurMax=bWhirlwindSavedBlurMaxOverride;
     }
     WhirlwindPause=0.f;ImpactAge=1.f;FinishWhirlwindTraining();
+    bZhufengWhirlwind=false;ZhufengSpeed=0.f;bLungeBlocked=false;
     HitActors.Reset();LastAttackEnd=GetWorld()?GetWorld()->GetTimeSeconds():0.;
     if(Viewmodel&&Animations.FindRef(TEXT("Idle")))SetClip(TEXT("Idle"),true);
 }
@@ -139,6 +174,7 @@ void URuneSwordComponent::TickWhirlwind(float Delta)
     {
         const float Step=FMath::Min(Remaining,1.f/120.f),Before=Elapsed;
         Elapsed=FMath::Min(End,Elapsed+Step);Remaining-=Step;
+        if(bZhufengWhirlwind)AdvanceZhufeng(Before,Elapsed);
         const float BeforePhase=WhirlwindPhase(Before,T),Phase=WhirlwindPhase(Elapsed,T);
         FRotator Aim=Character->GetController()->GetControlRotation();
         Aim.Yaw=WhirlwindYaw+T.TurnDegrees*Phase;
@@ -161,7 +197,7 @@ void URuneSwordComponent::TickWhirlwind(float Delta)
     // PlayerController already faced the pawn before this PostPhysics action
     // advanced control yaw. Publish the same final heading on the world body
     // now; otherwise third-person hands lag the rotating camera by one frame.
-    Character->FaceRotation(Character->GetController()->GetControlRotation(),0.f);
+    Character->FaceRotation(bZhufengWhirlwind?FRotator(0,WhirlwindYaw,0):Character->GetController()->GetControlRotation(),0.f);
     // Contact can change the impulse after the last angular substep. Compose
     // that final feedback before publishing the attached arms and weapon.
     Character->RefreshQuickCombatCamera();

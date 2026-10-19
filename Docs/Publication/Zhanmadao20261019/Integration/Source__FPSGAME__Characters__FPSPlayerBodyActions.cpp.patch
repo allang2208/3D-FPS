@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -109,4 +109,7 @@
+     {
+         State.Family=TEXT("Melee");State.Action=EFPSBodyAction::None;State.ActionVariant=Sword->CurrentClip;
++        State.bBeiweiMartial=Sword->IsBeiweiMartialReleasing();
++        State.bChixiaoHeavyTrail=Sword->IsChixiaoHeavyReleasing();
++        State.bZhufengWhirlwindTrail=Sword->IsZhufengWhirlwindReleasing();
+         const float Length=Sword->CurrentAnimation?Sword->CurrentAnimation->GetPlayLength():1.f;
+         if(Sword->bWhirlwind)
+@@ -115,4 +118,11 @@
+             Timed(EFPSBodyAction::Whirlwind,Sword->Elapsed,End);
+             State.ContactFraction=W.ReadySeconds/End;State.ReleaseFraction=(W.ReadySeconds+W.SpinSeconds)/End;
++            State.WhirlwindTurns=W.TurnDegrees/360.f;
++            if(Sword->bZhufengWhirlwind)
++            {
++                State.ActionVariant=TEXT("ZhufengWhirlwind");State.AimYaw=0.f;
++                State.ZhufengForwardYaw=Sword->WhirlwindYaw;
++                State.ZhufengForwardSpeed=!Sword->bLungeBlocked&&Sword->Elapsed<W.ReadySeconds+W.SpinSeconds?Sword->ZhufengSpeed:0.f;
++            }
+         }
+         else if(Sword->bUppercut)
+@@ -428,4 +438,9 @@
+         State.bHasActionProgress=R.bHasActionProgress;State.ActionProgress=R.ActionProgress;
+         State.ActionWeight=R.ActionWeight;State.ContactFraction=R.ContactFraction;State.ReleaseFraction=R.ReleaseFraction;
++        State.WhirlwindTurns=R.WhirlwindTurns;
++        State.bBeiweiMartial=R.bBeiweiMartial;State.bChixiaoHeavyTrail=R.bChixiaoHeavyTrail;
++        State.bZhufengWhirlwindTrail=R.bZhufengWhirlwindTrail;
++        State.ZhufengForwardSpeed=R.ZhufengForwardSpeed;State.ZhufengForwardYaw=R.ZhufengForwardYaw;
++        if(State.ActionVariant==TEXT("ZhufengWhirlwind"))State.AimYaw=0.f;
+         State.bUppercutLungeBlocked=R.bUppercutLungeBlocked;
+         State.RightHand=R.RightHand;State.LeftHand=R.LeftHand;

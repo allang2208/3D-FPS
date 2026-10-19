@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -53,5 +53,5 @@
+     const auto* Book=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
+     const auto* Broken=Pawn?Pawn->FindComponentByClass<UPlayerGuardBreakComponent>():nullptr;
+-    if(Busy||!Pawn||ActionPawn!=Pawn||!Health||Health->IsDead()||!ShadowModel
++    if(Busy||IsSwordWhirlwindExecuting(Pawn)||!Pawn||ActionPawn!=Pawn||!Health||Health->IsDead()||!ShadowModel
+         ||!FMath::IsFinite(Duration)||Duration<.1f||Duration>5.f||Pawn->IsTraversing()
+         ||(Book&&Book->IsFocusActive())||(Broken&&Broken->IsActive())||!ShadowModel->SpendStamina(ShadowModel->QuickCombatStaminaCost()))

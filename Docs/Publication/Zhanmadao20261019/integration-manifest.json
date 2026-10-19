@@ -1,0 +1,313 @@
+{
+  "capture_commit": "d0267637979a8cbcd92d653d1e27c57049e4af6d",
+  "hash_encoding": "UTF-8 without BOM, LF",
+  "baseline_method": "Reconstructed current prerequisite by reversing only reviewed Zhanmadao changes. These per-file baselines are not Git HEAD.",
+  "targets": [
+    {
+      "target": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "baseline_sha256_utf8_lf": "6eb857dbf0f2b2a0e028f309363b9267662222a9f211e942ae47c5c8740cabb1",
+      "result_sha256_utf8_lf": "780162d89bc1011e5e0808112385dd5611ca146296f5573b58c6a1e5fcff7c31",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "patch": "Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "baseline_sha256_utf8_lf": "296062b9c7ab856fdef7b27f2e91e0bdc514ff3d4fb7baa9279027080d75014b",
+      "result_sha256_utf8_lf": "599c1947be236a83cbc228399db8555d06273bfe912a9563863d0b4eb631f3d4",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__MeleeWeaponStats.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "baseline_sha256_utf8_lf": "a767bfc82eddc7027f98b118e711c1313bd95d98ca04668c0e65fe69ab302160",
+      "result_sha256_utf8_lf": "d0f5a29d4f3155ab3377bff59796c90047f75f79f4eb544bbd36d8d753b6d467",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "patch": "Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "baseline_sha256_utf8_lf": "5d16f11a9958e5415183ef9fbc5f509a4b1f9cf53eb5e20ff7e85f127eb9d371",
+      "result_sha256_utf8_lf": "a655aa3e79023a32910a239b135505982c816ad97537b56b419135997cfaee5c",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelQuickSlot.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "baseline_sha256_utf8_lf": "91882ff9acf9a972d9489a11ed3ed28f04864f15bead8996f7b5643847a5f260",
+      "result_sha256_utf8_lf": "17cbbcd86146e021eee45f4b2c5f1cd1efc9c5c7b94dde93c5599e8f387e0b97",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "patch": "Integration/Source__FPSGAME__Skills__ColdSteelWhirlwindModel.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "baseline_sha256_utf8_lf": "5dcff1c65902c6e367a4e4dac8b0cd39440c3f907f81243d70c4596d22f2d689",
+      "result_sha256_utf8_lf": "5cbfb44c31ed5a046b2aec46b9e611b0a5aed57ec7b18fffbb1201a4bb45e941",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline_sha256_utf8_lf": "366ff9e3dbd89a361b0c124aa2841cafecf63f3ba51a129c327df745494cb4f7",
+      "result_sha256_utf8_lf": "9d836f37057e11c87c3789e677013e35ffcac066e43824bfef17ea5c50041d27",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordComponent.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "baseline_sha256_utf8_lf": "2d026d52f4bac3f0bd678c0c4b1415e96005605b108a430dd5f99714d6ea8daf",
+      "result_sha256_utf8_lf": "29c7858799f072435085f400a7f99d6ec1f67055691051613a883d8c0f397d75",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "patch": "Integration/Source__FPSGAME__Weapons__RuneSwordComponent.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "baseline_sha256_utf8_lf": "56abd68d5fe57317e6699fe32f977aba0c4c9bca8630b87c7d41507561efcd18",
+      "result_sha256_utf8_lf": "88c12754e1acc062c38f5232183bfe2e6dc4a826e731aee2557fb04a82dbcbc8",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "baseline_sha256_utf8_lf": "8985550d3ce74510f3eff739d37d40abd1b102ffee6d436e68a1293bf2e99f04",
+      "result_sha256_utf8_lf": "f629e286b31be49587f7358e1911489c0c4651d7bf0b0224003935757274605c",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "baseline_sha256_utf8_lf": "394814ba0d37aa83229e105f4315ce852269cf572c51845ccd9209fe91c9f633",
+      "result_sha256_utf8_lf": "cf72a455059190cec67c82f34527e0851eb1dd0dda10420afac4e4691cba22c9",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "baseline_sha256_utf8_lf": "75be7f76491082526e6f9068f7b0eacc792e8e444cda7c4e0d41703bb022d19b",
+      "result_sha256_utf8_lf": "771d40c73bd1dc5cb9a604d33108492ae1eb68063bcf6814d2672d6ca82cd84a",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyNetwork.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "baseline_sha256_utf8_lf": "71749014df67bc21bb32a52efc0b6ce1dba47d7941884d6733f3f74f13c2723a",
+      "result_sha256_utf8_lf": "e32de9f8b41f7a965093b351f2fe8c187478e37f406d00138856779c21bf5137",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyTypes.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "baseline_sha256_utf8_lf": "08b46a7e7d0e2593e2f5f3c1bf8e0dc73c25cd74f9a78ff14dffdb9653ff1c9f",
+      "result_sha256_utf8_lf": "0cb8765b39c8f34884579bb90ae8aae786fa66d821fd61b8b55303164ae12737",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSBodyMeleePose.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSBodyMeleePose.h",
+      "baseline_sha256_utf8_lf": "341f364c7d9524030f11edd04efbb9ac925f974bbda45f36bae842d29f155d9c",
+      "result_sha256_utf8_lf": "2a3a42c3180548f7d18e8a5855c83f843478c8ca50cd3d7186cec9914e87a75c",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSBodySwordPose.inl.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "baseline_sha256_utf8_lf": "11dd9d4be57fbca26663ab13226084906c3de5651a253afeaa80b2eb6a64de82",
+      "result_sha256_utf8_lf": "3faab1c479761fcacfbbe75743835af4165592e6332ca52667135083be256b80",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSBodySwordMotion.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "baseline_sha256_utf8_lf": "8c3b1932b8e9f9e0c2a8c0481330a9f5c7b42f9e7e70e7471de342b96349c4c9",
+      "result_sha256_utf8_lf": "53d6e7ad254b8e71979e649ccfbfe8814190a684de1cc1d5aa88780e4c3d1848",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "baseline_sha256_utf8_lf": "6acf15d8f2e61ca9b30e64e148c271556a28d72a0ee402e81db6d0274faf432d",
+      "result_sha256_utf8_lf": "7cfbcbef01fa9df21b7884df705473669b87ca505ef41c7add66c3828bd200bd",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "patch": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/FPSGAMECharacter.cpp",
+      "baseline_sha256_utf8_lf": "5bae6a20944ad92a723c60d54e53d5e8f80aeaa6b1168d9a72f2223951c8d99c",
+      "result_sha256_utf8_lf": "454148d4c20bc6f2f0fc5d51239291dc8aa41758338c25b3e52c1daf94fb0213",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "patch": "Integration/Source__FPSGAME__Movement__FPSMeleeMovementNetwork.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "baseline_sha256_utf8_lf": "756e16cf84fe070a7fcae9f2be558ee20cf7123d07ee3e5a7452bab2aca8d45d",
+      "result_sha256_utf8_lf": "e6e802db5c3f6b60918f6c3daefa0ee6337a6d04c2c986c1fcacf1fa982dbfd0",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelCampfireRequests.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "baseline_sha256_utf8_lf": "619cc954908ce441b6ab850ad2c4d9a611a5f06640cebe5eea364fda0c9578ff",
+      "result_sha256_utf8_lf": "ffaddd051a4911e39ebebe99c1a40442277dc57a58ca909ecbb4d884086f19d1",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelTeamTravel.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp",
+      "baseline_sha256_utf8_lf": "2fe03f4f0581d53c9220f15b9ded8dbf4639c5aed41af0fafb2e8cf7e3ac0068",
+      "result_sha256_utf8_lf": "771647b545b422b7a90dc5e9342926afbe038cb995c8a9849c6cfa176dd6863b",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelMartialRecovery.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp",
+      "baseline_sha256_utf8_lf": "8a433262eb31c63790afe8b0d269d3c024e95c8cc6f8c88f6a0d6ca91a404f00",
+      "result_sha256_utf8_lf": "9d09b6e41fa624f9e960dc5316ec040d4d89a26d2c0dd7960aec9ed5c30faec3",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelQuickCombatAuthority.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "baseline_sha256_utf8_lf": "acfdcf91a0b406294e932349ddcd54bad47a177a042a30122170ffce81afd5eb",
+      "result_sha256_utf8_lf": "b7fb08c8b285b6fe6b428a9ed3725a448c928e793846a4198c792275e5d2e265",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelUppercutAuthority.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "baseline_sha256_utf8_lf": "85aa170562583807077ba827eaa4883c92088f2e9bcba52b329e1f4ef3f07e79",
+      "result_sha256_utf8_lf": "4cd7cb26b2449d7100d76b6f060564caa4fb299b8e66789eec6ffd29a31a732e",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__UppercutStaminaReceipt.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h",
+      "baseline_sha256_utf8_lf": "3a0d57f8bed44f9615a891ba54845391a60c0843b68c793da6d036cee6d83787",
+      "result_sha256_utf8_lf": "95a569b64add35bb8b872b11b4bf781715d3d5cbf3d9fdc9dd19b13d982f1322",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "patch": "Integration/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "baseline_sha256_utf8_lf": "f85de7220a3fc6b087a3c1df339dbaad14aff3b081e64fc334e1f2afcdb68d86",
+      "result_sha256_utf8_lf": "1f440bdde866a75a26b1b026c3ca4b0e295553b7518bee513ea3a95d093b33de",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "patch": "Integration/Source__FPSGAME__Skills__SkillNetworkAuditCommandlet.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "baseline_sha256_utf8_lf": "85aafe993e571a8e7f557a7f169cd0aad071fa907f2d3c3e147f68d335ae6e2e",
+      "result_sha256_utf8_lf": "13debd29e5cb9119ee26b745af52ee62fb39b24da2f224a330d3aa532e1005f3",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline_sha256_utf8_lf": "a82d39c6745ca6f0f10d7740b2d50b7d5a31e9024e1f4403e57c7e7144118c85",
+      "result_sha256_utf8_lf": "6b0967fdcb7ec96bd91a6ab544af2fda8fa934c9dc332b6a4b6becd769b527e2",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline_sha256_utf8_lf": "bf74de4e343e4e5cbb24ea1433c703a1b1137fcab5785ed04029edabc88e6167",
+      "result_sha256_utf8_lf": "9c55d460078f14e39a23444d870fe44ac4b359a2cadcb39fe0e7d86ba3da234c",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__M4GunsmithSelectedDetails.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "baseline_sha256_utf8_lf": "f323fccc2a5bd0412bc1e8487b941587f6d2ae5b71c873116c68a0955efd3f13",
+      "result_sha256_utf8_lf": "e29e37e81d8552a9c37b55d2771507e6ec581fdf5673db74dba3b1f261371d55",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__M4MeleeGunsmith.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "baseline_sha256_utf8_lf": "8f4c06c79b14c6bd556d1939d45845abca72b852dd5e4d0d1a612e1c1e58f11f",
+      "result_sha256_utf8_lf": "0e3311cdbe728f64bd5c75b9a82781046b6071807e0baf464774ce43736da543",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelWarehouseModel.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "baseline_sha256_utf8_lf": "06a9f4fe6d18dc8803203842fa7835fda941593361386a3d6f8c1baa252d5b84",
+      "result_sha256_utf8_lf": "f9b9839423a311edfc18135f759ad49879180cdc5d0ef3dacc0f11a9dd0a3516",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+      "local_baseline": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "local_result": "SourceAssets/ZhanmadaoPublication20261019/Prerequisites/After/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "baseline_sha256_utf8_lf": "50682766f536ed2f80445b24049c76d7b5ec34fbe376b48288f14ad7a037ec30",
+      "result_sha256_utf8_lf": "af095929be73083d25f7430adfebfcf4d023971a5c6cab955f11282c7b3a4157",
+      "note": "Live workspace is already integrated. Restore the named prerequisite before applying; do not apply blindly to HEAD."
+    }
+  ]
+}

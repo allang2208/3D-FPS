@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -105,6 +105,7 @@
+     bool CanBeginUppercut() const;
+     FString UppercutStatusText() const;
+-    bool BeginWhirlwind();
++    bool BeginWhirlwind(bool FromZhufengDash=false);
+     bool IsWhirlwindActive() const { return bWhirlwind; }
++    bool IsZhufengWhirlwindActive() const { return bWhirlwind&&bZhufengWhirlwind; }
+     bool TryBeginDashAttack();
+     bool IsDashAttackActive() const { return bDashAttack; }
+@@ -118,4 +119,7 @@
+     void CancelAction();
+     bool GetFireMagicBladePoints(FVector& Base,FVector& Tip) const;
++    bool IsBeiweiMartialReleasing() const;
++    bool IsChixiaoHeavyReleasing() const;
++    bool IsZhufengWhirlwindReleasing() const;
+     /** Presentation attachment, independent of the combat-only Blade_Base/Tip animation tracks. */
+     bool GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const;
+@@ -130,4 +134,9 @@
+ private:
+     void InitializePresentation();
++    void RefreshBeiwei(const struct FColdSteelItem* Item);
++    void TickBeiweiTrail();
++    FString BeiweiInstance;
++    FString ZhufengTrailInstance;
++    UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> BeiweiTrail;
+     friend class URuneSwordAuditCommandlet;
+     friend class USkillNetworkAuditCommandlet;
+@@ -199,5 +208,18 @@
+     int32 HeavyTrainingHits=0,HeavyTrainingKills=0;
+     void FinishHeavyTraining();
++    bool bChixiaoEquipped=false,bChixiaoHeavy=false;
++    int32 ChixiaoStrikeIndex=-1;
++    UPROPERTY(Transient) TObjectPtr<UAnimSequence> ChixiaoStandard;
++    UPROPERTY(Transient) TObjectPtr<UAnimSequence> ChixiaoLongGrip;
++    TSharedPtr<FStreamableHandle> ChixiaoLoad;
++    void RefreshChixiao(const FColdSteelItem* Item);
++    UAnimSequence* ChixiaoAnimation() const;
++    void TickChixiaoHeavy(float Delta);
++    void ChixiaoCameraMotion(FVector& Location,FRotator& Rotation) const;
+     bool bWhirlwind=false,bWhirlwindTrainingPending=false;
++    bool bZhufengWhirlwind=false;
++    float ZhufengSpeed=0.f;
++    FVector ZhufengDirection=FVector::ZeroVector;
++    void AdvanceZhufeng(float FromTime,float ToTime);
+     bool bWhirlwindSavedBlurOverride=false,bWhirlwindSavedBlurMaxOverride=false;
+     FWhirlwindCast WhirlwindCast;

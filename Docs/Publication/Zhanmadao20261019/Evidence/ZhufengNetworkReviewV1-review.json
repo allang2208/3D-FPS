@@ -1,0 +1,307 @@
+{
+  "revision": "ZhufengNetworkReviewV1",
+  "builds": {
+    "FPSGAMEEditor": {
+      "finished": "2026-10-19T15:46:49.4908332+08:00",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0
+    },
+    "FPSGAME": {
+      "finished": "2026-10-19T15:47:15.7191926+08:00",
+      "target": "FPSGAME",
+      "exit_code": 0
+    }
+  },
+  "catalog_checks": {
+    "checks": 18,
+    "failures": 0,
+    "results": [
+      {
+        "case": "zhufeng unique option",
+        "passed": true
+      },
+      {
+        "case": "zhufeng configured stats",
+        "passed": true
+      },
+      {
+        "case": "zhufeng legendary exclusive",
+        "passed": true
+      },
+      {
+        "case": "zhufeng reimport preserves current gameplay and copy",
+        "passed": true
+      },
+      {
+        "case": "zhufeng standard framed icon published",
+        "passed": true
+      },
+      {
+        "case": "zhufeng mechanism text separate from passive cards",
+        "passed": true
+      },
+      {
+        "case": "chixiao unique option",
+        "passed": true
+      },
+      {
+        "case": "chixiao configured stats",
+        "passed": true
+      },
+      {
+        "case": "chixiao legendary exclusive",
+        "passed": true
+      },
+      {
+        "case": "chixiao reimport preserves current gameplay and copy",
+        "passed": true
+      },
+      {
+        "case": "chixiao standard framed icon published",
+        "passed": true
+      },
+      {
+        "case": "chixiao mechanism text separate from passive cards",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng dash replacement is active recipe",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng blade trace endpoints differ",
+        "passed": true
+      },
+      {
+        "case": "published dependency /Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Meshes/SM_Zhanmadao_Blade_zhufeng_V1.SM_Zhanmadao_Blade_zhufeng_V1",
+        "passed": true
+      },
+      {
+        "case": "published dependency /Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1.M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1",
+        "passed": true
+      },
+      {
+        "case": "published dependency /Game/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_Zhufeng_Brass_V1.M_Zhufeng_Brass_V1",
+        "passed": true
+      },
+      {
+        "case": "packaged weapon directory includes cyan material",
+        "passed": true
+      }
+    ],
+    "visual_tested": false
+  },
+  "native_build_complete": true,
+  "isolated_authority_checks": {
+    "checks": 38,
+    "failures": 0,
+    "results": [
+      {
+        "case": "fixture uses guest authority and guest shadow",
+        "passed": true
+      },
+      {
+        "case": "whirlwind uses level-one floor plus additive 0.5",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng radius includes 20 percent range",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng physical channel gains 10 percent",
+        "passed": true
+      },
+      {
+        "case": "Beiwei multiplies the upgraded whirlwind damage and radius once",
+        "passed": true
+      },
+      {
+        "case": "Chixiao retains physical and speed passives without Zhufeng bonus",
+        "passed": true
+      },
+      {
+        "case": "manual whirlwind rejects a zero-level request without payment",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng rejects unearned sprint readiness",
+        "passed": true
+      },
+      {
+        "case": "movement arriving before cast waits without permanently rejecting sequence",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng guest commits whirlwind cost and cooldown on authority",
+        "passed": true
+      },
+      {
+        "case": "guest cast does not charge the host",
+        "passed": true
+      },
+      {
+        "case": "duplicate start pays exactly once",
+        "passed": true
+      },
+      {
+        "case": "authority blocks ordinary locomotion during committed whirlwind",
+        "passed": true
+      },
+      {
+        "case": "early movement allowance is elapsed-time bounded",
+        "passed": true
+      },
+      {
+        "case": "accepted cast fixes direction even if a move packet changes it",
+        "passed": true
+      },
+      {
+        "case": "duplicate cumulative move cannot apply displacement twice",
+        "passed": true
+      },
+      {
+        "case": "same move sequence cannot switch attack kind",
+        "passed": true
+      },
+      {
+        "case": "ten simultaneous AOE targets are not capped by the firearm token bucket",
+        "passed": true
+      },
+      {
+        "case": "same target cannot take a second hit in this cast",
+        "passed": true
+      },
+      {
+        "case": "client claimed damage cannot override server snapshot",
+        "passed": true
+      },
+      {
+        "case": "remote whirlwind applies explicit stun on authority",
+        "passed": true
+      },
+      {
+        "case": "whirlwind respects static wall occlusion on authority",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng trains dash on accepted authority hits",
+        "passed": true
+      },
+      {
+        "case": "duplicate finish cannot award training twice",
+        "passed": true
+      },
+      {
+        "case": "finish closes move authorization and locomotion lock",
+        "passed": true
+      },
+      {
+        "case": "late hit after finish is rejected",
+        "passed": true
+      },
+      {
+        "case": "owner cooldown publication cannot clear authority whirlwind cooldown",
+        "passed": true
+      },
+      {
+        "case": "cooldown rejects repeat cast without spending again",
+        "passed": true
+      },
+      {
+        "case": "insufficient authority stamina rejects cast",
+        "passed": true
+      },
+      {
+        "case": "Zhufeng cannot bypass dash learning requirement",
+        "passed": true
+      },
+      {
+        "case": "manual learned whirlwind uses the same additive upgrade",
+        "passed": true
+      },
+      {
+        "case": "unequip closes active authority cast",
+        "passed": true
+      },
+      {
+        "case": "death closes active authority cast",
+        "passed": true
+      },
+      {
+        "case": "late receipt and mirror share one cumulative payment",
+        "passed": true
+      },
+      {
+        "case": "interleaved martial charges cannot be reverted by older receipt",
+        "passed": true
+      },
+      {
+        "case": "rune-free Zhufeng captures remote trail endpoints and cache identity",
+        "passed": true
+      },
+      {
+        "case": "body state serialization retains cyan flags and forward gait fields",
+        "passed": true
+      },
+      {
+        "case": "published cyan material resolves in native host",
+        "passed": true
+      }
+    ],
+    "real_network_transport_tested": false,
+    "visual_tested": false,
+    "world_begin_play": false,
+    "net_driver_created": false,
+    "client_process_started": false,
+    "reflection_archive_roundtrip": true,
+    "authority_entry": "ServerSwordWhirlwind_Implementation / ServerReportHit_Implementation / ProcessMeleeNetworkMove"
+  },
+  "real_network_transport_tested": false,
+  "visual_tested": false,
+  "interactive_editor_started": false,
+  "headless_commandlet_ran": true,
+  "findings": [
+    {
+      "area": "cast commit",
+      "before": "Sword whirlwind committed cost/cooldown on the owner only; no cast-specific authority receipt.",
+      "fix": "Ordered authority start/finish, cumulative stamina receipt, authoritative cooldown and invalid-state rejection."
+    },
+    {
+      "area": "AOE hits",
+      "before": "Ordinary per-hit firearm token bucket could reject crowded AOE; server had no cast target set.",
+      "fix": "Committed cast serial, one hit per target, shared damage/range snapshot; no per-target firearm budget."
+    },
+    {
+      "area": "occlusion",
+      "before": "A retained gun projectile speed could classify whirlwind contacts as projectiles and skip wall checks.",
+      "fix": "Whirlwind always follows melee area exposure checks."
+    },
+    {
+      "area": "secondary effects and training",
+      "before": "Whirlwind stun/knockback/training lived after client damage forwarding returned zero.",
+      "fix": "Server confirms stun/knockback, rune effects and dash/whirlwind training once."
+    },
+    {
+      "area": "movement",
+      "before": "Forward move budget did not require an accepted whirlwind cast.",
+      "fix": "Match move sequence to accepted cast; fixed direction, elapsed-time cap, authority movement lock, pending-channel retry."
+    },
+    {
+      "area": "item lifetime",
+      "before": "Local whirlwind read the inventory item after CommitState replaced the profile.",
+      "fix": "Capture needed weapon identity before commit; authority retains a cast item copy."
+    }
+  ],
+  "review_matrix": {
+    "zhufeng_bonus_range_physical": "catalog/parser/aggregation/shared evaluation and isolated checks",
+    "chixiao_physical_speed": "unchanged catalog and isolated evaluator checks",
+    "cyan_trail": "published material, rune-free blade endpoints and body serialization",
+    "third_person_motion": "existing start/loop/end and spine rotation retained; forward yaw compensation remains",
+    "cast_cost_cooldown": "new authority path and upload/mirror protection",
+    "AOE_dedup_and_target_count": "isolated ten-target server hit flow",
+    "forward_movement": "isolated ordering/duplicate/direction checks; live latency not measured",
+    "unequip_death_cancel": "authority cast closes and payments remain idempotent; disconnect/travel settle before save",
+    "real_peer_render_and_transport": "not exercised"
+  }
+}

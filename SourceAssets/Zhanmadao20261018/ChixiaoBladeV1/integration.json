@@ -1,0 +1,39 @@
+{
+  "weapon": "ue_zhanmadao",
+  "slot": "blade_1",
+  "option": "chixiao",
+  "name": "赤霄",
+  "tier": "special",
+  "scope": "appearance_only",
+  "effect_proposal_applied": false,
+  "source": "Chixiao_Blade_Editable.blend",
+  "concept": "../ChixiaoBladeConceptV1/Chixiao_Blade_Concept_V1.png",
+  "export": "Export/SM_Zhanmadao_Blade_chixiao_V1.fbx",
+  "lod_triangles": [
+    28076,
+    12172,
+    5372
+  ],
+  "rigid_weapon_length_cm": 160.13139188289642,
+  "root_interface": "original Zhanmadao blade seat; 0.6 mm concealed overlap",
+  "materials": "authored BaseColor/ORM/Normal atlas; recessed red spine line, broad silver edge and two-sided brass cloud relief",
+  "runes": [
+    "strength_rune",
+    "haste_rune",
+    "resonance_rune",
+    "erosion_rune",
+    "conduction_rune",
+    "beiwei_rune"
+  ],
+  "rune_layout": "blade-following central lane; existing mask, pulse and color logic retained",
+  "icon": "Export/Chixiao_Icon_Framed.png",
+  "icon_source": "actual LOD0 rendered in the isolated icon authoring scene, then framed with built-in image_gen",
+  "icon_prompt": "icon_prompt.txt",
+  "icon_key": "ue_zhanmadao_blade_1_chixiao",
+  "ue_root": "/Game/Weapons/Zhanmadao20261018/ChixiaoBladeV1",
+  "rebuild": "author_blade.py -> author_shader.py -> author_icon.py -> icon framing -> stage_assets.ps1 -> publish_staged.ps1",
+  "reimport_persistence": "RuneSurfaceV1 -> BeiweiRuneV1 -> ChixiaoBladeV1 catalog extension",
+  "runtime_acceptance": false,
+  "tests_run": false,
+  "notes": "Icon rendering is asset production; no editor/game launch or acceptance render requested. Concept proposal values and third-stage attack are not applied."
+}

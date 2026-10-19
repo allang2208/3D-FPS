@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyTypes.h
+@@ -141,4 +141,7 @@
+     // Signed gameplay turns; the world body reverses them on the same clock.
+     UPROPERTY() float WhirlwindTurns=-2.f;
++    // Swept skill travel does not set locomotion velocity. Drive the normal gait explicitly.
++    UPROPERTY() float ZhufengForwardSpeed=0.f;
++    UPROPERTY() float ZhufengForwardYaw=0.f;
+     // Azure Dragon claws (cosmetic, see URuneSwordComponent::SampleAzureDragonNet): flags, strike clip
+     // length and entry (source seconds), heavy charge start (server clock).
+@@ -147,4 +150,7 @@
+     UPROPERTY() float AzureEntryTime=0.f;
+     UPROPERTY() float AzureChargeStartedAt=0.f;
++    UPROPERTY() bool bBeiweiMartial=false;
++    UPROPERTY() bool bChixiaoHeavyTrail=false;
++    UPROPERTY() bool bZhufengWhirlwindTrail=false;
+ };
+ 
+@@ -168,4 +174,8 @@
+     UPROPERTY() FName RuneSlot;
+     UPROPERTY() FVector RuneDimensions=FVector(12,10,63);
++    UPROPERTY() FVector BeiweiBladeBase=FVector::ZeroVector;
++    UPROPERTY() FVector BeiweiBladeTip=FVector::ZeroVector;
++    UPROPERTY() bool bChixiaoBlade=false;
++    UPROPERTY() bool bZhufengBlade=false;
+ };
+ 

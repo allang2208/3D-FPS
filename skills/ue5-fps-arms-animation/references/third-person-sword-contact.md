@@ -25,3 +25,14 @@ PostPhysics 执行器推进 ControlRotation 后，Pawn 可能仍停在上一帧�
 20261010 竖劈恢复链：Kwang 原始认可源 → MeleeRegression → DashArm → HandClearance → GripPair → ArmSwap → LeftContact。中间版本曾被用户否定其整体效果，但其数据仍被下一步读取，不能按名称或日期归档整个目录。ThirdPersonSwordGrip20261007/refine_kwang_grip.py 的初始化／数学函数被后续脚本复用，禁止执行其已否定的完整优化器来“恢复”现版。
 
 UE authored AnimSequence 在 NotifyPopulated 前后等待 IAnimSequenceCompilingManager::FinishCompilation。保存回执写出后，异步压缩仍可能在退出时断言；正常 commandlet 退出、资产保存、原生构建与游戏认可分开记录。默认不因此追加游戏、截图或姿态采样。
+
+
+## 前进旋风与赤霄双斩（2026-10-19）
+
+逐风复用当前旋风 Start／Loop／End 三段。它们已剥离根转向：固定朝前根节点后如果仅播放这些片段，结果会像一次普通挥刀。用执行器相位计算上半身旋转，最终作用于以骨盆为枢轴的 spine_01 整条分支；双腕、刀身与胸部一起转，骨盆和双腿继续使用向前步态。根姿态按释放朝向与 Actor 朝向差补偿，不能让旋转相机带歪推进方向。
+
+Sweep 推进不一定产生普通 locomotion velocity；显式传递实际前进速度与固定朝向供腿部动画使用，受阻／旋转结束归零。进入动作从当前已求值 carry 捕获过渡，不能使用上次普通攻击残留姿态。禁用程序式攻击身体摆动后仍保留 ZhufengWhirlwind 表现标记，否则最后旋转层被跳过。
+
+赤霄第二刀修订分别处理腕部接触与肩根露空：左手沿真实有限握柄建立局部接触，保持手指握持和肘部平面；肩部只做连续、限幅的右臂链修正，把断口移出镜头，保留用户认可的刀轨、双手、左臂与两段命中时钟。作者姿态、压缩后序列和画面接受是不同证据，不能用握点误差小代替皮肤自然。
+
+制作依赖 `ChixiaoDoubleHeavyV1` → `ChixiaoGripV2` → `ChixiaoShoulderV3` 必须保留；当前作者源、图标和接入顺序见 `Docs/Publication/Zhanmadao20261019/README.md`。

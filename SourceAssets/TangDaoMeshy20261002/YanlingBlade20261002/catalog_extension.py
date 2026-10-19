@@ -28,10 +28,11 @@ def add_bindings(bindings):
 def add_option(gunsmith):
     m = manifest()
     column = next(c for c in gunsmith['columns'] if c['key'] == 'blade_1')
-    option = {'id': m['id'], 'name': m['name'], 'weapons': ['ue_tang_dao'],
-              'description': '唐刀专属。燕翎折锋配双导槽与层叠锻钢纹，保留原有龙纹。',
-              'special_effects': ['连段变化｜连段收尾改为冲刺竖劈，打击前方矩形区域。'],
-              'effects': [{'text': '连段收尾改为冲刺竖劈动作 · 前方矩形判定', 'benefit': 0},
+    option = {'id': m['id'], 'name': m['name'], 'weapons': ['ue_tang_dao', 'ue_zhanmadao'],
+              'description': '燕翎折锋配双导槽与层叠锻钢纹，保留原有龙纹。',
+              'special_effects': ['连段变化｜第三段改为冲刺竖劈，对前方矩形区域内的多个目标造成伤害；每个目标每次收尾只结算一次。',
+                                  '收尾伤害｜第三段伤害提高40%。'],
+              'effects': [{'text': '连段收尾改为冲刺竖劈 · 前方矩形群体攻击 · 第三段伤害 +40%', 'benefit': 0},
                           {'text': '攻击耐力消耗 +10%', 'benefit': -1},
                           {'text': '格挡减伤倍率 ×0.90', 'benefit': -1}],
               'stats': {'combo_third_damage_mult': 1.4,

@@ -12,6 +12,8 @@ namespace ColdSteelModularSword
     FString AnimationFolder(const FColdSteelItem& Item);
     bool UsesOverheadFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     bool UsesRisingDragonFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+    bool UsesChixiaoDoubleHeavy(const FColdSteelItem& Item);
+    bool UsesZhufengWhirlwind(const FColdSteelItem& Item);
     void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     bool Apply(UStaticMeshComponent* Blade,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);

@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -74,6 +74,7 @@
+     if(Tool)return Evaluate(*Item,Profile).ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier;
+     const double BaseReach=ColdSteelInventory::Number(*Item,TEXT("melee_reach_cm"),180);
+-    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*EquippedModifiers(Profile).Range;
+-    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier;
++    const auto Modifiers=EquippedModifiers(Profile);
++    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*Modifiers.Range;
++    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier*Modifiers.MartialRange;
+ }
+ 
+@@ -120,4 +121,10 @@
+ }
+ 
++double ColdSteelMelee::HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
++{
++    // Pay for both Chixiao cuts once on release, after all ordinary cost modifiers.
++    return AttackStamina(Item,Profile)*(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item)?2.:1.);
++}
++
+ double ColdSteelMelee::UnarmedAttackStamina(const UColdSteelStatusModel* Profile)
+ {

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -161,4 +161,7 @@
+     /** Other players' Azure Dragon claws on this machine, from the replicated presentation. */
+     void PresentRemoteAzureDragon();
++    void PresentBeiweiTrail();
++    UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> BeiweiWorldTrail;
++    FString BeiweiWorldInstance;
+     EFPSBodyAction ReportedAction = EFPSBodyAction::None;
+     FName ReportedActionVariant;

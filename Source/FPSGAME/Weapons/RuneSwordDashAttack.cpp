@@ -1,6 +1,7 @@
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
+#include "ModularSwordVisual.h"
 #include "../FPSGAMECharacter.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -78,6 +79,8 @@ bool URuneSwordComponent::TryBeginDashAttack()
     // Share the displayed readiness contract: a charged slide/jump is a valid
     // release even though locomotion no longer reports grounded sprinting.
     if(DashReadyFraction()<1.f-UE_SMALL_NUMBER)return false;
+    if(const auto* Item=Profile->Equipped();Item&&ColdSteelModularSword::UsesZhufengWhirlwind(*Item))
+        return BeginWhirlwind(true);
     auto* Movement=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
     // A slide jump may still be queued in LaunchCharacter on this input frame.
     // Capture its actual horizontal launch before the action clears locomotion.
@@ -95,6 +98,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     if(bFromHighCarry)SetClip(TEXT("SprintOverhead"),false);
     const double SwingSeconds=FPlatformTime::Seconds();
     DashCast=Cast;bDashAttack=bDashTrainingPending=true;bDashCenterCaptured=false;
+    SwingSkills.AttackMeta=0x16; // Active dash skill, distinct from an ordinary overhead/third combo.
     DashHits=DashKills=0;DashSprintSeconds=DashTravelCM=DashBounceLeftCM=0.f;
     LungeDirection=Pawn->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
     bLungeStarted=true; // Keep the attack direction throughout the release.

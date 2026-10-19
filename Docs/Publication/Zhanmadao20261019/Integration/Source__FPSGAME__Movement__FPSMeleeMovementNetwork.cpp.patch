@@ -1,0 +1,70 @@
+--- a/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
++++ b/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+@@ -4,7 +4,9 @@
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/ModularSwordVisual.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Weapons/RuneSwordThrustRhythm.h"
+ #include "../Weapons/RuneSwordPommelRhythm.h"
+ #include "../Weapons/RuneSwordUppercutMotion.h"
++#include "../Weapons/RuneSwordOverheadRhythm.h"
+ #include "../Combat/CombatStatusFormula.h"
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
+@@ -59,4 +61,11 @@
+         if(Profile->MasteryProgress(TEXT("dashAttack")).Level<1)return false;
+         Budget=Profile->DashAttackStats().DistanceCM;Recovery=.5f;break;
++    case EFPSMeleeMove::Zhufeng:
++    {
++        if(Profile->MasteryProgress(TEXT("dashAttack")).Level<1||!ColdSteelModularSword::UsesZhufengWhirlwind(*Item))return false;
++        const auto& W=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
++        const float Speed=Profile->DashAttackStats().DistanceCM/RuneSwordOverheadRhythm::DashWindupSeconds;
++        Budget=Speed*(W.ReadySeconds+W.SpinSeconds);Recovery=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;break;
++    }
+     default:return false;
+     }
+@@ -72,10 +81,20 @@
+     bool MomentumStart=Data.bReplayMeleeMomentumStart;
+     float Distance=Data.ReplayMeleeStep;
++    FVector Direction=R.Direction;
+     if(Authority)
+     {
+         const bool New=static_cast<int32>(R.Sequence-LastServerMeleeSequence)>0;
++        if(!New&&R.Kind!=ServerMeleeKind)return;
++        float WhirlwindLimit=0.f;
++        if(R.Kind==EFPSMeleeMove::Zhufeng)
++        {
++            const auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();
++            // The movement channel can arrive before the reliable cast channel.
++            // Retry on the next cumulative move instead of permanently rejecting it.
++            if(!PS||!PS->SwordWhirlwindMove(R.Sequence,Direction,WhirlwindLimit))return;
++        }
+         if(New)
+         {
+-            LastServerMeleeSequence=R.Sequence;ServerMeleeDistance=0.f;
++            LastServerMeleeSequence=R.Sequence;ServerMeleeDistance=0.f;ServerMeleeKind=R.Kind;
+             float Recovery=0.f;
+             bServerMeleeBlocked=GetWorld()->GetTimeSeconds()+.05<ServerMeleeRecoveryUntil||!AuthorizeMeleeMove(R,ServerMeleeBudget,Recovery);
+@@ -86,5 +105,6 @@
+         // Cumulative displacement recovers a dropped move without applying an
+         // old/pending/new packet more than once. World collision is re-run here.
+-        const float Desired=FMath::Clamp(R.Distance,ServerMeleeDistance,ServerMeleeBudget);
++        const float Limit=R.Kind==EFPSMeleeMove::Zhufeng?FMath::Min(ServerMeleeBudget,WhirlwindLimit):ServerMeleeBudget;
++        const float Desired=FMath::Max(ServerMeleeDistance,FMath::Min(R.Distance,Limit));
+         Distance=Desired-ServerMeleeDistance;ServerMeleeDistance=Desired;
+         MomentumStart=New&&R.Kind==EFPSMeleeMove::AirMomentum;
+@@ -102,11 +122,11 @@
+     if(Distance<=0.f||Player->IsTraversing()||IsDodging())return;
+     const FVector Before=UpdatedComponent->GetComponentLocation();
+-    if(R.Kind==EFPSMeleeMove::Dash&&IsFalling())
++    if((R.Kind==EFPSMeleeMove::Dash||R.Kind==EFPSMeleeMove::Zhufeng)&&IsFalling())
+     {
+-        FHitResult Hit;SafeMoveUpdatedComponent(R.Direction*Distance,UpdatedComponent->GetComponentQuat(),true,Hit);
++        FHitResult Hit;SafeMoveUpdatedComponent(Direction*Distance,UpdatedComponent->GetComponentQuat(),true,Hit);
+         if(Authority&&Hit.bBlockingHit)bServerMeleeBlocked=true;
+     }
+-    else ApplyMeleeLungeStep(R.Direction,Distance);
+-    if(Authority&&FVector::DotProduct(UpdatedComponent->GetComponentLocation()-Before,R.Direction)+.1f<Distance)bServerMeleeBlocked=true;
++    else ApplyMeleeLungeStep(Direction,Distance);
++    if(Authority&&FVector::DotProduct(UpdatedComponent->GetComponentLocation()-Before,Direction)+.1f<Distance)bServerMeleeBlocked=true;
+ }
+ void UFPSCharacterMovementComponent::ClientRejectMeleeMove_Implementation(uint32 Sequence)

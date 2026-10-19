@@ -1,0 +1,35 @@
+{
+  "name": "逐风",
+  "name_status": "accepted",
+  "weapon": "ue_zhanmadao",
+  "slot": "blade_1",
+  "tier": "legendary",
+  "status": "assets_saved_native_build_pending",
+  "user_approved": true,
+  "game_integrated": true,
+  "design": {
+    "silhouette": "微弧长刃、修长上扬刀尖、厚脊渐薄、连续实体刃面",
+    "finish": "青灰锻钢、银白开锋、顺刀脊延伸的旋流浅槽与少量旧银风纹",
+    "rune_lane": "中央刀面保留独立符文覆盖区域",
+    "hilt": "沿用当前斩马刀护手、握柄、配重及接口",
+    "length_intent_cm": 160.13139188289642
+  },
+  "effect_plan": {
+    "source": "user_requested",
+    "replaces": "dash_attack",
+    "replacement": "forward_moving_whirlwind",
+    "movement": "沿出手方向，以冲刺攻击对应速度匀速向前推进，持续到旋风结束",
+    "third_person_lower_body": "保持正常向前移动步态，骨盆与双脚朝向前进方向，下半身不随旋风原地转圈",
+    "third_person_upper_body": "上半身及兵器表现旋风挥斩，与下半身移动动画分层",
+    "damage_duration_cost": "后续开发时沿现有技能合同确定，本次不新增数值",
+    "extra_passives": null
+  },
+  "generation": "built-in image_gen",
+  "image": "Zhufeng_Blade_Concept_V1.png",
+  "references_reviewed": [
+    "../Export/ue_zhanmadao.png",
+    "../ChixiaoBladeConceptV1/Chixiao_Blade_Concept_V1.png"
+  ],
+  "model_delivery": "../ZhufengBladeV1/import_receipt.json",
+  "game_tested": false
+}

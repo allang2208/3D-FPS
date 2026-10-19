@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -47,5 +47,5 @@
+     float WhirlwindCooldown() const;
+     float WhirlwindCooldownDuration() const { return Current.WhirlwindCooldownDuration; }
+-    bool CommitWhirlwindCast(const FWhirlwindCast& Cast);
++    bool CommitWhirlwindCast(const FWhirlwindCast& Cast,bool FromZhufengDash=false);
+     void TrainWhirlwind(int32 Hits,int32 Kills);
+     FDashAttackCast DashAttackStats(int32 AtLevel=-1) const;

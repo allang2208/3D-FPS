@@ -1,0 +1,86 @@
+{
+  "definition": "ue_zhanmadao",
+  "slot": "blade_2",
+  "option": "beiwei_rune",
+  "tier": "legendary",
+  "user_approved_concept": "Artwork/Beiwei_Concept_V1.png",
+  "mask": "Artwork/Beiwei_Blade_Mask.png",
+  "mask_generation": "built-in image_gen, derived from the approved calligraphy concept",
+  "icon": "Artwork/Beiwei_Icon_V1.png",
+  "icon_key": "ue_zhanmadao_blade_2_beiwei_rune",
+  "multipliers": {
+    "martial_damage_mult": 1.5,
+    "martial_range_mult": 1.25
+  },
+  "coverage": [
+    {
+      "action": "heavyStrike",
+      "damage": "FMeleeModifiers::HeavyMultiplier",
+      "range": "StartSwing heavy-only reach, sweep width and low-target reach",
+      "authority": "ComputeServerDamage heavy formula"
+    },
+    {
+      "action": "swordUppercut",
+      "damage": "ColdSteelMelee::UppercutMultiplier -> HeavyMultiplier",
+      "range": "BeginUppercut + UppercutReachCM",
+      "authority": "shared uppercut formula and range"
+    },
+    {
+      "action": "whirlwind",
+      "damage": "WhirlwindStats",
+      "range": "WhirlwindStats.RadiusCM",
+      "authority": "same skill snapshot"
+    },
+    {
+      "action": "dashAttack",
+      "damage": "DashAttackStats",
+      "range": "DashAttackStats.RangeCM",
+      "authority": "dedicated action code 0x16; original damage-derived toughness retained"
+    },
+    {
+      "action": "quickCombat",
+      "damage": "QuickCombatStats",
+      "range": "QuickCombatStats.RangeCM plus sword contact radius",
+      "authority": "same skill snapshot"
+    },
+    {
+      "action": "ordinary_combo",
+      "damage": "unchanged",
+      "range": "unchanged",
+      "note": "includes Yanling overhead and Tengyun rising-dragon third-stage replacements"
+    },
+    {
+      "action": "spells",
+      "damage": "unchanged",
+      "range": "unchanged"
+    }
+  ],
+  "visuals": {
+    "blades": [
+      "factory",
+      "extended_edge",
+      "heavy_spine",
+      "feather_edge",
+      "yanling_edge",
+      "tengyun_dragon"
+    ],
+    "native_materials": 7,
+    "whirlwind_materials": 7,
+    "calligraphy": "精忠報國; horizontal inscription follows each measured blade contour; physical letter aspect retained",
+    "trail": "rendered blade endpoints, world-space gold ribbon; cosmetic only",
+    "trail_lifetime_seconds": 0.24,
+    "trail_max_samples_per_view": 48,
+    "views": [
+      "owner first person",
+      "world third person",
+      "remote body presentation"
+    ],
+    "loading": "asynchronous trail material; no per-frame asset loads",
+    "cleanup": "equipment identity changes, rune removal, action stop, death, teleport discontinuity, EndPlay"
+  },
+  "asset_pipeline": "stage_assets.ps1 -> publish_staged.ps1; fresh packages in an isolated asset host; production publication uses shared batch mutex",
+  "rebuild_persistence": "RuneSurfaceV1/catalog_extension.py chains BeiweiRuneV1/catalog_extension.py after old contour bindings",
+  "native_build_attempt": "beiwei-01",
+  "game_tests_run": false,
+  "screenshots_or_runtime_acceptance_run": false
+}

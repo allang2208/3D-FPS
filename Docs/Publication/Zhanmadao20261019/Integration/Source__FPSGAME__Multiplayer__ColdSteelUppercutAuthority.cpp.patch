@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
+@@ -47,5 +47,5 @@
+             State.SwordUppercutCooldownDuration,State.MartialCooldownRevision,Clock);
+     };
+-    if(UppercutActiveSequence||!Pawn||Pawn!=ActionPawn||!ShadowModel||!Health||Health->IsDead()
++    if(UppercutActiveSequence||IsSwordWhirlwindExecuting(Pawn)||!Pawn||Pawn!=ActionPawn||!ShadowModel||!Health||Health->IsDead()
+         ||!Item||Item->InstanceId!=Weapon||!ColdSteelInventory::IsTwoHandedSword(*Item)||ShadowModel->ActiveProductionTool()
+         ||Pawn->IsTraversing()||Pawn->IsDodging()||Pawn->IsSliding()||UBoundCongregateCaptureComponent::IsCaptured(Pawn))

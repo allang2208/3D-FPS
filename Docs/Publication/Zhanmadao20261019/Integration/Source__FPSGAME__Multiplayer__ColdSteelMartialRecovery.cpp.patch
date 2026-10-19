@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelMartialRecovery.cpp
+@@ -38,4 +38,6 @@
+     State.SwordUppercutCooldown=ShadowModel->Current.SwordUppercutCooldown;
+     State.SwordUppercutCooldownDuration=ShadowModel->Current.SwordUppercutCooldownDuration;
++    State.WhirlwindCooldown=ShadowModel->Current.WhirlwindCooldown;
++    State.WhirlwindCooldownDuration=ShadowModel->Current.WhirlwindCooldownDuration;
+     ShadowModel->AdoptNetMirror(State);bServerDirty=true;
+ }

@@ -1,0 +1,38 @@
+[
+  {
+    "source": "SourceAssets/Zhanmadao20261018/ZhufengNetworkReviewV1/review.json",
+    "snapshot": "Evidence/ZhufengNetworkReviewV1-review.json",
+    "sha256": "c1edc8ff55122e67caee8999ed000c5433355ea4b38a4f524ca3fbaf2fdd3c7a",
+    "record_type": "Existing result; not rerun for publication"
+  },
+  {
+    "source": "SourceAssets/Zhanmadao20261018/ZhufengCyanTrailV1/delivery.json",
+    "snapshot": "Evidence/ZhufengCyanTrailV1-delivery.json",
+    "sha256": "d0f9d27fdfb242b3b5d5adb9dc76578d71e1cc0818386dac6440d746217b151a",
+    "record_type": "Existing result; not rerun for publication"
+  },
+  {
+    "source": "SourceAssets/Zhanmadao20261018/ZhufengDamageBonusV1/delivery.json",
+    "snapshot": "Evidence/ZhufengDamageBonusV1-delivery.json",
+    "sha256": "23cc8f3c04ab4ad33ce5a87bef59b348e483184fde804caa3410c03378acebb8",
+    "record_type": "Existing result; not rerun for publication"
+  },
+  {
+    "source": "SourceAssets/Zhanmadao20261018/ChixiaoShoulderV3/delivery.json",
+    "snapshot": "Evidence/ChixiaoShoulderV3-delivery.json",
+    "sha256": "7f75e53074f9b77633dcb7ffce6bbfda8b8fae121a969e4f0a08bf96159b1c6d",
+    "record_type": "Existing result; not rerun for publication"
+  },
+  {
+    "source": "SourceAssets/Zhanmadao20261018/ZhufengWhirlwindMotionV2/delivery.json",
+    "snapshot": "Evidence/ZhufengWhirlwindMotionV2-delivery.json",
+    "sha256": "303efd88b2b014332bf3a831ca59df3d375d1bbf885aa02011454bd07ddf4870",
+    "record_type": "Existing result; not rerun for publication"
+  },
+  {
+    "source": "SourceAssets/Zhanmadao20261018/BeiweiRuneV1/delivery.json",
+    "snapshot": "Evidence/BeiweiRuneV1-delivery.json",
+    "sha256": "6be677a0057228bb3d0405ddd552f531a9f7911593a906b4215041e1f8061bde",
+    "record_type": "Existing result; not rerun for publication"
+  }
+]

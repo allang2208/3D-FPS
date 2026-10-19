@@ -1,0 +1,78 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -1175,4 +1175,25 @@
+             Out.Pose[BreadThumbInner.GetCompactPoseIndex(Bones)].AddToTranslation(FVector(0,.1,-.2)*ConsumeWeight);
+         }
++        if(State.ActionVariant==TEXT("ZhufengWhirlwind")&&SwordWeight>ZERO_ANIMWEIGHT_THRESH&&
++            ChestBase.IsValidToEvaluate(Bones)&&Pelvis.IsValidToEvaluate(Bones))
++        {
++            // Reuse the normal whirlwind's model turn, but apply it to the
++            // complete upper-body branch. Keeping only its root-neutral clip
++            // produced a single slash when the forward-facing root was locked.
++            // This final pass preserves both wrists and their attached sword;
++            // pelvis, knees and feet stay on the forward locomotion pose.
++            FCSPose<FCompactPose> Spinning;Spinning.InitPose(Out.Pose);
++            const auto C=ChestBase.GetCompactPoseIndex(Bones);
++            auto Chest=Spinning.GetComponentSpaceTransform(C);
++            const FVector Pivot=Spinning.GetComponentSpaceTransform(Pelvis.GetCompactPoseIndex(Bones)).GetLocation();
++            const float Yaw=FPSBodySwordMotion::WhirlwindModelYaw(State,FPSBodyPoses::Progress(State,Clock));
++            const FQuat Turn(FVector::UpVector,FMath::DegreesToRadians(Yaw));
++            Chest.SetRotation((Turn*Chest.GetRotation()).GetNormalized());
++            Chest.SetLocation(Pivot+Turn.RotateVector(Chest.GetLocation()-Pivot));
++            TArray<FBoneTransform,TInlineAllocator<1>> Change;Change.Emplace(C,Chest);
++            Spinning.LocalBlendCSBoneTransforms(Change,1.f);
++            Out.Pose=Spinning.GetPose();
++            FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Spinning,Out.Pose);
++        }
+         // Apply after pose/contact solving and its cached snapshots. Rotating
+         // the complete root keeps both wrists, the attached weapon and clothing
+@@ -1216,4 +1237,5 @@
+     UAnimSequence* SwordAsset=nullptr;
+     FName SwordKey;
++    bool bZhufengSwordTake=false;
+     float SwordContact=.4f,SwordRelease=.65f;
+     bool bHammerDonorClock=false;
+@@ -1469,4 +1491,8 @@
+         Controls.WhirlwindVisualYaw=HasSwordAction?FPSBodySwordMotion::WhirlwindVisualYaw(
+             D->BodyState,FPSBodyPoses::Progress(D->BodyState,D->Clock)):0.f;
++        const bool ZhufengWhirlwind=D->BodyState.Action==EFPSBodyAction::Whirlwind&&D->BodyState.ActionVariant==TEXT("ZhufengWhirlwind");
++        if(HasSwordAction)bZhufengSwordTake=ZhufengWhirlwind;
++        if(ZhufengWhirlwind)
++            Controls.WhirlwindVisualYaw=FRotator::NormalizeAxis(D->BodyState.ZhufengForwardYaw-Instance->GetOwningActor()->GetActorRotation().Yaw);
+         // Whirlwind phase endpoints are authored to match; a second temporal
+         // crossfade would drag the wrists and planted foot behind actor yaw.
+@@ -1522,4 +1548,5 @@
+             }
+             else if(HasHammerAction)Sample=P;
++            else if(S.ActionVariant==TEXT("ChixiaoHeavy"))Sample=P; // Both contacts are authored on the executor's clock.
+             else if(FPSBodySwordMotion::IsUppercut(S))Sample=FPSBodySwordMotion::UppercutSample(S,P,SwordContact,SwordRelease);
+             else if(S.Action==EFPSBodyAction::Whirlwind)Sample=FPSBodySwordMotion::WhirlwindSample(S,P);
+@@ -1546,5 +1573,7 @@
+             // The fading base is an ordinary carry. No procedural FPS attack
+             // effort or wrist trajectory is added underneath the authored body.
+-            Controls.State.Action=EFPSBodyAction::None;Controls.State.ActionVariant=NAME_None;
++            Controls.State.Action=EFPSBodyAction::None;
++            // Keep only the presentation marker; procedural attack effort stays disabled.
++            Controls.State.ActionVariant=ZhufengWhirlwind?FName(TEXT("ZhufengWhirlwind")):FName();
+             Controls.ActionWristMask&=Controls.LibraryPreserveHands;Controls.bCoupledActionWrists=false;
+         }
+@@ -1573,5 +1602,5 @@
+         const bool HammerGuard=HasHammerAction&&(D->BodyState.Action==EFPSBodyAction::Guard||
+             D->BodyState.Action==EFPSBodyAction::GuardHit||D->BodyState.Action==EFPSBodyAction::GuardBreak);
+-        const bool CommittedSword=HasSwordAction&&((HasHammerAction&&bHammerDonorClock&&!HammerGuard&&!HammerSprintLift)||D->BodyState.Action==EFPSBodyAction::Whirlwind||
++        const bool CommittedSword=HasSwordAction&&!ZhufengWhirlwind&&((HasHammerAction&&bHammerDonorClock&&!HammerGuard&&!HammerSprintLift)||D->BodyState.Action==EFPSBodyAction::Whirlwind||
+             (D->BodyState.Action==EFPSBodyAction::HeavyStrike&&D->BodyState.ActionVariant!=TEXT("HeavyRelease")));
+         float AttackLegs=CommittedSword?1.f:0.f;
+@@ -1608,4 +1637,5 @@
+         // the overhead donor's planted legs must not freeze the running gait.
+         if(HammerCarry||HammerSprintLift)Controls.SwordLegWeight=0.f;
++        if(bZhufengSwordTake)Controls.SwordLegWeight=0.f;
+         // KayKit's exaggerated lunge/step is removed in the Jason adaptation.
+         // Grounding, crouch and locomotion continue to own the lower body.
+@@ -1665,5 +1695,5 @@
+             StrideTarget:FMath::FInterpConstantTo(Controls.UppercutStrideWeight,StrideTarget,Dt,20.f);
+         if(!Uppercut&&Controls.UppercutStrideWeight<=ZERO_ANIMWEIGHT_THRESH)Set(UppercutStride,IdleClip,0.f,false);
+-        if(Controls.SwordWeight<=ZERO_ANIMWEIGHT_THRESH)SwordKey=NAME_None;
++        if(Controls.SwordWeight<=ZERO_ANIMWEIGHT_THRESH){SwordKey=NAME_None;bZhufengSwordTake=false;}
+         const auto& Casting=D->BodyState;
+         const bool StaffGesture=Casting.Family==TEXT("Staff")&&Casting.Action==EFPSBodyAction::Cast&&

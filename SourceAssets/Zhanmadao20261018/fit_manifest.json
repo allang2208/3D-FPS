@@ -1,0 +1,46 @@
+{
+  "definition": "ue_zhanmadao",
+  "reference": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\XuanChiZhenYue20261004\\BladeV3\\XuanChi_BladeV3_Editable.blend",
+    "meshes": [
+      "SM_XuanChi_Blade_V3",
+      "SM_XuanChi_Guard_V3",
+      "SM_XuanChi_Grip",
+      "SM_XuanChi_Pommel"
+    ],
+    "rigid_min_z_cm": -40.13138711452484,
+    "rigid_max_z_cm": 120.00000476837158,
+    "rigid_length_cm": 160.13139188289642,
+    "grip_min_cm": [
+      -2.413690648972988,
+      -1.990813948214054,
+      -30.000001192092896
+    ],
+    "grip_max_cm": [
+      2.3977577686309814,
+      1.9879663363099098,
+      -4.999999701976776
+    ],
+    "tassel_included": false
+  },
+  "source_glb": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\Original\\Meshy_AI_Crimson_Crescent_Blad_1017171549_texture.glb",
+  "source_length_m": 1.90141099691391,
+  "uniform_scale": 0.8421713776916095,
+  "source_axis": "glTF -X tip / +X pommel",
+  "target_axis": "+Z tip / -Z pommel / X width / Y thickness",
+  "blade_tip_cm": 120.00000476837158,
+  "pommel_end_cm": -40.13138711452484,
+  "source_cuts_x": {
+    "blade_guard": 0.39,
+    "guard_grip": 0.49,
+    "grip_pommel": 0.886
+  },
+  "cuts_z_cm": {
+    "blade_guard": 7.1407033858258195,
+    "guard_grip": -1.281010391090276,
+    "grip_pommel": -34.630996947678014
+  },
+  "source_triangles": 97228,
+  "game_tested": false,
+  "visual_accepted": false
+}

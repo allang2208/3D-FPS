@@ -1,0 +1,614 @@
+[
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_chixiao.png",
+    "bytes": 2951925,
+    "sha256": "70723f99e77a220fbb924443b8c15a5f75177ef226899cb00fa18ce7659db690",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_chixiao.uasset",
+    "bytes": 2581008,
+    "sha256": "54b2c5d0837a77f4c0104f4d0c5933878939af3b5ad0ef99111bfe73fb45711f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_false.png",
+    "bytes": 3025747,
+    "sha256": "66bef03d8ce5278deb9b58d608e76bd9a58f76c8fd83e40fa2e738fe3e90a60a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_false.uasset",
+    "bytes": 2659426,
+    "sha256": "f058b04b5f293098a3ede969db312ed97d5bf6f281e9387bd2b095eeb163779a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_tengyun_dragon.png",
+    "bytes": 2757846,
+    "sha256": "55b1917d5c4ab05edb7b89507c3580c667efbc1c1d21427c30b6df14f3f97daf",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_tengyun_dragon.uasset",
+    "bytes": 2609002,
+    "sha256": "d80bcdc1d25c50eef81aa1e8721cc7eca83deefa7b71bde6d8393c349a6e7d4f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_yanling_edge.png",
+    "bytes": 2736739,
+    "sha256": "7cd5a3e03af77bcd47c55a8c2d5687d7db0f9166580bff90cf082e104df73c96",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_yanling_edge.uasset",
+    "bytes": 2608960,
+    "sha256": "39374b0b28fc6c966ebefed7b274d50ebbf015a689b55e5e5a2a2ed1a1fc4127",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_zhufeng.png",
+    "bytes": 2943455,
+    "sha256": "009be57ac5e3307f52a2db759111b79713db6696841c81dd917b123a1f3d42c9",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_1_zhufeng.uasset",
+    "bytes": 2601142,
+    "sha256": "8210c5081e72b99296211eb5ad609d331bbd5634d8f5ddef5b8063eb1f7cab11",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_2_beiwei_rune.png",
+    "bytes": 2922274,
+    "sha256": "ed6ffe3f799b727d7e48edfb7cacc9da1cf557386ab68f98bae0fc4eabf7c04a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_blade_2_beiwei_rune.uasset",
+    "bytes": 2573476,
+    "sha256": "1ef2d7760334db8dfa7aef5766e6b4d45d978b3bff391edf037071cbf01a7e71",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_blade_1.png",
+    "bytes": 3025747,
+    "sha256": "66bef03d8ce5278deb9b58d608e76bd9a58f76c8fd83e40fa2e738fe3e90a60a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_blade_1.uasset",
+    "bytes": 2659443,
+    "sha256": "6e61e1fede15b269f7c3edec9e532b0cec9eae6a8fcb6985328771cc19fc3414",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_grip.png",
+    "bytes": 3231565,
+    "sha256": "a818021634508b9c63f607b2b56b48e0cc548a2ea04809f19bb89474380e82c3",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_grip.uasset",
+    "bytes": 2775980,
+    "sha256": "66b30db88e60fc98480eb49a4ba7f73ef9838c5a63af6f09a6615d8b94568bc2",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_guard.png",
+    "bytes": 3281873,
+    "sha256": "5011e55c93f02e6b3dd1ffcd57625d2aadaa15e8a90db99a257317f7092a8a56",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_guard.uasset",
+    "bytes": 2909592,
+    "sha256": "1675f9e624a01f36d881965ecbf9dda22ed96f6b2e77f75ea25102526fa65e8b",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_pommel.png",
+    "bytes": 3183123,
+    "sha256": "8e7a84c1bc23fe45d97d831ec80f930f86b141ca9cfa75ee88e7282c32188430",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_category_pommel.uasset",
+    "bytes": 2790202,
+    "sha256": "33eb1addff48c3899b2fbe737e7b1acf03400ba2847b3404e5a75ad685fc28e8",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_grip_false.png",
+    "bytes": 3231565,
+    "sha256": "a818021634508b9c63f607b2b56b48e0cc548a2ea04809f19bb89474380e82c3",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_grip_false.uasset",
+    "bytes": 2775959,
+    "sha256": "783077ab3c05f5bc12f4fe132e25b10d6531d8b8ae15966d9ac8c80e831d3ab3",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_guard_false.png",
+    "bytes": 3281873,
+    "sha256": "5011e55c93f02e6b3dd1ffcd57625d2aadaa15e8a90db99a257317f7092a8a56",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_guard_false.uasset",
+    "bytes": 2909571,
+    "sha256": "e677711e1b6820ea0717db757659f24f2ae97314895e02bb9d1c236ef5950050",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_pommel_false.png",
+    "bytes": 3183123,
+    "sha256": "8e7a84c1bc23fe45d97d831ec80f930f86b141ca9cfa75ee88e7282c32188430",
+    "published_binary": false
+  },
+  {
+    "path": "Content/ColdSteelData/AttachmentIcons20260913/ue_zhanmadao_pommel_false.uasset",
+    "bytes": 2790181,
+    "sha256": "33d1aaf150e2d561178d97355d4ccc03e5533a10702216e158d4cd17bcb4deb2",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_BeiweiSwordTrail.uasset",
+    "bytes": 8506,
+    "sha256": "17cbebb52b33a230e34390d6938b9b286523054fe9c7935fc8030f331ffe1c8c",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_BeiweiV1.uasset",
+    "bytes": 40208,
+    "sha256": "b1a9733b7f8c0621d24551acf2d3bb4f35ef1faba17ba130e331918b1e5da05a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_BeiweiV1_Whirlwind.uasset",
+    "bytes": 41016,
+    "sha256": "ba8b25719519cfbb28159aed2397ede88cb85d15d4c85ddb0e525e00dd99cdba",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_BeiweiV1.uasset",
+    "bytes": 40170,
+    "sha256": "8a65cd01e6b93d1f158e5c500a2878e8545bc97ea446b1339c147b9996dc4ee5",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_BeiweiV1_Whirlwind.uasset",
+    "bytes": 40978,
+    "sha256": "0a65a23f440bed442fd607217a2e85a4d7c05f792b1ebaec3ff72a33c51c068f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_BeiweiV1.uasset",
+    "bytes": 40196,
+    "sha256": "c535a9c9b1cdf3809dfd839e13a3b0bcfea1fed48751eeee69a0d1862af52a3a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_BeiweiV1_Whirlwind.uasset",
+    "bytes": 41004,
+    "sha256": "079d3e19d93f3bb3de3a765592bd4a331dde5be731c2220bd1405f925d617abb",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_BeiweiV1.uasset",
+    "bytes": 40190,
+    "sha256": "b523438c1d61168eea990f466e0eefeeac21e2eb2655215e80ccb94c55dd16f8",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_BeiweiV1_Whirlwind.uasset",
+    "bytes": 40998,
+    "sha256": "886e08e673e906b50756a1651ec325a7dec59a98e86678b4d41d292403736cbd",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_BeiweiV1.uasset",
+    "bytes": 46231,
+    "sha256": "0eeb22f809c1d0067364da999b862d60c56dc260eb01104a954606fe6868b513",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_BeiweiV1_Whirlwind.uasset",
+    "bytes": 47039,
+    "sha256": "b31841b33ae231717d420cc6a4730f196e06ffb5fd15023cc77956e329e97c3f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_BeiweiV1.uasset",
+    "bytes": 46072,
+    "sha256": "c5375407731cd81f23c1cf20b5fa7d9367d363147d5521afba6b1f0592071c15",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_BeiweiV1_Whirlwind.uasset",
+    "bytes": 46880,
+    "sha256": "253dc9fe2a460553626e0fa518a59a80958b78bf1dc30d56e9c533d6bbe31438",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_BeiweiV1.uasset",
+    "bytes": 46153,
+    "sha256": "30ecf89cd41c345d65d651427ed647eed4c56e65b0e86c164b49c8fa2f7faeda",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_BeiweiV1_Whirlwind.uasset",
+    "bytes": 46961,
+    "sha256": "8491f5397b9de0ff3d2cc5063306a66bb6f0133e72887e4e545a14e1bc9f1742",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/BeiweiRuneV1/Textures/T_Mask_beiwei_rune.uasset",
+    "bytes": 769417,
+    "sha256": "332cad02ba618f6337c3f310353cbd09cfd26cc30856e2c03225cf9bad512b4e",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_Chixiao_Brass_V1.uasset",
+    "bytes": 6357,
+    "sha256": "52a09c138c7b40d4b23ceca2ac16decba0f6b97543cb7e6ab571c262f987fbe3",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_Chixiao_Brass_V1_Whirlwind.uasset",
+    "bytes": 7104,
+    "sha256": "d49c1c7c05b7e34f2157f2789afcfdbadf1ea3d1358aa2c169901346a7ef63d5",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_chixiao_V1.uasset",
+    "bytes": 39657,
+    "sha256": "64e9800f5811aa4768883b01dddfdf7823660adcce046aae88a11cfe4fbafdc3",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_chixiao_V1_Whirlwind.uasset",
+    "bytes": 40465,
+    "sha256": "304f42656eeb6071fa14ca0547f8ec219d3364b348335d113e7fff06d78863b4",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Meshes/SM_Zhanmadao_Blade_chixiao_V1.uasset",
+    "bytes": 1430069,
+    "sha256": "cbb6e21a797652058b372e647b42601a198b8884f310c8ab6afd7dfb72a0f1bb",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Textures/T_Chixiao_BaseColor_V1.uasset",
+    "bytes": 4081314,
+    "sha256": "af8aea70c557671380d981f42b9894fc64558a95ef3614802172c709dba13a86",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Textures/T_Chixiao_Normal_V1.uasset",
+    "bytes": 2437539,
+    "sha256": "48e2a0f091bf912ec3f2192aa92923016226ca0f6489070fbf9bb0f3ebd4d21f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoBladeV1/Textures/T_Chixiao_ORM_V1.uasset",
+    "bytes": 2708834,
+    "sha256": "cf44fbdbb7ef42b8bca6edd5a771b3801d8647eec7dabd18323a43dbe08cad2c",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_Body.uasset",
+    "bytes": 1638585,
+    "sha256": "edeaa95ab5e1c9d6317b9055fdb33bd41c70066bfcaaf00a620a05f796cb1954",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_LongGrip.uasset",
+    "bytes": 2229690,
+    "sha256": "9b300d316c7250cf18fa0db0ea0a7f05c6070efdca0ab0af1e06eb75f71914b7",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_Standard.uasset",
+    "bytes": 2229690,
+    "sha256": "6b48db1498cb89a31d4d36da08dea4d9a93dab0f54f80dc747b04b1b969390c2",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ChixiaoLegendaryV1/Materials/M_ChixiaoSwordTrail.uasset",
+    "bytes": 8629,
+    "sha256": "6d3c071bfb60953e9580c973c881af970f88031744a3932ada37ca6c5f31232f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Adapter_frost_hilt_v1_V2.uasset",
+    "bytes": 64984,
+    "sha256": "d172b03ce59b2675899694ccd9f94f6a786160271fd63cfd0e1ff232ad2b1973",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Adapter_shared_sword_pommel_v1_V2.uasset",
+    "bytes": 64776,
+    "sha256": "6ead66345e605dc783c65e97f9aa753680088d66fefff588de945390bf89aaa2",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Blade_extended_edge_V2.uasset",
+    "bytes": 358872,
+    "sha256": "7b894a63c6bbfc487a0a94c74a3dc4439dc3a578cccd7e0a917c823706593ffb",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Blade_feather_edge_V2.uasset",
+    "bytes": 358712,
+    "sha256": "d2ca62c56dbd4f6f2326f2dcc8e8acdd0a3388e35497a0ef9beb34db574a1d7a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Blade_heavy_spine_V2.uasset",
+    "bytes": 358853,
+    "sha256": "029cefef5fd8f4dbc27f974a8555894146d0867255f0eb1f0b0953ae4a48d180",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_iron_spine_power_grip_V2.uasset",
+    "bytes": 1955627,
+    "sha256": "c6604e30c43a9a6dd2bb19c1c902134a4a52bd63435f61d77e236bbd0b3463d2",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_lockweave_guard_grip_V2.uasset",
+    "bytes": 1971608,
+    "sha256": "c04f0f90a47fe4e7b5914592b847ac41ea7aa2a1d99ea42698987320c4aabd6e",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_long_twohand_V2.uasset",
+    "bytes": 1963265,
+    "sha256": "213c89e845f4caf608a216b08c7271c8d1e93b26fcddf14e48f526c5e15728a9",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_shock_wrap_V2.uasset",
+    "bytes": 1963734,
+    "sha256": "ff7365e3bba77ab3e7bf8de9d0950e98cab4154260c2f00f41c726e201751ceb",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Grip_swift_grip_V2.uasset",
+    "bytes": 1958916,
+    "sha256": "d695ca203c4267a0775b81e67daec96b6d40578a1796b3481dc9f3110a05948f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Guard_bastion_guard_V2.uasset",
+    "bytes": 1605502,
+    "sha256": "fa760138c9ce0107c704af9c6e9c6d0fa0e4f126cfea31c2cfb2a15906029639",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Guard_light_guard_V2.uasset",
+    "bytes": 1605408,
+    "sha256": "de43dadfbe8a6ebf2316f142ce389ead5dfdae568036c9f43a844621d7789f02",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/CommonModsV2/Meshes/SM_Zhanmadao_Guard_riposte_guard_V2.uasset",
+    "bytes": 1605929,
+    "sha256": "11f81713658f357ac405bf46c86c2cce378eca71f1caebdb1fd5d6395030b01c",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_V1.uasset",
+    "bytes": 38908,
+    "sha256": "4515e1f12f6660b74319c4e514639b0811fcfb01adb1d877066b60e60f444d09",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_V1_Whirlwind.uasset",
+    "bytes": 39716,
+    "sha256": "4f431a02d8b53b98fc0b2e0d9c15ae94ea95b357815f29f486680809e6770101",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_V1.uasset",
+    "bytes": 38870,
+    "sha256": "5f64c8dc18ae423bbd8120800abeca7e454f67cb496c464d142bfb94073f0bb7",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_V1_Whirlwind.uasset",
+    "bytes": 39678,
+    "sha256": "3e69dda018154a3bfdafa3e35f2e4ca48043239c96bdab700db3e3ea68485655",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_V1.uasset",
+    "bytes": 38896,
+    "sha256": "2cb864ab2e2b3b82dc90c5a1498c910a03cd2d302ae69094be9a245304a59754",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_V1_Whirlwind.uasset",
+    "bytes": 39704,
+    "sha256": "9a1bcedcc77a5f05f8e256218ef082316c424b2d40f0aa8aa500b9490ebb489d",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_V1.uasset",
+    "bytes": 38890,
+    "sha256": "6f80e62027580cb7e684e97d395aa318718b64ed46329ff7d399d23abcfe4532",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_V1_Whirlwind.uasset",
+    "bytes": 39698,
+    "sha256": "9bdba97ae724781575bf65137d6ff7f7d8c3619220d94fcd9f80cc575daecd4c",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_V1.uasset",
+    "bytes": 44931,
+    "sha256": "8a5fd596ed3af352162e700e0adef7a942f7e36dc26100aa8a73541b68490a53",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_V1_Whirlwind.uasset",
+    "bytes": 45739,
+    "sha256": "5823f191a4db3fd3df805476e3d999b05f2ab18f65233744cdcfc14e6491393e",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_V1.uasset",
+    "bytes": 44772,
+    "sha256": "676e87cc0937906adf64038afdff25fa5ad8c71d71d456e957ff80a2cb43d481",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_V1_Whirlwind.uasset",
+    "bytes": 45580,
+    "sha256": "312a987814c0c2ce4db7e519ba7238d5d4cfb6b94ba4caae3aa01025e30bcdee",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_V1.uasset",
+    "bytes": 44853,
+    "sha256": "c3a3e2f8104b3b1308edba07a207091d76942f27bbc69f2e08d2adb31ca76b69",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/RuneSurfaceV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_V1_Whirlwind.uasset",
+    "bytes": 45661,
+    "sha256": "5e79767256156d3f572fc1135ed790dc801bd7948a0d70c58ed1ff40706b767a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/TangDaoBladesV1/Meshes/SM_Zhanmadao_Blade_tengyun_dragon_V1.uasset",
+    "bytes": 5483435,
+    "sha256": "29be8955aa116b96302016f9d704f59c6aee78b1e06a50f0f25f3f05c7abc264",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/TangDaoBladesV1/Meshes/SM_Zhanmadao_Blade_yanling_edge_V1.uasset",
+    "bytes": 8857141,
+    "sha256": "fe213a7c0a46d2569951857125bfef8923cdabf775be0784bc0ad4db4d9839b1",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Materials/M_Zhanmadao_Surface_V1.uasset",
+    "bytes": 7725,
+    "sha256": "5def5a97a34fc4fc42d9e6c5d6266c118a2830693568c75226fc7c1180407c5d",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Materials/M_Zhanmadao_Surface_V1_Whirlwind.uasset",
+    "bytes": 8557,
+    "sha256": "46976f1039d44501f59e224c1d7ec227afaf726018f85dd70eca9c092b8c3e1f",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Blade_V1.uasset",
+    "bytes": 358741,
+    "sha256": "0064be209d12a8847eeac16b6bf77838c69f632c083fb99799ea2104c1ef0861",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Complete_V1.uasset",
+    "bytes": 4755000,
+    "sha256": "7802c67f453dc5ecee295f230334b174960204e097d0df7f6662da2d88b05e27",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Grip_V1.uasset",
+    "bytes": 1776588,
+    "sha256": "0578386910f9b20d72b16756eb12ecd9ed98e7e76bb0952840648be24e300f13",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Guard_V1.uasset",
+    "bytes": 1602214,
+    "sha256": "716a9230190e3618df98aa2b5d6e21dcfdadf4aa5b75d8339e29bc5f8104b5dc",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Pommel_V1.uasset",
+    "bytes": 220939,
+    "sha256": "c2c1930e04777b172e45ce2b4b70de251cc0f140c0c370ed6cccc1d745ec0c49",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Textures/T_Zhanmadao_BaseColor_V1.uasset",
+    "bytes": 3160712,
+    "sha256": "382f150b63b0bfa75cc6c32a528e7b0a1ccf8c348707a097fee2c9dcd77750c1",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Textures/T_Zhanmadao_MetallicRoughness_V1.uasset",
+    "bytes": 1679889,
+    "sha256": "f8edef90bf33ad8cce8b4e168cb3be3028048f0bb11b90dccebfcce4e7ed1671",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/V1/Textures/T_Zhanmadao_Normal_V1.uasset",
+    "bytes": 2358345,
+    "sha256": "004d7b28c6c71e2ed6f21bcde4dc51f8251afbdc81fd4b933688e5df4f3f3af3",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1.uasset",
+    "bytes": 39658,
+    "sha256": "e40d2ef3fd2299d17b666a9c008ee830005ef8245a492dbe8ba0c8936f8201e0",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_zhufeng_V1_Whirlwind.uasset",
+    "bytes": 40466,
+    "sha256": "935e19d088ca2627c55fee2d852c469efa2e877e08cb56a7d7c5b77957b7bd74",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_Zhufeng_Brass_V1.uasset",
+    "bytes": 6357,
+    "sha256": "f9648f8d8896183f565a22e60838b9f80495212f729643409047db98eea9bb98",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Materials/M_Zhufeng_Brass_V1_Whirlwind.uasset",
+    "bytes": 7104,
+    "sha256": "b90f2fa48b98722b296697fdb9d4435e3d59e29f2ad85b0c373889e4711c530a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Meshes/SM_Zhanmadao_Blade_zhufeng_V1.uasset",
+    "bytes": 1915406,
+    "sha256": "517edb3ab6a47bf60f82e4edc17afd3d0a11804ba340a5e0e72b2fe2197c515a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Textures/T_Zhufeng_BaseColor_V1.uasset",
+    "bytes": 4527885,
+    "sha256": "0b2d10d02229beab8ee3ba4140cfda60e139f229afd9cf973b88c848946321a0",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Textures/T_Zhufeng_Normal_V1.uasset",
+    "bytes": 2437539,
+    "sha256": "2fb4690ea7719b94eea0f432ec07773d0cafe6b7b6ca7d81a73f0c31f120eb14",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengBladeV1/Textures/T_Zhufeng_ORM_V1.uasset",
+    "bytes": 2708834,
+    "sha256": "d73b92437f05c91818cca235212e00234d250cd1224099662d42b27f22989d9a",
+    "published_binary": false
+  },
+  {
+    "path": "Content/Weapons/Zhanmadao20261018/ZhufengCyanTrailV1/Materials/M_ZhufengSwordTrail.uasset",
+    "bytes": 8626,
+    "sha256": "5f17ca3a27c0c2b4f8c4e7eb47561dfea03352fa00a4b4ef2204eed43ae78505",
+    "published_binary": false
+  }
+]

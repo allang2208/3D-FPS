@@ -423,5 +423,22 @@
       }
     ],
     "source": "Saiga12K (whole-shell aggregate)"
+  },
+  "ue_zhanmadao": {
+    "source": "ZHANMADAO_INITIAL_ZHENYUE_BASELINE",
+    "base": 45,
+    "enhanceFlat": 5.6,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 5.1,
+        "perEnhance": 1.01
+      },
+      {
+        "key": "wis",
+        "base": 4,
+        "perEnhance": 0.69
+      }
+    ]
   }
 }

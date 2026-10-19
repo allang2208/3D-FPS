@@ -1,0 +1,156 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -1,3 +1,4 @@
+ #include "RuneSwordComponent.h"
++#include "BeiweiSwordTrailComponent.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -160,4 +161,6 @@
+     const FString NewId=Item && !Profile->ActiveProductionTool() && ColdSteelInventory::IsTwoHandedSword(*Item) ? Item->InstanceId : FString();
+     RefreshAzureDragon(NewId.IsEmpty()?nullptr:Item,Profile);
++    RefreshBeiwei(NewId.IsEmpty()?nullptr:Item);
++    RefreshChixiao(NewId.IsEmpty()?nullptr:Item);
+     if(!NewId.IsEmpty())
+     {
+@@ -297,5 +300,5 @@
+     // time zero, so it must retain its immediate authored contact pose.
+     const bool bGuardReaction=Name==TEXT("GuardHit")||Name==TEXT("GuardBreak");
+-    if(Name==TEXT("HeavyRelease"))
++    if(Name==TEXT("HeavyRelease")||Name==TEXT("ChixiaoHeavy"))
+     {
+         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
+@@ -460,4 +463,12 @@
+     const auto* Item=Profile?Profile->Equipped():nullptr;
+     const bool OverheadFinisher=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesOverheadFinisher(*Item);
++    const bool Chixiao=Heavy&&bCharging&&bChixiaoEquipped;
++    if(Chixiao)
++    {
++        auto* Animation=ChixiaoAnimation();
++        const auto* Mesh=Viewmodel?Viewmodel->GetSkeletalMeshAsset():nullptr;
++        if(!Animation||!Mesh||Animation->GetSkeleton()!=Mesh->GetSkeleton())return false;
++        Clip=TEXT("ChixiaoHeavy");Animations.Add(Clip,Animation);
++    }
+     const bool RisingDragon=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesRisingDragonFinisher(*Item);
+     if(OverheadFinisher)Clip=TEXT("Overhead");
+@@ -491,8 +502,11 @@
+             }
+         }
+-        if(!Profile->SpendStamina(StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile))){bQueuedAttack=false;return false;}
++        const double StaminaCost=Chixiao?ColdSteelMelee::HeavyReleaseStamina(Item,Profile):
++            StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Item,Profile);
++        if(!Profile->SpendStamina(StaminaCost)){bQueuedAttack=false;return false;}
+     }
+     SetHeavyCharging(false);
+     bAttacking=true;bQueuedAttack=bReturningCharge=false;bHeavyAttack=Heavy;
++    bChixiaoHeavy=Chixiao;ChixiaoStrikeIndex=-1;
+     bThrustAttack=Clip==TEXT("Thrust");bPommelAttack=Clip==TEXT("PommelStrike");
+     bOverheadAttack=Clip==TEXT("Overhead");
+@@ -512,4 +526,5 @@
+     SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,ComboStage==3?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
+     SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*MeleeModifiers.Range;
++    if(Heavy){SwingReach*=MeleeModifiers.MartialRange;SwingRangeMultiplier*=MeleeModifiers.MartialRange;}
+     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
+     // 两条独立通道：剑刃攻击（导魔符文）与配重锤快速近战（凝碧星核），互不混用。
+@@ -639,10 +654,10 @@
+     if(bQuickCombatAOE)
+         Hits=MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),
+-            QuickCombatPistolMotion::QueryRadiusCM);
++            QuickCombatPistolMotion::QueryRadiusCM*MeleeModifiers.MartialRange);
+     else
+     {
+         FHitResult Hit;
+         if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Pawn,Aim,Start,AzureDragonRange(QuickCombatRangeCM),
+-            QuickCombatPistolMotion::QueryRadiusCM,Hit))Hits.Add(Hit);
++            QuickCombatPistolMotion::QueryRadiusCM*MeleeModifiers.MartialRange,Hit))Hits.Add(Hit);
+     }
+     // Quick-melee shake belongs to this once-only query, including a miss.
+@@ -761,6 +776,7 @@
+     if(Character->IsCastBlockingLeftHandAction())return;
+     if(!Animations.FindRef(TEXT("HeavyCharge")) || !Animations.FindRef(TEXT("HeavyRelease")))return;
++    if(bChixiaoEquipped&&!ChixiaoAnimation())return;
+     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+-        if(!Profile->CanSpendStamina(ColdSteelMelee::AttackStamina(Profile->Equipped(),Profile)))return;
++        if(!Profile->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Profile->Equipped(),Profile)))return;
+     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Profile||Profile->Stamina()<=0.f||Profile->MasteryProgress(TEXT("heavyStrike")).Level<1||Profile->ActiveProductionTool())return;
+@@ -827,4 +843,5 @@
+     FinishHeavyTraining();
+     bUppercut=bPanChiUppercut=false;
++    bChixiaoHeavy=false;ChixiaoStrikeIndex=-1;
+     FinishDashAttack();
+     FinishWhirlwind();
+@@ -978,4 +995,8 @@
+         }
+     }
++    else if(bAttacking&&bChixiaoHeavy)
++    {
++        ChixiaoCameraMotion(Location,Rotation);
++    }
+     else if(bAttacking)
+     {
+@@ -1190,5 +1211,6 @@
+ void URuneSwordComponent::SweepBlade(const FRuneSwordBladeSample& From,const FRuneSwordBladeSample& To)
+ {
+-    if((bThrustAttack||bUppercut||IsRisingDragonFinisher()) && !HitActors.IsEmpty())return;
++    const bool RisingDragon=IsRisingDragonFinisher();
++    if((bThrustAttack||bUppercut) && !HitActors.IsEmpty())return;
+     FRuneSwordTraceSettings Trace;
+     Trace.Radius=RuneSwordCombat::BladeRadius*SwingRangeMultiplier;
+@@ -1201,9 +1223,12 @@
+         Trace.bCleavePawns=false;
+     }
+-    if(bThrustAttack||bUppercut||IsRisingDragonFinisher())
++    if(bThrustAttack||bUppercut||RisingDragon)
+     {
+         Trace.Radius=RuneSwordThrustRhythm::BladeRadius*SwingRangeMultiplier;
+         Trace.ForwardCorridorRadius=RuneSwordThrustRhythm::CorridorRadius*SwingRangeMultiplier;
+-        Trace.bCleavePawns=false;
++        // Tengyun's combo finisher cleaves within its existing swept corridor.
++        // The separately activated uppercut and factory thrust remain single-target.
++        Trace.bCleavePawns=RisingDragon;
++        Trace.bAreaDamage=RisingDragon;
+     }
+     auto* Pawn=Character.Get();
+@@ -1264,5 +1289,5 @@
+         Hits.Append(RuneSwordCombat::Query(GetWorld(),Pawn,ExtendedFrom,ExtendedTo,AzureDragonRange(SwingReach),HitActors,Trace));
+     }
+-    if((bThrustAttack || bPommelAttack || bUppercut || IsRisingDragonFinisher()) && Hits.Num()>1)
++    if((bThrustAttack || bPommelAttack || bUppercut) && Hits.Num()>1)
+     {
+         Hits.Sort([&](const FHitResult& A,const FHitResult& B)
+@@ -1353,5 +1378,5 @@
+     // Remote first-person rigs do not advance local combat/input state.
+     if(Character.IsValid()&&!Character->IsLocallyControlled()){bEquipping=false;TickNetworkGuard();TickNetworkHeavyCharge();return;}
+-    ON_SCOPE_EXIT { UpdateAzureDragonPose(); };
++    ON_SCOPE_EXIT { UpdateAzureDragonPose();TickBeiweiTrail(); };
+     TickAzureDragon(Delta);
+     if(!bWhirlwind)
+@@ -1393,5 +1418,9 @@
+     if(!CurrentAnimation)return;
+     const float End=CurrentAnimation->GetPlayLength();
+-    if(bUppercut||IsRisingDragonFinisher())
++    if(bChixiaoHeavy&&bAttacking)
++    {
++        TickChixiaoHeavy(Delta);
++    }
++    else if(bUppercut||IsRisingDragonFinisher())
+     {
+         TickUppercut(Delta);
+@@ -1499,5 +1528,5 @@
+                 const auto LowHits=MeleeSmallTargets::QueryLowSector(GetWorld(),Character.Get(),EndFrame,
+                     AzureDragonSwingRange(SwingReach),HitActors,!bSingleTarget,bThrustAttack?30.f:MeleeSmallTargets::LowArcDegrees,
+-                    AzureDragonSwingRange(MeleeSmallTargets::LowReachCM));
++                    AzureDragonSwingRange(MeleeSmallTargets::LowReachCM*(bHeavyAttack?MeleeModifiers.MartialRange:1.)));
+                 ApplySwingHits(LowHits,EndFrame.GetUnitAxis(EAxis::X));
+             }
+@@ -1577,8 +1606,10 @@
+ void URuneSwordComponent::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    if(BeiweiTrail){GetOwner()->RemoveInstanceComponent(BeiweiTrail);BeiweiTrail->DestroyComponent();BeiweiTrail=nullptr;}
+     DestroyAzureDragon();
+     FinishHeavyTraining();
+     bUppercut=false;
+     if(UppercutLoad)UppercutLoad->CancelHandle();UppercutLoad.Reset();
++    if(ChixiaoLoad)ChixiaoLoad->CancelHandle();ChixiaoLoad.Reset();
+     if(SlashWaveLoad)SlashWaveLoad->CancelHandle();SlashWaveLoad.Reset();
+     FinishWhirlwind();

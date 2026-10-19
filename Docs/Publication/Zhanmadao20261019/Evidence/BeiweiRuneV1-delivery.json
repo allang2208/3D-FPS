@@ -1,0 +1,31 @@
+{
+  "completed_at": "2026-10-18T16:46:29.049479+08:00",
+  "assets_saved": true,
+  "catalog_saved": true,
+  "asset_count": 17,
+  "native_materials": 7,
+  "temporal_materials": 7,
+  "sword_qi_materials": 1,
+  "mask_textures": 1,
+  "icon_textures": 1,
+  "icon_png_saved": true,
+  "builds": {
+    "FPSGAMEEditor": {
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "game_tested": false,
+      "finished": "2026-10-18T16:19:27.9106089+08:00"
+    },
+    "FPSGAME": {
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "game_tested": false,
+      "finished": "2026-10-18T16:26:24.2665123+08:00"
+    }
+  },
+  "scope": "ue_zhanmadao blade_2 beiwei_rune; martial damage x1.5, martial range x1.25",
+  "restart": "Restart the game or stop PIE and begin again to reload the compiled module and catalog.",
+  "game_tested": false,
+  "multiplayer_tested": false,
+  "visual_acceptance": false
+}

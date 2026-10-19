@@ -80,10 +80,10 @@ bool URuneSwordComponent::BeginUppercut()
     SwingDamage=Stats.Damage*ColdSteelMelee::UppercutMultiplier(Profile,Stats.Modifiers);
     const auto& Definition=Profile->MasteryDefinition(TEXT("swordUppercut"));
     const auto Effect=Profile->MasteryEffect(TEXT("swordUppercut"));
-    SwingReach=Stats.ThrustReach*Effect.UppercutReachMultiplier;
-    SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*Stats.Modifiers.Range*Definition.UppercutRangeMultiplier;
+    SwingReach=Stats.ThrustReach*Effect.UppercutReachMultiplier*Stats.Modifiers.MartialRange;
+    SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*Stats.Modifiers.Range*Definition.UppercutRangeMultiplier*Stats.Modifiers.MartialRange;
     UppercutReachGrowth=Effect.UppercutReachMultiplier/Definition.UppercutRangeMultiplier;
-    UppercutLowReachCM=MeleeSmallTargets::LowReachCM*Effect.UppercutReachMultiplier;
+    UppercutLowReachCM=MeleeSmallTargets::LowReachCM*Effect.UppercutReachMultiplier*Stats.Modifiers.MartialRange;
     SwingHitReactionMultiplier=Stats.Modifiers.HitReaction;
     SwingKnockbackCM=Stats.KnockbackCM;
     SwingRuneVulnerability=Stats.Modifiers.RuneVulnerability;
@@ -164,7 +164,7 @@ void URuneSwordComponent::TickUppercut(float Delta)
         return Frame;
     };
     const float HitStart=FMath::Max(Elapsed,ContactStart),HitEnd=FMath::Min(Next,ContactEnd);
-    if(HitEnd>HitStart&&HitActors.IsEmpty())
+    if(HitEnd>HitStart&&(RisingDragon||HitActors.IsEmpty()))
     {
         const FTransform StartFrame=FrameAt(HitStart),EndFrame=FrameAt(HitEnd);
         const float AimTravel=FVector::Distance(StartFrame.GetLocation(),EndFrame.GetLocation())+
@@ -173,14 +173,16 @@ void URuneSwordComponent::TickUppercut(float Delta)
         const int32 Steps=FMath::Max3(1,FMath::CeilToInt((HitEnd-HitStart)*RuneSwordThrustRhythm::SampleRate),
             FMath::CeilToInt(AimTravel/FMath::Max(.1f,Radius)));
         SamplePose(HitStart);auto Previous=ReadBlade(StartFrame);
-        for(int32 I=1;I<=Steps&&HitActors.IsEmpty();++I)
+        for(int32 I=1;I<=Steps&&(RisingDragon||HitActors.IsEmpty());++I)
         {
             const float Time=FMath::Lerp(HitStart,HitEnd,float(I)/Steps);
             SamplePose(Time);const auto Current=ReadBlade(FrameAt(Time));
             SweepBlade(Previous,Current);Previous=Current;
         }
-        if(HitActors.IsEmpty())ApplySwingHits(MeleeSmallTargets::QueryLowSector(
-            GetWorld(),Character.Get(),EndFrame,AzureDragonSwingRange(SwingReach),HitActors,false,30.f,
+        // The finisher continues through all contacts; HitActors still deduplicates
+        // each victim across both the blade sweep and the small-target supplement.
+        if(RisingDragon||HitActors.IsEmpty())ApplySwingHits(MeleeSmallTargets::QueryLowSector(
+            GetWorld(),Character.Get(),EndFrame,AzureDragonSwingRange(SwingReach),HitActors,RisingDragon,30.f,
             AzureDragonSwingRange(bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM)),EndFrame.GetUnitAxis(EAxis::X));
     }
     SamplePose(Next);PreviousAimFrame=AimNow;Elapsed=Next;

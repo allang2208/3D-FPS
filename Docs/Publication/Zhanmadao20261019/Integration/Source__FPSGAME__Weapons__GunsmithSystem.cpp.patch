@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -255,4 +255,5 @@
+             R.Melee.SkillCooldown*=M.SkillCooldown;
+             R.Melee.MartialCooldown*=M.MartialCooldown;
++            R.Melee.MartialDamage*=M.MartialDamage;R.Melee.MartialRange*=M.MartialRange;
+             R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
+             R.Melee.MagicCost*=M.MagicCost;
+@@ -279,4 +280,5 @@
+ 
+             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
++            R.Melee.WhirlwindDamageAdd+=M.WhirlwindDamageAdd;
+             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
+             R.Melee.HeavyReleaseStamina*=M.HeavyReleaseStamina;

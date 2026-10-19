@@ -1,0 +1,91 @@
+{
+  "revision": "ChixiaoShoulderV3",
+  "finished": "2026-10-19T10:39:25.106160+08:00",
+  "assets_saved": true,
+  "animations": {
+    "Standard": {
+      "asset": "/Game/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_Standard.A_Chixiao_DoubleHeavy_Standard",
+      "saved": true,
+      "author_keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\ChixiaoShoulderV3\\Standard\\editable_keys.json",
+      "source_compressed_max_position_cm": 0.0011301562022038149,
+      "source_compressed_max_angle_degrees": 0.04532300136841124,
+      "platform_rate": "<Struct 'FrameRate' (0x00000195D79C2018) {numerator: 240, denominator: 1}>",
+      "previous_platform_rate": "<Struct 'FrameRate' (0x00000195D79C2018) {numerator: 240, denominator: 1}>",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    },
+    "LongGrip": {
+      "asset": "/Game/Weapons/Zhanmadao20261018/ChixiaoDoubleHeavyV1/A_Chixiao_DoubleHeavy_LongGrip.A_Chixiao_DoubleHeavy_LongGrip",
+      "saved": true,
+      "author_keys": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Zhanmadao20261018\\ChixiaoShoulderV3\\LongGrip\\editable_keys.json",
+      "source_compressed_max_position_cm": 0.00034268338357296076,
+      "source_compressed_max_angle_degrees": 0.031041510638099283,
+      "platform_rate": "<Struct 'FrameRate' (0x000001965E5AA518) {numerator: 240, denominator: 1}>",
+      "previous_platform_rate": "<Struct 'FrameRate' (0x000001965E5AA518) {numerator: 240, denominator: 1}>",
+      "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel"
+    }
+  },
+  "requested_shoulder_inspection": true,
+  "offline_visual_review": true,
+  "runtime_play_tested": false,
+  "native_code_changed": false,
+  "native_build_required": false,
+  "damage_timing_blade_path_changed": false,
+  "metrics": {
+    "Standard": {
+      "preserved_pose_max_cm": 0.0003549730587000326,
+      "preserved_pose_max_degrees": 0.05595291023658669,
+      "bone_length_max_error_cm": 0.00010372412045933643,
+      "first_cut_keys_identical": true,
+      "old_upperarm_r_max_60hz_step_cm": 20.618432157023157,
+      "old_lowerarm_r_max_60hz_step_cm": 21.897045729601665,
+      "new_upperarm_r_max_60hz_step_cm": 20.818463721149374,
+      "new_lowerarm_r_max_60hz_step_cm": 19.61408928895384,
+      "old_upperarm_r_recovery_peak": {
+        "t": 0.6666666666666666,
+        "cm": 21.993811701530593
+      },
+      "old_lowerarm_r_recovery_peak": {
+        "t": 0.6666666666666666,
+        "cm": 22.053844119977544
+      },
+      "new_upperarm_r_recovery_peak": {
+        "t": 0.6666666666666666,
+        "cm": 22.862549999786353
+      },
+      "new_lowerarm_r_recovery_peak": {
+        "t": 0.6666666666666666,
+        "cm": 19.382939880280997
+      },
+      "visible_root_frames": [],
+      "min_skinned_root_clearance_cm": 1.000019560896973
+    },
+    "LongGrip": {
+      "preserved_pose_max_cm": 0.00036524870853297766,
+      "preserved_pose_max_degrees": 0.05595291023658669,
+      "bone_length_max_error_cm": 9.718799837687975e-05,
+      "first_cut_keys_identical": true,
+      "old_upperarm_r_max_60hz_step_cm": 19.37393509289785,
+      "old_lowerarm_r_max_60hz_step_cm": 21.6572373366127,
+      "new_upperarm_r_max_60hz_step_cm": 18.77567016705367,
+      "new_lowerarm_r_max_60hz_step_cm": 18.196319354903267,
+      "old_upperarm_r_recovery_peak": {
+        "t": 0.6833333333333333,
+        "cm": 20.864311769908053
+      },
+      "old_lowerarm_r_recovery_peak": {
+        "t": 0.6833333333333333,
+        "cm": 21.928070351445246
+      },
+      "new_upperarm_r_recovery_peak": {
+        "t": 0.6833333333333333,
+        "cm": 20.35278408627327
+      },
+      "new_lowerarm_r_recovery_peak": {
+        "t": 0.6833333333333333,
+        "cm": 18.106283138175936
+      },
+      "visible_root_frames": [],
+      "min_skinned_root_clearance_cm": 1.0369767763044173
+    }
+  }
+}

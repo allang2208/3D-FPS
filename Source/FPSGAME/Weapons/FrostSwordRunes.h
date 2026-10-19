@@ -17,6 +17,9 @@ namespace ColdSteelFrostRunes
     inline constexpr const TCHAR* AuspiciousCloud=TEXT("auspicious_cloud_rune");
     inline constexpr const TCHAR* CloudMask=TEXT("/Game/Weapons/TangDao20261002/CloudRune20261002/Textures/T_Mask_auspicious_cloud_rune");
     inline constexpr const TCHAR* Jingang=TEXT("jingang_rune");
+    inline constexpr const TCHAR* Zhanmadao=TEXT("ue_zhanmadao");
+    inline constexpr const TCHAR* Beiwei=TEXT("beiwei_rune");
+    inline constexpr const TCHAR* BeiweiMask=TEXT("/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Textures/T_Mask_beiwei_rune");
     inline constexpr const TCHAR* JingangMask=TEXT("/Game/Weapons/XuanChiZhenYue20261004/JingangRune20261006/Textures/T_Mask_jingang_rune");
     inline constexpr const TCHAR* Zhenmo=TEXT("zhenmo_rune");
     inline constexpr const TCHAR* ZhenmoMask=TEXT("/Game/Weapons/XuanChiZhenYue20261004/ZhenmoRune20261005/Textures/T_Mask_zhenmo_rune");
@@ -30,6 +33,7 @@ namespace ColdSteelFrostRunes
     inline FString Upgrade(const FString& Weapon,const FString& Rune)
     {
         if(Weapon==Warhammer&&!IsCommon(Rune))return {};
+        if(Rune==Beiwei&&Weapon!=Zhanmadao)return {};
         if((Rune==Zhenmo||Rune==Jingang)&&Weapon!=XuanChi)return {};
         if(Rune==TEXT("golden_glow_rune")&&Weapon!=TEXT("ue_rune_sword"))return {};
         if((Rune==AuspiciousCloud||Rune==Mountain)&&!SupportsEasternRunes(Weapon))return {};

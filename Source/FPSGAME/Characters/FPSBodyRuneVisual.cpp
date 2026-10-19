@@ -1,6 +1,8 @@
 #include "FPSBodyRuneVisual.h"
 #include "FPSPlayerBodyTypes.h"
 #include "../Weapons/MeleeRuneVisual.h"
+#include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/FrostSwordRunes.h"
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -22,6 +24,14 @@ UMaterialInstanceDynamic* RuneMaterial(UMaterialInterface* Material)
 void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelItem* Item,FFPSBodyAttachment& Out)
 {
     if(!Source||!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsTwoHandedBlunt(*Item)))return;
+    Out.bChixiaoBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item);
+    Out.bZhufengBlade=Source->ComponentTags.Contains(FName(TEXT("SwordSlot=blade_1")))&&ColdSteelModularSword::UsesZhufengWhirlwind(*Item);
+    if(Out.bChixiaoBlade||Out.bZhufengBlade)
+    {
+        // Blade-specific trails also work with no rune material installed.
+        Out.BeiweiBladeBase=ColdSteelModularSword::BladePoint(*Item,false);
+        Out.BeiweiBladeTip=ColdSteelModularSword::BladePoint(*Item,true);
+    }
     for(int32 Slot=0;Slot<Source->GetNumMaterials();++Slot)
     {
         auto* MID=RuneMaterial(Source->GetOverlayMaterial(true,Slot));
@@ -30,6 +40,11 @@ void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelIte
         const bool NativeGold=MID->GetBaseMaterial()->GetName()==TEXT("M_AzureRunesword_NativeGold");
         if(!NativeGold&&MID->K2_GetScalarParameterValue(TEXT("RuneMode"))<0.f)continue;
         Out.RuneDefinition=Item->Definition;Out.RuneId=ColdSteelMeleeRune::Selected(*Item);
+        if(Out.RuneDefinition==ColdSteelFrostRunes::Zhanmadao&&Out.RuneId==ColdSteelFrostRunes::Beiwei)
+        {
+            Out.BeiweiBladeBase=ColdSteelModularSword::BladePoint(*Item,false);
+            Out.BeiweiBladeTip=ColdSteelModularSword::BladePoint(*Item,true);
+        }
         for(FName Tag:Source->ComponentTags)
             if(Tag.ToString().StartsWith(TEXT("SwordSlot="))){Out.RuneSlot=Tag;break;}
         const auto D=MID->K2_GetVectorParameterValue(TEXT("Dimensions"));
@@ -55,6 +70,8 @@ void FPSBodyRuneVisual::Apply(UStaticMeshComponent* Mesh,const FFPSBodyAttachmen
 
 FString FPSBodyRuneVisual::Key(const FFPSBodyAttachment& Description)
 {
-    return Description.RuneDefinition.IsEmpty()?FString():TEXT("|rune:")+Description.RuneDefinition+
-        TEXT(":")+Description.RuneId+TEXT(":")+Description.RuneSlot.ToString()+TEXT(":")+Description.RuneDimensions.ToString();
+    return Description.RuneDefinition.IsEmpty()&&!Description.bChixiaoBlade&&!Description.bZhufengBlade?FString():TEXT("|rune:")+Description.RuneDefinition+
+        TEXT(":")+Description.RuneId+TEXT(":")+Description.RuneSlot.ToString()+TEXT(":")+Description.RuneDimensions.ToString()+
+        TEXT(":")+Description.BeiweiBladeBase.ToString()+TEXT(":")+Description.BeiweiBladeTip.ToString()+
+        (Description.bChixiaoBlade?TEXT(":chixiao"):TEXT(""))+(Description.bZhufengBlade?TEXT(":zhufeng"):TEXT(""));
 }

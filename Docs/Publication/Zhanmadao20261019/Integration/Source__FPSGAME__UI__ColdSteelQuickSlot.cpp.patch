@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -313,5 +313,5 @@
+     {
+         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+-        Dim=!Ability||!Ability->IsEquipped()||!Model->CanSpendStamina(Model->StaminaSettings().MeleeCost);
++        Dim=!Ability||!Ability->IsEquipped()||!Model->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Model->Equipped(),Model));
+         if(!Ability||!Ability->IsEquipped())Message=TEXT("需近战");
+         else if(Ability->HeavyChargeFraction()>0)Message=FString::Printf(TEXT("%.0f%%"),Ability->HeavyChargeFraction()*100);

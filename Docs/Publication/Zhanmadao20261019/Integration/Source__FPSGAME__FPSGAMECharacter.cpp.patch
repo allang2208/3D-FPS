@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1029,5 +1029,7 @@
+     const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();
+     const auto* Tool=FindComponentByClass<UProductionToolComponent>();
++    const auto* PS=GetPlayerState<AColdSteelPlayerState>();
+     return UBoundCongregateCaptureComponent::IsCaptured(this)||(Electric&&Electric->IsCharging())||
++        (PS&&PS->IsSwordWhirlwindExecuting(this))||
+         (Tool&&(Tool->IsGroundSlamActive()||Tool->IsWhirlwindActive()||Tool->IsUppercutActive()))||
+         (RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()));

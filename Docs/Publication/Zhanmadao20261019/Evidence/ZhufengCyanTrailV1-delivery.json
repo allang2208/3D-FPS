@@ -1,0 +1,50 @@
+{
+  "revision": "ZhufengCyanTrailV1",
+  "source_saved": true,
+  "assets": {
+    "material_saved": true,
+    "asset": "/Game/Weapons/Zhanmadao20261018/ZhufengCyanTrailV1/Materials/M_ZhufengSwordTrail.M_ZhufengSwordTrail",
+    "material_sha256": "5f17ca3a27c0c2b4f8c4e7eb47561dfea03352fa00a4b4ef2204eed43ae78505",
+    "catalog_saved": true,
+    "stats": {
+      "zhufeng": {
+        "range_mult": 1.2,
+        "physical_damage_mult": 1.1
+      },
+      "chixiao": {
+        "attack_speed_mult": 1.15,
+        "physical_damage_mult": 1.1
+      }
+    },
+    "game_tested": false
+  },
+  "native_build_complete": true,
+  "builds": {
+    "FPSGAMEEditor": {
+      "finished": "2026-10-19T14:15:53.9029114+08:00",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "receipt": "build-FPSGAMEEditor-01-receipt.json"
+    },
+    "FPSGAME": {
+      "finished": "2026-10-19T14:17:10.9826499+08:00",
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "receipt": "build-FPSGAME-01-receipt.json"
+    }
+  },
+  "game_tested": false,
+  "visual_tested": false,
+  "editor_started": false,
+  "coverage": [
+    "first_person",
+    "third_person",
+    "remote_cosmetic_state"
+  ],
+  "activation": "Zhufeng blade installed, during the spin phase of dash or manual whirlwind",
+  "palette_priority": "Zhufeng whirlwind cyan; Chixiao heavy crimson; other Beiwei martial gold",
+  "ribbon_budget": {
+    "sample_limit": 48,
+    "lifetime_seconds": 0.24
+  }
+}

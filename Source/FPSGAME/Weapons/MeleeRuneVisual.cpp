@@ -78,7 +78,8 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bMountain=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::Mountain;
     const bool bZhenmo=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Zhenmo;
     const bool bJingang=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Jingang;
-    const int32 Mode=bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
+    const bool bBeiwei=Definition==ColdSteelFrostRunes::Zhanmadao&&VisualRune==ColdSteelFrostRunes::Beiwei;
+    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -141,7 +142,7 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             // Apply runs on assembly/selection; pose updates never reload textures.
             if(Mode>=0)
             {
-                const FString Mask=bJingang?FString(ColdSteelFrostRunes::JingangMask):bZhenmo?FString(ColdSteelFrostRunes::ZhenmoMask):bMountain?FString(ColdSteelFrostRunes::MountainMask):bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
+                const FString Mask=bBeiwei?FString(ColdSteelFrostRunes::BeiweiMask):bJingang?FString(ColdSteelFrostRunes::JingangMask):bZhenmo?FString(ColdSteelFrostRunes::ZhenmoMask):bMountain?FString(ColdSteelFrostRunes::MountainMask):bCloud?FString(ColdSteelFrostRunes::CloudMask):TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+VisualRune;
                 auto* Texture=LoadObject<UTexture>(nullptr,*Mask);
                 SurfaceMID->SetTextureParameterValue(TEXT("RuneTexture"),Texture);
             }

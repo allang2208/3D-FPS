@@ -1,0 +1,88 @@
+{
+  "weapon": "ue_zhanmadao",
+  "options": [
+    {
+      "id": "yanling_edge",
+      "mesh_name": "SM_Zhanmadao_Blade_yanling_edge_V1",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TangDaoMeshy20261002\\YanlingBlade20261002\\TangDao_YanlingBlade_Editable.blend",
+      "lod_triangles": [
+        121480,
+        66814,
+        31584
+      ],
+      "longitudinal_scale": 1.3039180435424815,
+      "rotation_about_z_deg": 180,
+      "seat_overlap_mm": 0.6,
+      "seat_size_cm": [
+        5.92984439432621,
+        1.6344480030238628
+      ],
+      "seat_scale_xy": [
+        1.105879333176738,
+        0.6385695417887638
+      ],
+      "root_transition_cm": 6,
+      "trace_base_cm": [
+        0.005440041422843933,
+        0.0023478642106056213,
+        7.1407027542591095
+      ],
+      "trace_tip_cm": [
+        -11.386364484913864,
+        3.654247753970144e-12,
+        120.00000454112137
+      ],
+      "rune_dimensions_cm": [
+        14,
+        12,
+        120.00000476837158
+      ],
+      "material_slots": [
+        "M_TangDaoSurface",
+        "M_TangDaoYanlingSteel"
+      ]
+    },
+    {
+      "id": "tengyun_dragon",
+      "mesh_name": "SM_Zhanmadao_Blade_tengyun_dragon_V1",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TangDaoMeshy20261002\\TengyunBlade20261002\\TangDao_TengyunBlade_Editable.blend",
+      "lod_triangles": [
+        118664,
+        65264,
+        30852
+      ],
+      "longitudinal_scale": 1.3030152617337778,
+      "rotation_about_z_deg": 180,
+      "seat_overlap_mm": 0.6,
+      "seat_size_cm": [
+        5.92984439432621,
+        1.6344480030238628
+      ],
+      "seat_scale_xy": [
+        1.105283182987957,
+        2.33492564653409
+      ],
+      "root_transition_cm": 6,
+      "trace_base_cm": [
+        0.005440041422843933,
+        0.0023478642106056213,
+        7.1407027542591095
+      ],
+      "trace_tip_cm": [
+        -9.508093963555298,
+        5.798460302654951e-22,
+        120.00000476837158
+      ],
+      "rune_dimensions_cm": [
+        14,
+        12,
+        120.00000476837158
+      ],
+      "material_slots": [
+        "M_TangDaoTengyunSteel"
+      ]
+    }
+  ],
+  "game_tested": false,
+  "policy": "Existing LOD topology and UV retained; fitted root, rotated blade and extended length only"
+}

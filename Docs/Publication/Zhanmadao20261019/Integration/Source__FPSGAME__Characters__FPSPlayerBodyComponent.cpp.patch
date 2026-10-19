@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -1,3 +1,4 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "../Weapons/BeiweiSwordTrailComponent.h"
+ #include "../Items/FPSPotionUseComponent.h"
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+@@ -222,4 +223,5 @@
+ void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    if(BeiweiWorldTrail){GetOwner()->RemoveInstanceComponent(BeiweiWorldTrail);BeiweiWorldTrail->DestroyComponent();BeiweiWorldTrail=nullptr;}
+     ReleaseDeathCamera();
+     ClearGunPresentation();
+@@ -447,4 +449,10 @@
+         if(BodyAnimation->Speed>3.f)BodyAnimation->Direction=FMath::RadiansToDegrees(FMath::Atan2(LocalVelocity.Y,LocalVelocity.X));
+         BodyAnimation->VerticalSpeed=LocalVelocity.Z;BodyAnimation->bFalling=Character->GetCharacterMovement()->IsFalling();
+-    }
+-}
++        if(DisplayState.Action==EFPSBodyAction::Whirlwind&&DisplayState.ActionVariant==TEXT("ZhufengWhirlwind"))
++        {
++            const float Progress=FPSBodyPoses::Progress(DisplayState,ServerClock());
++            BodyAnimation->Speed=Progress<DisplayState.ReleaseFraction?DisplayState.ZhufengForwardSpeed:0.f;
++            BodyAnimation->Direction=0.f;
++        }
++    }
++}

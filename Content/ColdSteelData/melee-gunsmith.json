@@ -134,12 +134,13 @@
           "id": "yanling_edge",
           "name": "破锋燕翎刀身",
           "weapons": [
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_zhanmadao"
           ],
-          "description": "唐刀专属。燕翎折锋配双导槽与层叠锻钢纹，保留原有龙纹。",
+          "description": "燕翎折锋配双导槽与层叠锻钢纹，保留原有龙纹。",
           "effects": [
             {
-              "text": "连段收尾改为冲刺竖劈动作 · 前方矩形判定",
+              "text": "连段收尾改为冲刺竖劈 · 前方矩形群体攻击 · 第三段伤害 +40%",
               "benefit": 0
             },
             {
@@ -157,23 +158,25 @@
             "block_reduction_mult": 0.9
           },
           "special_effects": [
-            "连段变化｜连段收尾改为冲刺竖劈，打击前方矩形区域。"
+            "连段变化｜第三段改为冲刺竖劈，对前方矩形区域内的多个目标造成伤害；每个目标每次收尾只结算一次。",
+            "收尾伤害｜第三段伤害提高40%。"
           ]
         },
         {
           "id": "tengyun_dragon",
           "name": "腾云游龙刀身",
           "weapons": [
-            "ue_tang_dao"
+            "ue_tang_dao",
+            "ue_zhanmadao"
           ],
-          "description": "唐刀专属。弧形刀尖接修长龙脊，鎏金游龙交织流云与水波锻纹。",
+          "description": "弧形刀尖接修长龙脊，鎏金游龙交织流云与水波锻纹。",
           "effects": [
             {
               "text": "攻击速度 +10%",
               "benefit": 1
             },
             {
-              "text": "连段收尾改为升龙 · 准备时间 -50% · 无韧性或破韧时击飞",
+              "text": "连段收尾改为群体升龙 · 第三段伤害 +30% · 准备时间 -50% · 无韧性或破韧时击飞",
               "benefit": 1
             }
           ],
@@ -182,8 +185,65 @@
             "combo_third_damage_mult": 1.3
           },
           "special_effects": [
-            "连段变化｜连段收尾改为升龙，准备时间缩短50%。",
+            "连段变化｜第三段改为群体升龙，可命中前方挥刀范围内的多个目标；每个目标每次收尾只结算一次，准备时间缩短50%。",
+            "收尾伤害｜第三段伤害提高30%。",
             "击飞｜升龙命中无韧性或已破韧的目标时，将其击飞。"
+          ]
+        },
+        {
+          "id": "chixiao",
+          "name": "赤霄",
+          "tier": "legendary",
+          "weapons": [
+            "ue_zhanmadao"
+          ],
+          "description": "玄钢锻成的宽腹长刃，厚脊渐收至修长刀尖。暗红嵌线沿刀脊延伸，刀根浮现金色云纹，中央钢面留给可替换符文。",
+          "stats": {
+            "attack_speed_mult": 1.15,
+            "physical_damage_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "攻击速度 +15%",
+              "benefit": 1
+            },
+            {
+              "text": "物理攻击力 +10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "赤霄双斩｜重击改为快速二连斩：先下斩，再从落刀处向右上方挑斩。两刀均造成完整重击伤害，属于武技。出手体力消耗翻倍，蓄力期间每秒体力消耗不变。",
+            "赤霄剑气｜重击双斩时，红色剑气沿刀刃实际挥过的轨迹展开并渐隐；同时安装背嵬符文时，重击使用红色剑气，其他武技保留金色剑气。"
+          ]
+        },
+        {
+          "id": "zhufeng",
+          "name": "逐风",
+          "tier": "legendary",
+          "weapons": [
+            "ue_zhanmadao"
+          ],
+          "stats": {
+            "range_mult": 1.2,
+            "physical_damage_mult": 1.1,
+            "whirlwind_damage_add": 0.5
+          },
+          "description": "青灰长刃配银白刃口，刀脊饰旋流锻纹。",
+          "effects": [
+            {
+              "text": "攻击范围 +20%",
+              "benefit": 1
+            },
+            {
+              "text": "物理攻击力 +10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "逐风旋斩｜冲刺攻击改为向前匀速推进的群体旋风，旋转结束或受阻时停止推进；每个目标仅命中一次。",
+            "旋风强化｜旋风伤害倍率 +0.5，旋转时显现青色剑气；主动大旋风同样生效。",
+            "施放条件｜需学会冲刺攻击。沿用大旋风等级、消耗并共用冷却；未学大旋风时按一级计算。"
           ]
         }
       ]
@@ -248,7 +308,8 @@
             "ue_rune_sword",
             "ue_highland_claymore",
             "ue_tang_dao",
-            "ue_xuanchi_zhenyue"
+            "ue_xuanchi_zhenyue",
+            "ue_zhanmadao"
           ],
           "description": "紫色侵蚀裂纹沿刃面闪烁。智力与精神转为附加魔法伤害，随连击和重击倍率放大，再按魔法防御结算。寒晶已自带此效果。",
           "effects": [
@@ -497,6 +558,33 @@
             "攻击吸血｜进入低血量获得10秒吸血，实际攻击伤害的10%转化为生命；低血量攻击命中刷新至10秒，回血脱离低血量保留剩余时间。",
             "解除｜切换武器或卸下符文，立即清除全部加成及吸血。"
           ]
+        },
+        {
+          "id": "beiwei_rune",
+          "name": "背嵬符文",
+          "tier": "legendary",
+          "weapons": [
+            "ue_zhanmadao"
+          ],
+          "description": "斩马刀专属传说符文。精忠报国四字以秀雅行书鎏入刀身，笔锋顺着长刃微弧延展，暗金字底间游过暖金光。",
+          "stats": {
+            "martial_damage_mult": 1.5,
+            "martial_range_mult": 1.25
+          },
+          "effects": [
+            {
+              "text": "武技伤害 +50%",
+              "benefit": 1
+            },
+            {
+              "text": "武技判定范围 +25%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "释放武技时，金色剑气沿刀刃实际挥过的轨迹展开并渐隐。",
+            "伤害与范围加成仅作用于武技，普通攻击与普通连段不受影响。"
+          ]
         }
       ]
     },
@@ -514,7 +602,8 @@
             "ue_rune_sword",
             "ue_highland_claymore",
             "ue_tang_dao",
-            "ue_xuanchi_zhenyue"
+            "ue_xuanchi_zhenyue",
+            "ue_zhanmadao"
           ],
           "description": "宽厚防护翼，偏重格挡减伤和稳固招架。",
           "effects": [
@@ -545,7 +634,8 @@
             "ue_rune_sword",
             "ue_highland_claymore",
             "ue_tang_dao",
-            "ue_xuanchi_zhenyue"
+            "ue_xuanchi_zhenyue",
+            "ue_zhanmadao"
           ],
           "description": "上挑护翼，偏重招架反击。扩大弹反判定窗口；成功弹反获得攻速与耐力激励，再次弹反刷新持续时间。",
           "effects": [
@@ -577,7 +667,8 @@
             "ue_rune_sword",
             "ue_highland_claymore",
             "ue_tang_dao",
-            "ue_xuanchi_zhenyue"
+            "ue_xuanchi_zhenyue",
+            "ue_zhanmadao"
           ],
           "description": "收窄轻翼，偏重灵活出手和耐力续航。",
           "effects": [
@@ -836,7 +927,8 @@
             "ue_rune_sword",
             "ue_frost_crystal_sword",
             "ue_highland_claymore",
-            "ue_xuanchi_zhenyue"
+            "ue_xuanchi_zhenyue",
+            "ue_zhanmadao"
           ],
           "description": "贴平钢脊支撑三段皮革握区，偏重重击破韧，出手稍慢。伤害与削韧增益仅作用于重击，包含护手转换的重击。",
           "effects": [
@@ -866,7 +958,8 @@
             "ue_rune_sword",
             "ue_frost_crystal_sword",
             "ue_highland_claymore",
-            "ue_xuanchi_zhenyue"
+            "ue_xuanchi_zhenyue",
+            "ue_zhanmadao"
           ],
           "description": "交错锁纹织带贴合握区，提升格挡稳定性与受击续航。格挡减伤沿原有上限计算。",
           "effects": [
@@ -1163,6 +1256,15 @@
         {
           "icon": "special",
           "text": "攻击距离 +25%（挥砍 450cm / 突刺 514cm）"
+        }
+      ]
+    },
+    {
+      "id": "ue_zhanmadao",
+      "traits": [
+        {
+          "icon": "special",
+          "text": "攻击距离 +25%"
         }
       ]
     }

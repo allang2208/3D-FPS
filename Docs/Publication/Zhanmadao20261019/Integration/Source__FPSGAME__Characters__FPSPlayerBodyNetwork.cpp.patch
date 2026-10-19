@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -32,5 +32,6 @@
+         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
+         ||A.RightHand.bEquipping!=B.RightHand.bEquipping||A.LeftHand.bEquipping!=B.LeftHand.bEquipping
+-        ||A.AzureFlags!=B.AzureFlags
++        ||A.AzureFlags!=B.AzureFlags||A.bBeiweiMartial!=B.bBeiweiMartial||A.bChixiaoHeavyTrail!=B.bChixiaoHeavyTrail
++        ||A.bZhufengWhirlwindTrail!=B.bZhufengWhirlwindTrail
+         ||A.Contacts.FloatingBook!=B.Contacts.FloatingBook
+         ||(A.bHasActionProgress&&A.Action!=EFPSBodyAction::Guard&&A.ActionProgress+.08f<B.ActionProgress)
+@@ -147,4 +148,6 @@
+     Next.ContactFraction=Unit(Next.ContactFraction,.5f);Next.ReleaseFraction=Unit(Next.ReleaseFraction,.8f);
+     Next.WhirlwindTurns=FMath::IsFinite(Next.WhirlwindTurns)?FMath::Clamp(Next.WhirlwindTurns,-8.f,8.f):-2.f;
++    Next.ZhufengForwardSpeed=FMath::IsFinite(Next.ZhufengForwardSpeed)?FMath::Clamp(Next.ZhufengForwardSpeed,0.f,1200.f):0.f;
++    Next.ZhufengForwardYaw=FMath::IsFinite(Next.ZhufengForwardYaw)?FRotator::NormalizeAxis(Next.ZhufengForwardYaw):0.f;
+     Next.AzureSourceLength=FMath::IsFinite(Next.AzureSourceLength)?FMath::Clamp(Next.AzureSourceLength,0.f,10.f):0.f;
+     Next.AzureEntryTime=FMath::IsFinite(Next.AzureEntryTime)?FMath::Clamp(Next.AzureEntryTime,0.f,Next.AzureSourceLength):0.f;

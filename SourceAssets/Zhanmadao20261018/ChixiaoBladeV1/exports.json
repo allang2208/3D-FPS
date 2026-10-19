@@ -1,0 +1,43 @@
+{
+  "id": "chixiao",
+  "name": "赤霄",
+  "mesh_name": "SM_Zhanmadao_Blade_chixiao_V1",
+  "lod_triangles": [
+    28076,
+    12172,
+    5372
+  ],
+  "material_slots": [
+    "M_Chixiao_BladeSurface",
+    "M_Chixiao_Brass"
+  ],
+  "trace_base_cm": [
+    0.005440041422843933,
+    0.0023478642106056213,
+    7.1407033858258195
+  ],
+  "trace_tip_cm": [
+    -13.900000000000002,
+    0.0023478642106056213,
+    120.00000476837158
+  ],
+  "rune_dimensions_cm": [
+    10,
+    3,
+    120
+  ],
+  "seat_size_cm": [
+    5.92984439432621,
+    1.6344480030238628
+  ],
+  "seat_overlap_mm": 0.6,
+  "rigid_length_cm": 160.13139188289642,
+  "geometry": "new closed loft with recessed spine inlay/fullers and two-sided brass cloud relief",
+  "texture_resolution": [
+    1024,
+    4096
+  ],
+  "source": "Chixiao_Blade_Editable.blend",
+  "effects_applied": false,
+  "game_tested": false
+}

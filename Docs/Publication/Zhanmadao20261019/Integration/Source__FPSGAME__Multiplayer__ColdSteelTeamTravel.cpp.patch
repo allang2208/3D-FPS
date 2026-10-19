@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelTeamTravel.cpp
+@@ -97,4 +97,5 @@
+     CancelPendingNetworkCast();
+     SettleSwordUppercut();
++    SettleSwordWhirlwind();
+     if(auto* Fire=GetPawn()->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishFireMagicForRemoval();
+     if(auto* Ice=GetPawn()->FindComponentByClass<UFPSIceArmorComponent>())Ice->FinishForRemoval();

@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -71,4 +71,5 @@
+     UPROPERTY() uint32 QuickCombatSerial = 0;
+     UPROPERTY() uint32 UppercutSerial = 0;
++    UPROPERTY() uint32 WhirlwindSerial = 0;
+ };
+ 
+@@ -338,4 +339,13 @@
+     void FinishSwordUppercut();
+     void SettleSwordUppercut();
++    bool RequestSwordWhirlwind(bool Zhufeng,const FVector& Direction);
++    void FinishSwordWhirlwind();
++    void SettleSwordWhirlwind();
++    bool IsSwordWhirlwindExecuting(const APawn* Pawn) const;
++    bool SwordWhirlwindMove(uint32 MoveSequence,FVector& Direction,float& DistanceLimit) const;
++    UFUNCTION(Server,Reliable) void ServerSwordWhirlwind(uint32 Sequence,APawn* Pawn,const FString& Weapon,bool Zhufeng,
++        uint32 MoveSequence,FVector_NetQuantizeNormal Direction,bool Finish);
++    UFUNCTION(Client,Reliable) void ClientSwordWhirlwindResult(uint32 Sequence,APawn* Pawn,bool Accepted,
++        double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+     UFUNCTION(Server,Reliable) void ServerSwordUppercut(uint32 Sequence,APawn* Pawn,const FString& Weapon,bool Finish);
+     UFUNCTION(Client,Reliable) void ClientSwordUppercutResult(uint32 Sequence,APawn* Pawn,bool Accepted,double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+@@ -362,4 +372,20 @@
+     friend class ASkillWireAuditGameMode;
+     void TickSwordUppercut();
++    void TickSwordWhirlwind(float Delta);
++    bool ValidateSwordWhirlwindHit(const FColdSteelNetHitReport& Report,const AFPSGAMECharacter* Pawn,FString& Reason) const;
++    void ConfirmSwordWhirlwindHit(AFPSGAMECharacter* Pawn,AActor* Target,float Applied,bool Killed);
++    uint32 WhirlwindSequence=0,WhirlwindReceivedSequence=0,WhirlwindActiveSequence=0,WhirlwindReceiptSequence=0;
++    uint32 WhirlwindMoveSequence=0;
++    TWeakObjectPtr<APawn> WhirlwindPawn;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> WhirlwindRewardModel;
++    FString WhirlwindWeapon,WhirlwindSprintWeapon;
++    FWhirlwindCast ServerWhirlwindCast;
++    FVector WhirlwindMoveDirection=FVector::ForwardVector;
++    double WhirlwindStartedAt=0.,WhirlwindUntil=0.,WhirlwindDashReadyUntil=-1.;
++    float WhirlwindReadySeconds=0.f,WhirlwindMoveSeconds=0.f,WhirlwindMoveSpeed=0.f,WhirlwindSprintSeconds=0.f;
++    float WhirlwindRuneVulnerability=0.f,WhirlwindRuneSeconds=0.f,WhirlwindCooldownReduction=0.f;
++    bool bWhirlwindZhufeng=false,bWhirlwindCooldownReduced=false;
++    int32 WhirlwindHits=0,WhirlwindKills=0;
++    TSet<TWeakObjectPtr<AActor>> WhirlwindTargets;
+     uint32 UppercutSequence=0,UppercutReceivedSequence=0,UppercutActiveSequence=0,UppercutReceiptSequence=0;
+     TWeakObjectPtr<APawn> UppercutPawn;

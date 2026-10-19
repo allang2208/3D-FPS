@@ -31,3 +31,6 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - M870 的泵动中断、ADS 保持、枪托近战权威、通用配件衔接及图标手臂剔除：[M870 泵动枪接入](references/m870-pump-integration.md)。按武器实例维护机械状态，区分离线权威检查与真实联机。
 
 - S12K 低模封闭、材质、前向弹鼓与专属后托：[S12K 低模封闭、材质、前向弹鼓与专属后托](references/saiga12k-production.md)。按问题读取；历史检查不授权自动重测。
+
+
+- 长刀符文、赤霄双斩、逐风前进旋风与三色剑气：读取 [斩马刀改造](references/zhanmadao-legendary-blades.md)。保留独立攻击时钟、改造配方和仍有效的旧版制作输入。

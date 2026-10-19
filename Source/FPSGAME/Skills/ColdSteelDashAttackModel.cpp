@@ -22,9 +22,9 @@ FDashAttackCast UColdSteelStatusModel::DashAttackStats(int32 AtLevel) const
     if(Item&&!ActiveProductionTool()&&ColdSteelInventory::IsMeleeWeapon(*Item))
     {
         const auto Stats=ColdSteelMelee::Evaluate(*Item,this);
-        C.Damage=FMath::FloorToFloat(Stats.Damage*C.DamageMultiplier);
+        C.Damage=FMath::FloorToFloat(Stats.Damage*C.DamageMultiplier)*Stats.Modifiers.MartialDamage;
         // 使用当前 UE 兵器的基础有效射程；原技能额外距离只换算一次。
-        C.RangeCM=(RuneSwordCombatTuning::ScaledReach(Stats.BaseReach)+C.RangeBonusCM)*Stats.Modifiers.Range;
+        C.RangeCM=(RuneSwordCombatTuning::ScaledReach(Stats.BaseReach)+C.RangeBonusCM)*Stats.Modifiers.Range*Stats.Modifiers.MartialRange;
         C.KnockbackBonusCM*=Stats.Modifiers.AllAttackKnockback;
         C.KnockbackCM=Stats.KnockbackCM+C.KnockbackBonusCM;
         const auto* Enhance=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();

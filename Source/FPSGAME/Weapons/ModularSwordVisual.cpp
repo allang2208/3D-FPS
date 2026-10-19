@@ -120,6 +120,22 @@ void ColdSteelModularSword::ResetCatalogCache()
 bool ColdSteelModularSword::Supports(const FColdSteelItem& Item)
 {return Catalog(Item).IsValid();}
 
+bool ColdSteelModularSword::UsesChixiaoDoubleHeavy(const FColdSteelItem& Item)
+{
+    if(Item.Definition!=TEXT("ue_zhanmadao"))return false;
+    const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,nullptr));
+    FString Attack;
+    return Spec&&Spec->TryGetStringField(TEXT("heavy_attack"),Attack)&&Attack==TEXT("chixiao_double_slash");
+}
+
+bool ColdSteelModularSword::UsesZhufengWhirlwind(const FColdSteelItem& Item)
+{
+    if(Item.Definition!=TEXT("ue_zhanmadao"))return false;
+    const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,nullptr));
+    FString Attack;
+    return Spec&&Spec->TryGetStringField(TEXT("dash_attack"),Attack)&&Attack==TEXT("zhufeng_whirlwind");
+}
+
 bool ColdSteelModularSword::UsesOverheadFinisher(const FColdSteelItem& Item,const FGunsmithParts* Draft)
 {
     const auto Spec=Part(Item,TEXT("blade_1"),Installed(Item,Draft));
@@ -155,6 +171,8 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
         Add(ColdSteelFrostRunes::ZhenmoMask);
     if(Item.Definition==ColdSteelFrostRunes::XuanChi&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Jingang)
         Add(ColdSteelFrostRunes::JingangMask);
+    if(Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Beiwei)
+        Add(ColdSteelFrostRunes::BeiweiMask);
     const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
     {
         FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
@@ -226,6 +244,9 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
     if(Blade->ComponentHasTag(FName(*(KeyPrefix+VisualKey))))return true;
     const auto Parts=Installed(Item,Draft);
     const FString PrimarySlot=RootSlot(Item);
+    // The root is a real module too; cosmetic adapters need its authored slot.
+    Blade->ComponentTags.RemoveAll([](FName Tag){return Tag.ToString().StartsWith(TEXT("SwordSlot="));});
+    Blade->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+PrimarySlot)));
     const FVector PommelOffset=Vector(Part(Item,TEXT("grip"),Parts),TEXT("pommel_offset_cm"));
     struct FInstall {FString Slot;TSharedPtr<FJsonObject> Spec;UStaticMesh* Asset;TMap<FName,UMaterialInterface*> Materials;};
     TArray<FInstall> Plan;
@@ -359,6 +380,8 @@ FString ColdSteelModularSword::Appearance(const FColdSteelItem& Item,const FStri
         return TEXT("金色太极八卦主印 · 沿刃符线 · 镇岳专属传说");
     if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::XuanChi&&Option==ColdSteelFrostRunes::Jingang)
         return TEXT("金刚经行草 · 金色渐变经文 · 镇岳专属传说");
+    if(Slot==TEXT("blade_2")&&Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Option==ColdSteelFrostRunes::Beiwei)
+        return TEXT("精忠报国行书 · 贴刃鎏金 · 武技金色剑气");
     if(Slot==TEXT("blade_2")&&Option==TEXT("strength_rune"))return TEXT("中轴重印 · 赤红微光");
     if(Slot==TEXT("blade_2")&&Option==TEXT("haste_rune"))return TEXT("疾风折纹 · 黄色流光");
     if(Slot==TEXT("blade_2"))return Factory?TEXT("保留原有刃面纹样"):TEXT("剑刃表面符文");

@@ -5223,5 +5223,35 @@
       }
     ],
     "desc": "采用导气式机构与可拆卸弹匣的 12 号霰弹枪。本型支持按住扳机连续射击，八发弹匣便于集中补充弹药；紧凑枪身适合近距离交火，持续开火时需要控制后坐与射击节奏。"
+  },
+  "ue_zhanmadao": {
+    "id": "ue_zhanmadao",
+    "name": "斩马刀",
+    "category": "weapon_melee",
+    "type": "双手长刀",
+    "weaponType": "sword",
+    "weaponTypeTag": "双手刀",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 2,
+    "grid_h": 4,
+    "price": 3200,
+    "level": 1,
+    "enhanceLevel": 0,
+    "desc": "边地铸坊为守关刀手打造的双手长刀。修长刀身略带弧度，厚脊与开刃面贯至刀尖，黑红缠柄便于双手分握发力。挥斩时以长刃控制身前距离，回收刀势后可接突刺与格挡。",
+    "ue_icon": "Icons/ue_zhanmadao.png",
+    "melee_damage": 55,
+    "melee_reach_cm": 225,
+    "attack_seconds": 2.04125,
+    "contact_start": 0.85,
+    "contact_end": 0.965,
+    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+    "world_mesh": "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Complete_V1.SM_Zhanmadao_Complete_V1",
+    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
+    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
+    "icon_fallback": "斩马刀",
+    "modular_sword_catalog": "zhanmadao-modules.json"
   }
 }

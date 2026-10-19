@@ -1,0 +1,152 @@
+{
+  "weapon": "ue_zhanmadao",
+  "options": [
+    {
+      "option": "shock_wrap",
+      "mesh": "SM_Zhanmadao_Grip_shock_wrap_V2",
+      "length_cm": 33.34998655658774,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 70458,
+      "retained_end_regions_m": [
+        [
+          -0.012,
+          0
+        ],
+        [
+          -0.33349986556587735,
+          -0.32149986556587734
+        ]
+      ],
+      "materials": [
+        "M_Zhanmadao_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    },
+    {
+      "option": "swift_grip",
+      "mesh": "SM_Zhanmadao_Grip_swift_grip_V2",
+      "length_cm": 33.34998655658774,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 70458,
+      "retained_end_regions_m": [
+        [
+          -0.012,
+          0
+        ],
+        [
+          -0.33349986556587735,
+          -0.32149986556587734
+        ]
+      ],
+      "materials": [
+        "M_Zhanmadao_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    },
+    {
+      "option": "long_twohand",
+      "mesh": "SM_Zhanmadao_Grip_long_twohand_V2",
+      "length_cm": 36.84998655658774,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -3.5000000000000004
+      ],
+      "triangles": 70458,
+      "retained_end_regions_m": [
+        [
+          -0.012,
+          0
+        ],
+        [
+          -0.33349986556587735,
+          -0.32149986556587734
+        ]
+      ],
+      "materials": [
+        "M_Zhanmadao_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"
+    },
+    {
+      "option": "iron_spine_power_grip",
+      "mesh": "SM_Zhanmadao_Grip_iron_spine_power_grip_V2",
+      "length_cm": 33.34998655658774,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 70458,
+      "retained_end_regions_m": [
+        [
+          -0.012,
+          0
+        ],
+        [
+          -0.33349986556587735,
+          -0.32149986556587734
+        ]
+      ],
+      "materials": [
+        "M_Zhanmadao_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    },
+    {
+      "option": "lockweave_guard_grip",
+      "mesh": "SM_Zhanmadao_Grip_lockweave_guard_grip_V2",
+      "length_cm": 33.34998655658774,
+      "pommel_offset_cm": [
+        0,
+        0,
+        -0.0
+      ],
+      "triangles": 70458,
+      "retained_end_regions_m": [
+        [
+          -0.012,
+          0
+        ],
+        [
+          -0.33349986556587735,
+          -0.32149986556587734
+        ]
+      ],
+      "materials": [
+        "M_Zhanmadao_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel",
+        "M_SharedGrip_Textile"
+      ],
+      "animation_folder": null
+    }
+  ],
+  "source": "../Zhanmadao_Modular_Editable.blend",
+  "factory_length_cm": 33.34998655658774,
+  "long_grip_extension_cm": 3.5,
+  "geometry": "Retained exact upper/lower rims and native UV/normals; continuous inset wraps inside the source hand envelope",
+  "current_bone_mount": "unchanged; retain the live Zhanmadao bone_mount",
+  "game_tested": false,
+  "acceptance_render_run": false
+}

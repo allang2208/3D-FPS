@@ -5051,3 +5051,45 @@ __pycache__/
 
 # Shared humanoid audio batch: CC0 source packs, authored WAVs and import receipts stay local.
 /SourceAssets/SharedHumanoidAudio20261016/**
+
+# Zhanmadao publication: private licensed media, dense poses and generated hosts stay local.
+/SourceAssets/Zhanmadao20261018/**
+!/SourceAssets/Zhanmadao20261018/**/
+!/SourceAssets/Zhanmadao20261018/**/*.py
+!/SourceAssets/Zhanmadao20261018/**/*.ps1
+!/SourceAssets/Zhanmadao20261018/**/*.md
+!/SourceAssets/Zhanmadao20261018/**/*.hlsl
+/SourceAssets/Zhanmadao20261018/**/Before/
+/SourceAssets/Zhanmadao20261018/**/AssetHost/
+/SourceAssets/Zhanmadao20261018/**/__pycache__/
+/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**
+!/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/
+!/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/*.py
+!/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/*.ps1
+!/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/*.md
+!/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/*.hlsl
+/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/Before/
+/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/AssetHost/
+/SourceAssets/TangDaoMeshy20261002/BladeAOE20261019/**/__pycache__/
+!/SourceAssets/Zhanmadao20261018/fit_manifest.json
+!/SourceAssets/Zhanmadao20261018/exports.json
+!/SourceAssets/Zhanmadao20261018/BeiweiRuneV1/design.json
+!/SourceAssets/Zhanmadao20261018/BeiweiRuneV1/integration.json
+!/SourceAssets/Zhanmadao20261018/BeiweiRuneV1/source_bindings.json
+!/SourceAssets/Zhanmadao20261018/ChixiaoBladeConceptV1/design.json
+!/SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/exports.json
+!/SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/integration.json
+!/SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/layout.json
+!/SourceAssets/Zhanmadao20261018/ChixiaoBladeV1/source_bindings.json
+!/SourceAssets/Zhanmadao20261018/ChixiaoDoubleHeavyV1/source_paths.json
+!/SourceAssets/Zhanmadao20261018/CommonModsV2/grip_exports.json
+!/SourceAssets/Zhanmadao20261018/CommonModsV2/icon_manifest.json
+!/SourceAssets/Zhanmadao20261018/CommonModsV2/variant_exports.json
+!/SourceAssets/Zhanmadao20261018/RuneSurfaceV1/layouts.json
+!/SourceAssets/Zhanmadao20261018/RuneSurfaceV1/source_bindings.json
+!/SourceAssets/Zhanmadao20261018/TangDaoBladesV1/blade_exports.json
+!/SourceAssets/Zhanmadao20261018/ZhufengBladeConceptV1/design.json
+!/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/exports.json
+!/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/layout.json
+!/SourceAssets/Zhanmadao20261018/ZhufengBladeV1/source_bindings.json
+/SourceAssets/ZhanmadaoPublication20261019/

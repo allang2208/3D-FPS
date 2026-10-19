@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordPose.inl
++++ b/Source/FPSGAME/Characters/FPSBodySwordPose.inl
+@@ -54,4 +54,11 @@
+     {
+         SwordEntryPose=ContinuousHammer&&!HammerVisiblePose.IsEmpty()?HammerVisiblePose:LastSwordPose;
++        if(State.ActionVariant==TEXT("ZhufengWhirlwind"))
++        {
++            // A sprint release starts from the evaluated carry on this frame,
++            // not a stale ordinary strike retained from the previous action.
++            SwordEntryPose.SetNum(Out.Pose.GetNumBones());
++            for(int32 I=0;I<SwordEntryPose.Num();++I)SwordEntryPose[I]=Out.Pose[FCompactPoseBoneIndex(I)];
++        }
+         SwordEntryGripRoll=LastSwordGripRoll;SwordEntryGripSlide=LastSwordGripSlide;SwordTransitionAge=0.f;
+         HammerGripEntry=bHasHammerGripHistory?HammerGripLast:HammerCarryGrip;HammerHipEntry=HammerHipLast;

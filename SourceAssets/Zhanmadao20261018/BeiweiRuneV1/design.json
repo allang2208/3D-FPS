@@ -1,0 +1,71 @@
+{
+  "name": "背嵬符文",
+  "id": "beiwei_rune",
+  "date": "2026-10-18",
+  "status": "integrated_saved",
+  "game_integrated": true,
+  "user_visual_approval": true,
+  "weapon": "ue_zhanmadao",
+  "slot": "blade_2",
+  "tier": "legendary",
+  "inscription": "精忠报国",
+  "concept_inscription": "精忠報國",
+  "description": "斩马刀专属传说符文。将精忠报国四字以秀雅行书鎏入刀身，笔锋顺着长刃的微弧延展，暗金字底间缓缓游过暖金光。",
+  "effects": [
+    {
+      "text": "武技伤害 +50%",
+      "multiplier": 1.5,
+      "scope": "martial_skills_only"
+    },
+    {
+      "text": "武技判定范围 +25%",
+      "multiplier": 1.25,
+      "scope": "martial_skills_only",
+      "scope_confirmed_by_user": true
+    }
+  ],
+  "appearance": {
+    "calligraphy": "赵孟頫传统行书方向，字形清秀、瘦劲、圆转，金色笔迹贴合刀面",
+    "blade": "保留现有斩马刀模型；设计板为概念表现，正式接入沿六款刀身现有曲线投射",
+    "color": "沉金底纹、暖琥珀主体、少量香槟笔锋，低强度沿刃流光",
+    "icon": "标准厚倒角银灰金属方框、四角铆钉、银内环、深灰底板；中心背嵬字形；框外透明"
+  },
+  "references": [
+    {
+      "type": "official_typeface_style",
+      "url": "https://nzj.foundertype.com/5368.html",
+      "title": "方正赵孟頫行书",
+      "usage": "书风方向参考；未下载或嵌入商业字体文件"
+    },
+    {
+      "type": "museum",
+      "url": "https://www.dpm.org.cn/collection/handwriting/231799.html",
+      "title": "赵孟頫行书三段卷"
+    },
+    {
+      "type": "approved_local_concept",
+      "path": "SourceAssets/JingangRune20261006/Artwork/ApprovedConcept.png"
+    },
+    {
+      "type": "approved_local_icon",
+      "path": "SourceAssets/JingangRune20261006/Artwork/Jingang_Icon.png"
+    },
+    {
+      "type": "actual_weapon",
+      "path": "SourceAssets/Zhanmadao20261018/Export/ue_zhanmadao.png"
+    }
+  ],
+  "artifacts": {
+    "concept": "Artwork/Beiwei_Concept_V1.png",
+    "icon": "Artwork/Beiwei_Icon_V1.png",
+    "prompts": "imagegen_prompts.txt"
+  },
+  "generation": "built-in image_gen",
+  "tests_run": false,
+  "sword_qi": {
+    "trigger": "equipped beiwei rune, martial skill release only",
+    "type": "gold world-space blade trail",
+    "lifetime_seconds": 0.24,
+    "damages_targets": false
+  }
+}
