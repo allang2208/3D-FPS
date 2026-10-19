@@ -1,0 +1,1605 @@
+{
+  "base_commit": "403e1eed3e7135749192492eb83983333e32955a",
+  "scope": "ST6, garment repairs, blue mage set, steel armet and focused skills",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 281935,
+      "sha256": "d6c2fe6a754f00b89ebc7210d6846d2050c0c4c431564c4e0109c96debeb0a7b",
+      "head_sha256": "cb8d55a37559029d4748578399e7dcf6e8db46cee22afb55f8ad2f9b7a752fd3",
+      "method": "append this task block to HEAD; preserve unrelated working-copy edits"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 177673,
+      "sha256": "7088c1e0f520d8100285af439afd81be8536ec1ed1db675f3baf8ba2573faec1",
+      "head_sha256": "d8948eba76519c986fd4c3eec1e4e09fd1debfcda40051916c96f37d6ae885dc",
+      "method": "only ue_st6_tactical_pants,ue_st6_tactical_boots,ue_smoke_grey_capri,ue_leather_pants,ue_chainmail_pants; exclude combat balance and unrelated items"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "bytes": 130595,
+      "sha256": "e478e4ae42a3841c4c76b26c8a6513089102dd96eeffd0fed3b0e7a4ebb4f070",
+      "head_sha256": "7ef8b10ee18122fb8dfaaf550c5c65c5111fe09b14e8c06b5c220a1554fe5b74",
+      "method": "16 outfit entries and existing Super90 separate_gloves only; new gun aliases remain with their producers"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "bytes": 32195,
+      "sha256": "74b60c6c6d76a80db32280d89197982dc0e5c7d0e7b7dbcaf031771b98710896",
+      "head_sha256": "3c1649d401c2e1248a46684b7cc0d3467fe6d75bb9a3190ac2ade873a076b225",
+      "method": "mage hat and steel armet recipes only; preserve base clips/backpack and exclude field hat"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 125006,
+      "sha256": "3e573b91377ecdb56831ac01f6a5bce58337dd015a2b35f670b80640732f6cd6",
+      "head_sha256": "a7879e390a2a7a82a2c0ca8da0ce47f6f330567fb0305c2bab91da36a14ec7a5",
+      "method": "append this task block to HEAD; preserve unrelated working-copy edits"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-boots-20261019.md",
+      "bytes": 4544,
+      "sha256": "932a042ada361ca81aa17a3c51be44e323ff5812b109e3b1f209339dd45c10a0",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-cloth-rollback-20261019.md",
+      "bytes": 3086,
+      "sha256": "a156125093e05e2b4d0d62ce0871524461a9ed81a022610bac085a445f98e87c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-facing-fix-20261020.md",
+      "bytes": 2190,
+      "sha256": "07263978ad8a11e4675aed774e77c46293c57bb61f81a89846ce723a20fd2757",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-hem-continuity-20261019.md",
+      "bytes": 4624,
+      "sha256": "7203a5f7b072a482c5439fc9eb45cd390db686b8bac2c25a41951a95de7ef5be",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-hem-refinement-20261020.md",
+      "bytes": 3159,
+      "sha256": "b4e9f2e540a1c90643c045cd66d407ac753fc65573a714ca2ae609877bcb1605",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-pants-20261019.md",
+      "bytes": 3689,
+      "sha256": "63352662f775a940fa169eec0860af34ad5acdfb1123a225821dc6b460a1c816",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-review-20261020.md",
+      "bytes": 5309,
+      "sha256": "a12594f3ec9599d0778941be42396552d2b37b724c5429238432dabb8524c58f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-robe-movement-fit-20261019.md",
+      "bytes": 5894,
+      "sha256": "194259dc01f4724626d06e5ed1cec0fd8c0e280e51afc3634aad85c5a18b360d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-set-audit-20261019.md",
+      "bytes": 5693,
+      "sha256": "a7ab751f4916f954cf7f0a8c6733efd0c3b1c742593c467997c8c9a7c9e5b1ef",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-stair-repair-20261019.md",
+      "bytes": 4762,
+      "sha256": "160c78405b9ef867c29649ab2b6fc4ec648591cb025bcda51cf66d8cdbefebf5",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-stair-visibility-20261019.md",
+      "bytes": 3501,
+      "sha256": "4eed21a69b38a77c249306d847f0834579167f04162db346aa0b0010e1fa04c2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/blue-mage-turn-hem-sync-20261020.md",
+      "bytes": 2754,
+      "sha256": "76faa76fdec30e808d3d87874e04fe10edde9bbbc8ddf56332814e70e51e28dd",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/st6-lower-set-and-capri-waist-20261018.md",
+      "bytes": 5196,
+      "sha256": "bbced4a23be4c78e2552329f07e6c539ce812139ee01be2a1aca9b6f716b510a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/st6-native-body-reset-20261017.md",
+      "bytes": 3034,
+      "sha256": "27377eb2d9241179d4f8937fa965622ce3edf64f37a2d83202108d6a61a7199e",
+      "head_sha256": "45359c2466cfffdc7b29f6151d064c4c12f66b2b46f7704293f6197e643e46a0",
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/st6-native-sleeve-repair-20261018.md",
+      "bytes": 4700,
+      "sha256": "c601f75d8dcd8985230f35898d934f99b69cdba117ebd42adf4fc4158139f014",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/st6-neck-and-fabric-refinement-20261018.md",
+      "bytes": 4641,
+      "sha256": "4fb5b2d027070b3e041e34e5f5235934223bff95af051d4eaa1ba29b79d356fe",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Characters/steel-armet-20261019.md",
+      "bytes": 5432,
+      "sha256": "4a38d0c1c1988e4c83708d1e27f1c9b24ac35550d2cc0cb1b4915c80a3780b97",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Publication/Outfits20261020/README.md",
+      "bytes": 6163,
+      "sha256": "c865397df7ac96ea4583a049cdf7e8918b0ac64f5e1fc18494a95a2546effddf",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/Publication/Outfits20261020/archive-manifest.json",
+      "bytes": 105972,
+      "sha256": "2bd26ccfd326aa6e2b6408a4d36d13881791e24d12d419b4ce8b1c6eb9f5e843",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/blue-mage-gloves-20261019.md",
+      "bytes": 4950,
+      "sha256": "b679ff1a013eae906b98803e85f079e555ff3825ffa10b3b50e0a51c9d0ef35a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/blue-mage-hat-20261019.md",
+      "bytes": 4717,
+      "sha256": "6c7ab16f2c92ce21289d3410d2fc5c62b8ab4de22674daea965925dad94454e0",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/blue-mage-robe-20261018.md",
+      "bytes": 8257,
+      "sha256": "6be5a10141157d842db7e92a6209d022db6d268114ba72de0e29eb1042d3764f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/blue-mage-robe-hipfit-20261019.md",
+      "bytes": 5281,
+      "sha256": "98a748a43bf75be568ef7508ed742d8a1e136ea095aaee6b15a4e5e8eb68eafb",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Docs/blue-mage-set-inventory-icons-20261019.md",
+      "bytes": 4866,
+      "sha256": "7409ba9b227843a37da878eef0bd4ce7706983db7b5d4972c62841b3a41031d7",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyGrounding.cpp",
+      "bytes": 10400,
+      "sha256": "b9704f65403a7e18d3394a73d7d1a08c75f6957dd68c8ae977877bb89f323f5f",
+      "head_sha256": "408814b4e680ad974accc4001a4c7aa97ee7f8e30817eda1d5695c095fb0b8ea",
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSHeadEquipmentMeshComponent.cpp",
+      "bytes": 4129,
+      "sha256": "48bce50411175018e9af56485fb3622122ca5bf13eaa45cb9dc6968c1358d483",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSHeadEquipmentMeshComponent.h",
+      "bytes": 1090,
+      "sha256": "2a98e80fdfd2f58b87b21424a3929cbc38e0d2cd6a387d699421328a544dab3b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSMageRobeAuthoring.cpp",
+      "bytes": 10691,
+      "sha256": "dca31a3e954720ab58ff195deb16a0b092702f377d2e4edc5c56999cb817f7e6",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "bytes": 32207,
+      "sha256": "c918d98671bb0526aaf6ee9bb647efd9d46024091387e20db2803360cbbc1d76",
+      "head_sha256": "21a9cf9169dec2760170a53628abe22938c7a59d2a3d2bcaeca66ad30602be9e",
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "bytes": 4079,
+      "sha256": "de097624e570aa915a3f4ce77b838c4691f17c6e5c5f19456a5fe7d5cbc881e2",
+      "head_sha256": "b2a4afbf34992fcee4cb84e0f78b8ec8200957bd9b10edd2334158227b69b63e",
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitRobeAnimInstance.cpp",
+      "bytes": 1418,
+      "sha256": "139c96c66a83f5c7791190bbcf07dafab7f2870ad35ccf97790a9de33cf89d91",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitRobeAnimInstance.h",
+      "bytes": 477,
+      "sha256": "031bc6e9ffb38f324e50451aa807013166291c5fdc6bf3755a9eb69525a0b9e6",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitRobeCloth.cpp",
+      "bytes": 2787,
+      "sha256": "368bf788cb75505416e53753fa67a39e50285f5b978d6fe3f67f30485eed4713",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitRobeCloth.h",
+      "bytes": 234,
+      "sha256": "95ad192ce6b8c5b7b58ad082714cdaa52e98b6c0896f7bea9df43135dd011a43",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitStairVisibility.cpp",
+      "bytes": 11483,
+      "sha256": "be156acf07f9397d81b9419eb4e03f126390099673aec150a9c36752635ffe3f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSOutfitStairVisibility.h",
+      "bytes": 1713,
+      "sha256": "ade8d904ac984dec61232dc5145bb67d74ee675f6c72525edad73fe7bdf1980f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+      "bytes": 10961,
+      "sha256": "85dc1d2375bc19f53c443d055d48fb492a514f063bc123481914e14487a3b6b4",
+      "head_sha256": "dee01f4b4d2143af58e5c09fbbcbc07cfbd1b2234ac532c94326bc92ceefc91d",
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "bytes": 22878,
+      "sha256": "4e814a8797c1eeb06f5783a14a51c67d4adc7174a418122d245eb93ed5071ebc",
+      "head_sha256": "9f153436f023b5f7720ce62a01206fa1daa709c5a564acde22c3114fc4b6410f",
+      "method": "EndPlay head-equipment release only"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "bytes": 18629,
+      "sha256": "d8249c466191ce06aac033fada46391cbe79e8a65820b766ce88ca30737aa509",
+      "head_sha256": "5dad1b8571ca5103a88c9cde8e36d9be2c12518e15714d9c40699626fe9352b4",
+      "method": "head-equipment declarations only; exclude weather, warhammer, sword and other audit friend"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "bytes": 48001,
+      "sha256": "de36245c696ba6b183aa25eea89f3a8777e57fd589c5c3856ba7e367368b2562",
+      "head_sha256": "e51a614fd9ff8b3f5e81017fb46e009ccee14da0ae77114d1f3907a8a7b78325",
+      "method": "ApplyOutfit head-slot routing only"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerHeadEquipment.cpp",
+      "bytes": 6471,
+      "sha256": "270704efbafda9aa944bc05ca2c891ca0425b1ec7e70482e66a80ed8834c6892",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Development/MageOutfitWireAudit.cpp",
+      "bytes": 11338,
+      "sha256": "22707c6a7c8ed5b88481ce5367ffdbe4cfb7249f66cb9c07d1e8252f167658f7",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Development/MageOutfitWireAudit.h",
+      "bytes": 1491,
+      "sha256": "75af37207eb5c650b5f5bb898994c2d391b9fbe4243ecc7392bac06ea9af3d08",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/Development/RobeClothDiagnosis.cpp",
+      "bytes": 24181,
+      "sha256": "7e5f384380ba35696ea992fe62e639aabf0a8e56b98a80d1a3884484731db7f7",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSHelmetVisorWidget.cpp",
+      "bytes": 1573,
+      "sha256": "d1ed92530b6725ea8c5e78080a5bce10633ce305ce99735130cea12f98241138",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Source/FPSGAME/UI/FPSHelmetVisorWidget.h",
+      "bytes": 707,
+      "sha256": "012d100a6a90480c99a8a2a2e0f275c505af121995a8d9a4b48b10fcaf8445e7",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/_refit_super90_st6.py",
+      "bytes": 241,
+      "sha256": "21ba1042188bfe4f47d7eaf5791eba9cbf8a6b170ea46c6938b24790a85420c3",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/_restore_st6_canonical.py",
+      "bytes": 3008,
+      "sha256": "9ba6dd6ce2fea3d257aaee3aca48bf898d8fce002a11474699e414829ff77659",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/export_st6_pickup.py",
+      "bytes": 259,
+      "sha256": "11bca1d30064ad594516401246bcbf7c7e549d1276a42c38632f8a2d1e3cdac8",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/run_st6_full_batch.py",
+      "bytes": 442,
+      "sha256": "7a92d954b36c8fa68749f1b28be437f24a528ce007bd8ad631e64e8a0c5f6055",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/BenelliM4Super9020261006/run_st6_shirt_batch.py",
+      "bytes": 339,
+      "sha256": "52a8708f19177e961a11f008501000cedef5ac23d1f871fd3fad93fb86216aa4",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/NeckClosure/finish.py",
+      "bytes": 1279,
+      "sha256": "23b154596bc8bebc30f1d9818e8169a3756fda86b035ff7643a62050b48aef3f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/NeckClosure/finish_all.py",
+      "bytes": 204,
+      "sha256": "f5508797ab45d231fd37d3d466e47fd680555b94a4402674f791017f3d42da18",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/NeckClosure/import_closure.py",
+      "bytes": 1099,
+      "sha256": "112874c5e203f95b9bcdb2075484163931ebcb4a1f6a9a1745470f85c400e778",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/NeckClosure/read_neck_source.py",
+      "bytes": 2005,
+      "sha256": "74665988f90264748f35e5fea754cfbf4462a62a1d2f1886272aa31d1f366aef",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/author_collar.py",
+      "bytes": 11459,
+      "sha256": "7f32ef3f9f0f1dfc6f084890345f7f53c1a93b1b84cba24f31777dd571813bcc",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/fabric.ush",
+      "bytes": 3246,
+      "sha256": "cc4ecd2c803b4f805d42263ef8920da8a3bfff3627bd26bf7e209cca47c11a69",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/finish_assets.py",
+      "bytes": 208,
+      "sha256": "5b30cf83e899a5270fd0b381ad8bca3ada0aa4ec97511b68942c985b16b0d8f2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/import_assets.py",
+      "bytes": 11025,
+      "sha256": "957c0c2620f7989967a62d2201149110ac03c92b8c8f57f3cb6d80a26518cbb8",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/import_icon.py",
+      "bytes": 1463,
+      "sha256": "ece30e172153c22027f358b80605ac619bb89023d77111d91860f10eecdbe335",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/publish.py",
+      "bytes": 3147,
+      "sha256": "b87bcf3c161caec799c711dfcee93c11cb28edff18b571b581d271e77d2fdcd8",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/recipe.py",
+      "bytes": 798,
+      "sha256": "d3c7116c2299ebd5bae0d131938e11d5c81fc0e18c1a982c0d8a2d1b09dd35e1",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/render_icon.py",
+      "bytes": 8729,
+      "sha256": "59620b9ad3f855704b5920b5dbdcc20385d5c729fa19f78e0d7547cbe22a9fbf",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/review_sources.py",
+      "bytes": 2918,
+      "sha256": "d044e2d4c3b00ffb773d515bfe2486dc81d3ac964a997eca6c4813645ef23b90",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Refine20261018/run_asset.ps1",
+      "bytes": 2918,
+      "sha256": "f160128d8b1d475cff641882b3639aa14625cbd85f0f0a9b86929873a46876d8",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "SourceAssets/ST6Reset20261017/recipe.py",
+      "bytes": 1146,
+      "sha256": "8b1819a7568fccc564b25a5034206197f2d2cadf736a834859eb98331247b2d6",
+      "head_sha256": "07ccc45bc1ec6b3c4add703972ef654d9147064a6cfdb68cb33b541b5bc3e464",
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/analyze_lower.py",
+      "bytes": 4533,
+      "sha256": "fbfbcd20ad3af9dbd1a3d42078bb831f2e4e508585ceafcc4e423e6ade1e4daf",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/audit_sources.py",
+      "bytes": 4665,
+      "sha256": "ca6040991a9d0c12d8c13b8c6a76ef6c413d16d78a89213de78a433f003b2b4e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/capture_lower.py",
+      "bytes": 3365,
+      "sha256": "55a5fe67d049c4201dc0cd54c05d5447f829552cd78beb7afaaaf4edb4e00a0f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/capture_movement.py",
+      "bytes": 2127,
+      "sha256": "7d67e5abc7763e65925fcb1de76071b8567cc09a7d9866d61eae3070e9ec8daf",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/complete_report.py",
+      "bytes": 3377,
+      "sha256": "4fa0ee7728cb39ea388a32a365c37d09da5176fcf8d31c093532b7ac5eb03eea",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/finish_sections.py",
+      "bytes": 191,
+      "sha256": "57bb702e48346f3752c78c7f9362fdfa40a6704909df7a24b433a6b19bd3a4ed",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/read_saved.py",
+      "bytes": 4735,
+      "sha256": "64d5e1f60a9c3cdaf02137824c718e4889093d1e3c78f65fd4792017ec224564",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/resave_sections.py",
+      "bytes": 1060,
+      "sha256": "ed0b4d3767f4325c74f6ff2b661150affcc709ecb28e46ba73e477d6cab09971",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/run_asset.ps1",
+      "bytes": 2445,
+      "sha256": "3010c2e51968dd182a40e72baaf1d9e5492f14142b6775c42ebf37e4cec5311c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/run_wire.ps1",
+      "bytes": 5344,
+      "sha256": "5d745a23fc66d3fe8742da8ed93ed1619fcf8d781b8601a5c2f09c1275299b4c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/save_repairs.py",
+      "bytes": 443,
+      "sha256": "6aae3b2f9b894ebee0bc33f97290ebd95766c3a273d64a95c5a257fe047837a6",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageAudit/watch_peer_exits.ps1",
+      "bytes": 1505,
+      "sha256": "650387aec26f96edd374fa3c5162c7ba40c6016db3ef77b2a129e2ad24f76036",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/author_geometry.py",
+      "bytes": 11777,
+      "sha256": "f6e125d96d4b368ae570ca5ef5b31e48171d65f023082ad33f475bdddb43a81a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/bake_surfaces.py",
+      "bytes": 2123,
+      "sha256": "4f582b812c4cf915f368d567c0e56e3e112717abd997e1b4b21b49f7782ccd9a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/common.py",
+      "bytes": 1348,
+      "sha256": "40534aa643ed319d6c8570b08a585fc99ba48e6069699ab4f967c157a874ec51",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/publish.py",
+      "bytes": 3879,
+      "sha256": "f843be1a569040226f68fe446bc582de38e3921cea1e1df1bd2469259b7dd86d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/run_asset.ps1",
+      "bytes": 2441,
+      "sha256": "ac01dd8ebd1ba01fdb8b94902e77bc1788e486f1ddb6f72730ce576492295b34",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/save_assets.py",
+      "bytes": 11463,
+      "sha256": "4fd6419ca4664ce5c99cf9c43d55f18c7e773bf23241612503490a0f971d3e90",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageBoots/save_editable.py",
+      "bytes": 5014,
+      "sha256": "1a721c860fe0e6cf4122b1d1016bf70fa34d26382745b99842168e67e479ef18",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/author.py",
+      "bytes": 5592,
+      "sha256": "4641e0bd4f0f3c0cf4c121448b19588e92b764b3a6aee0d17427443d6e71b589",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/bake_atlas.py",
+      "bytes": 3630,
+      "sha256": "4ed8dc80f2a67abdf3a36486847c4bd553b5c4c89866e9286bf3b17666c3842a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/capture_sources.py",
+      "bytes": 3268,
+      "sha256": "28c5347deddde1254510365b12bc826df6c0fb3e156f0f453fd04633714bc76a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/materials.py",
+      "bytes": 5895,
+      "sha256": "cedf0bda8ab20d39b8eaf9df38ce182d900a3e29f9d2d2eb66e55aca02857961",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/publish.py",
+      "bytes": 2719,
+      "sha256": "fe51b306358341fdb45e8409fb3076e787d9fca6dfedd537d0e2a653f5019918",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/run_asset.ps1",
+      "bytes": 2440,
+      "sha256": "eec8dda56b3ae973002e71a33cc4ec0fceac9df7a4276df97d272def586fc907",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/save_assets.py",
+      "bytes": 5185,
+      "sha256": "a65cdf24bffaa292df3758e95b61769f98eb2abd167b8d54409a75efbabed5d6",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/save_editable.py",
+      "bytes": 6572,
+      "sha256": "63d981beb37a09a1c6b5ffe0e221faf26db2eac7a21c3c4c493b93d6bbd3a29f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageGloves/surface_fields.py",
+      "bytes": 2872,
+      "sha256": "732f02bb91a048426a114f97bad0c61f44a6a9b73399b80e8aeb4bc0304a1de4",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/author_hat.py",
+      "bytes": 11488,
+      "sha256": "d52c9b4c2426c9fd438edb959de070565f5dd41d6a24c866a28e5f1bd805203d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/capture_head.py",
+      "bytes": 1413,
+      "sha256": "127cd938bb140cd3ec221248f6dd7921cb6c204f37b8be9edf5b1a9726e1fe94",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/hat_materials_blender.py",
+      "bytes": 2349,
+      "sha256": "0c53b13ae41a557b7ac27778c83ac0ff307c84fa995c535f1be0af63875b1ce3",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/publish.py",
+      "bytes": 2654,
+      "sha256": "a0b35c0673e60a21f96c388ce3617e529ec2250d82ff38dadb1b7d953817e19e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/run_asset.ps1",
+      "bytes": 2437,
+      "sha256": "c3117404547e568fcd6b2a9099bfb5d0512a1fcec8428c79d3a6f2aa48964d6a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/run_build.ps1",
+      "bytes": 1861,
+      "sha256": "e4c99d522d7f62e7857960fb22f529b0b3b450971e9be6e8b43fbc6b4be35fa1",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageHat/save_assets.py",
+      "bytes": 10694,
+      "sha256": "653175758585d4598a6766945f24a44d602e2d231adc3f48fccc7fe3defe2e1d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/author_geometry.py",
+      "bytes": 12145,
+      "sha256": "6398225d73959c1aa1015c0ada90ffc79ec8bdeba60756b1be5552cec73fc463",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/bake_surfaces.py",
+      "bytes": 2125,
+      "sha256": "67ac731eb6ef59831a05fbb07090e668b0e33009afd32d6b956b22dcee0ffa4d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/common.py",
+      "bytes": 1353,
+      "sha256": "11eb48a5055b38bf5c296b69387ecec22df54c87cd2a6c77f42c6e00eafb475e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/prepare_runtime.py",
+      "bytes": 5161,
+      "sha256": "0f5cef2c4048506981ac7bc8e8e24119d61c37d8847889392f69cac3c0ba15da",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/publish.py",
+      "bytes": 3654,
+      "sha256": "017f864be25a14afafec5f0a530ea992a8daf4086b6b8c0232e3fe460f9d0d32",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/run_asset.ps1",
+      "bytes": 2441,
+      "sha256": "ab18defe0ee27940523dd98b326ee55af177abfb4a485eab72cec81485bc7243",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/save_assets.py",
+      "bytes": 11668,
+      "sha256": "96f94dcfc63c328255a57769bced16801f1087c0520cf9d69ab101efc9bfa86f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMagePants/save_editable.py",
+      "bytes": 5150,
+      "sha256": "9332e06b2a26ce06a859b16e59405bd907a28badad60574455b5c7993cfb8eb2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/analyze_hipfit.py",
+      "bytes": 3391,
+      "sha256": "334d353297c25489e15b6efeb9089126b14121304efd29b1136c55b7c9481841",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/analyze_stair_sim.py",
+      "bytes": 2888,
+      "sha256": "b9491347d655cb0904050823d80116afd1cb7a0b6b9324103b8580034a5d491a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/audit_saved_assets.py",
+      "bytes": 3830,
+      "sha256": "036d64db031c9d5c8faedef186721f336c5c3825dd8d91fd647d6d133ece00df",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/author_body.py",
+      "bytes": 17693,
+      "sha256": "3d45d4c426949221bdaf2498c55469319e3dd099c5e5db3d35010a59ac19c66a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/author_hem_layers.py",
+      "bytes": 4848,
+      "sha256": "3b45c7e06ba2bd272d5ccb0a77cd1db10d3f2a6946fa8dc07d172af18fefd14c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/author_sleeves.py",
+      "bytes": 3608,
+      "sha256": "20a97dc7a81b06a217a1fa9b81ba376c1a49adf766b4de39b90e530deed69e60",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/author_underlayers.py",
+      "bytes": 3710,
+      "sha256": "a850e4a77adbc9ab4f62d941f3ff9fe4067a70844b0249609dcc79b14a849015",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/bake_surfaces.py",
+      "bytes": 3097,
+      "sha256": "462f2dcaf7f0fc0d0ad9b0d300b0dd868274d9c5ae27816fa9e252a07db7ee28",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/bridge_available_port.py",
+      "bytes": 991,
+      "sha256": "8383c89cffabd85b50dfd4221f0ff5856d8927ea3cbadca901bde3cb0ddebc9b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/capture_hem_sources.py",
+      "bytes": 4034,
+      "sha256": "e44f765a19929769c25ec2a60b8b4b56a176f1686c173720cb33b0aaf91d1816",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/capture_underlayers.py",
+      "bytes": 3827,
+      "sha256": "20c74b974b2b2a4d2ff8689f179e81d8e2f74557e9c231189eb3d7de92c2bf62",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/check_hem_cross_section.py",
+      "bytes": 4135,
+      "sha256": "ca022912b025825e25600886246e91398d871adfb08dbfe9ca8316a6fa4cd58f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/complete_delivery.py",
+      "bytes": 666,
+      "sha256": "1f00afc3b3ef662345b671c18b7c6319a1fe1eb052dbec68003dfb0537f2b7b2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/display_atlas.py",
+      "bytes": 1526,
+      "sha256": "390f74bbd5f5e0c4298143f8d9b1d18c185f3091e46d25bd7dda112ce4db64dd",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/export_facing.py",
+      "bytes": 3502,
+      "sha256": "a9aebe40fc42e75eee78382cbbf5c5d237d7473aec634d236867e6474e642bad",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/geometry.py",
+      "bytes": 4911,
+      "sha256": "477cee6804253eb6e694866f040ccf35860497b9ddc673e81862fdd3abd019be",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/hem_conform.hlsl",
+      "bytes": 4400,
+      "sha256": "ae9ed9c259967d6a55692b9155e8b7fb0a9deed4c9c0ac8e3d026065fc2970ba",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/hem_materials.py",
+      "bytes": 6257,
+      "sha256": "4c92ca842b4cdf02ca4c42df2b7bd9dba298c88d34f0a23be6c84dd35b291def",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/hip_fit.py",
+      "bytes": 3700,
+      "sha256": "63dc3f3a3865cc17e2de4ae490acd91bc8181b0eef653a8568e31f17ff3c26cc",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/materials.py",
+      "bytes": 7868,
+      "sha256": "8d70d098c9d94157d96f7d838e40f59397fe70d60d743e0a4b16cd199f899265",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/native_sweep.py",
+      "bytes": 4288,
+      "sha256": "6ba82a222a4357680187348dcd3920de1cf8c5cf8ac99e4413dffff5119d1a1d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/paired_surface.py",
+      "bytes": 2351,
+      "sha256": "394a1baa3a3241b57066ed5fee576445381c35e032e2da192557571eb38b43d3",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/plot_stair_sim.py",
+      "bytes": 1083,
+      "sha256": "f0738b50ef1ce59f5a8e8684ce53e38f416e4de7ad9d419bed37023e1e66f451",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/prepare.py",
+      "bytes": 2773,
+      "sha256": "f69db0282660d2911e0dd46767903017990ed08963ac197a4485b25a11ffb485",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish.py",
+      "bytes": 4228,
+      "sha256": "a638ab53c4f35e6fdd4d4c3df3ef89e4c27c40187ba80898cf65811824ffd8c1",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish_calf_restore.py",
+      "bytes": 650,
+      "sha256": "383b0856037afe41f41fd4f1625cafe14d3aaeddd6fa0183bfb212483f70260e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish_facing.py",
+      "bytes": 2165,
+      "sha256": "dfc5f2b341b052f64e4c61e21fb02908e3bc31b7b972a808fa6981be55068de2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish_hem_layers.py",
+      "bytes": 2225,
+      "sha256": "ade041bd81c8ba639588c00b8da50b72a8648518c4938ae6a5ae8818e1c4fd01",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish_hem_refinement.py",
+      "bytes": 1899,
+      "sha256": "2c71340cf093eff07dd8c76d1329bc5c65d1ed5a0255df447a68d75a90a2583c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish_hipfit.py",
+      "bytes": 1959,
+      "sha256": "40ff41e34bf9fd9c7eed8faf4501085d4a8d6c742561a8d90055facb8910745c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/publish_legfit.py",
+      "bytes": 3101,
+      "sha256": "ab21971b924f38852995655b88a2b02b2870c5d295eafe3af7505d155f5b3a65",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/read_editor_unsaved.py",
+      "bytes": 576,
+      "sha256": "2115833ab7e9523fc6f0744a9dc9d287612963fbd17071eea327b1cdf0682a93",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/read_rollback_assets.py",
+      "bytes": 1741,
+      "sha256": "4bc91ab0dc86bb8c273e78a4cf213975894e0c7425e245f9601453b4609a6838",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/read_rollback_live_state.py",
+      "bytes": 882,
+      "sha256": "af66729c1a61e429b38bbe2a1ec3db3e32c405e82bb4fc5a54c069030b773976",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/read_stair_pose.py",
+      "bytes": 2000,
+      "sha256": "dccbbb57640cf97b950d972db21510ad4104fbac6737eb0e4cdf88f21de77303",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/repair_facing.py",
+      "bytes": 3880,
+      "sha256": "46e163c9b734a32e47f5748d2011845d84ae9e287f6193403f25024edd2fda31",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/run_asset.ps1",
+      "bytes": 2439,
+      "sha256": "fb80771bd2a10453fcf7e014447333d6723160bc14c926d61235a4ab09edc09d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/run_available_bridge.ps1",
+      "bytes": 503,
+      "sha256": "648190b62ed0feddaea24541e0ca65f5354e125e82b3c14043120cba65621d09",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/run_build.ps1",
+      "bytes": 1862,
+      "sha256": "2eed9601f72aed31ca65f634071f8577ae40a59e6f78131494d8ea911a09361a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/run_hipfit.ps1",
+      "bytes": 2580,
+      "sha256": "e2c93e053418717b4b9af5dc8677b6159b144fbc40c6ef8a9d5c9c7200b2972f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/run_stair_editor_build.ps1",
+      "bytes": 1849,
+      "sha256": "65960f3ddffaba403b3d1699b819fd55f4f0b90b78bfaf21bbe69c47894efe29",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/run_stair_sim.py",
+      "bytes": 821,
+      "sha256": "5e27d55100a36a36a0195f8525b475bd2662484a2d9ff4b01c5e188b2228cc6d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_assets.py",
+      "bytes": 9965,
+      "sha256": "8acb055b44119add41277b20f8656aef0c9261f93a453e8475ab652202096108",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_calf_restore.py",
+      "bytes": 1622,
+      "sha256": "dbedccddad867c4c8783e67a96a4e275d9f33c639a7b3a0528a3cd7f557bad7f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_editable.py",
+      "bytes": 7962,
+      "sha256": "70d2aefba3701887d870eda98017f8900e1a2cba0aa29c70550c016a2e7d5c3b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_facing.py",
+      "bytes": 1600,
+      "sha256": "ecab4ff626c7e022a0405dd4178ac176fe907899b056fcbb88171608349a9311",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_hem_layers.py",
+      "bytes": 6081,
+      "sha256": "e203848269575b014b4879ee2dfe537b1f61975c3c504b9ca0e42b440c7032ec",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_hem_refinement.py",
+      "bytes": 3547,
+      "sha256": "1db4a7e5b77e16e12831d51e94e85cc01909685ef556cce06321c90f23458766",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_hipfit.py",
+      "bytes": 2508,
+      "sha256": "fa96be6e29827f561611a91ff3d59cc14cc0031a49dfb0f4655ef03f2d7e9673",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_legfit.py",
+      "bytes": 1687,
+      "sha256": "5abb138461f651197ffd07d297da7ac2ebe25beaae0e2328932375c9d1139ee2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/save_legfit_pose.py",
+      "bytes": 1229,
+      "sha256": "de31f37246aff358e2900391910e4f9e98358f78eeefca3ddf8fc2f4a64c6907",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageRobe/tailor_volume.py",
+      "bytes": 4836,
+      "sha256": "d7c10c0081abe9a973f22d4b3aa8224a502dc22875c4c88dbd834970d80499ad",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageSetIcons/render_icons.py",
+      "bytes": 11312,
+      "sha256": "8be50a08491da2af5ff401f40ce438b4c1c391b013bdc3112a0850582026d12e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageSetIcons/run_asset.ps1",
+      "bytes": 2443,
+      "sha256": "d144730d972d401950694afd8c9fbdf78bd32c07ba9725b0d9eb43c3990ed887",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/BlueMageSetIcons/save_icons.py",
+      "bytes": 4603,
+      "sha256": "905efb88c8fa1df620c3b86d899f595a617c9d1bf007d1eb454a50008d3184bc",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/author_chainmail.py",
+      "bytes": 13016,
+      "sha256": "650418ebc5c96ef20b3e6420ff759a896dd7b1eb92184b01a6c40cf65f896ae5",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/author_short.py",
+      "bytes": 1151,
+      "sha256": "f742341d1ac1aef407920f80da4130433ed44d410340703118f7a6b4bef32b07",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/author_sweater.py",
+      "bytes": 6599,
+      "sha256": "5d2743a377b0e80641eebc8619f7206dea38003fc0e8c7a0dbb3b5a5a1dd32f3",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/capture.py",
+      "bytes": 4575,
+      "sha256": "c9d531d227c14e2b8209c1ecf0e8df2987dd7d2169ae13a034d136b0344706fe",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/check_intersections.py",
+      "bytes": 1549,
+      "sha256": "217254c2c51540f311ec51f4de04de3c37b67b5edb23fa2cfb918cfb63c1c9d8",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/collect_saved.py",
+      "bytes": 208,
+      "sha256": "7abba634f6f3aeef40c46bad0822928fdebbc20912bc1fa3e0eef60c0d584b01",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/collect_saved_disk.py",
+      "bytes": 2421,
+      "sha256": "f2d8a32756357cc7c3a17b0838de1da217f29546045dad37cfcc79651d11df58",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/finalize_delivery.py",
+      "bytes": 2768,
+      "sha256": "94452b01c1d807f406a0a5e6d5ebe191aebc7ac1383f5d683d8fcea518329cf4",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/native_sweep.py",
+      "bytes": 4238,
+      "sha256": "91870b72ce10ff90491a841edd9898beae4db6095d4c06cc30e2b108f84208a9",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/paired_surface.py",
+      "bytes": 2351,
+      "sha256": "394a1baa3a3241b57066ed5fee576445381c35e032e2da192557571eb38b43d3",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/publish.py",
+      "bytes": 2255,
+      "sha256": "16c04904ef4e386aa8f43617089f2cf865babc118019d972c24d4fb4ba56bd84",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/review_authored.py",
+      "bytes": 2422,
+      "sha256": "98c4c576f96f1036cdc221463fdddb2a095bb160e3904b21c900425fa2103770",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/review_geometry.py",
+      "bytes": 4558,
+      "sha256": "67885dcf49ecceaf3d43ece13924efffc69af8b8194c6aa224b2702f5c2c511f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/run_asset.ps1",
+      "bytes": 2446,
+      "sha256": "10651666632bca92b94595d059b338792a7ac0bc120572a6313c87a210b9dd62",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/save_assets.py",
+      "bytes": 7341,
+      "sha256": "5d63022fafceaf7225b85d5d53fcdc4ab133241e1c4c2e7a175724becea34bbc",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/save_editable.py",
+      "bytes": 3795,
+      "sha256": "b776ffaf8fc985da1b4a0289727b163fe019c8c78e6ea7be8b82a60181004bdf",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/GarmentSleeveRepair/save_ready.py",
+      "bytes": 833,
+      "sha256": "fddcc34badcb0c16f7e217d39f42bea24e6706a7bb770542009faa36522c6b5d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/author_boots.py",
+      "bytes": 10884,
+      "sha256": "0dc5bdc8cd730d7cb75f0fdc64c1222a6dd384028ffbacb330735a71239a409b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/author_pants.py",
+      "bytes": 16105,
+      "sha256": "639a25fa0bbbd4e31f0c3bac4dff610cd3df890f2f110e438d8e660df6ec5f4b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/bake_surfaces.py",
+      "bytes": 1843,
+      "sha256": "5945d7780cc701482ff1d7e31e5ee720dcca28089fde6ea399e40073247c3f29",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/build_pants_script.py",
+      "bytes": 4511,
+      "sha256": "f4edfbb41dc9bbd389fdbde6465a9794d2c36311b101b09cb816c226a6456113",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/geometry.py",
+      "bytes": 9040,
+      "sha256": "4cfa1bfe6538348a4b40d6332f406a47324dccb68ec667a50017e00f31ce12bc",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/prepare.py",
+      "bytes": 2653,
+      "sha256": "7e54c238d150fecfc85d2b5efd53828470e73609659e463e5f1d16dd56cd1798",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/prepare_runtime.py",
+      "bytes": 5186,
+      "sha256": "425a7eebb1eb1bf0f0d3824159f71b6f997e7b906e02f89842eef4a9a277a77e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/publish.py",
+      "bytes": 6288,
+      "sha256": "52e56c155d62660beaccdba3acf4de53a428c8ea593dbdadcd963551d62a7112",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/repair_capri.py",
+      "bytes": 1413,
+      "sha256": "cd67b14a70492b20b25ff045f16206c707a36b0d655f24e01b1233549cbe770c",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/save_assets.py",
+      "bytes": 12203,
+      "sha256": "e96d5fe09997dd275f5f5c5a7bf253b8c12db77a8d43fda577270b483f9b2159",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/save_editable.py",
+      "bytes": 8759,
+      "sha256": "8bc27917f112a3211981098c31e17e9ade00a5df07cae00d2e5b96143c663487",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6LowerSet/update_capri_construction.py",
+      "bytes": 897,
+      "sha256": "9404d650ca3fe5b671f91645714c4eae5dad9dc9c40d6ed5c690c2ec5b336768",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/author.py",
+      "bytes": 7427,
+      "sha256": "ab7a15ca413770ff2b4f888a62f3c969e426ec5a05a45b65e099086101fdafa8",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/capture.py",
+      "bytes": 4049,
+      "sha256": "45898e007d9049638061e0defdb1988c7cc3ba11486808e623846651adb9571f",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/publish.py",
+      "bytes": 1997,
+      "sha256": "4618cfdd28566ac70ad58d06c6e87ddbe958530110bff19431730338c2aad242",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/rebuild.ps1",
+      "bytes": 1631,
+      "sha256": "adf124937281c14eac776470a848acca03b268efe51981604334c3ac790bd111",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/run_asset.ps1",
+      "bytes": 2438,
+      "sha256": "ce46d5e992b400323e17ba7825803f6a8484f7f5889d78b290c5c30d85a92e58",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/save_assets.py",
+      "bytes": 9878,
+      "sha256": "024626d551b928e34ada851d439ee3b6e96ee1b368e9482ed4917297ad627de2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/ST6SleeveRepair/save_editable.py",
+      "bytes": 4122,
+      "sha256": "6a4891091faeaa82ef44cdf8753cc517a33e5d1a553e35b75c0e54b4ef7c5691",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SmokeGreyCapri/waist_fit.py",
+      "bytes": 2452,
+      "sha256": "a440241c6eb64915305676cd4549f4bb056c7cdfb5be3c19fc1dd63ee2527873",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/author_reference_match.py",
+      "bytes": 19657,
+      "sha256": "3a0e7d305f1a675de8c0bc27be0fc24225880b65d7a5259e9665f0f7d597a9f2",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/author_reference_visor.py",
+      "bytes": 11601,
+      "sha256": "df6b99b9ed8683a4ebf8e0b311ec3e19c6a12d2827ea08ed487e9d7338f87b6e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/bake_reference_surfaces.py",
+      "bytes": 2883,
+      "sha256": "e9de6fe58b82159d6b390177560220f5f714610627269d4a486a5832985f5f1a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/bridge_available_port.py",
+      "bytes": 991,
+      "sha256": "8383c89cffabd85b50dfd4221f0ff5856d8927ea3cbadca901bde3cb0ddebc9b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/package_reference_blend.py",
+      "bytes": 2391,
+      "sha256": "0ad7999319bc70266264f42baa797a4afd32f048bef3f2d1c815941f4953c30b",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/publish_reference_match.py",
+      "bytes": 3236,
+      "sha256": "676e7453e222b32108b64ff4836b7adbb25206d253e5f9eef0c500f55ccb48c1",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/run_asset.ps1",
+      "bytes": 2442,
+      "sha256": "66331351d0f7f6267eddca17ae21089ae004a37d95a40cdac6319ef76f7850c1",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/run_available_bridge.ps1",
+      "bytes": 501,
+      "sha256": "7fc84656040578c89397e3337f09cc04058f9f43544661a784cba790b85d5f08",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/run_build.ps1",
+      "bytes": 1847,
+      "sha256": "d39a62c0eadfe251ef89d985d6630d6f93953bd9ff6f01e7e9616f2747fff44d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/SteelArmet/save_reference_assets.py",
+      "bytes": 7419,
+      "sha256": "167e70cd3cee0d6b0b0e1df5711ad48e904520ab66b6446a671ee7f18acd3b9e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/prepare.py",
+      "bytes": 7005,
+      "sha256": "50b01202a433b5477b226c103131a878c861f2a05f583d8eaa29d8542dc4f99e",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/publish.py",
+      "bytes": 2921,
+      "sha256": "e189f7a1f59c936adb3abffeb96d9fb9a415c63b77d6d22aa3f40a918a41b7b4",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/rebuild.ps1",
+      "bytes": 655,
+      "sha256": "ac5634d4a882f183e7617dee666aba9afc0b64dbc13c1098be1ac2c693088287",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/run_asset.ps1",
+      "bytes": 2406,
+      "sha256": "d69c998f72f18999a2a976e6a9d30857dffeede16773e55e80854a20c0ddbe3d",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/save_assets.py",
+      "bytes": 2486,
+      "sha256": "b2262f9b2750262d495d08295a824302d7dcfdf300d8531b853eaa4631491153",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/save_editable.py",
+      "bytes": 7149,
+      "sha256": "f0942d0c85e76db0ac566f34f2a38ff9f936640a5497eece6d20f45b7c23f7ba",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "Tools/TrouserFit/save_icons.py",
+      "bytes": 1241,
+      "sha256": "db49ed574f7cff8a48291292ce2843a539c8ad3d6d5ac643cb6130d6b6618d90",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 3941,
+      "sha256": "e613138abbbf2c3954e31204bd9a3b2e9507013aab5b894b603926158620f8fa",
+      "head_sha256": "88f5b3ff743996ceec6ccb4b03bfa7603bbe886e1e2e56e59f6874283208457e",
+      "method": "whole-file"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/garment-continuity-and-cloth-timing.md",
+      "bytes": 4424,
+      "sha256": "ed8f1e55b2e3cc9eed199ed036af0e9b59d8ad08fbf7ba77f67dccb1c8ea992a",
+      "head_sha256": null,
+      "method": "whole-file"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/SKILL.md",
+      "bytes": 1454,
+      "sha256": "e5cd965b63912115e82e3524e427193f73d4bcfe8da70dace30e0ef4b20fb176",
+      "head_sha256": "1682976c76982ae66df1424e8ace3c65aff2d8bdc95e18305155b9707b76744f",
+      "method": "whole-file"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md",
+      "bytes": 2906,
+      "sha256": "3cbcc27df3c2552a5d84464e4e613b69f0bd05422502bd72998ba8df5c5b2f01",
+      "head_sha256": null,
+      "method": "whole-file"
+    }
+  ],
+  "asset_policy": "No binary assets, dense geometry, source textures, logs or trash published.",
+  "validation": "Publication diff/size/sensitive-data/license review only; no build or game test in cleanup turn.",
+  "retained_local_dependencies": [
+    "Native V7 arm sources and weapon skeletons",
+    "GarmentFoundation20260929",
+    "SourceAssets/BlueMageRobe20261018/{LegFit20261019,HipFit20261019,FacingFix20261020/Before,HemContinuity20261019/Read}",
+    "SourceAssets/SteelArmet20261019/fit.json",
+    "SourceAssets/BlueMageHat20261019/native_head_jason.json",
+    "Saved UE packages and all outfit source families listed in README"
+  ]
+}

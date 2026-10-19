@@ -49,6 +49,7 @@ public:
     void ApplyWorldBodyShadow();
     /** Local F6 view only; keeps the first-person camera as the gameplay aim anchor. */
     bool IsThirdPersonViewEnabled() const;
+    bool ShouldShowHelmetVisor() const;
     bool IsFixedThirdPersonViewEnabled() const;
     /** Resolve an existing world copy of one native weapon attachment. */
     bool ResolveWorldWeaponPart(const class USkeletalMeshComponent* Source,const class UStaticMeshComponent* SourcePart,
@@ -194,6 +195,15 @@ private:
     void RefreshAppearance(class UColdSteelStatusModel* Profile);
     void ApplyAppearance(FFPSBodyAppearance Appearance);
     void UpdateAppearanceVisibility();
+    UPROPERTY(Transient) TObjectPtr<class UMeshComponent> HeadEquipment;
+    UPROPERTY(Transient) TObjectPtr<class UFPSHelmetVisorWidget> HelmetVisor;
+    TSharedPtr<struct FStreamableHandle> HeadEquipmentLoad;
+    FName HeadEquipmentDefinition;
+    FString HeadEquipmentKey;
+    uint32 HeadEquipmentRequest=0;
+    bool bHeadEquipmentCoversHair=false;
+    void UpdateHeadEquipment(FName Definition);
+    void ClearHeadEquipment();
     FTransform HandRigOffsets[2] = {FTransform::Identity,FTransform::Identity};
     void CaptureBow(const class UBowWeaponComponent& Bow,FFPSBodyWeapon& Weapon) const;
     void CaptureBowMotion(const FFPSBodyWeapon& Weapon,FFPSBodyMotionSample& Sample,FFPSBodyMotionRig& Rig);

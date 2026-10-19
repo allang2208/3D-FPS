@@ -1,5 +1,6 @@
 #include "FPSPlayerBodyComponent.h"
 #include "FPSPlayerHeadAnimInstance.h"
+#include "FPSHeadEquipmentMeshComponent.h"
 #include "UObject/UnrealType.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -69,11 +70,13 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
     Value=ResolveAppearance(Value);
     if(Value==AppliedAppearance&&(HeadMesh||AppearanceLoad.IsValid()))return;
     AppliedAppearance=Value;
+    UpdateHeadEquipment(HeadEquipmentDefinition);
     const auto Head=Object(Object(Configuration,TEXT("heads")),Value.HeadId.ToString());
     if(!Head)return;
     const FString MeshPath=Text(Head,TEXT("mesh"));
     const auto MaterialOverrides=Object(Head,TEXT("materials"));
     TArray<TSharedPtr<FJsonObject>> GroomRecipes;Grooms(Head,GroomRecipes);
+    const int32 ScalpStart=GroomRecipes.Num();
     Grooms(Object(Object(Head,TEXT("hair_styles")),Value.HairId.ToString()),GroomRecipes);
     TArray<FSoftObjectPath> Paths;Paths.Add(FSoftObjectPath(MeshPath));
     TMap<FName,FSoftObjectPath> Materials;
@@ -84,7 +87,7 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
     const uint32 Request=++AppearanceRequest;
     if(AppearanceLoad)AppearanceLoad->CancelHandle();
     AppearanceLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
-        FStreamableDelegate::CreateWeakLambda(this,[this,Value,Request,MeshPath,GroomRecipes,Materials]()
+        FStreamableDelegate::CreateWeakLambda(this,[this,Value,Request,MeshPath,GroomRecipes,Materials,ScalpStart]()
     {
         if(Request!=AppearanceRequest||!Character.IsValid())return;
         auto* Parent=GetBodyMesh();
@@ -111,12 +114,15 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
             if(auto* HeadIK=FindFProperty<FBoolProperty>(Post->GetClass(),TEXT("EnableHeadMovementIK")))
                 HeadIK->SetPropertyValue_InContainer(Post,false);
         HeadMesh->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+        int32 GroomIndex=0;
         for(const auto& Recipe:GroomRecipes)
         {
+            const bool Scalp=GroomIndex++>=ScalpStart;
             auto* Asset=Cast<UGroomAsset>(FSoftObjectPath(Text(Recipe,TEXT("asset"))).ResolveObject());
             auto* Binding=Cast<UGroomBindingAsset>(FSoftObjectPath(Text(Recipe,TEXT("binding"))).ResolveObject());
             if(!Asset||!Binding){UE_LOG(LogTemp,Error,TEXT("Player groom unavailable for %s"),*Value.HeadId.ToString());continue;}
             auto* Groom=NewObject<UGroomComponent>(GetOwner(),NAME_None,RF_Transient);
+            if(Scalp)Groom->ComponentTags.Add(TEXT("HeadScalpHair"));
             GetOwner()->AddInstanceComponent(Groom);Groom->SetupAttachment(HeadMesh);
             Groom->SetGroomAsset(Asset,Binding,false);Groom->SetEnableSimulation(false);
             Groom->SetCollisionEnabled(ECollisionEnabled::NoCollision);Groom->SetGenerateOverlapEvents(false);
@@ -152,17 +158,26 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
 }
 void UFPSPlayerBodyComponent::UpdateAppearanceVisibility()
 {
+    // Possession can arrive after appearance streaming. Recreate only on that
+    // ownership transition so a joining owner also gets the optical layer.
+    if(Character.IsValid()&&!HeadEquipmentKey.IsEmpty()&&
+       HeadEquipmentKey.EndsWith(TEXT("|owner"))!=Character->IsLocallyControlled())
+        UpdateHeadEquipment(HeadEquipmentDefinition);
     const auto* Body=GetBodyMesh();if(!Body)return;
     const bool Visible=Body->IsVisible()&&!Body->bHiddenInGame;
     TArray<UPrimitiveComponent*> Parts;if(HeadMesh)Parts.Add(HeadMesh);
+    if(HeadEquipment)Parts.Add(HeadEquipment);
     for(auto Groom:HeadGrooms)if(Groom)Parts.Add(Groom);
     for(auto* Part:Parts)
     {
         const bool HideHead=Body->bOwnerNoSee||(IsDeathViewActive()&&!IsThirdPersonViewEnabled());
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,HideHead);
         FPSBodyEquipment::ApplyShadowFlags(Part,ShouldWorldBodyCastShadow());
-        if(Part->IsVisible()!=Visible)Part->SetVisibility(Visible);
-        if(Part->bHiddenInGame==Visible)Part->SetHiddenInGame(!Visible);
+        const bool PartVisible=Visible&&!(bHeadEquipmentCoversHair&&Part->ComponentHasTag(TEXT("HeadScalpHair")));
+        if(Part->IsVisible()!=PartVisible)Part->SetVisibility(PartVisible);
+        if(Part->bHiddenInGame==PartVisible)Part->SetHiddenInGame(!PartVisible);
+        if(auto* Dynamic=Cast<UFPSHeadEquipmentMeshComponent>(Part))
+            Dynamic->SetDynamicsVisible(PartVisible&&(!HideHead||!Character.IsValid()||!Character->IsLocallyControlled()||ShouldWorldBodyCastShadow()));
     }
     if(HeadMesh)HeadMesh->VisibilityBasedAnimTickOption=Body->VisibilityBasedAnimTickOption;
 }

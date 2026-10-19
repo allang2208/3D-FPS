@@ -1,4 +1,50 @@
 {
+  "ue_st6_tactical_boots": {
+    "id": "ue_st6_tactical_boots",
+    "name": "ST6 战术靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 45,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 8
+    },
+    "desc": "卡其皮革与深灰织物拼接战术靴，黑色护趾、后跟和踝部支撑，系带鞋面与防滑齿纹鞋底。",
+    "ue_icon": "Icons/ST6LowerSet20261018/ue_st6_tactical_boots.png",
+    "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Pickups/SM_ST6Boots.SM_ST6Boots",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Icons/SM_ST6Boots_Display.SM_ST6Boots_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
+  "ue_st6_tactical_pants": {
+    "id": "ue_st6_tactical_pants",
+    "name": "ST6 战术长裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 42,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 10
+    },
+    "desc": "深灰防撕裂长裤，贴合腰围与收束裤腿，黑色嵌入式护膝配卡其包边。与硬壳手套、ST6 上衣及战术靴配套。",
+    "ue_icon": "Icons/ST6LowerSet20261018/ue_st6_tactical_pants.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Pickups/SM_ST6Trousers.SM_ST6Trousers",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Icons/SM_ST6Trousers_Display.SM_ST6Trousers_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
+  },
   "ue_steel_armet": {
     "id": "ue_steel_armet",
     "name": "灰钢闭面盔",
@@ -158,11 +204,11 @@
       "base": 10
     },
     "desc": "哑光烟灰棉斜纹七分裤，搭配炭灰短袖 T 恤。收窄裤腿、扁平侧袋、膝部省道和双折裤脚，露出下半段小腿。",
-    "ue_icon": "Icons/ue_smoke_grey_capri.png",
+    "ue_icon": "Icons/ST6LowerSet20261018/ue_smoke_grey_capri.png",
     "icon_fallback": "裤",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Pickups/SM_SmokeGreyCapri.SM_SmokeGreyCapri",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Pickups/SM_CapriTailored.SM_CapriTailored",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/Icons/SM_SmokeGreyCapri_Display.SM_SmokeGreyCapri_Display",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Icons/SM_CapriTailored_Display.SM_CapriTailored_Display",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": -90
   },
@@ -181,11 +227,11 @@
       "base": 20
     },
     "desc": "分片裁剪的棕色皮革长裤，弧形拼缝、柔性护膝、腰带和收窄裤脚保留自然褶皱。可搭配同套皮革靴及露指手套。",
-    "ue_icon": "Icons/ue_leather_pants.png",
+    "ue_icon": "Icons/TrouserFit20261018/ue_leather_pants.png",
     "icon_fallback": "裤",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Pickups/SM_LeatherPants.SM_LeatherPants",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Pickups/SM_LeatherPants.SM_LeatherPants",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Icons/SM_LeatherPants_Display.SM_LeatherPants_Display",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Icons/SM_LeatherPants_Display.SM_LeatherPants_Display",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": -90
   },
@@ -255,11 +301,11 @@
       "perEnhance": 2
     },
     "desc": "灰钢锁环织成的防护长裤，分片护腰覆盖胯部，金属护膝与上下叠片保护膝盖。裤腿渐收，裤口带内衬包边，可搭配运动鞋或皮靴。",
-    "ue_icon": "Icons/ue_chainmail_pants.png",
+    "ue_icon": "Icons/TrouserFit20261018/ue_chainmail_pants.png",
     "icon_fallback": "甲",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/Pickups/SM_ChainmailPants.SM_ChainmailPants",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Pickups/SM_ChainmailPants.SM_ChainmailPants",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/Icons/SM_ChainmailPants_Display.SM_ChainmailPants_Display",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Icons/SM_ChainmailPants_Display.SM_ChainmailPants_Display",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": -90
   },

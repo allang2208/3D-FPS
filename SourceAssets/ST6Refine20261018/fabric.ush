@@ -1,0 +1,53 @@
+// Rest-pose projection remains attached to the skinned garment.
+float3 p=RestPosition, rn=normalize(RestNormal);
+float3 blend=pow(abs(rn),4);blend/=max(dot(blend,1.0),.0001);
+float3 phase=frac(p/36.0), mirrored=1-abs(phase*2-1);
+float3 mirrorSign=lerp(1.0,-1.0,step(.5,phase));
+float2 lo=float2(.10,.78), patch=float2(.17,.15);
+float2 uvx=lo+mirrored.yz*patch, uvy=lo+mirrored.xz*patch, uvz=lo+mirrored.xy*patch;
+float3 colour=Texture2DSample(Fabric,FabricSampler,uvx).rgb*blend.x
+             +Texture2DSample(Fabric,FabricSampler,uvy).rgb*blend.y
+             +Texture2DSample(Fabric,FabricSampler,uvz).rgb*blend.z;
+// BC5 normal samples are encoded RG; UE already converted the source OpenGL green.
+float2 nx=Texture2DSample(FabricNormal,FabricNormalSampler,uvx).rg*2-1;
+float2 ny=Texture2DSample(FabricNormal,FabricNormalSampler,uvy).rg*2-1;
+float2 nz=Texture2DSample(FabricNormal,FabricNormalSampler,uvz).rg*2-1;
+nx=-nx/max(sqrt(saturate(1-dot(nx,nx))),.3);
+ny=-ny/max(sqrt(saturate(1-dot(ny,ny))),.3);
+nz=-nz/max(sqrt(saturate(1-dot(nz,nz))),.3);
+float3 restGradient=(float3(0,nx.x,nx.y)*blend.x+float3(ny.x,0,ny.y)*blend.y+float3(nz.x,nz.y,0)*blend.z)*mirrorSign*NormalStrength;
+float3 q=p-Origin;
+float x=q.x,h=q.z;
+float front=smoothstep(.08,.65,-rn.y), back=smoothstep(.08,.65,rn.y);
+float torso=TorsoMode;
+float shoulders=smoothstep(ShoulderHeight-10,ShoulderHeight-5,h);
+float sides=smoothstep(12.5,17.5,abs(x));
+float panel=saturate(shoulders*.32+sides*.5)*torso;
+colour*=lerp(1,.86,panel);
+float placket=(1-smoothstep(.36,.68,abs(x)))*front*torso;
+float chest=smoothstep(ShoulderHeight-25,ShoulderHeight-23,h)*(1-smoothstep(ShoulderHeight-13,ShoulderHeight-11,h));
+float seamDistance=min(abs(abs(x)-10.8)+max(0,1-chest)*20,abs(h-(ShoulderHeight-21.5))+max(0,abs(x)-11)*10);
+float yoke=abs(h-(ShoulderHeight-9.0)+.055*x*x);
+float seam=exp(-pow(seamDistance/.105,2))*front*torso;
+seam+=exp(-pow(yoke/.12,2))*back*torso;
+float stitchEdge=exp(-pow((seamDistance-.20)/.055,2))*front*torso;
+stitchEdge+=exp(-pow((yoke-.22)/.055,2))*back*torso;
+float stitchPhase=frac((h+x)*2.7);
+float stitchAA=max(fwidth((h+x)*2.7),.04);
+float stitch=(1-smoothstep(.30-stitchAA,.30+stitchAA,abs(stitchPhase-.5)))*stitchEdge;
+float collarBand=smoothstep(CollarTop-2.8,CollarTop-2.3,p.z)*torso;
+float collarSeam=exp(-pow((p.z-(CollarTop-2.55))/.085,2))*torso;
+float hem=exp(-pow((h-9.65)/.13,2))*torso;
+colour=colour*(1-.16*placket-.15*seam-.12*collarBand-.10*hem)+stitch*.004;
+float wrinkles=(sin(h*1.4+sin(x*.45)*1.3)*.055+sin(h*.63+x*.42)*.045)*sides*torso*(1-shoulders*.65);
+float height=wrinkles-.035*seam+.022*stitch-.025*collarSeam-.025*hem+.045*placket;
+// Differential surface gradient maps the rest-space weave through current skinning.
+float dx=dot(restGradient,ddx(p))+ddx(height),dy=dot(restGradient,ddy(p))+ddy(height);
+float3 N=normalize(SurfaceNormal), dpdx=ddx(WorldPosition),dpdy=ddy(WorldPosition);
+float3 gx=cross(dpdy,N),gy=cross(N,dpdx);
+float det=dot(dpdx,gx);
+float3 gradient=(dx*gx+dy*gy)*(abs(det)>.0000001?rcp(det):0);
+OutNormal=normalize(N-gradient);
+OutRoughness=clamp(.76+panel*.035+collarBand*.035+stitch*.015+.018*sin(dot(p,float3(1.2,.9,1.7))),.70,.86);
+OutAO=clamp(1-seam*.12-collarSeam*.10-hem*.08,.8,1);
+return colour;

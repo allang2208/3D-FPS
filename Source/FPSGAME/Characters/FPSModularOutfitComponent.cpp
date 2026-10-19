@@ -1,6 +1,7 @@
 #include "FPSModularOutfitComponent.h"
 #include "FPSPlayerBodyComponent.h"
 #include "FPSOutfitSecondaryMotion.h"
+#include "FPSOutfitRobeCloth.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -105,6 +106,12 @@ void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>
 }
 void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
 {
+    if(P.RobeHem)if(auto* Robe=P.RobeHem->Garment.Get())
+    {
+        PrimaryComponentTick.RemovePrerequisite(Robe,Robe->PrimaryComponentTick);
+        PrimaryComponentTick.RemovePrerequisite(Robe,Robe->ClothTickFunction);
+        PrimaryComponentTick.RemovePrerequisite(Robe,Robe->ClothEndTickFunction);
+    }
     if(P.SecondaryMotion)
     {
         if(auto* Source=P.Source.Get())RemoveTickPrerequisiteComponent(Source);
@@ -114,6 +121,8 @@ void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
         for(int32 L=0;L<P.PreviouslyVisible.Num();++L)
             for(const int32 Material:P.PreviouslyVisible[L])FPSModularOutfit::Section(Source,Material,L,true);
     for(auto Part:P.Parts)if(IsValid(Part))Part->DestroyComponent();
+    P.StairSections.Reset();
+    P.RobeHem.Reset();
     P.Parts.Reset();P.Key.Reset();P.SourceAsset=nullptr;
 }
 void UFPSModularOutfitComponent::EndPlay(const EEndPlayReason::Type Reason)
@@ -146,11 +155,19 @@ void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActo
     Super::TickComponent(Delta,Type,Tick);
     DiscoverCountdown-=Delta;
     if(bDirty||DiscoverCountdown<=0.f){bDirty=false;DiscoverCountdown=.1f;DiscoverSources();}
+    UpdateRobeStairVisibility();
     // Visibility changes (scope, casting, dual hand and third-person camera) are
     // followed every frame, without rebuilding meshes or parsing inventory JSON.
     for(auto& P:Presentations)
     {
         FollowVisibility(P);
+        for(auto Part:P.Parts)FPSOutfitRobeCloth::Update(Part,Delta);
+        if(P.RobeHem)P.RobeHem->Update(bHideRobeCalves,Delta);
+        for(auto& Sections:P.StairSections)
+        {
+            Sections.Apply(bHideRobeCalves);
+            if(P.RobeHem)Sections.Conform(*P.RobeHem);
+        }
         if(P.SecondaryMotion)P.SecondaryMotion->Tick(Delta);
     }
 }
@@ -306,7 +323,13 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     // Open gloves can keep the exposed fingers while omitting skin hidden
     // beneath the leather. The shared naked-hand mesh remains untouched.
     const FString GloveSkin=String(Object(Gloves,TEXT("skin_meshes")),*String(Profile,TEXT("rig_profile")));
-    TArray<FString> MeshPaths{!GloveSkin.IsEmpty()?GloveSkin:NativeBase.IsEmpty()?String(Profile,TEXT("base")):NativeBase};
+    // Long garments supply clipped inner layers in the same native binding.
+    // An explicit empty replacement omits a fully covered clothing part only;
+    // equipment state, the complete pose source and shoe selection stay intact.
+    const auto Underlayers=bHasLegs?Object(Shirt,TEXT("underlayer_meshes")):nullptr;
+    const auto UnderlayerMesh=[&Underlayers](const FString& Path)
+    {return Underlayers&&Underlayers->HasField(Path)?String(Underlayers,*Path):Path;};
+    TArray<FString> MeshPaths{UnderlayerMesh(!GloveSkin.IsEmpty()?GloveSkin:NativeBase.IsEmpty()?String(Profile,TEXT("base")):NativeBase)};
     TArray<FString> MaterialPaths{TEXT("")};
     const auto PartMesh=[&Profile](const TSharedPtr<FJsonObject>& Recipe,const TCHAR* Part)
     {
@@ -336,10 +359,18 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         // same async outfit load; switching shoes restores the default trousers.
         const auto ShoeFit=Object(Object(Pants,TEXT("shoe_fit_meshes")),Equipped.FindRef(13).ToString());
         const FString FittedPants=String(ShoeFit,*String(Profile,TEXT("rig_profile")));
-        MeshPaths.Add(FittedPants.IsEmpty()?PartMesh(Pants,TEXT("pants")):FittedPants);
-        MaterialPaths.Add(String(Pants,TEXT("material")));
+        const FString SelectedPants=FittedPants.IsEmpty()?PartMesh(Pants,TEXT("pants")):FittedPants;
+        const FString PantsPath=UnderlayerMesh(SelectedPants);
+        if(PantsPath.IsEmpty()&&!(Underlayers&&Underlayers->HasField(SelectedPants)))return;
+        if(!PantsPath.IsEmpty()){MeshPaths.Add(PantsPath);MaterialPaths.Add(String(Pants,TEXT("material")));}
     }
-    if(Shoes){MeshPaths.Add(PartMesh(Shoes,TEXT("shoes")));MaterialPaths.Add(String(Shoes,TEXT("material")));}
+    if(Shoes)
+    {
+        const FString SelectedShoes=PartMesh(Shoes,TEXT("shoes"));
+        const FString ShoesPath=UnderlayerMesh(SelectedShoes);
+        if(ShoesPath.IsEmpty()&&!(Underlayers&&Underlayers->HasField(SelectedShoes)))return;
+        if(!ShoesPath.IsEmpty()){MeshPaths.Add(ShoesPath);MaterialPaths.Add(String(Shoes,TEXT("material")));}
+    }
     TArray<FSoftObjectPath> Paths;
     bool bLoaded=true;
     for(const FString& Path:MeshPaths)
@@ -394,6 +425,9 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         }
         Part->bUseAttachParentBound=true;Part->RegisterComponent();
         Part->SetComponentTickEnabled(false);
+        if(I==1&&bUseShirtMesh&&bHasLegs&&String(Shirt,TEXT("cloth_simulation"))==TEXT("blue_mage_robe_v1"))
+            FPSOutfitRobeCloth::Initialize(Part,bLowerBody&&Source->LeaderPoseComponent.IsValid()
+                ?Cast<USkeletalMeshComponent>(Source->LeaderPoseComponent.Get()):Source);
         if(!MaterialPaths[I].IsEmpty())
             for(int32 M=0;M<Part->GetNumMaterials();++M)Part->SetMaterial(M,Cast<UMaterialInterface>(FSoftObjectPath(MaterialPaths[I]).ResolveObject()));
         if(I==0)for(const auto& Entry:BaseMaterialPaths)
@@ -441,6 +475,33 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     else Existing=&Presentations.AddDefaulted_GetRef();
     Existing->Source=Source;Existing->SourceAsset=Source->GetSkeletalMeshAsset();Existing->Key=Key;Existing->bWorld=bWorld;
     Existing->Parts=MoveTemp(NewParts);Existing->HiddenMaterials=Numbers(Profile,TEXT("hide_source_materials"));
+    if(bHasLegs&&WantsRobeStairSupport())
+    {
+        const TArray<int32> None;
+        for(auto Part:Existing->Parts)if(Part&&Part->ComponentHasTag(TEXT("OutfitRobeDrape")))
+        {
+            Existing->RobeHem=MakeShared<FFPSRobeHemEnvelope>();
+            Existing->RobeHem->Initialize(Part);
+            // The default cloth completion/writeback runs in LastDemotable,
+            // after our PostUpdateWork tick. Reading earlier sees an empty or
+            // previous-frame cache, especially visible during planted turns.
+            // Tick prerequisites defer only this actor's presentation until
+            // its pose and cloth cache are the same ones sent for rendering.
+            // ClothTick covers the in-tick wait mode; ClothEndTick covers the
+            // normal asynchronous mode. Inactive tick functions are skipped.
+            PrimaryComponentTick.AddPrerequisite(Part,Part->PrimaryComponentTick);
+            PrimaryComponentTick.AddPrerequisite(Part,Part->ClothTickFunction);
+            PrimaryComponentTick.AddPrerequisite(Part,Part->ClothEndTickFunction);
+            break;
+        }
+        for(int32 I=0;I<Existing->Parts.Num();++I)
+        {
+            FFPSRobeStairSections Sections;
+            Sections.Initialize(Existing->Parts[I],I==0?Covered:None);
+            if(!Sections.Sections.IsEmpty())
+            {Sections.Apply(bHideRobeCalves);Existing->StairSections.Add(MoveTemp(Sections));}
+        }
+    }
     if(!bHasLegs&&Shirt&&String(Shirt,TEXT("secondary_motion"))==TEXT("chainmail_shared_sway_v1")&&Existing->Parts.IsValidIndex(1))
     {
         Existing->SecondaryMotion=MakeShared<FFPSOutfitSecondaryMotion>();

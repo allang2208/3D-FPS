@@ -13,4 +13,9 @@ def apply(config):
         if profile=='Jason':
             for section in ('8','9'):overrides[profile][section]=torso
     item['base_material_overrides']=overrides
+    # ST6Refine20261018: retain the native neck and hem refinement.
+    from pathlib import Path
+    import runpy
+    refinement=runpy.run_path(str(Path(__file__).parent.parent/'ST6Refine20261018/recipe.py'))
+    refinement['apply'](config)
     return config

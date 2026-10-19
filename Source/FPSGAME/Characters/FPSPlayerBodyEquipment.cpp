@@ -656,6 +656,8 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
     if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
     if(FPSPlayerBodyWorldBodySuppressed())return;
     auto* Body=GetBodyMesh();if(!Body||!Configuration.IsValid())return;
+    const auto* HeadSlot=Outfit.FindByPredicate([](const FFPSBodyOutfitSlot& Entry){return Entry.Slot==1;});
+    UpdateHeadEquipment(HeadSlot?HeadSlot->Definition:NAME_None);
     UFPSPerformanceMetricsSubsystem::CountOutfitRebuild(this);
     for(auto Part:OutfitMeshes)if(Part)Part->DestroyComponent();OutfitMeshes.Reset();
     for(auto Part:OutfitStaticMeshes)if(Part)Part->DestroyComponent();OutfitStaticMeshes.Reset();

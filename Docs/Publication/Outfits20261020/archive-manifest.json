@@ -1,0 +1,1602 @@
+{
+  "schema": 1,
+  "scope": "This conversation outfits only",
+  "files": [
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/Before/FPSMageRobeAuthoring.cpp",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/Before/FPSMageRobeAuthoring.cpp",
+      "bytes": 10107,
+      "sha256": "7775d23b9cc90b6cd3111b1e636a91e62de3de697ac2b6fa5fec8819f1fc41a8",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/Before/modular_outfits.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/Before/modular_outfits.json",
+      "bytes": 149745,
+      "sha256": "a3a967e0db1bbb032d106df678cc27e4ae27c857c8058515381c31ca11532197",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/Before/user-stair-clipping.png",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/Before/user-stair-clipping.png",
+      "bytes": 103133,
+      "sha256": "2ec3fae98159fce9522087687a6a680a201ede5543baaa188738227d5c7c7850",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/body-native-coverage.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/body-native-coverage.json",
+      "bytes": 79,
+      "sha256": "0dc26a4400bce752d4ec88e6988f04ff1596649db98f07a07b01f331e6c67aa5",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/calf-underlayer-coverage.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/calf-underlayer-coverage.json",
+      "bytes": 5665,
+      "sha256": "fe510263d41a10ac4d881d939b3e1d67ab0071d1ef7839e641a09429d4044cdb",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/calf-underlayer-final-comparison.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/calf-underlayer-final-comparison.json",
+      "bytes": 7321,
+      "sha256": "abcc776eb059d0f8761b1450fa5f1703d59a6cffdbde4d1d551d8797207fdc3b",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/foot-collision-before.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/foot-collision-before.json",
+      "bytes": 1779,
+      "sha256": "ac16e428098f795d1645c968b0ac19642592d1266ba3a7918685e49b5f5b35fe",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/footwear-movement-comparison.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/footwear-movement-comparison.json",
+      "bytes": 27888,
+      "sha256": "57e5c0d6a3eb2453e105989a5a24d390bb8ff10ef00e105ac23d5af8e2114ab6",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/initial-skirt-clearance.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/initial-skirt-clearance.json",
+      "bytes": 260,
+      "sha256": "9ce2e4dd177f1be6f14936c19c19fcaa354ee80b47dcbcb7eceb0011914336a5",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-analysis-01.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-analysis-01.txt",
+      "bytes": 364,
+      "sha256": "8324ddb5df8e3e2d83af65eed813f1a5ef46c0877354f3cb905f98a440886329",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-analysis-02.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-analysis-02.txt",
+      "bytes": 3925,
+      "sha256": "7c615a772c27c911857f317e0647707b4ad4333ce39a68d3e30fdfe41805dfe3",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-build-02-assets.log",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-build-02-assets.log",
+      "bytes": 289213,
+      "sha256": "b9c209e701e561e5445a4ce920de80d967810cd08deb85084bae2f31fce7e624",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-build-02-assets.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/movement-build-02-assets.txt",
+      "bytes": 36664,
+      "sha256": "1ca9852ecd3b8a0128629951572d412c135126160611d822085c2ff267a785a0",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/published.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/published.json",
+      "bytes": 24305,
+      "sha256": "1625ed2862e8881f4c7ec6bf91f9b0ba24b2f3d0ea856f6e004e21c24e2ccd74",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/saved_assets.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/saved_assets.json",
+      "bytes": 4728,
+      "sha256": "139c9d984e035c8738957c625cbf9c1a5f852d9efb47b637d33c6048170b0faa",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/MovementFit20261019/source-movement-poses.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/MovementFit20261019/source-movement-poses.json",
+      "bytes": 19835037,
+      "sha256": "c9d3fe4ae98d2f553fbc82376aa4ebb2cf8547201be053b8857a0fcf9512df9a",
+      "reason": "Withdrawn enlarged collision and skirt movement revision; user reported folding.",
+      "replacement": "FacingFix20261020 + HemContinuity20261019"
+    },
+    {
+      "original": "Tools/BlueMageRobe/analyze_movement.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/analyze_movement.py",
+      "bytes": 4233,
+      "sha256": "257bd55805bce1953845e485aec1d045df46601dc65452a6215265a329a7411c",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "Tools/BlueMageRobe/inspect_movement.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/inspect_movement.py",
+      "bytes": 1900,
+      "sha256": "26b608006debbf85f70c9a19a9c1390e40ab510dfc2d58fe2da04d48860bb3f1",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "Tools/BlueMageRobe/inspect_calf_coverage.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/inspect_calf_coverage.py",
+      "bytes": 1423,
+      "sha256": "0d78d9f5549d54695f04e1e8dde5495d7668f8c4a249165cac60b300b6faf087",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "Tools/BlueMageRobe/publish_movement_fit.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/publish_movement_fit.py",
+      "bytes": 2075,
+      "sha256": "7f5ef663a57be93e45f9e98444f0f8ae2f45c40c99f5258b4b2cfa30361a1013",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "Tools/BlueMageRobe/save_movement_fit.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/save_movement_fit.py",
+      "bytes": 2215,
+      "sha256": "6ae7b916252408f7d8730151d0d36f27453e4a45d93e8304b85a2bba844e118e",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "Tools/BlueMageRobe/run_movement_fit.ps1",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/run_movement_fit.ps1",
+      "bytes": 2776,
+      "sha256": "8c3ec709502b684029e97e8d6f560616e6b431190fecc991bcc02bbe4a0a1abf",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "Tools/BlueMageRobe/rollback_movement_fit.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/rollback_movement_fit.py",
+      "bytes": 5008,
+      "sha256": "56a5938a8539b81b20d9b0fe38bd1c6e225ffcb09d0ff0baffc8f101c9357980",
+      "reason": "Retired MovementFit authoring, analysis and one-time rollback entry.",
+      "replacement": "Tools/BlueMageRobe/publish_facing.py; publish_hem_layers.py; publish_hem_refinement.py"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-01.log",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-01.log",
+      "bytes": 2383,
+      "sha256": "8f14cbc44da97125022fb634f277143acd801223b923dfbf6836c906b8a3575c",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-02.log",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-02.log",
+      "bytes": 2386,
+      "sha256": "c74a214d94b1d7c212452b3e78f9bfedf9923ebd23e479a883f63a8ebf1ae052",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-03.log",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-03.log",
+      "bytes": 2534,
+      "sha256": "2737e3e6a200bde3bcc35c1090b527657bc22db2db4452ad53ce1eb94e45c382",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-st6-welt.log",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/author-st6-welt.log",
+      "bytes": 81,
+      "sha256": "276bcf06d72d4a0ba23827864c2540cb5b043bc8a2c63380374b72fd250f4477",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Body_887fb7e7d0b1.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Body_887fb7e7d0b1.json",
+      "bytes": 34920545,
+      "sha256": "6326df8282b00d0a97d2b5ff58db5be04698be390664b724b74a2eca0a27f207",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Body_c74758194b4e.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Body_c74758194b4e.json",
+      "bytes": 40916160,
+      "sha256": "8f5f5f003da47bf3d100ec5d7f19abaedf5c090a8c2d8ab1356c3e8a9dc423d2",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_0116f900b37d.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_0116f900b37d.json",
+      "bytes": 5205299,
+      "sha256": "654dcf2c9fc3a40c9c7f070d138db24c9132740aaca42ebbb8a28c65a179ca7f",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_07b6bd4de319.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_07b6bd4de319.json",
+      "bytes": 43450808,
+      "sha256": "a0c028a4ef3cd4f7d1dcb2394fdd1c3988538b3c548e371720cc663a3cecdedf",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_0828d42c3a30.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_0828d42c3a30.json",
+      "bytes": 16820981,
+      "sha256": "c0d0c36ab76d1662e2f0abb09ef7e31fc7ef51e2b6289aa445060b4c7c2f4b46",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_0aa45cafa4ed.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_0aa45cafa4ed.json",
+      "bytes": 3308184,
+      "sha256": "12cdb1426588d35fca982c96ec3bdcd3d74547848a6559f1851c61a9eea49700",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_2105005c034c.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_2105005c034c.json",
+      "bytes": 24227718,
+      "sha256": "08ef388dae2d3b3aa928cedb0eeb2fe5a9c989f238499fead9656afea763690f",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_2befc8050603.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_2befc8050603.json",
+      "bytes": 85950876,
+      "sha256": "fdb70ed2809379049cff664dbdba475e3d3daf0da385e6aa737a4afba19813f3",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_326b8487c516.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_326b8487c516.json",
+      "bytes": 3308217,
+      "sha256": "1ad23f7ce85f9038e201530ae5eba8f05b475265beb57c26f934d1b37a4d123c",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_3671a64d4b09.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_3671a64d4b09.json",
+      "bytes": 20053395,
+      "sha256": "1aae6558ec267ba1ac5438a011c932422848a2eb04649ca677b6e9f213ee7bb9",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_38f2b5309a3e.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_38f2b5309a3e.json",
+      "bytes": 3100733,
+      "sha256": "8cdb19f8582dc7ab87d8d9f98fe16eebd98302741920af93fcb7de7b223042c9",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_39e1aead7a64.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_39e1aead7a64.json",
+      "bytes": 20050749,
+      "sha256": "854c3a51eb260e39c558b8cfb38dd541490746713f1b34395cb611642badabf1",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_476e3ccb2d67.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_476e3ccb2d67.json",
+      "bytes": 3100560,
+      "sha256": "9be682364ae00de92ce59ed352cc81eb79cacba94606e9d1c35f1f405ba03524",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_56fbec4f2133.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_56fbec4f2133.json",
+      "bytes": 23660803,
+      "sha256": "024926da56cda66497dcb74bc6a4b2695e4145f1a441790f794a9ce569606ee6",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_5855b39d5859.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_5855b39d5859.json",
+      "bytes": 7738294,
+      "sha256": "74c937d76b963a859b709c34e05c8bb128fc39813288ff7424d298700b41ce45",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_6261047cccb7.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_6261047cccb7.json",
+      "bytes": 23652745,
+      "sha256": "6f5b377f2239c7567b1709ad6ff4b1fb65fb9d2e60e8c9f8bee092b1005c46ea",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_668c8751f2f7.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_668c8751f2f7.json",
+      "bytes": 3308993,
+      "sha256": "fa03f9ae8c5abe60d41b8fbe55c905f87717550bdfb0e1a00902a858ed73fd5c",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_710673a357d7.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_710673a357d7.json",
+      "bytes": 23649286,
+      "sha256": "83736e2d4ffc8553f49d221a21f37d077a29aeb36743a87c8a1c27bb53423cfc",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_79e6173a35b0.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_79e6173a35b0.json",
+      "bytes": 24246952,
+      "sha256": "344b95cc98b737d289f715f0118654e92821b42f5c389e9772b6e2865be472a8",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_8a37256187a1.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_8a37256187a1.json",
+      "bytes": 13126331,
+      "sha256": "b4acc2e2c1d394c6d39618b3af6d837172446f5c3ad74a510e20fb0abc98df58",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_983d0c149c63.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_983d0c149c63.json",
+      "bytes": 3101170,
+      "sha256": "d2f66ed038e1f5b552391e758f563d562df89d2012f8d5e5bc5619dacc6274dd",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_a49b9dbfea5a.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_a49b9dbfea5a.json",
+      "bytes": 16823107,
+      "sha256": "8426a12646e4f715c3265ed8cb13cdae9a2ae71af5db21b898bb2f0e3dcbe4b2",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_a84e509c96d4.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_a84e509c96d4.json",
+      "bytes": 20045990,
+      "sha256": "bf57ba512073efd6ceeb9583a74a3ca62e8fcd9b62328476a92d1a73fdaa4c65",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_b2005c29e228.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_b2005c29e228.json",
+      "bytes": 20039313,
+      "sha256": "0e49c3d08dd9c58e241e744f26170175cda8d8d2e6050b03a9d9dcc37d9aa7e5",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_c23959506c48.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_c23959506c48.json",
+      "bytes": 12459961,
+      "sha256": "566b3e3c3beda6d310dd1e1e6c793bd86bbfd64bb81af6eb81f60c1c5e86060f",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_d328a8b19aa2.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_d328a8b19aa2.json",
+      "bytes": 13109818,
+      "sha256": "3fca77c862b7cf99ebe524d80cb37a0f43104df1cad2139930bd1d34e2769b62",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_d636b41330c5.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_d636b41330c5.json",
+      "bytes": 13221677,
+      "sha256": "744f6e5880888304aadbfa247f78686bdbf94a773951fff6771ac0dbe0d9aebf",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_dbd0ca2bb402.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_dbd0ca2bb402.json",
+      "bytes": 13129403,
+      "sha256": "9eac15a8acc537a7ee5bb3c77698a92f217102d88d946a5aba61d8cb148bdb8f",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_e2fca44d89c4.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_e2fca44d89c4.json",
+      "bytes": 16805253,
+      "sha256": "79e825c8508d430f6ceec13ee54aa51de3daf740cd943ef2038332dce7c2500b",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_eb71ba50d70b.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_eb71ba50d70b.json",
+      "bytes": 13127524,
+      "sha256": "ad2743ee74a55d00f7472416f24da24e388916e0587761a2a13efd71b65b114d",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_fa88975a69a4.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_fa88975a69a4.json",
+      "bytes": 48139435,
+      "sha256": "136a4a741654f66352b5b5702919cd3344f4f922533975d942e4c2d7a5287de9",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_fee346fe269d.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Authored/Jason_fee346fe269d.json",
+      "bytes": 52113108,
+      "sha256": "f551f895e84d16ce550c4e84e00bc70370100e96a57e0e2d7a53ab0c87310c5b",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/authored.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/authored.json",
+      "bytes": 74788,
+      "sha256": "d174ab9b4ea71de14c26e7fcab9f6f15130d550db83090c5f45c0b80f8eb227a",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/cap_authoring_error.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/cap_authoring_error.json",
+      "bytes": 10167,
+      "sha256": "3abf875220cf36673d9be530a6cc31c8733f03cb779559bed3d566e756314915",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/capture-01.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/capture-01.txt",
+      "bytes": 297,
+      "sha256": "8600dfae9c5eb8a54e23593859824aa44be1663ef8ca7fb57136bcaa8d93c075",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/inputs.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/inputs.json",
+      "bytes": 29348,
+      "sha256": "2589d5cd20d886547b456a015bb601ff0e5f45ba3590c421d778e814e6152cce",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/modular_outfits-before.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/modular_outfits-before.json",
+      "bytes": 154108,
+      "sha256": "a54003b7f52468a3cadcd9b1212c8a1d2223e54f043dddf5f8872e48297e041f",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/published.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/published.json",
+      "bytes": 333,
+      "sha256": "0bc3d40d7c57714e44abb87c38af8ad483059e4f4515ec60569a194a97cd1a62",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Body_887fb7e7d0b1.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Body_887fb7e7d0b1.json",
+      "bytes": 34765760,
+      "sha256": "fda6d0685bf5fb646169b5dde6e139d38f2a68bc2c3df273846b4c94a548a44e",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Body_c74758194b4e.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Body_c74758194b4e.json",
+      "bytes": 40761313,
+      "sha256": "aa381107d382d8a352534cc7ef035b73ced2e914ba173a7f196e45c3c2ce76fd",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_0116f900b37d.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_0116f900b37d.json",
+      "bytes": 5205174,
+      "sha256": "649b519d3dad4b1aff56cd198765ae6db39718213644459c0d442ddf27d1a19a",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_07b6bd4de319.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_07b6bd4de319.json",
+      "bytes": 42467646,
+      "sha256": "aada83b02bf32266b3f2346ef328a54877f0af50b7e5823025550ab4b35995bc",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_0828d42c3a30.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_0828d42c3a30.json",
+      "bytes": 16556210,
+      "sha256": "2765d59875056d9bc650165185f6a527cca7d130f1fd49d5acc72049e101c567",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_0aa45cafa4ed.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_0aa45cafa4ed.json",
+      "bytes": 3111157,
+      "sha256": "045931d9b44acde935ae33758b580b3ff494b2ed77c004f054ba646d1145485a",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_2105005c034c.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_2105005c034c.json",
+      "bytes": 24079955,
+      "sha256": "1966f99cb28abbab56cb036f939ab1ca545aacc300f05bb8b919bc8485741660",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_2befc8050603.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_2befc8050603.json",
+      "bytes": 84380815,
+      "sha256": "4f84e966708e8cc061d176ef06624fc59a08530893e4541cf76ec4724039d624",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_326b8487c516.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_326b8487c516.json",
+      "bytes": 3111148,
+      "sha256": "c80f46bb7a470b04c8b4b74952dce9f5b8c748b001a6051daefbc14e7d0c2fbf",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_3671a64d4b09.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_3671a64d4b09.json",
+      "bytes": 19259449,
+      "sha256": "fa3ac8903bf05f572d390bb8d78f60db0b49cf0ada82932d1d52740b5c83d8e7",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_38f2b5309a3e.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_38f2b5309a3e.json",
+      "bytes": 3059844,
+      "sha256": "53d128e8c8200cff8b72f087416b94ad957bb91058c2d94fa66f0349dcf102ec",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_39e1aead7a64.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_39e1aead7a64.json",
+      "bytes": 19257305,
+      "sha256": "16a978dba2fe5827270105ae4dbc2bc2154db67bc6f83f72d4e92b4b17f36563",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_476e3ccb2d67.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_476e3ccb2d67.json",
+      "bytes": 3059673,
+      "sha256": "d11c93e6920644bc687ae3881fe436f3bc6561d18a024e6073d28fae428876d0",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_56fbec4f2133.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_56fbec4f2133.json",
+      "bytes": 23400747,
+      "sha256": "dbf469de5eab79b4a2af965196899c5302ecfd12647cc440f772ecf258568c73",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_5855b39d5859.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_5855b39d5859.json",
+      "bytes": 7451726,
+      "sha256": "a8e1485211560d7f3b7d3066f66877768b58075409dc1d2f0a012be4cd20bdda",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_6261047cccb7.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_6261047cccb7.json",
+      "bytes": 23392583,
+      "sha256": "55a00dcd722cf683b35ea2e2154af746d119dcbf2cda321ba9fa2865db449a7d",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_668c8751f2f7.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_668c8751f2f7.json",
+      "bytes": 3111930,
+      "sha256": "19ecdbb69ce897704b7f8fa37d10ace4f555933b31234315cf3f4bddfe9d50a0",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_710673a357d7.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_710673a357d7.json",
+      "bytes": 23389420,
+      "sha256": "0b55bdfcffccc099532fffeabc0af35ceb8aa9eb96a19d0be6dcd2de98ea0c65",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_79e6173a35b0.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_79e6173a35b0.json",
+      "bytes": 24098501,
+      "sha256": "cbc77fecc16b5dcd0380e0bc56126c43958b293fd06de3df5357393d04a065b8",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_8a37256187a1.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_8a37256187a1.json",
+      "bytes": 12655895,
+      "sha256": "2104286e1d543d774c241518604c74f2c30f9579ea180ea560e580f15ca70b50",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_983d0c149c63.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_983d0c149c63.json",
+      "bytes": 3059635,
+      "sha256": "7a886a56c4f95aed1f3dad4abe0ba7155e66670c1f93a3c98a62e4ddf464adcf",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_a49b9dbfea5a.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_a49b9dbfea5a.json",
+      "bytes": 16558420,
+      "sha256": "ec4b8ade8e9643f4901dead2365cb424a71b912f6dfd60a2847a3e0eeb9e54ff",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_a84e509c96d4.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_a84e509c96d4.json",
+      "bytes": 19252450,
+      "sha256": "7c3d7ac9cec7b1ef721a541f643f9368f1266d2617787fddbd037647fb806d69",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_b2005c29e228.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_b2005c29e228.json",
+      "bytes": 19246320,
+      "sha256": "35f8ae8f465388afc89f516d546f47952d6f227dc19475f8f5e7bf4e31979ebb",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_c23959506c48.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_c23959506c48.json",
+      "bytes": 12459432,
+      "sha256": "8172b38c9d7015aa9745350c4234a1cfb4863541cfdce3bd8f8e8c44015862c6",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_d328a8b19aa2.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_d328a8b19aa2.json",
+      "bytes": 12642298,
+      "sha256": "6658c3a9bbfa0099b9d63975a82a0aeca1642c102614f47e1bee86964aacfc3d",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_d636b41330c5.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_d636b41330c5.json",
+      "bytes": 13221067,
+      "sha256": "90a7bb5a51a3e9a311a6368acf5366a01808a2867698796a711c78fb0040c054",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_dbd0ca2bb402.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_dbd0ca2bb402.json",
+      "bytes": 12658512,
+      "sha256": "0acbd948b89801fb12e3b9e61fd16c3d24ea3a6f86f364b57cf0d7916c1c7447",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_e2fca44d89c4.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_e2fca44d89c4.json",
+      "bytes": 16541022,
+      "sha256": "abb637859e6f60e39e61661e21e1fd541c7343421bbfab52dc70a1dfcb5c50e3",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_eb71ba50d70b.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_eb71ba50d70b.json",
+      "bytes": 12657642,
+      "sha256": "419cce6c5aa65adc33115ac7db923df675da681ea69b80a71bc4d10e4cba51b9",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_fa88975a69a4.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_fa88975a69a4.json",
+      "bytes": 47639883,
+      "sha256": "b13b1b5b228de8cfed2c02cc637b8178ac3adbdd1c94ea31f9d2d592d6538c62",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_fee346fe269d.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/Read/Jason_fee346fe269d.json",
+      "bytes": 50975351,
+      "sha256": "62f2c436218b1aa7cdcb4c091340d87792c8a683b9804a53e3081b7e66fd4af9",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/saved_assets.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/saved_assets.json",
+      "bytes": 28835,
+      "sha256": "b4b0b90cc5b5bb93dde0a8361fbd962a4a0a73104a54a4b438e067e7894a6099",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/status.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/status.json",
+      "bytes": 370,
+      "sha256": "7aeba70c96c2deb38a3ce9a859568e426e7f864e0ce95f7b6e7164b96bb6c807",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/__init__.py",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/__init__.py",
+      "bytes": 857,
+      "sha256": "0a63bb899ff869af6bbaf4bf68e4254961ce0f0e7a728ef010589452096cf26a",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/__pycache__/__init__.cpython-311.pyc",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/__pycache__/__init__.cpython-311.pyc",
+      "bytes": 1329,
+      "sha256": "3332a47e1e17117b5a0a3b8e0ee3b27df6742ede79358f1054b159812d31e789",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/_core.cp311-win_amd64.pyd",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/_core.cp311-win_amd64.pyd",
+      "bytes": 190976,
+      "sha256": "ac08a635df9f6f5d6b3c465793b6dc668b088886672cbd48fc0889286e31bfc4",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/_core.pyi",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/_core.pyi",
+      "bytes": 1215,
+      "sha256": "27d02b226c91fff879e0bf3e6dabc5888d54a3e2194571faeb81a5b4d3fff7d9",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/py.typed",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut/py.typed",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/DELVEWHEEL",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/DELVEWHEEL",
+      "bytes": 412,
+      "sha256": "4cc0f3270f9bca56b9f8567214ceef7dae49b9e35bc7954f171714c5f9fb3c90",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/INSTALLER",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/INSTALLER",
+      "bytes": 4,
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/licenses/LICENSE.md",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/licenses/LICENSE.md",
+      "bytes": 956,
+      "sha256": "48fe37f9d436d604ab4ce8cfc653e2ab8c6d6638f82d4038f0f2ab8d9a76784d",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/METADATA",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/METADATA",
+      "bytes": 2538,
+      "sha256": "e608ded7ee8a667f2c9ed0c52395e6127d5d563b24f713f1ad14f9bf936c442e",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/RECORD",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/RECORD",
+      "bytes": 1136,
+      "sha256": "ca7d49a1e1e0bf786b96a5e88c8e9a57551256c07e96054da8f160a9c44f9696",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/REQUESTED",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/REQUESTED",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/WHEEL",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut-2.1.0.dist-info/WHEEL",
+      "bytes": 105,
+      "sha256": "b622a443ed964cb66aed1fa0cfea27f65510f526fc8c176594dcf330009bc05b",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut.libs/msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairVisibility20261019/ToolDeps/mapbox_earcut.libs/msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll",
+      "bytes": 575056,
+      "sha256": "a4c2229bdc2a2a630acdc095b4d86008e5c3e3bc7773174354f3da4f5beb9cde",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "Tools/BlueMageRobe/author_stair_sections.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/author_stair_sections.py",
+      "bytes": 8031,
+      "sha256": "c4abfb4adc75dbbd7e8bb74a56fc556a362180453843965537c3025dc99ac764",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "Tools/BlueMageRobe/capture_stair_sections.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/capture_stair_sections.py",
+      "bytes": 4020,
+      "sha256": "1ec97570e0eee9ee10c3328fc3690baa52d122e772a5f8a178868ab8c14fdffa",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "Tools/BlueMageRobe/publish_stair_sections.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/publish_stair_sections.py",
+      "bytes": 2071,
+      "sha256": "0f26f9e2c3c22cce65a4e5e8232451378507f56029f09ec3add6335ed054070e",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "Tools/BlueMageRobe/save_stair_sections.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/save_stair_sections.py",
+      "bytes": 5643,
+      "sha256": "cb0f33be540ce6d1e741cf3dbda2545b5c130cebff6667b57059cea8ed93d56a",
+      "reason": "Whole calf hiding and ankle-cap design was rejected because it leaves a gap.",
+      "replacement": "HemContinuity20261019 with continuous inner layers and hem_conform.hlsl"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Body.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Body.json",
+      "bytes": 83595811,
+      "sha256": "db05b09603d82a5a8c61579d34005711687354f4e55d63de3a073dd7b8fefad0",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Body_Owner.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Body_Owner.json",
+      "bytes": 44516129,
+      "sha256": "7bd9b885ad26d5955d8632fde65f2404f77bf1a502eb4aeb726bb8a89bc277e1",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Jason.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Jason.json",
+      "bytes": 80476928,
+      "sha256": "2bb6654c439e4e9f1febc4a4dbec3975b819309d94e41c333176d16004f07465",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Jason_Owner.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Authored/Body/Jason_Owner.json",
+      "bytes": 45533954,
+      "sha256": "dda59c6e999bb77001efd425dd8dd2f8a5224ebf1ba3aaa3151ad9fa2376ba1c",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "bytes": 27396860,
+      "sha256": "f7895bf6e1e6562ecc226331a81a17bd184919dbd41fbc51b1b028c285f6aafe",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "bytes": 8164620,
+      "sha256": "54e7ea7b81abf1832f45a8a068d4574ae888d91506a2b94ad39f68ad5b105feb",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_Owner_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_Owner_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "bytes": 22534592,
+      "sha256": "c141a9f259116d0867dc421f16c8389674f7f259c161b5758bf5185d9ad9212a",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_Owner_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Body_Owner_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "bytes": 4404524,
+      "sha256": "ca616232bb37d3fc96c74ff5bb2d2aca4372f4021ef1850e2afabcfb8d9b4d3d",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "bytes": 27032612,
+      "sha256": "df2363c65655d7700593d66bf48757ddb8abe3d9efbda5ce14b92e2ecd2063be",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "bytes": 8664844,
+      "sha256": "f10e4ea334eb35c30e74eef4d030a30f24f319d9d1435e2101d23603f92305ad",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_Owner_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_Owner_BlueMageRobe_ActivityPleats_Candidate.blend",
+      "bytes": 22832646,
+      "sha256": "0ab5e394dd22008f3b33a61383ba7928d7af0d9b5eb6524451b6fd3f2a85a246",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_Owner_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/Exports/Jason_Owner_BlueMageRobe_ActivityPleats_Candidate.fbx",
+      "bytes": 5158380,
+      "sha256": "0a89a56d412c55b0b735c737fde8ce71496f28b18c4d65d0b701c55bdc093e32",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/candidate-geometry.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/candidate-geometry.json",
+      "bytes": 2178,
+      "sha256": "0ca3062366300400e55db22a4ba043a94bf547851d3efb0f565e402b5c1ad58a",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/editable-candidate.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/editable-candidate.json",
+      "bytes": 1465,
+      "sha256": "aef8ec689d2048c3c492b1e4998a6d62401303d46646f387913936ff4196486e",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "SourceAssets/BlueMageRobe20261018/StairRepair20261019/foot-capsule-fit.json",
+      "archived": "trash/Outfits20261020/SourceAssets/BlueMageRobe20261018/StairRepair20261019/foot-capsule-fit.json",
+      "bytes": 1453,
+      "sha256": "b4bdeaafa1564a4751c8c1bb2f3fb8f28524d8fd96fcb5e9f3dffc3d1d43d8fb",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "Tools/BlueMageRobe/author_stair_pleats_candidate.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/author_stair_pleats_candidate.py",
+      "bytes": 2471,
+      "sha256": "1b743898a4e59bc646298512d11d3d60cc3cedd4bedd300d853eb2c883ee888c",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "Tools/BlueMageRobe/save_stair_candidate_editable.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/save_stair_candidate_editable.py",
+      "bytes": 1583,
+      "sha256": "35a48534e765539a204f74b6345f8877c2ee4b48646052ef275d8119ee05e41b",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "Tools/BlueMageRobe/fit_stair_foot_collision.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/fit_stair_foot_collision.py",
+      "bytes": 1804,
+      "sha256": "9ce62c98cc52dbd5b0bced279e44bbd631a296777e3bf25d8b33a36fea3a98b1",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "Tools/BlueMageRobe/publish_stair_fit.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/publish_stair_fit.py",
+      "bytes": 2672,
+      "sha256": "b1193d5fa5b03e03287b6a7d736f2ed0cd4bc10557a786b26db2b8f536209287",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "Tools/BlueMageRobe/save_stair_fit.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/save_stair_fit.py",
+      "bytes": 1867,
+      "sha256": "e8a9390850b8a3f1595c05a7a843caa16ef0d94b3302d9f37c7d5bfe2d4d8cc2",
+      "reason": "Unpublished activity pleat/collision candidate superseded by retained cloth and continuous inner layer.",
+      "replacement": "FacingFix20261020 and HemContinuity20261019; historical diagnostic evidence retained"
+    },
+    {
+      "original": "Tools/BlueMageRobe/save_confirmed_editor_and_exit.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageRobe/save_confirmed_editor_and_exit.py",
+      "bytes": 1246,
+      "sha256": "38a3e0976cd2494dcdf60ae21fc7a27e22d46a68766e1b82d849a05ef916a6ab",
+      "reason": "One-time session-specific editor/PIE shutdown helpers; authorization must not be replayed.",
+      "replacement": "Background authoring runners and current session instructions"
+    },
+    {
+      "original": "Tools/BlueMageSetIcons/stop_pie.py",
+      "archived": "trash/Outfits20261020/Tools/BlueMageSetIcons/stop_pie.py",
+      "bytes": 962,
+      "sha256": "52a84a144bee647a35637618b693ae6f7ac698237647cfc32af136b7142536b1",
+      "reason": "One-time session-specific editor/PIE shutdown helpers; authorization must not be replayed.",
+      "replacement": "Background authoring runners and current session instructions"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Authored/display.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Authored/display.json",
+      "bytes": 44514877,
+      "sha256": "ddae36974c9d0c878b70526df5eb89621cc186ea982619c98d9ca1fa8ff07685",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Authored/helmet.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Authored/helmet.json",
+      "bytes": 44512935,
+      "sha256": "d893b03d24136fc87c80b3e6c53411ce3cfa08e07c55f5a4a4e3258b679c6b17",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Exports/SteelArmet.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Exports/SteelArmet.blend",
+      "bytes": 3629672,
+      "sha256": "a44112af9b7948e35546638d06fe5f30a841b289a083297974d4f1f02ec70324",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Exports/SteelArmet.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Exports/SteelArmet.fbx",
+      "bytes": 2691996,
+      "sha256": "96aeb50fb911aab65a9130ba83424ce356e9a6af83547c718a560e4897717432",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Exports/SteelArmet_Interior.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Exports/SteelArmet_Interior.blend",
+      "bytes": 148857,
+      "sha256": "87d02bb5c310e1a7c1f947c2ca8f8e2fcdafcf6f0623e0d94b326d6a5b585cfc",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Textures/T_ChainmailPants_Steel_BaseColor.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Textures/T_ChainmailPants_Steel_BaseColor.png",
+      "bytes": 138441,
+      "sha256": "41a84cf3c606afd65248c029aa38575e87773461e0589833f9fc8e8ebcd10419",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Textures/T_ChainmailPants_Steel_Normal.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Textures/T_ChainmailPants_Steel_Normal.png",
+      "bytes": 852861,
+      "sha256": "d8b8664198aad789662ca6b9e5836f716a496473a4b6596098881b9a5781eab6",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Textures/T_ChainmailPants_Steel_ORM.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Textures/T_ChainmailPants_Steel_ORM.png",
+      "bytes": 300938,
+      "sha256": "52e8c748725f22e6f08933a93946572409bfc5839ba7a30ce95ee36de03ca20f",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Textures/T_SteelArmet_Visor.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Textures/T_SteelArmet_Visor.png",
+      "bytes": 1267751,
+      "sha256": "b7cbbf573c2cdaef4e2b66a933a03c3a0c2300b8349a3e3cb357fec06b36397a",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/author-02.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/author-02.log",
+      "bytes": 1961,
+      "sha256": "f58878a713f374bb2a6686f3cadeb3453a03fcdd74bbdc4e5fe355038279b312",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/author-03.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/author-03.log",
+      "bytes": 1960,
+      "sha256": "0eeb84e85a34c34115462de9ff6328c6b4f8e1b5c0fb22d5c0ce0525ee10b05d",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/author-04.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/author-04.log",
+      "bytes": 1960,
+      "sha256": "60537c6d6db62b45f3152c19fbe4918569ab1130d28f29739976e4ba55d4ba7f",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/author.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/author.log",
+      "bytes": 935,
+      "sha256": "4dcfc2e3ee25f363bc8b0e85c638fc5686d72c39140109ccaa65edb47fdf093d",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Authored/display.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Authored/display.json",
+      "bytes": 111618534,
+      "sha256": "e4824e2e638eabd54745a66eb4c98a75db5403d9b0058021203bf57012f8b27e",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Authored/helmet.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Authored/helmet.json",
+      "bytes": 111711110,
+      "sha256": "6cac61602bc6b0556d9d7f9b9add6ad92001fe91d78fd172b61c317f1b7dce05",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/authored.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/authored.json",
+      "bytes": 825,
+      "sha256": "3f7187a2e7039b9178934e342d3979feb3be70d1ac2590175adfc79c17c5ae53",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Exports/SteelArmet_Detailed.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Exports/SteelArmet_Detailed.blend",
+      "bytes": 11729504,
+      "sha256": "4da5cfefafa3597bf0d7d9624634feb7f46daac974972e5958561368a89f4305",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Exports/SteelArmet_Detailed.blend1",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Exports/SteelArmet_Detailed.blend1",
+      "bytes": 11891245,
+      "sha256": "57da52a9e9b71188a914fcc0a1912457b45832d513eb208df0b9db8e66bfe96a",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Exports/SteelArmet_Detailed.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Exports/SteelArmet_Detailed.fbx",
+      "bytes": 7548956,
+      "sha256": "b708cf20fb8c59cdfd91fe1acf21aaa9b9a7c79babbd8da6027bc9275facd6bc",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/final-finish.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/final-finish.log",
+      "bytes": 1386,
+      "sha256": "c3a95daf287df31e794277747e7c685734a0ed9d949d37b87bb5fceda1efe101",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/finish-study.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/finish-study.log",
+      "bytes": 611,
+      "sha256": "c101a652e0a100e354f0b0d341169450965810469d4e89638a8fe008fab8cc47",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/package.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/package.log",
+      "bytes": 563,
+      "sha256": "c86b8a34e02a4bac50fe651d2cd9fab4ba5a484ced0ed49c3326fc36f000913e",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_FinishStudy.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_FinishStudy.png",
+      "bytes": 1559896,
+      "sha256": "518adfda64eef97c753acd06958e9ecc017fdcb96e55fd966b3d5c983ed8e446",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_Front.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_Front.png",
+      "bytes": 2194448,
+      "sha256": "f69e56d6541c4499b45bc50f24f0c3f92fa1a9f364290fd7267a1cd44835b17b",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_Rear.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_Rear.png",
+      "bytes": 2267211,
+      "sha256": "97390774a1824dc07048bdcb1f08cbddad80c03c21bca1c50384a47090ccd9a3",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_Side.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_Side.png",
+      "bytes": 2269348,
+      "sha256": "e2f79241c96513f36fb5bb6c2a1c7de3b1828e38d32e240d0d47faa6a4933fc8",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_ThreeQuarter.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Renders/SteelArmet_ThreeQuarter.png",
+      "bytes": 2264418,
+      "sha256": "194ebf72fa0d2db6d76658e77f7e96365f97c8e77ed4ad734230321b0c6485f5",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/surfaces.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/surfaces.json",
+      "bytes": 254,
+      "sha256": "7ab7379646ff0cde3435e9ba0e818315c65a0289d253ba7b67096de09e992e19",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/Leather_high_field.npz",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/Leather_high_field.npz",
+      "bytes": 8044754,
+      "sha256": "95d1f902ffca51d5a28c5b94a1894951f0a811928807e12b2af9fdd6f02ad1bc",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/Steel_high_field.npz",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/Steel_high_field.npz",
+      "bytes": 8053046,
+      "sha256": "d267e0f0c71706d65eb295877450617daf8d5d96c0ab0e78d48295d316ff5cc6",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Leather_BaseColor.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Leather_BaseColor.png",
+      "bytes": 446875,
+      "sha256": "9820840ea0adccef66541cc646c2ceb38389ab04f39e0a7ab3a7d48db797d177",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Leather_Normal.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Leather_Normal.png",
+      "bytes": 1412084,
+      "sha256": "2d593a1f24b8b9dc0ee2e15b6c59eff400a6b85398e1254c45db622ec67d701a",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Leather_ORM.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Leather_ORM.png",
+      "bytes": 534548,
+      "sha256": "5ac2e2c40803e6a5d37875aa0a09a0d4ee1514555fea5e3051b8e4720bc2eb34",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Steel_BaseColor.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Steel_BaseColor.png",
+      "bytes": 333863,
+      "sha256": "d6492a93853db2da3993ecdca593f83a2e1af238fcf1b0722d2b2954a36a1302",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Steel_Normal.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Steel_Normal.png",
+      "bytes": 853869,
+      "sha256": "9f7cccaaaf4ac575513e18d52fe85b0438d24f7ece1a045afe5f5d25518fbfe2",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Steel_ORM.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/Textures/T_Armet_Steel_ORM.png",
+      "bytes": 406350,
+      "sha256": "99d038c65341c7f932282d4c69223ef864f137919c07de44da3a976a95760d30",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/Refined/ue_steel_armet.png",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/Refined/ue_steel_armet.png",
+      "bytes": 360048,
+      "sha256": "a369ee8da6270fc2e0da2f073188ba2d23404ec29376ad322a4b4fdcbcdaf18a",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/authored.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/authored.json",
+      "bytes": 501,
+      "sha256": "e6a50d561155a2aba25b23f4b255038f974ac7db5d09f16d20c84e645de58879",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/visor.json",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/visor.json",
+      "bytes": 442,
+      "sha256": "6c11bdd896b134a8e9014f08f9e00710e10692f2f1f7809fd70e1e5457bdffa4",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/author.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/author.log",
+      "bytes": 1215,
+      "sha256": "b757ad105e04828a6e55cf8ea3a31d211ab9d3e96c93d1f0c89c6fa2d5962ee2",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/author-v2.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/author-v2.log",
+      "bytes": 1215,
+      "sha256": "fcb6dafab8f8f5949283990ffae5d2e128ab689da0632ff873183784f88e1f64",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/visor.log",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/visor.log",
+      "bytes": 1715,
+      "sha256": "219600ac21d883b51ed450fe9639f67a7abd46c763612fbe32a27b663c07cd93",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/refined-import-01.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/refined-import-01.txt",
+      "bytes": 1077,
+      "sha256": "72d79f3766ca6c6fe9732d7b91244db9b12c8791b9592277005c7b7a1ff9757b",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/refined-import-02.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/refined-import-02.txt",
+      "bytes": 1394,
+      "sha256": "0d5dbd7b24574aca12aef7ec5385eed979e037668c568a8290520b808f912b1c",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/SteelArmet20261019/refined-import-03.txt",
+      "archived": "trash/Outfits20261020/SourceAssets/SteelArmet20261019/refined-import-03.txt",
+      "bytes": 353,
+      "sha256": "191062ea721e62b6153b9881d868b8ca4156ff40c5e9179f8331d7a3b075eb72",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/author.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/author.py",
+      "bytes": 13422,
+      "sha256": "9991be7ccb48866186293a2491bb777119dd917f4b3d283e231d72cd7991ac62",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/author_refined.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/author_refined.py",
+      "bytes": 19315,
+      "sha256": "2872a813f9ae4240c74642b1ef4b66f66700f39c016e66768349ee0525f16386",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/author_visor.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/author_visor.py",
+      "bytes": 4321,
+      "sha256": "01f52f09474f96d2e816004a800edd3a8a7f69976fd71af84de780ff957952e2",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/bake_refined_surfaces.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/bake_refined_surfaces.py",
+      "bytes": 2707,
+      "sha256": "fc0ce1d49f669e5b5e401d8f4684510c06b5a2e951756a3ae57c0dc48ddb8e63",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/finalize_finish.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/finalize_finish.py",
+      "bytes": 1955,
+      "sha256": "d69f70d5d0a4ddfa95e76c93512b0347c917a23a6600f1ade2bbd73c43e30e50",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/finish_preview.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/finish_preview.py",
+      "bytes": 1062,
+      "sha256": "8ef7e6ed79234035e7c6760cfd148a36d2f689797fc5cac807d99f9325ebdb0b",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/package_blend.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/package_blend.py",
+      "bytes": 2010,
+      "sha256": "739728f605c8e329930ed067b2bf18a08bd6a6b7caf88d0314a403c41a24aae8",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/save_assets.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/save_assets.py",
+      "bytes": 7092,
+      "sha256": "cdcf59436903eb125db485fb2b86b301a5848edbbbcf9c45457d4db506647d45",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "Tools/SteelArmet/publish.py",
+      "archived": "trash/Outfits20261020/Tools/SteelArmet/publish.py",
+      "bytes": 2775,
+      "sha256": "fcb5085edcf6fb28f4190bcc50d9bd94b001b37bb80705e0398e9c837fdaaa39",
+      "reason": "Early armet and rounded visor drafts superseded by selected ReferenceMatchV5.",
+      "replacement": "SourceAssets/SteelArmet20261019/ReferenceMatchV5; Tools/SteelArmet/*reference*"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/Authored/RuneSword.json",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/Authored/RuneSword.json",
+      "bytes": 13320424,
+      "sha256": "701a7c1077ed617f647b7c57f9d554557ee2d831b3357adeeb8f0d24eb94c6aa",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/build.py",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/build.py",
+      "bytes": 554,
+      "sha256": "aa427693f5d9899f315f815cdec53042ee3b4f44272b3bcbea173c9dbe2d6218",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/save_editable.py",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/save_editable.py",
+      "bytes": 400,
+      "sha256": "cddf6e61fe5ea0552d797ab7459f18071b35a139533cffb46a8e99e36a27d42e",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/skin.json",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/skin.json",
+      "bytes": 4379777,
+      "sha256": "35834d1558dd92c33d63d9f012403d265bbc8e925b18ecb1af37f65f4a813136",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/ST6_RuneSword_NativeSleeves.blend",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/ST6_RuneSword_NativeSleeves.blend",
+      "bytes": 4491176,
+      "sha256": "f0fe2d9f04f28d4641d316bd16acb550391799141d5b4cb5cce530201b3e88e6",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/ST6_RuneSword_NativeSleeves.fbx",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/ST6_RuneSword_NativeSleeves.fbx",
+      "bytes": 1358652,
+      "sha256": "57192138d34b708e868908fd6124b307db50ba9aa5d08631ee1650fbb757bc2d",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    },
+    {
+      "original": "SourceAssets/ST6SleeveRepair20261018/Draft/structure.json",
+      "archived": "trash/Outfits20261020/SourceAssets/ST6SleeveRepair20261018/Draft/structure.json",
+      "bytes": 1228,
+      "sha256": "a7e0302effd26495d1741904122e8ef5b76e334844c056e6dc6b71ccbad9314b",
+      "reason": "Early RuneSword structural draft replaced by recaptured native sources and formal 23-profile production.",
+      "replacement": "SourceAssets/ST6SleeveRepair20261018/Authored; Tools/ST6SleeveRepair"
+    }
+  ],
+  "file_count": 199,
+  "bytes": 2128534766,
+  "archive": "trash/Outfits20261020",
+  "archive_hashes_verified": true
+}

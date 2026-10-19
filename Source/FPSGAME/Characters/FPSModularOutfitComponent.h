@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "FPSPlayerBodyTypes.h"
+#include "FPSOutfitStairVisibility.h"
 #include "FPSModularOutfitComponent.generated.h"
 
 class USkeletalMeshComponent;
@@ -10,6 +11,7 @@ class USkeletalMesh;
 struct FStreamableHandle;
 class FJsonObject;
 struct FFPSOutfitSecondaryMotion;
+struct FHitResult;
 
 /** One complete presentation transaction for a weapon rig or the world body. */
 USTRUCT()
@@ -25,6 +27,8 @@ struct FFPSOutfitPresentation
     FString Key;
     bool bWorld = false;
     TSharedPtr<FFPSOutfitSecondaryMotion> SecondaryMotion;
+    TArray<FFPSRobeStairSections> StairSections;
+    TSharedPtr<FFPSRobeHemEnvelope> RobeHem;
 };
 
 /** Geometry-only clothing. Follows accepted weapon poses; owns neither inventory nor animations. */
@@ -43,12 +47,23 @@ public:
     /** Local visual pose layers use the current equipment, never inventory copies. */
     bool IsSteelGauntletEquipped() const;
     bool IsChainmailEquipped() const;
+    /** Replicated world outfit on remote pawns, current equipped item on the owner. */
+    FName EquippedOutfit(int32 Slot) const { return Equipped.FindRef(Slot); }
+    bool WantsRobeStairSupport() const;
+    /** Reuses the world body's foot-support probes for local and remote pawns. */
+    void ObserveRobeStairSupport(const TArray<FHitResult>& Hits);
     /** Offline authoring only; never changes the imported close-range mesh. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="configure_outfit_lods"))
     static bool ConfigureDistanceLODs(USkeletalMesh* Mesh);
     /** Retired authoring entry retained for compatibility; always returns false. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="build_chainmail_cloth"))
     static bool BuildChainmailCloth(USkeletalMesh* Mesh,USkeletalMesh* Proxy);
+    /** Builds the blue robe's continuous skirt proxy and stable Witch capture. */
+    UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="build_mage_robe_drape"))
+    static bool BuildMageRobeDrape(USkeletalMesh* Mesh);
+    /** Commandlet authoring: add the WPO pin without an editor GraphNode. */
+    UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="add_robe_hem_offset_pin"))
+    static int32 AddRobeHemOffsetPin(UObject* Expression);
 
 private:
     UPROPERTY(Transient) TArray<FFPSOutfitPresentation> Presentations;
@@ -60,6 +75,9 @@ private:
     float DiscoverCountdown = 0.f;
     bool bDirty = true;
     bool bEnding = false;
+    float RobeStairUntil = -1.f;
+    bool bHideRobeCalves = false;
+    void UpdateRobeStairVisibility();
     void DiscoverSources();
     void UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld,bool bLowerBody=false);
     void ReleasePresentation(FFPSOutfitPresentation& Presentation);

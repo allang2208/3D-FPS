@@ -2,6 +2,7 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodyMeleePose.h"
+#include "FPSModularOutfitComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
@@ -76,6 +77,10 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
         if(const auto* PC=Mesh.GetWorld()->GetFirstPlayerController();PC&&PC->GetPawn())
             if(FVector::DistSquared(PC->GetPawn()->GetActorLocation(),Location)>FMath::Square(1800.f))Interval=.1f;
         ProbeCountdown=Interval;
+        auto* Outfit=Character->FindComponentByClass<UFPSModularOutfitComponent>();
+        const bool bObserveRobe=Outfit&&Outfit->WantsRobeStairSupport();
+        TArray<FHitResult> RobeSupports;
+        if(bObserveRobe)RobeSupports.Reserve(6);
         FCollisionQueryParams Params(SCENE_QUERY_STAT(PlayerBodyFeet),false,Character);
         const auto Trace=[&](FVector At,FHitResult& Hit)
         {
@@ -97,6 +102,12 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
             // Avoid fitting a fake slope across two different stair treads.
             FHitResult Toe,Heel;
             const bool ToeHit=Trace(Ankle+Forward*10.f,Toe),HeelHit=Trace(Ankle-Forward*5.f,Heel);
+            if(bObserveRobe)
+            {
+                RobeSupports.Add(Center);
+                if(ToeHit)RobeSupports.Add(Toe);
+                if(HeelHit)RobeSupports.Add(Heel);
+            }
             if(ToeHit&&HeelHit&&Toe.GetComponent()==Center.GetComponent()&&Heel.GetComponent()==Center.GetComponent()&&
                 FMath::Abs(Toe.ImpactPoint.Z-Heel.ImpactPoint.Z)<8.f)
                 Normal=(Normal+Toe.ImpactNormal+Heel.ImpactNormal).GetSafeNormal();
@@ -106,6 +117,7 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
             C.LocalPoint=SurfaceFrame.InverseTransformPosition(Center.ImpactPoint);
             C.LocalNormal=SurfaceFrame.InverseTransformVectorNoScale(Normal);C.bValid=true;
         }
+        if(bObserveRobe)Outfit->ObserveRobeStairSupport(RobeSupports);
     }
     float Pelvis=0.f;
     for(int32 I=0;I<2;++I)

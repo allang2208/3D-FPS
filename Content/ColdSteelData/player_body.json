@@ -1,4 +1,63 @@
 {
+  "head_equipment": {
+    "ue_blue_mage_hat": {
+      "skeletal_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageHat20261019/SK_BlueMageHat.SK_BlueMageHat",
+      "attach_bone": "head",
+      "fits": {
+        "jason": {
+          "location": [
+            11.424396272080271,
+            -0.16709744178113398,
+            0.12602279187890708
+          ],
+          "rotation": [
+            -86.68462371826267,
+            117.06722259521541,
+            -122.6235757175468
+          ],
+          "scale": [
+            1.0000001284365503,
+            1.000000128436547,
+            1.000000128436544
+          ]
+        }
+      },
+      "tip_bones": [
+        "HatTipBase",
+        "HatTipMid",
+        "HatTipEnd"
+      ],
+      "tip_limit_degrees": 10.0,
+      "tip_frequency_hz": 2.5,
+      "tip_damping": 0.6,
+      "covers_scalp_hair": true
+    },
+    "ue_steel_armet": {
+      "static_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/SM_SteelArmet.SM_SteelArmet",
+      "attach_bone": "head",
+      "fits": {
+        "jason": {
+          "location": [
+            8.143246626636836,
+            -0.19286050924834844,
+            -0.19143945267976295
+          ],
+          "rotation": [
+            -86.6846264672135,
+            117.0672250054694,
+            -122.62357680345929
+          ],
+          "scale": [
+            1.0000000000000038,
+            1.0000000000000004,
+            0.9999999999999976
+          ]
+        }
+      },
+      "covers_scalp_hair": true,
+      "first_person_overlay": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/Textures/T_SteelArmet_Visor.T_SteelArmet_Visor"
+    }
+  },
   "first_person_body": {
     "mode": "shared_world_pose",
     "camera_forward_cm": 56.0,
