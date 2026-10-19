@@ -86,6 +86,10 @@ private:
     float NetworkClock() const;
     void RestoreNetworkCorrections();
     uint32 NetworkRequest=0;
+    // Server token bucket for reliable traversal requests. The client can send
+    // the RPC every frame; probes are expensive and must be bounded.
+    float NetworkRequestTokens=3.f;
+    double NetworkRequestRefillAt=0.;
     bool bAwaitingTraversal=false,bAwaitingTraversalEnd=false,bApplyingNetworkEnd=false;
     bool bNetworkCorrectionsHeld=false,bSavedIgnoreCorrections=false;
     float NetworkCorrectionReleaseAt=0.f;

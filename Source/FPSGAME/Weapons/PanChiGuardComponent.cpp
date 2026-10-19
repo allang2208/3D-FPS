@@ -67,7 +67,7 @@ void UPanChiGuardComponent::ClearCharges()
 {
     // ReadyAt deliberately survives equipment switches and death on this pawn.
     if(GetOwner()->HasAuthority()){StoredCharges=0;ChargesEnd=0.;}
-    ConsumedAttackSerial=0;ConsumedToughness=1.f;bRemoteGuard=false;Publish();
+    ConsumedAttackSerial=0;ConsumedToughness=1.f;bRemoteGuard=false;bRemoteGuardParried=false;Publish();
 }
 void UPanChiGuardComponent::Publish()
 {if(GetOwner()->HasAuthority())GetOwner()->ForceNetUpdate();RefreshGuardVisual();UStatusEffectsComponent::Notify(GetOwner());}
@@ -96,15 +96,24 @@ void UPanChiGuardComponent::SetGuardIntent(bool bRaised)
 {
     if(bRaised&&!IsActive())return;
     if(bRemoteGuard==bRaised)return;
-    bRemoteGuard=bRaised;if(bRaised)RemoteGuardStarted=Clock();
+    const double Now=Clock();
+    if(bRaised&&Now-RemoteGuardLoweredAt<RuneSwordGuardTuning::RaiseSeconds+RuneSwordGuardTuning::LowerSeconds)return;
+    bRemoteGuard=bRaised;
+    if(bRaised){RemoteGuardStarted=Now;bRemoteGuardParried=false;}
+    else RemoteGuardLoweredAt=Now;
     if(const auto* Pawn=Cast<APawn>(GetOwner());Pawn&&Pawn->IsLocallyControlled()&&!Pawn->HasAuthority())ServerSetGuardIntent(bRaised);
 }
 void UPanChiGuardComponent::ServerSetGuardIntent_Implementation(bool bRaised)
 {
-    if(!bRaised){bRemoteGuard=false;return;}
+    // A repeated raise must not reset the per-raise parry receipt.
+    if(bRemoteGuard==bRaised)return;
+    const double Now=Clock();
+    if(!bRaised){bRemoteGuard=false;RemoteGuardLoweredAt=Now;bRemoteGuardParried=false;return;}
+    // Toggling guard cannot restart the parry window.
+    if(Now-RemoteGuardLoweredAt<RuneSwordGuardTuning::RaiseSeconds+RuneSwordGuardTuning::LowerSeconds)return;
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(!IsActive()||!Pawn||Profile->Stamina()<=0.f||Pawn->IsDodging()||Pawn->IsSliding()||Pawn->IsCastBlockingLeftHandAction())return;
-    if(!bRemoteGuard)RemoteGuardStarted=Clock();bRemoteGuard=true;
+    if(!bRemoteGuard)RemoteGuardStarted=Now;bRemoteGuard=true;bRemoteGuardParried=false;
 }
 float UPanChiGuardComponent::ResolveRemoteGuard(float Damage,const UDamageType* Type,AController* Instigator,AActor* Causer)
 {
@@ -116,12 +125,13 @@ float UPanChiGuardComponent::ResolveRemoteGuard(float Damage,const UDamageType* 
     const auto M=ColdSteelMelee::EquippedModifiers(Model);
     AActor* Source=Instigator?Instigator->GetPawn():Causer;
     if(Causer&&(!Source||Source==Causer)){if(Causer->GetInstigator())Source=Causer->GetInstigator();else if(Causer->GetOwner())Source=Causer->GetOwner();}
-    if(IsValid(Source)&&Source!=Pawn&&Clock()-RemoteGuardStarted<=RuneSwordGuardTuning::ParrySeconds*M.ParryWindow)
+    if(IsValid(Source)&&Source!=Pawn&&!bRemoteGuardParried&&Clock()-RemoteGuardStarted<=RuneSwordGuardTuning::ParrySeconds*M.ParryWindow)
     {
         const FVector Toward=(Source->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
         const FVector Forward=FRotationMatrix(FRotator(0,Pawn->GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::X);
         if(!Toward.IsNearlyZero()&&FVector::DotProduct(Toward,Forward)>=FMath::Cos(FMath::DegreesToRadians(RuneSwordGuardTuning::ParryHalfAngleDegrees)))
         {
+            bRemoteGuardParried=true;
             ConfirmGuard(true);
             if(Type&&Type->IsA<UEnemyMeleeDamage>()&&!Source->ActorHasTag(TEXT("ParryImmune")))
                 if(auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>())Combat->ReceiveParry(Pawn,RuneSwordGuardTuning::ParryStunSeconds,RuneSwordGuardTuning::ParryKnockbackCM);

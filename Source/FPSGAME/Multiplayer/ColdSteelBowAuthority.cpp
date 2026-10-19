@@ -2,6 +2,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Weapons/Bow/BowArrow.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -49,12 +50,19 @@ bool AColdSteelPlayerState::ExecuteBowShot(const FColdSteelInventoryRequest& Req
         ||Request.Eye.ContainsNaN()||Request.Origin.ContainsNaN()||Direction.ContainsNaN()||Direction.IsNearlyZero()
         ||FVector::DistSquared(Request.Eye,Pawn->GetPawnViewLocation())>FMath::Square(150.f)
         ||FVector::DistSquared(Request.Origin,Request.Eye)>FMath::Square(200.f)
-        ||FVector::DotProduct(Direction,Pawn->GetBaseAimRotation().Vector())<.7f)
+        ||FVector::DotProduct(Direction,Pawn->GetBaseAimRotation().Vector())<.7f
+        ||!HasDrawSession)
     {return Reject(TEXT("弓或瞄准位置已变化，请重新拉弓"));}
     const FColdSteelItem Fired=*Bow;
     const auto Stats=ColdSteelBow::Evaluate(Fired,Model);
     const double Now=GetWorld()->GetTimeSeconds();
     if(Now-LastBowShotAt<FMath::Max(.1,Stats.Nock*.5))return Reject(TEXT("射击间隔过短"));
+    // A release must belong to a real draw session and cannot claim a full draw
+// immediately after ServerSetBowDraw. The age bound also rejects stale sessions.
+    if(!HasDrawSession
+        || DrawAge<double(BowDrawSeconds)*FMath::Clamp(Request.Charge,0.f,1.f)-.2
+        || DrawAge>double(BowDrawSeconds)+1.25)
+        return Reject(TEXT("拉弓会话无效或未完成"));
     // Both clocks must agree; clients never provide a damage amount or multiplier.
     // The bounded allowance absorbs delivery jitter, not an extra bonus window.
     const bool Perfect=HasDrawSession && Request.Charge>=1.f

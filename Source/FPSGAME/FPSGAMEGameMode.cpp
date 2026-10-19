@@ -10,6 +10,7 @@
 #include "SceneTestPortal.h"
 #include "Water/ClearwaterWater.h"
 #include "GameFramework/PlayerStart.h"
+#include "GameFramework/GameSession.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/Engine.h"
 #include "Engine/TargetPoint.h"
@@ -23,6 +24,29 @@ AFPSGAMEGameMode::AFPSGAMEGameMode()
     // 统一产出 AColdSteelPlayerState——公开快照全员复制、私有档案仅拥有者、服务端影子档案。
     // 单机场景下它自然空转（NetMode==Standalone 时各 Tick 分支直接返回）。
     PlayerStateClass = AColdSteelPlayerState::StaticClass();
+}
+
+void AFPSGAMEGameMode::InitGame(const FString& MapName,const FString& Options,FString& ErrorMessage)
+{
+    Super::InitGame(MapName,Options,ErrorMessage);
+    ServerPassword=UGameplayStatics::ParseOption(Options,TEXT("Password"));
+    if(GameSession){GameSession->MaxPlayers=4;GameSession->MaxSpectators=0;}
+}
+
+void AFPSGAMEGameMode::PreLogin(const FString& Options,const FString& Address,const FUniqueNetIdRepl& UniqueId,FString& ErrorMessage)
+{
+    // The session may have been created after InitGame and before BeginPlay.
+    if(GameSession){GameSession->MaxPlayers=4;GameSession->MaxSpectators=0;}
+    if(!ServerPassword.IsEmpty())
+    {
+        const FString Supplied=UGameplayStatics::ParseOption(Options,TEXT("Password"));
+        if(Supplied!=ServerPassword)
+        {
+            ErrorMessage=TEXT("房间口令错误");
+            return;
+        }
+    }
+    Super::PreLogin(Options,Address,UniqueId,ErrorMessage);
 }
 
 void AFPSGAMEGameMode::RestartPlayer(AController* NewPlayer)
@@ -73,6 +97,13 @@ void AFPSGAMEGameMode::SpawnAfterStreaming(TWeakObjectPtr<AController> Player)
 void AFPSGAMEGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    // The project is a four-player co-op listen server. AGameModeBase has no
+    // MaxPlayers of its own, so pin the engine GameSession before any login.
+    if(GameSession)
+    {
+        GameSession->MaxPlayers=4;
+        GameSession->MaxSpectators=0;
+    }
     TryInstallHillsPortal();
 
     // Keep the isolated UI acceptance route independent from world/weather work.

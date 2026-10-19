@@ -15,7 +15,15 @@ float UFPSTraversalComponent::NetworkClock() const
 void UFPSTraversalComponent::ServerRequestTraversal_Implementation(uint32 Request)
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!Player||static_cast<int32>(Request-NetworkRequest)<=0)return;
+    if(!Player)return;
+    // 4 probes/second with a small burst. Every call, including stale-sequence
+    // retries, pays a token so the RPC cannot be used as a free spam channel.
+    const double Now=NetworkClock();
+    NetworkRequestTokens=FMath::Min(3.f,NetworkRequestTokens+FMath::Max(0.f,float((Now-NetworkRequestRefillAt)/.25)));
+    NetworkRequestRefillAt=Now;
+    if(NetworkRequestTokens<1.f){ClientRejectTraversal(Request);return;}
+    --NetworkRequestTokens;
+    if(static_cast<int32>(Request-NetworkRequest)<=0)return;
     if(IsTraversing()){ClientRejectTraversal(Request);return;}
     NetworkRequest=Request;
     const auto* Health=Player->FindComponentByClass<UFPSCombatHealthComponent>();

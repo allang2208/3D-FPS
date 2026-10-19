@@ -65,7 +65,8 @@ private:
     uint32 AttackSerial=0,ConsumedAttackSerial=0;
     float ConsumedToughness=1.f;
     bool bRemoteGuard=false,bVisualsRequested=false;
-    double RemoteGuardStarted=0.,ReleaseAt=-100.;
+    double RemoteGuardStarted=0.,RemoteGuardLoweredAt=-100.,ReleaseAt=-100.;
+    bool bRemoteGuardParried=false;
     FVector ReleaseOrigin=FVector::ZeroVector;
     FRotator ReleaseRotation=FRotator::ZeroRotator;
     TSharedPtr<FStreamableHandle> VisualLoad;
