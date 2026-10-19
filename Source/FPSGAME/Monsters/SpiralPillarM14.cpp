@@ -132,6 +132,7 @@ void ASpiralPillarM14::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(ASpiralPillarM14,State);DOREPLIFETIME(ASpiralPillarM14,Health);
+    DOREPLIFETIME(ASpiralPillarM14,MaxHealth);
 }
 void ASpiralPillarM14::OnRep_State(){StateSeconds=0.f;PresentState();}
 void ASpiralPillarM14::Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blend)

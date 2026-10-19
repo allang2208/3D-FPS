@@ -1,0 +1,1029 @@
+{
+  "scope": [
+    "StaffLivingEmployees20261017",
+    "StaffLivingEncounter20261017",
+    "StaffLivingShoulder20261017",
+    "EcologySpawnFix20261017",
+    "FacilitySpawnAudit20261017",
+    "MedicalBossSpawnFix20261018",
+    "FacilitySpawnRecheck20261018",
+    "HumanoidHitVolume20261018",
+    "HumanoidHitRepair20261018",
+    "NonHumanoidHitAudit20261018",
+    "MonsterNetworkHitAudit20261018"
+  ],
+  "root": "D:\\FPS3D\\FPSGAME",
+  "entries": [
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/create-assets-commandlet-backup-2026.10.17-00.17.36.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/create-assets-commandlet-backup-2026.10.17-00.17.36.log",
+      "bytes": 286749,
+      "sha256": "0c1eb9d86e91afcf97a3937fe6aae56205e9a167add4b67067a6a5dd4ddbc8d3",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/create-assets-failed-01.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/create-assets-failed-01.log",
+      "bytes": 40934,
+      "sha256": "3b4552d5cc7609ca18d6e962f827663064bb7bb8cf17f07b3ec0972f6bed745f",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-Editor-compile-fix-1.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-Editor-compile-fix-1.log",
+      "bytes": 17916,
+      "sha256": "2ea0bdebf2e1d51ef2a4a0dcd8103b4e29b08022016b45da644bae3123ea7b2d",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.24.53.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.24.53.json",
+      "bytes": 62526,
+      "sha256": "5d72d6cc44fb217a6065363668008f644412b5b4f6c29cf249840a91a8acaa9c",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.24.53.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.24.53.log",
+      "bytes": 24153,
+      "sha256": "4f490298cf11c55f4a57db35f518d990b2c823d8f565e96723ca6579a174910a",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.48.35.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.48.35.json",
+      "bytes": 52723,
+      "sha256": "0b143383cfa8651e0798f7bc70ae70e91238092fc33398a908bb6272004f61af",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.48.35.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.48.35.log",
+      "bytes": 21801,
+      "sha256": "d9ae29949dddf263db76af2befcb1239c24b0ce70e3c216e42a30f9bbbc37368",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.58.19.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.58.19.json",
+      "bytes": 56824,
+      "sha256": "a0d87e917559eaafae382b5a5e29415942caad33e58d16043502cf5f5405706f",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.58.19.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.17-17.58.19.log",
+      "bytes": 23420,
+      "sha256": "6733688a778f9808e68b7a5d80420220bb85a22a5db5332af40ae731d825e157",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-01.54.16.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-01.54.16.json",
+      "bytes": 60184,
+      "sha256": "9585a0fc2574ff89bca198113f5c97d28005281b4034678535535bc307e10eba",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-01.54.16.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-01.54.16.log",
+      "bytes": 23790,
+      "sha256": "4b9e192ee2b6485eecc0750c93612946a21a10653f977d6d98ad376b0c0e9e2d",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/build-unrelated-SVCH-error.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/build-unrelated-SVCH-error.log",
+      "bytes": 17582,
+      "sha256": "8fb8de6a901e345dd1fa4f2d8a5be5d8b1e1e14caf35e2a203f3c43b8b93fd83",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/fixture-full-world-tick-failure.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/fixture-full-world-tick-failure.log",
+      "bytes": 277135,
+      "sha256": "db55de86b6389621459a101a4d68f975c5a242862b0ff2ebdb2a330e53095d4b",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/FacilitySpawnRecheck20261018/Logs/recheck-backup-2026.10.17-17.52.00.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/FacilitySpawnRecheck20261018/Logs/recheck-backup-2026.10.17-17.52.00.log",
+      "bytes": 277135,
+      "sha256": "db55de86b6389621459a101a4d68f975c5a242862b0ff2ebdb2a330e53095d4b",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/FacilitySpawnRecheck20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.16.49.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.16.49.json",
+      "bytes": 92378,
+      "sha256": "8134a019de47dd4aa3d3c60086787c353308fbc602cbfd945f751c939d559f8c",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.16.49.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.16.49.log",
+      "bytes": 33641,
+      "sha256": "60cb79b750afcd693dffe330fe87f64aec329dd0205d8034513f3da25a30d6f0",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.19.48.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.19.48.json",
+      "bytes": 18274,
+      "sha256": "3bd49fed1d9e4b58ef7e268f035fe8a40b6398fae329c9165da3db926c9ae385",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.19.48.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.19.48.log",
+      "bytes": 5715,
+      "sha256": "d358b6acce0fa664d2916ae10b0f6539aeceb6997dc56a2a52549dbc9d285d6d",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.57.30.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.57.30.json",
+      "bytes": 62921,
+      "sha256": "9af5adfd1f46dcc00cb77b565d50b7952ce8a0b65919ed57804755a104e79fa7",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.57.30.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-03.57.30.log",
+      "bytes": 28877,
+      "sha256": "09dbf1e4df3cdad7797771240c6ed3bf3af51efa3adc689ec3f67e5e5473612c",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAME-backup-2026.10.18-05.53.15.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAME-backup-2026.10.18-05.53.15.json",
+      "bytes": 53249,
+      "sha256": "ce114bf22d7262eab2943584ab908aef51dfc09cad0ba6503ee72359cdb8defb",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAME-backup-2026.10.18-05.53.15.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAME-backup-2026.10.18-05.53.15.log",
+      "bytes": 22012,
+      "sha256": "a2ea3def86c0cc43fdcd367b99016a2d46b3024a5d1b84184b1c3a2944f00e7b",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.25.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.25.json",
+      "bytes": 60938,
+      "sha256": "b5e1e1d2824326f696b3e4c3b463ecca3b58283062bb9fc73a6158aba3b1e56e",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.25.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.25.log",
+      "bytes": 24167,
+      "sha256": "050240c6b26c565fe5a73c550828a3db2a646f7fc363f99ac957c5b45ed304dc",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.53.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.53.json",
+      "bytes": 53108,
+      "sha256": "b3d2a5c451a43d27717fb7b531c799c26e90d6d6c9493a7424373d9a86557ca5",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.53.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.47.53.log",
+      "bytes": 22152,
+      "sha256": "35ca5135438607be9a039fe7b3e28c8c3f20d4c61519805dc9c8b9c95d9a64a2",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.52.40.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.52.40.json",
+      "bytes": 53702,
+      "sha256": "e7f4d1f4296c9757e1eb5f17ef3da257123d31a764060b9959a80225e8328a5a",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.52.40.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitRepair20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-05.52.40.log",
+      "bytes": 22358,
+      "sha256": "20423dbd1cf43e2344e5d11e44a4ca6e3f2e4a039bdb557f911a753e0047a107",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/HumanoidHitRepair20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/after-repair-backup-2026.10.18-13.26.39.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/after-repair-backup-2026.10.18-13.26.39.log",
+      "bytes": 288241,
+      "sha256": "54368845015645f27eb99209129c3d6d648d54af99145cfa5365de821ae82c2a",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/baseline-full-backup-2026.10.18-13.17.19.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/baseline-full-backup-2026.10.18-13.17.19.log",
+      "bytes": 305646,
+      "sha256": "be580ef98d1498c3329da4e4cbc07239f1de97e56f13100a8d81d64549945f4a",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.13.38.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.13.38.json",
+      "bytes": 58581,
+      "sha256": "2709af6a4c6276967a9453c9c0587ced95350c048670294803c606ad8b37ff07",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.13.38.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.13.38.log",
+      "bytes": 24126,
+      "sha256": "327525e7841cd84ea175f817968cf0bd19d69d9300510d8d977d585fd9173f01",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.22.46.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.22.46.json",
+      "bytes": 75338,
+      "sha256": "21c2b6a95b0156db09e7196b91021738d35839085264a6df29cc6cdd360804e0",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.22.46.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.22.46.log",
+      "bytes": 29043,
+      "sha256": "517f085f2923321a6fe4a5fc0f7672e5b0f7d107153e0fd79b131fcbc8432578",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.47.25.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.47.25.json",
+      "bytes": 54427,
+      "sha256": "57f651546d938fece058ee8eea152d320258f01065a39c3a656c7fbf54a66815",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.47.25.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-13.47.25.log",
+      "bytes": 22597,
+      "sha256": "5102f54b37eb8c185b7836fd9a95e5db78fd03153ccc8c8a03094396009f10f9",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-12.49.04.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-12.49.04.json",
+      "bytes": 17040,
+      "sha256": "c3687b7579d3e64d8bdef5a112ad9d05550ddec905dbc2e0bc900646e9e7290b",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-12.49.04.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-12.49.04.log",
+      "bytes": 5432,
+      "sha256": "6e9ea5cf75d7148e42b63cd6082f920f5a2e47bb2b6b0125b6bb4fd4ae06bb55",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.13.15.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.13.15.json",
+      "bytes": 55148,
+      "sha256": "c1345b7f8df460044a785a743fbb9bf58530b3054bf46c765cd2abb5d99753d8",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.13.15.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.13.15.log",
+      "bytes": 22938,
+      "sha256": "6efffe3732c7694b79d04c81455ca346b131e62e24ed19790f959ee0dd8f81d6",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.21.57.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.21.57.json",
+      "bytes": 71477,
+      "sha256": "404715b3285042d4215819b9ea473b23dce9bfdeeac57847ab386efb07dd81a0",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.21.57.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.21.57.log",
+      "bytes": 27800,
+      "sha256": "042aa726fe2e5908afa8e7eb7dd32085cd9858419d346b1ac3469790a7ec9f1f",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.47.11.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.47.11.json",
+      "bytes": 18279,
+      "sha256": "bf53a1c215674fdb359be727ac9d9afc52f21f609a10e2856fe63c0c67882180",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.47.11.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-13.47.11.log",
+      "bytes": 5719,
+      "sha256": "edde1eef69fdb86fa4df34c457cd73c8fd75cbb62f17798e5e70eddce20dffff",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/repair-backup-2026.10.18-13.25.53.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/repair-backup-2026.10.18-13.25.53.log",
+      "bytes": 296613,
+      "sha256": "06f3979f5fbf38e702df9327dbc249751e562d41780670e373115be22d424f94",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/Logs/repair-backup-2026.10.18-13.49.15.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/Logs/repair-backup-2026.10.18-13.49.15.log",
+      "bytes": 286440,
+      "sha256": "e6ba18908404a0b1cb25a1a050dbb8df78ad6b70a5b518868d6e315964cefa15",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-attempt1.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-attempt1.log",
+      "bytes": 274970,
+      "sha256": "af5aee38e66e44ec9b3dbd5303ae19f98fc0c6a9ffff9560fc3391e3eb55fd08",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-attempt2.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-attempt2.log",
+      "bytes": 315305,
+      "sha256": "1ab8b5c13bc4b084aaef61f2532d42c016996e218e4f8927997478c4e6f7b9bf",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-backup-2026.10.18-15.27.41.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-backup-2026.10.18-15.27.41.log",
+      "bytes": 274970,
+      "sha256": "af5aee38e66e44ec9b3dbd5303ae19f98fc0c6a9ffff9560fc3391e3eb55fd08",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-backup-2026.10.18-15.31.56.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/authority-backup-2026.10.18-15.31.56.log",
+      "bytes": 315305,
+      "sha256": "1ab8b5c13bc4b084aaef61f2532d42c016996e218e4f8927997478c4e6f7b9bf",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.27.04.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.27.04.json",
+      "bytes": 18181,
+      "sha256": "48b8d6c908cfdd8179e3731075655d88aa89df11c11e1cc90b94366d268abfcb",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.27.04.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.27.04.log",
+      "bytes": 5668,
+      "sha256": "eeef3483fb6c654cd09435713f42a8ebfd3c33ca4252fb7b91ee17fb8a12b6a7",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.30.45.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.30.45.json",
+      "bytes": 18366,
+      "sha256": "e61c61a8c980c93573161c98e28f9c9851c1c3d9e50f851c731fa6361d63542d",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.30.45.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAME-backup-2026.10.18-15.30.45.log",
+      "bytes": 5695,
+      "sha256": "84c125cbd77681515b90ac7b90ae67cde6d2bd2e6d118f5c972980f26944b7a7",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-attempt1.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-attempt1.log",
+      "bytes": 49024,
+      "sha256": "98c6b0aeadd4d715496196101f7e40bc5f66bb16f35fc6f54111140b2366f724",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-attempt2.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-attempt2.log",
+      "bytes": 19730,
+      "sha256": "58014d11a32eb82fbde8eaf6893fc9dfadf8074e7403f818cf2957af927e8e74",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-14.44.34.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-14.44.34.json",
+      "bytes": 181894,
+      "sha256": "e3e2a07c5fbfb6a255d502d660a769510056a783df25c6ca44ab642a1355ccb2",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-14.44.34.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-14.44.34.log",
+      "bytes": 68575,
+      "sha256": "75e1d5775e7e767324ee7d8b9312a6f8ed5778df1b5d0f853983647ce5809cd4",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.06.03.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.06.03.json",
+      "bytes": 78708,
+      "sha256": "ff79135035cd668ea28b20c60213c3aaf30533cfa948bcb7359d6d889eb84531",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.06.03.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.06.03.log",
+      "bytes": 30317,
+      "sha256": "d1cb27178153729234160dd4878db85bbcabe21a6001a5eaecf37296f4364d45",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.26.53.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.26.53.json",
+      "bytes": 16888,
+      "sha256": "319178710ce74b173d0b5c47e2dad8139b05fd1c4994ce510ddb7671bb05c720",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.26.53.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.26.53.log",
+      "bytes": 5424,
+      "sha256": "cc25d8495a183a32a12f6819de2217a8e00a8da7845d6750a428052fc582ab1b",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.30.38.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.30.38.json",
+      "bytes": 18273,
+      "sha256": "683d3f36155d403f69f5fede6002bd440c0f992439e4023323403d067c9d82ca",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.30.38.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/Logs/build-FPSGAMEEditor-backup-2026.10.18-15.30.38.log",
+      "bytes": 5724,
+      "sha256": "2b8b616e1b38762b990aca0467b80f4ad343009f6e3e9fad1800d9b3bdce8655",
+      "reason": "Superseded or failed authoring/probe/build output; final receipts retained.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/ (current receipts and final Logs)"
+    },
+    {
+      "original": "Tools/StaffLivingShoulder/repair_female_b.py",
+      "destination": "trash/facility-monster-hits-20261019/Tools/StaffLivingShoulder/repair_female_b.py",
+      "bytes": 3968,
+      "sha256": "8d278ed2e605c9a3b26bbf692ac9b381080bfe46d009bc5464bbf8d57f6c6e7c",
+      "reason": "Intermediate weld-only B repair superseded by final two-model shoulder transition recipe.",
+      "retained_replacement": "Tools/StaffLivingShoulder/repair_shoulders.py"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Authoring/LivingStaffFemaleB_ShoulderV02.blend1",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Authoring/LivingStaffFemaleB_ShoulderV02.blend1",
+      "bytes": 27550063,
+      "sha256": "574feadbd6c76e708ed93ad7d23657621e37ec4571baaf96911838b9c3d681b5",
+      "reason": "Blender auto-backup of superseded shoulder iteration.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Authoring/LivingStaffFemaleB_ShoulderV02.blend"
+    },
+    {
+      "original": "Tools/StaffLivingEmployees/register_catalogue.py",
+      "destination": "trash/facility-monster-hits-20261019/Tools/StaffLivingEmployees/register_catalogue.py",
+      "bytes": 1773,
+      "sha256": "874fb28d2c7c12e1d060780a421207c40f0510e63b38de494d690db0e64d5fba",
+      "reason": "Unused temporary live-editor CDO registration; compiled F6 catalogue is authoritative.",
+      "retained_replacement": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp"
+    },
+    {
+      "original": "Tools/StaffLivingEmployees/compile.json",
+      "destination": "trash/facility-monster-hits-20261019/Tools/StaffLivingEmployees/compile.json",
+      "bytes": 116,
+      "sha256": "5758197aa083508dc17fedb35906427f3bbeab80c8ebbd5a9957be6522ec0a8f",
+      "reason": "One-time live coding request, no production role.",
+      "retained_replacement": "Tools/StaffLivingEmployees/build_native.ps1"
+    },
+    {
+      "original": "Tools/StaffLivingEncounter/integrate_source.py",
+      "destination": "trash/facility-monster-hits-20261019/Tools/StaffLivingEncounter/integrate_source.py",
+      "bytes": 9539,
+      "sha256": "210ef0843b743a7e9c0111df4074f4a9051bb1cbcf1a7a0ce14edf0f59680637",
+      "reason": "One-time source rewrite predates subsequent spawn fixes; exact final integration deltas are retained.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/source-fixes.diff",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/source-fixes.diff",
+      "bytes": 2882,
+      "sha256": "2d0f893cb8a65f868c01d0f84dbee567fd7329bbd1e2ea31be9ba14e14c436df",
+      "reason": "Partial early diff omitted subsequent Bound and Root Crown fixes.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/baseline.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/baseline.json",
+      "bytes": 502828,
+      "sha256": "3daf9662437e34a3624aecbd436b2cebb2c78fdc6952bfd085862afccf98ffa8",
+      "reason": "Incomplete first probe crashed because radial hit fixture lacked component hits.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/baseline-full.json"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/baseline_exit.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/baseline_exit.json",
+      "bytes": 181,
+      "sha256": "057ced1c2533e228c819a5124eeb6591a7b6dec09b7e8fa58f84d07face5ff04",
+      "reason": "Failed first probe receipt.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/baseline-full_exit.json"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/repair-dense.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/repair-dense.json",
+      "bytes": 7429,
+      "sha256": "9fb09466d6205bc53f42f072bf7c10ed2e932c476c9b348ab3a805251257baf9",
+      "reason": "Superseded over-dense query hull authoring.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/repair.json"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/after-repair-dense.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/after-repair-dense.json",
+      "bytes": 321568,
+      "sha256": "c55c6d5c773ff4441f1d30719ebcfb01d14edf90dc76e4ee6ff6c6ba7cb3f0ef",
+      "reason": "Superseded over-dense query hull result.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/after-repair.json"
+    },
+    {
+      "original": "SourceAssets/NonHumanoidHitAudit20261018/repair-partial-budget.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/NonHumanoidHitAudit20261018/repair-partial-budget.json",
+      "bytes": 5168,
+      "sha256": "68076cd3106f90a081519ffb13c40fd38cae05ba243f0d9431e8db36a01090b9",
+      "reason": "Failed first coarsening attempt; negative cell origin prevented merging.",
+      "retained_replacement": "SourceAssets/NonHumanoidHitAudit20261018/repair.json"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/authority-attempt1-exit.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/authority-attempt1-exit.json",
+      "bytes": 200,
+      "sha256": "b488b1f4447472c2d73788aeebf785f019a28a51c9dea7a5057a54e3c56ac4b2",
+      "reason": "Fixture replication index initialization failure.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/authority_exit.json"
+    },
+    {
+      "original": "SourceAssets/MonsterNetworkHitAudit20261018/authority-attempt2.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterNetworkHitAudit20261018/authority-attempt2.json",
+      "bytes": 51690,
+      "sha256": "e5598e783e71e626c2395d29ad84f9d59c76f7a1c79d380004b497cfb1a93857",
+      "reason": "Fixture Actor/UFunction dispatch was not initialized; replaced by final registered-forwarder run.",
+      "retained_replacement": "SourceAssets/MonsterNetworkHitAudit20261018/authority.json"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/baseline_exit.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/baseline_exit.json",
+      "bytes": 95,
+      "sha256": "6b741e463355d037aa0e714539b36a8637f8206d27f365316a420013705961d0",
+      "reason": "Earlier baseline process receipt superseded by current baseline read.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/baseline_current_exit.json"
+    },
+    {
+      "original": "SourceAssets/HumanoidHitVolume20261018/redundant_build_cancelled.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/HumanoidHitVolume20261018/redundant_build_cancelled.json",
+      "bytes": 239,
+      "sha256": "c41b731724c42d4c4cd80f3bd9e78013faf28ba8481b5741b92d628ebc689a27",
+      "reason": "Cancelled duplicate build request.",
+      "retained_replacement": "SourceAssets/HumanoidHitVolume20261018/build-FPSGAMEEditor.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/install-01.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/install-01.json",
+      "bytes": 518,
+      "sha256": "d893f0846b0facacddbabedda5d8607fe686604a7866c772d75295d7d1bac5c3",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/livecoding-01.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/livecoding-01.json",
+      "bytes": 495,
+      "sha256": "920657933c9006f72366ad505a12d7d72e2e841affa7ff72c05519f9b3c5e60a",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/livecoding-schema-01.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/livecoding-schema-01.json",
+      "bytes": 721,
+      "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/read-sources-01.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/read-sources-01.json",
+      "bytes": 632,
+      "sha256": "f12f0912763aaddf5b904b89d09e70605278b413a57b8958a0cb2c5d3eb32da9",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/read-sources-02.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/read-sources-02.json",
+      "bytes": 10100,
+      "sha256": "37c1e12d147d6703d15e643fd6a3d033247f416201ad7264ed3cefb25d7070ff",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/register-catalogue-01.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/register-catalogue-01.json",
+      "bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingEmployees20261017/Logs/toolsets-01.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingEmployees20261017/Logs/toolsets-01.json",
+      "bytes": 13635,
+      "sha256": "01b3de13dff6a40957f396ef11c2f51ca50130bf07001636e02793ac8fd9cd96",
+      "reason": "One-time editor/bridge request output; saved asset and build receipts retained.",
+      "retained_replacement": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-02-stdout.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-02-stdout.log",
+      "bytes": 6860,
+      "sha256": "85b69ce205bebb6a254ac6ab5c192a29660bb67842a9322483d06d16c419b47b",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-02.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-02.log",
+      "bytes": 87206,
+      "sha256": "1431757d51a4762e00534366a9b030bb56cdfe22d143cd8c9198e7beb72deca0",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-03-stdout.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-03-stdout.log",
+      "bytes": 37292,
+      "sha256": "71f831c64e994913096d9160e9043410a66227e58a9626cfba0233c883ab5a3d",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-03.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-03.log",
+      "bytes": 285196,
+      "sha256": "04778109656ca7692887561acf580f31899bd6def208a91d44d718ed8ee9a81c",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-04-stdout.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-04-stdout.log",
+      "bytes": 37626,
+      "sha256": "9bf81e2918b1f375bc4633e9288baa8a99c9debe1a89512ca0c73b264f44e04f",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-04.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-04.log",
+      "bytes": 286025,
+      "sha256": "3544553282b78be8d744e526e25434acd822e9cd1d09702e8f5c1040ac118a04",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-stdout.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-stdout.log",
+      "bytes": 37133,
+      "sha256": "4ac8cff251232818b94d1e0ff8e4474a721f12456f454ef74692ec75e19bb903",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders.log",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders.log",
+      "bytes": 278946,
+      "sha256": "e0f648104aba9fd246dace6eb40d4da9bd5d9e3f463d49b4b78f49c3bfcb72b5",
+      "reason": "Earlier shoulder import attempts; final saved package receipt is 06.",
+      "retained_replacement": "SourceAssets/StaffLivingShoulder20261017/Logs/install-shoulders-06.log"
+    },
+    {
+      "original": "SourceAssets/MedicalBossSpawnFix20261018/Logs/read-current.txt",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MedicalBossSpawnFix20261018/Logs/read-current.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty bridge output.",
+      "retained_replacement": "SourceAssets/MedicalBossSpawnFix20261018/current_inputs.json"
+    },
+    {
+      "original": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__MonsterCombatComponent.cpp.patch",
+      "destination": "trash/facility-monster-hits-20261019/Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__MonsterCombatComponent.cpp.patch",
+      "bytes": 2639,
+      "sha256": "2cb05351f0e22534e13f97621b594e72ff9d5babe14c57d108ba398a376f8983",
+      "reason": "Superseded publication candidate; exact owned hunks now published at their source path.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__MonsterIdleBreathingMeshComponent.cpp.patch",
+      "destination": "trash/facility-monster-hits-20261019/Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__MonsterIdleBreathingMeshComponent.cpp.patch",
+      "bytes": 1902,
+      "sha256": "17de98daec69f8d05e94fe6e964657a977d50257cfb179e8f803c67accf95ce9",
+      "reason": "Superseded publication candidate; exact owned hunks now published at their source path.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__MonsterIdleBreathingMeshComponent.h.patch",
+      "destination": "trash/facility-monster-hits-20261019/Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__MonsterIdleBreathingMeshComponent.h.patch",
+      "bytes": 513,
+      "sha256": "a8882f0569fd0cf1c68558756f93ed1b6710fd0f52e8b3f1639de1632336540d",
+      "reason": "Superseded publication candidate; exact owned hunks now published at their source path.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/.gitignore",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/.gitignore",
+      "bytes": 271457,
+      "sha256": "3da6948343321cf761fbf23c34bb5cd365fba02edf91326a6bde9f2670aea1b4",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Docs/AssetSetup.md",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Docs/AssetSetup.md",
+      "bytes": 122805,
+      "sha256": "07fc3650a0987c7c40fa2dce0d7d29bb74ecff35cb86a24b6c847cc537763214",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Docs/Monsters/monster-taxonomy-20261006.md",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Docs/Monsters/monster-taxonomy-20261006.md",
+      "bytes": 3645,
+      "sha256": "518868851bc985359962c15e44491c822f05c58a8df101272b6be4f3ed66fb75",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Combat/RangedAttackQuery.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Combat/RangedAttackQuery.cpp",
+      "bytes": 5471,
+      "sha256": "fcf558a46f47e8c8429860512764dd028c5aca946888dda37a0eeb75649eca05",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "bytes": 3878,
+      "sha256": "95c735a77a061e4b20d0dc05daf6371f16b96e96cb152ab5413473fc2f49d3b6",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/BoundCongregate.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/BoundCongregate.h",
+      "bytes": 10532,
+      "sha256": "92ebcc6204938c302ad17e2e5bf354725af9c53851ce479a0cdd10e9d3b0c75e",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/BoundCongregateTentacleHealth.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/BoundCongregateTentacleHealth.cpp",
+      "bytes": 5144,
+      "sha256": "43e9038663487fa5ad822acea3b7044c2ff95efe6ce325055060b3029abcddcc",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "bytes": 41190,
+      "sha256": "5f36bc1d2cde1f4030241df3e9285de70eb5c6dfcd1d53d9cc89b68f1ee022a8",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "bytes": 38302,
+      "sha256": "c931cd8ed93132265342b4f818e5fd2e1ed2f8fa4496e8881b4edcdf3c1a6762",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/HangingBellM09.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/HangingBellM09.h",
+      "bytes": 8883,
+      "sha256": "32ce2ffb30ea50f86f4aa0a5b8a83e00786d5a3aeed53300c038265639b79d73",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/M10CombatSurface.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/M10CombatSurface.cpp",
+      "bytes": 3162,
+      "sha256": "e6240570878cdb7030c5756fb487312af7b74c6b22db12797d186f7e51b3aa1a",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "bytes": 20353,
+      "sha256": "e01938cbb3689ebc1c7926dd04628fd06f89edf37195977fa89039d528335a19",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/M10Mawcrawler.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/M10Mawcrawler.h",
+      "bytes": 11386,
+      "sha256": "c3b30c3b4800c8b2c6565bb736abe5f4ef96d32e1cbaf7eba7aa9c914fa619b2",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 42763,
+      "sha256": "2d229c43a78121d6a0621dc3029bcc0f27092f6b64d6abeed6bc3701524e81ac",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "bytes": 10554,
+      "sha256": "4159aa08443161234d3f4533171751d9a2d3458006eafb34c6fe6ba4113463ad",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterGunHitFeedback.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterGunHitFeedback.cpp",
+      "bytes": 11554,
+      "sha256": "495582ccc11f57711c11c6546d9530ec6985eeb127f7b42188cdc62406721529",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.cpp",
+      "bytes": 11835,
+      "sha256": "520ccf34f69d26c34687578e6187079f8ac0d210fea7a8e11132d82683546862",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "bytes": 2203,
+      "sha256": "b6f836c6ea4c94e67dbd8f1eb1dc1b4844db2996fdb885c0eaadaac21dce6c0e",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/NightWardenMonster.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/NightWardenMonster.cpp",
+      "bytes": 4743,
+      "sha256": "f21037a471a0c157527dea225c8242eecbb961cbb81b16104deb1f939b269bd2",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/RootCrownHitComponent.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/RootCrownHitComponent.cpp",
+      "bytes": 7006,
+      "sha256": "fc1818a06eb69f0cc71b88a8c2f38132a0e2732043087a4036062ba9ac8e2201",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/RootCrownHitComponent.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/RootCrownHitComponent.h",
+      "bytes": 1181,
+      "sha256": "a0196c47520979959d376d09f9fd2e7be7e1d767cd3d93d9601a4d70d60e4166",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "bytes": 21748,
+      "sha256": "7f4b85daedc653dee085cea6b82a170ca77b24e444051770f4eec40fe33d0c9c",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/SpiralPillarM14.h",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Monsters/SpiralPillarM14.h",
+      "bytes": 12310,
+      "sha256": "c831e1fc6132de3a9c26346589107a1f4ff84174c5b162bb35f9b9c298a8ffa2",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/IndexCandidates/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "bytes": 54303,
+      "sha256": "366156648003e52e78039d80e1e22981a70a97d8ce299c09c33053ae5b3ef686",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/prepare.py",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/prepare.py",
+      "bytes": 8230,
+      "sha256": "b174006c27ab5c9257cd2ed5eb479b41f6be43a62a5a5278d97531b2220bf5c8",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/archive_plan.py",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/archive_plan.py",
+      "bytes": 5892,
+      "sha256": "f22998a109be44dedc6f71b7b214701328e0a807b504aee483b1f5cd2f7a0359",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/finish_documents.py",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/finish_documents.py",
+      "bytes": 8356,
+      "sha256": "c5c6865dd9f35d7ca5c34cdd589f637b842069a1049f17e98b42da4249cae9e2",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    },
+    {
+      "original": "SourceAssets/MonsterPublication20261019/archive-plan.json",
+      "destination": "trash/facility-monster-hits-20261019/SourceAssets/MonsterPublication20261019/archive-plan.json",
+      "bytes": 57036,
+      "sha256": "201fcf3b5d2d286e37169eb7e235a6cf0de0d7df140ff949d684f81e4c7d1eae",
+      "reason": "Completed one-time publication staging or preparation; index and final public manifests retain the result.",
+      "retained_replacement": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json"
+    }
+  ],
+  "files": 126,
+  "bytes": 35515576.0,
+  "completed": true
+}

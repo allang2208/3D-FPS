@@ -17,6 +17,7 @@
 #include "../Monsters/VortexCofferM25.h"
 #include "../Monsters/SpiralPillarM14.h"
 #include "../Monsters/BoundCongregate.h"
+#include "../Monsters/HumanoidHitVolumeData.h"
 #include "../Props/FPSPracticeTarget.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -409,6 +410,8 @@ bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
     if(const auto* Brain=Cast<AHandBrainMonster>(Hit.GetActor()))return Brain->IsWeakpointHit(Hit);
     // 训练靶：命中点落在靶心正面区域即要害（靶心无骨骼，按网格本地坐标判定）。
     if(const auto* Target=Cast<AFPSPracticeTarget>(Hit.GetActor()))return Target->IsBullseyeHit(Hit);
+    bool bFittedHead = false;
+    if (UHumanoidHitVolumeData::ResolveCriticalHit(Hit, bFittedHead)) return bFittedHead;
     const FString Bone=Hit.BoneName.ToString();return Bone.Contains(TEXT("head"),ESearchCase::IgnoreCase)||Bone.Equals(TEXT("cranium"),ESearchCase::IgnoreCase);
 }
 FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D, int32 Level)

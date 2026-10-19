@@ -1,0 +1,207 @@
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp
+@@ -12,6 +12,8 @@
+ #include "../Monsters/BoundCongregate.h"
+ #include "../Monsters/HangingBellM09.h"
+ #include "../Monsters/LurkerM08Monster.h"
++#include "../Monsters/MantisM27Monster.h"
++#include "../Monsters/BlindSupplicantMonster.h"
+ #include "../Monsters/M10Mawcrawler.h"
+ #include "../Monsters/RootCrownRigPreview.h"
+ #include "../Monsters/VortexCofferM25.h"
+@@ -123,7 +125,7 @@
+ {
+     if (!HasAuthority() || !InRun || !InGenerator) return;
+     const auto* Node = InRun->NodeById(InNode);
+-    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module) && !IsIncineration(Node->Module) && !IsFinalBossRoom(Node->Module))) return;
++    if (!Node || (!IsHall(Node->Module) && !IsMedical(Node->Module) && !IsFreight(Node->Module) && !IsEcology(Node->Module) && !IsPower(Node->Module) && !IsIncineration(Node->Module) && !IsFinalBossRoom(Node->Module) && !IsStaffLiving(Node->Module))) return;
+     Run = InRun;
+     Generator = InGenerator;
+     Theme = InTheme;
+@@ -141,6 +143,8 @@
+     if (bPower) { ConfigurePower(); return; }
+     bIncineration = IsIncineration(Room.Module);
+     if (bIncineration) { ConfigureIncineration(); return; }
++    bStaffLiving = IsStaffLiving(Room.Module);
++    if (bStaffLiving) { ConfigureStaffLiving(); return; }
+     // Loaded by the generator's existing asynchronous preparation stage.
+     for (const FString& Path : MonsterClassPaths())
+     {
+@@ -208,6 +212,7 @@
+         UE_LOG(LogTemp, Error, TEXT("[HallWaves] %s has no complete authored service doors; encounter not started."), *Room.Module);
+         return;
+     }
++    EnableServiceDoorReplication();
+     const uint32 Salt = InRun->NodeRandomSalt(Room.Id);
+     FRandomStream Composition(int32(HashCombineFast(uint32(InRun->RunSeed()), DungeonRunDomains::SpawnComposition ^ Salt)));
+     Placement.Initialize(int32(HashCombineFast(uint32(InRun->RunSeed()), DungeonRunDomains::SpawnPlacement ^ Salt)));
+@@ -232,7 +237,7 @@
+     }
+     GetWorldTimerManager().SetTimer(EncounterTimer, this, &AFacilityHallEncounter::UpdateEncounter, .2f, true);
+     UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s: wave1=%d (staff + 2 ground / 2 upper Bellow) wave2=%d staff trigger=%d kills service_doors=%d"),
+-        *Room.Module, FirstWaveCount, SecondWaveCount, FirstWaveCount / 2 + 1, Doors.Num());
++        *Room.Module, FirstWaveCount, SecondWaveCount, (FirstWaveCount - (bAddElite ? 1 : 0)) / 2 + 1, Doors.Num());
+ }
+ 
+ APawn* AFacilityHallEncounter::PlayerInHall() const
+@@ -247,8 +252,16 @@
+     return nullptr;
+ }
+ 
+-bool AFacilityHallEncounter::FindSpawn(const ACharacter* Defaults, const FVector& Candidate, FVector& Location, float Footprint) const
+-{
++bool AFacilityHallEncounter::FindSpawn(const ACharacter* Defaults, const FVector& Candidate, FVector& Location,
++    float Footprint, const FBox* AuthoredSpawnFloor) const
++{
++    auto Reject = [&](const TCHAR* Stage)
++    {
++#if WITH_EDITOR
++        if (SpawnAuditFailure) SpawnAuditFailure(Stage, Candidate);
++#endif
++        return false;
++    };
+     const auto* Capsule = Defaults->GetCapsuleComponent();
+     const auto* Movement = Defaults->GetCharacterMovement();
+     const float Radius = Capsule->GetScaledCapsuleRadius(), HalfHeight = Capsule->GetScaledCapsuleHalfHeight();
+@@ -261,20 +274,32 @@
+     auto* Nav = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
+     const ANavigationData* Data = Nav ? Nav->GetNavDataForProps(Agent, Candidate) : nullptr;
+     if (!bSurfaceCrawler && (!Data || Data->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
+-        || Data->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight)) return false;
++        || Data->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight)) return Reject(TEXT("navigation_profile"));
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(FacilityHallSpawn), false, this);
+     FHitResult Ground;
+     if (!GetWorld()->LineTraceSingleByChannel(Ground, Candidate + FVector(0,0,100), Candidate - FVector(0,0,100), ECC_Pawn, Query)
+         || Ground.ImpactNormal.Z < FMath::Max(.72f, Movement->GetWalkableFloorZ())
+         || FMath::Abs(Ground.ImpactPoint.Z - Candidate.Z) > 40.
+-        || (Ground.GetActor() && Ground.GetActor()->IsA<APawn>()) || !Room.AllowsSpawn(Ground.ImpactPoint)) return false;
++        || (Ground.GetActor() && Ground.GetActor()->IsA<APawn>())
++        || Room.DistanceSquared(Ground.ImpactPoint) > FMath::Square(20.)) return Reject(TEXT("ground_or_room"));
++    // A designated interior bay can lie outside the catalog's through-route.
++    // Keep its authored floor restriction and the full room boundary; only that
++    // slot substitutes its explicit bay for the route's walk mask.
++    if (AuthoredSpawnFloor ? AuthoredSpawnFloor->ComputeSquaredDistanceToPoint(Ground.ImpactPoint) > FMath::Square(20.)
++        : !Room.AllowsSpawn(Ground.ImpactPoint)) return Reject(TEXT("spawn_area"));
+     FNavLocation Projected;
+     if (!bSurfaceCrawler && (!Nav->ProjectPointToNavigation(Ground.ImpactPoint, Projected, FVector(20,20,60), Data)
+         || FVector::DistSquared2D(Projected.Location, Ground.ImpactPoint) > FMath::Square(20.)
+-        || FMath::Abs(Projected.Location.Z - Ground.ImpactPoint.Z) > 40.)) return false;
+-    Location = Ground.ImpactPoint + FVector(0,0,HalfHeight + 3.f);
++        || FMath::Abs(Projected.Location.Z - Ground.ImpactPoint.Z) > 40.)) return Reject(TEXT("navigation_projection"));
++    // Chaos turns a capsule into a sphere when radius >= half-height. For
++    // BoundCongregate (225/225), the 3 cm radial margin previously consumed
++    // the entire 3 cm floor gap, so the clearance query touched its own floor.
++    // Lift by the query shape's actual half-height before adding the floor gap.
++    const float ClearanceRadius = Radius + 3.f;
++    const float ClearanceHalfHeight = FMath::Max(HalfHeight, ClearanceRadius);
++    Location = Ground.ImpactPoint + FVector(0,0,ClearanceHalfHeight + 3.f);
+     if (GetWorld()->OverlapBlockingTestByChannel(Location, FQuat::Identity, ECC_Pawn,
+-        FCollisionShape::MakeCapsule(Radius + 3.f, HalfHeight), Query)) return false;
++        FCollisionShape::MakeCapsule(ClearanceRadius, ClearanceHalfHeight), Query)) return Reject(TEXT("capsule_overlap"));
+     const float SupportRadius = FMath::Max(Radius, Footprint);
+     for (const FVector Offset : { FVector(SupportRadius,0,0), FVector(-SupportRadius,0,0), FVector(0,SupportRadius,0), FVector(0,-SupportRadius,0) })
+     {
+@@ -282,13 +307,14 @@
+         const FVector Probe = Ground.ImpactPoint + Offset;
+         if (!GetWorld()->LineTraceSingleByChannel(Edge, Probe + FVector(0,0,40), Probe - FVector(0,0,50), ECC_Pawn, Query)
+             || Edge.ImpactNormal.Z < Movement->GetWalkableFloorZ() || FMath::Abs(Edge.ImpactPoint.Z - Ground.ImpactPoint.Z) > 30.f
+-            || (Edge.GetActor() && Edge.GetActor()->IsA<APawn>())) return false;
++            || (Edge.GetActor() && Edge.GetActor()->IsA<APawn>())) return Reject(TEXT("support_edge"));
+     }
+     return true;
+ }
+ 
+ bool AFacilityHallEncounter::FindInitialSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing)
+ {
++    if (bStaffLiving) return FindStaffLivingSpawn(Slot, Defaults, Location, Facing);
+     if (bFinalBossRoom) return FindFinalBossSpawn(Defaults,Location,Facing);
+     if (bMedical) return FindMedicalSpawn(Slot, Defaults, Location, Facing);
+     if (bFreight) return FindFreightSpawn(Slot, Defaults, Location, Facing);
+@@ -410,9 +436,20 @@
+             ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding);
+     }
+     if (!Monster) return false;
+-    if (auto* Staff = Cast<ANurseZombie>(Monster); Staff && (!bIncineration || Slot.Member<2)) Staff->Rank = EMonsterRank::Normal;
++    if (auto* Staff = Cast<ANurseZombie>(Monster); Staff && (!bIncineration || Slot.Member<2) && (!bStaffLiving || Slot.Member<StaffClassCount)) Staff->Rank = EMonsterRank::Normal;
+     if (auto* Bellow = Cast<ABellowSacLobber>(Monster)) Bellow->Rank = EMonsterRank::Normal;
+     if (auto* Bell = Cast<AHangingBellM09>(Monster); Bell && bMedical) Bell->Rank = EMonsterRank::Normal;
++    if (bStaffLiving)
++    {
++        // Mantis and BlindSupplicant inherit NurseZombie too; retain their species ranks.
++        if (auto* Mantis = Cast<AMantisM27Monster>(Monster)) Mantis->Rank = EMonsterRank::Elite;
++        if (auto* Lurker = Cast<ALurkerM08Monster>(Monster)) Lurker->Rank = EMonsterRank::Elite;
++        if (Slot.bStaffLivingBoss)
++        {
++            CastChecked<ABlindSupplicantMonster>(Monster)->Rank = EMonsterRank::Lord;
++            Monster->Tags.AddUnique(TEXT("DungeonObjective.StaffLivingBoss"));
++        }
++    }
+     if (Slot.bMedicalBoss)
+     {
+         CastChecked<ABoundCongregate>(Monster)->Rank = EMonsterRank::Lord;
+@@ -454,12 +491,12 @@
+     }
+     Monster->Tags.AddUnique(Run->EnemySlotTag(Room.Id, Slot.RewardSlot==INDEX_NONE?SlotIndex:Slot.RewardSlot));
+     if(FreightReinforcement)Monster->Tags.AddUnique(TEXT("FacilityFreightReinforcement"));
+-    Monster->Tags.AddUnique(bIncineration ? TEXT("FacilityIncinerationEnemy") : bPower ? TEXT("FacilityPowerEnemy") : bEcology ? TEXT("FacilityEcologyEnemy") : bFreight ? TEXT("FacilityFreightEnemy") : bMedical ? TEXT("FacilityMedicalEnemy") : TEXT("FacilityHallEnemy"));
++    Monster->Tags.AddUnique(bStaffLiving ? TEXT("FacilityStaffLivingEnemy") : bIncineration ? TEXT("FacilityIncinerationEnemy") : bPower ? TEXT("FacilityPowerEnemy") : bEcology ? TEXT("FacilityEcologyEnemy") : bFreight ? TEXT("FacilityFreightEnemy") : bMedical ? TEXT("FacilityMedicalEnemy") : TEXT("FacilityHallEnemy"));
+     if (Slot.bIncinerationBasement) Monster->Tags.AddUnique(TEXT("FacilityIncineration.Basement"));
+     if (Slot.BellowPosition != INDEX_NONE)
+         Monster->Tags.AddUnique(Slot.BellowPosition >= 2 ? TEXT("FacilityHallBellow.Upper") : TEXT("FacilityHallBellow.Ground"));
+     Slot.Monster = Monster;
+-    if (!bMedical && !bFreight && !bEcology && !bPower && !bIncineration && !bFinalBossRoom && !Slot.bObjectiveElite)
++    if (!bMedical && !bFreight && !bEcology && !bPower && !bIncineration && !bFinalBossRoom && !bStaffLiving && !Slot.bObjectiveElite)
+     {
+         Monster->OnTakeAnyDamage.AddDynamic(this, &AFacilityHallEncounter::MonsterDamaged);
+         Monster->OnDestroyed.AddDynamic(this, &AFacilityHallEncounter::MonsterDestroyed);
+@@ -472,14 +509,14 @@
+     if (!IsValid(Monster)) return false;
+     // BeginPlay can reject placement or initialization. Bind objective death
+     // callbacks only after a live spawn, so failure cannot complete the task.
+-    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || bStaffLiving || Slot.bObjectiveElite)
+     {
+         const auto* Combat = Monster->FindComponentByClass<UMonsterCombatComponent>();
+         float Health=0.f, MaxHealth=0.f; FText Name;
+         if (!Combat || !Combat->GetVitals(Health, MaxHealth, Name) || Health <= 0.f)
+         { Slot.Monster.Reset(); Monster->Destroy(); return false; }
+     }
+-    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || Slot.bObjectiveElite)
++    if (bMedical || bFreight || bEcology || bPower || bIncineration || bFinalBossRoom || bStaffLiving || Slot.bObjectiveElite)
+     {
+         Monster->OnTakeAnyDamage.AddDynamic(this, &AFacilityHallEncounter::MonsterDamaged);
+         Monster->OnDestroyed.AddDynamic(this, &AFacilityHallEncounter::MonsterDestroyed);
+@@ -537,7 +574,7 @@
+         {
+             Run->RecordRoomDefeat(Room.Id);
+             // Any player's authoritative kill completes the same team objective.
+-            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss || Slot.bIncinerationBoss || Slot.bFinalBoss)Run->PublishSharedProgress();
++            if(Slot.bObjectiveElite || Slot.bMedicalBoss || Slot.bFreightBoss || Slot.bEcologyBoss || Slot.bPowerBoss || Slot.bIncinerationBoss || Slot.bFinalBoss || Slot.bStaffLivingBoss)Run->PublishSharedProgress();
+         }
+         if (Index < FirstWaveCount && !Slot.bObjectiveElite) ++FirstWaveKills;
+         const int32 OrdinaryFirstWaveCount = FirstWaveCount - (ObjectiveEliteSlot != INDEX_NONE ? 1 : 0);
+@@ -655,7 +692,7 @@
+         {Door.HoldOpenUntil=0.;Door.bWantOpen=false;SetActorTickEnabled(true);}
+         Run->MarkRoomCleared(Room.Id);
+         GetWorldTimerManager().ClearTimer(EncounterTimer);
+-        UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s cleared: waves=%d kills=%d"), *Room.Module,(bMedical||bFreight||bEcology||bPower||bIncineration)?1:2,Slots.Num());
++        UE_LOG(LogTemp, Log, TEXT("[HallWaves] %s cleared: waves=%d kills=%d"), *Room.Module,(bMedical||bFreight||bEcology||bPower||bIncineration||bStaffLiving||bFinalBossRoom)?1:2,Slots.Num());
+     }
+ }
+ 
+@@ -730,6 +767,7 @@
+     {
+         const auto& Slot = Slots[Index];
+         return IsSlotReleased(Slot) && !Slot.bDefeated && !Slot.Monster.IsValid() && !Slot.bObjectiveElite
++            && (!bStaffLiving || Slot.Member < StaffClassCount)
+             && Members.IsValidIndex(Slot.Member) && Members[Slot.Member]
+             && Members[Slot.Member]->IsChildOf(ANurseZombie::StaticClass());
+     };
+@@ -752,6 +790,7 @@
+         || !Slots.IsValidIndex(SlotIndex)) return INDEX_NONE;
+     const auto& Slot = Slots[SlotIndex];
+     if (Slot.bDefeated || Slot.Monster.IsValid() || Slot.bObjectiveElite
++        || (bStaffLiving && Slot.Member >= StaffClassCount)
+         || !Members.IsValidIndex(Slot.Member) || !Members[Slot.Member]
+         || !Members[Slot.Member]->IsChildOf(ANurseZombie::StaticClass())) return INDEX_NONE;
+     bool bPlayerInArea = false;

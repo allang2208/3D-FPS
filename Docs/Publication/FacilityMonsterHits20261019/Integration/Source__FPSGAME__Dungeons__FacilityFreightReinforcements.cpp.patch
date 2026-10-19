@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp
+@@ -71,8 +71,13 @@
+         auto& Slot=Slots.AddDefaulted_GetRef();
+         Slot.FreightDoor=I%2;Slot.bDefeated=true;
+     }
+-    // Only this room needs a replicated encounter actor. The other encounters
+-    // remain server-only; generated geometry continues to use stable names.
++    EnableServiceDoorReplication();
++}
++
++void AFacilityHallEncounter::EnableServiceDoorReplication()
++{
++    // Both welcome halls and the station animate generated service doors.
++    // Replicate poses against stable geometry names; spawning stays server-only.
+     bAlwaysRelevant=true;SetReplicates(true);SetReplicateMovement(false);
+     SetNetUpdateFrequency(10.f);
+     FreightDoorRunId=Run->RunId();
+@@ -155,7 +160,7 @@
+ 
+ void AFacilityHallEncounter::PublishFreightDoors()
+ {
+-    if(!HasAuthority()||!bFreight||FreightDoorRunId.IsEmpty())return;
++    if(!HasAuthority()||FreightDoorRunId.IsEmpty())return;
+     const bool Initial=FreightDoorStates.Num()!=Doors.Num();
+     FreightDoorStates.SetNum(Doors.Num());
+     bool Urgent=Initial;

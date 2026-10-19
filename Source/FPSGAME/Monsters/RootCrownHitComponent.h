@@ -29,7 +29,7 @@ public:
     virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Function) override;
     bool ResolveRemoteContact(const FVector& Start,const FVector& Point,double At,bool Melee,FName ReportedComponent,FHitResult& Out) const;
 private:
-    bool ResolveAt(const FVector& Start,const FVector& Point,double At,bool Melee,bool CapsuleContact,FHitResult& Out) const;
+    bool ResolveAt(const FVector& Start,const FVector& Point,double At,bool Melee,bool CapsuleContact,FHitResult& Out,float RayPaddingCM) const;
     TWeakObjectPtr<ARootCrownRigPreview> Crown;
     TArray<FRootCrownHitHull> Hulls;
     TArray<FRootCrownHitPose> History;

@@ -1,0 +1,45 @@
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/DungeonRunStaffLiving.cpp
+@@ -0,0 +1,42 @@
++#include "DungeonRunSubsystem.h"
++#include "AuthoredDungeonGenerator.h"
++#include "FacilityHallEncounter.h"
++#include "DungeonThemeEncounter.h"
++#include "Engine/World.h"
++
++void UDungeonRunSubsystem::BindStaffLivingTheme(AAuthoredDungeonGenerator* InGenerator)
++{
++    TArray<int32> LivingRooms;
++    for (const auto& Node:Nodes)
++        if (AFacilityHallEncounter::IsStaffLiving(Node.Module)) LivingRooms.Add(Node.Id);
++    if (LivingRooms.IsEmpty()) return;
++    TArray<int32> AreaRooms=LivingRooms;
++    for (const auto& Node:Nodes) if (Node.bConnector)
++    {
++        TArray<int32> Neighbors;CollectNeighborRooms(Node.Id,Neighbors);
++        if (Neighbors.Num()>=2 && !Neighbors.ContainsByPredicate([&LivingRooms](int32 Id){return !LivingRooms.Contains(Id);}))
++            AreaRooms.Add(Node.Id);
++    }
++    TArray<FDungeonRunDoor> Boundaries;
++    for (const auto& Node:Nodes) if (LivingRooms.Contains(Node.Id))
++        for (const auto& Door:Node.Doors)
++            if (!AreaRooms.Contains(Door.Neighbor)) Boundaries.Add(Door);
++    if (LivingRooms.Num()==3 && Boundaries.Num()==2)
++    {
++        FActorSpawnParameters Params;Params.Owner=InGenerator;Params.ObjectFlags|=RF_Transient;
++        auto* Area=GetWorld()->SpawnActor<ADungeonThemeEncounter>(ADungeonThemeEncounter::StaticClass(),FTransform::Identity,Params);
++        if (Area && Area->Configure(this,InGenerator,AreaRooms,Boundaries,EDungeonThemeObjective::StaffLivingBoss)) StaffLivingTheme=Area;
++        else if (Area) Area->Destroy();
++    }
++    if (!StaffLivingTheme.IsValid())
++        UE_LOG(LogTemp,Error,TEXT("[StaffLivingEncounter] Expected three living rooms and two outer boundaries; rooms=%d boundaries=%d"),LivingRooms.Num(),Boundaries.Num());
++}
++
++bool UDungeonRunSubsystem::IsStaffLivingBossDefeated() const
++{
++    if (!bActive || !Generator.IsValid()) return false;
++    if (GetWorld()->GetNetMode()==NM_Client) return bNetworkStaffLivingBossDefeated;
++    for (const auto& Encounter:HallEncounters)
++        if (Encounter.IsValid() && Encounter->IsStaffLivingBossDefeated()) return true;
++    return false;
++}

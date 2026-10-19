@@ -1,0 +1,638 @@
+{
+  "base_commit": "52393caffb17cc4ba657d54f023f15c12f223a49",
+  "scope": "Only this conversation; existing parallel working changes retained",
+  "files_excluding_this_manifest": [
+    {
+      "path": ".gitattributes",
+      "bytes": 1121,
+      "sha256": "10326a556beca4ec965fd3e1b3e5dfc9461e98e1143d446fcb2bb823e2a6ef2a"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 271457,
+      "sha256": "3da6948343321cf761fbf23c34bb5cd365fba02edf91326a6bde9f2670aea1b4"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 122806,
+      "sha256": "7568e455c102a44d7b33ed03733b9457af46430ef7e40064cc5226e8bcec32d4"
+    },
+    {
+      "path": "Docs/Dungeons/facility-spawn-audit-20261017.md",
+      "bytes": 11909,
+      "sha256": "ac75ccb5f56b037ef2d13e5188b601c6ebba6aea6e4c6094672b27a598fd2944"
+    },
+    {
+      "path": "Docs/Dungeons/facility-spawn-recheck-20261018.md",
+      "bytes": 8117,
+      "sha256": "6d9e9fb72c880957f0f0017e92fcc49183cd3f788141e52754de70be70455480"
+    },
+    {
+      "path": "Docs/Dungeons/loot-and-encounter-coverage-20261017.md",
+      "bytes": 7986,
+      "sha256": "2df7655e657bbe3ec93a93a763b552eb644dc396858f027690ddb9a2bc4503b6"
+    },
+    {
+      "path": "Docs/Dungeons/medical-boss-spawn-fix-20261018.md",
+      "bytes": 3536,
+      "sha256": "1e61f3b3cb3feec273c755a2fe5d1055c7215985de914a9ba364b22add18a57d"
+    },
+    {
+      "path": "Docs/Dungeons/staff-living-encounters-20261017.md",
+      "bytes": 5438,
+      "sha256": "c10d2f970d6038970e8b377a66bccb6421e474de1c9f5ccb2c689870ec8f4425"
+    },
+    {
+      "path": "Docs/Monsters/StaffLivingEmployees20261017.md",
+      "bytes": 4665,
+      "sha256": "f1b2c9c68b625f08a3f1e1558b619b8d6815601a041b3bdfe066d40b4f9212d5"
+    },
+    {
+      "path": "Docs/Monsters/monster-taxonomy-20261006.md",
+      "bytes": 3645,
+      "sha256": "518868851bc985359962c15e44491c822f05c58a8df101272b6be4f3ed66fb75"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__DevelopmentSpawnComponent.cpp.patch",
+      "bytes": 1486,
+      "sha256": "2c8aeef487fce8b185430c79991fbb6340fea324feb7ac5fba9886d6c602b6a8"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__FacilitySpawnRecheckCommandlet.cpp.patch",
+      "bytes": 22993,
+      "sha256": "0811dee79b4b513f9ec1bdf3085240038f23542a4b8847918f02178ce19f4a89"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__FacilitySpawnRecheckCommandlet.h.patch",
+      "bytes": 473,
+      "sha256": "57249f7ae1fb92ece351bd06f15dc198466ce49229e14e2e8efc3a1eaf3d5065"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuditCommandlet.cpp.patch",
+      "bytes": 16719,
+      "sha256": "93303a151fda742e01f38951931d046ea1b9306bc4c3d8a9d24a805255a7b38e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuditCommandlet.h.patch",
+      "bytes": 462,
+      "sha256": "4274f5c0795917c70cfce9c25f4bca51b0b6c3a82e18d69ed17c54766952939e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuthoringCommandlet.cpp.patch",
+      "bytes": 21665,
+      "sha256": "947b4e4969173aac87947424aca17292cb2f697ebcb48230dcc7259d7d25b72d"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuthoringCommandlet.h.patch",
+      "bytes": 465,
+      "sha256": "b8ea6cc5e9e63ad5db80ae4d1ac2f7c148d097eb9e07c7f494ec800703ec5530"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MedicalBossSpawnDiagnosisCommandlet.cpp.patch",
+      "bytes": 6788,
+      "sha256": "bd829fe1a60a2150368acef1b56fec33b51545bacaff6dece45178ad5abc054b"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MedicalBossSpawnDiagnosisCommandlet.h.patch",
+      "bytes": 490,
+      "sha256": "d0c3e15b38f9c9d1b5717389a87326a55310eb8a3d15f24729b24819f605db9b"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MonsterNetworkHitAuditCommandlet.cpp.patch",
+      "bytes": 18092,
+      "sha256": "3129aceddcb0818430501c5759dabec67ed29ef013d6d69da4eebba26c3ea60e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MonsterNetworkHitAuditCommandlet.h.patch",
+      "bytes": 376,
+      "sha256": "acf4a20dfe20d2e35b1892bb6fc901cef4b0417b63662c1a89ce73e7716ca943"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitAuditCommandlet.cpp.patch",
+      "bytes": 23414,
+      "sha256": "df6417fbc65875e86faf5b1d427a9358b8d4660d39023626e8d44dc73d60094a"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitAuditCommandlet.h.patch",
+      "bytes": 452,
+      "sha256": "cb5d4c1cdb6fba8ae63d203605f32fc276928092a63886f76355e8b7d6471d2d"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitRepairCommandlet.cpp.patch",
+      "bytes": 22488,
+      "sha256": "dbc94e09a5e87801efb508a3669d542f667a51c83da606ff43c5c2c11474807e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitRepairCommandlet.h.patch",
+      "bytes": 461,
+      "sha256": "5b172267bc896323e4a7eb5dabf92fe5dd7a8c22b6b34d68975f82e429270f48"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__AuthoredDungeonGenerator.cpp.patch",
+      "bytes": 927,
+      "sha256": "d12b3fa458fc45b32e83b9dd5780cb0985d74b643037f4f6276a8f99ded2a569"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunNetwork.cpp.patch",
+      "bytes": 1951,
+      "sha256": "e8a2a70799fcfa4f5dabc2a6390527cb34a59623cade4b0cb3c53989ba6c37a1"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunStaffLiving.cpp.patch",
+      "bytes": 2194,
+      "sha256": "5d37c18c1f7fa28667cd91c584956831e9738b2bdbe34934de7726b6bba301d2"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunSubsystem.cpp.patch",
+      "bytes": 3250,
+      "sha256": "44dbe14b6a91db51237678b882472d20430ee879432e10620deafc2aaa5ca829"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunSubsystem.h.patch",
+      "bytes": 1419,
+      "sha256": "5338238de2c25a7784b7a3bfbad8c5cbdd7193157e034d4043cb29122cd3326e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonSharedProgress.h.patch",
+      "bytes": 485,
+      "sha256": "8e686f3e09a2c9396f9b0bd1e59582ad70b53ee3f868f408aa7d5f0aeacb439c"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonThemeEncounter.cpp.patch",
+      "bytes": 1011,
+      "sha256": "c52544065c010b83994d5107df19a4ee3b063b3016d2e99e2e1d33325714de27"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonThemeEncounter.h.patch",
+      "bytes": 960,
+      "sha256": "ce23e907a8457e97cedd865de360a7c285898967f67ee54882f81f480e90ddfb"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityEcologyEncounter.cpp.patch",
+      "bytes": 3325,
+      "sha256": "3650aeb16cd0d48225a9136f254b2b38cbbc9e7ce51c1bddec4661550efa112e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityFreightReinforcements.cpp.patch",
+      "bytes": 1162,
+      "sha256": "217d0c850ae1d52828961542fea5a22ff547a891e28381e083dab2f77555f92a"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityHallEncounter.cpp.patch",
+      "bytes": 13981,
+      "sha256": "717307b978b4af89bf33fb1b448ea0386347baa319850067a0530e2c53d3d64b"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityHallEncounter.h.patch",
+      "bytes": 4262,
+      "sha256": "f322e5ab4679d13dee9e38656751e6b3f4fab4c12a8f136e3d207f79c00d3c4e"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityMedicalEncounter.cpp.patch",
+      "bytes": 1159,
+      "sha256": "c83b9013aa809e8e440cae11e6a02ecd88d51d387d7f5f34671895b50f44580c"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityStaffLivingEncounter.cpp.patch",
+      "bytes": 8300,
+      "sha256": "6250929bf29d00278b6b81dda0305c58e61a6a93575d4a6e0522dcc145f0ce27"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__NurseZombie.cpp.patch",
+      "bytes": 1038,
+      "sha256": "42e57b01e726929df59062ed13dd0737ee889525590562f0c3b6eba2fbf07094"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "bytes": 2062,
+      "sha256": "f081ccc68bfa26ee5a1ecb607b8d74147e4007f6afb361a32539212cf649c5da"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "bytes": 474,
+      "sha256": "f0f436644a09069d8da316feef8f2ddc5442d6a724d46590af70640966c49011"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+      "bytes": 443,
+      "sha256": "c570e1e89d09c4102d7ac9b6744292c4c8096f6879bb118a33a50cb0f88712a6"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/README.md",
+      "bytes": 7784,
+      "sha256": "449dcbfab35225d65d02aba9164d810706740634870fbb8899d2fa292e73d28f"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/archive-manifest.json",
+      "bytes": 73546,
+      "sha256": "3b073b8cf04439a0b3a7f328a1d9bbe74e1ca5b8fbf7c7ede812a509d327dea6"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/historical-evidence.json",
+      "bytes": 34051,
+      "sha256": "803c5dca0d395a1033a68231ff4fb2ef106ae75079a5f383a5efa1312031455c"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/integration-manifest.json",
+      "bytes": 32663,
+      "sha256": "64002381d6c4bdb332cb02eaa53982585521153268b4ebd45e79a54e065a9697"
+    },
+    {
+      "path": "Docs/Publication/FacilityMonsterHits20261019/local-recovery.json",
+      "bytes": 3869,
+      "sha256": "03fffffc6c0c09f1c87168556bd183fba3a0b2f470f2320fa3dde80a6403c21d"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/RangedAttackQuery.cpp",
+      "bytes": 5471,
+      "sha256": "fcf558a46f47e8c8429860512764dd028c5aca946888dda37a0eeb75649eca05"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "bytes": 3878,
+      "sha256": "95c735a77a061e4b20d0dc05daf6371f16b96e96cb152ab5413473fc2f49d3b6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregate.h",
+      "bytes": 10532,
+      "sha256": "92ebcc6204938c302ad17e2e5bf354725af9c53851ce479a0cdd10e9d3b0c75e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregateTentacleHealth.cpp",
+      "bytes": 5144,
+      "sha256": "43e9038663487fa5ad822acea3b7044c2ff95efe6ce325055060b3029abcddcc"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "bytes": 41190,
+      "sha256": "5f36bc1d2cde1f4030241df3e9285de70eb5c6dfcd1d53d9cc89b68f1ee022a8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "bytes": 38302,
+      "sha256": "c931cd8ed93132265342b4f818e5fd2e1ed2f8fa4496e8881b4edcdf3c1a6762"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.h",
+      "bytes": 8883,
+      "sha256": "32ce2ffb30ea50f86f4aa0a5b8a83e00786d5a3aeed53300c038265639b79d73"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidHitVolumeData.cpp",
+      "bytes": 2221,
+      "sha256": "2837c613b938e6157b5bef81ef4646f68e092bc969f8baf158b72a5ba23b7aee"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HumanoidHitVolumeData.h",
+      "bytes": 1067,
+      "sha256": "7fa41e801ac3cb0966c27e43aab865e0ae894e8617099963ba20d1a2613bd826"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10CombatSurface.cpp",
+      "bytes": 3162,
+      "sha256": "e6240570878cdb7030c5756fb487312af7b74c6b22db12797d186f7e51b3aa1a"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "bytes": 20353,
+      "sha256": "e01938cbb3689ebc1c7926dd04628fd06f89edf37195977fa89039d528335a19"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.h",
+      "bytes": 11386,
+      "sha256": "c3b30c3b4800c8b2c6565bb736abe5f4ef96d32e1cbaf7eba7aa9c914fa619b2"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "bytes": 42763,
+      "sha256": "2d229c43a78121d6a0621dc3029bcc0f27092f6b64d6abeed6bc3701524e81ac"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "bytes": 10554,
+      "sha256": "4159aa08443161234d3f4533171751d9a2d3458006eafb34c6fe6ba4113463ad"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterGunHitFeedback.cpp",
+      "bytes": 11554,
+      "sha256": "495582ccc11f57711c11c6546d9530ec6985eeb127f7b42188cdc62406721529"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.cpp",
+      "bytes": 11835,
+      "sha256": "520ccf34f69d26c34687578e6187079f8ac0d210fea7a8e11132d82683546862"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "bytes": 2203,
+      "sha256": "b6f836c6ea4c94e67dbd8f1eb1dc1b4844db2996fdb885c0eaadaac21dce6c0e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterNetworkHitHistory.cpp",
+      "bytes": 8220,
+      "sha256": "7a99a73422d44225b629e3a99bbac016be120e251d1da6a54a5c5fe8bf8611fc"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterNetworkHitHistory.h",
+      "bytes": 1073,
+      "sha256": "eb4457a47e783d4bec5dd264750f71d687e074e164de777b6311b1ec8cf56d16"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMonster.cpp",
+      "bytes": 4743,
+      "sha256": "f21037a471a0c157527dea225c8242eecbb961cbb81b16104deb1f939b269bd2"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitComponent.cpp",
+      "bytes": 7006,
+      "sha256": "fc1818a06eb69f0cc71b88a8c2f38132a0e2732043087a4036062ba9ac8e2201"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitComponent.h",
+      "bytes": 1181,
+      "sha256": "a0196c47520979959d376d09f9fd2e7be7e1d767cd3d93d9601a4d70d60e4166"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "bytes": 21748,
+      "sha256": "7f4b85daedc653dee085cea6b82a170ca77b24e444051770f4eec40fe33d0c9c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.h",
+      "bytes": 12310,
+      "sha256": "c831e1fc6132de3a9c26346589107a1f4ff84174c5b162bb35f9b9c298a8ffa2"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "bytes": 54303,
+      "sha256": "366156648003e52e78039d80e1e22981a70a97d8ce299c09c33053ae5b3ef686"
+    },
+    {
+      "path": "SourceAssets/DungeonCoverageAudit20261017/audit_coverage.py",
+      "bytes": 11506,
+      "sha256": "f18847fa370fdba0371cfc93c04a88f329905e32071e9d8bbadf93725346340a"
+    },
+    {
+      "path": "SourceAssets/DungeonCoverageAudit20261017/extract_catalog.py",
+      "bytes": 1921,
+      "sha256": "932bec00dca7c80b77a3296c137dcdc058ad39fdc0a3a1338a756ed25580ee3e"
+    },
+    {
+      "path": "Tools/EcologySpawnFix/build_native.ps1",
+      "bytes": 2465,
+      "sha256": "6c5dd0e5f9a6c9fc2abd782a61752848f31d32bcfde88a749d1770f33586d75a"
+    },
+    {
+      "path": "Tools/EcologySpawnFix/read_navigation.py",
+      "bytes": 2905,
+      "sha256": "337e1420702abab455f2671e98795d43d0a87b91c4ff597748c29e23df125c7d"
+    },
+    {
+      "path": "Tools/EcologySpawnFix/run_commandlet.ps1",
+      "bytes": 1369,
+      "sha256": "e90e3956810cfcfd4a02a9d18f32c15ef60daeab64afbe797c9f9f701518e3cc"
+    },
+    {
+      "path": "Tools/FacilitySpawnAudit/audit_saved_inputs.py",
+      "bytes": 9920,
+      "sha256": "164b6397e38b87943857c190ed26a6320f978f8ef1e2683f69535c55f46b4218"
+    },
+    {
+      "path": "Tools/FacilitySpawnAudit/build_native.ps1",
+      "bytes": 2468,
+      "sha256": "fb56e95b42c651b4c2435f9d6ec1aec6f9b29c0dfc9f822caf072d497b5757ad"
+    },
+    {
+      "path": "Tools/FacilitySpawnAudit/read_saved_inputs.py",
+      "bytes": 3752,
+      "sha256": "00b985dc7f18391a85f76687c251e17280a3eb09514f7d7b3281ccfc6699c75c"
+    },
+    {
+      "path": "Tools/FacilitySpawnAudit/run_commandlet.ps1",
+      "bytes": 1374,
+      "sha256": "36f23c1489ca99288bc220cd75967ad5365449968b2c3d9f2ce6fd337e3d3487"
+    },
+    {
+      "path": "Tools/FacilitySpawnRecheck/build_native.ps1",
+      "bytes": 2987,
+      "sha256": "e501579d5b5f10321ad9304ef2867919214f549fb939b655dd8e46d19815fcae"
+    },
+    {
+      "path": "Tools/FacilitySpawnRecheck/record_delivery.py",
+      "bytes": 7274,
+      "sha256": "2348cfdb3622105877cd9981f7c8fc80b3c1e43ce83abfbac2bec72c54c28ad5"
+    },
+    {
+      "path": "Tools/FacilitySpawnRecheck/run_recheck.ps1",
+      "bytes": 1779,
+      "sha256": "d0124e96622fee486d929efb32be75741aa5ca23fde5324b1393706e7a3210b4"
+    },
+    {
+      "path": "Tools/FacilitySpawnRecheck/summarize.py",
+      "bytes": 2416,
+      "sha256": "b560b4d5e52b7bcd1e12ff76fc0cfb6b0f9507f25107bfc2488a9b2efda159c1"
+    },
+    {
+      "path": "Tools/HumanoidHitRepair/build_native.ps1",
+      "bytes": 3556,
+      "sha256": "845460c8e24168a4965b5d8d459e09775043adb03f58e5186cecd8c6cd823e0d"
+    },
+    {
+      "path": "Tools/HumanoidHitRepair/install.ps1",
+      "bytes": 2047,
+      "sha256": "7a188e2b59c62354d11ad1adaf6371e1a901caeb93d248291bb4472db127e3d0"
+    },
+    {
+      "path": "Tools/HumanoidHitVolume/build_native.ps1",
+      "bytes": 3556,
+      "sha256": "6f299c7810d4c747c82d24bc777cbbeffda6375a4482e65e773333a4109deda7"
+    },
+    {
+      "path": "Tools/HumanoidHitVolume/export_summary.py",
+      "bytes": 7220,
+      "sha256": "8b922fdb5f5f005e1c13a0f265064d60a1f9be8c95e9cf4d82311aa3c83d4780"
+    },
+    {
+      "path": "Tools/HumanoidHitVolume/run_audit.ps1",
+      "bytes": 1877,
+      "sha256": "5b8d69384ea53f084eb986df25e6e2d924524476b13bd99cf8c6f3c2f85d4d7a"
+    },
+    {
+      "path": "Tools/HumanoidHitVolume/summarize.py",
+      "bytes": 1173,
+      "sha256": "11bf37e2f96a5436abad8ac743d78b6f48795ee0da5fd416c600c81caa3ac28b"
+    },
+    {
+      "path": "Tools/MedicalBossSpawnFix/build_native.ps1",
+      "bytes": 2986,
+      "sha256": "ddef9c9145f7db4432e611674cee86abed6e42de6af5c16fecb5673a66076e23"
+    },
+    {
+      "path": "Tools/MedicalBossSpawnFix/read_current.py",
+      "bytes": 3677,
+      "sha256": "4db796e5cf575d1204b8c79b242540b5cff1863b4621fff45ceaefe4bd656eda"
+    },
+    {
+      "path": "Tools/MedicalBossSpawnFix/run_collision_probe.ps1",
+      "bytes": 1518,
+      "sha256": "5cd96db82dbe32307dc5198aeaad7e7b60ea64ce830d8acc54c163169f58b4d3"
+    },
+    {
+      "path": "Tools/MedicalBossSpawnFix/run_commandlet.ps1",
+      "bytes": 1373,
+      "sha256": "59e0d33ed0aa5e7c1bc89d757803510c145625099790ec2df97ce5d4376ee51b"
+    },
+    {
+      "path": "Tools/MonsterNetworkHitAudit/run.ps1",
+      "bytes": 1721,
+      "sha256": "fc176f12395e2838f970ffe5342b3b3c21e53ad6a2cf9e36102970bbb4b937a4"
+    },
+    {
+      "path": "Tools/MonsterNetworkHitAudit/summarize.py",
+      "bytes": 3430,
+      "sha256": "7d97893a284de5c7247fa2493d5a29d1517ecc7a0c1d81633c62a96bc16671ea"
+    },
+    {
+      "path": "Tools/NonHumanoidHitAudit/build_native.ps1",
+      "bytes": 3620,
+      "sha256": "f57d515bf60f860d642ff95c9143d427032b580efe3bf895fab034d9aa6d8362"
+    },
+    {
+      "path": "Tools/NonHumanoidHitAudit/complete.ps1",
+      "bytes": 800,
+      "sha256": "4773f59671b6faf20b629d16421cadfbfc9fad0367442f383cf37e42e440ea5b"
+    },
+    {
+      "path": "Tools/NonHumanoidHitAudit/refit.ps1",
+      "bytes": 669,
+      "sha256": "2a7a3937823eeb6cdf0ec6daf36f7f88381db596233137db01e61f6e87b8f564"
+    },
+    {
+      "path": "Tools/NonHumanoidHitAudit/repair.ps1",
+      "bytes": 1976,
+      "sha256": "1e8c8eb1ef4ec62b8df082a648aeda0c1c06bef71437f7d6fe3a8dc397549a5d"
+    },
+    {
+      "path": "Tools/NonHumanoidHitAudit/run.ps1",
+      "bytes": 1608,
+      "sha256": "9106a2d542fcbe5781801b9ab2b7f3bd55bcda7a6a074d44b8253bc911d98f76"
+    },
+    {
+      "path": "Tools/NonHumanoidHitAudit/summarize.py",
+      "bytes": 5078,
+      "sha256": "36bb20145242305711c74cec15f7731be0512aa71c1318dbbaf8437d421380cf"
+    },
+    {
+      "path": "Tools/StaffLivingEmployees/build_native.ps1",
+      "bytes": 2454,
+      "sha256": "bba8d03564283327d836fadd1f87d37328afa2888741f48bff2ded1ec4c12d8c"
+    },
+    {
+      "path": "Tools/StaffLivingEmployees/install_assets.py",
+      "bytes": 4543,
+      "sha256": "b051ce70b2c0ae236b6a19419d4c539f9afec64dc93b671e4cdaf04f10ae54cc"
+    },
+    {
+      "path": "Tools/StaffLivingEmployees/read_sources.py",
+      "bytes": 3003,
+      "sha256": "5f3f4502fdf1c3794f54d7daa7a6c99eb608db6c03c1d4f7758ca37ff99278c9"
+    },
+    {
+      "path": "Tools/StaffLivingEmployees/save_assets.ps1",
+      "bytes": 2171,
+      "sha256": "7264bd539f0132e82b0e1ae609c46a537e41bd2a81b1b552cb2c23c426b2768c"
+    },
+    {
+      "path": "Tools/StaffLivingEncounter/build_native.ps1",
+      "bytes": 2470,
+      "sha256": "59428a78f1c2360c2a570a8bde98dc5d157b3229eb2cbb4f3f57a5ac768a8e2a"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/diagnose_binding.py",
+      "bytes": 2730,
+      "sha256": "6f6ba066c54a4dcc0476d254688fb73fd0e2151ed66cdfc3ff64422a5d4f06fd"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/diagnose_poses.py",
+      "bytes": 3202,
+      "sha256": "edefc4764a040ab6a5b37e4a7adf9f2bb734a7ef0c279e54793f767e8beabd96"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/diagnose_source.py",
+      "bytes": 3072,
+      "sha256": "1fe2a491f470edc6310653142ee177b04bfee874388898701f2841f2b4c5eb6d"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/install_repaired_assets.py",
+      "bytes": 6127,
+      "sha256": "c4941ab997e8bcf7d62c21b73de15ed22efdf286945673591c29c67dadf87978"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/read_and_install.py",
+      "bytes": 256,
+      "sha256": "7d30127b00947d700c3c19cb04d48f777e6bbbe62a69254f34689f99eebe7ece"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/read_current_assets.py",
+      "bytes": 1360,
+      "sha256": "302681eb2d3be275d0897833be4eb4b55d2cf201dec75a09fc19c7457c590baf"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/repair_shoulders.py",
+      "bytes": 5482,
+      "sha256": "057f0a24ddb7851240f20d2b631e0915ccab1768520cb9eb402bfef0ffc74e69"
+    },
+    {
+      "path": "Tools/StaffLivingShoulder/run_commandlet.ps1",
+      "bytes": 2389,
+      "sha256": "57715397d9f2dc24af01afac90251e23f35c916bec2db9dad7d5a57d3a0ef6a0"
+    },
+    {
+      "path": "skills/ue5-debug-validation/SKILL.md",
+      "bytes": 1586,
+      "sha256": "7709d8c64048bd18dc38c1be4a35ada440c6cb901ea1193773f77c44cb26b8ab"
+    },
+    {
+      "path": "skills/ue5-debug-validation/references/authority-hit-fixture.md",
+      "bytes": 2050,
+      "sha256": "691075104988db28991ab56e90966fc8989fe65226e0f902ba545ad1b4dc1166"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/SKILL.md",
+      "bytes": 2491,
+      "sha256": "1e5248271a3f2c039c1561398333da86ace0d5ecd7dffdde392a3ce4799d46c3"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/facility-spawn-routing.md",
+      "bytes": 2498,
+      "sha256": "51f791da08d32c9af0529ccfed433cd2798bc738984d93ce7a36692e3be923ee"
+    },
+    {
+      "path": "skills/ue5-monster-workflow/references/model-hit-volumes.md",
+      "bytes": 3478,
+      "sha256": "553a63da791996cc8424dd6f5613dd7affaaebbe894a08bb6dd350ada514969c"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "bytes": 2256,
+      "sha256": "39cf29a96cad3fd44e876f7f9b0da056e1a19d4e3d5491646fec7ce89ca468e2"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/monster-delayed-hit.md",
+      "bytes": 2206,
+      "sha256": "c42606a8685ab2ad711b18d7dad11098a078a41028bf3417afef380cf25255da"
+    }
+  ],
+  "checks": {
+    "exact_index_paths": true,
+    "diff_cached_check": true,
+    "staged_blobs_text_only": true,
+    "credential_pattern_scan_no_hits": true,
+    "raw_assets_logs_trash_excluded": true,
+    "named_baseline_patches_reproduced": 33,
+    "archived_files_hash_readback": 126,
+    "personal_and_repo_reference_files_match": 4,
+    "new_gameplay_or_ue_tests": false
+  },
+  "licensing": "Only original code, recipes and compact provenance are published. Source assets and dense derived data remain local."
+}

@@ -41,7 +41,7 @@ public:
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> MoveClip;
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> BiteClip;
     UPROPERTY(EditDefaultsOnly,Category="M10|Assets") TObjectPtr<UAnimSequence> DeathClip;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MaxHealth=3200.f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M10|Stats") float MaxHealth=3200.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalAttack=90.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float PhysicalDefense=45.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M10|Stats") float MagicDefense=20.f;

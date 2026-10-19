@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
++++ b/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp
+@@ -37,6 +37,9 @@
+     Add(TEXT("FacelessSecurity"), TEXT("安保员 M-01"), TEXT("/Game/Monsters/FacelessSecurity/BP_FacelessSecurity.BP_FacelessSecurity_C"), 44.f);
+     Add(TEXT("FacelessReceptionist"), TEXT("接待员 M-01"), TEXT("/Game/Monsters/FacelessReceptionist/BP_FacelessReceptionist.BP_FacelessReceptionist_C"), 44.f);
+     Add(TEXT("FacelessResearcher"), TEXT("研究员 M-01"), TEXT("/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C"), 44.f);
++    Add(TEXT("LivingStaffMale"), TEXT("男性员工 M-01"), TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffMale.BP_LivingStaffMale_C"), 44.f);
++    Add(TEXT("LivingStaffFemaleA"), TEXT("女性员工A M-01"), TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffFemaleA.BP_LivingStaffFemaleA_C"), 44.f);
++    Add(TEXT("LivingStaffFemaleB"), TEXT("女性员工B M-01"), TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffFemaleB.BP_LivingStaffFemaleB_C"), 44.f);
+     Add(TEXT("EcologyGardener"), TEXT("园艺师 M-01"), TEXT("/Game/Monsters/EcologyGardener/BP_EcologyGardener.BP_EcologyGardener_C"), 44.f);
+     Add(TEXT("CargoPorter"), TEXT("搬运工 M-01"), TEXT("/Game/Monsters/CargoPorter/BP_CargoPorter.BP_CargoPorter_C"), 44.f);
+     Add(TEXT("CargoTechnician"), TEXT("技术员 M-01"), TEXT("/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C"), 44.f);

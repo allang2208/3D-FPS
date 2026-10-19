@@ -1,0 +1,298 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/NonHumanoidHitAuditCommandlet.cpp
+@@ -0,0 +1,295 @@
++#include "NonHumanoidHitAuditCommandlet.h"
++#include "DevelopmentSpawnComponent.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Monsters/QuadrupedAnimationTemplate.h"
++#include "../Monsters/RootCrownHitComponent.h"
++#include "../Monsters/RootCrownRigPreview.h"
++#include "../Monsters/HeQueMonster.h"
++#include "../Monsters/M10Mawcrawler.h"
++#include "../Monsters/BoundCongregate.h"
++#include "../Combat/RangedAttackQuery.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "../Skills/EnemyAttackDamage.h"
++#include "../Skills/FireballDamage.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Components/StaticMeshComponent.h"
++#include "Engine/DamageEvents.h"
++#include "Engine/GameInstance.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/Character.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/UnrealType.h"
++#if WITH_EDITOR
++#include "AssetCompilingManager.h"
++#include "Rendering/SkeletalMeshModel.h"
++#include "Rendering/SkeletalMeshLODModel.h"
++#include "DynamicMesh/DynamicMesh3.h"
++#include "DynamicMesh/DynamicMeshAABBTree3.h"
++#endif
++
++int32 UNonHumanoidHitAuditCommandlet::Main(const FString& Params)
++{
++#if !WITH_EDITOR
++    return 1;
++#else
++    using namespace UE::Geometry;
++    FString Output,Only;
++    if(!FParse::Value(*Params,TEXT("Report="),Output))return 1;
++    FParse::Value(*Params,TEXT("Only="),Only);
++    const TSet<FName> Excluded={TEXT("FatZombie"),TEXT("Mutant3"),TEXT("NurseZombie"),TEXT("SpitterZombie"),TEXT("WitchRebuilt"),
++        TEXT("FacelessSecurity"),TEXT("FacelessReceptionist"),TEXT("FacelessResearcher"),TEXT("LivingStaffMale"),TEXT("LivingStaffFemaleA"),
++        TEXT("LivingStaffFemaleB"),TEXT("EcologyGardener"),TEXT("CargoPorter"),TEXT("CargoTechnician"),TEXT("NightWardenRig"),TEXT("MantisM27"),TEXT("BlindSupplicantM07")};
++    auto Report=MakeShared<FJsonObject>();TArray<TSharedPtr<FJsonValue>> Rows;
++    Report->SetBoolField(TEXT("assets_saved"),false);Report->SetBoolField(TEXT("map_begin_play"),false);
++    Report->SetStringField(TEXT("scope"),TEXT("Actual constructed actors; imported LOD0 skinned animation surfaces, six-view rays/sweeps, isolated nonlethal damage. Cloth, morphs and procedural attack modifiers excluded."));
++    auto Save=[&](){Report->SetArrayField(TEXT("monsters"),Rows);FString S;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&S));FFileHelper::SaveStringToFile(S,*Output);};
++    const auto Settings=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(true).RequiresHitProxies(false)
++        .CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    auto* World=UWorld::CreateWorld(EWorldType::Game,false,TEXT("NonHumanoidHitAudit"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    if(!World)return 2;
++    auto* Shooter=World->SpawnActor<APawn>();Shooter->Tags.Add(TEXT("Player"));
++    auto* GameInstance=NewObject<UGameInstance>();
++    auto* Model=NewObject<UColdSteelStatusModel>(GameInstance);
++    bool Complete=true;
++    for(const auto& Entry:GetDefault<UDevelopmentSpawnComponent>()->GetMonsters())
++    {
++        if(Excluded.Contains(Entry.Id)||(!Only.IsEmpty()&&Entry.Id.ToString()!=Only))continue;
++        auto Row=MakeShared<FJsonObject>();Rows.Add(MakeShared<FJsonValueObject>(Row));
++        Row->SetStringField(TEXT("id"),Entry.Id.ToString());Row->SetStringField(TEXT("name"),Entry.Name.ToString());
++        Row->SetStringField(TEXT("class"),Entry.CharacterClass.ToString());
++        auto Fail=[&](const TCHAR* Message){Row->SetStringField(TEXT("error"),Message);Complete=false;Save();};
++        UClass* Class=Entry.CharacterClass.LoadSynchronous();
++        if(!Class){Fail(TEXT("Class unavailable"));continue;}
++        FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++        Spawn.CustomPreSpawnInitialization=[](AActor* A){CastChecked<ACharacter>(A)->AutoPossessAI=EAutoPossessAI::Disabled;};
++        auto* Monster=World->SpawnActor<ACharacter>(Class,FTransform::Identity,Spawn);
++        auto* Mesh=Monster?Monster->GetMesh():nullptr;auto* Asset=Mesh?Mesh->GetSkeletalMeshAsset():nullptr;
++        FAssetCompilingManager::Get().FinishAllCompilation();
++        if(!Asset||!Asset->GetImportedModel()||Asset->GetImportedModel()->LODModels.IsEmpty())
++        {Fail(TEXT("Imported model unavailable"));if(Monster)Monster->Destroy();continue;}
++        Monster->Tags.Add(TEXT("NoSkillTraining"));Monster->Tags.Add(TEXT("NoKillRewards"));
++        auto* Combat=Monster->FindComponentByClass<UMonsterCombatComponent>();
++        auto* HealthProperty=FindFProperty<FFloatProperty>(Class,TEXT("Health"));
++        Row->SetBoolField(TEXT("damage_enabled"),Monster->CanBeDamaged());
++        Row->SetBoolField(TEXT("combat_component"),Combat!=nullptr);
++        Row->SetBoolField(TEXT("filtered_as_player_ally"),RangedAttackQuery::IsFriendlyUnit(Shooter,Monster));
++        Row->SetStringField(TEXT("mesh"),Asset->GetPathName());
++        Row->SetStringField(TEXT("mesh_transform"),Mesh->GetComponentTransform().ToString());
++        Row->SetStringField(TEXT("physics_asset"),GetPathNameSafe(Mesh->GetPhysicsAsset()));
++        Row->SetStringField(TEXT("physics_override"),GetPathNameSafe(Mesh->PhysicsAssetOverride));
++        Row->SetNumberField(TEXT("mesh_collision"),int32(Mesh->GetCollisionEnabled()));
++        Row->SetNumberField(TEXT("mesh_visibility"),int32(Mesh->GetCollisionResponseToChannel(ECC_Visibility)));
++        Row->SetNumberField(TEXT("capsule_visibility"),int32(Monster->GetCapsuleComponent()->GetCollisionResponseToChannel(ECC_Visibility)));
++        Row->SetNumberField(TEXT("pose_tick_policy"),int32(Mesh->VisibilityBasedAnimTickOption));
++        TArray<TSharedPtr<FJsonValue>> Bodies;
++        if(const auto* Physics=Mesh->GetPhysicsAsset())for(const auto& Setup:Physics->SkeletalBodySetups)if(Setup)
++        {
++            auto B=MakeShared<FJsonObject>();B->SetStringField(TEXT("bone"),Setup->BoneName.ToString());
++            B->SetNumberField(TEXT("collision"),int32(Setup->DefaultInstance.GetCollisionEnabled()));
++            B->SetNumberField(TEXT("trace_flag"),int32(Setup->GetCollisionTraceFlag()));B->SetNumberField(TEXT("shapes"),Setup->AggGeom.GetElementCount());
++            B->SetBoolField(TEXT("bone_exists"),Asset->GetRefSkeleton().FindBoneIndex(Setup->BoneName)!=INDEX_NONE);
++            Bodies.Add(MakeShared<FJsonValueObject>(B));
++        }
++        Row->SetArrayField(TEXT("bodies"),Bodies);
++        TArray<TSharedPtr<FJsonValue>> Auxiliary;
++        TInlineComponentArray<UStaticMeshComponent*> StaticParts(Monster);
++        for(const auto* Part:StaticParts)if(const UStaticMesh* StaticAsset=Part->GetStaticMesh())
++        {
++            auto A=MakeShared<FJsonObject>();A->SetStringField(TEXT("component"),Part->GetName());A->SetStringField(TEXT("asset"),StaticAsset->GetPathName());
++            A->SetBoolField(TEXT("visible"),Part->IsVisible());A->SetNumberField(TEXT("collision"),int32(Part->GetCollisionEnabled()));
++            if(const auto* Setup=StaticAsset->GetBodySetup()){A->SetNumberField(TEXT("shapes"),Setup->AggGeom.GetElementCount());A->SetNumberField(TEXT("trace_flag"),int32(Setup->GetCollisionTraceFlag()));}
++            Auxiliary.Add(MakeShared<FJsonValueObject>(A));
++        }
++        Row->SetArrayField(TEXT("auxiliary_meshes"),Auxiliary);
++        TMap<FName,UAnimSequence*> Clips;
++        for(TFieldIterator<FObjectPropertyBase> It(Class);It;++It)
++            if(auto* Clip=Cast<UAnimSequence>(It->GetObjectPropertyValue_InContainer(Monster)))Clips.Add(It->GetFName(),Clip);
++        if(const auto* Property=FindFProperty<FMapProperty>(Class,TEXT("Clips")))
++        {
++            FScriptMapHelper Map(Property,Property->ContainerPtrToValuePtr<void>(Monster));
++            const auto* Value=CastField<FObjectPropertyBase>(Property->ValueProp);
++            if(Value)for(int32 I=0;I<Map.GetMaxIndex();++I)if(Map.IsValidIndex(I))
++                if(auto* Clip=Cast<UAnimSequence>(Value->GetObjectPropertyValue(Map.GetValuePtr(I))))Clips.Add(*reinterpret_cast<FName*>(Map.GetKeyPtr(I)),Clip);
++        }
++        if(const auto* Property=FindFProperty<FObjectPropertyBase>(Class,TEXT("AnimationSet")))
++            if(const auto* Set=Cast<UQuadrupedAnimationSet>(Property->GetObjectPropertyValue_InContainer(Monster)))
++                for(const auto& Pair:Set->Actions)if(Pair.Value.Sequence)Clips.Add(Pair.Key,Pair.Value.Sequence);
++        TArray<FName> Keys;Clips.GetKeys(Keys);Keys.Sort(FNameLexicalLess());
++        TArray<TSharedPtr<FJsonValue>> Available;for(const auto Key:Keys)Available.Add(MakeShared<FJsonValueString>(Key.ToString()));
++        Row->SetArrayField(TEXT("available_clips"),Available);
++        auto Select=[&](std::initializer_list<const TCHAR*> Tokens)->FName
++        {for(const auto* Token:Tokens)for(const auto Key:Keys)if(Key.ToString().Contains(Token,ESearchCase::IgnoreCase))return Key;return NAME_None;};
++        struct FPose{FName Key;float Phase;};
++        const FName Idle=Select({TEXT("Idle")}),Move=Select({TEXT("Walk"),TEXT("Move"),TEXT("Run"),TEXT("Travel")}),Attack=Select({TEXT("Bite"),TEXT("Claw"),TEXT("Slam"),TEXT("Attack"),TEXT("Clamp"),TEXT("Spit"),TEXT("Resonance"),TEXT("Slash")});
++        const FPose Poses[]={{Idle,0.f},{Idle,.5f},{Move,.5f},{Attack,.4f}};
++        Mesh->bEnableUpdateRateOptimizations=false;Mesh->bDisableClothSimulation=true;Mesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
++        const auto& Ref=Asset->GetRefSkeleton();TArray<FTransform> Reference=Ref.GetRefBonePose();
++        for(int32 I=0;I<Ref.GetNum();++I)if(Ref.GetParentIndex(I)>=0)Reference[I]*=Reference[Ref.GetParentIndex(I)];
++        const auto& LOD=Asset->GetImportedModel()->LODModels[0];
++        TArray<TSharedPtr<FJsonValue>> PoseRows;FHitResult Representative;bool HasHit=false;
++        for(const auto& Pose:Poses)
++        {
++            auto P=MakeShared<FJsonObject>();PoseRows.Add(MakeShared<FJsonValueObject>(P));
++            P->SetStringField(TEXT("clip_role"),Pose.Key.ToString());P->SetNumberField(TEXT("phase"),Pose.Phase);
++            UAnimSequence* Clip=Clips.FindRef(Pose.Key);
++            if(!Clip){P->SetStringField(TEXT("error"),TEXT("No matching live clip"));Complete=false;continue;}
++            P->SetStringField(TEXT("clip"),Clip->GetPathName());
++            World->TimeSeconds+=1.;World->DeltaTimeSeconds=1.f/60.f;
++            Mesh->PlayAnimation(Clip,false);Mesh->SetPosition(Clip->GetPlayLength()*Pose.Phase,false);
++            Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
++            Mesh->UpdateKinematicBonesToAnim(Mesh->GetComponentSpaceTransforms(),ETeleportType::TeleportPhysics,false,EAllowKinematicDeferral::DisallowDeferral);
++            if(auto* Crown=Cast<ARootCrownRigPreview>(Monster))Crown->HitDetection->InitializeSurface();
++            const auto& Current=Mesh->GetComponentSpaceTransforms();FDynamicMesh3 Surface;FBox Box(ForceInit);
++            TArray<int32> Vertices;Vertices.Init(INDEX_NONE,LOD.NumVertices);
++            TArray<FName> Dominant;Dominant.SetNum(LOD.NumVertices);
++            for(const auto& Section:LOD.Sections)
++            {
++                FString Slot;if(Asset->GetMaterials().IsValidIndex(Section.MaterialIndex))Slot=Asset->GetMaterials()[Section.MaterialIndex].ImportedMaterialSlotName.ToString();
++                if(Section.bDisabled||Slot.Contains(TEXT("Proxy")))continue;
++                for(int32 V=0;V<Section.SoftVertices.Num();++V)
++                {
++                    const auto& Input=Section.SoftVertices[V];FVector Point=FVector::ZeroVector;double Total=0,Best=0;FName BoneName;
++                    for(int32 W=0;W<MAX_TOTAL_INFLUENCES;++W)
++                    {
++                        const double Weight=Input.InfluenceWeights[W];if(Weight<=0)continue;
++                        const int32 Bone=Section.BoneMap[Input.InfluenceBones[W]];
++                        Point+=Current[Bone].TransformPosition(Reference[Bone].InverseTransformPosition(FVector(Input.Position)))*Weight;Total+=Weight;
++                        if(Weight>Best){Best=Weight;BoneName=Ref.GetBoneName(Bone);}
++                    }
++                    if(Total>0)Point/=Total;Point=Mesh->GetComponentTransform().TransformPosition(Point);Box+=Point;
++                    const int32 Index=Section.BaseVertexIndex+V;Vertices[Index]=Surface.AppendVertex(Point);Dominant[Index]=BoneName;
++                }
++            }
++            TMap<int32,FName> TriangleBones;
++            for(int32 I=0;I+2<LOD.IndexBuffer.Num();I+=3)
++            {
++                const int32 A=LOD.IndexBuffer[I],B=LOD.IndexBuffer[I+1],C=LOD.IndexBuffer[I+2];
++                if(Vertices[A]<0||Vertices[B]<0||Vertices[C]<0)continue;
++                const int32 Triangle=Surface.AppendTriangle(Vertices[A],Vertices[B],Vertices[C]);if(Triangle>=0)TriangleBones.Add(Triangle,Dominant[A]);
++            }
++            FDynamicMeshAABBTree3 Tree(&Surface,true);int32 Expected=0,ComplexMiss=0,SimpleMiss=0,SweepMiss=0,Deep=0,RemoteMiss=0,Critical=0,RemoteCriticalLost=0;
++            TMap<FName,int32> MissBones;TArray<TSharedPtr<FJsonValue>> Samples;
++            for(int32 Axis=0;Axis<3;++Axis)for(int32 Sign:{-1,1})for(int32 Y=0;Y<25;++Y)for(int32 X=0;X<25;++X)
++            {
++                FVector Direction=FVector::ZeroVector;Direction[Axis]=Sign;FVector Target=Box.GetCenter();
++                Target[(Axis+1)%3]+=((X+.5)/25.*2.-1.)*Box.GetExtent()[(Axis+1)%3];
++                Target[(Axis+2)%3]+=((Y+.5)/25.*2.-1.)*Box.GetExtent()[(Axis+2)%3];
++                const double Length=Box.GetExtent()[Axis]+100.;const FVector Start=Target-Direction*Length,End=Target+Direction*Length;
++                double Distance;int32 Triangle;if(!Tree.FindNearestHitTriangle(FRay3d(Start,Direction),Distance,Triangle))continue;
++                ++Expected;FCollisionQueryParams Q(SCENE_QUERY_STAT(NonHumanoidSurfaceAudit),true);FHitResult Hit;
++                const bool Found=World->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Q)&&Hit.GetActor()==Monster;
++                ComplexMiss+=!Found;const double Depth=Found?Hit.Distance-Distance:0.;Deep+=Found&&Depth>6.;
++                if(!Found)++MissBones.FindOrAdd(TriangleBones.FindRef(Triangle));
++                if(Found)
++                {
++                    Representative=Hit;HasHit=true;
++                    const bool Weak=ColdSteelSkills::IsCriticalHit(Hit);Critical+=Weak;
++                    FHitResult Net=Hit;Net.Component=nullptr;
++                    if(const auto* HeQue=Cast<AHeQueMonster>(Monster))HeQue->ResolveRemoteHit(Start,Hit.ImpactPoint,Net);
++                    if(auto* Crown=Cast<ARootCrownRigPreview>(Monster))
++                    {RemoteMiss+=!Crown->HitDetection->ResolveRemoteContact(Start,Hit.ImpactPoint,World->TimeSeconds,false,Mesh->GetFName(),Net);}
++                    RemoteCriticalLost+=Weak&&!ColdSteelSkills::IsCriticalHit(Net);
++                }
++                if((!Found||Depth>6.)&&Samples.Num()<12)
++                {
++                    auto S=MakeShared<FJsonObject>();S->SetStringField(TEXT("surface_bone"),TriangleBones.FindRef(Triangle).ToString());
++                    S->SetStringField(TEXT("surface"),(Start+Direction*Distance).ToString());S->SetStringField(TEXT("start"),Start.ToString());
++                    S->SetBoolField(TEXT("hit"),Found);S->SetNumberField(TEXT("depth_cm"),Depth);Samples.Add(MakeShared<FJsonValueObject>(S));
++                }
++                Q.bTraceComplex=false;FHitResult Simple;
++                SimpleMiss+=!(World->LineTraceSingleByChannel(Simple,Start,End,ECC_Visibility,Q)&&Simple.GetActor()==Monster);
++                Q.bTraceComplex=true;FHitResult Swept;
++                SweepMiss+=!(World->SweepSingleByChannel(Swept,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(2.f),Q)&&Swept.GetActor()==Monster);
++            }
++            auto MissMap=MakeShared<FJsonObject>();for(const auto& Pair:MissBones)MissMap->SetNumberField(Pair.Key.ToString(),Pair.Value);
++            P->SetNumberField(TEXT("surface_rays"),Expected);P->SetNumberField(TEXT("complex_miss"),ComplexMiss);P->SetNumberField(TEXT("simple_miss"),SimpleMiss);
++            P->SetNumberField(TEXT("sweep_miss"),SweepMiss);P->SetNumberField(TEXT("contact_deeper_than_6cm"),Deep);P->SetNumberField(TEXT("root_remote_rejected"),RemoteMiss);
++            P->SetNumberField(TEXT("local_critical"),Critical);P->SetNumberField(TEXT("network_critical_lost_same_pose"),RemoteCriticalLost);
++            P->SetObjectField(TEXT("miss_bones"),MissMap);P->SetArrayField(TEXT("samples"),Samples);
++        }
++        Row->SetArrayField(TEXT("poses"),PoseRows);
++        Save(); // Preserve completed geometry even if a subsequent damage probe fails.
++        if(HasHit)
++        {
++            FHitResult Filtered;FCollisionQueryParams Query(SCENE_QUERY_STAT(NonHumanoidFilteredGunAudit),true,Shooter);
++            Row->SetBoolField(TEXT("filtered_gun_reaches_actor"),RangedAttackQuery::LineTraceSingle(World,Shooter,Filtered,
++                Representative.TraceStart,Representative.TraceEnd,ECC_Visibility,Query)&&Filtered.GetActor()==Monster);
++        }
++        if(Entry.Id==TEXT("FleshHandMinion"))
++        {
++            Monster->Tags.Add(TEXT("Friendly"));Row->SetBoolField(TEXT("explicit_friendly_still_protected"),RangedAttackQuery::IsFriendlyUnit(Shooter,Monster));
++            Monster->Tags.Remove(TEXT("Friendly"));
++        }
++        if(const auto* Crawler=Cast<AM10Mawcrawler>(Monster))
++        {
++            TArray<TSharedPtr<FJsonValue>> Eyes;
++            for(const FTransform& Local:Crawler->EyeWeakpointFrames)
++            {
++                const FTransform Eye=Local*Mesh->GetSocketTransform(TEXT("head"));
++                const FVector Direction=Eye.GetUnitAxis(EAxis::X),Center=Eye.GetLocation();
++                FHitResult Hit;FCollisionQueryParams Query(SCENE_QUERY_STAT(M10EyeContactAudit),true);
++                auto E=MakeShared<FJsonObject>();
++                const bool Found=World->LineTraceSingleByChannel(Hit,Center+Direction*200.f,Center-Direction*200.f,ECC_Visibility,Query);
++                E->SetBoolField(TEXT("actual_contact"),Found&&Hit.GetActor()==Monster);E->SetStringField(TEXT("bone"),Hit.BoneName.ToString());
++                E->SetBoolField(TEXT("local_weakpoint"),Crawler->IsWeakpointHit(Hit));Hit.Component=nullptr;
++                E->SetBoolField(TEXT("reported_weakpoint"),Crawler->IsWeakpointHit(Hit));Eyes.Add(MakeShared<FJsonValueObject>(E));
++            }
++            Row->SetArrayField(TEXT("eye_contacts"),Eyes);
++        }
++        TArray<TSharedPtr<FJsonValue>> DamageRows;
++        if(Combat&&HealthProperty&&HasHit)
++        {
++            for(int32 Mode=0;Mode<4;++Mode)
++            {
++                HealthProperty->SetPropertyValue_InContainer(Monster,10000.f);
++                float Applied=0;FWeaponDamageResult Receipt;
++                Combat->ApplyHitWithReactionScale(0.f,[&](){
++                    if(Mode<2){FColdSteelSkillShot Shot;Shot.bMelee=Mode==1;Shot.CriticalChance=0;Shot.CriticalDamageBonus=.5f;Applied=Model->ApplySkillWeaponHit(Shooter,Representative,100.f,FVector::ForwardVector,Shot,&Receipt);}
++                    else if(Mode==2){FPointDamageEvent Event;Event.HitInfo=Representative;Event.DamageTypeClass=UFireballDamage::StaticClass();Applied=Monster->TakeDamage(100.f,Event,nullptr,Shooter);}
++                    else {FRadialDamageEvent Event;Event.DamageTypeClass=UFireballDamage::StaticClass();Event.ComponentHits.Add(Representative);Event.Origin=Representative.TraceStart;Applied=Monster->TakeDamage(100.f,Event,nullptr,Shooter);}
++                    return Applied;
++                });
++                auto D=MakeShared<FJsonObject>();D->SetStringField(TEXT("path"),Mode==0?TEXT("weapon_gun"):Mode==1?TEXT("weapon_melee"):Mode==2?TEXT("magic_point"):TEXT("magic_radial"));
++                D->SetNumberField(TEXT("returned_damage"),Applied);D->SetNumberField(TEXT("health_delta"),10000.f-HealthProperty->GetPropertyValue_InContainer(Monster));
++                D->SetBoolField(TEXT("weapon_resolved"),Receipt.bResolved);DamageRows.Add(MakeShared<FJsonValueObject>(D));
++            }
++        }
++        else {Row->SetStringField(TEXT("damage_error"),TEXT("Missing combat/health or no actual ray hit"));Complete=false;}
++        Row->SetArrayField(TEXT("damage"),DamageRows);Row->SetBoolField(TEXT("actor_begin_play"),Monster->HasActorBegunPlay());
++        if(auto* Bound=Cast<ABoundCongregate>(Monster))
++        {
++            TArray<TSharedPtr<FJsonValue>> Parts;
++            for(int32 Mode=0;Mode<4;++Mode)
++            {
++                Bound->Health=10000.f;Bound->TentacleHealth=Bound->TentacleMaxHealth;
++                Bound->NetState.State=Mode>=2?EBoundCongregateState::TentacleWindup:EBoundCongregateState::Idle;
++                Bound->NetState.TentacleRecoveryStartedAt=-1.;
++                FHitResult Contact(Bound,Mesh,Mesh->GetSocketLocation(TEXT("attack_tentacle_10")),FVector::ForwardVector);
++                Contact.bBlockingHit=true;Contact.BoneName=Mode==3?TEXT("attack_tentacle_03"):TEXT("attack_tentacle_10");
++                Contact.ImpactPoint=Mesh->GetSocketLocation(Contact.BoneName);
++                if(Mode==1){Contact.BoneName=ABoundCongregate::NetworkHitBone(Contact);Contact.Component=nullptr;}
++                FColdSteelSkillShot Shot;Shot.bRifle=true;Shot.CriticalChance=0;FWeaponDamageResult HitReceipt;
++                const float PoolBefore=Bound->TentacleHealth;
++                Combat->ApplyHitWithReactionScale(0.f,[&](){return Model->ApplySkillWeaponHit(Shooter,Contact,100.f,FVector::ForwardVector,Shot,&HitReceipt);});
++                auto Part=MakeShared<FJsonObject>();Part->SetStringField(TEXT("case"),Mode==0?TEXT("folded_mesh_body"):Mode==1?TEXT("folded_network_body"):Mode==2?TEXT("deployed_organ"):TEXT("attached_root_body"));
++                Part->SetNumberField(TEXT("body_health_delta"),10000.f-Bound->Health);Part->SetNumberField(TEXT("organ_health_delta"),PoolBefore-Bound->TentacleHealth);
++                const bool Expected=Mode==2?(Bound->Health==10000.f&&Bound->TentacleHealth<PoolBefore):(Bound->Health<10000.f&&Bound->TentacleHealth==PoolBefore);
++                Part->SetBoolField(TEXT("expected_pool_damaged"),Expected);Parts.Add(MakeShared<FJsonValueObject>(Part));
++            }
++            Bound->NetState.State=EBoundCongregateState::Idle;Row->SetArrayField(TEXT("part_damage"),Parts);
++        }
++        Monster->Destroy();Save();UE_LOG(LogTemp,Display,TEXT("NONHUMANOID_HIT_AUDIT %s rows=%d"),*Entry.Id.ToString(),Rows.Num());
++    }
++    Report->SetBoolField(TEXT("complete"),Complete&&Rows.Num()==(Only.IsEmpty()?18:1));Save();
++    Shooter->Destroy();World->DestroyWorld(false);return Complete?0:3;
++#endif
++}

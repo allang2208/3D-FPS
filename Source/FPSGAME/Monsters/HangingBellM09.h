@@ -41,7 +41,7 @@ public:
  UPROPERTY(EditDefaultsOnly,Category="M09|Assets") TMap<FName,TObjectPtr<USoundBase>> Sounds;
  UPROPERTY(EditDefaultsOnly,Category="M09|Assets") TObjectPtr<UStaticMesh> WaveMesh;
  UPROPERTY(EditDefaultsOnly,Category="M09|Assets") TObjectPtr<UMaterialInterface> EnergyMaterial;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") float MaxHealth=2000.f;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M09|Stats") float MaxHealth=2000.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") float PhysicalAttack=55.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") float MagicAttack=38.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") int32 PhysicalDefense=30;

@@ -49,7 +49,7 @@ public:
     void AddGunHitFeedback(const FHitResult& Hit, const FVector& ShotDirection, float Damage);
 private:
     void CacheGunHitBones();
-    bool ApplyGunHitFeedback();
+    bool ApplyGunHitFeedback(bool& bPoseChanged);
     void ConfigureBreathing(ACharacter* Character);
     void CacheBones();
     void AddBone(std::initializer_list<const TCHAR*> Names, float Pitch, float Expansion,

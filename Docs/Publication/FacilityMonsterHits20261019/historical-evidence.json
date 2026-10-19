@@ -1,0 +1,922 @@
+{
+  "historical_date": "2026-10-18",
+  "publication_date": "2026-10-19",
+  "new_gameplay_tests_during_publication": false,
+  "local_receipts": [
+    {
+      "path": "SourceAssets/StaffLivingEmployees20261017/ue_delivery.json",
+      "sha256": "e2f564387e80cda0ad445c893730b93c632f0d4156b5464fe49a31e64ad5e8c8"
+    },
+    {
+      "path": "SourceAssets/StaffLivingEncounter20261017/completion_receipt.json",
+      "sha256": "8ab1e1a3a0fb0055972bbb047bb4f186c40c08fcc8fb848fb0a71cb79e9fda4c"
+    },
+    {
+      "path": "SourceAssets/StaffLivingShoulder20261017/task_manifest.json",
+      "sha256": "328aa67daac56e9f448e3d320705e000ec53d22052fbeeb407c02c774348a78f"
+    },
+    {
+      "path": "SourceAssets/EcologySpawnFix20261017/source_change.json",
+      "sha256": "1f4ad25be8b4ffd3bb6820127c9d3892303f975769b2e82d613fd4a4db7e0777"
+    },
+    {
+      "path": "SourceAssets/FacilitySpawnAudit20261017/delivery.json",
+      "sha256": "f9a80e7cd187f04ed0eab0a66b1938ca16f249b112f8e22decabbdce3ccee7b5"
+    },
+    {
+      "path": "SourceAssets/MedicalBossSpawnFix20261018/delivery.json",
+      "sha256": "e7ddee81036d275c9c2ca01192580a4a54a09fd6c56e2c3bb152bfdcdcaad800"
+    },
+    {
+      "path": "SourceAssets/FacilitySpawnRecheck20261018/delivery.json",
+      "sha256": "50e8c5f717b2ebaf7b7895947a3b4971509ec60f6d27e7a18c13c2b9656cea8c"
+    },
+    {
+      "path": "SourceAssets/HumanoidHitRepair20261018/delivery.json",
+      "sha256": "f3797ece1020ced764ab2888fd2c48a4c1a0e1105c75e0e48f6ec74c0b6b15f9"
+    },
+    {
+      "path": "SourceAssets/NonHumanoidHitAudit20261018/delivery.json",
+      "sha256": "1a344e8dc3ebfa236c9dbd9a5fa1d773d5347dd507b8919b9635bf00d817a5ce"
+    },
+    {
+      "path": "SourceAssets/MonsterNetworkHitAudit20261018/delivery.json",
+      "sha256": "698af90d6c3a8f8019c4b03ab6e33a78959729dd83a3a2c1ce9a8d485667a8c5"
+    }
+  ],
+  "spawn_recheck": {
+    "mode": "offline production assembly, placement, construction collision and death/gate logic",
+    "runs": [
+      {
+        "label": "sealed-primary",
+        "seed": 1327166464,
+        "slots": 210,
+        "placement_calls": 6720,
+        "construction_checks": 210,
+        "floor_controls": 202,
+        "service_door_checks": 16,
+        "objective_variants": 3
+      },
+      {
+        "label": "sealed-secondary",
+        "seed": 92247,
+        "slots": 208,
+        "placement_calls": 6656,
+        "construction_checks": 208,
+        "floor_controls": 200,
+        "service_door_checks": 16,
+        "objective_variants": 3
+      }
+    ]
+  },
+  "humanoid": {
+    "models": [
+      {
+        "id": "FatZombie",
+        "mesh": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy.SK_FatZombie_Meshy",
+        "original_physics": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy_PhysicsAsset.SK_FatZombie_Meshy_PhysicsAsset",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_FatZombie.PA_FatZombie",
+        "head_bone": "Head",
+        "query_hulls": 209,
+        "critical_hulls": 24,
+        "saved": true,
+        "display_name": "胖子僵尸",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "Mutant3",
+        "mesh": "/Game/Monsters/Mutant3Meshy/KhaimeraV2/SK_Mutant3_Claw.SK_Mutant3_Claw",
+        "original_physics": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_PhysicsAsset.SK_Mutant3_Meshy_PhysicsAsset",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_Mutant3.PA_Mutant3",
+        "head_bone": "Head",
+        "query_hulls": 167,
+        "critical_hulls": 23,
+        "saved": true,
+        "display_name": "突变体-3",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "NurseZombie",
+        "mesh": "/Game/ZombieFemale/Asset/Meshes/ZombieFemale_NurseOutfit.ZombieFemale_NurseOutfit",
+        "original_physics": "/Game/ZombieFemale/Asset/Meshes/PA_ZombieFemale.PA_ZombieFemale",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_NurseZombie.PA_NurseZombie",
+        "head_bone": "head",
+        "query_hulls": 167,
+        "critical_hulls": 30,
+        "saved": true,
+        "display_name": "护士僵尸",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "SpitterZombie",
+        "mesh": "/Game/Monsters/SpitterZombie/SK_SpitterZombie.SK_SpitterZombie",
+        "original_physics": "/Game/Monsters/SpitterZombie/SK_SpitterZombie_PhysicsAsset.SK_SpitterZombie_PhysicsAsset",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_SpitterZombie.PA_SpitterZombie",
+        "head_bone": "Head",
+        "query_hulls": 165,
+        "critical_hulls": 20,
+        "saved": true,
+        "display_name": "毒液僵尸",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "WitchRebuilt",
+        "mesh": "/Game/Monsters/WitchRebuilt/SK_WitchRebuilt.SK_WitchRebuilt",
+        "original_physics": "/Game/Monsters/WitchRebuilt/PA_WitchRebuilt.PA_WitchRebuilt",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_WitchRebuilt.PA_WitchRebuilt",
+        "head_bone": "head",
+        "query_hulls": 204,
+        "critical_hulls": 19,
+        "saved": true,
+        "display_name": "巫婆",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "FacelessSecurity",
+        "mesh": "/Game/Monsters/FacelessSecurity/SK_FacelessSecurity_V13.SK_FacelessSecurity_V13",
+        "original_physics": "/Game/Monsters/FacelessSecurity/PA_FacelessSecurity.PA_FacelessSecurity",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_FacelessSecurity.PA_FacelessSecurity",
+        "head_bone": "head",
+        "query_hulls": 215,
+        "critical_hulls": 18,
+        "saved": true,
+        "display_name": "安保员 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "FacelessReceptionist",
+        "mesh": "/Game/Monsters/FacelessReceptionist/SK_FacelessReceptionist_V05.SK_FacelessReceptionist_V05",
+        "original_physics": "/Game/Monsters/FacelessReceptionist/PA_FacelessReceptionist.PA_FacelessReceptionist",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_FacelessReceptionist.PA_FacelessReceptionist",
+        "head_bone": "head",
+        "query_hulls": 224,
+        "critical_hulls": 18,
+        "saved": true,
+        "display_name": "接待员 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "FacelessResearcher",
+        "mesh": "/Game/Monsters/FacelessResearcher/SK_FacelessResearcher_V05.SK_FacelessResearcher_V05",
+        "original_physics": "/Game/Monsters/FacelessResearcher/PA_FacelessResearcher.PA_FacelessResearcher",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_FacelessResearcher.PA_FacelessResearcher",
+        "head_bone": "head",
+        "query_hulls": 192,
+        "critical_hulls": 14,
+        "saved": true,
+        "display_name": "研究员 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "LivingStaffMale",
+        "mesh": "/Game/Monsters/FacelessSecurity/SK_FacelessSecurity_Body_V09.SK_FacelessSecurity_Body_V09",
+        "original_physics": "/Game/Monsters/FacelessSecurity/PA_FacelessSecurity.PA_FacelessSecurity",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_LivingStaffMale.PA_LivingStaffMale",
+        "head_bone": "head",
+        "query_hulls": 173,
+        "critical_hulls": 18,
+        "saved": true,
+        "display_name": "男性员工 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "LivingStaffFemaleA",
+        "mesh": "/Game/Monsters/StaffLiving/SK_LivingStaffFemaleA_ShoulderV02.SK_LivingStaffFemaleA_ShoulderV02",
+        "original_physics": "/Game/Monsters/FacelessReceptionist/PA_FacelessReceptionist.PA_FacelessReceptionist",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_LivingStaffFemaleA.PA_LivingStaffFemaleA",
+        "head_bone": "head",
+        "query_hulls": 151,
+        "critical_hulls": 18,
+        "saved": true,
+        "display_name": "女性员工A M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "LivingStaffFemaleB",
+        "mesh": "/Game/Monsters/StaffLiving/SK_LivingStaffFemaleB_ShoulderV02.SK_LivingStaffFemaleB_ShoulderV02",
+        "original_physics": "/Game/Monsters/FacelessResearcher/PA_FacelessResearcher.PA_FacelessResearcher",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_LivingStaffFemaleB.PA_LivingStaffFemaleB",
+        "head_bone": "head",
+        "query_hulls": 144,
+        "critical_hulls": 14,
+        "saved": true,
+        "display_name": "女性员工B M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "EcologyGardener",
+        "mesh": "/Game/Monsters/EcologyGardener/V02/SK_EcologyGardener_V02.SK_EcologyGardener_V02",
+        "original_physics": "/Game/Monsters/FacelessResearcher/PA_FacelessResearcher.PA_FacelessResearcher",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_EcologyGardener.PA_EcologyGardener",
+        "head_bone": "head",
+        "query_hulls": 200,
+        "critical_hulls": 14,
+        "saved": true,
+        "display_name": "园艺师 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "CargoPorter",
+        "mesh": "/Game/Monsters/CargoPorter/SK_CargoPorter_V01.SK_CargoPorter_V01",
+        "original_physics": "/Game/Monsters/FacelessSecurity/PA_FacelessSecurity.PA_FacelessSecurity",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_CargoPorter.PA_CargoPorter",
+        "head_bone": "head",
+        "query_hulls": 215,
+        "critical_hulls": 18,
+        "saved": true,
+        "display_name": "搬运工 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "CargoTechnician",
+        "mesh": "/Game/Monsters/CargoTechnician/SK_CargoTechnician_V01.SK_CargoTechnician_V01",
+        "original_physics": "/Game/Monsters/FacelessSecurity/PA_FacelessSecurity.PA_FacelessSecurity",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_CargoTechnician.PA_CargoTechnician",
+        "head_bone": "head",
+        "query_hulls": 215,
+        "critical_hulls": 18,
+        "saved": true,
+        "display_name": "技术员 M-01",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "NightWardenRig",
+        "mesh": "/Game/Monsters/NightWarden/V14BareBodyHand/SK_NightWarden_BareBody_HandRepair_V14.SK_NightWarden_BareBody_HandRepair_V14",
+        "original_physics": "None",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_NightWardenRig.PA_NightWardenRig",
+        "head_bone": "Bone_016",
+        "query_hulls": 288,
+        "critical_hulls": 17,
+        "saved": true,
+        "display_name": "守寝者 M-01（巨臂挥击）",
+        "scope": "collision_and_head_region_only"
+      },
+      {
+        "id": "MantisM27",
+        "mesh": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2.SK_MantisM27_BindingV2",
+        "original_physics": "/Game/Monsters/MantisM27/BindingV2/SK_MantisM27_BindingV2_PhysicsAsset.SK_MantisM27_BindingV2_PhysicsAsset",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_MantisM27.PA_MantisM27",
+        "head_bone": "head",
+        "query_hulls": 202,
+        "critical_hulls": 12,
+        "saved": true,
+        "display_name": "螳螂 M-11",
+        "scope": "head_and_body_hit_volumes"
+      },
+      {
+        "id": "BlindSupplicantM07",
+        "mesh": "/Game/Monsters/BlindSupplicantM07/SK_M07_BodyMotionV18.SK_M07_BodyMotionV18",
+        "original_physics": "/Game/Monsters/BlindSupplicantM07/PA_M07_OriginalV13.PA_M07_OriginalV13",
+        "physics_asset": "/Game/Monsters/FittedHits20261018/PA_BlindSupplicantM07_R2.PA_BlindSupplicantM07_R2",
+        "head_bone": "head",
+        "query_hulls": 259,
+        "critical_hulls": 14,
+        "saved": true,
+        "display_name": "盲祷者 M-31",
+        "scope": "head_and_body_hit_volumes"
+      }
+    ],
+    "night_warden": {
+      "scope": "Requested collision configuration and Bone_016 head region only.",
+      "health_damage_death_gameplay_added": false,
+      "animation_changed": false
+    }
+  },
+  "nonhumanoid": {
+    "models": [
+      {
+        "id": "FleshHand",
+        "name": "异变巨手",
+        "physics_asset": "/Game/Monsters/FleshHand/SK_FleshHand_Green_PhysicsAsset.SK_FleshHand_Green_PhysicsAsset",
+        "surface_rays": 8566,
+        "complex_misses_before": 38,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "FleshHandMinion",
+        "name": "小皮肤手",
+        "physics_asset": "/Game/Monsters/FleshHand/SK_FleshHand_Green_PhysicsAsset.SK_FleshHand_Green_PhysicsAsset",
+        "surface_rays": 8568,
+        "complex_misses_before": 38,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "HandBrain",
+        "name": "手脑",
+        "physics_asset": "/Game/Monsters/HandBrain/SurfaceV07/PA_HandBrain.PA_HandBrain",
+        "surface_rays": 10914,
+        "complex_misses_before": 426,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "PoisonMaggot",
+        "name": "毒蛆",
+        "physics_asset": "/Game/Monsters/PoisonMaggot/PA_PoisonMaggot.PA_PoisonMaggot",
+        "surface_rays": 10260,
+        "complex_misses_before": 94,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "Wolf",
+        "name": "野狼",
+        "physics_asset": "/Game/Monsters/Wolf/PA_Wolf_Gameplay.PA_Wolf_Gameplay",
+        "surface_rays": 10238,
+        "complex_misses_before": 758,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "ZombieDog",
+        "name": "僵尸犬",
+        "physics_asset": "/Game/Monsters/ZombieDog/V1/PA_ZombieDog.PA_ZombieDog",
+        "surface_rays": 10282,
+        "complex_misses_before": 672,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "InfectedDog",
+        "name": "感染犬",
+        "physics_asset": "/Game/Monsters/InfectedDog/MeshyV2/SK_InfectedDog_MeshyV2_PhysicsAsset.SK_InfectedDog_MeshyV2_PhysicsAsset",
+        "surface_rays": 7196,
+        "complex_misses_before": 0,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "BellowSacLobber",
+        "name": "鼓囊 M-09",
+        "physics_asset": "/Game/Monsters/BellowSacLobber/V01/SK_BellowSacLobber_PhysicsAsset.SK_BellowSacLobber_PhysicsAsset",
+        "surface_rays": 9076,
+        "complex_misses_before": 0,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "LurkerM08",
+        "name": "伏窥者 M-10",
+        "physics_asset": "/Game/Monsters/LurkerM08/CanineV03/SK_LurkerM08_CanineV03_PhysicsAsset.SK_LurkerM08_CanineV03_PhysicsAsset",
+        "surface_rays": 6768,
+        "complex_misses_before": 3214,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "HundredEyedSlag",
+        "name": "百目炉渣 M-12",
+        "physics_asset": "/Game/Monsters/HundredEyedSlag/RagdollGroundV17/PA_HundredEyedSlag_Ground_V17.PA_HundredEyedSlag_Ground_V17",
+        "surface_rays": 9266,
+        "complex_misses_before": 18,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "HangingBellM09",
+        "name": "悬钟 M-13（天花板）",
+        "physics_asset": "/Game/Monsters/HangingBellM09/V23/PA_M09_HitSurface.PA_M09_HitSurface",
+        "surface_rays": 7952,
+        "complex_misses_before": 88,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "SpiralPillarM14",
+        "name": "螺柱 M-14",
+        "physics_asset": "/Game/Monsters/SpiralPillarM14/SK_M14_PhysicsAsset.SK_M14_PhysicsAsset",
+        "surface_rays": 7202,
+        "complex_misses_before": 402,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "VortexCofferM25",
+        "name": "涡电匣 M-30",
+        "physics_asset": "/Game/Monsters/VortexCofferM25/PA_M25_HitSurface_V01.PA_M25_HitSurface_V01",
+        "surface_rays": 8360,
+        "complex_misses_before": 34,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "BoundCongregate",
+        "name": "缚群 M-32",
+        "physics_asset": "/Game/Monsters/BoundCongregate/SurfaceFitV12/PA_BoundCongregate_SurfaceFitV12.PA_BoundCongregate_SurfaceFitV12",
+        "surface_rays": 7684,
+        "complex_misses_before": 184,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "M10Mawcrawler",
+        "name": "沉匣 M-33",
+        "physics_asset": "/Game/Monsters/M10Mawcrawler/SurfaceRigV5/SK_M10_SurfaceRig_V5_PhysicsAsset.SK_M10_SurfaceRig_V5_PhysicsAsset",
+        "surface_rays": 10766,
+        "complex_misses_before": 96,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "RootCrownRig",
+        "name": "根冠 M-34",
+        "physics_asset": "/Game/Monsters/RootCrown/CombatV01/PA_RootCrown_HitSurface.PA_RootCrown_HitSurface",
+        "surface_rays": 7478,
+        "complex_misses_before": 96,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "IncineratorBossM66Rig",
+        "name": "焚骸 M-35（拢灰指扫）",
+        "physics_asset": "/Game/Monsters/IncineratorBossM66/DeathGroundV07/PA_M66_Surface_V07.PA_M66_Surface_V07",
+        "surface_rays": 9596,
+        "complex_misses_before": 60,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      },
+      {
+        "id": "HeQue",
+        "name": "合阙 M-36（重夹／碾扫／压鸣／恸鸣／跃砸）",
+        "physics_asset": "/Game/Monsters/HeQue/RigV01/PA_HeQue_HitSurface.PA_HeQue_HitSurface",
+        "surface_rays": 8738,
+        "complex_misses_before": 108,
+        "complex_misses_after": 0,
+        "simple_misses_after": 0,
+        "sweep_misses_after": 0,
+        "damage_paths_reduce_health": true
+      }
+    ]
+  },
+  "network_authority": {
+    "mode": "Isolated remote-authority fixture: production ForwardHit/ServerReportHit, actual vector NetSerialize, pose history, damage and replication descriptors. No socket transport or map BeginPlay.",
+    "models": [
+      {
+        "id": "FatZombie",
+        "name": "胖子僵尸",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 4,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "Mutant3",
+        "name": "突变体-3",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "NurseZombie",
+        "name": "护士僵尸",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "SpitterZombie",
+        "name": "毒液僵尸",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 3,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "WitchRebuilt",
+        "name": "巫婆",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "FleshHand",
+        "name": "异变巨手",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "FleshHandMinion",
+        "name": "小皮肤手",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "HandBrain",
+        "name": "手脑",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "PoisonMaggot",
+        "name": "毒蛆",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "Wolf",
+        "name": "野狼",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "ZombieDog",
+        "name": "僵尸犬",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "InfectedDog",
+        "name": "感染犬",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "FacelessSecurity",
+        "name": "安保员 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "FacelessReceptionist",
+        "name": "接待员 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "FacelessResearcher",
+        "name": "研究员 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "LivingStaffMale",
+        "name": "男性员工 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "LivingStaffFemaleA",
+        "name": "女性员工A M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "LivingStaffFemaleB",
+        "name": "女性员工B M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "EcologyGardener",
+        "name": "园艺师 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "CargoPorter",
+        "name": "搬运工 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "CargoTechnician",
+        "name": "技术员 M-01",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "BellowSacLobber",
+        "name": "鼓囊 M-09",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "LurkerM08",
+        "name": "伏窥者 M-10",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "MantisM27",
+        "name": "螳螂 M-11",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "HundredEyedSlag",
+        "name": "百目炉渣 M-12",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "HangingBellM09",
+        "name": "悬钟 M-13（天花板）",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "SpiralPillarM14",
+        "name": "螺柱 M-14",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 18,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "VortexCofferM25",
+        "name": "涡电匣 M-30",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "BlindSupplicantM07",
+        "name": "盲祷者 M-31",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "BoundCongregate",
+        "name": "缚群 M-32",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true
+      },
+      {
+        "id": "M10Mawcrawler",
+        "name": "沉匣 M-33",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 13,
+        "old_moving_weakpoints_lost": 13,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "RootCrownRig",
+        "name": "根冠 M-34",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 0,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "IncineratorBossM66Rig",
+        "name": "焚骸 M-35（拢灰指扫）",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 24,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      },
+      {
+        "id": "HeQue",
+        "name": "合阙 M-36（重夹／碾扫／压鸣／恸鸣／跃砸）",
+        "actor_replicates": true,
+        "health_property_replicates": true,
+        "max_health_replicates": true,
+        "remote_gun_applied": true,
+        "remote_melee_applied": true,
+        "moving_weakpoint_samples": 24,
+        "old_moving_weakpoints_lost": 24,
+        "moving_weakpoints_lost": 0,
+        "delayed_weakpoint_rpc_damages": true
+      }
+    ]
+  },
+  "not_covered": [
+    "real socket transport between two clients",
+    "actual latency, packet loss and late join",
+    "gameplay map BeginPlay and visual acceptance",
+    "dynamic cloth/morph/procedural attack deformation coverage"
+  ],
+  "latest_build_receipts": [
+    {
+      "path": "SourceAssets/MonsterNetworkHitAudit20261018/build-FPSGAMEEditor.json",
+      "sha256": "d5a1dfb6ebca0f62edceea7bf84df5c5816bfd9507976d4226f74b4a8dba11f5",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0
+    },
+    {
+      "path": "SourceAssets/MonsterNetworkHitAudit20261018/build-FPSGAME.json",
+      "sha256": "973eee4ebf80f367354844cc4632b8f3d4a4b395bce54eeaecbc610066cbb987",
+      "target": "FPSGAME",
+      "exit_code": 0
+    }
+  ]
+}

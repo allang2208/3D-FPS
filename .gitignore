@@ -1,3 +1,21 @@
+# Facility monster hit publication: recipes only; input geometry, dense probes,
+# local receipts and source prerequisites are not public asset redistribution.
+/SourceAssets/StaffLivingEmployees20261017/**
+/SourceAssets/StaffLivingEncounter20261017/**
+/SourceAssets/StaffLivingShoulder20261017/**
+/SourceAssets/EcologySpawnFix20261017/**
+/SourceAssets/FacilitySpawnAudit20261017/**
+/SourceAssets/MedicalBossSpawnFix20261018/**
+/SourceAssets/FacilitySpawnRecheck20261018/**
+/SourceAssets/HumanoidHitVolume20261018/**
+/SourceAssets/HumanoidHitRepair20261018/**
+/SourceAssets/NonHumanoidHitAudit20261018/**
+/SourceAssets/MonsterNetworkHitAudit20261018/**
+/SourceAssets/MonsterPublication20261019/**
+/SourceAssets/DungeonCoverageAudit20261017/**
+!/SourceAssets/DungeonCoverageAudit20261017/audit_coverage.py
+!/SourceAssets/DungeonCoverageAudit20261017/extract_catalog.py
+
 # Dark Bow: publish recipes/prose only. Licensed surfaces, poses, FBX/Blend,
 # imported packages, authoring output and transport receipts remain local.
 /SourceAssets/DarkBow20260925/**

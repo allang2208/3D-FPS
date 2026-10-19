@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "MonsterNetworkHitHistory.h"
 #include "NightWardenMonster.h"
 #include "HeQueMonster.h"
 #include "M66IncineratorMonster.h"
@@ -83,6 +84,27 @@ void UMonsterCombatComponent::BeginPlay()
         PublishToughnessState();
     }
     LoadHumanoidStun();
+    InitializeNetworkHitHistory();
+}
+void UMonsterCombatComponent::InitializeNetworkHitHistory()
+{
+    auto* Character=Cast<ACharacter>(GetOwner());
+    if(!Character||!Character->HasAuthority()||!FMonsterNetworkHitHistory::Supports(Character))return;
+    if(!NetworkHitHistory)NetworkHitHistory=MakeShared<FMonsterNetworkHitHistory>(Character);
+    if(!NetworkHitPoseHandle.IsValid())NetworkHitPoseHandle=Character->GetMesh()->RegisterOnBoneTransformsFinalizedDelegate(
+        FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::CaptureNetworkHitPose));
+    CaptureNetworkHitPose();
+}
+void UMonsterCombatComponent::CaptureNetworkHitPose(){if(NetworkHitHistory)NetworkHitHistory->Capture();}
+void UMonsterCombatComponent::EndPlay(const EEndPlayReason::Type Reason)
+{
+    if(NetworkHitPoseHandle.IsValid())if(auto* Character=Cast<ACharacter>(GetOwner()))
+        Character->GetMesh()->UnregisterOnBoneTransformsFinalizedDelegate(NetworkHitPoseHandle);
+    NetworkHitPoseHandle.Reset();NetworkHitHistory.Reset();Super::EndPlay(Reason);
+}
+bool UMonsterCombatComponent::ResolveNetworkHit(FHitResult& Hit,double At) const
+{
+    return !NetworkHitHistory||NetworkHitHistory->Resolve(Hit,At);
 }
 bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
 {
@@ -105,7 +127,10 @@ bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Na
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))
  {
   Health=N->Health;MaxHealth=N->MaxHealth;
-  if(N->ActorHasTag(TEXT("FacelessSecurity")))Name=FText::FromString(TEXT("安保员 M-03"));
+  if(N->ActorHasTag(TEXT("LivingStaffMale")))Name=FText::FromString(TEXT("男性员工 M-01"));
+  else if(N->ActorHasTag(TEXT("LivingStaffFemaleA")))Name=FText::FromString(TEXT("女性员工A M-01"));
+  else if(N->ActorHasTag(TEXT("LivingStaffFemaleB")))Name=FText::FromString(TEXT("女性员工B M-01"));
+  else if(N->ActorHasTag(TEXT("FacelessSecurity")))Name=FText::FromString(TEXT("安保员 M-03"));
   else if(N->ActorHasTag(TEXT("FacelessReceptionist")))Name=FText::FromString(TEXT("接待员 M-04"));
   else if(N->ActorHasTag(TEXT("EcologyGardener")))Name=FText::FromString(TEXT("园艺师"));
   else if(N->ActorHasTag(TEXT("FacelessResearcher")))Name=FText::FromString(TEXT("研究员 M-05"));

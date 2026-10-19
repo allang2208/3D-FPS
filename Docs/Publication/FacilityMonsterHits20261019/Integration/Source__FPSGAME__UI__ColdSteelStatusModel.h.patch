@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -529,6 +529,7 @@
+     friend class UFPSPotionUseComponent;
+     friend class AColdSteelPlayerState;
+     friend class USkillNetworkAuditCommandlet;
++    friend class UMonsterNetworkHitAuditCommandlet;
+     friend class UShotgunAttachmentAuditCommandlet;
+     friend class AShotgunWireAuditController;
+     friend class AShotgunWireAuditGameMode;

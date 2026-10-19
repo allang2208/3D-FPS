@@ -1,0 +1,15 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/FacilitySpawnRecheckCommandlet.h
+@@ -0,0 +1,12 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "FacilitySpawnRecheckCommandlet.generated.h"
++
++/** Offline production assembly/navigation/placement audit. Never calls BeginPlay or saves assets. */
++UCLASS()
++class UFacilitySpawnRecheckCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

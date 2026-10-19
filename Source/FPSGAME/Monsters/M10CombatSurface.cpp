@@ -7,7 +7,9 @@
 
 bool AM10Mawcrawler::IsWeakpointHit(const FHitResult& Hit) const
 {
-    if(Dead()||Hit.GetActor()!=this||Hit.GetComponent()!=GetMesh()||Hit.BoneName!=TEXT("head"))return false;
+    // Ordinary network reports contain actor/bone/contact but no component.
+    // Retain the anatomical and facing checks, including for lethal hit feedback.
+    if(Hit.GetActor()!=this||(Hit.GetComponent()&&Hit.GetComponent()!=GetMesh())||Hit.BoneName!=TEXT("head"))return false;
     const FTransform Head=GetMesh()->GetSocketTransform(TEXT("head"));
     const FVector Ray=Hit.TraceEnd-Hit.TraceStart;
     for(const FTransform& Local:EyeWeakpointFrames)

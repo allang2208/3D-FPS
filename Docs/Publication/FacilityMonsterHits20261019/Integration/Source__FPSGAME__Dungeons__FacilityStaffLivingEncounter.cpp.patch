@@ -1,0 +1,157 @@
+--- /dev/null
++++ b/Source/FPSGAME/Dungeons/FacilityStaffLivingEncounter.cpp
+@@ -0,0 +1,154 @@
++#include "FacilityHallEncounter.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MantisM27Monster.h"
++#include "../Monsters/LurkerM08Monster.h"
++#include "../Monsters/BlindSupplicantMonster.h"
++#include "Components/CapsuleComponent.h"
++#include "GameFramework/Character.h"
++#include "GameFramework/PlayerController.h"
++#include "Engine/World.h"
++#include "TimerManager.h"
++
++namespace
++{
++constexpr int32 LivingMale=0, LivingFemaleA=1, LivingFemaleB=2;
++constexpr int32 LivingMantis=3, LivingLurker=4, LivingSupplicant=5;
++float LivingFootprint(int32 Member)
++{
++    return Member==LivingLurker ? 135.f : Member==LivingSupplicant ? 100.f : Member==LivingMantis ? 65.f : 44.f;
++}
++// Production module coordinates, in centimetres. Bedroom furniture varies by seed;
++// floor/nav/capsule checks below decide the final free position within these rooms.
++const FBox LivingDormitoryFloors[]={
++    FBox(FVector(-1370,230,0),FVector(-530,950,0)),
++    FBox(FVector(-470,230,0),FVector(370,950,0)),
++    FBox(FVector(430,230,0),FVector(1370,950,0)),
++    FBox(FVector(-1370,-950,0),FVector(-530,-230,0)),
++    FBox(FVector(-470,-950,0),FVector(370,-230,0)),
++    FBox(FVector(430,-950,0),FVector(1370,-230,0)),
++    FBox(FVector(-1300,-160,0),FVector(1300,160,0))
++};
++const FBox LivingChangingFloors[]={
++    FBox(FVector(-1160,-1050,0),FVector(1160,-220,0)),
++    FBox(FVector(-1160,220,0),FVector(1160,1050,0)),
++    FBox(FVector(-1100,-160,0),FVector(1100,160,0))
++};
++const FBox LivingRecreationFloors[]={
++    FBox(FVector(-1440,-750,0),FVector(1440,380,0)),
++    FBox(FVector(-1400,430,0),FVector(1400,770,0)),
++    FBox(FVector(-1400,-1150,45),FVector(-400,-600,45))
++};
++}
++
++bool AFacilityHallEncounter::IsStaffLiving(const FString& Module)
++{
++    return Module==TEXT("StaffDormitory") || Module==TEXT("StaffChangingShowers") || Module==TEXT("StaffRecreation");
++}
++
++TArray<FString> AFacilityHallEncounter::StaffLivingMonsterClassPaths()
++{
++    return {
++        TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffMale.BP_LivingStaffMale_C"),
++        TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffFemaleA.BP_LivingStaffFemaleA_C"),
++        TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffFemaleB.BP_LivingStaffFemaleB_C"),
++        TEXT("/Game/Monsters/MantisM27/BP_MantisM27.BP_MantisM27_C"),
++        TEXT("/Game/Monsters/LurkerM08/BP_LurkerM08.BP_LurkerM08_C"),
++        TEXT("/Game/Monsters/BlindSupplicantM07/BP_BlindSupplicantM07.BP_BlindSupplicantM07_C")
++    };
++}
++
++bool AFacilityHallEncounter::IsStaffLivingBossDefeated() const
++{
++    return Slots.IsValidIndex(StaffLivingBossSlot) && Slots[StaffLivingBossSlot].bDefeated;
++}
++
++void AFacilityHallEncounter::ConfigureStaffLiving()
++{
++    const UClass* Expected[]={ANurseZombie::StaticClass(),ANurseZombie::StaticClass(),ANurseZombie::StaticClass(),
++        AMantisM27Monster::StaticClass(),ALurkerM08Monster::StaticClass(),ABlindSupplicantMonster::StaticClass()};
++    for (const FString& Path:StaffLivingMonsterClassPaths())
++    {
++        UClass* Class=FSoftClassPath(Path).ResolveClass();
++        if (!Class || !Class->IsChildOf(Expected[Members.Num()]))
++        { UE_LOG(LogTemp,Error,TEXT("[StaffLivingEncounter] Missing prepared class %s"),*Path); return; }
++        Members.Add(Class);
++    }
++    const uint32 Salt=Run->NodeRandomSalt(Room.Id);
++    FRandomStream Composition(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnComposition ^ Salt)));
++    Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement ^ Salt)));
++    const bool Changing=Room.Module==TEXT("StaffChangingShowers"),Recreation=Room.Module==TEXT("StaffRecreation");
++    if (Recreation)
++    {
++        // A fixed, first-admitted objective; never wait for an ordinary kill threshold.
++        StaffLivingBossSlot=Slots.Num();auto& Boss=Slots.AddDefaulted_GetRef();
++        Boss.Member=LivingSupplicant;Boss.bStaffLivingBoss=true;Boss.StaffLivingPosition=0;
++    }
++    const int32 MantisCount=(Changing || Recreation) ? 2 : 0;
++    for (int32 I=0;I<MantisCount;++I)
++    { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=LivingMantis;Slot.StaffLivingPosition=I; }
++    const int32 LurkerCount=Changing ? 2 : 0;
++    for (int32 I=0;I<LurkerCount;++I)
++    { auto& Slot=Slots.AddDefaulted_GetRef();Slot.Member=LivingLurker;Slot.StaffLivingPosition=I; }
++    const int32 StaffCount=Changing ? Composition.RandRange(10,12) : Composition.RandRange(6,8);
++    for (int32 I=0;I<StaffCount;++I)
++    {
++        auto& Slot=Slots.AddDefaulted_GetRef();
++        Slot.Member=Composition.RandRange(LivingMale,LivingFemaleB);
++        Slot.StaffLivingPosition=I;
++    }
++    FirstWaveCount=Slots.Num();bSecondWave=true; // One authored wave, with no service-door reinforcements.
++    GetWorldTimerManager().SetTimer(EncounterTimer,this,&AFacilityHallEncounter::UpdateEncounter,.2f,true);
++    UE_LOG(LogTemp,Log,TEXT("[StaffLivingEncounter] room=%s staff=%d mantis=%d lurker=%d blind_supplicant=%d total=%d"),
++        *Room.Module,StaffCount,MantisCount,LurkerCount,Recreation?1:0,FirstWaveCount);
++}
++
++bool AFacilityHallEncounter::FindStaffLivingSpawn(const FFacilityHallSlot& Slot,const ACharacter* Defaults,FVector& Location,FRotator& Facing)
++{
++    const FTransform Transform(FRotator(0,Room.Yaw,0),Room.Origin);
++    const bool Dormitory=Room.Module==TEXT("StaffDormitory"),Changing=Room.Module==TEXT("StaffChangingShowers");
++    const float Radius=FMath::Max(LivingFootprint(Slot.Member),Defaults->GetCapsuleComponent()->GetScaledCapsuleRadius());
++    for (int32 Attempt=0;Attempt<12;++Attempt)
++    {
++        FVector Local;
++        if (Slot.bStaffLivingBoss)
++        {
++            // Tall lord on the high-roof main aisle, outside the lounge canopy,
++            // bathroom, tables and 45 cm platform. Keep native scale/capsule.
++            Local=Attempt==0 ? FVector(0,600,0)
++                : FVector(Placement.FRandRange(-1200.f,1200.f),Placement.FRandRange(555.f,645.f),0);
++        }
++        else if (Slot.Member==LivingLurker)
++        {
++            // Two broad surface crawlers start in the unobstructed central passage,
++            // not inside the narrow showers or between changing benches.
++            const float Center=Slot.StaffLivingPosition==0 ? -650.f : 650.f;
++            Local=FVector(Center+Placement.FRandRange(-220.f,220.f),Placement.FRandRange(-15.f,15.f),0);
++        }
++        else
++        {
++            const int32 Region=Slot.StaffLivingPosition+Attempt;
++            const FBox& Floor=Dormitory ? LivingDormitoryFloors[Region%UE_ARRAY_COUNT(LivingDormitoryFloors)]
++                : Changing ? LivingChangingFloors[Region%UE_ARRAY_COUNT(LivingChangingFloors)]
++                : LivingRecreationFloors[Region%UE_ARRAY_COUNT(LivingRecreationFloors)];
++            const float Margin=Radius+25.f;
++            Local=FVector(Placement.FRandRange(Floor.Min.X+Margin,Floor.Max.X-Margin),
++                Placement.FRandRange(Floor.Min.Y+Margin,Floor.Max.Y-Margin),Floor.Min.Z);
++        }
++        const FVector Candidate=Transform.TransformPosition(Local);
++        bool Occupied=false;
++        for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
++            if (const APawn* Player=It->Get() ? It->Get()->GetPawn().Get() : nullptr)
++                Occupied |= FMath::Abs(Player->GetNavAgentLocation().Z-Candidate.Z)<180.f
++                    && FVector::DistSquared2D(Player->GetActorLocation(),Candidate)<FMath::Square(450.);
++        for (const auto& Other:Slots) if (Other.Monster.IsValid())
++            Occupied |= FMath::Abs(Other.Monster->GetNavAgentLocation().Z-Candidate.Z)<120.f
++                && FVector::DistSquared2D(Other.Monster->GetActorLocation(),Candidate)
++                    <FMath::Square(Radius+LivingFootprint(Other.Member)+70.f);
++        if (Occupied || !FindSpawn(Defaults,Candidate,Location,Radius))continue;
++        Facing=FRotator(0,Room.Yaw+Placement.FRandRange(-180.f,180.f),0);
++        return true;
++    }
++    // A blocked position keeps this species and stable reward slot pending.
++    // The shared queue rotates to the next slot before retrying it.
++    return false;
++}

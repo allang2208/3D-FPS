@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -148,8 +148,11 @@
+ {
+     Super::BeginPlay();
+     SpawnPosition=GetActorLocation();
+-    for (const FStaffVitalBias& Bias : StaffVitalBiases)
+-        if (ActorHasTag(Bias.Tag)) { MaxHealth*=Bias.HealthMul; AttackDamage*=Bias.DamageMul; WalkSpeed=Bias.WalkSpeed; break; }
++    // Living-area employees retain donor tags for animation transitions/grounding,
++    // but their Blueprint vitals are already final and must not receive the donor's job bias.
++    if (!ActorHasTag(TEXT("StaffLivingEmployee")))
++        for (const FStaffVitalBias& Bias : StaffVitalBiases)
++            if (ActorHasTag(Bias.Tag)) { MaxHealth*=Bias.HealthMul; AttackDamage*=Bias.DamageMul; WalkSpeed=Bias.WalkSpeed; break; }
+     // 全局成长层（MonsterCoreStats::HealthMultiplier）：护士/胖子/突变体3/巫婆共用此初始化点。
+     if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
+     Health = MaxHealth;}

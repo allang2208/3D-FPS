@@ -161,10 +161,21 @@ void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
     }
     if (!bConfigured) ConfigureBreathing(Character);
     // Independent of idle/locomotion/attack clips, including M-07's custom proxy.
-    const bool bGunHitFeedback = ApplyGunHitFeedback();
+    bool bPoseChanged = false;
+    const bool bGunHitFeedback = ApplyGunHitFeedback(bPoseChanged);
+    const auto FinalizePose = [&]()
+    {
+        // Engine kinematic updates precede this procedural pose addition. Submit
+        // the final pose before Super flips buffers and dispatches bone events.
+        // Include the pulse's restoration frame; never reposition simulated bodies.
+        if (bPoseChanged && IsPhysicsStateCreated() && !IsSimulatingPhysics())
+            UpdateKinematicBonesToAnim(GetEditableComponentSpaceTransforms(), ETeleportType::None,
+                false, EAllowKinematicDeferral::DisallowDeferral);
+        Super::FinalizeBoneTransform();
+    };
     if (EBreathingBody(Body) == EBreathingBody::None)
     {
-        Super::FinalizeBoneTransform();
+        FinalizePose();
         return;
     }
     CacheBones();
@@ -214,6 +225,7 @@ void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
                 const FVector Expansion = (FVector(.25f) + Depth * .75f) * (Track.Expansion * Breath * IdleWeight);
                 After.SetScale3D(Before.GetScale3D() * (FVector::OneVector + Expansion));
                 Pose[Track.Index] = After;
+                bPoseChanged = true;
                 // Component-space edits leave all unselected branches at their
                 // incoming pose. Neck/finger motion alone follows its descendants.
                 // Roots, pelvises, legs, feet and prop-bearing arms are not moved.
@@ -225,5 +237,5 @@ void UMonsterIdleBreathingMeshComponent::FinalizeBoneTransform()
             }
         }
     }
-    Super::FinalizeBoneTransform();
+    FinalizePose();
 }

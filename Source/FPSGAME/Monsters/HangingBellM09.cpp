@@ -191,6 +191,7 @@ void AHangingBellM09::InitializeHang(AM09CeilingRoute* R)
 void AHangingBellM09::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
  Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AHangingBellM09,Health);DOREPLIFETIME(AHangingBellM09,State);
+ DOREPLIFETIME(AHangingBellM09,MaxHealth);
  DOREPLIFETIME(AHangingBellM09,GripTargets);DOREPLIFETIME(AHangingBellM09,GripRotations);
  DOREPLIFETIME(AHangingBellM09,StateStartedAt);DOREPLIFETIME(AHangingBellM09,LockedAim);
  DOREPLIFETIME(AHangingBellM09,StaggerReleaseSide);DOREPLIFETIME(AHangingBellM09,ReactionSeconds);

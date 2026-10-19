@@ -1,0 +1,15 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/MedicalBossSpawnDiagnosisCommandlet.h
+@@ -0,0 +1,12 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "MedicalBossSpawnDiagnosisCommandlet.generated.h"
++
++/** Query saved theatre collision for the reported missing boss, without BeginPlay or saving assets. */
++UCLASS()
++class UMedicalBossSpawnDiagnosisCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

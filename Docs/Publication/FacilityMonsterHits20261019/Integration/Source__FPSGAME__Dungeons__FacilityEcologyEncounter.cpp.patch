@@ -1,0 +1,61 @@
+--- a/Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp
+@@ -24,6 +24,15 @@
+ };
+ const FVector HydroSpirals[]={FVector(-1575,450,0),FVector(1575,450,0),FVector(-650,800,0),FVector(650,800,0)};
+ const FVector BiosphereSpirals[]={FVector(-1000,1300,0),FVector(1000,1300,0)};
++const FVector SpiralJitter(85,65,0);
++const FBox BiosphereCrownFloor(FVector(-1900,-450,0),FVector(-1550,-80,0));
++
++void AddEcologySpawnFloor(TArray<FBox>& Cells,const FTransform& Transform,const FBox& Floor)
++{
++    // Match FindSpawn's floor-height tolerance, including the hydroponics balcony.
++    const FVector HeightTolerance(0,0,40);
++    Cells.Add(FBox(Floor.Min-HeightTolerance,Floor.Max+HeightTolerance).TransformBy(Transform));
++}
+ }
+ 
+ bool AFacilityHallEncounter::IsEcology(const FString& Module)
+@@ -59,6 +68,27 @@
+     FRandomStream Composition(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnComposition ^ Salt)));
+     Placement.Initialize(int32(HashCombineFast(uint32(Run->RunSeed()),DungeonRunDomains::SpawnPlacement ^ Salt)));
+     const bool Biosphere=Room.Module==TEXT("EcoBiosphere"),Hydro=Room.Module==TEXT("EcoHydroponics");
++    // The catalog walk_mask reserves the through-route (only y=-150..150 cm).
++    // It is not the encounter's spawn area: the authored dry aisles, balcony,
++    // rear spiral positions and crown apron deliberately lie outside that lane.
++    // Change only this encounter's room copy; route/navigation masks and every
++    // FindSpawn ground, room-boundary, support, capsule and nav-data check remain.
++    Room.WalkCells.Reset();
++    const FTransform RoomTransform(FRotator(0,Room.Yaw,0),Room.Origin);
++    if (Biosphere)
++    {
++        AddEcologySpawnFloor(Room.WalkCells,RoomTransform,BiosphereCrownFloor);
++        for (const FVector& Anchor:BiosphereSpirals)
++            AddEcologySpawnFloor(Room.WalkCells,RoomTransform,FBox(Anchor-SpiralJitter,Anchor+SpiralJitter));
++    }
++    else if (Hydro)
++    {
++        for (const FBox& Floor:HydroFloors) AddEcologySpawnFloor(Room.WalkCells,RoomTransform,Floor);
++    }
++    else
++    {
++        for (const FBox& Floor:NurseryFloors) AddEcologySpawnFloor(Room.WalkCells,RoomTransform,Floor);
++    }
+     if (Biosphere)
+     {
+         EcologyBossSlot=Slots.Num();auto& Boss=Slots.AddDefaulted_GetRef();Boss.Member=Crown;Boss.bEcologyBoss=true;
+@@ -88,11 +118,12 @@
+         FVector Local;
+         if (Slot.bEcologyBoss)
+             Local=Attempt==0 ? FVector(-1725,-250,0)
+-                : FVector(Placement.FRandRange(-1900.f,-1550.f),Placement.FRandRange(-450.f,-80.f),0);
++                : FVector(Placement.FRandRange(BiosphereCrownFloor.Min.X,BiosphereCrownFloor.Max.X),
++                    Placement.FRandRange(BiosphereCrownFloor.Min.Y,BiosphereCrownFloor.Max.Y),BiosphereCrownFloor.Min.Z);
+         else if (Slot.Member==Spiral)
+         {
+             Local=Hydro ? HydroSpirals[Slot.EcologyPosition] : BiosphereSpirals[Slot.EcologyPosition];
+-            if (Attempt>0) Local+=FVector(Placement.FRandRange(-85.f,85.f),Placement.FRandRange(-65.f,65.f),0);
++            if (Attempt>0) Local+=FVector(Placement.FRandRange(-SpiralJitter.X,SpiralJitter.X),Placement.FRandRange(-SpiralJitter.Y,SpiralJitter.Y),0);
+         }
+         else
+         {

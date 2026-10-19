@@ -55,12 +55,23 @@ void ABoundCongregate::UpdateTentacleHitShapes()
 bool ABoundCongregate::IsTentaclePart(const FHitResult& Hit)
 {
     using namespace BoundTentacleHealth;
-    if(!Cast<ABoundCongregate>(Hit.GetActor()))return false;
+    const auto* Monster=Cast<ABoundCongregate>(Hit.GetActor());if(!Monster)return false;
     if(const auto* Shape=Hit.GetComponent();Shape&&Shape->ComponentHasTag(HitTag))return true;
     const FString Name=Hit.BoneName.ToString();
     if(!Name.StartsWith(TEXT("attack_tentacle_")))return false;
     int32 Index=INDEX_NONE;
-    return LexTryParseString(Index,*Name.RightChop(16))&&Index>=0&&Index<=Last;
+    if(!LexTryParseString(Index,*Name.RightChop(16))||Index<First||Index>Last)return false;
+    // The attached root and folded/recovering tissue are ordinary body contacts.
+    // Dedicated capsules and their delayed network receipts remain part hits so
+    // an expired restraint report can never redirect damage into torso health.
+    if(Hit.GetComponent()==Monster->GetMesh())return Monster->TentacleActive()&&!Monster->TentacleRecovering();
+    return !Hit.GetComponent();
+}
+
+FName ABoundCongregate::NetworkHitBone(const FHitResult& Hit)
+{
+    if(Hit.BoneName.ToString().StartsWith(TEXT("attack_tentacle_"))&&!IsTentaclePart(Hit))return NAME_None;
+    return Hit.BoneName;
 }
 
 bool ABoundCongregate::IsTentacleHit(const FHitResult& Hit) const

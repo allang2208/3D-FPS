@@ -109,6 +109,7 @@ void AM10Mawcrawler::BeginPlay()
 void AM10Mawcrawler::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AM10Mawcrawler,State);DOREPLIFETIME(AM10Mawcrawler,Health);
+    DOREPLIFETIME(AM10Mawcrawler,MaxHealth);
     DOREPLIFETIME(AM10Mawcrawler,HowlStartedAt);
     DOREPLIFETIME(AM10Mawcrawler,RearGasStartedAt);
     DOREPLIFETIME(AM10Mawcrawler,ThreatSerial);

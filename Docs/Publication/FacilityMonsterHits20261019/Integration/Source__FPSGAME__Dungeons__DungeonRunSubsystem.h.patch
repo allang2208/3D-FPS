@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -109,6 +109,7 @@
+     bool IsEcologyBossDefeated() const;
+     bool IsPowerBossDefeated() const;
+     bool IsIncinerationBossDefeated() const;
++    bool IsStaffLivingBossDefeated() const;
+     bool IsFinalBossDefeated() const;
+     bool IsFinalTreasureLooted() const { return bActive&&bFinalTreasureLooted; }
+     bool CanUseFinalReturn() const { return IsFinalBossDefeated()&&IsFinalTreasureLooted(); }
+@@ -174,6 +175,7 @@
+     bool bNetworkEcologyBossDefeated=false;
+     bool bNetworkPowerBossDefeated=false;
+     bool bNetworkIncinerationBossDefeated=false;
++    bool bNetworkStaffLivingBossDefeated=false;
+     bool bNetworkFinalBossDefeated=false;
+     bool bFinalTreasureLooted=false;
+     FDungeonSharedProgress SharedProgressMirror;
+@@ -191,6 +193,8 @@
+     void BindPowerTheme(AAuthoredDungeonGenerator* InGenerator);
+     TWeakObjectPtr<class ADungeonThemeEncounter> IncinerationTheme;
+     void BindIncinerationTheme(AAuthoredDungeonGenerator* InGenerator);
++    TWeakObjectPtr<class ADungeonThemeEncounter> StaffLivingTheme;
++    void BindStaffLivingTheme(AAuthoredDungeonGenerator* InGenerator);
+     TWeakObjectPtr<class ADungeonThemeEncounter> FinalBossTheme;
+     void BindFinalBossTheme(AAuthoredDungeonGenerator* InGenerator);
+     void AppendFinalBossObjectives(FTrackedTaskView& Out) const;

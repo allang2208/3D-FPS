@@ -35,8 +35,11 @@ int32 Side(const AActor* Unit)
     const auto* Pawn = Cast<APawn>(Unit);
     if (Unit->IsA<AFPSGAMECharacter>() || (Pawn && Pawn->IsPlayerControlled())
         || Unit->ActorHasTag(TEXT("Player")) || Unit->ActorHasTag(TEXT("Friendly"))
-        || Unit->ActorHasTag(TEXT("Companion")) || Unit->ActorHasTag(TEXT("Summoned"))) return 1;
+        || Unit->ActorHasTag(TEXT("Companion"))) return 1;
     if (Unit->FindComponentByClass<UMonsterCombatComponent>() || Unit->ActorHasTag(TEXT("Enemy"))) return 2;
+    // Enemy-created small hands also carry Summoned for lifetime/reward rules.
+    // That tag must not override their monster side and make player shots skip them.
+    if (Unit->ActorHasTag(TEXT("Summoned"))) return 1;
     return 0;
 }
 

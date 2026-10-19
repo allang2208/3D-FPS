@@ -42,7 +42,7 @@ void URootCrownHitComponent::TickComponent(float Dt,ELevelTick Type,FActorCompon
     if(History.Num()==32)History.RemoveAt(0,1,EAllowShrinking::No);
     History.Add(MoveTemp(Pose));
 }
-bool URootCrownHitComponent::ResolveAt(const FVector& Start,const FVector& Point,double At,bool Melee,bool CapsuleContact,FHitResult& Out) const
+bool URootCrownHitComponent::ResolveAt(const FVector& Start,const FVector& Point,double At,bool Melee,bool CapsuleContact,FHitResult& Out,float RayPaddingCM) const
 {
     if(History.IsEmpty())return false;
     int32 Upper=0;
@@ -72,7 +72,7 @@ bool URootCrownHitComponent::ResolveAt(const FVector& Start,const FVector& Point
         FTransform Frame;Frame.Blend(A.Frames[I],B.Frames[I],Alpha);
         const FVector S=Frame.InverseTransformPosition(Start),E=Frame.InverseTransformPosition(End);
         // Melee sweeps can report a contact slightly outside a convex surface.
-        const double Padding=(Melee?18.:4.)/FMath::Max(.001,Frame.GetScale3D().GetAbsMax());
+        const double Padding=(Melee?18.:double(RayPaddingCM))/FMath::Max(.001,Frame.GetScale3D().GetAbsMax());
         double Enter=0.,Exit=1.;FVector EntryNormal=-Direction;bool Inside=true;
         if(Melee)
         {
@@ -116,6 +116,10 @@ bool URootCrownHitComponent::ResolveRemoteContact(const FVector& Start,const FVe
     if(At<Now-.9||At>Now+.1)return false;
     // Allow the existing simulated-proxy smoothing delay, never a client-selected bone.
     const bool CapsuleContact=Melee&&ReportedComponent==Crown->GetCapsuleComponent()->GetFName();
-    for(double Offset:{0.,-.05,-.1})if(ResolveAt(Start,Point,At+Offset,Melee,CapsuleContact,Out))return true;
+    // Try the real surface first. Inflating every leaf can create an earlier
+    // grazing contact far from a legitimate reported impact and reject it at
+    // the 35 cm receipt bound. Retain padding only as the existing latency fallback.
+    for(double Offset:{0.,-.05,-.1})if(ResolveAt(Start,Point,At+Offset,Melee,CapsuleContact,Out,0.f))return true;
+    if(!Melee)for(double Offset:{0.,-.05,-.1})if(ResolveAt(Start,Point,At+Offset,false,false,Out,4.f))return true;
     return false;
 }

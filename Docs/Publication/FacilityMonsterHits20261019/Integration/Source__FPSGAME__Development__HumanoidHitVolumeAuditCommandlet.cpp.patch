@@ -1,0 +1,216 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/HumanoidHitVolumeAuditCommandlet.cpp
+@@ -0,0 +1,213 @@
++#include "HumanoidHitVolumeAuditCommandlet.h"
++#include "DevelopmentSpawnComponent.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MonsterIdleBreathingMeshComponent.h"
++#include "../Skills/ColdSteelSkillRules.h"
++#include "Animation/AnimSequence.h"
++#include "Components/CapsuleComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/UnrealType.h"
++#if WITH_EDITOR
++#include "AssetCompilingManager.h"
++#include "Rendering/SkeletalMeshModel.h"
++#include "Rendering/SkeletalMeshLODModel.h"
++#include "DynamicMesh/DynamicMesh3.h"
++#include "DynamicMesh/DynamicMeshAABBTree3.h"
++#endif
++
++namespace
++{
++bool IsHead(FName Name)
++{const auto S=Name.ToString();return S.Contains(TEXT("head"),ESearchCase::IgnoreCase)||S.Equals(TEXT("cranium"),ESearchCase::IgnoreCase);}
++TSharedRef<FJsonObject> Bounds(const FBox& Box)
++{
++    auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("min"),Box.Min.ToString());R->SetStringField(TEXT("max"),Box.Max.ToString());
++    R->SetStringField(TEXT("size"),Box.GetSize().ToString());return R;
++}
++}
++
++int32 UHumanoidHitVolumeAuditCommandlet::Main(const FString& Params)
++{
++#if !WITH_EDITOR
++    return 1;
++#else
++    using namespace UE::Geometry;
++    FString Output;if(!FParse::Value(*Params,TEXT("Report="),Output))return 1;
++    FString Only;FParse::Value(*Params,TEXT("Only="),Only);
++    const TSet<FName> Humanoids={TEXT("FatZombie"),TEXT("Mutant3"),TEXT("NurseZombie"),TEXT("SpitterZombie"),TEXT("WitchRebuilt"),
++        TEXT("FacelessSecurity"),TEXT("FacelessReceptionist"),TEXT("FacelessResearcher"),TEXT("LivingStaffMale"),TEXT("LivingStaffFemaleA"),
++        TEXT("LivingStaffFemaleB"),TEXT("EcologyGardener"),TEXT("CargoPorter"),TEXT("CargoTechnician"),TEXT("NightWardenRig"),TEXT("MantisM27"),TEXT("BlindSupplicantM07")};
++    auto Report=MakeShared<FJsonObject>();TArray<TSharedPtr<FJsonValue>> Rows;
++    Report->SetBoolField(TEXT("assets_saved"),false);Report->SetBoolField(TEXT("begin_play_called"),false);
++    Report->SetStringField(TEXT("surface_source"),TEXT("Imported LOD0 skin weights and actual evaluated bone poses; clothing morph/cloth simulation excluded"));
++    auto Save=[&](){Report->SetArrayField(TEXT("monsters"),Rows);FString S;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&S));FFileHelper::SaveStringToFile(S,*Output);};
++    const auto Settings=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(true).RequiresHitProxies(false)
++        .CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    auto* World=UWorld::CreateWorld(EWorldType::Game,false,TEXT("HumanoidHitVolumeAudit"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    if(!World)return 2;
++    for(const auto& Entry:GetDefault<UDevelopmentSpawnComponent>()->GetMonsters())
++    {
++        if(!Humanoids.Contains(Entry.Id)||(!Only.IsEmpty()&&Entry.Id.ToString()!=Only))continue;
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("id"),Entry.Id.ToString());Row->SetStringField(TEXT("name"),Entry.Name.ToString());
++        Row->SetStringField(TEXT("class"),Entry.CharacterClass.ToString());Rows.Add(MakeShared<FJsonValueObject>(Row));
++        UClass* Class=Entry.CharacterClass.LoadSynchronous();
++        if(!Class||!Class->IsChildOf(ACharacter::StaticClass())){Row->SetStringField(TEXT("error"),TEXT("humanoid class unavailable"));Save();continue;}
++        FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++        Spawn.CustomPreSpawnInitialization=[](AActor* A){CastChecked<ACharacter>(A)->AutoPossessAI=EAutoPossessAI::Disabled;};
++        auto* Monster=World->SpawnActor<ACharacter>(Class,FTransform::Identity,Spawn);
++        auto* Mesh=Monster?Monster->GetMesh():nullptr;auto* Asset=Mesh?Mesh->GetSkeletalMeshAsset():nullptr;
++        FAssetCompilingManager::Get().FinishAllCompilation();
++        if(!Asset||!Asset->GetImportedModel()||Asset->GetImportedModel()->LODModels.IsEmpty())
++        {Row->SetStringField(TEXT("error"),TEXT("imported LOD unavailable"));if(Monster)Monster->Destroy();Save();continue;}
++        Monster->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
++        Mesh->bEnableUpdateRateOptimizations=false;Mesh->bDisableClothSimulation=true;Mesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
++        Row->SetStringField(TEXT("mesh"),Asset->GetPathName());Row->SetStringField(TEXT("component_transform"),Mesh->GetComponentTransform().ToString());
++        Row->SetNumberField(TEXT("mesh_visibility_response"),Mesh->GetCollisionResponseToChannel(ECC_Visibility));
++        Row->SetBoolField(TEXT("defer_kinematic_bone_update"),Mesh->bDeferKinematicBoneUpdate);
++        Row->SetNumberField(TEXT("capsule_visibility_response"),Monster->GetCapsuleComponent()->GetCollisionResponseToChannel(ECC_Visibility));
++        auto* Physics=Mesh->GetPhysicsAsset();Row->SetStringField(TEXT("physics_asset"),Physics?Physics->GetPathName():TEXT("None"));
++        Row->SetStringField(TEXT("physics_asset_override"),Mesh->PhysicsAssetOverride?Mesh->PhysicsAssetOverride->GetPathName():TEXT("None"));
++        Row->SetNumberField(TEXT("mesh_collision_enabled"),int32(Mesh->GetCollisionEnabled()));
++        Row->SetBoolField(TEXT("per_poly"),Asset->GetEnablePerPolyCollision());
++        const auto& Ref=Asset->GetRefSkeleton();const auto& LOD=Asset->GetImportedModel()->LODModels[0];
++        TArray<FTransform> Reference=Ref.GetRefBonePose();TArray<bool> Head;Head.Init(false,Ref.GetNum());
++        int32 PrimaryHead=INDEX_NONE;
++        for(int32 I=0;I<Ref.GetNum();++I)
++        {
++            const int32 Parent=Ref.GetParentIndex(I);if(Parent>=0)Reference[I]*=Reference[Parent];
++            Head[I]=IsHead(Ref.GetBoneName(I))||(Parent>=0&&Head[Parent]);
++            if(PrimaryHead==INDEX_NONE&&IsHead(Ref.GetBoneName(I)))PrimaryHead=I;
++        }
++        TArray<TSharedPtr<FJsonValue>> BodyRows;
++        if(Physics)for(const USkeletalBodySetup* Setup:Physics->SkeletalBodySetups)
++        {
++            const int32 Bone=Setup?Ref.FindBoneIndex(Setup->BoneName):INDEX_NONE;if(Bone==INDEX_NONE||!Head[Bone])continue;
++            auto B=MakeShared<FJsonObject>();B->SetStringField(TEXT("bone"),Setup->BoneName.ToString());
++            B->SetNumberField(TEXT("trace_flag"),int32(Setup->GetCollisionTraceFlag()));B->SetNumberField(TEXT("collision"),int32(Setup->DefaultInstance.GetCollisionEnabled()));
++            B->SetNumberField(TEXT("shapes"),Setup->AggGeom.GetElementCount());B->SetObjectField(TEXT("reference_bounds"),Bounds(Setup->AggGeom.CalcAABB(Reference[Bone])));
++            BodyRows.Add(MakeShared<FJsonValueObject>(B));
++        }
++        Row->SetArrayField(TEXT("head_bodies"),BodyRows);
++        TArray<TSharedPtr<FJsonValue>> PoseRows;
++        auto Clip=[&](FName Name)->UAnimSequence*
++        {
++            const auto* Property=FindFProperty<FObjectPropertyBase>(Class,Name);
++            return Property?Cast<UAnimSequence>(Property->GetObjectPropertyValue_InContainer(Monster)):nullptr;
++        };
++        struct FPose{const TCHAR* Name;UAnimSequence* Clip;float Phase;bool Feedback;};
++        const FPose Poses[]={{TEXT("spawn_idle"),Clip(TEXT("IdleClip")),0.f,false},{TEXT("idle"),Clip(TEXT("IdleClip")),.25f,false},{TEXT("walk"),Clip(TEXT("WalkClip")),.5f,false},
++            {TEXT("attack"),Clip(TEXT("AttackClip")),.35f,false},{TEXT("head_hit"),Clip(TEXT("IdleClip")),.25f,true}};
++        for(const auto& Pose:Poses)
++        {
++            auto P=MakeShared<FJsonObject>();P->SetStringField(TEXT("pose"),Pose.Name);PoseRows.Add(MakeShared<FJsonValueObject>(P));
++            if(!Pose.Clip||PrimaryHead==INDEX_NONE){P->SetStringField(TEXT("error"),TEXT("clip or semantic head missing"));continue;}
++            World->TimeSeconds+=1.;World->DeltaTimeSeconds=1.f/60.f;
++            Mesh->PlayAnimation(Pose.Clip,false);Mesh->SetPosition(Pose.Clip->GetPlayLength()*Pose.Phase,false);
++            Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
++            Mesh->UpdateKinematicBonesToAnim(Mesh->GetComponentSpaceTransforms(),ETeleportType::TeleportPhysics,false,EAllowKinematicDeferral::DisallowDeferral);
++            if(Pose.Feedback)
++            {
++                auto* Feedback=Cast<UMonsterIdleBreathingMeshComponent>(Mesh);
++                if(!Feedback){P->SetStringField(TEXT("skipped"),TEXT("This character does not use shared gun-hit pose feedback"));continue;}
++                FHitResult Hit(Monster,Mesh,Mesh->GetBoneLocation(Ref.GetBoneName(PrimaryHead)),FVector::ForwardVector);Hit.BoneName=Ref.GetBoneName(PrimaryHead);
++                Feedback->AddGunHitFeedback(Hit,FVector::ForwardVector,100.f);
++                World->TimeSeconds+=.05;World->DeltaTimeSeconds=.05f;Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
++            }
++            double MaxPositionError=0.,MaxRotationError=0.;
++            if(Physics)for(const USkeletalBodySetup* Setup:Physics->SkeletalBodySetups)
++            {
++                const int32 Bone=Setup?Ref.FindBoneIndex(Setup->BoneName):INDEX_NONE;if(Bone==INDEX_NONE||!Head[Bone])continue;
++                if(auto* Body=Mesh->GetBodyInstance(Setup->BoneName))
++                {
++                    const FTransform Physical=Body->GetUnrealWorldTransform(),Visual=Mesh->GetSocketTransform(Setup->BoneName);
++                    MaxPositionError=FMath::Max(MaxPositionError,FVector::Distance(Physical.GetLocation(),Visual.GetLocation()));
++                    MaxRotationError=FMath::Max(MaxRotationError,FMath::RadiansToDegrees(Physical.GetRotation().AngularDistance(Visual.GetRotation())));
++                }
++            }
++            P->SetNumberField(TEXT("head_body_position_error_before_forced_sync_cm"),MaxPositionError);
++            P->SetNumberField(TEXT("head_body_rotation_error_before_forced_sync_deg"),MaxRotationError);
++            // Isolate fitted hit-volume geometry from the physics scene's deferred update timing.
++            Mesh->UpdateKinematicBonesToAnim(Mesh->GetComponentSpaceTransforms(),ETeleportType::TeleportPhysics,false,EAllowKinematicDeferral::DisallowDeferral);
++            const auto& Current=Mesh->GetComponentSpaceTransforms();
++            FDynamicMesh3 Surface;TArray<int32> VertexIds;VertexIds.Init(INDEX_NONE,LOD.NumVertices);
++            TArray<float> HeadWeight;HeadWeight.Init(0,LOD.NumVertices);FBox HeadBox(ForceInit);int32 HeadVertices=0;
++            for(const auto& Section:LOD.Sections)for(int32 V=0;V<Section.SoftVertices.Num();++V)
++            {
++                const auto& Input=Section.SoftVertices[V];FVector Point=FVector::ZeroVector;double Total=0,HeadTotal=0;
++                for(int32 W=0;W<MAX_TOTAL_INFLUENCES;++W)
++                {
++                    const double Weight=Input.InfluenceWeights[W];if(Weight==0)continue;
++                    const int32 Bone=Section.BoneMap[Input.InfluenceBones[W]];
++                    Point+=Current[Bone].TransformPosition(Reference[Bone].InverseTransformPosition(FVector(Input.Position)))*Weight;
++                    Total+=Weight;if(Head[Bone])HeadTotal+=Weight;
++                }
++                if(Total>0)Point/=Total;Point=Mesh->GetComponentTransform().TransformPosition(Point);
++                const int32 Index=Section.BaseVertexIndex+V;VertexIds[Index]=Surface.AppendVertex(Point);HeadWeight[Index]=Total>0?HeadTotal/Total:0;
++                if(HeadWeight[Index]>=.5f){HeadBox+=Point;++HeadVertices;}
++            }
++            TSet<int32> HeadTriangles;int32 Rejected=0;
++            for(int32 I=0;I+2<LOD.IndexBuffer.Num();I+=3)
++            {
++                const int32 A=LOD.IndexBuffer[I],B=LOD.IndexBuffer[I+1],C=LOD.IndexBuffer[I+2];
++                const int32 Triangle=Surface.AppendTriangle(VertexIds[A],VertexIds[B],VertexIds[C]);
++                if(Triangle<0){++Rejected;continue;}
++                if(FMath::Min3(HeadWeight[A],HeadWeight[B],HeadWeight[C])>=.5f)HeadTriangles.Add(Triangle);
++            }
++            P->SetNumberField(TEXT("head_vertices"),HeadVertices);P->SetNumberField(TEXT("head_triangles"),HeadTriangles.Num());P->SetNumberField(TEXT("rejected_triangles"),Rejected);
++            if(HeadTriangles.IsEmpty()){P->SetStringField(TEXT("error"),TEXT("no head surface triangles"));continue;}
++            P->SetObjectField(TEXT("visible_head_bounds"),Bounds(HeadBox));
++            FDynamicMeshAABBTree3 Tree(&Surface,true);
++            TArray<TSharedPtr<FJsonValue>> Views;
++            for(const FVector Direction:{FVector(1,0,0),FVector(-1,0,0),FVector(0,1,0),FVector(0,-1,0)})
++            {
++                const FVector Right=FVector::CrossProduct(FVector::UpVector,Direction);const FVector Center=HeadBox.GetCenter();
++                const double Width=FVector::DotProduct(Right.GetAbs(),HeadBox.GetExtent())*1.2,Height=HeadBox.GetExtent().Z*1.2;
++                int32 Expected=0,ComplexHead=0,SimpleHead=0,Miss=0,Other=0,Outside=0;TArray<TSharedPtr<FJsonValue>> Samples;
++                for(int32 Y=0;Y<25;++Y)for(int32 X=0;X<25;++X)
++                {
++                    const FVector Target=Center+Right*((X+.5)/25.*2.-1.)*Width+FVector::UpVector*((Y+.5)/25.*2.-1.)*Height;
++                    const FVector Start=Target-Direction*1000.,End=Target+Direction*1000.;double Distance;int32 Triangle;
++                    const bool SurfaceHit=Tree.FindNearestHitTriangle(FRay3d(Start,Direction),Distance,Triangle);
++                    const bool VisibleHead=SurfaceHit&&HeadTriangles.Contains(Triangle);
++                    if(SurfaceHit&&!VisibleHead)continue; // Actual arm/body occlusion is not a head miss.
++                    FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(HumanoidHeadComplex),true);
++                    const bool Found=World->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Q);
++                    const bool Critical=Found&&Hit.GetActor()==Monster&&ColdSteelSkills::IsCriticalHit(Hit);
++                    if(!SurfaceHit){Outside+=Critical;continue;}
++                    ++Expected;ComplexHead+=Critical;Miss+=!Found;Other+=Found&&!Critical;
++                    Q.bTraceComplex=false;FHitResult Simple;
++                    SimpleHead+=World->LineTraceSingleByChannel(Simple,Start,End,ECC_Visibility,Q)&&Simple.GetActor()==Monster&&ColdSteelSkills::IsCriticalHit(Simple);
++                    if(!Critical&&Samples.Num()<8)
++                    {
++                        auto S=MakeShared<FJsonObject>();S->SetStringField(TEXT("surface_point"),(Start+Direction*Distance).ToString());
++                        S->SetStringField(TEXT("hit_bone"),Hit.BoneName.ToString());S->SetStringField(TEXT("component"),Hit.GetComponent()?Hit.GetComponent()->GetName():TEXT("none"));
++                        S->SetBoolField(TEXT("any_hit"),Found);Samples.Add(MakeShared<FJsonValueObject>(S));
++                    }
++                }
++                auto V=MakeShared<FJsonObject>();V->SetStringField(TEXT("direction"),Direction.ToString());V->SetNumberField(TEXT("visible_head_rays"),Expected);
++                V->SetNumberField(TEXT("complex_head_hits"),ComplexHead);V->SetNumberField(TEXT("simple_head_hits"),SimpleHead);
++                V->SetNumberField(TEXT("complex_misses"),Miss);V->SetNumberField(TEXT("complex_other_hits"),Other);V->SetNumberField(TEXT("head_hits_outside_mesh"),Outside);
++                V->SetArrayField(TEXT("miss_samples"),Samples);Views.Add(MakeShared<FJsonValueObject>(V));
++            }
++            P->SetArrayField(TEXT("views"),Views);
++        }
++        Row->SetArrayField(TEXT("poses"),PoseRows);Row->SetBoolField(TEXT("begin_play_called"),Monster->HasActorBegunPlay());
++        Monster->Destroy();Save();UE_LOG(LogTemp,Display,TEXT("HUMANOID_HIT_AUDIT id=%s completed=%d"),*Entry.Id.ToString(),Rows.Num());
++    }
++    bool Complete=Rows.Num()==(Only.IsEmpty()?17:1);
++    for(const auto& Value:Rows)
++    {
++        const auto R=Value->AsObject();Complete&=!R->HasField(TEXT("error"))&&R->HasField(TEXT("poses"));
++        if(R->HasField(TEXT("poses")))for(const auto& Pose:R->GetArrayField(TEXT("poses")))Complete&=!Pose->AsObject()->HasField(TEXT("error"));
++    }
++    Report->SetBoolField(TEXT("complete"),Complete);Save();World->DestroyWorld(false);
++    return Complete?0:3;
++#endif
++}

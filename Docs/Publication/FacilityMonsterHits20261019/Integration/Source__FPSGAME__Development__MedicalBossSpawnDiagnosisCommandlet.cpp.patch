@@ -1,0 +1,110 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/MedicalBossSpawnDiagnosisCommandlet.cpp
+@@ -0,0 +1,107 @@
++#include "MedicalBossSpawnDiagnosisCommandlet.h"
++#include "Components/StaticMeshComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Engine/StaticMesh.h"
++#include "Engine/World.h"
++#include "Engine/OverlapResult.h"
++#include "GameFramework/Character.h"
++#include "Dom/JsonObject.h"
++#include "Serialization/JsonReader.h"
++#include "Serialization/JsonSerializer.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#if WITH_EDITOR
++#include "AssetCompilingManager.h"
++#endif
++
++int32 UMedicalBossSpawnDiagnosisCommandlet::Main(const FString& Params)
++{
++    FString Input,Output,Text;
++    if (!FParse::Value(*Params,TEXT("Module="),Input) || !FParse::Value(*Params,TEXT("Report="),Output)
++        || !FFileHelper::LoadFileToString(Text,*Input)) return 1;
++    TSharedPtr<FJsonObject> Module;
++    if (!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Module)) return 1;
++    auto Vec=[](const TSharedPtr<FJsonObject>& Object,const TCHAR* Key)
++    {
++        const auto& A=Object->GetArrayField(Key);
++        return FVector(A[0]->AsNumber(),A[1]->AsNumber(),A[2]->AsNumber());
++    };
++    UClass* Class=LoadClass<ACharacter>(nullptr,TEXT("/Game/Monsters/BoundCongregate/BP_BoundCongregate.BP_BoundCongregate_C"));
++    if (!Class) return 1;
++    const auto* Cap=Class->GetDefaultObject<ACharacter>()->GetCapsuleComponent();
++    const float Radius=Cap->GetScaledCapsuleRadius(),HalfHeight=Cap->GetScaledCapsuleHalfHeight();
++    const auto Settings=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(true)
++        .RequiresHitProxies(false).CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    UWorld* World=UWorld::CreateWorld(EWorldType::EditorPreview,false,TEXT("MedicalBossSpawnDiagnosis"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    if (!World) return 1;
++    int32 Colliders=0;
++    for (const auto& Value:Module->GetArrayField(TEXT("parts")))
++    {
++        const auto Part=Value->AsObject();
++        if (!Part->GetBoolField(TEXT("collision"))) continue;
++        auto* Mesh=LoadObject<UStaticMesh>(nullptr,*Part->GetStringField(TEXT("mesh")));
++        if (!Mesh) { World->DestroyWorld(false); return 1; }
++#if WITH_EDITOR
++        FAssetCompilingManager::Get().FinishAllCompilation();
++#endif
++        auto* Actor=World->SpawnActor<AActor>();
++        auto* Component=NewObject<UStaticMeshComponent>(Actor);
++        Actor->AddInstanceComponent(Component);Actor->SetRootComponent(Component);
++        Component->SetMobility(EComponentMobility::Static);Component->SetStaticMesh(Mesh);
++        Component->SetCollisionProfileName(TEXT("BlockAll"));
++        Actor->SetActorTransform(FTransform(FRotator(0,Part->GetNumberField(TEXT("yaw")),0),Vec(Part,TEXT("position")),Vec(Part,TEXT("scale"))));
++        Component->RegisterComponentWithWorld(World);++Colliders;
++    }
++    const auto Result=MakeShared<FJsonObject>();
++    Result->SetBoolField(TEXT("begin_play_called"),false);
++    Result->SetBoolField(TEXT("navigation_tested"),false);
++    Result->SetNumberField(TEXT("colliders"),Colliders);
++    Result->SetNumberField(TEXT("capsule_radius"),Radius);
++    Result->SetNumberField(TEXT("capsule_half_height"),HalfHeight);
++    int32 GroundHits=0,OldClear=0,NewClear=0,PenetrationControls=0;
++    TArray<TSharedPtr<FJsonValue>> Samples;
++    const FCollisionQueryParams Query(SCENE_QUERY_STAT(MedicalBossSpawnDiagnosis),false);
++    for (int32 X=0;X<9;++X) for (int32 Y=0;Y<9;++Y)
++    {
++        // The only theatre walk cell wide enough for the 225 cm boss, minus
++        // the real 265 cm margin used by FindMedicalSpawn.
++        const FVector At(-135.+270.*X/8.,105.+270.*Y/8.,0);
++        FHitResult Ground;
++        const auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("candidate"),At.ToString());
++        const bool Hit=World->LineTraceSingleByChannel(Ground,At+FVector(0,0,100),At-FVector(0,0,100),ECC_Pawn,Query);
++        Row->SetBoolField(TEXT("ground"),Hit);
++        if (Hit)
++        {
++            ++GroundHits;
++            Row->SetStringField(TEXT("ground_point"),Ground.ImpactPoint.ToString());
++            const float ExpandedRadius=Radius+3.f,ExpandedHeight=FMath::Max(HalfHeight,ExpandedRadius);
++            auto Overlaps=[&](const FVector& Position,const FCollisionShape& Shape,TArray<TSharedPtr<FJsonValue>>* Meshes=nullptr)
++            {
++                TArray<FOverlapResult> Hits;
++                const bool Blocked=World->OverlapMultiByChannel(Hits,Position,FQuat::Identity,ECC_Pawn,Shape,Query);
++                if (Meshes) for (const auto& Overlap:Hits)
++                    if (Overlap.bBlockingHit) if (auto* C=Cast<UStaticMeshComponent>(Overlap.GetComponent()))
++                        Meshes->Add(MakeShared<FJsonValueString>(C->GetStaticMesh()->GetName()));
++                return Blocked;
++            };
++            TArray<TSharedPtr<FJsonValue>> OldMeshes,NewMeshes;
++            const bool OldBlocked=Overlaps(Ground.ImpactPoint+FVector(0,0,HalfHeight+3.f),FCollisionShape::MakeCapsule(ExpandedRadius,HalfHeight),&OldMeshes);
++            const bool NewBlocked=Overlaps(Ground.ImpactPoint+FVector(0,0,ExpandedHeight+3.f),FCollisionShape::MakeCapsule(ExpandedRadius,ExpandedHeight),&NewMeshes);
++            const bool Control=Overlaps(Ground.ImpactPoint+FVector(0,0,HalfHeight-5.f),FCollisionShape::MakeCapsule(Radius,HalfHeight));
++            OldClear+=!OldBlocked;NewClear+=!NewBlocked;PenetrationControls+=Control;
++            Row->SetBoolField(TEXT("old_blocked"),OldBlocked);Row->SetBoolField(TEXT("corrected_blocked"),NewBlocked);
++            Row->SetArrayField(TEXT("old_blockers"),OldMeshes);Row->SetArrayField(TEXT("corrected_blockers"),NewMeshes);
++            Row->SetBoolField(TEXT("penetrating_control_blocked"),Control);
++        }
++        Samples.Add(MakeShared<FJsonValueObject>(Row));
++    }
++    Result->SetNumberField(TEXT("ground_hits"),GroundHits);
++    Result->SetNumberField(TEXT("penetrating_controls_blocked"),PenetrationControls);
++    Result->SetNumberField(TEXT("old_clear"),OldClear);Result->SetNumberField(TEXT("corrected_clear"),NewClear);
++    Result->SetArrayField(TEXT("samples"),Samples);
++    FString Json;FJsonSerializer::Serialize(Result,TJsonWriterFactory<>::Create(&Json));
++    const bool Saved=FFileHelper::SaveStringToFile(Json,*Output);
++    UE_LOG(LogTemp,Display,TEXT("MEDICAL_BOSS_COLLISION colliders=%d ground=%d controls=%d old_clear=%d corrected_clear=%d"),Colliders,GroundHits,PenetrationControls,OldClear,NewClear);
++    World->DestroyWorld(false);
++    return Saved && GroundHits==81 && PenetrationControls==81 ? 0 : 2;
++}

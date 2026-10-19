@@ -20,3 +20,6 @@ M66 焚骸的不对称绑定、侧倒/起身地形支撑、缩放根骨和权威
 异形承重招式、链条连续软体、原生击退与悬心弱点，读 [合阙制作与控制合同](references/heque-weighty-combat.md)；与 [最终 Boss 遭遇](references/dungeon-boss-encounter.md) 配合，区分击杀、搜刮和撤离。
 
 守寝者的智能绑骨、整身联动、支撑脚与平台重采样问题读 [守寝者重定向失败经验](references/night-warden-retarget-lessons.md)。V18 已被用户否定并转待办，不能作为已认可模板。
+
+- 按模型校准命中体积、肩口连续性和受击碰撞同步：读取 [model-hit-volumes](references/model-hit-volumes.md)。
+- 设施主题刷怪分派、出生范围和漏刷排查：读取 [facility-spawn-routing](references/facility-spawn-routing.md)。

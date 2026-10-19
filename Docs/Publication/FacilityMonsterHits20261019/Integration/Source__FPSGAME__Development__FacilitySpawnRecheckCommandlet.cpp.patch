@@ -1,0 +1,336 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/FacilitySpawnRecheckCommandlet.cpp
+@@ -0,0 +1,333 @@
++#include "FacilitySpawnRecheckCommandlet.h"
++#include "../Dungeons/AuthoredDungeonGenerator.h"
++#include "../Dungeons/FacilityHallEncounter.h"
++#include "../Dungeons/DungeonThemeEncounter.h"
++#include "../Dungeons/DungeonRoomGate.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/BrushComponent.h"
++#include "Engine/World.h"
++#include "Engine/Engine.h"
++#include "EngineUtils.h"
++#include "Engine/Level.h"
++#include "GameFramework/Character.h"
++#include "NavigationSystem.h"
++#include "NavigationData.h"
++#include "NavMesh/NavMeshBoundsVolume.h"
++#include "Async/TaskGraphInterfaces.h"
++#include "Containers/Ticker.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/Package.h"
++#include "UObject/UnrealType.h"
++#include "TimerManager.h"
++#if WITH_EDITOR
++#include "FileHelpers.h"
++#include "AssetCompilingManager.h"
++#endif
++
++int32 UFacilitySpawnRecheckCommandlet::Main(const FString& Params)
++{
++    FString Output;int32 Seed=1327166464;
++    if (!FParse::Value(*Params,TEXT("Report="),Output)) return 1;
++    FParse::Value(*Params,TEXT("Seed="),Seed);
++    auto Report=MakeShared<FJsonObject>();
++    auto Save=[&]() { FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));return FFileHelper::SaveStringToFile(Json,*Output); };
++    Report->SetBoolField(TEXT("begin_play_called"),false);Report->SetNumberField(TEXT("seed"),Seed);
++#if WITH_EDITOR
++    // Load the external generator/nav actor packages of the production WP map.
++    auto* SourceWorld=UEditorLoadingAndSavingUtils::LoadMap(TEXT("/Game/GameMaps/L_Dungeon_Randomized"));
++#else
++    auto* Package=LoadPackage(nullptr,TEXT("/Game/GameMaps/L_Dungeon_Randomized"),LOAD_None);
++    auto* SourceWorld=Package?UWorld::FindWorldInPackage(Package):nullptr;
++#endif
++    AAuthoredDungeonGenerator* Source=nullptr;ANavMeshBoundsVolume* BoundsTemplate=nullptr;
++    if (SourceWorld) for (AActor* A:SourceWorld->PersistentLevel->Actors)
++    {
++        if (auto* G=Cast<AAuthoredDungeonGenerator>(A)) Source=G;
++        if (auto* V=Cast<ANavMeshBoundsVolume>(A);V&&V->ActorHasTag(TEXT("DungeonRouteNavigation")))BoundsTemplate=V;
++    }
++    if (!Source||!BoundsTemplate) { Report->SetStringField(TEXT("error"),TEXT("saved generator or navigation bounds missing"));Save();return 1; }
++    FFileHelper::SaveStringToFile(Source->ModuleCatalogJson,*(FPaths::GetPath(Output)/TEXT("saved_catalog.json")));
++    const auto Settings=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(true)
++        .RequiresHitProxies(false).CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    auto* World=UWorld::CreateWorld(EWorldType::Game,false,TEXT("FacilitySpawnRecheck"),nullptr,true,ERHIFeatureLevel::Num,&Settings);
++    if (!World) return 1;
++    GEngine->CreateNewWorldContext(EWorldType::Game).SetCurrentWorld(World);
++    FActorSpawnParameters B;B.Template=BoundsTemplate;B.ObjectFlags|=RF_Transient;
++    auto* Bounds=World->SpawnActor<ANavMeshBoundsVolume>(ANavMeshBoundsVolume::StaticClass(),FTransform::Identity,B);
++    Bounds->GetBrushComponent()->SetMobility(EComponentMobility::Movable);
++    Bounds->SetActorTransform(FTransform::Identity);
++    // Preserve the shipped per-agent voxel/tile/runtime settings, not just the
++    // navigation system's default supported-agent dimensions.
++    for (AActor* A:SourceWorld->PersistentLevel->Actors)
++        if (auto* Data=Cast<ANavigationData>(A);Data&&Data->GetConfig().IsValid())
++        {
++            FActorSpawnParameters N;N.Template=Data;N.ObjectFlags|=RF_Transient;
++            auto* Copy=World->SpawnActor<ANavigationData>(Data->GetClass(),FTransform::Identity,N);
++            Copy->SetConfig(Data->GetConfig());
++        }
++    FNavigationSystem::AddNavigationSystemToWorld(*World,FNavigationSystemRunMode::GameMode);
++    auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(World);
++    if (!Nav) { Report->SetStringField(TEXT("error"),TEXT("navigation system initialization failed"));Save();return 1; }
++    auto* Generator=World->SpawnActor<AAuthoredDungeonGenerator>();
++    Generator->ModuleCatalogJson=Source->ModuleCatalogJson;Generator->ModuleAssetPaths=Source->ModuleAssetPaths;
++    Generator->Generate(Seed);
++    const double Deadline=FPlatformTime::Seconds()+300.;
++    while (Generator->IsPreparationPending() && FPlatformTime::Seconds()<Deadline)
++    {
++        ++GFrameCounter;
++        FTaskGraphInterface::Get().ProcessThreadUntilIdle(ENamedThreads::GameThread);
++        ProcessAsyncLoading(true,false,.005f);
++        FTSTicker::GetCoreTicker().Tick(.02f);
++#if WITH_EDITOR
++        FAssetCompilingManager::Get().ProcessAsyncTasks(true);
++#endif
++        // Only the assembly and nav builders advance. A full world tick would
++        // enter unrelated gameplay subsystems which require a player session.
++        Nav->Tick(.02f);Generator->Tick(.02f);
++        FPlatformProcess::Sleep(.005f);
++    }
++    Report->SetStringField(TEXT("assembly_metrics"),Generator->GetGenerationMetricsJson());
++    Report->SetBoolField(TEXT("begin_play_called"),World->HasBegunPlay());
++    Report->SetBoolField(TEXT("assembly_ready"),Generator->ActorHasTag(TEXT("DungeonAssembly.Ready")));
++    FFileHelper::SaveStringToFile(Generator->LayoutManifestJson,*(FPaths::GetPath(Output)/TEXT("manifest.json")));
++    if (Generator->IsPreparationPending()||!Generator->ActorHasTag(TEXT("DungeonAssembly.Ready")))
++    { Report->SetStringField(TEXT("error"),TEXT("production assembly did not complete"));Save();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);return 2; }
++    TArray<AFacilityHallEncounter*> Encounters;
++    for (TActorIterator<AFacilityHallEncounter> It(World);It;++It) { Encounters.Add(*It);World->GetTimerManager().ClearTimer(It->EncounterTimer); }
++    Encounters.Sort([](const auto& A,const auto& B){return A.Room.Module<B.Room.Module;});
++    TArray<TSharedPtr<FJsonValue>> NavRows;
++    for (TActorIterator<ANavigationData> It(World);It;++It)
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("name"),It->GetName());
++        Row->SetNumberField(TEXT("radius"),It->GetConfig().AgentRadius);Row->SetNumberField(TEXT("height"),It->GetConfig().AgentHeight);
++        NavRows.Add(MakeShared<FJsonValueObject>(Row));
++    }
++    Report->SetArrayField(TEXT("navigation_data"),NavRows);
++    TArray<TSharedPtr<FJsonValue>> Rooms;
++    for (auto* E:Encounters)
++    {
++        // Encounter placement happens with the region sealed. Reapply this
++        // pose per room because earlier objective checks open shared gates.
++        if (auto* Theme=E->Theme.Get())
++            for (ADungeonRoomGate* Gate:Theme->Gates)
++            {Gate->SetOpenFraction(0.f);Gate->SetEncounterLocked(true);}
++        auto Room=MakeShared<FJsonObject>();Room->SetStringField(TEXT("module"),E->Room.Module);Room->SetNumberField(TEXT("node"),E->Room.Id);
++        Room->SetNumberField(TEXT("initial_slots"),E->FirstWaveCount);
++        Room->SetNumberField(TEXT("yaw"),E->Room.Yaw);
++        Room->SetBoolField(TEXT("boundaries_closed_during_placement"),true);
++        TArray<TSharedPtr<FJsonValue>> Slots;
++        for (int32 I=0;I<E->FirstWaveCount;++I)
++        {
++            const auto& Slot=E->Slots[I];auto Row=MakeShared<FJsonObject>();
++            Row->SetNumberField(TEXT("slot"),I);Row->SetStringField(TEXT("class"),E->Members[Slot.Member]->GetPathName());
++            TMap<FString,int32> Reasons;TArray<TSharedPtr<FJsonValue>> FailureSamples;
++#if WITH_EDITOR
++            E->SpawnAuditFailure=[&](const TCHAR* Stage,const FVector& Candidate)
++            {
++                if (++Reasons.FindOrAdd(Stage)<=3)
++                {
++                    auto Sample=MakeShared<FJsonObject>();Sample->SetStringField(TEXT("stage"),Stage);
++                    Sample->SetStringField(TEXT("local_candidate"),FRotator(0,E->Room.Yaw,0).UnrotateVector(Candidate-E->Room.Origin).ToString());
++                    FailureSamples.Add(MakeShared<FJsonValueObject>(Sample));
++                }
++            };
++#endif
++            int32 Success=0;FVector At=FVector::ZeroVector;FRotator Face;
++            for (int32 Attempt=0;Attempt<32;++Attempt)
++                if (E->FindInitialSpawn(Slot,E->Members[Slot.Member]->GetDefaultObject<ACharacter>(),At,Face)) ++Success;
++#if WITH_EDITOR
++            E->SpawnAuditFailure=nullptr;
++#endif
++            Row->SetNumberField(TEXT("successful_calls"),Success);Row->SetNumberField(TEXT("calls"),32);
++            Row->SetStringField(TEXT("last_location"),At.ToString());
++            if (Success && !Slot.bCeiling)
++            {
++                const auto* Capsule=E->Members[Slot.Member]->GetDefaultObject<ACharacter>()->GetCapsuleComponent();
++                const float Radius=Capsule->GetScaledCapsuleRadius(),HalfHeight=Capsule->GetScaledCapsuleHalfHeight();
++                FCollisionQueryParams Query(SCENE_QUERY_STAT(FacilitySpawnAuditControl),false,E);
++                Row->SetBoolField(TEXT("penetrating_floor_control_blocked"),World->OverlapBlockingTestByChannel(
++                    At-FVector(0,0,HalfHeight),FQuat::Identity,ECC_Pawn,FCollisionShape::MakeCapsule(Radius,HalfHeight),Query));
++            }
++            if (Success)
++            {
++                // Exercise the same engine collision policy and construction
++                // used at activation, without BeginPlay or AI possession.
++                FActorSpawnParameters P;P.Owner=E;P.bDeferConstruction=true;
++                P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
++                P.CustomPreSpawnInitialization=[](AActor* A){CastChecked<ACharacter>(A)->AutoPossessAI=EAutoPossessAI::Disabled;};
++                const FTransform SpawnTransform(Face,At);
++                auto* Actual=World->SpawnActor<ACharacter>(E->Members[Slot.Member],SpawnTransform,P);
++                if (Actual)Actual->FinishSpawning(SpawnTransform);
++                Row->SetBoolField(TEXT("construction_survived"),IsValid(Actual));
++                if (IsValid(Actual))
++                {
++                    Row->SetBoolField(TEXT("construction_called_begin_play"),Actual->HasActorBegunPlay());
++                    // This world deliberately has no actor gameplay initialization.
++                    // Explicitly perform PostActorConstruction's collision test.
++                    Row->SetBoolField(TEXT("constructed_actor_clear"),!World->EncroachingBlockingGeometry(
++                        Actual,Actual->GetActorLocation(),Actual->GetActorRotation()));
++                    Row->SetNumberField(TEXT("constructed_capsule_radius"),Actual->GetCapsuleComponent()->GetScaledCapsuleRadius());
++                    Row->SetNumberField(TEXT("constructed_capsule_half_height"),Actual->GetCapsuleComponent()->GetScaledCapsuleHalfHeight());
++                    Actual->Destroy();
++                }
++            }
++            auto Failures=MakeShared<FJsonObject>();for (const auto& Reason:Reasons) Failures->SetNumberField(Reason.Key,Reason.Value);
++            Row->SetObjectField(TEXT("rejections"),Failures);Row->SetArrayField(TEXT("failure_samples"),FailureSamples);Slots.Add(MakeShared<FJsonValueObject>(Row));
++        }
++        Room->SetArrayField(TEXT("isolated_slots"),Slots);
++        TArray<TSharedPtr<FJsonValue>> EliteVariants;
++        if (E->Slots.IsValidIndex(E->ObjectiveEliteSlot))
++        {
++            auto& Slot=E->Slots[E->ObjectiveEliteSlot];const int32 OriginalMember=Slot.Member;
++            const float OriginalFootprint=E->ObjectiveEliteFootprint;
++            for (const auto& Candidate:E->ObjectiveEliteCandidates)
++            {
++                Slot.Member=Candidate.Member;E->ObjectiveEliteFootprint=Candidate.Footprint;
++                int32 Success=0;FVector At;FRotator Face;
++                for (int32 Attempt=0;Attempt<32;++Attempt)
++                    Success+=E->FindInitialSpawn(Slot,E->Members[Slot.Member]->GetDefaultObject<ACharacter>(),At,Face);
++                auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("class"),E->Members[Slot.Member]->GetPathName());
++                Row->SetNumberField(TEXT("successful_calls"),Success);EliteVariants.Add(MakeShared<FJsonValueObject>(Row));
++            }
++            Slot.Member=OriginalMember;E->ObjectiveEliteFootprint=OriginalFootprint;
++        }
++        Room->SetArrayField(TEXT("objective_variants"),EliteVariants);
++        // Real slot order and occupied-space queries, using inert collision proxies.
++        TArray<TSharedPtr<FJsonValue>> Packed;
++        for (int32 Trial=0;Trial<3;++Trial)
++        {
++            E->Placement.Initialize(92001+Trial);TArray<ACharacter*> Proxies;int32 Admitted=0;
++            for (int32 Round=0;Round<64 && Admitted<E->FirstWaveCount;++Round)
++                for (int32 I=0;I<E->FirstWaveCount;++I)
++                {
++                    auto& Slot=E->Slots[I];if (Slot.Monster.IsValid())continue;
++                    FVector At;FRotator Face;const auto* CDO=E->Members[Slot.Member]->GetDefaultObject<ACharacter>();
++                    if (!E->FindInitialSpawn(Slot,CDO,At,Face))continue;
++                    FActorSpawnParameters P;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++                    P.CustomPreSpawnInitialization=[](AActor* A){CastChecked<ACharacter>(A)->AutoPossessAI=EAutoPossessAI::Disabled;};
++                    auto* Proxy=World->SpawnActor<ACharacter>(ACharacter::StaticClass(),At,Face,P);
++                    Proxy->GetCapsuleComponent()->SetCapsuleSize(CDO->GetCapsuleComponent()->GetScaledCapsuleRadius(),CDO->GetCapsuleComponent()->GetScaledCapsuleHalfHeight());
++                    Proxy->GetCapsuleComponent()->SetCollisionObjectType(CDO->GetCapsuleComponent()->GetCollisionObjectType());
++                    Proxy->GetCapsuleComponent()->SetCollisionResponseToChannels(CDO->GetCapsuleComponent()->GetCollisionResponseToChannels());
++                    Proxy->GetCapsuleComponent()->SetCollisionEnabled(CDO->GetCapsuleComponent()->GetCollisionEnabled());
++                    if (Slot.bCeiling) Proxy->SetActorEnableCollision(false);
++                    Slot.Monster=Proxy;Proxies.Add(Proxy);++Admitted;
++                }
++            auto TrialRow=MakeShared<FJsonObject>();TrialRow->SetNumberField(TEXT("trial"),Trial);TrialRow->SetNumberField(TEXT("admitted"),Admitted);
++            TArray<TSharedPtr<FJsonValue>> Missing;for (int32 I=0;I<E->FirstWaveCount;++I) if (!E->Slots[I].Monster.IsValid())Missing.Add(MakeShared<FJsonValueNumber>(I));
++            TrialRow->SetArrayField(TEXT("missing_slots"),Missing);Packed.Add(MakeShared<FJsonValueObject>(TrialRow));
++            for (auto* Proxy:Proxies)Proxy->Destroy();for (auto& Slot:E->Slots)Slot.Monster.Reset();
++            // Retain the same pending slots/species. Releasing occupied space
++            // must make them placeable again; it must not require reconfiguration.
++            int32 Recovered=0;
++            for (const auto& MissingSlot:Missing)
++            {
++                const auto& Slot=E->Slots[int32(MissingSlot->AsNumber())];FVector At;FRotator Face;
++                bool Valid=false;
++                for (int32 Attempt=0;Attempt<32&&!Valid;++Attempt)
++                    Valid=E->FindInitialSpawn(Slot,E->Members[Slot.Member]->GetDefaultObject<ACharacter>(),At,Face);
++                Recovered+=Valid;
++            }
++            TrialRow->SetNumberField(TEXT("pending_recovered_after_space_release"),Recovered);
++        }
++        Room->SetArrayField(TEXT("stationary_first_wave"),Packed);
++        TArray<TSharedPtr<FJsonValue>> Doors;
++        for (auto& Door:E->Doors){Door.OpenAlpha=1.f;E->ApplyDoorPose(Door);}
++        for (const auto& Door:E->Doors) for (int32 Member=0;Member<(E->bFreight?2:3);++Member)
++        {
++            FVector At;const bool Valid=E->FindSpawn(E->Members[Member]->GetDefaultObject<ACharacter>(),Door.FloorCenter-Door.Inward*65.,At);
++            auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("door"),Door.Id);Row->SetNumberField(TEXT("member"),Member);Row->SetBoolField(TEXT("valid"),Valid);
++            Doors.Add(MakeShared<FJsonValueObject>(Row));
++        }
++        Room->SetArrayField(TEXT("open_service_door_spawns"),Doors);
++        for (auto& Door:E->Doors){Door.OpenAlpha=0.f;E->ApplyDoorPose(Door);}
++        // Exercise the existing death observer with deferred native instances:
++        // no construction script, BeginPlay, AI possession or damage rewards.
++        int32 Objective=INDEX_NONE;
++        for (int32 Index:{E->ObjectiveEliteSlot,E->MedicalBossSlot,E->FreightBossSlot,E->EcologyBossSlot,
++            E->PowerBossSlot,E->IncinerationBossSlot,E->StaffLivingBossSlot,E->FinalBossSlot})
++            if (Index!=INDEX_NONE)Objective=Index;
++        const int32 CheckSlot=Objective!=INDEX_NONE?Objective:0;
++        auto Death=MakeShared<FJsonObject>();
++        if (E->Slots.IsValidIndex(CheckSlot))
++        {
++            auto& Slot=E->Slots[CheckSlot];
++            auto MakeDeferred=[&](int32 ForSlot)
++            {
++                FActorSpawnParameters P;P.Owner=E;P.bDeferConstruction=true;
++                P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++                P.CustomPreSpawnInitialization=[](AActor* A)
++                {CastChecked<ACharacter>(A)->AutoPossessAI=EAutoPossessAI::Disabled;A->SetActorEnableCollision(false);A->SetActorHiddenInGame(true);};
++                return World->SpawnActor<ACharacter>(E->Members[E->Slots[ForSlot].Member],FTransform(FVector(0,0,-500000)),P);
++            };
++            auto* Actor=MakeDeferred(CheckSlot);
++            auto* Health=Actor?FindFProperty<FNumericProperty>(Actor->GetClass(),TEXT("Health")):nullptr;
++            if (Health&&Health->IsFloatingPoint())
++            {
++                auto SetHealth=[&](double Value){Health->SetFloatingPointPropertyValue(Health->ContainerPtrToValuePtr<void>(Actor),Value);};
++                const int32 BeforeKills=E->FirstWaveKills;SetHealth(0.);E->RecordDefeat(Actor);
++                Death->SetBoolField(TEXT("untracked_death_ignored"),!Slot.bDefeated&&E->FirstWaveKills==BeforeKills);
++                Slot.Monster=Actor;SetHealth(100.);E->RecordDefeat(Actor);
++                Death->SetBoolField(TEXT("living_not_defeated"),!Slot.bDefeated);
++                E->MonsterDestroyed(Actor);
++                Death->SetBoolField(TEXT("nonlethal_deletion_pending"),!Slot.bDefeated&&!Slot.Monster.IsValid());
++                Actor->Destroy();Actor=MakeDeferred(CheckSlot);Slot.Monster=Actor;
++                auto* Theme=E->Theme.Get();
++                if (Objective!=INDEX_NONE&&Theme)
++                {
++                    Theme->bStarted=true;World->GetTimerManager().ClearTimer(Theme->EncounterTimer);
++                    for (ADungeonRoomGate* Gate:Theme->Gates){Gate->SetOpenFraction(0.f);Gate->SetEncounterLocked(true);}
++                    Theme->UpdateEncounter();
++                    Death->SetBoolField(TEXT("objective_not_completed_by_deletion"),!Theme->IsObjectiveDefeated()&&!Theme->bCleared);
++                }
++                SetHealth(0.);E->RecordDefeat(Actor);
++                const int32 Kills=E->FirstWaveKills;const uint32 Revision=Generator->SharedProgress.Revision;
++                E->RecordDefeat(Actor);
++                Death->SetBoolField(TEXT("zero_health_defeated_once"),Slot.bDefeated&&E->FirstWaveKills==Kills&&Generator->SharedProgress.Revision==Revision);
++                if (Objective!=INDEX_NONE&&Theme)
++                {
++                    Theme->UpdateEncounter();Theme->Tick(10.f);
++                    bool Open=Theme->IsObjectiveDefeated()&&Theme->bCleared;
++                    for (ADungeonRoomGate* Gate:Theme->Gates)Open&=Gate->NetOpen==1.f&&!Gate->NetLocked;
++                    Death->SetBoolField(TEXT("objective_opens_all_boundaries"),Open);
++                    Death->SetNumberField(TEXT("boundaries"),Theme->Gates.Num());
++                }
++                Actor->Destroy();Slot.Monster.Reset();
++                if (E->bFreight&&E->FreightBossSlot!=INDEX_NONE&&E->Slots.Num()>E->FirstWaveCount)
++                {
++                    auto& Pending=E->Slots[E->FirstWaveCount];Pending.bDefeated=false;
++                    const int32 PreviousKills=E->FirstWaveKills;
++                    E->UpdateFreightReinforcements();
++                    Death->SetBoolField(TEXT("boss_cancels_pending_without_kill"),Pending.bDefeated&&E->FirstWaveKills==PreviousKills);
++                }
++                if (AFacilityHallEncounter::IsHall(E->Room.Module))
++                {
++                    const int32 Ordinary=E->FirstWaveCount-(E->ObjectiveEliteSlot!=INDEX_NONE?1:0);
++                    bool Correct=E->bSecondWave==(E->FirstWaveKills*2>Ordinary);
++                    for (int32 I=0;I<E->FirstWaveCount;++I)
++                    {
++                        auto& OrdinarySlot=E->Slots[I];if(OrdinarySlot.bDefeated||OrdinarySlot.bObjectiveElite)continue;
++                        auto* Worker=MakeDeferred(I);auto* HP=FindFProperty<FNumericProperty>(Worker->GetClass(),TEXT("Health"));
++                        if(!HP||!HP->IsFloatingPoint()){Correct=false;Worker->Destroy();continue;}
++                        OrdinarySlot.Monster=Worker;HP->SetFloatingPointPropertyValue(HP->ContainerPtrToValuePtr<void>(Worker),0.);
++                        E->RecordDefeat(Worker);Correct&=E->bSecondWave==(E->FirstWaveKills*2>Ordinary);
++                        Worker->Destroy();OrdinarySlot.Monster.Reset();
++                    }
++                    Death->SetBoolField(TEXT("second_wave_threshold_excludes_objective"),Correct);
++                }
++            }
++            else {Death->SetStringField(TEXT("error"),TEXT("native health property unavailable"));if(Actor)Actor->Destroy();}
++        }
++        Room->SetObjectField(TEXT("death_observer_and_objective"),Death);
++        Rooms.Add(MakeShared<FJsonValueObject>(Room));Report->SetArrayField(TEXT("rooms"),Rooms);Save();
++        UE_LOG(LogTemp,Display,TEXT("FACILITY_RECHECK room=%s slots=%d completed=%d/%d"),*E->Room.Module,E->FirstWaveCount,Rooms.Num(),Encounters.Num());
++    }
++    int32 BegunActors=0;for(TActorIterator<AActor> It(World);It;++It)BegunActors+=It->HasActorBegunPlay();
++    Report->SetBoolField(TEXT("begin_play_called"),World->HasBegunPlay());Report->SetNumberField(TEXT("actors_with_begin_play"),BegunActors);
++    Report->SetNumberField(TEXT("encounters"),Encounters.Num());Report->SetBoolField(TEXT("complete"),Encounters.Num()==21);Save();
++    GEngine->DestroyWorldContext(World);World->DestroyWorld(false);
++    return Encounters.Num()==21?0:3;
++}

@@ -164,6 +164,7 @@ public:
     UPROPERTY(Replicated,VisibleInstanceOnly,Category="Combat|Tentacle") float TentacleHealth=300.f;
     bool IsTentacleHit(const FHitResult& Hit) const;
     static bool IsTentaclePart(const FHitResult& Hit);
+    static FName NetworkHitBone(const FHitResult& Hit);
     float ApplyTentacleShot(float Damage);
 private:
     void UpdateTentacleHitShapes();

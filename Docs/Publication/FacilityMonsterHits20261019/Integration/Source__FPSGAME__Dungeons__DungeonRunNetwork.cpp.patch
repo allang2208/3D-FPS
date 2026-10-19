@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp
+@@ -37,6 +37,7 @@
+     State.bEcologyBossDefeated=IsEcologyBossDefeated();
+     State.bPowerBossDefeated=IsPowerBossDefeated();
+     State.bIncinerationBossDefeated=IsIncinerationBossDefeated();
++    State.bStaffLivingBossDefeated=IsStaffLivingBossDefeated();
+     State.bFinalBossDefeated=IsFinalBossDefeated();State.bFinalTreasureLooted=bFinalTreasureLooted;
+     State.Cleared=Cleared.Array();State.Explored=Explored.Array();
+     State.Cleared.Sort(FNameLexicalLess());State.Explored.Sort(FNameLexicalLess());
+@@ -56,6 +57,7 @@
+     bNetworkEcologyBossDefeated=State.bEcologyBossDefeated;
+     bNetworkPowerBossDefeated=State.bPowerBossDefeated;
+     bNetworkIncinerationBossDefeated=State.bIncinerationBossDefeated;
++    bNetworkStaffLivingBossDefeated=State.bStaffLivingBossDefeated;
+     bNetworkFinalBossDefeated=State.bFinalBossDefeated;bFinalTreasureLooted=State.bFinalTreasureLooted;
+     // This is a read-only client mirror. Do not save, grant rewards, or open local gates here.
+ }
+@@ -78,8 +80,8 @@
+         if(It->ActorHasTag(TEXT("DungeonTreasure.Opened")))Out->OpenedChests.Add(Key);
+         if(auto* Glass=It->FindComponentByClass<UWardBreakableGlass>();Glass&&Glass->bBroken)Out->BrokenGlass.Add(Key);
+         if(auto* Door=Cast<AColdSteelDoor>(*It);Door&&!Door->GetIsReplicated())Out->DoorSwings.Add(Key,Door->NetworkSwing());
+-        if(It->Tags.ContainsByPredicate([](const FName& Tag){return Tag.ToString().StartsWith(TEXT("DungeonHallDoor."));}))
+-            Out->SceneTransforms.Add(Key,It->GetActorTransform());
++        // Generated service-door poses travel on their encounter actor. The
++        // slower scene snapshot must not overwrite a newer open/close motion.
+     }
+     if(bActive)Out->RunId = CurrentRunId;
+     // Task progress travels on the generator's small replicated state, not this bulk transfer.

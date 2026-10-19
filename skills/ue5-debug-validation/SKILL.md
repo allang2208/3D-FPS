@@ -16,3 +16,5 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 用户要求多进程主客机或渲染检查时，读 [运行负载与构建证据](references/multi-process-runtime-evidence.md)：独立 DLL 宿主仍共享硬件负载，源/对象校验、成功链接和运行结果分别记录。用户叫停后，整理与发布不恢复测试授权。
 
 地图文件存在但联机载入失败，或无界面地牢卡在渲染预热时，读 [地图预加载与无界面诊断](references/map-preload-and-headless-dungeon.md)。
+
+- 隔离权威命中夹具、真实 RPC 分派与覆盖边界：读取 [authority-hit-fixture](references/authority-hit-fixture.md)。

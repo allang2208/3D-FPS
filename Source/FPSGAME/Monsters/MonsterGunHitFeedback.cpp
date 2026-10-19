@@ -155,8 +155,9 @@ void UMonsterIdleBreathingMeshComponent::AddGunHitFeedback(
         * FMath::Clamp(.85f + Damage / 160.f, .85f, 1.45f));
 }
 
-bool UMonsterIdleBreathingMeshComponent::ApplyGunHitFeedback()
+bool UMonsterIdleBreathingMeshComponent::ApplyGunHitFeedback(bool& bPoseChanged)
 {
+    bPoseChanged = false;
     const auto* Execution = Combat.Get();
     const auto* Mesh = GetSkeletalMeshAsset();
     if (!Execution || Execution->IsDead() || Execution->IsControlled() || Execution->IsKnockedDown()
@@ -187,6 +188,7 @@ bool UMonsterIdleBreathingMeshComponent::ApplyGunHitFeedback()
     // also removes the last offset on the expiration frame, without pose drift.
     for (const int32 TrackIndex : RestoreTracks)
     {
+        bPoseChanged = true;
         const auto& Track = GunHitBones[TrackIndex];
         Pose[Track.Index] = IncomingComponentPose(Local, Skeleton, Track.Index);
         for (const int32 Child : Track.Descendants)

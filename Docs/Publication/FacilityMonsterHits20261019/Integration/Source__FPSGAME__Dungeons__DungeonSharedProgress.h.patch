@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
++++ b/Source/FPSGAME/Dungeons/DungeonSharedProgress.h
+@@ -16,6 +16,7 @@
+     UPROPERTY() bool bEcologyBossDefeated = false;
+     UPROPERTY() bool bPowerBossDefeated = false;
+     UPROPERTY() bool bIncinerationBossDefeated = false;
++    UPROPERTY() bool bStaffLivingBossDefeated = false;
+     UPROPERTY() bool bFinalBossDefeated = false;
+     UPROPERTY() bool bFinalTreasureLooted = false;
+     UPROPERTY() bool bCompleted = false;

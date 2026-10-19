@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h
+@@ -7,7 +7,7 @@
+ class AAuthoredDungeonGenerator;
+ class ADungeonRoomGate;
+ struct FDungeonRunDoor;
+-enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, FreightBoss, EcologyBoss, PowerBoss, IncinerationBoss, FinalBoss };
++enum class EDungeonThemeObjective : uint8 { WelcomeElite, MedicalBoss, FreightBoss, EcologyBoss, PowerBoss, IncinerationBoss, FinalBoss, StaffLivingBoss };
+ 
+ /** Room spawners own kills; each configured area's objective unlocks its boundary gates. */
+ UCLASS(NotBlueprintable, Transient)
+@@ -26,6 +26,7 @@
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+ 
+ private:
++    friend class UFacilitySpawnRecheckCommandlet;
+     void UpdateEncounter();
+     bool UsesBoundaryAdmission() const { return Objective != EDungeonThemeObjective::WelcomeElite; }
+     bool IsObjectiveDefeated() const;

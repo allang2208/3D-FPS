@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp
+@@ -110,6 +110,7 @@
+     if (Objective==EDungeonThemeObjective::PowerBoss) return Run->IsPowerBossDefeated();
+     if (Objective==EDungeonThemeObjective::IncinerationBoss) return Run->IsIncinerationBossDefeated();
+     if (Objective==EDungeonThemeObjective::FinalBoss) return Run->IsFinalBossDefeated();
++    if (Objective==EDungeonThemeObjective::StaffLivingBoss) return Run->IsStaffLivingBossDefeated();
+     return Run->IsWelcomeEliteDefeated();
+ }
+ 
+@@ -121,6 +122,7 @@
+     if (Objective==EDungeonThemeObjective::PowerBoss) return TEXT("power.vortex_coffer");
+     if (Objective==EDungeonThemeObjective::IncinerationBoss) return TEXT("treatment.incinerator_m66");
+     if (Objective==EDungeonThemeObjective::FinalBoss) return TEXT("final.heque");
++    if (Objective==EDungeonThemeObjective::StaffLivingBoss) return TEXT("staff_living.blind_supplicant");
+     return TEXT("welcome.elite");
+ }
+ 

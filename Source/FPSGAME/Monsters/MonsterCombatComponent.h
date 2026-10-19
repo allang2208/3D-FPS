@@ -14,6 +14,7 @@ class FPSGAME_API UMonsterCombatComponent : public UActorComponent
 public:
  UMonsterCombatComponent();
  virtual void BeginPlay() override;
+ virtual void EndPlay(const EEndPlayReason::Type Reason) override;
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
  virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
  UFUNCTION() void OnRep_HitReactions();
@@ -150,4 +151,11 @@ private:
  FVector FormationPullCenter=FVector::ZeroVector;
  float FormationPullDistance=0.f,FormationPullAge=0.f;
  void TickFormationPull(float Delta);
+public:
+ void InitializeNetworkHitHistory();
+ void CaptureNetworkHitPose();
+ bool ResolveNetworkHit(FHitResult& Hit,double At) const;
+private:
+ TSharedPtr<class FMonsterNetworkHitHistory> NetworkHitHistory;
+ FDelegateHandle NetworkHitPoseHandle;
 };

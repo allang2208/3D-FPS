@@ -1,0 +1,55 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -57,7 +57,8 @@
+                 : AFacilityHallEncounter::IsFreight(Node.Module) ? IsFreightBossDefeated()
+                 : AFacilityHallEncounter::IsEcology(Node.Module) ? IsEcologyBossDefeated()
+                 : AFacilityHallEncounter::IsPower(Node.Module) ? IsPowerBossDefeated()
+-                : AFacilityHallEncounter::IsIncineration(Node.Module) ? IsIncinerationBossDefeated() : IsRoomCleared(Node.Id);
++                : AFacilityHallEncounter::IsIncineration(Node.Module) ? IsIncinerationBossDefeated()
++                : AFacilityHallEncounter::IsStaffLiving(Node.Module) ? IsStaffLivingBossDefeated() : IsRoomCleared(Node.Id);
+             if(!Passed){Complete=false;break;}
+         }
+         if(Rooms>0&&Complete)return true;
+@@ -161,6 +162,7 @@
+         BindEcologyTheme(InGenerator);
+         BindPowerTheme(InGenerator);
+         BindIncinerationTheme(InGenerator);
++        BindStaffLivingTheme(InGenerator);
+         BindFinalBossTheme(InGenerator);
+         for (const auto& Node : Nodes)
+         {
+@@ -169,6 +171,7 @@
+                 : AFacilityHallEncounter::IsEcology(Node.Module) ? EcologyTheme.Get()
+                 : AFacilityHallEncounter::IsPower(Node.Module) ? PowerTheme.Get()
+                 : AFacilityHallEncounter::IsIncineration(Node.Module) ? IncinerationTheme.Get()
++                : AFacilityHallEncounter::IsStaffLiving(Node.Module) ? StaffLivingTheme.Get()
+                 : AFacilityHallEncounter::IsFinalBossRoom(Node.Module) ? FinalBossTheme.Get()
+                 : AFacilityHallEncounter::IsHall(Node.Module) ? HallTheme.Get() : nullptr;
+             if (!Area) continue;
+@@ -209,6 +212,8 @@
+     PowerTheme.Reset();
+     if (IncinerationTheme.IsValid()) IncinerationTheme->Destroy();
+     IncinerationTheme.Reset();
++    if(StaffLivingTheme.IsValid())StaffLivingTheme->Destroy();
++    StaffLivingTheme.Reset();bNetworkStaffLivingBossDefeated=false;
+     if(FinalBossTheme.IsValid())FinalBossTheme->Destroy();
+     FinalBossTheme.Reset();bNetworkFinalBossDefeated=false;bFinalTreasureLooted=false;
+     bShrineClaimed=false;
+@@ -640,6 +645,17 @@
+         Out.Hint=FText::FromString(Objective.Current==1 ? TEXT("焚化区已通过 · 来路与出口已开放")
+             : TEXT("焚骸位于第三间烟气净化站 · 处理厅负一层在下楼进入后触发"));
+     }
++    else if (AFacilityHallEncounter::IsStaffLiving(Room->Module))
++    {
++        Out.Stage=FText::FromString(TEXT("区域首领"));
++        Objective.Id=TEXT("staff_living.blind_supplicant");
++        Objective.Text=FText::FromString(TEXT("击杀生活区首领：盲祷者 M-31"));
++        Objective.Current=IsStaffLivingBossDefeated() ? 1 : 0;
++        Objective.Target=1;
++        Objective.State=Objective.Current==1 ? ETrackedObjectiveState::Completed : ETrackedObjectiveState::Active;
++        Out.Hint=FText::FromString(Objective.Current==1 ? TEXT("生活区已通过 · 来路与出口已开放")
++            : TEXT("盲祷者位于第三间休闲厅 · 击败后开启区域两端闸门"));
++    }
+     else
+     {
+         // Later regions already have names and geography; their combat goals

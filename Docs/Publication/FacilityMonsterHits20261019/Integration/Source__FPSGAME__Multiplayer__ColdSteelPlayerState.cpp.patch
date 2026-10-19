@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -2,6 +2,7 @@
+ #include "../Monsters/RootCrownRigPreview.h"
+ #include "../Monsters/RootCrownHitComponent.h"
+ #include "../Monsters/HeQueMonster.h"
++#include "../Monsters/HumanoidHitVolumeData.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "ColdSteelNetWorldSubsystem.h"
+ #include "ColdSteelNetSessionSubsystem.h"
+@@ -15,6 +16,7 @@
+ #include "../Dungeons/WardBreakableGlass.h"
+ #include "../Combat/CombatStatusFormula.h"
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
++#include "../Monsters/BoundCongregate.h"
+ #include "Components/PrimitiveComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/Super90WeaponAssets.h"
+@@ -1252,8 +1254,8 @@
+     Hit.HitObjectHandle = FActorInstanceHandle(Report.Target.Get());
+     Hit.bBlockingHit = true;
+     Hit.TraceStart=Report.AimOrigin;Hit.TraceEnd=Report.ImpactPoint;
+-    if(const auto* HeQue=Cast<AHeQueMonster>(Report.Target.Get()))
+-        HeQue->ResolveRemoteHit(Report.AimOrigin,Report.ImpactPoint,Hit);
++    if(const auto* Combat=Report.Target?Report.Target->FindComponentByClass<UMonsterCombatComponent>():nullptr)
++        if(!Combat->ResolveNetworkHit(Hit,Report.ClientFireTime))return;
+     if(const auto* Crown=Cast<ARootCrownRigPreview>(Report.Target.Get()))
+     {
+         // Resolve against the authority's anatomical history. Client bone names
+@@ -1704,7 +1706,8 @@
+     Report.AimOrigin = Hit.TraceStart;
+     Report.ImpactPoint = Hit.ImpactPoint;
+     Report.HitNormal = Hit.ImpactNormal;
+-    Report.BoneName = Hit.BoneName;
++    Report.BoneName = UHumanoidHitVolumeData::NetworkBoneName(Hit);
++    if(Cast<ABoundCongregate>(Hit.GetActor()))Report.BoneName=ABoundCongregate::NetworkHitBone(Hit);
+     if(const auto* Component=Hit.GetComponent())Report.HitComponent=Component->GetFName();
+     if(const auto* Part=Hit.GetComponent();Part&&Part->ComponentHasTag(TEXT("BoundCongregateTentacle")))
+         Report.BoneName=Part->GetAttachSocketName();

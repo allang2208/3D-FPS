@@ -1,0 +1,89 @@
+--- a/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
++++ b/Source/FPSGAME/Dungeons/FacilityHallEncounter.h
+@@ -3,7 +3,6 @@
+ #include "CoreMinimal.h"
+ #include "GameFramework/Actor.h"
+ #include "DungeonRunSubsystem.h"
+-#include "FacilityMonsterGpuWarmup.h"
+ #include "FacilityMonsterGpuWarmup.h"
+ #include "FacilityHallEncounter.generated.h"
+ class ACharacter;
+@@ -23,6 +22,7 @@
+     bool bPowerBoss = false;
+     bool bIncinerationBoss = false;
+     bool bFinalBoss = false;
++    bool bStaffLivingBoss = false;
+     bool bIncinerationBasement = false;
+     int32 IncinerationPosition = INDEX_NONE;
+     int32 FreightPosition = INDEX_NONE;
+@@ -33,6 +33,7 @@
+     int32 MedicalPosition = INDEX_NONE;
+     int32 EcologyPosition = INDEX_NONE;
+     int32 PowerPosition = INDEX_NONE;
++    int32 StaffLivingPosition = INDEX_NONE;
+ };
+ 
+ struct FFacilityHallDoor
+@@ -88,6 +89,8 @@
+     static TArray<FString> PowerMonsterClassPaths();
+     static bool IsIncineration(const FString& Module);
+     static TArray<FString> IncinerationMonsterClassPaths();
++    static bool IsStaffLiving(const FString& Module);
++    static TArray<FString> StaffLivingMonsterClassPaths();
+     static bool IsFinalBossRoom(const FString& Module);
+     static TArray<FString> FinalBossClassPaths();
+     static bool IsDoorLeaf(const FString& Module, const FString& Mesh);
+@@ -101,6 +104,7 @@
+     bool IsEcologyBossDefeated() const;
+     bool IsPowerBossDefeated() const;
+     bool IsIncinerationBossDefeated() const;
++    bool IsStaffLivingBossDefeated() const;
+     bool IsFinalBossDefeated() const;
+     void Configure(UDungeonRunSubsystem* InRun, int32 InNode, AAuthoredDungeonGenerator* InGenerator, class ADungeonThemeEncounter* InTheme);
+     virtual void Tick(float DeltaSeconds) override;
+@@ -108,6 +112,11 @@
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+ 
+ private:
++    friend class UFacilitySpawnRecheckCommandlet;
++#if WITH_EDITOR
++    // Explicit offline diagnosis only; unset in normal editor/game encounters.
++    TFunction<void(const TCHAR*, const FVector&)> SpawnAuditFailure;
++#endif
+     friend class UFacilityHallSpawnSubsystem;
+     void UpdateEncounter();
+     bool TrySpawnPendingSlot();
+@@ -117,12 +126,14 @@
+     int32 PreparationPriority(int32 SlotIndex, double& DistanceSquared) const;
+     void DiscardPreparedMonster(const TCHAR* Reason = TEXT("end_play"));
+     bool SpawnSlot(int32 SlotIndex);
+-    bool FindSpawn(const ACharacter* Defaults, const FVector& Candidate, FVector& Location, float Footprint = 0.f) const;
++    bool FindSpawn(const ACharacter* Defaults, const FVector& Candidate, FVector& Location, float Footprint = 0.f,
++        const FBox* AuthoredSpawnFloor = nullptr) const;
+     bool FindInitialSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     void ConfigureMedical();
+     bool FindMedicalSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     void ConfigureFreight();
+     void RegisterServiceDoors();
++    void EnableServiceDoorReplication();
+     void ConfigureFreightReinforcements();
+     void UpdateFreightReinforcements();
+     APawn* FreightTargetNear(const FVector& Location) const;
+@@ -135,6 +146,8 @@
+     void ConfigurePower();
+     bool FindPowerSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     void ConfigureIncineration();
++    void ConfigureStaffLiving();
++    bool FindStaffLivingSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     void ConfigureFinalBoss();
+     bool FindFinalBossSpawn(const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+     bool FindIncinerationSpawn(const FFacilityHallSlot& Slot, const ACharacter* Defaults, FVector& Location, FRotator& Facing);
+@@ -187,6 +200,8 @@
+     bool bPower = false;
+     int32 IncinerationBossSlot = INDEX_NONE;
+     bool bIncineration = false, bIncinerationBasementEntered = false;
++    int32 StaffLivingBossSlot = INDEX_NONE;
++    bool bStaffLiving = false;
+     int32 FinalBossSlot = INDEX_NONE;
+     bool bFinalBossRoom = false;
+     float ObjectiveEliteFootprint = 0.f;

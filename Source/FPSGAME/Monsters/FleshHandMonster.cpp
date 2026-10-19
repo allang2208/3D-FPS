@@ -127,6 +127,9 @@ void AFleshHandMonster::BeginPlay()
  Super::BeginPlay();if(HasAuthority()){MaxHealth*=MonsterCoreStats::HealthMultiplier();Health=MaxHealth;}Home=GetActorLocation();
  if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);
  GetMesh()->SetAnimInstanceClass(UFatZombieAnimInstance::StaticClass());
+ // The authority must keep live query bodies posed during an offscreen remote fight.
+ // Proxy rendering and the existing corpse budget keep their previous policy.
+ if(HasAuthority())GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
  GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
  if(PalmFistMesh)PalmFist->SetStaticMesh(PalmFistMesh);
  PalmFist->SetRelativeRotation(GetMesh()->GetRelativeRotation());
@@ -602,6 +605,7 @@ float AFleshHandMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
  Super::TakeDamage(Applied,Event,DamageInstigator,Causer);
  if(Health<=0)
  {
+  GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::OnlyTickPoseWhenRendered;
   bConsumed=true;LockedTarget.Reset();Target.Reset();
   CorpseRagdoll->PrepareDeath(GetMesh());
   const bool SoftCorpse=CorpseRagdoll->TryStartSoftDeath(GetMesh());

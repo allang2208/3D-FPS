@@ -43,6 +43,7 @@ protected:
     virtual void Tick(float DeltaSeconds) override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 private:
+    friend class UFacilitySpawnRecheckCommandlet;
     UPROPERTY() TArray<TObjectPtr<AActor>> GeneratedActors;
     UPROPERTY(Transient) TArray<TObjectPtr<UObject>> GenerationResources;
     TSharedPtr<FAuthoredDungeonBuildState, ESPMode::ThreadSafe> BuildState;

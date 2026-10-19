@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -352,6 +352,7 @@
+     bool bContainerNeedsRefresh=false;
+     friend class UColdSteelAcquisitionAuditCommandlet;
+     friend class USkillNetworkAuditCommandlet;
++    friend class UMonsterNetworkHitAuditCommandlet;
+     friend class UShotgunAttachmentAuditCommandlet;
+     friend class AShotgunWireAuditController;
+     friend class AShotgunWireAuditGameMode;

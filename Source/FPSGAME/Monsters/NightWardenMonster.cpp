@@ -24,6 +24,7 @@ ANightWardenMonster::ANightWardenMonster(const FObjectInitializer& Initializer)
     // Share the existing Nurse navigation specification (34 / 184 / 40),
     // while preserving the V07 170 cm body and its ground offset.
     GetCapsuleComponent()->InitCapsuleSize(34.f, 85.f);
+    GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
     auto* Movement = GetCharacterMovement();
     Movement->SetUpdateNavAgentWithOwnersCollisions(false);
     auto& Agent = Movement->GetNavAgentPropertiesRef();
@@ -43,7 +44,10 @@ ANightWardenMonster::ANightWardenMonster(const FObjectInitializer& Initializer)
     Body->SetRelativeLocation(FVector(0, 0, -85.f));
     Body->SetRelativeRotation(FRotator::ZeroRotator);
     Body->SetAnimInstanceClass(UNightWardenAnimInstance::StaticClass());
-    Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    Body->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+    Body->SetCollisionObjectType(ECC_Pawn);
+    Body->SetCollisionResponseToAllChannels(ECR_Ignore);
+    Body->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
     Body->SetCanEverAffectNavigation(false);
     Body->bEnableUpdateRateOptimizations = false;
     Body->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;

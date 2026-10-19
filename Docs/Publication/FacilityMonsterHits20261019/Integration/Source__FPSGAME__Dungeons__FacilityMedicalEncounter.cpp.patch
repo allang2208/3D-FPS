@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Dungeons/FacilityMedicalEncounter.cpp
++++ b/Source/FPSGAME/Dungeons/FacilityMedicalEncounter.cpp
+@@ -110,6 +110,11 @@
+         // pair or falls back to the public corridor or the other mantis' room.
+         if (!MantisRoom) return false;
+     }
++    // Ward walk_mask contains only the central corridor. Mantis slots belong
++    // to their chosen bedside bays, while ordinary staff keep the corridor rule.
++    const FBox MantisSpawnFloor = MantisRoom
++        ? FBox(MantisRoom->Min-FVector(0,0,40),MantisRoom->Max+FVector(0,0,40)).TransformBy(RoomTransform)
++        : FBox(ForceInit);
+     for (int32 Attempt=0; Attempt<12; ++Attempt)
+     {
+         FVector Candidate;
+@@ -150,7 +155,7 @@
+                 || Room.DistanceSquared(Contact)>FMath::Square(20.)) continue;
+             Location=Contact-FVector(0,0,143);
+         }
+-        else if (!FindSpawn(Defaults,Candidate,Location,Footprint)) continue;
++        else if (!FindSpawn(Defaults,Candidate,Location,Footprint,MantisRoom ? &MantisSpawnFloor : nullptr)) continue;
+         Facing=FRotator(0,Placement.FRandRange(-180.f,180.f),0); return true;
+     }
+     return false;

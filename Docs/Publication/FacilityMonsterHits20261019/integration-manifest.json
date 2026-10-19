@@ -1,0 +1,485 @@
+{
+  "scope": "owned source increments only; named local prerequisites are required for patches",
+  "git_base": "52393caffb17cc4ba657d54f023f15c12f223a49",
+  "entries": [
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "baseline": "SourceAssets/StaffLivingEmployees20261017/Before/Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp",
+      "baseline_sha256_lf": "695d33ccabfb031283bca5c5553a8e2f6cc53be9e4f7dbfb23083011c89ed353",
+      "result_sha256_lf": "b22842106aa766a76d78cfb4c7c5d3caa1e42103bea48332354d34022eb2183c",
+      "working_sha256": "fbe01dbae2978822df7bf83b88f7b813ab8ef0fef2d4ad9b7090ca858e5e1a25",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__DevelopmentSpawnComponent.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "baseline": "SourceAssets/StaffLivingEmployees20261017/Before/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "baseline_sha256_lf": "cce6f5cb10b61eed25016eb6fb82842b997e714f346ff6ecb39e39bf7be70657",
+      "result_sha256_lf": "6f43e9b95658fab31699ccefac721d852cf19abe6bd211fc60189ea3eb4bc57e",
+      "working_sha256": "d82a7afbefd5a4a21132d64e6ad3b374384176987078bd1981c3328d9e57c7c8",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "2d229c43a78121d6a0621dc3029bcc0f27092f6b64d6abeed6bc3701524e81ac"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "baseline": "SourceAssets/StaffLivingEmployees20261017/Before/Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "baseline_sha256_lf": "92706a598d7f7176ade419e927b4eb88e2e9b9f08606bbdc83e208085e2754c8",
+      "result_sha256_lf": "046574e1889d31b6e120e918fbd35055929e78cf620664c7e08a1f1484bd8ce4",
+      "working_sha256": "596ec5d4894b0cf7c0e51afcbb2d018fb1cdaae62f453dfe21a0432ec53d1622",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Monsters__NurseZombie.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp",
+      "baseline_sha256_lf": "edf4af579bdc134229c6c82bd37e726295e4a8d83b8c41e6704b76167e41faee",
+      "result_sha256_lf": "bf694b1d5c1ccfc05888b02697ca0ee25d8a45bd66ef99792f85188fa20e5f33",
+      "working_sha256": "359e19ab535a0b071893b2210eec7f3c7d065c514a3252c9f33581387eb36c05",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__AuthoredDungeonGenerator.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/DungeonRunNetwork.cpp",
+      "baseline_sha256_lf": "b82a89874c29df90ea85995dd842b87d57f977de569fe088e7c8b1c5c8f7eaf1",
+      "result_sha256_lf": "69968fafb6dc7946bebf65ea593bb209715cfc484a12294e76374542e9cdda83",
+      "working_sha256": "8dad03dbf0f5a43f1da5c0d514e1724b1c006b0ff4b3b298531b3be961dce2d4",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunNetwork.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+      "baseline_sha256_lf": "0d480ce50e4fa53056a753a7b4f3ebc1c4881eaee5ded40ba6d49b2fd748fa59",
+      "result_sha256_lf": "a2d3011edaed34c6aa8092c471bd60718b5406707c4205a75575a0e7dbbdc81d",
+      "working_sha256": "bd7466116941c1a02902468f372ef874d3423764b081cee4dcf253f7f9e6b8fb",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunSubsystem.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+      "baseline_sha256_lf": "d00804015f3f248a0a9621af0bffa281d7875e0b3dd4fa3dd00bbb6a07f7a5fb",
+      "result_sha256_lf": "9de7be0a9f5a8f001622474fbd85b5cc328f40c92e1ba3f08ebd65dd04775238",
+      "working_sha256": "f3f4444c54d73aa535a9da1e563fef5523652175a99bbd87bb24f9beebdbdde2",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunSubsystem.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/DungeonSharedProgress.h",
+      "baseline_sha256_lf": "1bae1d9310bf06986627b99b2215d0cd229c8cb7bb458ec54a305d456ecf4e50",
+      "result_sha256_lf": "42cf9b92daab88d9b4af25e46715320ae31e649ee6cb6bf16b6ac4be8dcbef68",
+      "working_sha256": "c918fdb2ae6aa57994eb0fd8311a18f34fbf453e8ea780750b9283bc8d444ff7",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonSharedProgress.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.cpp",
+      "baseline_sha256_lf": "0dae48f21db4f3a7b4fe65dc42398043d277b1d083690c8b2ce41384d9e8599f",
+      "result_sha256_lf": "cc7d79073bb5e1ff31d6e59b5d4f0226198926c1d2fc52088d8ca69ec9912281",
+      "working_sha256": "917d5866db3e24940184f047997a2a204996190ece673194dfb56675f8ba52db",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonThemeEncounter.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/DungeonThemeEncounter.h",
+      "baseline_sha256_lf": "3c76418d96d2d8c9a8ec7d9c7d36ba4f182fcbf5500dd395ea17cc9cf0e46852",
+      "result_sha256_lf": "885e01c2ff4c4a9278b285190eb0c27024a8e09c681307c668003dfb4ba100aa",
+      "working_sha256": "75357c3a9ab7d379e4c665d2c7fbb79d2ccaab93b87dc86ee94373556cd9d0d3",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonThemeEncounter.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.cpp",
+      "baseline_sha256_lf": "b7060f21082af27179190d16a2c499533b50bcbe2c19902d40b0a1a9e3852636",
+      "result_sha256_lf": "69a02aa9643b2d0437b916580c373cd64572e11f4bf5bbc15d1c472b3652ff65",
+      "working_sha256": "dc9e67ec25be3d6c49e9940b425e81f6ddf2fd6d9680c68c042e437a3551067c",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityHallEncounter.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "baseline": "SourceAssets/StaffLivingEncounter20261017/Before/Source/FPSGAME/Dungeons/FacilityHallEncounter.h",
+      "baseline_sha256_lf": "ca1020164eb3d48b50973204da69d90138f7d73a564ea80a91082e7b491a20b0",
+      "result_sha256_lf": "68ffc07122acd2160a5800a4fb849e324ae452d444802defede8308579f03caf",
+      "working_sha256": "28f099d2ce1ad7426ddaed2b7e0952e0ccc79d58d11e72b551d17527fc206a75",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityHallEncounter.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline": "SourceAssets/HumanoidHitRepair20261018/Before/Source/ColdSteelPlayerState.cpp",
+      "baseline_sha256_lf": "fa2b2af9beed0b175d8b0117568578b585eb4d0bc22dee118b4ed913eed4aec7",
+      "result_sha256_lf": "7edfb5d9cc833085d22c514a9e0e6dfca85c6a54f3f436e95fcced29fde0e29b",
+      "working_sha256": "4f23a37f761f9da727ee813b544f1ba15a753abdd267d5aab66d1d0d900f56f5",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "baseline": "SourceAssets/HumanoidHitRepair20261018/Before/Source/ColdSteelSkillRules.cpp",
+      "baseline_sha256_lf": "ad01a2d90421b2df68e11d1d07d2d60c55b64539baeaa330c5aecb7ac5ee97a3",
+      "result_sha256_lf": "5d5f97646d7ab0bab1eccb8d833b379a9e7f013ed702cf12356f177d869c5218",
+      "working_sha256": "3271a698c39e90b095bc8b31f94b93593db76c0aa37a1760f58902375cf8d14d",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "366156648003e52e78039d80e1e22981a70a97d8ce299c09c33053ae5b3ef686"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterGunHitFeedback.cpp",
+      "baseline": "SourceAssets/HumanoidHitRepair20261018/Before/Source/MonsterGunHitFeedback.cpp",
+      "baseline_sha256_lf": "b7db3afba3458448b2155fd2964614b4ebc1c6e9b070f423acae308c1a75ad82",
+      "result_sha256_lf": "495582ccc11f57711c11c6546d9530ec6985eeb127f7b42188cdc62406721529",
+      "working_sha256": "495582ccc11f57711c11c6546d9530ec6985eeb127f7b42188cdc62406721529",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "495582ccc11f57711c11c6546d9530ec6985eeb127f7b42188cdc62406721529"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.cpp",
+      "baseline": "SourceAssets/HumanoidHitRepair20261018/Before/Source/MonsterIdleBreathingMeshComponent.cpp",
+      "baseline_sha256_lf": "d1e0356ebc46a0aa29145f8b850660176d616dd933f851ec481d3dacd8ef3257",
+      "result_sha256_lf": "c5cd2fd426533a4771acfd608cd4351cf8fcc3139964e4fecd5604ac5b5ed38d",
+      "working_sha256": "c5cd2fd426533a4771acfd608cd4351cf8fcc3139964e4fecd5604ac5b5ed38d",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "520ccf34f69d26c34687578e6187079f8ac0d210fea7a8e11132d82683546862"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterIdleBreathingMeshComponent.h",
+      "baseline": "SourceAssets/HumanoidHitRepair20261018/Before/Source/MonsterIdleBreathingMeshComponent.h",
+      "baseline_sha256_lf": "3162b04b018ea6392ef8d101ab4f2d56af5eb816e5c3679cc7d0caeef3eb4ef8",
+      "result_sha256_lf": "53425aed79d76e8ccf909555bd18e1c7b8500211a78df714d7520af103f4ebd5",
+      "working_sha256": "53425aed79d76e8ccf909555bd18e1c7b8500211a78df714d7520af103f4ebd5",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "b6f836c6ea4c94e67dbd8f1eb1dc1b4844db2996fdb885c0eaadaac21dce6c0e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMonster.cpp",
+      "baseline": "SourceAssets/HumanoidHitRepair20261018/Before/Source/NightWardenMonster.cpp",
+      "baseline_sha256_lf": "05bd99e95f274331ee9ea71c6e13a291149583805466fbff612f592e96c70206",
+      "result_sha256_lf": "f21037a471a0c157527dea225c8242eecbb961cbb81b16104deb1f939b269bd2",
+      "working_sha256": "f21037a471a0c157527dea225c8242eecbb961cbb81b16104deb1f939b269bd2",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "f21037a471a0c157527dea225c8242eecbb961cbb81b16104deb1f939b269bd2"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregate.h",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/BoundCongregate.h",
+      "baseline_sha256_lf": "ef54e34064b36c80f7c47647869ccb6acbd716e3828c0fa50e8236480122c259",
+      "result_sha256_lf": "3a567f7cec290ca7b3eb19980bacbee896aa3e01cfce848f6e82428d70d5e61e",
+      "working_sha256": "3a567f7cec290ca7b3eb19980bacbee896aa3e01cfce848f6e82428d70d5e61e",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "92ebcc6204938c302ad17e2e5bf354725af9c53851ce479a0cdd10e9d3b0c75e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregateTentacleHealth.cpp",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/BoundCongregateTentacleHealth.cpp",
+      "baseline_sha256_lf": "713d51bddbc04590815a0733d64b5c4d1f39789ee0d0c7e87821b74323ed0669",
+      "result_sha256_lf": "43e9038663487fa5ad822acea3b7044c2ff95efe6ce325055060b3029abcddcc",
+      "working_sha256": "43e9038663487fa5ad822acea3b7044c2ff95efe6ce325055060b3029abcddcc",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "43e9038663487fa5ad822acea3b7044c2ff95efe6ce325055060b3029abcddcc"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/FleshHandMonster.cpp",
+      "baseline_sha256_lf": "196605a2105ef82842dc46791473f7158b1a618f1d88251cb4eea3295c76fd0e",
+      "result_sha256_lf": "5f36bc1d2cde1f4030241df3e9285de70eb5c6dfcd1d53d9cc89b68f1ee022a8",
+      "working_sha256": "5ff54996a35b67dd5115b2891c2fd92d71deaf5c23dc0d19d0cc0ec16d557dce",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "5f36bc1d2cde1f4030241df3e9285de70eb5c6dfcd1d53d9cc89b68f1ee022a8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10CombatSurface.cpp",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/M10CombatSurface.cpp",
+      "baseline_sha256_lf": "d1d02a42d1c19d3e506a862d4a980931258ed2b6a1ec0b25940548d846d0138f",
+      "result_sha256_lf": "e6240570878cdb7030c5756fb487312af7b74c6b22db12797d186f7e51b3aa1a",
+      "working_sha256": "e6240570878cdb7030c5756fb487312af7b74c6b22db12797d186f7e51b3aa1a",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "e6240570878cdb7030c5756fb487312af7b74c6b22db12797d186f7e51b3aa1a"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/RangedAttackQuery.cpp",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/RangedAttackQuery.cpp",
+      "baseline_sha256_lf": "05a2259fbd1909a87166ffdfa7aa2ed261ec772d064f25a0d978ecb3be561dc3",
+      "result_sha256_lf": "fcf558a46f47e8c8429860512764dd028c5aca946888dda37a0eeb75649eca05",
+      "working_sha256": "fcf558a46f47e8c8429860512764dd028c5aca946888dda37a0eeb75649eca05",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "fcf558a46f47e8c8429860512764dd028c5aca946888dda37a0eeb75649eca05"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitComponent.cpp",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/RootCrownHitComponent.cpp",
+      "baseline_sha256_lf": "5665a0ef2077abec64009851e3a5b56b354937a544254607a40134a0e615d6e6",
+      "result_sha256_lf": "fc1818a06eb69f0cc71b88a8c2f38132a0e2732043087a4036062ba9ac8e2201",
+      "working_sha256": "fc1818a06eb69f0cc71b88a8c2f38132a0e2732043087a4036062ba9ac8e2201",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "fc1818a06eb69f0cc71b88a8c2f38132a0e2732043087a4036062ba9ac8e2201"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownHitComponent.h",
+      "baseline": "SourceAssets/NonHumanoidHitAudit20261018/Before/Source/RootCrownHitComponent.h",
+      "baseline_sha256_lf": "3708204e88301a165892d1b8145dd6f0666e9e56afbc748209c7bbbf447754f3",
+      "result_sha256_lf": "a0196c47520979959d376d09f9fd2e7be7e1d767cd3d93d9601a4d70d60e4166",
+      "working_sha256": "a0196c47520979959d376d09f9fd2e7be7e1d767cd3d93d9601a4d70d60e4166",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "a0196c47520979959d376d09f9fd2e7be7e1d767cd3d93d9601a4d70d60e4166"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityEcologyEncounter.cpp",
+      "baseline": "SourceAssets/EcologySpawnFix20261017/Before/FacilityEcologyEncounter.cpp",
+      "baseline_sha256_lf": "dd6bcd414bb95981b307777291c35071580a14359fc5f041bad8c26fa53a2f17",
+      "result_sha256_lf": "78ad2b34f109917f4333e67b73b102705548fdca6bcaa16fd8e6d5aee6c1ebd1",
+      "working_sha256": "a042353564b86e9549603d27dbd98b8211a77608176b89630b84eaef73d200b6",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityEcologyEncounter.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityFreightReinforcements.cpp",
+      "baseline": "SourceAssets/FacilitySpawnAudit20261017/Before/FacilityFreightReinforcements.cpp",
+      "baseline_sha256_lf": "1db1d22fef7d0c2da41ff072ff19f66a6d196d453e5be87569b7e6fc9d37806b",
+      "result_sha256_lf": "735bc19f762b94722a9663725dced2ff63c6011e0baec32c7c196cc6233dfceb",
+      "working_sha256": "735bc19f762b94722a9663725dced2ff63c6011e0baec32c7c196cc6233dfceb",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityFreightReinforcements.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityMedicalEncounter.cpp",
+      "baseline": "SourceAssets/FacilitySpawnAudit20261017/Before/FacilityMedicalEncounter.cpp",
+      "baseline_sha256_lf": "1b157900c33fd457f5e3a064594c73a59d406b6cb038ac1fb6ce1ac664677626",
+      "result_sha256_lf": "5bf5972d4a9d65324e4c669b53e5b10e50da61a03f8af0022b79d8c6c41defff",
+      "working_sha256": "5bf5972d4a9d65324e4c669b53e5b10e50da61a03f8af0022b79d8c6c41defff",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityMedicalEncounter.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.h",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/M10Mawcrawler.h",
+      "baseline_sha256_lf": "4295bbffd1bd891b0bd29a2c70ecf464d4a65d7c1f4d755dcc85f7b5616f27f2",
+      "result_sha256_lf": "c3b30c3b4800c8b2c6565bb736abe5f4ef96d32e1cbaf7eba7aa9c914fa619b2",
+      "working_sha256": "59dac585552dbcf01f49947a3bf29b9e6a9fcd4bf83ff5ea9829c65776fe2534",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "c3b30c3b4800c8b2c6565bb736abe5f4ef96d32e1cbaf7eba7aa9c914fa619b2"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/M10Mawcrawler.cpp",
+      "baseline_sha256_lf": "69f2f9fef534b786affd66c9094c3eb98216c89960e0e6830982419cb4bbf267",
+      "result_sha256_lf": "e01938cbb3689ebc1c7926dd04628fd06f89edf37195977fa89039d528335a19",
+      "working_sha256": "85774b208566051bc6a280093904c9dad326f98d7806278b70e74c030e99854d",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "e01938cbb3689ebc1c7926dd04628fd06f89edf37195977fa89039d528335a19"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.h",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/HangingBellM09.h",
+      "baseline_sha256_lf": "a8825d58c45b47075c33cf0990957737675741f2e73286e8192933830680e550",
+      "result_sha256_lf": "32ce2ffb30ea50f86f4aa0a5b8a83e00786d5a3aeed53300c038265639b79d73",
+      "working_sha256": "7e2ba9ec24410a97fd92efda9d31a547a9d103b1f06889c594654cd1b4669680",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "32ce2ffb30ea50f86f4aa0a5b8a83e00786d5a3aeed53300c038265639b79d73"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "baseline_sha256_lf": "bf54a8a05d3c38b9c1e0666c6baa2883a30cc6b1af081a8c7bb7589a6753f6e2",
+      "result_sha256_lf": "c931cd8ed93132265342b4f818e5fd2e1ed2f8fa4496e8881b4edcdf3c1a6762",
+      "working_sha256": "14e223ffe81e1b0a9e09f22a13843217adfcc56e30e949a45148650c19d7ad48",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "c931cd8ed93132265342b4f818e5fd2e1ed2f8fa4496e8881b4edcdf3c1a6762"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.h",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/SpiralPillarM14.h",
+      "baseline_sha256_lf": "dd7f38d59e8c3c0574cf8fe7f912a2c15b5c87a0c64952ebf61436ee248ea089",
+      "result_sha256_lf": "c831e1fc6132de3a9c26346589107a1f4ff84174c5b162bb35f9b9c298a8ffa2",
+      "working_sha256": "720e630b7e8773663d1dbfface49f5d3bb6264b987ff68ef6dec88d32abc66d9",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "c831e1fc6132de3a9c26346589107a1f4ff84174c5b162bb35f9b9c298a8ffa2"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/SpiralPillarM14.cpp",
+      "baseline_sha256_lf": "b68c9ee26f3e91400b9f0faa7eecfec625269c8389dfc2ce02fa98961e5dd260",
+      "result_sha256_lf": "7f4b85daedc653dee085cea6b82a170ca77b24e444051770f4eec40fe33d0c9c",
+      "working_sha256": "e211eb66c73f63d6e3a468dd3c21a61552a412ce0a40699dd7c3cd2045f353cf",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "7f4b85daedc653dee085cea6b82a170ca77b24e444051770f4eec40fe33d0c9c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "baseline_sha256_lf": "1cff3d144d71e407aabc20c73553e809bc90e5d627709e108dc4a040bbfa7238",
+      "result_sha256_lf": "4159aa08443161234d3f4533171751d9a2d3458006eafb34c6fe6ba4113463ad",
+      "working_sha256": "4159aa08443161234d3f4533171751d9a2d3458006eafb34c6fe6ba4113463ad",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "4159aa08443161234d3f4533171751d9a2d3458006eafb34c6fe6ba4113463ad"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.h",
+      "baseline_sha256_lf": "34915ff070bfa58c0f7df94346374a3fa81ba5bcabb83f44cf2543df20ebc23a",
+      "result_sha256_lf": "95c735a77a061e4b20d0dc05daf6371f16b96e96cb152ab5413473fc2f49d3b6",
+      "working_sha256": "fdb0bcec34035bc1434f88f47cfbf273324aab640fd9d50ab8d404fb0091080c",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "95c735a77a061e4b20d0dc05daf6371f16b96e96cb152ab5413473fc2f49d3b6"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline": "SourceAssets/MonsterPublication20261019/Prerequisites/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline_sha256_lf": "96b3d77719eea586de28ec832f8c265c7e472dd432f6db08c75cffb2b10871d8",
+      "result_sha256_lf": "8683059b5174a5723b9208a2b031aceda756209653374206a321dcac37e7e49b",
+      "working_sha256": "8683059b5174a5723b9208a2b031aceda756209653374206a321dcac37e7e49b",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline": "SourceAssets/MonsterPublication20261019/Prerequisites/Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "baseline_sha256_lf": "6f508eb0989e69cfafacd3f2829c01bbdb638b1077f8f4463f8b797ff379b485",
+      "result_sha256_lf": "366ff9e3dbd89a361b0c124aa2841cafecf63f3ba51a129c327df745494cb4f7",
+      "working_sha256": "68679e3d98fd7e81094fe25023d1cf2777cb40db37ddd10a54f38f7f80f2f4ba",
+      "mode": "baseline_patch",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch"
+    },
+    {
+      "path": "Docs/Monsters/monster-taxonomy-20261006.md",
+      "baseline": "git:52393caffb17cc4ba657d54f023f15c12f223a49:Docs/Monsters/monster-taxonomy-20261006.md",
+      "baseline_sha256_lf": "1e25221e404e4d181486efc031e6aa60a3267791c9004cf2e5a32f2d1c0ff494",
+      "result_sha256_lf": "518868851bc985359962c15e44491c822f05c58a8df101272b6be4f3ed66fb75",
+      "working_sha256": "a1f07d5399f0323f165bbd4e6108c8f593740e5fca932803945ad67f353d1378",
+      "mode": "direct_owned_hunks",
+      "published_sha256_lf": "518868851bc985359962c15e44491c822f05c58a8df101272b6be4f3ed66fb75"
+    },
+    {
+      "path": "Source/FPSGAME/Development/MedicalBossSpawnDiagnosisCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "ea18f27a563fc1320d30c6c00f9acc1edda75a47bc932edeec4416f80881d2c5",
+      "result_sha256_lf": "ea18f27a563fc1320d30c6c00f9acc1edda75a47bc932edeec4416f80881d2c5",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MedicalBossSpawnDiagnosisCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/MedicalBossSpawnDiagnosisCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "59e0bed09a04203aec6d5092f5fab72822441d20a867adcab7891deae27068fb",
+      "result_sha256_lf": "59e0bed09a04203aec6d5092f5fab72822441d20a867adcab7891deae27068fb",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MedicalBossSpawnDiagnosisCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/FacilitySpawnRecheckCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "ca82470efe0d6bfe7fd3915622cb0a10baac88dd6026d4cc158a1942373e0ddb",
+      "result_sha256_lf": "ca82470efe0d6bfe7fd3915622cb0a10baac88dd6026d4cc158a1942373e0ddb",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__FacilitySpawnRecheckCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/FacilitySpawnRecheckCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "d0a182f4e6296761d73166300e2d668d841b62fc58dda61f46b0b4d2aa7c6394",
+      "result_sha256_lf": "d0a182f4e6296761d73166300e2d668d841b62fc58dda61f46b0b4d2aa7c6394",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__FacilitySpawnRecheckCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HumanoidHitVolumeAuthoringCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "cbd8e83e96655f0d54a2a515eb49c9fba7db747c1514a401224d7e3f0b2a79fc",
+      "result_sha256_lf": "cbd8e83e96655f0d54a2a515eb49c9fba7db747c1514a401224d7e3f0b2a79fc",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuthoringCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HumanoidHitVolumeAuthoringCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "11e3e5efad670e76feda0ee485adab07c84bc5c0eeea162231d10340644a68d4",
+      "result_sha256_lf": "11e3e5efad670e76feda0ee485adab07c84bc5c0eeea162231d10340644a68d4",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuthoringCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HumanoidHitVolumeAuditCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "efe8df7965dee297eeb1df48f6b9bfe35ea4c9a13280b5f6f4aabfbfc7886600",
+      "result_sha256_lf": "efe8df7965dee297eeb1df48f6b9bfe35ea4c9a13280b5f6f4aabfbfc7886600",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuditCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HumanoidHitVolumeAuditCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "5d45f061195f763e644274f9cbf137afcfeee57f6cf95217aded7a9a4ee76a24",
+      "result_sha256_lf": "5d45f061195f763e644274f9cbf137afcfeee57f6cf95217aded7a9a4ee76a24",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__HumanoidHitVolumeAuditCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/NonHumanoidHitRepairCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "5ab13af9b240a28e4ce8b1fd17541a496c96aca857307749d82430a04cfab2fc",
+      "result_sha256_lf": "5ab13af9b240a28e4ce8b1fd17541a496c96aca857307749d82430a04cfab2fc",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitRepairCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/NonHumanoidHitRepairCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "3cdbee2903b756401c77b53e7025e1881be772081b7ffe70a39e61008368f539",
+      "result_sha256_lf": "bd620ac39c1e7a107b97ac5eb0f4d43ac85ed4417ae224c621fbab2397ca64eb",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitRepairCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/NonHumanoidHitAuditCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "6901dc46e3f781e5f51a496cb4642e8cc7faf6b38b78d9033aa2dbc6c0591901",
+      "result_sha256_lf": "6901dc46e3f781e5f51a496cb4642e8cc7faf6b38b78d9033aa2dbc6c0591901",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitAuditCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/NonHumanoidHitAuditCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "746c9c23e2fd4a11e51784c0b7dff35d29000501934a63d517ed2363aa081358",
+      "result_sha256_lf": "0eaf6c424c08d4191b29739bd0ccbbc50ee101601b920889d4f59d2388ccc3ec",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__NonHumanoidHitAuditCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/MonsterNetworkHitAuditCommandlet.h",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "42da4f693de0668b40af3f903b007065c24f8ab7604d2f8366f1a03ff42c17b8",
+      "result_sha256_lf": "42da4f693de0668b40af3f903b007065c24f8ab7604d2f8366f1a03ff42c17b8",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MonsterNetworkHitAuditCommandlet.h.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Development/MonsterNetworkHitAuditCommandlet.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "1b0a150b8932b3485ad4ba373bcbfd72c22651a27db981ed37c6b0325743ff98",
+      "result_sha256_lf": "1b0a150b8932b3485ad4ba373bcbfd72c22651a27db981ed37c6b0325743ff98",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Development__MonsterNetworkHitAuditCommandlet.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/FacilityStaffLivingEncounter.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "fcd8c2dd250844215a0c294a732a09498f51fe77c39b363fee96e11815a68906",
+      "result_sha256_lf": "55930a5fa19ffcde3237f41325a5c1c4446215e54d20f61add67496dff5b6bb1",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__FacilityStaffLivingEncounter.cpp.patch"
+    },
+    {
+      "path": "Source/FPSGAME/Dungeons/DungeonRunStaffLiving.cpp",
+      "mode": "new_source_patch",
+      "baseline": "absent; install only with shared host prerequisites",
+      "working_sha256": "824bc7d172ebecfe62430578d838d62d2c7c7ce1c9ceef5bb9eec44836177e53",
+      "result_sha256_lf": "bfb251b6b8a251d3d124bd48306e7a4347e23e5b3ecae365a2a9529652cd838c",
+      "patch": "Docs/Publication/FacilityMonsterHits20261019/Integration/Source__FPSGAME__Dungeons__DungeonRunStaffLiving.cpp.patch"
+    }
+  ]
+}

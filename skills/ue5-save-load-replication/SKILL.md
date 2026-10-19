@@ -28,3 +28,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 远端静止瞄准、装备／身体态乱序、机械支撑手与激光落点的身份约束，以及受控联机检查的覆盖边界，读取 [全身表现的联机瞄准与接触](../ue5-cpp-gameplay/references/player-world-body.md#联机瞄准与接触)。
 
 - 弓换手、双手进食收弓及事件滞留的复制边界：[弓与消耗品表现同步](../ue5-cpp-gameplay/references/player-world-body.md#弓换手与消耗品恢复的表现同步2026-10-18)。
+
+- 移动怪物延迟命中、弱点遮挡及器官生命池：读取 [monster-delayed-hit](references/monster-delayed-hit.md)。

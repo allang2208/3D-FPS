@@ -14,6 +14,9 @@
 
 | 怪物 | 类 | 编号 | 形态标签 | 软体死亡 | 音效体系 |
 |---|---|---|---|---|---|
+| 男性员工 | NurseZombie / LivingStaffMale | M-01 | 人形 | 否 | 共享 HumanoidAudioV1 |
+| 女性员工A | NurseZombie / LivingStaffFemaleA | M-01 | 人形 | 否 | 共享 HumanoidAudioV1 |
+| 女性员工B | NurseZombie / LivingStaffFemaleB | M-01 | 人形 | 否 | 共享 HumanoidAudioV1 |
 | 盲祷者 | BlindSupplicantMonster | M-07 | 类人形＋异形 | 否（人形保留） | 部分：墙拟态身份音 ×1 |
 | 伏窥者 | LurkerM08Monster | M-08 | 异形 | 已接入 | **AudioV01**（6 条 + 气炮 V06/V11 沿用） |
 | 悬钟 | HangingBellM09 | M-09 | 异形 | 已接入 | **AudioV01**（7 条 + 复用 V07/V08） |

@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
++++ b/Source/FPSGAME/Dungeons/AuthoredDungeonGenerator.cpp
+@@ -1049,6 +1049,13 @@
+         for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+     }
+     if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
++        {return AFacilityHallEncounter::IsStaffLiving(Plan.Modules[Piece.Module].Id);}))
++    {
++        for(const FString& Path:AFacilityHallEncounter::StaffLivingMonsterClassPaths())
++        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
++        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
++    }
++    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+         {return AFacilityHallEncounter::IsFinalBossRoom(Plan.Modules[Piece.Module].Id);}))
+     {
+         for(const FString& Path:AFacilityHallEncounter::FinalBossClassPaths())

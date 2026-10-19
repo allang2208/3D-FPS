@@ -1,0 +1,334 @@
+--- /dev/null
++++ b/Source/FPSGAME/Development/HumanoidHitVolumeAuthoringCommandlet.cpp
+@@ -0,0 +1,331 @@
++#include "HumanoidHitVolumeAuthoringCommandlet.h"
++#include "DevelopmentSpawnComponent.h"
++#include "../Monsters/HumanoidHitVolumeData.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Engine/SkeletalMesh.h"
++#include "GameFramework/Character.h"
++#include "PhysicsEngine/PhysicsAsset.h"
++#include "PhysicsEngine/SkeletalBodySetup.h"
++#include "Misc/FileHelper.h"
++#include "Misc/PackageName.h"
++#include "Misc/Parse.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/UnrealType.h"
++#if WITH_EDITOR
++#include "AssetCompilingManager.h"
++#include "AssetRegistry/AssetRegistryModule.h"
++#include "CompGeom/ConvexHull3.h"
++#include "ClothingAsset.h"
++#include "Engine/Blueprint.h"
++#include "Kismet2/BlueprintEditorUtils.h"
++#include "Kismet2/KismetEditorUtilities.h"
++#include "Rendering/SkeletalMeshModel.h"
++#include "Rendering/SkeletalMeshLODModel.h"
++#include "UObject/SavePackage.h"
++#endif
++
++#if WITH_EDITOR
++namespace HumanoidHitAuthoring
++{
++using namespace UE::Geometry;
++const TSet<FName> IDs={TEXT("FatZombie"),TEXT("Mutant3"),TEXT("NurseZombie"),TEXT("SpitterZombie"),TEXT("WitchRebuilt"),
++    TEXT("FacelessSecurity"),TEXT("FacelessReceptionist"),TEXT("FacelessResearcher"),TEXT("LivingStaffMale"),TEXT("LivingStaffFemaleA"),
++    TEXT("LivingStaffFemaleB"),TEXT("EcologyGardener"),TEXT("CargoPorter"),TEXT("CargoTechnician"),TEXT("NightWardenRig"),TEXT("MantisM27"),TEXT("BlindSupplicantM07")};
++using FPolygon=TArray<FVector,TInlineAllocator<12>>;
++
++void Clip(FPolygon& P, int32 Axis, double Limit, bool KeepLess)
++{
++    if(P.IsEmpty()) return;
++    FPolygon Result;
++    FVector A=P.Last();double DA=(A[Axis]-Limit)*(KeepLess?1.:-1.);
++    for(const FVector B:P)
++    {
++        const double DB=(B[Axis]-Limit)*(KeepLess?1.:-1.);
++        if((DA<=0)!=(DB<=0)) Result.Add(FMath::Lerp(A,B,DA/(DA-DB)));
++        if(DB<=0) Result.Add(B);
++        A=B;DA=DB;
++    }
++    P=MoveTemp(Result);
++}
++void ClipBox(FPolygon& P,const FBox& Box)
++{for(int32 Axis=0;Axis<3;++Axis){Clip(P,Axis,Box.Min[Axis],false);Clip(P,Axis,Box.Max[Axis],true);}}
++
++struct FPatch
++{
++    TSet<FIntVector> Points;
++    // Quantization only reduces coincident vertices; the hull is padded beyond
++    // its 0.05 cm rounding error, so a mesh triangle cannot disappear at a seam.
++    void Add(const FVector& P){Points.Add(FIntVector(FMath::RoundToInt(P.X*10),FMath::RoundToInt(P.Y*10),FMath::RoundToInt(P.Z*10)));}
++};
++using FPatches=TMap<FIntVector,FPatch>;
++void AddPolygon(FPatches& Patches,const FPolygon& Polygon,double Cell)
++{
++    if(Polygon.Num()<3)return;
++    FBox Bounds(ForceInit);for(const FVector P:Polygon)Bounds+=P;
++    const auto Key=[Cell](const FVector& P){return FIntVector(FMath::FloorToInt(P.X/Cell),FMath::FloorToInt(P.Y/Cell),FMath::FloorToInt(P.Z/Cell));};
++    const FIntVector Low=Key(Bounds.Min),High=Key(Bounds.Max);
++    for(int32 Z=Low.Z;Z<=High.Z;++Z)for(int32 Y=Low.Y;Y<=High.Y;++Y)for(int32 X=Low.X;X<=High.X;++X)
++    {
++        const FIntVector K(X,Y,Z);const FVector Min=FVector(K)*Cell;
++        FPolygon Piece=Polygon;ClipBox(Piece,FBox(Min,Min+FVector(Cell)));
++        if(Piece.Num()<3)continue;
++        auto& Patch=Patches.FindOrAdd(K);for(const FVector P:Piece)Patch.Add(P);
++    }
++}
++
++bool MakeHull(const FPatch& Patch,const FTransform& BoneFrame,FKConvexElem& Shape,FHumanoidCriticalHull* Critical)
++{
++    TArray<FVector> Points;Points.Reserve(Patch.Points.Num()*2);
++    for(const FIntVector P:Patch.Points)Points.Add(FVector(P)*.1);
++    if(Points.Num()<3)return false;
++    // A thin, outward 0.2 cm shell also makes planar cloth/skin patches valid
++    // Chaos convexes. Spatial cells retain concave gaps between model parts.
++    const int32 Count=Points.Num();
++    TArray<FVector> Expanded;Expanded.Reserve(Count*8);
++    for(const FVector P:Points)for(int32 Z:{-1,1})for(int32 Y:{-1,1})for(int32 X:{-1,1})Expanded.Add(P+FVector(X,Y,Z)*.2);
++    FConvexHull3d Hull;
++    if(!Hull.Solve(Expanded.Num(),[&](int32 I){return Expanded[I];}))return false;
++    TMap<int32,int32> VertexMap;
++    for(const auto& Tri:Hull.GetTriangles())for(int32 I=0;I<3;++I)
++        if(!VertexMap.Contains(Tri[I]))
++        {VertexMap.Add(Tri[I],Shape.VertexData.Num());Shape.VertexData.Add(BoneFrame.InverseTransformPosition(Expanded[Tri[I]]));}
++    FVector Center=FVector::ZeroVector;for(const FVector P:Shape.VertexData)Center+=P;Center/=Shape.VertexData.Num();
++    if(Critical){Critical->Bounds=FBox(Shape.VertexData);Critical->Planes.Reset();}
++    for(const auto& Tri:Hull.GetTriangles())
++    {
++        const FVector A=Shape.VertexData[VertexMap[Tri.A]],B=Shape.VertexData[VertexMap[Tri.B]],C=Shape.VertexData[VertexMap[Tri.C]];
++        FVector Normal=FVector::CrossProduct(B-A,C-A).GetSafeNormal();
++        if(FVector::DotProduct(Normal,Center-A)>0)Normal=-Normal;
++        if(Critical&&!Normal.IsNearlyZero())Critical->Planes.Add(FPlane(A,Normal));
++    }
++    Shape.UpdateElemBox();Shape.SetName(TEXT("FittedModelHitQuery"));
++    Shape.SetCollisionEnabled(ECollisionEnabled::QueryOnly);Shape.SetContributeToMass(false);
++    return true;
++}
++
++bool Save(UObject* Object,const FString& BackupRoot)
++{
++    UPackage* Package=Object->GetOutermost();
++    const FString File=FPackageName::LongPackageNameToFilename(Package->GetName(),FPackageName::GetAssetPackageExtension());
++    if(IFileManager::Get().FileExists(*File))
++    {
++        const FString Backup=BackupRoot/Package->GetName().RightChop(1)+TEXT(".uasset");
++        if(!IFileManager::Get().FileExists(*Backup))
++        {IFileManager::Get().MakeDirectory(*FPaths::GetPath(Backup),true);if(IFileManager::Get().Copy(*Backup,*File)!=COPY_OK)return false;}
++    }
++    IFileManager::Get().MakeDirectory(*FPaths::GetPath(File),true);
++    Package->MarkPackageDirty();FSavePackageArgs Args;Args.TopLevelFlags=RF_Public|RF_Standalone;Args.SaveFlags=SAVE_NoError;
++    return UPackage::SavePackage(Package,Object,*File,Args);
++}
++}
++#endif
++
++int32 UHumanoidHitVolumeAuthoringCommandlet::Main(const FString& Params)
++{
++#if !WITH_EDITOR
++    return 1;
++#else
++    using namespace HumanoidHitAuthoring;
++    FString Output,Only;int32 Revision=1;
++    if(!FParse::Value(*Params,TEXT("Report="),Output))return 1;
++    FParse::Value(*Params,TEXT("Only="),Only);
++    FParse::Value(*Params,TEXT("Revision="),Revision);
++    const FString BackupRoot=FPaths::GetPath(Output)/TEXT("Before/Packages");
++    auto Receipt=MakeShared<FJsonObject>();TArray<TSharedPtr<FJsonValue>> Rows;
++    Receipt->SetBoolField(TEXT("gameplay_started"),false);Receipt->SetBoolField(TEXT("tests_run"),false);
++    auto Write=[&](){Receipt->SetArrayField(TEXT("monsters"),Rows);FString Text;FJsonSerializer::Serialize(Receipt,TJsonWriterFactory<>::Create(&Text));FFileHelper::SaveStringToFile(Text,*Output);};
++    for(const auto& Entry:GetDefault<UDevelopmentSpawnComponent>()->GetMonsters())
++    {
++        if(!IDs.Contains(Entry.Id)||(!Only.IsEmpty()&&Entry.Id.ToString()!=Only))continue;
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("id"),Entry.Id.ToString());Rows.Add(MakeShared<FJsonValueObject>(Row));Write();
++        auto Fail=[&](const FString& Why){Row->SetStringField(TEXT("error"),Why);Write();UE_LOG(LogTemp,Error,TEXT("HUMANOID_FIT %s: %s"),*Entry.Id.ToString(),*Why);};
++        UClass* Class=Entry.CharacterClass.LoadSynchronous();auto* CDO=Class?Cast<ACharacter>(Class->GetDefaultObject()):nullptr;
++        if(!CDO){Fail(TEXT("Character class missing"));return 2;}
++        auto* Component=CDO->GetMesh();USkeletalMesh* Mesh=Component->GetSkeletalMeshAsset();
++        if(const auto* Visual=FindFProperty<FObjectPropertyBase>(Class,TEXT("VisualMesh")))
++            if(auto* Authored=Cast<USkeletalMesh>(Visual->GetObjectPropertyValue_InContainer(CDO)))Mesh=Authored;
++        FAssetCompilingManager::Get().FinishAllCompilation();
++        if(!Mesh||!Mesh->GetImportedModel()||Mesh->GetImportedModel()->LODModels.IsEmpty()){Fail(TEXT("Imported LOD0 missing"));return 2;}
++        const auto& Ref=Mesh->GetRefSkeleton();const auto& LOD=Mesh->GetImportedModel()->LODModels[0];
++        TArray<FTransform> Frames=Ref.GetRefBonePose();int32 Head=INDEX_NONE;
++        for(int32 I=0;I<Ref.GetNum();++I)
++        {
++            if(Ref.GetParentIndex(I)>=0)Frames[I]*=Frames[Ref.GetParentIndex(I)];
++            const FString Name=Ref.GetBoneName(I).ToString();
++            if(Head==INDEX_NONE&&(Name.Equals(TEXT("head"),ESearchCase::IgnoreCase)||Name.Equals(TEXT("cranium"),ESearchCase::IgnoreCase)
++                ||(Entry.Id==TEXT("NightWardenRig")&&Name==TEXT("Bone_016"))))Head=I;
++        }
++        if(Head==INDEX_NONE){Fail(TEXT("Anatomical head bone unavailable"));return 2;}
++        const FString PackageName=TEXT("/Game/Monsters/FittedHits20261018/PA_")+Entry.Id.ToString()
++            +(Revision>1?FString::Printf(TEXT("_R%d"),Revision):FString());
++        const FString AssetName=FPackageName::GetShortName(PackageName);
++        if(FPackageName::DoesPackageExist(PackageName)){Fail(TEXT("Destination already exists; preserve saved result and use -Only for unfinished entries"));return 2;}
++        auto* Original=Component->PhysicsAssetOverride?Component->PhysicsAssetOverride.Get():Mesh->GetPhysicsAsset();
++        if(Original)if(const auto* Prior=Cast<UHumanoidHitVolumeData>(Original->GetAssetUserDataOfClass(UHumanoidHitVolumeData::StaticClass())))
++            Original=Prior->OriginalPhysicsAsset==TEXT("None")?nullptr:LoadObject<UPhysicsAsset>(nullptr,*Prior->OriginalPhysicsAsset);
++        Row->SetStringField(TEXT("mesh"),Mesh->GetPathName());Row->SetStringField(TEXT("original_physics"),GetPathNameSafe(Original));
++        UPackage* Package=CreatePackage(*PackageName);
++        auto* Asset=Original?CastChecked<UPhysicsAsset>(StaticDuplicateObject(Original,Package,*AssetName)):
++            NewObject<UPhysicsAsset>(Package,*AssetName,RF_Public|RF_Standalone);
++        Asset->SetFlags(RF_Public|RF_Standalone);Asset->SetPreviewMesh(Mesh);
++        FAssetRegistryModule::AssetCreated(Asset);
++        // New query hulls have no mass and do not enter physical/cloth simulation.
++        // Existing physical primitives and constraints retain their authored form.
++        for(USkeletalBodySetup* Body:Asset->SkeletalBodySetups)if(Body)
++            for(int32 I=0;I<Body->AggGeom.GetElementCount();++I)
++            {
++                auto* Shape=Body->AggGeom.GetElement(I);
++                Shape->SetCollisionEnabled(CollisionEnabledHasPhysics(Shape->GetCollisionEnabled())?ECollisionEnabled::PhysicsOnly:ECollisionEnabled::NoCollision);
++            }
++        if(!Original)
++        {
++            TSet<int32> Deforming;
++            for(const auto& Section:LOD.Sections)for(const auto& V:Section.SoftVertices)
++                for(int32 W=0;W<MAX_TOTAL_INFLUENCES;++W)if(V.InfluenceWeights[W]>0)Deforming.Add(Section.BoneMap[V.InfluenceBones[W]]);
++            Deforming.Add(Head);
++            for(int32 Bone=1;Bone<Ref.GetNum();++Bone)if(Deforming.Contains(Bone))
++            {
++                auto* Body=NewObject<USkeletalBodySetup>(Asset);Body->BoneName=Ref.GetBoneName(Bone);Body->PhysicsType=PhysType_Kinematic;
++                Body->DefaultInstance.SetCollisionEnabled(ECollisionEnabled::QueryOnly);Asset->SkeletalBodySetups.Add(Body);
++            }
++        }
++        Asset->UpdateBodySetupIndexMap();
++        const int32 HeadBody=Asset->FindBodyIndex(Ref.GetBoneName(Head));
++        if(HeadBody==INDEX_NONE){Fail(TEXT("Head rigid body missing from existing asset"));return 2;}
++        TArray<int32> Mapping;Mapping.Init(INDEX_NONE,Ref.GetNum());
++        for(int32 Bone=0;Bone<Ref.GetNum();++Bone)
++        {
++            for(int32 B=Bone;B>=0;B=Ref.GetParentIndex(B))
++            {
++                const int32 Body=Asset->FindBodyIndex(Ref.GetBoneName(B));
++                if(Body>=0&&Asset->SkeletalBodySetups[Body]->DefaultInstance.GetCollisionEnabled()!=ECollisionEnabled::NoCollision){Mapping[Bone]=Body;break;}
++            }
++            if(Mapping[Bone]==INDEX_NONE)
++            {
++                double Best=TNumericLimits<double>::Max();
++                for(int32 B=0;B<Asset->SkeletalBodySetups.Num();++B)
++                {
++                    const auto* Body=Asset->SkeletalBodySetups[B].Get();const int32 Joint=Ref.FindBoneIndex(Body->BoneName);
++                    if(Joint<0||Body->DefaultInstance.GetCollisionEnabled()==ECollisionEnabled::NoCollision)continue;
++                    const double Distance=FVector::DistSquared(Frames[Joint].GetLocation(),Frames[Bone].GetLocation());
++                    if(Distance<Best){Best=Distance;Mapping[Bone]=B;}
++                }
++            }
++        }
++        TArray<FVector> Positions;Positions.SetNum(LOD.NumVertices);
++        TArray<TMap<int32,double>> Weights;Weights.SetNum(LOD.NumVertices);FBox MeshBounds(ForceInit);
++        TArray<double> AppendageWeights;AppendageWeights.Init(0.,LOD.NumVertices);
++        TArray<int32> TriangleMaterials;TriangleMaterials.Init(INDEX_NONE,LOD.IndexBuffer.Num()/3);
++        for(const auto& Section:LOD.Sections)
++        {
++            const int32 FirstTriangle=int32(Section.BaseIndex/3);
++            FString Slot;
++            if(Mesh->GetMaterials().IsValidIndex(Section.MaterialIndex))Slot=Mesh->GetMaterials()[Section.MaterialIndex].ImportedMaterialSlotName.ToString();
++            if(!Section.bDisabled&&!Slot.Contains(TEXT("SimulationProxy"))&&!Slot.Contains(TEXT("DrapeProxy")))
++                for(int32 T=FirstTriangle;T<FirstTriangle+int32(Section.NumTriangles);++T)TriangleMaterials[T]=Section.MaterialIndex;
++            for(int32 V=0;V<Section.SoftVertices.Num();++V)
++            {
++                const auto& Input=Section.SoftVertices[V];const int32 Index=Section.BaseVertexIndex+V;
++                Positions[Index]=FVector(Input.Position);MeshBounds+=Positions[Index];double Total=0;
++                for(int32 W=0;W<MAX_TOTAL_INFLUENCES;++W)if(Input.InfluenceWeights[W])
++                {
++                    const int32 Bone=Section.BoneMap[Input.InfluenceBones[W]],Body=Mapping[Bone];
++                    if(Body>=0)
++                    {
++                        Weights[Index].FindOrAdd(Body)+=Input.InfluenceWeights[W];Total+=Input.InfluenceWeights[W];
++                        const FString BoneName=Ref.GetBoneName(Bone).ToString();
++                        if(BoneName.StartsWith(TEXT("gill_"))||BoneName.Contains(TEXT("membrane")))AppendageWeights[Index]+=Input.InfluenceWeights[W];
++                    }
++                }
++                if(Total>0){for(auto& W:Weights[Index])W.Value/=Total;AppendageWeights[Index]/=Total;}
++            }
++        }
++        FBox CraniumLimit(ForceInit);
++        if(Entry.Id==TEXT("BlindSupplicantM07"))
++        {
++            // The original authored M-31 head primitive identifies the cranium,
++            // not the large sensory fans parented to it. Fit real skin inside it;
++            // all fan surfaces still receive ordinary-damage query hulls.
++            CraniumLimit=Original->SkeletalBodySetups[HeadBody]->AggGeom.CalcAABB(Frames[Head]);
++        }
++        const double Scale=FMath::Clamp(MeshBounds.GetSize().Z/175.,.8,2.5);
++        TArray<FPatches> Patches;Patches.SetNum(Asset->SkeletalBodySetups.Num());FPatches CriticalPatches;
++        int32 SurfaceTriangles=0,CriticalTriangles=0;
++        for(int32 I=0;I+2<LOD.IndexBuffer.Num();I+=3)
++        {
++            if(TriangleMaterials[I/3]==INDEX_NONE)continue;
++            const int32 A=LOD.IndexBuffer[I],B=LOD.IndexBuffer[I+1],C=LOD.IndexBuffer[I+2];
++            if(FVector::CrossProduct(Positions[B]-Positions[A],Positions[C]-Positions[A]).SizeSquared()<1.e-10)continue;
++            TMap<int32,double> Score;for(const int32 V:{A,B,C})for(const auto& W:Weights[V])Score.FindOrAdd(W.Key)+=W.Value;
++            int32 Body=INDEX_NONE;double Best=-1;for(const auto& W:Score)if(W.Value>Best){Body=W.Key;Best=W.Value;}
++            if(Body<0){Fail(TEXT("Unbound surface triangle"));return 2;}
++            FPolygon Polygon={Positions[A],Positions[B],Positions[C]};
++            AddPolygon(Patches[Body],Polygon,(Body==HeadBody?10.:18.)*Scale);++SurfaceTriangles;
++            if(Body!=HeadBody)continue;
++            const int32 Mat=TriangleMaterials[I/3];
++            FString Slot;
++            if(Mesh->GetMaterials().IsValidIndex(Mat))Slot=Mesh->GetMaterials()[Mat].ImportedMaterialSlotName.ToString();
++            if(Entry.Id==TEXT("WitchRebuilt")&&!Slot.Contains(TEXT("Head"),ESearchCase::IgnoreCase))continue;
++            if(Entry.Id==TEXT("BlindSupplicantM07")&&(Slot.Contains(TEXT("Gill"),ESearchCase::IgnoreCase)
++                ||Slot.Contains(TEXT("Membrane"),ESearchCase::IgnoreCase)
++                ||FMath::Max3(AppendageWeights[A],AppendageWeights[B],AppendageWeights[C])>.05))continue;
++            if(CraniumLimit.IsValid)ClipBox(Polygon,CraniumLimit);
++            if(Polygon.Num()>=3){AddPolygon(CriticalPatches,Polygon,10.*Scale);++CriticalTriangles;}
++        }
++        auto* Data=NewObject<UHumanoidHitVolumeData>(Asset);Data->HeadBone=Ref.GetBoneName(Head);
++        Data->Revision=Revision;
++        Data->SourceMesh=Mesh->GetPathName();Data->OriginalPhysicsAsset=GetPathNameSafe(Original);
++        int32 Hulls=0,Vertices=0;
++        for(int32 B=0;B<Patches.Num();++B)
++        {
++            auto* Body=Asset->SkeletalBodySetups[B].Get();const int32 Bone=Ref.FindBoneIndex(Body->BoneName);
++            if(Bone<0){Fail(TEXT("Physics body bone missing"));return 2;}
++            Body->CollisionTraceFlag=CTF_UseSimpleAsComplex;
++            TArray<FIntVector> Keys;Patches[B].GetKeys(Keys);Keys.Sort([](const FIntVector& A,const FIntVector& B){return A.X!=B.X?A.X<B.X:A.Y!=B.Y?A.Y<B.Y:A.Z<B.Z;});
++            for(const FIntVector Key:Keys)
++            {
++                FKConvexElem Hull;if(!MakeHull(Patches[B][Key],Frames[Bone],Hull,nullptr))continue;
++                Vertices+=Hull.VertexData.Num();Body->AggGeom.ConvexElems.Add(MoveTemp(Hull));++Hulls;
++            }
++            Body->InvalidatePhysicsData();Body->CreatePhysicsMeshes();
++            for(const auto& Shape:Body->AggGeom.ConvexElems)if(Shape.GetName()==TEXT("FittedModelHitQuery")&&!Shape.GetChaosConvexMesh())
++            {Fail(TEXT("Chaos could not cook a fitted convex; no mesh assignment saved"));return 2;}
++        }
++        TArray<FIntVector> CriticalKeys;CriticalPatches.GetKeys(CriticalKeys);CriticalKeys.Sort([](const FIntVector& A,const FIntVector& B){return A.X!=B.X?A.X<B.X:A.Y!=B.Y?A.Y<B.Y:A.Z<B.Z;});
++        for(const FIntVector Key:CriticalKeys)
++        {
++            FKConvexElem Hull;FHumanoidCriticalHull Critical;
++            if(MakeHull(CriticalPatches[Key],Frames[Head],Hull,&Critical))Data->HeadHulls.Add(MoveTemp(Critical));
++        }
++        if(Hulls==0||Data->HeadHulls.IsEmpty()){Fail(TEXT("No usable body/head query geometry; no packages saved"));return 2;}
++        if(!Original)Asset->SkeletalBodySetups.RemoveAll([](const USkeletalBodySetup* Body){return Body->AggGeom.GetElementCount()==0;});
++        Asset->UpdateBodySetupIndexMap();Asset->AddAssetUserData(Data);Asset->UpdateBoundsBodiesArray();
++        if(!Save(Asset,BackupRoot)){Fail(TEXT("Physics asset save failed"));return 2;}
++        Mesh->Modify();
++        // Cloth must keep its previous collision source, rather than adopting
++        // the newly added query-only surface patches as simulation colliders.
++        if(Original)for(UClothingAssetBase* Clothing:Mesh->GetMeshClothingAssets())
++            if(auto* Common=Cast<UClothingAssetCommon>(Clothing))if(!Common->PhysicsAsset){Common->Modify();Common->PhysicsAsset=Original;}
++        Mesh->SetPhysicsAsset(Asset);
++        if(!Save(Mesh,BackupRoot)){Fail(TEXT("Skeletal mesh save failed"));return 2;}
++        if(Entry.Id==TEXT("NightWardenRig"))
++        {
++            auto* BP=Cast<UBlueprint>(Class->ClassGeneratedBy);if(!BP){Fail(TEXT("Night Warden blueprint missing"));return 2;}
++            Component->Modify();Component->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
++            Component->SetCollisionObjectType(ECC_Pawn);Component->SetCollisionResponseToAllChannels(ECR_Ignore);
++            Component->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);Component->SetPhysicsAsset(Asset);
++            CDO->GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);
++            FBlueprintEditorUtils::MarkBlueprintAsModified(BP);FKismetEditorUtilities::CompileBlueprint(BP);
++            if(!Save(BP,BackupRoot)){Fail(TEXT("Night Warden blueprint save failed"));return 2;}
++        }
++        Row->SetStringField(TEXT("physics_asset"),Asset->GetPathName());Row->SetStringField(TEXT("head_bone"),Data->HeadBone.ToString());
++        Row->SetNumberField(TEXT("surface_triangles"),SurfaceTriangles);Row->SetNumberField(TEXT("query_hulls"),Hulls);
++        Row->SetNumberField(TEXT("query_hull_vertices"),Vertices);Row->SetNumberField(TEXT("critical_triangles"),CriticalTriangles);
++        Row->SetNumberField(TEXT("critical_hulls"),Data->HeadHulls.Num());Row->SetNumberField(TEXT("body_count"),Asset->SkeletalBodySetups.Num());
++        Row->SetBoolField(TEXT("saved"),true);Write();UE_LOG(LogTemp,Display,TEXT("HUMANOID_FIT_SAVED %s hulls=%d"),*Entry.Id.ToString(),Hulls);
++    }
++    const bool Complete=Rows.Num()==(Only.IsEmpty()?17:1);Receipt->SetBoolField(TEXT("complete"),Complete);Write();return Complete?0:3;
++#endif
++}
