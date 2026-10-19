@@ -32,5 +32,6 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 - S12K 低模封闭、材质、前向弹鼓与专属后托：[S12K 低模封闭、材质、前向弹鼓与专属后托](references/saiga12k-production.md)。按问题读取；历史检查不授权自动重测。
 
-
 - 长刀符文、赤霄双斩、逐风前进旋风与三色剑气：读取 [斩马刀改造](references/zhanmadao-legendary-blades.md)。保留独立攻击时钟、改造配方和仍有效的旧版制作输入。
+
+- 枪械数值审计、优势条件化调参、改一个字段的连带检查（`mag_delta`、旧档硬编码基数、静态 `stats`）以及目录调校字段的实例快照与联机影子问题，读取 [枪械审计与联机／存档连带检查](references/firearm-balance-audit.md)。
