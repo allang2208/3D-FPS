@@ -130,6 +130,8 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
         Result=CoreCombatFormula::Round(Result*MeleeMultiplier*Forge);
         Result=CoreCombatFormula::Round(Result*(1+CraftEffect(I,TEXT("damagePercent"))));
         Result=P->AdditionalWeaponDamage(I,Result);
+        if(ColdSteelInventory::Text(I,TEXT("category"))==TEXT("weapon_melee"))
+            Result=CoreCombatFormula::Round(Result*FMath::Max(0.,1.+P->EquipmentBonus(TEXT("meleeDamagePercent"))));
         return CoreCombatFormula::Round(Result*(1+Effect(I,TEXT("damagePercent"))));
     }
     const double AttackScale=ColdSteelInventory::IsBow(I)?
@@ -141,7 +143,10 @@ double UColdSteelEnhancementSystem::ProcessedDamage(const FColdSteelItem& I,doub
         const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         Result=P->AdditionalWeaponDamage(I,Result);
     }
-    return Result*(1+FMath::Clamp(Effect(I,TEXT("damagePercent")),0.,10.));
+    const auto* P=Profile?Profile:GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const double MeleeScale=ColdSteelInventory::Text(I,TEXT("category"))==TEXT("weapon_melee")
+        ?FMath::Max(0.,1.+P->EquipmentBonus(TEXT("meleeDamagePercent"))):1.;
+    return Result*(1+FMath::Clamp(Effect(I,TEXT("damagePercent")),0.,10.))*MeleeScale;
 }
 double UColdSteelEnhancementSystem::Defense(const FColdSteelItem& I)const
 {

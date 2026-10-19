@@ -1,4 +1,148 @@
 {
+  "ue_steel_armet": {
+    "id": "ue_steel_armet",
+    "name": "灰钢闭面盔",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 60,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 24,
+      "perEnhance": 2
+    },
+    "desc": "灰钢锻造闭面头盔，配有铰接颊片、窄眼缝、透气孔与暗色衬垫。佩戴时遮挡周边视野，中央瞄准保持不变。",
+    "ue_icon": "Icons/SteelArmet20261019/ue_steel_armet.png",
+    "icon_fallback": "盔",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/Pickups/SM_SteelArmet_Pickup.SM_SteelArmet_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/Icons/SM_SteelArmet_Icon.SM_SteelArmet_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
+  "ue_blue_mage_hat": {
+    "id": "ue_blue_mage_hat",
+    "name": "蓝色尖顶法师帽",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 30,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 4,
+      "perEnhance": 0.8
+    },
+    "desc": "钴蓝织物尖顶帽，深蓝帽带、银色星纹和蓝宝石帽扣，与蓝色法师长袍配套。柔软帽尖随动作轻摆回弹。",
+    "ue_icon": "Icons/BlueMageHat20261019/ue_blue_mage_hat.png",
+    "icon_fallback": "帽",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageHat20261019/Pickups/SM_BlueMageHat_Pickup.SM_BlueMageHat_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageHat20261019/Icons/SM_BlueMageHat_Icon.SM_BlueMageHat_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
+  },
+  "ue_blue_mage_robe": {
+    "id": "ue_blue_mage_robe",
+    "name": "蓝色法师长袍",
+    "category": "equipment",
+    "type": "衣服",
+    "equipSlot": "armor",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 45,
+    "grid_w": 3,
+    "grid_h": 4,
+    "defense": {
+      "base": 8,
+      "perEnhance": 1.5
+    },
+    "desc": "钴蓝织物长袍，贴合立领与收束袖口，深蓝腰带、浅银刺绣及蓝色领扣。连续裙摆带隐藏活动褶，行走时自然摆动。",
+    "ue_icon": "Icons/BlueMageRobe20261018/ue_blue_mage_robe.png",
+    "icon_fallback": "袍",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/Pickups/SM_BlueMageRobe_Pickup.SM_BlueMageRobe_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/Icons/SM_BlueMageRobe_Icon.SM_BlueMageRobe_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
+  },
+  "ue_blue_mage_pants": {
+    "id": "ue_blue_mage_pants",
+    "name": "黑色法师长裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 30,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 6,
+      "perEnhance": 1.0
+    },
+    "desc": "哑黑精纺织物长裤，采用修身西裤剪裁、浅褶与平直裤脚，细蓝侧边和银色星藤纹呼应法师套装。",
+    "ue_icon": "Icons/BlueMagePants20261019/ue_blue_mage_pants.png",
+    "icon_fallback": "裤",
+    "world_material": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/Pickups/SM_BlueMagePants.SM_BlueMagePants",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/Icons/SM_BlueMagePants_Display.SM_BlueMagePants_Display"
+  },
+  "ue_blue_mage_boots": {
+    "id": "ue_blue_mage_boots",
+    "name": "蓝黑法师长靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 45,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 6,
+      "perEnhance": 0.8
+    },
+    "desc": "黑色皮革与深蓝织物拼接的膝下长靴，银色星藤纹和蓝宝石扣呼应法师套装。靴口留有裤脚余量，柔软踝部搭配圆头低跟。",
+    "ue_icon": "Icons/BlueMageBoots20261019/ue_blue_mage_boots.png",
+    "icon_fallback": "靴",
+    "world_material": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/Pickups/SM_BlueMageBoots.SM_BlueMageBoots",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/Icons/SM_BlueMageBoots_Display.SM_BlueMageBoots_Display"
+  },
+  "ue_blue_mage_gloves": {
+    "id": "ue_blue_mage_gloves",
+    "name": "蓝色法师手套",
+    "category": "equipment",
+    "type": "手套",
+    "equipSlot": "gloves",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 20,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 4,
+      "perEnhance": 0.6
+    },
+    "desc": "蓝色织物与深蓝薄皮拼接的全指手套，手背饰银色星纹和藤纹，腕口收束并带低矮蓝宝石扣。掌心与指腹保持柔软，便于施法和握持。",
+    "ue_icon": "Icons/BlueMageGloves20261019/ue_blue_mage_gloves.png",
+    "icon_fallback": "套",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageGloves20261019/Pickups/SM_BlueMageGlove_Pickup.SM_BlueMageGlove_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageGloves20261019/Icons/SM_BlueMageGlove_Icon.SM_BlueMageGlove_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
   "ue_smoke_grey_capri": {
     "id": "ue_smoke_grey_capri",
     "name": "烟灰七分裤",
@@ -83,10 +227,8 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 24
-    },
-    "bonusStats": {
-      "moveSpeedPercent": -0.05
+      "base": 12,
+      "perEnhance": 2
     },
     "desc": "灰钢护胫与脚背叠甲覆盖深色皮靴，独立护踝、卷边和侧扣保留活动接缝。高筒内衬可搭配收口长裤。",
     "ue_icon": "Icons/ue_armored_boots.png",
@@ -109,10 +251,8 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 40
-    },
-    "bonusStats": {
-      "moveSpeedPercent": -0.05
+      "base": 20,
+      "perEnhance": 2
     },
     "desc": "灰钢锁环织成的防护长裤，分片护腰覆盖胯部，金属护膝与上下叠片保护膝盖。裤腿渐收，裤口带内衬包边，可搭配运动鞋或皮靴。",
     "ue_icon": "Icons/ue_chainmail_pants.png",
@@ -3786,7 +3926,8 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 16
+      "base": 8,
+      "perEnhance": 1
     },
     "desc": "手背、腕部与拇指采用平滑相连的钢质护面，其余四指配独立指节甲，整只手套覆以细密灰色金属护层。可单独穿戴并搭配上衣。",
     "ue_icon": "Icons/GloveCompanionDetail20260928/ue_steel_gauntlets.png",
@@ -3806,11 +3947,8 @@
     "grid_w": 3,
     "grid_h": 3,
     "defense": {
-      "base": 60
-    },
-    "bonusStats": {
-      "moveSpeedPercent": -0.05,
-      "meleeAttackSpeed": -0.05
+      "base": 34,
+      "perEnhance": 3
     },
     "desc": "灰钢锁环交错覆盖衣身与双臂，磨亮环面与暗色衬底形成层次，袖口采用实体金属环和暗色包边，可与手套独立搭配。",
     "ue_icon": "Icons/ChainmailInterlace20260929/ue_chainmail_shirt.png",

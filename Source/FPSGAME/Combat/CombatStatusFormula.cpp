@@ -19,6 +19,9 @@
 #include "../Skills/FireballDamage.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
 #include "../UI/StatusEffectsComponent.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "Engine/GameInstance.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
 #include "../Monsters/SlagMistViewComponent.h"
@@ -127,6 +130,22 @@ void UCombatStatusFormula::AddStunWithExtension(float BaseSeconds,float ExtraSec
 void UCombatStatusFormula::AddStun(float Seconds)
 {
     if(IsImmune()||Seconds<=0)return;
+    // 玩家装备的眩晕抵抗按加法叠加，作为 0–100% 的免控概率；
+    // 100% 必晕的攻击在 25% 抵抗下仍有 75% 概率生效。
+    if(auto* Character=Cast<ACharacter>(GetOwner());Character&&Character->IsPlayerControlled()&&Character->HasAuthority())
+    {
+        // Remote players on a listen/dedicated server must read their own
+        // shadow equipment; the host's local model only applies to the host.
+        const UColdSteelStatusModel* Model=ColdSteelAuthority::ForPawn(Character);
+        if(!Model&&Character->IsLocallyControlled())
+            if(const auto* GI=Character->GetGameInstance())
+                Model=GI->GetSubsystem<UColdSteelStatusModel>();
+        if(Model)
+        {
+            const double Resist=FMath::Clamp(Model->EquipmentBonus(TEXT("stunResist")),0.,100.);
+            if(Resist>0.&&FMath::FRand()*100.<Resist)return;
+        }
+    }
     StunTime=FMath::Max(StunTime,Seconds);
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("stun"),Seconds);
     if(auto* Character=Cast<ACharacter>(GetOwner()))

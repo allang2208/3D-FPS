@@ -38,6 +38,18 @@ float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
 }
 float CombatFormulaRuntime::MonsterCriticalResistance(const AActor* Target)
 {
+    // Player targets use the character crit-resistance sheet, so the same
+    // max(0, attacker crit - target crit resistance) rule applies in PvP.
+    if(const APawn* Pawn=Cast<APawn>(Target);Pawn&&Pawn->IsPlayerControlled())
+    {
+        // On a listen/dedicated server a remote target's equipment lives in
+        // its PlayerState shadow model, not in the host's local model.
+        const UColdSteelStatusModel* Model=ColdSteelAuthority::ForPawn(Pawn);
+        if(!Model&&Pawn->IsLocallyControlled())
+            if(const auto* GI=Pawn->GetGameInstance())
+                Model=GI->GetSubsystem<UColdSteelStatusModel>();
+        if(Model)return Model->Derived(TEXT("critRes"));
+    }
     // 2026-09-28 六维剔除：抗暴直接读常量表（狼系字段值已烤入，感染减益在 Get 内缩放）。
     FMonsterCoreStats S;
     return MonsterCoreStats::Get(Target,S)?S.CritRes:0.f;

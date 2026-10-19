@@ -12,3 +12,5 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
 
 制作文件、检修材料、服务器硬件或调整收集物图标时，读取本项目镜像 [搜索收集物资产](references/search-collectible-assets.md)。个人维护源保留同名参考。
+
+护甲/手套/鞋靴/裤装的 `bonusStats`、套装、百分比语义与联机目标取值，读取 [装备属性词条、套装与联机取值](references/equipment-stat-effects.md)。

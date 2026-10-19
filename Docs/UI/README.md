@@ -63,6 +63,7 @@
 - [剑的动态预览与背包装备图标](sword-preview-icons-plan-20260914.md)
 - [浮窗关闭按钮对齐与完整参数](item-inspector-close-details-plan-20260914.md)
 - [装备与背包加工角标圆角匹配](item-processing-rounded-corners-plan-20260914.md)
+- [装备缩略浮窗增益/减益分组](equipment-tooltip-buff-debuff-summary-20261019.md)
 
 - [爆炸物屏幕边缘箭头与红色警示光带](explosive-edge-warnings-20261012.md)
 

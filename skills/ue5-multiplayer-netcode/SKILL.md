@@ -38,6 +38,8 @@ description: UE5 原生复制联机开发（监听服务器起步）的工程套
 8. **影子档案**（`bNetShadow=true` 的 `UColdSteelSkillModel`）：PlayerState 构造一份副本挂着 `ShadowModel`——服务端代码里 `Snapshot(..., GetNetShadowProfile())`/`BuildAttackContext`/`AmmoDamageMultiplier`/`EvaluateEnchantChance`/`MasteryEffect` 一律走影子；命中确认回执里客户端用 `DeltaXp` 回放同样增量到本地档案保持增长可见。影子档案还会经 `ApplyColdSteelProfile`→`Configure` 灌进服务端 pawn 上的 `CreateDefaultSubobject` 附魔/挂件组件（Zhenmo/Jingang/Dealer 等——`UFPSXxxComponent` 是跟随 Pawn 的子对象，不是只在本端）；组件反查 pawn 走 `UJingangRuneComponent::From(StatusModel)` 的 `RuntimePawn`。
 9. **Tick 里的施法栏检查、投射物生成、命中表演**统一挂 `GetNetMode() == NM_Standalone`（只有 standalone 是"纯本机"）。M3 施法走相位化权威协议（见 §十）。
 
+**装备派生属性的目标端取值（2026-10-19）：** 暴击抵抗、眩晕抵抗、减伤等“按目标结算”的属性，不要直接读 GameInstance 的本地 `UColdSteelStatusModel`。先 `ColdSteelAuthority::ForPawn(TargetPawn)`：服务器上的远端玩家取 `PlayerState::ShadowModel`，只有 `IsLocallyControlled()` 的本地玩家/主机才回退本地模型。典型入口是 `CombatFormulaRuntime::MonsterCriticalResistance()` 与 `UCombatStatusFormula::AddStun()`；前者只负责取目标抗暴值，后者在服务器权威侧掷 0–100% 免控。客户端只通过复制状态看到结果，不自行掷概率。
+
 ## 三、命中权威（MPTEST hit_path 八步排查法）
 
 10. **客户端只报告几何**（`FColdSteelNetHitReport::AimOrigin/ImpactPoint/ImpactNormal/BoneName`）+ 武器 `InstanceId`/`Definition` + 客户端本地 `ClientShotMs`；**伤害、暴击、cap、弹药、目标落点全部由服务端影子档案重算**。token bucket (`TokenBudget=12`) 防突突；`ValidateHitReport` 八道门：非本玩家 PC→item 非持握或类型不配→几何 NaN→时间窗 250ms→目标脱 relevancy→不在历史缓冲→名义头节点排除（软腋保护）→rewind 几何校验。

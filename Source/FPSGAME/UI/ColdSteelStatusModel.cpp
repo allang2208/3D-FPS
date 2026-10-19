@@ -33,7 +33,9 @@ double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,F
 double UColdSteelStatusModel::ResourceMaximum(const FColdSteelProfile& State,bool Mana)
 {
     auto Raw=[&](FName Key){return (State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key))*State.Infection.AttributeMultiplier()*State.Survival.AttributeMultiplier();};
-    return 100+(State.Level-1)*10+(Mana?Raw(TEXT("wis"))*10+Raw(TEXT("intt"))*5:Raw(TEXT("con"))*10)+EquipmentBonusFor(State,Mana?TEXT("maxMp"):TEXT("maxHp"));
+    const double Base=100+(State.Level-1)*10+(Mana?Raw(TEXT("wis"))*10+Raw(TEXT("intt"))*5:Raw(TEXT("con"))*10);
+    const double Percent=EquipmentBonusFor(State,Mana?TEXT("maxMpPercent"):TEXT("maxHpPercent"));
+    return Base*FMath::Max(0.,1.+Percent)+EquipmentBonusFor(State,Mana?TEXT("maxMp"):TEXT("maxHp"));
 }
 double UColdSteelStatusModel::Attribute(FName Key) const
 {
@@ -112,7 +114,7 @@ float UColdSteelStatusModel::Derived(FName Key) const
     if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value)*JingangDefense;}
     if (Key == TEXT("matk")) return AdjustCombatStat(Key,S.Matk+CoreCombatFormula::Round(EquipmentBonus(Key))+EquipmentMagicAttack());
     if (Key == TEXT("mdef")) return AdjustCombatStat(Key,S.Mdef)*JingangDefense;
-    if (Key == TEXT("critRes")) return S.CritRes;
+    if (Key == TEXT("critRes")) return S.CritRes+CoreCombatFormula::Round(EquipmentBonus(Key));
     if (Key == TEXT("crit")) return AdjustCombatStat(Key,S.Crit+CoreCombatFormula::Round(EquipmentBonus(Key)))+ColdSteelMelee::EquippedModifiers(this).CriticalChanceAdd;
     if (Key == TEXT("speed")) return std::floor(S.Speed*CombatMoveMultiplier());
     if (Key == TEXT("mpRegen")) return Resources.MpRegen*TributeEffect(TEXT("mpRegenPercent"))*(1+DungeonEffect(TEXT("mpRegenPercent"))/100.);

@@ -106,17 +106,17 @@ const FColdSteelTooltipRow& UColdSteelItemTooltip::RowData(const FRowView& View)
     if(View.Card==-2)return Presentation.Comparison[View.Row];
     return Presentation.Cards[View.Card].Rows[View.Row];
 }
-void UColdSteelItemTooltip::AddRule(UVerticalBox* Column,float Top,float Bottom,bool Dashed)
+void UColdSteelItemTooltip::AddRule(UVerticalBox* Column,float Top,float Bottom,bool Dashed,bool Dark)
 {
     auto* Height=WidgetTree->ConstructWidget<USizeBox>();Height->SetHeightOverride(1/Scale);
-    if(Dashed)
+    if(Dashed&&!Dark)
     {
         auto* Host=WidgetTree->ConstructWidget<UNativeWidgetHost>();Host->SetVisibility(ESlateVisibility::HitTestInvisible);
         Host->SetContent(SNew(SItemTooltipDashedRule).PixelScale(Scale));Height->SetContent(Host);
     }
     else
     {
-        auto* Rule=WidgetTree->ConstructWidget<UBorder>();Rule->SetPadding(FMargin(0));Rule->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ItemTooltipGoldRule,0,FLinearColor::Transparent,0));Height->SetContent(Rule);
+        auto* Rule=WidgetTree->ConstructWidget<UBorder>();Rule->SetPadding(FMargin(0));Rule->SetBrush(ColdSteelUI::RoundedBrush(Dark?ColdSteelUI::ItemTooltipBorder:ColdSteelUI::ItemTooltipGoldRule,0,FLinearColor::Transparent,0));Height->SetContent(Rule);
     }
     Column->AddChildToVerticalBox(Height)->SetPadding(FMargin(0,Top/Scale,0,Bottom/Scale));
 }
@@ -124,7 +124,7 @@ void UColdSteelItemTooltip::AddRow(UVerticalBox* Column,const FColdSteelTooltipR
 {
     if(Row.bSection)
     {
-        auto* Heading=Text(Row.Label,14,ColdSteelUI::ItemTooltipGold);Heading->SetFont(ColdSteelUI::TextFont(14*.75f/Scale,true));
+        auto* Heading=Text(Row.Label,14,Row.Tone<0?ColdSteelUI::ItemTooltipText:ColdSteelUI::ItemTooltipGold);Heading->SetFont(ColdSteelUI::TextFont(14*.75f/Scale,true));
         Column->AddChildToVerticalBox(Heading)->SetPadding(FMargin(0,12/Scale,0,4/Scale));
         if(Row.bDashedAfter)AddRule(Column,9,5,true);return;
     }
@@ -154,7 +154,34 @@ void UColdSteelItemTooltip::AddRow(UVerticalBox* Column,const FColdSteelTooltipR
 }
 void UColdSteelItemTooltip::AddCoreGrid(UVerticalBox* Body)
 {
-    Body->AddChildToVerticalBox(Text(TEXT("核心属性"),16,ColdSteelUI::ItemTooltipGold))->SetPadding(FMargin(0,0,0,6/Scale));
+    const bool bGrouped=Presentation.Summary.ContainsByPredicate([](const auto& R){return R.bSection&&(R.Label==TEXT("增益")||R.Label==TEXT("减益"));});
+    if(!bGrouped)
+        Body->AddChildToVerticalBox(Text(TEXT("核心属性"),16,ColdSteelUI::ItemTooltipGold))->SetPadding(FMargin(0,0,0,6/Scale));
+    if(bGrouped)
+    {
+        for(int32 Index=0;Index<Presentation.Summary.Num();++Index)
+        {
+            const auto& Row=Presentation.Summary[Index];
+            const FLinearColor Tone=Row.Tone>0?ColdSteelUI::ItemTooltipGold:ColdSteelUI::ItemTooltipText;
+            if(Row.bSection)
+            {
+                // One neutral hairline between the gain and loss blocks; the
+                // colored headings and values carry the gain/loss semantics.
+                if(Index>0)AddRule(Body,8,6,false,true);
+                auto* Heading=Text(Row.Label,14,Tone);Heading->SetFont(ColdSteelUI::TextFont(14*.75f/Scale,true));
+                Body->AddChildToVerticalBox(Heading)->SetPadding(FMargin(0,0,0,4/Scale));
+                continue;
+            }
+            auto* Line=WidgetTree->ConstructWidget<UHorizontalBox>();
+            Body->AddChildToVerticalBox(Line)->SetPadding(FMargin(0,5/Scale));
+            auto* Label=Text(TooltipLabel(Row.Label),14,Tone);Label->SetWrapTextAt(FMath::Max(1.f,InnerWidth()*.44f));
+            Line->AddChildToHorizontalBox(Label)->SetSize(TooltipFill(.46f));
+            auto* Value=Text(Row.Value,16,Tone,TooltipNumeric(Row.Value));Value->SetWrapTextAt(FMath::Max(1.f,InnerWidth()*.54f));Value->SetJustification(ETextJustify::Right);
+            Line->AddChildToHorizontalBox(Value)->SetSize(TooltipFill(.54f));
+            RowViews.Add({-1,Index,Row.Tone,Label,Value,16.f,false,false,true});
+        }
+        return;
+    }
     const int32 Columns=WidthPixels>=340?2:1;
     const float CellWidth=(InnerWidth()-(Columns-1)*16/Scale)/Columns;
     auto* Grid=WidgetTree->ConstructWidget<UUniformGridPanel>();Body->AddChildToVerticalBox(Grid);
@@ -216,7 +243,7 @@ void UColdSteelItemTooltip::AddDetails(UVerticalBox* Body)
     if(!Presentation.Cards.IsEmpty()||!Presentation.Comparison.IsEmpty())
     {
         auto* Area=AddSection(Body,TEXT("main:details"),TEXT("详细参数"),false);auto* Rows=Cast<UVerticalBox>(Area->GetContentForSlot(TEXT("Body")));
-        if(!Presentation.Summary.IsEmpty())
+        if(!Presentation.Summary.IsEmpty()&&!Presentation.Summary.ContainsByPredicate([](const auto& R){return R.bSection&&(R.Label==TEXT("增益")||R.Label==TEXT("减益"));}))
         {
             AddRow(Rows,{TEXT("核心参数"),TEXT(""),0,true},-1,0);
             for(int32 Index=0;Index<Presentation.Summary.Num();++Index)AddRow(Rows,Presentation.Summary[Index],-1,Index);
@@ -339,7 +366,15 @@ void UColdSteelItemTooltip::UpdateRows()
                 if(View.bMetric)View.Pixels=Numeric?24.f:16.f;
                 Value->SetFont(Numeric?ColdSteelUI::NumberFont(View.Pixels*.75f/Scale,View.Pixels>=20):ColdSteelUI::TextFont(View.Pixels*.75f/Scale,View.Pixels>=16));
             }
-            if(View.Tone!=Row.Tone){View.Tone=Row.Tone;Value->SetColorAndOpacity(Row.Tone>0?ColdSteelUI::ItemTooltipPositive:Row.Tone<0?ColdSteelUI::ItemTooltipNegative:ColdSteelUI::ItemTooltipText);}
+            if(View.Tone!=Row.Tone)
+            {
+                View.Tone=Row.Tone;
+                const FLinearColor Color=View.bSummaryTone
+                    ?(Row.Tone>0?ColdSteelUI::ItemTooltipGold:ColdSteelUI::ItemTooltipText)
+                    :(Row.Tone>0?ColdSteelUI::ItemTooltipPositive:Row.Tone<0?ColdSteelUI::ItemTooltipNegative:ColdSteelUI::ItemTooltipText);
+                Value->SetColorAndOpacity(Color);
+                if(View.bSummaryTone)if(auto* Label=View.Label.Get())Label->SetColorAndOpacity(Color);
+            }
         }
     }
 }

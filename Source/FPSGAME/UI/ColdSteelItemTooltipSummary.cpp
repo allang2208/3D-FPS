@@ -22,7 +22,7 @@
 
 namespace
 {
-struct FMetric {FName Key;FString Label,Unit;double Value=0;int32 Digits=0;bool Lower=false,Core=true;};
+struct FMetric {FName Key;FString Label,Unit;double Value=0;int32 Digits=0;bool Lower=false,Core=true;int32 Tone=0;};
 FString Format(double Value,int32 Digits)
 {
     FString Result=FString::Printf(TEXT("%.*f"),Digits,Value);
@@ -32,8 +32,8 @@ FString Format(double Value,int32 Digits)
 TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,UGunsmithSystem* G)
 {
     TArray<FMetric> Result;
-    auto Add=[&](const TCHAR* Key,const TCHAR* Label,double Value,const TCHAR* Unit,int32 Digits=0,bool Lower=false,bool Core=true)
-        {Result.Add({FName(Key),Label,Unit,Value,Digits,Lower,Core});};
+    auto Add=[&](const TCHAR* Key,const TCHAR* Label,double Value,const TCHAR* Unit,int32 Digits=0,bool Lower=false,bool Core=true,int32 Tone=0)
+        {Result.Add({FName(Key),Label,Unit,Value,Digits,Lower,Core,Tone});};
     if(G&&G->Weapon(Item.Definition))
     {
         auto S=G->CalculateItem(Item,G->Installed(Item));
@@ -136,13 +136,13 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
     }
     else if(Item.Definition==TEXT("ue_alchemy_spellbook"))
     {
-        if(Model)Add(TEXT("equipment_magic_attack"),ColdSteelWeaponText::EquipmentMagicAttack,Model->ItemMagicAttack(Item),TEXT(""),2);
+        if(Model)Add(TEXT("equipment_magic_attack"),ColdSteelWeaponText::EquipmentMagicAttack,Model->ItemMagicAttack(Item),TEXT(""),2,false,true,1);
     }
     else if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("staff"))
     {
         const auto Damage=ColdSteelWeaponStats::DamageParts(Item,Model,3);
         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,Damage.Total(),TEXT(""),2);
-        if(Model)Add(TEXT("equipment_magic_attack"),ColdSteelWeaponText::EquipmentMagicAttack,Model->ItemMagicAttack(Item),TEXT(""),2);
+        if(Model)Add(TEXT("equipment_magic_attack"),ColdSteelWeaponText::EquipmentMagicAttack,Model->ItemMagicAttack(Item),TEXT(""),2,false,true,1);
         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,Damage.BasePhysical,TEXT(""),2,false,false);
         if(Damage.AddedPhysical>0)Add(TEXT("added_physical_damage"),ColdSteelWeaponText::AddedPhysical,Damage.AddedPhysical,TEXT(""),2,false,false);
         if(Damage.AddedMagic>0)Add(TEXT("added_magic_damage"),ColdSteelWeaponText::AddedMagic,Damage.AddedMagic,TEXT(""),2,false,false);
@@ -151,21 +151,23 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
     if(Model)
     {
         const auto* E=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
-        if(E&&E->Defense(Item)>0)Add(TEXT("defense"),TEXT("防御力"),E->Defense(Item),TEXT(""),2);
+        if(E&&E->Defense(Item)>0)Add(TEXT("defense"),TEXT("防御力"),E->Defense(Item),TEXT(""),2,false,true,1);
     }
     if(const auto Data=CombatItemFormula::ReadOnly(Item))
     {
         const TSharedPtr<FJsonObject>* Bonus=nullptr;
         if(Data->TryGetObjectField(TEXT("bonusStats"),Bonus)&&*Bonus)
         {
-            const TPair<const TCHAR*,const TCHAR*> Fields[]={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("crit"),TEXT("暴击率")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")},{TEXT("adsPercent"),TEXT("ADS 瞄准时间")},{TEXT("sprintStaminaCost"),TEXT("奔跑体力消耗")}};
+            const TPair<const TCHAR*,const TCHAR*> Fields[]={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxHpPercent"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("crit"),TEXT("暴击率")},{TEXT("critRes"),TEXT("暴击抵抗")},{TEXT("stunResist"),TEXT("眩晕抵抗")},{TEXT("meleeDamagePercent"),TEXT("近战物理攻击")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")},{TEXT("adsPercent"),TEXT("ADS 瞄准时间")},{TEXT("sprintStaminaCost"),TEXT("奔跑体力消耗")},{TEXT("magicAttackPercent"),TEXT("魔法攻击力")},{TEXT("castRangePercent"),TEXT("施法距离")},{TEXT("castSpeedPercent"),TEXT("施法速度")},{TEXT("magicCooldownPercent"),TEXT("魔法冷却")},{TEXT("magicCostPercent"),TEXT("魔法消耗")}};
             for(const auto& Field:Fields)
             {
                 double Value=0;if((*Bonus)->TryGetNumberField(Field.Key,Value)&&Value!=0)
                 {
-                    const bool Percent=FCString::Strcmp(Field.Key,TEXT("crit"))==0||FCString::Strcmp(Field.Key,TEXT("meleeAttackSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("moveSpeedPercent"))==0||FCString::Strcmp(Field.Key,TEXT("reloadSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("bowDrawSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("adsPercent"))==0||FCString::Strcmp(Field.Key,TEXT("sprintStaminaCost"))==0;
-                    const bool LowerBetter=FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("adsPercent"))==0||FCString::Strcmp(Field.Key,TEXT("sprintStaminaCost"))==0;
-                    Add(*(FString(TEXT("bonus:"))+Field.Key),Field.Value,Value*(Percent&&FCString::Strcmp(Field.Key,TEXT("crit"))!=0?100.:1.),Percent?TEXT("%"):TEXT(""),2,LowerBetter);
+                    const bool Percent=FCString::Strcmp(Field.Key,TEXT("crit"))==0||FCString::Strcmp(Field.Key,TEXT("critRes"))==0||FCString::Strcmp(Field.Key,TEXT("stunResist"))==0||FCString::Strcmp(Field.Key,TEXT("meleeAttackSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("maxHpPercent"))==0||FCString::Strcmp(Field.Key,TEXT("meleeDamagePercent"))==0||FCString::Strcmp(Field.Key,TEXT("moveSpeedPercent"))==0||FCString::Strcmp(Field.Key,TEXT("reloadSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("bowDrawSpeed"))==0||FCString::Strcmp(Field.Key,TEXT("adsPercent"))==0||FCString::Strcmp(Field.Key,TEXT("sprintStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("magicAttackPercent"))==0||FCString::Strcmp(Field.Key,TEXT("castRangePercent"))==0||FCString::Strcmp(Field.Key,TEXT("castSpeedPercent"))==0||FCString::Strcmp(Field.Key,TEXT("magicCooldownPercent"))==0||FCString::Strcmp(Field.Key,TEXT("magicCostPercent"))==0;
+                    const bool PointPercent=FCString::Strcmp(Field.Key,TEXT("crit"))==0||FCString::Strcmp(Field.Key,TEXT("critRes"))==0||FCString::Strcmp(Field.Key,TEXT("stunResist"))==0;
+                    const bool LowerBetter=FCString::Strcmp(Field.Key,TEXT("meleeStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("adsPercent"))==0||FCString::Strcmp(Field.Key,TEXT("sprintStaminaCost"))==0||FCString::Strcmp(Field.Key,TEXT("magicCooldownPercent"))==0||FCString::Strcmp(Field.Key,TEXT("magicCostPercent"))==0;
+                    const int32 Tone=Value<0?(LowerBetter?1:-1):(LowerBetter?-1:1);
+                    Add(*(FString(TEXT("bonus:"))+Field.Key),Field.Value,Value*(Percent&&!PointPercent?100.:1.),Percent?TEXT("%"):TEXT(""),2,LowerBetter,true,Tone);
                 }
             }
         }
@@ -219,7 +221,33 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
         for(const TCHAR* Key:{TEXT("damage"),TEXT("attack_interval"),TEXT("melee_stamina"),TEXT("melee_reach")})
             if(const auto* V=Values.FindByPredicate([&](const auto& Entry){return Entry.Key==Key;}))Out.Summary.Add({V->Label,Format(V->Value,V->Digits)+V->Unit});
     }
-    else for(const auto& V:Values)if(V.Core&&Out.Summary.Num()<4)Out.Summary.Add({V.Label,Format(V.Value,V.Digits)+V.Unit});
+    else
+    {
+        const bool bHasTone=Values.ContainsByPredicate([](const auto& V){return V.Core&&V.Tone!=0;});
+        const bool bHasNeutralCore=Values.ContainsByPredicate([](const auto& V){return V.Core&&V.Tone==0;});
+        if(bHasTone&&!bHasNeutralCore)
+        {
+            auto Signed=[&](const FMetric& V)
+            {
+                FString Text=Format(V.Value,V.Digits)+V.Unit;
+                if(!Text.StartsWith(TEXT("+"))&&!Text.StartsWith(TEXT("-")))Text=TEXT("+")+Text;
+                return Text;
+            };
+            TArray<FMetric> Buffs,Debuffs;
+            for(const auto& V:Values)if(V.Core)(V.Tone>0?Buffs:Debuffs).Add(V);
+            if(!Buffs.IsEmpty())
+            {
+                Out.Summary.Add({TEXT("增益"),FString(),1,true});
+                for(const auto& V:Buffs)Out.Summary.Add({V.Label,Signed(V),V.Tone});
+            }
+            if(!Debuffs.IsEmpty())
+            {
+                Out.Summary.Add({TEXT("减益"),FString(),-1,true});
+                for(const auto& V:Debuffs)Out.Summary.Add({V.Label,Signed(V),V.Tone});
+            }
+        }
+        else for(const auto& V:Values)if(V.Core&&Out.Summary.Num()<4)Out.Summary.Add({V.Label,Format(V.Value,V.Digits)+V.Unit});
+    }
     if(Item.Definition==TEXT("ue_alchemy_spellbook"))Out.ValueScope=TEXT("装备魔攻按当前智力、精神与强化等级计算；装备于当前副手时生效。");
     else if(ColdSteelInventory::IsBow(Item))Out.ValueScope=ColdSteelWeaponText::BowScope;
     else if(ColdSteelInventory::IsTwoHandedSword(Item))Out.ValueScope=TEXT("按当前角色、强化和改造计算，以普通攻击为准；伤害未计暴击、要害和目标防御。体力为单次攻击消耗；最大攻击距离含突刺。");
@@ -227,7 +255,7 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
     else if(Weapon)Out.ValueScope=TEXT("按当前角色、强化和改造计算，以单次射击为准；武器总伤害未计弹种倍率、暴击、要害、目标防御及距离衰减。后坐力指数越低越好，枪械稳定性越高越好。");
     else if(Values.ContainsByPredicate([](const auto& V){return V.Key==TEXT("damage");}))Out.ValueScope=TEXT("按当前角色、强化和改造计算，以普通攻击为准；伤害未计暴击、要害和目标防御。");
     else if(!Values.IsEmpty())Out.ValueScope=TEXT("物品属性；防御包含强化，属性加成按物品标注显示。");
-    if(Out.Summary.Num()<4&&!Out.Cards.IsEmpty())
+    if(Out.Summary.Num()<4&&!Out.Summary.ContainsByPredicate([](const auto& R){return R.bSection&&(R.Label==TEXT("增益")||R.Label==TEXT("减益"));})&&!Out.Cards.IsEmpty())
     {
         const TSet<FString> CoreLabels={TEXT("恢复生命"),TEXT("恢复魔法"),TEXT("恢复最大生命"),TEXT("恢复最大魔法"),TEXT("冷却时间"),TEXT("堆叠数量"),TEXT("物理攻击"),TEXT("魔法攻击"),TEXT("最大生命"),TEXT("最大魔法")};
         for(const auto& R:Out.Cards.Last().Rows)if(!R.bSection&&CoreLabels.Contains(R.Label)&&Out.Summary.Num()<4)

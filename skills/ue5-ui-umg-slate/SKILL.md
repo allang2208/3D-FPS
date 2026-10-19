@@ -17,3 +17,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 - 锻造/炼药成品预览、配方切换和异步进入状态，读取 [成品参数与准备提示](references/product-preview-readiness.md)。
 
 物理书本、纸面文字/图片、长按拖动与书签跳转，读取 [物理书本阅读器](references/physical-book-reader.md)。
+
+装备缩略浮窗的增益/减益分组、金/黑语义色与中性细线，读取 [装备浮窗增益/减益分组](references/equipment-tooltip-tone.md)。

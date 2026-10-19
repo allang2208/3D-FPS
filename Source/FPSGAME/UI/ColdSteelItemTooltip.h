@@ -69,7 +69,7 @@ private:
         int32 Card=0,Row=0,Tone=0;
         TWeakObjectPtr<UTextBlock> Label,Value;
         float Pixels=14.f;
-        bool bCompact=false,bMetric=false;
+        bool bCompact=false,bMetric=false,bSummaryTone=false;
     };
     TArray<FRowView> RowViews;
     bool bPinned=false,bHorizontalOverflow=false,bVerticalOverflow=false;
@@ -79,7 +79,7 @@ private:
     void FitAndPlace(bool RevealMain);
     UTextBlock* Text(const FString&,float,const FLinearColor&,bool Numeric=false);
     void AddRow(UVerticalBox*,const FColdSteelTooltipRow&,int32 Card,int32 Row,bool Compact=false);
-    void AddRule(UVerticalBox*,float Top=10.f,float Bottom=10.f,bool Dashed=false);
+    void AddRule(UVerticalBox*,float Top=10.f,float Bottom=10.f,bool Dashed=false,bool Dark=false);
     void AddCoreGrid(UVerticalBox*);
     void AddDetails(UVerticalBox*);
     class UExpandableArea* AddSection(UVerticalBox*,const FString& Key,const FString& Title,bool Open);

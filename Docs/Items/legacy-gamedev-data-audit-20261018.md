@@ -9,7 +9,7 @@
 - `weaponId` 在源码里只被读取、从未写入（全仓库仅 `CombatItemFormula.cpp:30` 一处），`items.json` 也没有任何条目带 `weaponId`。
 - 因此：覆盖层条目只要 key 既不等于某个定义 id、也不等于某个物品 `name`，就**永远查不到**——即死数据。
 
-## 二、source-combat-items.json：279 条中 274 条不可达
+## 二、source-combat-items.json：279 条中 274 条不可达（2026-10-19 已归档；清理后现役 5 条，蓝魔法师与灰钢锁子甲追加后 14 条）
 
 可达的只有 5 条（都是 UE 现役装备的战斗/手感数值）：
 
@@ -20,6 +20,8 @@
 | `ue_steel_gauntlets` | reloadSpeed −0.1 / bowDrawSpeed −0.1 |
 | `ue_hardknuckle_gloves` | reloadSpeed 0.05 / adsPercent −0.05（2026-10-18 新增） |
 | `ue_st6_sleeves` | reloadSpeed 0.05 / sprintStaminaCost −0.1（2026-10-18 新增） |
+
+> 2026-10-19 同日追加：蓝魔法师五件套（`ue_blue_mage_hat/robe/pants/boots/gloves`）的 `armorSet` / `setBonusDesc` / `bonusStats` 先写入本表（10 条）；灰钢锁子甲四件（`ue_steel_armet`、`ue_chainmail_shirt`、`ue_chainmail_pants`、`ue_armored_boots`，护手已在 5 条内）随后加入，现役变为 14 条。上述 274 条归档与“原 279 条”的结论不变。数值见 [蓝魔法师五件套](blue-mage-set-values-20261019.md)、[灰钢锁子甲五件套](steel-chainmail-set-values-20261019.md)。
 
 死数据 274 条，按类别：
 
@@ -54,13 +56,21 @@
 | `items.json` 占位条目 | `占位/placeholder/测试/dummy` 名称条目 **0 条** | 干净 |
 | 旧项目仓库本身 | 6199 文件已归档 `E:/3d/trash/repository-ue5-root-20260910`（manifest + SHA-256）；旧 Godot 技能仅作迁移参考 | 合规，不在 D 盘工程内 |
 
-## 五、清理方案（未执行，等确认）
+## 五、清理执行（2026-10-19）
 
-- **方案 A（推荐，低风险）拆分标注**：把 `source-combat-items.json` 收缩为 UE 活数据（现 5 条 + 以后新增），并在文件加 `_scope` 说明；把 274 条旧公式原样移到 `Docs/archive/legacy-gamedev-combat-items-20261018.json`，同步更新 PKM/学徒长杖等文档的引用路径。`CombatItemFormula::Read` 行为不变（它本来就查不到这些 key），运行时零风险。
-- **方案 B（彻底）直接删除 274 条**：只在本文记录类别、数量与文件 SHA-256；风险是失去人工对照旧公式的历史值，且 PKM/学徒长杖文档的引用会失效，需要改写。
-- **方案 C（顺带清理）**：清空 `items.json` 92 条 `res://` 旧图标路径（全部有 `ue_icon` 兜底）；`quick_combat_placeholder.png` 换正式图（需要美术出图）；`skills.json` 的 `gamedev/...` 溯源字段保留。
+用户确认：保留便携背包，其余废案先删除，避免误会。按原方案 A 执行：
+
+- `Content/ColdSteelData/source-combat-items.json` 已收缩为 5 条现役覆盖（`ue_steel_gauntlets`、`ue_field_gloves`、`ue_field_gloves_black`、`ue_hardknuckle_gloves`、`ue_st6_sleeves`），786 字节 / 45 行。2026-10-19 晚追加蓝魔法师五件套与灰钢锁子甲四件后为 14 条；下列 SHA-256 记录的是清理完成时的 5 条状态。
+- 274 条旧公式原样移入 `Docs/Archives/legacy-gamedev-combat-items-20261019.json`（79,694 字节）；键、值、顺序逐条保留，归档与现役表的并集经语义比对等于原 279 条。
+- `CombatItemFormula::Read` 行为不变：这 274 条本来就查不到，运行时零变化；未改 C++、未编译、未进游戏。
+- `ue_portable_backpack` 保留在 `items.json`，未动；`items.json` 在本次清理中零改动（蓝魔法师五件套的 `defense` 为同日稍后另一任务，见 [蓝魔法师五件套](blue-mage-set-values-20261019.md)）。
+- 防复发：`SourceAssets/BenelliM4Super9020261006/publish_catalog.py` 改读归档中的 `Super90.attackFormula`；`Tools/Combat/export_remaining_formula_data.mjs` 改为只写归档文件，不再覆盖现役表。
+- 文档引用同步：`Docs/Items/tactical-gear-values-20261018.md`、`Docs/Weapons/pkm-retirement-20260922.md`、`pkm-fire-and-balance-20260922.md`、`apprentice-staff-migration-20260927.md` 指向归档。
+- 校验：现役表 SHA-256 `F398E3F49D29FDC80306813F68D0CA9E4FE57A13F9F87C0E60E71230FE4CF635`；归档 SHA-256 `CC15340006B38062AC2E509F4B351F0F186643B8BCC8D957AD189E5B2EBE86F0`；归档 key 与 `items.json` 的 id/name 零匹配，并集语义等于原 279 条。
+
+备选 B（彻底删除）与 C（顺带清 `res://` 图标/占位图）未采用；`items.json` 的 92 条旧 `icon` 路径保持原样。
 
 ## 六、状态
 
-- 本轮只读排查，未删除或移动任何数据；`git status` 中这些 JSON 仍属未提交的并行工作。
+- 2026-10-18 只读排查；2026-10-19 执行清理，现役表只剩 5 条，旧表在 `Docs/Archives/legacy-gamedev-combat-items-20261019.json`；同日稍后追加蓝魔法师 5 条、灰钢锁子甲 4 条，现役表 14 条。
 - 排查脚本：临时目录 `audit_legacy_equipment.py`、`audit_legacy_marks2.py`、`classify_legacy.py`（未入库）。

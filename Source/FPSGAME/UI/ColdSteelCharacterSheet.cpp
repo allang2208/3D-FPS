@@ -145,7 +145,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
         TEXT("基础物攻 = 四舍五入(10 + 力量×0.05 + 敏捷×0.10)\n物防 = 向下取整(体质×1.2 + 力量×0.3)"),
         TEXT("攻速倍率 = 1 + 敏捷×0.02（只作用于近战，枪械射速取武器基础值）\n体力恢复倍率 = 1 + 敏捷×0.015\n换弹速度 = ×（1 + 敏捷×0.003），与快手、附魔各自相乘"),
         TEXT("魔攻 = 向下取整(智力×1.5 + 精神×0.5)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
-        TEXT("理论生命上限 = 100 + 体质×10 + (等级-1)×10\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%"),
+        TEXT("理论生命上限 = (100 + 体质×10 + (等级-1)×10) × (1 + 装备最大生命%)\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质% + 装备暴击抵抗"),
         TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
         TEXT("基础暴击率 = 向下取整(2 + 幸运)%\n随机暴击概率 = 暴击率 − 目标暴击抵抗，最低为零。武器与火球均可触发。")};
     for (int32 I = 0; I < 6; ++I)
@@ -162,7 +162,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     AddCharacterRow(Combat, TEXT("魔法防御"), TEXT("mdef"), TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)。"));
     AddCharacterRow(Combat, TEXT("暴击率"), TEXT("crit"), TEXT("基础暴击率 = 向下取整(2 + 幸运)。随机暴击率 = max(0, 暴击率 - 目标抗暴)。头部要害仍可触发一次暴击。"));
     AddCharacterRow(Combat, TEXT("暴击倍率"), TEXT("critMultiplier"), TEXT("技能倍率 = 1 + 50% + 技能等级 × 5%；步枪精通的要害倍率另行相乘。"));
-    AddCharacterRow(Combat, TEXT("暴击抵抗"), TEXT("critRes"), TEXT("基础抵抗 = 体质%。"));
+    AddCharacterRow(Combat, TEXT("暴击抵抗"), TEXT("critRes"), TEXT("基础抵抗 = 体质%；装备暴击抵抗按加法叠加。"));
     AddCharacterRow(Combat, TEXT("攻速倍率"), TEXT("aspd"), TEXT("攻速倍率 = (1 + 敏捷×0.02) × (1 + 装备近战攻速)。只看近战攻击速度。枪械射击间隔取武器基础值（配件与附魔另计）。"));
     AddCharacterRow(Combat, TEXT("步行速度"), TEXT("moveSpeed"), TEXT("站立、未瞄准时的步行速度上限，读取角色步行配置；不采样实时速度。已含当前武器的持械移速乘区，明细见本行详情。单位：米/秒。"));
     AddCharacterRow(Combat, TEXT("奔跑速度"), TEXT("moveSpeedDetail"), TEXT("站立冲刺状态的速度上限，读取角色奔跑配置；不包含滑铲、瞄准或过渡状态。已含当前武器的持械移速乘区。单位：米/秒。"));
@@ -243,7 +243,7 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         const auto& T=StatusModel->StaminaSettings();
         CharacterDetails.Add(TEXT("staminaRegen"),FString::Printf(TEXT("停止消耗 %.1f 秒后恢复。基础 %.1f/秒 × 敏捷倍率 %.2f = %.1f/秒。"),T.RecoveryDelay,T.RecoveryPerSecond,StatusModel->Derived(TEXT("staminaRegen")),StatusModel->StaminaRecoveryRate()));
         CharacterDetails.Add(TEXT("stamina"),FString::Printf(TEXT("上限 = %.0f + 体质×%.0f + 装备加成。奔跑 %.1f/秒；近战基础 %.1f/次；采集 %.1f/次；当前闪避 %.2f/次。"),T.BaseMaximum,T.PerConstitution,StatusModel->SprintStaminaPerSecond(),T.MeleeCost,T.HarvestCost,StatusModel->DodgeStaminaCost()));
-        CharacterDetails.Add(TEXT("con"),FString::Printf(TEXT("生命上限 = 100 + 体质×10 + (等级-1)×10\n体力上限 = %.0f + 体质×%.0f + 装备加成\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%%"),T.BaseMaximum,T.PerConstitution));
+        CharacterDetails.Add(TEXT("con"),FString::Printf(TEXT("生命上限 = (100 + 体质×10 + (等级-1)×10) × (1 + 装备最大生命%%)\n体力上限 = %.0f + 体质×%.0f + 装备加成\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%% + 装备暴击抵抗"),T.BaseMaximum,T.PerConstitution));
     }
     const auto* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
     // Clear former-pawn values when possession changes or no compatible pawn exists.

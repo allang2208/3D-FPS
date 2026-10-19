@@ -53,7 +53,7 @@ FString UColdSteelItemTooltip::StructureSignature()const
     FString Result=bPinned?TEXT("detail"):TEXT("summary");
     Result+=Presentation.bWideIcon?TEXT("|wide"):TEXT("|square");
     auto Rows=[&](const TArray<FColdSteelTooltipRow>& Values)
-    {for(const auto& R:Values)Result+=FString::Printf(TEXT("|%d:%d:%d:%d:%d:%s"),R.bSection,R.bContinuation,R.bStacked,R.bDashedAfter,R.bPreview,*R.Label);};
+    {for(const auto& R:Values)Result+=FString::Printf(TEXT("|%d:%d:%d:%d:%d:%d:%s"),R.bSection,R.bContinuation,R.bStacked,R.bDashedAfter,R.bPreview,R.Tone,*R.Label);};
     Rows(Presentation.Summary);
     if(!Presentation.Cards.IsEmpty())
     {
@@ -61,7 +61,7 @@ FString UColdSteelItemTooltip::StructureSignature()const
         for(int32 Index=0;Index<Main.Rows.Num();++Index)
         {
             const auto& R=Main.Rows[Index];if(!R.bPreview)continue;
-            Result+=FString::Printf(TEXT("|preview:%d:%d:%d:%d:%d:%d:%s"),Presentation.Cards.Num()-1,Index,R.bSection,R.bContinuation,R.bStacked,R.bDashedAfter,*R.Label);
+            Result+=FString::Printf(TEXT("|preview:%d:%d:%d:%d:%d:%d:%d:%s"),Presentation.Cards.Num()-1,Index,R.bSection,R.bContinuation,R.bStacked,R.bDashedAfter,R.Tone,*R.Label);
         }
     }
     if(bPinned)
