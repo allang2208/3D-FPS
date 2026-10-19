@@ -62,6 +62,21 @@ python Tools/AssetPipeline/ue_python_exec.py --statement "import unreal; unreal.
 - 对方修好后重跑 `Tools/Build/Build-Editor.ps1` 即可（增量构建会把本次 TU 补上）；`Target is up to date`（0 个动作）是**有效成功状态**，不必强推 rebuild。要确认"本次改动确实进了 DLL"，看 `Binaries/Win64/UnrealEditor-FPSGAME.dll` 的时间戳是否晚于自己全部源码——本轮 DLL 22:21:48、最晚源码 21:34:20，据此判定已包含（对方 22:17 修好文件后 22:21:48 的构建完成链接）。这仍不等于运行验收。
 - **`-SingleFile` 的 `Result: Succeeded` 不是编译证明**（2026-09-22 教训）：当前 makefile 状态下它对改过的 TU 也会报 `Target is up to date` 并"运行 0 个动作"，**连删掉 `Intermediate/Build/Win64/x64/UnrealEditor/Development/<Module>/<File>.cpp.obj` 再跑也照样 0 动作**，而且它只编译不链接（输出里的 `Output binary:` 是信息行，不是它链接过）。判定是否真的重编，看那个 `.obj` 的时间戳是否晚于源码——本轮两次"成功"之后 `.obj` 仍是几小时前的时间，只有完整构建才把它补上。所以：**源码改动的最终结论一律取"完整构建成功 + DLL 时间戳/宽字符串"两件事**，中途的单文件"成功"只能当"没报错"。
 - **直接证明法**（2026-09-21 第二轮）：UE 的字符串字面量在 Windows 上是 **UTF-16LE**，所以在 DLL 里按宽字符搜自己新增的 CVar 名就能证明代码进没进二进制——`py -c "d=open(r'Binaries\Win64\UnrealEditor-FPSGAME.dll','rb').read(); print('fps.Tracer.Every'.encode('utf-16-le') in d)"` → `True`；顺手搜一个早就存在的 CVar 名作对照。按 ASCII 搜会全部 `MISSING`，不要据此误判成"没编进去"。被编辑器占用而反复被守卫拒绝时，等窗口重试（每 45–60 s，别人不关就别动它），窗口一出现增量构建会自己补上。
+- **模块被从链接列表里排除，而 UBT 仍报 `Target is up to date`**（2026-10-19 教训）：删掉某个 `.cpp.obj` 后重跑增量构建，UBT 报 "Result: Succeeded / 0 action(s)"，但那个 obj **并没有被重新生成**，而且该模块整条从链接响应文件里消失——DLL 里于是缺了这部分代码，功能静默失效。判定方法：直接查 `Intermediate/Build/Win64/x64/UnrealEditor/Development/<Module>/<Target>.dll.rsp` 里有没有你的 `X.cpp.obj`：
+
+  ```powershell
+  Select-String -Path 'Intermediate\Build\Win64\x64\UnrealEditor\Development\FPSGAME\UnrealEditor-FPSGAME.dll.rsp' -Pattern 'X\.cpp'
+  ```
+
+  查不到就是没链进去，此时"构建成功"毫无意义。让 UBT 真正重编的办法是**删 obj + 把源码 mtime 往后推**（只 touch 时间戳有时不够，UBA 会拿内容/缓存判定）：
+
+  ```powershell
+  Remove-Item 'Intermediate\...\<Module>\X.cpp.obj' -Force
+  (Get-Item 'Source\...\X.cpp').LastWriteTime = (Get-Date).AddMinutes(2)
+  ```
+
+  重建后必须再核一次：obj 时间戳晚于源码、且 obj 已回到 `.dll.rsp` 里，两个都满足才算真的编进去了。
+- **不要用 `-Rebuild` 去救一个丢失的 obj**（2026-10-19 同一轮）：`-Rebuild` 会全量重编整个模块，把并行会话里未完成、暂时编不过的代码全部拉进来，一次性刷出几十个与自己无关的错误，反而更难判断。缺单个 obj 用上面的增量办法补；同时并行会话的破损文件不要代改代删。
 
 ## 热补丁类不能成为关卡/资产的依赖（2026-09-18 事故，青铜火把）
 

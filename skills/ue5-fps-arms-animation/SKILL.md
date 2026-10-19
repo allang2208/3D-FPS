@@ -34,3 +34,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 持弓左手施法、进食与回握，以及双手食物的取消恢复：[弓动作交接](references/bow-hand-string-contact.md#第三人称-sparrow-与左手动作交接2026-10-18)；拇指与最终蒙皮问题：[进食抓握](references/food-and-drink-grasp.md)。
 
 - S12K 检视避让、空仓拇指回握与共振握把整臂跟随：[S12K 检视避让、空仓拇指回握与共振握把整臂跟随](references/saiga12k-grip-and-return.md)。按问题读取；历史检查不授权自动重测。
+
+## 固定工位视角手臂 IK
+
+- 工作视角里手看不见、同时有一条贯穿屏幕的 1px 细线，或要改 `AAlchemyWorldView`／`AForgeInteraction` 这类把相机与手臂一起搬进工位的视角：[工位视角手臂 IK 锚点](references/workbench-view-arm-anchor.md)。核心是"够手距离必须落在臂展内"，按该页的量取顺序先算距离再查渲染；`ArmBones` 含 clavicle 全部子骨，折叠非手臂骨救不了肩部拉伸。
