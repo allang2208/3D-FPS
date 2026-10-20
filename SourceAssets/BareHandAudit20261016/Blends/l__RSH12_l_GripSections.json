@@ -1,0 +1,17 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12HeavyGrip20261004\\Integration20261005\\Host\\l\\RSH12_l_GripSections.blend",
+ "changes": [
+  {
+   "object": "RSH12_NativeAssembly",
+   "removed": 44,
+   "added": 26,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_removed": 2,
+    "micro_face_rewritten": 2,
+    "fold_regions_fixed": 2,
+    "normal_corners_replaced": 0
+   }
+  }
+ ]
+}

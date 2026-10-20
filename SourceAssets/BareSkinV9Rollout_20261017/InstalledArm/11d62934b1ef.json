@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_sprint_loop",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 26,
+   "hand_max": 0.0,
+   "forearm_max": 9.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    3,
+    3
+   ],
+   "roll_after": [
+    -6,
+    3
+   ]
+  }
+ },
+ "readback_max_deg": 0.0108,
+ "sha_before": "c4fdaf97356471aa9ce080acb755846d69b8ee94e0da3a74de5cca327b18dada",
+ "sha256": "14679d0e7cd2a20c496e707a681de80301af8eceeec6038a3096201141562313"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Drum46/Animations/canted/A_LMG201_canted_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 51,
+   "hand_max": 0.0,
+   "forearm_max": 178.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -105,
+    101
+   ],
+   "roll_after": [
+    2,
+    124
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "ec01dcd25357274080b218a9b6999c3391c2dd21045a00341949839b2da78184",
+ "sha256": "3981ad820ee413da52abcda14fc1da5b1e40a6afd36bd91fa89f8b602b8de7e3"
+}

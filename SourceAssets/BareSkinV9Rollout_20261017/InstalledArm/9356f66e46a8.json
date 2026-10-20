@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Dual/r/Animations/A_Dual_G18_r_quickcombat",
+ "keys": 97,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 23,
+   "hand_max": 0.0,
+   "forearm_max": 96.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -59,
+    8
+   ],
+   "roll_after": [
+    -59,
+    102
+   ]
+  }
+ },
+ "readback_max_deg": 0.011,
+ "sha_before": "b2ee8fb8e0062841045208c3bcdda89d8115696f002131a60ee4ba727147be88",
+ "sha256": "9578d4e7dddf2e6d04df2c93a2282d866fe8293e082260726ff960c97525dc6b"
+}

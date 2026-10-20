@@ -1,0 +1,281 @@
+{
+ "viewmodels": {
+  "RuneSword": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny",
+  "RuneArms": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms",
+  "FrostSword": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny",
+  "FrostArms": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms",
+  "Axe": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe",
+  "Pickaxe": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe",
+  "Warhammer": "/Game/Weapons/SteelWarhammer20261014/SK_SteelWarhammer_BareArmsV7",
+  "WarhammerSprint": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+  "Traversal": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7",
+  "TraversalBounds": "/Game/Movement/Traversal/Native/SK_TraversalArms_AnimatedBounds",
+  "Bow": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7",
+  "BowContact": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7"
+ },
+ "clips": {
+  "RuneSword": {},
+  "RuneArms": {},
+  "FrostSword": {},
+  "FrostArms": {},
+  "Axe": {},
+  "Pickaxe": {},
+  "Warhammer": {},
+  "WarhammerSprint": {},
+  "Traversal": {},
+  "TraversalBounds": {},
+  "Bow": {},
+  "BowContact": {}
+ },
+ "held": {},
+ "meshes": [
+  {
+   "mesh": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny",
+   "pose_sources": [
+    "RuneSword"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms",
+   "pose_sources": [
+    "RuneArms"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny",
+   "pose_sources": [
+    "FrostSword"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms",
+   "pose_sources": [
+    "FrostArms"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe",
+   "pose_sources": [
+    "Axe"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe",
+   "pose_sources": [
+    "Pickaxe"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/SteelWarhammer20261014/SK_SteelWarhammer_BareArmsV7",
+   "pose_sources": [
+    "Warhammer"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416"
+  },
+  {
+   "mesh": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+   "pose_sources": [
+    "WarhammerSprint"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7",
+   "pose_sources": [
+    "Traversal"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Movement/Traversal/Native/SK_TraversalArms_AnimatedBounds",
+   "pose_sources": [
+    "TraversalBounds"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7",
+   "pose_sources": [
+    "Bow"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7",
+   "pose_sources": [
+    "BowContact"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/RuneSword/SK_RuneSword_BareArmsV7",
+   "pose_sources": [
+    "RuneSword",
+    "RuneArms"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_1f9346431c_WristCoverage",
+   "pose_sources": [
+    "RuneSword",
+    "RuneArms"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_f2763de9e9_WristCoverage",
+   "pose_sources": [
+    "RuneSword",
+    "RuneArms"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/FrostSword/SK_FrostSword_BareArmsV7",
+   "pose_sources": [
+    "FrostSword"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostSword/SK_FrostSword_4b3bdf4f24_WristCoverage",
+   "pose_sources": [
+    "FrostSword"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostSword/SK_FrostSword_825fd8051f_WristCoverage",
+   "pose_sources": [
+    "FrostSword"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/FrostArms/SK_FrostArms_BareArmsV7",
+   "pose_sources": [
+    "FrostArms"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostArms/SK_FrostArms_9823750602_WristCoverage",
+   "pose_sources": [
+    "FrostArms"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostArms/SK_FrostArms_da7b8d3adc_WristCoverage",
+   "pose_sources": [
+    "FrostArms"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Axe/SK_Axe_BareArmsV7",
+   "pose_sources": [
+    "Axe"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_191687429f_WristCoverage",
+   "pose_sources": [
+    "Axe"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_8c083f1313_WristCoverage",
+   "pose_sources": [
+    "Axe"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Pickaxe/SK_Pickaxe_BareArmsV7",
+   "pose_sources": [
+    "Pickaxe",
+    "Warhammer",
+    "WarhammerSprint"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Pickaxe/SK_Pickaxe_42fbe5045e_WristCoverage",
+   "pose_sources": [
+    "Pickaxe",
+    "Warhammer",
+    "WarhammerSprint"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Pickaxe/SK_Pickaxe_44c82ffd78_WristCoverage",
+   "pose_sources": [
+    "Pickaxe",
+    "Warhammer",
+    "WarhammerSprint"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage",
+   "pose_sources": [
+    "Traversal",
+    "TraversalBounds"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ecaf719ab9_WristCoverage",
+   "pose_sources": [
+    "Traversal",
+    "TraversalBounds"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_3cced8ec73_WristCoverage",
+   "pose_sources": [
+    "Bow",
+    "BowContact"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_bb1815a212_WristCoverage",
+   "pose_sources": [
+    "Bow",
+    "BowContact"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_f5cf430f68_WristCoverage",
+   "pose_sources": [
+    "Bow",
+    "BowContact"
+   ],
+   "role": "companion"
+  }
+ ],
+ "discover": true,
+ "clip_roots": {
+  "Traversal": [
+   "/Game/Movement/"
+  ],
+  "TraversalBounds": [
+   "/Game/Movement/"
+  ]
+ }
+}

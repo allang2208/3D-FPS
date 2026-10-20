@@ -1,0 +1,25 @@
+{
+ "viewmodels": {
+  "Shovel": "/Game/Items/ProductionTools/ShovelGrip20261017/SK_Shovel"
+ },
+ "clips": {
+  "Shovel": {
+   "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_Idle": "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_Idle",
+   "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_Swing": "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_Swing",
+   "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_HitRecover": "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_HitRecover"
+  }
+ },
+ "held": {
+  "Shovel": [
+   "/Game/Items/ProductionTools/ShovelGrip20261017/A_Shovel_Idle"
+  ]
+ },
+ "meshes": [
+  {
+   "mesh": "/Game/Items/ProductionTools/ShovelGrip20261017/SK_Shovel",
+   "pose_sources": ["Shovel"],
+   "role": "viewmodel",
+   "template": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe"
+  }
+ ]
+}

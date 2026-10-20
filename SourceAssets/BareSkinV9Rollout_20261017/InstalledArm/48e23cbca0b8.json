@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Equip",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 21.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -22,
+    -4
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 110.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -110,
+    -58
+   ]
+  }
+ },
+ "readback_max_deg": 0.0134,
+ "sha_before": "7af3400caea1a1ae92c559f499d2b66ff18813027f0d2c7d989e252e661ffdf6",
+ "sha256": "38dee8eee135b6eb8d6ffadc1972974eb61a06633f50fba2be8dd50dbd8d4499"
+}

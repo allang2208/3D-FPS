@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Vertical/A_QBZ191_QuickCombat_Vertical",
+ "keys": 433,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 0.0,
+   "forearm_max": 368.4,
+   "upper_max": 368.4,
+   "roll_before": [
+    -374,
+    13
+   ],
+   "roll_after": [
+    -108,
+    13
+   ]
+  }
+ },
+ "readback_max_deg": 0.0128,
+ "sha_before": "15dd151d610dbf476ede7b675ebfa9501dffda85bb4f2e693858cc2dd4b50b0c",
+ "sha256": "4ad131d93ec27616e00a8a9b7e325becedd91100ebb06ac7987da4797911cb60"
+}

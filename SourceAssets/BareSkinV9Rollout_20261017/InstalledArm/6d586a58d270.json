@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_sprint_enter",
+ "keys": 49,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 49,
+   "hand_max": 0.0,
+   "forearm_max": 54.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    2,
+    45
+   ],
+   "roll_after": [
+    40,
+    67
+   ]
+  }
+ },
+ "readback_max_deg": 0.0116,
+ "sha_before": "517bf019a79c14f8a056deee2547b3cc67de6403517f361a17f611acbd7657b6",
+ "sha256": "2937019f3a4ea38093a1a636cfe9d418cc9d7aa65e2731b16eb53fb0ba20e30a"
+}

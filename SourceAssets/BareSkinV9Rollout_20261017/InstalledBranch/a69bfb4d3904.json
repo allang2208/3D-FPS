@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_QuickCombat",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -117.1,
+    -13.7
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -74.7,
+    -0.0
+   ]
+  }
+ }
+}

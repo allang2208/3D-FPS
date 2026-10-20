@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_equip",
+ "keys": 77,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 71,
+   "roll_range": [
+    -127.5,
+    138.7
+   ]
+  }
+ },
+ "sha_before": "846de340df57d80cd47f371c9c5802873bbbd3629bda01ecbda0ad496cbd63e1",
+ "sha256": "ef0cb34517a749ae5c5faf07196569d6a90b4a991b840621cdb792f74d0946f7"
+}

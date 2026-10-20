@@ -1,0 +1,11 @@
+{
+ "files": {
+  "T_M4SkinV9_Colour.png": "0658784795e81565002589779b1302ef2ee541b5c95d522713f9af1ebe225344",
+  "T_M4SkinV9_Masks.png": "ba60e8918f2b8fdea4f595653251f9f3c0ed13c99cdbe19d0aa85db681b7a9c7",
+  "T_M4SkinV9_Normal.png": "3a6c95ed834d29b4ceac75e55b9403dccd06b49d06043efeb34418028e0122e0"
+ },
+ "normal": "DirectX (green flipped from the Blender OpenGL bake)",
+ "masks": "R ambient occlusion, G roughness, B cavity, A scatter amount",
+ "colour": "sRGB albedo",
+ "uv": "UV0 (V9 unwrap)"
+}

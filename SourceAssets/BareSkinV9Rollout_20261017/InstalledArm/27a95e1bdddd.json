@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ElasticV15/A_Bow_Hold",
+ "keys": 241,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 11.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    1,
+    1
+   ],
+   "roll_after": [
+    -10,
+    -10
+   ]
+  }
+ },
+ "readback_max_deg": 0.013,
+ "sha_before": "36002084f5a6db67fee7d898a66a99c0e187793bf6d9cb721e22656d258516b4",
+ "sha256": "036c64bf5fbdfb796ccabb84d97ad5ff18301404e715cb3166daaadf6e23e721"
+}

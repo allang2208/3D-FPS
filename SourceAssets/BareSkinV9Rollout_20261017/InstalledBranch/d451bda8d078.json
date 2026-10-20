@@ -1,0 +1,30 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintExit",
+ "keys": 25,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 39.27,
+   "keys_off": 18,
+   "roll_range": [
+    1.0,
+    104.4
+   ]
+  },
+  "r": {
+   "max_err": 73.89,
+   "keys_off": 19,
+   "roll_range": [
+    -61.3,
+    107.3
+   ]
+  }
+ },
+ "sha_before": "96648262e3772c922a43cfd432b2e5844e563ffcb945b4d2eaa09a05cba10f18",
+ "sha256": "dd02d78a44bbbe18357b8c5a158460d91c79f60a85cb0344e1f07ab79c0199e7"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_SprintLoop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 179.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -12,
+    143
+   ],
+   "roll_after": [
+    -86,
+    -52
+   ]
+  }
+ },
+ "readback_max_deg": 0.0125,
+ "sha_before": "e3ee929aa91d29e95c9228ceaffe7ef2a29b2fa22e743d108b2577f45eebbb4c",
+ "sha256": "05d26b22b8cc112dd933826b897fc5a7bb4a9f4b3d1748fb4d100d743a54477d"
+}

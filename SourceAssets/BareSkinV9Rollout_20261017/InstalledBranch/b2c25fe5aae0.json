@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_equip",
+ "keys": 77,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 71,
+   "roll_range": [
+    -128.6,
+    138.5
+   ]
+  }
+ },
+ "sha_before": "b1ab5e82846e823921c1703690e1cd1d5bdd4ee7bac5015884239e66136ff8a8",
+ "sha256": "ab27211e0a953e5b8126761eca93746d7af4d35aed24b79c3ace017f63b8c57d"
+}

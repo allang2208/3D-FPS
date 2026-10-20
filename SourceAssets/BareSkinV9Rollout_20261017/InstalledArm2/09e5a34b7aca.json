@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AKMDrumFreeDrop20260920/prism/A_AKM_prism_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.034,
+ "sha_before": "9c7512900f2435f7eb86b8f69e3d7d6b537ef0aab635555a31a41eb8cba422ec",
+ "sha256": "0937a9f50a7c076fdff1ed91a7554e0455e9a128a5ce94c03887004b3f808fb1"
+}

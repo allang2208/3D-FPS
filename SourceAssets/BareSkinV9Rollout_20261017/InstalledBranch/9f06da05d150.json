@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_aim_fire_last",
+ "keys": 89,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    21.5,
+    28.8
+   ]
+  }
+ }
+}

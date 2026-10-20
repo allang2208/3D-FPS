@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DanWesson715/LeftRecovery20260914/LoaderStow/A_DW715_speed_1",
+ "keys": 433,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 183,
+   "hand_max": 0.0,
+   "forearm_max": 10.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -70,
+    7
+   ],
+   "roll_after": [
+    -70,
+    7
+   ]
+  }
+ },
+ "readback_max_deg": 0.0118,
+ "sha_before": "3776005e684fb3a7f71ad9b0c4c50b10271611f3f12c14927af80775f018bace",
+ "sha256": "f1701f0be3a75e743258edfc685cd0ca817323af342e26874086b918ab506ef0"
+}

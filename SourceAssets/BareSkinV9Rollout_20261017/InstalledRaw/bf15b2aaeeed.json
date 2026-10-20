@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/AKMDrumFreeDrop20260920/vertical/A_AKM_vertical_drum_reload_empty",
+ "keys": 516,
+ "fixed": {
+  "thumb_01_l": [
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "06cdb20525ed5dff2378bb2459d4241543fc78f3c09f4839137e01a024c38111",
+ "sha256": "31a63a695f2b46921012ef6fc5d693c536091120d33727e9b5e0365f0320aaaf"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_sprint_loop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 25,
+   "hand_max": 0.0,
+   "forearm_max": 19.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -153,
+    -123
+   ],
+   "roll_after": [
+    -145,
+    -123
+   ]
+  }
+ },
+ "readback_max_deg": 0.0111,
+ "sha_before": "d1cac82195d4becd22f29be42b1486f472601369db728014ce88137a9a19c4bb",
+ "sha256": "7596a1bd949b7eab7d3aa81d3f41c5962f4f85e5a9941d48c6043828cc5d154e"
+}

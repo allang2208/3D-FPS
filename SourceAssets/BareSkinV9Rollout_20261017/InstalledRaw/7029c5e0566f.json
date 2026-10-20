@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_reload",
+ "keys": 253,
+ "fixed": {
+  "thumb_01_l": [
+   [
+    0,
+    1
+   ],
+   [
+    252,
+    253
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "5a65d48a7f570c1c146edcbbd0f1989aea0e74a95cc0d9f600b0a1d0d13b0918",
+ "sha256": "d05c0cdf90d2a31fe23bdbd34e25cf4772cee07f65df2d116c191df2b10e17d7"
+}

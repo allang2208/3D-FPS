@@ -1,0 +1,18 @@
+{
+ "path": "/Game/Weapons/M1911/P9Retarget20260913/Animations/A_M1911_reload",
+ "keys": 269,
+ "fixed": {
+  "thumb_02_l": [
+   [
+    64,
+    65
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "8f90b49da72db7cf76965afa38ec34574c5f58a036b048e5945b1e1e5b7a8a74",
+ "sha256": "9f1928c8faee38bf2ec4904bcbb1f7e8f42853d32fdf90225134f8fce73b56bd"
+}

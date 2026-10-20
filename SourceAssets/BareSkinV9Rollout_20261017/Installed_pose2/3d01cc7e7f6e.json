@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+ "saved": true,
+ "morphs": 6,
+ "morphs_on_asset": 16,
+ "added": [
+  "JC_Pose_R_54_159_102_7_0_14_26_24",
+  "JC_Pose_R_38_40_70_26_0_14_26_24",
+  "JC_Pose_R_59_m24_6_m55_0_3_6_6",
+  "JC_Pose_R_25_m14_71_5_0_14_26_24",
+  "JC_Pose_R_45_m17_18_m48_0_3_6_6",
+  "JC_Pose_R_71_m13_9_m55_0_5_10_9"
+ ],
+ "emptied_stale_morphs": [
+  "JC_Pose_R_38_38_70_1_0_14_26_24"
+ ],
+ "position_readback_max_cm": 0.0,
+ "sha256": "5610e804e626b1acf931fe13941e8ba19994112a6d78a7c30262cb1489a59219",
+ "runtime_tested": false
+}

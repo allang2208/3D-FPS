@@ -1,0 +1,34 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\GuardV1\\Warhammer_GuardV1_Editable.blend",
+ "changes": [
+  {
+   "object": "SK_Manny_Arms",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 48,
+   "notes": {
+    "normal_corners_replaced": 48
+   }
+  },
+  {
+   "object": "SK_Manny_Simple",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 128,
+   "notes": {
+    "normal_corners_replaced": 128
+   }
+  },
+  {
+   "object": "Warhammer_BareArmsV7",
+   "removed": 11,
+   "added": 7,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_rewritten": 7,
+    "micro_face_removed": 4,
+    "normal_corners_replaced": 0
+   }
+  }
+ ]
+}

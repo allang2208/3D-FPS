@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/NockFlowV16/A_Bow_Nock",
+ "keys": 83,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 55,
+   "roll_range": [
+    -207.9,
+    142.5
+   ]
+  }
+ },
+ "sha_before": "0c1aab3417782080223142a1d5e68fd13b57c38e232dae437a3d86b073a3467e",
+ "sha256": "702d5ecf290e4cf10ab71627226dececce45510f63e0a8a92670ba5e5aad7c9e"
+}

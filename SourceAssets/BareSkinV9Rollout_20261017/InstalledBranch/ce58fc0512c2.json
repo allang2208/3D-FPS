@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_sprint_exit",
+ "keys": 37,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -44.8,
+    51.2
+   ]
+  }
+ }
+}

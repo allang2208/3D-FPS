@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash3",
+ "keys": 526,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 38,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -13,
+    123
+   ],
+   "roll_after": [
+    -13,
+    123
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 160,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -152,
+    0
+   ],
+   "roll_after": [
+    -152,
+    -39
+   ]
+  }
+ },
+ "readback_max_deg": 0.013,
+ "sha_before": "262f7345895674cb8240bd104ad7fcb1dcd45418b14650d135486db93bf24df1",
+ "sha256": "727ca42ffd6ca391ea89c5944d39929abd2cbf85b33d3d9259bc51e4e764e029"
+}

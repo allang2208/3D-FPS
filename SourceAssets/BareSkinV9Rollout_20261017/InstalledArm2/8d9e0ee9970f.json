@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DualPistolQuickCombat20260920/VideoRefV3/DW715/l/Animations/A_Dual_DW715_l_quickcombat_left",
+ "keys": 97,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 93.9
+  }
+ },
+ "readback_max_deg": 0.0392,
+ "sha_before": "91e59ab2f4374f0817d02bad56abbc7326ed21e77a7efe3ccfcaa168a141b1e0",
+ "sha256": "ef0163f3498f59389aeaf6a39d6c0fcd853ec667c9925ed797aae6f4fcff905c"
+}

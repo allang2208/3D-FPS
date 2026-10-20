@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/ReloadReference20260919/A_ASH12_reload_empty",
+ "keys": 397,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 50,
+   "hand_max": 0.0,
+   "forearm_max": 29.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    156
+   ],
+   "roll_after": [
+    0,
+    149
+   ]
+  }
+ },
+ "readback_max_deg": 0.0132,
+ "sha_before": "6dbb9d2077f90fc515da88bd41b950633f0e2f4ef365eed69cfd508829772919",
+ "sha256": "a29152527877354c6301e3fbe3a364cb94c98888c9310e342b6cd05f4c3a7ce7"
+}

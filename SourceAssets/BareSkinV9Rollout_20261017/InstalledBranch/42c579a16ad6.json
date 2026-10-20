@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/DanWesson715/ReloadNatural20260914/Animations/A_DW715_single_4_1",
+ "keys": 289,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -111.4,
+    6.9
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -42.0,
+    79.8
+   ]
+  }
+ }
+}

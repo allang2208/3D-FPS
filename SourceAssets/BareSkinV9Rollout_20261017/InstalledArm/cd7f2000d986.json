@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_HitRecover",
+ "keys": 133,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 12,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -6,
+    94
+   ],
+   "roll_after": [
+    -6,
+    94
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 32,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -130,
+    0
+   ],
+   "roll_after": [
+    -130,
+    -50
+   ]
+  }
+ },
+ "readback_max_deg": 0.0133,
+ "sha_before": "f4d670ba987af88ad0fb33a2cc42d443ddf6a6e37bec31c5841989421fa648c7",
+ "sha256": "59570fc5023c1a2be680ec977bca14fc141035e05d0e1dc8e82dac7d1673a611"
+}

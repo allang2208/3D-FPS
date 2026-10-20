@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Accessories22/Animations/prism/A_LMG201_prism_inspect",
+ "keys": 746,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 187,
+   "hand_max": 0.0,
+   "forearm_max": 76.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    31,
+    110
+   ],
+   "roll_after": [
+    31,
+    95
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "18665923ef48b90a498863cf696babd81e896f9247aaf69eca74fc86427087c2",
+ "sha256": "865dc3f5e1ab5538bbb1a2ee154794bc15ed4cb9bc9bedb285f0c316211452e4"
+}

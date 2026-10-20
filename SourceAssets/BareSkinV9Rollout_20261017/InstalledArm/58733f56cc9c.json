@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DanWesson715/LeftRecovery20260914/Animations/A_DW715_single_4_1",
+ "keys": 289,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 27,
+   "hand_max": 0.0,
+   "forearm_max": 3.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -72,
+    7
+   ],
+   "roll_after": [
+    -70,
+    7
+   ]
+  }
+ },
+ "readback_max_deg": 0.0122,
+ "sha_before": "cd21cf06cf137f67e91d0a6af5bbb122a9b714c84aeb3ae3e813be823f2e3fd5",
+ "sha256": "55f379e3e657a052ffffecc30b7da492a8ab4ea8ccd60abe086b1343ee058ff0"
+}

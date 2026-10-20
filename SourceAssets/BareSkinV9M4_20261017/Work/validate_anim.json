@@ -1,0 +1,422 @@
+{
+ "A_AKM_idle": {
+  "frames": 31,
+  "folded_lbs": {
+   "l": 9,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 3,
+   "r": 1
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 8
+  },
+  "hand_holes_jc": {
+   "l": 0,
+   "r": 0
+  },
+  "elbow": {
+   "l": [
+    27.1,
+    27.2
+   ],
+   "r": [
+    100.1,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.604
+ },
+ "A_AKM_aim": {
+  "frames": 1,
+  "folded_lbs": {
+   "l": 8,
+   "r": 48
+  },
+  "folded_jc": {
+   "l": 3,
+   "r": 27
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 7
+  },
+  "hand_holes_jc": {
+   "l": 0,
+   "r": 0
+  },
+  "elbow": {
+   "l": [
+    32.7,
+    32.7
+   ],
+   "r": [
+    109.2,
+    109.2
+   ]
+  },
+  "max_morph_cm": 0.684
+ },
+ "A_AKM_fire": {
+  "frames": 8,
+  "folded_lbs": {
+   "l": 9,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 3,
+   "r": 2
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 0,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    26.4,
+    32.6
+   ],
+   "r": [
+    100.6,
+    102.2
+   ]
+  },
+  "max_morph_cm": 0.618
+ },
+ "A_AKM_aim_fire": {
+  "frames": 8,
+  "folded_lbs": {
+   "l": 9,
+   "r": 50
+  },
+  "folded_jc": {
+   "l": 3,
+   "r": 34
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 8
+  },
+  "hand_holes_jc": {
+   "l": 0,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    31.8,
+    38.5
+   ],
+   "r": [
+    109.0,
+    110.6
+   ]
+  },
+  "max_morph_cm": 0.698
+ },
+ "A_M4_HK416_reload": {
+  "frames": 22,
+  "folded_lbs": {
+   "l": 14,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 8,
+   "r": 1
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 1,
+   "r": 0
+  },
+  "elbow": {
+   "l": [
+    27.2,
+    70.1
+   ],
+   "r": [
+    100.8,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.604
+ },
+ "A_M4_HK416_reload_empty": {
+  "frames": 28,
+  "folded_lbs": {
+   "l": 19,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 9,
+   "r": 1
+  },
+  "hand_holes_lbs": {
+   "l": 17,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 18,
+   "r": 0
+  },
+  "elbow": {
+   "l": [
+    26.4,
+    68.6
+   ],
+   "r": [
+    100.8,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.604
+ },
+ "A_M4_HK416_equip_charge": {
+  "frames": 7,
+  "folded_lbs": {
+   "l": 8,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 3,
+   "r": 11
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 11
+  },
+  "hand_holes_jc": {
+   "l": 0,
+   "r": 10
+  },
+  "elbow": {
+   "l": [
+    27.1,
+    27.1
+   ],
+   "r": [
+    100.8,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.604
+ },
+ "A_M4_Vertical_idle": {
+  "frames": 31,
+  "folded_lbs": {
+   "l": 16,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 5,
+   "r": 1
+  },
+  "hand_holes_lbs": {
+   "l": 0,
+   "r": 8
+  },
+  "hand_holes_jc": {
+   "l": 0,
+   "r": 0
+  },
+  "elbow": {
+   "l": [
+    29.8,
+    30.1
+   ],
+   "r": [
+    100.1,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.604
+ },
+ "A_M4_Vertical_reload": {
+  "frames": 22,
+  "folded_lbs": {
+   "l": 19,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 9,
+   "r": 1
+  },
+  "hand_holes_lbs": {
+   "l": 7,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 7,
+   "r": 0
+  },
+  "elbow": {
+   "l": [
+    21.5,
+    67.7
+   ],
+   "r": [
+    100.8,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.604
+ },
+ "A_M4_TacticalSprint_Base_Enter": {
+  "frames": 4,
+  "folded_lbs": {
+   "l": 208,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 196,
+   "r": 4
+  },
+  "hand_holes_lbs": {
+   "l": 7,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 7,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    27.1,
+    127.7
+   ],
+   "r": [
+    70.8,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.868
+ },
+ "A_M4_TacticalSprint_Base_Loop": {
+  "frames": 7,
+  "folded_lbs": {
+   "l": 247,
+   "r": 6
+  },
+  "folded_jc": {
+   "l": 246,
+   "r": 4
+  },
+  "hand_holes_lbs": {
+   "l": 7,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 7,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    123.3,
+    129.3
+   ],
+   "r": [
+    66.4,
+    73.7
+   ]
+  },
+  "max_morph_cm": 0.885
+ },
+ "A_M4_TacticalSprint_Base_Exit": {
+  "frames": 4,
+  "folded_lbs": {
+   "l": 208,
+   "r": 40
+  },
+  "folded_jc": {
+   "l": 196,
+   "r": 4
+  },
+  "hand_holes_lbs": {
+   "l": 7,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 7,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    27.1,
+    127.7
+   ],
+   "r": [
+    70.8,
+    100.8
+   ]
+  },
+  "max_morph_cm": 0.868
+ },
+ "A_M4_TacticalSprint_Vertical_Loop": {
+  "frames": 7,
+  "folded_lbs": {
+   "l": 279,
+   "r": 6
+  },
+  "folded_jc": {
+   "l": 276,
+   "r": 4
+  },
+  "hand_holes_lbs": {
+   "l": 4,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 4,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    126.7,
+    129.7
+   ],
+   "r": [
+    66.4,
+    73.7
+   ]
+  },
+  "max_morph_cm": 0.888
+ },
+ "A_M4_TacticalSprint_Drum_Loop": {
+  "frames": 7,
+  "folded_lbs": {
+   "l": 292,
+   "r": 6
+  },
+  "folded_jc": {
+   "l": 282,
+   "r": 4
+  },
+  "hand_holes_lbs": {
+   "l": 6,
+   "r": 9
+  },
+  "hand_holes_jc": {
+   "l": 6,
+   "r": 2
+  },
+  "elbow": {
+   "l": [
+    124.3,
+    129.5
+   ],
+   "r": [
+    66.4,
+    73.7
+   ]
+  },
+  "max_morph_cm": 0.887
+ }
+}

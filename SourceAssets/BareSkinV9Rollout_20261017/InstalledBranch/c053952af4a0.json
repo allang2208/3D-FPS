@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_equip",
+ "keys": 77,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 71,
+   "roll_range": [
+    -139.3,
+    121.9
+   ]
+  }
+ },
+ "sha_before": "63b37b50f688f553da5d9f7deb5e748041fa392fdeb53c52e825600ad4f1ce91",
+ "sha256": "96d7df2ac46a30931358fd162d9534c93618cd02a9d41ace7c498f80b91e3b86"
+}

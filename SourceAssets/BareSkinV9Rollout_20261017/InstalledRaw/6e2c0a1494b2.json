@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload",
+ "keys": 401,
+ "fixed": {
+  "thumb_01_l": [
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "731afcb0aaeb77d29c0c8d9c14e3e627d21ef0c374ada10695a14282c9c46d54",
+ "sha256": "4305e241b0fa3a7db83ec44a1a2c1e14679c0740b55535198de76b6acb721439"
+}

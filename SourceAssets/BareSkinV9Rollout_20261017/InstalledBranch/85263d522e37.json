@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/QuickCombatLeftWristV7/A_Warhammer_QuickCombat",
+ "keys": 151,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -20.7,
+    0.0
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -95.4,
+    0.0
+   ]
+  }
+ }
+}

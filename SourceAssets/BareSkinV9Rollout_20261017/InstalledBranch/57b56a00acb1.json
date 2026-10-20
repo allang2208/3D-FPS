@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_quick_melee",
+ "keys": 217,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -110.0,
+    1.6
+   ]
+  }
+ }
+}

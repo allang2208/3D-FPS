@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_sprint_exit",
+ "keys": 43,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 96.7
+  }
+ },
+ "readback_max_deg": 0.0354,
+ "sha_before": "fe0f329ee11a993add35ad670d67a8da88574780f82dfb37e7ff30fc4d918a60",
+ "sha256": "d84ccdb20cc7d7ae656b1e40f3b6dad53f934e1ba670f1af3a6e344874245b82"
+}

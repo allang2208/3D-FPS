@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/PistolDualWield20260914/DW715/l/RevolverReloadFlickV6/Animations/A_Dual_DW715_l_single_4_2",
+ "keys": 421,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 70.0
+  }
+ },
+ "readback_max_deg": 0.035,
+ "sha_before": "3a13dbc6552f834b710713399a13319b7a8fea752b8d1c96755f5d68b752234e",
+ "sha256": "620a8a51a2a7c7a70aac4134b1ac0e6cf833c3f29310964947d9ce8a2b758c24"
+}

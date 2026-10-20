@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Angled/A_M4_TacticalSprint_Angled_Loop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 42,
+   "hand_max": 0.0,
+   "forearm_max": 23.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    37,
+    38
+   ],
+   "roll_after": [
+    13,
+    38
+   ]
+  }
+ },
+ "readback_max_deg": 0.0128,
+ "sha_before": "5bd24013cacc771b0df5d83abbef8ff390c0331f63060f58ccebc691ab7ecfcc",
+ "sha256": "2084ecd1c14bd4328eaa09faf689d30490528b09e37248a4151a8b0508dd20a1"
+}

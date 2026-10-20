@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/Animations/A_Dual_PitViper2011_r_quickcombat_long",
+ "keys": 97,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 23,
+   "hand_max": 0.0,
+   "forearm_max": 95.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    -49,
+    7
+   ],
+   "roll_after": [
+    -49,
+    100
+   ]
+  }
+ },
+ "readback_max_deg": 0.0099,
+ "sha_before": "f4d4777cab670209b28d00e00f04bf0cebf55b38ec1400253bee840097114fcd",
+ "sha256": "5a714b7eb678d72545ed51a5d18df77fa86743099ecf2e714ace88a7bbcf003b"
+}

@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/PitViper2011/Integrated20261002/Single/Animations/A_PitViper2011_reload",
+ "keys": 211,
+ "fixed": {
+  "thumb_02_l": [
+   [
+    64,
+    65
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "341289ba044d523eb26bf51140ea3dcbc97d8d21e9c5a325b01353074ba7cda1",
+ "sha256": "6c2d868358c86e251de26cbdf71752de503c1599b7585d24769cd706c5450096"
+}

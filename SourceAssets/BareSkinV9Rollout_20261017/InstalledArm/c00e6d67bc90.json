@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/HeavySlamV2/A_Warhammer_HeavyRelease",
+ "keys": 613,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 36,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -5,
+    161
+   ],
+   "roll_after": [
+    -5,
+    161
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 109,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -125,
+    0
+   ],
+   "roll_after": [
+    -125,
+    -41
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "362b2354fef7a2cb4f4b8a1a2b5ac4ef785ba6e7b9bbe99ca8b320c88bc71ad1",
+ "sha256": "cfd47745e4f6ca932b1e2eb36ed3638c523b97acd20aab8efb3b337b1f625dd1"
+}

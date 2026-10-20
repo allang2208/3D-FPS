@@ -1,0 +1,18 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload_empty",
+ "keys": 271,
+ "fixed": {
+  "thumb_02_l": [
+   [
+    64,
+    65
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "5c451d526f07acf7fed19a315c6ae80749cc35bbcc9eea4848c861fc3d11c567",
+ "sha256": "71a6d23e42231139fa114e061c62411b34efef82f53abd9338d964586ac7c3a7"
+}

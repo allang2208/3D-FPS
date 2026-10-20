@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/QBZ191/Attachments20260913/Animations/canted/A_QBZ191_canted_drum_reload_empty",
+ "keys": 657,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -97.5,
+    17.7
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -40.0,
+    38.8
+   ]
+  }
+ }
+}

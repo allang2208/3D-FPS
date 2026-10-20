@@ -1,0 +1,35 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut",
+ "keys": 493,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 277,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 158.2
+  },
+  "r": {
+   "changed": true,
+   "elbow_keys": 239,
+   "windows": [],
+   "deviation_from_written": 0.0
+  }
+ },
+ "readback_max_deg": 0.0136,
+ "sha_before": "5aa8cead6d18a7d3e2efac2a0ce73438d5233e19367f2b20a08bd69bb8bfe2e3",
+ "sha256": "850a066c617cab6e9b5fcab79e7bc6ab5e58917c2e6f348861743f8c6a18b84f"
+}

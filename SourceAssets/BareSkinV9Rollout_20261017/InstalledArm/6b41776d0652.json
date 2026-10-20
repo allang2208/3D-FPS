@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Prism/A_QBZ191_QuickCombat_Prism",
+ "keys": 433,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 0.0,
+   "forearm_max": 368.6,
+   "upper_max": 368.6,
+   "roll_before": [
+    -374,
+    13
+   ],
+   "roll_after": [
+    -105,
+    13
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "904edc526074eba25da1116cedf7064cbc6ef5a542ef3b1e488e2a1be874e2d1",
+ "sha256": "e72e13258a82d7afcf2eda290763a2d64479d16f94f98dac3056dcd5b9cdd883"
+}

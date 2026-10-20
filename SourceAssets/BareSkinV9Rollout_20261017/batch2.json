@@ -1,0 +1,450 @@
+{
+ "viewmodels": {
+  "M1911": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny",
+  "G18": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+  "PitViper": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny",
+  "DW715": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny",
+  "RSH12": "/Game/Weapons/RSH12/SK_RSH12_Manny",
+  "RSH12_DA": "/Game/Weapons/RSH12/DoubleAction20261003/single/SK_RSH12_Manny",
+  "RSH12_N": "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny",
+  "M1911_l": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l",
+  "M1911_r": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r",
+  "DW715_l": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l",
+  "DW715_r": "/Game/Weapons/PistolDualWield20260914/DW715/r/SK_Dual_DW715_r",
+  "G18_l": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+  "G18_r": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+  "PitViper_l": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+  "PitViper_r": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+  "RSH12_l": "/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l",
+  "RSH12_r": "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r",
+  "RSH12_DA_l": "/Game/Weapons/RSH12/DoubleAction20261003/l/SK_Dual_RSH12_l",
+  "RSH12_DA_r": "/Game/Weapons/RSH12/DoubleAction20261003/r/SK_Dual_RSH12_r",
+  "RSH12_N_l": "/Game/Weapons/RSH12/Native71520261003/l/SK_Dual_RSH12_l",
+  "RSH12_N_r": "/Game/Weapons/RSH12/Native71520261003/r/SK_Dual_RSH12_r"
+ },
+ "clips": {
+  "M1911": {},
+  "G18": {},
+  "PitViper": {},
+  "DW715": {},
+  "RSH12": {},
+  "RSH12_DA": {},
+  "RSH12_N": {},
+  "M1911_l": {},
+  "M1911_r": {},
+  "DW715_l": {},
+  "DW715_r": {},
+  "G18_l": {},
+  "G18_r": {},
+  "PitViper_l": {},
+  "PitViper_r": {},
+  "RSH12_l": {},
+  "RSH12_r": {},
+  "RSH12_DA_l": {},
+  "RSH12_DA_r": {},
+  "RSH12_N_l": {},
+  "RSH12_N_r": {}
+ },
+ "held": {},
+ "meshes": [
+  {
+   "mesh": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny",
+   "pose_sources": [
+    "M1911"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+   "pose_sources": [
+    "G18"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny"
+  },
+  {
+   "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny",
+   "pose_sources": [
+    "PitViper"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny"
+  },
+  {
+   "mesh": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny",
+   "pose_sources": [
+    "DW715"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/SK_RSH12_Manny",
+   "pose_sources": [
+    "RSH12"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/DoubleAction20261003/single/SK_RSH12_Manny",
+   "pose_sources": [
+    "RSH12_DA"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny",
+   "pose_sources": [
+    "RSH12_N"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l",
+   "pose_sources": [
+    "M1911_l"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r",
+   "pose_sources": [
+    "M1911_r"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l",
+   "pose_sources": [
+    "DW715_l"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/PistolDualWield20260914/DW715/r/SK_Dual_DW715_r",
+   "pose_sources": [
+    "DW715_r"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+   "pose_sources": [
+    "G18_l"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l"
+  },
+  {
+   "mesh": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+   "pose_sources": [
+    "G18_r"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r"
+  },
+  {
+   "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+   "pose_sources": [
+    "PitViper_l"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l"
+  },
+  {
+   "mesh": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+   "pose_sources": [
+    "PitViper_r"
+   ],
+   "role": "viewmodel",
+   "template": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l",
+   "pose_sources": [
+    "RSH12_l"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r",
+   "pose_sources": [
+    "RSH12_r"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/DoubleAction20261003/l/SK_Dual_RSH12_l",
+   "pose_sources": [
+    "RSH12_DA_l"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/DoubleAction20261003/r/SK_Dual_RSH12_r",
+   "pose_sources": [
+    "RSH12_DA_r"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/Native71520261003/l/SK_Dual_RSH12_l",
+   "pose_sources": [
+    "RSH12_N_l"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Weapons/RSH12/Native71520261003/r/SK_Dual_RSH12_r",
+   "pose_sources": [
+    "RSH12_N_r"
+   ],
+   "role": "viewmodel"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911/SK_M1911_BareArmsV7",
+   "pose_sources": [
+    "M1911",
+    "G18",
+    "PitViper"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_36f0ae0334_WristCoverage",
+   "pose_sources": [
+    "M1911",
+    "G18",
+    "PitViper"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_abd8f86a95_WristCoverage",
+   "pose_sources": [
+    "M1911",
+    "G18",
+    "PitViper"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_l/SK_M1911_l_BareArmsV7",
+   "pose_sources": [
+    "M1911_l",
+    "G18_l",
+    "PitViper_l"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_711a1c8444_WristCoverage",
+   "pose_sources": [
+    "M1911_l",
+    "G18_l",
+    "PitViper_l"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_b5b449d259_WristCoverage",
+   "pose_sources": [
+    "M1911_l",
+    "G18_l",
+    "PitViper_l"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_r/SK_M1911_r_BareArmsV7",
+   "pose_sources": [
+    "M1911_r",
+    "G18_r",
+    "PitViper_r"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_255d2a5d7d_WristCoverage",
+   "pose_sources": [
+    "M1911_r",
+    "G18_r",
+    "PitViper_r"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_45abd75594_WristCoverage",
+   "pose_sources": [
+    "M1911_r",
+    "G18_r",
+    "PitViper_r"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715/SK_DW715_BareArmsV7",
+   "pose_sources": [
+    "DW715",
+    "RSH12",
+    "RSH12_DA",
+    "RSH12_N"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_83f511493d_WristCoverage",
+   "pose_sources": [
+    "DW715",
+    "RSH12",
+    "RSH12_DA",
+    "RSH12_N"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_dac984dcde_WristCoverage",
+   "pose_sources": [
+    "DW715",
+    "RSH12",
+    "RSH12_DA",
+    "RSH12_N"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_l/SK_DW715_l_BareArmsV7",
+   "pose_sources": [
+    "DW715_l",
+    "RSH12_l",
+    "RSH12_DA_l",
+    "RSH12_N_l"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_056bc315cb_WristCoverage",
+   "pose_sources": [
+    "DW715_l",
+    "RSH12_l",
+    "RSH12_DA_l",
+    "RSH12_N_l"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_7d482bf5c1_WristCoverage",
+   "pose_sources": [
+    "DW715_l",
+    "RSH12_l",
+    "RSH12_DA_l",
+    "RSH12_N_l"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_r/SK_DW715_r_BareArmsV7",
+   "pose_sources": [
+    "DW715_r",
+    "RSH12_r",
+    "RSH12_DA_r",
+    "RSH12_N_r"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_a098c62b49_WristCoverage",
+   "pose_sources": [
+    "DW715_r",
+    "RSH12_r",
+    "RSH12_DA_r",
+    "RSH12_N_r"
+   ],
+   "role": "companion"
+  },
+  {
+   "mesh": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_c0668d4b17_WristCoverage",
+   "pose_sources": [
+    "DW715_r",
+    "RSH12_r",
+    "RSH12_DA_r",
+    "RSH12_N_r"
+   ],
+   "role": "companion"
+  }
+ ],
+ "discover": true,
+ "clip_roots": {
+  "RSH12": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_DA": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_N": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_l": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_r": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_DA_l": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_DA_r": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_N_l": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "RSH12_N_r": [
+   "/Game/Weapons/RSH12/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "DW715": [
+   "/Game/Weapons/DanWesson715/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "DW715_l": [
+   "/Game/Weapons/DanWesson715/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ],
+  "DW715_r": [
+   "/Game/Weapons/DanWesson715/",
+   "/Game/Weapons/DualPistolQuickCombat20260920/",
+   "/Game/Weapons/PistolDualWield20260914/",
+   "/Game/Weapons/PistolLocomotion20260914/"
+  ]
+ }
+}

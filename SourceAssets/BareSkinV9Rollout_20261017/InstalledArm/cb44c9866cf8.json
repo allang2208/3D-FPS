@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/ComboV1/A_Warhammer_Slash1",
+ "keys": 103,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 9,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -48,
+    135
+   ],
+   "roll_after": [
+    -48,
+    135
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 17,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -124,
+    0
+   ],
+   "roll_after": [
+    -124,
+    -41
+   ]
+  }
+ },
+ "readback_max_deg": 0.0133,
+ "sha_before": "7d7d117910beb4af640c98d1d94fea753cb89b0d17b2db286fd64516d7faf736",
+ "sha256": "8508416f73521df47c0e3a692f31a6edcef9139f8343bb4d25f9d2b2949bfee5"
+}

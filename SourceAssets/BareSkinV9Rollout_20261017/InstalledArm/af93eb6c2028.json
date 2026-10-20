@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Hold",
+ "keys": 241,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 3.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    -26,
+    -26
+   ],
+   "roll_after": [
+    -23,
+    -23
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 78.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    8,
+    8
+   ],
+   "roll_after": [
+    87,
+    87
+   ]
+  }
+ },
+ "readback_max_deg": 0.0099,
+ "sha_before": "e61068782bfd4dcd861902eb5f42fa366c5b01fc3257df7aad42a7fb287063c8",
+ "sha256": "a3c34825ecc9fb07f4d174e2edd63510950e418f28d6a854efe84e78178e1628"
+}

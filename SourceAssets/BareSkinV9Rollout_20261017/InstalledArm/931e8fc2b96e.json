@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Vertical/A_M4_TacticalSprint_Vertical_Loop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 23,
+   "hand_max": 0.0,
+   "forearm_max": 14.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -147,
+    -121
+   ],
+   "roll_after": [
+    -143,
+    -121
+   ]
+  }
+ },
+ "readback_max_deg": 0.0118,
+ "sha_before": "6417c01593b18457480c002e97e6c0a3f262590f96aa5b0ad23e1cb26d4926f0",
+ "sha256": "40a7f38d3b133db693dcb2ac6cfce0a1897ae66bab7d8d04d769d2a60e83cbe9"
+}

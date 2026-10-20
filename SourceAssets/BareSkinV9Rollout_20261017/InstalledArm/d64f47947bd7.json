@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Swing",
+ "keys": 205,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [
+    "clamp"
+   ],
+   "elbow_keys": 28,
+   "hand_max": 0.0,
+   "forearm_max": 113.4,
+   "upper_max": 21.6,
+   "roll_before": [
+    -195,
+    0
+   ],
+   "roll_after": [
+    -170,
+    -27
+   ]
+  }
+ },
+ "readback_max_deg": 0.0116,
+ "sha_before": "db92dd8572e910a28edeb7a80d62061302532040e4017d0946a2a8bce7e292ae",
+ "sha256": "77d9c9593ea668c6c1c038660d0cb2952f3e3595b3a28d5e9465415ab7616854"
+}

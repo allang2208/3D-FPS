@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Overhead",
+ "keys": 313,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    46.1,
+    153.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -146.4,
+    -61.1
+   ]
+  }
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "path": "/Game/Weapons/AKMIntegration/EquipCharge/A_AKM_equip",
+ "keys": 205,
+ "fixed": {},
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "aadf95b8b797e49488020a4493b5b42ec906d9baef516243d7e87595e2273813",
+ "sha256": "5b50ff19b5e31433196e53dd100516f3420df381220fb1258080ed8851b52cd2"
+}

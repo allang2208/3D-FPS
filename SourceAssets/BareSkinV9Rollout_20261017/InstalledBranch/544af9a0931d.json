@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_inspect",
+ "keys": 597,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 126,
+   "roll_range": [
+    -149.6,
+    206.3
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -53.1,
+    59.2
+   ]
+  }
+ },
+ "sha_before": "c661c1d41adf36b8fd6cb5e5876f20907fd001b8f3e4381dfd10cd74146161a1",
+ "sha256": "3bd1f920885557bb57907d6652fe76f540ae79663fe173f880eacab622345aad"
+}

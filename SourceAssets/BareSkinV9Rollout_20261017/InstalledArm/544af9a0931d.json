@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_inspect",
+ "keys": 597,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 0.0,
+   "forearm_max": 362.5,
+   "upper_max": 362.5,
+   "roll_before": [
+    -58,
+    358
+   ],
+   "roll_after": [
+    -58,
+    109
+   ]
+  }
+ },
+ "readback_max_deg": 0.0127,
+ "sha_before": "3bd1f920885557bb57907d6652fe76f540ae79663fe173f880eacab622345aad",
+ "sha256": "3922b9b75dd7d61e72906e1baac9a25c4cb249e3a29ecfa5be54e4b957194d03"
+}

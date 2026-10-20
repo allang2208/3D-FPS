@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/Super90/Cransh20261006/Animations/A_Super90_fire_last",
+ "keys": 130,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    132.8,
+    158.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -59.6,
+    -4.7
+   ]
+  }
+ }
+}

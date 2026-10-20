@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/GuardV1/A_Warhammer_GuardHit",
+ "keys": 91,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 91,
+   "hand_max": 0.0,
+   "forearm_max": 10.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -10,
+    -9
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 91,
+   "hand_max": 0.0,
+   "forearm_max": 75.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -75,
+    -73
+   ]
+  }
+ },
+ "readback_max_deg": 0.0136,
+ "sha_before": "32a12d4df26cf5542dedb356268bd25aee3d7fe62c7be4fdb78d90cd7ca35d11",
+ "sha256": "eeb52654e782834059affc6371e6184a73fd3c6ea9afcd07d0aee3aa17b07e0d"
+}

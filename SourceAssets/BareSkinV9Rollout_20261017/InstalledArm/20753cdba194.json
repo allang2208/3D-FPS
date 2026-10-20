@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/vertical/A_PKM_vertical_quick_melee",
+ "keys": 217,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 10,
+   "hand_max": 0.0,
+   "forearm_max": 2.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    -110,
+    32
+   ],
+   "roll_after": [
+    -110,
+    32
+   ]
+  },
+  "r": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 113,
+   "hand_max": 0.0,
+   "forearm_max": 409.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -40,
+    10
+   ],
+   "roll_after": [
+    -40,
+    80
+   ]
+  }
+ },
+ "readback_max_deg": 0.0132,
+ "sha_before": "b0608a2c591e8150380548f028cd11881d7484caa07f00562111fae5acbb1c30",
+ "sha256": "eefd5f20544b8ad7b79012984fc2f48fb6e122f9ba8cee68c7b2efa5d7956b17"
+}

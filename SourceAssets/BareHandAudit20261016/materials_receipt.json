@@ -1,0 +1,44 @@
+[
+ {
+  "package": "/Game/Characters/Mannequins/PlayerBodySkin/M_PlayerBodySkin",
+  "skipped": "third-person body skin; out of scope"
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareFamily_Arms",
+  "applied": 18,
+  "shader_sha256": "9286a18e81206614d0a0e71b4ce15c3ca8427465a2d8455a6dcc84d6d9747a00",
+  "runtime_tested": false
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareFamily_Hands",
+  "applied": 18,
+  "shader_sha256": "9286a18e81206614d0a0e71b4ce15c3ca8427465a2d8455a6dcc84d6d9747a00",
+  "runtime_tested": false
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareNative_Default",
+  "applied": 18,
+  "shader_sha256": "3fb6120e82c61560ff6a7c0071fa875cc11f0ab4ae626aabf265c5be839f7abd",
+  "runtime_tested": false
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/ThumbSurfaceContactV9_20261002/M16/M_M16ThumbHands",
+  "applied": 18,
+  "shader_sha256": "936818f4041d3c8d8c3f708382c7bac6f6571cdb0e93a50baf1bf0fa8f8f37b2",
+  "runtime_tested": false
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/ThumbSurfaceContactV9_20261002/M16/M_M16ThumbNative",
+  "applied": 18,
+  "shader_sha256": "936818f4041d3c8d8c3f708382c7bac6f6571cdb0e93a50baf1bf0fa8f8f37b2",
+  "runtime_tested": false
+ },
+ {
+  "package": "/Game/Weapons/Super90/JointSurface20261012/Materials/M_Super90JointSkin_Arms",
+  "skipped": "Super90 parent already carries this look"
+ },
+ {
+  "package": "/Game/Weapons/Super90/JointSurface20261012/Materials/M_Super90JointSkin_Hands",
+  "skipped": "Super90 parent already carries this look"
+ }
+]

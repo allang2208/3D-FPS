@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/DanWesson715/SingleLoad20260914/Animations/A_DW715_single_0_5",
+ "keys": 841,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -95.6,
+    101.3
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -4.6,
+    43.5
+   ]
+  }
+ }
+}

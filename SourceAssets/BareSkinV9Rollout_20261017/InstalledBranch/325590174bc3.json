@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/QuickCombatReachV6/A_Warhammer_QuickCombat",
+ "keys": 151,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 111,
+   "roll_range": [
+    -140.9,
+    209.5
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -95.4,
+    0.0
+   ]
+  }
+ },
+ "sha_before": "cdfe678656b3e1337c4f4d88a8aa47903b50d186c44a1c013761ebcf1869b515",
+ "sha256": "9d2a2239d316a3e9ab3b446b89a125d5426075f5be2942c72e44a43ad98b2e9d"
+}

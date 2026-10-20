@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_quick_melee",
+ "keys": 217,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 22,
+   "windows": [],
+   "deviation_from_written": 0.0
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 127.9
+  }
+ },
+ "readback_max_deg": 0.0384,
+ "sha_before": "e5e5bcaea0cf5679b73c310e162ebc1666a3ceef2eb3919bbd07ea98face832f",
+ "sha256": "8d1f200d6a72172a8e2881799408fcb1d9de6960440bb2fd5172cec18245018e"
+}

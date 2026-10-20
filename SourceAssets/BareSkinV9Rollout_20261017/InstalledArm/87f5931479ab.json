@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_reload_empty",
+ "keys": 397,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 50,
+   "hand_max": 0.0,
+   "forearm_max": 29.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    156
+   ],
+   "roll_after": [
+    0,
+    149
+   ]
+  }
+ },
+ "readback_max_deg": 0.0132,
+ "sha_before": "88cdeb3d1fa9e3ff1656ca55f8db0b7d988ba5897f57cf949bec593473f8afc5",
+ "sha256": "3029ef8261f556d7ecf96c1005ecc6b2217223c274d1a43a7249a6a0e646c1cc"
+}

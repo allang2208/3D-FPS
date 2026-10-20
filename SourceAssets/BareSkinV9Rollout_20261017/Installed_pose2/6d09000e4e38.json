@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+ "saved": true,
+ "morphs": 6,
+ "morphs_on_asset": 16,
+ "added": [
+  "JC_Pose_R_54_161_104_6_0_14_26_24",
+  "JC_Pose_R_39_39_70_25_0_14_26_24",
+  "JC_Pose_R_60_m23_6_m55_0_3_6_6",
+  "JC_Pose_R_28_m19_72_4_0_14_26_24",
+  "JC_Pose_R_47_m17_17_m48_0_3_6_6",
+  "JC_Pose_R_73_m14_8_m55_0_5_10_9"
+ ],
+ "emptied_stale_morphs": [
+  "JC_Pose_R_39_38_71_1_0_14_26_24"
+ ],
+ "position_readback_max_cm": 0.0,
+ "sha256": "3cc776ed30a9b337f585231980950254c51af03c2e044ab67f52a4427ed5320d",
+ "runtime_tested": false
+}

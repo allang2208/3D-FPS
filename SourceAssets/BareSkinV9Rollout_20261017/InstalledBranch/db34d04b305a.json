@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_equip",
+ "keys": 205,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    108.1,
+    110.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -132.9,
+    -37.5
+   ]
+  }
+ }
+}

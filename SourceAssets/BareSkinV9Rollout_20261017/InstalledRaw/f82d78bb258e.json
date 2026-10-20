@@ -1,0 +1,13 @@
+{
+ "path": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload",
+ "keys": 401,
+ "fixed": {},
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "ec9ddcb1417b96e1a628bd19807fe2784da3d90709e72a8c2c5b3ca770edcafe",
+ "sha256": "f99a02a1e681b4deba2fb7d30130591094f1dff713773df8cd7d90d9c0d1eac1"
+}

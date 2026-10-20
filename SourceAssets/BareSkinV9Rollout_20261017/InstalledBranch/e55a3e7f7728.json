@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/DanWesson715/ReloadSplit20260914/Animations/A_DW715_single_0_6",
+ "keys": 1057,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -111.7,
+    24.7
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -41.0,
+    80.1
+   ]
+  }
+ }
+}

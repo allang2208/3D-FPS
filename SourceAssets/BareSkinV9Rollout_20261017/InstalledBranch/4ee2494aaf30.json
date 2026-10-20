@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/HK416/Reworked20260930/Animations/vertical/A_HK416_vertical_reload_empty",
+ "keys": 325,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -42.6,
+    76.4
+   ]
+  }
+ }
+}

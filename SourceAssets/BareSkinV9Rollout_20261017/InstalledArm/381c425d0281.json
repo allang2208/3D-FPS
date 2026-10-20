@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_QuickCombat",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 88,
+   "hand_max": 0.0,
+   "forearm_max": 130.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -174,
+    -117
+   ],
+   "roll_after": [
+    -161,
+    5
+   ]
+  }
+ },
+ "readback_max_deg": 0.0116,
+ "sha_before": "fcf48282d70a42a6c153af8ba940a65bdb5e1d019aeb52b36a4f94780f186dd7",
+ "sha256": "e9e94030a1a80f44dd5a570a69f86e58157a32a6ded4ff8ed85c0d2ca5d464cf"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle",
+ "keys": 451,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 451,
+   "hand_max": 0.0,
+   "forearm_max": 113.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -113,
+    -113
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "273b1575d0aa579c7f90397be953bbf40373d3609a81809c9650e76e11dd3d12",
+ "sha256": "88f266771ee96915fa828d40512d78d78f006a2191a3b8a5a235b56c7e68d17e"
+}

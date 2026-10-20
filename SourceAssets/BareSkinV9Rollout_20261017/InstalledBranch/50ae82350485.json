@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/DanWesson715/Integrated20260913/Animations/A_DW715_inspect",
+ "keys": 1193,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 251,
+   "roll_range": [
+    -149.6,
+    208.4
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -53.1,
+    59.2
+   ]
+  }
+ },
+ "sha_before": "db081e0aba8b7c6c8606e8f906d24120fede64c0e1d16659686494a29d772b96",
+ "sha256": "49564e643cdf600d3cb0bf76cd63056a40e7115c2b7408448c83f83154c86fd1"
+}

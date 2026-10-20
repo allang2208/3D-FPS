@@ -1,0 +1,35 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintExit",
+ "keys": 25,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 5,
+   "windows": [],
+   "deviation_from_written": 0.0
+  },
+  "r": {
+   "changed": true,
+   "elbow_keys": 11,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 83.8
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "690dcbef1940a20de1c5c46839117decccba7e1c23fb972eda44248f229f4937",
+ "sha256": "ee923482c53558956f6bc5053b0642a1f11d6d955a12561fc90d24d172888f59"
+}

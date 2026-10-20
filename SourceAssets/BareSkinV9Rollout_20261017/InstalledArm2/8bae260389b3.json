@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV4",
+ "keys": 875,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.0
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.0
+  }
+ },
+ "readback_max_deg": 0.0414,
+ "sha_before": "531a47459f9774a5ed13319d66a614ffd5e0f741ebc86417384f8d4ccb3e35ac",
+ "sha256": "4a4cd78488d208d465cf65f182cf84e8c5f3969789a6e712679ca0aa9fc50dbe"
+}

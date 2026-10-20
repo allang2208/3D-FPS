@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Idle",
+ "keys": 241,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 34.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -33,
+    -31
+   ],
+   "roll_after": [
+    0,
+    3
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 51.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    49,
+    51
+   ]
+  }
+ },
+ "readback_max_deg": 0.0125,
+ "sha_before": "9e32de7723847c9061cceeffc0e85c2da6bcf111ec7297e10d2cc7914f5115d2",
+ "sha256": "ec7500e797f0e1ae00f6ca04d22964ec4e441b37b023ab9f4fbee341d454fa91"
+}

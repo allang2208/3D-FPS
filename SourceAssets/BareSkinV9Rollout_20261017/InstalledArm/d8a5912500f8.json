@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Drum46/Animations/vertical/A_LMG201_vertical_drum_reload_empty",
+ "keys": 516,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 52,
+   "hand_max": 0.0,
+   "forearm_max": 178.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -106,
+    99
+   ],
+   "roll_after": [
+    16,
+    125
+   ]
+  }
+ },
+ "readback_max_deg": 0.0141,
+ "sha_before": "a695ea44987e9a9a1c1efce38d4b09e1931c13886c9d442de6804478b284996b",
+ "sha256": "8ed04e39a3a5ef16d942d2c220bb62fcea3b1d12d2aba3cd52bb6e2c2cc537b5"
+}

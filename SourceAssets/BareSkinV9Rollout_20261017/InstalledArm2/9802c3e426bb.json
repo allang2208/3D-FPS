@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Draw",
+ "keys": 169,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 121,
+   "windows": [],
+   "deviation_from_written": 0.0
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 139.0
+  }
+ },
+ "readback_max_deg": 0.038,
+ "sha_before": "723d56b996b11bbfedccba970f077585f6057b67245cb6dff05972ab4d2ad803",
+ "sha256": "582ec0f9b8dde6c6aa705115b98936300350c0f6f95e8b52d1c171045015da25"
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/AKM/Angled/A_AKM_QuickCombat_Angled",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -101.3,
+    59.8
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -120.9,
+    -35.2
+   ]
+  }
+ }
+}

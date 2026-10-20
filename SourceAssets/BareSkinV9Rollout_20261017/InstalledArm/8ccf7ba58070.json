@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_aim_fire",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 37,
+   "hand_max": 0.0,
+   "forearm_max": 25.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    44,
+    44
+   ],
+   "roll_after": [
+    70,
+    70
+   ]
+  }
+ },
+ "readback_max_deg": 0.0104,
+ "sha_before": "b775ce7ecf0bc90e96f178e32279061f6e5743748c3f6b06121fbebed4cfe9ef",
+ "sha256": "9d5a9452a2d5bf07f4c557672a6989520d912f8d0b53424cd6c6f6748d8db913"
+}

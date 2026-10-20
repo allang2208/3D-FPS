@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard",
+ "keys": 247,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 0,
+   "windows": [
+    "clamp"
+   ],
+   "deviation_from_written": 7.1
+  }
+ },
+ "readback_max_deg": 0.0115,
+ "sha_before": "e080a9e7d7669ed41a25691c5a587e638b5408848a06a868e080395ec6f25313",
+ "sha256": "f9462ae5f6b1dacf3ebaf68320df0e8878da04d74c61de9b912c89e07f4d0d4a"
+}

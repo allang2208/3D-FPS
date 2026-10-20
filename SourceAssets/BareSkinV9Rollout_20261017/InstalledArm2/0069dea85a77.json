@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Slash1",
+ "keys": 853,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.2
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.0
+  }
+ },
+ "readback_max_deg": 0.0424,
+ "sha_before": "4b87586c8350319ca8fb4395d15dfcd913f8ec46861e75de54dd68c42a3e9783",
+ "sha256": "0fe44aa7b713abfe97ca4ecce5896f28e31240a20997310f3134b21d85d12624"
+}

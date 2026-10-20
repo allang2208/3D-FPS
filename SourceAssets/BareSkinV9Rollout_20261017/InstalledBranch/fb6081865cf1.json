@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_idle",
+ "keys": 6,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    108.5,
+    109.5
+   ]
+  }
+ }
+}

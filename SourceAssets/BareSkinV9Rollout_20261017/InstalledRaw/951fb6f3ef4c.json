@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_equip_charge",
+ "keys": 77,
+ "fixed": {
+  "upperarm_l": [
+   [
+    0,
+    3
+   ]
+  ],
+  "lowerarm_l": [
+   [
+    0,
+    3
+   ]
+  ],
+  "hand_l": [
+   [
+    0,
+    3
+   ]
+  ],
+  "index_03_l": [
+   [
+    0,
+    3
+   ]
+  ]
+ },
+ "twist": [],
+ "sha_before": "c6db25ce122241c1fbf872eb147b331cfc5eae80efde0a009714a8cd92755528",
+ "sha256": "e3f8af19fe2d087d497a8fe58ee0b962a9bff11cebdefbd0ad49c62223a7359c"
+}

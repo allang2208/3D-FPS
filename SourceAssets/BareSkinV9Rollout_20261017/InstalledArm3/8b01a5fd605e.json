@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_equip",
+ "keys": 77,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 0,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 146.8
+  }
+ },
+ "readback_max_deg": 0.0115,
+ "sha_before": "f9b488beb9527e137e97907e4f55dee2c87996cb1f4e4383ca8e76e8ae879ddd",
+ "sha256": "fdd8bda48de48017ac3ce7c4008504bc204a279b464d5e3cddf9ce81a2bc2ec8"
+}

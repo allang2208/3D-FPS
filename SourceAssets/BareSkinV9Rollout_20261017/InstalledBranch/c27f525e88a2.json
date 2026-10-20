@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/HK416/Reworked20260930/Animations/base/A_HK416_base_fire",
+ "keys": 93,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    72.7,
+    76.5
+   ]
+  }
+ }
+}

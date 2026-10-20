@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+ "keys": 781,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "clamp"
+   ],
+   "elbow_keys": 17,
+   "hand_max": 13.1,
+   "forearm_max": 192.7,
+   "upper_max": 8.5,
+   "roll_before": [
+    -38,
+    110
+   ],
+   "roll_after": [
+    -170,
+    117
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 31,
+   "hand_max": 0.0,
+   "forearm_max": 131.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -69,
+    3
+   ],
+   "roll_after": [
+    -128,
+    -31
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "c5d898317c076c767905097662ebef6175dd73cc26b55ec6147243e49132a9aa",
+ "sha256": "9c999afb988d4d48d1e50091917bf6d35079ada727781d7bd5e0759478ae2a0a"
+}

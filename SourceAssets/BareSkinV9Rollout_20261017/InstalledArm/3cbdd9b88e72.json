@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_equip",
+ "keys": 77,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 450.3,
+   "forearm_max": 0.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -116,
+    334
+   ],
+   "roll_after": [
+    -116,
+    101
+   ]
+  }
+ },
+ "readback_max_deg": 0.0108,
+ "sha_before": "ef0cb34517a749ae5c5faf07196569d6a90b4a991b840621cdb792f74d0946f7",
+ "sha256": "f8ff0f11e570c5047bdd2e439adbf523d6c9b63c7c79199f4385ec7308225778"
+}

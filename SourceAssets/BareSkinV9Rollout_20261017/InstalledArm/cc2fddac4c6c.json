@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/LocomotionV23/A_Bow_LoadedRun",
+ "keys": 121,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 121,
+   "hand_max": 0.0,
+   "forearm_max": 92.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    18,
+    23
+   ],
+   "roll_after": [
+    -72,
+    -56
+   ]
+  }
+ },
+ "readback_max_deg": 0.0115,
+ "sha_before": "ba25a069cc36fccf8aa8cc0baeb002968a4a479ca9c3df2b556f3bd205ad979e",
+ "sha256": "5186829b8f4e9b83e170c1e5e66e399f45f123492371e485003bf1ffe8a16820"
+}

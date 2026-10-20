@@ -1,0 +1,32 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\BattleAxe_SingleHand_Split.blend",
+ "changes": [
+  {
+   "object": "SK_Manny_Arms",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 48,
+   "notes": {
+    "normal_corners_replaced": 48
+   }
+  },
+  {
+   "object": "SK_Manny_Arms_Export",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 48,
+   "notes": {
+    "normal_corners_replaced": 48
+   }
+  },
+  {
+   "object": "SK_Manny_Simple",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 128,
+   "notes": {
+    "normal_corners_replaced": 128
+   }
+  }
+ ]
+}

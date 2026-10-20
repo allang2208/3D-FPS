@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_SprintExit",
+ "keys": 37,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -142.7,
+    -60.9
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -0.0,
+    18.5
+   ]
+  }
+ }
+}

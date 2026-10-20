@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Angled/A_AKM_TacticalSprint_Angled_Loop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 50,
+   "hand_max": 0.0,
+   "forearm_max": 9.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    3,
+    3
+   ],
+   "roll_after": [
+    -6,
+    3
+   ]
+  }
+ },
+ "readback_max_deg": 0.0135,
+ "sha_before": "85bded00ee8439361a3323c906d93340f0b412cc5b3ac06333cfc5cb8d117203",
+ "sha256": "a85f6af853ae3f5a986d39baa53bcb758a5b312cd0643f6ead23baaffc24e897"
+}

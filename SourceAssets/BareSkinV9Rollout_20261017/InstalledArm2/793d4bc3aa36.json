@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/G18/Drum50_20261003/Reload/Authored/A_G18_Drum50_reload_empty",
+ "keys": 271,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 64.9
+  }
+ },
+ "readback_max_deg": 0.0393,
+ "sha_before": "4412b90d3f68f809fe4678727370b9fed7270c6a40113f18b4fdfd8a56f24e53",
+ "sha256": "6f5832c97f960e5a984caed6c0227d9db603be23a81d3816732549a97dec0ad4"
+}

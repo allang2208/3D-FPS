@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Nock",
+ "keys": 83,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 83,
+   "hand_max": 0.0,
+   "forearm_max": 33.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -32,
+    -32
+   ],
+   "roll_after": [
+    2,
+    2
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 40,
+   "hand_max": 0.0,
+   "forearm_max": 66.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -21,
+    8
+   ],
+   "roll_after": [
+    -21,
+    68
+   ]
+  }
+ },
+ "readback_max_deg": 0.0114,
+ "sha_before": "4932f170c54d2e7022016ecef94dc1a57d332dbd4ceb172c77e726c7cec00ccd",
+ "sha256": "75b9bb8ea333afe05648c5493f7d0da71f1b59edd397a12184de33190784f12f"
+}

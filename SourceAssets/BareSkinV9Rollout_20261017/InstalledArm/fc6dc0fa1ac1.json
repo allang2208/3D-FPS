@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_SprintEnter",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 13,
+   "hand_max": 0.0,
+   "forearm_max": 176.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -280,
+    -29
+   ],
+   "roll_after": [
+    -123,
+    -29
+   ]
+  }
+ },
+ "readback_max_deg": 0.011,
+ "sha_before": "2cd3fb2dcef352d687bee08cc3c2c06b55563f1f0c474060b03152f2dafc5555",
+ "sha256": "a41e09a59c9491ac1598429d87048c3a5ee22c7535a7c686a6b67d65b52e4cbb"
+}

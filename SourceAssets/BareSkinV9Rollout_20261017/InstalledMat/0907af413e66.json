@@ -1,0 +1,47 @@
+{
+ "path": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7",
+ "fixed_triangles": 2733,
+ "still_wrong": 0,
+ "morphs_rewritten": 40,
+ "morphs_on_asset": 40,
+ "by_pair": [
+  [
+   "s90_factoryreargrip",
+   "s90_polymer",
+   3880
+  ],
+  [
+   "s90_factorystock_s90_polymer",
+   "s90_polymer",
+   2385
+  ],
+  [
+   "s90_factorytubecap_s90_barrelsteel",
+   "s90_barrelsteel",
+   1996
+  ],
+  [
+   "s90_movingsteel",
+   "12gauge_mounted",
+   1893
+  ],
+  [
+   "s90_factorystock_s90_rubber",
+   "s90_rubber",
+   1364
+  ],
+  [
+   "12gauge_mounted",
+   "s90_movingsteel",
+   830
+  ],
+  [
+   "s90_factorystock_tti_benelli_m4",
+   "tti_benelli_m4",
+   284
+  ]
+ ],
+ "sha_before": "002fe4688803628da667f68f32ff800d30561e27d38142f5863e77573da009e5",
+ "sha256": "25a81428c9f7200c36dc5341c9e0cb7430b4f6ba8430310dd9901ed98df596ac",
+ "runtime_tested": false
+}

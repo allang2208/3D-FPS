@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_HeavyCharge",
+ "keys": 961,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 89,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -38,
+    21
+   ],
+   "roll_after": [
+    -38,
+    21
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 123,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -114,
+    0
+   ],
+   "roll_after": [
+    -114,
+    -41
+   ]
+  }
+ },
+ "readback_max_deg": 0.0127,
+ "sha_before": "11483d8cc12c3da50759d1f825b5d148930569ab7c7ad978fd903575688c1a71",
+ "sha256": "309cf5494c52ab47d51d254f097e3ec7f8c955e60a88b266ee05f6a051819e79"
+}

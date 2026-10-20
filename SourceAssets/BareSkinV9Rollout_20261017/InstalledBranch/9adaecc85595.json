@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -81.6,
+    81.3
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -107.3,
+    -33.6
+   ]
+  }
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DualPistolQuickCombat20260920/VideoRefV3/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left",
+ "keys": 97,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 23,
+   "hand_max": 0.0,
+   "forearm_max": 94.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -6,
+    0
+   ],
+   "roll_after": [
+    -97,
+    0
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "b6652d85e8952cbf432547d9a5d6a9286e8af96917c9b7c4b24e71d94aed075f",
+ "sha256": "5aa4fee79bfa143fdc8b4075fdb3b58c5c51fa5113bc3734af2c96e39d72e503"
+}

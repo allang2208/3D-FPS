@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Equip",
+ "keys": 73,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 115.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -115,
+    -63
+   ]
+  }
+ },
+ "readback_max_deg": 0.0123,
+ "sha_before": "dc9dcfda1debc97c364a6d188b4eaa584356d5f14ce2bfa96870f8a279be2043",
+ "sha256": "a561ac08df2dd494dbea9370c5e2b265085ce060d834b98c458fd19346237c42"
+}

@@ -1,0 +1,52 @@
+{
+ "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+ "fixed_triangles": 4320,
+ "still_wrong": 0,
+ "morphs_rewritten": 14,
+ "morphs_on_asset": 14,
+ "by_pair": [
+  [
+   "m_pitviper2011_tritium",
+   "m_pitviper2011_polymer",
+   1065
+  ],
+  [
+   "m_pitviper2011_magazine_stell",
+   "m_pitviper2011_copper",
+   1021
+  ],
+  [
+   "m_pitviper2011_magazine_polymer",
+   "m_pitviper2011_magazine_stell",
+   774
+  ],
+  [
+   "m_pitviper2011_copper",
+   "m_pitviper2011_stell",
+   479
+  ],
+  [
+   "m_pitviper2011_stell",
+   "m_pitviper2011_factorycompensator",
+   413
+  ],
+  [
+   "m_pitviper2011_polymer",
+   "m_pitviper2011_magazine_polymer",
+   273
+  ],
+  [
+   "m_pitviper2011_brass",
+   "m_pitviper2011_tritium",
+   15
+  ],
+  [
+   "m_pitviper2011_factorycompensator",
+   "m_pitviper2011_brass",
+   6
+  ]
+ ],
+ "sha_before": "97c3a89873b08520d291730451c3935fe24920cee4f081f96bf5724c8eab67e8",
+ "sha256": "55f318b7c07f4a77beb2edbbdbb3d8ffc4f8f195c3e58fc27e7abf069ff70514",
+ "runtime_tested": false
+}

@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/M1911/ReloadReady20260913/Animations/A_M1911_reload",
+ "keys": 211,
+ "fixed": {
+  "thumb_02_l": [
+   [
+    64,
+    65
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "729a075c2cccc104e292037294b0f7126033bfe15040ac5a4155cf3e2ff329aa",
+ "sha256": "e2c831915cb2345c258c9153e643fb0b5dffa95b4a507885ddcbbfae29ac88bb"
+}

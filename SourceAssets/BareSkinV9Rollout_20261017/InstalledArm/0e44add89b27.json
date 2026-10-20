@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Prism/A_M4_TacticalSprint_Prism_Loop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 120.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    -164,
+    -144
+   ],
+   "roll_after": [
+    -157,
+    -24
+   ]
+  }
+ },
+ "readback_max_deg": 0.0122,
+ "sha_before": "7643efa177541712d97cdce794c3dfbc940d789d938c498449547f242e8338bd",
+ "sha256": "4894742588fbea3cea4cc0a3f5c9e2671ce981868aa6433141108da8ba4e0674"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Dual/l/Animations/A_Dual_G18_l_reload_empty",
+ "keys": 271,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 119,
+   "hand_max": 0.0,
+   "forearm_max": 22.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    1
+   ],
+   "roll_after": [
+    -22,
+    1
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "148f563907ffe77deb71404e900d1e8ae6a1b3e146f84f2c6aa61cfe02d6e1f4",
+ "sha256": "f6996c0672961282bebd307ae09e0944e7721759a92189d7341ecf1d6c063403"
+}

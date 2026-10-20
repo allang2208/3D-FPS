@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_inspect_empty",
+ "keys": 597,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.4
+  },
+  "r": {
+   "changed": true,
+   "elbow_keys": 154,
+   "windows": [],
+   "deviation_from_written": 0.0
+  }
+ },
+ "readback_max_deg": 0.0399,
+ "sha_before": "aa99c117c99959501a4f22bed9ec18c6cc5dcb61a616b52fd4b4f8720595c667",
+ "sha256": "a33e2e98013bed9785391f606e9ab9b52cc11678c7646f4c7c60d4098ada9aba"
+}

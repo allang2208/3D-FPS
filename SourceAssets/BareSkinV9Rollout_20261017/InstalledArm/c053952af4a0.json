@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_equip",
+ "keys": 77,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 432.9,
+   "forearm_max": 0.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -113,
+    320
+   ],
+   "roll_after": [
+    -113,
+    97
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "96d7df2ac46a30931358fd162d9534c93618cd02a9d41ace7c498f80b91e3b86",
+ "sha256": "dd8602fb2268b7af4e83c3a17f17dc8c93de7959bc856020a36d04b440f6b781"
+}

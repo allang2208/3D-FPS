@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_reload_empty",
+ "keys": 793,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 167.1
+  },
+  "r": {
+   "changed": true,
+   "elbow_keys": 157,
+   "windows": [],
+   "deviation_from_written": 0.0
+  }
+ },
+ "readback_max_deg": 0.0396,
+ "sha_before": "01de1c1f4c2b025cdd6611a5d758c2aecfa5d19c5df20963bf4e80439e6cb276",
+ "sha256": "22bfa20ac778e8e376ad6a36cac747dd379975fcf416e207a654122cbf3e6e42"
+}

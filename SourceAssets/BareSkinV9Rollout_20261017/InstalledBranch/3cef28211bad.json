@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/AKM/Prism/A_AKM_QuickCombat_Prism",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -106.9,
+    -8.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -121.5,
+    -35.2
+   ]
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ContactV9/A_Bow_Release",
+ "keys": 78,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 66,
+   "windows": [],
+   "deviation_from_written": 103.3
+  }
+ },
+ "readback_max_deg": 0.0134,
+ "sha_before": "0139891e922d28982199884286d4aa939a679866631b96bd5b9b6c781e597f1a",
+ "sha256": "ec7667152dd1266a740bbcbd0cea04528d2da0cd7de26ed2f781c58f351de420"
+}

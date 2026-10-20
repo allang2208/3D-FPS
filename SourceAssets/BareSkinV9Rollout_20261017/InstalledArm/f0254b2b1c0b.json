@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ElasticV15/A_Bow_Draw",
+ "keys": 169,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 169,
+   "hand_max": 0.0,
+   "forearm_max": 141.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    1,
+    26
+   ],
+   "roll_after": [
+    -131,
+    -10
+   ]
+  }
+ },
+ "readback_max_deg": 0.0123,
+ "sha_before": "3fed4a848c4a663a36f6b38d1d1ea794fefd00d2da754af7e4087b8fe5234b9c",
+ "sha256": "2150710447fff203c0767c207a371eeb9e2d19829dd8f64660aeff8cd0dce791"
+}

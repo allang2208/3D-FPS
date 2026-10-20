@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/NockContinuityV21/A_Bow_Nock",
+ "keys": 164,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 109,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 176.1
+  }
+ },
+ "readback_max_deg": 0.0127,
+ "sha_before": "ed2fb8174b06d8139609ddcf5b8e5bf93d1e7c15cb32255095365ca8fd6032d6",
+ "sha256": "d2c6cbfc31898447a9e7f35bae3d0a87ed8db2aa4dd724cc442813a901af26d0"
+}

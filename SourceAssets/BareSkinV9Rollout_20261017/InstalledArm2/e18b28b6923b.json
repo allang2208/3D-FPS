@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_PommelStrike",
+ "keys": 769,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 110.1
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 123.5
+  }
+ },
+ "readback_max_deg": 0.0404,
+ "sha_before": "6a5dd58652185cc93909b44925b821096f00fa8012b4e3063bbd3351c866906e",
+ "sha256": "b3e7370e0b251103c5b5f3536d9842403e3f55228f17a24fe7cb437b3a71d306"
+}

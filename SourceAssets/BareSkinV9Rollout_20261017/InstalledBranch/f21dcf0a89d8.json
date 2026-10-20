@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/M4ForegripWristNatural/A_M4_Foregrip_drum_reload_empty",
+ "keys": 593,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 48,
+   "roll_range": [
+    -149.0,
+    206.8
+   ]
+  }
+ },
+ "sha_before": "948b33bcfa5f86042b2a9fe5ecf1de925410c018747227ef1f961e90b50f592c",
+ "sha256": "13f73b6882bad8a2c74cc31cfb097b2c0248f7f77d1f500dd97a12385c671023"
+}

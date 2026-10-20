@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/A_Warhammer_SprintAttack",
+ "keys": 103,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -12.2,
+    98.7
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -125.6,
+    3.2
+   ]
+  }
+ }
+}

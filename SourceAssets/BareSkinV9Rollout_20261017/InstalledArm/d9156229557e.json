@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/GuardV1/A_Warhammer_GuardBreak",
+ "keys": 451,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 451,
+   "hand_max": 0.0,
+   "forearm_max": 63.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -5,
+    0
+   ],
+   "roll_after": [
+    -64,
+    -4
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 451,
+   "hand_max": 0.0,
+   "forearm_max": 117.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    -1,
+    0
+   ],
+   "roll_after": [
+    -117,
+    -75
+   ]
+  }
+ },
+ "readback_max_deg": 0.0121,
+ "sha_before": "b098730738466b894cd9289d294c6f384129fb39c7207033d31783121bb1cfac",
+ "sha256": "3896d7013cf8f81f495393885c2b291b342731be834258e458b16c29fc6e07e4"
+}

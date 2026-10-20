@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_loop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 6.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -110,
+    -110
+   ],
+   "roll_after": [
+    -116,
+    -115
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "2e2d55612a2625e4cf8c899ca63935688687e8fb0bced472424e611ebcaef5dd",
+ "sha256": "b35d8cbd3aec51aba27caba136cd01333c76acba3ea09b3213561797bbf5ab6f"
+}

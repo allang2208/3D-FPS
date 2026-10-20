@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M1911/P9Retarget20260913/Animations/A_M1911_reload",
+ "keys": 269,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 9,
+   "hand_max": 0.0,
+   "forearm_max": 1.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    -38,
+    58
+   ],
+   "roll_after": [
+    -38,
+    58
+   ]
+  }
+ },
+ "readback_max_deg": 0.0127,
+ "sha_before": "9f1928c8faee38bf2ec4904bcbb1f7e8f42853d32fdf90225134f8fce73b56bd",
+ "sha256": "1a4098164029b04a5f320111ea806e807e900ee9c676ec9d934543f24756d6cc"
+}

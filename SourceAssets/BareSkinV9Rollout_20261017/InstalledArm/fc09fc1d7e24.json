@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Angled/A_QBZ191_TacticalSprint_Angled_Enter",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 10,
+   "hand_max": 0.0,
+   "forearm_max": 35.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    18,
+    75
+   ],
+   "roll_after": [
+    18,
+    63
+   ]
+  }
+ },
+ "readback_max_deg": 0.0143,
+ "sha_before": "1e7eb65609a60720231e3c9e979c2509787816df11c6231c0bb0da50c642b8b5",
+ "sha256": "3bb8c4802ac04e16a50bc9d97be9aa5acbc32a0676913793134736cd3d1fd6fa"
+}

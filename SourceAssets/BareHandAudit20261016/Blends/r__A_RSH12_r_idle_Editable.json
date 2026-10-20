@@ -1,0 +1,17 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12DoubleAction20261003\\r\\A_RSH12_r_idle_Editable.blend",
+ "changes": [
+  {
+   "object": "RSH12_FiveRoundLoader",
+   "removed": 47,
+   "added": 29,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_rewritten": 5,
+    "micro_face_removed": 2,
+    "fold_regions_fixed": 2,
+    "normal_corners_replaced": 0
+   }
+  }
+ ]
+}

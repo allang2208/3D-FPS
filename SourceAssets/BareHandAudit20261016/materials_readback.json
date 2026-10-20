@@ -1,0 +1,50 @@
+[
+ {
+  "package": "/Game/Characters/Mannequins/PlayerBodySkin/M_PlayerBodySkin",
+  "upgraded": false,
+  "tag": "",
+  "expected": false
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareFamily_Arms",
+  "upgraded": true,
+  "tag": "20261016: Super90 clean-up + wrist transition on shared parameters",
+  "expected": true
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareFamily_Hands",
+  "upgraded": true,
+  "tag": "20261016: Super90 clean-up + wrist transition on shared parameters",
+  "expected": true
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareNative_Default",
+  "upgraded": true,
+  "tag": "20261016: Super90 clean-up + wrist transition on shared parameters",
+  "expected": true
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/ThumbSurfaceContactV9_20261002/M16/M_M16ThumbHands",
+  "upgraded": true,
+  "tag": "20261016: Super90 clean-up + wrist transition on shared parameters",
+  "expected": true
+ },
+ {
+  "package": "/Game/Characters/ModularOutfit20260924/ThumbSurfaceContactV9_20261002/M16/M_M16ThumbNative",
+  "upgraded": true,
+  "tag": "20261016: Super90 clean-up + wrist transition on shared parameters",
+  "expected": true
+ },
+ {
+  "package": "/Game/Weapons/Super90/JointSurface20261012/Materials/M_Super90JointSkin_Arms",
+  "upgraded": false,
+  "tag": "",
+  "expected": false
+ },
+ {
+  "package": "/Game/Weapons/Super90/JointSurface20261012/Materials/M_Super90JointSkin_Hands",
+  "upgraded": false,
+  "tag": "",
+  "expected": false
+ }
+]

@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_Idle",
+ "keys": 451,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 451,
+   "hand_max": 0.0,
+   "forearm_max": 4.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -5,
+    -4
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 451,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -108,
+    -107
+   ]
+  }
+ },
+ "readback_max_deg": 0.0121,
+ "sha_before": "a065bad4bb83ce74c990949950bc3e433b0e88a1ff409c376400b14841b0a6e8",
+ "sha256": "a9dc36bf2258c946362fe4ee39850641235ba29624097bb0f18e3a692e492731"
+}

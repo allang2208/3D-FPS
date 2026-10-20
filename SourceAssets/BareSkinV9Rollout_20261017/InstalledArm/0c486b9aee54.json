@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/NockFlowV16/A_Bow_ChainNock",
+ "keys": 25,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 17,
+   "hand_max": 0.0,
+   "forearm_max": 160.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    -174,
+    55
+   ],
+   "roll_after": [
+    -174,
+    -18
+   ]
+  }
+ },
+ "readback_max_deg": 0.013,
+ "sha_before": "050a64e45d3b06f1dab8272657b8260acc7ecf8fee1b3399127529960ca0e6f4",
+ "sha256": "930dc784dc54a2dd8497fffaad1c758633bb59c2c97d1d901986348d89caa4d2"
+}

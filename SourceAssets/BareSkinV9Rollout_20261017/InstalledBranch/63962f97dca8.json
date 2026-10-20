@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Vertical/A_QBZ191_TacticalSprint_Vertical_Enter",
+ "keys": 37,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -46.8,
+    -3.3
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -33.3,
+    -25.4
+   ]
+  }
+ }
+}

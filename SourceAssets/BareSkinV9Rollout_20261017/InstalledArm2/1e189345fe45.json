@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_GuardBreak",
+ "keys": 193,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 116.6
+  }
+ },
+ "readback_max_deg": 0.041,
+ "sha_before": "eda35c39e7ea2ea0650e6d7b3b5344a3b7371a1d636730f89ad901fb13c84228",
+ "sha256": "53093869cff2ad767c7c5ecff2a30b7e1315aea71b7227f6af269600e86ab7cc"
+}

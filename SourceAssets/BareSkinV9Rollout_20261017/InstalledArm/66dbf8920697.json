@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash2",
+ "keys": 427,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 310,
+   "hand_max": 0.0,
+   "forearm_max": 130.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    61
+   ],
+   "roll_after": [
+    -131,
+    130
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 368,
+   "hand_max": 0.0,
+   "forearm_max": 131.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -61,
+    0
+   ],
+   "roll_after": [
+    -131,
+    131
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "14a80187049b1ff97cf57faae4e2ecf3948bf66de740b2af5f3e9902e3aac090",
+ "sha256": "03b43a2d366787a378174056dab1adf80309f9c78776b939b35cdd208f3ea239"
+}

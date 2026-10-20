@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash1Recover",
+ "keys": 241,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 30,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -49,
+    135
+   ],
+   "roll_after": [
+    -49,
+    135
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 55,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -118,
+    0
+   ],
+   "roll_after": [
+    -118,
+    -46
+   ]
+  }
+ },
+ "readback_max_deg": 0.014,
+ "sha_before": "bab0f8f3907b6cd00f77f8d7474c911f82958055994596b064ec007d4e39a85c",
+ "sha256": "eb14a43410f2cb8d1f7d1dcb3fd1226f74481c68d93257dd31a244be81696824"
+}

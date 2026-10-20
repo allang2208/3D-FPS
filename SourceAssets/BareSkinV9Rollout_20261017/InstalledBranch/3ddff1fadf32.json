@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_QuickCombat",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -121.1,
+    -22.4
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -74.7,
+    -0.0
+   ]
+  }
+ }
+}

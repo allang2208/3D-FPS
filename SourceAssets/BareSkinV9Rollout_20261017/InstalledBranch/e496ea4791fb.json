@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/Super90/Speedloader21261007/Animations/A_Super90_loader_normal_6",
+ "keys": 145,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    49.0,
+    148.1
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -53.6,
+    -38.5
+   ]
+  }
+ }
+}

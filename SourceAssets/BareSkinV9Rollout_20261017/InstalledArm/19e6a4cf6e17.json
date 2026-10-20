@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/GuardV1/A_Warhammer_GuardExit",
+ "keys": 76,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 76,
+   "hand_max": 0.0,
+   "forearm_max": 9.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    2
+   ],
+   "roll_after": [
+    -9,
+    -4
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 76,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    3
+   ],
+   "roll_after": [
+    -108,
+    -75
+   ]
+  }
+ },
+ "readback_max_deg": 0.0126,
+ "sha_before": "c97f4a0ae1b676aa99b7e3b2a83a489ed919e5eb15281e443d72ab9d3c829e92",
+ "sha256": "2e349944f1d6988329d994fe09748925cb664a2a6113afe362bf896fd1f0dadf"
+}

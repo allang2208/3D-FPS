@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_SprintExit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 119.8
+  }
+ },
+ "readback_max_deg": 0.0375,
+ "sha_before": "e6996dfda9290a1e6a91b5999381d1cfd3ac34d9f0fbc602d2a0fa8bc1738a45",
+ "sha256": "8f33891e8a6b19c2efed96c204a3ed26362b831107a088a9515a4d77b1c79d28"
+}

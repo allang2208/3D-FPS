@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_reload",
+ "keys": 269,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -37.6,
+    58.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -26.5,
+    30.8
+   ]
+  }
+ }
+}

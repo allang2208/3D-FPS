@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_idle",
+ "keys": 6,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 6,
+   "hand_max": 0.0,
+   "forearm_max": 58.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    109,
+    109
+   ],
+   "roll_after": [
+    51,
+    53
+   ]
+  }
+ },
+ "readback_max_deg": 0.0114,
+ "sha_before": "0e2923167290325513ebb729b74f4fb1965e1d6eb7e82470e94a265c8351b43c",
+ "sha256": "f1644929583222c0f27242d20fe795b8963263c6858d68fe0148a923e4d2122d"
+}

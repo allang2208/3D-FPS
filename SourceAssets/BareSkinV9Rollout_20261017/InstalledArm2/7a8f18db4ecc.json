@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AKMDrumFreeDrop20260920/canted/A_AKM_canted_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.0352,
+ "sha_before": "409a42fb0435ae9b56886027ba8e20e0b32a20742dafc344441a6a0d6f39b4c4",
+ "sha256": "b9493b2b5993866a3e682fbdbb03a29bccce5f17c82348c773e4625b57875bfc"
+}

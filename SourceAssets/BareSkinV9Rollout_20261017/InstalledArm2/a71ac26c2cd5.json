@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_HeavyRelease",
+ "keys": 481,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 132.1
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.1
+  }
+ },
+ "readback_max_deg": 0.0391,
+ "sha_before": "7f79c852186d34fc869d59208b0a6974f6dddb6a4e364a9490ee07bab5fce75b",
+ "sha256": "69788bff21bb14131c8349a4a2e629693ab892f7bfc1f985805a554bfb203efd"
+}

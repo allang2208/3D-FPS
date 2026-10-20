@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ElasticV15/A_Bow_Nock",
+ "keys": 83,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 49,
+   "hand_max": 0.0,
+   "forearm_max": 367.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    79,
+    393
+   ],
+   "roll_after": [
+    25,
+    110
+   ]
+  }
+ },
+ "readback_max_deg": 0.0118,
+ "sha_before": "482c3fc7cab2a6db8887380eb1fe380d0c4d8edd619803aff442bf193207d445",
+ "sha256": "4fc334a2587b539b59f347d34b65ad702232785e0403af3179a005480fef0ca7"
+}

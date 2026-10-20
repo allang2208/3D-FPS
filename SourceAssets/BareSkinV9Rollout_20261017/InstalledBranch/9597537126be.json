@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/LMG201/Drum46/Animations/angled/A_LMG201_angled_drum_reload_empty",
+ "keys": 516,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -105.6,
+    98.5
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -172.5,
+    -37.5
+   ]
+  }
+ }
+}

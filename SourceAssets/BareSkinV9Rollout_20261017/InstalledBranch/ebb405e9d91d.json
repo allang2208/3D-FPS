@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintEnter",
+ "keys": 61,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 106.43,
+   "keys_off": 48,
+   "roll_range": [
+    -206.6,
+    147.9
+   ]
+  }
+ },
+ "sha_before": "e111c0e85a73a9ad725672c1e17cafbcfd04833edb69937bf86353f13aeab1a7",
+ "sha256": "87d625e06536dd3e9e5274ea6b524559e96da21a45d6db75872f03e95ad7e714"
+}

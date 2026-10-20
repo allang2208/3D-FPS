@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_reload",
+ "keys": 289,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 45,
+   "hand_max": 0.0,
+   "forearm_max": 2.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    79
+   ],
+   "roll_after": [
+    0,
+    78
+   ]
+  }
+ },
+ "readback_max_deg": 0.011,
+ "sha_before": "00c90873617d35adbbcb628eb2d150f5d7034c362556d30bdf03189fdc8bc55b",
+ "sha256": "59ade46176c60207507107151564b07e6ab18e05dcdad2f734f94a2a3297df8f"
+}

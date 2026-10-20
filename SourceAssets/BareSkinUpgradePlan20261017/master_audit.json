@@ -1,0 +1,724 @@
+{
+ "vertices": 18646,
+ "triangles": 37086,
+ "open_edges": 122,
+ "corner_normal_deviation": {
+  "upperarm": {
+   "corners": 20286,
+   "over5": 561,
+   "over10": 114,
+   "over20": 0
+  },
+  "elbow": {
+   "corners": 8040,
+   "over5": 224,
+   "over10": 70,
+   "over20": 48
+  },
+  "forearm": {
+   "corners": 15330,
+   "over5": 252,
+   "over10": 86,
+   "over20": 0
+  },
+  "fingers": {
+   "corners": 43896,
+   "over5": 4986,
+   "over10": 924,
+   "over20": 64
+  },
+  "palm": {
+   "corners": 20940,
+   "over5": 508,
+   "over10": 32,
+   "over20": 6
+  },
+  "wrist": {
+   "corners": 2766,
+   "over5": 0,
+   "over10": 0,
+   "over20": 0
+  }
+ },
+ "hard_shading_edges_over5deg": {
+  "forearm": {
+   "edges": 94,
+   "length_cm": 20.7
+  },
+  "palm": {
+   "edges": 4,
+   "length_cm": 0.0
+  }
+ },
+ "uv0_seams": {
+  "upperarm": {
+   "edges": 112,
+   "length_cm": 95.9
+  },
+  "elbow": {
+   "edges": 120,
+   "length_cm": 76.4
+  },
+  "forearm": {
+   "edges": 264,
+   "length_cm": 109.9
+  },
+  "fingers": {
+   "edges": 898,
+   "length_cm": 256.0
+  },
+  "palm": {
+   "edges": 298,
+   "length_cm": 52.6
+  },
+  "wrist": {
+   "edges": 6,
+   "length_cm": 3.7
+  }
+ },
+ "uv0_texels_per_cm_4096": {
+  "elbow": {
+   "median": 39.030352922478464,
+   "p10": 34.16340937119306,
+   "p90": 52.37323969339834
+  },
+  "fingers": {
+   "median": 32.972893870800306,
+   "p10": 31.67509010686586,
+   "p90": 35.077081765310794
+  },
+  "forearm": {
+   "median": 38.52525309294522,
+   "p10": 32.76838382953809,
+   "p90": 96.91774133794165
+  },
+  "palm": {
+   "median": 33.62328236530313,
+   "p10": 31.835444132356717,
+   "p90": 104.25617469792157
+  },
+  "upperarm": {
+   "median": 40.544688115428585,
+   "p10": 36.81887910327399,
+   "p90": 46.00633111809792
+  },
+  "wrist": {
+   "median": 104.46356636244178,
+   "p10": 99.30039825604867,
+   "p90": 121.81139246457995
+  }
+ },
+ "material_boundaries": {
+  "0|1": {
+   "edges": 100,
+   "along_from_wrist_cm": [
+    -40.48,
+    -28.82
+   ],
+   "normal_break_deg_max": 0.0,
+   "normal_break_deg_mean": 0.0
+  },
+  "1|2": {
+   "edges": 174,
+   "along_from_wrist_cm": [
+    -4.55,
+    -4.14
+   ],
+   "normal_break_deg_max": 11.0,
+   "normal_break_deg_mean": 5.6
+  }
+ },
+ "material_regions": {
+  "0": [
+   [
+    "upperarm",
+    5824
+   ],
+   [
+    "elbow",
+    122
+   ]
+  ],
+  "1": [
+   [
+    "forearm",
+    4254
+   ],
+   [
+    "elbow",
+    2558
+   ],
+   [
+    "upperarm",
+    938
+   ]
+  ],
+  "2": [
+   [
+    "fingers",
+    14632
+   ],
+   [
+    "palm",
+    6980
+   ],
+   [
+    "wrist",
+    922
+   ],
+   [
+    "forearm",
+    856
+   ]
+  ]
+ },
+ "forearm_left": {
+  "length_cm": 27.25105813627829,
+  "rows": [
+   {
+    "t": -0.1,
+    "cm_from_start": -2.73,
+    "width": 10.94,
+    "depth": 7.27,
+    "ratio": 1.5,
+    "hull_perimeter": 29.37,
+    "bump_rms_mm": 0.16,
+    "bump_max_mm": 0.46,
+    "points": 260
+   },
+   {
+    "t": -0.06,
+    "cm_from_start": -1.64,
+    "width": 10.5,
+    "depth": 7.71,
+    "ratio": 1.36,
+    "hull_perimeter": 29.02,
+    "bump_rms_mm": 0.1,
+    "bump_max_mm": 0.38,
+    "points": 248
+   },
+   {
+    "t": -0.02,
+    "cm_from_start": -0.55,
+    "width": 9.79,
+    "depth": 8.7,
+    "ratio": 1.13,
+    "hull_perimeter": 28.95,
+    "bump_rms_mm": 0.08,
+    "bump_max_mm": 0.29,
+    "points": 228
+   },
+   {
+    "t": 0.02,
+    "cm_from_start": 0.55,
+    "width": 9.28,
+    "depth": 9.3,
+    "ratio": 1.0,
+    "hull_perimeter": 29.1,
+    "bump_rms_mm": 0.07,
+    "bump_max_mm": 0.2,
+    "points": 224
+   },
+   {
+    "t": 0.06,
+    "cm_from_start": 1.64,
+    "width": 9.45,
+    "depth": 9.4,
+    "ratio": 1.01,
+    "hull_perimeter": 29.54,
+    "bump_rms_mm": 0.1,
+    "bump_max_mm": 0.27,
+    "points": 218
+   },
+   {
+    "t": 0.1,
+    "cm_from_start": 2.73,
+    "width": 9.95,
+    "depth": 9.38,
+    "ratio": 1.06,
+    "hull_perimeter": 30.34,
+    "bump_rms_mm": 0.07,
+    "bump_max_mm": 0.17,
+    "points": 196
+   },
+   {
+    "t": 0.14,
+    "cm_from_start": 3.82,
+    "width": 10.27,
+    "depth": 9.45,
+    "ratio": 1.09,
+    "hull_perimeter": 31.19,
+    "bump_rms_mm": 0.08,
+    "bump_max_mm": 0.21,
+    "points": 196
+   },
+   {
+    "t": 0.18,
+    "cm_from_start": 4.91,
+    "width": 10.4,
+    "depth": 9.82,
+    "ratio": 1.06,
+    "hull_perimeter": 31.85,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.19,
+    "points": 200
+   },
+   {
+    "t": 0.22,
+    "cm_from_start": 6.0,
+    "width": 9.86,
+    "depth": 10.54,
+    "ratio": 0.94,
+    "hull_perimeter": 32.17,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.2,
+    "points": 208
+   },
+   {
+    "t": 0.26,
+    "cm_from_start": 7.09,
+    "width": 9.83,
+    "depth": 10.52,
+    "ratio": 0.93,
+    "hull_perimeter": 32.09,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.2,
+    "points": 208
+   },
+   {
+    "t": 0.3,
+    "cm_from_start": 8.18,
+    "width": 10.52,
+    "depth": 9.62,
+    "ratio": 1.09,
+    "hull_perimeter": 31.75,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.13,
+    "points": 174
+   },
+   {
+    "t": 0.34,
+    "cm_from_start": 9.27,
+    "width": 10.32,
+    "depth": 9.53,
+    "ratio": 1.08,
+    "hull_perimeter": 31.23,
+    "bump_rms_mm": 0.07,
+    "bump_max_mm": 0.17,
+    "points": 176
+   },
+   {
+    "t": 0.38,
+    "cm_from_start": 10.36,
+    "width": 10.07,
+    "depth": 9.36,
+    "ratio": 1.08,
+    "hull_perimeter": 30.57,
+    "bump_rms_mm": 0.07,
+    "bump_max_mm": 0.25,
+    "points": 168
+   },
+   {
+    "t": 0.42,
+    "cm_from_start": 11.45,
+    "width": 9.83,
+    "depth": 9.16,
+    "ratio": 1.07,
+    "hull_perimeter": 29.77,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.17,
+    "points": 176
+   },
+   {
+    "t": 0.46,
+    "cm_from_start": 12.54,
+    "width": 9.56,
+    "depth": 8.86,
+    "ratio": 1.08,
+    "hull_perimeter": 28.88,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.18,
+    "points": 168
+   },
+   {
+    "t": 0.5,
+    "cm_from_start": 13.63,
+    "width": 9.15,
+    "depth": 8.62,
+    "ratio": 1.06,
+    "hull_perimeter": 27.89,
+    "bump_rms_mm": 0.05,
+    "bump_max_mm": 0.12,
+    "points": 180
+   },
+   {
+    "t": 0.54,
+    "cm_from_start": 14.72,
+    "width": 8.89,
+    "depth": 8.23,
+    "ratio": 1.08,
+    "hull_perimeter": 26.83,
+    "bump_rms_mm": 0.05,
+    "bump_max_mm": 0.12,
+    "points": 172
+   },
+   {
+    "t": 0.58,
+    "cm_from_start": 15.81,
+    "width": 8.55,
+    "depth": 7.88,
+    "ratio": 1.08,
+    "hull_perimeter": 25.74,
+    "bump_rms_mm": 0.05,
+    "bump_max_mm": 0.1,
+    "points": 168
+   },
+   {
+    "t": 0.62,
+    "cm_from_start": 16.9,
+    "width": 8.11,
+    "depth": 7.55,
+    "ratio": 1.07,
+    "hull_perimeter": 24.69,
+    "bump_rms_mm": 0.05,
+    "bump_max_mm": 0.09,
+    "points": 172
+   },
+   {
+    "t": 0.66,
+    "cm_from_start": 17.99,
+    "width": 7.81,
+    "depth": 7.23,
+    "ratio": 1.08,
+    "hull_perimeter": 23.73,
+    "bump_rms_mm": 0.05,
+    "bump_max_mm": 0.11,
+    "points": 172
+   },
+   {
+    "t": 0.7,
+    "cm_from_start": 19.08,
+    "width": 7.55,
+    "depth": 6.9,
+    "ratio": 1.09,
+    "hull_perimeter": 22.88,
+    "bump_rms_mm": 0.05,
+    "bump_max_mm": 0.13,
+    "points": 168
+   },
+   {
+    "t": 0.74,
+    "cm_from_start": 20.17,
+    "width": 7.34,
+    "depth": 6.61,
+    "ratio": 1.11,
+    "hull_perimeter": 22.14,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.13,
+    "points": 172
+   },
+   {
+    "t": 0.78,
+    "cm_from_start": 21.26,
+    "width": 7.23,
+    "depth": 6.33,
+    "ratio": 1.14,
+    "hull_perimeter": 21.51,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.14,
+    "points": 170
+   },
+   {
+    "t": 0.82,
+    "cm_from_start": 22.35,
+    "width": 7.19,
+    "depth": 6.05,
+    "ratio": 1.19,
+    "hull_perimeter": 21.0,
+    "bump_rms_mm": 0.08,
+    "bump_max_mm": 0.17,
+    "points": 196
+   },
+   {
+    "t": 0.86,
+    "cm_from_start": 23.44,
+    "width": 7.28,
+    "depth": 5.74,
+    "ratio": 1.27,
+    "hull_perimeter": 20.68,
+    "bump_rms_mm": 0.12,
+    "bump_max_mm": 0.27,
+    "points": 318
+   },
+   {
+    "t": 0.9,
+    "cm_from_start": 24.53,
+    "width": 7.02,
+    "depth": 5.23,
+    "ratio": 1.34,
+    "hull_perimeter": 19.53,
+    "bump_rms_mm": 0.26,
+    "bump_max_mm": 0.6,
+    "points": 292
+   },
+   {
+    "t": 0.94,
+    "cm_from_start": 25.62,
+    "width": 6.62,
+    "depth": 4.57,
+    "ratio": 1.45,
+    "hull_perimeter": 17.87,
+    "bump_rms_mm": 0.38,
+    "bump_max_mm": 0.89,
+    "points": 288
+   },
+   {
+    "t": 0.98,
+    "cm_from_start": 26.71,
+    "width": 6.75,
+    "depth": 4.36,
+    "ratio": 1.55,
+    "hull_perimeter": 17.85,
+    "bump_rms_mm": 0.5,
+    "bump_max_mm": 1.16,
+    "points": 288
+   },
+   {
+    "t": 1.02,
+    "cm_from_start": 27.8,
+    "width": 7.36,
+    "depth": 4.58,
+    "ratio": 1.61,
+    "hull_perimeter": 19.39,
+    "bump_rms_mm": 0.64,
+    "bump_max_mm": 1.47,
+    "points": 292
+   },
+   {
+    "t": 1.06,
+    "cm_from_start": 28.89,
+    "width": 8.74,
+    "depth": 5.23,
+    "ratio": 1.67,
+    "hull_perimeter": 22.73,
+    "bump_rms_mm": 0.9,
+    "bump_max_mm": 2.09,
+    "points": 292
+   }
+  ]
+ },
+ "upperarm_left": {
+  "length_cm": 27.771169871063503,
+  "rows": [
+   {
+    "t": 0.15,
+    "cm_from_start": 4.17,
+    "width": 14.04,
+    "depth": 8.61,
+    "ratio": 1.63,
+    "hull_perimeter": 38.04,
+    "bump_rms_mm": 0.06,
+    "bump_max_mm": 0.2,
+    "points": 210
+   },
+   {
+    "t": 0.2,
+    "cm_from_start": 5.55,
+    "width": 13.58,
+    "depth": 9.28,
+    "ratio": 1.46,
+    "hull_perimeter": 37.75,
+    "bump_rms_mm": 0.09,
+    "bump_max_mm": 0.28,
+    "points": 158
+   },
+   {
+    "t": 0.25,
+    "cm_from_start": 6.94,
+    "width": 13.03,
+    "depth": 9.96,
+    "ratio": 1.31,
+    "hull_perimeter": 37.05,
+    "bump_rms_mm": 0.08,
+    "bump_max_mm": 0.28,
+    "points": 162
+   },
+   {
+    "t": 0.3,
+    "cm_from_start": 8.33,
+    "width": 12.43,
+    "depth": 10.34,
+    "ratio": 1.2,
+    "hull_perimeter": 35.84,
+    "bump_rms_mm": 0.15,
+    "bump_max_mm": 0.32,
+    "points": 192
+   },
+   {
+    "t": 0.35,
+    "cm_from_start": 9.72,
+    "width": 11.91,
+    "depth": 10.15,
+    "ratio": 1.17,
+    "hull_perimeter": 34.35,
+    "bump_rms_mm": 0.15,
+    "bump_max_mm": 0.35,
+    "points": 196
+   },
+   {
+    "t": 0.4,
+    "cm_from_start": 11.11,
+    "width": 11.62,
+    "depth": 9.58,
+    "ratio": 1.21,
+    "hull_perimeter": 33.04,
+    "bump_rms_mm": 0.2,
+    "bump_max_mm": 0.42,
+    "points": 186
+   },
+   {
+    "t": 0.45,
+    "cm_from_start": 12.5,
+    "width": 11.35,
+    "depth": 9.21,
+    "ratio": 1.23,
+    "hull_perimeter": 32.0,
+    "bump_rms_mm": 0.19,
+    "bump_max_mm": 0.42,
+    "points": 190
+   },
+   {
+    "t": 0.5,
+    "cm_from_start": 13.89,
+    "width": 11.07,
+    "depth": 8.78,
+    "ratio": 1.26,
+    "hull_perimeter": 31.07,
+    "bump_rms_mm": 0.18,
+    "bump_max_mm": 0.39,
+    "points": 186
+   },
+   {
+    "t": 0.55,
+    "cm_from_start": 15.27,
+    "width": 10.52,
+    "depth": 8.82,
+    "ratio": 1.19,
+    "hull_perimeter": 30.21,
+    "bump_rms_mm": 0.16,
+    "bump_max_mm": 0.34,
+    "points": 214
+   },
+   {
+    "t": 0.6,
+    "cm_from_start": 16.66,
+    "width": 10.41,
+    "depth": 8.05,
+    "ratio": 1.29,
+    "hull_perimeter": 29.34,
+    "bump_rms_mm": 0.1,
+    "bump_max_mm": 0.25,
+    "points": 210
+   },
+   {
+    "t": 0.65,
+    "cm_from_start": 18.05,
+    "width": 9.94,
+    "depth": 8.05,
+    "ratio": 1.24,
+    "hull_perimeter": 28.43,
+    "bump_rms_mm": 0.1,
+    "bump_max_mm": 0.38,
+    "points": 242
+   },
+   {
+    "t": 0.7,
+    "cm_from_start": 19.44,
+    "width": 9.5,
+    "depth": 7.93,
+    "ratio": 1.2,
+    "hull_perimeter": 27.49,
+    "bump_rms_mm": 0.11,
+    "bump_max_mm": 0.38,
+    "points": 230
+   },
+   {
+    "t": 0.75,
+    "cm_from_start": 20.83,
+    "width": 9.14,
+    "depth": 7.66,
+    "ratio": 1.19,
+    "hull_perimeter": 26.58,
+    "bump_rms_mm": 0.19,
+    "bump_max_mm": 0.41,
+    "points": 216
+   },
+   {
+    "t": 0.8,
+    "cm_from_start": 22.22,
+    "width": 8.82,
+    "depth": 7.42,
+    "ratio": 1.19,
+    "hull_perimeter": 25.77,
+    "bump_rms_mm": 0.2,
+    "bump_max_mm": 0.45,
+    "points": 204
+   },
+   {
+    "t": 0.85,
+    "cm_from_start": 23.61,
+    "width": 8.65,
+    "depth": 7.13,
+    "ratio": 1.21,
+    "hull_perimeter": 25.28,
+    "bump_rms_mm": 0.24,
+    "bump_max_mm": 0.55,
+    "points": 212
+   },
+   {
+    "t": 0.9,
+    "cm_from_start": 24.99,
+    "width": 8.7,
+    "depth": 7.33,
+    "ratio": 1.19,
+    "hull_perimeter": 25.49,
+    "bump_rms_mm": 0.24,
+    "bump_max_mm": 0.54,
+    "points": 202
+   },
+   {
+    "t": 0.95,
+    "cm_from_start": 26.38,
+    "width": 9.03,
+    "depth": 7.89,
+    "ratio": 1.15,
+    "hull_perimeter": 26.67,
+    "bump_rms_mm": 0.14,
+    "bump_max_mm": 0.45,
+    "points": 204
+   },
+   {
+    "t": 1.0,
+    "cm_from_start": 27.77,
+    "width": 9.91,
+    "depth": 8.4,
+    "ratio": 1.18,
+    "hull_perimeter": 29.04,
+    "bump_rms_mm": 0.18,
+    "bump_max_mm": 0.48,
+    "points": 206
+   },
+   {
+    "t": 1.05,
+    "cm_from_start": 29.16,
+    "width": 11.32,
+    "depth": 9.19,
+    "ratio": 1.23,
+    "hull_perimeter": 32.37,
+    "bump_rms_mm": 0.28,
+    "bump_max_mm": 0.66,
+    "points": 200
+   }
+  ]
+ }
+}

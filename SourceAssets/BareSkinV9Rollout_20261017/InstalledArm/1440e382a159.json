@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_reload_empty",
+ "keys": 397,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 50,
+   "hand_max": 0.0,
+   "forearm_max": 29.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    156
+   ],
+   "roll_after": [
+    0,
+    149
+   ]
+  }
+ },
+ "readback_max_deg": 0.0132,
+ "sha_before": "3e3d32674b4103cd0c017122e1777b2ca78963ec0dcf1948ea34876a9d00b043",
+ "sha256": "bfcc897dcbf968e806de1356ecdce3a0fe6ff96b823777fc2a978307830b886f"
+}

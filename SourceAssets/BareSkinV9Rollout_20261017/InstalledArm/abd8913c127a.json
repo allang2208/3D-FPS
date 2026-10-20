@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/PistolDualWield20260914/M1911/l/NaturalAimV3/Animations/A_Dual_M1911_l_reload",
+ "keys": 277,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 121,
+   "hand_max": 0.0,
+   "forearm_max": 23.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -23,
+    0
+   ]
+  }
+ },
+ "readback_max_deg": 0.0109,
+ "sha_before": "1a381551fba47dba560f8e80a3116a466b08cfa549805b01b7945230dee218ca",
+ "sha256": "44fe3955116d7f7eb5b3352b94df871d67483caae3dabf73e70e81250d3b455a"
+}

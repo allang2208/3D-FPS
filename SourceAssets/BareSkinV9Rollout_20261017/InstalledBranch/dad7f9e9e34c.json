@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/HeavySlamV1/A_Warhammer_HeavyRelease",
+ "keys": 481,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -6.2,
+    186.0
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -149.5,
+    0.0
+   ]
+  }
+ }
+}

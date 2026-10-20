@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintOverhead",
+ "keys": 313,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 0,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 120.8
+  }
+ },
+ "readback_max_deg": 0.0121,
+ "sha_before": "816ccb8e821f75585c81f5ffe0c62283fdb56dbf990486100962284633f7ef5a",
+ "sha256": "5963556088e890f09c83284332960b17bd71d99d03031ed87cba9ec79f43925d"
+}

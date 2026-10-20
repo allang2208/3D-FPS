@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_reload",
+ "keys": 781,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -38.0,
+    110.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -69.3,
+    2.9
+   ]
+  }
+ }
+}

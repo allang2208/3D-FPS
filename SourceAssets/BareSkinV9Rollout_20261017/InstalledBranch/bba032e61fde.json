@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_quick_melee",
+ "keys": 217,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -3.9,
+    44.7
+   ]
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/WhirlwindV1/A_Warhammer_Whirlwind",
+ "keys": 547,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -78.2,
+    33.7
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -109.5,
+    14.5
+   ]
+  }
+ }
+}

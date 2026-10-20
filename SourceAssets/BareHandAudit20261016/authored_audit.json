@@ -1,0 +1,800 @@
+{
+ "M4_original": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "A762": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "AKM": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "ASH12": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 121,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 71.03,
+    "median": 100.38,
+    "p95": 118.72,
+    "outliers_over_3x": 9
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 74.65,
+    "median": 105.68,
+    "p95": 128.53,
+    "outliers_over_3x": 28
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.18,
+    "median": 121.56,
+    "p95": 142.87,
+    "outliers_over_3x": 1991
+   }
+  }
+ },
+ "Axe": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "DW715": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "DW715_l": {
+  "triangles": 18561,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 2,
+  "inconsistent_winding_edges": 6,
+  "nonmanifold": 0,
+  "shoulder_openings": 1,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 1,
+  "texel": {
+   "0": {
+    "faces": 2973,
+    "p5": 78.71,
+    "median": 100.64,
+    "p95": 112.65,
+    "outliers_over_3x": 2
+   },
+   "1": {
+    "faces": 3875,
+    "p5": 85.52,
+    "median": 106.74,
+    "p95": 126.07,
+    "outliers_over_3x": 8
+   },
+   "2": {
+    "faces": 11711,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.75,
+    "outliers_over_3x": 1001
+   }
+  }
+ },
+ "DW715_r": {
+  "triangles": 18561,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 2,
+  "inconsistent_winding_edges": 6,
+  "nonmanifold": 0,
+  "shoulder_openings": 1,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 1,
+  "texel": {
+   "0": {
+    "faces": 2973,
+    "p5": 78.82,
+    "median": 100.69,
+    "p95": 112.67,
+    "outliers_over_3x": 2
+   },
+   "1": {
+    "faces": 3875,
+    "p5": 85.53,
+    "median": 106.71,
+    "p95": 126.04,
+    "outliers_over_3x": 8
+   },
+   "2": {
+    "faces": 11711,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.79,
+    "outliers_over_3x": 1000
+   }
+  }
+ },
+ "FrostArms": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "FrostSword": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "M16": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 97,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 71.66,
+    "median": 99.95,
+    "p95": 114.13,
+    "outliers_over_3x": 10
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 76.67,
+    "median": 106.73,
+    "p95": 127.74,
+    "outliers_over_3x": 39
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 36.89,
+    "median": 121.56,
+    "p95": 142.87,
+    "outliers_over_3x": 2219
+   }
+  }
+ },
+ "M1911": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "M1911_l": {
+  "triangles": 18561,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 2,
+  "inconsistent_winding_edges": 6,
+  "nonmanifold": 0,
+  "shoulder_openings": 1,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 1,
+  "texel": {
+   "0": {
+    "faces": 2973,
+    "p5": 78.71,
+    "median": 100.64,
+    "p95": 112.65,
+    "outliers_over_3x": 2
+   },
+   "1": {
+    "faces": 3875,
+    "p5": 85.52,
+    "median": 106.74,
+    "p95": 126.07,
+    "outliers_over_3x": 8
+   },
+   "2": {
+    "faces": 11711,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.75,
+    "outliers_over_3x": 1001
+   }
+  }
+ },
+ "M1911_r": {
+  "triangles": 18561,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 2,
+  "inconsistent_winding_edges": 6,
+  "nonmanifold": 0,
+  "shoulder_openings": 1,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 1,
+  "texel": {
+   "0": {
+    "faces": 2973,
+    "p5": 78.82,
+    "median": 100.69,
+    "p95": 112.67,
+    "outliers_over_3x": 2
+   },
+   "1": {
+    "faces": 3875,
+    "p5": 85.53,
+    "median": 106.71,
+    "p95": 126.04,
+    "outliers_over_3x": 8
+   },
+   "2": {
+    "faces": 11711,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.79,
+    "outliers_over_3x": 1000
+   }
+  }
+ },
+ "M4": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "Pickaxe": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "PKM": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "QBZ191": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "RuneSword": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "SVD": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.76,
+    "outliers_over_3x": 2001
+   }
+  }
+ },
+ "Traversal": {
+  "triangles": 37122,
+  "materials": [
+   0,
+   1,
+   2
+  ],
+  "degenerate": 4,
+  "inconsistent_winding_edges": 12,
+  "nonmanifold": 0,
+  "shoulder_openings": 2,
+  "other_openings": [],
+  "cracks": 0,
+  "normal_against_majority": 2,
+  "texel": {
+   "0": {
+    "faces": 5946,
+    "p5": 78.74,
+    "median": 100.67,
+    "p95": 112.66,
+    "outliers_over_3x": 4
+   },
+   "1": {
+    "faces": 7750,
+    "p5": 85.53,
+    "median": 106.73,
+    "p95": 126.05,
+    "outliers_over_3x": 16
+   },
+   "2": {
+    "faces": 23422,
+    "p5": 38.76,
+    "median": 123.17,
+    "p95": 131.77,
+    "outliers_over_3x": 2001
+   }
+  }
+ }
+}

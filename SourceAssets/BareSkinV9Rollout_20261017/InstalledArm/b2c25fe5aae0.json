@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/prism/A_ASH12_prism_equip",
+ "keys": 77,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 451.1,
+   "forearm_max": 0.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -117,
+    334
+   ],
+   "roll_after": [
+    -117,
+    101
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "ab27211e0a953e5b8126761eca93746d7af4d35aed24b79c3ace017f63b8c57d",
+ "sha256": "14e68cc849e7dad1f314800e982f175ff9d8ab662b6042a98e6e75b8a7431cc0"
+}

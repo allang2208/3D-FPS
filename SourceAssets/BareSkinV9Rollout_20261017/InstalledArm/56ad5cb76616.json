@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Ready",
+ "keys": 241,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 34.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -33,
+    -31
+   ],
+   "roll_after": [
+    0,
+    3
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 67.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    1,
+    2
+   ],
+   "roll_after": [
+    67,
+    68
+   ]
+  }
+ },
+ "readback_max_deg": 0.0121,
+ "sha_before": "2d3c0308e756dd64cf066a3121059c2d85d46cd105bce62dab4f19587409160e",
+ "sha256": "25356bdfd97b841bf83b0a1186c5b17bf08e3f6d51abbcb917303f96178b4e1d"
+}

@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut",
+ "keys": 493,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 236,
+   "roll_range": [
+    -207.7,
+    148.3
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -151.4,
+    0.0
+   ]
+  }
+ },
+ "sha_before": "33e2aa0e6c657a2ae593a5bfde08dc0df64068c30921d6556173782c5e7ea10c",
+ "sha256": "35beb8ee2acb97629ab33dea2272ec096eda9c046f16660b4f6bee53b79a141b"
+}

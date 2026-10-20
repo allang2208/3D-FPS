@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Release",
+ "keys": 78,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 78,
+   "hand_max": 0.0,
+   "forearm_max": 33.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -32,
+    -26
+   ],
+   "roll_after": [
+    -23,
+    2
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 78,
+   "hand_max": 0.0,
+   "forearm_max": 82.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    13
+   ],
+   "roll_after": [
+    51,
+    91
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "aab8abc45ed71c7a1a19e6bb9334aee7d67a8e48d3628382f310183cccda3226",
+ "sha256": "eb1289bcab7c0adc8d684f04327774b0a787522d0624a8095c3d19abc20b20dc"
+}

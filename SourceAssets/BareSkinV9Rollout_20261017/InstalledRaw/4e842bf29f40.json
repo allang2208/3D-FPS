@@ -1,0 +1,27 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/base/A_M16_base_drum_reload_empty",
+ "keys": 325,
+ "fixed": {
+  "pinky_02_l": [
+   [
+    206,
+    207
+   ]
+  ],
+  "pinky_03_l": [
+   [
+    214,
+    215
+   ]
+  ],
+  "ring_03_l": [
+   [
+    207,
+    208
+   ]
+  ]
+ },
+ "twist": [],
+ "sha_before": "c332d18670e065ab02c5e9bf7fe40cb766aeb49fe7b67f668e06907bd177c537",
+ "sha256": "1642a84d4a93b2181cdee0cc5a9156c619ccfb1081a3266bc71cbe65e3824745"
+}

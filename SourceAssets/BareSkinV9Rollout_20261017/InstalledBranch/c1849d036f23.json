@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/ComboV1/A_Warhammer_Slash1Recover",
+ "keys": 67,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -30.9,
+    123.6
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -111.1,
+    0.0
+   ]
+  }
+ }
+}

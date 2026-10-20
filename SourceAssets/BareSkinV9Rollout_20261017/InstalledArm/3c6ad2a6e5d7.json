@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DualPistolQuickCombat20260920/VideoRefV3/DW715/r/Animations/A_Dual_DW715_r_quickcombat",
+ "keys": 97,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 24,
+   "hand_max": 0.0,
+   "forearm_max": 91.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    6
+   ],
+   "roll_after": [
+    0,
+    94
+   ]
+  }
+ },
+ "readback_max_deg": 0.0116,
+ "sha_before": "5022c007decbee993a0d939758b4056abaf576ad9aa6f52366c942f6dd8b8a8d",
+ "sha256": "12714fb0b49e52d9c550f65ef834359ee63f5243d99c27ccfc601bfb6860ff30"
+}

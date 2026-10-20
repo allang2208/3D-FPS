@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/NockContinuityV21/A_Bow_QuickNock",
+ "keys": 49,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 37,
+   "roll_range": [
+    -209.9,
+    140.3
+   ]
+  }
+ },
+ "sha_before": "ec1345859571fb854c9a021b63385f518071ab76c923f208468adce4c5298555",
+ "sha256": "9b4b1e408bf352beca93468fe6793512842ec3228a2addbfe11226e37600e1f6"
+}

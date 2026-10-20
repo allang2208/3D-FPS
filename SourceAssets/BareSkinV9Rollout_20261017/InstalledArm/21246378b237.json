@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+ "keys": 77,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 391.6,
+   "forearm_max": 0.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    76,
+    467
+   ],
+   "roll_after": [
+    76,
+    76
+   ]
+  }
+ },
+ "readback_max_deg": 0.0109,
+ "sha_before": "7221e1a26073e7bcafb9fffa56cc3e0dee9b8db2996e8e70a933df427cede13b",
+ "sha256": "5cfb5cccbb8be538e2f1a2bf61afc697a587280822140e79a0cff1e60eab3a51"
+}

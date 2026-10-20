@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Movement/Traversal/Native/A_Traversal_Mantle",
+ "keys": 121,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -69.8,
+    4.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -23.2,
+    81.2
+   ]
+  }
+ }
+}

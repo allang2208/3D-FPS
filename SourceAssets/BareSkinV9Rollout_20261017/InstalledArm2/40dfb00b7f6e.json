@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ReferenceUpgradeV10/A_Bow_Release",
+ "keys": 78,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 61,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 122.1
+  }
+ },
+ "readback_max_deg": 0.0109,
+ "sha_before": "a2e657e4ead52aa77917f7ecc79c14b6c8bf5c7b7d1c3c00de8025475ff27ead",
+ "sha256": "c12ee9e4c4a2c1a1265ae9dabd048c290bc4bcb08623769c6c3d0fda4f632834"
+}

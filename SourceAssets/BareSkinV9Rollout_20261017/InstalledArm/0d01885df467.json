@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/AKM/Angled/A_AKM_TacticalSprint_Angled_Exit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 17,
+   "hand_max": 0.0,
+   "forearm_max": 2.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    3,
+    60
+   ],
+   "roll_after": [
+    1,
+    60
+   ]
+  }
+ },
+ "readback_max_deg": 0.0108,
+ "sha_before": "6344d6c8c8011ae20a01b5812acc284b9ffa5e473c569b6b7f0ac915383f4127",
+ "sha256": "390e1a37c51629bc6f1baee141da66613ba36e4dae77b4811db5f3fd85c8bc9a"
+}

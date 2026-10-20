@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintOverhead",
+ "keys": 313,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 0.0,
+   "forearm_max": 360.2,
+   "upper_max": 360.2,
+   "roll_before": [
+    107,
+    299
+   ],
+   "roll_after": [
+    -61,
+    109
+   ]
+  }
+ },
+ "readback_max_deg": 0.0126,
+ "sha_before": "71cd7e23468b92d855ef19b3d6202868558f9b992ac069679f76ed8c9f5b0116",
+ "sha256": "ee4a63ef2971d233b8b9389395fce5268123d93d38d87446bd71f48a34212a12"
+}

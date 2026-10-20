@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload",
+ "keys": 401,
+ "fixed": {
+  "thumb_01_l": [
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "19fe00672821f1f699cc1eef5306374c25de2128b96cf7a54314ce97c66fc01e",
+ "sha256": "508a634de4d71814dc7cd8c59d8dd030fca8f29bc31ecf5560d173a4c6359eab"
+}

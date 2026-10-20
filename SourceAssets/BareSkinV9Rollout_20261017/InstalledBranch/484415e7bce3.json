@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload_empty",
+ "keys": 745,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -14.3,
+    110.0
+   ]
+  }
+ }
+}

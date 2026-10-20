@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/AKM/Base/A_AKM_QuickCombat_Base",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -17.4,
+    109.7
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -123.3,
+    -35.2
+   ]
+  }
+ }
+}

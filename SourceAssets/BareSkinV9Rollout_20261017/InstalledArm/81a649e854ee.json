@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/PitViper2011/Integrated20261002/Single/Animations/A_PitViper2011_inspect_empty",
+ "keys": 597,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 277,
+   "hand_max": 0.0,
+   "forearm_max": 367.4,
+   "upper_max": 365.4,
+   "roll_before": [
+    -8,
+    55
+   ],
+   "roll_after": [
+    -4,
+    110
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 155,
+   "hand_max": 0.0,
+   "forearm_max": 42.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    11,
+    16
+   ],
+   "roll_after": [
+    -31,
+    16
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "b02b0aeb01301f8d3cdbadf5c6ddf925939fb1e42de75446c6585cb9d8dd6725",
+ "sha256": "65254edef0aaf515ef747df1787310e8846dd324dadd1955b71872924482716b"
+}

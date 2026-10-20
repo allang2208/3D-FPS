@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 73.9
+  }
+ },
+ "readback_max_deg": 0.039,
+ "sha_before": "4c6f37364343de11a7a12f717e7387d396c2e284509251c15801215d55db1917",
+ "sha256": "ec0e1bd704567d6e30d3ca6038e5ff682ada5214a62d8052149dffbe099423f0"
+}

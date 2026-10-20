@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_sprint_exit",
+ "keys": 43,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 82.8
+  }
+ },
+ "readback_max_deg": 0.039,
+ "sha_before": "cf8d05a245454e96a54c46c0f866e8e45b53a6cee7ee9dd1ff1494ebd1b46f40",
+ "sha256": "fc0f2dce4d0e07fc4f648e0eaf3dd36845634c2f02299bc20982669073170b2e"
+}

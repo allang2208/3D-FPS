@@ -1,0 +1,35 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\BeltFeed08\\LMG201_BeltFeed_Animated.blend",
+ "changes": [
+  {
+   "object": "LMG201_BareArmsV7",
+   "removed": 91,
+   "added": 55,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_rewritten": 7,
+    "micro_face_removed": 4,
+    "fold_regions_fixed": 4,
+    "normal_corners_replaced": 0
+   }
+  },
+  {
+   "object": "SK_Manny_Arms",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 48,
+   "notes": {
+    "normal_corners_replaced": 48
+   }
+  },
+  {
+   "object": "SK_Manny_Simple",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 128,
+   "notes": {
+    "normal_corners_replaced": 128
+   }
+  }
+ ]
+}

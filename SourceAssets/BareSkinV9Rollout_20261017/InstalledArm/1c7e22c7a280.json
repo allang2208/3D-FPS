@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_aim",
+ "keys": 6,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 6,
+   "hand_max": 0.0,
+   "forearm_max": 59.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    109,
+    110
+   ],
+   "roll_after": [
+    51,
+    52
+   ]
+  }
+ },
+ "readback_max_deg": 0.0107,
+ "sha_before": "bb147fe319498c144b3682dc5091cd63d1781114244f94150fce99e9254dc056",
+ "sha256": "0b344c550d803e553e07cd6cdd8e5655869212d68db385e4cf5c9f1880447484"
+}

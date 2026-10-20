@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 143,
+   "hand_max": 0.0,
+   "forearm_max": 67.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -24,
+    110
+   ],
+   "roll_after": [
+    -24,
+    89
+   ]
+  }
+ },
+ "readback_max_deg": 0.0134,
+ "sha_before": "f99a02a1e681b4deba2fb7d30130591094f1dff713773df8cd7d90d9c0d1eac1",
+ "sha256": "75d1dc592e4673d6c553c4700b113bd306b7a500199e9f62340537475df8f063"
+}

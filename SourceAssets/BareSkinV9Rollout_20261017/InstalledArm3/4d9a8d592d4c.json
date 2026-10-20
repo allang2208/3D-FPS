@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/QuickCombat20260926/A_Bow_QuickCombat",
+ "keys": 217,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 155,
+   "windows": [
+    "clamp"
+   ],
+   "deviation_from_written": 169.6
+  }
+ },
+ "readback_max_deg": 0.013,
+ "sha_before": "cbd44c4cddb816b75f4983ddeb8a4797848b4526c85e951597d84daae436edee",
+ "sha256": "b517dc1ec8d0da23d5c5f0fb5b2ea96947afed5904ca87c6cb8610c226450f31"
+}

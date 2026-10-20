@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/A762/Integrated20260920/Animations/A_A762_reload",
+ "keys": 401,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -5.3,
+    106.3
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -66.3,
+    -34.5
+   ]
+  }
+ }
+}

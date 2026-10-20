@@ -1,0 +1,398 @@
+{
+ "mcp_index_l": {
+  "rest_deg": 23.065724603307302
+ },
+ "mcp_middle_l": {
+  "rest_deg": 31.572767100768893
+ },
+ "mcp_ring_l": {
+  "rest_deg": 29.8386817511021
+ },
+ "mcp_pinky_l": {
+  "rest_deg": 16.566507278523027
+ },
+ "JC_ElbowFlex20_L": {
+  "side": "l",
+  "value": 20.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 27,
+  "max_rest_cm": 0.1522176721375333,
+  "max_posed_cm": 0.15084160908729186,
+  "folded_lbs": 1,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 1.4210854715202004e-14,
+  "folds_lbs_zone": 1,
+  "folds_left": 0,
+  "guard_iterations": 2
+ },
+ "JC_ElbowFlex75_L": {
+  "side": "l",
+  "value": 75.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1044,
+  "max_rest_cm": 0.3597112720801517,
+  "max_posed_cm": 0.3501217262462899,
+  "folded_lbs": 7,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.003605615342614499,
+  "folds_lbs_zone": 5,
+  "folds_left": 0,
+  "guard_iterations": 1
+ },
+ "JC_ElbowFlex110_L": {
+  "side": "l",
+  "value": 110.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1169,
+  "max_rest_cm": 0.6924717757745155,
+  "max_posed_cm": 0.6248896969278281,
+  "folded_lbs": 47,
+  "folded_corrected": 36,
+  "reproduce_err_cm": 0.0038379548299118937,
+  "folds_lbs_zone": 9,
+  "folds_left": 0,
+  "guard_iterations": 4
+ },
+ "JC_ElbowFlex135_L": {
+  "side": "l",
+  "value": 135.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1239,
+  "max_rest_cm": 0.9427825462050652,
+  "max_posed_cm": 0.7865356114152294,
+  "folded_lbs": 98,
+  "folded_corrected": 105,
+  "reproduce_err_cm": 0.003728937049516934,
+  "folds_lbs_zone": 6,
+  "folds_left": 0,
+  "guard_iterations": 9
+ },
+ "JC_WristFlexA_L": {
+  "side": "l",
+  "value": 40.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1154,
+  "max_rest_cm": 0.2908988495544061,
+  "max_posed_cm": 0.2736155070273479,
+  "folded_lbs": 0,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.00367501441311191,
+  "folds_lbs_zone": 0,
+  "folds_left": 0,
+  "guard_iterations": 3
+ },
+ "JC_WristFlexB_L": {
+  "side": "l",
+  "value": -40.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1275,
+  "max_rest_cm": 0.2832473699919631,
+  "max_posed_cm": 0.27620596700890826,
+  "folded_lbs": 0,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.003368898591382674,
+  "folds_lbs_zone": 0,
+  "folds_left": 0,
+  "guard_iterations": 2
+ },
+ "JC_WristRadial_L": {
+  "side": "l",
+  "value": 20.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1077,
+  "max_rest_cm": 0.2884360315078421,
+  "max_posed_cm": 0.288436031507842,
+  "folded_lbs": 0,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.003834105879029437,
+  "folds_lbs_zone": 0,
+  "folds_left": 0,
+  "guard_iterations": 2
+ },
+ "JC_WristUlnar_L": {
+  "side": "l",
+  "value": -35.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "vertices": 1196,
+  "max_rest_cm": 0.2448415973223775,
+  "max_posed_cm": 0.24191908668057463,
+  "folded_lbs": 1,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.0035097280051630264,
+  "folds_lbs_zone": 1,
+  "folds_left": 0,
+  "guard_iterations": 3
+ },
+ "frame_l": {
+  "hinge": [
+   -0.8167764590204846,
+   0.05634214000894504,
+   0.5741966381381656
+  ],
+  "up": [
+   -0.5760329358582507,
+   -0.02341381510719151,
+   -0.8170910904352406
+  ],
+  "fd": [
+   -0.4682975053756766,
+   -0.6460623515352168,
+   -0.6027444602712695
+  ],
+  "f0": [
+   -0.512115503068154,
+   -0.659112681934669,
+   -0.5507342226792697
+  ],
+  "r0": [
+   0.6124418854139059,
+   -0.7297721959323173,
+   0.30388728014641125
+  ],
+  "z0": [
+   -0.6022064832828617,
+   -0.1816673183514614,
+   0.7773958688693149
+  ],
+  "palm_sign": -1.0,
+  "rest_elbow_deg": 38.97880576990861,
+  "f0_twist": [
+   0.9976764356183934,
+   0.05774225581226117,
+   0.03616022269690312
+  ],
+  "r0_twist": [
+   -0.04177622547553067,
+   0.9377436857118898,
+   -0.3448065064532543
+  ],
+  "z0_twist": [
+   -0.053818926009312484,
+   0.342494688719682,
+   0.9379770313829718
+  ],
+  "flexA_is_palmar": true
+ },
+ "mcp_index_r": {
+  "rest_deg": 23.06338681596773
+ },
+ "mcp_middle_r": {
+  "rest_deg": 31.572497365957823
+ },
+ "mcp_ring_r": {
+  "rest_deg": 29.837203289674854
+ },
+ "mcp_pinky_r": {
+  "rest_deg": 16.56896248151494
+ },
+ "JC_ElbowFlex20_R": {
+  "side": "r",
+  "value": 20.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 27,
+  "max_rest_cm": 0.15208597326052076,
+  "max_posed_cm": 0.1507130373632543,
+  "folded_lbs": 1,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 1.4210854715202004e-14,
+  "folds_lbs_zone": 1,
+  "folds_left": 0,
+  "guard_iterations": 2
+ },
+ "JC_ElbowFlex75_R": {
+  "side": "r",
+  "value": 75.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1043,
+  "max_rest_cm": 0.35956496814817185,
+  "max_posed_cm": 0.3499793223025398,
+  "folded_lbs": 7,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.0036052590923247863,
+  "folds_lbs_zone": 5,
+  "folds_left": 0,
+  "guard_iterations": 1
+ },
+ "JC_ElbowFlex110_R": {
+  "side": "r",
+  "value": 110.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1170,
+  "max_rest_cm": 0.6921364746676171,
+  "max_posed_cm": 0.6245872368450454,
+  "folded_lbs": 47,
+  "folded_corrected": 38,
+  "reproduce_err_cm": 0.0038390475059895124,
+  "folds_lbs_zone": 9,
+  "folds_left": 0,
+  "guard_iterations": 4
+ },
+ "JC_ElbowFlex135_R": {
+  "side": "r",
+  "value": 135.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1239,
+  "max_rest_cm": 0.942350239968023,
+  "max_posed_cm": 0.7861741269618533,
+  "folded_lbs": 98,
+  "folded_corrected": 105,
+  "reproduce_err_cm": 0.003791607677804343,
+  "folds_lbs_zone": 6,
+  "folds_left": 0,
+  "guard_iterations": 9
+ },
+ "JC_WristFlexA_R": {
+  "side": "r",
+  "value": 40.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1275,
+  "max_rest_cm": 0.2832548777624044,
+  "max_posed_cm": 0.276279549165524,
+  "folded_lbs": 0,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.0036759188354729133,
+  "folds_lbs_zone": 0,
+  "folds_left": 0,
+  "guard_iterations": 2
+ },
+ "JC_WristFlexB_R": {
+  "side": "r",
+  "value": -40.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1154,
+  "max_rest_cm": 0.2909003141000407,
+  "max_posed_cm": 0.2736167522636747,
+  "folded_lbs": 0,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.0036761628584898176,
+  "folds_lbs_zone": 0,
+  "folds_left": 0,
+  "guard_iterations": 3
+ },
+ "JC_WristRadial_R": {
+  "side": "r",
+  "value": 20.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1077,
+  "max_rest_cm": 0.2885594393809224,
+  "max_posed_cm": 0.2885594393809224,
+  "folded_lbs": 0,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.0038339036352752487,
+  "folds_lbs_zone": 0,
+  "folds_left": 0,
+  "guard_iterations": 2
+ },
+ "JC_WristUlnar_R": {
+  "side": "r",
+  "value": -35.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "vertices": 1196,
+  "max_rest_cm": 0.24483873803803047,
+  "max_posed_cm": 0.24200579519399934,
+  "folded_lbs": 1,
+  "folded_corrected": 0,
+  "reproduce_err_cm": 0.003509963516165726,
+  "folds_lbs_zone": 1,
+  "folds_left": 0,
+  "guard_iterations": 3
+ },
+ "frame_r": {
+  "hinge": [
+   -0.8167746502485661,
+   -0.056342129083613704,
+   -0.5741992121221152
+  ],
+  "up": [
+   0.5760355074075396,
+   -0.023413727477395053,
+   -0.81708928004922
+  ],
+  "fd": [
+   0.4682997286978845,
+   -0.6460616068264838,
+   -0.6027435311027981
+  ],
+  "f0": [
+   0.5121407083678731,
+   -0.6591136870368336,
+   -0.5507095808074923
+  ],
+  "r0": [
+   -0.6123726697630022,
+   -0.7297967096725947,
+   0.3039678862616704
+  ],
+  "z0": [
+   -0.6022554343132043,
+   0.18156516767201092,
+   -0.7773818120643473
+  ],
+  "palm_sign": 1.0,
+  "rest_elbow_deg": 38.9787547166175,
+  "f0_twist": [
+   -0.9976748158683798,
+   -0.057747144196677966,
+   -0.036197087163515655
+  ],
+  "r0_twist": [
+   0.0417739760632095,
+   -0.9377809766892754,
+   0.34470534472731956
+  ],
+  "z0_twist": [
+   -0.05385068900084276,
+   0.34239174507694825,
+   0.9380127910627325
+  ],
+  "flexA_is_palmar": false
+ },
+ "grips": {
+  "JC_Grip_L_6_19_41_52": {
+   "side": "l",
+   "clip": "A_AKM_idle",
+   "frame": 0,
+   "mcp_extra": [
+    6,
+    19,
+    41,
+    52
+   ],
+   "folds_before": 15,
+   "folds_left_at_example": 0,
+   "vertices": 398,
+   "max_rest_cm": 0.362412377870148
+  },
+  "JC_Grip_L_48_48_48_48": {
+   "side": "l",
+   "clip": "A_M4_Vertical_idle",
+   "frame": 0,
+   "mcp_extra": [
+    48,
+    48,
+    48,
+    48
+   ],
+   "folds_before": 5,
+   "folds_left_at_example": 0,
+   "vertices": 84,
+   "max_rest_cm": 0.05293320073381172
+  },
+  "JC_Grip_R_0_52_55_54": {
+   "side": "r",
+   "clip": "A_AKM_idle",
+   "frame": 0,
+   "mcp_extra": [
+    0,
+    52,
+    55,
+    54
+   ],
+   "folds_before": 10,
+   "folds_left_at_example": 0,
+   "vertices": 413,
+   "max_rest_cm": 0.5
+  }
+ },
+ "grip_sigma_deg": 12.0
+}

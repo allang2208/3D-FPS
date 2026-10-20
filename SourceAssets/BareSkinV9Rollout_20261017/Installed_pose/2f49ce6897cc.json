@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r",
+ "saved": true,
+ "morphs": 12,
+ "morphs_on_asset": 23,
+ "added": [
+  "JC_Pose_R_53_m174_103_5_0_14_26_24",
+  "JC_Pose_R_53_165_103_5_0_14_26_24",
+  "JC_Pose_R_40_74_87_0_0_14_26_24",
+  "JC_Pose_R_40_41_73_0_0_14_26_24",
+  "JC_Pose_R_86_27_m48_m12_0_36_53_47",
+  "JC_Pose_R_68_m1_m35_m24_14_36_48_50",
+  "JC_Pose_R_40_103_92_0_0_14_26_24",
+  "JC_Pose_R_37_m22_11_m47_0_3_5_5",
+  "JC_Pose_R_21_m13_72_3_0_14_26_24",
+  "JC_Pose_R_57_28_m31_4_0_20_30_35",
+  "JC_Pose_R_65_m24_5_m58_0_5_9_8",
+  "JC_Pose_R_40_57_80_0_0_14_26_24"
+ ],
+ "emptied_stale_morphs": [],
+ "position_readback_max_cm": 0.0,
+ "sha256": "038da349287de491fd01f2108bf6f8dbc6acf63cef08a704f9ddcbfdd93a34d3",
+ "runtime_tested": false
+}

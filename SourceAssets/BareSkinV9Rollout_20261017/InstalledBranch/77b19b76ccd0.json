@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintLoop",
+ "keys": 77,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 2.08,
+   "keys_off": 0,
+   "roll_range": [
+    96.7,
+    101.3
+   ]
+  },
+  "r": {
+   "max_err": 0.6,
+   "keys_off": 0,
+   "roll_range": [
+    104.3,
+    106.1
+   ]
+  }
+ }
+}

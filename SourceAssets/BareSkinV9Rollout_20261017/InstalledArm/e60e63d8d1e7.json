@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload",
+ "keys": 211,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 9,
+   "hand_max": 0.0,
+   "forearm_max": 2.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -38,
+    58
+   ],
+   "roll_after": [
+    -38,
+    58
+   ]
+  }
+ },
+ "readback_max_deg": 0.0127,
+ "sha_before": "cb082e445a5d749d74f420b1f344a64460812acde1f15096cd501243768d21b9",
+ "sha256": "863ddb8a1de6fa5fb2c8a21e9e70265624b41e1b37e4ea356974e18920026d63"
+}

@@ -1,0 +1,17 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DarkBow20260925\\ReferenceUpgradeV10\\Bow_BareArmsV7_Actions.blend",
+ "changes": [
+  {
+   "object": "SK_Bow_BareArmsV7",
+   "removed": 94,
+   "added": 58,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_rewritten": 10,
+    "micro_face_removed": 4,
+    "fold_regions_fixed": 4,
+    "normal_corners_replaced": 0
+   }
+  }
+ ]
+}

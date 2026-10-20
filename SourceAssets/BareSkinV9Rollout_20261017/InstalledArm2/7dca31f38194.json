@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_SprintEnter",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 103.7
+  }
+ },
+ "readback_max_deg": 0.0428,
+ "sha_before": "946324f0a27ee2afc4066eea9595fd26a7fd4a0b13ee414b17345aa49a3904f2",
+ "sha256": "1c50bb8738686138df1a908715821104952d754aa5ce8735251697f8e0d62373"
+}

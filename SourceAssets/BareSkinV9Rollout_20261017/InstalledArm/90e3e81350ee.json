@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Angled/A_M4_TacticalSprint_Angled_Exit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 8,
+   "hand_max": 0.0,
+   "forearm_max": 1.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    6,
+    37
+   ],
+   "roll_after": [
+    6,
+    36
+   ]
+  }
+ },
+ "readback_max_deg": 0.0134,
+ "sha_before": "f2907245ba3cb324f8bd843c82f743bb29cea25ee8ef8c3bf7f2550d6591e6d9",
+ "sha256": "920049ef91dd6d85522a1e41543bf3f1d89770b34da1bee1fe4a2449e36fb135"
+}

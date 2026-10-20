@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M870/Speedloader20261016/Animations/A_M870_loader_empty_3",
+ "keys": 209,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    49.0,
+    142.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -23.1,
+    -4.5
+   ]
+  }
+ }
+}

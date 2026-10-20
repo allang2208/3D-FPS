@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 40,
+   "windows": [
+    "clamp"
+   ],
+   "deviation_from_written": 101.6
+  }
+ },
+ "readback_max_deg": 0.0121,
+ "sha_before": "afc1ac212e08654d0bb4d11cb4beed3360fe0657e807fa130b08baec7dc3125d",
+ "sha256": "125fcba05abec5c9891f9972d3a0051699cc7a9016360fef1ec69a15123c5884"
+}

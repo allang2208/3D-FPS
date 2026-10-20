@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ReferenceUpgradeV10/A_Bow_Release",
+ "keys": 78,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 15,
+   "roll_range": [
+    -203.1,
+    140.6
+   ]
+  }
+ },
+ "sha_before": "66596e6c1b0f6601d169a2059c3b9a6ba6a04a49fcecd84616ba19d7a9347cdd",
+ "sha256": "201058be3360cacbf33256927e37318263c0c8fddfbfd55ec12c36ac0ba95bac"
+}

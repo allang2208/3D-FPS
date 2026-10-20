@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_equip",
+ "keys": 77,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 72,
+   "roll_range": [
+    -202.1,
+    106.3
+   ]
+  }
+ },
+ "sha_before": "53461ea760cb5fe9b9c18a572d197e631c2aa4b07092dcbb49d79553b6e577af",
+ "sha256": "509319cca5ba1c8ab1a76a3af95321377e8d2bf02fb1303d77857c2e14b86284"
+}

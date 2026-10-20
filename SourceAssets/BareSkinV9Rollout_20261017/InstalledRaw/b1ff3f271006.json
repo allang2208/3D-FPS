@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard",
+ "keys": 97,
+ "fixed": {
+  "clavicle_l": [
+   [
+    51,
+    52
+   ]
+  ],
+  "lowerarm_l": [
+   [
+    51,
+    52
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "f2dcb17d34bc36bd1b636de6588d960706d392f6c17e98cc9fb20899ff334223",
+ "sha256": "c5d403d5cdd8b3fee980adbefa50abea3b9a8a0e60d1470501580f77eda0ad2d"
+}

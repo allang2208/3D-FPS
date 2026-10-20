@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Accessories22/Animations/canted/A_LMG201_canted_inspect",
+ "keys": 746,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 185,
+   "hand_max": 0.0,
+   "forearm_max": 76.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    2,
+    110
+   ],
+   "roll_after": [
+    2,
+    95
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "a1807051eebd9c6ba8840ac0382184abb7198296466785f4787945a7139c1496",
+ "sha256": "157c3e4b09b46d5fd0bb32a31aa3e6dae4a18b955fcb8ac995449f3419da92e4"
+}

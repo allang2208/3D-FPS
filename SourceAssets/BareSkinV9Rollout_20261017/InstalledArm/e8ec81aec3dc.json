@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DanWesson715/ReloadSplit20260914/Animations/A_DW715_speed_2",
+ "keys": 433,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 232,
+   "hand_max": 0.0,
+   "forearm_max": 22.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -113,
+    6
+   ],
+   "roll_after": [
+    -109,
+    6
+   ]
+  }
+ },
+ "readback_max_deg": 0.0109,
+ "sha_before": "67405dfeae7265686be365c5d12e80f67769e8d488abb3b66f872c6bdd57902e",
+ "sha256": "f90f1a992402cd540ea43ac4bc94ad7dda37d83efd23a9a4ae226dffb762fa03"
+}

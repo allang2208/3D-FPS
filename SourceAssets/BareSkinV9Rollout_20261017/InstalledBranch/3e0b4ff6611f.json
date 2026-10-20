@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/HK416/Reworked20260930/Animations/drum/A_HK416_drum_quick_melee",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -55.1,
+    80.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -101.4,
+    -33.6
+   ]
+  }
+ }
+}

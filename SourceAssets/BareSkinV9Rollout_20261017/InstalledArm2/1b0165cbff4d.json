@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyRelease",
+ "keys": 481,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.1
+  }
+ },
+ "readback_max_deg": 0.0391,
+ "sha_before": "f28ac0a560a057dad9d653aa75ea0da0e616b2df63103a789f73a9ec8d0c97a4",
+ "sha256": "345c81f5f5c09b27bf1f264942c0a587b32a3605d3f355571c982594d3d47099"
+}

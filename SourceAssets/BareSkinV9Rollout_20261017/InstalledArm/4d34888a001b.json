@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Prism/A_QBZ191_TacticalSprint_Prism_Exit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 6,
+   "hand_max": 0.0,
+   "forearm_max": 17.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -48,
+    -4
+   ],
+   "roll_after": [
+    -48,
+    -4
+   ]
+  }
+ },
+ "readback_max_deg": 0.0118,
+ "sha_before": "52f785d9fdf1f12d01621260a9e1be27bbb9ce14e11c06cfabbdef31c58b1388",
+ "sha256": "538b813a45d631acb08f2386224b4905392d953995de7e9758d48d3489bf527c"
+}

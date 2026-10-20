@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Canted/A_M4_TacticalSprint_Canted_Exit",
+ "keys": 37,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 26,
+   "roll_range": [
+    -200.5,
+    126.0
+   ]
+  }
+ },
+ "sha_before": "c251a171cbbdb2f23916047a9ed0389331eccc67ea657e72b17f3c1df287ef14",
+ "sha256": "624327ab614de630a85cb51cacb6b70994739d7d960cccde4ea24900ea4ba9aa"
+}

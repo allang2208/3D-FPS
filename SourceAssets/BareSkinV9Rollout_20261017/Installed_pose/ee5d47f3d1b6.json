@@ -1,0 +1,30 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7",
+ "saved": true,
+ "morphs": 18,
+ "morphs_on_asset": 39,
+ "added": [
+  "JC_Pose_L_46_m64_m35_m20_24_24_24_24",
+  "JC_Pose_L_56_m125_m144_m48_24_24_24_24",
+  "JC_Pose_L_33_3_m12_1_48_48_48_48",
+  "JC_Pose_L_56_12_m4_3_48_48_48_48",
+  "JC_Pose_L_51_m139_m150_m65_24_24_24_24",
+  "JC_Pose_L_66_m135_m142_m74_24_24_24_24",
+  "JC_Pose_R_129_126_117_m88_10_8_16_25",
+  "JC_Pose_R_106_m177_127_129_9_10_16_22",
+  "JC_Pose_R_121_177_127_143_8_11_16_22",
+  "JC_Pose_R_81_89_m88_31_0_8_12_54",
+  "JC_Pose_R_128_45_50_m8_10_8_16_24",
+  "JC_Pose_R_127_54_m42_25_10_8_16_28",
+  "JC_Pose_R_79_49_m46_26_0_8_12_54",
+  "JC_Pose_R_46_37_m11_10_0_0_0_0",
+  "JC_Pose_R_69_18_8_2_0_0_0_0",
+  "JC_Pose_R_102_60_m43_23_0_8_12_54",
+  "JC_Pose_R_110_m151_127_81_8_11_16_22",
+  "JC_Pose_R_47_17_30_m1_0_0_0_0"
+ ],
+ "emptied_stale_morphs": [],
+ "position_readback_max_cm": 0.0,
+ "sha256": "7794889d00630de8fe4db6b49f3d62ed803d1e9f31542dd10cf312480bc2388e",
+ "runtime_tested": false
+}

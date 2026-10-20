@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_SprintLoop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 127.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    37,
+    38
+   ],
+   "roll_after": [
+    -91,
+    -24
+   ]
+  }
+ },
+ "readback_max_deg": 0.0127,
+ "sha_before": "eba34c3231d3b305077e8d0173923c7ec84dd0cf90a904c05cb5bf870a0dd17e",
+ "sha256": "5c0a0d80691d6e3a3b25eb7038ec9f10274a40bd083a2168c7210b6b42c921e3"
+}

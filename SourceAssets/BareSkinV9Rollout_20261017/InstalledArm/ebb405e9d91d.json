@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintEnter",
+ "keys": 61,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 13,
+   "hand_max": 0.0,
+   "forearm_max": 4.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    1,
+    102
+   ],
+   "roll_after": [
+    5,
+    102
+   ]
+  },
+  "r": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 35,
+   "hand_max": 0.0,
+   "forearm_max": 360.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -241,
+    -1
+   ],
+   "roll_after": [
+    -108,
+    119
+   ]
+  }
+ },
+ "readback_max_deg": 0.0131,
+ "sha_before": "87d625e06536dd3e9e5274ea6b524559e96da21a45d6db75872f03e95ad7e714",
+ "sha256": "6ca7452d9f99331a820157fca06045e5a9ac93793046b21131e26f102bfc864d"
+}

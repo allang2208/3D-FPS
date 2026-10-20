@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/M16A2/Gameplay20260919/Animations/A_M16_equip_charge",
+ "keys": 77,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 73,
+   "roll_range": [
+    -176.4,
+    128.1
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -35.7,
+    80.9
+   ]
+  }
+ },
+ "sha_before": "7f08e6752876fc95084d4c9535964904736be2a5825e50193ed3ae5f2d382e70",
+ "sha256": "7221e1a26073e7bcafb9fffa56cc3e0dee9b8db2996e8e70a933df427cede13b"
+}

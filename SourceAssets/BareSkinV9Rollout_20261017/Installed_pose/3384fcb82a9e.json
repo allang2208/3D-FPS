@@ -1,0 +1,27 @@
+{
+ "path": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+ "saved": true,
+ "morphs": 15,
+ "morphs_on_asset": 36,
+ "added": [
+  "JC_Pose_L_27_m29_4_76_17_31_55_73",
+  "JC_Pose_L_36_m33_3_75_48_48_48_48",
+  "JC_Pose_L_63_m17_10_47_48_48_48_48",
+  "JC_Pose_L_94_m1_1_m167_0_0_0_40",
+  "JC_Pose_L_14_m31_m37_46_23_38_44_36",
+  "JC_Pose_L_44_m41_m13_53_48_48_48_48",
+  "JC_Pose_L_72_12_m1_m78_0_0_0_40",
+  "JC_Pose_L_38_6_5_m47_16_16_14_7",
+  "JC_Pose_L_36_m9_1_41_0_8_20_70",
+  "JC_Pose_L_127_124_104_m65_23_23_23_23",
+  "JC_Pose_L_50_18_0_m71_0_0_0_0",
+  "JC_Pose_L_51_0_2_m53_0_0_0_40",
+  "JC_Pose_R_101_4_m9_m34_4_20_55_55",
+  "JC_Pose_R_88_m74_m57_m81_0_52_55_54",
+  "JC_Pose_R_117_0_m22_m46_0_52_55_54"
+ ],
+ "emptied_stale_morphs": [],
+ "position_readback_max_cm": 0.0,
+ "sha256": "80cb0cf3af84309a5ced4ace8a7daa8597ccabb21f6bed314f6ee10f3c70e0e9",
+ "runtime_tested": false
+}

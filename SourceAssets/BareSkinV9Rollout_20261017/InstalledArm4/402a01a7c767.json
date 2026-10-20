@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/NockFlowV16/A_Bow_QuickNock",
+ "keys": 25,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 102.0
+  }
+ },
+ "readback_max_deg": 0.0406,
+ "sha_before": "59aaa01f660efa2d5bb3bc8880417ad8f8dee87e4e56c510deb0d9c928e0b6da",
+ "sha256": "0d9087be92bbd251d64a77078eb7a956914c5ce0037c70203ffcc5e4af708bdb"
+}

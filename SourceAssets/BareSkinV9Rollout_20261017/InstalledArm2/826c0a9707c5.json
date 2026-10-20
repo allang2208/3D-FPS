@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_quick_melee",
+ "keys": 217,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 10,
+   "windows": [],
+   "deviation_from_written": 0.0
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 130.9
+  }
+ },
+ "readback_max_deg": 0.0399,
+ "sha_before": "7b5106c9f7565f7d6adb17cdfe408ef4ac2615158529ec1b1c9cca1d789a4ee8",
+ "sha256": "ad6da2ad3ceb35d86b6602ef6fff5a65e28a62abb707ebf4eb87644f25cadfd1"
+}

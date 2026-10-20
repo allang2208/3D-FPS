@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/Super90/TacticalSprint20261007/Animations/A_Super90_sprint_enter",
+ "keys": 37,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    6.2,
+    135.7
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -58.3,
+    -40.1
+   ]
+  }
+ }
+}

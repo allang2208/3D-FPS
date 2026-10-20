@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip",
+ "keys": 247,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "clamp"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 25.2,
+   "forearm_max": 0.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    61,
+    195
+   ],
+   "roll_after": [
+    61,
+    170
+   ]
+  }
+ },
+ "readback_max_deg": 0.0137,
+ "sha_before": "bf715f0218a242c0e5f93efcbb3eb85acb7cbe6f47e8d1959fa935e6877967a0",
+ "sha256": "ad949eaa609242b92cf59349ffb9c82e4c217fa91a2f0651105706758939c169"
+}

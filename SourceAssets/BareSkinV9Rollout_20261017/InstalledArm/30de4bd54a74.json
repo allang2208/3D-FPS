@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_reload",
+ "keys": 781,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "clamp"
+   ],
+   "elbow_keys": 14,
+   "hand_max": 16.3,
+   "forearm_max": 197.6,
+   "upper_max": 3.5,
+   "roll_before": [
+    2,
+    110
+   ],
+   "roll_after": [
+    -170,
+    112
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 31,
+   "hand_max": 0.0,
+   "forearm_max": 131.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -69,
+    3
+   ],
+   "roll_after": [
+    -128,
+    -31
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "48a46280883544004d466dc07412be23c994bf2bc659f1cddd713272b82ce5e5",
+ "sha256": "b1835c9ced8c6a04fd073a5e1e95c13933d282efa439d1e1ae0185b495670b4d"
+}

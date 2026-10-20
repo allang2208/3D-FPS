@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_WhirlwindV5",
+ "keys": 875,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 811,
+   "hand_max": 0.0,
+   "forearm_max": 131.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    61
+   ],
+   "roll_after": [
+    -131,
+    131
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 649,
+   "hand_max": 0.0,
+   "forearm_max": 133.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -61,
+    4
+   ],
+   "roll_after": [
+    -131,
+    0
+   ]
+  }
+ },
+ "readback_max_deg": 0.0128,
+ "sha_before": "333fe42c55f4557a6e1532ddc67b671ce3503c170bed39e3af7c2a08ae94facb",
+ "sha256": "a5d2d8f6d517d8126e8d1811635717de23c51f8c0392f7833dff24d624c22164"
+}

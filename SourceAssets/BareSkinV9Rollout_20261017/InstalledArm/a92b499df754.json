@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/prism/A_PKM_prism_reload_empty",
+ "keys": 793,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "clamp"
+   ],
+   "elbow_keys": 12,
+   "hand_max": 16.0,
+   "forearm_max": 197.2,
+   "upper_max": 3.7,
+   "roll_before": [
+    22,
+    110
+   ],
+   "roll_after": [
+    -170,
+    114
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 157,
+   "hand_max": 0.0,
+   "forearm_max": 118.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    -62,
+    17
+   ],
+   "roll_after": [
+    -123,
+    17
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "efef547d260e5626ec7faa0b4ad39e374474dcc6cd158bf098e5a6e59de63d97",
+ "sha256": "b61372de2f094fa77589d3be7f8d25294b55ced19f939cc39f4691817f062575"
+}

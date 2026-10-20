@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_QuickCombat",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -202.7,
+    -21.8
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -70.5,
+    -0.0
+   ]
+  }
+ }
+}

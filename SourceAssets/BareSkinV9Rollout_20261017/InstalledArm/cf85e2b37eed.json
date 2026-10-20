@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_QuickCombat",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 88,
+   "hand_max": 0.0,
+   "forearm_max": 130.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    -174,
+    -116
+   ],
+   "roll_after": [
+    -161,
+    6
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "6e42c20a08c1097bab82c743e3b5ade2235337af4e79584fdf550503c9b01d8a",
+ "sha256": "432ee25c1c53c1cbe2f3990f2d3ff447bd8d8bd20a99ed7f95cabf43264c2ee0"
+}

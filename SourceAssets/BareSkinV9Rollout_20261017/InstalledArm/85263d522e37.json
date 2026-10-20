@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/QuickCombatLeftWristV7/A_Warhammer_QuickCombat",
+ "keys": 151,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 110,
+   "hand_max": 0.0,
+   "forearm_max": 128.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -21,
+    0
+   ],
+   "roll_after": [
+    -131,
+    100
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 56,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -95,
+    0
+   ],
+   "roll_after": [
+    -110,
+    -65
+   ]
+  }
+ },
+ "readback_max_deg": 0.014,
+ "sha_before": "c7911536951f1afd77332de1c3b8ba1fee23c4d9f6e43e9b2d9cb89b447db065",
+ "sha256": "2189093d6e61985fb89341feedad8e42c56106db49923438ff158a918678d9ba"
+}

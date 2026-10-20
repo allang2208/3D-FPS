@@ -1,0 +1,30 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_equip",
+ "keys": 77,
+ "fixed": {
+  "upperarm_l": [
+   [
+    0,
+    4
+   ]
+  ],
+  "lowerarm_l": [
+   [
+    4,
+    5
+   ],
+   [
+    0,
+    4
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "c3cc7e4888921a5aebe87e5c3e0531de00357a603d713e3d4114f97e9722c8bf",
+ "sha256": "e146ba030aca1468df60babfb07020a20b7afa72f8c086c07aa5b3612dd3b244"
+}

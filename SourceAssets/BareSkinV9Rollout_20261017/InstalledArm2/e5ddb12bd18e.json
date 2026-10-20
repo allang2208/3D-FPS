@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ReferenceUpgradeV10/A_Bow_Hold",
+ "keys": 241,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 241,
+   "windows": [],
+   "deviation_from_written": 122.1
+  }
+ },
+ "readback_max_deg": 0.0095,
+ "sha_before": "863e93268a6d614c6d48330ddd64e983923a56fb72d2ad88c270b32a35593baa",
+ "sha256": "990963ee5ced312eccbb23c936414c334b2acb5148919f3c5a396d8d198d627d"
+}

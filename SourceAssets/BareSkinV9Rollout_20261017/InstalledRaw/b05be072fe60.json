@@ -1,0 +1,18 @@
+{
+ "path": "/Game/Weapons/Super90/Cransh20261006/Animations/A_Super90_quick_melee",
+ "keys": 217,
+ "fixed": {
+  "pinky_03_r": [
+   [
+    123,
+    124
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "8550db9cc12d944c354cf06b6c2b50f06c047d3a2daa330f78c9d1246f754a20",
+ "sha256": "5b6e98354628f47a7ac3668620ddb07c2ee9fa19dff039de6ad5b18bd38a755a"
+}

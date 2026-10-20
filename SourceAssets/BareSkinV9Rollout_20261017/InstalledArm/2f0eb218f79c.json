@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ElasticV15/A_Bow_Release",
+ "keys": 78,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 61,
+   "hand_max": 0.0,
+   "forearm_max": 360.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -281,
+    2
+   ],
+   "roll_after": [
+    -131,
+    79
+   ]
+  }
+ },
+ "readback_max_deg": 0.013,
+ "sha_before": "6ba0d506e7d7821ce40e744fbdf35135b9b23e6d6bda87f181cddeedd1669b2c",
+ "sha256": "10ed16e97f2e2d2897b06d1108c8a41aef6c80156b367660203ece375166fa81"
+}

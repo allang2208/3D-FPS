@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_191687429f_WristCoverage",
+ "saved": true,
+ "morphs": 11,
+ "morphs_on_asset": 33,
+ "added": [
+  "JC_Pose_L_124_6_m3_0_48_48_48_48",
+  "JC_Pose_L_98_1_m26_0_48_48_48_48",
+  "JC_Pose_L_46_m93_m95_0_48_48_48_48",
+  "JC_Pose_R_74_m2_5_m106_48_48_48_48",
+  "JC_Pose_R_47_m20_m12_m60_48_48_48_48",
+  "JC_Pose_R_70_m34_17_m75_48_48_48_48",
+  "JC_Pose_R_53_14_m15_m131_48_48_48_48",
+  "JC_Pose_R_81_9_m3_m65_48_48_48_48",
+  "JC_Pose_R_62_m49_27_m63_48_48_48_48",
+  "JC_Pose_R_106_m1_m2_0_48_48_48_48",
+  "JC_Pose_R_72_m18_8_m36_48_48_48_48"
+ ],
+ "emptied_stale_morphs": [
+  "JC_Pose_R_53_14_m15_m134_48_48_48_48",
+  "JC_Pose_R_81_9_m3_m66_48_48_48_48",
+  "JC_Pose_R_76_18_4_160_48_48_48_48",
+  "JC_Pose_R_74_1_m9_m89_48_48_48_48"
+ ],
+ "position_readback_max_cm": 0.0,
+ "sha256": "1d8b3043c0bd279c6d1051f562b857b0a0235e16e23d02d8bb0ceec9f6138334",
+ "runtime_tested": false
+}

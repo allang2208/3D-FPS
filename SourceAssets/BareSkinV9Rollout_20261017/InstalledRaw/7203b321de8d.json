@@ -1,0 +1,32 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_equip",
+ "keys": 77,
+ "fixed": {
+  "upperarm_l": [
+   [
+    4,
+    5
+   ]
+  ],
+  "index_01_l": [
+   [
+    4,
+    5
+   ]
+  ],
+  "thumb_01_l": [
+   [
+    0,
+    4
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "383843db1bc69d226c0175c08d7b390c4e6b18450169162476bb562da0f81d65",
+ "sha256": "9240848966a7c7b0c98d00cbc219b21ec1b63c50056fa1a596bf2eaa519c1321"
+}

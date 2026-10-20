@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/LocomotionV23/A_Bow_LoadedWalk",
+ "keys": 121,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 121,
+   "hand_max": 0.0,
+   "forearm_max": 100.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    24,
+    27
+   ],
+   "roll_after": [
+    -75,
+    -65
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "3655a69f8efb5b70d5f5e875c34326145b4c0ae683d885f626044987fa5e3e1d",
+ "sha256": "972fa0f2eaa92bf2c3bdcc4043351aad5334000df24b3077d2e2838de88f6331"
+}

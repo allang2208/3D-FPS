@@ -1,0 +1,53 @@
+{
+ "path": "/Game/Weapons/M1911/RevolverInspect20260927/Animations/A_M1911_inspect",
+ "keys": 597,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 277,
+   "hand_max": 0.0,
+   "forearm_max": 367.5,
+   "upper_max": 365.6,
+   "roll_before": [
+    -8,
+    55
+   ],
+   "roll_after": [
+    -4,
+    110
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 156,
+   "hand_max": 0.0,
+   "forearm_max": 43.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    11,
+    16
+   ],
+   "roll_after": [
+    -31,
+    16
+   ]
+  }
+ },
+ "readback_max_deg": 0.0123,
+ "sha_before": "ef65eda95a1011dea7255c12c7c9136f39986fef36c84121497ac2a904bd0047",
+ "sha256": "f7533147633315cc4f38ffb18b674b9f804f92ad60624703f4cf3b9baa895fd5"
+}

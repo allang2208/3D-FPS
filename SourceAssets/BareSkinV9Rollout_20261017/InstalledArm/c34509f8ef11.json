@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_reload",
+ "keys": 289,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 45,
+   "hand_max": 0.0,
+   "forearm_max": 2.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    79
+   ],
+   "roll_after": [
+    0,
+    78
+   ]
+  }
+ },
+ "readback_max_deg": 0.011,
+ "sha_before": "6cb433fb06a37becb0b5621fdbd490246caaffd9b438b6a5ed562a6ba2c9aeee",
+ "sha256": "849e7967f0460f62362a113d3c40ceb4ca4fdc0efcb0b3d5aa3e65fcef78b259"
+}

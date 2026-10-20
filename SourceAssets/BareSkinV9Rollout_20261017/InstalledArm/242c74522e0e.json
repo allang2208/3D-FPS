@@ -1,0 +1,34 @@
+{
+ "path": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_HitRecover",
+ "keys": 133,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [
+    "clamp",
+    "clamp"
+   ],
+   "elbow_keys": 8,
+   "hand_max": 0.0,
+   "forearm_max": 113.4,
+   "upper_max": 42.0,
+   "roll_before": [
+    -212,
+    0
+   ],
+   "roll_after": [
+    -170,
+    -39
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "1530e19ea8f0956bdb61710516f8493398481910a7ca49cf12249b0f77664431",
+ "sha256": "a7697e76104ed8afd66976f44e2af4f5210a1d5fd4cc3ecb4a211878433a05a9"
+}

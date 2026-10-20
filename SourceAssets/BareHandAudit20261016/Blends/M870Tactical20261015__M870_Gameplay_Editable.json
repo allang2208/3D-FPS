@@ -1,0 +1,16 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M870Tactical20261015\\M870_Gameplay_Editable.blend",
+ "changes": [
+  {
+   "object": "M870_V7",
+   "removed": 4,
+   "added": 2,
+   "normal_corners": 42,
+   "notes": {
+    "micro_face_removed": 2,
+    "micro_face_rewritten": 2,
+    "normal_corners_replaced": 42
+   }
+  }
+ ]
+}

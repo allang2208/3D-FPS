@@ -1,0 +1,265 @@
+{
+  "date": "2026-10-14",
+  "candidate_assets": 110,
+  "first_person_skin_assets": 109,
+  "repaired_assets": 13,
+  "repaired_editable_sources": 26,
+  "assets_saved": true,
+  "mesh_topology_readback_completed": true,
+  "game_started": false,
+  "runtime_visual_acceptance": false,
+  "saved": [
+    {
+      "path": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7",
+      "patches": 4,
+      "removed_triangles": 50,
+      "added_triangles": 42,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "890e3d3ac38ac952dfb26f09630515135de1650c59484b4e253f116c65283a41",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/Super90ShellMechanics20261008/Exports/SK_Super90_V7.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny",
+      "patches": 4,
+      "removed_triangles": 52,
+      "added_triangles": 44,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "387c8dfe074b1abd5b47b809fff327dbe116eae6d0f66a98a85b372e12886833",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Single/SK_PitViper2011_Manny.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+      "patches": 4,
+      "removed_triangles": 52,
+      "added_triangles": 44,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "977964ec7dabd929aad35d8f4f3dd9596949e89a096d0139d3c684de9f8a4b9a",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/G18Integration20260929/Single/SK_G18_Manny.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+      "patches": 4,
+      "removed_triangles": 52,
+      "added_triangles": 44,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "ee95af37e48c85b820e6ad0d2e4b68dac51cd2806017b77bc91b92f688eec113",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/HK416SlapSights20261001/SK_HK416_ModularSights.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+      "patches": 2,
+      "removed_triangles": 27,
+      "added_triangles": 23,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "f4f826eba38a4eee8e4d71c44b1e0d0501bdec263d7f6d838154b0ca819cf3f3",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/G18Integration20260929/Dual/r/SK_Dual_G18_r.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7",
+      "patches": 4,
+      "removed_triangles": 50,
+      "added_triangles": 42,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "3e287116d263cc21aa6e49afcbae009afe5e58c60c4c56518b43b3292b80bffc",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/BenelliM4Super9020261006/Exports/SK_Super90_BareArmsV7.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+      "patches": 2,
+      "removed_triangles": 27,
+      "added_triangles": 23,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "838059b2eb982b749dcc789b0ac813ff13d343f8f086ae5471e8bba9337fb783",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Dual/r/SK_Dual_PitViper2011_r.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_f5cf430f68_WristCoverage",
+      "patches": 4,
+      "removed_triangles": 54,
+      "added_triangles": 46,
+      "lods": 3,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "0a6d3819baaa78ba6d13b73e8f6f0c092f3896e28fa5a08b90e753244fe447af",
+      "import_source": "E:/Program Files (x86)/SourceAssets/DarkBow20260925/ArmsV4/Export/SK_Bow_BareArmsV7.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+      "patches": 2,
+      "removed_triangles": 25,
+      "added_triangles": 21,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "a330c45f6c46458e3261895d8f19fad2931be3d337b3a4a370ca2cc844d938ca",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/PitViper2011SICompensator20261002/Integration20261003/Dual/l/SK_Dual_PitViper2011_l.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+      "patches": 2,
+      "removed_triangles": 25,
+      "added_triangles": 21,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "0f1881a0a67d7585ae1f366047512b7d425623a5170b2c0e6454a35be72340a4",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/G18Integration20260929/Dual/l/SK_Dual_G18_l.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7",
+      "patches": 4,
+      "removed_triangles": 54,
+      "added_triangles": 46,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "d110f8f6011c962d6238d8f01504ea8204ca1a99e7cfa28ba8e49091bf528d11",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/DarkBow20260925/ArmsV4/Export/SK_Bow_BareArmsV7.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+      "patches": 4,
+      "removed_triangles": 54,
+      "added_triangles": 46,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "c878cf22813a4b18afc70e8fba50aad8bf6a52a05b078498589fab0ee2150215",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/SteelWarhammer20261014/SprintDragV1/RigSource/Export/SK_SteelWarhammer_BareArmsV7.fbx",
+      "runtime_tested": false
+    },
+    {
+      "path": "/Game/Weapons/SteelWarhammer20261014/SK_SteelWarhammer_BareArmsV7",
+      "patches": 4,
+      "removed_triangles": 58,
+      "added_triangles": 50,
+      "lods": 1,
+      "reference_bones_unchanged": true,
+      "material_slots_unchanged": true,
+      "sha256": "539602afbfee5d00121162b51dc0d4731fa8004239ca90fa778e75269c9b2cee",
+      "import_source": "D:/FPS3D/FPSGAME/SourceAssets/SteelWarhammer20261014/Export/SK_SteelWarhammer_BareArmsV7.fbx",
+      "runtime_tested": false
+    }
+  ],
+  "findings": [
+    {
+      "path": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_f5cf430f68_WristCoverage",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    },
+    {
+      "path": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0,
+      "patch_triangles_read_back": 46,
+      "expected_patch_triangles": 46,
+      "patch_backfaces": 0
+    },
+    {
+      "path": "/Game/Weapons/SteelWarhammer20261014/SK_SteelWarhammer_BareArmsV7",
+      "small_palm_openings": 0,
+      "seam_weight_splits": 0,
+      "max_surface_vertex_movement_cm": 0.0,
+      "max_original_weight_difference": 0.0
+    }
+  ]
+}

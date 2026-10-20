@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/vertical/A_ASH12_vertical_SprintExit",
+ "keys": 37,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -137.6,
+    -60.9
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -0.0,
+    18.5
+   ]
+  }
+ }
+}

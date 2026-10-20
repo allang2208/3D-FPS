@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/prism/A_A762_prism_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.0367,
+ "sha_before": "e396ee7dae76fa9d837b87cb52714981816bca4a7f4869b8217cb76c646a96ab",
+ "sha256": "77c3bbb897c01bc8ccb078a94f4e237928458448004047e0e899ee08a07e33f1"
+}

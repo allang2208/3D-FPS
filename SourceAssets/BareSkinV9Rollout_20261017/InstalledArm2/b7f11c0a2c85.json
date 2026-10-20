@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Equip",
+ "keys": 577,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 450,
+   "windows": [],
+   "deviation_from_written": 0.0
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 99.2
+  }
+ },
+ "readback_max_deg": 0.037,
+ "sha_before": "3488f804da75c360a43e886ccc0fa0ef23e3d4e93d9b0bf9b4c443ca592a0d04",
+ "sha256": "6f64cacd7b3d34d1ebf9c2ee3e98bdb4bc7382a8cb481a60ddc924383b84ed53"
+}

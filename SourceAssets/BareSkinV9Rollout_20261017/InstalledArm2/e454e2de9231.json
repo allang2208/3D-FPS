@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/canted/A_A762_canted_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.0353,
+ "sha_before": "3adcd0bfa2ebd306ab9556d6cfa99811e9b9ce19ebb88f4e46057aeabbea2197",
+ "sha256": "dcdc38ceea748049954b99cd5a6d4180de2416742908e8e7d2ee790f5ed16a46"
+}

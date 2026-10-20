@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_SprintExit",
+ "keys": 37,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 26,
+   "roll_range": [
+    -200.5,
+    126.0
+   ]
+  }
+ },
+ "sha_before": "1a493c0b62e1fc807f295236db41d98970739222d21dd6ed29b8f394209375d0",
+ "sha256": "2c9149e9d45a46f2ece259bc87fc9e45e736e5ca66013b8b1e2eebf39ebdba31"
+}

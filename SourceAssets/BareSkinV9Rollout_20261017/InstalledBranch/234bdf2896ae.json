@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -188.3,
+    7.4
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -106.7,
+    -33.6
+   ]
+  }
+ }
+}

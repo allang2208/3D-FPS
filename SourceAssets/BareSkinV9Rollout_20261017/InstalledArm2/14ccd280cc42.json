@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ReferenceUpgradeV10/A_Bow_Draw",
+ "keys": 169,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 169,
+   "windows": [],
+   "deviation_from_written": 122.1
+  }
+ },
+ "readback_max_deg": 0.0117,
+ "sha_before": "3b1ba2342b89c4e2fceb7f32dc130564a77047c098c7ee0fcfb5b88c00b1e74a",
+ "sha256": "a8ddb34347cd3d6b1972afe8acd18b6f30c3cb588c54f46430345de1c17c3fd0"
+}

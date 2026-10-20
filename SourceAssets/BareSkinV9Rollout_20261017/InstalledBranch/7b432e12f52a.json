@@ -1,0 +1,30 @@
+{
+ "path": "/Game/Weapons/SwordUppercut20261003/LongGrip/A_Sword_UppercutV1_LongGrip",
+ "keys": 247,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 66.94,
+   "keys_off": 216,
+   "roll_range": [
+    61.0,
+    195.2
+   ]
+  },
+  "r": {
+   "max_err": 32.86,
+   "keys_off": 195,
+   "roll_range": [
+    -127.4,
+    -61.0
+   ]
+  }
+ },
+ "sha_before": "3f86ce90499a92d92890e5bfe59f9e93da0196099c316fef4296b72c4b934044",
+ "sha256": "bf715f0218a242c0e5f93efcbb3eb85acb7cbe6f47e8d1959fa935e6877967a0"
+}

@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Equip",
+ "keys": 577,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 451,
+   "hand_max": 0.0,
+   "forearm_max": 49.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    61
+   ],
+   "roll_after": [
+    3,
+    61
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 203,
+   "hand_max": 0.0,
+   "forearm_max": 99.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -61,
+    0
+   ],
+   "roll_after": [
+    -99,
+    0
+   ]
+  }
+ },
+ "readback_max_deg": 0.0131,
+ "sha_before": "403f9735b41e87692cb77173714cc4bd1702a84eb3ec30fac56d7710b2d1c0c1",
+ "sha256": "3110befe394843037ec81d39c9de7edb00c8b9d86076ba258dba4e4773e7f1d4"
+}

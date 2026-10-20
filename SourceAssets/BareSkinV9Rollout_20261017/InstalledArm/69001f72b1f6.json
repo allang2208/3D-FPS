@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/DW715/r/Animations/A_Dual_DW715_r_quickcombat",
+ "keys": 97,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 24,
+   "hand_max": 0.0,
+   "forearm_max": 91.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -58,
+    6
+   ],
+   "roll_after": [
+    -58,
+    94
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "9d7f63634ac7ef0cf720cc2b6526fed847890714eac8cb4a94623ab6bd8ebe4a",
+ "sha256": "20e4ca57ff522dbffb77b1787ee03bd74ef88c89a33c1d74686565680179e4e4"
+}

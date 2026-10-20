@@ -1,0 +1,94 @@
+[
+ {
+  "path": "/Game/Weapons/M870/Arms20261016/SK_M870_BareArmsV7.SK_M870_BareArmsV7",
+  "key": "1d48499e4340",
+  "source_sha256": "23bc23c9a268f923276e7dec2f913c15326aaa31dc38bea0e34d8a03572e47c6",
+  "skin_triangles": 37116,
+  "before": {
+   "degenerate_faces": 0,
+   "inconsistent_winding_edges": 0,
+   "nonmanifold_edges": 0,
+   "boundary_edges": 122
+  },
+  "after": {
+   "degenerate_faces": 0,
+   "inconsistent_winding_edges": 0,
+   "nonmanifold_edges": 0,
+   "boundary_edges": 122
+  },
+  "openings_before": [
+   [
+    "upperarm",
+    43.35
+   ],
+   [
+    "upperarm",
+    45.03
+   ]
+  ],
+  "openings_after": [
+   [
+    "upperarm",
+    43.35
+   ],
+   [
+    "upperarm",
+    45.03
+   ]
+  ],
+  "notes": {
+   "normal_corners_replaced": 53
+  },
+  "normal_corners": 53,
+  "max_change_mm": 0.0,
+  "dropped": 0,
+  "plan_ok": true,
+  "changed": true
+ },
+ {
+  "path": "/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7",
+  "key": "f48665dbe356",
+  "source_sha256": "92fc799dc4f0a4fad2949e09afcec832ae31fd6bce3a897d837b7854647757fe",
+  "skin_triangles": 37116,
+  "before": {
+   "degenerate_faces": 0,
+   "inconsistent_winding_edges": 0,
+   "nonmanifold_edges": 0,
+   "boundary_edges": 122
+  },
+  "after": {
+   "degenerate_faces": 0,
+   "inconsistent_winding_edges": 0,
+   "nonmanifold_edges": 0,
+   "boundary_edges": 122
+  },
+  "openings_before": [
+   [
+    "upperarm",
+    43.35
+   ],
+   [
+    "upperarm",
+    45.03
+   ]
+  ],
+  "openings_after": [
+   [
+    "upperarm",
+    43.35
+   ],
+   [
+    "upperarm",
+    45.03
+   ]
+  ],
+  "notes": {
+   "normal_corners_replaced": 47
+  },
+  "normal_corners": 47,
+  "max_change_mm": 0.0,
+  "dropped": 0,
+  "plan_ok": true,
+  "changed": true
+ }
+]

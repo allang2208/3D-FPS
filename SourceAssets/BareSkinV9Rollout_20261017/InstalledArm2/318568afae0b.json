@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_HeavyCharge",
+ "keys": 961,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.1
+  }
+ },
+ "readback_max_deg": 0.0417,
+ "sha_before": "a4287abfe8d4fd1e8fba47fa5a08325b7918bedaad1a068c4c9b9c0d60576f33",
+ "sha256": "8f74a6b262b892630250fe050f0ccb6f610f8920fe44ed54d89fec05a8851522"
+}

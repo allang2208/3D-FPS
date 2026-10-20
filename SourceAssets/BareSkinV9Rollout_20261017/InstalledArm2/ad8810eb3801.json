@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindRecoverV6",
+ "keys": 875,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.9
+  },
+  "r": {
+   "changed": true,
+   "elbow_keys": 709,
+   "windows": [],
+   "deviation_from_written": 6.2
+  }
+ },
+ "readback_max_deg": 0.0361,
+ "sha_before": "6562be899bf497add31c1ebf5c940b27f2a6cbd5c3f340b86d8b10b639762aee",
+ "sha256": "782ea7735ad3aa43e78fd64a6adfe4e9e02e4b3416a1e20b1d17f4970ddf08d0"
+}

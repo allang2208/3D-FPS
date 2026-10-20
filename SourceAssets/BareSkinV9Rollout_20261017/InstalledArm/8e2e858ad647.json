@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DanWesson715/Integrated20260913/Animations/A_DW715_reload",
+ "keys": 769,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 188,
+   "hand_max": 0.0,
+   "forearm_max": 20.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -53,
+    -4
+   ],
+   "roll_after": [
+    -49,
+    -4
+   ]
+  }
+ },
+ "readback_max_deg": 0.0122,
+ "sha_before": "0a638adb81f05f64b9744ed5c327e687ec9c512e37248538aee34d18fd43db1d",
+ "sha256": "94b6f20f4197efa7e5a5a70b33a17aeb396c415f08d24cd5d490f4ad5e564766"
+}

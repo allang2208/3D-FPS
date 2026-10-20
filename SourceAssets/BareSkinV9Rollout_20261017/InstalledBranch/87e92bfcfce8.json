@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/SightContactV11/A_Bow_Release",
+ "keys": 78,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 15,
+   "roll_range": [
+    -203.1,
+    140.6
+   ]
+  }
+ },
+ "sha_before": "7f8bb96ca5802f2443176dad6bbacdf290491abf0a3798c026ed9bbaf4e21ef9",
+ "sha256": "e57f93d852a484810be8e690c1c63cabf8e45cf2d682109d3e44937296a60109"
+}

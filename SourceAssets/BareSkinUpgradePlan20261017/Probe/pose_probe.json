@@ -1,0 +1,200 @@
+{
+ "rest": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 31.38
+   },
+   {
+    "t": 0.35,
+    "perimeter": 31.08
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.55
+   },
+   {
+    "t": 0.75,
+    "perimeter": 21.97
+   },
+   {
+    "t": 0.9,
+    "perimeter": 19.53
+   },
+   {
+    "t": 0.97,
+    "perimeter": 17.74
+   }
+  ]
+ },
+ "elbow_flex_plus50": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 30.78
+   },
+   {
+    "t": 0.35,
+    "perimeter": 31.08
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.55
+   },
+   {
+    "t": 0.75,
+    "perimeter": 21.97
+   },
+   {
+    "t": 0.9,
+    "perimeter": 19.53
+   },
+   {
+    "t": 0.97,
+    "perimeter": 17.74
+   }
+  ]
+ },
+ "wrist_flex_50": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 31.38
+   },
+   {
+    "t": 0.35,
+    "perimeter": 31.08
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.55
+   },
+   {
+    "t": 0.75,
+    "perimeter": 21.67
+   },
+   {
+    "t": 0.9,
+    "perimeter": 18.5
+   },
+   {
+    "t": 0.97,
+    "perimeter": 17.21
+   }
+  ]
+ },
+ "wrist_ext_50": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 31.38
+   },
+   {
+    "t": 0.35,
+    "perimeter": 31.08
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.55
+   },
+   {
+    "t": 0.75,
+    "perimeter": 22.17
+   },
+   {
+    "t": 0.9,
+    "perimeter": 19.51
+   },
+   {
+    "t": 0.97,
+    "perimeter": 25.12
+   }
+  ]
+ },
+ "wrist_ulnar_25": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 31.38
+   },
+   {
+    "t": 0.35,
+    "perimeter": 31.08
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.55
+   },
+   {
+    "t": 0.75,
+    "perimeter": 21.91
+   },
+   {
+    "t": 0.9,
+    "perimeter": 19.29
+   },
+   {
+    "t": 0.97,
+    "perimeter": 18.41
+   }
+  ]
+ },
+ "pronate_70_hand_only": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 31.38
+   },
+   {
+    "t": 0.35,
+    "perimeter": 31.08
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.55
+   },
+   {
+    "t": 0.75,
+    "perimeter": 21.74
+   },
+   {
+    "t": 0.9,
+    "perimeter": 16.54
+   },
+   {
+    "t": 0.97,
+    "perimeter": 14.59
+   }
+  ]
+ },
+ "pronate_70_twist_split": {
+  "sections": [
+   {
+    "t": 0.15,
+    "perimeter": 31.07
+   },
+   {
+    "t": 0.35,
+    "perimeter": 30.79
+   },
+   {
+    "t": 0.55,
+    "perimeter": 26.08
+   },
+   {
+    "t": 0.75,
+    "perimeter": 21.56
+   },
+   {
+    "t": 0.9,
+    "perimeter": 18.95
+   },
+   {
+    "t": 0.97,
+    "perimeter": 17.19
+   }
+  ]
+ },
+ "scale_to_cm": 100,
+ "forearm_length": 27.251057531567685
+}

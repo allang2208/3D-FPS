@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Prism/A_M4_TacticalSprint_Prism_Exit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 10,
+   "hand_max": 0.0,
+   "forearm_max": 54.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -163,
+    -66
+   ],
+   "roll_after": [
+    -151,
+    -66
+   ]
+  }
+ },
+ "readback_max_deg": 0.0139,
+ "sha_before": "9c1deb584dec50560295d7de9874b4b5cefdf9ab6b730e47d2d039e85272e66e",
+ "sha256": "224abe5b0d341e67718527e7d9832a50ee0822d98f33de89e2c6b50a412f2c09"
+}

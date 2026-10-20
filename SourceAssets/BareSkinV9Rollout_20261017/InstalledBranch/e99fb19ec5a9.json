@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_drum_reload_empty",
+ "keys": 516,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -31.3,
+    66.5
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -148.1,
+    -35.0
+   ]
+  }
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Movement/Traversal/Native/A_Traversal_Climb",
+ "keys": 201,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 10,
+   "hand_max": 0.0,
+   "forearm_max": 111.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -96,
+    8
+   ],
+   "roll_after": [
+    -96,
+    16
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 10,
+   "hand_max": 0.0,
+   "forearm_max": 51.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -30,
+    84
+   ],
+   "roll_after": [
+    -30,
+    47
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "e2bb5312f9bd9e8f8ab721d57d3988668aea6d5ce97ecf4049adca48002b7a6d",
+ "sha256": "3adad9fbb3ed2282229568a615c707955343cef49455cf8421deae3a659a88e3"
+}

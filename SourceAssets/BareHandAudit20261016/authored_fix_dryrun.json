@@ -1,0 +1,511 @@
+{
+ "M4_original": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "A762": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "AKM": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "ASH12": {
+  "notes": {
+   "micro_face_removed": 4,
+   "micro_face_rewritten": 7,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 2511
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    54.907
+   ],
+   [
+    "upperarm",
+    40.711
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.547
+ },
+ "Axe": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "DW715": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "DW715_l": {
+  "notes": {
+   "micro_face_rewritten": 2,
+   "micro_face_removed": 2,
+   "fold_regions_fixed": 2,
+   "normal_corners_replaced": 0
+  },
+  "removed": 44,
+  "added": 26,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 9,
+  "max_change_mm": 1.455
+ },
+ "DW715_r": {
+  "notes": {
+   "micro_face_rewritten": 5,
+   "micro_face_removed": 2,
+   "fold_regions_fixed": 2,
+   "normal_corners_replaced": 0
+  },
+  "removed": 47,
+  "added": 29,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ]
+  ],
+  "dropped": 9,
+  "max_change_mm": 1.475
+ },
+ "FrostArms": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "FrostSword": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "M16": {
+  "notes": {
+   "micro_face_removed": 4,
+   "micro_face_rewritten": 7,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 2012
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    50.698
+   ],
+   [
+    "upperarm",
+    42.616
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 2.603
+ },
+ "M1911": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "M1911_l": {
+  "notes": {
+   "micro_face_rewritten": 2,
+   "micro_face_removed": 2,
+   "fold_regions_fixed": 2,
+   "normal_corners_replaced": 0
+  },
+  "removed": 44,
+  "added": 26,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 9,
+  "max_change_mm": 1.455
+ },
+ "M1911_r": {
+  "notes": {
+   "micro_face_rewritten": 5,
+   "micro_face_removed": 2,
+   "fold_regions_fixed": 2,
+   "normal_corners_replaced": 0
+  },
+  "removed": 47,
+  "added": 29,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ]
+  ],
+  "dropped": 9,
+  "max_change_mm": 1.475
+ },
+ "M4": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "Pickaxe": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "PKM": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "QBZ191": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "RuneSword": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "SVD": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ },
+ "Traversal": {
+  "notes": {
+   "micro_face_rewritten": 7,
+   "micro_face_removed": 4,
+   "fold_regions_fixed": 4,
+   "normal_corners_replaced": 0
+  },
+  "removed": 91,
+  "added": 55,
+  "degenerate": 0,
+  "winding": 0,
+  "nonmanifold": 0,
+  "openings": [
+   [
+    "upperarm",
+    51.398
+   ],
+   [
+    "upperarm",
+    51.37
+   ]
+  ],
+  "dropped": 18,
+  "max_change_mm": 1.475
+ }
+}

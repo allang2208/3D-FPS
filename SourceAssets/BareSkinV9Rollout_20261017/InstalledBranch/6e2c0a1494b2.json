@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_reload",
+ "keys": 401,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -31.4,
+    60.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -66.3,
+    -34.5
+   ]
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Canted/A_QBZ191_TacticalSprint_Canted_Loop",
+ "keys": 73,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -122.2,
+    -52.3
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -27.3,
+    -22.7
+   ]
+  }
+ }
+}

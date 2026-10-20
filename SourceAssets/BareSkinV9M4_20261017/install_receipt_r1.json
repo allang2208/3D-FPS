@@ -1,0 +1,83 @@
+{
+ "saved": [
+  "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/Textures/T_M4SkinV9_Colour.T_M4SkinV9_Colour",
+  "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/Textures/T_M4SkinV9_Normal.T_M4SkinV9_Normal",
+  "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/Textures/T_M4SkinV9_Masks.T_M4SkinV9_Masks",
+  "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/SSP_M4SkinV9.SSP_M4SkinV9",
+  "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/M_M4SkinV9.M_M4SkinV9",
+  "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/MI_M4SkinV9.MI_M4SkinV9",
+  "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416"
+ ],
+ "runtime_tested": false,
+ "visual_acceptance": "pending user test",
+ "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+ "morphs": {
+  "JC_ElbowFlex75_L": 1199,
+  "JC_ElbowFlex110_L": 1309,
+  "JC_ElbowFlex135_L": 1387,
+  "JC_WristFlexA_L": 1430,
+  "JC_WristFlexB_L": 1574,
+  "JC_WristRadial_L": 1364,
+  "JC_WristUlnar_L": 1498,
+  "JC_ElbowFlex75_R": 1200,
+  "JC_ElbowFlex110_R": 1310,
+  "JC_ElbowFlex135_R": 1389,
+  "JC_WristFlexA_R": 1583,
+  "JC_WristFlexB_R": 1435,
+  "JC_WristRadial_R": 1373,
+  "JC_WristUlnar_R": 1507
+ },
+ "morph_targets_on_asset": [
+  "JC_ElbowFlex75_L",
+  "JC_ElbowFlex110_L",
+  "JC_ElbowFlex135_L",
+  "JC_WristFlexA_L",
+  "JC_WristFlexB_L",
+  "JC_WristRadial_L",
+  "JC_WristUlnar_L",
+  "JC_ElbowFlex75_R",
+  "JC_ElbowFlex110_R",
+  "JC_ElbowFlex135_R",
+  "JC_WristFlexA_R",
+  "JC_WristFlexB_R",
+  "JC_WristRadial_R",
+  "JC_WristUlnar_R"
+ ],
+ "position_readback_max_cm": 3.8032226541417913e-06,
+ "slots": [
+  [
+   "Flash_Hider_001",
+   "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_muzzle_fc2249074e.MI_M4_R01_muzzle_fc2249074e"
+  ],
+  [
+   "Grip_Default_001",
+   "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_a4414f4092.MI_M4_R01_furniture_a4414f4092"
+  ],
+  [
+   "Keymod_material_001",
+   "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_handguard_5443427b73.MI_M4_R01_handguard_5443427b73"
+  ],
+  [
+   "Body_001",
+   "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_receiver_dfe90de9b6.MI_M4_R01_receiver_dfe90de9b6"
+  ],
+  [
+   "Magazine_Light_001",
+   "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_magazine_c307d3159b.MI_M4_R01_magazine_c307d3159b"
+  ],
+  [
+   "Classic_Stock_001",
+   "/Game/Weapons/M4/SurfaceStandard20261001/Materials/MI_M4_R01_furniture_28a7b3d0db.MI_M4_R01_furniture_28a7b3d0db"
+  ],
+  [
+   "MI_Manny_01",
+   "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/MI_M4SkinV9.MI_M4SkinV9"
+  ],
+  [
+   "MI_Manny_02",
+   "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/MI_M4SkinV9.MI_M4SkinV9"
+  ]
+ ],
+ "lods": 1,
+ "mesh_sha256": "4332e4bc83590ff2df1fe46013f62d069683feeddc0580e1b5ebbe78392e4405"
+}

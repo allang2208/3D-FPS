@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge",
+ "keys": 961,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 131.1
+  }
+ },
+ "readback_max_deg": 0.0417,
+ "sha_before": "a2df3e8d141e58904f16141ec326523e232b608d71ceff529f67c5970beacf0f",
+ "sha256": "cca78512634fe59d0c611d51e054d44037c5e70822b8b10612b43d8cd8eecb07"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/QBZ191/SK_QBZ191_f7623a712c_WristCoverage",
+ "saved": true,
+ "morphs": 19,
+ "morphs_on_asset": 40,
+ "added": [
+  "JC_Pose_L_76_13_m15_m50_0_0_0_7",
+  "JC_Pose_L_126_135_100_m10_23_23_23_23",
+  "JC_Pose_L_126_m133_116_m25_23_23_23_23",
+  "JC_Pose_L_58_7_5_m23_9_12_11_30",
+  "JC_Pose_L_65_m84_m61_112_48_48_48_48",
+  "JC_Pose_L_133_m166_177_m121_23_23_23_23",
+  "JC_Pose_L_70_m9_m6_35_0_0_0_48",
+  "JC_Pose_L_124_111_127_m39_0_8_19_25",
+  "JC_Pose_L_131_m176_154_m67_23_23_23_23",
+  "JC_Pose_L_50_m87_m81_110_48_48_48_48",
+  "JC_Pose_L_104_m72_85_m18_23_23_23_23",
+  "JC_Pose_L_85_m1_m11_m15_0_0_0_7",
+  "JC_Pose_R_71_m26_4_m97_0_52_55_54",
+  "JC_Pose_R_92_m5_7_18_4_20_55_55",
+  "JC_Pose_R_91_1_18_38_11_13_55_55",
+  "JC_Pose_R_71_m25_m13_m131_0_52_55_54",
+  "JC_Pose_R_98_3_m18_m31_0_39_55_54",
+  "JC_Pose_R_116_8_m28_m59_0_52_55_54",
+  "JC_Pose_R_96_m22_m14_m138_0_52_55_54"
+ ],
+ "emptied_stale_morphs": [],
+ "position_readback_max_cm": 0.0,
+ "sha256": "404918814e66a8c412ad39fb51cba77d85075ea709529f390d3834c1a9e065ab",
+ "runtime_tested": false
+}

@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/angled/A_A762_angled_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.0348,
+ "sha_before": "75f792a31b7c66c2d6ccbb9c1b298a06ad9e6ae64858437df3ff487f576964b5",
+ "sha256": "2142993f421831c9d396d83c6aed385267b15197e66d86ead4404abd3d3b17c3"
+}

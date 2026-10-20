@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l",
+ "saved": true,
+ "morphs": 12,
+ "morphs_on_asset": 22,
+ "added": [
+  "JC_Pose_L_30_m25_20_27_75_79_87_87",
+  "JC_Pose_L_50_m44_10_26_75_79_87_87",
+  "JC_Pose_L_20_122_126_0_10_17_23_26",
+  "JC_Pose_L_20_110_105_m10_10_17_23_26",
+  "JC_Pose_L_81_m159_115_144_14_49_58_62",
+  "JC_Pose_L_81_m143_117_118_14_49_58_62",
+  "JC_Pose_L_81_178_112_169_14_49_58_62",
+  "JC_Pose_L_65_m30_m2_10_47_53_65_66",
+  "JC_Pose_L_150_m132_m178_5_12_33_37_40",
+  "JC_Pose_L_81_m179_112_166_14_49_58_62",
+  "JC_Pose_L_83_m87_m84_m37_58_58_62_64",
+  "JC_Pose_L_43_111_113_m5_5_6_9_11"
+ ],
+ "emptied_stale_morphs": [],
+ "position_readback_max_cm": 0.0,
+ "sha256": "43d0513fa7d22781539b3c0c79627ed70b02bc276a8a2f29522668619523ce62",
+ "runtime_tested": false
+}

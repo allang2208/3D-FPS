@@ -1,0 +1,999 @@
+[
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BenelliM4Super9020261006\\Exports\\SK_Super90_BareArmsV7.fbx",
+  "changed": false,
+  "skin_names": [
+   "BareHandsOriginalGrip",
+   "BareLowerArms",
+   "BareUpperArms",
+   "Manny_S90_Skin_Forearm",
+   "Manny_S90_Skin_Hand",
+   "Manny_S90_Skin_UpperArm",
+   "WristUnderlapSkin"
+  ],
+  "geometries": [
+   {
+    "geometry": "Super90_ContinuousSkin_20261012",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DarkBow20260925\\ArmsV4\\Export\\SK_Bow_BareArmsV7.fbx",
+  "changed": false,
+  "skin_names": [
+   "BareHandsOriginalGrip",
+   "BareLowerArms",
+   "BareUpperArms"
+  ],
+  "geometries": [
+   {
+    "geometry": "V7_BareBowArms",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DarkBow20260925\\ContactV9\\Export\\SK_Bow_BareArmsV7.fbx",
+  "changed": false,
+  "skin_names": [
+   "BareHandsOriginalGrip",
+   "BareLowerArms",
+   "BareUpperArms"
+  ],
+  "geometries": [
+   {
+    "geometry": "V7_BareBowArms",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Integration20260929\\Dual\\l\\SK_Dual_G18_l.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_G18_Manny_Skin_Forearm",
+   "M_G18_Manny_Skin_Hand",
+   "M_G18_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "G18_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "G18_bullet_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "G18_mag_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M1911_l_BareArmsV6",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Integration20260929\\Dual\\r\\SK_Dual_G18_r.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_G18_Manny_Skin_Forearm",
+   "M_G18_Manny_Skin_Hand",
+   "M_G18_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "G18_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "G18_bullet_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "G18_mag_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M1911_r_BareArmsV6",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\G18Integration20260929\\Single\\SK_G18_Manny.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_G18_Manny_Skin_Forearm",
+   "M_G18_Manny_Skin_Hand",
+   "M_G18_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "G18_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "G18_bullet_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "G18_mag_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M1911_BareArmsV6",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416SlapSights20261001\\SK_HK416_ModularSights.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_HK416_Manny_Skin_Forearm",
+   "M_HK416_Manny_Skin_Hand",
+   "M_HK416_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "Mesh.001",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.022",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.010",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.012",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.002",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.025",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.024",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.007",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.017",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.018",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.021",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.011",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.009",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M4_BareArmsV6",
+    "clean": true
+   },
+   {
+    "geometry": "Mesh.050",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.020",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.004",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.003",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.015",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.027",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.026",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.013",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.016",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.019",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.014",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.008",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.023",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.005",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh.006",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Mesh",
+    "skipped": "no skin polygons"
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\Assembly40\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\ClothFeed33\\Exports\\SK_LMG201_Cloth33_Installed.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cloth33_Installed",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\ClothTop45\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\FitFinish37\\Exports\\SK_LMG201_F37_Installed.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\GripFinish43\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\GripJunction44\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\HardSurface39\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\Install30\\Exports\\SK_LMG201_R30_Installed.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_R30_Installed",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\ReferenceRepair38\\Exports\\SK_LMG201_R38_Installed.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\Repair36\\Exports\\SK_LMG201_R36_Installed.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\SightFinish41\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\Surface32\\Exports\\SK_LMG201_S32_Installed.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_S32_Installed",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LMG20120260927\\SurfaceReform42\\Exports\\After_Body.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_LMG201_Cover10",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M870Tactical20261015\\Exports\\SK_M870_V7.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_M870_1",
+   "Manny_M870_2",
+   "Manny_M870_3"
+  ],
+  "geometries": [
+   {
+    "geometry": "SK_Super90_V7.002",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "SK_Super90_V7.001",
+    "clean": true
+   },
+   {
+    "geometry": "M870_Tactical.002",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M870_Tactical.004",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M870_Tactical.005",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M870_Tactical.003",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M870_Tactical.006",
+    "skipped": "no skin polygons"
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Dual\\l\\SK_Dual_PitViper2011_l.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_PitViper2011_Manny_Skin_Forearm",
+   "M_PitViper2011_Manny_Skin_Hand",
+   "M_PitViper2011_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "M1911_l_BareArmsV6",
+    "clean": true
+   },
+   {
+    "geometry": "Object_10_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_11_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_13_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_15_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_17_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_19_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_21_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_23_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_24_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_36_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_37_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_4_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_6_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_7_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_9_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "TopRound_brass_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "TopRound_copper_Geometry",
+    "skipped": "no skin polygons"
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Dual\\r\\SK_Dual_PitViper2011_r.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_PitViper2011_Manny_Skin_Forearm",
+   "M_PitViper2011_Manny_Skin_Hand",
+   "M_PitViper2011_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "M1911_r_BareArmsV6",
+    "clean": true
+   },
+   {
+    "geometry": "Object_10_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_11_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_13_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_15_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_17_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_19_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_21_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_23_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_24_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_36_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_37_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_4_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_6_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_7_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_9_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "TopRound_brass_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "TopRound_copper_Geometry",
+    "skipped": "no skin polygons"
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Single\\SK_PitViper2011_Manny.fbx",
+  "changed": false,
+  "skin_names": [
+   "M_PitViper2011_Manny_Skin_Forearm",
+   "M_PitViper2011_Manny_Skin_Hand",
+   "M_PitViper2011_Manny_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "M1911_BareArmsV6",
+    "clean": true
+   },
+   {
+    "geometry": "Object_10_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_11_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_13_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_15_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_17_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_19_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_21_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_23_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_24_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_36_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_37_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_4_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_6_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_7_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Object_9_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "TopRound_brass_Geometry",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "TopRound_copper_Geometry",
+    "skipped": "no skin polygons"
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12DoubleAction20261003\\l\\SK_Dual_RSH12_l.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "Cylinder",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12DoubleAction20261003\\r\\SK_Dual_RSH12_r.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "Cylinder",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12DoubleAction20261003\\single\\SK_RSH12_Manny.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "Cylinder",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12HeavyGrip20261004\\Integration20261005\\Host\\l\\SK_Dual_RSH12_l.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "11_l_WPN_root",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12HeavyGrip20261004\\Integration20261005\\Host\\r\\SK_Dual_RSH12_r.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "11_l_WPN_root",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12HeavyGrip20261004\\Integration20261005\\Host\\single\\SK_RSH12_Manny.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "11_l_WPN_root",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Integration20261003\\Dual\\l\\SK_Dual_RSH12_l.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "11_l_WPN_root",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Integration20261003\\Dual\\r\\SK_Dual_RSH12_r.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "11_l_WPN_root",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RSH12Integration20261003\\Single\\SK_RSH12_Manny.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "geometries": [
+   {
+    "geometry": "11_l_WPN_root",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SteelWarhammer20261014\\SprintDragV1\\RigSource\\Export\\SK_SteelWarhammer_BareArmsV7.fbx",
+  "changed": false,
+  "skin_names": [
+   "Skin_Forearm",
+   "Skin_Hand",
+   "Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "Mesh_0",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "Pickaxe_BareArmsV6.001",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Super90ShellMechanics20261008\\Exports\\SK_Super90_V7.fbx",
+  "changed": false,
+  "skin_names": [
+   "Manny_S90_Skin_Forearm",
+   "Manny_S90_Skin_Hand",
+   "Manny_S90_Skin_UpperArm"
+  ],
+  "geometries": [
+   {
+    "geometry": "12g_12gauge_0",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "M4_BareArmsV6.001",
+    "clean": true
+   },
+   {
+    "geometry": "benelli_m4_TTI_Benelli_M4_0.001",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "benelli_m4_TTI_Benelli_M4_0.002",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "benelli_m4_TTI_Benelli_M4_0.003",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "benelli_m4_TTI_Benelli_M4_0.004",
+    "skipped": "no skin polygons"
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\Export\\SK_Harvest_Axe.fbx",
+  "changed": false,
+  "skin_names": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "geometries": [
+   {
+    "geometry": "SM_BattleAxe",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "SK_FP_Arms_Manneguin",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ },
+ {
+  "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ToolEnhance20260925\\Viewmodel\\Export\\SK_RusticPickaxe.fbx",
+  "changed": false,
+  "skin_names": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "geometries": [
+   {
+    "geometry": "RusticPickaxe_Source.001",
+    "skipped": "no skin polygons"
+   },
+   {
+    "geometry": "SK_FP_Arms_Manneguin",
+    "clean": true
+   }
+  ],
+  "sha256": null
+ }
+]

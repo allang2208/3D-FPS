@@ -1,0 +1,13 @@
+{
+ "path": "/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload",
+ "keys": 401,
+ "fixed": {},
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "835e5001f0f6a9a7828355e2fa4376d0e659370aaedf617951bc07ab72756886",
+ "sha256": "1ac3db320b5c90292399c5b6673828484e5acc64e3bea92a5ddfde475b05fb16"
+}

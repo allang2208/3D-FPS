@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/r/Animations/A_Dual_M1911_r_quickcombat_fitted_empty",
+ "keys": 97,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 23,
+   "hand_max": 0.0,
+   "forearm_max": 94.6,
+   "upper_max": 0.0,
+   "roll_before": [
+    -54,
+    6
+   ],
+   "roll_after": [
+    -54,
+    97
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "6e86ff844c04b633241d099730348f9b78ed016eaa544b36f2eef257fc0af669",
+ "sha256": "465f8fd2eb3105144edaa09ff638158e8680275da8f7b799d91b3b829db15540"
+}

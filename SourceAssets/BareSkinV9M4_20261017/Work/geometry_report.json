@@ -1,0 +1,228 @@
+{
+ "wrist_ring": {
+  "ring_vertices": 274,
+  "band_vertices": 1634,
+  "max_mm": 1.5,
+  "ring_dihedral_before": {
+   "median": 5.57,
+   "p90": 15.02
+  },
+  "ring_dihedral_after": {
+   "median": 3.21,
+   "p90": 8.48
+  },
+  "flipped": 0
+ },
+ "cubital_fossa": {
+  "l": {
+   "vertices": 226,
+   "max_mm": 2.076,
+   "p99_dihedral_before": 13.1,
+   "p99_dihedral_after": 12.9,
+   "max_dihedral_before": 14.0,
+   "max_dihedral_after": 13.8,
+   "flipped": 0
+  },
+  "r": {
+   "vertices": 226,
+   "max_mm": 2.074,
+   "p99_dihedral_before": 13.0,
+   "p99_dihedral_after": 12.9,
+   "max_dihedral_before": 14.0,
+   "max_dihedral_after": 13.7,
+   "flipped": 0
+  }
+ },
+ "arm_micro_folds": {
+  "core_vertices": 32,
+  "moved": 110,
+  "max_mm": 1.2,
+  "max_dihedral_before": 175.5,
+  "max_dihedral_after": 78.0,
+  "flipped": 6
+ },
+ "slivers": {
+  "triangles": 110,
+  "moved_vertices": 218,
+  "max_mm": 0.6,
+  "min_angle_before": 0.04,
+  "min_angle_after": 0.2,
+  "still_below_3": 32,
+  "flipped": 0
+ },
+ "anatomy": {
+  "features": {
+   "forearm_l": {
+    "ratio_before": {
+     "0.1": 1.068,
+     "0.2": 1.058,
+     "0.3": 1.047,
+     "0.4": 1.0,
+     "0.5": 0.946,
+     "0.6": 0.926,
+     "0.7": 0.971,
+     "0.8": 1.092
+    },
+    "rotation_deg": 68.7
+   },
+   "frame_l": {
+    "dorsal": [
+     -0.662,
+     -0.255,
+     0.705
+    ],
+    "ulnar": [
+     -0.611,
+     0.73,
+     -0.307
+    ],
+    "medial": [
+     0.817,
+     -0.056,
+     -0.574
+    ],
+    "palm_triangles": 404
+   },
+   "ulnar_head_l": {
+    "height_mm": 2.2,
+    "radius_cm": 0.75,
+    "vertices": 20
+   },
+   "radial_styloid_l": {
+    "height_mm": 0.8,
+    "radius_cm": 0.6,
+    "vertices": 13
+   },
+   "olecranon_l": {
+    "height_mm": 2.2,
+    "radius_cm": 1.25,
+    "vertices": 12
+   },
+   "medial_epicondyle_l": {
+    "height_mm": 1.7999999999999998,
+    "radius_cm": 0.9,
+    "vertices": 13
+   },
+   "lateral_epicondyle_l": {
+    "height_mm": 0.8,
+    "radius_cm": 0.8,
+    "vertices": 14
+   },
+   "mcp_index_l": {
+    "height_mm": 1.1,
+    "radius_cm": 0.55,
+    "vertices": 17
+   },
+   "mcp_middle_l": {
+    "height_mm": 1.1,
+    "radius_cm": 0.55,
+    "vertices": 22
+   },
+   "mcp_ring_l": {
+    "height_mm": 1.1,
+    "radius_cm": 0.55,
+    "vertices": 23
+   },
+   "mcp_pinky_l": {
+    "height_mm": 0.8,
+    "radius_cm": 0.55,
+    "vertices": 36
+   },
+   "forearm_r": {
+    "ratio_before": {
+     "0.1": 1.068,
+     "0.2": 1.058,
+     "0.3": 1.048,
+     "0.4": 1.001,
+     "0.5": 0.946,
+     "0.6": 0.926,
+     "0.7": 0.971,
+     "0.8": 1.092
+    },
+    "rotation_deg": 68.7
+   },
+   "frame_r": {
+    "dorsal": [
+     0.667,
+     -0.26,
+     0.698
+    ],
+    "ulnar": [
+     0.611,
+     0.73,
+     -0.307
+    ],
+    "medial": [
+     -0.817,
+     -0.056,
+     -0.574
+    ],
+    "palm_triangles": 398
+   },
+   "ulnar_head_r": {
+    "height_mm": 2.2,
+    "radius_cm": 0.75,
+    "vertices": 20
+   },
+   "radial_styloid_r": {
+    "height_mm": 0.8,
+    "radius_cm": 0.6,
+    "vertices": 13
+   },
+   "olecranon_r": {
+    "height_mm": 2.2,
+    "radius_cm": 1.25,
+    "vertices": 12
+   },
+   "medial_epicondyle_r": {
+    "height_mm": 1.7999999999999998,
+    "radius_cm": 0.9,
+    "vertices": 13
+   },
+   "lateral_epicondyle_r": {
+    "height_mm": 0.8,
+    "radius_cm": 0.8,
+    "vertices": 14
+   },
+   "mcp_index_r": {
+    "height_mm": 1.1,
+    "radius_cm": 0.55,
+    "vertices": 17
+   },
+   "mcp_middle_r": {
+    "height_mm": 1.1,
+    "radius_cm": 0.55,
+    "vertices": 22
+   },
+   "mcp_ring_r": {
+    "height_mm": 1.1,
+    "radius_cm": 0.55,
+    "vertices": 23
+   },
+   "mcp_pinky_r": {
+    "height_mm": 0.8,
+    "radius_cm": 0.55,
+    "vertices": 36
+   }
+  },
+  "max_mm": 2.989,
+  "moved_over_0p2mm": 2230,
+  "flipped": 0
+ },
+ "fold_overs": {
+  "faces_before": 10,
+  "faces_after": 0,
+  "iterations": 1,
+  "moved": 80,
+  "max_mm": 1.138,
+  "where": [
+   "thumb_01_l",
+   "thumb_01_r"
+  ]
+ },
+ "rest_quality": {
+  "flipped": 16,
+  "turned_over_30deg": 36,
+  "max_disp_mm": 2.989
+ }
+}

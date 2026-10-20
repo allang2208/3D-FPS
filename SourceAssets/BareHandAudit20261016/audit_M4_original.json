@@ -1,0 +1,83 @@
+{
+ "vertices": 18646,
+ "triangles": 37122,
+ "welded_vertices": 18646,
+ "split_vertex_groups": 0,
+ "degenerate_faces": 4,
+ "duplicate_faces": 0,
+ "boundary_edges": 122,
+ "nonmanifold_edges": 0,
+ "inconsistent_winding_edges": 12,
+ "boundary_loops": [
+  {
+   "vertices": 61,
+   "side": "r",
+   "region": "upperarm",
+   "span_cm": [
+    5.214,
+    14.561,
+    16.087
+   ],
+   "perimeter_cm": 51.398,
+   "center": [
+    18.513,
+    3.651,
+    -20.48
+   ],
+   "branched": false
+  },
+  {
+   "vertices": 61,
+   "side": "l",
+   "region": "upperarm",
+   "span_cm": [
+    5.206,
+    14.467,
+    16.068
+   ],
+   "perimeter_cm": 51.37,
+   "center": [
+    -18.515,
+    3.655,
+    -20.479
+   ],
+   "branched": false
+  }
+ ],
+ "faces_normal_against_winding": 37120,
+ "faces_normal_grazing": 0,
+ "boundary_cracks": [],
+ "hard_normal_vertices_over_20deg": 0,
+ "hard_normal_regions": [],
+ "uv_seam_vertices": 1676,
+ "uv_flipped_faces": 18558,
+ "uv_zero_area_faces": 3,
+ "texel_scale_cm_per_uv": {
+  "0": {
+   "faces": 5946,
+   "p5": 78.74,
+   "median": 100.67,
+   "p95": 112.66,
+   "outliers_over_3x": 4
+  },
+  "1": {
+   "faces": 7750,
+   "p5": 85.53,
+   "median": 106.73,
+   "p95": 126.05,
+   "outliers_over_3x": 16
+  },
+  "2": {
+   "faces": 23422,
+   "p5": 38.76,
+   "median": 123.17,
+   "p95": 131.77,
+   "outliers_over_3x": 2001
+  }
+ },
+ "material_faces": {
+  "0": 5946,
+  "1": 7750,
+  "2": 23426
+ }
+}

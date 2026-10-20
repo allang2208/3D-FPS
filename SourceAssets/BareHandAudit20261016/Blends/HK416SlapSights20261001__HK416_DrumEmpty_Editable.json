@@ -1,0 +1,35 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HK416SlapSights20261001\\HK416_DrumEmpty_Editable.blend",
+ "changes": [
+  {
+   "object": "M4_BareArmsV6",
+   "removed": 56,
+   "added": 26,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_removed": 8,
+    "micro_face_rewritten": 12,
+    "fold_regions_fixed": 2,
+    "normal_corners_replaced": 4
+   }
+  },
+  {
+   "object": "SK_Manny_Arms",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 48,
+   "notes": {
+    "normal_corners_replaced": 48
+   }
+  },
+  {
+   "object": "SK_Manny_Simple",
+   "removed": 0,
+   "added": 0,
+   "normal_corners": 128,
+   "notes": {
+    "normal_corners_replaced": 128
+   }
+  }
+ ]
+}

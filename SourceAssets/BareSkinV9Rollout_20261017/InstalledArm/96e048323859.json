@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Accessories22/Animations/angled/A_LMG201_angled_inspect",
+ "keys": 746,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 190,
+   "hand_max": 0.0,
+   "forearm_max": 76.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    51,
+    110
+   ],
+   "roll_after": [
+    34,
+    95
+   ]
+  }
+ },
+ "readback_max_deg": 0.0124,
+ "sha_before": "84cbb4263ad5473492891c593e4f017ffa834e5a8db4d903457ce19870256f8c",
+ "sha256": "e611062ee6c40d847395d80c6076f70a465ced6185e82b6cc8e5de76d61b11fc"
+}

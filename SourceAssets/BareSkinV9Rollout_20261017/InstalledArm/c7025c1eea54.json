@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Thrust",
+ "keys": 601,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 4,
+   "hand_max": 0.0,
+   "forearm_max": 4.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -101,
+    -61
+   ],
+   "roll_after": [
+    -101,
+    -61
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "10feca2e76ea57dc4b86b2f9b1e6b5e586a9d01310bd5ee31c0037671065a3bb",
+ "sha256": "601ea872a59cf0c1b79fb2e2a6bbcdac191a7eacfbec7508cf18ff3742e2b3bc"
+}

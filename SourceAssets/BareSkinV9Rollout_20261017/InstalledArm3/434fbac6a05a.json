@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/SightContactV11/A_Bow_Nock",
+ "keys": 83,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": true,
+   "elbow_keys": 49,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 156.9
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "055c5de2669a089e012bfc78a68b8eb367e6b2ccf4fac6aef5e4629c031e3458",
+ "sha256": "0012f22691a079dc883c8764583b1dc0da57daaeb9a28c7419bdc724ffbeddad"
+}

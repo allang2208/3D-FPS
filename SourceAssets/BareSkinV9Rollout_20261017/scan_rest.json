@@ -1,0 +1,1542 @@
+[
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/A762/SK_A762_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/AKM/SK_AKM_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/ASH12/SK_ASH12_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 57,
+  "pinhole_area_cm2": 0.4726883023136541,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny_Skeleton.SK_ASH12_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Axe/SK_Axe_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715/SK_DW715_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_l/SK_DW715_l_BareArmsV7",
+  "triangles": 18543,
+  "uv_match": 0.9997842851749986,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680557431558854,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_r/SK_DW715_r_BareArmsV7",
+  "triangles": 18543,
+  "uv_match": 0.9998921425874994,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028563839518773147,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/FrostArms/SK_FrostArms_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/FrostSword/SK_FrostSword_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M16/SK_M16_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 30,
+  "pinhole_area_cm2": 0.1974616766270261,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911/SK_M1911_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_l/SK_M1911_l_BareArmsV7",
+  "triangles": 18543,
+  "uv_match": 0.9997842851749986,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680557431558854,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_r/SK_M1911_r_BareArmsV7",
+  "triangles": 18543,
+  "uv_match": 0.9998921425874994,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028563839518773147,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/PKM/SK_PKM_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/PKMLowpoly20260922/SK_PKM_Manny_Skeleton.SK_PKM_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Pickaxe/SK_Pickaxe_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/QBZ191/SK_QBZ191_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/RuneSword/SK_RuneSword_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/SVD/SK_SVD_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05722518993360779,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7",
+  "triangles": 37116,
+  "uv_match": 0.9981679060243561,
+  "pinholes": 29,
+  "pinhole_area_cm2": 0.11575656110620142,
+  "skin_slots": [
+   "Manny_S90_Skin_UpperArm",
+   "Manny_S90_Skin_Forearm",
+   "Manny_S90_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7_Skeleton.SK_Super90_V7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_skin_ue_field_gloves",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 51,
+  "pinhole_area_cm2": 0.2394212490799332,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7_Skeleton.SK_Super90_V7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/A762/SK_A762_45be83efd7_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/A762/SK_A762_6d5fb96034_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/AKM/SK_AKM_3e7e177b93_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031869227549924228,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/AKM/SK_AKM_ca790fe739_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/ASH12/SK_ASH12_9efe800a9e_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 47,
+  "pinhole_area_cm2": 0.4016208110689543,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny_Skeleton.SK_ASH12_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/ASH12/SK_ASH12_d7fc24b190_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 57,
+  "pinhole_area_cm2": 0.4726883023136541,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny_Skeleton.SK_ASH12_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_191687429f_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_8c083f1313_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_3cced8ec73_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057246613025223825,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7_Skeleton.SK_Bow_BareArmsV7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_bb1815a212_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031877691093348762,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7_Skeleton.SK_Bow_BareArmsV7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_f5cf430f68_WristCoverage",
+  "triangles": 37110,
+  "uv_match": 0.9984370789544598,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057246613025223825,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7_Skeleton.SK_Bow_BareArmsV7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_83f511493d_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_dac984dcde_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031869227549924228,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_056bc315cb_WristCoverage",
+  "triangles": 18543,
+  "uv_match": 0.9997842851749986,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680557431558854,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_7d482bf5c1_WristCoverage",
+  "triangles": 13329,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 1,
+  "pinhole_area_cm2": 0.0015923953971322647,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_a098c62b49_WristCoverage",
+  "triangles": 13329,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 1,
+  "pinhole_area_cm2": 0.0015945273578601578,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_c0668d4b17_WristCoverage",
+  "triangles": 18543,
+  "uv_match": 0.9998921425874994,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028563839518773147,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostArms/SK_FrostArms_9823750602_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostArms/SK_FrostArms_da7b8d3adc_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostSword/SK_FrostSword_4b3bdf4f24_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostSword/SK_FrostSword_825fd8051f_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M16/SK_M16_1240d6bb1e_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 20,
+  "pinhole_area_cm2": 0.1297754093410522,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M16/SK_M16_2ecb4a7189_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 30,
+  "pinhole_area_cm2": 0.1974616766270261,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_36f0ae0334_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_abd8f86a95_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031869227549924228,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_711a1c8444_WristCoverage",
+  "triangles": 18543,
+  "uv_match": 0.9997842851749986,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680557431558854,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_b5b449d259_WristCoverage",
+  "triangles": 13329,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 1,
+  "pinhole_area_cm2": 0.0015923953971322647,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_255d2a5d7d_WristCoverage",
+  "triangles": 13329,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 1,
+  "pinhole_area_cm2": 0.0015945273578601578,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_45abd75594_WristCoverage",
+  "triangles": 18543,
+  "uv_match": 0.9998921425874994,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028563839518773147,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_ca1958a3f1_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031869227549924228,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/PKM/SK_PKM_13833d21bb_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/PKMLowpoly20260922/SK_PKM_Manny_Skeleton.SK_PKM_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/PKM/SK_PKM_e6cc8363b9_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/PKMLowpoly20260922/SK_PKM_Manny_Skeleton.SK_PKM_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Pickaxe/SK_Pickaxe_42fbe5045e_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Pickaxe/SK_Pickaxe_44c82ffd78_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/QBZ191/SK_QBZ191_ccd2573c2a_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/QBZ191/SK_QBZ191_f7623a712c_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031869227549924228,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_1f9346431c_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.003187000713141204,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_f2763de9e9_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543844,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/SVD/SK_SVD_3280a88942_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031849718535851665,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/SVD/SK_SVD_d9b5ee5f40_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05722518993360779,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332004,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ecaf719ab9_WristCoverage",
+  "triangles": 26658,
+  "uv_match": 0.9586615650086278,
+  "pinholes": 2,
+  "pinhole_area_cm2": 0.0031869227549924228,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip",
+   "WristUnderlapSkin"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe",
+  "triangles": 37802,
+  "uv_match": 0.355378022326861,
+  "pinholes": 0,
+  "pinhole_area_cm2": 0.0,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe",
+  "triangles": 37802,
+  "uv_match": 0.355378022326861,
+  "pinholes": 0,
+  "pinhole_area_cm2": 0.0,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Movement/Traversal/Native/SK_TraversalArms_AnimatedBounds",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543843,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface",
+  "triangles": 37086,
+  "uv_match": 0.9999460712937497,
+  "pinholes": 57,
+  "pinhole_area_cm2": 0.4726883023136541,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny_Skeleton.SK_ASH12_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543843,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543843,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7",
+  "triangles": 37110,
+  "uv_match": 0.9984370789544598,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057246613025223825,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7_Skeleton.SK_Bow_BareArmsV7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7",
+  "triangles": 37086,
+  "uv_match": 0.9996494634093728,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057246613025223825,
+  "skin_slots": [
+   "BareUpperArms",
+   "BareLowerArms",
+   "BareHandsOriginalGrip"
+  ],
+  "skeleton": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7_Skeleton.SK_Bow_BareArmsV7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543843,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543843,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l",
+  "triangles": 18555,
+  "uv_match": 0.9982215036378335,
+  "pinholes": 119,
+  "pinhole_area_cm2": 0.9698334080449199,
+  "skin_slots": [
+   "M_G18_Manny_Skin_UpperArm",
+   "M_G18_Manny_Skin_Forearm",
+   "M_G18_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l_Skeleton.SK_Dual_G18_l_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r",
+  "triangles": 18553,
+  "uv_match": 0.9982213119172102,
+  "pinholes": 60,
+  "pinhole_area_cm2": 0.5365363601134058,
+  "skin_slots": [
+   "M_G18_Manny_Skin_UpperArm",
+   "M_G18_Manny_Skin_Forearm",
+   "M_G18_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r_Skeleton.SK_Dual_G18_r_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny",
+  "triangles": 37108,
+  "uv_match": 0.9982214077826884,
+  "pinholes": 179,
+  "pinhole_area_cm2": 1.5063697681583257,
+  "skin_slots": [
+   "M_G18_Manny_Skin_UpperArm",
+   "M_G18_Manny_Skin_Forearm",
+   "M_G18_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny_Skeleton.SK_G18_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny",
+  "triangles": 37108,
+  "uv_match": 0.9982214077826884,
+  "pinholes": 179,
+  "pinhole_area_cm2": 1.5063697681583257,
+  "skin_slots": [
+   "M_HK416_Manny_Skin_UpperArm",
+   "M_HK416_Manny_Skin_Forearm",
+   "M_HK416_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny_Skeleton.SK_HK416_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10",
+  "triangles": 37086,
+  "uv_match": 0.9997573208218735,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724439695033201,
+  "skin_slots": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "skeleton": "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_FeedSkeleton.SK_LMG201_FeedSkeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny",
+  "triangles": 37086,
+  "uv_match": 0.9997573208218735,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724439695033201,
+  "skin_slots": [
+   "M_LMG201_MannySkin_0",
+   "M_LMG201_MannySkin_1",
+   "M_LMG201_MannySkin_2"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny",
+  "triangles": 37086,
+  "uv_match": 0.9999460712937497,
+  "pinholes": 30,
+  "pinhole_area_cm2": 0.19746167662702607,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny_Skeleton.SK_M16_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+  "triangles": 37086,
+  "uv_match": 0.0,
+  "pinholes": 0,
+  "pinhole_area_cm2": 0.0,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 19
+ },
+ {
+  "path": "/Game/Weapons/M870/Tactical20261015/SK_M870_V7",
+  "triangles": 37116,
+  "uv_match": 0.9981679060243561,
+  "pinholes": 35,
+  "pinhole_area_cm2": 0.2499764203369939,
+  "skin_slots": [
+   "MI_Super90JointSkin_Arms",
+   "MI_Super90JointSkin_Arms_2",
+   "MI_Super90JointSkin_Hands"
+  ],
+  "skeleton": "/Game/Weapons/M870/Tactical20261015/SK_M870_V7_Skeleton.SK_M870_V7_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular",
+  "triangles": 37086,
+  "uv_match": 0.9994607129374966,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724532336543843,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/PKMLowpoly20260922/SK_PKM_Manny_Skeleton.SK_PKM_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l",
+  "triangles": 18543,
+  "uv_match": 0.9996224990562477,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.02868055743155885,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PistolDualWield20260914/DW715/r/SK_Dual_DW715_r",
+  "triangles": 18543,
+  "uv_match": 0.9997842851749986,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.02856383951877315,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l",
+  "triangles": 18543,
+  "uv_match": 0.9996224990562477,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.02868055743155885,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r",
+  "triangles": 18543,
+  "uv_match": 0.9997842851749986,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.02856383951877315,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l",
+  "triangles": 18555,
+  "uv_match": 0.9982215036378335,
+  "pinholes": 119,
+  "pinhole_area_cm2": 0.9698334080449199,
+  "skin_slots": [
+   "M_PitViper2011_Manny_Skin_UpperArm",
+   "M_PitViper2011_Manny_Skin_Forearm",
+   "M_PitViper2011_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l_Skeleton.SK_Dual_PitViper2011_l_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r",
+  "triangles": 18553,
+  "uv_match": 0.9982213119172102,
+  "pinholes": 60,
+  "pinhole_area_cm2": 0.5365363601134058,
+  "skin_slots": [
+   "M_PitViper2011_Manny_Skin_UpperArm",
+   "M_PitViper2011_Manny_Skin_Forearm",
+   "M_PitViper2011_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r_Skeleton.SK_Dual_PitViper2011_r_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny",
+  "triangles": 37108,
+  "uv_match": 0.9982214077826884,
+  "pinholes": 179,
+  "pinhole_area_cm2": 1.5063697681583257,
+  "skin_slots": [
+   "M_PitViper2011_Manny_Skin_UpperArm",
+   "M_PitViper2011_Manny_Skin_Forearm",
+   "M_PitViper2011_Manny_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny_Skeleton.SK_PitViper2011_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057244396950332,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/DoubleAction20261003/l/SK_Dual_RSH12_l",
+  "triangles": 18543,
+  "uv_match": 0.0,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680501139349723,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/DoubleAction20261003/r/SK_Dual_RSH12_r",
+  "triangles": 18543,
+  "uv_match": 0.0,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028565030912848934,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/DoubleAction20261003/single/SK_RSH12_Manny",
+  "triangles": 37086,
+  "uv_match": 0.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724553205219866,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l",
+  "triangles": 18543,
+  "uv_match": 0.0,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680501139349723,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r",
+  "triangles": 18543,
+  "uv_match": 0.0,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028565030912848934,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/Native71520261003/l/SK_Dual_RSH12_l",
+  "triangles": 18543,
+  "uv_match": 0.0,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028680501139349723,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/Native71520261003/r/SK_Dual_RSH12_r",
+  "triangles": 18543,
+  "uv_match": 0.0,
+  "pinholes": 6,
+  "pinhole_area_cm2": 0.028565030912848934,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny",
+  "triangles": 37086,
+  "uv_match": 0.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724553205219866,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/RSH12/SK_RSH12_Manny",
+  "triangles": 37086,
+  "uv_match": 0.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724553205219866,
+  "skin_slots": [
+   "Manny_MI_BareNative_Default",
+   "Manny_MI_BareNative_Default_8"
+  ],
+  "skeleton": "/Game/Weapons/DanWesson715/Integrated20260913/SK_DW715_Manny_Skeleton.SK_DW715_Manny_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock",
+  "triangles": 37086,
+  "uv_match": 1.0,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.057225189933607805,
+  "skin_slots": [
+   "MI_Manny_01",
+   "MI_Manny_02"
+  ],
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+  "triangles": 37110,
+  "uv_match": 0.9984370789544598,
+  "pinholes": 12,
+  "pinhole_area_cm2": 0.05724649560038716,
+  "skin_slots": [
+   "Skin_UpperArm",
+   "Skin_Forearm",
+   "Skin_Hand"
+  ],
+  "skeleton": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe_Skeleton.SK_RusticPickaxe_Skeleton",
+  "has_morphs": 0
+ },
+ {
+  "path": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7",
+  "triangles": 37116,
+  "uv_match": 0.9981679060243561,
+  "pinholes": 29,
+  "pinhole_area_cm2": 0.11575656110620142,
+  "skin_slots": [
+   "Manny_S90_Skin_UpperArm",
+   "Manny_S90_Skin_Forearm",
+   "Manny_S90_Skin_Hand"
+  ],
+  "skeleton": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7_Skeleton.SK_Super90_V7_Skeleton",
+  "has_morphs": 0
+ }
+]

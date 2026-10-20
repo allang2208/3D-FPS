@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/AKMDrumFreeDrop20260920/canted/A_AKM_canted_drum_reload_empty",
+ "keys": 516,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -29.2,
+    66.5
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -148.1,
+    -35.0
+   ]
+  }
+ }
+}

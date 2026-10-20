@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ArmsV4/A_Bow_Run",
+ "keys": 97,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 97,
+   "hand_max": 0.0,
+   "forearm_max": 61.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    -77,
+    -69
+   ],
+   "roll_after": [
+    -17,
+    -12
+   ]
+  }
+ },
+ "readback_max_deg": 0.0125,
+ "sha_before": "d1629de7b5d512c8096dc480261ef57adc607720352f108fa2fb65d7b5f1ccc3",
+ "sha256": "58c6fa7768f68644b50357ecf0dcdb4cbd80e48055e3e3ce204cc29eb00dbdc3"
+}

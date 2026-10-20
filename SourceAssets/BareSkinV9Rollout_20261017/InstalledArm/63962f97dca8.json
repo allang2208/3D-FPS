@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/RifleTacticalSprint20260915/QBZ191/Vertical/A_QBZ191_TacticalSprint_Vertical_Enter",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 6,
+   "hand_max": 0.0,
+   "forearm_max": 17.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -47,
+    -3
+   ],
+   "roll_after": [
+    -47,
+    -3
+   ]
+  }
+ },
+ "readback_max_deg": 0.0138,
+ "sha_before": "3727522884eded11c79f79c6ac64e5ee8f2d4010bf190ca80afdec3532fb7941",
+ "sha256": "246cd75bb8633140f514203cae49dfda7ea168def0bcc9da8472eb159e062673"
+}

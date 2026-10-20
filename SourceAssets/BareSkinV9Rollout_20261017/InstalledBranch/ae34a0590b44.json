@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_reload_empty",
+ "keys": 793,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    50.9,
+    110.0
+   ]
+  },
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -61.6,
+    17.3
+   ]
+  }
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/SVDDragunov20260922/Complete20260923/Animations/A_SVD_equip",
+ "keys": 205,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 205,
+   "hand_max": 0.0,
+   "forearm_max": 22.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    45,
+    45
+   ],
+   "roll_after": [
+    67,
+    67
+   ]
+  }
+ },
+ "readback_max_deg": 0.0132,
+ "sha_before": "d3c5ed7c694b316ae6504adc5e1c252171c6c84013addc64f03e9ac639e9c0c4",
+ "sha256": "b9f89154439c9562998e84f9930dc5e3e802827739e7a35c15bdee9fa8c64f71"
+}

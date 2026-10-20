@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/ClothReload44/Animations/base/A_LMG201_base_reload",
+ "keys": 745,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 186,
+   "hand_max": 0.0,
+   "forearm_max": 59.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -14,
+    110
+   ],
+   "roll_after": [
+    -14,
+    108
+   ]
+  }
+ },
+ "readback_max_deg": 0.011,
+ "sha_before": "ebbbd19e96ccac48d74979fd3ff9eaec1c09862027477132f05cd65bc2980fff",
+ "sha256": "e1fe0ef7379977db9c6cb0ba0ac48c28c1ab020d1587168ab509585ff413c95e"
+}

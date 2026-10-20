@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations/A_DW715_speed_0",
+ "keys": 463,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 101.3
+  }
+ },
+ "readback_max_deg": 0.0357,
+ "sha_before": "26a4bf42a6998178c95145883cf89574067d4469f64f31297a8ded6344d45da3",
+ "sha256": "b6c74144b353a0fb249e497a34d1c22c68a137c13e4e9f718694723bb2b4dc36"
+}

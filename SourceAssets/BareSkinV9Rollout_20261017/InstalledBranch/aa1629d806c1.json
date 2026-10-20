@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/LMG201/Magazine24/Animations/base/A_LMG201_base_reload_empty",
+ "keys": 516,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -30.8,
+    110.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -172.5,
+    -37.5
+   ]
+  }
+ }
+}

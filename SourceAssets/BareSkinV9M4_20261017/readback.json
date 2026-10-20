@@ -1,0 +1,90 @@
+{
+ "position_err_cm": 3.8032226541417913e-06,
+ "uv0_err": 5.892028809295624e-08,
+ "normal_1_minus_dot": 1.566095232941045e-06,
+ "weight_err": 2.364590590042681e-05,
+ "bones": 101,
+ "lods": 1,
+ "morphs": [
+  "JC_ElbowFlex20_L",
+  "JC_ElbowFlex75_L",
+  "JC_ElbowFlex110_L",
+  "JC_ElbowFlex135_L",
+  "JC_WristFlexA_L",
+  "JC_WristFlexB_L",
+  "JC_WristRadial_L",
+  "JC_WristUlnar_L",
+  "JC_ElbowFlex20_R",
+  "JC_ElbowFlex75_R",
+  "JC_ElbowFlex110_R",
+  "JC_ElbowFlex135_R",
+  "JC_WristFlexA_R",
+  "JC_WristFlexB_R",
+  "JC_WristRadial_R",
+  "JC_WristUlnar_R",
+  "JC_Grip_L_6_19_41_52",
+  "JC_Grip_L_48_48_48_48",
+  "JC_Grip_R_0_52_55_54"
+ ],
+ "slots": [
+  [
+   "Flash_Hider_001",
+   "MI_M4_R01_muzzle_fc2249074e"
+  ],
+  [
+   "Grip_Default_001",
+   "MI_M4_R01_furniture_a4414f4092"
+  ],
+  [
+   "Keymod_material_001",
+   "MI_M4_R01_handguard_5443427b73"
+  ],
+  [
+   "Body_001",
+   "MI_M4_R01_receiver_dfe90de9b6"
+  ],
+  [
+   "Magazine_Light_001",
+   "MI_M4_R01_magazine_c307d3159b"
+  ],
+  [
+   "Classic_Stock_001",
+   "MI_M4_R01_furniture_28a7b3d0db"
+  ],
+  [
+   "MI_Manny_01",
+   "MI_M4SkinV9"
+  ],
+  [
+   "MI_Manny_02",
+   "MI_M4SkinV9"
+  ]
+ ],
+ "textures": {
+  "T_M4SkinV9_Colour": {
+   "srgb": true,
+   "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+   "size": [
+    4096,
+    4096
+   ]
+  },
+  "T_M4SkinV9_Normal": {
+   "srgb": false,
+   "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+   "size": [
+    4096,
+    4096
+   ]
+  },
+  "T_M4SkinV9_Masks": {
+   "srgb": false,
+   "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+   "size": [
+    4096,
+    4096
+   ]
+  }
+ },
+ "tag": "20261017 M4 sample: rest anatomy, ring/elbow-join cleanup, V9 UV0 + baked skin, JC_ correctives"
+}

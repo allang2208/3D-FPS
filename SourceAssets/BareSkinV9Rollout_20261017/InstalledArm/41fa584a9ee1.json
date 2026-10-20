@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/angled/A_ASH12_angled_QuickCombat",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "clamp"
+   ],
+   "elbow_keys": 84,
+   "hand_max": 16.2,
+   "forearm_max": 179.2,
+   "upper_max": 16.5,
+   "roll_before": [
+    -203,
+    -22
+   ],
+   "roll_after": [
+    -170,
+    121
+   ]
+  }
+ },
+ "readback_max_deg": 0.0109,
+ "sha_before": "8abfe0f785e1a327cd158a1bdf7ba94aead0fdb35c8d1766a146d16bb10bd3f1",
+ "sha256": "44d7ac02dcdf0e1a53d7ae774d2baaca7a1a0a28730cf700079b2309dcf9d080"
+}

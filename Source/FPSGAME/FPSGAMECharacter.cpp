@@ -22,6 +22,7 @@
 #include "Characters/FPSPlayerBodyComponent.h"
 #include "Multiplayer/ColdSteelPlayerState.h"
 #include "Characters/FPSModularOutfitComponent.h"
+#include "Characters/FPSArmJointCorrectiveComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Weapons/PistolAudioAssets.h"
 #include "Development/DevelopmentTuningSubsystem.h"
@@ -227,6 +228,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     PrimaryActorTick.bCanEverTick = true;
     CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));
     CreateDefaultSubobject<UFPSModularOutfitComponent>(TEXT("ModularOutfit"));
+    CreateDefaultSubobject<UFPSArmJointCorrectiveComponent>(TEXT("ArmJointCorrective"));
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
     CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
     CreateDefaultSubobject<UM4TacticalSprintComponent>(TEXT("M4TacticalSprint"));

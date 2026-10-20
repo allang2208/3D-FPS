@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/NockContinuityV21/A_Bow_Nock",
+ "keys": 164,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 124,
+   "roll_range": [
+    -208.3,
+    148.2
+   ]
+  }
+ },
+ "sha_before": "2d0bcc6957581cb9b769e74a41cb5fd8ebf6ab579115e2a8a0e031d46ffc8818",
+ "sha256": "662f03c44200919094b6dd66a6dcd4a64697f9492b372ddced3addf872069014"
+}

@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_QuickCombat",
+ "keys": 109,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 100,
+   "roll_range": [
+    -146.3,
+    208.5
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -70.5,
+    -0.0
+   ]
+  }
+ },
+ "sha_before": "d74f0e337ad10c4e0d9bac8cb1ea5d6c278b1bfe81fc27e40e13e6bf3a1e9b5e",
+ "sha256": "70d2407b926b982d3262427bafa1a6cc14966724d4df740a76d8b3339457a536"
+}

@@ -1,0 +1,32 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Guard",
+ "keys": 97,
+ "fixed": {
+  "clavicle_l": [
+   [
+    47,
+    48
+   ],
+   [
+    52,
+    53
+   ]
+  ],
+  "lowerarm_l": [
+   [
+    47,
+    48
+   ],
+   [
+    52,
+    53
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "4a6ae520a953187c48a78850fd2f955085afe15cf3fb763b1ae94a8143597c3d",
+ "sha256": "b9a3b0ca91a99a5f0790a8e1c837890283e2679d0d72c6a54a4a99ad1e2e9ab4"
+}

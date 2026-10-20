@@ -1,0 +1,17 @@
+{
+ "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PitViper2011SICompensator20261002\\Integration20261003\\Single\\PitViper2011_single_CompensatorSections.blend",
+ "changes": [
+  {
+   "object": "M1911_BareArmsV6",
+   "removed": 56,
+   "added": 26,
+   "normal_corners": 0,
+   "notes": {
+    "micro_face_removed": 8,
+    "micro_face_rewritten": 12,
+    "fold_regions_fixed": 2,
+    "normal_corners_replaced": 4
+   }
+  }
+ ]
+}

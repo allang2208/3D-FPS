@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Angled/A_M4_TacticalSprint_Angled_Enter",
+ "keys": 37,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    5.9,
+    37.4
+   ]
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/TacticalSprint20260921/A_RuneSword_SprintLoop",
+ "keys": 77,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 2.13,
+   "keys_off": 0,
+   "roll_range": [
+    99.4,
+    104.1
+   ]
+  },
+  "r": {
+   "max_err": 0.48,
+   "keys_off": 0,
+   "roll_range": [
+    106.4,
+    108.0
+   ]
+  }
+ }
+}

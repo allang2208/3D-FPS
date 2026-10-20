@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload",
+ "keys": 505,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 0,
+   "windows": [
+    "reroute"
+   ],
+   "deviation_from_written": 179.1
+  }
+ },
+ "readback_max_deg": 0.0121,
+ "sha_before": "7893cf39f9f7c517e669e6656e097ec07afe5c8e9483b6dffd003a71966e2b04",
+ "sha256": "be1fe7f0bcab5450f5beed4ed6f08de42c4a66be2923cd775b518b813b662022"
+}

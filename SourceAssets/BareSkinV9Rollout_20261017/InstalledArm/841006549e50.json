@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Sprint",
+ "keys": 221,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 192,
+   "hand_max": 0.0,
+   "forearm_max": 1.3,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    0,
+    1
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 221,
+   "hand_max": 0.0,
+   "forearm_max": 131.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -131,
+    -125
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "efad628645a46f860d2b8cdc12cd9e8d3dfb55e9ccf8d5782a543a2333eab73d",
+ "sha256": "ab72f4a190446633ca9867709a84a7a74d63e8c01a31c8f76728632942ffab5b"
+}

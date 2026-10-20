@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_SprintExit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 12,
+   "hand_max": 0.0,
+   "forearm_max": 103.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    6,
+    37
+   ],
+   "roll_after": [
+    -66,
+    23
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "25812f53493a4ec1c9cd375f6b82aec596d42769e4dc0699b796dc3f81250a78",
+ "sha256": "199dbacb8ede30e19e0e0bcba1c0b7b0ec5d1f11deb5ae193ec145d9b74a4187"
+}

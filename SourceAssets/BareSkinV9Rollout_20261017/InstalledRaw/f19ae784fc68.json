@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_drum_reload",
+ "keys": 401,
+ "fixed": {
+  "thumb_01_l": [
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "f8c9759d0aae693a47fbb3928c759657787695735c64e23182ad6364ad949c3d",
+ "sha256": "40b77ee64b05d1b490d8dea863caaff690a71a14980aa6aa924baa1796d1252b"
+}

@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AKMDrumFreeDrop20260920/base/A_AKM_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.0443,
+ "sha_before": "4d6eb8d724b06eb683e0817072a95e187f2ec167ed00b431d9d209895888c9b7",
+ "sha256": "f63437ced8a735b803fa7476a96911ec0aa6da63283a12e795ce8c19491af4a9"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/vertical/A_A762_vertical_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 199,
+   "hand_max": 0.0,
+   "forearm_max": 125.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -31,
+    60
+   ],
+   "roll_after": [
+    -31,
+    126
+   ]
+  }
+ },
+ "readback_max_deg": 0.014,
+ "sha_before": "40b77ee64b05d1b490d8dea863caaff690a71a14980aa6aa924baa1796d1252b",
+ "sha256": "f05b0f11bb847d4243a221f5679cfa8cdfe1f109609ae7fa5ad25394c9d486f3"
+}

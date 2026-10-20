@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -117.1,
+    -12.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -107.4,
+    -33.6
+   ]
+  }
+ }
+}

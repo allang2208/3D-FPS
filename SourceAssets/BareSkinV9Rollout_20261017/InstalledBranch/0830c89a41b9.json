@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/TacticalSprint20260921/A_RuneSword_SprintOverhead",
+ "keys": 313,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    61.1,
+    153.2
+   ]
+  },
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 184,
+   "roll_range": [
+    -209.9,
+    142.6
+   ]
+  }
+ },
+ "sha_before": "76ee5acb408542761ed520dfd7934095c26ef7926c37f81bb179d615c0f10cc2",
+ "sha256": "858fa87e30ae25cfc526ae8a06453cb67983c9fa956a34cca4c8f675513173f2"
+}

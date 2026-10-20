@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AKMDrumFreeDrop20260920/angled/A_AKM_angled_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 125.5
+  }
+ },
+ "readback_max_deg": 0.0377,
+ "sha_before": "55b8acf7d65e7a964f31d23983add8d8223eaa391326a49218949b8e485b670e",
+ "sha256": "edd10f4512a97f788173e4b67a0fef1c280954aa7f02b780c5c26f1e2ffaecb4"
+}

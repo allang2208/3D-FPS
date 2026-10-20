@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/angled/A_PKM_angled_quick_melee",
+ "keys": 217,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 20,
+   "hand_max": 0.0,
+   "forearm_max": 124.1,
+   "upper_max": 0.0,
+   "roll_before": [
+    -40,
+    8
+   ],
+   "roll_after": [
+    -121,
+    77
+   ]
+  }
+ },
+ "readback_max_deg": 0.0116,
+ "sha_before": "1286ac070ec584c8dac9af935931b2bd47b0bd70e74041cb13d6a8fad7dad716",
+ "sha256": "227edf6829be6c4a84bc11187cfbf25be641d5ac8dbf0ce021a12f161383157e"
+}

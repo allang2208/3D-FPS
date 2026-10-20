@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/RSH12/SingleAction20261003/l/A_RSH12_l_fire",
+ "keys": 121,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -0.2,
+    23.5
+   ]
+  }
+ }
+}

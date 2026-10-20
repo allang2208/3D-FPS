@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_SprintEnter",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 9,
+   "hand_max": 0.0,
+   "forearm_max": 13.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -136,
+    -43
+   ],
+   "roll_after": [
+    -126,
+    -43
+   ]
+  }
+ },
+ "readback_max_deg": 0.0126,
+ "sha_before": "1e073d7d02f55a8cd84c85efbda889b83a1d3c8b501723bb7262e0353b9c42ce",
+ "sha256": "7f6da789fb1cd9629e6ebd6545e6d086d6cfa5120704a38becc5223a5b4c8f85"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/Animations/canted/A_PKM_canted_quick_melee",
+ "keys": 217,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 77,
+   "hand_max": 0.0,
+   "forearm_max": 124.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    -40,
+    8
+   ],
+   "roll_after": [
+    -117,
+    124
+   ]
+  }
+ },
+ "readback_max_deg": 0.0111,
+ "sha_before": "d680cf0bc8e79accb6092005da89f7bb650be026fddcd4cf1e76f82fde3f41e6",
+ "sha256": "3bf39b672d1218516bc33ba110d8c585be3f7ccd7bbdee1e6ee8eac5b64cc9c1"
+}

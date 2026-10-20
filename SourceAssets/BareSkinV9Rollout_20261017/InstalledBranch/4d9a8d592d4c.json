@@ -1,0 +1,20 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/QuickCombat20260926/A_Bow_QuickCombat",
+ "keys": 217,
+ "rewritten": [
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "r": {
+   "max_err": 180.0,
+   "keys_off": 211,
+   "roll_range": [
+    -185.7,
+    106.1
+   ]
+  }
+ },
+ "sha_before": "469f679656a013e0ba9c947f455659d8cdd2c24c7537c3038552a333d1732b74",
+ "sha256": "2c26dd1938a80a81c19c2e1dc6fdd94e50ee36415d53d6ba47eb18e0699e3232"
+}

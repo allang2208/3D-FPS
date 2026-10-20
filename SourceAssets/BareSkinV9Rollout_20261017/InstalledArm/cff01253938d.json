@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_SprintLoop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 50,
+   "hand_max": 0.0,
+   "forearm_max": 90.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -147,
+    -121
+   ],
+   "roll_after": [
+    -128,
+    -57
+   ]
+  }
+ },
+ "readback_max_deg": 0.0117,
+ "sha_before": "d5074563bad73b1149f4916fc94d21d0b363650bcf527e02d6da1c248eca84ff",
+ "sha256": "44be1e29f051c2490c8059bbe0a31e68b854f682d78a99522ff3fa3caf723181"
+}

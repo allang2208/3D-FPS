@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload_empty",
+ "keys": 516,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -6.3,
+    69.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -148.1,
+    -35.0
+   ]
+  }
+ }
+}

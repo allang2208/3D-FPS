@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/LMG201/Drum46/Animations/base/A_LMG201_base_drum_reload",
+ "keys": 401,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -105.3,
+    110.0
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -66.4,
+    -37.0
+   ]
+  }
+ }
+}

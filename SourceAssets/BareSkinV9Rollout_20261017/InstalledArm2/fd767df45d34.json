@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/ReferenceReplicaV36/A_RuneSword_Reference_76_78",
+ "keys": 241,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 126.7
+  }
+ },
+ "readback_max_deg": 0.0404,
+ "sha_before": "eb8cb3fe65418a543f51b435ce955a28de7cb173b1ad21c64fd03953968ea9bc",
+ "sha256": "eda7971a4fa36f0b4af7497f2d67cce2534e3aa49ea9a5fe1a932434a685aabb"
+}

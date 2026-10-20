@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/DualPistolQuickCombat20260920/SpinRecoveryV5/M1911/l/Animations/A_Dual_M1911_l_quickcombat_left",
+ "keys": 97,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 94.6
+  }
+ },
+ "readback_max_deg": 0.0357,
+ "sha_before": "3edcd608c48ee1b793c60a100fe0a49d131ec417194439fcc38e425a4a57a6a7",
+ "sha256": "046de01df5816b291dcfae668639481c805bdd1fb586a8df149bf8559afdd48c"
+}

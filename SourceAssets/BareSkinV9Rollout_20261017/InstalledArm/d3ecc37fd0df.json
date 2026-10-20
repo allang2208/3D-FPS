@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_SprintEnter",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 12,
+   "hand_max": 0.0,
+   "forearm_max": 119.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    -163,
+    -66
+   ],
+   "roll_after": [
+    -139,
+    -44
+   ]
+  }
+ },
+ "readback_max_deg": 0.011,
+ "sha_before": "59687e3d14b77ce812565f1ea573897d08f604a45361c55975bf5d858479ab34",
+ "sha256": "ebf182b19e421bb51dc8fe70af0d81bce711a4269d6dfcdcb873573d43bfc28e"
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/Super90/Cransh20261006/Animations/A_Super90_reload_empty",
+ "keys": 113,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    135.3,
+    178.4
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -62.6,
+    78.0
+   ]
+  }
+ }
+}

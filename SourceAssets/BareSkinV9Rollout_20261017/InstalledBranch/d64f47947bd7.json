@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Swing",
+ "keys": 205,
+ "rewritten": [],
+ "sides": {
+  "r": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -195.0,
+    0.0
+   ]
+  }
+ }
+}

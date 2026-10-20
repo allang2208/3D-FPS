@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations/A_DW715_single_0_2",
+ "keys": 529,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 149,
+   "hand_max": 0.0,
+   "forearm_max": 100.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    -73,
+    23
+   ],
+   "roll_after": [
+    -71,
+    124
+   ]
+  }
+ },
+ "readback_max_deg": 0.0122,
+ "sha_before": "28d2e48ae118a4fb400e4c5342483f6d3ff32b8b64609f1de74cfa493a93fb7e",
+ "sha256": "6314455aea8210d6c2bb875575867bdb0633134bb7130918ce83a8f945e7c00b"
+}

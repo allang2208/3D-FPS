@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ContactV9/A_Bow_Draw",
+ "keys": 169,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 169,
+   "hand_max": 0.0,
+   "forearm_max": 141.2,
+   "upper_max": 0.0,
+   "roll_before": [
+    1,
+    49
+   ],
+   "roll_after": [
+    -131,
+    35
+   ]
+  }
+ },
+ "readback_max_deg": 0.0131,
+ "sha_before": "488120a1e8f107ba968873f4b9eaa7ecb9d6abe36bee3b78f8e49e6a41b26527",
+ "sha256": "f2d884d6ef572f87da74cfa6363f4c3a4f841c3207ebd97e9f5b138926a1ec35"
+}

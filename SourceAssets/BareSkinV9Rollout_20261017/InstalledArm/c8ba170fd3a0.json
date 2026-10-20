@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/Accessories22/Animations/vertical/A_LMG201_vertical_inspect",
+ "keys": 746,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 187,
+   "hand_max": 0.0,
+   "forearm_max": 76.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    32,
+    110
+   ],
+   "roll_after": [
+    32,
+    95
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "06d04e0651a85692fb8c479b69034191b189ecfeb73b815b12d41b1d11bac145",
+ "sha256": "7c64d67efde8d9f6ed383f8f48a65ce7fa95f161b8102f9f72e7844fff5292c3"
+}

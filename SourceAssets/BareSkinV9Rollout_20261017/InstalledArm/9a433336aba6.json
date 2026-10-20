@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ContactV9/A_Bow_Hold",
+ "keys": 241,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [],
+   "elbow_keys": 241,
+   "hand_max": 0.0,
+   "forearm_max": 19.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    1,
+    1
+   ],
+   "roll_after": [
+    -18,
+    -18
+   ]
+  }
+ },
+ "readback_max_deg": 0.01,
+ "sha_before": "f78c2b0038438eb4731939b0be15a2da3ee4e52efad551b1a2a9b1a6f8453529",
+ "sha256": "e78f47596dd4af01c5ff7059148b1b10a4147955e3a28d0be5b10169abfaee78"
+}

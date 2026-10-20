@@ -1,0 +1,22 @@
+{
+ "path": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_drum_reload_empty",
+ "keys": 593,
+ "fixed": {
+  "thumb_01_l": [
+   [
+    0,
+    1
+   ],
+   [
+    592,
+    593
+   ]
+  ]
+ },
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sha_before": "6d3c54bf24ed5a2099d60be2f912ef42b141dcca931afe283949583b3d4b9e96",
+ "sha256": "b0f8702c792e0fd1f087169f8382985b62793a3caf3b9fa1f701effcc5bcc760"
+}

@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M4TacticalSprint20260915/Canted/A_M4_TacticalSprint_Canted_Exit",
+ "keys": 37,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 12,
+   "hand_max": 0.0,
+   "forearm_max": 176.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    80,
+    331
+   ],
+   "roll_after": [
+    -161,
+    -29
+   ]
+  }
+ },
+ "readback_max_deg": 0.0135,
+ "sha_before": "624327ab614de630a85cb51cacb6b70994739d7d960cccde4ea24900ea4ba9aa",
+ "sha256": "135cbe2bcb2ababd40f0f4d6f1fd17fe8a251c7d1626eec168db9df1a691c46f"
+}

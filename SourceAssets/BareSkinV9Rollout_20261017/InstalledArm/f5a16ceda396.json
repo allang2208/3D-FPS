@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_WhirlwindV5_BeforeRecoverV6",
+ "keys": 875,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 863,
+   "hand_max": 0.0,
+   "forearm_max": 131.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -131,
+    130
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 709,
+   "hand_max": 0.0,
+   "forearm_max": 131.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -131,
+    0
+   ]
+  }
+ },
+ "readback_max_deg": 0.0119,
+ "sha_before": "4025157299bb85d021f3e74da3a02780e8591a45fca0c1373953a1f7908d8ed8",
+ "sha256": "128bce1719c1c5394bd0c28a72050260764dad7dc634fe7580149872d879a66b"
+}

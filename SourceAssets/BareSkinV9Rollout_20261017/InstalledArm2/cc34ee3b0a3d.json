@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_PommelStrike",
+ "keys": 769,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 89.2
+  },
+  "r": {
+   "changed": false,
+   "elbow_keys": 0,
+   "windows": [],
+   "deviation_from_written": 117.8
+  }
+ },
+ "readback_max_deg": 0.0426,
+ "sha_before": "ec0e88854ab0a8aa4c176747135237dd53386cd53eedf0356bb8f7d6266b752b",
+ "sha256": "b12fcfc2d750fec866ddfd2ce932330f81c37a68e0f5220e08c4dbbbbab6d861"
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/QBZ191/Canted/A_QBZ191_QuickCombat_Canted",
+ "keys": 433,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -44.1,
+    63.2
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -140.2,
+    -33.2
+   ]
+  }
+ }
+}

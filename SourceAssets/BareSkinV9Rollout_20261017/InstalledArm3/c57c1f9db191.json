@@ -1,0 +1,36 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/QuickCombatV1/A_Warhammer_QuickCombat",
+ "keys": 151,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 17,
+   "windows": [
+    "reroute",
+    "reroute"
+   ],
+   "deviation_from_written": 177.8
+  },
+  "r": {
+   "changed": true,
+   "elbow_keys": 56,
+   "windows": [],
+   "deviation_from_written": 0.0
+  }
+ },
+ "readback_max_deg": 0.0122,
+ "sha_before": "eb58e0e34a80546417987a0fff01c42c411bf9d74cee43166b122b0adb2d5dd8",
+ "sha256": "e74805b97f0555812cc071e5bdd79ab6165cf35e49dd265af664b3d8e83e8568"
+}

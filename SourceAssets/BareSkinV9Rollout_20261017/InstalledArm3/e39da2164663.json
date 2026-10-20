@@ -1,0 +1,25 @@
+{
+ "path": "/Game/Weapons/ASH12/UniversalAttachments20260919/Animations/canted/A_ASH12_canted_QuickCombat",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 0,
+   "windows": [
+    "clamp",
+    "clamp"
+   ],
+   "deviation_from_written": 6.2
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "81e5e048d4087ab3e62cdfbc0adbdf4b13625c05a8658d65db6d0590a841cf67",
+ "sha256": "44abab670a60397d004abae33181ddf1cb18b47b7f89fc14367a2e1630e73056"
+}

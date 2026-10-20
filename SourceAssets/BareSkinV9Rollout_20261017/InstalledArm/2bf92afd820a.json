@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/A_Warhammer_SprintCarry",
+ "keys": 55,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 11,
+   "hand_max": 0.0,
+   "forearm_max": 4.4,
+   "upper_max": 0.0,
+   "roll_before": [
+    -22,
+    0
+   ],
+   "roll_after": [
+    -22,
+    -4
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 22,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -41,
+    0
+   ],
+   "roll_after": [
+    -108,
+    -28
+   ]
+  }
+ },
+ "readback_max_deg": 0.0146,
+ "sha_before": "085a8b49613eca78601f02e40851b140d33c9b3124a5795f972afba45cd171b7",
+ "sha256": "28b912e94d9bb377c70e8b515b5f3aefdcdc32d6abdd2a47404d17aa77d498f4"
+}

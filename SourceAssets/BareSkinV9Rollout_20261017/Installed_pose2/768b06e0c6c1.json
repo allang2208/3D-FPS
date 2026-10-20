@@ -1,0 +1,30 @@
+{
+ "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage",
+ "saved": true,
+ "morphs": 16,
+ "morphs_on_asset": 33,
+ "added": [
+  "JC_Pose_L_66_m63_m58_m95_0_0_0_0",
+  "JC_Pose_L_56_m11_m11_m75_0_0_0_0",
+  "JC_Pose_L_100_m71_m48_m81_26_27_16_12",
+  "JC_Pose_L_97_m18_0_m50_0_0_0_0",
+  "JC_Pose_L_104_m63_22_m26_56_60_53_53",
+  "JC_Pose_L_58_6_m14_m15_0_0_2_5",
+  "JC_Pose_L_123_m33_m32_m52_0_0_0_0",
+  "JC_Pose_L_60_m67_m27_m68_0_0_0_0",
+  "JC_Pose_L_107_m19_0_m18_35_38_37_39",
+  "JC_Pose_R_99_19_m6_15_27_30_20_18",
+  "JC_Pose_R_101_66_m18_37_50_51_39_34",
+  "JC_Pose_R_108_16_m9_24_53_53_41_34",
+  "JC_Pose_R_100_18_m13_43_0_0_0_0",
+  "JC_Pose_R_117_24_0_45_37_39_28_24",
+  "JC_Pose_R_110_9_m31_36_25_21_6_0",
+  "JC_Pose_R_84_87_m35_41_32_31_18_12"
+ ],
+ "emptied_stale_morphs": [
+  "JC_Pose_R_134_27_2_68_53_53_40_34"
+ ],
+ "position_readback_max_cm": 0.0,
+ "sha256": "6d932275a355e485bd8fdd9dee00784121fd06656fd3fb59bc9b105015a922d4",
+ "runtime_tested": false
+}

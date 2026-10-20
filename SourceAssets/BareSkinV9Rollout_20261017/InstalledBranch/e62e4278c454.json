@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/RifleQuickMelee20260919/AKM/Vertical/A_AKM_QuickCombat_Vertical",
+ "keys": 109,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -105.2,
+    -7.9
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -121.5,
+    -35.2
+   ]
+  }
+ }
+}

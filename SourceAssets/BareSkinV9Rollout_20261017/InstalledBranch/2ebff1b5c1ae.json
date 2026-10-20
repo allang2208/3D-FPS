@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty",
+ "keys": 593,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -102.2,
+    76.4
+   ]
+  }
+ }
+}

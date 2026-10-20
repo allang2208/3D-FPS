@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_Inspect",
+ "keys": 1003,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 1003,
+   "hand_max": 0.0,
+   "forearm_max": 5.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    -11,
+    7
+   ],
+   "roll_after": [
+    -16,
+    3
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 1003,
+   "hand_max": 0.0,
+   "forearm_max": 107.9,
+   "upper_max": 0.0,
+   "roll_before": [
+    -26,
+    0
+   ],
+   "roll_after": [
+    -127,
+    -108
+   ]
+  }
+ },
+ "readback_max_deg": 0.0122,
+ "sha_before": "01d0b09c3dc4a05412a1bc522cdc9ae5b082cc2e31f6d4db641222b4ea89dcf2",
+ "sha256": "cd7a1e9c2d8ad9fe0ceba8627c36e7a3ea599eafb38b9fb5905a41bc77ce755f"
+}

@@ -1,0 +1,30 @@
+{
+ "path": "/Game/Weapons/SwordUppercut20261003/Standard/A_Sword_UppercutV1_Standard_PreviewLoop",
+ "keys": 325,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_02_r"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 68.63,
+   "keys_off": 294,
+   "roll_range": [
+    61.3,
+    198.8
+   ]
+  },
+  "r": {
+   "max_err": 33.87,
+   "keys_off": 277,
+   "roll_range": [
+    -127.8,
+    -59.5
+   ]
+  }
+ },
+ "sha_before": "65c4cdde931e8b15c97fdfa48aa0eceb4166019e93c14f5376d7d6fbb4d482d6",
+ "sha256": "e452b7d6c3ef550d47ce704ba1ffbdcda8e99d953d6cc1183db11236eb27e867"
+}

@@ -1,0 +1,13 @@
+{
+ "path": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload",
+ "keys": 401,
+ "fixed": {},
+ "twist": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "sha_before": "667318ff887a778c8571081c60a0a039990463a99c17a796ef0dedcdc1e6afdc",
+ "sha256": "716d89d696485f9339cc51c3a32171f757ee7974ee3c2abdf9db0085f8cf457c"
+}

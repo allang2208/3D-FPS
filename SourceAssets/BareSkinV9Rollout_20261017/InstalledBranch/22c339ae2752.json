@@ -1,0 +1,15 @@
+{
+ "path": "/Game/Weapons/G18/Integrated20260929/Single/Animations/A_G18_reload_empty",
+ "keys": 271,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.01,
+   "keys_off": 0,
+   "roll_range": [
+    -34.8,
+    56.9
+   ]
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "path": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Thrust",
+ "keys": 601,
+ "rewritten": [],
+ "sides": {
+  "l": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    57.1,
+    101.4
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -101.0,
+    -61.2
+   ]
+  }
+ }
+}

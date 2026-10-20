@@ -1,0 +1,28 @@
+{
+ "path": "/Game/Weapons/M1911/P9Retarget20260913/Animations/A_M1911_inspect",
+ "keys": 597,
+ "rewritten": [
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "sides": {
+  "l": {
+   "max_err": 180.0,
+   "keys_off": 126,
+   "roll_range": [
+    -149.6,
+    206.3
+   ]
+  },
+  "r": {
+   "max_err": 0.0,
+   "keys_off": 0,
+   "roll_range": [
+    -60.8,
+    51.3
+   ]
+  }
+ },
+ "sha_before": "c2b60341f2024d5f6296469fa3b6853f5f8a9b8f25caf3f119f54b5af89ec179",
+ "sha256": "cba2a50a99974b1eb3ffc1c2e1c578e2076038b6927e68c5e57677b97e83b198"
+}

@@ -1,0 +1,3196 @@
+{
+ "skin_parents": [
+  "/Game/Characters/Mannequins/PlayerBodySkin/M_PlayerBodySkin",
+  "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareFamily_Arms",
+  "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareFamily_Hands",
+  "/Game/Characters/ModularOutfit20260924/BarePalmV7/Materials/M_BareNative_Default",
+  "/Game/Characters/ModularOutfit20260924/ThumbSurfaceContactV9_20261002/M16/M_M16ThumbHands",
+  "/Game/Characters/ModularOutfit20260924/ThumbSurfaceContactV9_20261002/M16/M_M16ThumbNative",
+  "/Game/Weapons/Super90/JointSurface20261012/Materials/M_Super90JointSkin_Arms",
+  "/Game/Weapons/Super90/JointSurface20261012/Materials/M_Super90JointSkin_Hands"
+ ],
+ "meshes": [
+  {
+   "path": "/Game/Characters/Mannequins/PlayerBodySkin/SKM_Manny_PlayerSkin.SKM_Manny_PlayerSkin",
+   "key": "c689293f424e",
+   "skin": true,
+   "source_sha256": "9920e823d6efade4935403ccef9cd065dff0bd9ae7562608f80e0be170159055"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ArmoredBoots.SK_Jason_ArmoredBoots",
+   "key": "5940e8fa61b1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Base.SK_Jason_Base",
+   "key": "4918ae87b430",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Cargo_ArmoredBootsFit.SK_Jason_Cargo_ArmoredBootsFit",
+   "key": "64c73ce7fc37",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ChainmailPants_ArmoredBootsFit.SK_Jason_ChainmailPants_ArmoredBootsFit",
+   "key": "6a3faa51d3d1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Jeans_ArmoredBootsFit.SK_Jason_Jeans_ArmoredBootsFit",
+   "key": "d4d28253911e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/A762/SK_A762_BareArmsV7.SK_A762_BareArmsV7",
+   "key": "2970364c168f",
+   "skin": true,
+   "source_sha256": "ceae8a12ab1a8d5cd88e9f62b9376508d7d99e3ad8bf08a4319629f81c09c51b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/AKM/SK_AKM_BareArmsV7.SK_AKM_BareArmsV7",
+   "key": "16a63095fccc",
+   "skin": true,
+   "source_sha256": "5ca714e964699b5971020b4c42e2431c4c3f9c35a586067127b001a470e4f910"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/ASH12/SK_ASH12_BareArmsV7.SK_ASH12_BareArmsV7",
+   "key": "64b84a75516d",
+   "skin": true,
+   "source_sha256": "70a2b4333f98016d0523f0b2a90b496c45f4fe83bc9cc8cc8ef2e015884c52aa"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Axe/SK_Axe_BareArmsV7.SK_Axe_BareArmsV7",
+   "key": "3a1c07cd040d",
+   "skin": true,
+   "source_sha256": "ae66c41cb0e0e042fa441eb9391a78809be9edf19d0fa4397ca85e0ac8d18e0b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715/SK_DW715_BareArmsV7.SK_DW715_BareArmsV7",
+   "key": "0f6e1b7a3a6d",
+   "skin": true,
+   "source_sha256": "88bd4c45de8ed59e47291a5ea764f9702e347c4a9d2a904815f5fd80a2ad2dc1"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_l/SK_DW715_l_BareArmsV7.SK_DW715_l_BareArmsV7",
+   "key": "a84836c1cfd1",
+   "skin": true,
+   "source_sha256": "80cb41a101c88ed5b967721a90a9f95a9182e30ea0de9a8d288e8f8923ecd41c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/DW715_r/SK_DW715_r_BareArmsV7.SK_DW715_r_BareArmsV7",
+   "key": "9daf0df83e18",
+   "skin": true,
+   "source_sha256": "f48d28cc0860def4cbb071f093a55a401c53c095e7bd646a3100e1b61f8ede0b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/FrostArms/SK_FrostArms_BareArmsV7.SK_FrostArms_BareArmsV7",
+   "key": "6db63c32a862",
+   "skin": true,
+   "source_sha256": "2d0a68eb9923cbf049b9467a5f39b50aa4b797026bf781e01102b2e34b94187e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/FrostSword/SK_FrostSword_BareArmsV7.SK_FrostSword_BareArmsV7",
+   "key": "8d2da9da9368",
+   "skin": true,
+   "source_sha256": "080fd9c3b99d84d7f1f8e27734740c3099a287a18523a75c89fe30d4993267a7"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M16/SK_M16_BareArmsV7.SK_M16_BareArmsV7",
+   "key": "d29a4e00faf0",
+   "skin": true,
+   "source_sha256": "5beeabb59ac1be8bc3eeeba9376edeb7e97b9ad58dc6117e709725f32b15a501"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911/SK_M1911_BareArmsV7.SK_M1911_BareArmsV7",
+   "key": "8510dbecd75f",
+   "skin": true,
+   "source_sha256": "946bc1af75a425f00c71e706efd506164cc5249a35d3305fcbf3dfecdc968589"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_l/SK_M1911_l_BareArmsV7.SK_M1911_l_BareArmsV7",
+   "key": "16860477cd45",
+   "skin": true,
+   "source_sha256": "e0a34a47fea6ce2bc9d73d78c60160ae4fc2986025b4125f9291400166a0b8d1"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M1911_r/SK_M1911_r_BareArmsV7.SK_M1911_r_BareArmsV7",
+   "key": "8a379875a169",
+   "skin": true,
+   "source_sha256": "615373fe4aab8c5569348a5b41afb944e6bc11def9be49e433f271cc627ba01b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7",
+   "key": "01e184ddd1b7",
+   "skin": true,
+   "source_sha256": "207e88aab479e59adebbafe641740db0573335af6abe736e6963b1d8a29d0504"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_A762_OriginalGlovedArms.SK_A762_OriginalGlovedArms",
+   "key": "2bf5f2d0031b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_AKM_OriginalGlovedArms.SK_AKM_OriginalGlovedArms",
+   "key": "4325a2bed758",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_ASH12_OriginalGlovedArms.SK_ASH12_OriginalGlovedArms",
+   "key": "3d4e2d3adb57",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_Axe_OriginalGlovedArms.SK_Axe_OriginalGlovedArms",
+   "key": "abb13acb17f9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_OriginalGlovedArms.SK_DW715_OriginalGlovedArms",
+   "key": "2d77163d74c9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_l_OriginalGlovedArms.SK_DW715_l_OriginalGlovedArms",
+   "key": "58503b72d38c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_DW715_r_OriginalGlovedArms.SK_DW715_r_OriginalGlovedArms",
+   "key": "286718361883",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_FrostArms_OriginalGlovedArms.SK_FrostArms_OriginalGlovedArms",
+   "key": "0e6f7c15b0dd",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_FrostSword_OriginalGlovedArms.SK_FrostSword_OriginalGlovedArms",
+   "key": "b132f958d5f9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M16_OriginalGlovedArms.SK_M16_OriginalGlovedArms",
+   "key": "c11f9413634c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_OriginalGlovedArms.SK_M1911_OriginalGlovedArms",
+   "key": "3485d02bf061",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_l_OriginalGlovedArms.SK_M1911_l_OriginalGlovedArms",
+   "key": "159273ab0d90",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M1911_r_OriginalGlovedArms.SK_M1911_r_OriginalGlovedArms",
+   "key": "6eb88d3faf7a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_M4_OriginalGlovedArms.SK_M4_OriginalGlovedArms",
+   "key": "995f48f44a9e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_PKM_OriginalGlovedArms.SK_PKM_OriginalGlovedArms",
+   "key": "6ebdbacad716",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_Pickaxe_OriginalGlovedArms.SK_Pickaxe_OriginalGlovedArms",
+   "key": "b24bb4fa3ec6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_QBZ191_OriginalGlovedArms.SK_QBZ191_OriginalGlovedArms",
+   "key": "7502883437a7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_RuneSword_OriginalGlovedArms.SK_RuneSword_OriginalGlovedArms",
+   "key": "4dd16ff847ca",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_SVD_OriginalGlovedArms.SK_SVD_OriginalGlovedArms",
+   "key": "22fadc8d9c6e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalGloves/SK_Traversal_OriginalGlovedArms.SK_Traversal_OriginalGlovedArms",
+   "key": "97d98aa9d18c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_A762_GlovedSource.SK_A762_GlovedSource",
+   "key": "faa95ddb499f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_AKM_GlovedSource.SK_AKM_GlovedSource",
+   "key": "135f0c526b20",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_ASH12_GlovedSource.SK_ASH12_GlovedSource",
+   "key": "fd497b4fd453",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_Axe_GlovedSource.SK_Axe_GlovedSource",
+   "key": "5ca09a04bbf1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_DW715_GlovedSource.SK_DW715_GlovedSource",
+   "key": "6b25d4a87233",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_DW715_l_GlovedSource.SK_DW715_l_GlovedSource",
+   "key": "a9ba392f2984",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_DW715_r_GlovedSource.SK_DW715_r_GlovedSource",
+   "key": "30b512b4feb0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_FrostArms_GlovedSource.SK_FrostArms_GlovedSource",
+   "key": "fb3feccb58f3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_FrostSword_GlovedSource.SK_FrostSword_GlovedSource",
+   "key": "36047eef0805",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M16_GlovedSource.SK_M16_GlovedSource",
+   "key": "cc6831d4f6fe",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M1911_GlovedSource.SK_M1911_GlovedSource",
+   "key": "afa85df2d2cd",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M1911_l_GlovedSource.SK_M1911_l_GlovedSource",
+   "key": "628d0750f5bc",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M1911_r_GlovedSource.SK_M1911_r_GlovedSource",
+   "key": "ffdb6a0963fd",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_M4_GlovedSource.SK_M4_GlovedSource",
+   "key": "1af0317da01a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_PKM_GlovedSource.SK_PKM_GlovedSource",
+   "key": "e771c26823a3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_Pickaxe_GlovedSource.SK_Pickaxe_GlovedSource",
+   "key": "c6c76d074006",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_QBZ191_GlovedSource.SK_QBZ191_GlovedSource",
+   "key": "621cf3f7c1d1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_RuneSword_GlovedSource.SK_RuneSword_GlovedSource",
+   "key": "3ed91db7112e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_SVD_GlovedSource.SK_SVD_GlovedSource",
+   "key": "ceb61adb4505",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/OriginalSources/SK_Traversal_GlovedSource.SK_Traversal_GlovedSource",
+   "key": "329915451837",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/PKM/SK_PKM_BareArmsV7.SK_PKM_BareArmsV7",
+   "key": "94057b2d5756",
+   "skin": true,
+   "source_sha256": "360f728dd72675cba4ad1cdd207ddf0d85187f96a080f8524784f7f98321688d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Pickaxe/SK_Pickaxe_BareArmsV7.SK_Pickaxe_BareArmsV7",
+   "key": "2d47868d59da",
+   "skin": true,
+   "source_sha256": "272539627732e2f0fc1b6466d7310cf8af89fff8204c23a84fbdaa148fd4df46"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/QBZ191/SK_QBZ191_BareArmsV7.SK_QBZ191_BareArmsV7",
+   "key": "8bd523f6b393",
+   "skin": true,
+   "source_sha256": "9df45a6dc032aa9542523e01786f3ed20c3b2c32507bb03d4ba5fc78a86ebc66"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/RuneSword/SK_RuneSword_BareArmsV7.SK_RuneSword_BareArmsV7",
+   "key": "ed880f5d17ce",
+   "skin": true,
+   "source_sha256": "00a7f20ee6692a7399119293fe0305042d80a89154375f87e44198dfe94b8f5e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/SVD/SK_SVD_BareArmsV7.SK_SVD_BareArmsV7",
+   "key": "caa8ec81b921",
+   "skin": true,
+   "source_sha256": "a71d7240f921503bf1865419012abcdccbef8f393ec010b9224956ac0348ffd9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BarePalmV7/Traversal/SK_Traversal_BareArmsV7.SK_Traversal_BareArmsV7",
+   "key": "0fc712f32c7e",
+   "skin": true,
+   "source_sha256": "d7d32d26d2c635ad550a6280e7b5fd50204e4ae308f7b25cba725f78dcfca5dc"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/A762/SK_A762_BlackLeatherDetail.SK_A762_BlackLeatherDetail",
+   "key": "bca75c5f6106",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/AKM/SK_AKM_BlackLeatherDetail.SK_AKM_BlackLeatherDetail",
+   "key": "273a8bc843bb",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/ASH12/SK_ASH12_BlackLeatherDetail.SK_ASH12_BlackLeatherDetail",
+   "key": "babfb0c88864",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Axe/SK_Axe_BlackLeatherDetail.SK_Axe_BlackLeatherDetail",
+   "key": "e9844be5a644",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Body/SK_Body_BlackLeatherDetail.SK_Body_BlackLeatherDetail",
+   "key": "294663516cf5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Bow/SK_Bow_BlackLeatherDetail.SK_Bow_BlackLeatherDetail",
+   "key": "d4220f48f77f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/DW715/SK_DW715_BlackLeatherDetail.SK_DW715_BlackLeatherDetail",
+   "key": "74e6693a9e33",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/DW715_l/SK_DW715_l_BlackLeatherDetail.SK_DW715_l_BlackLeatherDetail",
+   "key": "602c07baf01b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/DW715_r/SK_DW715_r_BlackLeatherDetail.SK_DW715_r_BlackLeatherDetail",
+   "key": "a3397392b1ac",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/FrostArms/SK_FrostArms_BlackLeatherDetail.SK_FrostArms_BlackLeatherDetail",
+   "key": "373ef5252cc6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/FrostSword/SK_FrostSword_BlackLeatherDetail.SK_FrostSword_BlackLeatherDetail",
+   "key": "38a2f62cd05f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M16/SK_M16_BlackLeatherDetail.SK_M16_BlackLeatherDetail",
+   "key": "51e658d3ba8e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M1911/SK_M1911_BlackLeatherDetail.SK_M1911_BlackLeatherDetail",
+   "key": "522edb3c32e2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M1911_l/SK_M1911_l_BlackLeatherDetail.SK_M1911_l_BlackLeatherDetail",
+   "key": "dd44db8dd273",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M1911_r/SK_M1911_r_BlackLeatherDetail.SK_M1911_r_BlackLeatherDetail",
+   "key": "b6f57aa4faaa",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/M4/SK_M4_BlackLeatherDetail.SK_M4_BlackLeatherDetail",
+   "key": "d83d116205ba",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/PKM/SK_PKM_BlackLeatherDetail.SK_PKM_BlackLeatherDetail",
+   "key": "90fa7b7945cd",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Pickaxe/SK_Pickaxe_BlackLeatherDetail.SK_Pickaxe_BlackLeatherDetail",
+   "key": "d0a551887b65",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/QBZ191/SK_QBZ191_BlackLeatherDetail.SK_QBZ191_BlackLeatherDetail",
+   "key": "b01133cee0e2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/RuneSword/SK_RuneSword_BlackLeatherDetail.SK_RuneSword_BlackLeatherDetail",
+   "key": "908982041237",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/SVD/SK_SVD_BlackLeatherDetail.SK_SVD_BlackLeatherDetail",
+   "key": "31002ef585a4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Traversal/SK_Traversal_BlackLeatherDetail.SK_Traversal_BlackLeatherDetail",
+   "key": "ac81289c3c0c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Boots.SK_Jason_Boots",
+   "key": "0d7d532df3c6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Cargo_BootsFit.SK_Jason_Cargo_BootsFit",
+   "key": "def533e8b475",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Jeans_BootsFit.SK_Jason_Jeans_BootsFit",
+   "key": "6312e4440dec",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherBoots.SK_Jason_LeatherBoots",
+   "key": "3e459b06270d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants.SK_Jason_LeatherPants",
+   "key": "c297689139f4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit",
+   "key": "dd9da97afe90",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherPants_ShortBootsFit.SK_Jason_LeatherPants_ShortBootsFit",
+   "key": "36f32e4e06e6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/A762/SK_A762_Chainmail.SK_A762_Chainmail",
+   "key": "f11b8ba3e027",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/AKM/SK_AKM_Chainmail.SK_AKM_Chainmail",
+   "key": "eba283c40d96",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/ASH12/SK_ASH12_Chainmail.SK_ASH12_Chainmail",
+   "key": "581b5a4665b2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/DW715/SK_DW715_Chainmail.SK_DW715_Chainmail",
+   "key": "b6166d16fcca",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/DW715_l/SK_DW715_l_Chainmail.SK_DW715_l_Chainmail",
+   "key": "1cf7aab917cd",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/DW715_r/SK_DW715_r_Chainmail.SK_DW715_r_Chainmail",
+   "key": "3d94b4ca5d84",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/LMG201/SK_LMG201_Chainmail.SK_LMG201_Chainmail",
+   "key": "24bd951940cf",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M16/SK_M16_Chainmail.SK_M16_Chainmail",
+   "key": "7a592e1a7a72",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M1911/SK_M1911_Chainmail.SK_M1911_Chainmail",
+   "key": "d4f267aac2c2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M1911_l/SK_M1911_l_Chainmail.SK_M1911_l_Chainmail",
+   "key": "edf4d9761767",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M1911_r/SK_M1911_r_Chainmail.SK_M1911_r_Chainmail",
+   "key": "fea905fba2b4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/M4/SK_M4_Chainmail.SK_M4_Chainmail",
+   "key": "6e76648443e1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/PKM/SK_PKM_Chainmail.SK_PKM_Chainmail",
+   "key": "dd7d5802f96a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/QBZ191/SK_QBZ191_Chainmail.SK_QBZ191_Chainmail",
+   "key": "c1ed50affe59",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailCameraClearance20260929/SVD/SK_SVD_Chainmail.SK_SVD_Chainmail",
+   "key": "b391278325e0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Axe/SK_Axe_ChainmailShirt.SK_Axe_ChainmailShirt",
+   "key": "f8f370aa4900",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Bow/SK_Bow_ChainmailShirt.SK_Bow_ChainmailShirt",
+   "key": "2a38b80de524",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/FrostArms/SK_FrostArms_ChainmailShirt.SK_FrostArms_ChainmailShirt",
+   "key": "cf8b8842dae3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/FrostSword/SK_FrostSword_ChainmailShirt.SK_FrostSword_ChainmailShirt",
+   "key": "1668828afc39",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/Pickaxe/SK_Pickaxe_ChainmailShirt.SK_Pickaxe_ChainmailShirt",
+   "key": "07508a756510",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInsetBinding20260929/RuneSword/SK_RuneSword_ChainmailShirt.SK_RuneSword_ChainmailShirt",
+   "key": "768d71a6454b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Body/SK_Body_ChainmailShirt.SK_Body_ChainmailShirt",
+   "key": "c80f485a1179",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/SK_Jason_ChainmailPants.SK_Jason_ChainmailPants",
+   "key": "f0fb4b825669",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/ChainmailPants20261004/ArmorRefineV2/SK_Jason_ChainmailPants_BootsFit.SK_Jason_ChainmailPants_BootsFit",
+   "key": "56152ab16594",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/A762/SK_A762_Charcoal.SK_A762_Charcoal",
+   "key": "86123e628cb4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/AKM/SK_AKM_Charcoal.SK_AKM_Charcoal",
+   "key": "c1b1794a50d7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/ASH12/SK_ASH12_Charcoal.SK_ASH12_Charcoal",
+   "key": "761639d8570d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Axe/SK_Axe_Charcoal.SK_Axe_Charcoal",
+   "key": "582312e50c1c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Bow/SK_Bow_Charcoal.SK_Bow_Charcoal",
+   "key": "edfb0ce71912",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/DW715/SK_DW715_Charcoal.SK_DW715_Charcoal",
+   "key": "b40d3f1b51e0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/DW715_l/SK_DW715_l_Charcoal.SK_DW715_l_Charcoal",
+   "key": "31da3b4e2a58",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/DW715_r/SK_DW715_r_Charcoal.SK_DW715_r_Charcoal",
+   "key": "6839435677d0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/FrostArms/SK_FrostArms_Charcoal.SK_FrostArms_Charcoal",
+   "key": "248417b1fbde",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/FrostSword/SK_FrostSword_Charcoal.SK_FrostSword_Charcoal",
+   "key": "d59883c8cb81",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/LMG201/SK_LMG201_Charcoal.SK_LMG201_Charcoal",
+   "key": "67847d3a4af6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M16/SK_M16_Charcoal.SK_M16_Charcoal",
+   "key": "37b1ef936744",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M1911/SK_M1911_Charcoal.SK_M1911_Charcoal",
+   "key": "97a8c29ebedf",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M1911_l/SK_M1911_l_Charcoal.SK_M1911_l_Charcoal",
+   "key": "b3857264b335",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M1911_r/SK_M1911_r_Charcoal.SK_M1911_r_Charcoal",
+   "key": "9e8802a9f540",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/M4/SK_M4_Charcoal.SK_M4_Charcoal",
+   "key": "b00b7833dd94",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/PKM/SK_PKM_Charcoal.SK_PKM_Charcoal",
+   "key": "9da273d3bd71",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/Pickaxe/SK_Pickaxe_Charcoal.SK_Pickaxe_Charcoal",
+   "key": "945b7fbf3dc7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/QBZ191/SK_QBZ191_Charcoal.SK_QBZ191_Charcoal",
+   "key": "fe9fac0afb4f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/RuneSword/SK_RuneSword_Charcoal.SK_RuneSword_Charcoal",
+   "key": "079d712a27c4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalCameraRepair20260930/SVD/SK_SVD_Charcoal.SK_SVD_Charcoal",
+   "key": "1c705d684b85",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/BodyV4/SK_Body_Charcoal.SK_Body_Charcoal",
+   "key": "e382a5f96b1d",
+   "skin": true,
+   "source_sha256": "5264193a413e0dfa822c6e9f77b7c5c3595faf15efc12f9e33d3eddd017e5e16"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/CharcoalGarmentRepair20260930/TraversalV2/SK_Traversal_Charcoal.SK_Traversal_Charcoal",
+   "key": "f8e454f43957",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/A762/SK_A762_FieldSweater.SK_A762_FieldSweater",
+   "key": "15516c4079be",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/AKM/SK_AKM_FieldSweater.SK_AKM_FieldSweater",
+   "key": "0aa91c8abe36",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/ASH12/SK_ASH12_FieldSweater.SK_ASH12_FieldSweater",
+   "key": "7528f0c99bf3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/Axe/SK_Axe_FieldSweater.SK_Axe_FieldSweater",
+   "key": "15faf8909b32",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/Bow/SK_Bow_FieldSweater.SK_Bow_FieldSweater",
+   "key": "63afa635eae8",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/DW715/SK_DW715_FieldSweater.SK_DW715_FieldSweater",
+   "key": "2842cb35abaf",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/DW715_l/SK_DW715_l_FieldSweater.SK_DW715_l_FieldSweater",
+   "key": "2c0865f173f4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/DW715_r/SK_DW715_r_FieldSweater.SK_DW715_r_FieldSweater",
+   "key": "142c29e60e92",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/FrostArms/SK_FrostArms_FieldSweater.SK_FrostArms_FieldSweater",
+   "key": "a3a04b751903",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/FrostSword/SK_FrostSword_FieldSweater.SK_FrostSword_FieldSweater",
+   "key": "98b0b758c114",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/LMG201/SK_LMG201_FieldSweater.SK_LMG201_FieldSweater",
+   "key": "f6293dc10c07",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/M16/SK_M16_FieldSweater.SK_M16_FieldSweater",
+   "key": "c64aa9bca25d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/M1911/SK_M1911_FieldSweater.SK_M1911_FieldSweater",
+   "key": "1ad7dfe53e81",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/M1911_l/SK_M1911_l_FieldSweater.SK_M1911_l_FieldSweater",
+   "key": "125ee256ad49",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/M1911_r/SK_M1911_r_FieldSweater.SK_M1911_r_FieldSweater",
+   "key": "1c56a7e2b062",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/M4/SK_M4_FieldSweater.SK_M4_FieldSweater",
+   "key": "543f299a5ee6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/PKM/SK_PKM_FieldSweater.SK_PKM_FieldSweater",
+   "key": "6afa7ada7718",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/Pickaxe/SK_Pickaxe_FieldSweater.SK_Pickaxe_FieldSweater",
+   "key": "643023c54272",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/QBZ191/SK_QBZ191_FieldSweater.SK_QBZ191_FieldSweater",
+   "key": "7e5c101a4460",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/RuneSword/SK_RuneSword_FieldSweater.SK_RuneSword_FieldSweater",
+   "key": "4681bda10d7d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/SVD/SK_SVD_FieldSweater.SK_SVD_FieldSweater",
+   "key": "4f3a21e25d27",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterNativeFamily20260930/Traversal/SK_Traversal_FieldSweater.SK_Traversal_FieldSweater",
+   "key": "332117861112",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FieldSweaterSurfaceRepair20260930/Body/SK_Body_FieldSweater.SK_Body_FieldSweater",
+   "key": "853d45688fc9",
+   "skin": true,
+   "source_sha256": "7d47abdfad40d1016becc459a50e61fc65d0b39f7bf682df4f509347afca4aca"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/A762/SK_A762_FingerlessSkin.SK_A762_FingerlessSkin",
+   "key": "3beb36ebceea",
+   "skin": true,
+   "source_sha256": "984431283256dc83e3b8989816516e16b924de957f244d7402caf120c4919348"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/AKM/SK_AKM_FingerlessSkin.SK_AKM_FingerlessSkin",
+   "key": "7fcf0734dfac",
+   "skin": true,
+   "source_sha256": "056428f78cb3980031e72048d98e898ff4e2bf6fecc257c25275048ae11988f0"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/ASH12/SK_ASH12_FingerlessSkin.SK_ASH12_FingerlessSkin",
+   "key": "8d4f5ddbf5c9",
+   "skin": true,
+   "source_sha256": "44199da794b99c07423b5f9c0fb5ec471b8cab1c82809b98e53353666b966991"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/Axe/SK_Axe_FingerlessSkin.SK_Axe_FingerlessSkin",
+   "key": "7205c569dbd0",
+   "skin": true,
+   "source_sha256": "1a8d18057079e115963b78c840bfeed22e041de2a193fdcd957ea42270012866"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/Body/SK_Body_FingerlessSkin.SK_Body_FingerlessSkin",
+   "key": "08fde7a7bfba",
+   "skin": true,
+   "source_sha256": "2c4babbd63e1ebbeb4bb2ba40307e7d5bdefe3685a861c54215bb3c80457d9e3"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/Bow/SK_Bow_FingerlessSkin.SK_Bow_FingerlessSkin",
+   "key": "67dce75fcc12",
+   "skin": true,
+   "source_sha256": "4c057a04bf5c3c37ab77c4c3113edf5f88703572d9d674b330975522f905aa23"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/DW715/SK_DW715_FingerlessSkin.SK_DW715_FingerlessSkin",
+   "key": "ec42fd18789c",
+   "skin": true,
+   "source_sha256": "d3481d63701b8e1a27c977803c5828fe1c5c92adc013abbfc6b0fea86ac5a46c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/DW715_l/SK_DW715_l_FingerlessSkin.SK_DW715_l_FingerlessSkin",
+   "key": "24730838825a",
+   "skin": true,
+   "source_sha256": "86b6dd2243acff6dfa549d82606d947ff5fa3276527d1daa6b6ab36dc4be96e9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/DW715_r/SK_DW715_r_FingerlessSkin.SK_DW715_r_FingerlessSkin",
+   "key": "5bd48a522d1a",
+   "skin": true,
+   "source_sha256": "31c0643479db6c86782f6d382ca13826844cad75693307025dc2cddd7403d4eb"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/FrostArms/SK_FrostArms_FingerlessSkin.SK_FrostArms_FingerlessSkin",
+   "key": "48dea4646fca",
+   "skin": true,
+   "source_sha256": "9eeb4af55c02aca9309f3b68f935d2f6bac3a6cb8208c46fc9e1f3b054b270e1"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/FrostSword/SK_FrostSword_FingerlessSkin.SK_FrostSword_FingerlessSkin",
+   "key": "554e939c7698",
+   "skin": true,
+   "source_sha256": "fdcbbe0b684273c5d5b41c3777d018507f46cf087def83f5d52ca0cae7a9dce9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/M16/SK_M16_FingerlessSkin.SK_M16_FingerlessSkin",
+   "key": "55bf5ff0b5e3",
+   "skin": true,
+   "source_sha256": "c21b7761d901ff3664ccc732688f3766c5dc7d387ad8e99fca7610d5809914d4"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/M1911/SK_M1911_FingerlessSkin.SK_M1911_FingerlessSkin",
+   "key": "5b9ab3bfc944",
+   "skin": true,
+   "source_sha256": "953c6b21520d2dcd6b19d46c37d5eddfecf6729ad12aac639bca783e3253e6df"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/M1911_l/SK_M1911_l_FingerlessSkin.SK_M1911_l_FingerlessSkin",
+   "key": "9c33bb27f0ba",
+   "skin": true,
+   "source_sha256": "8860f5b2bcb087e82b94409c713706f0c511869d756c502464da5d33d186d013"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/M1911_r/SK_M1911_r_FingerlessSkin.SK_M1911_r_FingerlessSkin",
+   "key": "a83be70efef6",
+   "skin": true,
+   "source_sha256": "a9c4d0d6841f54d2d8bfcdb91e89ed92c58141fb1ddfb643c9af33ebc572e995"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/M4/SK_M4_FingerlessSkin.SK_M4_FingerlessSkin",
+   "key": "7c4facb2501b",
+   "skin": true,
+   "source_sha256": "f28cff27f36f3e9a35a3ad8e1b7db2f75e570aa7dea189ae9a603f2cd093bf64"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/PKM/SK_PKM_FingerlessSkin.SK_PKM_FingerlessSkin",
+   "key": "7653a7a8e857",
+   "skin": true,
+   "source_sha256": "f656463bec01e5a94d964f167eaf9fc0b94f06c956d3bd9bb984deae01afa15f"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/Pickaxe/SK_Pickaxe_FingerlessSkin.SK_Pickaxe_FingerlessSkin",
+   "key": "413de5ad8b0c",
+   "skin": true,
+   "source_sha256": "d109f0bb0d7025f5cb587a2040e5ba0c093f6203d57da852f479be1acf0bc8ce"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/QBZ191/SK_QBZ191_FingerlessSkin.SK_QBZ191_FingerlessSkin",
+   "key": "f3b29380d775",
+   "skin": true,
+   "source_sha256": "99432b6fde49d6ae78baa0bdae946c664d134b5a6fb6922870118242a2f97a55"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/RuneSword/SK_RuneSword_FingerlessSkin.SK_RuneSword_FingerlessSkin",
+   "key": "574f1cf70c31",
+   "skin": true,
+   "source_sha256": "15eb80023e8e093cd10ced97d09676bdf382396231cf729935e9faed2aaa0865"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/SVD/SK_SVD_FingerlessSkin.SK_SVD_FingerlessSkin",
+   "key": "8504704856ad",
+   "skin": true,
+   "source_sha256": "6aff7622e8295da75719b0ee0b8b59cf34ae4a806b36fc05f86bd77b71d70ee9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FingerlessHuntV2/Traversal/SK_Traversal_FingerlessSkin.SK_Traversal_FingerlessSkin",
+   "key": "55b55842a403",
+   "skin": true,
+   "source_sha256": "e50eb13bca04315be38a9e8862a50b580da8fff880d1be46d8cd7e613a188a10"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/A762/SK_A762_FittedFieldGlovesV1.SK_A762_FittedFieldGlovesV1",
+   "key": "72ce93c4d818",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/AKM/SK_AKM_FittedFieldGlovesV1.SK_AKM_FittedFieldGlovesV1",
+   "key": "cc2c24f9bf6a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/ASH12/SK_ASH12_FittedFieldGlovesV1.SK_ASH12_FittedFieldGlovesV1",
+   "key": "76078ea9219b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Axe/SK_Axe_FittedFieldGlovesV1.SK_Axe_FittedFieldGlovesV1",
+   "key": "32207334a431",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Body/SK_Body_FittedFieldGlovesV1.SK_Body_FittedFieldGlovesV1",
+   "key": "9ab8d6f66cf2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715/SK_DW715_FittedFieldGlovesV1.SK_DW715_FittedFieldGlovesV1",
+   "key": "319fbf2958f9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715_l/SK_DW715_l_FittedFieldGlovesV1.SK_DW715_l_FittedFieldGlovesV1",
+   "key": "22fbc2c45a9f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/DW715_r/SK_DW715_r_FittedFieldGlovesV1.SK_DW715_r_FittedFieldGlovesV1",
+   "key": "3bb1470ab440",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/FrostArms/SK_FrostArms_FittedFieldGlovesV1.SK_FrostArms_FittedFieldGlovesV1",
+   "key": "d2968e586ed5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/FrostSword/SK_FrostSword_FittedFieldGlovesV1.SK_FrostSword_FittedFieldGlovesV1",
+   "key": "c88ade5a7a65",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M16/SK_M16_FittedFieldGlovesV1.SK_M16_FittedFieldGlovesV1",
+   "key": "19a74bfd4bd0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911/SK_M1911_FittedFieldGlovesV1.SK_M1911_FittedFieldGlovesV1",
+   "key": "5f9bcda926c3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_l/SK_M1911_l_FittedFieldGlovesV1.SK_M1911_l_FittedFieldGlovesV1",
+   "key": "c6900be0780f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M1911_r/SK_M1911_r_FittedFieldGlovesV1.SK_M1911_r_FittedFieldGlovesV1",
+   "key": "8581eb616d4e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/M4/SK_M4_FittedFieldGlovesV1.SK_M4_FittedFieldGlovesV1",
+   "key": "13f96280a39a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/PKM/SK_PKM_FittedFieldGlovesV1.SK_PKM_FittedFieldGlovesV1",
+   "key": "46734a91d803",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Pickaxe/SK_Pickaxe_FittedFieldGlovesV1.SK_Pickaxe_FittedFieldGlovesV1",
+   "key": "4ab2fd7e4f44",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/QBZ191/SK_QBZ191_FittedFieldGlovesV1.SK_QBZ191_FittedFieldGlovesV1",
+   "key": "65328ecd359f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/RuneSword/SK_RuneSword_FittedFieldGlovesV1.SK_RuneSword_FittedFieldGlovesV1",
+   "key": "79f82760dbc1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/SVD/SK_SVD_FittedFieldGlovesV1.SK_SVD_FittedFieldGlovesV1",
+   "key": "b5944dc79228",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedFieldGlovesV1/Traversal/SK_Traversal_FittedFieldGlovesV1.SK_Traversal_FittedFieldGlovesV1",
+   "key": "303722840bf8",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/A762/SK_A762_FittedSleevesV1.SK_A762_FittedSleevesV1",
+   "key": "0525461440c0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/AKM/SK_AKM_FittedSleevesV1.SK_AKM_FittedSleevesV1",
+   "key": "5cdf67c776d7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/ASH12/SK_ASH12_FittedSleevesV1.SK_ASH12_FittedSleevesV1",
+   "key": "d4b180de722e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Axe/SK_Axe_FittedSleevesV1.SK_Axe_FittedSleevesV1",
+   "key": "468a46c820c0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715/SK_DW715_FittedSleevesV1.SK_DW715_FittedSleevesV1",
+   "key": "0831ddb81cb6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715_l/SK_DW715_l_FittedSleevesV1.SK_DW715_l_FittedSleevesV1",
+   "key": "248fe8d0f89b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/DW715_r/SK_DW715_r_FittedSleevesV1.SK_DW715_r_FittedSleevesV1",
+   "key": "7fa848bb58c5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/FrostArms/SK_FrostArms_FittedSleevesV1.SK_FrostArms_FittedSleevesV1",
+   "key": "bb6ab35613a6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/FrostSword/SK_FrostSword_FittedSleevesV1.SK_FrostSword_FittedSleevesV1",
+   "key": "28572853d92b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M16/SK_M16_FittedSleevesV1.SK_M16_FittedSleevesV1",
+   "key": "3123d2651224",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911/SK_M1911_FittedSleevesV1.SK_M1911_FittedSleevesV1",
+   "key": "0ec33d2a1250",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_l/SK_M1911_l_FittedSleevesV1.SK_M1911_l_FittedSleevesV1",
+   "key": "21cdd376ee78",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M1911_r/SK_M1911_r_FittedSleevesV1.SK_M1911_r_FittedSleevesV1",
+   "key": "f33155e638b9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/M4/SK_M4_FittedSleevesV1.SK_M4_FittedSleevesV1",
+   "key": "1e29a2388651",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/PKM/SK_PKM_FittedSleevesV1.SK_PKM_FittedSleevesV1",
+   "key": "c395062be16c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Pickaxe/SK_Pickaxe_FittedSleevesV1.SK_Pickaxe_FittedSleevesV1",
+   "key": "a00e14ddfc44",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/QBZ191/SK_QBZ191_FittedSleevesV1.SK_QBZ191_FittedSleevesV1",
+   "key": "9a39da5750a6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/RuneSword/SK_RuneSword_FittedSleevesV1.SK_RuneSword_FittedSleevesV1",
+   "key": "7e6c6c481b99",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/SVD/SK_SVD_FittedSleevesV1.SK_SVD_FittedSleevesV1",
+   "key": "a25ddd8995c7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/FittedSleevesV1/Traversal/SK_Traversal_FittedSleevesV1.SK_Traversal_FittedSleevesV1",
+   "key": "61b98ed5d3f6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/A762/SK_A762_Fingerless_Detail.SK_A762_Fingerless_Detail",
+   "key": "d70e4df22c1f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/A762/SK_A762_Fingerless_Detail_Skin.SK_A762_Fingerless_Detail_Skin",
+   "key": "3d1686d77723",
+   "skin": true,
+   "source_sha256": "79776e37d06e48e96f98e16d8b411966cdb983d94ca9b02c317bff418b21cf59"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/AKM/SK_AKM_Fingerless_Detail.SK_AKM_Fingerless_Detail",
+   "key": "4a6e02b18e23",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/AKM/SK_AKM_Fingerless_Detail_Skin.SK_AKM_Fingerless_Detail_Skin",
+   "key": "03e96f2f55f1",
+   "skin": true,
+   "source_sha256": "202ac8980b383d98dcc242473a2e9121220917e18bed2314392fecc7f871f541"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/ASH12/SK_ASH12_Fingerless_Detail.SK_ASH12_Fingerless_Detail",
+   "key": "bb32e4cca259",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/ASH12/SK_ASH12_Fingerless_Detail_Skin.SK_ASH12_Fingerless_Detail_Skin",
+   "key": "38773f0fab60",
+   "skin": true,
+   "source_sha256": "9d50785e0cff52152ac5ca8e317be501afafe4d0b504ee722ef259b4acb98854"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Axe/SK_Axe_Fingerless_Detail.SK_Axe_Fingerless_Detail",
+   "key": "a2746ffaab58",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Axe/SK_Axe_Fingerless_Detail_Skin.SK_Axe_Fingerless_Detail_Skin",
+   "key": "5e7efbe03496",
+   "skin": true,
+   "source_sha256": "2f51e928f2d3e65eacff83b5f2a7aaf22d1f4867854b9b5a1cb01aaa4aa07298"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Body/SK_Body_Fingerless_Detail.SK_Body_Fingerless_Detail",
+   "key": "e925aef89689",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Body/SK_Body_Fingerless_Detail_Skin.SK_Body_Fingerless_Detail_Skin",
+   "key": "3c56f6da6f68",
+   "skin": true,
+   "source_sha256": "768d302e42a5a2c518a431ac801e344241ab85cbe8979e16e03952f0da9db41c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Bow/SK_Bow_Fingerless_Detail.SK_Bow_Fingerless_Detail",
+   "key": "0188a192a9a0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Bow/SK_Bow_Fingerless_Detail_Skin.SK_Bow_Fingerless_Detail_Skin",
+   "key": "0415b2279ccf",
+   "skin": true,
+   "source_sha256": "25b3afdaa2dee3f9cb9af7ec38b3f2e21ae64c828552c0d1ec42bc99405e1ab6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/DW715/SK_DW715_Fingerless_Detail.SK_DW715_Fingerless_Detail",
+   "key": "d6ac46d7e876",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/DW715/SK_DW715_Fingerless_Detail_Skin.SK_DW715_Fingerless_Detail_Skin",
+   "key": "25c4b0fe44a6",
+   "skin": true,
+   "source_sha256": "f8254a022fde0ab9f1bc031080a705b0ca21575aec46aa5273f88f8d4dfa5157"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/DW715_l/SK_DW715_l_Fingerless_Detail.SK_DW715_l_Fingerless_Detail",
+   "key": "397558171cb3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/DW715_l/SK_DW715_l_Fingerless_Detail_Skin.SK_DW715_l_Fingerless_Detail_Skin",
+   "key": "c5cfb5efd393",
+   "skin": true,
+   "source_sha256": "c76752ddbcd96c3dd1868108056c3fce5eccbfbdd2c3a3818024aee0f9957f9b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/DW715_r/SK_DW715_r_Fingerless_Detail.SK_DW715_r_Fingerless_Detail",
+   "key": "8312370d92e1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/DW715_r/SK_DW715_r_Fingerless_Detail_Skin.SK_DW715_r_Fingerless_Detail_Skin",
+   "key": "5d3549a707f7",
+   "skin": true,
+   "source_sha256": "ae181aa0e2b91eed51246922e77a80493fc3b7887b49f454eb3c37816e6aa306"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/FrostArms/SK_FrostArms_Fingerless_Detail.SK_FrostArms_Fingerless_Detail",
+   "key": "c4cd2ee447da",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/FrostArms/SK_FrostArms_Fingerless_Detail_Skin.SK_FrostArms_Fingerless_Detail_Skin",
+   "key": "ad9cd60d8696",
+   "skin": true,
+   "source_sha256": "1e3d104e1bb285ac3e346cebdc7c90963b744abce44adc08fe7b9722fd5597a2"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/FrostSword/SK_FrostSword_Fingerless_Detail.SK_FrostSword_Fingerless_Detail",
+   "key": "bff7baf34ad4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/FrostSword/SK_FrostSword_Fingerless_Detail_Skin.SK_FrostSword_Fingerless_Detail_Skin",
+   "key": "f64898909aa8",
+   "skin": true,
+   "source_sha256": "19967bfc6cfec0ed54eccf9ed405987f7173b7450e8d3d9c302078ba08ebe042"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M16/SK_M16_Fingerless_Detail.SK_M16_Fingerless_Detail",
+   "key": "ca1c0dc80680",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M16/SK_M16_Fingerless_Detail_Skin.SK_M16_Fingerless_Detail_Skin",
+   "key": "f2143f72d36e",
+   "skin": true,
+   "source_sha256": "4b6043eca9f53d896cce129de66da15145909f5a8cd3cd29f75f2f37d241d768"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911/SK_M1911_Fingerless_Detail.SK_M1911_Fingerless_Detail",
+   "key": "b6c9c6912372",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911/SK_M1911_Fingerless_Detail_Skin.SK_M1911_Fingerless_Detail_Skin",
+   "key": "510646bc9f24",
+   "skin": true,
+   "source_sha256": "65cc63fa265b05176bd595bc5649a98ade9be89d7ae30810978b1a8ec99bcbd1"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911_l/SK_M1911_l_Fingerless_Detail.SK_M1911_l_Fingerless_Detail",
+   "key": "e61c1c9efad7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911_l/SK_M1911_l_Fingerless_Detail_Skin.SK_M1911_l_Fingerless_Detail_Skin",
+   "key": "7c5c25794d02",
+   "skin": true,
+   "source_sha256": "cf25170d62858b26954e4049236c3594d5ec0881a16594ebd60d5f83dcd46492"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911_r/SK_M1911_r_Fingerless_Detail.SK_M1911_r_Fingerless_Detail",
+   "key": "9fbce45ed62b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M1911_r/SK_M1911_r_Fingerless_Detail_Skin.SK_M1911_r_Fingerless_Detail_Skin",
+   "key": "cf84abe7b892",
+   "skin": true,
+   "source_sha256": "971b80d0cdc9195a222cb62e347ef8995c861ee7dc1c781b5c89fe1a44d8b433"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M4/SK_M4_Fingerless_Detail.SK_M4_Fingerless_Detail",
+   "key": "cae41f73a8a0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/M4/SK_M4_Fingerless_Detail_Skin.SK_M4_Fingerless_Detail_Skin",
+   "key": "f9b98bf2f1c9",
+   "skin": true,
+   "source_sha256": "a486a78ba752c66d8e2e3f01d7d2581b5359a1a2f84c09a80255fae3f0d0b66e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/PKM/SK_PKM_Fingerless_Detail.SK_PKM_Fingerless_Detail",
+   "key": "80ffb43dc985",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/PKM/SK_PKM_Fingerless_Detail_Skin.SK_PKM_Fingerless_Detail_Skin",
+   "key": "837b429df5b7",
+   "skin": true,
+   "source_sha256": "a64fd1417d34ced5d4e44011add63107a243953bf20d633b488f43e0f532037e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Pickaxe/SK_Pickaxe_Fingerless_Detail.SK_Pickaxe_Fingerless_Detail",
+   "key": "24c2e2f22d2c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Pickaxe/SK_Pickaxe_Fingerless_Detail_Skin.SK_Pickaxe_Fingerless_Detail_Skin",
+   "key": "971d24474089",
+   "skin": true,
+   "source_sha256": "1d11da432ccaf4d8f5007cd527969b1271856e9b2564b99888a30e5048ac6b63"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/QBZ191/SK_QBZ191_Fingerless_Detail.SK_QBZ191_Fingerless_Detail",
+   "key": "f42c1aeb9c7e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/QBZ191/SK_QBZ191_Fingerless_Detail_Skin.SK_QBZ191_Fingerless_Detail_Skin",
+   "key": "7af9adcde352",
+   "skin": true,
+   "source_sha256": "4628c91300644b39f0e5e3735141dd8a4449965810ce6ca1e5d2c9508f1b982d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/RuneSword/SK_RuneSword_Fingerless_Detail.SK_RuneSword_Fingerless_Detail",
+   "key": "d0e684db508f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/RuneSword/SK_RuneSword_Fingerless_Detail_Skin.SK_RuneSword_Fingerless_Detail_Skin",
+   "key": "59262f41d4d3",
+   "skin": true,
+   "source_sha256": "e5b84c62806056802cafbf55012eff47e6c66d19898e247b9cdc0b193cedbb76"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/SVD/SK_SVD_Fingerless_Detail.SK_SVD_Fingerless_Detail",
+   "key": "934b5d14ef84",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/SVD/SK_SVD_Fingerless_Detail_Skin.SK_SVD_Fingerless_Detail_Skin",
+   "key": "d3e7201aeddb",
+   "skin": true,
+   "source_sha256": "6a11437a4d36722bf4790d9143fbbb619ce06c63e19ad0ed6b60fe263852c71c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Traversal/SK_Traversal_Fingerless_Detail.SK_Traversal_Fingerless_Detail",
+   "key": "47174a9eb3a5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Traversal/SK_Traversal_Fingerless_Detail_Skin.SK_Traversal_Fingerless_Detail_Skin",
+   "key": "2205c2e21c42",
+   "skin": true,
+   "source_sha256": "797ffd49da42736e66b528afe18e9a9dfe98e55aae4546cf97fb1385ade79e6b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/A762/SK_A762_Steel_Detail.SK_A762_Steel_Detail",
+   "key": "8552acd39855",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/AKM/SK_AKM_Steel_Detail.SK_AKM_Steel_Detail",
+   "key": "8253f2c73bd8",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/ASH12/SK_ASH12_Steel_Detail.SK_ASH12_Steel_Detail",
+   "key": "745a69f0a508",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Axe/SK_Axe_Steel_Detail.SK_Axe_Steel_Detail",
+   "key": "ca3aa006c2b7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Body/SK_Body_Steel_Detail.SK_Body_Steel_Detail",
+   "key": "b0622dfbea37",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Bow/SK_Bow_Steel_Detail.SK_Bow_Steel_Detail",
+   "key": "8e488ea64c16",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/DW715/SK_DW715_Steel_Detail.SK_DW715_Steel_Detail",
+   "key": "3ee32f5856db",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/DW715_l/SK_DW715_l_Steel_Detail.SK_DW715_l_Steel_Detail",
+   "key": "18c5fe9466e1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/DW715_r/SK_DW715_r_Steel_Detail.SK_DW715_r_Steel_Detail",
+   "key": "6ebbe3578dec",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/FrostArms/SK_FrostArms_Steel_Detail.SK_FrostArms_Steel_Detail",
+   "key": "af98918e3455",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/FrostSword/SK_FrostSword_Steel_Detail.SK_FrostSword_Steel_Detail",
+   "key": "45408ebbb97a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M16/SK_M16_Steel_Detail.SK_M16_Steel_Detail",
+   "key": "7a6f38d2b078",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M1911/SK_M1911_Steel_Detail.SK_M1911_Steel_Detail",
+   "key": "9d88b990c938",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M1911_l/SK_M1911_l_Steel_Detail.SK_M1911_l_Steel_Detail",
+   "key": "5d5ee5cb6cca",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M1911_r/SK_M1911_r_Steel_Detail.SK_M1911_r_Steel_Detail",
+   "key": "c0db1dd57a4a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/M4/SK_M4_Steel_Detail.SK_M4_Steel_Detail",
+   "key": "b4e85722f77a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/PKM/SK_PKM_Steel_Detail.SK_PKM_Steel_Detail",
+   "key": "b2d6e88afab4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Pickaxe/SK_Pickaxe_Steel_Detail.SK_Pickaxe_Steel_Detail",
+   "key": "30fed5c8101c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/QBZ191/SK_QBZ191_Steel_Detail.SK_QBZ191_Steel_Detail",
+   "key": "1f52dcf33496",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/RuneSword/SK_RuneSword_Steel_Detail.SK_RuneSword_Steel_Detail",
+   "key": "2c715602ded3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/SVD/SK_SVD_Steel_Detail.SK_SVD_Steel_Detail",
+   "key": "798ba659d63a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Steel/Traversal/SK_Traversal_Steel_Detail.SK_Traversal_Steel_Detail",
+   "key": "b3955e9f12fa",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/A762/SK_A762_Tactical_Detail.SK_A762_Tactical_Detail",
+   "key": "2dac928a1694",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/AKM/SK_AKM_Tactical_Detail.SK_AKM_Tactical_Detail",
+   "key": "d7afd832f846",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/ASH12/SK_ASH12_Tactical_Detail.SK_ASH12_Tactical_Detail",
+   "key": "79a375af7379",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Axe/SK_Axe_Tactical_Detail.SK_Axe_Tactical_Detail",
+   "key": "953e33de8b7b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Body/SK_Body_Tactical_Detail.SK_Body_Tactical_Detail",
+   "key": "bb384fe87b6f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Bow/SK_Bow_Tactical_Detail.SK_Bow_Tactical_Detail",
+   "key": "b637484e22b6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/DW715/SK_DW715_Tactical_Detail.SK_DW715_Tactical_Detail",
+   "key": "a60be362324f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/DW715_l/SK_DW715_l_Tactical_Detail.SK_DW715_l_Tactical_Detail",
+   "key": "eb60988b4f4e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/DW715_r/SK_DW715_r_Tactical_Detail.SK_DW715_r_Tactical_Detail",
+   "key": "6ee293540751",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/FrostArms/SK_FrostArms_Tactical_Detail.SK_FrostArms_Tactical_Detail",
+   "key": "9341a356274d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/FrostSword/SK_FrostSword_Tactical_Detail.SK_FrostSword_Tactical_Detail",
+   "key": "0b724ed02ed3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M16/SK_M16_Tactical_Detail.SK_M16_Tactical_Detail",
+   "key": "2286269f2667",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M1911/SK_M1911_Tactical_Detail.SK_M1911_Tactical_Detail",
+   "key": "c3e12b7481ba",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M1911_l/SK_M1911_l_Tactical_Detail.SK_M1911_l_Tactical_Detail",
+   "key": "dac68251b8c1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M1911_r/SK_M1911_r_Tactical_Detail.SK_M1911_r_Tactical_Detail",
+   "key": "f8c13b8c6679",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/M4/SK_M4_Tactical_Detail.SK_M4_Tactical_Detail",
+   "key": "86fd9eef12e6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/PKM/SK_PKM_Tactical_Detail.SK_PKM_Tactical_Detail",
+   "key": "4f7fd77f8562",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Pickaxe/SK_Pickaxe_Tactical_Detail.SK_Pickaxe_Tactical_Detail",
+   "key": "d620c868535d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/QBZ191/SK_QBZ191_Tactical_Detail.SK_QBZ191_Tactical_Detail",
+   "key": "0b3edb2be6be",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/RuneSword/SK_RuneSword_Tactical_Detail.SK_RuneSword_Tactical_Detail",
+   "key": "34b03307886b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/SVD/SK_SVD_Tactical_Detail.SK_SVD_Tactical_Detail",
+   "key": "ff4d661b0b58",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Traversal/SK_Traversal_Tactical_Detail.SK_Traversal_Tactical_Detail",
+   "key": "f74237daa6c7",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Base.SK_Jason_Base",
+   "key": "0a4f4c29b3b9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_chainmail_shirt.SK_Jason_ue_chainmail_shirt",
+   "key": "feeb867ea43a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_gloves",
+   "key": "87570f9f58e5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_gloves_black.SK_Jason_ue_field_gloves_black",
+   "key": "00b29a6dbec8",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
+   "key": "a9085d25fd97",
+   "skin": true,
+   "source_sha256": "eff0e35da26ed692c84b22ebb06f7565090544547770201e55e88c680c0cd796"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoal",
+   "key": "547df9425c39",
+   "skin": true,
+   "source_sha256": "c1f95bf034c8d4624c21d92f8a2cc6624ce31e94980468533c11479fe24ae111"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_original_gloves.SK_Jason_ue_original_gloves",
+   "key": "b5e93eda41f5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base.SK_Jason_Base",
+   "key": "96731c2e9eaa",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_gloves.SK_Jason_ue_field_gloves",
+   "key": "8ba38d60f18b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
+   "key": "17ef87f6c6c4",
+   "skin": true,
+   "source_sha256": "a8d40ae8f9dbc5f8fc95356d95cc03daff696dfb10179ecb757eb12cb95c39e6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_ue_field_sweater_charcoal.SK_Jason_ue_field_sweater_charcoal",
+   "key": "a8d29f641271",
+   "skin": true,
+   "source_sha256": "65a0dac6df4a6f598b7a968c69062fd003706aaf5f02caacb3645fa24f728ec3"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/StaffSurfaceRepair20261009/SK_Jason_SteelGauntlets.SK_Jason_SteelGauntlets",
+   "key": "28b061a0204e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Cargo.SK_Jason_Cargo",
+   "key": "fdddd5fa466b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Jeans.SK_Jason_Jeans",
+   "key": "03468f5fb866",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Sneakers.SK_Jason_Sneakers",
+   "key": "e8c3102a3cab",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_A762_NativeBareSkin.SK_A762_NativeBareSkin",
+   "key": "2db0c96278a8",
+   "skin": true,
+   "source_sha256": "115273ae2bde0ea9220770e1d966c9f7258c43dc1f344bfc14eb422339b5111c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_AKM_NativeBareSkin.SK_AKM_NativeBareSkin",
+   "key": "64d1b5aae5bb",
+   "skin": true,
+   "source_sha256": "f7285a8a8aa4fdece3036dc56a673ecb8e307883ce4310564d368decb428920d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_ASH12_NativeBareSkin.SK_ASH12_NativeBareSkin",
+   "key": "483b7aaf5018",
+   "skin": true,
+   "source_sha256": "63c9a42df82c4b04198678a8a536447d478c5f7cc13abd35e8bd36f51e0279af"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_Axe_NativeBareSkin.SK_Axe_NativeBareSkin",
+   "key": "bf3223981225",
+   "skin": true,
+   "source_sha256": "c5cfeba60a16b989224d3d48e3d44fe399847ec98c3126b05f7551310bf27140"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_Body_NativeBareSkin.SK_Body_NativeBareSkin",
+   "key": "ed59114aed2b",
+   "skin": true,
+   "source_sha256": "0b23c88230836f7c4e5558ac90b5ffe17a858db9f147724d6acd276526345020"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_DW715_NativeBareSkin.SK_DW715_NativeBareSkin",
+   "key": "9413caf37a50",
+   "skin": true,
+   "source_sha256": "7c06de3ba2186e734b7e677e82e13e5f28842fe3bc28ff7465027643f12eb632"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_DW715_l_NativeBareSkin.SK_DW715_l_NativeBareSkin",
+   "key": "2b6f134f822c",
+   "skin": true,
+   "source_sha256": "f590fa4404b857456d07bff1502a241228f1d06511ca6805d98c0024804d2794"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_DW715_r_NativeBareSkin.SK_DW715_r_NativeBareSkin",
+   "key": "86ff54e8bea3",
+   "skin": true,
+   "source_sha256": "c7543599c98fa6c753aa5842505d64b66fe43e967277f07be0281b43540c3a61"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_FrostArms_NativeBareSkin.SK_FrostArms_NativeBareSkin",
+   "key": "a2bf69036e79",
+   "skin": true,
+   "source_sha256": "6fdcdb2a83c2f8f47894b8482a0130d46e1654e2d33d8d048a9da92f012a5e8d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_FrostSword_NativeBareSkin.SK_FrostSword_NativeBareSkin",
+   "key": "f53c8ded68ac",
+   "skin": true,
+   "source_sha256": "2b33272dca96cf2f54ed77dc06460f8dbfc5ee4919d4ce932314568737c26af6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_M16_NativeBareSkin.SK_M16_NativeBareSkin",
+   "key": "44c22df1cdde",
+   "skin": true,
+   "source_sha256": "90857b1b09966332d0f5212f850b42707986c35e938c0c856244062ecf11e6c0"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_M1911_NativeBareSkin.SK_M1911_NativeBareSkin",
+   "key": "f0a7fa4191e4",
+   "skin": true,
+   "source_sha256": "36d9a966f6d8225c178b37915ce9736e13f699c28bd5150279d880f60435e570"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_M1911_l_NativeBareSkin.SK_M1911_l_NativeBareSkin",
+   "key": "36e606cf4bac",
+   "skin": true,
+   "source_sha256": "6dff6c281da8a80810d9c0de772465b149cdbc9badbd88d4ae38df74d3c090e2"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_M1911_r_NativeBareSkin.SK_M1911_r_NativeBareSkin",
+   "key": "3a5dee0adec8",
+   "skin": true,
+   "source_sha256": "44cebd6cd03a890ac246c1c41255905dd30a4268ee044d3a48974cc8d70a755e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_M4_NativeBareSkin.SK_M4_NativeBareSkin",
+   "key": "199056b560d6",
+   "skin": true,
+   "source_sha256": "e43d8779f7801ca12970e3568368e0e9ef784127e03f2dc0279cf294a1caab5f"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_PKM_NativeBareSkin.SK_PKM_NativeBareSkin",
+   "key": "12987ec3ff86",
+   "skin": true,
+   "source_sha256": "e2581dcee68f4f75e5ca783803010ffa5382c53ee3bf1de3af477eae4c7d8c74"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_Pickaxe_NativeBareSkin.SK_Pickaxe_NativeBareSkin",
+   "key": "5199ee081c52",
+   "skin": true,
+   "source_sha256": "cf4c12c594b67a3571582df36b2b96608587aa43b67c732e3c70cc26465335e4"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_QBZ191_NativeBareSkin.SK_QBZ191_NativeBareSkin",
+   "key": "8759695f4015",
+   "skin": true,
+   "source_sha256": "a5b197815390de1a59908e0d7e99066c4065ea0452a5ff021bc7746aaba75a8d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_RuneSword_NativeBareSkin.SK_RuneSword_NativeBareSkin",
+   "key": "22d29852ad72",
+   "skin": true,
+   "source_sha256": "415f6de3f890c257c71e098a4ea112ab5b41ff5b6594f18e922b2877f3fd18b1"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_SVD_NativeBareSkin.SK_SVD_NativeBareSkin",
+   "key": "988d294a389f",
+   "skin": true,
+   "source_sha256": "1eee65df882620b1bf8b015ab15d1769c0ee8a6275381bf9b55d77b38693fae2"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_Traversal_NativeBareSkin.SK_Traversal_NativeBareSkin",
+   "key": "8aa95d3ec9e1",
+   "skin": true,
+   "source_sha256": "10d5f388c4ddea166dd8a1287b2c6fda6dde80762097a9df9203b2b24b6d840d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_chainmail_shirt.SK_Jason_Owner_ue_chainmail_shirt",
+   "key": "0913c3ed35a5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_field_sweater.SK_Jason_Owner_ue_field_sweater",
+   "key": "dc8b45d1c674",
+   "skin": true,
+   "source_sha256": "5627b7af874641d704684e392fc54af51ed3bb692a5710edd43f496025d085a6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_field_sweater_charcoal.SK_Jason_Owner_ue_field_sweater_charcoal",
+   "key": "cf220f49544c",
+   "skin": true,
+   "source_sha256": "af636e42aa5086c5621f5f31c3898c7fe9c760f2b2a5527e691f395287409508"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_st6_sleeves.SK_Jason_Owner_ue_st6_sleeves",
+   "key": "79b91f3a20b0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/A762/SK_A762_Base.SK_A762_Base",
+   "key": "064a57be3124",
+   "skin": true,
+   "source_sha256": "8b078f84f309714f1057efe25ba0424b33880aea2a3038ee567b22b5e2620241"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/AKM/SK_AKM_Base.SK_AKM_Base",
+   "key": "bc23506bdfa8",
+   "skin": true,
+   "source_sha256": "326466075fc47afd74e818e641d3557094125c37c59205076a2019c406407d2d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/ASH12/SK_ASH12_Base.SK_ASH12_Base",
+   "key": "3010783a6323",
+   "skin": true,
+   "source_sha256": "75f305574f0659ab88e953add7012fdb6f8e6f2eecdbfe49a20bfef079a9c0d4"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/Axe/SK_Axe_Base.SK_Axe_Base",
+   "key": "201062f35175",
+   "skin": true,
+   "source_sha256": "d171fad3fcfe07a8de48401dc8abd261cdd7d8f7434e37c2ee7a73622ca9e366"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/Body/SK_Body_Base.SK_Body_Base",
+   "key": "3ec74e191840",
+   "skin": true,
+   "source_sha256": "a71d21557b4a1e111b142c10314c1690560e49e1c091c717152b9efdeb29a14c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/Body/SK_Body_Shirt.SK_Body_Shirt",
+   "key": "a0fbcab1936d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/DW715/SK_DW715_Base.SK_DW715_Base",
+   "key": "fd10bbad539d",
+   "skin": true,
+   "source_sha256": "e3916a77c03e12e7106e7ad0a4fdaeb50d33b37898e4c5070090c18bbfee6738"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/DW715_l/SK_DW715_l_Base.SK_DW715_l_Base",
+   "key": "6c2beae011b9",
+   "skin": true,
+   "source_sha256": "c2d4bf2f88dc916b036296de1b6bf63cd6c8b56462eae47712f9a3671b6bc0e0"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/DW715_r/SK_DW715_r_Base.SK_DW715_r_Base",
+   "key": "948ae63ab953",
+   "skin": true,
+   "source_sha256": "39329a68b3d1423e893e80a654956409e8725c05ba0605e2062146d767136a8f"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/FrostArms/SK_FrostArms_Base.SK_FrostArms_Base",
+   "key": "0d2557c4f978",
+   "skin": true,
+   "source_sha256": "173d56b16e9308e28b5c4e6bf8fdab8b60bc776cdba2dbe672d3c2462cb5bc61"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/FrostSword/SK_FrostSword_Base.SK_FrostSword_Base",
+   "key": "88b4177d50b3",
+   "skin": true,
+   "source_sha256": "88b07d27ba4fc6fbda39f298c9e7ee39ee91200945895c6212cbd3317794c13c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/M16/SK_M16_Base.SK_M16_Base",
+   "key": "24f4ee73de93",
+   "skin": true,
+   "source_sha256": "a87a1651bca9e24d169ebfc26b1ea22d7e2da8ab61a915c335a96945393fd062"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/M1911/SK_M1911_Base.SK_M1911_Base",
+   "key": "a3a9b38bd4ab",
+   "skin": true,
+   "source_sha256": "74768e4f6f8bea96c2e925a2488ca6772d22e777992d0b75712cea49b8cbb4b6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/M1911_l/SK_M1911_l_Base.SK_M1911_l_Base",
+   "key": "f3328696e351",
+   "skin": true,
+   "source_sha256": "49aa8f9e7812475550fd34d9f4d9b7dd20c0e28f8cec1d236afe42fe1c8e2b8d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/M1911_r/SK_M1911_r_Base.SK_M1911_r_Base",
+   "key": "a607480f1667",
+   "skin": true,
+   "source_sha256": "f1dbd6e7d9f04a1acb4864b7e204768a6ffd7156465ded1f3ff649dd012cfa15"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/M4/SK_M4_Base.SK_M4_Base",
+   "key": "a1a30de541bf",
+   "skin": true,
+   "source_sha256": "8e184cb2fdf709a59a78493f823f709a8497222531ce6cfd33c7491b550eac63"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/PKM/SK_PKM_Base.SK_PKM_Base",
+   "key": "f9d108f5a058",
+   "skin": true,
+   "source_sha256": "0f7a18bb40a67c65e4fbc6638283e5688a9c642959402654402b458a1e72936a"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/Pickaxe/SK_Pickaxe_Base.SK_Pickaxe_Base",
+   "key": "ff4e7eb0edeb",
+   "skin": true,
+   "source_sha256": "a76b1cbe715ab7562d00686675b0d624a72ba90b22ffd6e047e3bbde09d3ca59"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/QBZ191/SK_QBZ191_Base.SK_QBZ191_Base",
+   "key": "9cf8a2ef04a5",
+   "skin": true,
+   "source_sha256": "9c3bd864ffee65c194f16e920b8a223702cc45a8e7b73e0566f0cd85e4825e65"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/RuneSword/SK_RuneSword_Base.SK_RuneSword_Base",
+   "key": "1b0a9b250934",
+   "skin": true,
+   "source_sha256": "a89c18fdf4d186d05c82497ae0c653bc3280d252cef5e5d40c0618e03c9eb057"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/SVD/SK_SVD_Base.SK_SVD_Base",
+   "key": "4f90079cabeb",
+   "skin": true,
+   "source_sha256": "02f1356399b537fc05cc452dfe5611e2c7aa0badd02c3b195ee51c7077d74a31"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Profiles/Traversal/SK_Traversal_Base.SK_Traversal_Base",
+   "key": "f7a9457b2978",
+   "skin": true,
+   "source_sha256": "301603e7c6584df885d272e244a416ea87408eb4515743267880798be3f836a9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri.SK_Jason_SmokeGreyCapri",
+   "key": "2ec5d476eff2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/SmokeGreyCapri20261004/SK_Jason_SmokeGreyCapri_HighBootsFit.SK_Jason_SmokeGreyCapri_HighBootsFit",
+   "key": "4f070f89ae81",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_hardknuckle_gloves.SK_A762_ue_hardknuckle_gloves",
+   "key": "bf8abb19166a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/A762/SK_A762_ue_st6_sleeves.SK_A762_ue_st6_sleeves",
+   "key": "72f655d27530",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_hardknuckle_gloves.SK_AKM_ue_hardknuckle_gloves",
+   "key": "176ef86e8370",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/AKM/SK_AKM_ue_st6_sleeves.SK_AKM_ue_st6_sleeves",
+   "key": "e8b0776c91c0",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_hardknuckle_gloves.SK_ASH12_ue_hardknuckle_gloves",
+   "key": "732188713a96",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ASH12/SK_ASH12_ue_st6_sleeves.SK_ASH12_ue_st6_sleeves",
+   "key": "7d665acf23d3",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_hardknuckle_gloves.SK_Axe_ue_hardknuckle_gloves",
+   "key": "b270ec551e41",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Axe/SK_Axe_ue_st6_sleeves.SK_Axe_ue_st6_sleeves",
+   "key": "1d661d2c5485",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_hardknuckle_gloves.SK_Body_ue_hardknuckle_gloves",
+   "key": "f6b2b6d88f70",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Body/SK_Body_ue_st6_sleeves.SK_Body_ue_st6_sleeves",
+   "key": "18524bc31be1",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_hardknuckle_gloves.SK_Bow_ue_hardknuckle_gloves",
+   "key": "0acdf41df73e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Bow/SK_Bow_ue_st6_sleeves.SK_Bow_ue_st6_sleeves",
+   "key": "b861d6180fe2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_hardknuckle_gloves.SK_DW715_ue_hardknuckle_gloves",
+   "key": "24e5aae7b930",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715/SK_DW715_ue_st6_sleeves.SK_DW715_ue_st6_sleeves",
+   "key": "e7aff68c511c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_hardknuckle_gloves.SK_DW715_l_ue_hardknuckle_gloves",
+   "key": "4f1dfc80d0f5",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_l/SK_DW715_l_ue_st6_sleeves.SK_DW715_l_ue_st6_sleeves",
+   "key": "4457e7e19a3b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_hardknuckle_gloves.SK_DW715_r_ue_hardknuckle_gloves",
+   "key": "2de5a74177c8",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/DW715_r/SK_DW715_r_ue_st6_sleeves.SK_DW715_r_ue_st6_sleeves",
+   "key": "3eb8659e4458",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_hardknuckle_gloves.SK_FrostArms_ue_hardknuckle_gloves",
+   "key": "6f065f84b719",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostArms/SK_FrostArms_ue_st6_sleeves.SK_FrostArms_ue_st6_sleeves",
+   "key": "1ab5d2efa1a9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_hardknuckle_gloves.SK_FrostSword_ue_hardknuckle_gloves",
+   "key": "42cba7d8f4ad",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/FrostSword/SK_FrostSword_ue_st6_sleeves.SK_FrostSword_ue_st6_sleeves",
+   "key": "99992d59ddee",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_hardknuckle_gloves.SK_Jason_ue_hardknuckle_gloves",
+   "key": "130ad1382803",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Jason/SK_Jason_ue_st6_sleeves.SK_Jason_ue_st6_sleeves",
+   "key": "e7160ba37a8a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_hardknuckle_gloves.SK_LMG201_ue_hardknuckle_gloves",
+   "key": "06e9d3b8eb09",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/LMG201/SK_LMG201_ue_st6_sleeves.SK_LMG201_ue_st6_sleeves",
+   "key": "98108d0c02f9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_hardknuckle_gloves.SK_M16_ue_hardknuckle_gloves",
+   "key": "04eb613027d9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M16/SK_M16_ue_st6_sleeves.SK_M16_ue_st6_sleeves",
+   "key": "105edb5d8057",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_hardknuckle_gloves.SK_M1911_ue_hardknuckle_gloves",
+   "key": "2853154bde0e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911/SK_M1911_ue_st6_sleeves.SK_M1911_ue_st6_sleeves",
+   "key": "38470649065d",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_hardknuckle_gloves.SK_M1911_l_ue_hardknuckle_gloves",
+   "key": "442d8433422f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_l/SK_M1911_l_ue_st6_sleeves.SK_M1911_l_ue_st6_sleeves",
+   "key": "fccfaa91389a",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_hardknuckle_gloves.SK_M1911_r_ue_hardknuckle_gloves",
+   "key": "c62afcf0339b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M1911_r/SK_M1911_r_ue_st6_sleeves.SK_M1911_r_ue_st6_sleeves",
+   "key": "75f0482d8c27",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_hardknuckle_gloves.SK_M4_ue_hardknuckle_gloves",
+   "key": "9191a4480aee",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/M4/SK_M4_ue_st6_sleeves.SK_M4_ue_st6_sleeves",
+   "key": "1a0ffea65e1e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_hardknuckle_gloves.SK_PKM_ue_hardknuckle_gloves",
+   "key": "fd43f191292f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/PKM/SK_PKM_ue_st6_sleeves.SK_PKM_ue_st6_sleeves",
+   "key": "c58bb9dcdca9",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_hardknuckle_gloves.SK_Pickaxe_ue_hardknuckle_gloves",
+   "key": "3c0c443292c6",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickaxe/SK_Pickaxe_ue_st6_sleeves.SK_Pickaxe_ue_st6_sleeves",
+   "key": "5d70c80ea8dd",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_hardknuckle_gloves.SK_QBZ191_ue_hardknuckle_gloves",
+   "key": "64a6e8ec5942",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/QBZ191/SK_QBZ191_ue_st6_sleeves.SK_QBZ191_ue_st6_sleeves",
+   "key": "618e024a4759",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_hardknuckle_gloves.SK_RuneSword_ue_hardknuckle_gloves",
+   "key": "c7fbb2d6024e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/RuneSword/SK_RuneSword_ue_st6_sleeves.SK_RuneSword_ue_st6_sleeves",
+   "key": "5fec5a755b9c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_hardknuckle_gloves.SK_SVD_ue_hardknuckle_gloves",
+   "key": "4a0fe3e2373b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/SVD/SK_SVD_ue_st6_sleeves.SK_SVD_ue_st6_sleeves",
+   "key": "9fae714ce78b",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_BareArmsV7.SK_Super90_BareArmsV7",
+   "key": "4db4dc07552c",
+   "skin": true,
+   "source_sha256": "3e287116d263cc21aa6e49afcbae009afe5e58c60c4c56518b43b3292b80bffc"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_HardKnuckle.SK_Super90_HardKnuckle",
+   "key": "e724f12af7d4",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ST6Sleeves.SK_Super90_ST6Sleeves",
+   "key": "18095ee0ebbc",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_skin_ue_field_gloves.SK_Super90_skin_ue_field_gloves",
+   "key": "2435a11a8351",
+   "skin": true,
+   "source_sha256": "9ce5dd96b497aa662d7b52cbb98d176ba7ed7d8711502a24c78155434a21d638"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_chainmail_shirt.SK_Super90_ue_chainmail_shirt",
+   "key": "e456bb464987",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_gloves.SK_Super90_ue_field_gloves",
+   "key": "8dd9d762303e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_gloves_black.SK_Super90_ue_field_gloves_black",
+   "key": "9bdefcd78e92",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_sweater.SK_Super90_ue_field_sweater",
+   "key": "e79c6d471b3e",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_field_sweater_charcoal.SK_Super90_ue_field_sweater_charcoal",
+   "key": "5c37d062ea32",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_original_gloves.SK_Super90_ue_original_gloves",
+   "key": "02dc6a07b530",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_st6_sleeves.SK_Super90_ue_st6_sleeves",
+   "key": "45588ae03616",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Super90/SK_Super90_ue_steel_gauntlets.SK_Super90_ue_steel_gauntlets",
+   "key": "d337bec70ec8",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_hardknuckle_gloves.SK_Traversal_ue_hardknuckle_gloves",
+   "key": "2deb6d76b7a2",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Traversal/SK_Traversal_ue_st6_sleeves.SK_Traversal_ue_st6_sleeves",
+   "key": "2b459fc1df78",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessCandidate20260927/M4/SK_M4_TailoredFingerlessSkin.SK_M4_TailoredFingerlessSkin",
+   "key": "01f855301186",
+   "skin": true,
+   "source_sha256": "10456ead5e2cb78389a55319f6399b96a88fc4357765aba8d12d57a2491f9d5b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/A762/SK_A762_TailoredFingerlessSkin.SK_A762_TailoredFingerlessSkin",
+   "key": "187e56fc6636",
+   "skin": true,
+   "source_sha256": "501465ea9e72a94c792025273a16fefea8df5430075ec23531446ed3040ce85e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/AKM/SK_AKM_TailoredFingerlessSkin.SK_AKM_TailoredFingerlessSkin",
+   "key": "b5d88c972644",
+   "skin": true,
+   "source_sha256": "66c913d5e33e7682028bdebb063b3baf35cf8815b4746a340faf53d2be644bf5"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/ASH12/SK_ASH12_TailoredFingerlessSkin.SK_ASH12_TailoredFingerlessSkin",
+   "key": "2fffac40de73",
+   "skin": true,
+   "source_sha256": "b548dad1d74836771ba929695121421b7a4fca53ba975b99cb50bb4c4c734326"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Axe/SK_Axe_TailoredFingerlessSkin.SK_Axe_TailoredFingerlessSkin",
+   "key": "ce270069b909",
+   "skin": true,
+   "source_sha256": "bf3c83bd69969588a289fa0a5beb515a7c39e2dd894787600a4fc9dc2e747655"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Body/SK_Body_TailoredFingerlessSkin.SK_Body_TailoredFingerlessSkin",
+   "key": "bb2b5cc75404",
+   "skin": true,
+   "source_sha256": "2026622689f7df31399a5a0d8e59738ada3ebce6cc3e005b13a3eaa44523f7c7"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Bow/SK_Bow_TailoredFingerlessSkin.SK_Bow_TailoredFingerlessSkin",
+   "key": "ee4aa66c0a3f",
+   "skin": true,
+   "source_sha256": "2f95f2dab68b5a5cc6cc4f9d49d519e8eab5bfb078cf7ad9c59be1790a2c2f79"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/DW715/SK_DW715_TailoredFingerlessSkin.SK_DW715_TailoredFingerlessSkin",
+   "key": "cc6956de5400",
+   "skin": true,
+   "source_sha256": "2b833195c5691cfd1d76ec09a9d5354911b9f4226b886ac735bce4f3e31ffc0e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/DW715_l/SK_DW715_l_TailoredFingerlessSkin.SK_DW715_l_TailoredFingerlessSkin",
+   "key": "82cf86b503f4",
+   "skin": true,
+   "source_sha256": "7c39c1eb4cad513fd3dd5f19f8cb355d99e494764d209c0650094caddb53c17b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/DW715_r/SK_DW715_r_TailoredFingerlessSkin.SK_DW715_r_TailoredFingerlessSkin",
+   "key": "d1c26de3c395",
+   "skin": true,
+   "source_sha256": "c158785a9070518476122f989f17b373feeb473a5b01ab5124fdf2d27b25563f"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/FrostArms/SK_FrostArms_TailoredFingerlessSkin.SK_FrostArms_TailoredFingerlessSkin",
+   "key": "c6d74c730b84",
+   "skin": true,
+   "source_sha256": "e9a029cb436620adbe2c37d74dc03460c8d4bc67c2643b801387019c97657f43"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/FrostSword/SK_FrostSword_TailoredFingerlessSkin.SK_FrostSword_TailoredFingerlessSkin",
+   "key": "1429c2f29600",
+   "skin": true,
+   "source_sha256": "22f505c7952dffcb86730c1f23ca01d0b9c007d04b1df19eb0137cf5f22ea060"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/M16/SK_M16_TailoredFingerlessSkin.SK_M16_TailoredFingerlessSkin",
+   "key": "20ce92dfaf7f",
+   "skin": true,
+   "source_sha256": "737b7d34a3315ef40fef06f05830a5d79af841a564dd8b0acdd358755bb515b5"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/M1911/SK_M1911_TailoredFingerlessSkin.SK_M1911_TailoredFingerlessSkin",
+   "key": "bd1e96471bb6",
+   "skin": true,
+   "source_sha256": "8ac17081cf0a31429264d25f5bf70aa95c41fa84d777231642a25d45f241bc0d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/M1911_l/SK_M1911_l_TailoredFingerlessSkin.SK_M1911_l_TailoredFingerlessSkin",
+   "key": "a5b6f4b62821",
+   "skin": true,
+   "source_sha256": "ce746f1c9c1b8185be1883548d1bfa3d386a137218886568929a6359862c1aeb"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/M1911_r/SK_M1911_r_TailoredFingerlessSkin.SK_M1911_r_TailoredFingerlessSkin",
+   "key": "f8fbf5560550",
+   "skin": true,
+   "source_sha256": "fc49fcb85ae4fa4ed0871aa0442fd902339cf409dd60e4abc6a3ef799ffe39b9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/M4/SK_M4_TailoredFingerlessSkin.SK_M4_TailoredFingerlessSkin",
+   "key": "1fce965ee596",
+   "skin": true,
+   "source_sha256": "133ddb4a3da2e04c2bdffae02c5a1782328c4fd6697afd98036c1c59ba39ec6a"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/PKM/SK_PKM_TailoredFingerlessSkin.SK_PKM_TailoredFingerlessSkin",
+   "key": "7dfafe8b206a",
+   "skin": true,
+   "source_sha256": "39ae312773b935d998ebd92dbdce77af00323bcd521b9f4be473d94cf110888a"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Pickaxe/SK_Pickaxe_TailoredFingerlessSkin.SK_Pickaxe_TailoredFingerlessSkin",
+   "key": "af1650936af0",
+   "skin": true,
+   "source_sha256": "362a896b21f52044003fb7eb599e41aed6ea5048fc103b10b9cbb3ea14219d63"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/QBZ191/SK_QBZ191_TailoredFingerlessSkin.SK_QBZ191_TailoredFingerlessSkin",
+   "key": "347d29cb06e1",
+   "skin": true,
+   "source_sha256": "6e7d90cb9b1677b07b8417887cad32abe5a737490af7a0228575986b06885431"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/RuneSword/SK_RuneSword_TailoredFingerlessSkin.SK_RuneSword_TailoredFingerlessSkin",
+   "key": "14ddb5327bd5",
+   "skin": true,
+   "source_sha256": "b86c47c5cd49a1cdb32ead9ccb131e9f9b8d167aceab04071c024f4e00d9a4e0"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/SVD/SK_SVD_TailoredFingerlessSkin.SK_SVD_TailoredFingerlessSkin",
+   "key": "5f8923027014",
+   "skin": true,
+   "source_sha256": "b2a6d9432ec6eb214b85d81498d0f59a11ce75640dcb96f7fb4ec6d37523fda5"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TailoredFingerlessV1/Traversal/SK_Traversal_TailoredFingerlessSkin.SK_Traversal_TailoredFingerlessSkin",
+   "key": "54d3a2e9e9a9",
+   "skin": true,
+   "source_sha256": "f07afbf9b08f56679078c00ef7019747a6095c228a19c956f8bc2c342f5e6145"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/TraversalSleeveRepair20261003/SK_Traversal_ChainmailShirt.SK_Traversal_ChainmailShirt",
+   "key": "5ef08ff4ca49",
+   "skin": false
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/A762/SK_A762_45be83efd7_WristCoverage.SK_A762_45be83efd7_WristCoverage",
+   "key": "2066d694cf8c",
+   "skin": true,
+   "source_sha256": "2ed25f5cff87edf0169c186a0f1a4273b247e988a2b7363ba303bea7d579933d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/A762/SK_A762_6d5fb96034_WristCoverage.SK_A762_6d5fb96034_WristCoverage",
+   "key": "a2ae285545af",
+   "skin": true,
+   "source_sha256": "3ceb30be75ed2e1ed777c9e54ea439180c1e506e163276fe2aeb9525d8746cb6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/AKM/SK_AKM_3e7e177b93_WristCoverage.SK_AKM_3e7e177b93_WristCoverage",
+   "key": "74188fc0c714",
+   "skin": true,
+   "source_sha256": "f2e8b3ee23e21fc5c1d3b9cd5ebede181fd3908fbc47fdb79f142d2a523510c9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/AKM/SK_AKM_ca790fe739_WristCoverage.SK_AKM_ca790fe739_WristCoverage",
+   "key": "f89c628ebef1",
+   "skin": true,
+   "source_sha256": "03c273e159f7ae195a0d399fe57eea652d129063e03beaeac59813c6a895bb60"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/ASH12/SK_ASH12_9efe800a9e_WristCoverage.SK_ASH12_9efe800a9e_WristCoverage",
+   "key": "94f27a186d94",
+   "skin": true,
+   "source_sha256": "8fefa3720c128a5df9132486e04b86fec32e362343f86af0789f33b2efd7908a"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/ASH12/SK_ASH12_d7fc24b190_WristCoverage.SK_ASH12_d7fc24b190_WristCoverage",
+   "key": "19ba77a39a0c",
+   "skin": true,
+   "source_sha256": "323ac46ff06c0693e67e005e708ae1d813f184970a9b93d61380fd1a710f279d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_191687429f_WristCoverage.SK_Axe_191687429f_WristCoverage",
+   "key": "bfa99c0ede2b",
+   "skin": true,
+   "source_sha256": "9ac4bcf47607e848399f8a3e503d7a975245dc371500ef8727cb8b4f5acc2ed2"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Axe/SK_Axe_8c083f1313_WristCoverage.SK_Axe_8c083f1313_WristCoverage",
+   "key": "a9bae026395c",
+   "skin": true,
+   "source_sha256": "5bd9791a7c22f04cf273394d5a45e6390cf595acc311e4ab134310838784f063"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_3cced8ec73_WristCoverage.SK_Bow_3cced8ec73_WristCoverage",
+   "key": "b5fafb82594c",
+   "skin": true,
+   "source_sha256": "455ad6a929d534b339a652e084d54c6edf791880a5c273c63665ef069695ca00"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_bb1815a212_WristCoverage.SK_Bow_bb1815a212_WristCoverage",
+   "key": "2e44e16a6dbd",
+   "skin": true,
+   "source_sha256": "20c3041928227e428bd462d7739f83623ba2bb8a7ead08de4ca2713ef9af8f0e"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Bow/SK_Bow_f5cf430f68_WristCoverage.SK_Bow_f5cf430f68_WristCoverage",
+   "key": "789ad514221a",
+   "skin": true,
+   "source_sha256": "0a6d3819baaa78ba6d13b73e8f6f0c092f3896e28fa5a08b90e753244fe447af"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_83f511493d_WristCoverage.SK_DW715_83f511493d_WristCoverage",
+   "key": "8fb55e3a90b3",
+   "skin": true,
+   "source_sha256": "7d56585f5ff18f5bd2cb057e1b274c2d2a1282ade8b6c67220c6b3c68947dfff"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715/SK_DW715_dac984dcde_WristCoverage.SK_DW715_dac984dcde_WristCoverage",
+   "key": "213e99881b77",
+   "skin": true,
+   "source_sha256": "25df227f1ff398296e10b98e6b75acc60849f4b574f8891e69885976e1fc84db"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_056bc315cb_WristCoverage.SK_DW715_l_056bc315cb_WristCoverage",
+   "key": "e451b0eec934",
+   "skin": true,
+   "source_sha256": "e69a460de63133ec448e1a7244039ac4a5af035e356ab8c8e6b56ae13d0fed84"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_l/SK_DW715_l_7d482bf5c1_WristCoverage.SK_DW715_l_7d482bf5c1_WristCoverage",
+   "key": "3197c4b1bc1a",
+   "skin": true,
+   "source_sha256": "8b34d1dd9a57825f7d07e3216cfb7a99420b2f4ceadbb9e90826b6a6473302da"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_a098c62b49_WristCoverage.SK_DW715_r_a098c62b49_WristCoverage",
+   "key": "e88836872028",
+   "skin": true,
+   "source_sha256": "261ccfd00dfe1f08c4f155330654cde0af39fb3fc024cee7882e2d691c731d82"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/DW715_r/SK_DW715_r_c0668d4b17_WristCoverage.SK_DW715_r_c0668d4b17_WristCoverage",
+   "key": "5f726e633255",
+   "skin": true,
+   "source_sha256": "5555f2e5c722e503740d3bc985691905f6eed2ba53691157dc9c228ce4e03a78"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostArms/SK_FrostArms_9823750602_WristCoverage.SK_FrostArms_9823750602_WristCoverage",
+   "key": "d15f77d50b78",
+   "skin": true,
+   "source_sha256": "0c549f12e84abc89c7662497243ffb7f74563103607668edaddab735ae4c10d3"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostArms/SK_FrostArms_da7b8d3adc_WristCoverage.SK_FrostArms_da7b8d3adc_WristCoverage",
+   "key": "af457772d7c9",
+   "skin": true,
+   "source_sha256": "0c95f8f42349312498a4cd097b8a14ad77360169937b81bab3e7f9f5c47c6ddd"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostSword/SK_FrostSword_4b3bdf4f24_WristCoverage.SK_FrostSword_4b3bdf4f24_WristCoverage",
+   "key": "28fcf4854156",
+   "skin": true,
+   "source_sha256": "0e663b439caf882f7b7467d2be782d20c2fca288cfeaa00e53d04f9c64534b89"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/FrostSword/SK_FrostSword_825fd8051f_WristCoverage.SK_FrostSword_825fd8051f_WristCoverage",
+   "key": "0fdf4091369d",
+   "skin": true,
+   "source_sha256": "fa9502c98178bf90825020fe2ca37bbaacf11a8b45a92b989c62fb3be9e3273c"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M16/SK_M16_1240d6bb1e_WristCoverage.SK_M16_1240d6bb1e_WristCoverage",
+   "key": "93fc2b738030",
+   "skin": true,
+   "source_sha256": "9b1ff96f89e3d4734f8cdfc18d366695a8af24686e03a1c75950324c55368119"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M16/SK_M16_2ecb4a7189_WristCoverage.SK_M16_2ecb4a7189_WristCoverage",
+   "key": "f15f6c1bf9c2",
+   "skin": true,
+   "source_sha256": "cf8a2a2317cbfb7138e8d812fb11994d6f2311209ad4cf7024a6ee9c2ac028be"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_36f0ae0334_WristCoverage.SK_M1911_36f0ae0334_WristCoverage",
+   "key": "3ef6c87f73f8",
+   "skin": true,
+   "source_sha256": "9ed54a18955a620b38380de0c2e759de65a9b2634f65cf5740dbf56fce5522b6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911/SK_M1911_abd8f86a95_WristCoverage.SK_M1911_abd8f86a95_WristCoverage",
+   "key": "0761ba70c7d0",
+   "skin": true,
+   "source_sha256": "3f506b984a58905cbd0ddc948403c34c772c23f5a40203fb0de23cdc55cc34b7"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_711a1c8444_WristCoverage.SK_M1911_l_711a1c8444_WristCoverage",
+   "key": "f3d89d3f8d0d",
+   "skin": true,
+   "source_sha256": "6f1d5720963ccf80ffb4364bde47fff15aab1ddee49aa8b17ff414c26ab4ec48"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_l/SK_M1911_l_b5b449d259_WristCoverage.SK_M1911_l_b5b449d259_WristCoverage",
+   "key": "b7eb15a5a723",
+   "skin": true,
+   "source_sha256": "a252814f9feccedb007513642ef99439d8095507d66baf538a66a317bdc443ee"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_255d2a5d7d_WristCoverage.SK_M1911_r_255d2a5d7d_WristCoverage",
+   "key": "bda3b2cafc2b",
+   "skin": true,
+   "source_sha256": "bf81f044a1144b45796eef69ab7b0cb9cfaa065d854941ae9791753e49391cc3"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M1911_r/SK_M1911_r_45abd75594_WristCoverage.SK_M1911_r_45abd75594_WristCoverage",
+   "key": "386e4eb52efc",
+   "skin": true,
+   "source_sha256": "def1d17d28f18b2ccb55f71d46c847b8205760c0bc82a826b4c5f9895d4e77d0"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_14b12f794a_WristCoverage.SK_M4_14b12f794a_WristCoverage",
+   "key": "9832600dc82c",
+   "skin": true,
+   "source_sha256": "b69692813ac2639912a0e8f6f3a926dec9acb35fcf05adf7f15344a23598fabf"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/M4/SK_M4_ca1958a3f1_WristCoverage.SK_M4_ca1958a3f1_WristCoverage",
+   "key": "f96aa883e771",
+   "skin": true,
+   "source_sha256": "0fd881a6b65fb5f5a35b914a3af9410cc7ddfdbe53b09bfdfac07b38cff22070"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/PKM/SK_PKM_13833d21bb_WristCoverage.SK_PKM_13833d21bb_WristCoverage",
+   "key": "31e3749c1f52",
+   "skin": true,
+   "source_sha256": "f82e96beea7fd49bf3a93f3542d79a3cc9860a5313bb2080c49f5625e6c20cb6"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/PKM/SK_PKM_e6cc8363b9_WristCoverage.SK_PKM_e6cc8363b9_WristCoverage",
+   "key": "569bdd3723f4",
+   "skin": true,
+   "source_sha256": "d48724f377d21d64950097ace075add00c5047506e78cfa0f906fa137b37bce2"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Pickaxe/SK_Pickaxe_42fbe5045e_WristCoverage.SK_Pickaxe_42fbe5045e_WristCoverage",
+   "key": "560b3748a95e",
+   "skin": true,
+   "source_sha256": "6ef4112b99b4fe2c5991134d80a9ff86a7f19758836a5210e8967295f5e05e63"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Pickaxe/SK_Pickaxe_44c82ffd78_WristCoverage.SK_Pickaxe_44c82ffd78_WristCoverage",
+   "key": "bcfccece7a35",
+   "skin": true,
+   "source_sha256": "a4ba7684654d94efc73a4e8c91b4b124bf874dbb82ed201a34f5aace98217fed"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/QBZ191/SK_QBZ191_ccd2573c2a_WristCoverage.SK_QBZ191_ccd2573c2a_WristCoverage",
+   "key": "28b9e896384b",
+   "skin": true,
+   "source_sha256": "dac57bec8f25c89dbc07da4d95c6a365e1a23a9466ebdcc2aed58c3e437c5b56"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/QBZ191/SK_QBZ191_f7623a712c_WristCoverage.SK_QBZ191_f7623a712c_WristCoverage",
+   "key": "953993247a63",
+   "skin": true,
+   "source_sha256": "0b12c1658f70d43dd47a9bdef73be7c267d38ba55900723f1d135d111bc23f9b"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_1f9346431c_WristCoverage.SK_RuneSword_1f9346431c_WristCoverage",
+   "key": "2d3a368067a2",
+   "skin": true,
+   "source_sha256": "3cf9eacb51327e412b0469b1f313a24436d77037aeaa623098bc9b42d945e6d9"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/RuneSword/SK_RuneSword_f2763de9e9_WristCoverage.SK_RuneSword_f2763de9e9_WristCoverage",
+   "key": "5647a3c2b025",
+   "skin": true,
+   "source_sha256": "674720951df5999585bb90f2ccef2de0f36d958b207425ad5f2114147f5ce5b7"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/SVD/SK_SVD_3280a88942_WristCoverage.SK_SVD_3280a88942_WristCoverage",
+   "key": "deb4adcc71e5",
+   "skin": true,
+   "source_sha256": "c2e917f3525e33b7f6af9749acf93fedae5a46ee7b3a523d72682ef4f782ad88"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/SVD/SK_SVD_d9b5ee5f40_WristCoverage.SK_SVD_d9b5ee5f40_WristCoverage",
+   "key": "fd81da14598c",
+   "skin": true,
+   "source_sha256": "80dc986100ddd02797afe1e5e0898f1a2bf9ddb81f59f2d75c74d2e080920a0d"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ac119caae4_WristCoverage.SK_Traversal_ac119caae4_WristCoverage",
+   "key": "768b06e0c6c1",
+   "skin": true,
+   "source_sha256": "eb870f931a78cd1b5756475ba6a7f9c7806b2b42e841097d7c09506cf0334139"
+  },
+  {
+   "path": "/Game/Characters/ModularOutfit20260924/WristCoverage20260929/Traversal/SK_Traversal_ecaf719ab9_WristCoverage.SK_Traversal_ecaf719ab9_WristCoverage",
+   "key": "924354bdaaa1",
+   "skin": true,
+   "source_sha256": "ac3b02a46a99992761e6923e7da6f214914d3ccd01eed406e58d9e06922dddac"
+  },
+  {
+   "path": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
+   "key": "aca8e58e5a0c",
+   "skin": true,
+   "source_sha256": "3cfdcd460ba471cb16b52026d8f9604c4376b4c74670a2118d39f8d6e8b8f7b7"
+  },
+  {
+   "path": "/Game/Items/ProductionTools/RusticPickaxe20260919/SK_RusticPickaxe.SK_RusticPickaxe",
+   "key": "ea2b1a46dd38",
+   "skin": true,
+   "source_sha256": "26d0e77040f0d5c78b6ca04809f399a77c421ec9644c201c0d6eab7fa937abda"
+  },
+  {
+   "path": "/Game/Movement/Traversal/Native/SK_TraversalArms_AnimatedBounds.SK_TraversalArms_AnimatedBounds",
+   "key": "03b22bee09ce",
+   "skin": true,
+   "source_sha256": "8813f27e4104733052f199cb29b3a949633548dfb828163cccbf97463533548e"
+  },
+  {
+   "path": "/Game/Weapons/A762/GripClearance20261001/SK_A762_Manny_R09.SK_A762_Manny_R09",
+   "key": "1d753cbc51be",
+   "skin": true,
+   "source_sha256": "6b6bb4f2bb16f58c88ac32a23a4e596aed604b237b012ffe476896d6c8c66216"
+  },
+  {
+   "path": "/Game/Weapons/A762/Integrated20260920/SK_A762_Manny.SK_A762_Manny",
+   "key": "e0cb48da41c7",
+   "skin": true,
+   "source_sha256": "2559b6f911f90c906d759ce0bbe7843fbdf8cd300ebb9fe34f56e199d415fdce"
+  },
+  {
+   "path": "/Game/Weapons/A762/ReceiverGrip20261001/Meshes/SK_A762_Manny_R08.SK_A762_Manny_R08",
+   "key": "eaea3a4133e8",
+   "skin": true,
+   "source_sha256": "8bc50424fb3e11c1549b008fa2492f24e0c49e7c011e880dc7ac64f9713fb2d9"
+  },
+  {
+   "path": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative",
+   "key": "f0dd0b4a286f",
+   "skin": true,
+   "source_sha256": "1d487fbce4425c03965a183cf4582de6af5d953e829751107ab39565e0c5a6c2"
+  },
+  {
+   "path": "/Game/Weapons/ASH12/Surface20260919/SK_ASH12_Surface.SK_ASH12_Surface",
+   "key": "4ebf03215f85",
+   "skin": true,
+   "source_sha256": "bcded84325112fb1f0c44f9ea0fd45f5c2dc9adac0cad11db5233048c1517169"
+  },
+  {
+   "path": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms.SK_RuneSword_Arms",
+   "key": "bd9cd6c23b32",
+   "skin": true,
+   "source_sha256": "cde33964fc08fec8a647e499b1ea28de829c08534bd414e562967e39d3b5861d"
+  },
+  {
+   "path": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny.SK_AzureRunesword_Manny",
+   "key": "5babd68fb3e1",
+   "skin": true,
+   "source_sha256": "4f963b4275786de4aa5061b4c3ca21052435b5d6bbd252fc1be87771214ad1ca"
+  },
+  {
+   "path": "/Game/Weapons/DanWesson715/Chrome20260914/SK_DW715_Manny.SK_DW715_Manny",
+   "key": "9dffa645b311",
+   "skin": true,
+   "source_sha256": "967c8cbb13821eeded0c3f817ac5358dd568b6179884ed1598aa56093039d04e"
+  },
+  {
+   "path": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_FieldGloves.SK_Bow_FieldGloves",
+   "key": "4057fc96ec4f",
+   "skin": false
+  },
+  {
+   "path": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_OriginalGlovedArms.SK_Bow_OriginalGlovedArms",
+   "key": "b0ac931b4382",
+   "skin": false
+  },
+  {
+   "path": "/Game/Weapons/DarkBow20260925/ArmsV4/Outfits/SK_Bow_Sleeves.SK_Bow_Sleeves",
+   "key": "d6d94d8b2962",
+   "skin": false
+  },
+  {
+   "path": "/Game/Weapons/DarkBow20260925/ArmsV4/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+   "key": "d5e7dcb3e0be",
+   "skin": true,
+   "source_sha256": "d110f8f6011c962d6238d8f01504ea8204ca1a99e7cfa28ba8e49091bf528d11"
+  },
+  {
+   "path": "/Game/Weapons/DarkBow20260925/ContactV9/SK_Bow_BareArmsV7.SK_Bow_BareArmsV7",
+   "key": "ee5d47f3d1b6",
+   "skin": true,
+   "source_sha256": "6b5a9ba83c5fe3c9814ba24aa16accd382b3e9a4bd7e5b22c2e863fac5189adc"
+  },
+  {
+   "path": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+   "key": "69b456860b97",
+   "skin": true,
+   "source_sha256": "1b0c97040d61731649d2d6e17881d1136af9cfacf956c71e5ffa411a24086a59"
+  },
+  {
+   "path": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny.SK_FrostCrystalSword_Manny",
+   "key": "649a195e95d3",
+   "skin": true,
+   "source_sha256": "8b48246d8d13d420b4790ead4c02e303413e0e177231cb8bbd520bf8b111961a"
+  },
+  {
+   "path": "/Game/Weapons/G18/Integrated20260929/Dual/l/SK_Dual_G18_l.SK_Dual_G18_l",
+   "key": "d45f68733771",
+   "skin": true,
+   "source_sha256": "0f1881a0a67d7585ae1f366047512b7d425623a5170b2c0e6454a35be72340a4"
+  },
+  {
+   "path": "/Game/Weapons/G18/Integrated20260929/Dual/r/SK_Dual_G18_r.SK_Dual_G18_r",
+   "key": "3d01cc7e7f6e",
+   "skin": true,
+   "source_sha256": "f4f826eba38a4eee8e4d71c44b1e0d0501bdec263d7f6d838154b0ca819cf3f3"
+  },
+  {
+   "path": "/Game/Weapons/G18/Integrated20260929/Single/SK_G18_Manny.SK_G18_Manny",
+   "key": "1bac4f10deeb",
+   "skin": true,
+   "source_sha256": "977964ec7dabd929aad35d8f4f3dd9596949e89a096d0139d3c684de9f8a4b9a"
+  },
+  {
+   "path": "/Game/Weapons/HK416/Reworked20260930/SK_HK416_Manny.SK_HK416_Manny",
+   "key": "3384fcb82a9e",
+   "skin": true,
+   "source_sha256": "ee95af37e48c85b820e6ad0d2e4b68dac51cd2806017b77bc91b92f688eec113"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Assembly40/Previous/SK_LMG201_Cover10_PreA40.SK_LMG201_Cover10_PreA40",
+   "key": "0b3c5dd51cac",
+   "skin": true,
+   "source_sha256": "250db0bc84ba961b3a9b65180da86a85795e7f8cdace53c0c3fc1005cb9eca7f"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Assembly40/SK_LMG201_A40_Installed.SK_LMG201_A40_Installed",
+   "key": "607440360a12",
+   "skin": true,
+   "source_sha256": "a6ac3f817c11b99d7c5418ccd33657c87e99eec80ad37e0597dc74832faf4019"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/BeltFeed08/SK_LMG201_BeltFeed.SK_LMG201_BeltFeed",
+   "key": "7d9b56a522c4",
+   "skin": true,
+   "source_sha256": "3e1ce46ac94f01097c8e2e7fcad2596155e1b1e58dc84df86db6c044669e7153"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/BeltFit53/SK_LMG201_BeltFit53_Candidate.SK_LMG201_BeltFit53_Candidate",
+   "key": "72ac40b533ba",
+   "skin": true,
+   "source_sha256": "54ca82449b6f2ca94402ea0a47c534ff40f2698b47a50aee4163e57a7082b3e6"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/BeltRebuild52/SK_LMG201_BeltRebuild52_Candidate.SK_LMG201_BeltRebuild52_Candidate",
+   "key": "c14a2c040065",
+   "skin": true,
+   "source_sha256": "547324f8cf50fbb4aa2448c31bf54cd2028e0488a7908d5e08d86f1894cb50d6"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/BeltRepair51/SK_LMG201_BeltRepair51_Candidate.SK_LMG201_BeltRepair51_Candidate",
+   "key": "4fc6d7b0791c",
+   "skin": true,
+   "source_sha256": "da978912a2158c0dd4f6675d6b64295b1b4443f8ed7a3d9a0deac34ce9d0f997"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/ClothFeed33/SK_LMG201_Cloth33_Installed.SK_LMG201_Cloth33_Installed",
+   "key": "5af9c0b870f5",
+   "skin": true,
+   "source_sha256": "8bca3ff25d4c9ff2f7e98fcddf9bd61318e97f0e5e725814371370e8dfe998f8"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/ClothTop45/SK_C45_Installed.SK_C45_Installed",
+   "key": "f3ff491bb192",
+   "skin": true,
+   "source_sha256": "a9c04a7dd455c7ba4b9d9ce8b737b3472d53ea9e08172162023bd350a24d7695"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10",
+   "key": "76c36e674403",
+   "skin": true,
+   "source_sha256": "9e756e2537f6eccbedc4eba9c1146347e54fe61493f24b50050e2aace9dda948"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Detail35/SK_LMG201_D35_Installed.SK_LMG201_D35_Installed",
+   "key": "14bed50a87e6",
+   "skin": true,
+   "source_sha256": "990ce9ce517360caab18e31121d6ce435250993a2a9512d0fdc27ebe63d86015"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/FeedMouth57/SK_LMG201_FeedMouth57_Candidate.SK_LMG201_FeedMouth57_Candidate",
+   "key": "0e9785caf2b1",
+   "skin": true,
+   "source_sha256": "c4296c0ebe5717a5e612d78f6ccdf8543a3fea3571652ae7727a81c7ad97142b"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/FitFinish37/Previous/SK_LMG201_Cover10_PreF37.SK_LMG201_Cover10_PreF37",
+   "key": "7adbc0ef7aa7",
+   "skin": true,
+   "source_sha256": "b89dbdc64ca31ac0c3e2766307d1995c300e84e16a2e11f6da3c0b7dbddf0210"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/FitFinish37/SK_LMG201_F37_Installed.SK_LMG201_F37_Installed",
+   "key": "b70bc95590d2",
+   "skin": true,
+   "source_sha256": "d54cdbbbad2a3eaeaaaf40098a323cab0c02fe14595a7865cd13a83262c697a6"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/GripFinish43/SK_LMG201_G43_Installed.SK_LMG201_G43_Installed",
+   "key": "fdf3885aad19",
+   "skin": true,
+   "source_sha256": "de1977a597554c17adc3b00e595c11522b6b6fa85202d38b0428fb30d1a5e880"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/GripJunction44/SK_J44_Installed.SK_J44_Installed",
+   "key": "8a64bc43c7d4",
+   "skin": true,
+   "source_sha256": "4e478a21e93032eafafc8577a4ad3fed349c917d59e89fd8800f75057d9beac1"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/HandleRemoval56/SK_LMG201_HandleRemoval56_Candidate.SK_LMG201_HandleRemoval56_Candidate",
+   "key": "a16e2a2485f1",
+   "skin": true,
+   "source_sha256": "fe8f0e7808e17ecc7da4a1d2a8422cbd2c054eb985700152e908f7aa2617ace0"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/HandleRestore54/SK_LMG201_HandleRestore54_Candidate.SK_LMG201_HandleRestore54_Candidate",
+   "key": "022ace169d60",
+   "skin": true,
+   "source_sha256": "e4f581250a9152ef2c37c5c598fa2d3db5236af786f4359528af01a89eae0037"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/HardSurface39/Previous/SK_LMG201_Cover10_PreH39.SK_LMG201_Cover10_PreH39",
+   "key": "b5a1158a49c6",
+   "skin": true,
+   "source_sha256": "d612d4f2d0613fd9ea221bc5ed6d9628061dbe10829bd868083d34b11bd9ceeb"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/HardSurface39/SK_LMG201_H39_Installed.SK_LMG201_H39_Installed",
+   "key": "629c209c4aec",
+   "skin": true,
+   "source_sha256": "9846b6d564308c7bea84eff12638841bcc7c68ce24a3d2a26ebfba0d068c2e07"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Install30/SK_LMG201_R30_Installed.SK_LMG201_R30_Installed",
+   "key": "c270f630006f",
+   "skin": true,
+   "source_sha256": "1e7f4dfe00becc07bec70729978e7f14302fe88e8cfb198ba79ba585b1e9fc02"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Motion55/SK_LMG201_Motion55_Candidate.SK_LMG201_Motion55_Candidate",
+   "key": "b41919627f37",
+   "skin": true,
+   "source_sha256": "a73a15c50006a524a7d1d880685c4f9a4bebd3756e9aa3d396eb47f28b822833"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Production20260927/SK_LMG201_Manny.SK_LMG201_Manny",
+   "key": "f448058f7f23",
+   "skin": true,
+   "source_sha256": "ef5425095f9a14030b170c4d5336caccc8f0f327f27dc211684ad3f8f0defd1d"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/ReferenceRepair38/Previous/SK_LMG201_Cover10_PreR38.SK_LMG201_Cover10_PreR38",
+   "key": "0e7442f0f7f7",
+   "skin": true,
+   "source_sha256": "933e6afc9536680bc0f8ecf54d41a1baf4d8f084bf1e0797185827ad15864fe9"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/ReferenceRepair38/SK_LMG201_R38_Installed.SK_LMG201_R38_Installed",
+   "key": "7b4efbec0ecb",
+   "skin": true,
+   "source_sha256": "a206970cb939fc4b09d749f77d7c3384796110a30c8fb7cd97368b7670a1607d"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Repair36/SK_LMG201_R36_Installed.SK_LMG201_R36_Installed",
+   "key": "cb1f47a05e4e",
+   "skin": true,
+   "source_sha256": "13883dfd7d972e944a2a51f8d1da47ecb93705fc7f87666572298f7a5ad0d32f"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/SightFinish41/SK_LMG201_S41_Installed.SK_LMG201_S41_Installed",
+   "key": "2912df0bc0a0",
+   "skin": true,
+   "source_sha256": "f2b8a8f760aa661a3dfa2d655f2e6954135e2b6bda7c74295f9edb0d9c1497bd"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/Surface32/SK_LMG201_S32_Installed.SK_LMG201_S32_Installed",
+   "key": "6d8002510533",
+   "skin": true,
+   "source_sha256": "ddb41d881eef8b6dadc34a13ffda6d673c9a0f42ba4046de468d86e1efc16b24"
+  },
+  {
+   "path": "/Game/Weapons/LMG201/SurfaceReform42/SK_LMG201_S42_Installed.SK_LMG201_S42_Installed",
+   "key": "c4c1f231f1f5",
+   "skin": true,
+   "source_sha256": "1c15a8b11e8e7679c369352970e618f4fff23fc17f906dad959853991b466ec6"
+  },
+  {
+   "path": "/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny",
+   "key": "de90d9096119",
+   "skin": true,
+   "source_sha256": "723c9a2872134290ff99722064331d317f672c03861b43100b7fed3f9cffbcce"
+  },
+  {
+   "path": "/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny.SK_M1911_Manny",
+   "key": "8f309afe12dd",
+   "skin": true,
+   "source_sha256": "7f43ec88d53f9bf78b153030652d4a14cd75167bb9acf95cd62f4e6a48cc4681"
+  },
+  {
+   "path": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+   "key": "56a5bcfd1c23",
+   "skin": true,
+   "source_sha256": "147262929c96cf0038fed8a586340a8c333500e02bbba04dea20208052b808db"
+  },
+  {
+   "path": "/Game/Weapons/M870/Tactical20261015/SK_M870_V7.SK_M870_V7",
+   "key": "f48665dbe356",
+   "skin": true,
+   "source_sha256": "6fc4b268ac17ee0297691feaed04391aa8eb7a54d78c5ea83b5c382df6752c68"
+  },
+  {
+   "path": "/Game/Weapons/PKMLowpoly20260922/Accessories14/SK_PKM_Manny_Modular.SK_PKM_Manny_Modular",
+   "key": "11ecc66e434e",
+   "skin": true,
+   "source_sha256": "1b396b24fc816fbb261f31c24a3861874102a2bfefec567e73b9a8c30ea3f509"
+  },
+  {
+   "path": "/Game/Weapons/PistolDualWield20260914/DW715/l/SK_Dual_DW715_l.SK_Dual_DW715_l",
+   "key": "6015933acea4",
+   "skin": true,
+   "source_sha256": "63dc3473837c0c365754675c6ab0240e2a630a37fd4b63e8145112ecf76a877e"
+  },
+  {
+   "path": "/Game/Weapons/PistolDualWield20260914/DW715/r/SK_Dual_DW715_r.SK_Dual_DW715_r",
+   "key": "7227cfd1311f",
+   "skin": true,
+   "source_sha256": "6797cdd0996e918b70f8325430b31f27dab8c71d8d4e0bb7b76499fa12879b61"
+  },
+  {
+   "path": "/Game/Weapons/PistolDualWield20260914/M1911/l/SK_Dual_M1911_l.SK_Dual_M1911_l",
+   "key": "030e728d6dae",
+   "skin": true,
+   "source_sha256": "5e5f5f3b5e53e57a8a61e30125329fa164e5258305c8801f2ee38f4ceb9283cf"
+  },
+  {
+   "path": "/Game/Weapons/PistolDualWield20260914/M1911/r/SK_Dual_M1911_r.SK_Dual_M1911_r",
+   "key": "ec2977fc7575",
+   "skin": true,
+   "source_sha256": "8370dfbe34d4f20267dddb1828dee908fca98ef3b1dcc4366528c7d8b728eedf"
+  },
+  {
+   "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/l/SK_Dual_PitViper2011_l.SK_Dual_PitViper2011_l",
+   "key": "bd3ff3a8ccd5",
+   "skin": true,
+   "source_sha256": "a330c45f6c46458e3261895d8f19fad2931be3d337b3a4a370ca2cc844d938ca"
+  },
+  {
+   "path": "/Game/Weapons/PitViper2011/Integrated20261002/Dual/r/SK_Dual_PitViper2011_r.SK_Dual_PitViper2011_r",
+   "key": "6d09000e4e38",
+   "skin": true,
+   "source_sha256": "838059b2eb982b749dcc789b0ac813ff13d343f8f086ae5471e8bba9337fb783"
+  },
+  {
+   "path": "/Game/Weapons/PitViper2011/Integrated20261002/Single/SK_PitViper2011_Manny.SK_PitViper2011_Manny",
+   "key": "1b539b7300f4",
+   "skin": true,
+   "source_sha256": "387c8dfe074b1abd5b47b809fff327dbe116eae6d0f66a98a85b372e12886833"
+  },
+  {
+   "path": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+   "key": "c7c7bd93ebfa",
+   "skin": true,
+   "source_sha256": "9c3ff1fe157f45cc0072d8c21716d0418bb4ee5da7c53336c05da22858e7bb79"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/DoubleAction20261003/l/SK_Dual_RSH12_l.SK_Dual_RSH12_l",
+   "key": "6813036f446d",
+   "skin": true,
+   "source_sha256": "f11b0929ded2cebf1bdfcc18bad658f33d7bfc38357e073b091b292d45a74ece"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/DoubleAction20261003/r/SK_Dual_RSH12_r.SK_Dual_RSH12_r",
+   "key": "0e91e954796c",
+   "skin": true,
+   "source_sha256": "1a96eda3fc69a2f52542ca620320ece8caf3edab750a431732497c616a59f63a"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/DoubleAction20261003/single/SK_RSH12_Manny.SK_RSH12_Manny",
+   "key": "0ef160c8f295",
+   "skin": true,
+   "source_sha256": "d00b724b6ef413207d43d986272794204d1ce178416ab5e07cff7d000dbec153"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/Dual/l/SK_Dual_RSH12_l.SK_Dual_RSH12_l",
+   "key": "25252b1d1928",
+   "skin": true,
+   "source_sha256": "f09f238339c2fc658a0cf3cf64ff9d511c1056943d72de37237d1b6e83e3c0da"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/Dual/r/SK_Dual_RSH12_r.SK_Dual_RSH12_r",
+   "key": "2f49ce6897cc",
+   "skin": true,
+   "source_sha256": "9204cb5c556e1522a4c23a4480dfe1f1200a260405cb168465085ed8130abf54"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/Native71520261003/l/SK_Dual_RSH12_l.SK_Dual_RSH12_l",
+   "key": "cead43e5670c",
+   "skin": true,
+   "source_sha256": "a5efda0cda3f09ce4abba85680b5e8516a812e220ac9ba16653c85c1c28b752e"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/Native71520261003/r/SK_Dual_RSH12_r.SK_Dual_RSH12_r",
+   "key": "097a7414d973",
+   "skin": true,
+   "source_sha256": "74b5e610a3745e2462b80b14ca2f2ea19e2df83c9686f5d6b99fc8e2f5cfd4e9"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/Native71520261003/single/SK_RSH12_Manny.SK_RSH12_Manny",
+   "key": "766bd190a35b",
+   "skin": true,
+   "source_sha256": "d1b077e393d22d3fe9fc19e500580d5b1df0fb3f82b4493b8389bbd757d3251f"
+  },
+  {
+   "path": "/Game/Weapons/RSH12/SK_RSH12_Manny.SK_RSH12_Manny",
+   "key": "dd6d651a259b",
+   "skin": true,
+   "source_sha256": "75fd97a8a614304dd693c12dda16f1b1c604d555d22cac29ebe518fbe656c738"
+  },
+  {
+   "path": "/Game/Weapons/SVDDragunov20260922/StockAdapter20260923/SK_SVD_ModularStock.SK_SVD_ModularStock",
+   "key": "a0cd930b648e",
+   "skin": true,
+   "source_sha256": "808e76276bc07f0a5ec081bca2dcf20b5100cf6333e55a4e7d6248d83ebec25f"
+  },
+  {
+   "path": "/Game/Weapons/SteelWarhammer20261014/SK_SteelWarhammer_BareArmsV7.SK_SteelWarhammer_BareArmsV7",
+   "key": "e265bf95206c",
+   "skin": false
+  },
+  {
+   "path": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+   "key": "df8a9cada268",
+   "skin": true,
+   "source_sha256": "c878cf22813a4b18afc70e8fba50aad8bf6a52a05b078498589fab0ee2150215"
+  },
+  {
+   "path": "/Game/Weapons/Super90/Cransh20261006/SK_Super90_V7.SK_Super90_V7",
+   "key": "0907af413e66",
+   "skin": true,
+   "source_sha256": "9e1bcc2bad24b02fa114296bb8b14f8d52ff1faa343152f381fa1fbc9c25ccd8"
+  },
+  {
+   "path": "/Game/Weapons/Super90/JointSurface20261012/Candidates/SK_Super90JointCandidate_arms.SK_Super90JointCandidate_arms",
+   "key": "30ecafcc7640",
+   "skin": true,
+   "source_sha256": "caccd0c83e11f9da199afe70cde9bc7fd725747e7a34200606bc83af48e241bf"
+  },
+  {
+   "path": "/Game/Weapons/Super90/JointSurface20261012/Candidates/SK_Super90JointCandidate_full.SK_Super90JointCandidate_full",
+   "key": "9eee474ff2db",
+   "skin": true,
+   "source_sha256": "bfc1a56511f53caa66436a4d664adc4e57556b0bbfeb8cfb0bc6d8d973fa79b7"
+  }
+ ]
+}

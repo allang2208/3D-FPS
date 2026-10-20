@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/LMG201/BeltFeed08/Animations/A_LMG201_quick_melee",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 26,
+   "hand_max": 0.0,
+   "forearm_max": 59.8,
+   "upper_max": 0.0,
+   "roll_before": [
+    34,
+    110
+   ],
+   "roll_after": [
+    34,
+    103
+   ]
+  }
+ },
+ "readback_max_deg": 0.0118,
+ "sha_before": "4de6d898384e3f2b4e29b9423bc487abdc978c67e94814841c6b73a9cb4b759c",
+ "sha256": "d04301d6e6ee7e8a93d19ffa3eeb32edfaa3cab10ca0122cd76e58dd54b35797"
+}

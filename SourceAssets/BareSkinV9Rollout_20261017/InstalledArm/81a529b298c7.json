@@ -1,0 +1,51 @@
+{
+ "path": "/Game/Weapons/SteelWarhammer20261014/GuardV1/A_Warhammer_GuardHold",
+ "keys": 481,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l",
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 481,
+   "hand_max": 0.0,
+   "forearm_max": 9.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -9,
+    -9
+   ]
+  },
+  "r": {
+   "windows": [],
+   "elbow_keys": 481,
+   "hand_max": 0.0,
+   "forearm_max": 75.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    0
+   ],
+   "roll_after": [
+    -76,
+    -75
+   ]
+  }
+ },
+ "readback_max_deg": 0.0129,
+ "sha_before": "a6c0e4abe3de6d82962fc4181f139a656cf8084e0e1a7edd132f293097a77e8d",
+ "sha256": "431f238117bc06566ca80503fb85db2e0c21c2a8b79f35b5bca12d0e26c4372b"
+}

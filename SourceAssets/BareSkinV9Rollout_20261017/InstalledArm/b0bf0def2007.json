@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/M1911/P9Retarget20260913/Animations/A_M1911_inspect",
+ "keys": 597,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 0,
+   "hand_max": 0.0,
+   "forearm_max": 365.2,
+   "upper_max": 365.2,
+   "roll_before": [
+    -58,
+    346
+   ],
+   "roll_after": [
+    -58,
+    109
+   ]
+  }
+ },
+ "readback_max_deg": 0.012,
+ "sha_before": "cba2a50a99974b1eb3ffc1c2e1c578e2076038b6927e68c5e57677b97e83b198",
+ "sha256": "99de08538c0da6cd382ceee73eb8bf6ee3b59351401583dfeed262666740ae87"
+}

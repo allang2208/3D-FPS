@@ -1,0 +1,16 @@
+{
+ "path": "/Game/Items/ProductionTools/ShovelGrip20261017/SK_Shovel",
+ "saved": true,
+ "morphs": 4,
+ "morphs_on_asset": 20,
+ "added": [
+  "JC_Pose_L_82_m29_m47_0_50_50_50_50",
+  "JC_Pose_L_80_m52_m56_0_50_50_50_50",
+  "JC_Pose_R_91_m7_2_0_50_50_50_50",
+  "JC_Pose_R_84_m20_1_0_50_50_50_50"
+ ],
+ "emptied_stale_morphs": [],
+ "position_readback_max_cm": 0.0,
+ "sha256": "02b1de622ad0140974faf5f7588a92b64d8219eb531f67157964835f6ca13ba4",
+ "runtime_tested": false
+}

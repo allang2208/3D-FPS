@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/A762/Accessories05/Animations/base/A_A762_base_drum_reload",
+ "keys": 401,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 219,
+   "hand_max": 0.0,
+   "forearm_max": 125.5,
+   "upper_max": 0.0,
+   "roll_before": [
+    0,
+    106
+   ],
+   "roll_after": [
+    2,
+    126
+   ]
+  }
+ },
+ "readback_max_deg": 0.0123,
+ "sha_before": "797fc120ddb6762abc0bc3ad007fea5efdf8f07d70fae31ef6cc9050735d64ca",
+ "sha256": "2765067139df608959e7d90f2334bc44c72d407091ad1332f49a43165ba89ff1"
+}

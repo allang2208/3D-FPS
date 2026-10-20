@@ -1,0 +1,33 @@
+{
+ "path": "/Game/Weapons/DarkBow20260925/ReferenceUpgradeV10/A_Bow_Nock",
+ "keys": 83,
+ "bones": [
+  "upperarm_r",
+  "lowerarm_r",
+  "hand_r",
+  "lowerarm_twist_01_r",
+  "lowerarm_twist_02_r"
+ ],
+ "info": {
+  "r": {
+   "windows": [
+    "reroute"
+   ],
+   "elbow_keys": 49,
+   "hand_max": 0.0,
+   "forearm_max": 367.0,
+   "upper_max": 0.0,
+   "roll_before": [
+    79,
+    393
+   ],
+   "roll_after": [
+    25,
+    110
+   ]
+  }
+ },
+ "readback_max_deg": 0.0118,
+ "sha_before": "fbc6740d387841078f3272b2eba89dfd7c888501d697c1c8d0870612064bb433",
+ "sha256": "3706d4de1ecaac1f158d14a8151750805480ffec4365b4066744bb992285266f"
+}

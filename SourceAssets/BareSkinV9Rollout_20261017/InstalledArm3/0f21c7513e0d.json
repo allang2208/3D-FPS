@@ -1,0 +1,24 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_QuickCombat",
+ "keys": 109,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "changed": true,
+   "elbow_keys": 6,
+   "windows": [
+    "clamp"
+   ],
+   "deviation_from_written": 101.6
+  }
+ },
+ "readback_max_deg": 0.0115,
+ "sha_before": "72b203d6509af54b5ff7d8590205ac8341e021c7ef8091958c3bc6a548bf9824",
+ "sha256": "9a4f34cb70c6d6e3c17615cbf325defe107211303eff82bbb0b780d01f14813e"
+}

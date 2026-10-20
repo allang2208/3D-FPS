@@ -1,0 +1,31 @@
+{
+ "path": "/Game/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_SprintLoop",
+ "keys": 73,
+ "bones": [
+  "upperarm_l",
+  "lowerarm_l",
+  "hand_l",
+  "lowerarm_twist_01_l",
+  "lowerarm_twist_02_l"
+ ],
+ "info": {
+  "l": {
+   "windows": [],
+   "elbow_keys": 73,
+   "hand_max": 0.0,
+   "forearm_max": 148.7,
+   "upper_max": 0.0,
+   "roll_before": [
+    -164,
+    -144
+   ],
+   "roll_after": [
+    -111,
+    5
+   ]
+  }
+ },
+ "readback_max_deg": 0.0134,
+ "sha_before": "f8a3b37549d53c78494d9ba03d29cbcf59cc8a36b3abf7e48ab6f8351e3e32bd",
+ "sha256": "c6077af4dd61ffa84784611af133a116e17a67bc18b04aee0ce3de22dd3fe7ab"
+}
