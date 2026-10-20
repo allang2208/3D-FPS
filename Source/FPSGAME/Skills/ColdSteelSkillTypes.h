@@ -136,6 +136,8 @@ struct FColdSteelSkillShot
     bool bMelee = false;
     /** Frozen by the authoritative arrow launch, never inferred again at impact. */
     bool bPerfectBowRelease = false;
+    /** Installed sniper suppressor: reuse the bow's post-damage alarm deferral. */
+    bool bSilentLethalShot = false;
     float WeakpointPercent = 0;
     float CriticalDamageBonus = 0;
     /** Guaranteed ammo effects captured on release, independent of later selection. */

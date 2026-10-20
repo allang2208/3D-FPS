@@ -3,12 +3,17 @@
 
 namespace FPSBodyRifleMotion
 {
+inline bool UsesSourceBash(const FFPSBodyState& State)
+{
+    return State.Family==TEXT("Rifle")&&State.Weapon==TEXT("ue_svch")
+        &&State.Action==EFPSBodyAction::GunBash;
+}
 // These rifle wrists are sampled relative to the native hold, then placed on
 // the world torso. Camera-space contacts remain reserved for other executors.
 inline bool UsesHoldSpace(const FFPSBodyState& State)
 {
     if(State.Family!=TEXT("Rifle")||State.bDual||State.Contacts.Channel==TEXT("Bipod"))return false;
     return State.Action==EFPSBodyAction::Reload||State.Action==EFPSBodyAction::ReloadEmpty
-        ||State.Action==EFPSBodyAction::Inspect||State.Action==EFPSBodyAction::Equip;
+        ||State.Action==EFPSBodyAction::Inspect||State.Action==EFPSBodyAction::Equip||UsesSourceBash(State);
 }
 }

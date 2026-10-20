@@ -231,7 +231,7 @@ public:
     FVector GetEffectiveMuzzleForward() const;
     float GetShotgunPelletSpreadMultiplier() const;
     bool HasShotgunDuckbill() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsSuper90Weapon()&&MuzzleVariant==TEXT("shotgun_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"));}
+    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||((ActiveInventoryWeaponDefinition==TEXT("ue_svd")||ActiveInventoryWeaponDefinition==TEXT("ue_svch"))&&MuzzleVariant==TEXT("sniper_heavy_suppressor"))||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));}
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}

@@ -2,11 +2,17 @@
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
 #include "CommonHK416Parts.h"
+#include "KVScopeAssets.h"
+#include "RSH12OpticAssets.h"
+#include "M870OpticAssets.h"
+#include "Super90OpticAssets.h"
+#include "Saiga12KAttachments.h"
 #include "../FPSGAMECharacter.h"
 #include "Bow/BowWeaponComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
+#include "SVCHWeaponAssets.h"
 #include "PKMAttachments.h"
 #include "PSO1AttachmentAssets.h"
 #include "M16Attachments.h"
@@ -29,6 +35,54 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if (SVCHWeaponAssets::Matches(AKMViewmodel))
+        SVCHWeaponAssets::FactorySights(AKMViewmodel, !bInventoryWeaponReady || Variant.IsEmpty() || Variant == TEXT("false") || Variant == TEXT("none"));
+    if(Variant==KVScopeAssets::Id)
+    {
+
+        if(!bInventoryWeaponReady||!KVScopeAssets::Supports(ActiveInventoryWeaponDefinition))
+        {SetGunsmithOpticVariant(TEXT("false"));return;}
+        if(OpticVariant==KVScopeAssets::Id&&bHolographicOptic&&HolographicOptic&&HolographicOptic->GetStaticMesh())
+        {
+            HolographicOptic->SetVisibility(true);
+            return;
+        }
+        auto* Body=LoadObject<UStaticMesh>(nullptr,*KVScopeAssets::MeshPath(ActiveInventoryWeaponDefinition));
+        const FString SeatPath=KVScopeAssets::SeatPath(ActiveInventoryWeaponDefinition);
+        auto* Seat=SeatPath.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*SeatPath);
+        if(!Body||(!SeatPath.IsEmpty()&&!Seat))
+        {UE_LOG(LogTemp,Error,TEXT("KV scope missing fitted assets for %s"),*ActiveInventoryWeaponDefinition);return;}
+        // Keep the host's rail parent, factory-sight visibility and side bridge.
+        // This includes PKM_Cover and the SVD/AKM bridge lifecycles.
+        SetGunsmithOpticVariant(TEXT("lpvo_1_6x"));
+        if(!bHolographicOptic||OpticVariant!=TEXT("lpvo_1_6x")||!HolographicOptic)return;
+        if(LPVORing){LPVORing->DestroyComponent();LPVORing=nullptr;}
+        HolographicOptic->EmptyOverrideMaterials();HolographicOptic->SetStaticMesh(Body);
+        if(Seat)
+        {
+            const FTransform Rail=IsRSH12Weapon()?RSH12OpticAssets::RailMount():
+                IsM870Weapon()?M870OpticAssets::RailMount(AKMViewmodel):
+                IsSuper90Weapon()?Super90OpticAssets::RailMount(AKMViewmodel):Saiga12KAttachments::RailMount();
+            // Center both original feet on the extended rail. Its crown is 8 mm up.
+            HolographicMount=FTransform(FVector(-2.975f,0,.8f))*Rail;
+            if(!AKMOpticBridge)
+            {
+                AKMOpticBridge=NewObject<UStaticMeshComponent>(this);
+                AKMOpticBridge->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
+                AKMOpticBridge->RegisterComponent();
+            }
+            AKMOpticBridge->EmptyOverrideMaterials();AKMOpticBridge->SetStaticMesh(Seat);
+            AKMOpticBridge->SetCollisionEnabled(ECollisionEnabled::NoCollision);AKMOpticBridge->SetCastShadow(false);AKMOpticBridge->bReceivesDecals=false;
+            AKMOpticBridge->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);AKMOpticBridge->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
+            AKMOpticBridge->AttachToComponent(AKMViewmodel,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
+            AKMOpticBridge->SetRelativeTransform(Rail);AKMOpticBridge->SetVisibility(true);
+        }
+        HolographicOptic->SetRelativeTransform(HolographicMount);
+        HolographicOptic->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);HolographicOptic->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
+        LPVOMagnification=DisplayedLPVOMagnification=1.f;
+        OpticVariant=KVScopeAssets::Id;bSightCalibrated=false;
+        return;
+    }
     if(Variant==TEXT("thermal_scope")){SetThermalOptic();return;}
     if(HasThermalScope()&&LPVORing){LPVORing->DestroyComponent();LPVORing=nullptr;}
     if (IsM870Weapon()) { SetM870Optic(Variant); return; }
@@ -220,17 +274,20 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
         const auto& Ref=AKMViewmodel->GetSkeletalMeshAsset()->GetRefSkeleton();
         auto Bone=[&](const TCHAR* Name){FTransform T=FTransform::Identity;for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))T=T*Ref.GetRefBonePose()[I];return T;};
         const auto Root=Bone(TEXT("WPN_root"));const auto Rear=Bone(TEXT("WPN_RearSight"));const auto Front=Bone(TEXT("WPN_FrontSight"));
-        const FVector Axis=(Front.GetLocation()-Rear.GetLocation()).GetSafeNormal();
+        const bool bSVCH = SVCHWeaponAssets::Matches(AKMViewmodel);
+        const FVector SightRear = bSVCH ? Root.TransformPosition(SVCHWeaponAssets::RearSight) : Rear.GetLocation();
+        const FVector SightFront = bSVCH ? Root.TransformPosition(SVCHWeaponAssets::FrontSight) : Front.GetLocation();
+        const FVector Axis=(SightFront-SightRear).GetSafeNormal();
         // The source weapon is canted in the bind pose. Its authored sight frame,
         // not component/world Z, defines the rail normal for a rigid attachment.
-        const FVector RailUp=Rear.GetRotation().RotateVector(FVector::UpVector);
+        const FVector RailUp=bSVCH ? Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp).GetSafeNormal() : Rear.GetRotation().RotateVector(FVector::UpVector);
         const FQuat Rotation=FRotationMatrix::MakeFromXZ(Axis,RailUp).ToQuat();
         // The 3.2 cm saddle drop belongs to the M4/QBZ marker height: their rear
         // sight marker sits above the rail. The ASH-12's markers are measured on
         // the rail crown itself, so its saddle goes straight on it.
-        const float RailDrop=bUseASH12?ASH12WeaponAssets::OpticRailDrop:3.2f;
-        const float Along=bUseASH12?ASH12WeaponAssets::OpticAlongCM(Variant):8.f;
-        const FTransform Mount(Rotation,Rear.GetLocation()+Axis*Along-RailUp*RailDrop,FVector::OneVector);
+        const float RailDrop=bSVCH?SVCHWeaponAssets::SightHeightAboveRailCM:bUseASH12?ASH12WeaponAssets::OpticRailDrop:3.2f;
+        const float Along=bSVCH?SVCHWeaponAssets::OpticAlongCM:bUseASH12?ASH12WeaponAssets::OpticAlongCM(Variant):8.f;
+        const FTransform Mount(Rotation,SightRear+Axis*Along-RailUp*RailDrop,FVector::OneVector);
         HolographicMount=bUseM16?M16Attachments::OpticMount():bUseQBZ191?QBZ191Attachments::OpticMount(Variant):Mount.GetRelativeTransform(Root);
         HolographicOptic->SetRelativeTransform(HolographicMount);
     }
@@ -254,7 +311,7 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
-    if (HasThermalScope()&&HolographicOptic&&HolographicOptic->GetStaticMesh())
+    if ((HasThermalScope()||OpticVariant==KVScopeAssets::Id)&&HolographicOptic&&HolographicOptic->GetStaticMesh())
         if(const auto* Center=HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))return Center->RelativeLocation;
     if (IsPitViperWeapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
@@ -315,6 +372,13 @@ void AFPSGAMECharacter::SetLPVOMagnification(float Value)
 bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 {
     if(Bow && Bow->IsEquipped())return false;
+    if(OpticVariant==KVScopeAssets::Id&&IsAiming())
+    {
+        // Reuse the selected optic value without rotating elevation/windage drums.
+        LPVOMagnification=KVScopeAssets::StepMagnification(LPVOMagnification,Delta);
+        DisplayedLPVOMagnification=LPVOMagnification;
+        return true;
+    }
     if(HasThermalScope()&&IsAiming())
     {
         if(!FMath::IsNearlyZero(Delta))ThermalZoomIndex=uint8(FMath::Clamp(int32(ThermalZoomIndex)+(Delta>0?1:-1),0,2));
@@ -331,7 +395,7 @@ float AFPSGAMECharacter::GetScopePresentationAlpha() const
     // through the visible physical sight. No screen mask, HUD or arms hiding.
     // Bow::AimVerticalFOV still supplies the selected fixed 2x/4x zoom.
     if(Bow && Bow->IsEquipped())return 0.f;
-    if((!HasThermalScope()&&!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x"))||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
+    if((!HasThermalScope()&&!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x")&&OpticVariant!=KVScopeAssets::Id)||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
     return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
 }
 

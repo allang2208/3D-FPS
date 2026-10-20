@@ -1,3 +1,8 @@
+# SVCH publication: reviewed source recipes are explicitly staged. Licensed
+# models, textures, dense poses, local reports and staging candidates stay local.
+/SourceAssets/SVCH*/**
+/SourceAssets/SniperSuppressor20261019/**
+
 # S12K: publish recipes and scoped integration only. Licensed media, dense
 # geometry/poses, local save receipts, temporary hosts and prerequisites stay local.
 /SourceAssets/Saiga12K*/**

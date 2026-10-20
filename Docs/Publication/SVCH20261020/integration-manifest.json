@@ -1,0 +1,37 @@
+[
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyMotion.cpp.patch",
+    "prerequisite_sha256": "ffe98c5a5c6f03058440a4a040a3a7272123cb8a822ac06a6d607f21a74cf69d",
+    "result_sha256": "4fdafe8ae49ca568c7eb80a4be0fd94c1144eb508ba65fa4e2ff00f7c3ace07e",
+    "note": "Shared host contains unpublished parallel prerequisites; full prerequisite stays local."
+  },
+  {
+    "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+    "prerequisite_sha256": "522f71556c1ef926b66550ca61f6a822c9377e3e2f672db595436fd351c4f9d5",
+    "result_sha256": "77567744ac7b5aecba954c60e32eb05dc5d3936601d19f598bbf050cf70d7517",
+    "note": "Shared host contains unpublished parallel prerequisites; full prerequisite stays local."
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+    "patch": "Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.h.patch",
+    "prerequisite_sha256": "9d463a8304bf0ed517812e061596b24b1a45a90ce6e43a3145c873ae4b8b7748",
+    "result_sha256": "3f7170300036ab34b90259d355595f653bc0aea61cdd5190cb891103b8c224c3",
+    "note": "Unpublished shared diagnostic host; SHA256 uses UTF-8 text with LF."
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.cpp.patch",
+    "prerequisite_sha256": "a1427d7302df6be3ba7adb4eece8652898ce8865714a7ba48bf82ec3cf8d8bc5",
+    "result_sha256": "22a9934ccbb2739fef8e5a1a707bff1498506b3394ae48a4c70e9abd43221c59",
+    "note": "Unpublished shared diagnostic host; SHA256 uses UTF-8 text with LF."
+  },
+  {
+    "target": "Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+    "patch": "Integration/Source__FPSGAME__Weapons__M870PresentationWireAudit.cpp.patch",
+    "prerequisite_sha256": "dfae16a2f318558e0f763fd2acecc6ed4951ab0c5bf291469fb2b23083e652a3",
+    "result_sha256": "4552ded9fc5f45c8c8ae5e87c5afa55dcc6a846be345ea54468b5fcc7322aace",
+    "note": "Unpublished shared diagnostic host; SHA256 uses UTF-8 text with LF."
+  }
+]

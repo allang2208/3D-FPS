@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/SVCHWeaponAssets.h"
 
 // Generated from saved stock surfaces by read_stock_contacts.py.
 // WPN_root units (including the native FBX 100x scale), not wrist centimetres.
@@ -7,6 +8,7 @@ namespace FPSBodyRifleStock
 {
 inline const FVector* Find(const FString& Mesh)
 {
+    if(Mesh==SVCHWeaponAssets::MeshPath)return &SVCHWeaponAssets::StockContact;
     static const FVector Stock0(0.0008034199,-0.2941002867,-0.0117000861);
     if(Mesh==TEXT("/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative"))return &Stock0;
     static const FVector Stock1(-0.0000327822,-0.2410488809,0.0241449107);

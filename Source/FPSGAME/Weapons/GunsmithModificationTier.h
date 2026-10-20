@@ -4,12 +4,15 @@
 #include "TacticalDeviceVariants.h"
 #include "LegendaryTacticalStock.h"
 #include "FullAutoTrigger.h"
+#include "SniperSuppressorAssets.h"
 
 enum class EGunsmithModificationTier : uint8 { Common, Special, Legendary };
 namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if(SlotKey==TEXT("muzzle")&&Id==SniperSuppressorAssets::Part&&SniperSuppressorAssets::Supports(Weapon))
+        return EGunsmithModificationTier::Special;
     if(Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("hammer_heads")&&Id==TEXT("meteor_core"))
         return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("optic")&&Id==TEXT("thermal_scope"))return EGunsmithModificationTier::Legendary;

@@ -8,6 +8,10 @@
 
 namespace M4Sights
 {
+    bool UsesLegacyM4Heads(const USkeletalMesh* Mesh)
+    {
+        return Mesh && Mesh->GetPathName() == TEXT("/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416");
+    }
     // Generated from the actual source mesh in folding-sights.json. Component-space cm.
     const FVector Hinges[]={{4.81653735,-17.89975911,1.09246466},{4.81410958,-49.31282997,1.17446287}};
     const FVector Axis=FVector(-.99619466,0,-.08715604).GetSafeNormal();
@@ -36,7 +40,9 @@ void AFPSGAMECharacter::InitializeFoldingSights()
         }
         UpdateFoldingSights(0.f);return;
     }
-    if(!WeaponMesh||(!bUseQBZ191&&!WeaponMesh->GetName().Contains(TEXT("FoldingSights"))))return;
+    // SVCh's RealFoldingSights mesh already contains its sight pair. A name
+    // substring is not a contract for attaching the independent M4 heads.
+    if(!WeaponMesh||(!bUseQBZ191&&!M4Sights::UsesLegacyM4Heads(WeaponMesh)))return;
     const auto& Ref=WeaponMesh->GetRefSkeleton();FTransform Root=FTransform::Identity;
     for(int32 I=Ref.FindBoneIndex(TEXT("WPN_root"));I!=INDEX_NONE;I=Ref.GetParentIndex(I))Root=Root*Ref.GetRefBonePose()[I];
     for(int32 I=0;I<2;++I)
@@ -64,6 +70,17 @@ void AFPSGAMECharacter::InitializeFoldingSights()
 }
 void AFPSGAMECharacter::UpdateFoldingSights(float /*DeltaSeconds*/)
 {
+    if(FoldingSightHeads.IsEmpty())return;
+    const bool bUsesIndependentHeads=bUseQBZ191||M4Sights::UsesLegacyM4Heads(AKMViewmodel->GetSkeletalMeshAsset())
+        ||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel);
+    if(!bUsesIndependentHeads)
+    {
+        // Also remove heads already created on the retained SVCh instance.
+        for(auto Head:FoldingSightHeads)Head->DestroyComponent();
+        FoldingSightHeads.Reset();FoldingSightMounts.Reset();FoldingSightAxes.Reset();FoldingSightAngles.Reset();
+        SightFoldAlpha=0.f;
+        return;
+    }
     // Independent components must follow the rifle's current presentation state.
     const bool bShowSights=bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&!AKMViewmodel->bHiddenInGame;
     for(auto Head:FoldingSightHeads)Head->SetVisibility(bShowSights);

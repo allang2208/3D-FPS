@@ -1,3 +1,9 @@
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
+#include "Monsters/MonsterCombatComponent.h"
+#include "Combat/RangedAttackQuery.h"
+#include "Engine/SkeletalMesh.h"
 #include "FPSGAMECharacter.h"
 #include "BallisticAuditTarget.h"
 #include "Camera/CameraComponent.h"
@@ -11,6 +17,7 @@
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/FPSBallisticsComponent.h"
 #include "Weapons/FPSWeaponFXComponent.h"
+#include "Weapons/SVCHWeaponAssets.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Misc/CommandLine.h"
@@ -21,6 +28,132 @@
 
 void AFPSGAMECharacter::RunBallisticPresentationAudit()
 {
+    if (FParse::Param(FCommandLine::Get(), TEXT("SVCHFullFireReview")))
+    {
+#include "Weapons/SVCHFullFireReview.inl"
+        return;
+    }
+    // Explicit, isolated, headless SVCH regression; no screenshots or production saves.
+    if (FParse::Param(FCommandLine::Get(), TEXT("SVCHBallisticAudit")))
+    {
+        static int32 Phase=0,Case=0,Failures=0,Checks=0,BeforeShots=0,BeforeImpacts=0;
+        static double Next=2.;
+        static float BeforeDamage=0;
+        static FVector ExpectedImpact;
+        static FString Report;
+        static ABallisticAuditTarget* Target=nullptr;
+        static ABallisticAuditTarget* Wall=nullptr;
+        const double Now=GetWorld()->GetTimeSeconds();
+        auto Check=[&](bool Pass,const FString& Name)
+        {
+            ++Checks;Failures+=!Pass;
+            const FString Line=FString::Printf(TEXT("SVCH_BALLISTIC %s %s\n"),Pass?TEXT("PASS"):TEXT("FAIL"),*Name);
+            Report+=Line;UE_LOG(LogTemp,Display,TEXT("%s"),*Line);
+        };
+        auto Finish=[&]()
+        {
+            const FString Dir=FPaths::ProjectSavedDir()/TEXT("SVCHBallisticAudit");
+            IFileManager::Get().MakeDirectory(*Dir,true);
+            Report+=FString::Printf(TEXT("SVCH_BALLISTIC_COMPLETE checks=%d failures=%d\n"),Checks,Failures);
+            FFileHelper::SaveStringToFile(Report,*(Dir/TEXT("assertions.log")));
+            UE_LOG(LogTemp,Display,TEXT("SVCH_BALLISTIC_COMPLETE checks=%d failures=%d"),Checks,Failures);
+            Phase=99;FPlatformMisc::RequestExitWithStatus(false,Failures?1:0);
+        };
+        if(Phase==99)return;
+        if(Now>45.){Check(false,TEXT("bounded diagnostic completed"));Finish();return;}
+        if(Now<Next)return;
+        if(Phase==0)
+        {
+            auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+            if(!Model||!Model->IsAudit()||!Model->ProfileSlot().Contains(TEXT("SVCHBallisticAudit")))
+            {Check(false,TEXT("isolated diagnostic profile required"));Finish();return;}
+            auto State=Model->Snapshot();State.Items.Reset();State.Hotbar.Init(TEXT(""),4);
+            State.HotbarDefinitions.Init(TEXT(""),4);State.ActiveWeaponSlot=6;
+            auto Item=Model->CreateItem(SVCHWeaponAssets::Definition);Item.Place=1;Item.Cell=6;Item.Magazine=10;
+            State.Items.Add(Item);Model->AddAmmoToState(State,SVCHWeaponAssets::ItemAmmoId,40);
+            if(!Model->CommitState(State)){Check(false,TEXT("fixture committed"));Finish();return;}
+            ApplyColdSteelProfile(Model);
+            GetCharacterMovement()->DisableMovement();SetActorLocation(FVector(0,0,5000));
+            auto* PC=Cast<APlayerController>(Controller);
+            PC->SetIgnoreLookInput(true);PC->SetIgnoreMoveInput(true);PC->SetControlRotation(FRotator::ZeroRotator);
+            AKMViewmodel->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+            Phase=1;Next=Now+3.;return;
+        }
+        if(Phase==1)
+        {
+            Check(GetPathNameSafe(AKMViewmodel->GetSkeletalMeshAsset())==SVCHWeaponAssets::MeshPath,TEXT("current SVCH mesh loaded"));
+            Check(bInventoryWeaponReady&&ProjectileSpeedCM>0&&DamagePerShot>0,TEXT("real firearm configuration ready"));
+            AimPressed();ResumeWeaponPose();Phase=2;Next=Now+1.5;return;
+        }
+        if(Phase==3)
+        {
+            Check(ShotsFired==BeforeShots+1,FString::Printf(TEXT("case %d fired once"),Case));
+            if(Case<5)
+            {
+                Check(Target->Received>BeforeDamage,FString::Printf(TEXT("case %d enemy received actual projectile damage"),Case));
+                Check(Ballistics->ImpactCount==BeforeImpacts+1&&FVector::Dist(Ballistics->LastImpactPoint,ExpectedImpact)<.1,
+                      FString::Printf(TEXT("case %d impact follows visible sight within 1 mm"),Case));
+            }
+            else
+            {
+                Check(Target->Received==BeforeDamage,FString::Printf(TEXT("case %d wall prevents target damage"),Case));
+                Check(Case==5?bLastShotMuzzleBlocked:Ballistics->ImpactCount==BeforeImpacts+1,
+                      Case==5?TEXT("camera-to-muzzle obstruction caught"):TEXT("projectile stops on intervening wall"));
+            }
+            if(Wall){Wall->Destroy();Wall=nullptr;}
+            Target->Destroy();Target=nullptr;
+            ++Case;
+            if(Case==7)
+            {
+                bIsAiming=false;WeaponADSFactor=0;
+                Check(ComputeWeaponAimDirection().Equals(FirstPersonCamera->GetForwardVector(),1.e-8),TEXT("hip aim retains camera axis"));
+                const FVector First=ComputeShotDirection();bool Varied=false;
+                for(int32 I=0;I<32;++I)Varied|=!ComputeShotDirection().Equals(First,1.e-8);
+                Check(Varied,TEXT("hip fire retains its existing random spread"));
+                Finish();return;
+            }
+            bIsAiming=true;Phase=2;Next=Now+.6;return;
+        }
+        if(Phase==2)
+        {
+            static const float Distances[]={2000.f,5000.f,10000.f,5000.f,5000.f,5000.f,5000.f};
+            if(Case==3){bIsAiming=false;WeaponADSFactor=1.f;} // Released input while ADS still settled.
+            const FTransform OriginalMeshTransform=AKMViewmodel->GetComponentTransform();
+            if(Case==4)AKMViewmodel->AddWorldRotation(FRotator(2,-1,0)); // Visible sway/recoil must still guide fire.
+            const FVector Eye=FirstPersonCamera->GetComponentLocation();
+            const FVector PhysicalFront=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(SVCHWeaponAssets::FrontSight);
+            const FVector VisibleDirection=(PhysicalFront-Eye).GetSafeNormal();
+            const FVector LegacyDirection=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-Eye).GetSafeNormal();
+            const double Dot=FVector::DotProduct(LegacyDirection,VisibleDirection);
+            const double LegacyMiss=Dot>0?Distances[Case]*FMath::Sqrt(FMath::Max(0.,1.-Dot*Dot))/Dot:-1.;
+            Report+=FString::Printf(TEXT("SIGHT case=%d distance_m=%.1f legacy_angle_deg=%.6f legacy_miss_cm=%.6f\n"),
+                Case,Distances[Case]/100.f,FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(Dot,-1.,1.))),LegacyMiss);
+            Check(ComputeShotDirection().Equals(VisibleDirection,1.e-8),FString::Printf(TEXT("case %d shot uses physical SVCH front sight"),Case));
+            Target=GetWorld()->SpawnActor<ABallisticAuditTarget>(Eye+VisibleDirection*Distances[Case],VisibleDirection.Rotation());
+            Target->Tags.Add(TEXT("Enemy"));
+            FCollisionQueryParams Query(SCENE_QUERY_STAT(SVCHBallisticAudit),true,this);FHitResult Intended,Legacy;
+            Check(RangedAttackQuery::LineTraceSingle(GetWorld(),this,Intended,Eye,Eye+VisibleDirection*TraceDistance,ECC_Visibility,Query)
+                  &&Intended.GetActor()==Target,TEXT("visible sight intersects enemy hit proxy"));
+            if(Case<3)
+                Check(!RangedAttackQuery::LineTraceSingle(GetWorld(),this,Legacy,Eye,Eye+LegacyDirection*TraceDistance,ECC_Visibility,Query)
+                      ||Legacy.GetActor()!=Target,TEXT("old donor-sight ray reproduces the miss"));
+            ExpectedImpact=Intended.ImpactPoint;
+            if(Case>=5)
+            {
+                const FVector Muzzle=GetEffectiveMuzzleLocation()+GetEffectiveMuzzleForward()*2.f;
+                const FVector WallCenter=Case==5?(Eye+Muzzle)*.5:Eye+VisibleDirection*2500.f;
+                Wall=GetWorld()->SpawnActor<ABallisticAuditTarget>(WallCenter,(Muzzle-Eye).Rotation());
+                auto* Box=Cast<UBoxComponent>(Wall->GetRootComponent());Box->SetBoxExtent(FVector(2,100,100));
+                // A wall is a blocking world object, never a friendly target.
+                Wall->Tags.Add(TEXT("DefenseStructure"));
+            }
+            BeforeDamage=Target->Received;BeforeShots=ShotsFired;BeforeImpacts=Ballistics->ImpactCount;
+            MagazineAmmo=10;NextAllowedShotTime=Now;FireShot();
+            if(Case==4)AKMViewmodel->SetWorldTransform(OriginalMeshTransform);
+            Phase=3;Next=Now+.7;return;
+        }
+        return;
+    }
     static bool InputIsolated=false;
     if(!InputIsolated){
         if(auto* PC=Cast<APlayerController>(Controller)){PC->SetIgnoreLookInput(true);PC->SetIgnoreMoveInput(true);InputIsolated=true;}

@@ -48,7 +48,7 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
     Player->WeaponState=EAKMWeaponState::Idle;Player->bInventoryWeaponReady=true;
     // Every single-firearm family shares this path, independently of its rig.
     for(const TCHAR* Definition:{TEXT("ue_m4a1"),TEXT("ue_hk416"),TEXT("ue_akm"),TEXT("ue_a762"),TEXT("ue_lmg201"),
-        TEXT("ue_svd"),TEXT("ue_pkm_lowpoly"),TEXT("ue_qbz191"),TEXT("ue_ash12"),TEXT("ue_m16a2"),
+        TEXT("ue_svd"),TEXT("ue_svch"),TEXT("ue_pkm_lowpoly"),TEXT("ue_qbz191"),TEXT("ue_ash12"),TEXT("ue_m16a2"),
         TEXT("ue_m1911"),TEXT("ue_g18"),TEXT("ue_pit_viper2011"),TEXT("ue_dan_wesson715"),TEXT("ue_rsh12")})
     {Player->ActiveInventoryWeaponDefinition=Definition;Check(CanUse(),FString(Definition)+TEXT(" idle permits consumption"));}
     Player->bAimHeld=Player->bIsAiming=true;Player->ADSProgress=1.f;

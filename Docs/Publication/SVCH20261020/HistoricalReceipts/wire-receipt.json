@@ -1,0 +1,9 @@
+{
+  "transport": "real local UDP listen host + client + fresh reconnect",
+  "passed": true,
+  "loss_percent_each_peer": 5,
+  "lag_ms_each_peer": 60,
+  "port": 19883,
+  "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SVCHNetworkReview20261020\\Receipts\\Wire\\20261020-143942",
+  "rendered": false
+}

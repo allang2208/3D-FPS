@@ -8,6 +8,7 @@
 #include "../Weapons/FPSGunplayAnimInstance.h"
 #include "../Weapons/WeaponGripProfile.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/SVCHWeaponAssets.h"
 #include "../Weapons/TubeShotgunAssets.h"
 #include "../Weapons/WeaponPresentationMaterials.h"
 #include "../Weapons/TacticalDeviceComponent.h"
@@ -155,6 +156,10 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
             Result.HiddenMaterials.Add(I);
         if((Slot==TEXT("M870_FactoryFurniture")||Slot==TEXT("M870_FactoryTubeCap"))
             &&!Source->IsMaterialSectionShown(I,0))Result.HiddenMaterials.AddUnique(I);
+        if(SVCHWeaponAssets::Matches(Source)&&(Slot==TEXT("KVInhibitor_mag")||Slot==TEXT("bullet_338lp")||Slot==TEXT("SVCH_New_FactorySights"))
+            &&!Source->IsMaterialSectionShown(I,0))Result.HiddenMaterials.AddUnique(I);
+        if(Asset->GetPathName().StartsWith(TEXT("/Game/Weapons/SVDDragunov20260922/"))
+            &&Slot.ToString().Contains(TEXT("FactoryMuzzle"))&&!Source->IsMaterialSectionShown(I,0))Result.HiddenMaterials.AddUnique(I);
         if(bSuper90&&(Slot==TEXT("S90_FactoryRearGrip")||Slot.ToString().StartsWith(TEXT("S90_FactoryStock_"))
             ||Slot.ToString().StartsWith(TEXT("S90_FactoryTubeCap_")))&&!Source->IsMaterialSectionShown(I,0))
             Result.HiddenMaterials.AddUnique(I);
@@ -162,6 +167,19 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
             Result.HiddenMaterials.AddUnique(I);
     }
     TArray<USceneComponent*> Children;Source->GetChildrenComponents(true,Children);
+    if(Character.IsValid()&&Source==Character->AKMViewmodel&&SVCHWeaponAssets::Matches(Source))
+    {
+        // Component creation order follows local gunsmith history, which need
+        // not match a server receiving only the final loadout. Use asset/socket
+        // identity for the shared part indices used by mechanics and lasers.
+        const auto Key=[](const USceneComponent& Component)
+        {
+            const auto* Part=Cast<UStaticMeshComponent>(&Component);
+            return Part&&Part->GetStaticMesh()?Part->GetStaticMesh()->GetPathName()+TEXT("|")
+                +Part->GetAttachSocketName().ToString()+TEXT("|")+Part->GetRelativeTransform().ToString():FString();
+        };
+        Children.StableSort([&](const USceneComponent& A,const USceneComponent& B){return Key(A)<Key(B);});
+    }
     for(auto* Child:Children)if(auto* Prop=Cast<USkeletalMeshComponent>(Child);
         Prop&&Prop->ComponentHasTag(TEXT("WeaponReloadProp")))
     {

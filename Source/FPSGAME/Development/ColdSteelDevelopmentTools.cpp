@@ -19,6 +19,7 @@ namespace
             Entry.Subgroup=TEXT("其他武器");Entry.SubgroupOrder=8;
             if(WeaponType==TEXT("pistol")){Entry.Subgroup=TEXT("手枪");Entry.SubgroupOrder=0;}
             else if(WeaponType==TEXT("rifle")){Entry.Subgroup=TEXT("步枪");Entry.SubgroupOrder=1;}
+            else if(WeaponType==TEXT("sniper")){Entry.Subgroup=TEXT("狙击步枪");Entry.SubgroupOrder=1;}
             else if(WeaponType==TEXT("shotgun")){Entry.Subgroup=TEXT("霰弹枪");Entry.SubgroupOrder=2;}
             else if(WeaponType==TEXT("machineGun")){Entry.Subgroup=TEXT("机枪");Entry.SubgroupOrder=3;}
             else if(WeaponType==TEXT("sword")||Category==TEXT("weapon_melee")){Entry.Subgroup=TEXT("近战武器");Entry.SubgroupOrder=4;}

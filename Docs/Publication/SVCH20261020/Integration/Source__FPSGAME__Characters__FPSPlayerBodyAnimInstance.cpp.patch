@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -849,7 +849,7 @@
+             const bool PrimaryPistolReload=FPSBodyPistolMotion::UsesPrimaryReload(State)&&(ActionWristMask&1);
+             const bool RiflePair=((State.Family==TEXT("Rifle")&&bLeftGrip)||SupportPistolReload)&&!State.bDual&&!Traversing&&
+                 State.Action!=EFPSBodyAction::Cast&&State.Action!=EFPSBodyAction::Consume&&State.Action!=EFPSBodyAction::DoorPush&&
+-                State.Action!=EFPSBodyAction::GunBash&&State.Contacts.Channel!=TEXT("Bipod")&&
++                (State.Action!=EFPSBodyAction::GunBash||FPSBodyRifleMotion::UsesSourceBash(State))&&State.Contacts.Channel!=TEXT("Bipod")&&
+                 ((bCoupledActionWrists&&ActionWristMask==3)||ActionWristMask==0);
+             const bool RifleAction=(RiflePair&&ActionWristMask==3&&FPSBodyRifleMotion::UsesHoldSpace(State))||PrimaryPistolReload;
+             FTransform RifleAnchor=FTransform::Identity;

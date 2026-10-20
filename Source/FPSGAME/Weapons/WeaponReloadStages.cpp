@@ -3,6 +3,7 @@
 #include "RSH12WeaponAssets.h"
 #include "ASH12WeaponAssets.h"
 #include "SVDWeaponAssets.h"
+#include "SVCHWeaponAssets.h"
 #include "M16WeaponAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
 #include "../UI/ColdSteelInventoryTypes.h"
@@ -26,6 +27,8 @@ FWeaponReloadStages WeaponReloadStages::ForWeapon(const FString& Definition, boo
     }
     if (Definition == SVDWeaponAssets::Definition)
         return {SVDWeaponAssets::MagazineInsert,SVDWeaponAssets::ChargeStart,Empty?SVDWeaponAssets::ChargeRelease:SVDWeaponAssets::MagazineInsert};
+    if (Definition == SVCHWeaponAssets::Definition)
+        return {SVCHWeaponAssets::MagazineInsert,SVCHWeaponAssets::ChargeStart,Empty?SVCHWeaponAssets::ChargeRelease:SVCHWeaponAssets::MagazineInsert};
     if (Definition == TEXT("ue_m1911") || Definition == TEXT("ue_g18") || Definition == TEXT("ue_pit_viper2011")) return {126.f/120.f, 164.f/120.f, Empty ? 192.f/120.f : 126.f/120.f};
     if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762") || Definition == TEXT("ue_lmg201"))
         return {220.f/120.f, 270.f/120.f, Empty ? 350.f/120.f : 220.f/120.f};

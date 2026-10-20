@@ -41,6 +41,31 @@ static TAutoConsoleVariable<float> SaveAutosaveSeconds(TEXT("fps.Save.AutosaveSe
 using namespace ColdSteelInventory;
 namespace
 {
+void RefreshSniperTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)
+{
+    for(auto& Item:State.Items)
+    {
+        if(Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_svch"))continue;
+        const auto* Definition=Definitions.Find(Item.Definition);if(!Definition)continue;
+        TSharedPtr<FJsonObject> Data,Catalog;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data
+            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Catalog)||!Catalog)continue;
+        bool Changed=false;
+        for(const TCHAR* Field:{TEXT("weaponType"),TEXT("weaponTypeTag")})
+        {
+            FString Value,Old;
+            if(Catalog->TryGetStringField(Field,Value)&&(!Data->TryGetStringField(Field,Old)||Old!=Value))
+            {Data->SetStringField(Field,Value);Changed=true;}
+        }
+        for(const TCHAR* Field:{TEXT("critDamageBonus")})
+        {
+            double Value=0.,Old=0.;
+            if(Catalog->TryGetNumberField(Field,Value)&&(!Data->TryGetNumberField(Field,Old)||Old!=Value))
+            {Data->SetNumberField(Field,Value);Changed=true;}
+        }
+        if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
+    }
+}
 void StoreRevolverCaseCount(FColdSteelItem& Item, int32 Count)
 {
     TSharedPtr<FJsonObject> Data;
@@ -171,6 +196,7 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     Shadow->RuneBladesSkill=RuneBladesSkill;
     Shadow->StaffLightSkill=StaffLightSkill;
     auto Migrated=GuestProfile;
+    RefreshSniperTuning(Migrated,Definitions);
     ColdSteelItemRarity::Normalize(Migrated.Items);
     ColdSteelProfileRecovery::InterruptedSpells(Migrated,float(ResourceMaximum(Migrated,true)));
     bool FootprintChanged=false;FString FootprintReason;
@@ -184,6 +210,7 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
 void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
 {
     auto Migrated=External;
+    RefreshSniperTuning(Migrated,Definitions);
     ColdSteelItemRarity::Normalize(Migrated.Items);
     Publish(Migrated);
 }
@@ -210,6 +237,7 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     }
     else if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_DedicatedServer)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
+    RefreshSniperTuning(State,Definitions);
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);

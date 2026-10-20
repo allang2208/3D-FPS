@@ -40,3 +40,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 工作视角里手看不见、同时有一条贯穿屏幕的 1px 细线，或要改 `AAlchemyWorldView`／`AForgeInteraction` 这类把相机与手臂一起搬进工位的视角：[工位视角手臂 IK 锚点](references/workbench-view-arm-anchor.md)。核心是"够手距离必须落在臂展内"，按该页的量取顺序先算距离再查渲染；`ArmBones` 含 clavicle 全部子骨，折叠非手臂骨救不了肩部拉伸。
 
 - 衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序：[衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序](references/garment-continuity-and-cloth-timing.md)。按问题读取，历史证据不授权自动重测。
+
+- SVCH 快速近战整手错位、腕肘扭曲、压缩帧间甩臂与动作时钟：读取 [SVCH 握点与帧间修订](references/svch-grip-subframes.md)。保留 V9、实际握点和仍有效的旧版恢复输入。

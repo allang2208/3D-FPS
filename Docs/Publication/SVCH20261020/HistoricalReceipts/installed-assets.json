@@ -1,0 +1,50 @@
+[
+  {
+    "asset": "base",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SVCH\\Replacement20261018\\SightsR2\\ElbowFit\\DA_SVCH_ElbowFitGrip.uasset",
+    "matches_r7_saved": true,
+    "sha256": "71136c7209b8c66bafa0b730be427cf12b5b76ca14feaa518efb520840a4e71d"
+  },
+  {
+    "asset": "angled",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SVCH\\Replacement20261018\\ForegripFit20261019\\DA_SVCH_Grip_angled.uasset",
+    "matches_r7_saved": true,
+    "sha256": "4ede4ac8395d95438f9cae63a4051a4ea6f34572c26dc1109e5422b3aea1ec77"
+  },
+  {
+    "asset": "vertical",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SVCH\\Replacement20261018\\ForegripFit20261019\\DA_SVCH_Grip_vertical.uasset",
+    "matches_r7_saved": true,
+    "sha256": "2e508675aea53bdd0deec1cf12720c3ddb6d32c4c0cabf8165ba10bee9384026"
+  },
+  {
+    "asset": "canted",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SVCH\\Replacement20261018\\ForegripFit20261019\\DA_SVCH_Grip_canted.uasset",
+    "matches_r7_saved": true,
+    "sha256": "0af503fcf5f61ea37347cb2c619a643d9b329b8d841cc77e09a47bc8619d1174"
+  },
+  {
+    "asset": "prism",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SVCH\\Replacement20261018\\ForegripFit20261019\\DA_SVCH_Grip_prism.uasset",
+    "matches_r7_saved": true,
+    "sha256": "a9991659b063cbb9182979f433ac6925e7c4c94d8870add91fcc8ad88b87d16a"
+  },
+  {
+    "asset": "V9",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Characters\\ModularOutfit20260924\\BarePalmV7\\SVD\\SK_SVD_BareArmsV7.uasset",
+    "protected_unchanged": true,
+    "sha256": "db865373cd3574a8a3382d5b76b1a1ea6452bae25e8305d3c5df063d2d479d1b"
+  },
+  {
+    "asset": "coverage",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Characters\\ModularOutfit20260924\\WristCoverage20260929\\SVD\\SK_SVD_d9b5ee5f40_WristCoverage.uasset",
+    "protected_unchanged": true,
+    "sha256": "98e07d154b166453627e1416658e0009b3575e3bcdfd896e5840c8e53be456a4"
+  },
+  {
+    "asset": "weapon",
+    "path": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SVCH\\Replacement20261018\\RealSights20261019\\SK_SVCH_RealFoldingSights.uasset",
+    "protected_unchanged": true,
+    "sha256": "87cc434a8ee11ce9279d8487038cbccde5fc61f3fec7c9fae08748e56ee15f91"
+  }
+]

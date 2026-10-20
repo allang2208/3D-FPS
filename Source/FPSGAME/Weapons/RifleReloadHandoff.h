@@ -14,7 +14,8 @@ namespace RifleReloadHandoff
         return Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
             || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_m16a2")
             || Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")
-            || Definition == TEXT("ue_ash12") || Definition == TEXT("ue_svd");
+            || Definition == TEXT("ue_ash12") || Definition == TEXT("ue_svd")
+            || Definition == TEXT("ue_svch");
     }
 
     struct FWindow
@@ -68,9 +69,10 @@ namespace RifleReloadHandoff
             // handle closes at 2.65. Keep the source's final .12 s pose handoff.
             FramingStart = bEmpty ? 2.65f : 1.91f;
         }
-        else if (Definition == TEXT("ue_svd"))
+        else if (Definition == TEXT("ue_svd") || Definition == TEXT("ue_svch"))
         {
-            // Preserve the existing SVD exterior regrip and its .10 s handoff.
+            // These rifles share the same source regrip. Recover the component
+            // anchor before FinishWeaponAction clears it, including SVCH.
             FramingStart = SourceEnd - RifleReloadRecovery::ReturnSeconds(false, bEmpty);
             PoseWindow = .10f;
         }

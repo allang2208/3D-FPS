@@ -1,0 +1,1888 @@
+{
+	"checks": 376,
+	"failures": 0,
+	"results": [
+		{
+			"case": "false/10 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "false/10 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/10 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "false/20 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "false/20 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "false/20 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "angled_foregrip/10 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "angled_foregrip/10 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/10 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "angled_foregrip/20 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "angled_foregrip/20 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "angled_foregrip/20 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "vertical_foregrip/10 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "vertical_foregrip/10 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/10 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "vertical_foregrip/20 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "vertical_foregrip/20 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "vertical_foregrip/20 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/10 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "tactical_vertical_foregrip/20 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "canted_foregrip/10 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "canted_foregrip/10 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/10 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "canted_foregrip/20 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "canted_foregrip/20 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "canted_foregrip/20 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "prism_handstop/10 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "prism_handstop/10 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/10 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "prism_handstop/20 owner preview history cannot change part schema",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 calibrated full-body hold",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 magazine capacity",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 observer suppressor and exit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 native quick-melee profile selected",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 inspect packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 inspect authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 inspect observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 normal mag seat packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 normal mag seat authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 normal mag seat observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 empty left bolt packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 empty left bolt authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 empty left bolt observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 empty regrip packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 empty regrip authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 empty regrip observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick contact packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick contact authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick contact observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick contact native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick contact actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 26.531151186031082
+		},
+		{
+			"case": "prism_handstop/20 quick recovery packet retains hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick recovery authority accepts mechanics",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick recovery observer support contact",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick recovery native bash drives both world hands",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "prism_handstop/20 quick recovery actual gunplay wrist bend degrees",
+			"passed": true,
+			"value": 5.2730302353441738
+		},
+		{
+			"case": "execution components available",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 real rifle quick-combat entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 local stamina once",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 busy input cannot spend twice",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 contact clip published on entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 pose and executor share source time",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 normal and accelerated duration",
+			"passed": true,
+			"value": 0.90000033378601074
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 complete recovery releases pose and action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.0333 completion does not leave a future fire lock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 real rifle quick-combat entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 local stamina once",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 busy input cannot spend twice",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 contact clip published on entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 pose and executor share source time",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 normal and accelerated duration",
+			"passed": true,
+			"value": 1
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 complete recovery releases pose and action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.0 step=0.2000 completion does not leave a future fire lock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "execution action haste prepared",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 real rifle quick-combat entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 local stamina once",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 busy input cannot spend twice",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 contact clip published on entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 pose and executor share source time",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 normal and accelerated duration",
+			"passed": true,
+			"value": 0.60000008344650269
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 complete recovery releases pose and action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.0333 completion does not leave a future fire lock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "execution action haste prepared",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 real rifle quick-combat entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 local stamina once",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 busy input cannot spend twice",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 contact clip published on entry",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 pose and executor share source time",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 normal and accelerated duration",
+			"passed": true,
+			"value": 0.60000002384185791
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 complete recovery releases pose and action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "clock rate=1.5 step=0.2000 completion does not leave a future fire lock",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "remote quick intent authorizes and spends server stamina",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "duplicate quick intent cannot spend twice",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "remote SVCH quick hit applies authoritative damage",
+			"passed": true,
+			"value": 20
+		},
+		{
+			"case": "duplicate quick contact cannot damage twice",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "stale finish preserves accepted quick action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "different pawn cannot replace accepted quick action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "matching finish clears authority occupancy",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "finished action cannot deal another hit",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "insufficient server stamina rejects quick action",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svd class crit and rifle mastery",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svd suppressor multipliers",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svd legacy guest shadow migration",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svd server shadow silent-shot scope excludes melee",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svch class crit and rifle mastery",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svch suppressor multipliers",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svch legacy guest shadow migration",
+			"passed": true,
+			"value": 0
+		},
+		{
+			"case": "ue_svch server shadow silent-shot scope excludes melee",
+			"passed": true,
+			"value": 0
+		}
+	],
+	"socket_transport": false,
+	"rendered": false
+}

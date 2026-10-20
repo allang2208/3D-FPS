@@ -5,6 +5,7 @@
 #include "HAL/PlatformTime.h"
 #include "ColdSteelWorldInteraction.h"
 #include "../FPSGAMECharacter.h"
+#include "../Weapons/KVScopeAssets.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "../Skills/FPSElectricMagicComponent.h"
@@ -256,11 +257,12 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
     if(bBow&&!Character->IsTraversing())
         Result=PaintBowRhythm(*Bow,Geometry,Elements,Result+2,Style,1.f/ColdSteelUI::PixelScale(this));
     if(Character->IsTraversing() || (bBow ? !Bow->ShouldShowCrosshair() : !Character->HasInventoryWeapon()&&!Character->HasOffhandPistol()))return Result+2;
-    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
+    const bool bKVScope=Character->GetGunsmithOpticVariant()==KVScopeAssets::Id;
+    if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&(Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")||bKVScope)&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
         const FVector2D Size=Geometry.GetLocalSize();
         FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(FVector2D(150,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-75,Size.Y*.87f-3))),FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")),ESlateDrawEffect::None,FLinearColor(0,0,0,.65f));
         FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(220,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-65,Size.Y*.87f))),
-            FString::Printf(TEXT("%.1f×  |  滚轮调倍率"),Character->GetOpticMagnification()),FCoreStyle::GetDefaultFontStyle("Regular",12),ESlateDrawEffect::None,FLinearColor::White);
+            bKVScope?FString::Printf(TEXT("%.0f×  |  滚轮切倍率"),Character->GetOpticMagnification()):FString::Printf(TEXT("%.1f×  |  滚轮调倍率"),Character->GetOpticMagnification()),FCoreStyle::GetDefaultFontStyle("Regular",12),ESlateDrawEffect::None,FLinearColor::White);
         return Result+2;
     }
     if(!bBow&&Character->IsAiming())return Result+2;

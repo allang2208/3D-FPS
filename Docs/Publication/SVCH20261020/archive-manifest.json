@@ -1,0 +1,2312 @@
+[
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.52.26.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.52.26.json",
+    "bytes": 67108,
+    "sha256": "044aff58e25b8d5a5c6baaa9ab4c6e026c500e3c55fb64b1cf392f141a5dd8da",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.52.26.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.52.26.log",
+    "bytes": 25526,
+    "sha256": "e5ab18305bc7cf472fe59c9f5af38cb894b33ee6df5565d74e3025e111c83d35",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.57.10.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.57.10.json",
+    "bytes": 163232,
+    "sha256": "5b9e9513a33fff82d26afee14baef18199d5ff1fb711ecea49a5410d956ca064",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.57.10.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-12.57.10.log",
+    "bytes": 51897,
+    "sha256": "312537d0ba8931d3b511200137766a08143070e24189a1771f23960999efb8e4",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.03.00.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.03.00.json",
+    "bytes": 1449167,
+    "sha256": "d59876a7437bc91ece4246011391e39164cb83dd4dba6150e43ceb3869b3b2d0",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.03.00.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.03.00.log",
+    "bytes": 383769,
+    "sha256": "76360cf0f5d1d7d9dcfb62d6ac6dc382f9abc8699b0d678bb5e9c5dc149de769",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.11.35.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.11.35.json",
+    "bytes": 67414,
+    "sha256": "cec11f4817af45854342c74d662e68fa88b0bfd96affd7cc5ddac29bc6459054",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.11.35.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/build-editor-backup-2026.10.19-13.11.35.log",
+    "bytes": 24581,
+    "sha256": "7bb68b21081a02b736322c89eeca10bb96e2c75e3765cc306834f75022b2656c",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/final-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/final-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/native-backup-2026.10.19-12.55.22.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/native-backup-2026.10.19-12.55.22.log",
+    "bytes": 324350,
+    "sha256": "3264612c389339a49921e816cd26da350a8fc2690f59e12789c174ac32c119c4",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/native-backup-2026.10.19-13.28.04.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/native-backup-2026.10.19-13.28.04.log",
+    "bytes": 324825,
+    "sha256": "5e7ff1ffe8cba6d22a5c02ad0810b91f0d26bd2792984c1860fa05f68f1f873f",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/read-backup-2026.10.19-13.02.02.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/read-backup-2026.10.19-13.02.02.log",
+    "bytes": 279786,
+    "sha256": "b3ce6146450e4b45e30de52858177be131d2c11d4c09466f41a4276e9ee14dec",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/read-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/read-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/runner.err",
+    "bytes": 260,
+    "sha256": "dfdddd31084a2f4102a4d5e947e654631c8ef9de5845e223045961f535e8b329",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/scale-import-backup-2026.10.19-13.11.33.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/scale-import-backup-2026.10.19-13.11.33.log",
+    "bytes": 280914,
+    "sha256": "4ebf31e0f08e3d1a4a7aa0c0cb85ad4a0612bc2190e9f749cf1628a74fad4add",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/scale-import-backup-2026.10.19-13.12.38.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/scale-import-backup-2026.10.19-13.12.38.log",
+    "bytes": 280913,
+    "sha256": "bb5427852fd9117af28d21989f8c95b2a7f61da1c9a404b94c86e5938df9bc1b",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/scale-import-backup-2026.10.19-13.14.33.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/scale-import-backup-2026.10.19-13.14.33.log",
+    "bytes": 281167,
+    "sha256": "1811c090bcb8829d87fb7cbe2ae6e7e3c64d4cd12b17a11b7205f93e248a297c",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/scale-import-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/scale-import-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261019/wire-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261019/wire-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261020/build-FPSGAME-backup-2026.10.20-06.34.38.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261020/build-FPSGAME-backup-2026.10.20-06.34.38.json",
+    "bytes": 50128,
+    "sha256": "4533fe4b4472d4049c78733727248b6ccac835aa04845b52fe69df3be983a785",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261020/build-FPSGAME-backup-2026.10.20-06.34.38.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261020/build-FPSGAME-backup-2026.10.20-06.34.38.log",
+    "bytes": 20498,
+    "sha256": "e7235ae0e470d55defacf23791dbf1f1ff5ad6b12866082920549906604f5fc8",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261020/build-FPSGAMEEditor-backup-2026.10.20-06.34.32.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261020/build-FPSGAMEEditor-backup-2026.10.20-06.34.32.json",
+    "bytes": 17636,
+    "sha256": "79e8568523397a741bb94bb336731f535acb0484a160d3f7d27f871f6b947fdb",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261020/build-FPSGAMEEditor-backup-2026.10.20-06.34.32.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261020/build-FPSGAMEEditor-backup-2026.10.20-06.34.32.log",
+    "bytes": 5516,
+    "sha256": "e9eb50ac823a639e05e250bb487fd173fe0be55ff03f43306e4c2520e63d318e",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHNetworkReview20261020/native-backup-2026.10.20-06.35.47.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHNetworkReview20261020/native-backup-2026.10.20-06.35.47.log",
+    "bytes": 347331,
+    "sha256": "5bd68641868b0af5419d3e0a1557ea78980164bb3a4f793029875807fc9b1f3e",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-a2-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-a2-runner.err",
+    "bytes": 657,
+    "sha256": "dbaa1cc1da5ae78027ef1a909fb9ee32738b81b3c3b5ef70c298f1b235124fea",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-a2-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-a2-runner.out",
+    "bytes": 117,
+    "sha256": "82079f325d5cfd82e587e6f535088535596f02a809e69f31270e03e3363267c2",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-a3-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-a3-runner.err",
+    "bytes": 657,
+    "sha256": "33faeec110786c716ae7af7ff32706292b6a9bc45e0f5cba4c20de2a71ecacdf",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-a3-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-a3-runner.out",
+    "bytes": 117,
+    "sha256": "4d016988ccf41851bafe4d61e8a2ba03033b29c92e7e24f9609b574c9d568210",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-a4-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-a4-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-a4-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-a4-runner.out",
+    "bytes": 659,
+    "sha256": "aeb936dd5cd7b371a098d363c44a94e181f83851ca94e75afec396ef5e098421",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-correctives-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-correctives-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-correctives-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-correctives-runner.out",
+    "bytes": 718,
+    "sha256": "4a8221283850e7462552c635ff81d5cdb87ae78f8b47b79c440b7bb671957699",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-final-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-final-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-final-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-r4-final-runner.out",
+    "bytes": 667,
+    "sha256": "6c3da9e072c51ddc87201b2e1872788c66c349e73dea3345a620f70da7fb36a7",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-studio1-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-studio1-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/Checks/runtime-studio1-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/Checks/runtime-studio1-runner.out",
+    "bytes": 664,
+    "sha256": "ac405b799b6791f7c61a69fbcbf5319d86d385d215bc8215e491ed938c1130b5",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_back.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_back.png",
+    "bytes": 561210,
+    "sha256": "8ea4f0fed631921ad22c38f1bb6d6d3671a1e4c95c6f1bfbe4fbe9455699650d",
+    "reason": "Unselected reload contact candidates"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_palm.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_palm.png",
+    "bytes": 555726,
+    "sha256": "6eb64b9e0aadb9c2cec02aa4bb4656913b7d6b9ad63be10fc93f7fb99aab04b7",
+    "reason": "Unselected reload contact candidates"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_scene.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_scene.json",
+    "bytes": 1598493,
+    "sha256": "2a297aa8d3b8b9bf8d7145fdbc5b4f52eeafd3b09471b3f74f9075774c62062a",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_winding.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/contact_winding.json",
+    "bytes": 2451,
+    "sha256": "4c7bff277b144f127647a08a6043a8b324e1af78662a32821391d15cb620a106",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/install_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/install_receipt.json",
+    "bytes": 649,
+    "sha256": "90c9c72c7f382e6b0ca4ee213794eb76066501a8bed194fda845986dd0228d36",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/native_registration_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/native_registration_receipt.json",
+    "bytes": 28012,
+    "sha256": "ba29ca6a56bcc4eace5844a243122a69669df5f893f64855e6e9455a9c71d1c6",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/profile_native_registration.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R10ReloadReview/Candidates/initial/profile_native_registration.json",
+    "bytes": 5400720,
+    "sha256": "4427ffbe1cb3842ca1f0baf0be0dc7e616a318682df7d0522a9f9bb7414b8885",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/front_sight_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/front_sight_clay.png",
+    "bytes": 575353,
+    "sha256": "32748f92bba87012058a6f5caa377ebdee5f55efcd6c5b1eea60df3bdc98e14a",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/geometry_audit.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/geometry_audit.json",
+    "bytes": 90660,
+    "sha256": "4ed36afdb16cc07b3c38a1a383581d4ca6b15014529cbef9f430eaf59fcb85e1",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/grip_stock_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/grip_stock_clay.png",
+    "bytes": 596529,
+    "sha256": "9a8524cf3b46fc61ae6d6c032e23656351f6714a38bd8b57b4d39edb9f1598e8",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/inspect_surface.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/inspect_surface.py",
+    "bytes": 6372,
+    "sha256": "1a67a362cc0bb0f9e6e7b246d7f22643ade104a6cc5ba4ed749bfcd76fa34212",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/magazine_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/magazine_clay.png",
+    "bytes": 656088,
+    "sha256": "5d37b5286fea995217dd90a0106c4f2721ba2c7c3dc774fc9682c81752a66238",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/muzzle_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/muzzle_clay.png",
+    "bytes": 484157,
+    "sha256": "c7c6d80b8f39e57a24285cf3b774e313ead346fb029b5f9e325fd3d2613d7259",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/overview_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/overview_clay.png",
+    "bytes": 480554,
+    "sha256": "f3cb21807f366850601a805209dcd5bea5daa95beb8f5d67f88ccdfe1c800eac",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/rail_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/rail_clay.png",
+    "bytes": 638071,
+    "sha256": "4fa6fbb5e321e6d8b83123dbf3067e580417decfb3091e2a0583c3b904492c7b",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/rear_sight_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/rear_sight_clay.png",
+    "bytes": 615130,
+    "sha256": "5e17e00b433540f83e73a41529e930e16aa3dcbdb37f7689254a258ce55b33b2",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/receiver_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/receiver_clay.png",
+    "bytes": 665271,
+    "sha256": "ab4628758ecdf61f1ce05f4c47a43f9294189636f43b92d775d6e37920035a23",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/surface_findings.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R12SurfaceAudit/surface_findings.jpg",
+    "bytes": 192086,
+    "sha256": "5e6d7446e2b16bb907ac5fbec881fa11774aa75e6751c8d5d9b81ca8da758891",
+    "reason": "Superseded original-model surface inspection; replacement model is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/SVCH_R13_LocalPilots.blend",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/SVCH_R13_LocalPilots.blend",
+    "bytes": 7880437,
+    "sha256": "42df859d47bedb7824fdb20d6f795ea9dbd5e5b3271afef855d99fc00f0988ea",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/author_pilots.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/author_pilots.py",
+    "bytes": 13781,
+    "sha256": "ce35b6f5bb8a7f8201e5f93f111111cad5807ceb2b3382bc805a6cb04de30ea1",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/check_pilots.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/check_pilots.py",
+    "bytes": 3283,
+    "sha256": "6369e02f77282fa54d09b28ad1991a1fcc80b39f065f9640bb2146e4a304d64e",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/comparison_clay.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/comparison_clay.jpg",
+    "bytes": 525714,
+    "sha256": "501a0875e0976cfb827e7826aebf6db7c975147ceddf659d68226e6a105b43f3",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/comparison_geometry.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/comparison_geometry.json",
+    "bytes": 2687308,
+    "sha256": "a7acdb0b74f27ad0c5b31eadb6bfdef983120831871c643e65cb47d372a6534e",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/comparison_shaded.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/comparison_shaded.jpg",
+    "bytes": 494596,
+    "sha256": "e15674c136af223698a840027c12a1d0f1dd5dcdeaa7c2cc7da76eded0bbfc5d",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/delivery_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/delivery_receipt.json",
+    "bytes": 4897,
+    "sha256": "9d845b62922af6a297bfe60470dbe387231330d77227eefaa18844770490ce2a",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/geometry_checks.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/geometry_checks.json",
+    "bytes": 33361,
+    "sha256": "38378a9d61d4d77eaa506916a842be80bf6300abbc417a879a8c80b61acb385d",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_after_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_after_clay.png",
+    "bytes": 592936,
+    "sha256": "0fc143b539b89c68568d143ff0af22a2bd68e600cfd43906524a3228a8cb2278",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_after_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_after_shaded.png",
+    "bytes": 692893,
+    "sha256": "a5aba3b28e8b371648273ac7a25be3b2b999e25f8707aba48143eb96e1e3481c",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_before_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_before_clay.png",
+    "bytes": 592495,
+    "sha256": "f43da9992e5b984a730c4bd372b469964b75b3595344c6a347724b5ffe932266",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_before_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_detail_before_shaded.png",
+    "bytes": 691600,
+    "sha256": "870bd9e945d289437056cc7373e681bcd2a8ecd2c7f95d8f1bad592ee511be1d",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_after_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_after_clay.png",
+    "bytes": 597144,
+    "sha256": "fb5068ed7608a43603c24efb4275d97cbd835e049a9107f510b25351b63fd793",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_after_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_after_shaded.png",
+    "bytes": 734723,
+    "sha256": "bc8c1fe3cc0cac43ffc8ed7a4cd0dd221844dbdb65aeb899a983eef120c76273",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_before_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_before_clay.png",
+    "bytes": 596540,
+    "sha256": "8b3a15d2c518508b1f5e038e6c5bbaa8166d5ccba9fa259468ff1d3cb1a026d1",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_before_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_before_shaded.png",
+    "bytes": 728601,
+    "sha256": "677c11a717d2637eb4522c6f15bafcda1d16277f2a4ae45fc76c84f3d33c1aa8",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_close_comparison.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_close_comparison.jpg",
+    "bytes": 296069,
+    "sha256": "bea5a22b297791875ea7faea87d500e9a92e937914fe0990d1122af709ea1d7b",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_comparison_clay.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_comparison_clay.jpg",
+    "bytes": 178748,
+    "sha256": "f17387b4a9ec20a98036ad868ca8abd0d733854616e43b91d82d8ef3441b2b7a",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_comparison_shaded.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/grip_stock_comparison_shaded.jpg",
+    "bytes": 160445,
+    "sha256": "932a49757f6ac59642338e92b7fff28b8e8427d1428a0d3782d36c5b6fe17809",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/model_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/model_receipt.json",
+    "bytes": 6982,
+    "sha256": "da1775ec0f7f46ee7954140202d23686d5fdc6fb7b1908ab0e4d3f5bc4392234",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/native_hand_contacts_cm.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/native_hand_contacts_cm.json",
+    "bytes": 1442538,
+    "sha256": "9ba0f46aec7928ccbeb53114633fb6a6989e0bab618b08434d5cf5dd19a34a9b",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/package_comparison.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/package_comparison.py",
+    "bytes": 4463,
+    "sha256": "3bfd0d8fec8703bbd064b8b987f15b1b1ff4adbfc0363714dbbe6ffbecfcff61",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/prepare_contacts.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/prepare_contacts.py",
+    "bytes": 2150,
+    "sha256": "627afeb692822972292b4120c19a33931ab5610f8e1b8f245e5eb7ffedf55790",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/protected_files_before.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/protected_files_before.json",
+    "bytes": 3492,
+    "sha256": "bac1db6b4bbfb7080e1da7fa0814b4a0ef10c443aba6adba274d0052b2d86af2",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_after_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_after_clay.png",
+    "bytes": 618184,
+    "sha256": "45fec9f30733845f0e778c2ffac9d47eb7c48f629bcee6a4d9ff434c31638c22",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_after_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_after_shaded.png",
+    "bytes": 750747,
+    "sha256": "a5dc63d8bebb6acf58b4f00acd958b7fbf17d607fe55edf89be1a58028623650",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_before_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_before_clay.png",
+    "bytes": 615141,
+    "sha256": "434e5c59706561019ac08b62642f83ad471e0dc4cdef4e263df69ae9fb26b6df",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_before_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_before_shaded.png",
+    "bytes": 745810,
+    "sha256": "9dd47045f6840974d77d4983201f139616cec79734bbeb274ff6c9dd506d9ce3",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_comparison_clay.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_comparison_clay.jpg",
+    "bytes": 174551,
+    "sha256": "9a35f056f4e9958ebbc4c2e4cb6e09bfe541c0b4cadd3a1b11edc724ce7050a8",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_comparison_shaded.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rear_sight_comparison_shaded.jpg",
+    "bytes": 170920,
+    "sha256": "b6cd8562ab6ab5281287207a7027db15bf7a77e5e5274607aad9e309a8005e19",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/rebuild_stock_profiles.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/rebuild_stock_profiles.py",
+    "bytes": 1591,
+    "sha256": "f85aa942f0d0a3533c0433b6005f851bf31ae2d6516c853c48603beb029542b5",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_after_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_after_clay.png",
+    "bytes": 666745,
+    "sha256": "af5e69edc089cf6c002bd3db377575094284dd2ab39a6197c43708f4e1916d71",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_after_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_after_shaded.png",
+    "bytes": 757565,
+    "sha256": "8554dd5ca38f25f82d1d1ead37634aa0f6899b0dc02ecf6b59c9d15825e3fc54",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_before_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_before_clay.png",
+    "bytes": 665282,
+    "sha256": "a51e9fe79a87aa7df30fd9fc97ec49c4d18ec6bfdd452faf57da0a282a841ac0",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_before_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_before_shaded.png",
+    "bytes": 753244,
+    "sha256": "33d991138d84465d343bb895407fb2740f82e41956ef8e40751c69891318a5e6",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_comparison_clay.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_comparison_clay.jpg",
+    "bytes": 207169,
+    "sha256": "b33d1321ccd0b00c72782139a7881926fc71064670fdfaf911ab8e15d21a24f9",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_comparison_shaded.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/receiver_comparison_shaded.jpg",
+    "bytes": 186115,
+    "sha256": "198fb8d5dad92a4d1bf61caabf513ba4b858c88f18b950dd11e5dcdbd4e4d655",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/render_comparison.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/render_comparison.py",
+    "bytes": 2896,
+    "sha256": "96bbcf438bb76e0551a5c47e04ae2eed341bcbcd99d9d3493a5325a9ed48da48",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_after_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_after_clay.png",
+    "bytes": 632800,
+    "sha256": "b14092cb12799b9f1e9306049dd455d665503a58376588d6cbd29e696678354c",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_after_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_after_shaded.png",
+    "bytes": 718233,
+    "sha256": "7391224746da9b94a1a1bd1f3a5f74fee565a7755ce4b520d920e524464a02de",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_before_clay.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_before_clay.png",
+    "bytes": 633265,
+    "sha256": "380b6f1110f4471ba957eb60be8810ba2f45a77c816745c3b7c42b61c8df3d50",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_before_shaded.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_detail_before_shaded.png",
+    "bytes": 712145,
+    "sha256": "3ecbfcc54d6c715e1c57d8ad3f724ddcedd9bc70fb8fd3c309fde8e07078eecc",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_profile_rebuild.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R13LocalPilots/stock_profile_rebuild.json",
+    "bytes": 29866,
+    "sha256": "e731885483b5d448cae21ed3b83af2df3b719ba75dda70a014410b297eb5f9ae",
+    "reason": "Superseded original-model local pilots; selected source replacement is active"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R5/runtime-r5-01-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R5/runtime-r5-01-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R5/runtime-r5-01-runner.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R5/runtime-r5-01-runner.out",
+    "bytes": 805,
+    "sha256": "a345a7f7c4f2eb8049f1e04753200e9623b61ec5d04b992419687ec70ddfbc62",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R5/runtime-runner.pid",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R5/runtime-runner.pid",
+    "bytes": 7,
+    "sha256": "5edf1ee4719d3ca02a8d9593fae69f3ecc5974ec02437bd3dbd6455f75bcd6f8",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R5_dorsal.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R5_dorsal.png",
+    "bytes": 560745,
+    "sha256": "aedcf127f01c9597d46e0ccb6912d0f0ef3c991cb5fa71148a8a60ab88bd02ca",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R5_oblique.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R5_oblique.png",
+    "bytes": 557258,
+    "sha256": "3dea5283d9a4018c67e2331eaf90ce5e5baea4d1bcef3bcace9d88ea2007b588",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R5_side.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R5_side.png",
+    "bytes": 557255,
+    "sha256": "9318ec07fb9b5e11a4568a11a2579b1d7a21e04197ec40731e9028b66b09c59d",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R5_surface.npz",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R5_surface.npz",
+    "bytes": 296442,
+    "sha256": "e4e419e3aff46fd3eece86f532162e08be241af71f23871edfb16275bc431fb5",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R6_dorsal.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R6_dorsal.png",
+    "bytes": 556848,
+    "sha256": "c2bfe5e41a64deec3c6960298610456f739658d4b62f42f1def0f9f5d5b30f82",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R6_oblique.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R6_oblique.png",
+    "bytes": 548774,
+    "sha256": "855374c13c5fb1b69ce45252deacf10745d79406fda98c316f4fe2bd7234ebe2",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R6_side.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R6_side.png",
+    "bytes": 546280,
+    "sha256": "da33111c676dbaab3922c4d2501322757e13a0b06aefea1056c5ba92baab8d0c",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/R6_surface.npz",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/R6_surface.npz",
+    "bytes": 296575,
+    "sha256": "af3bc9ec69f7b298faf36a2cbbfef10a936355dcd0f7872b1ffed08935e64b8d",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/REJECTED_SUPPORT.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/REJECTED_SUPPORT.md",
+    "bytes": 586,
+    "sha256": "62b10fc856b887b745ef788f79c05d641cc97d8944c3b63cbdf4eca3d6f0dd40",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/author_support.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/author_support.py",
+    "bytes": 5875,
+    "sha256": "86edc64b93d9b7aff16021c987f127d50df231e4f4183dc33b21dd627fa9be4e",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/build-r6.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/build-r6.json",
+    "bytes": 309,
+    "sha256": "89e963447b8c1eeb09f4eabb7338e2e6e6c36b9d726a8c09ae1dc0d924548526",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/continuity.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/continuity.json",
+    "bytes": 216,
+    "sha256": "fce8b69f9c34551417c12b31d2043d9bbaac9a484bbf25984a36a64c61ea5648",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/install_profile.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/install_profile.py",
+    "bytes": 1066,
+    "sha256": "188e36519dee577f0a169e3ab19e93f678bc1a2cf34abc1a1ba37e671403b1d8",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/install_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/install_receipt.json",
+    "bytes": 279,
+    "sha256": "375e55143f3ba0a289f9a7b2f7de6f6d818a9743c5ce0126323083136a9ef431",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/native_baseline.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/native_baseline.json",
+    "bytes": 413343,
+    "sha256": "e68923c7715589c80c4ce7ccf342048b240db9d2817664ba39a6ebce438b7044",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/probe-nojc.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/probe-nojc.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/probe-nojc.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/probe-nojc.out",
+    "bytes": 809,
+    "sha256": "fac7b3279239288b4e59f5cda4e58c870529f9d18390be5365b245d2a8636db0",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/read_compressed_clips.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/read_compressed_clips.py",
+    "bytes": 1605,
+    "sha256": "f8588d2fdcb9a0e5b74297a76bb9c70c887c781cb56eb69dc9f160545ca8b2d5",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/read_native_baseline.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/read_native_baseline.py",
+    "bytes": 1966,
+    "sha256": "19ff2cff88ca1271740315277975d890cfc31c8deac3a4a9ea611c04c0486517",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/render_surface.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/render_surface.py",
+    "bytes": 1979,
+    "sha256": "2f5892ccf68388f6e15a81b6aa2d55707c4d26094377d97d5d0054c845378ea4",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/shared_profile_r6.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/shared_profile_r6.json",
+    "bytes": 5213870,
+    "sha256": "ca5be6355e93ddf18406a1be31065a3d86b26abaeaf47c614ef4672fd4ef0c88",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/support_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/support_receipt.json",
+    "bytes": 171403,
+    "sha256": "c2c500b7a225e93d5d0bc6dcc413a57cd16c8fa600a73d35aa2d0d0f48050887",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/surface_probe.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/surface_probe.json",
+    "bytes": 774,
+    "sha256": "7b38c815d9519eee5c5fdf87b2346b9ef01ea44316692947354476dcb350c925",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R6/surface_probe.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R6/surface_probe.py",
+    "bytes": 2656,
+    "sha256": "eb71768e5fce6b9be8fae2c492fc28cc0073076db156662dd6c2c3c0847d16f6",
+    "reason": "Rejected pre-native-V9 wrist deformation experiment"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime-02.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime-02.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime-02.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime-02.out",
+    "bytes": 819,
+    "sha256": "daa23e4339e3dd1ab86bedbcd9e13dc483b586b01fadef727c4f04d1eaf699bc",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime.err",
+    "bytes": 671,
+    "sha256": "b3ddbaca692f98b4ae38854ad762be969889d664f75bcae76791f54b0408ce89",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime.out",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHRefinement20261018/R7NativeV9/runtime.out",
+    "bytes": 124,
+    "sha256": "ef4dcea9d1230733dee98cbd17412558522d1255ef3976bb6c87162b2e24b2eb",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/author-final.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/author-final.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/author.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/author.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/build-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/build-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/collect-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/collect-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/export-editable.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/export-editable.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/finish-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/finish-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/install-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/ForegripFit20261019/install-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/Draft1/authoring_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/LeftReload20261019/Draft1/authoring_receipt.json",
+    "bytes": 12053,
+    "sha256": "d3d04764f5c6841cce996af4305fceb62a3dc0f4abb100638375ab50afd3d8fb",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/Draft1/install_receipt.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/LeftReload20261019/Draft1/install_receipt.json",
+    "bytes": 778,
+    "sha256": "db9e8d3ea739bf0aa20fc3b7922c0ae1c5f2daa46ae64b46cc731eaba5310084",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/Draft1/profile_left_reload.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/LeftReload20261019/Draft1/profile_left_reload.json",
+    "bytes": 5981953,
+    "sha256": "86ec0d81d1db8e222bb64c8c7648433f27fbd6052a2bfe20071d11f34930a627",
+    "reason": "Superseded candidate within retired folder; basename matches are to the active sibling output, not this candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/native-saved-glove-backup-2026.10.20-03.03.00.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/native-saved-glove-backup-2026.10.20-03.03.00.log",
+    "bytes": 287951,
+    "sha256": "9242b5d912276e6613c6fa47a8c7130a544c988e35a1ab3293e03074b138295a",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/rotation_only_rejected.npz",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/rotation_only_rejected.npz",
+    "bytes": 3305811,
+    "sha256": "ad972248ceed43a657bab049c8b5cc39795f3c177deca732a0ee2414865b0013",
+    "reason": "Rejected intermediate candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/rotation_only_rejected.py.txt",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/rotation_only_rejected.py.txt",
+    "bytes": 3466,
+    "sha256": "78f02c337b613a8c0d611542e92707351815b014e494e386980cb8b41434c030",
+    "reason": "Rejected intermediate candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAME-backup-2026.10.20-04.06.38.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAME-backup-2026.10.20-04.06.38.json",
+    "bytes": 50113,
+    "sha256": "3551c1615245673006060925f2ae4ddb3c292cac3e9a0544e8e0092dbcb59586",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAME-backup-2026.10.20-04.06.38.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAME-backup-2026.10.20-04.06.38.log",
+    "bytes": 20509,
+    "sha256": "8bb77c693498ec6920936d7a61493d65647169964493ed041719300b77e1d183",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAMEEditor-backup-2026.10.20-04.06.22.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAMEEditor-backup-2026.10.20-04.06.22.json",
+    "bytes": 50421,
+    "sha256": "5abe58d00f37007af666dd3d78ea206c88543c872f223089f8859af02ac07ba5",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAMEEditor-backup-2026.10.20-04.06.22.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build-FPSGAMEEditor-backup-2026.10.20-04.06.22.log",
+    "bytes": 20796,
+    "sha256": "98fff1bdabdf10c5d40d7ae82bbf539dc464599ad1da4c1ff48a61b4b411855f",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-before-entry-fix.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-before-entry-fix.json",
+    "bytes": 12347022,
+    "sha256": "01618d819c7f33b70b14d3e7d102da1246c1dc3999e7ade9603d2ccf685e9ea2",
+    "reason": "Rejected intermediate candidate"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-candidate-backup-2026.10.20-03.57.14.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-candidate-backup-2026.10.20-03.57.14.log",
+    "bytes": 287641,
+    "sha256": "7c5799bbcc310876ee494f2eddcfd9c573a226c52d3a9d3a8db727c2134a3fc1",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-candidate-backup-2026.10.20-04.02.21.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-candidate-backup-2026.10.20-04.02.21.log",
+    "bytes": 287423,
+    "sha256": "21fc5be96a3ecd00ba9dc51fdb4ce99c421b694986b2bc7c9f526dab9168e568",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-candidate-backup-2026.10.20-04.08.37.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/native-candidate-backup-2026.10.20-04.08.37.log",
+    "bytes": 288157,
+    "sha256": "43c5244e806ffe15e2d57b8d7faef1810f9e2930fe61d95f2469ae0060ace96a",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-14.48.36.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-14.48.36.json",
+    "bytes": 303457,
+    "sha256": "92d5e65d72e6d1891b3d6704c0e9a6dc493e2f19927b59789a967d791b648240",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-14.48.36.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-14.48.36.log",
+    "bytes": 94899,
+    "sha256": "52b1348bb68c5323b7529709360a5e71e19c4ac1f0ca9df2765ef3b1ba9214b5",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.23.01.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.23.01.json",
+    "bytes": 120253,
+    "sha256": "9c0cd56e7ae38bc62e7c7c4d737ff4ac77adfe8c8dc0c72b3c0a36349bfc2ed8",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.23.01.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.23.01.log",
+    "bytes": 48857,
+    "sha256": "fd8b77c32f661ac10495a4c0dde049f6893aa0b4f14d940ab78c3576d5d45b5c",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.40.06.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.40.06.json",
+    "bytes": 118636,
+    "sha256": "e8721cb66bb85c8c3595738415ee65b3dd368ba3482fac1642edaee23c8970ec",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.40.06.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.40.06.log",
+    "bytes": 46374,
+    "sha256": "6702c6cca6b3db97a9b51cea8482c2b813651fe04879ba3642fff1af32dbdff4",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.55.02.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.55.02.json",
+    "bytes": 56988,
+    "sha256": "afb2cc54ff525a3341822ab0c6b62d90dde10d1fddbd830c31868fe9e1640041",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.55.02.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build-editor-backup-2026.10.19-15.55.02.log",
+    "bytes": 22768,
+    "sha256": "23ba29cdec7a7359bb747ae957b1f114006d430d7671966cf0a9efc1eb078c10",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/native-candidate-backup-2026.10.19-15.59.36.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/native-candidate-backup-2026.10.19-15.59.36.log",
+    "bytes": 281561,
+    "sha256": "fc60ad71f0eecd1593cfcb2cb6e4e90cd40af1b677201f8d90721b423c68cf97",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/native-candidate-backup-2026.10.19-16.13.55.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/native-candidate-backup-2026.10.19-16.13.55.log",
+    "bytes": 289894,
+    "sha256": "e4c4edc00cb406150918c47f810005f11eb7627f5f61019270e54b85011d6e1f",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/native-saved-glove-backup-2026.10.19-16.37.32.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/native-saved-glove-backup-2026.10.19-16.37.32.log",
+    "bytes": 88422,
+    "sha256": "39568112ad57d574e2d3d58acec12d5fcca5a254b0ae12443ce49a9a5ccad6c9",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/native-baseline-backup-2026.10.19-17.46.26.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/native-baseline-backup-2026.10.19-17.46.26.log",
+    "bytes": 286186,
+    "sha256": "fa0ba750d9cad206ff33211d0a0e62e6c198afc4857013bbc1002c3804cfc120",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/native-candidate-backup-2026.10.19-17.46.49.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/native-candidate-backup-2026.10.19-17.46.49.log",
+    "bytes": 285556,
+    "sha256": "fcdfbf2a716eb52975132c45aad86bbd73f75c6557786c36079077e1c92d57d6",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/native-saved-glove-backup-2026.10.20-01.05.18.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/native-saved-glove-backup-2026.10.20-01.05.18.log",
+    "bytes": 285923,
+    "sha256": "754f824da5e6e468e7ede9add7cc7a3265819c3d3d13f8039a4d6233c63305bb",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/SVCH_QuickMelee_SurfaceReview.blend1",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/SVCH_QuickMelee_SurfaceReview.blend1",
+    "bytes": 7770115,
+    "sha256": "676fe82baabb638e9d7ceaa61f7b6af14c0290b5a3aa82e0f7cb8186802f7be1",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/editable.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/editable.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/preview.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/preview.err",
+    "bytes": 506,
+    "sha256": "b394c9e128fd0838614439a09b5fdaabf6e1046b86d31bd79e1f890dbc7ce4b6",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/collect-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/RootClearance20261019/collect-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/export-editable-current.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/RootClearance20261019/export-editable-current.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/finish-current-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/RootClearance20261019/finish-current-runner.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/install-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/RootClearance20261019/install-runner.err",
+    "bytes": 317,
+    "sha256": "f4cb648d7b5a819b0789ccd71a8151a457a370639ac465343f78e2b1d68692d1",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-15.56.13.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-15.56.13.json",
+    "bytes": 43874,
+    "sha256": "e670b74f2c2896b3beb710b93705fe2336647931bf13079c468cc0f8d29d056d",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-16.07.00.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-16.07.00.json",
+    "bytes": 54808,
+    "sha256": "e429cdf861c2e63ff43d4988af95808229554523d73177adae27376447bc7823",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-16.19.48.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-16.19.48.json",
+    "bytes": 17552,
+    "sha256": "6af131cffca5a2c1635a371e43edfe90a8486dc39d48c4d82e85963542566422",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-16.30.57.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHReplacement20261018/SightsR2/build-editor-backup-2026.10.18-16.30.57.json",
+    "bytes": 55521,
+    "sha256": "c0492727f699c77e5823e5234bc19a6682efc1aa3f160e1d18dfd20c4968b5d4",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.13.50.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.13.50.json",
+    "bytes": 148296,
+    "sha256": "38f8906e0641b8486994c2b4bb705d057d61f314d8c525bd0405aaa5cdb5ef46",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.13.50.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.13.50.log",
+    "bytes": 60002,
+    "sha256": "1ba001a4b9e55e328f13bde9a2b1d7a19912cbbb66991c28b261520b40faae39",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.33.18.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.33.18.json",
+    "bytes": 60247,
+    "sha256": "e84491e76f46f05fba6f29fcb592894d6b57bef2823313f4053a07d56f5c5058",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.33.18.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-editor-backup-2026.10.19-07.33.18.log",
+    "bytes": 22815,
+    "sha256": "bc16ae6a1d9eb4544a62b2a8996f0a2edc2587e482be017953c4759e72caa541",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner-02.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner-02.err",
+    "bytes": 314,
+    "sha256": "1638b567a8aea53b634fda318a6c9586c8c38d3b7d0badaa5945b7a853a21158",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner-03.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner-03.err",
+    "bytes": 312,
+    "sha256": "cf2b1fa02e4c04a36d9e9bc347d4b44aa869b4f5812ea7a8cb34d07c2bb58d99",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner-04.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner-04.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/Zoom124/build-runner.err",
+    "bytes": 312,
+    "sha256": "7aa130ebdd9040ea9729b8ef625dd097cace1f7edad629f08d7df386d6b8662d",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/finish-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/finish-runner.err",
+    "bytes": 309,
+    "sha256": "f6c5eeeed77ded2bb9347fcc2eeb4db708449cc69497f73818feb7a23ccf7769",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/import-runner-02.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/import-runner-02.err",
+    "bytes": 322,
+    "sha256": "1e07f92026919cc79c019cfb13383c7638d013abc15adfd0c754f67942b16789",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/import-runner-03.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/import-runner-03.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/import-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/import-runner.err",
+    "bytes": 305,
+    "sha256": "2d4628fa407bdfdd4e0b166eb2f1e5f5d96904ac9b05320c1bbe4f5f8cb172eb",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SVCHScopeUniversal20261019/install-resume-backup-2026.10.19-06.30.33.log",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHScopeUniversal20261019/install-resume-backup-2026.10.19-06.30.33.log",
+    "bytes": 294126,
+    "sha256": "2d59d9e67ca866b9b97867c249b0bfe0c9ddf489f393c2f5797832abaab7dd5a",
+    "reason": "Superseded backup output; active source retained"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/auth_side_left.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/auth_side_left.png",
+    "bytes": 1599519,
+    "sha256": "f2bfb81554cfb13cdadef4130115cbca39f1fd7439bc3d289095b00aa4d3105e",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/auth_side_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/auth_side_right.png",
+    "bytes": 1640532,
+    "sha256": "06332ba4dce2358caa2a38006ae0e1c2464f5c40915b52f9d66d1025a43de330",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/auth_top.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/auth_top.png",
+    "bytes": 1666033,
+    "sha256": "79b19ab7322b12830190709f8e38729cac86298b675b2c4e8aed008ea778c4b4",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/bind_side_left.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/bind_side_left.png",
+    "bytes": 1569065,
+    "sha256": "005b771dbe413e9f7dbf8444cf9b672f79496e58e8a5f663cb958ec10f5877f6",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/bind_side_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/bind_side_right.png",
+    "bytes": 1583592,
+    "sha256": "3f0100bbb2f4c604b439d5089f5fee967250666968dfa2438b140dbb87c22065",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/bind_top.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/bind_top.png",
+    "bytes": 1630157,
+    "sha256": "421b2671caf34000322e58c903a8c264d4e8bdcdf781cd5cf1377cbea7b30a14",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/diag_side_negX.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/diag_side_negX.png",
+    "bytes": 1609497,
+    "sha256": "1ad8e1a05eae8d34d7a2a298ed0a0fbf55761dc98d2cf954ff0fee4f7d1e7f44",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/diag_side_posX.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/diag_side_posX.png",
+    "bytes": 1639210,
+    "sha256": "8cbf659fb804caf6b7b70c8d5ba7db9c69ccf8eab3d6e141741d2027b532153f",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/diag_top.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/diag_top.png",
+    "bytes": 1605992,
+    "sha256": "37fa94e7c6700af5c830b43e0db3d7c0a9a892ae5ba42441bf0828d1e0cc46d7",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/icon_zoom.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/icon_zoom.png",
+    "bytes": 141079,
+    "sha256": "b480ddf97ca9e9e458bbf3caddc8df93e667f157134f53a272cf616164e7edc4",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/icon_zoom_bottom.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/icon_zoom_bottom.png",
+    "bytes": 104725,
+    "sha256": "df7008ca4aa213be884b76aac2525d26212732c68fc709eb0dee0f927dd2236e",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/icon_zoom_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/icon_zoom_right.png",
+    "bytes": 120865,
+    "sha256": "82e7389b6502ad278e2a3eee5e3b844c1bf47939c62d9130cf98de745b6804cb",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/idle_eye.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/idle_eye.png",
+    "bytes": 1359578,
+    "sha256": "ba252a955fcf177fdbd11df29685924fc715a6a8f806fbe5a6c2e9032d93b3a5",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/idle_side_left.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/idle_side_left.png",
+    "bytes": 1360153,
+    "sha256": "57869dc4ec3b573837e39a0289e64882adbeb77dcae999cea254c4b4a4b7167c",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/idle_side_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/idle_side_right.png",
+    "bytes": 1360606,
+    "sha256": "f6ff7b0af940324d18fb9a8f5159a16c629518dc6d23ad7e99c4b1e4e05e4be6",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/side_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/side_right.png",
+    "bytes": 983749,
+    "sha256": "ead36b9fdba463838dc9940eed5a61de43b7f0a0776b9c1e8e5811319e8987f8",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/sketchfab_hero.jpg",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/sketchfab_hero.jpg",
+    "bytes": 87352,
+    "sha256": "770e4a7884534104c5aa1aca994bce3384de25f46c4afaeeed93c7a9f63b583e",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/three_quarter.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/three_quarter.png",
+    "bytes": 986411,
+    "sha256": "3bf42ad8a7fc0659aac6ac90de5378fa8da210a522e58a3065cb28110eb5cd39",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/top.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/top.png",
+    "bytes": 986593,
+    "sha256": "b1b2edf9b88ca5f55df85b08db643d1f4b3174bc55d37a5e5a082ea3ed9433f2",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/view_negZ.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/view_negZ.png",
+    "bytes": 1286685,
+    "sha256": "c7f81f934210ef63894f5725faa10543a5ceaf9dc25a7c18288aa1aa61734618",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/Previews/view_posZ.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/Previews/view_posZ.png",
+    "bytes": 1308391,
+    "sha256": "4d8fb2e414f229d6f5389cd25e620aa7be532878dc58f53f55c68a08165398e7",
+    "reason": "Superseded original-model previews"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/analyze.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/analyze.py",
+    "bytes": 5761,
+    "sha256": "4cac6e7fc2858742b68035ea108d8ebe6ce7b2baa2914af2cb3775bff2d07f5f",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/aperture.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/aperture.json",
+    "bytes": 65999,
+    "sha256": "bcec94b0ccb4f52191d6ab05600c3bf3c0001d2cc964b6625f75412b790c325a",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/aperture.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/aperture.py",
+    "bytes": 3640,
+    "sha256": "3f03e70d333817adb8d4f82bdceeae900ce6a17c2144710139dfd32853212ab5",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/assemble.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/assemble.py",
+    "bytes": 29695,
+    "sha256": "fe1298f6deb9585dae9f4841b18d3ce89cd7cbdce435a105b87ab227d5b1738c",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/build_report.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/build_report.py",
+    "bytes": 23850,
+    "sha256": "fd5386d3d0f53082bd50b7ed757c6c0d36b75b2d2fdb87e465978072f006c1cd",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/consolidate.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/consolidate.py",
+    "bytes": 6469,
+    "sha256": "ff5dd450dae573021c98a674869b0d491c5c330399f990d00f0496f4b109d6e8",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/consolidated.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/consolidated.json",
+    "bytes": 1690,
+    "sha256": "8d2e3374a9404d997951a2366e1ad01d410d455190efd50b385303fe30301a24",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/detail.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/detail.json",
+    "bytes": 8476,
+    "sha256": "676e2744097bcc6edb8a946e6c2c5f29416e14e4fcf2743d18a3fd877da8824d",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/detail.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/detail.py",
+    "bytes": 7620,
+    "sha256": "c2a8e9b212ce3a04011de8111dd1872e5c22854e1f3b8aeb9a5469dec7c8377a",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/extract.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/extract.py",
+    "bytes": 11911,
+    "sha256": "589a9b53ce1437f054d28922d308474cb03d05f75daeca889d8205da955a17ac",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/fbx_file.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/fbx_file.json",
+    "bytes": 18488,
+    "sha256": "5471f823d61aa382047cc41f155ef49261876270de684ebe43868d45c79dcd11",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/fbx_raw.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/fbx_raw.json",
+    "bytes": 50999,
+    "sha256": "ff4e31a1a60b1a85f9a50ef5937dd2549b7388bd1f0eb8ad515402523881a449",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/fbxparse.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/fbxparse.py",
+    "bytes": 9085,
+    "sha256": "f419c2ec2a9800fad49b7fd7dc1d4635c048d53a7cac4f89160d38e50f943af9",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/final.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/final.json",
+    "bytes": 8609,
+    "sha256": "6f0f3c8be4828a61619ce9d1c2e0833e3f5f8dce1c59166a34469a199f7d9b98",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/final_checks.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/final_checks.py",
+    "bytes": 4130,
+    "sha256": "b912a5a36f6ef7f3997469da55c1cf31d71542be4694d746317fe3c43c2035cd",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/final_landmarks.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/final_landmarks.py",
+    "bytes": 7008,
+    "sha256": "f967a0f15807c8dbb794b3bfa78ff62a14833f5fc4d6a8d77f4c36d6e5267520",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/gen_tables.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/gen_tables.py",
+    "bytes": 7335,
+    "sha256": "663095753a4500d27e9279e5fd0ac7c9ed39626f4c16a9e24cc215353bc66de5",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/glb_raw.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/glb_raw.json",
+    "bytes": 81264,
+    "sha256": "a73b6f34e2e20aa77c6f505ebf8d2e696bb7344506a6a5325e89f95bd44412dd",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/islands.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/islands.py",
+    "bytes": 6165,
+    "sha256": "9f7c9a60af50baacf20d1dbcb3f1006610a3e6d456b39775a6570ac085207c8e",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/landmarks.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/landmarks.py",
+    "bytes": 8503,
+    "sha256": "e64a7d6161fc359ac91b8ee657674481d5d23e4d1547014418b1d1f9c2e24b12",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/local.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/local.json",
+    "bytes": 206722,
+    "sha256": "c65b4088b0c037567c8f2a78a052c8724324a8f1901ec8f44a8e1c94a2fffbfc",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/partcounts.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/partcounts.json",
+    "bytes": 4627,
+    "sha256": "294f4c0ccc5de010d51d788205479baa19ebff0b81801a0ffb868a6acc1454ec",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/partcounts.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/partcounts.py",
+    "bytes": 3729,
+    "sha256": "04f05a7d9fbf582217eac7c47fc4f5b71c4039d30927872aeec81ec71aeccdbf",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/partsums.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/partsums.json",
+    "bytes": 6397,
+    "sha256": "8039b97e985a389b51f067e5e62ab5bf9b8710f0a15b21c7eb277771e8f3b36c",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/partsums.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/partsums.py",
+    "bytes": 3087,
+    "sha256": "80eb66e56dd6c1465bef2236456967a73c36af5e87687f3df93f60d8e957ff46",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/precision.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/precision.json",
+    "bytes": 42025,
+    "sha256": "e0b02ecb96d60d4b6c514866d1f1634f15b39176b3cfcecb2c887eb49a7304ab",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/precision.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/precision.py",
+    "bytes": 10754,
+    "sha256": "65ad01f110599d80e682ed8b3be9519cea7897cdb3677c5c4b0fad51eb9b5880",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/probe_import.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/probe_import.py",
+    "bytes": 2188,
+    "sha256": "7616e65ead2f032d1a244c2fb34a385adbaca6a48b70187922c9a5b4c07e1a13",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/ray.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/ray.json",
+    "bytes": 73964,
+    "sha256": "f6c35a3a02ad2902bc78c3a0eb11c35b3b5e327dba95da60b48153197e278d6c",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/raycast.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/raycast.py",
+    "bytes": 9666,
+    "sha256": "e8cbf3d1dcdb4970e1dc6714db381d09de3d858a405b815489b2783b243e0bcc",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/side_left.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/side_left.png",
+    "bytes": 494336,
+    "sha256": "fb3ddd2ee4b458a4f6ec295dbb2d1f1a427f8200af08cea088ebbce4f0b92dc1",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/side_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/side_right.png",
+    "bytes": 497496,
+    "sha256": "e7d26e4ecd13e8b5dd75fc883fabf60d3dbda422f6e0386e0e944c41164dd241",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/sidescan.json",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/sidescan.json",
+    "bytes": 14136,
+    "sha256": "543cec9baca8dd3910d0bf9ab32a006b89b6d1de5821fd823337278fa943d7f8",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/sidescan.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/sidescan.py",
+    "bytes": 5265,
+    "sha256": "43f996e38684d259a26de20b39c1cd10296f6fcaa7699e377837c8c35026ebb1",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_bones.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_bones.md",
+    "bytes": 2032,
+    "sha256": "6f37ea3c336643f9d910b138cc666f1fbb7dbd1cd65e9b133f82eeda85cb6883",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_clean.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_clean.md",
+    "bytes": 533,
+    "sha256": "4cba7896ade7d212d6d5ea9b2c353ac09891ed0346bcb55f857ebfd503f14098",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_islands.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_islands.md",
+    "bytes": 3599,
+    "sha256": "18fac9747bd702ccaa3de25dd44771ef651fc9fa790754e53b2a90a518369f36",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_landmarks.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_landmarks.md",
+    "bytes": 1425,
+    "sha256": "ad9a65c65dd9c567ddb93f5340dcde61fac9d69224e1aaffdff09389bacc194d",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_materials.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_materials.md",
+    "bytes": 1752,
+    "sha256": "6227d64abc5f0ce42edd05b9d6b7992048c6eba0a97a3702b3fc6c99d1a2e4c1",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_objects.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_objects.md",
+    "bytes": 445,
+    "sha256": "1b9c9566539a456aeb3074ddc08e782fc69f507e3d8a0a741547c640c253878e",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/tbl_parts.md",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/tbl_parts.md",
+    "bytes": 1936,
+    "sha256": "7f32a03f384b48f3dea06e5d60553445fbfa8c877537ec482e11ad745716eba6",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/top.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/top.png",
+    "bytes": 248377,
+    "sha256": "3f7ea41ab2d4aa7da5ab5e6437a4ceb2447f1c57be1e92c2c1c97615132387c8",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/zoom_side_left.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/zoom_side_left.png",
+    "bytes": 263360,
+    "sha256": "87f20ffdd8e463bd3cb40c565b2261f9ea641fb703b1447e764157528e4aea78",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/audit/work/zoom_side_right.png",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/audit/work/zoom_side_right.png",
+    "bytes": 299741,
+    "sha256": "df718437c63049ce73cc48dd43ea855aa9ad1c017f8cd07c95eda59a60d949dd",
+    "reason": "One-off original-model geometry inspection scratch files"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/bbox.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/bbox.py",
+    "bytes": 961,
+    "sha256": "a7a7c523052a0efe302014281982f05a7059e018ae8e465377eb124cae3ebf4b",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/bbox2.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/bbox2.py",
+    "bytes": 325,
+    "sha256": "b80a5265dd756467208104ba2e8d6705b4d2a7fb471da0b422e51619007c3dbd",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/bbox3.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/bbox3.py",
+    "bytes": 527,
+    "sha256": "ff529f24c991275600a1d6ad42894faeac717c69d85a88438efd4d80341e9321",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/check_dump.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/check_dump.py",
+    "bytes": 738,
+    "sha256": "8ed88bc96c6b5c85dc9b7b6317023a23d711f45d85fdba9b1406ee0015827dd1",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/check_space.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/check_space.py",
+    "bytes": 1014,
+    "sha256": "eb46b754d1cd1efa0549a419e6353706003be168cb7703df0ab59f41ea299e17",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_arms.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_arms.py",
+    "bytes": 886,
+    "sha256": "c1cc95acea7f3225fa1e0c30e88f8049c2196bc8087aba6b2dc9f9b2c4e061ce",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_bindspace.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_bindspace.py",
+    "bytes": 820,
+    "sha256": "151008fe87aef1d201e3c1cce25fc2d020f806c6de4663b4520c2117e965d0cb",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_deform.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_deform.py",
+    "bytes": 1764,
+    "sha256": "0d7bf983ce7c0e47837629f1d0a3a100770e11fa81e04be07fc3d0fb30cd4515",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_dump.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_dump.py",
+    "bytes": 564,
+    "sha256": "df1fd24fcc63fe61cfb1451dc861040741ed50e109b0c4c5a679dc86ae644376",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_imported.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_imported.py",
+    "bytes": 1319,
+    "sha256": "4517bec61d233147368dff4ddf577c0b4c15be51b9496f7957db5489945bfcba",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_pose.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_pose.py",
+    "bytes": 1241,
+    "sha256": "a0384e0cf6bb44ec0e46b3b3ebe379ff0df9c26a62bf105c88ff488461bff739",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_render.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_render.py",
+    "bytes": 5254,
+    "sha256": "85725ab202f6954f0fd575512f03e9ff79bccea9e6a9a3515ca8b9fb2467842b",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_rig.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_rig.py",
+    "bytes": 1035,
+    "sha256": "49797de2b6b4903395492948f3d6c72115376a8030d9e72f6f766b6c6bdedebe",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_svd_space.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_svd_space.py",
+    "bytes": 1020,
+    "sha256": "6aa304618dd5dd7613f79fe0ea84fb2b591f3585d4c2ea44d2faae664205738b",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/diag_uv.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/diag_uv.py",
+    "bytes": 319,
+    "sha256": "e83f33651fdf277989b5b19ace01e828255ecf9bc5831961702c81c9c99dde20",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/dump_rest.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/dump_rest.py",
+    "bytes": 1069,
+    "sha256": "34ed46a434d0c3186cf2332ec53dc01408c73e8417e163ada97e1ea0e25322ee",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/dump_rest2.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/dump_rest2.py",
+    "bytes": 813,
+    "sha256": "d709fa831561b7f006c3f45949029612cd74f02666a78d91b63dfabb54e9ac8e",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/dump_svd_viewmodel.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/dump_svd_viewmodel.py",
+    "bytes": 5291,
+    "sha256": "a23f0ce8389558c3e257aeac7372ab25970b425a437c0d21cc996d683731acbb",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/inspect_bones.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/inspect_bones.py",
+    "bytes": 2574,
+    "sha256": "07a7a585df78c50323ff985c6ff6434242034278f312c5be0c153bb104d24d27",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/inspect_bones2.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/inspect_bones2.py",
+    "bytes": 3199,
+    "sha256": "622c49c13420c11b71e1d213627033810502abb8d64dcba03e0f1682546f26a2",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/inspect_glb.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/inspect_glb.py",
+    "bytes": 1526,
+    "sha256": "a2a16dde270cc40c2584b3d18040dd7acc890e87cf0a4d4761047e1bd5c977dd",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/inspect_gs2.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/inspect_gs2.py",
+    "bytes": 520,
+    "sha256": "1035f84a457e0b61986020bb06ee89ea055a1ea249b8915643f6bdb52bfea48f",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/inspect_gunsmith.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/inspect_gunsmith.py",
+    "bytes": 540,
+    "sha256": "066a36877abd41879bf3d4aab44be75622308bea03c567b80672f5f7ed39856e",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/inspect_parts.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/inspect_parts.py",
+    "bytes": 2381,
+    "sha256": "102aef26ccd95bb331ebdbaa9817fa949d4339d0882441b6292d716482c111d7",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_P.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_P.py",
+    "bytes": 740,
+    "sha256": "ba2bbfa4fdad0176b2b39d798fa8a1b5fcf647abf969312029b0a2948e37ac07",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_addon.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_addon.py",
+    "bytes": 213,
+    "sha256": "24c03fcc4e4b0fbaa54776d782627b2e9c425ac7dde861bc87b5e225df6f3644",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_api.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_api.py",
+    "bytes": 169,
+    "sha256": "a7179260780661342e62e28c96268e505556523084db5689f920afafbd7bf7b7",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_b1.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_b1.py",
+    "bytes": 390,
+    "sha256": "700289009d0d0c8b048ba46e970a8d56fb518a5b07f2b7273a510a730be02928",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_b1b.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_b1b.py",
+    "bytes": 247,
+    "sha256": "c0434d7426a43895ccdebeef92dd8a8fe1d1803965c98db7b2f9273e42d995d0",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_b1c.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_b1c.py",
+    "bytes": 429,
+    "sha256": "4e41701102d26a94e39f07fc14a20544e20baf461eec9ec191de60eb8255523a",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_b1d.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_b1d.py",
+    "bytes": 189,
+    "sha256": "e73de13fdc551c5c57cfef08324f4d771db62966fa9cf8e01485ac3ee2b117ef",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_barearms.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_barearms.py",
+    "bytes": 1034,
+    "sha256": "48abae474a3dc8dd208388e9352d636551ee24eebfb2175fd83b09c1c9d4ce45",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_bbox.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_bbox.py",
+    "bytes": 1346,
+    "sha256": "7b9ca6a4ec553d0170278490a37942958af47bb6c365ada9117a4b37a899060d",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_blend.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_blend.py",
+    "bytes": 778,
+    "sha256": "20c8a2f7aa78bab9bd1f437fccc6625d410a27b4a516b932102b8a426af5c444",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_blend_bbox.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_blend_bbox.py",
+    "bytes": 494,
+    "sha256": "39a5cd423936af328d34a6534a4dc1bc0ee70a73d7578498abd664f8f2d2b95c",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_blend_surface.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_blend_surface.py",
+    "bytes": 340,
+    "sha256": "ac11aa57b1acf46ec6fe25d78fecafd2e5f7237aea22919f2e2917ffb42c5f82",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_boneinfo.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_boneinfo.py",
+    "bytes": 227,
+    "sha256": "31925e7630ed4b602cb325798d9037d8835a116cad608c235ec36ecffc99896a",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_bounds.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_bounds.py",
+    "bytes": 478,
+    "sha256": "88487acd50534d99f831421cbf4cb755435055acb088bd6bc9b70bc74fac25b1",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_bw.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_bw.py",
+    "bytes": 254,
+    "sha256": "7cef38e001eda40901a64566fed6a9c1e105be3a1b1b71992723593ef3d2d666",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_current.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_current.py",
+    "bytes": 917,
+    "sha256": "52aa9df7769f69266180ae4b739acb0fe2027af6f09298f6bb3f306b79faf8ad",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_export.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_export.py",
+    "bytes": 567,
+    "sha256": "e13124c4baea020d0d50080b035e2cf196a8857a75ba821e89a01c21a088d95e",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_export_api.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_export_api.py",
+    "bytes": 331,
+    "sha256": "58679b10e59f152285924e2ed11cd5091446f325b9193142827c0838c7906f02",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_fbx_mats.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_fbx_mats.py",
+    "bytes": 593,
+    "sha256": "45de5f39d4ff2c6fd6e70fabc83771766083775a328d0c2913fd90a393e75e81",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_fbx_surface.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_fbx_surface.py",
+    "bytes": 724,
+    "sha256": "9808bac4c17ae206d62aa64cff372905c63c4c4cb40a01c29f53c05d71b11a40",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_glb.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_glb.py",
+    "bytes": 1538,
+    "sha256": "890b501eeb6f947c967976a42c0ee214d9ab7888c2e07eaf865ace548e5135e5",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_mat.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_mat.py",
+    "bytes": 766,
+    "sha256": "ddcc37cbd7fa4f0d21e84460b8de4ae2d462e7e7befb2f1f1dd9fcc2416fc223",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_orientation.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_orientation.py",
+    "bytes": 3176,
+    "sha256": "7a25d1c1943f52748bb4af8f9c38e5ae43ab4b46fcf366dee5149ad929b115e2",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_params.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_params.py",
+    "bytes": 753,
+    "sha256": "7e933f4b22dd62b33abe3dc06aca9ce11cdaa2b4ab5d8b8b311cb1c5bc332496",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_rebuild.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_rebuild.py",
+    "bytes": 483,
+    "sha256": "12c8d247a92cf5db70f469bc13f35313d4fc7cf1a5d683d05f8fe1f0b6aa4deb",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_rename.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_rename.py",
+    "bytes": 575,
+    "sha256": "0a56eca52cccae39d4d08224e82c97b3931364cb559e21c5ec1a977619fa27b5",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_sections.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_sections.py",
+    "bytes": 707,
+    "sha256": "8b5e46b4a9040802689babea9146b6888ce783bc58f6aad939110f3f07cdba9d",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_skel.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_skel.py",
+    "bytes": 162,
+    "sha256": "95b13a00f0959bcdeff5be9c7e5826b3039dc9047d33eecea61e6f4bace1ead1",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_skin_api.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_skin_api.py",
+    "bytes": 552,
+    "sha256": "22c73226d97588a19a649a1909edac52b3ec511fb0e821a63b6cd8132b79df34",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_skinning.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_skinning.py",
+    "bytes": 2525,
+    "sha256": "c93da78d9fcb8d24b74a2eb8e48262e8e22cbcaa0e658b582031fb2245131c38",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_slotorder.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_slotorder.py",
+    "bytes": 1034,
+    "sha256": "68175f54dc4e661b2c7679cfb86b03760ba9ff19e42be4c32c2596324ffc086c",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_slots.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_slots.py",
+    "bytes": 617,
+    "sha256": "34f23663c18a177669247c15baf6a4ba6a4cedbebcf74c52168be070d1de0541",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_slots2.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_slots2.py",
+    "bytes": 264,
+    "sha256": "0ed4394c60b46522689ce27a1dc9bd55dfedebc900765a21ebf286cad3ffc43f",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_source.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_source.py",
+    "bytes": 1530,
+    "sha256": "2d9088186975644c681185e522c44dc62073a7a4200bb954e7fdfbeb92e7c6dc",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_source2.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_source2.py",
+    "bytes": 421,
+    "sha256": "838c089a4daa1e2e5034be591cf5304c1656d11669ab5ae980ea4d0820a8f187",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_source3.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_source3.py",
+    "bytes": 592,
+    "sha256": "2474e20ae5b0b94744cdfe4655ee570a413938eaa8b40c1b9e99e8422320ac86",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_source4.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_source4.py",
+    "bytes": 589,
+    "sha256": "163c04b448cea061ba8a1d773d644454ba1bce0d82e9986fc45023a32610bf7e",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_source5.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_source5.py",
+    "bytes": 2279,
+    "sha256": "8663b685cddcdbb910fd665704f9daa336f78f139f626909d70265bd5dcdcc17",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_src.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_src.py",
+    "bytes": 607,
+    "sha256": "6863a66ccbdebda7eafe290747dc9d22f611df81e81486939a83ec7c9a4fd84c",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_svd_anim.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_svd_anim.py",
+    "bytes": 1235,
+    "sha256": "69e039febf45e18a3abfc7f5a9f4784475c9d8e5a4ca5102ed148d1e8a4c0945",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_svd_seat.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_svd_seat.py",
+    "bytes": 1880,
+    "sha256": "2a858b60ae4a03f9caed6c46248e4ca99c92addca6f7876fdb2ea4afe10bac32",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/probe_svd_vm.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/probe_svd_vm.py",
+    "bytes": 705,
+    "sha256": "5c7d6d228443440e455f3319f2e448549cf3694056da8603fb2157e1e1c1641f",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/ray_lateral.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/ray_lateral.py",
+    "bytes": 3536,
+    "sha256": "77ca5b9021bf9cc62bd75d080fce71e503086fc3f1561f10d3866e15e47fa143",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/read_ws1.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/read_ws1.py",
+    "bytes": 147,
+    "sha256": "da2c5837d51c2a67cca89d5038c15bb85124300336215284387e1e34c25dcd8d",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/show_authoring.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/show_authoring.py",
+    "bytes": 385,
+    "sha256": "3a483b60e27c76252ef4beb5c1575c69fff55622af74ec5948a6ee3e36e0fe89",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SVCHSketchfab20261017/view_z.py",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SVCHSketchfab20261017/view_z.py",
+    "bytes": 3288,
+    "sha256": "bef2635b6eecf7cd24584dbbb2033359cd75e574dc0a4487f03e9448c1f1e095",
+    "reason": "One-off original-model diagnostic script"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/author-final.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/author-final.err",
+    "bytes": 517,
+    "sha256": "97c32fdd1a43a09bd3e6f07c4dc373e4034367e6535a03c1eeb7b3ad578270a3",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/author.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/author.err",
+    "bytes": 517,
+    "sha256": "d8144e2c4522c96595479671c538c4f5c8a3f8d0890a3c0a6a590efde305edc5",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/fbx.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/fbx.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/finish-current.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/finish-current.err",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/finish-runner.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/finish-runner.err",
+    "bytes": 295,
+    "sha256": "4785c7a8dbf557cf9f2f2bcdac6de7c780e71f52b4c7214139cf5393a09f8abb",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/icon-current.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/icon-current.err",
+    "bytes": 356,
+    "sha256": "f33bb0f4a7c109df93e651712556bd9b209e6c0606b590dc41be1444f77193a0",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/icon-final.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/icon-final.err",
+    "bytes": 584,
+    "sha256": "14272863434884253b3fb7518377afdf7ef0e2d9be18c0b2721b46cd58475cb4",
+    "reason": "Obsolete process or console scratch output"
+  },
+  {
+    "source": "SourceAssets/SniperSuppressor20261019/icon.err",
+    "destination": "trash/svch-retired-20261020/SourceAssets/SniperSuppressor20261019/icon.err",
+    "bytes": 573,
+    "sha256": "1d11da7a894d70823b9714790cd2d830e154988afa3a79d4bbaf1951555b4733",
+    "reason": "Obsolete process or console scratch output"
+  }
+]

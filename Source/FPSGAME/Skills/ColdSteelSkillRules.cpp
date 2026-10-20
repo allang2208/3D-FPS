@@ -10,6 +10,8 @@
 #include "../Weapons/FPSBallisticsComponent.h"
 #include "../Weapons/FPSMeleeLightningComponent.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
+#include "../Weapons/SniperSuppressorAssets.h"
+#include "../Monsters/MonsterDamageAlert.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/HandBrainMonster.h"
 #include "../Monsters/M10Mawcrawler.h"
@@ -392,7 +394,7 @@ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
     return true;
 }
 bool ColdSteelSkills::IsRifle(const FColdSteelItem* I)
-{ return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("rifle"); }
+{ if(!I)return false;const FString Type=ColdSteelInventory::Text(*I,TEXT("weaponType"));return Type==TEXT("rifle")||Type==TEXT("sniper"); }
 bool ColdSteelSkills::IsPistol(const FColdSteelItem* I)
 { return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("pistol"); }
 bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
@@ -544,7 +546,10 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,ColdSteelInventory::Number(*I,TEXT("full_damage"),69));
             else if(const auto* G=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->Weapon(I->Definition))
             {
-                const auto Stats=G->Calculate(I->Definition,G->Installed(*I));
+                const auto Installed=G->Installed(*I);
+                const auto Stats=G->Calculate(I->Definition,Installed);
+                Shot.bSilentLethalShot=bFiredRound&&SniperSuppressorAssets::Supports(I->Definition)
+                    &&Installed.FindRef(TEXT("muzzle"))==SniperSuppressorAssets::Part;
                 Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,Stats.Damage);
                 if(bFiredRound&&!G->IsMelee(I->Definition)&&!G->IsTool(I->Definition)&&!G->IsStaff(I->Definition)&&!G->IsBow(I->Definition))
                     if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
@@ -599,6 +604,11 @@ float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Dama
     // M3 联机：客户端命不本地结算，转发权威服务器（枪械/近战/法术共用此汇入点）。
     if(Shooter&&!Shooter->HasAuthority()&&NetHitForward()&&NetHitForward()(Shooter,Hit,Damage,Direction,Shot))return 0.f;
     if(Result)*Result={};
+    // Same scope used by BowArrow: defer this victim's group alarm until the
+    // actual damage/death result. A surviving victim still broadcasts normally.
+    // Leave an existing outer bow scope intact when this shot has no modifier.
+    TOptional<MonsterDamageAlert::FScopedSilentShot> SilentShot;
+    if(Shot.bSilentLethalShot&&!Shot.bRicochet)SilentShot.Emplace(Hit.GetActor());
     // 联机：服务端结算远端玩家命中时用影子档案（GetNetShadowProfile），主机/单机回退单例。
     UColdSteelStatusModel* M=nullptr;
     if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))M=Character->GetNetShadowProfile();

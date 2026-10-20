@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Weapons/SVCHWeaponAssets.h"
 
 // 快速进战 · 步枪近战：动作烘焙在作者源 clip，本文件提供事件时钟与命中参数。
 // M4 N 与 RifleQuickMelee20260919（AKM/QBZ191/ASH12）：0.90 s，接触 0.1667 s。
@@ -30,6 +31,8 @@ namespace QuickCombatRifleMotion
         // installed body, converted to no-scale UE bone-space centimetres.
         if (MeshPath.Contains(TEXT("/Super90/"))) return FVector(.030971f, 5.224671f, 51.443630f);
         if (MeshPath.Contains(TEXT("/SVDDragunov20260922/"))) return FVector(0.f,-34.8f,-3.5f);
+        // Current replacement buttpad, cancelling the native 100x root once.
+        if (MeshPath==SVCHWeaponAssets::MeshPath) return SVCHWeaponAssets::StockContact*100.f;
         if (MeshPath.Contains(TEXT("/PKMLowpoly20260922/"))) return FVector(-.003818f, -35.9063f, -2.7f);
         if (MeshPath.Contains(TEXT("/ASH12/"))) return FVector(0.343015f, -45.591554f, -4.261902f);
         if (MeshPath.Contains(TEXT("/QBZ191/"))) return FVector(0.072809f, -20.850360f, 5.925570f);

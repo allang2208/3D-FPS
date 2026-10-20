@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "target": "Source/FPSGAME/Weapons/SVCHReview.cpp",
+      "source": "Diagnostics/SVCHReview.cpp",
+      "sha256_lf": "bf5949e2d0f4377f9b7d73cceea15240c06b0d5b7fe2e426a30706ad9f9212f9"
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/SVCHQuickCombatReview.inl",
+      "source": "Diagnostics/SVCHQuickCombatReview.inl",
+      "sha256_lf": "2b4134e603c305a27a0739b9aec53d96c8036bbe30e016464b4a6c3d3268a15b"
+    }
+  ],
+  "required_local_hosts": [
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+      "current_host_sha256_lf": "3f7170300036ab34b90259d355595f653bc0aea61cdd5190cb891103b8c224c3"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+      "current_host_sha256_lf": "22a9934ccbb2739fef8e5a1a707bff1498506b3394ae48a4c70e9abd43221c59"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "current_host_sha256_lf": "2e5d23685f304f462e48b5f5febd9285e503b1971c32036f566c89e569863f8a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "current_host_sha256_lf": "ef4f635ebd30694b15033542371c26aab7aaf445b2e4b333077c937ef0375c25"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "current_host_sha256_lf": "8d7324c84e46692ccf6dd834973c4802d6cbc105baadddc06c5b0d0be8c0d9b1"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSLightningHasteComponent.h",
+      "current_host_sha256_lf": "5f675fb3f1a8e25a0c205604c1113586ac902d2794b5fb1d4316df8a63af5735"
+    }
+  ]
+}

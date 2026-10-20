@@ -377,7 +377,7 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
 void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
-    // The character advances ASH before sampling its pose and camera. Never
+    // The character advances ASH/SVCH before sampling the pose and camera. Never
     // advance twice or let the wall-clock state finish through a hit stop.
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     if(Style==EQuickCombatStyle::UnarmedPunch&&Player)return; // advanced once before the character camera
@@ -386,7 +386,7 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     if(Style==EQuickCombatStyle::StaffPunch&&Player)
         if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->IsEquipped())return;
     if(Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand())return;
-    if(Player&&Player->bUseASH12&&IsRifleStyle()&&IsOccupyingLeftHand())return;
+    if(Player&&(Player->bUseASH12||SVCHWeaponAssets::Matches(Player->AKMViewmodel))&&IsRifleStyle()&&IsOccupyingLeftHand())return;
     AdvanceAction(Delta);
 }
 
@@ -536,7 +536,7 @@ void UFPSQuickCombatComponent::ContactHit()
     FVector Start=Aim.GetLocation();
     FVector ProbeOrigin=FVector::ZeroVector;
     auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
-    if((Player->bUseASH12||Player->IsM870Weapon())&&Viewmodel&&IsRifleStyle())
+    if((Player->bUseASH12||Player->IsM870Weapon()||SVCHWeaponAssets::Matches(Viewmodel))&&Viewmodel&&IsRifleStyle())
     {
         // Evaluate the exact contact pose once before the sweep. The faster
         // entry must not trace from the previous frame's wind-up position.

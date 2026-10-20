@@ -1,0 +1,99 @@
+--- a/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
++++ b/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp
+@@ -3,6 +3,8 @@
+ #include "Saiga12KWeaponAssets.h"
+ #include "Saiga12KMagazineAssets.h"
+ #include "Saiga12KSpecialStockAssets.h"
++#include "SVCHWeaponAssets.h"
++#include "SniperSuppressorAssets.h"
+ #include "FPSGunplayAnimInstance.h"
+ #include "TacticalDeviceComponent.h"
+ #include "../FPSGAMECharacter.h"
+@@ -29,14 +31,25 @@
+ namespace M870Wire
+ {
+ bool Saiga(){return FParse::Param(FCommandLine::Get(),TEXT("Saiga12K"));}
++bool SVCH(){return FParse::Param(FCommandLine::Get(),TEXT("SVCH"));}
++bool ProfileRifle(){return Saiga()||SVCH();}
+ bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("M870PresentationWire"));}
+ float Pitch(int32 P){return P==0?25.f:P==1?-30.f:P==2?40.f:-15.f;}
+-bool Pump(int32 P){return !Saiga()&&(P==2||P==3);}
++bool Pump(int32 P){return !ProfileRifle()&&(P==2||P==3);}
+ bool ChannelMatches(const FFPSBodyState& S,int32 P)
+-{return Saiga()?S.Contacts.Channel==(P==2?FName(TEXT("Inspect")):P==3?FName(TEXT("Reload")):NAME_None):(S.Contacts.Channel==TEXT("Pump"))==Pump(P);}
++{return ProfileRifle()?S.Contacts.Channel==(P==2?FName(TEXT("Inspect")):P==3||(SVCH()&&P==5)?FName(TEXT("Reload")):NAME_None):(S.Contacts.Channel==TEXT("Pump"))==Pump(P);}
+ bool Recipe(const FFPSBodyWeapon& W,int32 P)
+ {
+-
++    if(SVCH())
++    {
++        const bool Modified=P>0&&P<5;
++        const auto Has=[&](const TCHAR* Name){return W.Parts.ContainsByPredicate([&](const FFPSBodyAttachment& Part){return Part.bVisible&&Part.Mesh.ToSoftObjectPath().ToString().Contains(Name);});};
++        return W.GunDefinition==SVCHWeaponAssets::Definition
++            &&W.GripProfile.ToSoftObjectPath().GetAssetName()==(P==5?TEXT("DA_SVCH_Grip_vertical"):TEXT("DA_SVCH_Grip_angled"))
++            &&Has(P==5?TEXT("SM_SVD_vertical"):TEXT("SM_SVD_angled"))
++            &&Has(Modified?TEXT("SM_SVCH_Magazine20"):TEXT("SM_SVCH_Magazine10"))
++            &&Has(TEXT("SM_SniperHeavySuppressor"))==Modified&&W.bGunSuppressed==Modified;
++    }
+     if(!Saiga())return true;
+     const bool Drum=P>0&&P<5;
+     const auto Has=[&](const TCHAR* Name){return W.Parts.ContainsByPredicate([&](const FFPSBodyAttachment& Part){return Part.bVisible&&Part.Mesh.ToSoftObjectPath().ToString().Contains(Name);});};
+@@ -49,11 +62,16 @@
+ FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Id,int32 Phase)
+ {
+     auto S=Model->Snapshot();S.Items.Reset();S.ActiveWeaponSlot=6;S.ActiveProductionTool.Reset();S.DungeonRun={};
+-    auto W=Model->CreateItem(Saiga()?Saiga12KWeaponAssets::Definition:M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=Saiga()?(Phase==0?8:Phase==5?12:20):7;
++    auto W=Model->CreateItem(SVCH()?SVCHWeaponAssets::Definition:Saiga()?Saiga12KWeaponAssets::Definition:M870WeaponAssets::Definition);W.InstanceId=Id;W.Place=1;W.Cell=6;W.Magazine=SVCH()?(Phase==0||Phase==5?10:20):Saiga()?(Phase==0?8:Phase==5?12:20):7;
+     TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(W.Data),Data);
+     auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("tactical"),Phase==1?TEXT("blessed_laser"):TEXT("laser"));
+-
+-    if(Saiga())
++    if(SVCH())
++    {
++        Parts->SetStringField(TEXT("underbarrel"),Phase==5?TEXT("vertical_foregrip"):TEXT("angled_foregrip"));
++        Parts->SetStringField(TEXT("magazine"),Phase>0&&Phase<5?TEXT("ext_mag"):TEXT("false"));
++        if(Phase>0&&Phase<5){Parts->SetStringField(TEXT("muzzle"),SniperSuppressorAssets::Part);Parts->SetStringField(TEXT("optic"),TEXT("kv_scope_4x"));}
++    }
++    else if(Saiga())
+     {
+         Parts->SetStringField(TEXT("underbarrel"),Phase==5?TEXT("vertical_foregrip"):TEXT("angled_foregrip"));
+         Parts->SetStringField(TEXT("magazine"),Phase==0?TEXT("false"):Phase==5?Saiga12KMagazineAssets::Part:Saiga12KMagazineAssets::DrumPart);
+@@ -93,14 +111,16 @@
+     Pawn->FirstPersonCamera->SetWorldRotation(FRotator(M870Wire::Pitch(Phase),0,0));
+     auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();if(Body)Body->SetComponentTickEnabled(!Muted);
+     if(!Pawn->IsLocallyControlled())return;
+-    if(M870Wire::Saiga())
++    if(M870Wire::ProfileRifle())
+     {
+         Pawn->bInventoryWeaponReady=true;
+-        Pawn->WeaponState=Phase==2?EAKMWeaponState::Inspecting:Phase==3?EAKMWeaponState::ReloadingEmpty:EAKMWeaponState::Idle;
+-        auto* Clip=Phase==2?Pawn->InspectAnimation.Get():Phase==3?Pawn->DrumReloadEmptyAnimation.Get():Pawn->IdleAnimation.Get();
+-        Pawn->ActiveActionAnimation=Phase==2||Phase==3?Clip:nullptr;Pawn->bPendingEmptyReload=Phase==3;
++        const bool Normal=M870Wire::SVCH()&&Phase==5;
++        Pawn->WeaponState=Normal?EAKMWeaponState::Reloading:Phase==2?EAKMWeaponState::Inspecting:Phase==3?EAKMWeaponState::ReloadingEmpty:EAKMWeaponState::Idle;
++        auto* Clip=Normal?Pawn->ReloadAnimation.Get():Phase==2?Pawn->InspectAnimation.Get():Phase==3?(M870Wire::SVCH()?Pawn->ReloadEmptyAnimation.Get():Pawn->DrumReloadEmptyAnimation.Get()):Pawn->IdleAnimation.Get();
++        Pawn->ActiveActionAnimation=Phase==2||Phase==3||Normal?Clip:nullptr;Pawn->bPendingEmptyReload=Phase==3;
+         Pawn->ActionPlayRate=1.f;Pawn->ActionStartPosition=0.f;Pawn->WeaponStateDuration=Pawn->ActionDuration=Clip?Clip->GetPlayLength():1.f;
+         Pawn->WeaponStateElapsed=(Phase==2?.5f:Phase==3?.88f:0.f)*Pawn->WeaponStateDuration;
++        if(M870Wire::SVCH()&&(Phase==3||Normal))Pawn->WeaponStateElapsed=(Phase==3?325.f:220.f)/120.f;
+         Pawn->UpdateActionPose(0.f);Pawn->AKMViewmodel->TickAnimation(0.f,false);Pawn->AKMViewmodel->RefreshBoneTransforms();Pawn->AKMViewmodel->UpdateChildTransforms();
+         return;
+     }
+@@ -123,7 +143,7 @@
+     auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Subject||!Model||!Model->IsAudit())return;
+     if(Current<0)M870Wire::Network(GetWorld());
+-    if(M870Wire::Saiga()&&Current<0)
++    if(M870Wire::ProfileRifle()&&Current<0)
+     {
+         Model->Current=M870Wire::Seed(Model,Id,Phase);Model->CurrentPawn=Subject;Subject->ApplyColdSteelProfile(Model);
+         // Only the client previews these. A coalesced server loadout must not
+@@ -166,7 +186,7 @@
+     Row->SetNumberField(TEXT("aim_pitch"),State.AimPitch);Row->SetBoolField(TEXT("aiming"),State.bAiming);
+     Row->SetNumberField(TEXT("grip_error_cm"),Seen->BodyAnimation?FVector::Distance(Seen->BodyAnimation->LeftGripFromRight.GetLocation(),State.Contacts.SupportGrip.GetLocation()):-1.);
+     const bool Parts=Seen->MotionBindings.Num()==1&&M870Wire::Recipe(Seen->MotionBindings[0].Definition,Current)
+-        &&(!M870Wire::Saiga()||Subject->GetMagazineCapacity()==(Current==0?8:Current==5?12:20));
++        &&(!M870Wire::ProfileRifle()||Subject->GetMagazineCapacity()==(M870Wire::SVCH()?(Current==0||Current==5?10:20):(Current==0?8:Current==5?12:20)));
+     Row->SetBoolField(TEXT("equipment_recipe"),Parts);
+     Results.Add(MakeShared<FJsonValueObject>(Row));bAllPassed&=Aim&&Rig&&Pump&&Beam&&Applied&&Parts;bReported=true;
+     const FVector OwnerEnd=Own->DisplayState.Lasers.Num()==1?FVector(Own->DisplayState.Lasers[0].End):FVector::ZeroVector;

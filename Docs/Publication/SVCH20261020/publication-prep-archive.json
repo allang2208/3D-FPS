@@ -1,0 +1,443 @@
+[
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/catalog-manifest.json",
+    "bytes": 736,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/catalog-manifest.json",
+    "sha256": "8d20655c9c9b22eb53c30c2d0e13e73578f615f2a684cc40753e29f370bf737e"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/diff-check.txt",
+    "bytes": 880,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/diff-check.txt",
+    "sha256": "35129988ac1e3f0a092eb51024d39205cf8e4b95a4d4c49d37728113cebe0418"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/runtime-manifest.json",
+    "bytes": 14051,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/runtime-manifest.json",
+    "sha256": "22d150686f7df9917397bddb48c379d91747d25bd7e5cf8e33363aabd6f0b837"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/runtime.patch",
+    "bytes": 104147,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/runtime.patch",
+    "sha256": "7174c77c3657bd94431ee7e5b23e288523f796cd2d2bf26e0ec91af6b5b0aac2"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Content/ColdSteelData/gunsmith.json",
+    "bytes": 376871,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Content/ColdSteelData/gunsmith.json",
+    "sha256": "bfa7eca3324b85f70839e28a697172fc2569fd12404809f4caef7b831ce677f0"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Content/ColdSteelData/items.json",
+    "bytes": 183913,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Content/ColdSteelData/items.json",
+    "sha256": "3f58d82dfccfb295dd52639ded6c62487572166da0bc3da4d0b1bc84c2928917"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Content/ColdSteelData/modular_outfits.json",
+    "bytes": 147557,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Content/ColdSteelData/modular_outfits.json",
+    "sha256": "f78a4f3d95e2398d117a7ea72cafda4c633129dcb6e8306b4479a50d8d4e888d"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "bytes": 138747,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "sha256": "d714ccd7045728e82869db9bbfdec1c6fffcf7417d86a3070f26d8e3195466ba"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "bytes": 45480,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "sha256": "ae8d6087d720bdd9f419abaf2b9652d23cb9d0f989418de4e56d00ec9a51df01"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+    "bytes": 18051,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Weapons/M870PresentationWireAudit.cpp",
+    "sha256": "43f24e4722111809297ec1d9d95beee9a16356bfd38fe6da2e79300f3f14ab8b"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+    "bytes": 26212,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+    "sha256": "fee74d94110ff9b0a4821963feacdee13a306d6f25ede121058876e0c79c3219"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+    "bytes": 515,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Prerequisites/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+    "sha256": "04eabf80db466ee80e146fe3a85c12dfbc80bb4ecb4575a0895b0c8fa11c79b6"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/BallisticPresentationAudit.cpp",
+    "bytes": 25131,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/BallisticPresentationAudit.cpp",
+    "sha256": "0fddfc6fee89ac7736b1c216275f3317e11b616a8f2c799da20a0e8e976c01de"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "bytes": 258984,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "sha256": "5372e69277c7707e2a44cea31d83c28ad6792ecb7a8270f00f7409db8fea5481"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/FPSGAMECharacter.h",
+    "bytes": 54511,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/FPSGAMECharacter.h",
+    "sha256": "a7ad00195abb6d6f59c0c7a117135c8bbad4a41f17555fa925105d7b5e882da9"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "bytes": 19217,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "sha256": "1f7124b34d46809bc533e67317cad932a069a76634adb9f91039116801b24c88"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+    "bytes": 4017,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+    "sha256": "f2415bef93320ada638118af5f0d62fd8e63917b73d4c87f7c84a68dae2ba95a"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+    "bytes": 773,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+    "sha256": "d6b7a6178eccffc28bd165107920123dee21e7f94c731f26ebd6a9cb2c310c0b"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+    "bytes": 2625,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+    "sha256": "3b3fce06e6e64c3f738e6231e70253e7631d28819920f729df87c4eb5ee78a4d"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "bytes": 49313,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "sha256": "9e401789bdbf947e4a33a41f0f30062afd4b18c54deaded523f24f0933650457"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp",
+    "bytes": 8715,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp",
+    "sha256": "c075ad26dd8aa195aae19f37ecea9c1bf72b3f76a871d1ac9d1a94e4deb3137a"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Items/FPSConsumableAuditCommandlet.cpp",
+    "bytes": 9463,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Items/FPSConsumableAuditCommandlet.cpp",
+    "sha256": "996a0b131008e47a6049d45ae31448682e9342a21bae54a2c5ee4191d783ab2c"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+    "bytes": 2766,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+    "sha256": "d2f3b34c947deac59b484cd8b5a42b13353763b1191fab75e96cc415da437268"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "bytes": 55751,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "sha256": "f03cd49eb3c81e0d05a787d8b6c29b098662807d0ea9fbb295114b93667058a7"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "bytes": 8586,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "sha256": "8c159b922a508d12605044e264f40bd96fbd30592a27d3317deacc28a896050b"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "bytes": 33062,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "sha256": "c21825e4b876e575f463fd7f340e4d41ae339c3b8e3b1ef03ec7e032491ec6bc"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "bytes": 5006,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "sha256": "7bea2ef0c9f0b693d3d9dada2f6c794c60c7aa99b2f8c828a8baef40c62b8434"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/QuickCombatRifleMotion.h",
+    "bytes": 4357,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Skills/QuickCombatRifleMotion.h",
+    "sha256": "e2b46c4f4a131a8867bb3af4188cad2de1a0be177fb4cfeb1c61a2d12ce12b95"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "bytes": 21471,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "sha256": "6a2651165d2d39909a840a6dd790e4819ba04f82350549dec9ec2adeb92565d8"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "bytes": 15980,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "sha256": "f26641cc254cfc7bc07b35c032aba8a56faabb2e4be9655fe9f4404b2f95069c"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "bytes": 29295,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "sha256": "9a2ace5ea6c36feedcf7e88eb73bb30cf53d433188847f480681a6ed2789f05c"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "bytes": 40025,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "sha256": "1fbb29952a54fbc3757719b184759c759a223dd7c17ed7aa8d0545c02e2c89a4"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "bytes": 5700,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "sha256": "1e98e91cf3aaaca3412af80ab99913fab14808e44e42fbc9e654597db6687979"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "bytes": 7624,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "sha256": "ccc3a38c02fc90c37b8909c86acb0ae060aa546d1e70b41084616eb71ea6755c"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "bytes": 85008,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "sha256": "42b96e42410070d06ce714a100a368e054fea76de8bef880910ad486e9f9aebf"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "bytes": 14980,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "sha256": "a6c0bfd7ed1729edaa5d4ced0ece1ff559bd9172fa6cf8a1fc8c8eb4d2d823ac"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "bytes": 2392,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "sha256": "16852cbf713df13588e8332d33b8c317382f41ee8eba369351c39e301db0ef4a"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "bytes": 39059,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "sha256": "d1a8f4fee14df3ed8c3ab53c9ea8640c492174665528529c955ffdf0471b41a0"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+    "bytes": 14028,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+    "sha256": "baa68004488cdfab6f4f046e4fe53c9751b5dc4107a74f289aa37dd1d239d357"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/CasingPortCalibration.h",
+    "bytes": 2441,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/CasingPortCalibration.h",
+    "sha256": "e07699a8fdf312d35747dea8ee2cb2fd2085df5b0d36cfab81f89797a4049a21"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+    "bytes": 95015,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+    "sha256": "d07ef3079b8807412eafe77711f6d279235073f5e42a184c0b5453752f687f36"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "bytes": 4839,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "sha256": "fc48a44df355c8e8b8bd63d788df808ed6550a1d65ac0e0e82a2ca4638d0a088"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "bytes": 21410,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "sha256": "f62b1676e5b44c2916bcc5c3c304b8c4cdb0075123de0d80914a849f712b0f45"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4FoldingSights.cpp",
+    "bytes": 6706,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4FoldingSights.cpp",
+    "sha256": "2f772441bb21d8abd79624b07868ddd4280672bb5eaa65b8146b84a593647445"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "bytes": 29545,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "sha256": "5954b55d0c1471be1483d215993ab6b4f0100f4e0d289c22d2c6eab4db3ea7d4"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+    "bytes": 12978,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+    "sha256": "8a837b0aede4a769b609b99fbf13ad0bac5e577f1ff481efdc48e8402f5d60f8"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "bytes": 24761,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "sha256": "ab78fd54f71d099610fcf097efc88fb65c1c6873d041c3c76471d183f46eef88"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/RifleHipFraming.cpp",
+    "bytes": 6187,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/RifleHipFraming.cpp",
+    "sha256": "d9bec3cf2d762e092819e332d3f0c22f0c4b78cc10867d7e3b2f7c9a5546b5ca"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/RifleReloadHandoff.h",
+    "bytes": 3842,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/RifleReloadHandoff.h",
+    "sha256": "954a0f0a21e320c93b3185089acda964f9c515ab07c60863c1c82482dafd3fd1"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+    "bytes": 8754,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+    "sha256": "48acbc390617e3d1233aaa0738c545d4e689132fe21544e2a4564f1299398c90"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+    "bytes": 3052,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+    "sha256": "39b5c38138298946e57c62174a9d6fd0f222e56bcb4e43709f77f101d95b20d8"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/TacticalDeviceVariants.h",
+    "bytes": 3901,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/TacticalDeviceVariants.h",
+    "sha256": "1cb7196924be66fb97013d988fa9cae86138fbd5ebc1c96e32c81892f4917446"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+    "bytes": 4038,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/PublicationCandidates/Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+    "sha256": "8af2dd475e1b6e7899f04624c7110481b75bf36f36b9a52c191210edf01a0c47"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/prepare_publication.py",
+    "bytes": 11465,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/prepare_publication.py",
+    "sha256": "900755256de6e46daf89d6e21537a27a1656283bf93b5d7abd307b4040e4725e"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/package_publication.py",
+    "bytes": 4799,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/package_publication.py",
+    "sha256": "88dd5d18b6c018d802607f56e648bcaed55a48e115e28f2f222a81077c1b4128"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/stage_publication.py",
+    "bytes": 3928,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/stage_publication.py",
+    "sha256": "fd352a4bf9eb91ee84dd6fa0ea0b05d5513bac90cbb49af2729b4725eabee3bd"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/check_publication.py",
+    "bytes": 4572,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/check_publication.py",
+    "sha256": "64a2657509ae8f898859bbdf792296621a6897bc51604f247ff12a0e0a53c7f9"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/publication-inventory.json",
+    "bytes": 266310,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/publication-inventory.json",
+    "sha256": "5cfb45607e91dc52eab28616627796030881b538b89d731368e387d6c2a05712"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/publication-hunks.json",
+    "bytes": 97689,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/publication-hunks.json",
+    "sha256": "1771e4a17120a0ec23baf3c961e0d776ed1dcc5c0423f49465fc6cf61092ac94"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/publication-check.json",
+    "bytes": 2488,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/publication-check.json",
+    "sha256": "61637449ee52a34c6aafe3dd772d122b0e9bf630ec5b3aefc6bda713a933453b"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/recipe-files.json",
+    "bytes": 27332,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/recipe-files.json",
+    "sha256": "92b3afa7e391525336bebe6705cc745e580fbf6b9f70822fa6165df160860b7a"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/retained-reference-inputs.json",
+    "bytes": 17878,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/retained-reference-inputs.json",
+    "sha256": "008f40d9def4becc45bfed4e670bbda0b60de44b028732cbfa4247a1c9cb60ea"
+  },
+  {
+    "destination": "trash/svch-publication-prep-20261020/SourceAssets/SVCHNetworkReview20261020/archive-plan.json",
+    "bytes": 122856,
+    "reason": "Completed one-off publication preparation; public deltas and manifests retained",
+    "source": "SourceAssets/SVCHNetworkReview20261020/archive-plan.json",
+    "sha256": "f4d863e626f568928d54b975e68d9872c885229fedd9a3197bf430960ab3f27d"
+  }
+]

@@ -8,6 +8,7 @@
 #include "QBZ191Attachments.h"
 #include "ASH12WeaponAssets.h"
 #include "SVDAttachments.h"
+#include "SVCHMagazineAssets.h"
 #include "M1911MagazineVisual.h"
 #include "G18WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
@@ -58,6 +59,16 @@ bool AFPSGAMECharacter::HasLMG201ClothBox() const
 
 void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
+    if (SVCHWeaponAssets::Matches(AKMViewmodel))
+    {
+        const bool Extended = Id == TEXT("ext_mag");
+        LargeDrum = SVCHMagazineAssets::Configure(this, AKMViewmodel, LargeDrum, Extended, bInventoryWeaponReady);
+        MagazineAttachmentId = Extended && bInventoryWeaponReady && SVCHMagazineAssets::IsFitted(LargeDrum) ? Id : FString();
+        bDrumVisual = bDrumReleasedDuringReload = bDrumMagazineHidden = false;
+        if (LargeDrum) DrumMount = LargeDrum->GetRelativeTransform();
+        return;
+    }
+
     if(IsM870Weapon())
     {
         LargeDrum=M870TubeMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
@@ -271,6 +282,16 @@ bool AFPSGAMECharacter::ValidateDrumAttachment() const
 void AFPSGAMECharacter::UpdateDrumDropVisual()
 {
     if(!LargeDrum)return;
+
+    if (SVCHWeaponAssets::Matches(AKMViewmodel))
+    {
+        // Standard and extended shells both ride the accepted magazine-bone
+        // reload. The empty attachment ID must not hide the standard shell.
+        bDrumReleasedDuringReload = bDrumMagazineHidden = false;
+        LargeDrum->SetVisibility(bInventoryWeaponReady && AKMViewmodel->IsVisible() && SVCHMagazineAssets::IsFitted(LargeDrum));
+        return;
+    }
+
     if((IsSuper90Weapon()&&MagazineAttachmentId==Super90TubeMagazineAssets::Part)
         ||(IsM870Weapon()&&MagazineAttachmentId==M870TubeMagazineAssets::Part))
     {

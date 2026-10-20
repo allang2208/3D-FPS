@@ -48,8 +48,7 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
     if(ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff"))return Supports(I)&&O.Restriction==TEXT("weapon");
     if(!Supports(I)||!GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return false;
     // 类别键只对同类武器成立：机枪卷轴不能落到步枪；枪械通用与无限制词缀沿用原口径。
-    // 狙击步枪在目录里只有 weaponTypeTag 这一个分类字段（weaponType 仍是 rifle，见 ue_svd）。
-    if(O.Restriction==TEXT("sniper"))return ColdSteelInventory::Text(I,TEXT("weaponTypeTag"))==TEXT("狙击步枪");
+    if(O.Restriction==TEXT("sniper"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("sniper");
     if(O.Restriction==TEXT("machineGun"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("machineGun");
     if(O.Restriction==TEXT("pistol"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("pistol");
     if(O.Restriction==TEXT("revolver"))return ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("pistol")

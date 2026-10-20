@@ -1,5 +1,6 @@
 #include "RifleHipFraming.h"
 #include "AKMSovietCalibration.h"
+#include "SVCHWeaponAssets.h"
 #include "WeaponGripProfile.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
@@ -12,7 +13,8 @@ bool Supports(const FString& Definition)
     return (Definition == TEXT("ue_super90") || Definition == TEXT("ue_m870")) || Definition == TEXT("ue_m4a1") || Definition == TEXT("ue_hk416")
         || Definition == TEXT("ue_qbz191") || Definition == TEXT("ue_akm")
         || Definition == TEXT("ue_m16a2") || Definition == TEXT("ue_ash12")
-        || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd");
+        || Definition == TEXT("ue_a762") || Definition == TEXT("ue_svd")
+        || Definition == TEXT("ue_svch");
 }
 
 FVector PresentationOffset(const FString& Definition)
@@ -29,6 +31,9 @@ FVector PresentationOffset(const FString& Definition)
     else if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762")) Forward = 9.f;
     else if (Definition == TEXT("ue_ash12")) Forward = 8.f;
     else if (Definition == TEXT("ue_svd")) Forward = 10.f;
+    // The SVCh is 1.073 m long with its butt 34 cm behind the grip, so it needs
+    // the same extra forward room as SVD to keep the receiver and bolt in frame.
+    else if (Definition == TEXT("ue_svch")) Forward = 10.f;
     else if (Definition == TEXT("ue_super90")) Forward = 6.f;
     return FVector(Forward, 0.f, 0.f);
 }
@@ -90,6 +95,7 @@ void FRifleHipFraming::Initialize(const FString& Definition, UAnimSequence* Idle
     // Super90 retains its native UE bind: physical up is bone-local -Y.
     // The shared M4 ruler above still uses its own bone-local Z.
     GunUpAxis = (Definition == TEXT("ue_super90") || Definition == TEXT("ue_m870")) ? -FVector::RightVector : FVector::UpVector;
+    if (Definition == SVCHWeaponAssets::Definition) GunUpAxis = SVCHWeaponAssets::SightUp;
     const FVector ReferenceHand = Anchor + BaseRotation.RotateVector(Hand);
     TargetHand = ReferenceHand + RifleHipFraming::PresentationOffset(Definition);
     TargetAxis = BaseRotation.Quaternion() * Axis;

@@ -1,0 +1,2337 @@
+[
+  {
+    "path": ".gitignore",
+    "git_bytes": 282159,
+    "git_sha256": "67155aa0ee68d07a210fa108f6ad8ee93578a5d4f48be4f750fddab18af670f3"
+  },
+  {
+    "path": "Content/ColdSteelData/gunsmith.json",
+    "git_bytes": 365005,
+    "git_sha256": "37f80bce08c22658469f01933452e861c1a7efdc7ee5bbc952e65e47a2b37db1"
+  },
+  {
+    "path": "Content/ColdSteelData/items.json",
+    "git_bytes": 178449,
+    "git_sha256": "612426aa9a3f8887cdc83328f484dececb8c467fb727fedd6c6cf16bddd97405"
+  },
+  {
+    "path": "Content/ColdSteelData/modular_outfits.json",
+    "git_bytes": 145311,
+    "git_sha256": "47ab48b85a01b26d53b925cc952a0cbca6860ea697c109334dde74f3fbacc05a"
+  },
+  {
+    "path": "Docs/AssetSetup.md",
+    "git_bytes": 125711,
+    "git_sha256": "28901ad7d581a672defbb6e3badf32e35071e48dc0d5bfed4dd119e57a27d842"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Diagnostics/SVCHQuickCombatReview.inl",
+    "git_bytes": 6346,
+    "git_sha256": "2b4134e603c305a27a0739b9aec53d96c8036bbe30e016464b4a6c3d3268a15b"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Diagnostics/SVCHReview.cpp",
+    "git_bytes": 23070,
+    "git_sha256": "bf5949e2d0f4377f9b7d73cceea15240c06b0d5b7fe2e426a30706ad9f9212f9"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/HistoricalReceipts/completion.json",
+    "git_bytes": 258,
+    "git_sha256": "15c4c6e038cb92a24062bf5f2e17bf13804e7a82eff8af86a4ef7b85c6b18f71"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/HistoricalReceipts/installed-assets.json",
+    "git_bytes": 2193,
+    "git_sha256": "d82fdec5d15eefd55cd088b479d4cd159b6e4b06f2615dc67c47645c528685cf"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/HistoricalReceipts/native-receipt.json",
+    "git_bytes": 206,
+    "git_sha256": "a92c8ed39ef6222bca5ccd7fdec8a3a9ae68c40ad742017eb66dfce14032f5d1"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/HistoricalReceipts/native-result.json",
+    "git_bytes": 43190,
+    "git_sha256": "fc3de2d301da1c0fdfcdce32a4d6576615c72c54b513a80cab511fb2988ac747"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/HistoricalReceipts/wire-receipt.json",
+    "git_bytes": 299,
+    "git_sha256": "f14b610c1177d45564af2a4cff8f1bc1d4083238d17111a2d2758b7de60dfcb0"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+    "git_bytes": 1026,
+    "git_sha256": "07e75de7358f743f4b1b1043b09234eafc1d575097187d00b6d46bb38b01ef88"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Integration/Source__FPSGAME__Characters__FPSPlayerBodyMotion.cpp.patch",
+    "git_bytes": 1521,
+    "git_sha256": "e9d6e42cd9157ac2a3b33cd410e07c2de5f9fc05cf6b62fc588f74044a5f21e9"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Integration/Source__FPSGAME__Weapons__M870PresentationWireAudit.cpp.patch",
+    "git_bytes": 7258,
+    "git_sha256": "31f7a5c6bd4ba07737c53dcd942b90465a27dc4bc621ae51ae6c19e8a6260144"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.cpp.patch",
+    "git_bytes": 686,
+    "git_sha256": "9380c4e8a239a8dae0ff5de41b4ac155120e5f7d3709979609d41ae9ff8e3434"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/Integration/Source__FPSGAME__Weapons__ShotgunAttachmentAuditCommandlet.h.patch",
+    "git_bytes": 437,
+    "git_sha256": "eaa088866267af58f4e895bfc96f88fc4d7a172bc0d7b41b6920565d89bf18c4"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/README.md",
+    "git_bytes": 5993,
+    "git_sha256": "4f7e5ba14483a01759dc274fc3d6fa16cacc2565e63ccf07a9e6d8bf9138b98a"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/archive-current-status.json",
+    "git_bytes": 415,
+    "git_sha256": "08247ba6470825248187bbb91de7a8fd7d98a4974429b0883b10ccfeb5f21ac5"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/archive-manifest.json",
+    "git_bytes": 126323,
+    "git_sha256": "4b4803fc609d29cbbd49fc90e8f3f5134eb72be1edb9d7358fdc144999e9f914"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/archive-receipt.json",
+    "git_bytes": 183,
+    "git_sha256": "5dbf53345ff133af0339deab748255496694c7af2b0228d8e71760f7b9db8a5b"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/diagnostics-manifest.json",
+    "git_bytes": 1559,
+    "git_sha256": "22499f9325294dc0c8c8b255d6f024d9f64189cd53b46411aa81816cdcb9d719"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/integration-manifest.json",
+    "git_bytes": 2242,
+    "git_sha256": "c6e7bdedfe1cd847e691124cc8a330c3b82540e60b5858136ad4578772e88de7"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/publication-prep-archive.json",
+    "git_bytes": 30372,
+    "git_sha256": "2e791dc4a7ffba2a57edf46da0f5c87fbf10bd545b213fb0fde66539f05dac0c"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/publication-prep-receipt.json",
+    "git_bytes": 111,
+    "git_sha256": "e12d93c243b897de84583c7783bc544bc1efb957edbb8311316019e315bfb13f"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/publication-review.json",
+    "git_bytes": 643,
+    "git_sha256": "731b1cab33cc30abfbd5c5c76912759daae175e3395d038b018b765fc69cb106"
+  },
+  {
+    "path": "Docs/Publication/SVCH20261020/recipe-manifest.json",
+    "git_bytes": 113987,
+    "git_sha256": "51ce41c7235c1b4fb614ad07e106eabf083d7d6e28b0b495393f7d9c49410704"
+  },
+  {
+    "path": "Docs/Weapons/kv-scope-universal-20261019.md",
+    "git_bytes": 5378,
+    "git_sha256": "e3e112325373f9d7bc120b79a00d945ad479510d56a5080f8ce040750171f3c9"
+  },
+  {
+    "path": "Docs/Weapons/sniper-heavy-suppressor-20261019.md",
+    "git_bytes": 3767,
+    "git_sha256": "abd77fefdab624edf6b7cee592fb190a97de266b5824399758802469c6a8e565"
+  },
+  {
+    "path": "Docs/Weapons/svch-ballistics-20261018.md",
+    "git_bytes": 3860,
+    "git_sha256": "a79e2aa7a9c5ddc9267b16c3b5cf181ce51b4db07bd5eca2362383e1e082f263"
+  },
+  {
+    "path": "Docs/Weapons/svch-charge-handoff-r11-20261018.md",
+    "git_bytes": 4912,
+    "git_sha256": "1f88f2b36a7960db75a756b42cc515d2aa8150443d5474af293fe1435c34a8bd"
+  },
+  {
+    "path": "Docs/Weapons/svch-development-20261017.md",
+    "git_bytes": 16198,
+    "git_sha256": "c561f0c6b6baf45a882fcf352fbfc3365e442fff5dc55587885fe1593ae8e465"
+  },
+  {
+    "path": "Docs/Weapons/svch-followup-network-review-20261020.md",
+    "git_bytes": 6468,
+    "git_sha256": "aa7402d232b30c3fa69366fddd63f655677ef5292c3a40820a2f2a91d85ade34"
+  },
+  {
+    "path": "Docs/Weapons/svch-full-fire-review-20261018.md",
+    "git_bytes": 4718,
+    "git_sha256": "a36d7508eb47e367a334fd9ef5feb2d93690b70abd3578bb910db6fe52b3bd4e"
+  },
+  {
+    "path": "Docs/Weapons/svch-left-hand-charge-20261019.md",
+    "git_bytes": 3203,
+    "git_sha256": "7fe483f0e8680a6fbc7611e5ecee210432919f679edf6096fa3927e52a61ce38"
+  },
+  {
+    "path": "Docs/Weapons/svch-left-reload-arm-root-20261019.md",
+    "git_bytes": 6183,
+    "git_sha256": "2b859dd03980d9507fde54f0fff29abe6ac096bcec33259403e2755498c6fe3c"
+  },
+  {
+    "path": "Docs/Weapons/svch-local-surface-pilots-r13-20261018.md",
+    "git_bytes": 4687,
+    "git_sha256": "23fdc8feb21884823c818f8832523a699837e10186a9f6fb5eb55a9f2e770078"
+  },
+  {
+    "path": "Docs/Weapons/svch-magazine-seat-20261019.md",
+    "git_bytes": 4344,
+    "git_sha256": "72393326a7ef78b89b9d6784fcc0eef65f80b391e75c486918d3734804adfd7b"
+  },
+  {
+    "path": "Docs/Weapons/svch-quick-melee-elbow-r5-20261020.md",
+    "git_bytes": 3270,
+    "git_sha256": "6201eb05cb9313e3235f47da24acab015f24b75e4307a354f379943ea94ac43e"
+  },
+  {
+    "path": "Docs/Weapons/svch-quick-melee-grip-wrist-r7-20261020.md",
+    "git_bytes": 5950,
+    "git_sha256": "7897aa7627ad0bc20c48ecbc4a017a9fcb7cfd5268798731394aea5ffb9dc9f7"
+  },
+  {
+    "path": "Docs/Weapons/svch-quick-melee-hand-r3-20261019.md",
+    "git_bytes": 3602,
+    "git_sha256": "696bbb9230428525c426e2f8bdf4d6d46e8b2d7426ddf5ec6cdfb8d6ed8c7283"
+  },
+  {
+    "path": "Docs/Weapons/svch-quick-melee-native-chain-r4-20261020.md",
+    "git_bytes": 3311,
+    "git_sha256": "878523d48db881e02a34f13a27611d97d2f0003aefbd0cf0c094646c5f63fe72"
+  },
+  {
+    "path": "Docs/Weapons/svch-quick-melee-subframe-recovery-r6-20261020.md",
+    "git_bytes": 3454,
+    "git_sha256": "39b604357d76bcd072602eeaf11d6c9a06c693de8124d9169637c8867e1219d7"
+  },
+  {
+    "path": "Docs/Weapons/svch-quick-melee-svd-reference-r2-20261019.md",
+    "git_bytes": 4110,
+    "git_sha256": "b835ace2d0c9fd615c5b95fce370ab86c65eab397ee41ea488e70a2b711822a0"
+  },
+  {
+    "path": "Docs/Weapons/svch-real-folding-sights-20261019.md",
+    "git_bytes": 4802,
+    "git_sha256": "f73ea68560ab9a4da6183fc80a227d7f5e4cb666b66ae01eaf282457efb7ac5e"
+  },
+  {
+    "path": "Docs/Weapons/svch-refinement-20261018.md",
+    "git_bytes": 20381,
+    "git_sha256": "36cb41856f8b91fdd2adb8269bda099d5da36dfec65b744f640282eb362b0fc1"
+  },
+  {
+    "path": "Docs/Weapons/svch-reload-grip-20261018.md",
+    "git_bytes": 3948,
+    "git_sha256": "76c545afee1ffcc681347207965aff0f748e5bbfda184cfe9cda983958c1d542"
+  },
+  {
+    "path": "Docs/Weapons/svch-reload-review-r10-20261018.md",
+    "git_bytes": 4523,
+    "git_sha256": "d0c5a07a500820593ff0559c77772c94a51276806eead5721fb11cfcafeffd07"
+  },
+  {
+    "path": "Docs/Weapons/svch-reload-root-clearance-20261019.md",
+    "git_bytes": 3732,
+    "git_sha256": "cf2cd8bc98041aff7d31391fd1b03c99bfa1c75cadb88cd3cee868acf1508977"
+  },
+  {
+    "path": "Docs/Weapons/svch-review-and-quick-melee-20261019.md",
+    "git_bytes": 6948,
+    "git_sha256": "894eb4827ecd0aff5c74e324b98201322a0124fcd2b2345c4b67520442605dfe"
+  },
+  {
+    "path": "Docs/Weapons/svch-selected-replacement-20261018.md",
+    "git_bytes": 2684,
+    "git_sha256": "40de444afdb15a5b9136b15d4b7e477216dfcbd5bf5a635d8bdd10a0fb6713e6"
+  },
+  {
+    "path": "Docs/Weapons/svch-sight-overlap-20261019.md",
+    "git_bytes": 2542,
+    "git_sha256": "eb845579408e13b5b5beb1a04fe8275da0b9108316c8df27d711ba7b37889679"
+  },
+  {
+    "path": "Docs/Weapons/svch-sights-r2-20261018.md",
+    "git_bytes": 4331,
+    "git_sha256": "63287b64c99d671389b1aac2280e4a2f2e39b4dbd459b9f19120ad1b81e1b071"
+  },
+  {
+    "path": "Docs/Weapons/svch-surface-upgrade-plan-r12-20261018.md",
+    "git_bytes": 8191,
+    "git_sha256": "228d24828194c9889f01e8a93bf82ce0bfa67c03df5b9fe14326d4335692710b"
+  },
+  {
+    "path": "Docs/Weapons/svch-universal-foregrip-fit-20261019.md",
+    "git_bytes": 3802,
+    "git_sha256": "627a3ff85129acb1037840d99ca90532879afbca22a8f4c9c94310d0e9d0e33c"
+  },
+  {
+    "path": "Source/FPSGAME/BallisticPresentationAudit.cpp",
+    "git_bytes": 25131,
+    "git_sha256": "0fddfc6fee89ac7736b1c216275f3317e11b616a8f2c799da20a0e8e976c01de"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodyRifleHold.cpp",
+    "git_bytes": 4017,
+    "git_sha256": "f2415bef93320ada638118af5f0d62fd8e63917b73d4c87f7c84a68dae2ba95a"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodyRifleMotion.h",
+    "git_bytes": 773,
+    "git_sha256": "d6b7a6178eccffc28bd165107920123dee21e7f94c731f26ebd6a9cb2c310c0b"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodyRifleStockContacts.h",
+    "git_bytes": 2625,
+    "git_sha256": "3b3fce06e6e64c3f738e6231e70253e7631d28819920f729df87c4eb5ee78a4d"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "git_bytes": 49313,
+    "git_sha256": "9e401789bdbf947e4a33a41f0f30062afd4b18c54deaded523f24f0933650457"
+  },
+  {
+    "path": "Source/FPSGAME/Development/ColdSteelDevelopmentTools.cpp",
+    "git_bytes": 8715,
+    "git_sha256": "c075ad26dd8aa195aae19f37ecea9c1bf72b3f76a871d1ac9d1a94e4deb3137a"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "git_bytes": 258984,
+    "git_sha256": "5372e69277c7707e2a44cea31d83c28ad6792ecb7a8270f00f7409db8fea5481"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "git_bytes": 54511,
+    "git_sha256": "a7ad00195abb6d6f59c0c7a117135c8bbad4a41f17555fa925105d7b5e882da9"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "git_bytes": 19217,
+    "git_sha256": "1f7124b34d46809bc533e67317cad932a069a76634adb9f91039116801b24c88"
+  },
+  {
+    "path": "Source/FPSGAME/Items/FPSConsumableAuditCommandlet.cpp",
+    "git_bytes": 9463,
+    "git_sha256": "996a0b131008e47a6049d45ae31448682e9342a21bae54a2c5ee4191d783ab2c"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+    "git_bytes": 2766,
+    "git_sha256": "d2f3b34c947deac59b484cd8b5a42b13353763b1191fab75e96cc415da437268"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+    "git_bytes": 55751,
+    "git_sha256": "f03cd49eb3c81e0d05a787d8b6c29b098662807d0ea9fbb295114b93667058a7"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "git_bytes": 8586,
+    "git_sha256": "8c159b922a508d12605044e264f40bd96fbd30592a27d3317deacc28a896050b"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+    "git_bytes": 33062,
+    "git_sha256": "c21825e4b876e575f463fd7f340e4d41ae339c3b8e3b1ef03ec7e032491ec6bc"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+    "git_bytes": 5006,
+    "git_sha256": "7bea2ef0c9f0b693d3d9dada2f6c794c60c7aa99b2f8c828a8baef40c62b8434"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/QuickCombatRifleMotion.h",
+    "git_bytes": 4357,
+    "git_sha256": "e2b46c4f4a131a8867bb3af4188cad2de1a0be177fb4cfeb1c61a2d12ce12b95"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "git_bytes": 21471,
+    "git_sha256": "6a2651165d2d39909a840a6dd790e4819ba04f82350549dec9ec2adeb92565d8"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+    "git_bytes": 15980,
+    "git_sha256": "f26641cc254cfc7bc07b35c032aba8a56faabb2e4be9655fe9f4404b2f95069c"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelIconResources.cpp",
+    "git_bytes": 29295,
+    "git_sha256": "9a2ace5ea6c36feedcf7e88eb73bb30cf53d433188847f480681a6ed2789f05c"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "git_bytes": 40025,
+    "git_sha256": "1fbb29952a54fbc3757719b184759c759a223dd7c17ed7aa8d0545c02e2c89a4"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "git_bytes": 5700,
+    "git_sha256": "1e98e91cf3aaaca3412af80ab99913fab14808e44e42fbc9e654597db6687979"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "git_bytes": 7624,
+    "git_sha256": "ccc3a38c02fc90c37b8909c86acb0ae060aa546d1e70b41084616eb71ea6755c"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "git_bytes": 85008,
+    "git_sha256": "42b96e42410070d06ce714a100a368e054fea76de8bef880910ad486e9f9aebf"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "git_bytes": 14980,
+    "git_sha256": "a6c0bfd7ed1729edaa5d4ced0ece1ff559bd9172fa6cf8a1fc8c8eb4d2d823ac"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+    "git_bytes": 2392,
+    "git_sha256": "16852cbf713df13588e8332d33b8c317382f41ee8eba369351c39e301db0ef4a"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "git_bytes": 39059,
+    "git_sha256": "d1a8f4fee14df3ed8c3ab53c9ea8640c492174665528529c955ffdf0471b41a0"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+    "git_bytes": 14028,
+    "git_sha256": "baa68004488cdfab6f4f046e4fe53c9751b5dc4107a74f289aa37dd1d239d357"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/CasingPortCalibration.h",
+    "git_bytes": 2441,
+    "git_sha256": "e07699a8fdf312d35747dea8ee2cb2fd2085df5b0d36cfab81f89797a4049a21"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+    "git_bytes": 95015,
+    "git_sha256": "d07ef3079b8807412eafe77711f6d279235073f5e42a184c0b5453752f687f36"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+    "git_bytes": 4839,
+    "git_sha256": "fc48a44df355c8e8b8bd63d788df808ed6550a1d65ac0e0e82a2ca4638d0a088"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/KVScopeAssets.h",
+    "git_bytes": 1775,
+    "git_sha256": "f61bbf34ab39266175aefe9786046050c88f5142d629fed1f57d46da3eca6ccc"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "git_bytes": 21410,
+    "git_sha256": "f62b1676e5b44c2916bcc5c3c304b8c4cdb0075123de0d80914a849f712b0f45"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4FoldingSights.cpp",
+    "git_bytes": 6706,
+    "git_sha256": "2f772441bb21d8abd79624b07868ddd4280672bb5eaa65b8146b84a593647445"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "git_bytes": 29545,
+    "git_sha256": "5954b55d0c1471be1483d215993ab6b4f0100f4e0d289c22d2c6eab4db3ea7d4"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+    "git_bytes": 12978,
+    "git_sha256": "8a837b0aede4a769b609b99fbf13ad0bac5e577f1ff481efdc48e8402f5d60f8"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "git_bytes": 24761,
+    "git_sha256": "ab78fd54f71d099610fcf097efc88fb65c1c6873d041c3c76471d183f46eef88"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RifleHipFraming.cpp",
+    "git_bytes": 6187,
+    "git_sha256": "d9bec3cf2d762e092819e332d3f0c22f0c4b78cc10867d7e3b2f7c9a5546b5ca"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RifleReloadHandoff.h",
+    "git_bytes": 3842,
+    "git_sha256": "954a0f0a21e320c93b3185089acda964f9c515ab07c60863c1c82482dafd3fd1"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SVCHForegripAssets.h",
+    "git_bytes": 1944,
+    "git_sha256": "893eda681d29bc488418906f9a1893fdceb407cba88003570706c8163c6aa052"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SVCHFullFireReview.inl",
+    "git_bytes": 12138,
+    "git_sha256": "eb3c1ae9229ebe1d0ba7025edecc691bd3348d837ae90ad21326c0d6de464868"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SVCHMagazineAssets.h",
+    "git_bytes": 3168,
+    "git_sha256": "951e3da2b21e2426258469306f669bc4a0833850820cd31f177b67fb96349123"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SVCHPoseAudit.cpp",
+    "git_bytes": 22010,
+    "git_sha256": "96afe374136290686e767a61b6a63995917df921c6ceb837d309d5b99cd46fa5"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SVCHWeaponAssets.h",
+    "git_bytes": 4425,
+    "git_sha256": "a58cdb1135ded7db3ee25873f9abd3c54d67189af14cdaf9da1cb7ced9d2c404"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SVDGripProfiles.cpp",
+    "git_bytes": 3052,
+    "git_sha256": "39b5c38138298946e57c62174a9d6fd0f222e56bcb4e43709f77f101d95b20d8"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+    "git_bytes": 8754,
+    "git_sha256": "48acbc390617e3d1233aaa0738c545d4e689132fe21544e2a4564f1299398c90"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/SniperSuppressorAssets.h",
+    "git_bytes": 412,
+    "git_sha256": "1a8f6809a706f8f2c2f9cf0048e55dc883f3e35053d5b655723d08d937606f9a"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/TacticalDeviceVariants.h",
+    "git_bytes": 3901,
+    "git_sha256": "1cb7196924be66fb97013d988fa9cae86138fbd5ebc1c96e32c81892f4917446"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WeaponReloadStages.cpp",
+    "git_bytes": 4038,
+    "git_sha256": "8af2dd475e1b6e7899f04624c7110481b75bf36f36b9a52c191210edf01a0c47"
+  },
+  {
+    "path": "SourceAssets/SVCHBallistics20261018/FullReview/finalize_review.py",
+    "git_bytes": 2898,
+    "git_sha256": "f22ae768aa3514894f05aec973fd9b40802f1d38b150a4fd3e70dc06989f91e5"
+  },
+  {
+    "path": "SourceAssets/SVCHBallistics20261018/FullReview/read_target_defaults.py",
+    "git_bytes": 1429,
+    "git_sha256": "f1c9ecd9cc62d5cc2f0ea2b2c20310f8402695569fd3a11618984231948aa1e7"
+  },
+  {
+    "path": "SourceAssets/SVCHBallistics20261018/FullReview/run_review.ps1",
+    "git_bytes": 1496,
+    "git_sha256": "dfba66eb0a91bfe3ed1f1b18ac0c9449905c528d3261f61fe43f3cae8ac4743e"
+  },
+  {
+    "path": "SourceAssets/SVCHBallistics20261018/run_targeted.ps1",
+    "git_bytes": 1484,
+    "git_sha256": "928819fd3275e0fd52f0d088d1e163b920039be07bf57b24511bfe40547c1ccc"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261019/build.ps1",
+    "git_bytes": 2530,
+    "git_sha256": "c12f7ac74d0bd2a8bcdee6e7729e667011e42b95035809217a202f4bdb4ce4f1"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261019/read.ps1",
+    "git_bytes": 726,
+    "git_sha256": "581f112fd665e85e20ca306deb6eae1cc89d83db23862d39f52c9e4468418166"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261019/read_saved.py",
+    "git_bytes": 1370,
+    "git_sha256": "a1fa92341973598c04a509ea3c5de31f79f2d43d5398a8b667edd4c2c67f7dcb"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261019/run.ps1",
+    "git_bytes": 1712,
+    "git_sha256": "edf2d257a8ff0c7acbfce63606d3b55e00628b61ef3f4e3caf3fd34c2745bd5f"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261019/run_wire.ps1",
+    "git_bytes": 6411,
+    "git_sha256": "757d240b842c011ff7c48499007318be8667f539e4b9761d0169d5e8c5113b17"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261019/scale-import.ps1",
+    "git_bytes": 759,
+    "git_sha256": "70379ca0fb7024fd0ab0b15638efed8ece88e0e25fc2033b5581696747afe6aa"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261020/build.ps1",
+    "git_bytes": 2676,
+    "git_sha256": "f4f7e98153ba02f8f110b7c445b9296bcb0a69dcbff09d443803b6b55dc02eff"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261020/fix_catalog_labels.py",
+    "git_bytes": 2432,
+    "git_sha256": "f5da476d770c6bb5fffd64b255aff9b49b172d531cb380149907845cfb51257f"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261020/run_native.ps1",
+    "git_bytes": 1328,
+    "git_sha256": "7aca972a044806a863a1337854e5f93ab15f4c94163513c89f313c8dc6a9b0cf"
+  },
+  {
+    "path": "SourceAssets/SVCHNetworkReview20261020/run_wire.ps1",
+    "git_bytes": 6411,
+    "git_sha256": "a3b49e4cb945d05f05a03d371aa9251d326d18c443a1ab376f5dae07e7ebfb1f"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/check_r4.py",
+    "git_bytes": 181,
+    "git_sha256": "af820cf9703dc746814714b61fd21f4ce1951692e2a7815cf7d6340f87792043"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/check_saved_assets.py",
+    "git_bytes": 7022,
+    "git_sha256": "e0e853fb5b1e21eeefdbc5eca1e76e2f8abdee165bff62c2a0fa592c4a901671"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/check_source_topology.py",
+    "git_bytes": 1029,
+    "git_sha256": "5bb86a2865ff5cee4b722a50d4062aa56b74dfc48a64f8abba415ebaf452bc2c"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/compare_arm_uv.py",
+    "git_bytes": 1712,
+    "git_sha256": "8524b717d82feb1b8c7dab3cbd7a0a03103ed391f900f04cf1e391a611b2ce86"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/make_r4_comparison.py",
+    "git_bytes": 1003,
+    "git_sha256": "bd91801fd2fd1f3ab25f3f04375c2d05aea490f5228431ff80178e9b0ebf2509"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/read_arm_surface.py",
+    "git_bytes": 1874,
+    "git_sha256": "d7d1098966fdb736c1c3dd553e66622c28775e87b90ae49db61a82e7e0a1db85"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/read_surface_parameters.py",
+    "git_bytes": 1161,
+    "git_sha256": "1c069420226ce520b4d36450798b1f0464f7a133b7207316dd29be9e66748f19"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/run_runtime.ps1",
+    "git_bytes": 1814,
+    "git_sha256": "0e522ea7a45cd7e17995dcd8234ed2380ee894824b268e37e4734d56ebcf42c5"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/save_arm_winding.py",
+    "git_bytes": 220,
+    "git_sha256": "07b778c881902f9bdef3fd8143d265821686683809003904a05c01092e6a8f09"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/save_clean_topology.py",
+    "git_bytes": 2956,
+    "git_sha256": "ef114b26a27cb76e72c7e6e4d6ea2457e4000f79f38c013d9b0833d711aec9b3"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/save_fine_finish.py",
+    "git_bytes": 2126,
+    "git_sha256": "e6781562dc13afa7af1a490fb97a8297a53423e1010cf3551851b67683809247"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/Checks/summarize_runtime.py",
+    "git_bytes": 1944,
+    "git_sha256": "6c59b84159ee70291cbe280e88e845db5bf9291a84fefb08bb81b06923d878db"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/adjust_receiver_clearance.py",
+    "git_bytes": 1287,
+    "git_sha256": "323ff0cc09bd6ba3519b75c632b3f7d88dee5810df5f4688fd6a82a4e67e33f1"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/author_contact_arcs.py",
+    "git_bytes": 2529,
+    "git_sha256": "18959349776c1e2ce195271ea196beff52b3422e379dc570b6bbec7ba4dd8f38"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/author_native_registration.py",
+    "git_bytes": 4050,
+    "git_sha256": "81eb0744dbce68084171b4ea35fc44c9909499cdc808f5b28b7436242bb67fbe"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/author_wrist_follow.py",
+    "git_bytes": 6607,
+    "git_sha256": "8284695875e4f0329cba1662882b4b36aba21673d0c4d58e0ed4aefb3d523df8"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/check_body_contact.py",
+    "git_bytes": 2168,
+    "git_sha256": "eea66cc18c3541424c4455c32a78d141d2024a8be0cf572ba98bdb3944cbfc4f"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/collect_current_source.py",
+    "git_bytes": 1899,
+    "git_sha256": "51e7c2d1b29b06c6a96eb84b06353d593a1df4875155be3515460374ae274179"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/export_editable.py",
+    "git_bytes": 734,
+    "git_sha256": "cd3d5eeb0acb9589a3f20be16ce304055e522681b7c16ad08639bda759aa3636"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/finalize_review.py",
+    "git_bytes": 4567,
+    "git_sha256": "0d1923c77cd46bfddbf96f6f1c75cb4b21bc3addcb04f39e78fd600884c3fb2a"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/inspect_contact.py",
+    "git_bytes": 2839,
+    "git_sha256": "9b4b09967f3b4e2cf02367c3ce8d561898470fdae011181c17e69c8e3e969257"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/install_profile.py",
+    "git_bytes": 3464,
+    "git_sha256": "4bbf99b0faa14e69f0becfe0405c4c48dfe73e2537d8e7156e39698e2df3c92c"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/make_sheets.py",
+    "git_bytes": 1003,
+    "git_sha256": "d484da3c99295e940f94fbe2da37c00ae03fb6b0ce1f0f0f74392b9b710a5b5f"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/measure_reload.py",
+    "git_bytes": 5695,
+    "git_sha256": "4deac98eaecda473ba22e9552446890decb1ff11731293ca0933973f25af2790"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/rebase_approved_profile.py",
+    "git_bytes": 2821,
+    "git_sha256": "be61b27f6e54a76636ae46bc2afdc1a48eceaa73011e532474aaceeda4e93446"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/refine_contact.py",
+    "git_bytes": 3333,
+    "git_sha256": "fe7a316a5f3c12f1127db4b3efb67702a242c23f864610001401ca95242db9f6"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/refine_solid_contact.py",
+    "git_bytes": 2880,
+    "git_sha256": "360bc6fac63cee21498981fb906a50a6d2b44fd660aca15408d2e23f9edf77e6"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/render_contact.py",
+    "git_bytes": 1922,
+    "git_sha256": "630a13ae4f628552f7d590ae95f1233ce7e355d134835478f5e047abd9f4687e"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/run_runtime.ps1",
+    "git_bytes": 1832,
+    "git_sha256": "f4b4f65af70d1fc1120c52bcb4d386f6957a7a64b02d8eed56cf8a37a558de0f"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R10ReloadReview/validate_scope.py",
+    "git_bytes": 3469,
+    "git_sha256": "94dcb7958aab64cabeefd92ea78e9c5dfdf7d6e5d7380e131576904fd15e1d99"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/author_charge.py",
+    "git_bytes": 5715,
+    "git_sha256": "b71d9d6a31b6354a0d84d8a2dc6379181f20b0ba9d7b03ae7ef0933c743d561f"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/author_release_clearance.py",
+    "git_bytes": 3245,
+    "git_sha256": "51677ba0a14bbfa06c2735e7d283610ed67e6118f63f827f67eaa1b4ddfd6ee8"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/build_charge_scene.py",
+    "git_bytes": 3302,
+    "git_sha256": "1468531d1c80e70cc84075ee01bf7f87df0e9be64a56870ca41b0ed2a90e441d"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/collect_current_geometry.py",
+    "git_bytes": 1036,
+    "git_sha256": "7f772fc65527a200554f1740713537fc296879b000cc2fc1305d7beb77cd83f9"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/collect_current_source.py",
+    "git_bytes": 1899,
+    "git_sha256": "51e7c2d1b29b06c6a96eb84b06353d593a1df4875155be3515460374ae274179"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/export_editable.py",
+    "git_bytes": 1273,
+    "git_sha256": "d25fc461cb0dbac3deb24b7058dc5c98c7c45149d4be0bb45afbb90166c7d7b2"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/finalize_review.py",
+    "git_bytes": 3929,
+    "git_sha256": "7476968e4e0caa8e31eaef7fd8663ff97e94b1964076dfafefe52ce14ea7ac7a"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/inspect_charge.py",
+    "git_bytes": 2166,
+    "git_sha256": "08d23b99ea76d796a7d8362c2ad56d48fea4c8dd4c11c96c7ff6e933e0c3632b"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/install_profile.py",
+    "git_bytes": 2792,
+    "git_sha256": "2edf40aa5e5849ae8bd553bf0acbe7f39bc1e31795368cc9bd0b00c01eebe991"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/render_charge.py",
+    "git_bytes": 1902,
+    "git_sha256": "b14fa0daf3ae28020cccd6a92641c6709d3555974dc94cce2b21e9ab5116968f"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/review_runtime.py",
+    "git_bytes": 3815,
+    "git_sha256": "ebccfcf0b8a4ea910a607ebc8daa25ec130bd1986e4c487e20c3aa2d8c93bbb2"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/run_install.ps1",
+    "git_bytes": 582,
+    "git_sha256": "0568ce1b8b9775436b7733eff89980cf22900ff1b3e904be01509127d654e991"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/run_runtime.ps1",
+    "git_bytes": 1863,
+    "git_sha256": "3c6a49edd3e0e6ca754f0d75d8699bc64238c6aae3e7f31077c1e4636ea84762"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R11ChargeHandoff/validate_charge.py",
+    "git_bytes": 3849,
+    "git_sha256": "c6a19f2ecfd400d4c1df097c00d2c713e7f095cfa0994081c07eaf10c104967e"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/author_mechanisms_r5.py",
+    "git_bytes": 10694,
+    "git_sha256": "7c1515bdd04649e3ab845f1129f6742871b96562d37dff09502f7911cdc80caf"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/author_profile_r5.py",
+    "git_bytes": 2533,
+    "git_sha256": "fb6feda1293fa6012a270a61cfb18f9fc3ca9aba4af41945d53d2f3edfec3287"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/check_saved_r5.py",
+    "git_bytes": 312,
+    "git_sha256": "345657c3de76f3d804e7c489824e38d91b994e4722a4f58eef21d1a3a0d61d32"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/compare_runtime.py",
+    "git_bytes": 2120,
+    "git_sha256": "4b0eaf83c0d4f9ab63f5ecaf64e273f245459db163d318386ef79851a09cf48e"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/diagnose_wrist.py",
+    "git_bytes": 2656,
+    "git_sha256": "2000022d6178c31b69810f380344faea7042fbc98e7217cfd7a84c7e4a540c28"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/export_mechanism_geometry.py",
+    "git_bytes": 1985,
+    "git_sha256": "31c2e1717ef916859e4c6a742a344b06158d4f628e2486343c100d0fe7b83ae1"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/finalize_receipt.py",
+    "git_bytes": 4229,
+    "git_sha256": "ab4b161c8a0dfbe87f770e83bb21bf86bda10813f75493c59cf9d364ddc835be"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/install_r5.py",
+    "git_bytes": 3461,
+    "git_sha256": "5be0360c43641860c383da404a697cefcb7e7898625651dc1a7b2564a2a66b61"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R5/render_mechanism_detail.py",
+    "git_bytes": 3379,
+    "git_sha256": "c7cc3626f9fe7c3741cefc0ad9ceb7476e5cb0156ce5fc875db4617f15e51c44"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R7NativeV9/install_native_registration.py",
+    "git_bytes": 2239,
+    "git_sha256": "1b0cda56ec43a8834f6ee076752fb080f20a74afa7453c93a5c5449629a65158"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R7NativeV9/register_native_arm.py",
+    "git_bytes": 4726,
+    "git_sha256": "fff6a8dd203b5472268deb62b9e0417eaf50f53d87bf8a1b69c06fd60e451dc9"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R8Surface/author_geometry.py",
+    "git_bytes": 8313,
+    "git_sha256": "ff016a9c66ca8b7f8c5317a7c9de469d0081f71fd30028cace842207c66d0130"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R8Surface/bake_surface.py",
+    "git_bytes": 4374,
+    "git_sha256": "ce613f04a8f11eed4cd7cdbdf646d9a8c160fa70507482d4c057df6172661a77"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R8Surface/finalize_delivery.py",
+    "git_bytes": 1916,
+    "git_sha256": "16e76643495617f1d5759939aecadef371897f5396523cbe20b79ed737488b66"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R8Surface/install_r8.py",
+    "git_bytes": 7494,
+    "git_sha256": "f03801de2a1444eda0ba5d7fe6148cfb4e401a7969c13ab1232432db443258c2"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R8Surface/pack_surface.py",
+    "git_bytes": 1572,
+    "git_sha256": "6b247a48756f17fd5a68d541c98f8d3b41683ec8d46adc0213fce6a53739ac1e"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R9ReloadGrip/author_reload_grip.py",
+    "git_bytes": 14165,
+    "git_sha256": "8a2cb346875624f775bed1b49cf0e52ffd711480d2082e4942b9852fdebe9a79"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R9ReloadGrip/collect_inputs.py",
+    "git_bytes": 4936,
+    "git_sha256": "4bcc97eeae8dd2a8a069e23e8c82a38dfbf765b830d2041998f9a74c4be5b762"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R9ReloadGrip/export_editable.py",
+    "git_bytes": 8308,
+    "git_sha256": "310c272b1418e8e66da025c4443d6b4a83bdd6a0d1d81c83bc22095a9f6f0250"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R9ReloadGrip/finalize_delivery.py",
+    "git_bytes": 2056,
+    "git_sha256": "157d253df20ea827e4c809c62c9b199a02f72f6774a4247edc8a33e1e0a87657"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/R9ReloadGrip/install_reload_grip.py",
+    "git_bytes": 3902,
+    "git_sha256": "7eb5c267312c55a8336571d16aee51fe3d30d99d47ebbc685fffbba210f5ebfc"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/author_model.py",
+    "git_bytes": 11125,
+    "git_sha256": "044de7775a33d7ae3b2ad4e788faeb82cbce9c96768072f4dc9add6e5b6796a1"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/author_profile.py",
+    "git_bytes": 5681,
+    "git_sha256": "23d0fabed2cd61eb38f78ee887322fed984a3a3c2a68a2c348c8c185e895c2da"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/contact_diagnosis.py",
+    "git_bytes": 2977,
+    "git_sha256": "59f8dda06dbe7c150aca3d9c43e10ddd3ea44fb9b5415f89ed377f1676301dfe"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/contact_inputs.py",
+    "git_bytes": 1969,
+    "git_sha256": "8752fdbcda1bcddd26e1b2537dae9038b9497a61c0dda883a0f1a02871f19914"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/fit_contacts.py",
+    "git_bytes": 3959,
+    "git_sha256": "3532d0e5e527cff6d7597c71be02c095f327f6f0db26cd8f1fd26dc1298d5262"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/fit_fingers.py",
+    "git_bytes": 5150,
+    "git_sha256": "83e683f714c9b8fa5b4e63dc5615d3e229516807b95d100931a2bf20958ddb9d"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/install_arm_correctives.py",
+    "git_bytes": 3845,
+    "git_sha256": "fc2231e6dfff7fd1bbd3f971d1267374ac81d920f0ae460ed6a757a2b43c86ba"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/install_assets.py",
+    "git_bytes": 6982,
+    "git_sha256": "f09687147667d519f702c4f57b4eec8117377391a4c9bd48306d66a0154d2afd"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/produce_surface_textures.py",
+    "git_bytes": 863,
+    "git_sha256": "81b9a8e4fd28c9b559d701b059196523c3192bae007bb6c10d60176cf72828db"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/read_runtime_inputs.py",
+    "git_bytes": 1740,
+    "git_sha256": "d843ed0b93ae9d45199e8ebc4963ee1d93b4b3261bda1c538f19790aac5c50d8"
+  },
+  {
+    "path": "SourceAssets/SVCHRefinement20261018/save_final_profile.py",
+    "git_bytes": 832,
+    "git_sha256": "f7614319903cf3cac6116c55b095d83d5f66b42675689655d1dfe325176386d0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/arm_math.py",
+    "git_bytes": 3570,
+    "git_sha256": "822a035be519af2f89e07a510d7091b33ded9f6ae50f24abb19ea3e20f839289"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/author_profiles.py",
+    "git_bytes": 4161,
+    "git_sha256": "7e0d4648cbd24bd767aa86742b22bab98fc01d79b7e52535407afc9a8efb06c4"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/build.ps1",
+    "git_bytes": 2534,
+    "git_sha256": "5ba926920869b35c99a25c7b10cd8795b0a0c45e78f37a6a740709d376b9aa0a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/collect_inputs.py",
+    "git_bytes": 7424,
+    "git_sha256": "0a60b5ed14efba47e04c7f64ac1c85f1e23efe781ec092aab94f6d581ee36e60"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/export_editable.py",
+    "git_bytes": 2039,
+    "git_sha256": "787e8cf224c01f4ae71aaebff628f73079f35f3adf506a055a979699270f7cf7"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/finish.ps1",
+    "git_bytes": 791,
+    "git_sha256": "cdd53dbd0d4ad651788f9fcec78facbb00ccc5e066281eb5716f94c438a51f7f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/fit_contact.py",
+    "git_bytes": 2945,
+    "git_sha256": "6d1edfb032d8a67b2813fec113647806e26c3d05e5ac515c713e221ac0301a78"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/install_profiles.py",
+    "git_bytes": 2862,
+    "git_sha256": "9284a7a7b0881d0ad66c2ec70b52ad19f5be9dcd66c1977cf32f44744dcfb7cc"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/ForegripFit20261019/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftBolt20261019/arm_math.py",
+    "git_bytes": 3570,
+    "git_sha256": "822a035be519af2f89e07a510d7091b33ded9f6ae50f24abb19ea3e20f839289"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftBolt20261019/author_left_bolt.py",
+    "git_bytes": 12929,
+    "git_sha256": "547abe3cab8c2b99d7a2259523aa8d2ed4b267203570193c00166e1fac87bfe7"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftBolt20261019/collect_inputs.py",
+    "git_bytes": 5686,
+    "git_sha256": "d8fa82aa6a613ff7c754fab8cc87d9981f9364d5265c7b5dba9cc1975d289b5f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftBolt20261019/export_editable.py",
+    "git_bytes": 1046,
+    "git_sha256": "b68ac4dcecbf8e66721301532d7b90888013b23994efa96660fea966b6914c5d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftBolt20261019/install_profile.py",
+    "git_bytes": 3066,
+    "git_sha256": "6f5ee265026519601592dd8b98fb1449a3d2d854a9c5a313b00e46a11f8c98db"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftBolt20261019/run_install.ps1",
+    "git_bytes": 948,
+    "git_sha256": "1c9352463140df589119a1cd7f5acfc3e7a459a2b260bf50b8d50033ff13e9ab"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/arm_math.py",
+    "git_bytes": 3570,
+    "git_sha256": "822a035be519af2f89e07a510d7091b33ded9f6ae50f24abb19ea3e20f839289"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/author_left_reload.py",
+    "git_bytes": 6201,
+    "git_sha256": "4a0f06fb3b1eb9106f1725676266a6d184ae801339204ca0afcc485cccf50b2d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/collect_inputs.py",
+    "git_bytes": 5061,
+    "git_sha256": "2b2fa8757e031e74c8e75c580db86ecc07147a10f6c62f385607ff1195f4f905"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/diagnose_left.py",
+    "git_bytes": 2473,
+    "git_sha256": "8af53473c1012e02855245eaa9e296e3ee526ff5872593d268ea23aa1425c011"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/export_editable.py",
+    "git_bytes": 923,
+    "git_sha256": "f997568c612743ce2cbfa91d21d7b113ae8c1dfada10bb4a582610f93b547383"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/finalize_delivery.py",
+    "git_bytes": 3126,
+    "git_sha256": "135877e963e80092e6f01fbf1930b53620318bb2e72c437750c2695594157123"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/install_profile.py",
+    "git_bytes": 2654,
+    "git_sha256": "f12d4755a24f7dff4298b180ff61822f1288fbcd17af4e117e40638f650d5dff"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/make_review_media.py",
+    "git_bytes": 1410,
+    "git_sha256": "91088830a67a4ba1bfff385cea1cf80a7089c048b3cf6a77f1be0691301b330d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/read_native_after.py",
+    "git_bytes": 2834,
+    "git_sha256": "2a4d101e743cd80f7ad24decef392cdb8cf6408be768b01144ac4d041a931db6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_after.ps1",
+    "git_bytes": 2254,
+    "git_sha256": "03a261817c7905a61c9ac30fbb6b8f4a2670579c5ea2168725b6b4fda96a2687"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_after_final.ps1",
+    "git_bytes": 2266,
+    "git_sha256": "584d38b7a9c8e276db9e02472395d75d815d08f5f32a7b30210113b27945d443"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_before.ps1",
+    "git_bytes": 2256,
+    "git_sha256": "ea0e8adfaf7f434e1138c6c5a27d592396575ed6a471bb01b6844a13c7fef9f2"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_collect.ps1",
+    "git_bytes": 935,
+    "git_sha256": "0c31767f960f99b3f7ea8e1fa8d2c00e81895d5655b8a92061aecb21e89e3994"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_install.ps1",
+    "git_bytes": 936,
+    "git_sha256": "0a358610853340b007fcc82d3a5c5f74619af07530753ab36b47cad8b32180ba"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_install_final.ps1",
+    "git_bytes": 948,
+    "git_sha256": "1c9352463140df589119a1cd7f5acfc3e7a459a2b260bf50b8d50033ff13e9ab"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/run_native_after.ps1",
+    "git_bytes": 948,
+    "git_sha256": "27d8b7881a45e73b3fb27c88dea601925262cd05b22a574a966b1811e7dd3252"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/LeftReload20261019/scan_forearm_roll.py",
+    "git_bytes": 3200,
+    "git_sha256": "966a919ebad0b6879fcf2c9651d151e95aee936449ebba1cd1158fdf2c9edf47"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/arm_math.py",
+    "git_bytes": 3570,
+    "git_sha256": "822a035be519af2f89e07a510d7091b33ded9f6ae50f24abb19ea3e20f839289"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/author_contact.py",
+    "git_bytes": 4626,
+    "git_sha256": "ae2234bafe8dc134be60a91636f21fe81d0c8ef7d575c13cc59ce4d139cff8a5"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/author_magazines.py",
+    "git_bytes": 5976,
+    "git_sha256": "ae9c99b73a1285b10c4bee293c41a90d03851c8595c0a8faa5074ab674ce733c"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/check_contact.py",
+    "git_bytes": 2070,
+    "git_sha256": "026e4a547d50dd7148600a82352fd71dba227b04b51e6da94a14915b3d0f491e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/check_saved_seats.py",
+    "git_bytes": 1922,
+    "git_sha256": "ecdf48aa9e7adc76d6ce56ca751ceb25da79223f63883912cb115d5529ce1543"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/collect_inputs.py",
+    "git_bytes": 8026,
+    "git_sha256": "eb022d59e1c8d5c46b67faa16f865094b78850132ad6c7ebd48c02f9baee5492"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/export_editable.py",
+    "git_bytes": 1818,
+    "git_sha256": "825ad3ed1569e5336d8c1206cac29df223777b51ca08081991ec86cb952cfa43"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/install_all.py",
+    "git_bytes": 227,
+    "git_sha256": "56a9e9d0a786f932e934b89dd5681104f73601fd8846f7de90e93b1373e8320d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/install_assets.py",
+    "git_bytes": 5292,
+    "git_sha256": "96afe860d2060a525ea2548f6cb716ddfed3b59673ec249c3f4b72a820b8c89b"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/install_profile.py",
+    "git_bytes": 2725,
+    "git_sha256": "20a9af943095dd22b76999fed311c92d3f21a02386a0fb048928e0fb97db37ba"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/run_finish.ps1",
+    "git_bytes": 2189,
+    "git_sha256": "38903643954b6f045d8ce5fe79d5cdfdce64003bedc2b8aa8d6bb0d5027c65b6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/MagazineSeat20261019/wait_finish.ps1",
+    "git_bytes": 314,
+    "git_sha256": "4a9a52ae541375a4138f36766a2555f000b1138d924d1cbaff010052a7dec88d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/PROVENANCE.md",
+    "git_bytes": 2600,
+    "git_sha256": "ea3f042c0ef7102e761f1ce98b2390ffc6c5592a0a40c35d39ae87df3e42511c"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/README.md",
+    "git_bytes": 1211,
+    "git_sha256": "9b3a9243677bfa583d7300c1e9aa396701cbf7f93a339a02af24d57aae7e31fe"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/author_elbow.py",
+    "git_bytes": 121,
+    "git_sha256": "2bc59b148b494408e60fcc5db742d0c99ac77e78b5b023dd2022475c0d0c6917"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/author_m870.py",
+    "git_bytes": 7374,
+    "git_sha256": "a19940bcae3183002030d287f2dfe86c8bff6dadf35cd60f8e32846370c5f430"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/check_preservation.py",
+    "git_bytes": 1508,
+    "git_sha256": "fec9dc508bc17f21487863abbfefafeefce898327e5c082066810e051f820e94"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/diagnose.py",
+    "git_bytes": 2223,
+    "git_sha256": "c2d4e36d31848b9ebb6d36294888b0145cc09b18983871cd10a8db4dcf9fa005"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/export_editable.py",
+    "git_bytes": 324,
+    "git_sha256": "775a2eb672ba5a7f9f8a2b17031dc59eaa9deb33827781e388c8dfc927e52577"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/install_profiles.py",
+    "git_bytes": 4563,
+    "git_sha256": "1e329b02c5d9bed490907cff138e2f496202d7593bb37f97c9b73a286c104473"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/prepare_review.py",
+    "git_bytes": 2209,
+    "git_sha256": "5aa5d7038e68812abc88f5508cf7b8cc3e29a8729cc4abca68dab9c31ee26154"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/probe_editor.py",
+    "git_bytes": 279,
+    "git_sha256": "f0758b7cb5c246b84fdc53641c8718f12e6debedd075d733e76899f2950cdf37"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/render_review.py",
+    "git_bytes": 4075,
+    "git_sha256": "d5b81d27c6e20e88dc868c5cd04cb5b9da3e50a91c63246cac9c14eda16d9c14"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/review_native.py",
+    "git_bytes": 3483,
+    "git_sha256": "ed264f5c972f0d87db8ceccdf4f706addafb00c50d9d3e4ae6b0324e0695ad8d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeElbowR5_20261020/run_native.ps1",
+    "git_bytes": 1940,
+    "git_sha256": "3d82a5e9493daca70ad51358f655450db32c90c0d08b466f8a49593f2808dd27"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/README.md",
+    "git_bytes": 1668,
+    "git_sha256": "86e10f3be7371e662041d4f437c3143d4a426005f680dae0f812f64d35be31db"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/author_grip.py",
+    "git_bytes": 5331,
+    "git_sha256": "e85cd3435c6acee395470505dfaa52b70f6a7ba9b23f61b36ca98a12ea662e1e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/bake_existing_handoff.py",
+    "git_bytes": 2315,
+    "git_sha256": "09d2b9c4d559d3a01bed5051a28bc34d2bc704db2ced8d9a53832af69b30b273"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/build.ps1",
+    "git_bytes": 2676,
+    "git_sha256": "f4f7e98153ba02f8f110b7c445b9296bcb0a69dcbff09d443803b6b55dc02eff"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/check_dense.py",
+    "git_bytes": 5408,
+    "git_sha256": "6be9cca06aae9705f1655aee8aeeb7f5092e872b74a3e3d787ad1883caa55206"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/check_runtime.py",
+    "git_bytes": 4099,
+    "git_sha256": "ca1d8bc8dc6cda1bbc29a08e80114aa6709868a10ae7d0e60b73608223d09c97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/diagnose_grip.py",
+    "git_bytes": 2870,
+    "git_sha256": "17a951af323f332891a82166173223af15e21b78794f0dd519349773ed1d157e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/encode_profiles.py",
+    "git_bytes": 2049,
+    "git_sha256": "0f5a717b3de32ef4a70bef2d5474158aad1f894c67e3fd2451af85f0c35710ac"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/export_editable.py",
+    "git_bytes": 323,
+    "git_sha256": "eb8b531ac734e911543da7db32fbd8f6b5c7391b8a36ba54cce7409ece094e76"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/install_profiles.py",
+    "git_bytes": 4561,
+    "git_sha256": "e13577e99f1b7e18af935886ba32ea4e2d263efc80cdeb1c6855850973c85699"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/prepare_review.py",
+    "git_bytes": 1670,
+    "git_sha256": "d8e127aba4e272df3a726019f151131f89ba61e7c072c9e0f775ed226ba5410f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/render_review.py",
+    "git_bytes": 4084,
+    "git_sha256": "08805773da7937c6af5beac0e82fe342bf8d5a1547442338d604d013f5c0932f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeGripR7_20261020/run_native.ps1",
+    "git_bytes": 2047,
+    "git_sha256": "44909b5cdb3e8b4c0bfd8a44002ec47e1582baf77cfd219b588a8a06367d4850"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/action_framing.py",
+    "git_bytes": 758,
+    "git_sha256": "9396fa9159721786a43568b79b7bf0bdcc367d352fab424a7083d3b3388ab9d6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/author_hand.py",
+    "git_bytes": 9703,
+    "git_sha256": "f0e7027ac6aafbecbfcff8c7fbc2dc1b0263313dafebb8565ce1ef7299b0301f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/avoid_stock.py",
+    "git_bytes": 6223,
+    "git_sha256": "52055ef98233f37f7c58389125ca60b01ebf15ad1fb2d1f8a589e30dc29299e8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/build.ps1",
+    "git_bytes": 2530,
+    "git_sha256": "c12f7ac74d0bd2a8bcdee6e7729e667011e42b95035809217a202f4bdb4ce4f1"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/check_native_contract.py",
+    "git_bytes": 2309,
+    "git_sha256": "405db7edec8ad99296a7542807364e1a5ad18d40317f92ec97535e5d75979ccf"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/check_root_clearance.py",
+    "git_bytes": 1495,
+    "git_sha256": "6b2c061b6770a1a8639c286e5bef91888251d2eb271c48e99d6756f50125f209"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/check_stock_clearance.py",
+    "git_bytes": 2732,
+    "git_sha256": "c6a3e7e9dc54444e7b75df45562ac9f1c91165db40016330929ba6f2fc360fa9"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/check_surfaces.py",
+    "git_bytes": 4928,
+    "git_sha256": "b6c835630ca2032c5e27f4406288c2e656fa7d4f727bd8cdbd73e6dea2ad8eb3"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/export_editable.py",
+    "git_bytes": 323,
+    "git_sha256": "74dc050d33b8cd1e3170e5a47d88bcdcfc1bad5fac49d8cb4394cc0abcbb5e22"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/glove_correctives.py",
+    "git_bytes": 5860,
+    "git_sha256": "15bfc668c6ac7d2eae8d19d5e4f7b152f9ee5833cc7722634ce22c526ec84ca1"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/install_all.py",
+    "git_bytes": 271,
+    "git_sha256": "3d7c43a66adf70b2cbd5d082fa8548de0b3003a74bd5c51a2ebc7ca59ae001ec"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/install_glove.py",
+    "git_bytes": 4235,
+    "git_sha256": "a0e2457201b934508704ba33e924a9f97b754c01e6d18c36fd934a7f29d184ab"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/install_profiles.py",
+    "git_bytes": 4565,
+    "git_sha256": "045427fb56329b5a5ca622cd623b85ba0695492b3ddf4d5af094489ccf844b88"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/prepare_action_review.py",
+    "git_bytes": 2458,
+    "git_sha256": "04edfc7a172af9581acf4be5afb519ea7b7eca38efc877922135400014a70fc4"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/prepare_glove_payload.py",
+    "git_bytes": 1012,
+    "git_sha256": "f30298868fedb9d58bb2f03110fa51b9288d7dce90af6a47ca8f955f56b13472"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/prepare_native_review.py",
+    "git_bytes": 2354,
+    "git_sha256": "bc4e3ebf9a7dbb4aa9baf4119b5a19968def27bec459b636407019e46d2ca1f8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/prepare_review.py",
+    "git_bytes": 1532,
+    "git_sha256": "de26b714530a6bcb7b9c3d7a4d85e95557f34a74ca9dfd05364b3bcfe349d7f0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/prepare_source_camera_review.py",
+    "git_bytes": 2437,
+    "git_sha256": "c5606ca60f686ea9a0fa9396a974d0c56a33a8e2bd617c0e0a67b890afaa1dd8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/probe_editor.py",
+    "git_bytes": 620,
+    "git_sha256": "5c21b87aded58369d99d1320998cbe61a32dca915a60ed15a29aca40d249763d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/refine_glove_thumb.py",
+    "git_bytes": 2910,
+    "git_sha256": "670f0db47f93be4c25c0223690c5fa06aee0eb81975364e6af84cbbf6bcc161a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/render_action_review.py",
+    "git_bytes": 4058,
+    "git_sha256": "4b15bc26428c68cec78fb7a5caf172b7810e126ca241b5f230e1b4dcaa23aa30"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/render_native_review.py",
+    "git_bytes": 4058,
+    "git_sha256": "27b0ecb9a4f991400f8f6e46da0146f7c4c8b4beb616dbe82a03973bd9d41844"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/render_review.py",
+    "git_bytes": 3209,
+    "git_sha256": "e2862d19d3ff0e1ebc496b781c8795757ea48ff99da3b0568781527c979f72f6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/render_source_camera_review.py",
+    "git_bytes": 4101,
+    "git_sha256": "903d8db164723e8c996f7afddd1331bacbc17743766c2ad3f971d0c9d1e3e80b"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/run_native.ps1",
+    "git_bytes": 1911,
+    "git_sha256": "48b2c1e0c9aa57bfb3a72fc3634531f547c79602ff1c6dd9483fe098ded8dcc5"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/thumb_fit.py",
+    "git_bytes": 2195,
+    "git_sha256": "a7c9339dd54ddfe6a366a8fbbc892737b2916910e87a38d281603b0cff80cfcf"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeHandR3_20261019/verify_saved.py",
+    "git_bytes": 3392,
+    "git_sha256": "a02b561e64ea5707ccc90e48d83d782dd7acbe280c0afbc38827c376a9f3d174"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/README.md",
+    "git_bytes": 1126,
+    "git_sha256": "c9df82307fca129d12a904a205fd0c346c531d4f3a502020f8a4e3c6b69950f2"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/author_subframes.py",
+    "git_bytes": 4628,
+    "git_sha256": "20a0e0fc4f6ef2873f46cc9297847213e0d04737d615aaa01bac378a73055805"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/check_dense.py",
+    "git_bytes": 4566,
+    "git_sha256": "21f61745c733d6f59bae3db060e6d057de04a34405192185d4f82045d49185f7"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/check_native_anchors.py",
+    "git_bytes": 1495,
+    "git_sha256": "0a00da0fd675ecd03fbf57e858841915f60119ac7ad9f1ea8bebc7971c3bcce7"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/check_subframes.py",
+    "git_bytes": 1929,
+    "git_sha256": "f8aae7b4c9c6ec0fde6d026f6dd5f066cbc9bfa477a2f0d30af8a9a894b9f01b"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/diagnose_recovery.py",
+    "git_bytes": 3665,
+    "git_sha256": "9ca46977367475086fe143d63f5913fc8008b103cc25d29f962dd5b57dc71dff"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/export_compressed_dense.py",
+    "git_bytes": 1368,
+    "git_sha256": "d966533ec661abd8a6ada5d08869a06f1df1b638c552dbe45d901df99ec5752d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/export_compressed_window.py",
+    "git_bytes": 451,
+    "git_sha256": "bc03d88398a39bc3d6f023f9356bb9bdec345b659e22ad6892fcb92ef950d592"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/install_profiles.py",
+    "git_bytes": 4574,
+    "git_sha256": "1971696ca42239b1e7948fdc500585fc823526490a0ebd8000f6f3c1cc6447a1"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/prepare_review.py",
+    "git_bytes": 1562,
+    "git_sha256": "e0f9cb33edb097cb559f645afb14901211dc372fc4af7610461dd4e8ae5905d6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/prepare_subframes.py",
+    "git_bytes": 1499,
+    "git_sha256": "efbf1f9a2e35143151a15031b7bfcccb5c3cb03b3122ce789b107a234bf992c1"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/render_review.py",
+    "git_bytes": 2300,
+    "git_sha256": "2e2b8a3f7cb32026a43b33fe3eacba9b8e163ffb5f42ae13f5f740d81709272c"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeRecoveryR6_20261020/run_native.ps1",
+    "git_bytes": 1940,
+    "git_sha256": "3d82a5e9493daca70ad51358f655450db32c90c0d08b466f8a49593f2808dd27"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/README.md",
+    "git_bytes": 2837,
+    "git_sha256": "180dd5a1d65153cef7a46a00629c9a9e360064901946a8eb12d715654a1338d9"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/apply_existing_elbow_support.py",
+    "git_bytes": 2779,
+    "git_sha256": "6fa5ea301afe5aed3c8964d25b02a0c6fb311ca3c25318d7b92459cb80ec5901"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/author.py",
+    "git_bytes": 5853,
+    "git_sha256": "04a6d32efc910db886080326502a41e50be55ceb537deb52eeb642d3dbf57a84"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/bend_plane.py",
+    "git_bytes": 1979,
+    "git_sha256": "03a0135c7f44467f596093cc5e014aa9a856ca2a0df75d1e7108bb86b34eda96"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/check_root.py",
+    "git_bytes": 1732,
+    "git_sha256": "895c2cc510dca762e21c9dd4a594408a509dcac38cf509117af3aac166e3fe80"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/encode_profiles.py",
+    "git_bytes": 451,
+    "git_sha256": "fbacad23ee3b0b3c49a5f582428a690899859dedb5eb3905b3a47651f9166c32"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/export_editable.py",
+    "git_bytes": 327,
+    "git_sha256": "1fac5ea2489c547756b3a7c5d8505e9aabcfb394d4f91489bf16be177b2e9cef"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/install_profiles.py",
+    "git_bytes": 4582,
+    "git_sha256": "267d80a324c110a60c5183176a150e459e4e512ba44bf3f944969e559a7ccd9c"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/prepare_review.py",
+    "git_bytes": 2659,
+    "git_sha256": "6b3f37defee2d4a1f00c1e6190bd5b16f1df70fe60d1d9c1209254d075828035"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/probe_editor.py",
+    "git_bytes": 565,
+    "git_sha256": "433056aea768be41f1b3e8a67750042b431d08cd0aabe47caf62cf158681e0ad"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/render_review.py",
+    "git_bytes": 4067,
+    "git_sha256": "00b88170114ebb41df4851c2a8accaa55252d4f1526fe7549a5ad76dd71894d0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/review_native.py",
+    "git_bytes": 3418,
+    "git_sha256": "ff5c95e6ddde20f2e2c14a403ea57d52ea14f4e063898004a0793e1da24d82d9"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDChainR4_20261020/run_native.ps1",
+    "git_bytes": 1940,
+    "git_sha256": "3d82a5e9493daca70ad51358f655450db32c90c0d08b466f8a49593f2808dd27"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/author.py",
+    "git_bytes": 7605,
+    "git_sha256": "c2115ff5f4cf28284ffb51352ab3b3ed6e3ff02c2d0fdd0199953ffc9638e3c6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/author_reference.py",
+    "git_bytes": 12151,
+    "git_sha256": "76d76c0b17436c9e5c61e5efa4d0c8580564ffba953908aa9b74c98bb18d5dcc"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/collect_inputs.py",
+    "git_bytes": 3820,
+    "git_sha256": "58bddb5be026466c4e09b4ef83300ac022175eecd4901e69f16563d4eed24157"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/collect_surfaces.py",
+    "git_bytes": 672,
+    "git_sha256": "5e35b0d4a8c7cac7cca72e7ca6535da38c21cfa92e99f3bde53d256957649c4e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/export_editable.py",
+    "git_bytes": 322,
+    "git_sha256": "bf3ffeb5bbb653c31040ad0aa8a54ed63d6275a7fd3f8511a5c6653e25f62c0a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/install_profiles.py",
+    "git_bytes": 4175,
+    "git_sha256": "ba698b77e341bd301d79b8d9d299f7ee4ca4b8507a8c61a5cdd2679d87b31e4f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/pose_contract.py",
+    "git_bytes": 3270,
+    "git_sha256": "6b4d7ecad743d9991713dd53d85d1ec4fa1cac4a1c5834990cdfb908f55723bc"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/prepare_review.py",
+    "git_bytes": 1080,
+    "git_sha256": "f36a4162c49e7b1c86b9cb8a7dc867b72077b7e96c6eb18dd6bbf2892181f5fd"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/remote_client.py",
+    "git_bytes": 718,
+    "git_sha256": "6fb1bc5f75170a4e9dd7f6b869ba67655bdf534effe2a604398273f0dee864ef"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/render_review.py",
+    "git_bytes": 2762,
+    "git_sha256": "52f288df5b572e5c9e5718f737842d09badc83967ec2dc1e11ca4143b79247fb"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeSVDReferenceR2_20261019/surface.py",
+    "git_bytes": 2172,
+    "git_sha256": "ce0da9fcd18f5e6de3f5ab7268d6020f227db5caa05caa4475d77d09dd1fd703"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/author_wrist.py",
+    "git_bytes": 6455,
+    "git_sha256": "574dad3f1d1ee81357b3b0697b14bbde1bc955ebfcbe07a333024b651e470048"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/export_editable.py",
+    "git_bytes": 1191,
+    "git_sha256": "d712cac2bf838dfa2ea64c41da07af7098195876f8e5cbc8238683bba409fa3e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/install_profiles.py",
+    "git_bytes": 3648,
+    "git_sha256": "e3f95f15e39dd24b111f44f4383a32c4f460b2751708a378fe683bc4522af310"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/prepare_preview.py",
+    "git_bytes": 933,
+    "git_sha256": "4c936f6942b02cf08a07fcef7eb8473c6ca82e71ae61eb26f3617f5d2c536ec5"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/QuickMeleeWrist20261019/preview.py",
+    "git_bytes": 3146,
+    "git_sha256": "8f48582f28d4874507eb7eefa8ee38b8bd55c68e2a2f4d18cb50b36830edcaee"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/activate_real_sights.py",
+    "git_bytes": 1756,
+    "git_sha256": "aae6bdd96454172a9c2397eaf221bf50dfdee7819457ed85d706da7645b5bd3c"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/author_real_sights.py",
+    "git_bytes": 12655,
+    "git_sha256": "887e8a222391b1b757049956313e81abd0ef8678d1065680740652908c7b52a0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/install_real_sights.py",
+    "git_bytes": 6070,
+    "git_sha256": "613971c08ac9679ca92ff4f134cfc1d4518fd95084af36ce32cbe942b396a791"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/make_finish_texture.py",
+    "git_bytes": 661,
+    "git_sha256": "3a6f1da3f0a41ca0478233e026ef5db0295d9d3f9c7af878666623ebec98e8aa"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/measure_rail.py",
+    "git_bytes": 1243,
+    "git_sha256": "ac98f07888e5a69e723920cc180ddc013dfbeb4067b24693dd31ac9b4ea847ed"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/refresh_mesh_surface.py",
+    "git_bytes": 1807,
+    "git_sha256": "cb4b77a4afa2b95fa377749cf4d21946b429454bffd06573a4908a10748202c9"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/render_inventory_icon.py",
+    "git_bytes": 517,
+    "git_sha256": "f569c7296c380f3a7714397ccfb99c1ff596c3646b74be154b21f952aaf187be"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/run_build.ps1",
+    "git_bytes": 2278,
+    "git_sha256": "7b2025a33b8c0524e281d58e5dbb411ea14687563ee5222865ab96dce4c698a0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/run_final_import.ps1",
+    "git_bytes": 953,
+    "git_sha256": "a52164bd267e74a5b5bdacf61d79ee6adfbed2c6f124eeb894e7db5c1e447582"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/run_import.ps1",
+    "git_bytes": 940,
+    "git_sha256": "4971da0e30c6799eedba73be2d60d5ae5f8fb2a71bd56d44b58cc11f117ebbc0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RealSights20261019/run_surface_import.ps1",
+    "git_bytes": 957,
+    "git_sha256": "5886bd69197520dd4ae548bfdf63e3cb0f5926283dd5a43078c1ec334d1cc0cd"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/arm_math.py",
+    "git_bytes": 3570,
+    "git_sha256": "822a035be519af2f89e07a510d7091b33ded9f6ae50f24abb19ea3e20f839289"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/author_root_clearance.py",
+    "git_bytes": 6870,
+    "git_sha256": "57b13c0fbe093ccdf003afb34128cc7cb3507f2978614215d934fb77de1e1715"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/clearance_context.py",
+    "git_bytes": 3709,
+    "git_sha256": "cc56bc11aa2b0ae1bcc781da80c333230b906568f7746be1fdbd07aae89ddf0a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/collect_inputs.py",
+    "git_bytes": 7416,
+    "git_sha256": "dc70a21b0ef7b353b5f5a7017f0a1aa0b21ecd38e8e07652c95e5d28865732ff"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/export_editable.py",
+    "git_bytes": 1820,
+    "git_sha256": "79ee214cd1275c2977e53daed84ec6430a682ce19307f7cea4f47590ef0a55f8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/finish_current.py",
+    "git_bytes": 1273,
+    "git_sha256": "57727ebe92f4585d3c789db4a4740fc597f67be631d1a3be826f813c2f6cbb1d"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/install_profile.py",
+    "git_bytes": 3227,
+    "git_sha256": "507ebddd8e5bf546cdd669dc1117fc9d287ffcae74a2d0c60f18c16186b2ae06"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/RootClearance20261019/shoulder_support.py",
+    "git_bytes": 2624,
+    "git_sha256": "b58997bd734f632241a89b98fe99b77fd8a49175f615c279812b3a2bbaa792b5"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightOverlap20261019/read_after_patch.py",
+    "git_bytes": 1300,
+    "git_sha256": "ee515b3adcc2e56497ceadfa74cec713db706fc9db01f2905d764a64f9e7e263"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightOverlap20261019/read_runtime_sights.py",
+    "git_bytes": 2261,
+    "git_sha256": "ed71a62ef204e9d249a45bc2a73eed56704fdeecbb55df2cbc23b70fadeb03ec"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightOverlap20261019/run_build.ps1",
+    "git_bytes": 2278,
+    "git_sha256": "7b2025a33b8c0524e281d58e5dbb411ea14687563ee5222865ab96dce4c698a0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/activate_bolt_fit.py",
+    "git_bytes": 1212,
+    "git_sha256": "50efda3ce5a318aec1998838d9545c55ebff8fb3aea35543e93e597df6f7504a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/activate_elbow_fit.py",
+    "git_bytes": 1929,
+    "git_sha256": "39e06e7f9e036992c43fc925ebb2e32fc017bf8613b5ab052c11396bd72eb890"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/activate_sights.py",
+    "git_bytes": 2528,
+    "git_sha256": "36276cea6c4f096584ecc5fa5ac8fcdab7fb1a151e5af4cb5b6a275a7ff4a41a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/author_bolt_fit.py",
+    "git_bytes": 3474,
+    "git_sha256": "4c876e44e2871f483e20a2ae85709e9cbc5317fe236ace9ca7e9b254685797c6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/author_elbow_clearance.py",
+    "git_bytes": 7014,
+    "git_sha256": "5045d62501932800a609369054ebb041eea459659abf88dfa519674adca45237"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/author_sights.py",
+    "git_bytes": 8868,
+    "git_sha256": "515e9b2eff4f0c0f830272bc1f95e5d98db0c9e068f7a79fcff45e2c059ccb9f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/bake_elbow_clearance.py",
+    "git_bytes": 4276,
+    "git_sha256": "a3a1130788d4c54bcfd55973f11e719b1363759772310f0d4de7f487033f8957"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/check_elbow_surface.py",
+    "git_bytes": 883,
+    "git_sha256": "fd7333d3107f680a02dc82715731d12760015dbb0fbaa1bd4d3e7090bbb66ac8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/check_geometry.py",
+    "git_bytes": 2579,
+    "git_sha256": "1168140a3bf9ab057849ddcf95e83cc8ff577e78c84281c351e6344ad6878dc5"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/check_saved_geometry.py",
+    "git_bytes": 1705,
+    "git_sha256": "46db5ad2a77d55205dddb4c83ffb814a2694cf99e6f8278373a6941d60f9927b"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/check_sight_axis.py",
+    "git_bytes": 1881,
+    "git_sha256": "4b1283b59f179306530ffa58baedaace3995fd8c718b0e434fa171e9a7c5cb0b"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/collect_saved_geometry.py",
+    "git_bytes": 1471,
+    "git_sha256": "15b911af566274bc59af7fd89933738161c3b16b2fd0e340ba6c898e70504382"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/compare_mechanics_offline.py",
+    "git_bytes": 1900,
+    "git_sha256": "9afeb867ea3efff69f243640298bcf62cd50752073b0662ce82e2d2e8ae2ed92"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/diagnose_rear_clearance.py",
+    "git_bytes": 2648,
+    "git_sha256": "0e660f87884477f958d6f4b2144e46075fc3ccbfa02672315da1d75bc77d6c0c"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/export_bolt_fit.py",
+    "git_bytes": 1466,
+    "git_sha256": "7116e1e0e2a7ca485cd70ea4e3f75ceecbecdf72e383803eced1fe1647852b62"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/export_elbow_fit.py",
+    "git_bytes": 1886,
+    "git_sha256": "d189ede8c70a78910cb631f1cb33ea8085b8b271c4013b3073c4eb50ec13caec"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/finalize_delivery.py",
+    "git_bytes": 3512,
+    "git_sha256": "ad611f0295372c1524725f5930e3a7f46e5c7daedc3bf91eb8753dda99d45585"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/fit_rear_clearance.py",
+    "git_bytes": 2326,
+    "git_sha256": "38c11bad9b7b4b92355ff8cad21575875b9ad998eb6b9887bf761c49fc2c3fb9"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/inspect_donor.py",
+    "git_bytes": 3259,
+    "git_sha256": "b51aa7ebaa19d61f986bb0dbf2658295c042927f984ee081d1be2623d17caf0a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/install_bolt_fit.py",
+    "git_bytes": 3608,
+    "git_sha256": "91ac0a7451cb256db50899a42a107b1c3119266a337d0a210f4c2c038433c2a4"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/install_elbow_fit.py",
+    "git_bytes": 4234,
+    "git_sha256": "d6b6ae9e060a2b0f8c6a329dd17c30612eca01707e332a17b345ea788ba70d07"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/install_sights.py",
+    "git_bytes": 6859,
+    "git_sha256": "501b8c775e0b3f3faddce8be131c5864f4afc6b13b30854dd198f77e89c726d8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/measure_donor.py",
+    "git_bytes": 1893,
+    "git_sha256": "dd5a70a23b9d6ea3f69ff1e2396e4477ddcb18df5afbbbbecf2e79d373e8c5ce"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/read_live_components.py",
+    "git_bytes": 1377,
+    "git_sha256": "71f6eafb0ace4229e868f5f54e6172a256d6d66d1a63396f983803d003ebedb6"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/read_native_sections.py",
+    "git_bytes": 1379,
+    "git_sha256": "e0b49b78dd8881448bdc1d3befbba75bc72b6df56380cc5f20fc1be8cad41250"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/rear_collision_bones.py",
+    "git_bytes": 2493,
+    "git_sha256": "96a7494e2a5eba160ceef49f9482aaf2c0bccef703745350026f56bafdad429f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/rear_contact_collision.py",
+    "git_bytes": 2499,
+    "git_sha256": "89d73229aa6f27cff34e8cc703ccd964f954599327c3dd9440dcf2f511425f82"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/rear_contact_positions.py",
+    "git_bytes": 2580,
+    "git_sha256": "ccfb2bda139c7e7849160b035ca8fc6cc482d3982bf24ccb92fc832875289ad9"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/render_comparison.py",
+    "git_bytes": 2530,
+    "git_sha256": "f8a49a71938ed5636cb3ac9eeecf56847693d66889c2b32f1d8398957bc009c0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/render_elbow_icon.py",
+    "git_bytes": 531,
+    "git_sha256": "d3087bcb1e80a6997be1582f1cd795ec03bc9c66d6124bd3df3176eb07ab8c4e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/render_final_sights.py",
+    "git_bytes": 2524,
+    "git_sha256": "238c6aa7975c3a7c415715a4fe925476c07c211d51b09fdafe233bbbc1bf71e3"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/render_icon.py",
+    "git_bytes": 516,
+    "git_sha256": "85f15073d70dc0ce01f370a7762e6db7aa01e6278f0a22c8a5063b724f3532ac"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_bolt_import.ps1",
+    "git_bytes": 947,
+    "git_sha256": "ab70657290054dcd6a9006396a8b22f66ef0656580bceac4a1c8eb0827f0ebc1"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_bolt_review.ps1",
+    "git_bytes": 2247,
+    "git_sha256": "23efbf4e33b163a006a4765a132546c50f484ead0f306751b6fb78109234e02e"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_build.ps1",
+    "git_bytes": 2278,
+    "git_sha256": "7b2025a33b8c0524e281d58e5dbb411ea14687563ee5222865ab96dce4c698a0"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_elbow_import.ps1",
+    "git_bytes": 950,
+    "git_sha256": "c5db42fa11d1993c9c1e4164bf727cc9df2e493cf69fd6515e9903be395ba9e8"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_elbow_review.ps1",
+    "git_bytes": 2267,
+    "git_sha256": "d7af4a2bd293b3150cece16cd07503d7059b94d6d309e65587fdc3286b52a34f"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_import.ps1",
+    "git_bytes": 935,
+    "git_sha256": "6fc373e327cb9e3c13af7d9f5ebcdd7c7cf36ab6e06bfc24e026002f8c0874cc"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/SightsR2/run_sights.ps1",
+    "git_bytes": 2200,
+    "git_sha256": "f7db0c62e0b9bd38c57e50791e27ec5f228b702b6edd46ec63a06da24ffa64bb"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/author_contact_profile.py",
+    "git_bytes": 7119,
+    "git_sha256": "141309ae4dd5aed99f30e8c1184b1b1c21197c76e3df4cdcaa79760018887df4"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/author_replacement.py",
+    "git_bytes": 11050,
+    "git_sha256": "4751b5f1476a002cf1a9384d8af472e93d710d09fca274642ae67b2963951c90"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/contact_geometry.py",
+    "git_bytes": 553,
+    "git_sha256": "1d29dbad73af18f952c59cca21922927bec803daae351891688f062f3ce1a839"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/extract_geometry.py",
+    "git_bytes": 1479,
+    "git_sha256": "f5015f3b1b09f3a24bc93ca7fbaec9b4df78d20496a40ef8992db699b5ca82dd"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/fit_interfaces.py",
+    "git_bytes": 3273,
+    "git_sha256": "ce5a263695782ce5d0746e447a2503f3b11a71891ad9865220b2065aa8467723"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/install_replacement.py",
+    "git_bytes": 6821,
+    "git_sha256": "2a2b36cd62a274c93fd9a2a3415f470048a7f617affc60644ac499488812dc7a"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/read_export_transforms.py",
+    "git_bytes": 390,
+    "git_sha256": "07c0813499a1f0009d6d43d24ac90c4a990f8cbffda0044450061351dd79330b"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/read_source.py",
+    "git_bytes": 1877,
+    "git_sha256": "083282d332aa033c65bf4549648203e7207e8e62d78534064d1db5ce7b6be961"
+  },
+  {
+    "path": "SourceAssets/SVCHReplacement20261018/render_inventory_icon.py",
+    "git_bytes": 2879,
+    "git_sha256": "7cfcc04d6a9f60d6b4013b84f268964309cc8e541136987e179f4a796b194806"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/build.ps1",
+    "git_bytes": 2526,
+    "git_sha256": "17290ff5d7a28d3b969ecad0670978f98faa854a523a06a9ae513dd7288adcbf"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/retry_build.ps1",
+    "git_bytes": 272,
+    "git_sha256": "1723220d18dafd581eb8fc5b9c0ff6b539fed5b6d30cbd4eed7b39b803be72dd"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/run_build_after_current.ps1",
+    "git_bytes": 428,
+    "git_sha256": "b93fb8b5df68a1c1a8c67310d030b89cd4280474bf829244961cde7e1676b5d9"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/Zoom124/update_catalog.py",
+    "git_bytes": 1423,
+    "git_sha256": "86c4fa46e28d3bf01c605bc04d9f4fcbac6d2b12c980c6825daf9515b2b9dc18"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/author_fittings.py",
+    "git_bytes": 6603,
+    "git_sha256": "2747519798e9c7ca27ef73bd01b57ea54af8b882e592a5475f2a38aa09daaa70"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/install_assets.py",
+    "git_bytes": 6238,
+    "git_sha256": "d08b4e615db44ab2dcd12d27385764e1954df353e8474761c31eaca0969cf689"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/prepare_source.py",
+    "git_bytes": 5486,
+    "git_sha256": "746b4b3e45a7824c62d1aa5ecdbcdd1cc52812c529b6e420451cc19daf1f47d7"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/publish_catalog.py",
+    "git_bytes": 2170,
+    "git_sha256": "c612fdebe776d4e910fb6afb11f525f30e4abfad6838ff2a6c8708f2608ad86c"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/run_finish.ps1",
+    "git_bytes": 2430,
+    "git_sha256": "3db9e40f9b93971ba5dd73f78a5f963ecbb686496de37428b69eff2a4de5e318"
+  },
+  {
+    "path": "SourceAssets/SVCHScopeUniversal20261019/run_import.ps1",
+    "git_bytes": 2032,
+    "git_sha256": "65d82fe45ef0c73d5891782435f16f9295dafec9668f6d8fbb8db7f92ed27845"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/PROVENANCE.md",
+    "git_bytes": 6342,
+    "git_sha256": "bb5184fee709a2faffe38dace7c1d7621b43f4a9659783a5e40cb900758535b2"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/audit/report.md",
+    "git_bytes": 34853,
+    "git_sha256": "486502b76eede4ff7c0ce3655c0e5cd1c88bca6d72893d4a059724e2ec3befbd"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/audit_data.py",
+    "git_bytes": 944,
+    "git_sha256": "bfaaad84088d7cb0e5ead6509c60e1ccaa5e24ece97d42d1ec8815d827697e48"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/author_svch.py",
+    "git_bytes": 22296,
+    "git_sha256": "942a7de245e38b8d4e4b3b4b973b0569b43a8dc6c2270beb01e4ee9b640fcb98"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/check_state.py",
+    "git_bytes": 888,
+    "git_sha256": "f580acb5fdcc5018b1c99743288215044850966e876551c4e6fb19824fbef4b2"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/cleanup.py",
+    "git_bytes": 508,
+    "git_sha256": "b82b47e6ba2d9241e87085f95faa249066e187c33963bca9853ab039e225fa7c"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/cleanup_probe.py",
+    "git_bytes": 374,
+    "git_sha256": "b861907e2e656ef4c33d8e86da036ba753afa195bdd0a4f7e59baf7bbc3be7f5"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/eval_glb.py",
+    "git_bytes": 1282,
+    "git_sha256": "5039fa30f703378824248f0914bb96c2266e7c03c2eef2c8e38cc6e9206b8ef6"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/export_donor_arms.py",
+    "git_bytes": 873,
+    "git_sha256": "3589af494b362dcf22cdba2476f8f77f8f57a93a979f3dd28b93083e32a9e9eb"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/fit_hold_frame.py",
+    "git_bytes": 6999,
+    "git_sha256": "78b2ab7b1ab7ccda9230b8e28a90e2078b71df2b8a35d81f9008cee46d5f0492"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/import_assets.py",
+    "git_bytes": 14475,
+    "git_sha256": "7cab8cc8cb2160cb6328a9d837adc5162fb55775e807b1e26618ae98a403b457"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/islands.py",
+    "git_bytes": 3567,
+    "git_sha256": "f44474646d302a0816c17d17d749850abd38e6382d4064fd528cda2052d75249"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/items_dump.py",
+    "git_bytes": 436,
+    "git_sha256": "1fd253fc224935a10a486954e0a19ce81e984a51b320640e9ec9ac9ff2b41b90"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/local_sight_constants.py",
+    "git_bytes": 2359,
+    "git_sha256": "8a7b9bff3fe59b34286036780b372e19f4d03cc58554f5c2b2f4f54370bd3852"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/materials.py",
+    "git_bytes": 1002,
+    "git_sha256": "c1dafbfb8d073d544b305cccf70ceee7c2f8e05199673b8f6f61050c718f70c8"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/measure_roundtrip.py",
+    "git_bytes": 1790,
+    "git_sha256": "3f527d054aafe0eeada3f02ae0b33fbc4d18cd636d2ecfe6f5405a34e2047150"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/measure_svd_bindspace.py",
+    "git_bytes": 2533,
+    "git_sha256": "82c1f17b3d5cb73f8ea07d09fdd8622d1bbe763c9ccac5e624e354a8a8b8fdd0"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/measure_svd_contact.py",
+    "git_bytes": 3205,
+    "git_sha256": "206eda01f5187295f14d4715adf101c0ea7514fd8492cd1f0a7eb141cc729253"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/measure_svd_model.py",
+    "git_bytes": 2090,
+    "git_sha256": "4eb72123b48a41413b62f70f575ace1c4182bd33dc537203fc4ba310355040cf"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/measure_svd_rootspace.py",
+    "git_bytes": 2976,
+    "git_sha256": "ee8fe76e1956a723921c42c182a651a2be3669920d0bec2834c50486e4015385"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/parts.py",
+    "git_bytes": 2263,
+    "git_sha256": "7cbed452896a355fc5622a879d94a1f95b95910a26a6d5e823d6803a07f00346"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/patch_surface.py",
+    "git_bytes": 3638,
+    "git_sha256": "abc8279ba52a54ee6f1e0396b014f43b08cfca02c9eb4932e55cbaacae585fa1"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/register_data.py",
+    "git_bytes": 6231,
+    "git_sha256": "09475c30d679189769e2e659fe1d640b53ff23e6d852ef8591d0b4fab99f5b49"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/rename_arm_slots.py",
+    "git_bytes": 1263,
+    "git_sha256": "89adb818b5917205d84f2ad6a83e4cc806754f47232304713a9e82d86e7005ed"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/render_auth.py",
+    "git_bytes": 2024,
+    "git_sha256": "e70b9f5c828e4e5a91b12099286fed4f58ac4b332f36abe6ce1d85e3b9939d25"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/render_bind.py",
+    "git_bytes": 1893,
+    "git_sha256": "0e23e8530b085287e00f9c25e8e0837aef5cfe9a9535b75cac59dd976f70947a"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/render_idle.py",
+    "git_bytes": 2932,
+    "git_sha256": "f1333180731477a878e9c5f5dce4f6e7d628375da4762573dc66d198a96d7637"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/render_source.py",
+    "git_bytes": 1665,
+    "git_sha256": "047546afae96f2962e6c43dcc39e265191c0c01f31f477031f1bd22bb610a497"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/restore_arm_slots.py",
+    "git_bytes": 605,
+    "git_sha256": "6e02159d461b35e8849bd99b9b6fbcf3ced0eeef9d3cc7324281cb5563468cd1"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/solve_frame_offset.py",
+    "git_bytes": 3929,
+    "git_sha256": "d74f6ff276618aae742188ddbf48ccff363254dc826ed35b2a4fc44de440e25d"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/verify_assets.py",
+    "git_bytes": 2886,
+    "git_sha256": "ac4b6486c2b531213466e435a3ce189be89af558f6d29e205187d939cebe33a4"
+  },
+  {
+    "path": "SourceAssets/SVCHSketchfab20261017/wait_and_reimport.ps1",
+    "git_bytes": 1981,
+    "git_sha256": "6e8005887f0dd1455e108b69046093f473e98d28f2b84f265ade43aa463b5991"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/ScaleRepair20261019/reimport.py",
+    "git_bytes": 4165,
+    "git_sha256": "738fbbded94324aca3e7ef4d5805284fb9a2b0bbde99422b1049d80180a4b67c"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/author_icon.py",
+    "git_bytes": 1913,
+    "git_sha256": "b4adeafbabddb28a0fe3bd9e1288401eec1e861cfd19b532387569cad25ad69f"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/author_model.py",
+    "git_bytes": 6168,
+    "git_sha256": "be64f996ee27db5661b5792c89bba7e62bc7081db580aa857edf17ef0ef5d971"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/build.ps1",
+    "git_bytes": 2542,
+    "git_sha256": "917372efadbd14da7d968a0ee554474c5944a517f28a2ff5a53658c530ca6808"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/export_fbx.py",
+    "git_bytes": 945,
+    "git_sha256": "03439350fe12a11a7c27e756e74583a10b76b90de7add5d90706a4d5163d0f9c"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/finish.ps1",
+    "git_bytes": 690,
+    "git_sha256": "8fad4b23d0df5ace9bd616df0d225770dad78fcce1eca1da50634f7a4210d1be"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/install_assets.py",
+    "git_bytes": 6173,
+    "git_sha256": "022e18f1096104c2b6f51b69495ff3ea1b0be0c4cf8ff70818221f532df53653"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/publish_catalog.py",
+    "git_bytes": 3899,
+    "git_sha256": "f7305f8f1dabf59a564b44311be25c91db7f1038c6094f96686093f6e6ca9f6e"
+  },
+  {
+    "path": "SourceAssets/SniperSuppressor20261019/run_asset_step.ps1",
+    "git_bytes": 1548,
+    "git_sha256": "e2c139822ad721308738313aa80464b4871a282d7dc2c9b8b733cc8c2d9e5d97"
+  },
+  {
+    "path": "Tools/Publication/Archive-SVCH20261020.ps1",
+    "git_bytes": 2052,
+    "git_sha256": "752e7bf02908ed349906258e56a3fbe51819a1a0a40a89fc8999fc7fbd788d5f"
+  },
+  {
+    "path": "skills/ue5-fps-arms-animation/SKILL.md",
+    "git_bytes": 4161,
+    "git_sha256": "ded4683348869fa0a631292cc34fa1e4d1753fe11fcf65f239a4d09adc71b22e"
+  },
+  {
+    "path": "skills/ue5-fps-arms-animation/references/svch-grip-subframes.md",
+    "git_bytes": 4052,
+    "git_sha256": "191860a1580d39bf0dbd0007e9e3de3e249f62aea5b1e525795027d03be50e23"
+  },
+  {
+    "path": "skills/ue5-save-load-replication/SKILL.md",
+    "git_bytes": 3111,
+    "git_sha256": "d19f85db12241ef6d3a678f25e17abfb77cd8746f163b11f0abdc3858c2d5077"
+  },
+  {
+    "path": "skills/ue5-save-load-replication/references/svch-presentation-coverage.md",
+    "git_bytes": 2324,
+    "git_sha256": "6d41277a01121e83265f13cb866c2e895c9e0b504f8f8ea780a700fc91de23b3"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/SKILL.md",
+    "git_bytes": 3423,
+    "git_sha256": "626eb9a52e8205a8d37803467058c41cb6f8e5547742c84cb903317f35727837"
+  },
+  {
+    "path": "skills/ue5-weapon-workflow/references/svch-replacement-interfaces.md",
+    "git_bytes": 3324,
+    "git_sha256": "70d20e3c2be838da44ad7531acf222ad3fddc48cba42dca33a968ca31e902a6d"
+  }
+]

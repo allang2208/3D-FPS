@@ -82,7 +82,7 @@ bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if((IsDualPistol(Item)
 FIntPoint BaseFootprint(const FColdSteelItem& I)
 {
     const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
-    const bool Firearm=Type==TEXT("rifle")||!Ranged.IsEmpty()||Category==TEXT("weapon_ranged");
+    const bool Firearm=Type==TEXT("rifle")||Type==TEXT("sniper")||!Ranged.IsEmpty()||Category==TEXT("weapon_ranged");
     auto O=ReadOnlyObject(I);const bool Two=O&&O->HasField(TEXT("isTwoHanded"))?Flag(I,TEXT("isTwoHanded")):Firearm;
     if(I.Definition==TEXT("wood"))return FIntPoint(1,2);
     if(Firearm&&Type!=TEXT("pistol")&&Ranged!=TEXT("pistol")&&Two)return FIntPoint(5,2);

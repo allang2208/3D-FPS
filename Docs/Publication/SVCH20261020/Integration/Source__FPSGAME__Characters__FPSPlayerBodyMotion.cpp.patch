@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -164,6 +164,7 @@
+     const bool Mount=Bipod&&Bipod->GetDeploymentBlend()>0.f;
+     Sample.Channel=Reload?FName(TEXT("Reload")):Inspect?FName(TEXT("Inspect")):
+         BookFocus?FName(TEXT("SpellbookFocus")):FName(NAME_None);
++    if(FPSBodyRifleMotion::UsesSourceBash(State))Sample.Channel=TEXT("QuickMelee");
+     if(Mount)Sample.Channel=TEXT("Bipod");
+     if(Staff&&Staff->IsEquipped())
+     {
+@@ -262,7 +263,7 @@
+         const bool IndependentPistol=D.PoseFamily==TEXT("Gun")&&FPSBodyPistolMotion::OwnsHand(State,Side);
+         const bool SupportPistol=D.bGunPistol&&Side==0&&FPSBodyPistolMotion::HasSupportOffhand(State);
+         const bool Drive=!(D.PoseFamily==TEXT("Spellbook")&&FPSBodyPistolMotion::ReturningToOffhand(State))&&(IndependentPistol?FPSBodyPistolMotion::UsesRelativeAction(State,Side):
+-            !HammerCarry&&(NativeMelee||Reload||Inspect||Mount||StaffAction||(Side==1&&(Bash||BookFocus))||HandState.bReloading||HandState.bEquipping
++            !HammerCarry&&(NativeMelee||Reload||Inspect||Mount||StaffAction||FPSBodyRifleMotion::UsesSourceBash(State)||(Side==1&&(Bash||BookFocus))||HandState.bReloading||HandState.bEquipping
+             ||(D.PoseFamily==TEXT("Gun")&&State.Action==EFPSBodyAction::Equip)));
+         const bool Rifle=State.Family==TEXT("Rifle")&&D.PoseFamily==TEXT("Gun")&&I==0;
+         // A single right-primary pistol needs the same inseparable contact

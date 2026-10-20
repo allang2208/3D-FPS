@@ -17,13 +17,15 @@ FFPSBodyRifleHold BuildFPSBodyRifleHold(USkeletalMeshComponent& Weapon,const FFP
     if(!StockRoot||!Weapon.DoesSocketExist(TEXT("WPN_root"))||!Weapon.DoesSocketExist(TEXT("WPN_FrontSight"))||!Weapon.DoesSocketExist(TEXT("WPN_RearSight")))return Hold;
     const FTransform Root=Weapon.GetSocketTransform(TEXT("WPN_root"),RTS_Component);
     const bool M870=Asset->GetPathName()==M870WeaponAssets::MeshPath;
+    const bool SVCH=SVCHWeaponAssets::Matches(&Weapon);
     // M870 inherits a shotgun root whose +Z points along the barrel. Using
     // that as "up" projects away the sight line and leaves a downward axis.
     // Preserve its measured complete sight frame through the current root.
-    const FVector Up=M870?Root.TransformVectorNoScale(FVector(0,-.9999901840,-.0044230472)).GetSafeNormal():
+    const FVector Up=SVCH?Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp).GetSafeNormal():
+        M870?Root.TransformVectorNoScale(FVector(0,-.9999901840,-.0044230472)).GetSafeNormal():
         Root.GetRotation().GetUpVector();
-    const FVector Front=AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Front):Weapon.GetSocketTransform(TEXT("WPN_FrontSight"),RTS_Component).GetLocation();
-    const FVector Rear=AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Rear):Weapon.GetSocketTransform(TEXT("WPN_RearSight"),RTS_Component).GetLocation();
+    const FVector Front=SVCH?Root.TransformPosition(SVCHWeaponAssets::FrontSight):AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Front):Weapon.GetSocketTransform(TEXT("WPN_FrontSight"),RTS_Component).GetLocation();
+    const FVector Rear=SVCH?Root.TransformPosition(SVCHWeaponAssets::RearSight):AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Rear):Weapon.GetSocketTransform(TEXT("WPN_RearSight"),RTS_Component).GetLocation();
     const FVector Forward=FVector::VectorPlaneProject(Front-Rear,Up).GetSafeNormal();
     if(Forward.IsNearlyZero())return Hold;
     FVector Stock=Root.TransformPosition(*StockRoot);

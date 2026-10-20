@@ -3740,7 +3740,7 @@
   },
   "ue_svd": {
     "category": "weapon",
-    "desc": "冷战年代定型的半自动狙击步枪，长枪管配 7.62×54R 有底缘弹，出厂即带 PSO-1 四倍镜，镜筒偏置在机匣左侧，配骨架式枪托与十发弹匣。单发威力高，命中要害的暴击伤害另加一半；有效射程 300 米，弹速快、弹道平直，适合远距离逐发点杀。代价是射速受扳机限制，腰射散布大，近身后换弹偏慢，必须留出退弹的余地。",
+    "desc": "冷战年代定型的半自动狙击步枪，长枪管配 7.62×54R 有底缘弹，出厂即带 PSO-1 四倍镜，镜筒偏置在机匣左侧，配骨架式枪托与十发弹匣。单发威力高，暴击伤害更高；有效射程 300 米，弹速快、弹道平直，适合远距离逐发点杀。代价是射速受扳机限制，腰射散布大，近身后换弹偏慢，必须留出退弹的余地。",
     "equipSlot": "weapon",
     "icon": "Icons/ue_svd.png",
     "ue_icon": "Icons/ue_svd.png",
@@ -3755,9 +3755,9 @@
       }
     ],
     "type": "武器",
-    "weaponType": "rifle",
+    "weaponType": "sniper",
     "weaponTypeTag": "狙击步枪",
-    "critDamageBonus": 0.5,
+    "critDamageBonus": 1.0,
     "innate_weakpoint_percent": 0.9
   },
   "ue_pkm_lowpoly": {
@@ -5436,5 +5436,29 @@
     "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
     "icon_fallback": "斩马刀",
     "modular_sword_catalog": "zhanmadao-modules.json"
+  },
+  "ue_svch": {
+    "id": "ue_svch",
+    "name": "SVCh",
+    "category": "weapon",
+    "type": "武器",
+    "equipSlot": "weapon",
+    "weaponType": "sniper",
+    "weaponTypeTag": "狙击步枪",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 5,
+    "grid_h": 2,
+    "icon": "Icons/ue_svch.png",
+    "ue_icon": "Icons/ue_svch.png",
+    "stats": [
+      {
+        "name": "弹匣容量",
+        "value": "10"
+      }
+    ],
+    "desc": "采用长护木、顶部全长导轨和可调枪托的半自动狙击步枪，使用 7.62×54R 有底缘弹与可拆卸弹匣。机械瞄具便于迅速瞄准，也能安装通用光学瞄具。单发威力与远距离命中能力突出，适合稳住枪身后逐发射击。",
+    "critDamageBonus": 1.0,
+    "innate_weakpoint_percent": 0.7
   }
 }

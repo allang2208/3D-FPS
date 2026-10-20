@@ -24,6 +24,8 @@ inline const FPort Ports[] =
     {TEXT("/Weapons/ASH12/"), FVector(-2.008546, -17.346387, 6.950923), TEXT("WPN_root"), 1.0f}, // ash12
     {TEXT("/Weapons/M16A2/"), FVector(-2.000000, 12.901771, 10.118269), TEXT("WPN_root"), 1.0f}, // m16a2
     {TEXT("/Weapons/SVDDragunov20260922/"), FVector(-2.009651, 13.632129, 4.519658), TEXT("WPN_root"), 1.0f}, // svd
+    // UE component bind (7.08, -33.017, -0.388) cm -> WPN_root local centimetres.
+    {TEXT("/Weapons/SVCH/"), FVector(-2.3118249, 15.2813100, 6.3992882), TEXT("WPN_root"), 1.0f}, // replacement SVCH port
     {TEXT("/Weapons/PKMLowpoly20260922/"), FVector(3.238324, 13.093769, 5.786007), TEXT("WPN_root"), -1.0f}, // pkm_lowpoly
     {TEXT("/Weapons/LMG201/"), FVector(2.990207, 13.632977, 4.607988), TEXT("WPN_root"), -1.0f}, // lmg201
     {TEXT("/M1911/"), FVector(-1.300001, 3.600209, 3.472080), TEXT("WPN_Slide"), 1.0f}, // m1911

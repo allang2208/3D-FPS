@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp
+@@ -59,6 +59,7 @@
+ int32 UShotgunAttachmentAuditCommandlet::Main(const FString& Params)
+ {
+     if(FParse::Param(*Params,TEXT("PistolBody")))return RunPistolBodyReview(Params);
++    if(FParse::Param(*Params,TEXT("SVCHReview")))return RunSVCHReview(Params);
+     if(FParse::Param(*Params,TEXT("Saiga12KNetwork")))return RunSaiga12KNetworkAudit(Params);
+     if(FParse::Param(*Params,TEXT("Saiga12KPresentation")))return RunSaiga12KPresentationAudit(Params);
+     if(FParse::Param(*Params,TEXT("M870Presentation")))return RunM870PresentationAudit(Params);

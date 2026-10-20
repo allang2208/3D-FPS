@@ -22,7 +22,7 @@ inline bool SupportsSecondary(const FString& Definition)
 {
     return Definition==TEXT("ue_m4a1") || Definition==TEXT("ue_akm") || Definition==TEXT("ue_qbz191")
         || Definition==TEXT("ue_ash12") || Definition==TEXT("ue_m16a2") || Definition==TEXT("ue_a762")
-        || Definition==TEXT("ue_svd") || Definition==TEXT("ue_pkm_lowpoly") || Definition==TEXT("ue_lmg201")
+        || Definition==TEXT("ue_svd") || Definition==TEXT("ue_svch") || Definition==TEXT("ue_pkm_lowpoly") || Definition==TEXT("ue_lmg201")
         || Definition==TEXT("ue_hk416");
 }
 inline FString Super90MeshPath(const FString& Id)
@@ -58,6 +58,9 @@ inline FString FamilyForDefinition(const FString& Definition)
     if(Definition==TEXT("ue_m16a2"))return TEXT("M16");
     if(Definition==TEXT("ue_a762"))return TEXT("A762");
     if(Definition==TEXT("ue_svd"))return TEXT("SVD");
+    // The SVCh uses the SVD's fitted device family: same right-left rail spacing
+    // on the handguard, so the existing DualFit mounts seat without new geometry.
+    if(Definition==TEXT("ue_svch"))return TEXT("SVD");
     if(Definition==TEXT("ue_pkm_lowpoly"))return TEXT("PKM");
     if(Definition==TEXT("ue_lmg201"))return TEXT("LMG201");
     if(Definition==TEXT("ue_hk416"))return TEXT("HK416");

@@ -1284,7 +1284,7 @@ bool UFPSWeaponFXComponent::ShouldHideCasings() const
     if(const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();Body&&Body->IsThirdPersonViewEnabled())return false;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     // LPVO at 1x is still scope mode. Cover both aim-in and the remaining scope fade-out.
-    return Character && (Character->GetGunsmithOpticVariant() == TEXT("lpvo_1_6x") || Character->HasPSO1Scope() || Character->HasThermalScope())
+    return Character && (Character->GetGunsmithOpticVariant() == TEXT("lpvo_1_6x") || Character->GetGunsmithOpticVariant() == TEXT("kv_scope_4x") || Character->HasPSO1Scope() || Character->HasThermalScope())
         && (Character->IsAiming() || Character->GetScopePresentationAlpha() > 0.0f);
 }
 

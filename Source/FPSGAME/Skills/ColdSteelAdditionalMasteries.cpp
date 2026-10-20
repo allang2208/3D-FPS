@@ -15,7 +15,7 @@ FColdSteelSkillEffect UColdSteelStatusModel::MasteryEffect(FName Id,int32 L)cons
 FName UColdSteelStatusModel::WeaponMastery(const FColdSteelItem* Item)const
 {
     if(!Item)return NAME_None;const FString Type=ColdSteelInventory::Text(*Item,TEXT("weaponType"));
-    if(Type==TEXT("rifle"))return TEXT("rifleMastery");if(Type==TEXT("pistol"))return TEXT("pistolMastery");
+    if(Type==TEXT("rifle")||Type==TEXT("sniper"))return TEXT("rifleMastery");if(Type==TEXT("pistol"))return TEXT("pistolMastery");
     if(Type==TEXT("sword")||Item->Definition==TEXT("ue_rune_sword"))return TEXT("swordMastery");
     if(Type==TEXT("machineGun")||Type==TEXT("machinegun")||Type==TEXT("lmg"))return TEXT("machineGunMastery");
     if(Type==TEXT("shotgun"))return TEXT("shotgunMastery");if(Type==TEXT("bow"))return TEXT("bowMastery");return NAME_None;

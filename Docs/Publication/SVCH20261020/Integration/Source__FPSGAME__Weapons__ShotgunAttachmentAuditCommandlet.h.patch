@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
++++ b/Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h
+@@ -11,5 +11,6 @@
+     int32 RunM870PresentationAudit(const FString& Params);
+     int32 RunSaiga12KPresentationAudit(const FString& Params);
+     int32 RunSaiga12KNetworkAudit(const FString& Params);
++    int32 RunSVCHReview(const FString& Params);
+     int32 RunPistolBodyReview(const FString& Params);
+ };

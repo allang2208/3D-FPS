@@ -1,0 +1,13 @@
+{
+  "scope": "SVCH source, recipes, data, documentation and skill publication only",
+  "diff_check": true,
+  "catalog_scope_checked": true,
+  "secrets_found": false,
+  "manual_scan_flag": "32-character value is the public Sketchfab model ID, not an API token",
+  "skill_validation": "Three project mirrors and three personal skills passed quick_validate",
+  "licensed_assets_published": false,
+  "gameplay_rerun": false,
+  "original_archive": "330 files moved successfully, then user cleared trash and requested no restore",
+  "publication_preparation_archive": "63 files moved and hashes read back",
+  "clean_checkout_build_claimed": false
+}

@@ -4,6 +4,7 @@
 #include "../Weapons/LegendaryTacticalStock.h"
 #include "../Weapons/CommonHK416Parts.h"
 #include "../Weapons/ThermalScopeAssets.h"
+#include "../Weapons/KVScopeAssets.h"
 #include "ColdSteelWeaponIcons.h"
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/M870OpticAssets.h"
@@ -27,6 +28,7 @@
 #include "../Weapons/QBZ191Attachments.h"
 #include "../Weapons/ASH12WeaponAssets.h"
 #include "../Weapons/SVDWeaponAssets.h"
+#include "../Weapons/SVCHWeaponAssets.h"
 #include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/G18WeaponAssets.h"
@@ -146,6 +148,9 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         if(D==TEXT("ue_super90")){Add(Super90WeaponAssets::MeshPath,true);Add(Super90WeaponAssets::AnimationPath(TEXT("idle")),true);}
         if(D==M870WeaponAssets::Definition){Add(M870WeaponAssets::MeshPath,true);Add(M870WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
+        // The SVCh renders its icon from the same shared-Manny idle the SVD uses,
+        // so it needs the same preloaded pair.
+        else if(D==TEXT("ue_svch")){Add(SVCHWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_lmg201"))
         {
             Add(LMG201WeaponAssets::MeshPath,true);Add(LMG201WeaponAssets::AnimationPath(TEXT("idle")),true);
@@ -183,6 +188,13 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         for(const auto& Part:Parts)
         {
             FString Key=Part.Value;
+            if(Part.Key==TEXT("optic")&&Key==KVScopeAssets::Id)
+            {
+                Add(KVScopeAssets::MeshPath(D),true);Add(KVScopeAssets::SeatPath(D),true);
+                // Native installation first configures the host LPVO interface.
+                Key=TEXT("lpvo_1_6x");
+            }
+
             if(D==TEXT("ue_m870")&&Part.Key==TEXT("stock"))
             {
                 const FString Stock=Parts.FindRef(TEXT("stock"));

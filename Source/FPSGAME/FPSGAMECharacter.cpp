@@ -81,6 +81,8 @@
 #include "Weapons/RSH12WeaponAssets.h"
 #include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/SVDWeaponAssets.h"
+#include "Weapons/SVCHWeaponAssets.h"
+#include "Weapons/SniperSuppressorAssets.h"
 #include "Weapons/SVDAttachments.h"
 #include "Weapons/M16WeaponAssets.h"
 #include "Weapons/M16Attachments.h"
@@ -533,6 +535,21 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         ADSRearEyeDistance = 18.f;
         if (!bPresentationOnly) SuppressedFireSound = LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
     }
+    if (ActiveInventoryWeaponDefinition == SVCHWeaponAssets::Definition)
+    {
+        ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,SVCHWeaponAssets::MeshPath,nullptr,LOAD_NoWarn);
+        // The SVCh shares the Manny skeleton and the SVD's source-time cue clock,
+        // and it is semiautomatic like SVD, so it reuses the accepted rifle clips.
+        bUsingM4Infima=ViewmodelMesh!=nullptr;
+        bSingleShotTrigger=SVCHWeaponAssets::bSingleShotTrigger;
+        bPistolShotPending=false;
+        HipViewmodelLocation=M4HipViewmodelLocation+FVector(6.f,0.f,0.f);
+        if (!bPresentationOnly) QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*SVDWeaponAssets::AnimationPath(TEXT("quick_melee")));
+        // Measured eye relief behind the baked iron-sight pair.
+        ADSRearEyeDistance=SVCHWeaponAssets::ADSRearEyeDistance;
+        UE_LOG(LogTemp, Display, TEXT("SVCH_ACTIVE mesh=%s eye=%.2f single_shot=%d"),
+            *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance, bSingleShotTrigger ? 1 : 0);
+    }
     if (ActiveInventoryWeaponDefinition == SVDWeaponAssets::Definition)
     {
         ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,SVDWeaponAssets::MeshPath,nullptr,LOAD_NoWarn);
@@ -622,8 +639,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
     }
     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
-    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
-    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
+    DrumReloadAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
+    DrumReloadEmptyAnimation=IsHK416Weapon()?LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(TEXT("drum_reload_empty"))):(IsTubeShotgunWeapon()||SVDWeaponAssets::Matches(AKMViewmodel)||SVCHWeaponAssets::Matches(AKMViewmodel))?nullptr:LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
     if(AKMSoviet::Matches(AKMViewmodel)){
         ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
         ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
@@ -640,12 +657,12 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
     }
     // DW715 retains its original inspect; M1911 uses that clip's native-grip adaptation.
-    InspectAnimation = IsTubeShotgunWeapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+    InspectAnimation = IsTubeShotgunWeapon() || IsHK416Weapon() || IsPistolWeapon() || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) || bUseM16 || PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
     if(bUseM1911 && DualPistols)DualPistols->PrepareSingleInspect();
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
     WeaponGripProfiles.Reset();
-    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon())
+    if (LMG201WeaponAssets::Matches(AKMViewmodel) || IsRSH12Weapon() || SVCHWeaponAssets::Matches(AKMViewmodel))
     {
         TMap<TObjectPtr<UAnimSequence>, TObjectPtr<UAnimSequence>> BaseSupport;
         InitializeWeaponGripFamily(TEXT("base"), BaseSupport);
@@ -658,7 +675,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
             if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*HK416WeaponAssets::AnimationPath(Pair.Value,TEXT("drum"))))DrumSupportAnimations.Add(Pair.Key,Clip);
     }
 
-    if (!bSharedDrum && bUsingM4Infima && !IsTubeShotgunWeapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+    if (!bSharedDrum && bUsingM4Infima && !IsTubeShotgunWeapon() && !IsHK416Weapon() && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel) && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
             if (Base)
             {
@@ -711,7 +728,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
         Sprint->Configure(IsPistolWeapon() ? ERifleSprintWeapon::None
             : IsM870Weapon() ? ERifleSprintWeapon::M870
             : IsSuper90Weapon() ? ERifleSprintWeapon::Super90
-            : SVDWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::SVD
+            : SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::SVD
             : PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? ERifleSprintWeapon::PKM
             : bUseM16 ? ERifleSprintWeapon::M16
             : bUseASH12 ? ERifleSprintWeapon::ASH12
@@ -779,7 +796,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals(bool bPresentationOnly)
             const FString FirePath = bUseQBZ191
                 ? Base + FString::Printf(TEXT("Fire_%02d"), Index)
                 : FString::Printf(TEXT("/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_%02d"), Index);
-            if (!bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel))
+            if (!bUseASH12 && !bUseM16 && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel))
                 if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *FirePath))
                     RifleFireVariants.Add(Sound);
             const FString SuppressedPath = bUseASH12
@@ -1375,7 +1392,7 @@ void AFPSGAMECharacter::ReloadPressed()
                     PKMContact(TEXT("ChargeFrontStop"))});
             }
         }
-        else if (SVDWeaponAssets::Matches(AKMViewmodel))
+        else if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
         {
             MechanicalCueTimes={SVDWeaponAssets::MagazineOut,SVDWeaponAssets::MagazineInsert,SVDWeaponAssets::MagazineSeat};
             MechanicalCueSounds={MagOutSound,MagInsertSound,MagSeatSound};
@@ -1658,7 +1675,7 @@ UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
         const int32 Index=static_cast<int32>(Grip);
         return Index>1&&Index<UE_ARRAY_COUNT(Families)?LoadObject<UAnimSequence>(nullptr,*LMG201Attachments::AnimationPath(Families[Index],TEXT("quick_melee"))):QuickCombatAnimation.Get();
     }
-    if(SVDWeaponAssets::Matches(AKMViewmodel))
+    if(SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
     {
         if(const auto* Profile=WeaponGripProfileFor(Grip);Profile&&Profile->Find(QuickCombatAnimation))return QuickCombatAnimation.Get();
         const TCHAR* Families[]={TEXT("base"),TEXT("base"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
@@ -1748,7 +1765,7 @@ bool AFPSGAMECharacter::TriggerRifleStockMelee()
         WeaponStateElapsed=0.0f;
         WeaponStateDuration=PlaybackDuration;
         PlayWeaponAnimation(Clip,false,PlayRate);
-        if((bUseASH12||IsM870Weapon())&&GunplayAnimation)
+        if((bUseASH12||IsM870Weapon()||SVCHWeaponAssets::Matches(AKMViewmodel))&&GunplayAnimation)
         {
             // The contact sampler can run on the first update after a hitch.
             // Publish this action now so it cannot evaluate an earlier fire clip.
@@ -1878,7 +1895,13 @@ void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
         }
         return;
     }
-    if(bUseASH12&&QuickCombatPistol&&WeaponState!=EAKMWeaponState::QuickCombat)
+    // These rifles share the executor's source clock with their pose. SVCH
+    // must also follow action haste; a separate wall clock cuts recovery short.
+    // Cached gun flags must not take ownership of a later tool/hand action.
+    const bool bDrivenRifleQuickCombat=(bUseASH12||SVCHWeaponAssets::Matches(AKMViewmodel))&&QuickCombatPistol&&
+        (QuickCombatPistol->GetStyle()==EQuickCombatStyle::Rifle||
+         QuickCombatPistol->GetStyle()==EQuickCombatStyle::M4ReferenceRifle);
+    if(bDrivenRifleQuickCombat&&WeaponState!=EAKMWeaponState::QuickCombat)
         QuickCombatPistol->Cancel();
     if (WeaponState == EAKMWeaponState::Idle) return;
     if(WeaponState==EAKMWeaponState::QuickCombat&&QuickCombatPistol&&!QuickCombatPistol->IsOccupyingLeftHand())
@@ -1894,7 +1917,7 @@ void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
         const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
         if(IsTraversing() || IsCastBlockingLeftHandAction() || (Health && Health->IsDead())){InterruptReload();return;}
     }
-    if (WeaponState == EAKMWeaponState::QuickCombat && bUseASH12 && QuickCombatPistol)
+    if (WeaponState == EAKMWeaponState::QuickCombat && bDrivenRifleQuickCombat)
     {
         // Pose, recovery, contact and action ownership share the source clock.
         // Real time continues during impact freeze for camera kick and movement.
@@ -2537,7 +2560,9 @@ void AFPSGAMECharacter::FireShot()
     if (UsesSingleShotTrigger()) bPistolShotPending = false;
     ++ShotsFired;
     const bool bSuppressedNoise = IsMuzzleSuppressed();
-    if(!PredictSuper90)UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,bSuppressedNoise?1000.f:3600.f,
+    const bool bSilentLethalShot=SniperSuppressorAssets::Supports(ActiveInventoryWeaponDefinition)&&MuzzleVariant==SniperSuppressorAssets::Part;
+    // As with bows, keep audible presentation but let surviving victims raise the group alarm.
+    if(!PredictSuper90&&!bSilentLethalShot)UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,bSuppressedNoise?1000.f:3600.f,
         bSuppressedNoise?TEXT("GunshotSuppressed"):TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
@@ -2915,6 +2940,10 @@ FVector AFPSGAMECharacter::ComputeWeaponAimDirection() const
     const FVector Forward = FirstPersonCamera->GetForwardVector();
     if (bPreciseAim && AKMSoviet::Matches(AKMViewmodel))
         return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Front) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
+    // SVCH's visible iron sights use measured root-local points in UpdateADSPose.
+    // The shared skeleton's WPN_FrontSight still belongs to the donor weapon.
+    if (bPreciseAim && SVCHWeaponAssets::Matches(AKMViewmodel))
+        return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(SVCHWeaponAssets::FrontSight) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     if (bPreciseAim && AKMViewmodel->DoesSocketExist(TEXT("WPN_FrontSight")))
         return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight")) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     return Forward;
@@ -3041,7 +3070,7 @@ void AFPSGAMECharacter::StartEquipCharge()
         MechanicalCueSounds = {ChargePullSound, ChargeReleaseSound};
         UE_LOG(LogTemp, Display, TEXT("AKM_EQUIP_CHARGE: clip=%s magazine=attached left=idle duration=%.3f"), *EquipAnimation->GetPathName(), EquipAnimation->GetPlayLength());
     }
-    else if (SVDWeaponAssets::Matches(AKMViewmodel))
+    else if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
     {
         MechanicalCueTimes={SVDWeaponAssets::EquipPull,SVDWeaponAssets::EquipRelease};
         MechanicalCueSounds={ChargePullSound,ChargeReleaseSound};
@@ -3078,7 +3107,7 @@ void AFPSGAMECharacter::StartEquipCharge()
     if (EquipAnimation)
     {
         // PKM's video-authored raise/catch/settle uses its own clip clock.
-        WeaponStateDuration = bUsingM4Infima && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel)
+        WeaponStateDuration = bUsingM4Infima && !IsPistolWeapon() && !SVDWeaponAssets::Matches(AKMViewmodel) && !SVCHWeaponAssets::Matches(AKMViewmodel)
             && !PKMLowpolyWeaponAssets::Matches(AKMViewmodel) ? 0.72f : EquipAnimation->GetPlayLength();
         WeaponStateDuration /= FirearmEquipRate;
         for(float& Cue : MechanicalCueTimes) Cue /= FirearmEquipRate;
@@ -3103,9 +3132,9 @@ void AFPSGAMECharacter::FinishWeaponAction()
     bReloadAmmoCommitted=bReloadCycleOnly=false;ReloadResumeElapsed=0.f;
     const bool bFinishedQuickCombat = WeaponState == EAKMWeaponState::QuickCombat;
     const bool bFinishedRifleReload = (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) || bUseM16
-        || (bUseQBZ191 && WeaponState == EAKMWeaponState::Reloading) || SVDWeaponAssets::Matches(AKMViewmodel)
+        || (bUseQBZ191 && WeaponState == EAKMWeaponState::Reloading) || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel)
         || PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||HasLMG201ClothBox()||IsTubeShotgunWeapon()) && IsReloading();
-    const double CompletedAt = bFinishedQuickCombat && bUseASH12
+    const double CompletedAt = bFinishedQuickCombat && (bUseASH12||SVCHWeaponAssets::Matches(AKMViewmodel))
         ? GetWorld()->GetTimeSeconds() : WeaponActionStartedAt + WeaponStateDuration;
     // Only the eligible tail after completion can catch up. Keep a newer input
     // deadline or another active blocker rather than rewinding it to completion.
@@ -3281,8 +3310,11 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
         if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
         return LoadObject<UAnimSequence>(nullptr,*LMG201WeaponAssets::AnimationPath(*Clip));
     }
-    if(ActiveInventoryWeaponDefinition==SVDWeaponAssets::Definition)
+    if(ActiveInventoryWeaponDefinition==SVDWeaponAssets::Definition
+        || ActiveInventoryWeaponDefinition==SVCHWeaponAssets::Definition)
     {
+        // The SVCh is a semiautomatic 7.62x54R rifle on the same rig, so it plays
+        // the accepted SVD clip set rather than a second full copy of it.
         FString Clip(AssetName);Clip.RemoveFromStart(TEXT("A_AKM_"));
         if(Clip.StartsWith(TEXT("equip")))Clip=TEXT("equip");
         return LoadObject<UAnimSequence>(nullptr,*SVDWeaponAssets::AnimationPath(*Clip));
@@ -3416,8 +3448,10 @@ USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
     if (LMG201WeaponAssets::Matches(AKMViewmodel) && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
         if (auto* Sound = LoadObject<USoundBase>(nullptr, *LMG201WeaponAssets::FireSoundPath(1)))
             return Sound;
-    if(SVDWeaponAssets::Matches(AKMViewmodel))
+    if(SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
     {
+        // The SVCh has no recorded audio of its own yet, so it plays the accepted
+        // SVD 7.62x54R set; its own set can be dropped in by changing this branch.
         if(FCString::Strcmp(AssetName,TEXT("S_AKM_Fire"))==0)
             return LoadObject<USoundBase>(nullptr,*SVDWeaponAssets::FireSoundPath(1));
         if(FCString::Strcmp(AssetName,TEXT("S_AKM_MagOut"))==0 ||
@@ -3725,10 +3759,11 @@ void AFPSGAMECharacter::UpdateADSPose()
         Rear=Root.TransformPosition(AKMSoviet::Rear)*ViewmodelScale;
         Front=Root.TransformPosition(AKMSoviet::Front)*ViewmodelScale;
     }
-    if (SVDWeaponAssets::Matches(AKMViewmodel))
+    if (SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))
     {
-        // The SVD aims down the PSO-1 tube, and its sights are not at the shared M4 sight
-        // bone positions, so the weapon supplies its own pair (like AKMSoviet above).
+        // SVD aims down the PSO-1 tube and SVCh down its own iron sights; neither
+        // sits at the shared M4 sight bone positions, so each weapon carries its
+        // own baked pair (like AKMSoviet above) and supplies the gun's up axis.
         FTransform Root = FTransform::Identity;
         for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
         {
@@ -3738,6 +3773,15 @@ void AFPSGAMECharacter::UpdateADSPose()
         }
         // SVD clips carry their measured ocular/objective marker positions.
         SightUp=Root.GetRotation().RotateVector(FVector::UpVector);
+        if (SVCHWeaponAssets::Matches(AKMViewmodel))
+        {
+            // The SVCh aims down its own iron sights, 537.7 mm apart and 85.9 mm
+            // above the bore. The shared WPN_* bones still carry the SVD's baked
+            // points, so take the measured pair from the weapon header instead.
+            Rear=Root.TransformPosition(SVCHWeaponAssets::RearSight)*ViewmodelScale;
+            Front=Root.TransformPosition(SVCHWeaponAssets::FrontSight)*ViewmodelScale;
+            SightUp=Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp);
+        }
     }
     if (bHolographicOptic)
     {
@@ -3750,7 +3794,7 @@ void AFPSGAMECharacter::UpdateADSPose()
             Root=Root*Local;
         }
         const FTransform Mount=HolographicMount*Root;
-        if ((HasThermalScope() || IsTubeShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic")) && HolographicOptic && HolographicOptic->GetStaticMesh())
+        if ((HasThermalScope() || IsTubeShotgunWeapon() || IsRSH12Weapon() || IsHK416Weapon() || OpticVariant == TEXT("eoth_holographic") || OpticVariant == TEXT("kv_scope_4x")) && HolographicOptic && HolographicOptic->GetStaticMesh())
         {
             const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
             const auto* R=OpticMesh->FindSocket(TEXT("SightRear"));
@@ -3790,7 +3834,7 @@ void AFPSGAMECharacter::UpdateADSPose()
     // QBZ191's aim carries about 4.88 degrees of left roll. Its iron sights need
     // the gun-root up axis, just as hip framing does, while retaining their own
     // sight line and eye distance. The location below uses this corrected frame.
-    if(bHolographicOptic || IsTubeShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
+    if(bHolographicOptic || IsTubeShotgunWeapon() || IsPistolWeapon() || IsHK416Weapon() || bUseQBZ191 || SVDWeaponAssets::Matches(AKMViewmodel) || SVCHWeaponAssets::Matches(AKMViewmodel))CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
     // Keep the revolver at arm's length; its ocular is not a rifle eye box.
     const float EyeDistance = HasHandgunScope() ? 42.f : bHolographicOptic && !IsPistolWeapon() ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
     CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
@@ -4004,11 +4048,30 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
         const float EquipBlendRate = WeaponState == EAKMWeaponState::Equipping && IsRSH12Weapon() ? FMath::Max(.01f,ActionPlayRate) : 1.f;
         const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale / EquipBlendRate;
-        const float In = FMath::Clamp((ActionElapsed-(IsReloading()?ReloadResumeElapsed:0.f)) / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
-        const float Out = bQuickCombatAction
+        // SVCH's authored clip includes the existing entry/recovery result.
+        // Blending those local chains a second time separates the palm from
+        // the grip. One authored pose owns contact until its exact idle end.
+        const bool bAuthoredSVCHQuick = bQuickCombatAction && SVCHWeaponAssets::Matches(AKMViewmodel);
+        const float In = bAuthoredSVCHQuick ? 1.f
+            : FMath::Clamp((ActionElapsed-(IsReloading()?ReloadResumeElapsed:0.f)) / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
+        const float Out = bAuthoredSVCHQuick ? 1.f : bQuickCombatAction
             ? QuickCombatRecovery::RemainingWeight(ActionElapsed, ActionDuration, QuickCombatRecovery::IdleHandoffStart)
             : FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
+        // Each SVCH family preserves its native magazine/left-bolt contacts and
+        // adds only the attachment release/regrip. Fall back to the factory layer.
+        if(SVCHWeaponAssets::Matches(AKMViewmodel)
+            && (ActiveActionAnimation==ReloadAnimation || ActiveActionAnimation==ReloadEmptyAnimation))
+        {
+            auto* ReloadProfile=WeaponGripProfileFor(ResolveRifleGripProfile());
+            if(!ReloadProfile || !ReloadProfile->Find(ActiveActionAnimation))
+                ReloadProfile=WeaponGripProfileFor(EM4SprintGrip::Base);
+            if(ReloadProfile && ReloadProfile->Find(ActiveActionAnimation))
+            {
+                GunplayAnimation->ActionClip=ActiveActionAnimation;
+                GunplayAnimation->ActionGripProfile=ReloadProfile;
+            }
+        }
         GunplayAnimation->ActionAlpha = FMath::Min(In, Out);
         if (RifleReloadHandoff::Supports(ActiveInventoryWeaponDefinition) && IsReloading())
         {

@@ -6,6 +6,7 @@
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
+#include "SVCHWeaponAssets.h"
 #include "PKMAttachments.h"
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
@@ -21,6 +22,7 @@
 #include "ShotgunDuckbillAssets.h"
 #include "ShotgunBirdcageAssets.h"
 #include "ShotgunSuppressorAssets.h"
+#include "SniperSuppressorAssets.h"
 #include "Super90TubeMagazineAssets.h"
 #include "GunsmithSystem.h"
 #include "Engine/GameInstance.h"
@@ -83,6 +85,38 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         if(const auto* Tip=Part->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
         MuzzleLocalAxis=FVector::ForwardVector;
         MuzzleVariant=Variant;
+        return;
+    }
+    if(Variant==SniperSuppressorAssets::Part)
+    {
+        if(!SniperSuppressorAssets::Supports(ActiveInventoryWeaponDefinition)||!bInventoryWeaponReady)
+        {SetGunsmithMuzzle(TEXT("false"));return;}
+        auto* Part=LoadObject<UStaticMesh>(nullptr,SniperSuppressorAssets::MeshPath);
+        if(!Part||!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return;
+        if(!MuzzleAttachment)
+        {
+            MuzzleAttachment=NewObject<UStaticMeshComponent>(this,TEXT("SniperMuzzle"));
+            MuzzleAttachment->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
+            MuzzleAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            MuzzleAttachment->SetCastShadow(false);MuzzleAttachment->bReceivesDecals=false;
+            MuzzleAttachment->RegisterComponent();
+        }
+        MuzzleAttachment->EmptyOverrideMaterials();MuzzleAttachment->SetStaticMesh(Part);
+        MuzzleAttachment->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);
+        MuzzleAttachment->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
+        const bool bSVCH=SVCHWeaponAssets::Matches(AKMViewmodel);
+        const FVector Forward=FVector::RightVector;
+        const FVector Up=bSVCH?SVCHWeaponAssets::SightUp:FVector::UpVector;
+        // SVD replaces its separate factory muzzle. SVCH's integrated tip is
+        // retained inside the exterior collar; neither gun/arm mesh is changed.
+        const FVector Seat=bSVCH?SVCHWeaponAssets::MuzzlePoint-Forward*.012f:SVDAttachments::MuzzleMount;
+        MuzzleAttachment->SetRelativeTransform(FTransform(FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat(),Seat,FVector(.01f)));
+        MuzzleAttachment->SetVisibility(true);
+        SVDAttachments::FactorySections(AKMViewmodel,TEXT("FactoryMuzzle"),false);
+        MuzzleLocalAxis=FVector::ForwardVector;MuzzleLocalTip=FVector(SniperSuppressorAssets::TipCM,0,0);
+        if(const auto* Tip=Part->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
+        MuzzleVariant=Variant;
+        if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
         return;
     }
     if (IsRSH12Weapon())
@@ -260,15 +294,16 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         const auto& Ref=Rifle->GetRefSkeleton();
         auto Bone=[&](const TCHAR* Name){FTransform T=FTransform::Identity;for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))T=T*Ref.GetRefBonePose()[I];return T;};
         const auto Root=Bone(TEXT("WPN_root")),Rear=Bone(TEXT("WPN_RearSight")),Front=Bone(TEXT("WPN_FrontSight")),Muzzle=Bone(TEXT("WPN_SOCKET_Muzzle"));
-        const FVector Forward=bUseM16?Root.GetRotation().GetAxisY():(Front.GetLocation()-Rear.GetLocation()).GetSafeNormal();
-        const FVector Up=bUseM16?Root.GetRotation().GetAxisZ():Rear.GetRotation().GetAxisZ();
+        const bool bSVCH=SVCHWeaponAssets::Matches(AKMViewmodel);
+        const FVector Forward=bSVCH?Root.TransformVectorNoScale(SVCHWeaponAssets::FrontSight-SVCHWeaponAssets::RearSight).GetSafeNormal():bUseM16?Root.GetRotation().GetAxisY():(Front.GetLocation()-Rear.GetLocation()).GetSafeNormal();
+        const FVector Up=bSVCH?Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp).GetSafeNormal():bUseM16?Root.GetRotation().GetAxisZ():Rear.GetRotation().GetAxisZ();
         const FQuat SourceFrame=FRotationMatrix::MakeFromXZ(MuzzleLocalAxis,FVector::UpVector).ToQuat();
         const FQuat TargetFrame=FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat();
         // Measured from the current export's factory flash-hider rear rim to its socket.
         const float BackOffset=bUseASH12?ASH12WeaponAssets::MuzzleBackOffset:4.83633f;
         // M16 attachments replace the factory hider at its actual rear bore
         // centre. Its legacy muzzle marker and sight line are both offset.
-        const FVector MountLocation=bUseM16?Bone(M16WeaponAssets::MuzzleMountBone).GetLocation():Muzzle.GetLocation()-Forward*BackOffset;
+        const FVector MountLocation=bSVCH?Root.TransformPosition(SVCHWeaponAssets::MuzzlePoint):bUseM16?Bone(M16WeaponAssets::MuzzleMountBone).GetLocation():Muzzle.GetLocation()-Forward*BackOffset;
         const FTransform Mount(TargetFrame*SourceFrame.Inverse(),MountLocation,FVector::OneVector);
         MuzzleAttachment->SetRelativeTransform(Mount.GetRelativeTransform(Root));
         if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
@@ -299,9 +334,13 @@ FTransform AFPSGAMECharacter::GetNativeMuzzleTransform() const
     {
         if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
         else if(AKMSoviet::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
+        // The SVCh carries its own measured muzzle: the shared WPN_SOCKET_Muzzle bone
+        // keeps the SVD's baked position.
+        else if(SVCHWeaponAssets::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(SVCHWeaponAssets::MuzzlePoint);
         else Position=AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
         if(bUseM16)Forward=AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
         else if(IsPistolWeapon()||IsTubeShotgunWeapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+        else if(SVCHWeaponAssets::Matches(AKMViewmodel))Forward=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformVectorNoScale(SVCHWeaponAssets::FrontSight-SVCHWeaponAssets::RearSight).GetSafeNormal();
         else
         {
             Forward=AKMViewmodel->GetSocketQuaternion(TEXT("WPN_SOCKET_Muzzle")).GetAxisY();

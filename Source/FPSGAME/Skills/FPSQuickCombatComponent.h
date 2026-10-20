@@ -28,7 +28,7 @@ public:
     /** 动作入口：武装仲裁通过后由角色调用；扣体力、占用动作与使用修炼。 */
     bool BeginAction();
     void Cancel();
-    // ASH calls this before its character presentation; other weapons use TickComponent.
+    // ASH/SVCH call this before character presentation; other weapons use TickComponent.
     // ActionAge remains source-clip seconds, including a confirmed-hit pause.
     void AdvanceAction(float Delta);
     bool IsImpactPaused() const;

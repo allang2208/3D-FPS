@@ -1,6 +1,8 @@
 #include "../FPSGAMECharacter.h"
 #include "WeaponGripProfile.h"
 #include "SVDWeaponAssets.h"
+#include "SVCHWeaponAssets.h"
+#include "SVCHForegripAssets.h"
 #include "RSH12WeaponAssets.h"
 #include "RSH12ForegripAssets.h"
 #include "Super90ForegripAssets.h"
@@ -16,6 +18,7 @@ bool AFPSGAMECharacter::InitializeWeaponGripFamily(FName Family,TMap<TObjectPtr<
     // 裸角色（未装备武器）时定义为空：拼出的包路径含双斜杠会触发 UObjectGlobals Fatal（闪退）。
     if(!bSVD&&ActiveInventoryWeaponDefinition.IsEmpty())return false;
     const FString Path=bSVD?TEXT("/Game/Weapons/SVDDragunov20260922/GripProfiles20261001/DA_SVD_Grip_")+Family.ToString()
+        :SVCHWeaponAssets::Matches(AKMViewmodel)?SVCHForegripAssets::ProfilePath(Family)
         :IsRSH12Weapon()&&Family==TEXT("base")?FString(RSH12WeaponAssets::ProfilePath)
         :IsRSH12Weapon()&&Family!=TEXT("drum")?RSH12ForegripAssets::ProfilePath(Family)
         :IsG18Weapon()&&Family==TEXT("drum")?FString(G18WeaponAssets::Drum50ReloadProfile)

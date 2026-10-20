@@ -1,4 +1,5 @@
 #include "../Weapons/GunsmithModificationTier.h"
+#include "../Weapons/KVScopeAssets.h"
 #include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
 #include "ColdSteelUIStyle.h"
@@ -109,6 +110,7 @@ void UM4GunsmithWidget::RefreshPresentation()
     auto MagnificationLabel=[&](const FGunsmithParts& Parts)->FString
     {
         const FString Optic=Parts.FindRef(TEXT("optic"));
+        if(Optic==KVScopeAssets::Id)return TEXT("1/2/4×");
         if(Optic==TEXT("pso1_4x")||(G->Definition()==TEXT("ue_svd")&&(Optic.IsEmpty()||Optic==TEXT("false"))))return TEXT("4×");
         if(Optic==TEXT("lpvo_1_6x"))return TEXT("1–6×");
         if(Optic==TEXT("thermal_scope"))return TEXT("1.5/3/8× 热成像");

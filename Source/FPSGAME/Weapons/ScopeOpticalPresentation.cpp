@@ -2,6 +2,7 @@
 #include "Bow/BowWeaponComponent.h"
 #include "RSH12OpticAssets.h"
 #include "ThermalScopeAssets.h"
+#include "KVScopeAssets.h"
 #include "ThermalTargetSubsystem.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -55,6 +56,7 @@ bool AFPSGAMECharacter::HasBowScope() const
 float AFPSGAMECharacter::GetOpticMagnification() const
 {
     if(Bow && Bow->IsEquipped())return Bow->ScopeMagnification();
+    if(OpticVariant==KVScopeAssets::Id)return KVScopeAssets::Magnification(LPVOMagnification);
     if(HasThermalScope()){constexpr float Steps[]={1.5f,3.f,8.f};return Steps[FMath::Min<int32>(ThermalZoomIndex,2)];}
     // The RSH's retained EOTH model is now its fixed 1.5x tactical square sight.
     if(IsRSH12Weapon() && RSH12OpticAssets::Upgrade(OpticVariant)==RSH12OpticAssets::TacticalSquare)return 1.5f;
