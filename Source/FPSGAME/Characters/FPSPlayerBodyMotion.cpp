@@ -143,6 +143,7 @@ void UFPSPlayerBodyComponent::CaptureMotionHand(USkeletalMeshComponent* Source,F
 }
 void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
 {
+    State.ConsumeHands=0;State.ConsumeStowWeight=0.f;State.bConsumeWeaponsHidden=false;
     auto& Sample=State.Contacts;Sample=FFPSBodyMotionSample();auto* Pawn=Character.Get();if(!Pawn||!GetBodyMesh())return;
     const auto* Magic=Pawn->FindComponentByClass<UFPSFireballComponent>();
     const auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
@@ -392,6 +393,9 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             State.bHasActionProgress=true;
             State.ActionProgress=FMath::Clamp(Age/FMath::Max(Use.Duration,SMALL_NUMBER),0.f,1.f);
             State.ActionWeight=Use.Layer(Age);
+            State.ConsumeHands=Potion->IsTwoHanded()?3:2;
+            State.ConsumeStowWeight=Potion->OffhandLowerWeight();
+            State.bConsumeWeaponsHidden=Potion->IsOffhandWeaponHidden();
             State.ContactFraction=Use.DrinkStart/Use.Duration;
             State.ReleaseFraction=Use.DrinkEnd/Use.Duration;
             State.ActionEntryFraction=Use.Grab/Use.Duration;
@@ -434,7 +438,10 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
     }
     else PendingDiscardFlags=0;
     if(FPSBodyPoses::Traversing(State.Motion)||State.Action==EFPSBodyAction::Dead)
-    {Sample.Wrists=Sample.Fingers=0;Sample.PropVisibility=0;Sample.HasSupportGrip=false;Sample.Light=0.f;Sample.FloatingBook=false;Sample.BookPose.Reset();}
+    {
+        Sample.Wrists=Sample.Fingers=0;Sample.PropVisibility=0;Sample.HasSupportGrip=false;Sample.Light=0.f;Sample.FloatingBook=false;Sample.BookPose.Reset();
+        State.ConsumeHands=0;State.ConsumeStowWeight=0.f;State.bConsumeWeaponsHidden=false;
+    }
 }
 
 bool UFPSPlayerBodyComponent::HasMatchingMotionRig(int32 Index) const
@@ -442,9 +449,14 @@ bool UFPSPlayerBodyComponent::HasMatchingMotionRig(int32 Index) const
     if(!MotionBindings.IsValidIndex(Index)||!DisplayState.Contacts.Rigs.IsValidIndex(Index))return false;
     const auto& Binding=MotionBindings[Index];const auto& Rig=DisplayState.Contacts.Rigs[Index];
     const auto& Weapon=Binding.Definition;
-    const FString& Instance=Weapon.AttachHand==1?DisplayState.OffhandInstance:DisplayState.WeaponInstance;
+    // Books/tools also have instance identity. Their GunInstance is empty, so
+    // checking only guns let an old same-schema sample drive a replacement item.
+    // A bow attaches to the left hand but still belongs to the main slot.
+    const bool Offhand=Weapon.AttachHand==1&&Weapon.PoseFamily!=TEXT("Bow");
+    const FString& Instance=Offhand?DisplayState.OffhandInstance:DisplayState.WeaponInstance;
+    const FString& Expected=!Weapon.ItemInstance.IsEmpty()?Weapon.ItemInstance:Weapon.GunInstance;
     return Rig.Valid&&Rig.Schema==Weapon.MotionSchema&&Rig.Bones.Num()==Weapon.MotionBones.Num()
-        &&Rig.Parts.Num()==Binding.Parts.Num()&&(Weapon.GunInstance.IsEmpty()||Weapon.GunInstance==Instance);
+        &&Rig.Parts.Num()==Binding.Parts.Num()&&(Expected.IsEmpty()||Expected==Instance);
 }
 
 void UFPSPlayerBodyComponent::ApplyMotion(float Delta)

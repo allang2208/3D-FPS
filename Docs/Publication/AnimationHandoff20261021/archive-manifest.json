@@ -1,0 +1,114 @@
+[
+  {
+    "source": "SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\aim-detail.png",
+    "destination": "trash\\animation-handoff-retired-20261021\\SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\aim-detail.png",
+    "bytes": 1105118,
+    "sha256": "84084d5f65b1392d7c72dddcaac1c40241719a1afb16eaf8e3829cea03602407",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\aim.png",
+    "destination": "trash\\animation-handoff-retired-20261021\\SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\aim.png",
+    "bytes": 929557,
+    "sha256": "aa924a38d8a848deb5450d46e34099c327967a0cfe1c74c68d013123210e3539",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\candidate.json",
+    "destination": "trash\\animation-handoff-retired-20261021\\SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\candidate.json",
+    "bytes": 264107,
+    "sha256": "3575ebfc0811decbe6b2fe8e67f3b084ccdabf09ea2d53c4781d0e3c5bee7b38",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\hip.png",
+    "destination": "trash\\animation-handoff-retired-20261021\\SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\hip.png",
+    "bytes": 923522,
+    "sha256": "084ea15f8bd6a6238b9c8674e830e94b846b6a7bcf7a2aea7ce4235d42c1dd87",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\pose_controls.json",
+    "destination": "trash\\animation-handoff-retired-20261021\\SourceAssets\\PistolBookPoseV4_20261020\\BeforeBookDown\\pose_controls.json",
+    "bytes": 814,
+    "sha256": "6d599ed52c597fdfaf3e97263124b4c14b06dde57f2e72ce153ba2c96c4d840f",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBrace20261020-003001\\SpellbookComponent.cpp",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBrace20261020-003001\\SpellbookComponent.cpp",
+    "bytes": 22522,
+    "sha256": "4b827aa4ffa5bd8821fed72560fb5394e4466f984d2b449988d4a51740044035",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBrace20261020-003001\\SpellbookComponent.h",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBrace20261020-003001\\SpellbookComponent.h",
+    "bytes": 6245,
+    "sha256": "8a4c4bb21a67606326bcb0c3513cd2486ad8ebda38679d800eec88e1cbaafe67",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+    "bytes": 280711,
+    "sha256": "65f14571d79d03e9f56b1974611cd4014a0f0c2f62beb6c867b03ad65683f91f",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\FPSOutfitArmClearance.cpp",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\FPSOutfitArmClearance.cpp",
+    "bytes": 9841,
+    "sha256": "b9909d0b9304943dc244928662f160adaaed87a99b43e72c70524fb245ade055",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookComponent.h",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookComponent.h",
+    "bytes": 7026,
+    "sha256": "7baca8a9c7b4dbeda33b65ea2d33678e915a841ef338ee5f548f3b79bc8eda42",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupport.cpp",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupport.cpp",
+    "bytes": 8037,
+    "sha256": "77f5554ca88d12bdb2f46c1cbb7668391840dae8b85fda36c26ad6fc1e104b5f",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupportTuning.h",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceFraming20261020-090559\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupportTuning.h",
+    "bytes": 741,
+    "sha256": "4d4c012b7969fe2dd5f223b04a407258e37fe82a390df47d38c73a9c2c6d578c",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceCompact20261020-091913\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookComponent.h",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceCompact20261020-091913\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookComponent.h",
+    "bytes": 7236,
+    "sha256": "7ef9c75c3a2399e353c82a74769736fa8a119ffd4fec636e603d0391eaea0dba",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceCompact20261020-091913\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupport.cpp",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceCompact20261020-091913\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupport.cpp",
+    "bytes": 7988,
+    "sha256": "3383973ff292c94c5d4ecf84614b42e91f1f8143cfe1eef7faf9b024ad7cce49",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Saved\\TaskBackups\\PistolBookBraceCompact20261020-091913\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupportTuning.h",
+    "destination": "trash\\animation-handoff-retired-20261021\\Saved\\TaskBackups\\PistolBookBraceCompact20261020-091913\\Source\\FPSGAME\\Weapons\\Spellbook\\SpellbookPistolSupportTuning.h",
+    "bytes": 1052,
+    "sha256": "0fc169cf586e0421bf942bf5d7e03d6d351061d741113d7a6c537a9770800771",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  },
+  {
+    "source": "Tools\\PlayerBody\\publish_jason.py",
+    "destination": "trash\\animation-handoff-retired-20261021\\Tools\\PlayerBody\\publish_jason.py",
+    "bytes": 3915,
+    "sha256": "130814272b92f08ee99f5b12f93fe654189b41653f5f6241ebd3b17b628a9263",
+    "reason": "Superseded pistol-book candidate/source backup or retired whole-library bootstrap; active V4/V5 and hammer recovery inputs retained"
+  }
+]

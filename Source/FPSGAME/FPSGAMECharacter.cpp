@@ -32,6 +32,7 @@
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
+#include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
 #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "Movement/FPSDoorPushComponent.h"
 #include "Weapons/FrostRuneVisualDiagnosis.h"
@@ -1208,6 +1209,7 @@ void AFPSGAMECharacter::AimReleased()
 
 void AFPSGAMECharacter::ReloadPressed()
 {
+    if(IsOffhandReloadTransition())return;
     InterruptWeaponInspection();
     if(IsChoosingAmmo())return;
     if(HasOffhandPistol()){DualPistols->Reload();return;}
@@ -1230,6 +1232,7 @@ void AFPSGAMECharacter::ReloadPressed()
         return;
     }
     if (bUseM16) FireReleased();
+    if(TryBeginOffhandReload())return;
     bRevolverReloadAfterFire = false;
     bReloadAfterCasting=false;
     bRevolverSingleReload = bUseDanWesson715 && !bRevolverSpeedloaderInstalled;
@@ -1880,6 +1883,7 @@ void AFPSGAMECharacter::TryBufferedJump()
 
 void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
 {
+    AdvanceOffhandReload();
     if(HasOffhandPistol())
     {
         // BeginPlay used to start a single-gun equip after AttachPawn had
@@ -1991,7 +1995,7 @@ void AFPSGAMECharacter::SetAimingState(bool bNewAiming)
     if(HasOffhandPistol() || (Staff&&Staff->IsEquipped()))bNewAiming=false;
     // A waiting cast leaves existing ADS untouched until the player releases it.
     // An active cast cannot enter ADS through input or an action-completion callback.
-    if(bNewAiming && IsCastingWithLeftHand())bNewAiming=false;
+    if(bNewAiming && (IsCastingWithLeftHand()||IsOffhandReloadTransition()))bNewAiming=false;
     if (bIsAiming == bNewAiming) return;
     // Finish the old direction at the input/state-change time. A new transition
     // cannot consume time from before that event, including on a hitch frame.
@@ -2468,6 +2472,13 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const FTransform JumpPose = GetWeaponJumpTransform(bPistol ? EFirstPersonJumpRig::Pistol : EFirstPersonJumpRig::Rifle);
     TargetLocation = JumpPose.TransformPosition(TargetLocation);
     TargetRotation = JumpPose.GetRotation() * TargetRotation;
+    if(bPistol&&Spellbook&&Spellbook->IsEquipped())
+    {
+        // Low carry opens the hip silhouette. ADS uses the native calibrated
+        // sight distance; the book reads this frame's final wrist afterward.
+        TargetLocation+=FMath::Lerp(SpellbookPistolSupport::HipFraming,
+            SpellbookPistolSupport::AimFraming,WeaponADSFactor)*Spellbook->PistolSupportFramingWeight();
+    }
     AKMViewmodel->SetRelativeLocation(TargetLocation);
     AKMViewmodel->SetRelativeRotation(TargetRotation);
     // The gunsmith side view uses the actual equipped assembly and its attachments.
@@ -3157,6 +3168,7 @@ void AFPSGAMECharacter::FinishWeaponAction()
 void AFPSGAMECharacter::FinishReload()
 {
     if(IsTubeShotgunWeapon()){FinishSuper90Reload();return;}
+    ReturnOffhandAfterReload();
     // Ammunition was committed at insertion. The tail only returns the pose.
     RecoilPatternIndex = 0;
     bPendingEmptyReload = false;
@@ -3532,6 +3544,7 @@ bool AFPSGAMECharacter::IsSpellHandBusy() const
 }
 bool AFPSGAMECharacter::IsLeftHandBusyForCast(bool bIgnoreDoorPush) const
 {
+    if(IsOffhandReloadTransition())return true;
     if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     if(Staff&&Staff->IsEquipped()&&!Staff->CanBeginCast())return true;
@@ -3575,6 +3588,7 @@ bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&S
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
 {
+    CancelOffhandReload();
     InterruptWeaponInspection();
     if(DoorPush)DoorPush->Cancel();
     if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
@@ -3599,6 +3613,7 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
 }
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction(bool bIgnoreDoorPush) const
 {
+    if(IsOffhandReloadTransition())return true;
     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
     if(const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();Bash&&Bash->IsOccupyingLeftHand())return true;
@@ -3669,6 +3684,7 @@ bool AFPSGAMECharacter::IsWeaponBusy(bool bAllowInspection) const
 }
 bool AFPSGAMECharacter::IsWeaponBusyForAim(bool bAllowInspection) const
 {
+    if(IsOffhandReloadTransition())return true;
     const bool bGunBusy=HasOffhandPistol()?DualPistols->IsReloading():
         (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
     return IsDoorPushActive() || IsTraversing() || Traversal->IsWeaponRecovering() || (RuneSword && RuneSword->IsBusy()) ||

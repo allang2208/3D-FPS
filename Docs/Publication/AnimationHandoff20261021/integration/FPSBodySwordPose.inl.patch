@@ -1,0 +1,144 @@
+--- a/Source/FPSGAME/Characters/FPSBodySwordPose.inl
++++ b/Source/FPSGAME/Characters/FPSBodySwordPose.inl
+@@ -5,10 +5,26 @@
+     SwordSupportThumbWeight=0.f;
+     static const FName GripRollCurve(TEXT("SwordGripRoll"));
+     static const FName GripSlideCurve(TEXT("SwordGripSlide"));
++    const bool Warhammer=State.Family==TEXT("Tool")&&State.Weapon==TEXT("warhammer");
++    if(!Warhammer)
++    {
++        HammerVisiblePose.Reset();HammerPreviousPose.Reset();HammerEntryVelocity.Reset();
++        bHasHammerGripHistory=false;HammerHistoryDelta=0.f;HammerHipLast=FVector::ZeroVector;
++    }
+     if(SwordWeight<=ZERO_ANIMWEIGHT_THRESH)
+     {
+         LastSwordPose.Reset();SwordEntryPose.Reset();LastSwordGripRoll=0.f;SwordEntryGripRoll=0.f;
+         LastSwordGripSlide=0.f;SwordEntryGripSlide=0.f;
++        // Retain the evaluated live carry for the next lift. The entry must
++        // start at the last visible arms, including the sprint's low grip.
++        if(Warhammer)
++        {
++            RememberHammerPose(Out,Pose);HammerHipLast=FVector::ZeroVector;
++            FPoseContext Carry(Out);Carry.Pose=Pose.GetPose();
++            FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Carry.Pose);
++            LastSwordPose.SetNum(Carry.Pose.GetNumBones());
++            for(int32 I=0;I<LastSwordPose.Num();++I)LastSwordPose[I]=Carry.Pose[FCompactPoseBoneIndex(I)];
++        }
+         Out.Curve.Set(GripRollCurve,0.f);Out.Curve.Set(GripSlideCurve,0.f);return;
+     }
+     if(bStaffAttackLibrary&&bStaffNativeStrike&&State.Family==TEXT("Staff"))
+@@ -24,11 +40,44 @@
+     Out.Pose=Pose.GetPose();
+     FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
+     FPoseContext Authored(Out);Sword.Evaluate(Authored);
++    const bool ContinuousHammer=Warhammer&&bHammerContinuousGrip;
++    FTransform HammerCarryGrip=FTransform::Identity,HammerSourceGrip=FTransform::Identity;
++    if(ContinuousHammer&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++    {
++        const auto Right=Hands[0].GetCompactPoseIndex(Bones),Left=Hands[1].GetCompactPoseIndex(Bones);
++        HammerCarryGrip=Pose.GetComponentSpaceTransform(Left).GetRelativeTransform(Pose.GetComponentSpaceTransform(Right));
++        FCSPose<FCompactPose> RawSource;RawSource.InitPose(Authored.Pose);
++        HammerSourceGrip=RawSource.GetComponentSpaceTransform(Left).GetRelativeTransform(RawSource.GetComponentSpaceTransform(Right));
++    }
+     SwordSupportThumbWeight=bSwordNativeGrip?FMath::Clamp(Authored.Curve.Get(TEXT("SwordSupportThumb")),0.f,1.f)*SwordWeight:0.f;
+     if(bSwordChanged)
+-    {SwordEntryPose=LastSwordPose;SwordEntryGripRoll=LastSwordGripRoll;SwordEntryGripSlide=LastSwordGripSlide;SwordTransitionAge=0.f;}
++    {
++        SwordEntryPose=ContinuousHammer&&!HammerVisiblePose.IsEmpty()?HammerVisiblePose:LastSwordPose;
++        if(State.ActionVariant==TEXT("ZhufengWhirlwind"))
++        {
++            // A sprint release starts from the evaluated carry on this frame,
++            // not a stale ordinary strike retained from the previous action.
++            SwordEntryPose.SetNum(Out.Pose.GetNumBones());
++            for(int32 I=0;I<SwordEntryPose.Num();++I)SwordEntryPose[I]=Out.Pose[FCompactPoseBoneIndex(I)];
++        }
++        SwordEntryGripRoll=LastSwordGripRoll;SwordEntryGripSlide=LastSwordGripSlide;SwordTransitionAge=0.f;
++        HammerGripEntry=bHasHammerGripHistory?HammerGripLast:HammerCarryGrip;HammerHipEntry=HammerHipLast;
++        HammerEntryVelocity.Init(FVector::ZeroVector,SwordEntryPose.Num());
++        if(ContinuousHammer&&HammerPreviousPose.Num()==SwordEntryPose.Num()&&HammerHistoryDelta>SMALL_NUMBER)
++            for(int32 I=0;I<HammerEntryVelocity.Num();++I)
++            {
++                FQuat Motion=(SwordEntryPose[I].GetRotation()*HammerPreviousPose[I].GetRotation().Inverse()).GetNormalized();
++                if(Motion.W<0.f)Motion=Motion*-1.f;
++                HammerEntryVelocity[I]=Motion.ToRotationVector()/HammerHistoryDelta;
++            }
++    }
+     SwordTransitionAge+=Delta;
+-    const float Transition=Ease(SwordTransitionAge/.08f);
++    const float Transition=Ease(SwordTransitionAge/SwordTransitionSeconds);
++    if(ContinuousHammer)
++    {
++        const FVector Effort(Authored.Curve.Get(TEXT("HammerHipX")),Authored.Curve.Get(TEXT("HammerHipY")),Authored.Curve.Get(TEXT("HammerHipZ")));
++        HammerHipLast=FMath::Lerp(HammerHipEntry,Effort,Transition);
++    }
+     const float RollSin=Authored.Curve.Get(TEXT("SwordGripRollSin"));
+     const float RollCos=Authored.Curve.Get(TEXT("SwordGripRollCos"));
+     // A full physical turn closes at the same grip. Interpolating an unwrapped
+@@ -52,7 +101,14 @@
+         const FCompactPoseBoneIndex B(I);
+         if(Transition<1.f&&SwordEntryPose.Num()==LastSwordPose.Num())
+         {
+-            FTransform Blended;Blended.Blend(SwordEntryPose[I],Authored.Pose[B],Transition);
++            FTransform Entry=SwordEntryPose[I];
++            if(ContinuousHammer&&SwordUpperBones[I]&&HammerEntryVelocity.IsValidIndex(I))
++            {
++                const float U=FMath::Clamp(SwordTransitionAge/SwordTransitionSeconds,0.f,1.f);
++                const FVector Continue=(HammerEntryVelocity[I]*(SwordTransitionAge*FMath::Square(1.f-U))).GetClampedToMaxSize(FMath::DegreesToRadians(12.f));
++                Entry.SetRotation((FQuat::MakeFromRotationVector(Continue)*Entry.GetRotation()).GetNormalized());
++            }
++            FTransform Blended;Blended.Blend(Entry,Authored.Pose[B],Transition);
+             Authored.Pose[B]=Blended;
+         }
+         LastSwordPose[I]=Authored.Pose[B];
+@@ -88,6 +144,7 @@
+     const auto HipIndex=Pelvis.GetCompactPoseIndex(Bones);
+     const auto ChestIndex=ChestBase.GetCompactPoseIndex(Bones);
+     const FTransform BaseChest=Pose.GetComponentSpaceTransform(ChestIndex);
++    const FQuat BaseMiddle=Pose.GetComponentSpaceTransform(Bones.GetParentBoneIndex(Spine.GetCompactPoseIndex(Bones))).GetRotation();
+     // Whirlwind assets are authored in actor space. Their donor root rotation
+     // is removed offline, preserving the pelvis/chest windup and follow-through.
+     // Trace seeds remain pre-correction. Grounding the already corrected output
+@@ -137,6 +194,24 @@
+     FTransform MixedChest;MixedChest.Blend(BaseChest,Chest,SwordWeight);
+     TArray<FBoneTransform,TInlineAllocator<1>> ChestChange;ChestChange.Emplace(ChestIndex,MixedChest);
+     Pose.LocalBlendCSBoneTransforms(ChestChange,1.f);
++    if(ContinuousHammer)
++    {
++        BlendHammerWaist(Pose,BaseChest.GetRotation(),BaseMiddle);
++        if((Transition<1.f||SwordWeight<.999f)&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++        {
++            // Interpolating both arm chains alone can separate the palm from
++            // the shaft. Correct only the support contact during transitions;
++            // the fully blended authored pose needs no second arm solve.
++            FTransform AnimatedGrip,SupportGrip;AnimatedGrip.Blend(HammerGripEntry,HammerSourceGrip,Transition);
++            SupportGrip.Blend(HammerCarryGrip,AnimatedGrip,SwordWeight);
++            const auto W=Hands[1].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),S=Bones.GetParentBoneIndex(E);
++            const FVector Shoulder=Pose.GetComponentSpaceTransform(S).GetLocation();
++            FLegReference Arm;Arm.Set(Shoulder,Pose.GetComponentSpaceTransform(E).GetLocation(),Pose.GetComponentSpaceTransform(W).GetLocation());
++            auto Target=SupportGrip*Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones));
++            Target.SetLocation(Arm.Reachable(Shoulder,Target.GetLocation()));
++            Solve(Pose,Hands[1],Target,Arm.Pole(Shoulder,Target.GetLocation()),1.f);
++        }
++    }
+     for(int32 I=0;I<2;++I)if((LibraryPreserveHands&(1<<I))&&Hands[I].IsValidToEvaluate(Bones))
+     {
+         const auto W=Hands[I].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),S=Bones.GetParentBoneIndex(E);
+@@ -149,7 +224,11 @@
+         for(int32 I=0;I<2;++I)if(Hands[I].IsValidToEvaluate(Bones))LastHands[I]=Pose.GetComponentSpaceTransform(Hands[I].GetCompactPoseIndex(Bones));
+         bHasHandHistory=true;bHadSwordPair=false;
+     }
+-    else if(bLeftGrip&&!bSwordNativeGrip&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
++    // Native takes already own both arms, including their anatomical wrist fit.
++    // Re-solving a partially blended hammer pose forces the old carry's wrist
++    // frame back into it and bypasses the authored joint limits.
++    else if(bLeftGrip&&!bSwordNativeGrip&&
++        Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
+     {
+         FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),FTransform::Identity};
+         Targets[1]=LeftGrip*Targets[0];
+@@ -179,4 +258,5 @@
+         LastSwordTorso=Pose.GetComponentSpaceTransform(Spine.GetCompactPoseIndex(Bones));
+         LastSwordTorso.SetScale3D(FVector::OneVector);bHadSwordPair=true;bHasHandHistory=true;
+     }
++    if(Warhammer)RememberHammerPose(Out,Pose);
+ }

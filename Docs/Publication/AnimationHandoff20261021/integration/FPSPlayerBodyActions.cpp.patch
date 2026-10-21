@@ -1,0 +1,150 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -152,21 +152,130 @@
+     }
+     if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsEquipped())
+     {
++        // Shared FPS motion does not change equipment identity. Warhammer also
++        // UsesPickaxeMotion(), but its world animation/head/grip paths require
++        // "warhammer"; labelling it "pickaxe" bypasses every authored body take.
+         State.Family=TEXT("Tool");State.Weapon=FName(*Tool->Kind);State.ActionVariant=State.Weapon;State.Action=EFPSBodyAction::None;
+-        if(Tool->EquipElapsed>=0.f)
++        // Replicate readiness as a presentation variant. The world body owns
++        // its supported running carry instead of copying the FPS drag pose.
++        if(Tool->Kind==TEXT("warhammer")&&Tool->DashReadyFraction()>=1.f-UE_SMALL_NUMBER)
++            State.ActionVariant=TEXT("WarhammerSprintReady");
++        if(Tool->IsGuardActive()&&Pawn->RuneSword)
++        {
++            const auto* Guard=Pawn->RuneSword.Get();
++            FName Clip;float PoseSeconds=0.f,Age=0.f;
++            Guard->GetToolGuardPose(Clip,PoseSeconds,Age);
++            const auto* Animation=Tool->Motions.FindRef(Clip).Get();
++            if(Guard->bGuardBreakPose)
++            {
++                Timed(EFPSBodyAction::GuardBreak,Age,Animation?Animation->GetPlayLength():1.5f);
++                State.ActionVariant=TEXT("WarhammerGuardBreak");
++            }
++            else if(Guard->bGuardReacting)
++            {
++                Timed(EFPSBodyAction::GuardHit,Age,Animation?Animation->GetPlayLength():.3f,Guard->GuardReactionRate);
++                State.ActionVariant=TEXT("WarhammerGuardHit");
++            }
++            else if(Clip==TEXT("GuardHold"))
++            {
++                Timed(EFPSBodyAction::Guard,Age,WarhammerGuard::HoldSeconds);
++                State.ActionVariant=TEXT("WarhammerGuardHold");
++            }
++            else if(Clip==TEXT("GuardExit"))
++            {
++                Timed(EFPSBodyAction::Guard,Age,WarhammerGuard::ExitSeconds);
++                State.ActionVariant=TEXT("WarhammerGuardExit");
++                State.ActionWeight=1.f-State.ActionProgress;
++            }
++            else
++            {
++                Timed(EFPSBodyAction::Guard,Guard->GuardPoseTime,Guard->GuardRaiseSeconds());
++                State.ActionWeight=FMath::Clamp(Guard->GuardPoseTime/Guard->GuardRaiseSeconds(),0.f,1.f);
++                State.ActionVariant=Guard->bReturningGuard?TEXT("WarhammerGuardLower"):TEXT("WarhammerGuardEnter");
++                if(Guard->bReturningGuard)State.ActionProgressRate=-1.f/WarhammerGuard::ExitSeconds;
++            }
++        }
++        else if(Tool->bBluntWhirlwind)
++        {
++            const auto& W=Tool->BluntWhirlwindTuning;const float End=W.ReadySeconds+W.SpinSeconds+W.RecoverSeconds;
++            Timed(EFPSBodyAction::Whirlwind,Tool->BluntWhirlwindTime,End);
++            State.ActionVariant=TEXT("WarhammerWhirlwind");
++            State.ContactFraction=W.ReadySeconds/End;State.ReleaseFraction=(W.ReadySeconds+W.SpinSeconds)/End;
++            State.WhirlwindTurns=W.TurnDegrees/360.f;
++            if(Tool->BluntWhirlwindPause>0.f)State.ActionProgressRate=0.f;
++        }
++        else if(Tool->bBluntUppercut)
++        {
++            const float End=RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End);
++            Timed(EFPSBodyAction::HeavyStrike,Tool->BluntUppercutTime,End);
++            State.ActionVariant=TEXT("WarhammerUppercut");
++            // Use real skill beats: the strike lands with the planted step,
++            // not at the earlier beginning of the lunge/FPS pose clock.
++            State.ActionEntryFraction=WarhammerUppercutMotion::StrikeStart/End;
++            State.ContactFraction=RuneSwordUppercutMotion::SkillLungePlaybackEnd/End;
++            State.ReleaseFraction=WarhammerUppercutMotion::StrikeFinish/End;
++            if(Tool->BluntUppercutPause>UE_SMALL_NUMBER)State.ActionProgressRate=0.f;
++            State.bUppercutLungeBlocked=Tool->bBluntUppercutLungeBlocked;
++        }
++        else if(Tool->bBluntCharging||Tool->bBluntReturningCharge)
++        {
++            Timed(EFPSBodyAction::Charge,Tool->BluntChargePoseSeconds(),WarhammerHeavy::ChargeSeconds,
++                WarhammerHeavy::ChargeSeconds/FMath::Max(.01f,Tool->BluntChargeSeconds));
++            State.ActionVariant=TEXT("WarhammerCharge");
++            if(Tool->bBluntReturningCharge)
++            {
++                State.ActionProgressRate=0.f;
++                State.ActionProgress=FMath::Clamp(Tool->BluntChargeReturnFrom/WarhammerHeavy::ChargeSeconds,0.f,1.f);
++                State.ActionWeight=1.f-FMath::SmoothStep(0.f,Tool->BluntChargeReturnDuration,Tool->BluntChargeReturnAge);
++            }
++        }
++        else if(Tool->EquipElapsed>=0.f)
+         {
+             UAnimSequence* Clip=Tool->Motions.FindRef(TEXT("Equip"));
+             Timed(EFPSBodyAction::Equip,Tool->EquipElapsed,Clip?Clip->GetPlayLength():.6f);
+         }
+         else if(Tool->Elapsed>=0.f)
+         {
+-            Timed(EFPSBodyAction::HeavyStrike,Tool->Elapsed*Tool->RateScale,Tool->SwingSeconds,Tool->RateScale);
++            const bool Diagonal=Tool->Kind==TEXT("warhammer")&&!Tool->bBluntHeavy&&Tool->BluntStage<2;
++            if(Tool->Kind==TEXT("warhammer")&&!Tool->bBluntHeavy)
++                State.ActionVariant=Tool->BluntStage==0?TEXT("WarhammerSlash1"):Tool->BluntStage==1?TEXT("WarhammerSlash2"):TEXT("WarhammerSlash3");
++            else if(Tool->bBluntHeavy)State.ActionVariant=Tool->bBluntSprintAttack?TEXT("WarhammerSprintSlam"):TEXT("WarhammerSlam");
++            const float ToolTime=Tool->AuthoredElapsed();
++            const bool SprintLift=Tool->bBluntSprintAttack&&ToolTime<0.f;
++            const bool GroundHold=Tool->bBluntHeavy&&ToolTime>=WarhammerHeavy::Contact&&ToolTime<=WarhammerHeavy::HoldEnd;
++            Timed(Diagonal?EFPSBodyAction::Strike:EFPSBodyAction::HeavyStrike,ToolTime,Tool->SwingSeconds,GroundHold?1.f:Tool->BluntMotionRate());
++            if(SprintLift)
++            {
++                State.ActionVariant=TEXT("WarhammerSprintLift");
++                Timed(EFPSBodyAction::Charge,Tool->Elapsed,WarhammerSprint::LiftSeconds);
++            }
+             State.ContactFraction=Tool->ContactSeconds/FMath::Max(.01f,Tool->SwingSeconds);
+-            if(Tool->bHitConfirmed)
++            if(Tool->Kind==TEXT("warhammer")&&Tool->bBluntHeavy)
++                State.ReleaseFraction=(Tool->ContactSeconds+.12f)/FMath::Max(.01f,Tool->SwingSeconds);
++            if(Tool->Kind==TEXT("warhammer")&&!Tool->bBluntHeavy)
++            {
++                // Non-linear clip clock: report its real rate so remote progress
++                // extrapolation follows the hold/release instead of a flat rate.
++                Timed(Diagonal?EFPSBodyAction::Strike:EFPSBodyAction::HeavyStrike,
++                    Tool->BluntClipTime(),ProductionBluntCombo::SwingSeconds,Tool->BluntClipRate());
++                State.ContactFraction=ProductionBluntCombo::ContactSeconds/ProductionBluntCombo::SwingSeconds;
++                State.ActionEntryFraction=ProductionBluntCombo::Apex(Tool->BluntStage)/ProductionBluntCombo::SwingSeconds;
++                State.ReleaseFraction=ProductionBluntCombo::Turn(Tool->BluntStage)/ProductionBluntCombo::SwingSeconds;
++                // A chained cut's hands already show its early load; ease the body
++                // effort in from the previous cut's settled torso instead of popping.
++                if(Tool->BluntStartClip>0.f)State.ActionWeight=FMath::SmoothStep(0.f,.22f,Tool->Elapsed);
++            }
++            if(Tool->bHitConfirmed&&!Tool->bBluntHeavy)
+             {
+                 const float Recover=Tool->Kind==TEXT("axe")?Tool->AxeMotion.HitRecoverSeconds:
+-                    Tool->Kind==TEXT("pickaxe")?ProductionPickaxeImpact::HitRecoverSeconds:Tool->SwingSeconds-Tool->ContactSeconds;
++                    Tool->Kind==TEXT("warhammer")?ProductionBluntCombo::HitRecoverSeconds:
++                    Tool->UsesPickaxeMotion()?ProductionPickaxeImpact::HitRecoverSeconds:Tool->SwingSeconds-Tool->ContactSeconds;
+                 Timed(EFPSBodyAction::ToolRecover,Tool->Elapsed*Tool->RateScale-Tool->ContactSeconds,Recover,Tool->RateScale);
++                if(Tool->Kind==TEXT("warhammer"))
++                {
++                    State.ActionEntryFraction=0.f;State.ContactFraction=0.f;
++                    State.ReleaseFraction=.10f/FMath::Max(.01f,Recover);
++                }
+             }
+         }
+     }
+@@ -183,6 +292,12 @@
+             State.ActionVariant=Hands&&Hands->GetPunchSide()==0?TEXT("PunchLeft"):TEXT("PunchRight");
+         }
+         if(Bash->GetStyle()==EQuickCombatStyle::SpellbookPush)State.ActionVariant=TEXT("SpellbookPush");
++        if(Bash->GetStyle()==EQuickCombatStyle::Warhammer)
++        {
++            State.ActionVariant=TEXT("WarhammerHeadThrust");
++            State.ActionEntryFraction=WarhammerQuickCombat::Prepare/WarhammerQuickCombat::Length;
++            State.ReleaseFraction=WarhammerQuickCombat::Follow/WarhammerQuickCombat::Length;
++        }
+     }
+     // IsCastingWithLeftHand intentionally includes gun bash for input arbitration.
+     // Both staff and left-palm presentation read the actual gesture clock.

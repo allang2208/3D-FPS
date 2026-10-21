@@ -1,0 +1,171 @@
+{
+  "scope": "Restored warhammer third-person routes, 2026-10-20; local integration snapshot, not new user visual acceptance",
+  "config": "Content/ColdSteelData/player_body.json",
+  "roles": {
+    "Warhammer.FullBody.Slash1": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1.J_Hammer_Natural_Slash1",
+    "Warhammer.FullBody.Slash2": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2.J_Hammer_Natural_Slash2",
+    "Warhammer.FullBody.Slash3": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/Slash3AlignmentV18/Animations/J_Hammer_Aligned_Slash3.J_Hammer_Aligned_Slash3",
+    "Warhammer.FullBody.Slash1Recover": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1.J_Hammer_Natural_Slash1",
+    "Warhammer.FullBody.Slash2Recover": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2.J_Hammer_Natural_Slash2",
+    "Warhammer.FullBody.Slash3Recover": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/Slash3AlignmentV18/Animations/J_Hammer_Aligned_Slash3.J_Hammer_Aligned_Slash3",
+    "Warhammer.FullBody.Charge": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "Warhammer.FullBody.Slam": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "Warhammer.FullBody.SprintLift": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "Warhammer.FullBody.SprintSlam": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "Warhammer.FullBody.Uppercut": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1",
+    "Warhammer.FullBody.Whirlwind.Start": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindStart.J_Hammer_Anatomical_WhirlwindStart",
+    "Warhammer.FullBody.Whirlwind.Loop": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindLoop.J_Hammer_Anatomical_WhirlwindLoop",
+    "Warhammer.FullBody.Whirlwind.End": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindEnd.J_Hammer_Anatomical_WhirlwindEnd",
+    "Warhammer.FullBody.GuardEnter": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter",
+    "Warhammer.FullBody.GuardHold": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHold.J_Hammer_Anatomical_GuardHold",
+    "Warhammer.FullBody.GuardHit": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit",
+    "Warhammer.FullBody.Carry": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle.J_Hammer_Idle",
+    "Warhammer.FullBody.SprintCarry": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle.J_Hammer_Idle",
+    "Warhammer.Idle": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle.J_Hammer_Idle",
+    "Warhammer.Walk.Fwd": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd.J_Hammer_Gait_Fwd",
+    "Warhammer.Walk.Fwd_Right": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Right.J_Hammer_Gait_Fwd_Right",
+    "Warhammer.Walk.Right": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Right.J_Hammer_Gait_Right",
+    "Warhammer.Walk.Bwd_Right": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Right.J_Hammer_Gait_Bwd_Right",
+    "Warhammer.Walk.Bwd": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd.J_Hammer_Gait_Bwd",
+    "Warhammer.Walk.Bwd_Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Left.J_Hammer_Gait_Bwd_Left",
+    "Warhammer.Walk.Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Left.J_Hammer_Gait_Left",
+    "Warhammer.Walk.Fwd_Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Left.J_Hammer_Gait_Fwd_Left",
+    "Warhammer.Jog.Fwd": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd.J_Hammer_Gait_Fwd",
+    "Warhammer.Jog.Fwd_Right": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Right.J_Hammer_Gait_Fwd_Right",
+    "Warhammer.Jog.Right": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Right.J_Hammer_Gait_Right",
+    "Warhammer.Jog.Bwd_Right": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Right.J_Hammer_Gait_Bwd_Right",
+    "Warhammer.Jog.Bwd": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd.J_Hammer_Gait_Bwd",
+    "Warhammer.Jog.Bwd_Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Left.J_Hammer_Gait_Bwd_Left",
+    "Warhammer.Jog.Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Left.J_Hammer_Gait_Left",
+    "Warhammer.Jog.Fwd_Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Left.J_Hammer_Gait_Fwd_Left",
+    "Warhammer.FullBody.QuickMelee": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee",
+    "Warhammer.FullBody.GuardExit": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter",
+    "Warhammer.FullBody.GuardBreak": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit"
+  },
+  "required_source_files": [
+    "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h",
+    "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+    "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+    "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp"
+  ],
+  "local_asset_packages": {
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\AnatomicalGripV7\\Animations\\J_Hammer_Anatomical_GuardEnter.uasset",
+      "bytes": 369676,
+      "sha256": "0580b2a7a217062768bec797813607c7f6b89ee60507211c040af326cffbcdff"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\AnatomicalGripV7\\Animations\\J_Hammer_Anatomical_GuardHit.uasset",
+      "bytes": 435611,
+      "sha256": "6c1c0a4323fd9a81d7581c5244e64f2f36b381d004ad8f9bf85a4d5325ac6d6f"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHold.J_Hammer_Anatomical_GuardHold": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\AnatomicalGripV7\\Animations\\J_Hammer_Anatomical_GuardHold.uasset",
+      "bytes": 454376,
+      "sha256": "d822ea9b52302b2cbe96e9731d86ef691d809c07a85a80b3d702f85b79b414ea"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindEnd.J_Hammer_Anatomical_WhirlwindEnd": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\AnatomicalGripV7\\Animations\\J_Hammer_Anatomical_WhirlwindEnd.uasset",
+      "bytes": 745160,
+      "sha256": "fc6ecb22ce5e6d7daeb62500dec0fdeb69194f2175e5c3c76c2225502c7a6276"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindLoop.J_Hammer_Anatomical_WhirlwindLoop": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\AnatomicalGripV7\\Animations\\J_Hammer_Anatomical_WhirlwindLoop.uasset",
+      "bytes": 373085,
+      "sha256": "97fb446c7cf3a126f2c21d2d24aa07e12ef162dd1672e7a9e22ee1526ea757aa"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_WhirlwindStart.J_Hammer_Anatomical_WhirlwindStart": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\AnatomicalGripV7\\Animations\\J_Hammer_Anatomical_WhirlwindStart.uasset",
+      "bytes": 399395,
+      "sha256": "1281ed1dd56a0330868b11dce77946dbfef5da33fd47735dbaa523f2f5b4556b"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1.J_Hammer_Natural_Slash1": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\NaturalComboV17\\Animations\\J_Hammer_Natural_Slash1.uasset",
+      "bytes": 729609,
+      "sha256": "45e864947e36ab082573a52516bbcb56de9c109d33a37cec9b2db51126b91fec"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2.J_Hammer_Natural_Slash2": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\NaturalComboV17\\Animations\\J_Hammer_Natural_Slash2.uasset",
+      "bytes": 752205,
+      "sha256": "cbf087b3410f9380aaae0692f3351b144bcfb330a149e8544431faccaef1181e"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\RefinementV8\\Animations\\J_Hammer_Refined_QuickMelee.uasset",
+      "bytes": 460632,
+      "sha256": "8235f1d149cc22c9a076aebaf9a5a3bf2c8d6e32c26769e46852dc20911c78b5"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\RefinementV8\\Animations\\J_Hammer_Refined_Slash1.uasset",
+      "bytes": 712372,
+      "sha256": "846dd582361ba833158041272009f5695f3aaff7dad24c27871a57d1fd55de7f"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\RefinementV8\\Animations\\J_Hammer_Refined_Slash3.uasset",
+      "bytes": 675124,
+      "sha256": "f95ff495e4e878122c3fdb7e4810645e43c9b37f9c1b5917c72d4f381b66248a"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/Slash3AlignmentV18/Animations/J_Hammer_Aligned_Slash3.J_Hammer_Aligned_Slash3": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\Slash3AlignmentV18\\Animations\\J_Hammer_Aligned_Slash3.uasset",
+      "bytes": 693181,
+      "sha256": "1afb1e9aba64d4f00cf4064732f6735d9583b70ca238cedae4eebe76e16416db"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd.J_Hammer_Gait_Bwd": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Bwd.uasset",
+      "bytes": 541759,
+      "sha256": "f3d4849897732c7b6d053c2bac6bcf4a0ceda23fd175b23e669e88acda176d97"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Left.J_Hammer_Gait_Bwd_Left": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Bwd_Left.uasset",
+      "bytes": 541853,
+      "sha256": "68ddd3b046d02d128ac01354c572c0da3f87a0a8141764db861b8196d7c75947"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Bwd_Right.J_Hammer_Gait_Bwd_Right": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Bwd_Right.uasset",
+      "bytes": 546964,
+      "sha256": "09ac91828c888e23326e2ba4b565e8116bd0516adbb93134f658d60ddc6bffc3"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd.J_Hammer_Gait_Fwd": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Fwd.uasset",
+      "bytes": 584418,
+      "sha256": "bea9d189192219cd7f5c27930c93c3941112c8f0062bbddd1ccab7a9651011cd"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Left.J_Hammer_Gait_Fwd_Left": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Fwd_Left.uasset",
+      "bytes": 564893,
+      "sha256": "5af3563bf3a4b3ab260ff3a60467b0b679c16c5166c6c01f4096239821813700"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Right.J_Hammer_Gait_Fwd_Right": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Fwd_Right.uasset",
+      "bytes": 570007,
+      "sha256": "1dc8572e33ac7be1525248e61a389c307f4cab09c8b45d11a9df6ca865d1d561"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Left.J_Hammer_Gait_Left": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Left.uasset",
+      "bytes": 541765,
+      "sha256": "d4c741aabc101cb52e0f6905f906a79fc6ff39735df58c7e120c4ff583a5e2a5"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Right.J_Hammer_Gait_Right": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Gait_Right.uasset",
+      "bytes": 552011,
+      "sha256": "4cbd443cdf491c0d6eaf38ec47ec0119bf14c7f86ec4569f319b4737b66dcc59"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle.J_Hammer_Idle": {
+      "path": "Content\\Characters\\JasonPlayer20261003\\WarhammerSevarog20261016\\SourceGripV16\\Animations\\J_Hammer_Idle.uasset",
+      "bytes": 1546619,
+      "sha256": "0960013ab491907eaa46e247c83783bf96c814f380e463690aa47a200c854ab7"
+    }
+  },
+  "provenance": "Docs/Weapons/steel-warhammer-third-person-routes-restored-20261020.md",
+  "git_commit": null,
+  "git_push": null,
+  "game_tested": false,
+  "required_cook_directories": [
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/Slash3AlignmentV18/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations"
+  ]
+}

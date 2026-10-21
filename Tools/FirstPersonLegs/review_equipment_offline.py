@@ -31,6 +31,7 @@ with tempfile.TemporaryDirectory(prefix='fps-outfit-publisher-') as folder:
     root=Path(folder)
     relative=[
         'Content/ColdSteelData/player_body.json','Content/ColdSteelData/modular_outfits.json',
+        'Tools/PlayerBody/config_transaction.py',
         'Tools/BrownLeatherSet/json_entries.py','SourceAssets/OwnerBodyShared20261005/saved_shirts.json',
         'SourceAssets/SleeveSpikeRepair20261006/saved_shoulders.json']
     for rel in relative:

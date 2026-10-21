@@ -1,0 +1,27 @@
+{
+  "status": "authoring candidate; not integrated",
+  "camera_axes": "X forward, Y right, Z up; centimetres",
+  "hip": {
+    "view_translation": [2, 11, 2.5],
+    "right_shoulder": [-10, 22, -24],
+    "right_pole": [8, 36, -32],
+    "left_shoulder": [-10, -22, -24],
+    "left_wrist": [32, -17, -18],
+    "left_pole": [16, -34, -32],
+    "left_finger_direction": [0.30, 0.82, 0.25],
+    "left_dorsal_direction": [-1, 0.1, 0.1],
+    "vertical_fov": 75
+  },
+  "aim": {
+    "rear_sight_distance": 42,
+    "right_shoulder": [-10, 22, -24],
+    "right_pole": [8, 25, -48],
+    "left_shoulder": [-9, -23, -24],
+    "left_wrist_from_right": [8, 9, -8],
+    "left_pole_from_wrist": [-6, -35, 7],
+    "left_finger_direction": [0.24, 1, -0.05],
+    "left_dorsal_direction": [-0.6, 0.05, -0.8],
+    "left_hand_roll_degrees": 65,
+    "vertical_fov": 55
+  }
+}

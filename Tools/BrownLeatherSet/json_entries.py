@@ -1,5 +1,15 @@
 """Scoped JSON object entry publication helpers; preserve unrelated file text."""
 import json
+from pathlib import Path
+import runpy
+
+
+def commit_player_body(path, before, candidate, *, owned_paths, producer):
+    """Persist scoped body edits through the shared conflict-aware writer."""
+    commit = runpy.run_path(str(Path(__file__).resolve().parents[1] / 'PlayerBody/config_transaction.py'))['commit']
+    return commit(path, before, candidate, owned_paths=owned_paths, producer=producer)
+
+
 decoder=json.JSONDecoder()
 def ws(text,start):
     while text[start].isspace():start+=1

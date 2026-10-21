@@ -96,6 +96,16 @@ struct FFPSBodyState
     UPROPERTY(BlueprintReadOnly) float ActionProgress = 0.f;
     UPROPERTY(BlueprintReadOnly) float ActionWeight = 1.f;
     UPROPERTY(BlueprintReadOnly) float ReleaseFraction = .8f;
+    // Actual consumable ownership and its lower/use/raise presentation clock.
+    UPROPERTY() uint8 ConsumeHands = 0;
+    UPROPERTY() float ConsumeStowWeight = 0.f;
+    UPROPERTY() bool bConsumeWeaponsHidden = false;
+    // Non-pistol offhand handoff around a main-hand pistol reload.
+    UPROPERTY() uint8 OffhandReloadPhase = 0;
+    UPROPERTY() float OffhandReloadLowerWeight = 0.f;
+    UPROPERTY() float OffhandReloadProgress = 0.f;
+    UPROPERTY() float OffhandReloadProgressRate = 0.f;
+    UPROPERTY() bool bOffhandReloadReturnFromReload = false;
     UPROPERTY(BlueprintReadOnly) FFPSBodyHandState RightHand;
     UPROPERTY(BlueprintReadOnly) FFPSBodyHandState LeftHand;
     UPROPERTY(BlueprintReadOnly) EFPSBodyMotion Motion = EFPSBodyMotion::Ground;

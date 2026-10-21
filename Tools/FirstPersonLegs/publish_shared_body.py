@@ -42,6 +42,11 @@ for definition,shirt in saved['shirts'].items():
 if any(p.read_bytes()!=b for p,b in zip(paths,raw)):raise RuntimeError('Shared configuration changed during publication; no writes made')
 for path,before,result in zip(paths,raw,[btext,otext]):
     (R/('before-publish-'+path.name)).write_bytes(before)
-    path.write_bytes((b'\xef\xbb\xbf' if before.startswith(b'\xef\xbb\xbf') else b'')+result.encode('utf-8'))
+    if path.name == 'player_body.json':
+        entries.commit_player_body(path,before,result,
+            owned_paths=[('first_person_body',),('first_person_lower_body_mesh',),('first_person_hidden_materials',)],
+            producer=__file__)
+    else:
+        path.write_bytes((b'\xef\xbb\xbf' if before.startswith(b'\xef\xbb\xbf') else b'')+result.encode('utf-8'))
 (R/'published.json').write_text(json.dumps(dict(body_mesh=profile,owner_settings=settings,hidden_base_materials=hidden,shirts=saved['shirts'],world_pose_authority=True,hand_rigs_changed=False,world_rigs_changed=False,runtime_tested=False),indent=2),encoding='utf-8')
 print('OWNER_SHARED_BODY_PUBLISHED',flush=True)

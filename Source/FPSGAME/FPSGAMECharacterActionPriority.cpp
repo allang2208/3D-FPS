@@ -53,6 +53,7 @@ bool AFPSGAMECharacter::IsSwitchingWeapon() const
 
 bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
 {
+    if(IsOffhandReloadTransition())return false;
     if(Spellbook&&Spellbook->IsFocusActive())return false;
     if(IsDoorPushActive() || IsSwitchingWeapon() || bResolvingActionInterrupt || !IsLocallyControlled())return false;
     if(AFPSGAMEPlayerController::BlocksOngoingActions(Cast<APlayerController>(GetController())))return false;
@@ -73,6 +74,7 @@ void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
     if(Profile && !bWeaponSwitch)Profile->SyncRuntime();
     {
         TGuardValue<bool> Resolving(bResolvingActionInterrupt,true);
+        CancelOffhandReload();
         PreserveInterruptedM870Pump();
         if(DoorPush)DoorPush->Cancel();
         if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();

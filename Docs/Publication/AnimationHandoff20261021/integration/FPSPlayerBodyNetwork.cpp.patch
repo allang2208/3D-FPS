@@ -1,0 +1,47 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -19,8 +19,12 @@
+             ||X.Sections!=Y.Sections||X.VisibleParts!=Y.VisibleParts)return true;
+     }
+     return A.Weapon!=B.Weapon||A.Family!=B.Family||A.Action!=B.Action||A.ActionVariant!=B.ActionVariant||A.Motion!=B.Motion
++        ||(A.Action==EFPSBodyAction::Cast&&A.ActionStartedAt!=B.ActionStartedAt)
+         ||A.Contacts.Channel!=B.Contacts.Channel||A.Contacts.ConsumableSerial!=B.Contacts.ConsumableSerial
+         ||A.Contacts.DiscardFlags!=B.Contacts.DiscardFlags
++        ||A.ConsumeHands!=B.ConsumeHands||A.bConsumeWeaponsHidden!=B.bConsumeWeaponsHidden
++        ||A.OffhandReloadPhase!=B.OffhandReloadPhase
++        ||A.bOffhandReloadReturnFromReload!=B.bOffhandReloadReturnFromReload
+         ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow
+         ||((A.BowCastTransfer>0.f)!=(B.BowCastTransfer>0.f))||((A.BowCastTransfer>=1.f)!=(B.BowCastTransfer>=1.f))
+         ||((A.BowCastTransferRate<0.f)!=(B.BowCastTransferRate<0.f))
+@@ -82,7 +86,7 @@
+         else ServerBodySnapshot(DisplayState,SentPresentationSequence);
+         // A short wrist throw or bolt cycle can fit between the former 80 ms
+         // samples. Active poses use 25 Hz; idle presentation retains 12.5 Hz.
+-        const bool Active=Continuous||DisplayState.Action!=EFPSBodyAction::None||DisplayState.Contacts.Wrists!=0
++        const bool Active=Continuous||DisplayState.Action!=EFPSBodyAction::None||DisplayState.Contacts.Wrists!=0||DisplayState.OffhandReloadPhase!=0
+             ||DisplayState.RightHand.bReloading||DisplayState.LeftHand.bReloading
+             ||DisplayState.RightHand.bEquipping||DisplayState.LeftHand.bEquipping
+             ||DisplayState.Family==TEXT("Bow")||Now-DisplayState.LastShotAt<.15f;
+@@ -124,6 +128,14 @@
+     Next.PresentationSampledAt=FMath::IsFinite(Next.PresentationSampledAt)?FMath::Clamp(Next.PresentationSampledAt,Now-.5f,Now):Now;
+     Next.MotionSampledAt=Next.PresentationSampledAt;
+     Next.ActionProgress=Unit(Next.ActionProgress);Next.ActionWeight=Unit(Next.ActionWeight,1.f);
++    Next.ConsumeHands=Next.Action==EFPSBodyAction::Consume?Next.ConsumeHands&3:0;
++    Next.ConsumeStowWeight=Next.ConsumeHands?Unit(Next.ConsumeStowWeight):0.f;
++    Next.bConsumeWeaponsHidden&=Next.ConsumeHands!=0;
++    if(Next.Family!=TEXT("Pistol")||Next.bDual||Next.OffhandInstance.IsEmpty()||Next.OffhandReloadPhase>uint8(EOffhandReloadPhase::Raise))Next.OffhandReloadPhase=0;
++    Next.OffhandReloadLowerWeight=Next.OffhandReloadPhase?Unit(Next.OffhandReloadLowerWeight):0.f;
++    Next.OffhandReloadProgress=Next.OffhandReloadPhase?Unit(Next.OffhandReloadProgress):0.f;
++    Next.OffhandReloadProgressRate=Next.OffhandReloadPhase?FMath::Max(0.f,SafeRate(Next.OffhandReloadProgressRate)):0.f;
++    Next.bOffhandReloadReturnFromReload&=Next.OffhandReloadPhase==uint8(EOffhandReloadPhase::Raise);
+     Next.BowClipTime=FMath::IsFinite(Next.BowClipTime)?FMath::Clamp(Next.BowClipTime,0.f,60.f):0.f;
+     // A 0.14..0.22 s let-down can traverse the authored Draw faster than 8x.
+     Next.BowClipRate=FMath::IsFinite(Next.BowClipRate)?FMath::Clamp(Next.BowClipRate,-32.f,32.f):0.f;
+@@ -172,6 +184,7 @@
+ void UFPSPlayerBodyComponent::AdvanceBodyPresentation(FFPSBodyState& State,float Now)
+ {
+     const float Age=FMath::Clamp(Now-State.PresentationSampledAt,0.f,.12f);
++    State.OffhandReloadProgress=FMath::Clamp(State.OffhandReloadProgress+State.OffhandReloadProgressRate*Age,0.f,1.f);
+     State.BowClipTime=FMath::Clamp(State.BowClipTime+State.BowClipRate*Age,0.f,60.f);
+     State.BowCastTransfer=FMath::Clamp(State.BowCastTransfer+State.BowCastTransferRate*Age,0.f,1.f);
+     State.BowStowWeight=FMath::Clamp(State.BowStowWeight+State.BowStowRate*Age,0.f,1.f);

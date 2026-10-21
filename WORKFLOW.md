@@ -26,6 +26,8 @@ MCP 调用遵循 [效率与 token 约定](skills/ue5-auto-assistant/references/e
 
 ## 3. 枪械与动画
 
+**共享动作配置保护（2026-10-20）**：修改 `player_body.json` 或复用其旧发布器，按 [共享配置写入与发布](Docs/Workflow/player-body-config-publication.md) 声明具体字段并使用冲突检测写入器。原子替换不等于保留并行修改；不得写回旧内存里的完整配置。动作资产保存、本地引用、Git 提交/推送与用户认可分别记录。
+
 **动画节奏（用户明确要求，2026-10-09）：所有动画避免整段匀速／线性感。** 按蓄力、发力、接触、回弹和收势分别制作时间与速度曲线，抬手蓄力明显慢于瞬间拍击、挥砍等发力段；身体承重和肢体回收错峰配合。力量感不能只靠统一提高 PlayRate 或更换关键帧插值标签。命中、音效、位移和动画共用秒制动作合同；行走支撑与角色位移、物理模拟时钟仍保持同步，不为套缓动曲线破坏接地。
 
 读 [枪械技能](skills/ue5-weapon-workflow/SKILL.md) 和 [手臂技能](skills/ue5-fps-arms-animation/SKILL.md)。先查看原有动画，再记录姿态、接触和音效时序；保留用户选定枪型，使用独立候选验证后接入。完整可编辑源及已许可素材留在本机，发布文件清单明确缺失依赖。
@@ -70,11 +72,13 @@ MCP 调用遵循 [效率与 token 约定](skills/ue5-auto-assistant/references/e
 
 1. 核对仓库根、origin、远端默认分支和授权 URL。当前目标为 `https://github.com/allang2208/3D-FPS.git` 的 `main`。
 2. 在 `D:/FPS3D/FPSGAME` 推送前 fetch 并检查 `origin/main..HEAD` 的所有提交，直接从本工程发布。脏目录本身不是复制工程的理由；精确暂存本次修改。只有确实存在无法原位处理的冲突/构建隔离需求时才创建临时工作区，记录用途并在完成后归档，不留下常驻源码副本。
-3. 使用精确路径清单暂存。禁止全库 `git add -A`、`git add .`、`git clean`、`reset --hard`，不夹带其他未发布历史。并行会话常改动同一文件：整文件全是本次改动才 `git add <path>`；混入他人差分时先 `git diff` 甄别 hunk 归属，把本次改动重放到 `git show HEAD:<path>` 内容上，经 `git hash-object -w` + `git update-index --cacheinfo` 暂存——工作区里他人修改原样保留。
+3. 使用精确路径清单暂存。禁止全库 `git add -A`、`git add .`、`git clean`、`reset --hard`，不夹带其他未发布历史。并行会话常改动同一文件：整文件全是本次改动才 `git add <path>`；混入他人差分时先区分工作区与索引归属，将本次改动重放到当前 `git show :<path>` 索引内容上，只有确认该路径索引与 HEAD 一致才使用 HEAD。临时内容放独立路径，经 `git hash-object -w` + `git update-index --cacheinfo` 暂存前确认索引原 blob 未变；索引裁剪版本绝不复制回真实工作文件。
 4. 检查完整暂存差异、`git diff --cached --check`、大小、敏感信息、许可及与改动相关的验证。文档更新不用跑旧 Godot 测试。
 5. 仓库换引擎时先保留旧主线归档标签，再用普通新提交替换当前树，不使用 orphan 或强推抹去历史。
 6. 只普通非强制推送，显式指定 `HEAD:main`。拒绝后重新 fetch 审查差异，不覆盖新增提交。
 7. 成功后通过 `git ls-remote` 回读分支及归档标签，记录提交 SHA、发布目录、验证和剩余内容依赖。
+
+动作功能发布还须包含其具体配置键和必要消费者源码，不能仅发布姿态算法就宣称完整动作已推送；`Content/ColdSteelData` 的文本配置是否跟踪按具体路径确认，不一律排除。已获授权的发布可用 `Tools/PlayerBody/check_publication.py` 核对清单中的配置键是否进入实际索引、提交和远端；它不证明完整构建或资产二进制发布。详细范围见 [共享配置发布](Docs/Workflow/player-body-config-publication.md)。
 
 ## 9. 通用模型生成标准（2026-09-13）
 

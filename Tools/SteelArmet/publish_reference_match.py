@@ -14,7 +14,10 @@ if any(p.read_bytes()!=b for p,b in zip(paths,raw)):raise RuntimeError('Catalog 
 for path,before,text in zip(paths,raw,out):
     backup=O/(path.stem+'-before.json')
     if not backup.exists():backup.write_bytes(before)
-    path.write_bytes((b'\xef\xbb\xbf' if before.startswith(b'\xef\xbb\xbf') else b'')+text.encode('utf-8'))
+    if path.name == 'player_body.json':
+        entries.commit_player_body(path,before,text,owned_paths=[('head_equipment',KEY)],producer=__file__)
+    else:
+        path.write_bytes((b'\xef\xbb\xbf' if before.startswith(b'\xef\xbb\xbf') else b'')+text.encode('utf-8'))
 folder=D/'Icons/SteelArmet20261019';folder.mkdir(parents=True,exist_ok=True)
 for dest in (folder/(KEY+'.png'),D/'Icons'/(KEY+'.png')):shutil.copy2(O/(KEY+'.png'),dest)
 receipt=dict(completed=True,source_revision='ReferenceMatchV5',item=item,recipe=recipe,world_routing='shared replicated head equipment identity; all weapons',owner_routing='existing owner-only overlay layer 15',runtime_tested=False)

@@ -24,9 +24,15 @@ public:
     float StridePhase=0.f,MoveWeight=0.f,RunWeight=0.f,MotionTime=0.f;
     FVector CarryOffset=FVector::ZeroVector;
     virtual void FinalizeBoneTransform() override;
+    void AdvancePistolSupport(float Delta,bool Equipped);
+    void UpdatePistolSupport(float Delta,bool Equipped);
+    float PistolSupportBlend() const {return PistolSupportWeight*PistolSupportWeight*(3.f-2.f*PistolSupportWeight);}
+    float PistolRightBlend() const {return PistolRightWeight*PistolRightWeight*(3.f-2.f*PistolRightWeight);}
+    void ApplyPistolRightArm(USkeletalMeshComponent& Gun,TArray<FTransform>& Pose);
     void CaptureQuickCombatEntry(uint32 Serial);
     void CaptureFocusEntry();
     void CaptureFocusInterrupt();
+    FTransform GetCarryHandInCamera();
     void SetFocusPose(float Time,float Weight,bool Returning) {FocusPoseTime=Time;FocusPoseWeight=Weight;bFocusReturning=Returning;}
     void SetFocusReturn(float SourceTime) {SetFocusPose(SourceTime,1.f,true);}
 private:
@@ -35,6 +41,21 @@ private:
     TArray<FTransform> CarryKeys[65];
     TArray<int32> LeftBones,RightBones;
     void CachePose();
+    // First-person contact layer; authored actions consume this as their carry
+    // destination. The world body keeps its own anatomical arm presentation.
+    TArray<FTransform> PistolSupportBase,PistolSupportLocal,PistolSupportComponent,PistolSupportSource;
+    TArray<FTransform> PistolRightReference,PistolRightSource,PistolRightTarget;
+    TArray<int32> PistolRightBones;
+    TWeakObjectPtr<USkeletalMesh> PistolSupportGun;
+    FVector PistolSupportWrist=FVector::ZeroVector,PistolSupportEntry=FVector::ZeroVector;
+    float PistolSupportWeight=0.f,PistolRightWeight=0.f,PistolAimWeight=0.f,PistolContactAlpha=1.f;
+    bool bPistolSupportAnchor=false,bPistolSupportPair=false,bPistolSupportHold=false;
+    int32 PistolRightClavicle=INDEX_NONE,PistolRightUpper=INDEX_NONE,PistolRightHand=INDEX_NONE,PistolRightLower=INDEX_NONE;
+    int32 PistolTwist01=INDEX_NONE,PistolTwist02=INDEX_NONE,PistolRightTwist01=INDEX_NONE,PistolRightTwist02=INDEX_NONE;
+    int32 PistolThumbBones[3]={INDEX_NONE,INDEX_NONE,INDEX_NONE};
+    FQuat PistolHipHandRotation=FQuat::Identity,PistolAimHandRotation=FQuat::Identity;
+    void CachePistolSupport();
+    void ApplyPistolSupport(TArray<FTransform>& LocalPose);
     TArray<TArray<FTransform>> StrikeKeys;
     TArray<FTransform> StrikeEntry;
     uint32 StrikeSerial=0;
@@ -57,6 +78,8 @@ class FPSGAME_API USpellbookComponent : public UActorComponent
 public:
     USpellbookComponent();
     bool IsEquipped() const {return bEquipped;}
+    float PistolSupportFramingWeight() const {return Arms?Arms->PistolRightBlend():0.f;}
+    void ApplyPistolRightArm(USkeletalMeshComponent& Gun,TArray<FTransform>& Pose) {if(Arms)Arms->ApplyPistolRightArm(Gun,Pose);}
     bool OwnsLeftHand() const;
     bool BeginQuickCombat();
     bool IsQuickCombatActive() const;

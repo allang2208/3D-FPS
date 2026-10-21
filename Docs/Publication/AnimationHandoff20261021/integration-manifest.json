@@ -1,0 +1,133 @@
+{
+  "base_commit": "fced88da2025c51f96b436bb0217f75b59e3120a",
+  "runtime_hosts_applied": false,
+  "reason": "Shared hosts contain independently unpublished systems; no whole-file staging or working-tree rollback. Patch insertion context and missing helpers require the documented integrated local baseline.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyBookCarryPose.inl",
+      "patch": "integration\\FPSBodyBookCarryPose.inl.patch",
+      "base_git_blob": "90aac90e8a3d0385209b5610d09c81c9af014e1d",
+      "base_sha256_lf": "eb2792332ca563fc556cb0bbf142a266a6a8520949b338ab8741df71c13d99d3",
+      "result_sha256_lf": "a52f255d00436c52b048e5a32e0892ae6e796a49a4b0b101755e58448706144d",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": null
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+      "patch": "integration\\FPSBodySwordPose.inl.patch",
+      "base_git_blob": "4dcd922bcca15dd1ab8f49e01248679e4c750627",
+      "base_sha256_lf": "6aa6d3f51b712f91952c2743266ef4c7aa0e91359c0874ed9f03346f4100835b",
+      "result_sha256_lf": "3faab1c479761fcacfbbe75743835af4165592e6332ca52667135083be256b80",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": null
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "integration\\FPSPlayerBodyActions.cpp.patch",
+      "base_git_blob": "99e8a4a8fa8a07f1e4423affde946a857a3a29d1",
+      "base_sha256_lf": "ccb27d364360b5b0c8eb30dc882b0672b3c29267e5952fb375721c049fb2efeb",
+      "result_sha256_lf": "f6c129927c54e083a8075b0d69a2cd6ecb4e409f7a727d637ec35f77e01c7af4",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": [
+        7,
+        8,
+        10
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "patch": "integration\\FPSPlayerBodyAnimInstance.cpp.patch",
+      "base_git_blob": "98a34b34a426412ea01e29a3ae3fba061f03cc46",
+      "base_sha256_lf": "0346f9b8b0f52611a9ee4e9ed0c77a984781a16aa7596fb10fa108e6e891eb8e",
+      "result_sha256_lf": "0dc4456253d7655904138a90cac9e9f175d4973be9de27d4edb7c3896fcc988f",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": [
+        6,
+        8,
+        9,
+        10,
+        14,
+        15,
+        16,
+        28,
+        30,
+        38,
+        41,
+        42,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "patch": "integration\\FPSPlayerBodyMotion.cpp.patch",
+      "base_git_blob": "136f905e35a02aa3d5fae56a68ef08aeb154f128",
+      "base_sha256_lf": "7f406b2cfbe921ab8bb661344884265e3f631cdc43128ea9414d5ecc45a87b40",
+      "result_sha256_lf": "04b6c9dde7c7ae12594c20472dae983c7fddf1fe51444f1da02214aeff4640a8",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "patch": "integration\\FPSPlayerBodyNetwork.cpp.patch",
+      "base_git_blob": "e53f232808b52e6786dd909c8fb27c91db7269ce",
+      "base_sha256_lf": "564b2c6e6cc9589ea0bcd35fce2a3ac22553a798543d557b0d4eddb98b137c51",
+      "result_sha256_lf": "2f7e0401132d5b6f23d01b4c9a79d028ecd5dafc4eca8293654a0e5f866d0fe4",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": [
+        0,
+        3,
+        4,
+        6
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "patch": "integration\\FPSPlayerBodyTypes.h.patch",
+      "base_git_blob": "a9526ec42e251e7d191d14192846f2963584f749",
+      "base_sha256_lf": "eb86624c6c1ed19370c098c4dbeff92a4898aa5bfe378d8d2dbad5421d15180d",
+      "result_sha256_lf": "cec6c689a3e82c1f0f5ba6bf585281a2f357336f550023b32c7d531c4cc324d3",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": [
+        0
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "patch": "integration\\FPSPlayerBodyComponent.cpp.patch",
+      "base_git_blob": "6f94945e080e09f9993bf4322f9d3b5d74d392a6",
+      "base_sha256_lf": "4e814a8797c1eeb06f5783a14a51c67d4adc7174a418122d245eb93ed5071ebc",
+      "result_sha256_lf": "9e0f814cba59aff4a786bdca08ed42f1ff2957f20d7af1fb7cf9c9d64eb7724d",
+      "scope": "selected animation hunks, prerequisite-bound; not applied to public runtime tree",
+      "selected_hunks": [
+        5
+      ]
+    }
+  ],
+  "audit_entry": "integration/AnimationHandoffAudit.cpp.inc",
+  "audit_host_prerequisites": [
+    "UShotgunAttachmentAuditCommandlet",
+    "ASkillAuditRemoteController",
+    "friend access to body/character/player-state audit fields"
+  ],
+  "historical_builds_apply_to": "local integrated working tree, not this scoped public subset"
+}

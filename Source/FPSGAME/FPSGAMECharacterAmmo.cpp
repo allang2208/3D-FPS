@@ -116,6 +116,6 @@ bool AFPSGAMECharacter::StartAmmoSwitch(const FString& WeaponId,const FString& T
     if(ActiveInventoryWeapon!=WeaponId)return false;
     PendingAmmoType=Target;PendingAmmoWeapon=WeaponId;
     FireReleased();ReloadPressed();
-    if(!IsReloading()){PendingAmmoType.Reset();PendingAmmoWeapon.Reset();return false;}
+    if(!IsReloading()&&!IsOffhandReloadActive()){PendingAmmoType.Reset();PendingAmmoWeapon.Reset();return false;}
     return true;
 }

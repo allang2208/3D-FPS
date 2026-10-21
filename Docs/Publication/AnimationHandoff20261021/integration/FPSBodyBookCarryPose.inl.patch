@@ -1,0 +1,137 @@
+--- a/Source/FPSGAME/Characters/FPSBodyBookCarryPose.inl
++++ b/Source/FPSGAME/Characters/FPSBodyBookCarryPose.inl
+@@ -1,5 +1,5 @@
+-// A closed book has weight: preserve a complete support arm and only a small
+-// fraction of gait. Active book/left-hand contacts retain their own authority.
++// Keep the complete book arm relative to the body, using the same support
++// frame as the native main-hand staff. Camera-space contacts never drive it.
+ void FControls::BlendBookCarry(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
+ {
+     const bool Busy=(ActionWristMask&2)||FPSBodyPoses::Traversing(State.Motion)||
+@@ -7,9 +7,19 @@
+         State.Action==EFPSBodyAction::GunBash||
+         (State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast"));
+     if(!bBookCarryActive||Busy){bHadBookCarry=false;bHadBookPush=false;BookCarryAge=0.f;return;}
++    const auto& Bones=Out.Pose.GetBoneContainer();
++    const bool HandValid=Hands[1].IsValidToEvaluate(Bones);
++    FTransform IncomingHand=FTransform::Identity;FVector IncomingElbow=FVector::ZeroVector;
++    if(HandValid)
++    {
++        const auto W=Hands[1].GetCompactPoseIndex(Bones);
++        IncomingHand=Pose.GetComponentSpaceTransform(W);
++        IncomingElbow=Pose.GetComponentSpaceTransform(Bones.GetParentBoneIndex(W)).GetLocation();
++    }
+     Out.Pose=Pose.GetPose();
+     FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Out.Pose);
+     FPoseContext Authored(Out);BookCarry.Evaluate(Authored);
++    AnchorStaffArm(Authored,Pose,1);
+     const int32 Count=Out.Pose.GetBoneContainer().GetCompactPoseNumBones();
+     // Cancellation recovers from the displayed complete chain, not from a
+     // fresh wrist-only IK result. A completed push already ends at carry.
+@@ -21,15 +31,14 @@
+             BookCarryEntryPose[I]=LastBookCarryPose.Num()==Count?LastBookCarryPose[I]:Out.Pose[FCompactPoseBoneIndex(I)];
+     }
+     BookCarryAge+=Delta;
+-    const float Alpha=Ease(BookCarryAge/.18f);
+-    const float Gait=FMath::Lerp(.10f,.06f,Sprint);
++    const float Alpha=State.OffhandReloadPhase?1.f:Ease(BookCarryAge/.18f);
+     FPoseContext Push(Out);
+     if(bBookPushActive)
+     {
+         if(!bHadBookPush||BookPushProgress+.05f<LastBookPushProgress)
+         {
+             BookPushEntryDelta.SetNum(Count);BookPushEntryProgress=BookPushProgress;
+-            FPoseContext Start(Out);Start.Pose=Authored.Pose;AnchorStaffArm(Start,Pose,1);
++            FPoseContext Start(Out);Start.Pose=Authored.Pose;
+             for(int32 I=0;I<Count;++I)if(BookMotionBones[I])
+             {
+                 const FCompactPoseBoneIndex Bone(I);
+@@ -44,7 +53,9 @@
+     {
+         const FCompactPoseBoneIndex Bone(I);
+         FTransform Supported,Mixed;
+-        Supported.Blend(Authored.Pose[Bone],Out.Pose[Bone],Gait);
++        // Shoulder translation and body heading already carry the pose. Do not
++        // mix the generic aimed/IK arm back into its elbow and helper locals.
++        Supported=Authored.Pose[Bone];
+         Mixed.Blend(BookCarryEntryPose[I],Supported,Alpha);
+         if(bBookPushActive)
+         {
+@@ -63,7 +74,76 @@
+         Out.Pose[Bone]=Mixed;
+     }
+     Pose.InitPose(Out.Pose);
+-    const auto& Bones=Out.Pose.GetBoneContainer();
++    const FTransform Chest=Spine.IsValidToEvaluate(Bones)?Pose.GetComponentSpaceTransform(Spine.GetCompactPoseIndex(Bones)):FTransform::Identity;
++    const FQuat Anatomy=(Chest.GetRotation()*BookChestBind.Inverse()).GetNormalized();
++    if(BookReloadLowerWeight>ZERO_ANIMWEIGHT_THRESH&&Hands[1].IsValidToEvaluate(Bones))
++    {
++        // Lower the complete native chain around its shoulder. The book stays
++        // in the same palm, and neither wrist nor elbow follows the camera.
++        const auto W=Hands[1].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),S=Bones.GetParentBoneIndex(E);
++        const auto Clavicle=Bones.GetParentBoneIndex(S);
++        const FVector Pivot=Pose.GetComponentSpaceTransform(S).GetLocation();
++        const FQuat Lower(Anatomy.RotateVector(FVector::ForwardVector),-.95f*FMath::Clamp(BookReloadLowerWeight,0.f,1.f));
++        TArray<FBoneTransform,TInlineAllocator<24>> Changes;
++        for(int32 I=0;I<BookMotionBones.Num();++I)if(BookMotionBones[I])
++        {
++            const FCompactPoseBoneIndex Bone(I);if(Bone==Clavicle)continue;
++            auto Target=Pose.GetComponentSpaceTransform(Bone);
++            Target.SetLocation(Pivot+Lower.RotateVector(Target.GetLocation()-Pivot));
++            Target.SetRotation((Lower*Target.GetRotation()).GetNormalized());Changes.Emplace(Bone,Target);
++        }
++        Pose.LocalBlendCSBoneTransforms(Changes,1.f);
++    }
++    const bool ToGun=State.OffhandReloadPhase==uint8(EOffhandReloadPhase::Lower)&&
++        State.OffhandReloadProgress>=FOffhandReloadHandoff::BodyLowerTransferStart;
++    const bool FromGun=FPSBodyPistolMotion::ReturningToOffhand(State);
++    if(HandValid&&Hands[0].IsValidToEvaluate(Bones)&&(ToGun||FromGun))
++    {
++        const auto W=Hands[1].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),S=Bones.GetParentBoneIndex(E);
++        const auto LowHand=Pose.GetComponentSpaceTransform(W);
++        const FVector Shoulder=Pose.GetComponentSpaceTransform(S).GetLocation(),LowElbow=Pose.GetComponentSpaceTransform(E).GetLocation();
++        if(FromGun&&!bBookReloadReturn)
++        {
++            BookReloadReturnHand=bBookReloadHistory?BookReloadLastHand:IncomingHand.GetRelativeTransform(Chest);
++            BookReloadReturnElbow=bBookReloadHistory?BookReloadLastElbow:Chest.InverseTransformPosition(IncomingElbow);
++            bBookReloadReturn=true;BookReloadReturnProgress=0.f;
++        }
++        if(FromGun)BookReloadReturnProgress=FMath::Max(BookReloadReturnProgress,State.OffhandReloadProgress);
++        const float P=ToGun?(State.OffhandReloadProgress-FOffhandReloadHandoff::BodyLowerTransferStart)/(1.f-FOffhandReloadHandoff::BodyLowerTransferStart):
++            BookReloadReturnProgress/FOffhandReloadHandoff::BodyReturnTransferFraction;
++        if(ToGun||P<1.f)
++        {
++            // Empty-hand travel goes forward/outside the chest. Preserve the
++            // actual displayed reload exit, not a full reload or camera pose.
++            const FTransform Start=ToGun?LowHand:BookReloadReturnHand*Chest;
++            const FTransform End=ToGun?LeftGrip*Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)):LowHand;
++            const FVector StartElbow=ToGun?LowElbow:Chest.TransformPosition(BookReloadReturnElbow);
++            const FVector EndElbow=ToGun?IncomingElbow:LowElbow;
++            const float T=Ease(P),U=1.f-T;
++            const FVector Clearance=Anatomy.RotateVector(FVector(8,12,0)*PoseScale);
++            const FVector A=Start.GetLocation(),B=End.GetLocation();
++            FTransform Target;Target.Blend(Start,End,T);
++            Target.SetLocation(A*(U*U*U)+(A+Clearance)*(3.f*U*U*T)+(B+Clearance)*(3.f*U*T*T)+B*(T*T*T));
++            FLegReference Arm;Arm.Set(Shoulder,LowElbow,LowHand.GetLocation());
++            Arm.Reach=(FVector::Distance(Shoulder,LowElbow)+FVector::Distance(LowElbow,LowHand.GetLocation()))*.965f;
++            Target.SetLocation(Arm.Reachable(Shoulder,Target.GetLocation()));
++            const FVector Pole=FMath::Lerp(StartElbow,EndElbow,T)+Anatomy.RotateVector(FVector(8,0,0)*PoseScale)*FMath::Sin(PI*T);
++            Solve(Pose,Hands[1],Target,Pole,1.f);
++        }
++    }
++    if(HasBookFocus()&&Hands[1].IsValidToEvaluate(Bones))
++    {
++        const auto W=Hands[1].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),S=Bones.GetParentBoneIndex(E);
++        const auto Hand=Pose.GetComponentSpaceTransform(W);
++        const FVector Shoulder=Pose.GetComponentSpaceTransform(S).GetLocation(),Elbow=Pose.GetComponentSpaceTransform(E).GetLocation();
++        auto Target=ActionHands[1]*Hand;
++        FLegReference Arm;Arm.Set(Shoulder,Elbow,Hand.GetLocation());
++        Arm.Reach=(FVector::Distance(Shoulder,Elbow)+FVector::Distance(Elbow,Hand.GetLocation()))*.965f;
++        Target.SetLocation(Arm.Reachable(Shoulder,Target.GetLocation()));
++        Solve(Pose,Hands[1],Target,Arm.Pole(Shoulder,Target.GetLocation()),1.f);
++        // The shared native palm/forearm fit runs after reactions and rebuilds
++        // the weighted helper chain, just as for the main-hand staff.
++    }
+     if(Hands[1].IsValidToEvaluate(Bones))LastHands[1]=Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones));
+     bHadBookCarry=true;
+     bHadBookPush=bBookPushActive;LastBookPushProgress=BookPushProgress;

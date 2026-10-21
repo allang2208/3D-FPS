@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "Weapons/WeaponHandling.h"
 #include "Weapons/WeaponReloadStages.h"
+#include "Weapons/OffhandReloadHandoff.h"
 #include "Weapons/RifleHipFraming.h"
 #include "Weapons/M4TacticalSprintComponent.h"
 #include "Weapons/ColdSteelEnchantmentCombat.h"
@@ -100,6 +101,15 @@ public:
     bool HasOffhandPistol() const;
     bool HasOffhandSpellbook() const;
     bool IsOffhandSpellbookPresented() const;
+    // Shared handoff contract for every non-pistol offhand presentation adapter.
+    bool IsOffhandReloadActive() const {return OffhandReload.Active();}
+    bool IsOffhandReloadTransition() const {return OffhandReload.Transition();}
+    EOffhandReloadPhase GetOffhandReloadPhase() const {return OffhandReload.PresentationPhase();}
+    float GetOffhandReloadLowerWeight() const;
+    float GetOffhandReloadProgress() const;
+    float GetOffhandReloadProgressRate() const {return OffhandReload.ProgressRate();}
+    bool IsOffhandReturningFromReload() const {return OffhandReload.bReturnFromReload;}
+    bool IsOffhandReloadArmExiting() const {return OffhandReload.bReloadArmExit&&GetOffhandReloadPhase()==EOffhandReloadPhase::Raise&&GetOffhandReloadProgress()<FOffhandReloadHandoff::BodyReturnTransferFraction;}
     /** 手枪版快速进战：单持松左手、右手持枪握把前砸；仲裁通过后转交动作组件。 */
 bool TriggerPistolQuickCombat();
     /** 步枪版快速进战（M4 枪托砸击）：双手持枪的整枪动作；仲裁通过后转交同一动作组件。 */
@@ -236,7 +246,7 @@ public:
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
     bool ValidateDrumAttachment() const;
-    float GetReloadSeconds(bool bEmpty) const {return bEmpty?EmptyReloadDuration:ReloadDuration;}
+    float GetReloadSeconds(bool bEmpty) const;
     float GetADSSeconds() const {return ADSInDuration;}
     void SetGunsmithAimPreview(bool bAim){if(bAim)AimPressed();else AimReleased();}
     bool HasHolographicOptic() const {return bHolographicOptic;}
@@ -581,6 +591,12 @@ private:
     void TryBufferedJump();
     void UpdateSlide(float DeltaSeconds);
     void UpdateWeaponState(float DeltaSeconds);
+    FOffhandReloadHandoff OffhandReload;
+    bool TryBeginOffhandReload();
+    void AdvanceOffhandReload();
+    void ReturnOffhandAfterReload();
+    void BeginOffhandReloadReturnIfReady(float SourceTime);
+    void CancelOffhandReload();
     void UpdateWeaponFeedback(float DeltaSeconds);
     void UpdateCamera(float DeltaSeconds);
     void BuildReloadCameraTracks(TArray<struct FWeaponReloadCameraTrack,TInlineAllocator<2>>& Tracks) const;

@@ -63,6 +63,7 @@ void USpellbookArmsMeshComponent::CachePose()
             CarryKeys[K][I].SetRotation(Grip::Poses[K][B].Rotation.GetNormalized());
         }
     }
+    CachePistolSupport();
     StrikeKeys.SetNum(SpellbookAuthoredStrike::KeyCount);StrikeEntry.Reset();
     for(int32 K=0;K<StrikeKeys.Num();++K)
     {
@@ -76,6 +77,21 @@ void USpellbookArmsMeshComponent::CachePose()
             StrikeKeys[K][I].SetRotation(Key.Rotation.GetNormalized());
         }
     }
+}
+
+FTransform USpellbookArmsMeshComponent::GetCarryHandInCamera()
+{
+    CachePose();
+    const auto* Mesh=GetSkeletalMeshAsset();if(!Mesh)return FTransform::Identity;
+    const auto& Ref=Mesh->GetRefSkeleton();
+    const int32 Wrist=Ref.FindBoneIndex(TEXT("hand_l"));
+    if(!CarryKeys[0].IsValidIndex(Wrist))return FTransform::Identity;
+    FTransform Hand=CarryKeys[0][Wrist];
+    for(int32 Parent=Ref.GetParentIndex(Wrist);Parent>=0;Parent=Ref.GetParentIndex(Parent))
+        Hand=Hand*CarryKeys[0][Parent];
+    Hand.SetScale3D(FVector::OneVector);
+    Hand.AddToTranslation(FVector(0,0,-SpellbookCarryTuning::LowerCm)+CarryOffset);
+    return Hand;
 }
 
 void USpellbookArmsMeshComponent::CaptureQuickCombatEntry(uint32 Serial)
@@ -152,6 +168,7 @@ void USpellbookArmsMeshComponent::FinalizeBoneTransform()
             Run.Blend(CarryKeys[1+Grip::Samples+A][I],CarryKeys[1+Grip::Samples+B][I],Alpha);
             Gait.Blend(Walk,Run,RunWeight);Mixed.Blend(Pose[I],Gait,CarryWeight);Pose[I]=Mixed;
         }
+        ApplyPistolSupport(Pose);
         ApplyFocusPose(Pose);ApplyQuickCombat(Pose);
         for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
         const FTransform ToMesh=Camera->GetComponentTransform().GetRelativeTransform(GetComponentTransform());
@@ -185,6 +202,8 @@ void USpellbookComponent::BeginPlay()
     if(GetNetMode()==NM_DedicatedServer)return;
     Camera=Pawn->FindComponentByClass<UCameraComponent>();if(!Camera.IsValid())return;
     AddTickPrerequisiteActor(Pawn);AddTickPrerequisiteComponent(Pawn->GetCharacterMovement());
+    // Sample the current gun wrist after its animation, ADS and recoil update.
+    if(Pawn->AKMViewmodel)AddTickPrerequisiteComponent(Pawn->AKMViewmodel);
     Footsteps=Pawn->FindComponentByClass<UFPSFootstepAudioComponent>();
     if(Footsteps.IsValid())AddTickPrerequisiteComponent(Footsteps.Get());
     if(auto* Outfit=Pawn->FindComponentByClass<UFPSModularOutfitComponent>())Outfit->AddTickPrerequisiteComponent(this);
@@ -278,9 +297,11 @@ bool USpellbookComponent::OwnsLeftHand() const
     // UI input ownership must not give the equipped book's arm back to another rig.
     // Quick combat keeps its separate CanStartQuickCombatPriority input gate.
     if(!PC||Pawn->IsTraversing()||Pawn->IsSwitchingWeapon())return false;
+    if(Pawn->GetOffhandReloadPhase()==EOffhandReloadPhase::Reload)return false;
+    if(Pawn->IsOffhandReloadArmExiting())return false;
     // Main-hand reload/inspection/melee temporarily needs its native support
     // arm. The equipment identity remains unchanged while presentation yields.
-    if(Pawn->HasInventoryWeapon()&&(Pawn->IsReloading()||Pawn->WeaponState==EAKMWeaponState::Equipping||Pawn->WeaponState==EAKMWeaponState::Inspecting||Pawn->WeaponState==EAKMWeaponState::QuickCombat))return false;
+    if(Pawn->HasInventoryWeapon()&&((Pawn->IsReloading()&&Pawn->GetOffhandReloadPhase()!=EOffhandReloadPhase::Raise)||Pawn->WeaponState==EAKMWeaponState::Equipping||Pawn->WeaponState==EAKMWeaponState::Inspecting||Pawn->WeaponState==EAKMWeaponState::QuickCombat))return false;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
     return true;
 }
@@ -307,18 +328,20 @@ void USpellbookComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(UsesNetFocusAuthority()){AdvanceNetFocus();return;}
     if(!Pawn->IsLocallyControlled())return;
     if(!bEquipmentResolved)RefreshEquipment();
-    if(!bEquipped)return;
+    if(!bEquipped){if(Arms)Arms->UpdatePistolSupport(Delta,false);return;}
     AdvanceFocus(Delta);
+    if(Arms)Arms->UpdatePistolSupport(Delta,true);
     UpdateVisibility();if(!Arms||!Arms->IsVisible())return;
     const auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
     const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();
     const auto* Magic=Pawn->FindComponentByClass<UFPSFireballComponent>();
     const bool FocusTransition=IsFocusActive()&&(bFocusClosing||bFocusInterrupted||FocusAge<SpellbookFocusMotion::OpenLength);
-    const bool Action=IsQuickCombatActive()||FocusTransition||(Potion&&Potion->IsActive())||(Staff&&Staff->IsEquipped()&&Staff->IsBusy())||(Magic&&Magic->IsGestureActive())||Pawn->IsDoorPushActive();
+    const bool Action=IsQuickCombatActive()||FocusTransition||Pawn->IsOffhandReloadActive()||(Potion&&Potion->IsActive())||(Staff&&Staff->IsEquipped()&&Staff->IsBusy())||(Magic&&Magic->IsGestureActive())||Pawn->IsDoorPushActive();
     Locomotion.Update(*Pawn,Footsteps.Get(),Delta,Action);
     Arms->StridePhase=Locomotion.StridePhase();Arms->MoveWeight=Locomotion.MoveWeight()*(Pawn->bIsCrouched?.6f:1.f);
     Arms->RunWeight=Locomotion.RunWeight();Arms->MotionTime=Locomotion.MotionTime();
-    Arms->CarryOffset=Potion&&Potion->IsStowingOffhand()?FVector(-7,-3,-42)*Potion->OffhandLowerWeight():FVector::ZeroVector;
+    const float Lower=FMath::Max(Pawn->GetOffhandReloadLowerWeight(),Potion&&Potion->IsStowingOffhand()?Potion->OffhandLowerWeight():0.f);
+    Arms->CarryOffset=FVector(-7,-3,-42)*Lower;
     Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();
     // Same-frame rigid contact, including the native hand's scale-100 import.
     FTransform Hand=Arms->GetSocketTransform(TEXT("hand_l"));Hand.SetScale3D(FVector::OneVector);
@@ -346,6 +369,7 @@ bool USpellbookComponent::BeginQuickCombat()
 
 void USpellbookComponent::AdvanceActionBeforeCamera(float Delta)
 {
+    if(Arms)Arms->AdvancePistolSupport(Delta,bEquipped);
     // Advance the shared clock once, including its impact tail after recovery.
     if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::SpellbookPush)
         Quick->AdvanceAction(Delta);

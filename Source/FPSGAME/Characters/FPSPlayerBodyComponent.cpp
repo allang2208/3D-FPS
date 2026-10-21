@@ -410,6 +410,13 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     const float Now=ServerClock();
     if(FPSBodyPoses::Traversing(DisplayState.Motion))WorldWeaponsHiddenUntil=Now+.1f;
     if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
+    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Consume&&DisplayState.ActionWeight>UE_KINDA_SMALL_NUMBER)
+    {
+        // Cancellation fades the native consume arm out at 10/s. Keep its
+        // pistol hidden until that arm has returned from the mouth/food.
+        if(DisplayState.ConsumeHands&1)WorldWeaponsHiddenUntil=Now+.1f;
+        if(DisplayState.ConsumeHands&2)OffhandWeaponHiddenUntil=Now+.1f;
+    }
     VisibilityCountdown-=Delta;
     if(VisibilityCountdown<=0.f){VisibilityCountdown=.2f;UpdateOwnerVisibility();}
     UpdateFirstPersonLowerBodyVisibility();

@@ -1,5 +1,7 @@
 # 并行会话下的仓库发布（暂存、退役、推送）
 
+2026-10-20：本页为工程历史参考，当前共用发布流程以个人维护源及 `WORKFLOW.md` 为准。涉及 `player_body.json` 按 [共享配置写入与发布](../../../Docs/Workflow/player-body-config-publication.md) 执行；暂存裁剪内容不得覆盖工作文件，本地资产接入记录不代表 Git 已推送。
+
 现场事实：`D:/FPS3D/FPSGAME` 是**一个工作区、多个会话共用**（2026-09-22 实测 500+ 个文件同时处于未提交状态）。发布本会话成果时，难点不是写代码，而是把"我的行"从共享文件里精确摘出来。
 
 ## 铁律（WORKFLOW 第 7、8 节）
@@ -40,7 +42,7 @@
 
 ## 退役与推送
 
-- 确认退役的文件移入 `trash/<task>/`，README 记录原路径、字节数、SHA-256、原因和替代物；`trash/` 与 `Content/ColdSteelData/*` 已被 .gitignore 忽略，**不进提交**（二进制按第 5 节默认不提交）。
+- 确认退役的文件移入 `trash/<task>/`，README 记录原路径、字节数、SHA-256、原因和替代物；`trash/` 不进提交。`Content/ColdSteelData` 按具体路径的当前跟踪、忽略和许可规则处理，不再沿用早期整目录排除说法；必要文本配置与未核准二进制分开处理。
 - **HEAD 领先别人一个未推送提交时**（2026-09-24 实测：分支上挂着近战会话的提交）：不要替对方决定发布，向用户给两个选项——连对方提交一起 `HEAD:main`，或基于 origin/main 重组干净基线（commit-tree）。用户拍板后再动手。
 - **验证暂存子集能编译**：`git worktree add --detach` 指向新提交后构建；本地插件目录不在跟踪范围，junction 挂过去；**生成式模块要先在 worktree 里生成**（如 `python Tools/Building/build_blast.py` 造 FPSBlast，否则 UBT 直接 RulesError）。验证完 `git worktree remove`。
 - 推送：`git fetch origin main` → 确认 `origin/main..HEAD` 只有自己的提交 → `git push origin HEAD:main`（非强制）→ `git ls-remote origin refs/heads/main` 与本地 `rev-parse HEAD` 比对，并确认归档标签仍在（`git ls-remote --tags origin`，找 `godot`）。

@@ -29,6 +29,8 @@ private:
     TWeakObjectPtr<USkeletalMesh> PoseMesh;
     TArray<FTransform> ReferencePose, SourcePose, GoalPose, EntryLocal;
     TArray<FTransform> FistEntryCameraPose;
+    TArray<FTransform> OffhandReloadExitCameraPose;
+    void ApplyOffhandReloadExit();
     TArray<int32> LeftBones;
     int32 CastClavicleIndex=INDEX_NONE,CastUpperIndex=INDEX_NONE,CastLowerIndex=INDEX_NONE,CastHandIndex=INDEX_NONE;
     uint32 EntrySerial=0;

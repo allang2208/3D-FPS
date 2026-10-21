@@ -131,11 +131,15 @@ bool AFPSGAMECharacter::AdvanceReloadStages()
     }
     if(bReloadAmmoCommitted && Source+1.e-6f>=ReloadStages.Ready && NeedsReloadCycle())
         if(!Profile->CompleteWeaponReloadCycle(ActiveInventoryWeapon)){InterruptReload();return false;}
+    BeginOffhandReloadReturnIfReady(Source);
     return true;
 }
 
 void AFPSGAMECharacter::InterruptReload()
 {
+    ReturnOffhandAfterReload();
+    if(IsOffhandReloadTransition())
+    {PendingAmmoType.Reset();PendingAmmoWeapon.Reset();bReloadAfterCasting=bRevolverReloadAfterFire=false;}
     if(IsTubeShotgunWeapon()&&GetNetMode()==NM_Client)
         if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->CancelSuper90Reload(false);
     if(WeaponState!=EAKMWeaponState::Reloading && WeaponState!=EAKMWeaponState::ReloadingEmpty)return;

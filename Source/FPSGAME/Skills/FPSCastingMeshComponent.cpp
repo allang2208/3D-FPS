@@ -1,4 +1,5 @@
 #include "FPSCastingMeshComponent.h"
+#include "../FPSGAMECharacter.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Movement/FPSDoorPushComponent.h"
@@ -18,6 +19,7 @@ FQuat LimbFrame(const FVector& Direction,const FVector& Plane)
 void UFPSCastingMeshComponent::CacheCastSkeleton()
 {
     PoseMesh=GetSkeletalMeshAsset();ReferencePose.Reset();LeftBones.Reset();EntryLocal.Reset();FistEntryCameraPose.Reset();EntrySerial=0;
+    OffhandReloadExitCameraPose.Reset();
     BashHandR=GetBoneIndex(TEXT("hand_r"));   // 打击探针（命中射线起点）用的握把手骨
     CastClavicleIndex=GetBoneIndex(TEXT("clavicle_l"));CastUpperIndex=GetBoneIndex(TEXT("upperarm_l"));CastLowerIndex=GetBoneIndex(TEXT("lowerarm_l"));CastHandIndex=GetBoneIndex(TEXT("hand_l"));
     if(!PoseMesh.IsValid() || CastClavicleIndex==INDEX_NONE || CastUpperIndex==INDEX_NONE || CastLowerIndex==INDEX_NONE || CastHandIndex==INDEX_NONE)return;
@@ -39,8 +41,9 @@ void UFPSCastingMeshComponent::CacheCastSkeleton()
 
 void UFPSCastingMeshComponent::FinalizeBoneTransform()
 {
-    const auto* Book=GetOwner()?GetOwner()->FindComponentByClass<USpellbookComponent>():nullptr;
-    const bool OtherLeftRig=Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand();
+    auto* Book=GetOwner()?GetOwner()->FindComponentByClass<USpellbookComponent>():nullptr;
+    const auto* Consumable=GetOwner()?GetOwner()->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
+    const bool OtherLeftRig=Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand()&&!(Consumable&&Consumable->IsTwoHanded());
     const bool ApplyLeft=bApplyLeftHandCast&&!OtherLeftRig;
     auto* Magic=ApplyLeft&&GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr;
     const bool bCastActive=Magic&&Magic->IsOccupyingLeftHand();
@@ -51,11 +54,15 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     CarryHandleDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     OutgoingBeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     LMG201BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
+    // Compose the paired pistol arm before consumable / door overlays. Their
+    // native ownership must remain the final writer during two-handed actions.
+    if(Book)Book->ApplyPistolRightArm(*this,GetEditableComponentSpaceTransforms());
     if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
     if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Push=GetOwner()->FindComponentByClass<UFPSDoorPushComponent>();Push&&Push->IsActive())Push->ApplyHandPose(*this);
     OutfitArmClearance.Apply(*this, GetEditableComponentSpaceTransforms());
+    ApplyOffhandReloadExit();
     if(OtherLeftRig)
     {
         if(PoseMesh.Get()!=GetSkeletalMeshAsset())CacheCastSkeleton();
@@ -67,6 +74,38 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
         }
     }
     Super::FinalizeBoneTransform();
+}
+
+void UFPSCastingMeshComponent::ApplyOffhandReloadExit()
+{
+    const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!Pawn->HasOffhandSpellbook()||!Pawn->IsOffhandReloadActive())
+    {OffhandReloadExitCameraPose.Reset();return;}
+    const auto* Camera=Pawn->FirstPersonCamera.Get();if(!Camera)return;
+    if(PoseMesh.Get()!=GetSkeletalMeshAsset())CacheCastSkeleton();
+    auto& Pose=GetEditableComponentSpaceTransforms();
+    if(LeftBones.IsEmpty())return;
+    const auto Phase=Pawn->GetOffhandReloadPhase();
+    if(Phase==EOffhandReloadPhase::Reload)
+    {
+        // Last actually displayed native arm, including fingers/helpers. Keep
+        // its camera-relative pose before the source clip's pistol regrip tail.
+        const FTransform ToCamera=GetComponentTransform().GetRelativeTransform(Camera->GetComponentTransform());
+        OffhandReloadExitCameraPose.SetNum(Pose.Num());
+        for(int32 I:LeftBones)OffhandReloadExitCameraPose[I]=Pose[I]*ToCamera;
+    }
+    else if(Pawn->IsOffhandReloadArmExiting())
+    {
+        if(OffhandReloadExitCameraPose.Num()!=Pose.Num())return;
+        const float P=FMath::Clamp(Pawn->GetOffhandReloadProgress()/FOffhandReloadHandoff::BodyReturnTransferFraction,0.f,1.f);
+        const FVector Lower=FVector(-7,-3,-42)*(P*P*(3.f-2.f*P));
+        const FTransform ToMesh=Camera->GetComponentTransform().GetRelativeTransform(GetComponentTransform());
+        for(int32 I:LeftBones)
+        {
+            FTransform Bone=OffhandReloadExitCameraPose[I];Bone.AddToTranslation(Lower);Pose[I]=Bone*ToMesh;
+        }
+    }
+    else OffhandReloadExitCameraPose.Reset();
 }
 
 void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)

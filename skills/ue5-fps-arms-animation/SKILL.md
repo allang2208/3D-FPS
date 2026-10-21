@@ -42,3 +42,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 - 衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序：[衣袖与长袍漏空、原生绑定、下摆连续覆盖和布料同帧时序](references/garment-continuity-and-cloth-timing.md)。按问题读取，历史证据不授权自动重测。
 
 - SVCH 快速近战整手错位、腕肘扭曲、压缩帧间甩臂与动作时钟：读取 [SVCH 握点与帧间修订](references/svch-grip-subframes.md)。保留 V9、实际握点和仍有效的旧版恢复输入。
+
+本轮导出的 [手枪与副手书](references/pistol-book-ads-and-reload.md) 记录原待机/V5 ADS、直接回握、双持消耗品及联机身份边界；共享维护仍以个人目录为准。
+
+第三人称动作恢复、共用身体配置修改及动画发布，另读 [共享配置写入与发布](../../Docs/Workflow/player-body-config-publication.md)，保留其他动作入口并区分本地接入、Git 推送与用户认可。

@@ -59,6 +59,10 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
     State.bAiming=Pawn->IsAiming();State.bSprinting=Pawn->IsSprinting();
     State.bCrouched=Pawn->bIsCrouched;State.bSliding=Pawn->IsSliding();State.bDual=Pawn->IsDualWieldingPistols();
     State.bOffhandPistol=Pawn->HasOffhandPistol();
+    State.OffhandReloadPhase=uint8(Pawn->GetOffhandReloadPhase());
+    State.OffhandReloadLowerWeight=Pawn->GetOffhandReloadLowerWeight();
+    State.OffhandReloadProgress=Pawn->GetOffhandReloadProgress();State.OffhandReloadProgressRate=Pawn->GetOffhandReloadProgressRate();
+    State.bOffhandReloadReturnFromReload=Pawn->IsOffhandReturningFromReload();
     State.AimPitch=FMath::RoundToFloat(FRotator::NormalizeAxis(Pawn->GetBaseAimRotation().Pitch));
     State.LastShotAt=Pawn->LastShotWorldTime>=0.?Now-(LocalNow-Pawn->LastShotWorldTime):-100.f;
     if(Pawn->HasInventoryWeapon())
@@ -285,6 +289,11 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
         State.ActionStartedAt=R.ActionStartedAt;State.ActionDuration=R.ActionDuration;State.ActionEntryFraction=R.ActionEntryFraction;
         State.bHasActionProgress=R.bHasActionProgress;State.ActionProgress=R.ActionProgress;
         State.ActionWeight=R.ActionWeight;State.ContactFraction=R.ContactFraction;State.ReleaseFraction=R.ReleaseFraction;
+        State.ConsumeHands=R.ConsumeHands;State.ConsumeStowWeight=R.ConsumeStowWeight;
+        State.bConsumeWeaponsHidden=R.bConsumeWeaponsHidden;
+        State.OffhandReloadPhase=R.OffhandReloadPhase;State.OffhandReloadLowerWeight=R.OffhandReloadLowerWeight;
+        State.OffhandReloadProgress=R.OffhandReloadProgress;State.OffhandReloadProgressRate=R.OffhandReloadProgressRate;
+        State.bOffhandReloadReturnFromReload=R.bOffhandReloadReturnFromReload;
         State.RightHand=R.RightHand;State.LeftHand=R.LeftHand;
         State.ActionProgressRate=R.ActionProgressRate;
         // Keep one cosmetic shot clock. Mixing the server receipt time with
@@ -349,6 +358,10 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
         State.ActionStartedAt=ReplicatedState.Action==EFPSBodyAction::Dead?ReplicatedState.ActionStartedAt:Now;
         State.Contacts=FFPSBodyMotionSample();
     }
+    if(State.Action!=EFPSBodyAction::Consume)
+    {State.ConsumeHands=0;State.ConsumeStowWeight=0.f;State.bConsumeWeaponsHidden=false;}
+    if(State.Action==EFPSBodyAction::Dead||State.Action==EFPSBodyAction::Traverse)
+    {State.OffhandReloadPhase=0;State.OffhandReloadLowerWeight=0.f;State.OffhandReloadProgress=State.OffhandReloadProgressRate=0.f;State.bOffhandReloadReturnFromReload=false;}
     return State;
 }
 

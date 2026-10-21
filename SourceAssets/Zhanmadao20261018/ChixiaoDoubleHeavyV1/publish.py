@@ -27,7 +27,10 @@ option=next(o for c in gunsmith['columns'] if c['key']=='blade_1' for o in c['op
 mechanism='重击改为快速二连斩：先下斩，再从落刀处向右上方挑斩。两刀均造成完整重击伤害，属于武技。出手体力消耗翻倍，蓄力期间每秒体力消耗不变。'
 runpy.run_path(str(P.parent/'ChixiaoLegendaryV1/catalog_extension.py'))['extend_option'](option)
 write('melee-gunsmith.json',gunsmith)
-body=read('player_body.json');body['clips']['Melee.FullBody.ChixiaoHeavy']=receipt['body_asset'];write('player_body.json',body)
+body_path=DATA/'player_body.json';body_bytes=body_path.read_bytes();body=json.loads(body_bytes.decode('utf-8-sig'))
+body['clips']['Melee.FullBody.ChixiaoHeavy']=receipt['body_asset']
+runpy.run_path(str(ROOT/'Tools/PlayerBody/config_transaction.py'))['commit'](
+    body_path,body_bytes,body,owned_paths=[('clips','Melee.FullBody.ChixiaoHeavy')],producer=__file__)
 designfile=P.parent/'ChixiaoBladeConceptV1/design.json';design=json.loads(designfile.read_text('utf-8'))
 design['effect_proposal']={'status':'user_confirmed_integrated','revision':5,'effect_name':'赤霄双斩',
  'mechanism':mechanism,'hits':2,'damage_per_hit':'full_heavy_strike','category':'martial',

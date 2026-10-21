@@ -16,6 +16,10 @@ else:out.append(entries.replace(texts[1],['head_equipment'],{key:recipe}))
 folder=D/'Icons'/family;folder.mkdir(parents=True,exist_ok=True);shutil.copy2(R/(key+'.png'),folder/(key+'.png'))
 shutil.copy2(R/(key+'.png'),D/'Icons'/(key+'.png'))
 if any(p.read_bytes()!=b for p,b in zip(paths,raw)):raise RuntimeError('Catalog changed during scoped publication; retry')
-for path,before,content in zip(paths,raw,out):path.write_bytes((b'\xef\xbb\xbf' if before.startswith(b'\xef\xbb\xbf') else b'')+content.encode('utf-8'))
+for path,before,content in zip(paths,raw,out):
+    if path.name == 'player_body.json':
+        entries.commit_player_body(path,before,content,owned_paths=[('head_equipment',key)],producer=__file__)
+    else:
+        path.write_bytes((b'\xef\xbb\xbf' if before.startswith(b'\xef\xbb\xbf') else b'')+content.encode('utf-8'))
 (R/'published.json').write_text(json.dumps(dict(completed=True,item=item,recipe=recipe,slot=1,all_weapon_branches='shared player body head attachment',runtime_tested=False),ensure_ascii=False,indent=2),encoding='utf-8')
 print('BLUE_MAGE_HAT_PUBLISHED slot=1')

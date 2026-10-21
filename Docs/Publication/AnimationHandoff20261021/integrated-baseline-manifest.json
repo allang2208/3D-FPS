@@ -1,0 +1,134 @@
+{
+  "Config/DefaultGame.ini": {
+    "sha256": "5bf583420b8ad975209584526189e8f394bdaf39c18174dc4f7d8c87eb18c073",
+    "bytes": 28917
+  },
+  "Content/ColdSteelData/player_body.json": {
+    "sha256": "bcf7052656a03129877cf0dd4706568e1c007fdcda7960e270dda09e3d67880c",
+    "bytes": 42358
+  },
+  "Source/FPSGAME/Characters/FPSBodyBookCarryPose.inl": {
+    "sha256": "a52f255d00436c52b048e5a32e0892ae6e796a49a4b0b101755e58448706144d",
+    "bytes": 9437
+  },
+  "Source/FPSGAME/Characters/FPSBodyHammerContinuity.inl": {
+    "sha256": "36b652091e6be6de92e2ec1751aadf5bf6b422014e6399e6e67bf2b528e74985",
+    "bytes": 3500
+  },
+  "Source/FPSGAME/Characters/FPSBodyPistolMotion.h": {
+    "sha256": "9da35d0eecfe23b4125f6e14f5fbc8a722ae27d907907e0c932d360b3b97a5ac",
+    "bytes": 4903
+  },
+  "Source/FPSGAME/Characters/FPSBodyPistolPose.inl": {
+    "sha256": "38c19527fc4a8fbcb6c364d552020c550766b67b74fc1dc9f2e8d389e8805861",
+    "bytes": 23899
+  },
+  "Source/FPSGAME/Characters/FPSBodyStaffArmPose.inl": {
+    "sha256": "68bdef8afb29d311e43474fee12e1e6bc817393791b4fa5e7dd32d11ecd91000",
+    "bytes": 7978
+  },
+  "Source/FPSGAME/Characters/FPSBodySwordPose.inl": {
+    "sha256": "3faab1c479761fcacfbbe75743835af4165592e6332ca52667135083be256b80",
+    "bytes": 17045
+  },
+  "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h": {
+    "sha256": "1c809e72994d0558c45b26a5faac025754d4818107c56c6bb7116163aea1fe47",
+    "bytes": 8728
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp": {
+    "sha256": "eeee02d35c9e2bc8b52f1236daa687ca6d8937b2fff4572c69739c3492680920",
+    "bytes": 36466
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp": {
+    "sha256": "31b778751db92aebc349a5162680e9f4c5895c7bafadbd382936bc43ee386cf9",
+    "bytes": 146534
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h": {
+    "sha256": "24e7fcd1bba65c75387ca86d9e772814e0d3e7e2345fa31936311720a2c259c0",
+    "bytes": 2551
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp": {
+    "sha256": "48016dac0104d726ce54af2437f47b6d7d7a41a6d84c728832606e370f9352d9",
+    "bytes": 25626
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h": {
+    "sha256": "6cfac9052f7c64dbcdb06fedccebcb6d973b11652cd75f448f8b179ede1614d0",
+    "bytes": 19930
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp": {
+    "sha256": "61c8aae5b3973a183c3d8fffebff4a43df2b0b71fc1f01aa66d7ac2bb055ccf5",
+    "bytes": 55378
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp": {
+    "sha256": "20d6c4b9df767a02c62dc4809a190a662d7b08d0a721185c3f5b225e2670ead3",
+    "bytes": 49080
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp": {
+    "sha256": "45e411e59733e26ff9ce8b0b0b7aeb2b1d02d8222979e3c1ef5000c267bd9c2d",
+    "bytes": 16969
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h": {
+    "sha256": "5058874d23eeb072de1caccc71955601dbc00af1d3372f08b5df8aab34022970",
+    "bytes": 12961
+  },
+  "Source/FPSGAME/FPSGAMECharacter.cpp": {
+    "sha256": "5e0414b9542d6cb49bd972ce78fedce05939944f098659f9dd556e0cf22e26b3",
+    "bytes": 282703
+  },
+  "Source/FPSGAME/FPSGAMECharacter.h": {
+    "sha256": "32d1440d42a8ac7b4ce1cb22a5ba3dc7e1aac4bb1ec26960b065e65d289333c2",
+    "bytes": 59144
+  },
+  "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp": {
+    "sha256": "3894913c86fa8dfc7af0c3911231e9a5267ffc7961e3832a55ad1a80f549f862",
+    "bytes": 6152
+  },
+  "Source/FPSGAME/FPSGAMECharacterAmmo.cpp": {
+    "sha256": "a3b221ca1560a9f8daf46de41c002953d7e712df8dbc3323af0b52bd6d1c038a",
+    "bytes": 9225
+  },
+  "Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp": {
+    "sha256": "b43bc4022c182b5eea17303c32b8d613d0f78f51a80a2ff9016499462a76595a",
+    "bytes": 6736
+  },
+  "Source/FPSGAME/FPSGAMECharacterReload.cpp": {
+    "sha256": "70ff14ce4c8e285903c6821b09f7f3b15e25e62d61897e5b1fa1224d05abbaa5",
+    "bytes": 8181
+  },
+  "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp": {
+    "sha256": "fc5dfa04af9bf4cf37976d9d486ef24eb6eeb2be638afa27b07300cadb9160f7",
+    "bytes": 24177
+  },
+  "Source/FPSGAME/Skills/FPSCastingMeshComponent.h": {
+    "sha256": "887c8b9938c6984e26c4984b24a660fae1591c5461289d04d8b1f41a8d6b57bc",
+    "bytes": 1979
+  },
+  "Source/FPSGAME/Weapons/OffhandReloadHandoff.h": {
+    "sha256": "67b07e759c755d6ecc42ce233ce44286b3db4482077e81f56538919de34f7c9c",
+    "bytes": 2119
+  },
+  "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.cpp": {
+    "sha256": "14046b24dafe28d78950180edb94e582dbf96a8c1355398bba676ddc4a52f65b",
+    "bytes": 22895
+  },
+  "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h": {
+    "sha256": "180f203d6e04958ec6e56c17b9771f5d6f81e30ed34662ebf2bb0142a4c351ac",
+    "bytes": 8110
+  },
+  "Source/FPSGAME/Weapons/Spellbook/SpellbookPistolArmSolver.h": {
+    "sha256": "a40fe756ffd0f698bc596ae3c9c2ae8869f3d86f91ba74a333dd78b60b6de07b",
+    "bytes": 4106
+  },
+  "Source/FPSGAME/Weapons/Spellbook/SpellbookPistolSupport.cpp": {
+    "sha256": "f3220c7e7355bf6388398c266bb905e289a126e9ee7eb069b114c48b0a91af71",
+    "bytes": 11951
+  },
+  "Source/FPSGAME/Weapons/Spellbook/SpellbookPistolSupportTuning.h": {
+    "sha256": "24cfbfa8ec4f6ba20ae64754830cc193a9935e31773415e53a10139a25924978",
+    "bytes": 1503
+  },
+  "Source/FPSGAME/Weapons/Spellbook/SpellbookPistolThumbPose.h": {
+    "sha256": "34135b989728e898b9f840ed6520f666d81a966a67c6f171c0dd5b41bac559bf",
+    "bytes": 592
+  }
+}

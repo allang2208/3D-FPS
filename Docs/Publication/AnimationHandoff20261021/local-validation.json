@@ -1,0 +1,164 @@
+{
+  "scope": "Historical local integrated working tree; scoped publication subset was not built or runtime tested",
+  "delivery": {
+    "editor_build": {
+      "status": "Succeeded",
+      "log": "build-editor-linked.log",
+      "exit_code": 0
+    },
+    "game_build": {
+      "status": "Succeeded",
+      "log": "build-game.log",
+      "exit_code": 0
+    },
+    "authority_presentation_cases": 25,
+    "authority_presentation_failures": 0,
+    "config_tool_cases": 10,
+    "publication_tool_cases": 6,
+    "socket_transport_tested": false,
+    "visual_multiplayer_tested": false,
+    "cook_executed": false,
+    "git_pushed": false,
+    "report": "Docs/Weapons/animation-handoff-network-review-20261021.md"
+  },
+  "authority": {
+    "cases": [
+      {
+        "case": "remote authority resolves guest offhand identity",
+        "passed": true
+      },
+      {
+        "case": "guest non-pistol offhand adds full handling cost",
+        "passed": true
+      },
+      {
+        "case": "guest reload does not add equipment to host profile",
+        "passed": true
+      },
+      {
+        "case": "matching book instance accepts mechanical sample",
+        "passed": true
+      },
+      {
+        "case": "old book instance cannot drive new same-schema book",
+        "passed": true
+      },
+      {
+        "case": "remote loadout includes a book rig",
+        "passed": true
+      },
+      {
+        "case": "authority ammo deadline includes offhand handling",
+        "passed": true
+      },
+      {
+        "case": "lower phase and progress reach authority relay",
+        "passed": true
+      },
+      {
+        "case": "remote aim comes from authority controller and CMC",
+        "passed": true
+      },
+      {
+        "case": "early return exits empty hand without pistol regrip",
+        "passed": true
+      },
+      {
+        "case": "reload-to-return uses reliable edge",
+        "passed": true
+      },
+      {
+        "case": "late return reveals the offhand gradually",
+        "passed": true
+      },
+      {
+        "case": "older reload snapshot cannot rewind return",
+        "passed": true
+      },
+      {
+        "case": "changed offhand rejects old return",
+        "passed": true
+      },
+      {
+        "case": "expired presentation cannot leave offhand hidden",
+        "passed": true
+      },
+      {
+        "case": "offhand extrapolation is capped at 120 ms",
+        "passed": true
+      },
+      {
+        "case": "reflected serialization retains offhand handoff fields",
+        "passed": true
+      },
+      {
+        "case": "dual pistols do not pay non-pistol offhand cost",
+        "passed": true
+      },
+      {
+        "case": "dual two-hand consume owns both hands on relay",
+        "passed": true
+      },
+      {
+        "case": "one-hand drink leaves the other pistol independent",
+        "passed": true
+      },
+      {
+        "case": "consume end clears stow flags",
+        "passed": true
+      },
+      {
+        "case": "remote hammer retains dedicated identity",
+        "passed": true
+      },
+      {
+        "case": "remote hammer selects restored third cut with source progress",
+        "passed": true
+      },
+      {
+        "case": "different hammer instance cannot inherit attack",
+        "passed": true
+      },
+      {
+        "case": "fresh body initialization loads all 39 restored roles",
+        "passed": true
+      }
+    ],
+    "failures": 0,
+    "socket_transport_tested": false,
+    "rendered_multiplayer_tested": false
+  },
+  "config": {
+    "passed": 10,
+    "cases": [
+      "helmet edit preserves complete clips text and records original bytes",
+      "stale read cannot overwrite a newer edit",
+      "old 125-role snapshot cannot delete restored hammer routes",
+      "whole clip-library ownership is forbidden",
+      "helmet writer cannot change hammer animation",
+      "overlapping cooperative writer cannot enter",
+      "empty clips insertion preserves BOM, CRLF and unrelated bytes",
+      "duplicate keys cannot hide overwritten data",
+      "first equipment insertion creates only missing owned parents",
+      "object replacement cannot bypass implicit-deletion protection"
+    ],
+    "live_configuration_written": false,
+    "live_sha256_at_start": "bcf7052656a03129877cf0dd4706568e1c007fdcda7960e270dda09e3d67880c",
+    "live_sha256_at_end": "bcf7052656a03129877cf0dd4706568e1c007fdcda7960e270dda09e3d67880c",
+    "editor_launched": false,
+    "game_tested": false
+  },
+  "publication_tool": {
+    "passed": 6,
+    "cases": [
+      "exact remote tip proves selected content",
+      "index comparison uses actual staged content",
+      "later unrelated commit retains publication proof",
+      "ancestor in remote history cannot hide later route removal",
+      "restored routes without required source do not pass",
+      "dynamic animation dependencies require explicit cook coverage"
+    ],
+    "real_project_git_written": false,
+    "external_remote_written": false
+  }
+}
