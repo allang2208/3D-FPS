@@ -109,8 +109,30 @@ $logFile = Join-Path $logDir ($Profile + '-' + $Configuration + '-' + (Get-Date 
 # The ini map list must be exactly the map list requested here; otherwise cook scope
 # silently drifts away from the pinned profile.
 $gameIni = Join-Path $projectRoot 'Config/DefaultGame.ini'
-$iniMaps = @(Select-String -Path $gameIni -Pattern '^\+MapsToCook=\(FilePath="/Game/(?:GameMaps/)?([^"]+)"\)' -AllMatches |
-    ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value })
+
+# Keep the real package path for every entry, not just a short name. The cook
+# argument must be built from what the ini actually points at: maps outside
+# /Game/GameMaps/ (for example /Game/Tests/HangingBellM09/L_M09CeilingTest) used to
+# be rewritten into /Game/GameMaps/<rest> and were then skipped by the cook with
+# only "Unable to find package for cooking" in the log, so the build shipped
+# without them while still reporting the profile as pinned.
+$iniMapPaths = [ordered]@{}
+Select-String -Path $gameIni -Pattern '^\+MapsToCook=\(FilePath="(/Game/[^"]+)"\)' -AllMatches |
+    ForEach-Object { $_.Matches } |
+    ForEach-Object {
+        $fullPath = $_.Groups[1].Value
+        $shortName = $fullPath -replace '^/Game/(?:GameMaps/)?', ''
+        if ($iniMapPaths.Contains($shortName)) {
+            if ($iniMapPaths[$shortName] -ne $fullPath) {
+                throw ("Config/DefaultGame.ini maps two different packages to the same " +
+                       "'-Maps $shortName' shorthand: $($iniMapPaths[$shortName]) and $fullPath. " +
+                       'Pass distinct paths or remove one entry.')
+            }
+        } else {
+            $iniMapPaths[$shortName] = $fullPath
+        }
+    }
+$iniMaps = @($iniMapPaths.Keys)
 if ($iniMaps.Count -eq 0) {
     throw 'Config/DefaultGame.ini has no +MapsToCook entries; refusing to cook with implicit scope.'
 }
@@ -121,7 +143,18 @@ if ($onlyInCommand.Count -gt 0 -or $onlyInIni.Count -gt 0) {
            "only in command: [$($onlyInCommand -join ', ')]; only in ini: [$($onlyInIni -join ', ')]")
 }
 
-$mapArg = ($Maps | ForEach-Object { "/Game/GameMaps/$_" }) -join '+'
+$mapArg = ($Maps | ForEach-Object { $iniMapPaths[$_] }) -join '+'
+
+# Fail before cooking if an ini entry points at a package that does not exist.
+# A missing map is otherwise only a warning in the cook log, which is how the
+# stale path above stayed unnoticed.
+foreach ($rel in $Maps) {
+    $pkg = $iniMapPaths[$rel] -replace '^/Game/', ''
+    $umap = Join-Path $projectRoot ("Content/$pkg.umap")
+    if (-not (Test-Path -LiteralPath $umap)) {
+        throw "Config/DefaultGame.ini lists $($iniMapPaths[$rel]) but $umap does not exist; refusing to cook a map that cannot be loaded."
+    }
+}
 
 $uatArgs = @(
     'BuildCookRun',
