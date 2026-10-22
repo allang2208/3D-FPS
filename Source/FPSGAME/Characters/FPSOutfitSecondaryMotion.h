@@ -4,10 +4,10 @@
 class USkeletalMeshComponent;
 class UMaterialInstanceDynamic;
 
-/** One bounded inertia field shared by mail, lining, binding, and cuff links. */
+/** One bounded inertia field shared by each cuff's outer fabric and lining. */
 struct FFPSOutfitSecondaryMotion
 {
-    void Initialize(USkeletalMeshComponent* InSource,USkeletalMeshComponent* InShirt);
+    void Initialize(USkeletalMeshComponent* InSource,USkeletalMeshComponent* InShirt,bool bSoftRobe=false);
     void Tick(float DeltaSeconds);
 private:
     struct FHand
@@ -25,6 +25,7 @@ private:
     FVector LastSent[4];
     bool bActive=false;
     bool bHaveParameters=false;
+    bool bRobe=false;
     void Push(const FVector& Left,const FVector& Right,const FVector& PreviousLeft,const FVector& PreviousRight);
     void Reset();
 };

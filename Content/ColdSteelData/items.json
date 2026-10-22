@@ -252,12 +252,12 @@
     "bonusStats": {
       "moveSpeedPercent": 0.05
     },
-    "desc": "暖棕皮革高筒靴，皮革包头与加固后跟配双侧扣，沿条和靴口保留细缝线。与棕色露指皮革手套、皮革裤组成同款外观。",
-    "ue_icon": "Icons/ue_leather_boots.png",
+    "desc": "深胡桃棕皮革长靴，弧形裁片和斜向活动褶自然衔接脚踝，暗钢双扣带、卷边内衬与细密双缝线配合叠层皮跟和沿条。",
+    "ue_icon": "Icons/LeatherBootsTailoredV2/ue_leather_boots.png",
     "icon_fallback": "靴",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Pickups/SM_LeatherBoots.SM_LeatherBoots",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Pickups/SM_LeatherBoots.SM_LeatherBoots",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": 0
   },

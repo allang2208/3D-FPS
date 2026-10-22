@@ -1,0 +1,1653 @@
+{
+  "scope": "This leather-boot revision and its failed startup diagnostics only; no Content packages moved.",
+  "files": [
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/author-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/author-01.log",
+      "bytes": 609,
+      "sha256": "a83d728627b7b1f0688a22fd97614c21bb3b5f21571bd0631a9cce52e71abd16",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/author-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/author-02.log",
+      "bytes": 609,
+      "sha256": "a83d728627b7b1f0688a22fd97614c21bb3b5f21571bd0631a9cce52e71abd16",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/author-03.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/author-03.log",
+      "bytes": 609,
+      "sha256": "dc42a56c850ec24bd70c936e747c24463d827857e8b8d326e4da8f76207ff605",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Authored/ue_leather_boots/Jason_RobeInner.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Authored/ue_leather_boots/Jason_RobeInner.json",
+      "bytes": 53798609,
+      "sha256": "f6571a75615cd7b3e592a8af2d61a3eb9f10ca6d7f9d7c28074baf7168b57be1",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/authored.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/authored.json",
+      "bytes": 693,
+      "sha256": "ca784e4d151613ff9032691d31ad79d1e25dda06d7a7c7091e7b8b513aca2db3",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/bake-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/bake-01.log",
+      "bytes": 864,
+      "sha256": "fbb01ab76102e205c4cdb379ba50adb0091875f2ca5f3174751d7f9507758fea",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Before/items.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Before/items.json",
+      "bytes": 192127,
+      "sha256": "bed096e6019113fc3e7facb3f0a9ff872e8933c1ed7c26d7b96a1d376262e0e5",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Before/modular_outfits.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Before/modular_outfits.json",
+      "bytes": 176011,
+      "sha256": "8269121b2a6f98a2b79885e76a25f51583f4c845893a0c533639fc685b87cdc5",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/check-model-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/check-model-01.log",
+      "bytes": 647,
+      "sha256": "2af98f2c59426dad1e131302663bacb3fbd922d0d204f93835876e19ffe7333f",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/check-model-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/check-model-02.log",
+      "bytes": 647,
+      "sha256": "2af98f2c59426dad1e131302663bacb3fbd922d0d204f93835876e19ffe7333f",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/check-saved-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/check-saved-01.log",
+      "bytes": 1173,
+      "sha256": "eb6a1df6579ffca0872b7ec06839da06a45f645951a48e6545b88886050d1918",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/delivery.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/delivery.json",
+      "bytes": 12671,
+      "sha256": "23617db8c2880059207f6c1d6955206200234ba30d59a2301aa7a2beb5bd901d",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/editable.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/editable.json",
+      "bytes": 843,
+      "sha256": "afaae8d14b5f74cdd367821d2433b113271b60591f1d0f9db9711c55d8c6c097",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/editor-read-01.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/editor-read-01.json",
+      "bytes": 116,
+      "sha256": "42c2c48a95c2cb5f814402e0922f21b2e74faefef9a5c6e5d378a4bc54023f99",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/editor_state.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/editor_state.json",
+      "bytes": 939,
+      "sha256": "7b7d4186f90f5b771da58e6e0898e44d79fb559d4c5c3366ce8bbb4b60cf5262",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/export-render-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/export-render-01.log",
+      "bytes": 2429,
+      "sha256": "3e1561931406cfb94129f5067713eae61208227b72d86abcee4b7cf2a4d0030c",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/export-render-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/export-render-02.log",
+      "bytes": 2429,
+      "sha256": "22a2efe47fbd8fb3fec9b00f561b69df0cd17d7e06054749e42ddb3e6860d86c",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Exports/Jason_LeatherBoots_Continuous.fbx",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Exports/Jason_LeatherBoots_Continuous.fbx",
+      "bytes": 5753788,
+      "sha256": "0f500008cb2bd50a5fc23a33926037b27b1fe303478801565ea6b428b35560d1",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/inputs.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/inputs.json",
+      "bytes": 3416,
+      "sha256": "27359c2672d5df7c44c8a2a420d82bfc7d012470289f02555f97c7455cf19567",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/LeatherBoots_Continuous_Editable.blend",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/LeatherBoots_Continuous_Editable.blend",
+      "bytes": 127932804,
+      "sha256": "c55163e0e969ac0fc147a33aa810e65f2b38ee9fa0ddf6cd0badcd9fee6116ea",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/materials.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/materials.json",
+      "bytes": 3513,
+      "sha256": "23d8a6c7b4de3379dca190c76e152a502151953d5e13f39c64cfe1f5cc692e17",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/model_check.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/model_check.json",
+      "bytes": 8438,
+      "sha256": "07204edacc4b7033fa42333bf15c97d8278473b75de6987c4b55bac3d52af27c",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/published.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/published.json",
+      "bytes": 1477,
+      "sha256": "c60273219eeca1a0f35323aa825d0e023aec96c4cf094433bc8c2e9ee947ced4",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/render-outsole-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/render-outsole-01.log",
+      "bytes": 864,
+      "sha256": "4385ad20bd102d90958895e21744d21521f7632fb0a0828c39f9de8489578223",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/render-pose-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/render-pose-01.log",
+      "bytes": 868,
+      "sha256": "7b3aa386ca2f57dc620e2d670056ebec57b8c468406ef1ab92a347a10e7a7de3",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Review/Ankle_Toe_Flex_Check.png",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Review/Ankle_Toe_Flex_Check.png",
+      "bytes": 1250787,
+      "sha256": "8909a8a29f6e1f5b8bded2a37bcecef184610d287da3733646a0f4b84e37a60f",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Review/Boots_Detail.png",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Review/Boots_Detail.png",
+      "bytes": 1660555,
+      "sha256": "418d4e8ac6675a1041c2c98979e30df460f952033844a04cf016dd122cdcefdc",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Review/Boots_NewLeft_OldRight.png",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Review/Boots_NewLeft_OldRight.png",
+      "bytes": 1468905,
+      "sha256": "e0ff6db382ffc204e69ed5ec050f7674bd58c07654608969a5523b5be09dbe79",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Review/Outsole_Tread.png",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Review/Outsole_Tread.png",
+      "bytes": 1316201,
+      "sha256": "d6d40308f5304299a490cf7c663897ee96e9b47ba2b45c261824e70209701ab7",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Review/posed_boot_positions.npy",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Review/posed_boot_positions.npy",
+      "bytes": 1722416,
+      "sha256": "f05777efb88085aaaa6daa5970725076e354ca52c0aca7b418410265776db059",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Review/Sole_Welt_Close.png",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Review/Sole_Welt_Close.png",
+      "bytes": 1403643,
+      "sha256": "31b935a56894c01bb7f20a312a460abba44dcb8ae657f2c0809bf30518b0c7f3",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/saved_check.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/saved_check.json",
+      "bytes": 627,
+      "sha256": "bf5e1c1107c19389d3912e47cb3290872bf3b0a615c9c82db749bf49d4149160",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/saved_read.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/saved_read.json",
+      "bytes": 10508,
+      "sha256": "3c3fb9ee0e82ff1a737da33f9ffcb478f38f9dfad5a44cd03ba5ca3bc09ea5d6",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/SavedRead/Jason.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/SavedRead/Jason.json",
+      "bytes": 83194688,
+      "sha256": "f571bd9ba42e3f23e060816d8b5b305752f124bb7be137478f45e379d7558f87",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/SaveInputs/Jason.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/SaveInputs/Jason.json",
+      "bytes": 1000,
+      "sha256": "59dce70f9eaa0b1875c9a9d28ea5f9b2452327ed6a42feaa84e3683ad0b4e66f",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/SaveInputs/Jason_RobeInner.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/SaveInputs/Jason_RobeInner.json",
+      "bytes": 1181,
+      "sha256": "deb33f904ed8c3cdf9a775cbb15ce61a5151b9ac6690ade146b878edf1abff22",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/surfaces.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/surfaces.json",
+      "bytes": 2011,
+      "sha256": "f329a0e599dcb58fb4db576ef6a48bd9e157b9541c591115f58c9ec7096c6ab0",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Prepared/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Prepared/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "One-off expected-route draft; each actual network run snapshots its own oracle.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Prepared/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Prepared/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "One-off expected-route draft; each actual network run snapshots its own oracle.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/build-editor.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/build-editor.log",
+      "bytes": 17624,
+      "sha256": "880683e26a209083e35544aad143c661a12d87bd84adbc08ac65921689ca9950",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Config/CrashReportClient/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Config/CrashReportClient/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/CrashContext.runtime-xml",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/CrashContext.runtime-xml",
+      "bytes": 169012,
+      "sha256": "c39a843cbb3ee28f950f801882bf9f75ebb00ea43370eeb2cb76b7acbec01c95",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/host.log",
+      "bytes": 198639,
+      "sha256": "2a9fb3f0442c46d352d68d9ac1106382b002532dd23f7eaa6ac6a112e1c80281",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/UEMinidump.dmp",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Crashes/UECC-Windows-85A9A0354C5F02FC4BC18BBC0BFBC22E_0000/UEMinidump.dmp",
+      "bytes": 1860661,
+      "sha256": "257da74b70188592274e9e65706196bdcb1000ef70017d1df9d86edf662e4dd3",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "b891cbb9c73dc658de0a1472555ac2d3300455e8a03d16fbc951eb6061799da5",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "7dd8197c1a5b7e7d6e83c4492f41e92d74ad0f1d945cf5669c2e888e128f5786",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_A.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_A.sav",
+      "bytes": 16556,
+      "sha256": "bbb8b679fc942665437212b90da0e46cebb9eecfe42c8f6e9e842696af62be8d",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_A.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_A.sha1",
+      "bytes": 40,
+      "sha256": "1b65b67cb0e92e95db0ff5d0469965d31eb9456cc81b18790692dba0e9e25bad",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_B.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_B.sav",
+      "bytes": 100063,
+      "sha256": "8ba371facaac1f1c95d6e895a49c4b5b54386eb8ad001ba39778d45a84616783",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_B.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-142242_host_B.sha1",
+      "bytes": 40,
+      "sha256": "5a016ff2fd7729d7224c95458b0709777762b6eff037f7588d61755139698cfa",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/host.log",
+      "bytes": 205304,
+      "sha256": "fe519a22747322a3df66e378ee9594701a01f2995abfbaa9197089a026796e60",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/input-hashes.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/input-hashes.json",
+      "bytes": 1039,
+      "sha256": "6654f8312a1dd6104b4e8f58d4becadc9e676087a7bb40ab12eda54cbec55542",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-142242/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Config/CrashReportClient/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Config/CrashReportClient/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/CrashContext.runtime-xml",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/CrashContext.runtime-xml",
+      "bytes": 170365,
+      "sha256": "b66f27717cb5d2a2ca939fb65a1dc87942f92a6ddbf2dcbc92745691b6298169",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/host.log",
+      "bytes": 199435,
+      "sha256": "30768a095c5a7702cbba2a02fd7ed4ecd69df2bdd9a4f4c6bb6ddc85ca8f921e",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/UEMinidump.dmp",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Crashes/UECC-Windows-8F7574BF4AF0692AC27889AEB10E806D_0000/UEMinidump.dmp",
+      "bytes": 1879143,
+      "sha256": "cc6c2c426d98a72b1774b9b50e890ffde0e7be20ae836ee0eda80dc7f5f51aef",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "f410572e73abad7b223b906f6d47a7809c8a501eac471cd6d7a8e1632f9d1707",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "b48dc80cb92b8b30c828181c70d00f2d6bd2a09341f3aa5da72d1619fcaa9cec",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_A.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_A.sav",
+      "bytes": 16556,
+      "sha256": "d6d8b7d0b57b5ebc13b99d4339e9cb8391acda91e514b1b77ddbf61cbb93d9d4",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_A.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_A.sha1",
+      "bytes": 40,
+      "sha256": "8b5c6b9ac21bdeea9a7abf6d361f88a5ab6268565565905480902166491e2b79",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_B.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_B.sav",
+      "bytes": 100063,
+      "sha256": "d2c68e2a0da77b53c8b9d64de0a8d593d1ec326a8c9f0f5245ca5ac7c7ac636f",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_B.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143224_host_B.sha1",
+      "bytes": 40,
+      "sha256": "b3860dfe3d921b3cf4d37791778d1a5674faa652cbf36c18e329ac4264e41b37",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/host.log",
+      "bytes": 205836,
+      "sha256": "23b9241d5c499a3ec3d753ccd128435aa9bb3266998ffed8ed5c7436d8f19b03",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/input-hashes.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/input-hashes.json",
+      "bytes": 1039,
+      "sha256": "6654f8312a1dd6104b4e8f58d4becadc9e676087a7bb40ab12eda54cbec55542",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143224/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Config/CrashReportClient/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Config/CrashReportClient/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/CrashContext.runtime-xml",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/CrashContext.runtime-xml",
+      "bytes": 169618,
+      "sha256": "bbbd3fed2721d6a61e2f8527f53e6d1e9d424f55b7289a24ddfa1d407e5e7650",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/host.log",
+      "bytes": 1849530,
+      "sha256": "9aa3e61bee617bea57430c1142b96dfa40d39cf5ec823e8b3434e754892a27ad",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/UEMinidump.dmp",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Crashes/UECC-Windows-4968FF9B44B0960B5FA724B502C72F4A_0000/UEMinidump.dmp",
+      "bytes": 1822907,
+      "sha256": "5b36dc74fd80fe682122b7e804c036fa48b7ab43759002dfd96d9b65dd7f3c89",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "f6e30918738a3d60604b93e0e0e3b3d5081a9ece5a0f08b99b0995458a2e2fac",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "fcb0cacd89b3185571eadb39f065e6284292f3b09d14dd7851fe700c951fa6f1",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_A.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_A.sav",
+      "bytes": 16556,
+      "sha256": "1808680da38f6637db9a3353a3133db6e278db247c30334b11ea950056a9c7fd",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_A.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_A.sha1",
+      "bytes": 40,
+      "sha256": "617bef08a2003a9810f7600bca698e23a0c1a5b25a9cbaadfb1c995dc2754864",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_B.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_B.sav",
+      "bytes": 100063,
+      "sha256": "b893ed56b4960fa3892477f4591c163d51f7ee52cb05e1f07ee50123e838ba56",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_B.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-143453_host_B.sha1",
+      "bytes": 40,
+      "sha256": "d5cfee33052061bb049ab9878e293a1a60c8fa2b687279611177cf24efd74ff0",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/host.log",
+      "bytes": 1855931,
+      "sha256": "cd4f23165bfcd581b1d4c0cfcc926794cb6909d87b68aa6a10d17dd13667655a",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/input-hashes.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/input-hashes.json",
+      "bytes": 1039,
+      "sha256": "c354689e40e476c56025835f749d5f64bb85eaafbc173d282e99c3e5677d1f25",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-143453/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/build-editor.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/build-editor.log",
+      "bytes": 17888,
+      "sha256": "aae9ceea4549f0f3a80f7edf02dda0978d5bd9fa61b68f13dba9aa8d89001ec6",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Config/CrashReportClient/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Config/CrashReportClient/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/CrashContext.runtime-xml",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/CrashContext.runtime-xml",
+      "bytes": 169948,
+      "sha256": "64da9b83eeaeb05155b248eab8ab9ae063fdfc8052ca8f3a795a843f505f7ec2",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/host.log",
+      "bytes": 1849707,
+      "sha256": "b4605349797c3d6d7230feff00b3f14268c70559c830fd3667fb9ef111267936",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/UEMinidump.dmp",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Crashes/UECC-Windows-E1F099AC4F6B126D080B71BC708F9AC3_0000/UEMinidump.dmp",
+      "bytes": 1818846,
+      "sha256": "7a958a00b0b67eeedde85022fc9bc4bcae22136b4325f0143cce8a5c72a17067",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "f25122d5ca4569304b64d2c0c0d659ad630f6894d2dd89ddf87738e4d5a77204",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "61649826818606c8712a2311c0d1c059c39ec295a294522fd47462a96fe5a1fd",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_A.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_A.sav",
+      "bytes": 16556,
+      "sha256": "68a3270540450cfa5c508ea5e6d8216b8ff268ec4dd771c6eec3a180d41a0967",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_A.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_A.sha1",
+      "bytes": 40,
+      "sha256": "a4fb0e743d08fa3b32b7fc2d0fa5917d22eb0d62a6380ff30268bf6520469f08",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_B.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_B.sav",
+      "bytes": 100063,
+      "sha256": "9976903fc7ecdda4f045f6d029b4ebc568208d8b39aa4da3938e54e8f13b24d2",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_B.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-154849_host_B.sha1",
+      "bytes": 40,
+      "sha256": "8b37da3ad2dbedf96cd2d37820a79b43d144ee23102a1b50f7120847b74f889b",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/host.log",
+      "bytes": 1856372,
+      "sha256": "81d27da1759e6a8e4a2ba9012b01fef2815db1c44cf1302053376c4e7e8fed3b",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/input-hashes.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/input-hashes.json",
+      "bytes": 1039,
+      "sha256": "1214cd5f539fa252f3680a64949ace55c4bbec611b004ec6cab6375b7187a99b",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-154849/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Config/CrashReportClient/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Config/CrashReportClient/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/CrashContext.runtime-xml",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/CrashContext.runtime-xml",
+      "bytes": 169729,
+      "sha256": "ede38b8bcd4b3c5e38b444b97aea5a2d9ec5b06094f4a95d8b0b9505bf7e9755",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/CrashReportClient.ini",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/host.log",
+      "bytes": 1849409,
+      "sha256": "73089bf38577d3cb22417b95bb537fc47f7e0a9dac0d0f7f2a642b7debddf203",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/UEMinidump.dmp",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Crashes/UECC-Windows-E7F1B3AE42DA93F6AE08208BED78B2E6_0000/UEMinidump.dmp",
+      "bytes": 1851361,
+      "sha256": "3e0c48dab5672f80aa1630aab11d787350bbede13f8ff889768c5d995f64eecb",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "0834822e6752dba819efe9826dadd416ec97cb1c496dc9b50231a07ecac943ee",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "03b92e23bf1f023a2ed08504a24fcf68e0457bda5951e731e64d88121febbe91",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_A.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_A.sav",
+      "bytes": 16556,
+      "sha256": "7e6fd177eb1c05f767720666d57d59eefcaf3fbc4f8ae8bf52cd213e6cc24e1d",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_A.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_A.sha1",
+      "bytes": 40,
+      "sha256": "57fb7f9426802fe988c005049cb9c34f3ce449b902ca42c4d5fd336696dd7205",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_B.sav",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_B.sav",
+      "bytes": 100063,
+      "sha256": "034e84952419af9d2456a05fe2fbc1911c59893efe66cb4b8e0dfa75e9710c3a",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_B.sha1",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host/Saved/SaveGames/ColdSteel_MageAudit_20261022-155957_host_B.sha1",
+      "bytes": 40,
+      "sha256": "610b5cd36807226f22d2c9926593f0c69e5c2c1ef21802ec436105a4c709b472",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host-modules.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host-modules.json",
+      "bytes": 411,
+      "sha256": "cc154f49b5125352e2c4b8ac9c7a1a86795f8bbae478f28cb7679946caa36a70",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/host.log",
+      "bytes": 1856074,
+      "sha256": "b43d415ab79aa45890aff87572ef46113ccccb9fb429ef38ea6cdc48e8654afa",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/input-hashes.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/input-hashes.json",
+      "bytes": 1039,
+      "sha256": "1214cd5f539fa252f3680a64949ace55c4bbec611b004ec6cab6375b7187a99b",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-155957/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-160845/expected.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-160845/expected.json",
+      "bytes": 2297,
+      "sha256": "e08a040f5c01996043a210858e53b2ca66ca162f1c7a4566e35a97212aa58709",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-160845/scenario.json",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-160845/scenario.json",
+      "bytes": 436,
+      "sha256": "12374753d773876c22bb7d5fe9e91cebae9aab830ac036d82d94d2640de0d5ed",
+      "reason": "Failed or blocked run superseded by the successful 14-case UDP run; failure evidence remains recoverable.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-01.log",
+      "bytes": 610,
+      "sha256": "c32f225798dc674c78417c0e27ccbc6652ce883f5725d9fb1fb628839b3a47da",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-02.log",
+      "bytes": 610,
+      "sha256": "ddcaabdf65469c0912158417f6f62a20387062d81a9c485d41d4afb8261d60fa",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-03.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-03.log",
+      "bytes": 610,
+      "sha256": "ddcaabdf65469c0912158417f6f62a20387062d81a9c485d41d4afb8261d60fa",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-04.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-04.log",
+      "bytes": 610,
+      "sha256": "ddcaabdf65469c0912158417f6f62a20387062d81a9c485d41d4afb8261d60fa",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-05.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/author-05.log",
+      "bytes": 610,
+      "sha256": "ddcaabdf65469c0912158417f6f62a20387062d81a9c485d41d4afb8261d60fa",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/bake-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/bake-01.log",
+      "bytes": 861,
+      "sha256": "f99934cda73c053b83cd96e5481070067c0249fd3daf392074adbbbb6a8d01e3",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/bake-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/bake-02.log",
+      "bytes": 860,
+      "sha256": "3abfae6bb29b7416e5c61eb74977a0a1203c58aa573e46613ba1038bd22a14ff",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/bake-03.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/bake-03.log",
+      "bytes": 860,
+      "sha256": "c72d8c4d1c9da45af7270974a885a03fd640adfc29310944771501d2196ce4e3",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-01.log",
+      "bytes": 647,
+      "sha256": "2af98f2c59426dad1e131302663bacb3fbd922d0d204f93835876e19ffe7333f",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-02.log",
+      "bytes": 647,
+      "sha256": "2af98f2c59426dad1e131302663bacb3fbd922d0d204f93835876e19ffe7333f",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-03.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-03.log",
+      "bytes": 647,
+      "sha256": "2af98f2c59426dad1e131302663bacb3fbd922d0d204f93835876e19ffe7333f",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-final.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-model-final.log",
+      "bytes": 647,
+      "sha256": "2af98f2c59426dad1e131302663bacb3fbd922d0d204f93835876e19ffe7333f",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-saved-final.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-saved-final.log",
+      "bytes": 1174,
+      "sha256": "72ce42bff6f314ef39c0448720bbffcfd93963db8f6a277e69e1bed3fbd1718b",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-01.log",
+      "bytes": 946,
+      "sha256": "ab35d3f88511d3654a140e6852dd06a8ece8c9a0c473af8f9f426149309284f3",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-02.log",
+      "bytes": 983,
+      "sha256": "8982ef0a08c5f426f1797804b43b901162494792aa7695aa2b6736a0495326e1",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-03.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-03.log",
+      "bytes": 4546,
+      "sha256": "bd9c41fdf046ef3455d0bd0d0ed0408bc7fe63a2adc1aa87a901c813fcafd07c",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-04.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/check-trouser-04.log",
+      "bytes": 4490,
+      "sha256": "a6359d401745ed6f8adb8f5a1beaeee154fbe99f0df1f69e616fb72b01b8bd87",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-final.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-final.log",
+      "bytes": 1278,
+      "sha256": "f495c5b18a1a41cdf5146b0508acd09802e1cccc6bc604a6231f19466f7ce2a6",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-01.log",
+      "bytes": 2761,
+      "sha256": "7f54b2660b110c32384e4528828bf8e1b2ab76f3442ca6d8bb744adc19cf1859",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-02.log",
+      "bytes": 2761,
+      "sha256": "6b55877c2f9282fe7b93c7dafa8b1ff37d603196077ef2d1dbc4723679ad4216",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-03.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-03.log",
+      "bytes": 2761,
+      "sha256": "1cf9ba580091d5ca002d56c85b1cb00d7f3a5ae314151fe691eee92ef5368970",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-04.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/export-render-04.log",
+      "bytes": 2761,
+      "sha256": "52fb318ff9fee9cdf77a5c2fd25535aa5bbc52739b27740dc0922f1fe41938a9",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/render-final.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/render-final.log",
+      "bytes": 1013,
+      "sha256": "8080b5ff98df6db46d82389fd2c57117cf85088082b6023d119588f372537fad",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/render-pose-01.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/render-pose-01.log",
+      "bytes": 890,
+      "sha256": "b514246aa298bbc8343e70aa4df8e460eb81db11c18790f15ace70acbc3b3549",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/render-pose-02.log",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/render-pose-02.log",
+      "bytes": 890,
+      "sha256": "a7cf8e5be836aae4e7c41fac3129cee3571e07618dde166c631aa4a3e82e1fe6",
+      "reason": "Superseded authoring invocation log; authoritative structured source/readback/geometry receipts retained.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/delivery.json"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Textures/BootLeather_height_cm.npy",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Textures/BootLeather_height_cm.npy",
+      "bytes": 67108992,
+      "sha256": "88e7056adb0ffac6a3f25089d0e6539d84135b4b0382078cc65a3a94573f8f9b",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Textures/BootReinforced_height_cm.npy",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Textures/BootReinforced_height_cm.npy",
+      "bytes": 67108992,
+      "sha256": "24d1ec3546bd6d4945f295d8b6ba9a65464d660c1c3e3678129b8f7cad85de95",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Textures/BootRubber_height_cm.npy",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Textures/BootRubber_height_cm.npy",
+      "bytes": 16777344,
+      "sha256": "cc7946513ba33fd57c328f014f61200c0a9562741f7cb17e0fd1f3d08d38ff7f",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/Textures/BootWelt_height_cm.npy",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/Textures/BootWelt_height_cm.npy",
+      "bytes": 16777344,
+      "sha256": "be8b7830df5f21f4b1bc6939500d21913f30f161bf74561c3ac3692d525e201e",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "SourceAssets/LeatherBootsUpgrade20261022/ue_leather_boots.png",
+      "destination": "trash/leather-boots-retired-20261022/SourceAssets/LeatherBootsUpgrade20261022/ue_leather_boots.png",
+      "bytes": 347673,
+      "sha256": "0f66979dfd75090c7dcdbaf2a749715e268c71fd58f409d5989002dce5d48016",
+      "reason": "Rejected first revision; current consumers use only its retained comparison geometry, PNG surfaces and legacy path receipt.",
+      "replacement": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2"
+    },
+    {
+      "source": "Tools/LeatherBootsTailored/finalize_startup_clip.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsTailored/finalize_startup_clip.py",
+      "bytes": 2338,
+      "sha256": "e514eac90567329c714a60eed9a8101c21cc4e17718079d05e350646648728e4",
+      "reason": "Completed or disproven one-off startup hypothesis; no current production caller.",
+      "replacement": "Tools/LeatherBootsTailored/repair_skeleton_curve_metadata.py"
+    },
+    {
+      "source": "Tools/LeatherBootsTailored/inspect_startup_asset.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsTailored/inspect_startup_asset.py",
+      "bytes": 1522,
+      "sha256": "5ce4d2b4311977528ce6cf7e546ee60d1906f0c9aa7e8b6d0d177458dd0a6d9f",
+      "reason": "Completed or disproven one-off startup hypothesis; no current production caller.",
+      "replacement": "Tools/LeatherBootsTailored/repair_skeleton_curve_metadata.py"
+    },
+    {
+      "source": "Tools/LeatherBootsTailored/repair_native_retarget_source.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsTailored/repair_native_retarget_source.py",
+      "bytes": 3009,
+      "sha256": "67ddf91fd1fb63217ab20b14f355a8d17c74a181055227ac447ce9532318d528",
+      "reason": "Completed or disproven one-off startup hypothesis; no current production caller.",
+      "replacement": "Tools/LeatherBootsTailored/repair_skeleton_curve_metadata.py"
+    },
+    {
+      "source": "Tools/LeatherBootsTailored/warm_wire_assets.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsTailored/warm_wire_assets.py",
+      "bytes": 688,
+      "sha256": "ee29f15c9e235f75517d7472fc757f8345018f6964877fdd5a0a09776e8793a6",
+      "reason": "Completed or disproven one-off startup hypothesis; no current production caller.",
+      "replacement": "Tools/LeatherBootsTailored/repair_skeleton_curve_metadata.py"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/__pycache__/boot_paths.cpython-311.pyc",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/__pycache__/boot_paths.cpython-311.pyc",
+      "bytes": 1428,
+      "sha256": "c21918e8eeacf78f9047385d37ddd34403df183bfb7defdb7a6b32806691b842",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/__pycache__/boot_paths.cpython-313.pyc",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/__pycache__/boot_paths.cpython-313.pyc",
+      "bytes": 1266,
+      "sha256": "ad66df0f7a28cfff7fc93a355b491776e5685b42066b02cefa877ae8d8f9764c",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/__pycache__/export_render.cpython-313.pyc",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/__pycache__/export_render.cpython-313.pyc",
+      "bytes": 23447,
+      "sha256": "c458543d0f6ada126dab5faa3682e14cfd6f8af852f1f8d9ae847505d72d8440",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/__pycache__/materials.cpython-311.pyc",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/__pycache__/materials.cpython-311.pyc",
+      "bytes": 8569,
+      "sha256": "54cb76ea94d55f6a580a83c37c21ce50ab5582808c5969430a416a018640744b",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/author.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/author.py",
+      "bytes": 11220,
+      "sha256": "82e650a1a7b9a12bfd854096173ee70ae75321ae50cce60444b73f284eb08409",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/bake.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/bake.py",
+      "bytes": 3339,
+      "sha256": "b159d854ceec5cf111c808bbe2c72beb2effc091dd28794abd14cdbb3f6e4b81",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/boot_paths.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/boot_paths.py",
+      "bytes": 558,
+      "sha256": "f2c390457269f92116a85653f98e86d6f4b126123cc9ea1f2db873b31cfe3d19",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/check_model.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/check_model.py",
+      "bytes": 6897,
+      "sha256": "ceea8cd48f207a135bfcb9008ca493e81a705be6169de97ccc34d2a044491aca",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/check_saved.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/check_saved.py",
+      "bytes": 3487,
+      "sha256": "5958e3e8f26563f9bacd94e0b35c51dd6abce9c7782bf60ab1dd74d01a3672a7",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/export_render.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/export_render.py",
+      "bytes": 9318,
+      "sha256": "a35f4457e51502208b96e973b87bf8ae0f9b49c9571c316813d141cc9fc2172f",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/materials.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/materials.py",
+      "bytes": 3347,
+      "sha256": "fa28d719a913fd9000e3bd61fa71bb68ed6a89330a31009bf59c0e723aebb6e7",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/prepare.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/prepare.py",
+      "bytes": 1264,
+      "sha256": "943eb10e61d2a47d4b644001fcdb2723b9bc3e523fba098f29ce47d8a6ddae87",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/publish.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/publish.py",
+      "bytes": 4962,
+      "sha256": "bb9042f7e6e85494e3661f030a3e67692207feb21fc02bb22343d11a075c3b7c",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/read_editor.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/read_editor.py",
+      "bytes": 712,
+      "sha256": "2819f9d52d8dc84cf4df844d6ec30790e2fbf4a1bd959840c480f1267098c244",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/read_saved.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/read_saved.py",
+      "bytes": 5120,
+      "sha256": "e22a7b5eab333876dfd9a4193c77c59724b35ea9f9b854fb115a45b59e88d0bc",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/render_outsole.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/render_outsole.py",
+      "bytes": 1266,
+      "sha256": "d056bb68fe0d3e1c1f4485cade7b2a581c9a3f4d1e2469949c302ed94020ae45",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/render_pose.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/render_pose.py",
+      "bytes": 1326,
+      "sha256": "5782506625bc7e7b3b006be4ea46dc3002ebad4a98433dc6a0e709e1f4df3e24",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    },
+    {
+      "source": "Tools/LeatherBootsUpgrade/save_batch.py",
+      "destination": "trash/leather-boots-retired-20261022/Tools/LeatherBootsUpgrade/save_batch.py",
+      "bytes": 5598,
+      "sha256": "b44e00713c2aed367f596e83bb8a2fae3298fd7ed012a30c937eb5b3dc0a7244",
+      "reason": "Superseded boot authoring pipeline; current tools have no imports from this directory.",
+      "replacement": "Tools/LeatherBootsTailored"
+    }
+  ]
+}

@@ -53,7 +53,12 @@
       }
     },
     "ue_blue_mage_robe": {
-      "stair_visibility_revision": "20261020-cross-section-v3",
+      "wrist_continuity_revision": "20261020-native-overlap-v1",
+      "first_person_sleeve_revision": "soft-sleeves-20261020",
+      "secondary_motion": "robe_shared_sway_v1",
+      "underlayer_visibility_revision": "20261020-dynamic-hem-mask-v5",
+      "underlayer_fit_revision": "20261020-native-body-inner-pants-v1",
+      "stair_visibility_revision": "20261020-complete-legs-v4",
       "slot": 7,
       "part": "shirt",
       "material": "",
@@ -61,30 +66,30 @@
       "cloth_simulation": "blue_mage_robe_v1",
       "rig_meshes": {
         "Body": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FacingFix20261020/Body/Body/SK_Body_BlueMageRobe.SK_Body_BlueMageRobe",
-        "M4": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/M4/SK_M4_BlueMageRobe.SK_M4_BlueMageRobe",
-        "AKM": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/AKM/SK_AKM_BlueMageRobe.SK_AKM_BlueMageRobe",
-        "QBZ191": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/QBZ191/SK_QBZ191_BlueMageRobe.SK_QBZ191_BlueMageRobe",
-        "ASH12": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/ASH12/SK_ASH12_BlueMageRobe.SK_ASH12_BlueMageRobe",
-        "M16": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/M16/SK_M16_BlueMageRobe.SK_M16_BlueMageRobe",
-        "M1911": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/M1911/SK_M1911_BlueMageRobe.SK_M1911_BlueMageRobe",
-        "DW715": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/DW715/SK_DW715_BlueMageRobe.SK_DW715_BlueMageRobe",
-        "A762": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/A762/SK_A762_BlueMageRobe.SK_A762_BlueMageRobe",
-        "SVD": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/SVD/SK_SVD_BlueMageRobe.SK_SVD_BlueMageRobe",
-        "PKM": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/PKM/SK_PKM_BlueMageRobe.SK_PKM_BlueMageRobe",
-        "RuneSword": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/RuneSword/SK_RuneSword_BlueMageRobe.SK_RuneSword_BlueMageRobe",
-        "FrostSword": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/FrostSword/SK_FrostSword_BlueMageRobe.SK_FrostSword_BlueMageRobe",
-        "FrostArms": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/FrostArms/SK_FrostArms_BlueMageRobe.SK_FrostArms_BlueMageRobe",
-        "Axe": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/Axe/SK_Axe_BlueMageRobe.SK_Axe_BlueMageRobe",
-        "Pickaxe": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/Pickaxe/SK_Pickaxe_BlueMageRobe.SK_Pickaxe_BlueMageRobe",
-        "DW715_l": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/DW715_l/SK_DW715_l_BlueMageRobe.SK_DW715_l_BlueMageRobe",
-        "DW715_r": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/DW715_r/SK_DW715_r_BlueMageRobe.SK_DW715_r_BlueMageRobe",
-        "M1911_l": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/M1911_l/SK_M1911_l_BlueMageRobe.SK_M1911_l_BlueMageRobe",
-        "M1911_r": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/M1911_r/SK_M1911_r_BlueMageRobe.SK_M1911_r_BlueMageRobe",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/Traversal/SK_Traversal_BlueMageRobe.SK_Traversal_BlueMageRobe",
-        "Bow": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/Bow/SK_Bow_BlueMageRobe.SK_Bow_BlueMageRobe",
-        "LMG201": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/LMG201/SK_LMG201_BlueMageRobe.SK_LMG201_BlueMageRobe",
+        "M4": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/M4/SK_M4_BlueMageRobe.SK_M4_BlueMageRobe",
+        "AKM": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/AKM/SK_AKM_BlueMageRobe.SK_AKM_BlueMageRobe",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/QBZ191/SK_QBZ191_BlueMageRobe.SK_QBZ191_BlueMageRobe",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/ASH12/SK_ASH12_BlueMageRobe.SK_ASH12_BlueMageRobe",
+        "M16": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/M16/SK_M16_BlueMageRobe.SK_M16_BlueMageRobe",
+        "M1911": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/M1911/SK_M1911_BlueMageRobe.SK_M1911_BlueMageRobe",
+        "DW715": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/DW715/SK_DW715_BlueMageRobe.SK_DW715_BlueMageRobe",
+        "A762": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/A762/SK_A762_BlueMageRobe.SK_A762_BlueMageRobe",
+        "SVD": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/SVD/SK_SVD_BlueMageRobe.SK_SVD_BlueMageRobe",
+        "PKM": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/PKM/SK_PKM_BlueMageRobe.SK_PKM_BlueMageRobe",
+        "RuneSword": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/RuneSword/SK_RuneSword_BlueMageRobe.SK_RuneSword_BlueMageRobe",
+        "FrostSword": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/FrostSword/SK_FrostSword_BlueMageRobe.SK_FrostSword_BlueMageRobe",
+        "FrostArms": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/FrostArms/SK_FrostArms_BlueMageRobe.SK_FrostArms_BlueMageRobe",
+        "Axe": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/Axe/SK_Axe_BlueMageRobe.SK_Axe_BlueMageRobe",
+        "Pickaxe": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/Pickaxe/SK_Pickaxe_BlueMageRobe.SK_Pickaxe_BlueMageRobe",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/DW715_l/SK_DW715_l_BlueMageRobe.SK_DW715_l_BlueMageRobe",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/DW715_r/SK_DW715_r_BlueMageRobe.SK_DW715_r_BlueMageRobe",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/M1911_l/SK_M1911_l_BlueMageRobe.SK_M1911_l_BlueMageRobe",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/M1911_r/SK_M1911_r_BlueMageRobe.SK_M1911_r_BlueMageRobe",
+        "Traversal": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/Traversal/SK_Traversal_BlueMageRobe.SK_Traversal_BlueMageRobe",
+        "Bow": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/Bow/SK_Bow_BlueMageRobe.SK_Bow_BlueMageRobe",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/LMG201/SK_LMG201_BlueMageRobe.SK_LMG201_BlueMageRobe",
         "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FacingFix20261020/Body/Jason/SK_Jason_BlueMageRobe.SK_Jason_BlueMageRobe",
-        "Super90": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FP/Super90/SK_Super90_BlueMageRobe.SK_Super90_BlueMageRobe"
+        "Super90": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FPSoftSleeves20261020/FP/Super90/SK_Super90_BlueMageRobe.SK_Super90_BlueMageRobe"
       },
       "owner_body_meshes": {
         "Body": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/FacingFix20261020/Body/Body_Owner/SK_Body_Owner_BlueMageRobe.SK_Body_Owner_BlueMageRobe",
@@ -112,43 +117,70 @@
         ]
       },
       "underlayer_meshes": {
-        "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_Body_NativeBareSkin.SK_Body_NativeBareSkin": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Body/SK_Body_02a3657d3599_RobeHem.SK_Body_02a3657d3599_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Body/SK_Body_Fingerless_Detail_Skin.SK_Body_Fingerless_Detail_Skin": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Body/SK_Body_ee447673cdd1_RobeHem.SK_Body_ee447673cdd1_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base.SK_Jason_Base": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_e81d09cc9455_RobeHem.SK_Jason_e81d09cc9455_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Base.SK_Jason_Base": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_5b5a780d8268_RobeHem.SK_Jason_5b5a780d8268_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Boots.SK_Jason_ST6Boots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_2befc8050603_RobeHem.SK_Jason_2befc8050603_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers.SK_Jason_ST6Trousers": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_e90e47fb0540_RobeHem.SK_Jason_e90e47fb0540_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_ST6BootsFit.SK_Jason_ST6Trousers_ST6BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_e6e283023267_RobeHem.SK_Jason_e6e283023267_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_ShortBootsFit.SK_Jason_ST6Trousers_ShortBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_8e7c9183ce1e_RobeHem.SK_Jason_8e7c9183ce1e_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_HighBootsFit.SK_Jason_ST6Trousers_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_244c033b068b_RobeHem.SK_Jason_244c033b068b_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_CapriTailored.SK_Jason_CapriTailored": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_a17a0dd49590_RobeHem.SK_Jason_a17a0dd49590_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_CapriTailored_HighBootsFit.SK_Jason_CapriTailored_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_6050edeca7f7_RobeHem.SK_Jason_6050edeca7f7_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants.SK_Jason_LeatherPants": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_bf4706945987_RobeHem.SK_Jason_bf4706945987_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_ShortBootsFit.SK_Jason_LeatherPants_ShortBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_55cfa7c5619b_RobeHem.SK_Jason_55cfa7c5619b_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_3ca8e474cbe5_RobeHem.SK_Jason_3ca8e474cbe5_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherBoots.SK_Jason_LeatherBoots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_fa88975a69a4_RobeHem.SK_Jason_fa88975a69a4_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ArmoredBoots.SK_Jason_ArmoredBoots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_fee346fe269d_RobeHem.SK_Jason_fee346fe269d_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants.SK_Jason_ChainmailPants": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_11a8b45428c1_RobeHem.SK_Jason_11a8b45428c1_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants_BootsFit.SK_Jason_ChainmailPants_BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_a09eb96e92e1_RobeHem.SK_Jason_a09eb96e92e1_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants_ArmoredBootsFit.SK_Jason_ChainmailPants_ArmoredBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_dfd23c4f06de_RobeHem.SK_Jason_dfd23c4f06de_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Jeans.SK_Jason_Jeans": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_8ec881f03b01_RobeHem.SK_Jason_8ec881f03b01_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Jeans_BootsFit.SK_Jason_Jeans_BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_f7511c899385_RobeHem.SK_Jason_f7511c899385_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Jeans_ArmoredBootsFit.SK_Jason_Jeans_ArmoredBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_c09730b6cb70_RobeHem.SK_Jason_c09730b6cb70_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Cargo.SK_Jason_Cargo": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_aae9bc478749_RobeHem.SK_Jason_aae9bc478749_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Cargo_BootsFit.SK_Jason_Cargo_BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_0f301d24221c_RobeHem.SK_Jason_0f301d24221c_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Cargo_ArmoredBootsFit.SK_Jason_Cargo_ArmoredBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_5c21ff8428f4_RobeHem.SK_Jason_5c21ff8428f4_RobeHem",
+        "/Game/Characters/ModularOutfit20260924/NativeSkin/SK_Body_NativeBareSkin.SK_Body_NativeBareSkin": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/WristContinuity20261020/Body/SK_Body_02a3657d3599_RobeWrist.SK_Body_02a3657d3599_RobeWrist",
+        "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Fingerless/Body/SK_Body_Fingerless_Detail_Skin.SK_Body_Fingerless_Detail_Skin": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/WristContinuity20261020/Body/SK_Body_ee447673cdd1_RobeWrist.SK_Body_ee447673cdd1_RobeWrist",
+        "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/SK_Jason_Base.SK_Jason_Base": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/WristContinuity20261020/Jason/SK_Jason_e81d09cc9455_RobeWrist.SK_Jason_e81d09cc9455_RobeWrist",
+        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Base.SK_Jason_Base": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/WristContinuity20261020/Jason/SK_Jason_5b5a780d8268_RobeWrist.SK_Jason_5b5a780d8268_RobeWrist",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Boots.SK_Jason_ST6Boots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/TurnLegContinuity20261020/Jason/SK_Jason_2befc8050603_RobeHem.SK_Jason_2befc8050603_RobeHem",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers.SK_Jason_ST6Trousers": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_e90e47fb0540_RobeInnerFit.SK_Jason_e90e47fb0540_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_ST6BootsFit.SK_Jason_ST6Trousers_ST6BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_e6e283023267_RobeInnerFit.SK_Jason_e6e283023267_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_ShortBootsFit.SK_Jason_ST6Trousers_ShortBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_8e7c9183ce1e_RobeInnerFit.SK_Jason_8e7c9183ce1e_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_HighBootsFit.SK_Jason_ST6Trousers_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_244c033b068b_RobeInnerFit.SK_Jason_244c033b068b_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_CapriTailored.SK_Jason_CapriTailored": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_a17a0dd49590_RobeInnerFit.SK_Jason_a17a0dd49590_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_CapriTailored_HighBootsFit.SK_Jason_CapriTailored_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_6050edeca7f7_RobeInnerFit.SK_Jason_6050edeca7f7_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants.SK_Jason_LeatherPants": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_bf4706945987_RobeInnerFit.SK_Jason_bf4706945987_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_ShortBootsFit.SK_Jason_LeatherPants_ShortBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_55cfa7c5619b_RobeInnerFit.SK_Jason_55cfa7c5619b_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_3ca8e474cbe5_RobeInnerFit.SK_Jason_3ca8e474cbe5_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherBoots.SK_Jason_LeatherBoots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/TurnLegContinuity20261020/Jason/SK_Jason_fa88975a69a4_RobeHem.SK_Jason_fa88975a69a4_RobeHem",
+        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_ArmoredBoots.SK_Jason_ArmoredBoots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/TurnLegContinuity20261020/Jason/SK_Jason_fee346fe269d_RobeHem.SK_Jason_fee346fe269d_RobeHem",
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants.SK_Jason_ChainmailPants": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_11a8b45428c1_RobeInnerFit.SK_Jason_11a8b45428c1_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants_BootsFit.SK_Jason_ChainmailPants_BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_a09eb96e92e1_RobeInnerFit.SK_Jason_a09eb96e92e1_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants_ArmoredBootsFit.SK_Jason_ChainmailPants_ArmoredBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_dfd23c4f06de_RobeInnerFit.SK_Jason_dfd23c4f06de_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Jeans.SK_Jason_Jeans": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_8ec881f03b01_RobeInnerFit.SK_Jason_8ec881f03b01_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Jeans_BootsFit.SK_Jason_Jeans_BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_f7511c899385_RobeInnerFit.SK_Jason_f7511c899385_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Jeans_ArmoredBootsFit.SK_Jason_Jeans_ArmoredBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_c09730b6cb70_RobeInnerFit.SK_Jason_c09730b6cb70_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Cargo.SK_Jason_Cargo": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_aae9bc478749_RobeInnerFit.SK_Jason_aae9bc478749_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Cargo_BootsFit.SK_Jason_Cargo_BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_0f301d24221c_RobeInnerFit.SK_Jason_0f301d24221c_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Cargo_ArmoredBootsFit.SK_Jason_Cargo_ArmoredBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_5c21ff8428f4_RobeInnerFit.SK_Jason_5c21ff8428f4_RobeInnerFit",
         "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Sneakers.SK_Jason_Sneakers": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Sneakers.SK_Jason_Sneakers",
-        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Boots.SK_Jason_Boots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_5855b39d5859_RobeHem.SK_Jason_5855b39d5859_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants.SK_Jason_BlueMagePants": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_7a1a9ce67e32_RobeHem.SK_Jason_7a1a9ce67e32_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_ShortBootsFit.SK_Jason_BlueMagePants_ShortBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_1ac63be3986e_RobeHem.SK_Jason_1ac63be3986e_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_HighBootsFit.SK_Jason_BlueMagePants_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_c17dd520f2a7_RobeHem.SK_Jason_c17dd520f2a7_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_ST6BootsFit.SK_Jason_BlueMagePants_ST6BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_56fb00e0afd9_RobeHem.SK_Jason_56fb00e0afd9_RobeHem",
-        "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/SK_Jason_BlueMageBoots.SK_Jason_BlueMageBoots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Jason/SK_Jason_07b6bd4de319_RobeHem.SK_Jason_07b6bd4de319_RobeHem"
+        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Boots.SK_Jason_Boots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/TurnLegContinuity20261020/Jason/SK_Jason_5855b39d5859_RobeHem.SK_Jason_5855b39d5859_RobeHem",
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants.SK_Jason_BlueMagePants": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_7a1a9ce67e32_RobeInnerFit.SK_Jason_7a1a9ce67e32_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_ShortBootsFit.SK_Jason_BlueMagePants_ShortBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_1ac63be3986e_RobeInnerFit.SK_Jason_1ac63be3986e_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_HighBootsFit.SK_Jason_BlueMagePants_HighBootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_c17dd520f2a7_RobeInnerFit.SK_Jason_c17dd520f2a7_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_ST6BootsFit.SK_Jason_BlueMagePants_ST6BootsFit": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_56fb00e0afd9_RobeInnerFit.SK_Jason_56fb00e0afd9_RobeInnerFit",
+        "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/SK_Jason_BlueMageBoots.SK_Jason_BlueMageBoots": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/TurnLegContinuity20261020/Jason/SK_Jason_07b6bd4de319_RobeHem.SK_Jason_07b6bd4de319_RobeHem",
+        "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason/SK_Jason_ue_leather_pants.SK_Jason_ue_leather_pants": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_RobeInner/SK_Jason_RobeInner_ue_leather_pants.SK_Jason_RobeInner_ue_leather_pants",
+        "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_ShortBootsFit/SK_Jason_ShortBootsFit_ue_leather_pants.SK_Jason_ShortBootsFit_ue_leather_pants": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_ShortBootsFit_RobeInner/SK_Jason_ShortBootsFit_RobeInner_ue_leather_pants.SK_Jason_ShortBootsFit_RobeInner_ue_leather_pants",
+        "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_HighBootsFit/SK_Jason_HighBootsFit_ue_leather_pants.SK_Jason_HighBootsFit_ue_leather_pants": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_HighBootsFit_RobeInner/SK_Jason_HighBootsFit_RobeInner_ue_leather_pants.SK_Jason_HighBootsFit_RobeInner_ue_leather_pants",
+        "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/ue_leather_boots/Jason/SK_Jason_ue_leather_boots.SK_Jason_ue_leather_boots": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/ue_leather_boots/Jason_RobeInner/SK_Jason_RobeInner_ue_leather_boots.SK_Jason_RobeInner_ue_leather_boots",
+        "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason/SK_Jason_ue_leather_boots.SK_Jason_ue_leather_boots": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason_RobeInner/SK_Jason_RobeInner_ue_leather_boots.SK_Jason_RobeInner_ue_leather_boots"
       },
       "leg_fit_revision": "20261019-v3-calves",
       "hip_fit_revision": "20261019-v1",
       "cloth_revision": "20261019-hipfit-restored-v1",
-      "facing_revision": "20261020-native-forward-v1"
+      "facing_revision": "20261020-native-forward-v1",
+      "pants_underlayer_default": {
+        "rig_meshes": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_7a1a9ce67e32_RobeInnerFit.SK_Jason_7a1a9ce67e32_RobeInnerFit"
+        },
+        "shoe_fit_meshes": {
+          "ue_boots": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_1ac63be3986e_RobeInnerFit.SK_Jason_1ac63be3986e_RobeInnerFit"
+          },
+          "ue_armored_boots": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_c17dd520f2a7_RobeInnerFit.SK_Jason_c17dd520f2a7_RobeInnerFit"
+          },
+          "ue_leather_boots": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_c17dd520f2a7_RobeInnerFit.SK_Jason_c17dd520f2a7_RobeInnerFit"
+          },
+          "ue_st6_tactical_boots": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_56fb00e0afd9_RobeInnerFit.SK_Jason_56fb00e0afd9_RobeInnerFit"
+          },
+          "ue_blue_mage_boots": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/UnderRobeFit20261020/Jason/SK_Jason_c17dd520f2a7_RobeInnerFit.SK_Jason_c17dd520f2a7_RobeInnerFit"
+          }
+        }
+      }
     },
     "ue_blue_mage_gloves": {
       "slot": 3,
@@ -271,9 +303,9 @@
     "ue_leather_pants": {
       "slot": 15,
       "material": "",
-      "appearance_family": "LeatherPantsNativeWaist20261018",
+      "appearance_family": "RangerLeatherPantsRealisticCutV3_20261022",
       "rig_meshes": {
-        "Jason": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants.SK_Jason_LeatherPants"
+        "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason/SK_Jason_ue_leather_pants.SK_Jason_ue_leather_pants"
       },
       "rig_world_covers": {
         "Jason": [
@@ -288,25 +320,25 @@
       },
       "shoe_fit_meshes": {
         "ue_boots": {
-          "Jason": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_ShortBootsFit.SK_Jason_LeatherPants_ShortBootsFit"
+          "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_ShortBootsFit/SK_Jason_ShortBootsFit_ue_leather_pants.SK_Jason_ShortBootsFit_ue_leather_pants"
         },
         "ue_armored_boots": {
-          "Jason": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit"
+          "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_HighBootsFit/SK_Jason_HighBootsFit_ue_leather_pants.SK_Jason_HighBootsFit_ue_leather_pants"
         },
         "ue_leather_boots": {
-          "Jason": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit"
+          "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_HighBootsFit/SK_Jason_HighBootsFit_ue_leather_pants.SK_Jason_HighBootsFit_ue_leather_pants"
         },
         "ue_blue_mage_boots": {
-          "Jason": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_LeatherPants_HighBootsFit.SK_Jason_LeatherPants_HighBootsFit"
+          "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_HighBootsFit/SK_Jason_HighBootsFit_ue_leather_pants.SK_Jason_HighBootsFit_ue_leather_pants"
         }
       }
     },
     "ue_leather_boots": {
       "slot": 13,
       "material": "",
-      "appearance_family": "BrownLeatherBoots20261004",
+      "appearance_family": "LeatherBootsTailoredV2",
       "rig_meshes": {
-        "Jason": "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/SK_Jason_LeatherBoots.SK_Jason_LeatherBoots"
+        "Jason": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason/SK_Jason_ue_leather_boots.SK_Jason_ue_leather_boots"
       },
       "rig_world_covers": {
         "Jason": [
@@ -371,47 +403,48 @@
     "ue_field_sweater": {
       "owner_body_hidden_materials": {
         "Jason": [
-          5,
           6,
           7,
           8,
-          9
+          9,
+          10,
+          11
         ]
       },
       "owner_body_meshes": {
-        "Jason": "/Game/Characters/ModularOutfit20260924/OwnerShoulderSeam20261006/SK_Jason_Owner_ue_field_sweater.SK_Jason_Owner_ue_field_sweater"
+        "Jason": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
       },
       "slot": 7,
       "part": "shirt",
       "material": "",
       "rig_meshes": {
-        "Body": "/Game/Characters/ModularOutfit20260924/FieldSweaterSurfaceRepair20260930/Body/SK_Body_FieldSweater.SK_Body_FieldSweater",
-        "M4": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/M4/SK_M4_ue_field_sweater.SK_M4_ue_field_sweater",
-        "AKM": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/AKM/SK_AKM_ue_field_sweater.SK_AKM_ue_field_sweater",
-        "QBZ191": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/QBZ191/SK_QBZ191_ue_field_sweater.SK_QBZ191_ue_field_sweater",
-        "ASH12": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/ASH12/SK_ASH12_ue_field_sweater.SK_ASH12_ue_field_sweater",
-        "M16": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/M16/SK_M16_ue_field_sweater.SK_M16_ue_field_sweater",
-        "M1911": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/M1911/SK_M1911_ue_field_sweater.SK_M1911_ue_field_sweater",
-        "DW715": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/DW715/SK_DW715_ue_field_sweater.SK_DW715_ue_field_sweater",
-        "A762": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/A762/SK_A762_ue_field_sweater.SK_A762_ue_field_sweater",
-        "SVD": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/SVD/SK_SVD_ue_field_sweater.SK_SVD_ue_field_sweater",
-        "PKM": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/PKM/SK_PKM_ue_field_sweater.SK_PKM_ue_field_sweater",
-        "RuneSword": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/RuneSword/SK_RuneSword_ue_field_sweater.SK_RuneSword_ue_field_sweater",
-        "FrostSword": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/FrostSword/SK_FrostSword_ue_field_sweater.SK_FrostSword_ue_field_sweater",
-        "FrostArms": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/FrostArms/SK_FrostArms_ue_field_sweater.SK_FrostArms_ue_field_sweater",
-        "Axe": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/Axe/SK_Axe_ue_field_sweater.SK_Axe_ue_field_sweater",
-        "Pickaxe": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/Pickaxe/SK_Pickaxe_ue_field_sweater.SK_Pickaxe_ue_field_sweater",
-        "DW715_l": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/DW715_l/SK_DW715_l_ue_field_sweater.SK_DW715_l_ue_field_sweater",
-        "DW715_r": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/DW715_r/SK_DW715_r_ue_field_sweater.SK_DW715_r_ue_field_sweater",
-        "M1911_l": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/M1911_l/SK_M1911_l_ue_field_sweater.SK_M1911_l_ue_field_sweater",
-        "M1911_r": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/M1911_r/SK_M1911_r_ue_field_sweater.SK_M1911_r_ue_field_sweater",
-        "Traversal": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/Traversal/SK_Traversal_ue_field_sweater.SK_Traversal_ue_field_sweater",
-        "Bow": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/Bow/SK_Bow_ue_field_sweater.SK_Bow_ue_field_sweater",
-        "LMG201": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/LMG201/SK_LMG201_ue_field_sweater.SK_LMG201_ue_field_sweater",
-        "Jason": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
-        "Super90": "/Game/Characters/ModularOutfit20260924/GarmentSleeveRepair20261018/ue_field_sweater/Super90/SK_Super90_ue_field_sweater.SK_Super90_ue_field_sweater"
+        "Body": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Body/SK_Body_ue_field_sweater.SK_Body_ue_field_sweater",
+        "M4": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/M4/SK_M4_ue_field_sweater.SK_M4_ue_field_sweater",
+        "AKM": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/AKM/SK_AKM_ue_field_sweater.SK_AKM_ue_field_sweater",
+        "QBZ191": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/QBZ191/SK_QBZ191_ue_field_sweater.SK_QBZ191_ue_field_sweater",
+        "ASH12": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/ASH12/SK_ASH12_ue_field_sweater.SK_ASH12_ue_field_sweater",
+        "M16": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/M16/SK_M16_ue_field_sweater.SK_M16_ue_field_sweater",
+        "M1911": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/M1911/SK_M1911_ue_field_sweater.SK_M1911_ue_field_sweater",
+        "DW715": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/DW715/SK_DW715_ue_field_sweater.SK_DW715_ue_field_sweater",
+        "A762": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/A762/SK_A762_ue_field_sweater.SK_A762_ue_field_sweater",
+        "SVD": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/SVD/SK_SVD_ue_field_sweater.SK_SVD_ue_field_sweater",
+        "PKM": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/PKM/SK_PKM_ue_field_sweater.SK_PKM_ue_field_sweater",
+        "RuneSword": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/RuneSword/SK_RuneSword_ue_field_sweater.SK_RuneSword_ue_field_sweater",
+        "FrostSword": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/FrostSword/SK_FrostSword_ue_field_sweater.SK_FrostSword_ue_field_sweater",
+        "FrostArms": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/FrostArms/SK_FrostArms_ue_field_sweater.SK_FrostArms_ue_field_sweater",
+        "Axe": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Axe/SK_Axe_ue_field_sweater.SK_Axe_ue_field_sweater",
+        "Pickaxe": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Pickaxe/SK_Pickaxe_ue_field_sweater.SK_Pickaxe_ue_field_sweater",
+        "DW715_l": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/DW715_l/SK_DW715_l_ue_field_sweater.SK_DW715_l_ue_field_sweater",
+        "DW715_r": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/DW715_r/SK_DW715_r_ue_field_sweater.SK_DW715_r_ue_field_sweater",
+        "M1911_l": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/M1911_l/SK_M1911_l_ue_field_sweater.SK_M1911_l_ue_field_sweater",
+        "M1911_r": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/M1911_r/SK_M1911_r_ue_field_sweater.SK_M1911_r_ue_field_sweater",
+        "Traversal": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Traversal/SK_Traversal_ue_field_sweater.SK_Traversal_ue_field_sweater",
+        "Bow": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Bow/SK_Bow_ue_field_sweater.SK_Bow_ue_field_sweater",
+        "LMG201": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/LMG201/SK_LMG201_ue_field_sweater.SK_LMG201_ue_field_sweater",
+        "Jason": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater",
+        "Super90": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater/Super90/SK_Super90_ue_field_sweater.SK_Super90_ue_field_sweater"
       },
-      "appearance_family": "FieldSweaterKnit20260929",
+      "appearance_family": "FieldRangerTop20261020",
       "world_covers": [
         0,
         1,
@@ -429,7 +462,252 @@
           10,
           14
         ]
-      }
+      },
+      "pants_fit_meshes": {
+        "ue_leather_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "ue_blue_mage_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "ue_st6_tactical_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "ue_smoke_grey_capri": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/3dd5c3d06cac7e/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/3dd5c3d06cac7e/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "ue_chainmail_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "ue_jeans": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "ue_cargo_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        }
+      },
+      "pants_mesh_fit_meshes": {
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants.SK_Jason_BlueMagePants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_ShortBootsFit.SK_Jason_BlueMagePants_ShortBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_HighBootsFit.SK_Jason_BlueMagePants_HighBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/SK_Jason_BlueMagePants_ST6BootsFit.SK_Jason_BlueMagePants_ST6BootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/5f9b1a461bdc10/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers.SK_Jason_ST6Trousers": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_ST6BootsFit.SK_Jason_ST6Trousers_ST6BootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_ShortBootsFit.SK_Jason_ST6Trousers_ShortBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_ST6Trousers_HighBootsFit.SK_Jason_ST6Trousers_HighBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/bc16e68eb79491/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_CapriTailored.SK_Jason_CapriTailored": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/3dd5c3d06cac7e/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/3dd5c3d06cac7e/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/SK_Jason_CapriTailored_HighBootsFit.SK_Jason_CapriTailored_HighBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/3dd5c3d06cac7e/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/3dd5c3d06cac7e/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason/SK_Jason_ue_leather_pants.SK_Jason_ue_leather_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_ShortBootsFit/SK_Jason_ShortBootsFit_ue_leather_pants.SK_Jason_ShortBootsFit_ue_leather_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_leather_pants/Jason_HighBootsFit/SK_Jason_HighBootsFit_ue_leather_pants.SK_Jason_HighBootsFit_ue_leather_pants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants.SK_Jason_ChainmailPants": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants_BootsFit.SK_Jason_ChainmailPants_BootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/SK_Jason_ChainmailPants_ArmoredBootsFit.SK_Jason_ChainmailPants_ArmoredBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/f43e6e1ef77128/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Jeans.SK_Jason_Jeans": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Jeans_BootsFit.SK_Jason_Jeans_BootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Jeans_ArmoredBootsFit.SK_Jason_Jeans_ArmoredBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/40ff174f72c43f/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/SK_Jason_Cargo.SK_Jason_Cargo": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/SK_Jason_Cargo_BootsFit.SK_Jason_Cargo_BootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        },
+        "/Game/Characters/ModularOutfit20260924/ArmoredBoots20261004/SK_Jason_Cargo_ArmoredBootsFit.SK_Jason_Cargo_ArmoredBootsFit": {
+          "rig_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+          },
+          "owner_body_meshes": {
+            "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/635d8f2d95778d/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+          }
+        }
+      },
+      "pants_fit_default": {
+        "rig_meshes": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/default_48a7b45066cccc/ue_field_sweater/Jason/SK_Jason_ue_field_sweater.SK_Jason_ue_field_sweater"
+        },
+        "owner_body_meshes": {
+          "Jason": "/Game/Characters/ModularOutfit20260924/PantsCompatibility20261022/default_48a7b45066cccc/ue_field_sweater/Owner_Jason/SK_Owner_Jason_ue_field_sweater.SK_Owner_Jason_ue_field_sweater"
+        }
+      },
+      "pants_fit_pipeline": "Tools/PantsCompatibility/run.ps1"
     },
     "ue_field_sweater_charcoal": {
       "owner_body_hidden_materials": {

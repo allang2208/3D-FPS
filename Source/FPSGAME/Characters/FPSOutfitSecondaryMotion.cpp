@@ -8,9 +8,8 @@ namespace
 {
 TAutoConsoleVariable<float> CVarChainmailSway(TEXT("fps.Outfit.ChainmailSway"),1.f,
     TEXT("Shared chainmail/lining cuff inertia strength, 0..1. No cloth simulation."),ECVF_Default);
-constexpr float MaximumOffsetCm=.12f;
-constexpr float OutfitCuffFrequency=2.f*UE_PI*6.5f;
-constexpr float Damping=.85f;
+TAutoConsoleVariable<float> CVarRobeCuffSway(TEXT("fps.Outfit.RobeCuffSway"),1.f,
+    TEXT("Shared robe cuff/lining inertia strength, 0..1."),ECVF_Default);
 const FName OutfitCuffParameters[]={TEXT("CuffLagLeft"),TEXT("CuffLagRight"),TEXT("CuffLagPreviousLeft"),TEXT("CuffLagPreviousRight")};
 
 void ConfigureCameraRegion(USkeletalMeshComponent& Garment,
@@ -46,9 +45,9 @@ void ConfigureCameraRegion(USkeletalMeshComponent& Garment,
 }
 }
 
-void FFPSOutfitSecondaryMotion::Initialize(USkeletalMeshComponent* InSource,USkeletalMeshComponent* InShirt)
+void FFPSOutfitSecondaryMotion::Initialize(USkeletalMeshComponent* InSource,USkeletalMeshComponent* InShirt,bool bSoftRobe)
 {
-    Source=InSource;Shirt=InShirt;
+    Source=InSource;Shirt=InShirt;bRobe=bSoftRobe;
     Hands[0].Bone=InSource->GetBoneIndex(TEXT("hand_l"));
     Hands[1].Bone=InSource->GetBoneIndex(TEXT("hand_r"));
     // The new mesh has no clothing assets. Keep the ordinary leader-pose
@@ -90,7 +89,10 @@ void FFPSOutfitSecondaryMotion::Reset()
 void FFPSOutfitSecondaryMotion::Tick(float Delta)
 {
     auto* Leader=Source.Get();auto* Garment=Shirt.Get();if(!Leader||!Garment)return;
-    const float Strength=FMath::Clamp(CVarChainmailSway.GetValueOnGameThread(),0.f,1.f);
+    const float Strength=FMath::Clamp(bRobe?CVarRobeCuffSway.GetValueOnGameThread():CVarChainmailSway.GetValueOnGameThread(),0.f,1.f);
+    const float MaximumOffsetCm=bRobe?.28f:.12f;
+    const float OutfitCuffFrequency=2.f*UE_PI*(bRobe?4.5f:6.5f);
+    const float Damping=bRobe?.9f:.85f;
     const bool bVisible=Leader->IsVisible()&&!Leader->bHiddenInGame&&!Leader->bOwnerNoSee
         &&Garment->IsVisible()&&!Garment->bHiddenInGame&&Strength>0.f;
     if(!bVisible){if(bActive)Reset();bActive=false;return;}

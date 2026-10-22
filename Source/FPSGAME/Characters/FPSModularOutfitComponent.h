@@ -64,6 +64,9 @@ public:
     /** Commandlet authoring: add the WPO pin without an editor GraphNode. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="add_robe_hem_offset_pin"))
     static int32 AddRobeHemOffsetPin(UObject* Expression);
+    /** Commandlet authoring: preserve the source opacity mask in robe inner layers. */
+    UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="add_robe_hem_mask_pin"))
+    static int32 AddRobeHemMaskPin(UObject* Expression);
 
 private:
     UPROPERTY(Transient) TArray<FFPSOutfitPresentation> Presentations;

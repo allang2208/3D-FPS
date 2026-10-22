@@ -7,15 +7,15 @@ class UMaterialInstanceDynamic;
 /** Bounded samples of the rendered skirt; no CPU skinned-mesh conversion. */
 struct FFPSRobeHemEnvelope
 {
-    static constexpr int32 PointCount=24;
+    // Shared layout with hem_materials.py / hem_conform.hlsl, bottom to waist.
+    static constexpr int32 RingCount=4, RingPoints=16, PointCount=RingCount*RingPoints;
     struct FInfluence { int32 Bone=INDEX_NONE; float Weight=0; FVector Position=FVector::ZeroVector; };
     struct FSample { int32 Particle=INDEX_NONE; TArray<FInfluence> Influences; };
     TWeakObjectPtr<USkeletalMeshComponent> Garment;
     TArray<FSample> Samples;
     FVector Points[PointCount]{};
     FVector SimulationResidual[PointCount]{};
-    FVector Feet[2]{};
-    float Scale=1.f,AnkleGuard=16.f,Strength=0.f;
+    float Scale=1.f,AnkleCut=16.f,Strength=0.f;
     float StairBlend=0.f;
     float SimulationAge=1.f;
     int32 ClothIndex=INDEX_NONE;
@@ -37,7 +37,7 @@ struct FFPSRobeStairSections
     {
         TWeakObjectPtr<UMaterialInstanceDynamic> Instance;
         TArray<int32> Points;
-        int32 Strength=INDEX_NONE,LeftFoot=INDEX_NONE,RightFoot=INDEX_NONE,Shape=INDEX_NONE;
+        int32 Strength=INDEX_NONE,Shape=INDEX_NONE;
         float LastStrength=0.f;
     };
     TWeakObjectPtr<USkeletalMeshComponent> Mesh;

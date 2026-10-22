@@ -38,3 +38,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 处理服务端延迟生成、激活复制、区域分路和取消清理时，读 [区域提前准备的联机边界](../ue5-performance-packaging/references/area-spawn-preparation.md#联机与延迟初始化边界)。客户端资产或 PSO 已加载不代表每实例蒙皮缓冲已经准备；构建结果与主客机运行覆盖分别交付。
 
 - SVCH 改造历史引起远端部件编号差异，或核对近战/换弹的联机检查范围：读取 [SVCH 配件身份与联机覆盖](references/svch-presentation-coverage.md)。区分隔离权威、实际 UDP 和完整实战流程。
+
+- 装备穿戴已更新但旧物品／共享掉落物仍显示旧版，读取[旧装备实例与外观路径](../asset-model-workflow/references/continuous-boots-and-render-lods.md#装备接入与旧实例)，保留实例属性并区分监听主机、重连及未覆盖的网络模式。

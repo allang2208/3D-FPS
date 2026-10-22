@@ -338,10 +338,26 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         const FString Override=String(RigMeshes,*String(Profile,TEXT("rig_profile")));
         return RigMeshes?Override:String(Profile,Part);
     };
+    const FString OutfitRig=String(Profile,TEXT("rig_profile"));
+    const auto ShoeFit=Object(Object(Pants,TEXT("shoe_fit_meshes")),Equipped.FindRef(13).ToString());
+    const FString FittedPants=String(ShoeFit,*OutfitRig);
+    const FString SelectedPants=Pants?(FittedPants.IsEmpty()?PartMesh(Pants,TEXT("pants")):FittedPants):FString();
     const bool bUseShirtMesh=Shirt&&(!bLowerBody||!OwnerShirt.IsEmpty());
     if(bUseShirtMesh)
     {
-        MeshPaths.Add(bLowerBody?OwnerShirt:PartMesh(Shirt,TEXT("shirt")));
+        // Fit the actual boot-selected waist first. New pants without an
+        // authored pair still use the shirt's tucked default; removing pants
+        // restores its normal silhouette through the existing presentation key.
+        const auto ReadFit=[&](const TSharedPtr<FJsonObject>& Fit)
+        {return String(Object(Fit,bLowerBody?TEXT("owner_body_meshes"):TEXT("rig_meshes")),*OutfitRig);};
+        FString FittedShirt;
+        if(bHasLegs&&Pants&&!SelectedPants.IsEmpty())
+        {
+            FittedShirt=ReadFit(Object(Object(Shirt,TEXT("pants_mesh_fit_meshes")),SelectedPants));
+            if(FittedShirt.IsEmpty())FittedShirt=ReadFit(Object(Object(Shirt,TEXT("pants_fit_meshes")),Equipped.FindRef(15).ToString()));
+            if(FittedShirt.IsEmpty())FittedShirt=ReadFit(Object(Shirt,TEXT("pants_fit_default")));
+        }
+        MeshPaths.Add(!FittedShirt.IsEmpty()?FittedShirt:bLowerBody?OwnerShirt:PartMesh(Shirt,TEXT("shirt")));
         MaterialPaths.Add(String(Shirt,TEXT("material")));
     }
     // Optional per-slot view materials leave the saved meshes and world-body
@@ -357,10 +373,17 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     {
         // Boot-specific cuffs share the normal inventory item and follow the
         // same async outfit load; switching shoes restores the default trousers.
-        const auto ShoeFit=Object(Object(Pants,TEXT("shoe_fit_meshes")),Equipped.FindRef(13).ToString());
-        const FString FittedPants=String(ShoeFit,*String(Profile,TEXT("rig_profile")));
-        const FString SelectedPants=FittedPants.IsEmpty()?PartMesh(Pants,TEXT("pants")):FittedPants;
-        const FString PantsPath=UnderlayerMesh(SelectedPants);
+        FString PantsPath=UnderlayerMesh(SelectedPants);
+        if(!(Underlayers&&Underlayers->HasField(SelectedPants)))
+        {
+            // A long robe can cover future trousers before their exact inner
+            // layer is authored. This keeps complete native legs and follows
+            // the selected boot cuff, without showing a wide outer trouser.
+            const auto DefaultInner=Object(Shirt,TEXT("pants_underlayer_default"));
+            const FString BootInner=String(Object(Object(DefaultInner,TEXT("shoe_fit_meshes")),Equipped.FindRef(13).ToString()),*OutfitRig);
+            const FString Inner=BootInner.IsEmpty()?String(Object(DefaultInner,TEXT("rig_meshes")),*OutfitRig):BootInner;
+            if(!Inner.IsEmpty())PantsPath=Inner;
+        }
         if(PantsPath.IsEmpty()&&!(Underlayers&&Underlayers->HasField(SelectedPants)))return;
         if(!PantsPath.IsEmpty()){MeshPaths.Add(PantsPath);MaterialPaths.Add(String(Pants,TEXT("material")));}
     }
@@ -451,6 +474,10 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     auto* Base=NewParts[0].Get();const auto* BaseData=Base->GetSkeletalMeshAsset()->GetResourceForRendering();
     TArray<int32> Covered=Numbers(Profile,TEXT("base_hide_materials"));
     if(bLowerBody)Covered.Append(Numbers(Profile,TEXT("owner_body_hidden_materials")));
+    // Continuous robe inner legs extend through the thigh. The robe's broad
+    // torso/hip coverage still hides original sections, but must not delete
+    // their separately partitioned leg surfaces when the hem rises.
+    TArray<int32> RobeInnerCovered=Covered;
     if(Shirt)
     {
         // Short sleeves retain the native arms. Body coverage is independent
@@ -463,12 +490,17 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     }
     // Open-finger gloves keep the exposed skin sections in the assembled base.
     // Missing per-item coverage preserves the existing full-glove recipe.
-    if(Gloves)Covered.Append(Gloves->HasField(TEXT("covers"))?Numbers(Gloves,TEXT("covers")):Numbers(Profile,TEXT("glove_covers")));
+    if(Gloves)
+    {
+        const auto GloveCoverage=Gloves->HasField(TEXT("covers"))?Numbers(Gloves,TEXT("covers")):Numbers(Profile,TEXT("glove_covers"));
+        Covered.Append(GloveCoverage);RobeInnerCovered.Append(GloveCoverage);
+    }
     for(const auto& Lower:{Pants,Shoes})if(Lower)
     {
         const auto RigCoverage=Object(Lower,TEXT("rig_world_covers"));
         const FString Rig=String(Profile,TEXT("rig_profile"));
-        Covered.Append(RigCoverage&&RigCoverage->HasField(Rig)?Numbers(RigCoverage,*Rig):Numbers(Lower,TEXT("world_covers")));
+        const auto LowerCoverage=RigCoverage&&RigCoverage->HasField(Rig)?Numbers(RigCoverage,*Rig):Numbers(Lower,TEXT("world_covers"));
+        Covered.Append(LowerCoverage);RobeInnerCovered.Append(LowerCoverage);
     }
     if(BaseData)for(int32 L=0;L<BaseData->LODRenderData.Num();++L)for(const int32 M:Covered)Section(Base,M,L,false);
     if(Existing)ReleasePresentation(*Existing);
@@ -497,15 +529,17 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         for(int32 I=0;I<Existing->Parts.Num();++I)
         {
             FFPSRobeStairSections Sections;
-            Sections.Initialize(Existing->Parts[I],I==0?Covered:None);
+            Sections.Initialize(Existing->Parts[I],I==0?RobeInnerCovered:None);
             if(!Sections.Sections.IsEmpty())
             {Sections.Apply(bHideRobeCalves);Existing->StairSections.Add(MoveTemp(Sections));}
         }
     }
-    if(!bHasLegs&&Shirt&&String(Shirt,TEXT("secondary_motion"))==TEXT("chainmail_shared_sway_v1")&&Existing->Parts.IsValidIndex(1))
+    const FString SecondaryStyle=String(Shirt,TEXT("secondary_motion"));
+    const bool bRobeCuffs=SecondaryStyle==TEXT("robe_shared_sway_v1");
+    if(!bHasLegs&&Shirt&&(bRobeCuffs||SecondaryStyle==TEXT("chainmail_shared_sway_v1"))&&Existing->Parts.IsValidIndex(1))
     {
         Existing->SecondaryMotion=MakeShared<FFPSOutfitSecondaryMotion>();
-        Existing->SecondaryMotion->Initialize(Source,Existing->Parts[1]);
+        Existing->SecondaryMotion->Initialize(Source,Existing->Parts[1],bRobeCuffs);
         AddTickPrerequisiteComponent(Source);
     }
     Existing->PreviouslyVisible.Reset();

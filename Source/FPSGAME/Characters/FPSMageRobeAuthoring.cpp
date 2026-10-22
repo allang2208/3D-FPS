@@ -25,6 +25,18 @@ int32 UFPSModularOutfitComponent::AddRobeHemOffsetPin(UObject* Expression)
     return INDEX_NONE;
 }
 
+int32 UFPSModularOutfitComponent::AddRobeHemMaskPin(UObject* Expression)
+{
+#if WITH_EDITOR
+    if(!Expression||!Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Materials/")))return INDEX_NONE;
+    if(auto* Get=Cast<UMaterialExpressionGetMaterialAttributes>(Expression))
+        return Get->CreateOrGetOutputAttribute(MP_OpacityMask);
+    if(auto* Set=Cast<UMaterialExpressionSetMaterialAttributes>(Expression))
+        return Set->CreateOrGetInputAttribute(MP_OpacityMask);
+#endif
+    return INDEX_NONE;
+}
+
 bool UFPSModularOutfitComponent::BuildMageRobeDrape(USkeletalMesh* Mesh)
 {
 #if WITH_EDITOR

@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-22",
+  "scope": "Historical local project results; not a fresh test of this public source slice.",
+  "item": "ue_leather_boots",
+  "recipe_rows": [
+    "ue_leather_boots",
+    "ue_field_sweater",
+    "ue_blue_mage_robe",
+    "ue_blue_mage_pants",
+    "ue_st6_tactical_pants",
+    "ue_smoke_grey_capri",
+    "ue_leather_pants",
+    "ue_chainmail_pants",
+    "ue_jeans",
+    "ue_cargo_pants"
+  ],
+  "catalog_fields": [
+    "desc",
+    "ue_icon",
+    "world_mesh",
+    "ue_equipment_icon_mesh"
+  ],
+  "wearable_lods": {
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason/SK_Jason_ue_leather_boots.SK_Jason_ue_leather_boots": [
+      214916,
+      96712,
+      38684
+    ],
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason_RobeInner/SK_Jason_RobeInner_ue_leather_boots.SK_Jason_RobeInner_ue_leather_boots": [
+      214916,
+      96712,
+      38684
+    ]
+  },
+  "distance_lod_check": {
+    "completed": true,
+    "rows": [
+      {
+        "lod": 1,
+        "triangles": 96712,
+        "vertices": 121489,
+        "max_surface_distance_cm": 0.03809653967618942,
+        "p95_surface_distance_cm": 0.015431498177349567,
+        "max_joint_gap_cm": 0.0,
+        "pose_count": 30,
+        "weight_sum_error": 0,
+        "all_materials_retained": true
+      },
+      {
+        "lod": 2,
+        "triangles": 38684,
+        "vertices": 58848,
+        "max_surface_distance_cm": 0.07912366837263107,
+        "p95_surface_distance_cm": 0.02339128842577338,
+        "max_joint_gap_cm": 0.0,
+        "pose_count": 30,
+        "weight_sum_error": 0,
+        "all_materials_retained": true
+      }
+    ],
+    "lod0_unchanged": true,
+    "scope": "Fresh saved meshes; source-surface deviation and coincident-seam deformation. No GPU timing or rendered gameplay test."
+  },
+  "wire": {
+    "loss_percent_each_peer": 3,
+    "port": 19947,
+    "transport": "UDP listen host + client + same-profile reconnect",
+    "passed": true,
+    "rendered": false,
+    "lag_ms_each_peer": 60
+  },
+  "wire_directory": "SourceAssets/LeatherBootsUpgrade20261022/TailoredV2/Audit/Wire/20261022-161039",
+  "wire_cases": 14,
+  "wire_all_cases_passed": true,
+  "legacy_assets": {
+    "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display": {
+      "source": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display",
+      "triangles": 107458,
+      "lod_count": 3
+    },
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display": {
+      "source": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display",
+      "triangles": 107458,
+      "lod_count": 3
+    },
+    "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Pickups/SM_LeatherBoots.SM_LeatherBoots": {
+      "source": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Pickups/SM_LeatherBoots.SM_LeatherBoots",
+      "triangles": 214916,
+      "lod_count": 3
+    },
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/Pickups/SM_LeatherBoots.SM_LeatherBoots": {
+      "source": "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Pickups/SM_LeatherBoots.SM_LeatherBoots",
+      "triangles": 214916,
+      "lod_count": 3
+    }
+  },
+  "legacy_png_paths": [
+    "Icons/ue_leather_boots.png",
+    "Icons/LeatherBootsUpgrade20261022/ue_leather_boots.png"
+  ],
+  "saved_asset_hashes": {
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason/SK_Jason_ue_leather_boots.SK_Jason_ue_leather_boots": "90af89845c9b4cb664275463b47f5700759da59073b7e9e4a1cb7a158f622924",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason_RobeInner/SK_Jason_RobeInner_ue_leather_boots.SK_Jason_RobeInner_ue_leather_boots": "cf0e14c205cb8381d5cc7f9e1129b684805bcc63a7a69b67b3a7a16d376a2987",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display": "e8b51f4e5fc1f984ccbe0a537dc54a31fdfc09cdcd45b8f046d1373167d82b41",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Pickups/SM_LeatherBoots.SM_LeatherBoots": "ca9e8822c517bbe17fe88c26e0076e0c113e69b1469c46716db08cea034ce960",
+    "/Game/ColdSteelData/Icons/LeatherBootsTailoredV2/ue_leather_boots.ue_leather_boots": "fd55306f4abbc1235289fdf0b975186782c36902af2bb2f72eb59a17e31096ce",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_AgedSteel.M_AgedSteel": "67121c8b29802f6430b50df016e4cca47bfd35d2c48b0e12d8e1468c13df8dc5",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_BootLeather.M_BootLeather": "209dda655650eeb48f6b7628268360c86732e2dfb517b60eb1b521e926a5776d",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_RubberOutsole.M_RubberOutsole": "0bb53073eb9b1bd1bd392b02910a96cef93e2c1dde9ca0ffecfd5c8cc0bb7b8b",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_WaxedThread.M_WaxedThread": "8b57f114dfd3706fb3b8e4aad073e2e9779509a92f207a1accc13b3e907b64b8",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_ReinforcedLeather.M_ReinforcedLeather": "5f877e5ae98a244338613adcd392920d7a3cf3a6c7357c18fa72643ae6fb8207",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_StackedWelt.M_StackedWelt": "4549a6fb0f93a59cea2fd0f6577fbba733d9b2c73d6634dcef0939fea8de6e6f",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/Materials/M_DarkLining.M_DarkLining": "d586100a7a08591b75823f46013440184d65e1ddd6ee1429d563ac6957e09ca4",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_58c56823b447.M_RobeHem_58c56823b447": "5b617774925e32efef933078183622e2ee55d4443d08a827cb38685a1b8174dc",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_61a15cc5aeeb.M_RobeHem_61a15cc5aeeb": "210b38130121948083818ac1c33ff7f94affbde7b5678e2b9c2015ce532c5fbe",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_c2e6e24f3b04.M_RobeHem_c2e6e24f3b04": "5e15006111a54b8e134c27a6f9eb72f4cc14b234bb04c261b8265af3372eae53",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_559165c9ebfe.M_RobeHem_559165c9ebfe": "807810ca72db7824ad6d1c8d1bd16f2af2868a61f93f089ec4b104e53d4bf3f5",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_5e7637d880a9.M_RobeHem_5e7637d880a9": "718d464b7471f7e106b73184d9777994c29fa8145ee0a3acfa5ac61ec08f4d5e",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_8aeec2e0dbfd.M_RobeHem_8aeec2e0dbfd": "7a1d827fd1f088deb7f6dd09422f58aae5836e26df1f9c9357df17b4d867c83b",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/RobeMaterials/M_RobeHem_35178093201c.M_RobeHem_35178093201c": "bc40967796f9bb570fbc666b7c59cf246832accd027854564da9d32cb928aaf9",
+    "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display": "feecdaf5f98583e7ecf568374d74de252543431b2afd5d498d499d68c2e18359",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/Icons/SM_LeatherBoots_Display.SM_LeatherBoots_Display": "6916a941698e923afa4883ba2fb48e702677841b481f0e12c74b508ac7ec79e2",
+    "/Game/Characters/ModularOutfit20260924/BrownLeatherSet20261004/Pickups/SM_LeatherBoots.SM_LeatherBoots": "6f6ef842529f42b4a0d0ae96f6bb48894fe237cf6444f1811de178e99ea79a25",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/Pickups/SM_LeatherBoots.SM_LeatherBoots": "4639ce9d6bf1ded6c89c47898fda762f2eff679787136bda12901f1c7e34ab35",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason/SK_Jason_ue_leather_boots_DistanceLODPolicy.SK_Jason_ue_leather_boots_DistanceLODPolicy": "e95208697f74d42c2fb06aa81e4943b3af80d856751bd376c19493e16141dd8f",
+    "/Game/Characters/ModularOutfit20260924/LeatherBootsUpgrade20261022/TailoredV2/ue_leather_boots/Jason_RobeInner/SK_Jason_RobeInner_ue_leather_boots_DistanceLODPolicy.SK_Jason_RobeInner_ue_leather_boots_DistanceLODPolicy": "e07724d0a078b07a7981e77e929bb8453de6418c16bba81fc3c85cc2b302e198"
+  },
+  "startup_repair": {
+    "asset": "/Game/AsianMale_Jason/Mesh/Body/SKM_Jason_body_Skeleton.SKM_Jason_body_Skeleton",
+    "added": [
+      "mask_geo"
+    ],
+    "loaded_native_clips": 150,
+    "bone_count": 342,
+    "rest_pose_sha256": "350a46ae946ba178e581527f34b1345987965c0337732e787d14c1c5f1fc2df6",
+    "bones_and_reference_pose_unchanged": true,
+    "headless_udp_test_passed": true
+  },
+  "boundaries": [
+    "No rendered gameplay acceptance in this audit",
+    "No dedicated server, three simultaneous players, cross-machine packaged build or GPU frame-time capture",
+    "No build, engine launch or gameplay test was run for Git closeout.",
+    "Historical local build included other working-tree changes; public slice not independently built."
+  ],
+  "local_receipt_sha256": {
+    "Audit/completion_review.json": "25f325bd01c686ab5bb7d58965f2810198278061dcb0c2478a0e5a3aa6f0e01d",
+    "Audit/wire-receipt.json": "fd7dae2a802efb6177dd416c4d04ea19bc9ce6ceb05ca3eca90fa2963b3a61ed",
+    "Audit/DistanceLODs/saved.json": "6759d67d506044f5828240118bf89dd6ef41f7ef5a3dc474e963f8db397d9c9a",
+    "Audit/DistanceLODs/read_back.json": "1d09557592d3ef6b19f81148e5b35711bacabe7135d361980e47b55252994ab0",
+    "Audit/DistanceLODs/geometry_check.json": "405016abfea1cb979a5a8849b07e552314ef12b1a786128fef32a3c5661587c7",
+    "Audit/StartupRepair/skeleton_curve_metadata.json": "453688c79098d6d532cd66c19d840b4ccbd872686ccbd67751571a5244fb1020",
+    "Audit/legacy_displays.json": "d9cf349ddb8601283f8f4df88690ef0697458981558878cd60fe3b0c33c37f56",
+    "Audit/legacy_saved_check.json": "ef9d2c6d779bf5ebbdb3bb0af020234098de6b8360bdea5dcebd5b195be1cc9d",
+    "saved_assets.json": "9892bbc190518542f72fe33235d6160c35bb56e95af3fb7ed7f692ad49be02e2",
+    "published.json": "ed8ddf72bee49988e970d312ec27e0e91d0d787718d2f263852b78bc24f238a4"
+  }
+}

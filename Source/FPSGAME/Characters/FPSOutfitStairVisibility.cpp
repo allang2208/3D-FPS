@@ -25,9 +25,14 @@ void FFPSRobeHemEnvelope::Initialize(USkeletalMeshComponent* Robe)
     const auto& Ref=Mesh->GetRefSkeleton();TArray<FTransform> Rest=Ref.GetRefBonePose();
     for(int32 B=0;B<Rest.Num();++B)if(Ref.GetParentIndex(B)>=0)Rest[B]*=Rest[Ref.GetParentIndex(B)];
     const int32 Knee=Ref.FindBoneIndex(TEXT("calf_l")),Ankle=Ref.FindBoneIndex(TEXT("foot_l"));
-    if(Knee==INDEX_NONE||Ankle==INDEX_NONE)return;
-    const float Length=FVector::Distance(Rest[Knee].GetLocation(),Rest[Ankle].GetLocation());
-    Scale=Length/40.f;AnkleGuard=Length*.40f;
+    const int32 KneeR=Ref.FindBoneIndex(TEXT("calf_r")),AnkleR=Ref.FindBoneIndex(TEXT("foot_r"));
+    if(Knee==INDEX_NONE||Ankle==INDEX_NONE||KneeR==INDEX_NONE||AnkleR==INDEX_NONE)return;
+    const float Length=(FVector::Distance(Rest[Knee].GetLocation(),Rest[Ankle].GetLocation())+
+        FVector::Distance(Rest[KneeR].GetLocation(),Rest[AnkleR].GetLocation()))*.5f;
+    Scale=Length/40.f;
+    // Same rest-space partition as author_hem_layers.py. A moving opposite
+    // foot must never exempt this calf from the cloth constraint.
+    AnkleCut=FMath::Max(Rest[Ankle].GetLocation().Z,Rest[AnkleR].GetLocation().Z)+Length*.15f;
     for(int32 C=0;C<Mesh->GetMeshClothingAssets().Num();++C)
     {
         const auto* Cloth=Cast<UClothingAssetCommon>(Mesh->GetMeshClothingAssets()[C]);
@@ -37,15 +42,16 @@ void FFPSRobeHemEnvelope::Initialize(USkeletalMeshComponent* Robe)
         float Bottom=MAX_flt,Top=-MAX_flt;FVector Center=FVector::ZeroVector;
         for(const auto& V:Physical.Vertices){Bottom=FMath::Min(Bottom,V.Z);Top=FMath::Max(Top,V.Z);Center+=FVector(V);}
         Center/=Physical.Vertices.Num();const float Height=Top-Bottom;if(Height<20.f*Scale)continue;
-        for(int32 Ring=0;Ring<3;++Ring)for(int32 Angle=0;Angle<8;++Angle)
+        const float Heights[RingCount]={0.f,.4f,.75f,1.f};
+        for(int32 Ring=0;Ring<RingCount;++Ring)for(int32 Angle=0;Angle<RingPoints;++Angle)
         {
-            const float TargetZ=Bottom+Height*(Ring==0?0.f:Ring==1?.40f:.75f);
-            const float Phi=Angle*UE_TWO_PI/8.f;int32 Best=INDEX_NONE;float Score=MAX_flt;
+            const float TargetZ=Bottom+Height*Heights[Ring];
+            const float Phi=Angle*UE_TWO_PI/RingPoints;int32 Best=INDEX_NONE;float Score=MAX_flt;
             for(int32 V=0;V<Physical.Vertices.Num();++V)
             {
                 const FVector P=FVector(Physical.Vertices[V])-Center;
                 const float A=FMath::FindDeltaAngleRadians(Phi,static_cast<float>(FMath::Atan2(P.Y,P.X)));
-                const float D=FMath::Square((Physical.Vertices[V].Z-TargetZ)/Height*64.f)+FMath::Square(A*8.f);
+                const float D=FMath::Square((Physical.Vertices[V].Z-TargetZ)/Height*64.f)+FMath::Square(A*RingPoints);
                 if(D<Score){Score=D;Best=V;}
             }
             if(!Physical.BoneData.IsValidIndex(Best)){Samples.Reset();return;}
@@ -71,7 +77,7 @@ void FFPSRobeHemEnvelope::Update(bool bOnStairs,float Delta)
     const bool Visible=Part->IsVisible()&&!Part->bHiddenInGame&&!(Pawn&&Pawn->IsLocallyControlled()&&Part->bOwnerNoSee);
     // Coverage cannot fade with last-frame render relevance: a remote pawn
     // returning to view needs a current envelope on its very first frame.
-    // Update the same bounded 24 samples for every logically visible robe,
+    // Update the bounded 64 samples for every logically visible robe,
     // including off-screen bodies; this does not start another cloth solve.
     Strength=Visible?1.f:0.f;
     StairBlend=FMath::FInterpConstantTo(StairBlend,bOnStairs?1.f:0.f,Delta,bOnStairs?5.5f:3.f);
@@ -95,8 +101,6 @@ void FFPSRobeHemEnvelope::Update(bool bOnStairs,float Delta)
         else if(SimulationAge>.12f)SimulationResidual[I]=FMath::VInterpTo(SimulationResidual[I],FVector::ZeroVector,Delta,8.f);
         Points[I]=Skinned+SimulationResidual[I]*Part->ClothBlendWeight;
     }
-    Feet[0]=Part->GetSocketTransform(TEXT("foot_l"),RTS_Component).GetLocation();
-    Feet[1]=Part->GetSocketTransform(TEXT("foot_r"),RTS_Component).GetLocation();
 }
 
 void FFPSRobeStairSections::Initialize(USkeletalMeshComponent* Part,const TArray<int32>& Covered)
@@ -122,8 +126,6 @@ void FFPSRobeStairSections::Initialize(USkeletalMeshComponent* Part,const TArray
         auto* MID=Part->CreateDynamicMaterialInstance(M);if(!MID)continue;
         auto& Binding=Materials.AddDefaulted_GetRef();Binding.Instance=MID;
         MID->InitializeScalarParameterAndGetIndex(TEXT("RobeHemStrength"),0.f,Binding.Strength);
-        MID->InitializeVectorParameterAndGetIndex(TEXT("RobeHemFootL"),FLinearColor::Black,Binding.LeftFoot);
-        MID->InitializeVectorParameterAndGetIndex(TEXT("RobeHemFootR"),FLinearColor::Black,Binding.RightFoot);
         MID->InitializeVectorParameterAndGetIndex(TEXT("RobeHemShape"),FLinearColor(16,2,8,1),Binding.Shape);
         for(int32 I=0;I<FFPSRobeHemEnvelope::PointCount;++I)
         {int32 Index=INDEX_NONE;MID->InitializeVectorParameterAndGetIndex(FPSRobeHem::PointName(I),FLinearColor::Black,Index);Binding.Points.Add(Index);}
@@ -158,9 +160,7 @@ void FFPSRobeStairSections::Conform(const FFPSRobeHemEnvelope& Hem)
         if(Hem.Strength>0.f)
         {
             for(int32 I=0;I<Binding.Points.Num();++I)MID->SetVectorParameterByIndex(Binding.Points[I],FPSRobeHem::Color(Hem.Points[I]));
-            MID->SetVectorParameterByIndex(Binding.LeftFoot,FPSRobeHem::Color(Hem.Feet[0]));
-            MID->SetVectorParameterByIndex(Binding.RightFoot,FPSRobeHem::Color(Hem.Feet[1]));
-            MID->SetVectorParameterByIndex(Binding.Shape,FLinearColor(Hem.AnkleGuard,(1.f+Hem.StairBlend)*Hem.Scale,(6.f+2.f*Hem.StairBlend)*Hem.Scale,1.f));
+            MID->SetVectorParameterByIndex(Binding.Shape,FLinearColor(Hem.AnkleCut,(1.f+Hem.StairBlend)*Hem.Scale,(6.f+2.f*Hem.StairBlend)*Hem.Scale,Hem.Scale));
         }
         MID->SetScalarParameterByIndex(Binding.Strength,Hem.Strength);Binding.LastStrength=Hem.Strength;
     }

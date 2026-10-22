@@ -18,3 +18,5 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 地图文件存在但联机载入失败，或无界面地牢卡在渲染预热时，读 [地图预加载与无界面诊断](references/map-preload-and-headless-dungeon.md)。
 
 - 隔离权威命中夹具、真实 RPC 分派与覆盖边界：读取 [authority-hit-fixture](references/authority-hit-fixture.md)。
+
+- 无界面 `-game` 加载动画触发编辑器事务崩溃：读取[骨架曲线迁移](references/uncooked-animation-curve-migration.md)，按真实调用链处理骨架元数据，不能只重存动画或删重定向引用。

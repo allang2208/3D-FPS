@@ -46,3 +46,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 本轮导出的 [手枪与副手书](references/pistol-book-ads-and-reload.md) 记录原待机/V5 ADS、直接回握、双持消耗品及联机身份边界；共享维护仍以个人目录为准。
 
 第三人称动作恢复、共用身体配置修改及动画发布，另读 [共享配置写入与发布](../../Docs/Workflow/player-body-config-publication.md)，保留其他动作入口并区分本地接入、Git 推送与用户认可。
+
+- 衣物接缝、长靴及距离档位的原生蒙皮读回，参考[连续长靴与渲染 LOD](../asset-model-workflow/references/continuous-boots-and-render-lods.md)；动画在无界面启动触发曲线迁移时，转[骨架曲线迁移](../ue5-debug-validation/references/uncooked-animation-curve-migration.md)。
