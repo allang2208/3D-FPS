@@ -1,0 +1,296 @@
+{
+  "fps": 120,
+  "clips": {
+    "Equip": {
+      "length": 0.7,
+      "loop": false,
+      "frames": 85,
+      "contact": null,
+      "ranges": {
+        "max_reach": 0.698,
+        "rho": [
+          -29.3,
+          71.9
+        ],
+        "twist": [
+          -26.6,
+          63.7
+        ],
+        "twist_rate": 612.0000000000002,
+        "ext": [
+          -14.9,
+          37.7
+        ],
+        "uln": [
+          6.8,
+          39.6
+        ]
+      }
+    },
+    "Slash1": {
+      "length": 0.8,
+      "loop": false,
+      "frames": 97,
+      "contact": [
+        0.26,
+        0.37
+      ],
+      "ranges": {
+        "max_reach": 0.856,
+        "rho": [
+          -80.5,
+          23.7
+        ],
+        "ext": [
+          -22.8,
+          50.1
+        ],
+        "uln": [
+          6.1,
+          52.5
+        ],
+        "contact_edge_lead": [
+          0.72,
+          0.91
+        ]
+      }
+    },
+    "Slash2": {
+      "length": 0.8,
+      "loop": false,
+      "frames": 97,
+      "contact": [
+        0.24,
+        0.36
+      ],
+      "ranges": {
+        "max_reach": 0.941,
+        "rho": [
+          4.2,
+          72.5
+        ],
+        "ext": [
+          -15.9,
+          15.8
+        ],
+        "uln": [
+          14.4,
+          34.4
+        ],
+        "contact_edge_lead": [
+          0.58,
+          0.87
+        ]
+      }
+    },
+    "Pommel": {
+      "length": 0.8,
+      "loop": false,
+      "frames": 97,
+      "contact": [
+        0.25,
+        0.35
+      ],
+      "ranges": {
+        "max_reach": 0.928,
+        "rho": [
+          -4.7,
+          4.2
+        ],
+        "ext": [
+          15.8,
+          24.3
+        ],
+        "uln": [
+          12.0,
+          27.1
+        ],
+        "contact_edge_lead": [
+          0.82,
+          0.86
+        ]
+      }
+    },
+    "Idle": {
+      "length": 3.0,
+      "loop": true,
+      "frames": 361,
+      "contact": null,
+      "ranges": {
+        "max_reach": 0.5,
+        "rho": [
+          3.8,
+          4.5
+        ],
+        "twist": [
+          37.1,
+          37.8
+        ],
+        "twist_rate": 12.00000000000017,
+        "ext": [
+          15.8,
+          15.9
+        ],
+        "uln": [
+          26.8,
+          27.3
+        ]
+      }
+    },
+    "Walk": {
+      "length": 0.9,
+      "loop": true,
+      "frames": 109,
+      "contact": null,
+      "ranges": {
+        "max_reach": 0.502,
+        "rho": [
+          3.2,
+          4.9
+        ],
+        "twist": [
+          36.6,
+          38.2
+        ],
+        "twist_rate": 12.00000000000017,
+        "ext": [
+          15.2,
+          16.5
+        ],
+        "uln": [
+          27.0,
+          27.1
+        ]
+      }
+    },
+    "Run": {
+      "length": 0.6666666666666666,
+      "loop": true,
+      "frames": 81,
+      "contact": null,
+      "ranges": {
+        "max_reach": 0.475,
+        "rho": [
+          24.4,
+          34.1
+        ],
+        "twist": [
+          11.1,
+          18.8
+        ],
+        "twist_rate": 36.000000000000085,
+        "ext": [
+          -1.6,
+          8.0
+        ],
+        "uln": [
+          36.6,
+          36.7
+        ]
+      }
+    },
+    "Attack": {
+      "length": 1.2666666666666666,
+      "loop": false,
+      "frames": 153,
+      "contact": [
+        0.32,
+        0.45
+      ],
+      "ranges": {
+        "max_reach": 0.995,
+        "rho": [
+          -4.2,
+          108.9
+        ],
+        "twist": [
+          -71.5,
+          47.0
+        ],
+        "twist_rate": 1175.9999999999998,
+        "ext": [
+          11.8,
+          36.4
+        ],
+        "uln": [
+          2.6,
+          28.2
+        ],
+        "contact_edge_lead": [
+          0.63,
+          0.96
+        ]
+      }
+    },
+    "Attack2": {
+      "length": 1.0,
+      "loop": false,
+      "frames": 121,
+      "contact": [
+        0.19,
+        0.31
+      ],
+      "ranges": {
+        "max_reach": 0.995,
+        "rho": [
+          4.2,
+          114.0
+        ],
+        "twist": [
+          -75.1,
+          37.4
+        ],
+        "twist_rate": 492.000000000001,
+        "ext": [
+          15.8,
+          31.3
+        ],
+        "uln": [
+          0.9,
+          27.1
+        ],
+        "contact_edge_lead": [
+          -0.5,
+          0.33
+        ]
+      }
+    },
+    "Attack3": {
+      "length": 1.1,
+      "loop": false,
+      "frames": 133,
+      "contact": [
+        0.26,
+        0.38
+      ],
+      "ranges": {
+        "max_reach": 0.82,
+        "rho": [
+          4.2,
+          125.2
+        ],
+        "twist": [
+          -86.4,
+          37.4
+        ],
+        "twist_rate": 575.9999999999997,
+        "ext": [
+          15.8,
+          25.3
+        ],
+        "uln": [
+          18.2,
+          40.7
+        ],
+        "contact_edge_lead": [
+          0.41,
+          0.49
+        ]
+      }
+    }
+  },
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton",
+  "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms",
+  "reference": "https://www.bilibili.com/video/BV1CeYUeSE7b/",
+  "runtime_tested": false
+}

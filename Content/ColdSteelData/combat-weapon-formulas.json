@@ -339,6 +339,23 @@
       }
     ]
   },
+  "ue_kukri": {
+    "source": "KUKRI_ONEHAND_DEX_STR_20261020",
+    "base": 24,
+    "enhanceFlat": 2.95,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 2.7,
+        "perEnhance": 0.53
+      },
+      {
+        "key": "str",
+        "base": 2.1,
+        "perEnhance": 0.42
+      }
+    ]
+  },
   "ue_rsh12": {
     "source": "RSH12_DW715_150_3X_20261019",
     "base": 67.35,

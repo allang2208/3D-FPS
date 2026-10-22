@@ -10,6 +10,7 @@
 #include "Weapons/ZhenmoRuneComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Kukri/KukriWeaponComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelEnhancementSystem.h"
 #include "Monsters/FPSCombatHealthComponent.h"
@@ -137,6 +138,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     // 弓走自己的视模：主手槽不是弓就收起，避免换枪后弓还挂在相机上。
     if(Bow)Bow->RefreshEquipment(Profile);
     if(Staff)Staff->RefreshEquipment(Profile);
+    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>())Kukri->RefreshEquipment(Profile);
     // Handling stays in UE units; damage resolves through the canonical gamedev weapon formula below.
     const auto* Defaults=GetClass()->GetDefaultObject<AFPSGAMECharacter>();
     // 一个持枪移速乘区同时承载手枪精通加成与机枪类减速；工具或不持枪时为 1。

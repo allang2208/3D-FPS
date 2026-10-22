@@ -31,6 +31,7 @@
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Kukri/KukriWeaponComponent.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
 #include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
 #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
@@ -245,6 +246,8 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     RuneOrbBlades=CreateDefaultSubobject<URuneOrbBladesComponent>(TEXT("RuneOrbBlades"));
     Bow=CreateDefaultSubobject<UBowWeaponComponent>(TEXT("Bow"));
     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
+    // 尼泊尔弯刀（单手近战）：按组件类查找，不新增角色成员。
+    CreateDefaultSubobject<UKukriWeaponComponent>(TEXT("Kukri"));
     UnarmedIdle=CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
     Spellbook=CreateDefaultSubobject<USpellbookComponent>(TEXT("OffhandSpellbook"));
     DoorPush=CreateDefaultSubobject<UFPSDoorPushComponent>(TEXT("SprintDoorPush"));
@@ -1116,6 +1119,13 @@ void AFPSGAMECharacter::FirePressed()
         RuneSword->BeginPrimaryAttack();
         return;
     }
+    // 尼泊尔弯刀：左键三连击（水平横劈 → 左上向右下斜劈 → 双手前刺），连段输入由组件缓冲。
+    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())
+    {
+        ExitSprintForWeapon();
+        Kukri->BeginPrimaryAttack();
+        return;
+    }
     // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
     if(Staff&&Staff->IsEquipped()){ExitSprintForWeapon();Staff->BeginPrimaryAttack();return;}
     if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetTriggerHeld(true);Bow->BeginPrimaryAttack();return;}
@@ -1148,6 +1158,8 @@ void AFPSGAMECharacter::FireInputReleased()
     // Releasing a tap completes its punch; only priority interruption cancels it.
     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
     if(Staff&&Staff->IsEquipped())return;
+    // 弯刀挥砍不受松键影响：真实松手不能落到 FireReleased 的取消路径。
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return;
     // Only the physical input release may commit a charged sword attack.
     // Menu/traversal/equipment callers still use FireReleased to stop actions.
     if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
@@ -1180,6 +1192,8 @@ void AFPSGAMECharacter::AimPressed()
     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
     if(HasOffhandPistol()){DualPistols->Trigger(1,true);return;}
     if(Staff&&Staff->IsEquipped()){if(Spellbook)Spellbook->ToggleFocus();return;}
+    // 单手弯刀没有机瞄与格挡：右键不进入枪械开镜状态机。
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){bAimHeld=false;return;}
     if(IsCastBlockingLeftHandAction())return;
     if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
     // 弓的右键＝稳持（压住满拉呼吸抖动），不进枪械机瞄状态机。
@@ -1201,6 +1215,7 @@ void AFPSGAMECharacter::AimReleased()
 {
     if(HasOffhandPistol()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
     if(Staff&&Staff->IsEquipped()){bAimHeld=false;return;}
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){bAimHeld=false;return;}
     bAimHeld=false;
     if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleaseGuard();return;}
     if(Bow&&Bow->IsEquipped()){Bow->SetSteadyHeld(false);return;}
@@ -1993,6 +2008,7 @@ void AFPSGAMECharacter::UpdateADSProgress()
 void AFPSGAMECharacter::SetAimingState(bool bNewAiming)
 {
     if(HasOffhandPistol() || (Staff&&Staff->IsEquipped()))bNewAiming=false;
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())bNewAiming=false;
     // A waiting cast leaves existing ADS untouched until the player releases it.
     // An active cast cannot enter ADS through input or an action-completion callback.
     if(bNewAiming && (IsCastingWithLeftHand()||IsOffhandReloadTransition()))bNewAiming=false;
@@ -2117,6 +2133,9 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     if(Bow)Bow->GetCameraMotion(BowCameraLocation,BowCameraRotation);
     FVector StaffCameraLocation=FVector::ZeroVector;FRotator StaffCameraRotation=FRotator::ZeroRotator;
     if(Staff)Staff->GetCameraMotion(StaffCameraLocation,StaffCameraRotation);
+    // 尼泊尔弯刀：参考视频配准的挥刀镜头曲线（含出刀翻滚冲击、视场放宽）与命中抖动。
+    FVector KukriCameraLocation=FVector::ZeroVector;FRotator KukriCameraRotation=FRotator::ZeroRotator;float KukriFOV=0.f;
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>())Kukri->GetCameraMotion(KukriCameraLocation,KukriCameraRotation,KukriFOV);
     FVector FireMagicLocation=FVector::ZeroVector;FRotator FireMagicRotation=FRotator::ZeroRotator;
     if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->GetCameraMotion(FireMagicLocation,FireMagicRotation);
     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
@@ -2125,6 +2144,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(ToolCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BowCameraLocation))*CameraMotionScale;
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(StaffCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(KukriCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(FireMagicLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     // Whirlwind publishes its final action sample in PostPhysics, including
     // contact holds. Do not smooth its camera position against the previous
@@ -2143,12 +2163,14 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     CameraFeedback+=ToolCameraRotation*CameraMotionScale;
     CameraFeedback+=BowCameraRotation*CameraMotionScale;
     CameraFeedback+=StaffCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+    CameraFeedback+=KukriCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     CameraFeedback+=FireMagicRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
     const float AimVerticalFOV = Bow && Bow->IsEquipped()
         ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
-    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor) + FOVPunch);
+    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor) + FOVPunch
+        + KukriFOV*CameraMotionScale*CameraShakeScale.GetValueOnGameThread());
     TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
     if (ActionCamera)

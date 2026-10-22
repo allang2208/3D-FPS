@@ -10,6 +10,7 @@
 #include "Weapons/RuneSwordComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Kukri/KukriWeaponComponent.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
 #include "Weapons/RuneOrbBladesComponent.h"
 #include "Production/ProductionToolComponent.h"
@@ -47,6 +48,7 @@ bool AFPSGAMECharacter::IsSwitchingWeapon() const
     if(RuneSword && RuneSword->IsEquipped() && RuneSword->IsEquipping())return true;
     if(Bow && Bow->IsEquipped() && Bow->GetStage()==EBowStage::Equip)return true;
     if(Staff && Staff->IsEquipping())return true;
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri && Kukri->IsEquipped() && Kukri->IsEquipping())return true;
     const auto* Tool=FindComponentByClass<UProductionToolComponent>();
     return Tool && Tool->IsEquipped() && Tool->IsEquipping();
 }
@@ -83,6 +85,7 @@ void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
         // Cancel the draw before FireReleased: priority interrupts never loose an arrow.
         if(Bow && Bow->IsEquipped())Bow->CancelAction();
         if(Staff && Staff->IsEquipped())Staff->CancelAction();
+        if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri && Kukri->IsBusy())Kukri->CancelAction();
         if(RuneSword && (RuneSword->IsBusy() || RuneSword->IsInspecting()))RuneSword->CancelAction();
         if(bWeaponSwitch && RuneOrbBlades)RuneOrbBlades->EndOrbit();
         if(auto* Tool=FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();
