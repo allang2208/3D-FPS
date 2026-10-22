@@ -45,6 +45,7 @@ public:
     FName WeaponMastery(const FColdSteelItem* Item) const;
     FString ArmorSet() const;
     double SetEffect(FName Key) const;
+    bool RangerFieldSetComplete() const;
     double AdjustCombatStat(FName Key,double Value) const;
     double EquipmentMagicAttack() const;
     double ItemMagicAttack(const FColdSteelItem& Item) const;

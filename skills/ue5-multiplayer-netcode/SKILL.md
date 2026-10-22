@@ -40,6 +40,8 @@ description: UE5 原生复制联机开发（监听服务器起步）的工程套
 
 **装备派生属性的目标端取值（2026-10-19）：** 暴击抵抗、眩晕抵抗、减伤等“按目标结算”的属性，不要直接读 GameInstance 的本地 `UColdSteelStatusModel`。先 `ColdSteelAuthority::ForPawn(TargetPawn)`：服务器上的远端玩家取 `PlayerState::ShadowModel`，只有 `IsLocallyControlled()` 的本地玩家/主机才回退本地模型。典型入口是 `CombatFormulaRuntime::MonsterCriticalResistance()` 与 `UCombatStatusFormula::AddStun()`；前者只负责取目标抗暴值，后者在服务器权威侧掷 0–100% 免控。客户端只通过复制状态看到结果，不自行掷概率。
 
+**攻击者自身的装备与套装同样走影子档（2026-10-22）：** 取攻击者数值时用 `AFPSGAMECharacter::GetNetShadowProfile()`（主机玩家自动回退单例），`ColdSteelSkills::Snapshot`、`FPSQuickCombatComponent`、`RuneOrbBladeProjectile`、`BowWeaponComponent` 都已按此实现。套装 `ArmorSet()`/`SetComplete()` 只依赖物品实例 Data 与主机本地 `source-combat-items.json`，因此客机自带目录缺条目不影响判定——判定发生在主机；反过来，主机目录缺 `armorSet` 则全端都不生效。覆盖层补字段的语义、实例残留 `bonusStats` 会盖住覆盖层的问题，见 [影子档与装备加成](references/shadow-profile-equipment-bonuses.md) 与 [套装效果三层数据](../ue5-cpp-gameplay/references/equipment-set-effect-layers.md)。
+
 ## 三、命中权威（MPTEST hit_path 八步排查法）
 
 10. **客户端只报告几何**（`FColdSteelNetHitReport::AimOrigin/ImpactPoint/ImpactNormal/BoneName`）+ 武器 `InstanceId`/`Definition` + 客户端本地 `ClientShotMs`；**伤害、暴击、cap、弹药、目标落点全部由服务端影子档案重算**。token bucket (`TokenBudget=12`) 防突突；`ValidateHitReport` 八道门：非本玩家 PC→item 非持握或类型不配→几何 NaN→时间窗 250ms→目标脱 relevancy→不在历史缓冲→名义头节点排除（软腋保护）→rewind 几何校验。

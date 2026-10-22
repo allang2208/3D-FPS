@@ -38,7 +38,14 @@ FColdSteelSkillProgress UColdSteelStatusModel::RifleProgress() const
 FColdSteelSkillProgress UColdSteelStatusModel::CriticalStrikeProgress() const
 { const auto* P=Current.Skills.Find(CriticalStrikeSkill.Id);return P?*P:FColdSteelSkillProgress(); }
 FColdSteelSkillEffect UColdSteelStatusModel::CriticalStrikeEffect(int32 AtLevel) const
-{ return ColdSteelSkills::Effect(CriticalStrikeSkill,AtLevel<0?CriticalStrikeProgress().Level:AtLevel); }
+{
+    auto E=ColdSteelSkills::Effect(CriticalStrikeSkill,AtLevel<0?CriticalStrikeProgress().Level:AtLevel);
+    // Equipment crit-damage lives in bonusStats (weapons keep their own top-level
+    // critDamageBonus and are added in the weapon shot path). Set-level crit damage
+    // is a separate five-piece effect.
+    E.CriticalDamageBonus+=float(EquipmentBonus(TEXT("critDamageBonus"))+SetEffect(TEXT("critDamage")));
+    return E;
+}
 FColdSteelSkillProgress UColdSteelStatusModel::PistolProgress() const
 { const auto* P=Current.Skills.Find(PistolSkill.Id);return P?*P:FColdSteelSkillProgress(); }
 FColdSteelSkillEffect UColdSteelStatusModel::PistolEffect(int32 AtLevel) const

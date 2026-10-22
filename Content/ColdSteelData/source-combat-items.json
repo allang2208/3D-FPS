@@ -1,4 +1,20 @@
 {
+  "ue_ranger_feather_hat": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_field_sweater": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_leather_pants": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_leather_boots": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
   "ue_steel_armet": {
     "armorSet": "steel_chainmail",
     "setBonusDesc": "五件套：防御力 +15%",
@@ -55,10 +71,11 @@
       "perEnhance": 0.5
     },
     "bonusStats": {
-      "meleeAttackSpeed": 0.1,
-      "reloadSpeed": 0.1,
-      "bowDrawSpeed": 0.1
-    }
+      "bowDrawSpeed": 0.1,
+      "reloadSpeed": 0.1
+    },
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
   },
   "ue_field_gloves_black": {
     "defense": {

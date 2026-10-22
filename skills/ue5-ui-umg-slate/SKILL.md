@@ -19,3 +19,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 物理书本、纸面文字/图片、长按拖动与书签跳转，读取 [物理书本阅读器](references/physical-book-reader.md)。
 
 装备缩略浮窗的增益/减益分组、金/黑语义色与中性细线，读取 [装备浮窗增益/减益分组](references/equipment-tooltip-tone.md)。
+
+暴击类词条的三个口径（倍率 `1.80x`／伤害加成 `+25%`／点数 `+10%`）与浮窗映射写法，读取 [暴击相关术语](references/critical-damage-wording.md)。

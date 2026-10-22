@@ -27,6 +27,19 @@ FString UColdSteelStatusModel::ArmorSet()const
     for(int32 Slot:{1,7,13}){const auto* I=Equipped(Slot);if(!I)return {};FString Id;const auto Data=Read(I);if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);if(Id.IsEmpty()||(!Set.IsEmpty()&&Id!=Set))return {};Set=Id;}
     return Set;
 }
+bool UColdSteelStatusModel::RangerFieldSetComplete()const
+{
+    // Light field set: the common 3-piece check covers helmet/armor/boots, plus gloves and pants.
+    if(ArmorSet()!=TEXT("ranger_field"))return false;
+    for(int32 Slot:{3,15})
+    {
+        const auto* I=Equipped(Slot);if(!I)return false;
+        FString Id;const auto Data=CombatItemFormula::ReadOnly(*I);
+        if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);
+        if(Id!=TEXT("ranger_field"))return false;
+    }
+    return true;
+}
 double UColdSteelStatusModel::SetEffect(FName Key)const
 {
     const FString S=ArmorSet();
@@ -35,7 +48,9 @@ double UColdSteelStatusModel::SetEffect(FName Key)const
     if(Key==TEXT("cooldown")){if(S==TEXT("robe"))return .12;if(S==TEXT("eclipse"))return .18;if(S==TEXT("lunar"))return .22;if(S==TEXT("oracle_robe"))return .28;}
     if(Key==TEXT("magicDamage")){if(S==TEXT("robe"))return .18;if(S==TEXT("eclipse"))return .25;if(S==TEXT("lunar"))return .30;if(S==TEXT("oracle_robe"))return .35;}
     if(Key==TEXT("atk")){if(S==TEXT("stellar"))return .10;if(S==TEXT("holy"))return .15;}
-    if(Key==TEXT("crit")){if(S==TEXT("stellar"))return 15;if(S==TEXT("holy"))return 20;}
+    if(Key==TEXT("crit")){if(RangerFieldSetComplete())return 10;if(S==TEXT("stellar"))return 15;if(S==TEXT("holy"))return 20;}
+    if(Key==TEXT("critDamage"))return RangerFieldSetComplete()?.25:0;
+    if(Key==TEXT("defense"))return RangerFieldSetComplete()?.05:0;
     if(Key==TEXT("staminaRegen"))return S==TEXT("flowing")?1.12:1;
     return 0;
 }

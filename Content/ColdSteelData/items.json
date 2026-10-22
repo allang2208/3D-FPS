@@ -224,7 +224,8 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 20
+      "base": 20,
+      "perEnhance": 1.6
     },
     "desc": "分片裁剪的棕色皮革长裤，弧形拼缝、柔性护膝、腰带和收窄裤脚保留自然褶皱。可搭配同套皮革靴及露指手套。",
     "ue_icon": "Icons/TrouserFit20261018/ue_leather_pants.png",
@@ -233,7 +234,10 @@
     "world_material": "",
     "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Icons/SM_LeatherPants_Display.SM_LeatherPants_Display",
     "ue_icon_pitch": 0,
-    "ue_icon_yaw": -90
+    "ue_icon_yaw": -90,
+    "bonusStats": {
+      "moveSpeedPercent": 0.05
+    }
   },
   "ue_leather_boots": {
     "id": "ue_leather_boots",
@@ -247,7 +251,8 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 12
+      "base": 12,
+      "perEnhance": 1.0
     },
     "bonusStats": {
       "moveSpeedPercent": 0.05
@@ -3842,13 +3847,18 @@
     "grid_w": 3,
     "grid_h": 3,
     "defense": {
-      "base": 6
+      "base": 8,
+      "perEnhance": 1.2
     },
     "desc": "厚实针织长袖，配有收口袖缘，可与短手套独立搭配。",
     "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater.png",
     "icon_fallback": "衣",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Pickups/SM_Olive_Garment.SM_Olive_Garment",
-    "world_material": ""
+    "world_material": "",
+    "bonusStats": {
+      "bowDrawSpeed": 0.1,
+      "reloadSpeed": 0.1
+    }
   },
   "ue_field_sweater_charcoal": {
     "id": "ue_field_sweater_charcoal",
@@ -3882,7 +3892,8 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 4
+      "base": 2,
+      "perEnhance": 0.5
     },
     "desc": "皮革完整覆盖掌心、手背与虎口，边缘延伸到手掌与手指交界，五指露出。保留短腕口、薄卷边与缝线，可与衣袖独立搭配。",
     "ue_icon": "Icons/GloveCompanionDetail20260928/ue_field_gloves.png",
@@ -5487,5 +5498,34 @@
     "desc": "采用长护木、顶部全长导轨和可调枪托的半自动狙击步枪，使用 7.62×54R 有底缘弹与可拆卸弹匣。机械瞄具便于迅速瞄准，也能安装通用光学瞄具。单发威力与远距离命中能力突出，适合稳住枪身后逐发射击。",
     "critDamageBonus": 1.0,
     "innate_weakpoint_percent": 0.7
+  },
+  "ue_ranger_feather_hat": {
+    "id": "ue_ranger_feather_hat",
+    "name": "野行翎羽帽",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 28,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 6,
+      "perEnhance": 0.6
+    },
+    "desc": "为林地斥候缝制的船型帽，以橄榄斜纹布搭配棕色皮革帽带和包边，黄铜羽座固定单支棕灰翎羽。收起的两侧帽檐便于抬臂与观察，适合游猎装束；柔软帽体提供轻便覆盖，缺少硬盔的防护结构。",
+    "ue_icon": "Icons/FieldRangerFeatherHat20261021/ue_ranger_feather_hat.png",
+    "icon_fallback": "帽",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerFeatherHat20261021/Pickups/SM_RangerFeatherHat.SM_RangerFeatherHat",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerFeatherHat20261021/Icons/SM_RangerFeatherHat_Icon.SM_RangerFeatherHat_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90,
+    "ue_icon_roll": 0,
+    "bonusStats": {
+      "crit": 10,
+      "critDamageBonus": 0.25
+    }
   }
 }

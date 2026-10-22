@@ -149,3 +149,5 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 - FPSGAME 联机归属、事务中断与重连／重生／换图：[生命周期与覆盖记录](references/multiplayer-lifecycle-and-coverage.md)。
 
 - [升级奖励与公开镜像](references/profile-progress-publication.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。
+
+- [装备套装效果的三层数据](references/equipment-set-effect-layers.md)：`items.json`／`source-combat-items` 覆盖层／`SetEffect()` 各拥有什么；覆盖层只补缺失字段、套装识别只认三槽、单件属性与五件套效果的分界、新增比例词条的加减乘口径。
