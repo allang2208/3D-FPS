@@ -88,12 +88,16 @@
     }
   },
   "ue_hardknuckle_gloves": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
     "bonusStats": {
       "reloadSpeed": 0.05,
       "adsPercent": -0.05
     }
   },
   "ue_st6_sleeves": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
     "bonusStats": {
       "reloadSpeed": 0.05,
       "sprintStaminaCost": -0.1
@@ -136,6 +140,29 @@
       "reloadSpeed": -0.1,
       "bowDrawSpeed": -0.1,
       "meleeAttackSpeed": -0.1
+    }
+  },
+  "ue_st6_tactical_helmet": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "bonusStats": {
+      "critDamageBonus": 0.25
+    }
+  },
+  "ue_st6_tactical_pants": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "bonusStats": {
+      "critRes": 15,
+      "sprintStaminaCost": -0.05
+    }
+  },
+  "ue_st6_tactical_boots": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "bonusStats": {
+      "moveSpeedPercent": 0.05,
+      "sprintStaminaCost": -0.05
     }
   }
 }

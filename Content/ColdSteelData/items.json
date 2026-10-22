@@ -11,7 +11,8 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 8
+      "base": 8,
+      "perEnhance": 1.2
     },
     "desc": "卡其皮革与深灰织物拼接战术靴，黑色护趾、后跟和踝部支撑，系带鞋面与防滑齿纹鞋底。",
     "ue_icon": "Icons/ST6LowerSet20261018/ue_st6_tactical_boots.png",
@@ -34,7 +35,8 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 10
+      "base": 10,
+      "perEnhance": 1.2
     },
     "desc": "深灰防撕裂长裤，贴合腰围与收束裤腿，黑色嵌入式护膝配卡其包边。与硬壳手套、ST6 上衣及战术靴配套。",
     "ue_icon": "Icons/ST6LowerSet20261018/ue_st6_tactical_pants.png",
@@ -341,7 +343,7 @@
     "id": "ue_jeans",
     "name": "牛仔裤",
     "category": "equipment",
-    "type": "裤子",
+    "type": "裤装",
     "equipSlot": "pants",
     "stack_max": 1,
     "maxStack": 1,
@@ -362,7 +364,7 @@
     "id": "ue_cargo_pants",
     "name": "工装裤",
     "category": "equipment",
-    "type": "裤子",
+    "type": "裤装",
     "equipSlot": "pants",
     "stack_max": 1,
     "maxStack": 1,
@@ -4432,7 +4434,7 @@
     "id": "ue_hardknuckle_gloves",
     "name": "硬壳战术手套",
     "category": "equipment",
-    "type": "护甲",
+    "type": "手套",
     "equipSlot": "gloves",
     "stack_max": 1,
     "maxStack": 1,
@@ -5527,5 +5529,27 @@
       "crit": 10,
       "critDamageBonus": 0.25
     }
+  },
+  "ue_st6_tactical_helmet": {
+    "id": "ue_st6_tactical_helmet",
+    "name": "ST6 战术头盔",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 40,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 10,
+      "perEnhance": 1.5
+    },
+    "desc": "ST6 系列战术头盔，深灰织物护颈搭配卡其硬质盔壳，侧面导轨与耳部护片贴合头型。为近距离交火设计，以轻量化换取长时间持枪与快速出枪。",
+    "icon_fallback": "盔",
+    "ue_icon": "",
+    "world_mesh": "",
+    "world_material": "",
+    "ue_equipment_icon_mesh": ""
   }
 }
