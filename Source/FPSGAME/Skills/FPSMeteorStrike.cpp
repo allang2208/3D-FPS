@@ -1,4 +1,5 @@
 #include "FPSMeteorStrike.h"
+#include "MeteorAssets.h"
 #include "../Weapons/ThermalTargetSubsystem.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
@@ -17,6 +18,10 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "GameFramework/GameStateBase.h"
+#include "GameFramework/PlayerController.h"
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Kismet/GameplayStatics.h"
@@ -27,6 +32,13 @@
 #include "Net/UnrealNetwork.h"
 #include "NetCastUtils.h"
 
+namespace
+{
+// Original level-one radii (cm). Geometry follows the same replicated snapshot
+// as damage/preview, so the new 3x range also produces a 3x level-one rock.
+float MeteorBodyScale(const FFireMagicCast& Spell){return Spell.Radius/217.5f;}
+}
+
 AFPSMeteorStrike::AFPSMeteorStrike()
 {
     PrimaryActorTick.bCanEverTick=true;
@@ -36,6 +48,7 @@ AFPSMeteorStrike::AFPSMeteorStrike()
     Trail=CreateDefaultSubobject<UNiagaraComponent>(TEXT("MeteorTrail"));Trail->SetupAttachment(Root);Trail->SetAutoActivate(false);
     GroundFlames=CreateDefaultSubobject<UNiagaraComponent>(TEXT("LavaField"));GroundFlames->SetupAttachment(Root);GroundFlames->SetAutoActivate(false);
     Glow=CreateDefaultSubobject<UPointLightComponent>(TEXT("Glow"));Glow->SetupAttachment(Rock);Glow->SetCastShadows(false);Glow->SetLightColor(FLinearColor(1,.22f,.035f));
+    Glow->SetVisibility(false);
     Burning=CreateDefaultSubobject<UAudioComponent>(TEXT("Burning"));Burning->SetupAttachment(Root);Burning->bAutoActivate=false;
     bReplicates=true; // 联机：服务端权威伤害；远端副本重演坠落/撞击/熔岩表现
 }
@@ -46,53 +59,77 @@ void AFPSMeteorStrike::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
     DOREPLIFETIME(AFPSMeteorStrike,NetCast);
     DOREPLIFETIME(AFPSMeteorStrike,NetDestination);
     DOREPLIFETIME(AFPSMeteorStrike,NetNormal);
+    DOREPLIFETIME(AFPSMeteorStrike,NetStartedAt);
 }
-// 远端副本：复制字段就位后自建同款陨星（InitializeStrike 自载素材，仅伤害留在服务端）。
+double AFPSMeteorStrike::ServerClock() const
+{const auto* State=GetWorld()->GetGameState();return State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();}
+// Late replicas resume the server timeline; assets never gate damage or restart age.
 void AFPSMeteorStrike::NetInit()
 {
-    if(bNetInit||!NetCaster||NetCast.Damage<=0)return;
+    if(bNetInit||!NetCaster||NetCast.Damage<=0||NetStartedAt<0.)return;
     if(InitializeStrike(NetCaster,NetCast,NetDestination,NetNormal))bNetInit=true;
 }
 bool AFPSMeteorStrike::InitializeStrike(APawn* Caster,const FFireMagicCast& Spell,const FVector& Point,const FVector& SurfaceNormal)
 {
     Shooter=Caster;CastSnapshot=Spell;Destination=Point;Normal=SurfaceNormal.GetSafeNormal();NextLavaTick=Spell.TickSeconds;
-    if(HasAuthority()){NetCaster=Caster;NetCast=Spell;NetDestination=Point;NetNormal=Normal;} // 远端副本按此重演
+    if(HasAuthority())
+    {
+        NetCaster=Caster;NetCast=Spell;NetDestination=Point;NetNormal=Normal;NetStartedAt=ServerClock();
+        RewardModel=NetCast::AuthorityModel(Caster,GetGameInstance());
+    }
     SetActorLocation(Point);
-    auto* Mesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV3/SM_MeteorNaturalRock.SM_MeteorNaturalRock"));
-    auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV3/MI_MeteorNaturalRock.MI_MeteorNaturalRock"));
-    auto* Fire=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalMantle.NS_MeteorNaturalMantle"));
-    auto* Tail=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalWake.NS_MeteorNaturalWake"));
-    auto* Ground=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalAfterfire.NS_MeteorNaturalAfterfire"));
-    ImpactSystem=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.NS_MeteorNaturalImpact"));
-    LandSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/FireMagic20260921/S_MeteorLand.S_MeteorLand"));
-    Burning->SetSound(LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/FireMagic20260921/S_MeteorBurn.S_MeteorBurn")));
-    if(!Mesh||!Material||!Fire||!Tail||!Ground||!ImpactSystem||!LandSound||!Burning->Sound){Destroy();return false;}
+    Start=Point+FVector(0,0,1320);Rock->SetWorldLocation(Start);
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        TArray<FSoftObjectPath> Paths;bool Ready=true;
+        for(const TCHAR* Path:MeteorSpellAssets::Visuals){Paths.Add(FSoftObjectPath(Path));Ready&=Paths.Last().ResolveObject()!=nullptr;}
+        if(Ready)PrepareVisuals();
+        else VisualLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this](){PrepareVisuals();}));
+    }
+    return true;
+}
+void AFPSMeteorStrike::PrepareVisuals()
+{
+    if(IsActorBeingDestroyed()||bVisualsReady)return;
+    auto* Mesh=Cast<UStaticMesh>(FSoftObjectPath(MeteorSpellAssets::Rock).ResolveObject());
+    auto* Material=Cast<UMaterialInterface>(FSoftObjectPath(MeteorSpellAssets::RockMaterial).ResolveObject());
+    auto* Fire=Cast<UNiagaraSystem>(FSoftObjectPath(MeteorSpellAssets::Mantle).ResolveObject());
+    auto* Tail=Cast<UNiagaraSystem>(FSoftObjectPath(MeteorSpellAssets::Trail).ResolveObject());
+    auto* Ground=Cast<UNiagaraSystem>(FSoftObjectPath(MeteorSpellAssets::GroundFire).ResolveObject());
+    ImpactSystem=Cast<UNiagaraSystem>(FSoftObjectPath(MeteorSpellAssets::Impact).ResolveObject());
+    LandSound=Cast<USoundBase>(FSoftObjectPath(MeteorSpellAssets::LandSound).ResolveObject());
+    Burning->SetSound(Cast<USoundBase>(FSoftObjectPath(MeteorSpellAssets::BurnSound).ResolveObject()));
+    HeatMaterial=Cast<UMaterialInterface>(FSoftObjectPath(MeteorSpellAssets::HeatMaterial).ResolveObject());
+    ScorchMaterial=Cast<UMaterialInterface>(FSoftObjectPath(MeteorSpellAssets::Scorch).ResolveObject());
+    if(!Mesh||!Material||!Fire||!Tail||!Ground||!ImpactSystem)return;
+    const auto& Spell=CastSnapshot;const FVector Point=Destination;
+    bVisualsReady=true;
+    Glow->SetVisibility(true);
     Rock->SetStaticMesh(Mesh);Rock->SetMaterial(0,Material);
     const float Diameter=FMath::Max(1.f,Mesh->GetBounds().BoxExtent.GetMax()*2);
-    Rock->SetRelativeScale3D(FVector(80.f/Diameter));
+    const float BodyScale=MeteorBodyScale(Spell);
+    Rock->SetRelativeScale3D(FVector(80.f*BodyScale/Diameter));
     InitialRockRotation=FRotator(FMath::FRandRange(-30.f,30.f),FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-25.f,25.f)).Quaternion();
     SpinAxis=FVector(.36f,.77f,.19f).GetSafeNormal();Rock->SetWorldRotation(InitialRockRotation);
-    // The source's 880 px fall becomes 13.2 m. Inside a room, begin beneath its
-    // ceiling instead of showing a rock passing through opaque geometry.
-    Start=Point+FVector(0,0,1320);
-    FHitResult Roof;
-    if(FireMagic::TraceSurface(Caster,Point+Normal*60,Start,Roof))Start=Roof.ImpactPoint-FVector(0,0,45);
-    Rock->SetWorldLocation(Start);Mantle->SetAsset(Fire);Mantle->SetAbsolute(false,true,true);Mantle->SetWorldRotation(FRotator::ZeroRotator);Mantle->SetWorldScale3D(FVector(1));Mantle->SetVariableFloat(TEXT("User.Fade"),0);
+    // Always fall from 13.2 m above the marked point, including indoors.
+    // The non-colliding rock reaches Destination without roof/wall interception.
+    const float T=FMath::Clamp(float(ServerClock()-NetStartedAt)/FMath::Max(.05f,Spell.FallSeconds),0.f,1.f);
+    Rock->SetWorldLocation(FMath::Lerp(Start,Destination+Normal*(30*BodyScale),.28f*T+.72f*T*T));Mantle->SetAsset(Fire);Mantle->SetAbsolute(false,true,true);Mantle->SetWorldRotation(FRotator::ZeroRotator);Mantle->SetWorldScale3D(FVector(BodyScale));Mantle->SetVariableFloat(TEXT("User.Fade"),0);
     Mantle->SetVariableVec3(TEXT("User.FlightDirection"),FVector(0,0,-1));Mantle->SetVariableFloat(TEXT("User.FlightSpeed"),0);Mantle->Activate(true);
     Trail->SetAsset(Tail);Trail->SetWorldLocation(Start);Trail->SetVariableVec3(TEXT("User.FlightDirection"),FVector(0,0,-1));Trail->SetVariableFloat(TEXT("User.FlightSpeed"),0);
+    // World-space trail particles need an explicit size/width input; component
+    // scaling would not scale their world-space births along the swept path.
+    Trail->SetVariableFloat(TEXT("User.VisualScale"),BodyScale);
     Trail->SetVariablePosition(TEXT("User.PreviousPosition"),Start);Trail->SetVariablePosition(TEXT("User.CurrentPosition"),Start);Trail->SetVariableFloat(TEXT("User.Fade"),1);Trail->Activate(true);
-    GroundFlames->SetAsset(Ground);GroundFlames->SetWorldLocation(Point+Normal*4);GroundFlames->SetWorldRotation(FRotationMatrix::MakeFromZ(Normal).Rotator());
-    GroundFlames->SetVariableFloat(TEXT("User.Radius"),Spell.AuraRadius);GroundFlames->SetVariableFloat(TEXT("User.Fade"),1);
-    GroundFlames->SetVariableFloat(TEXT("User.Spread"),.22f);
-    Glow->SetAttenuationRadius(380);Glow->SetIntensity(2600);
-    UThermalTargetSubsystem::RegisterFire(Mantle,FVector(52));
-    UThermalTargetSubsystem::RegisterFire(GroundFlames,FVector(Spell.AuraRadius,Spell.AuraRadius,38),FVector(0,0,22));
-    return true;
+    PrepareGroundFire(Ground);
+    Glow->SetAttenuationRadius(380*BodyScale);Glow->SetIntensity(2600);
+    UThermalTargetSubsystem::RegisterFire(Mantle,FVector(52*BodyScale));
+    if(bImpacted)PresentImpact(false);
 }
 void AFPSMeteorStrike::DamageArea(bool bExplosion)
 {
     if(!HasAuthority())return; // 伤害只在权威端结算；远端副本只演撞击特效
-    APawn* Caster=Shooter.Get();auto* M=NetCast::AuthorityModel(Caster,Caster?Caster->GetGameInstance():nullptr);if(!M)return;
+    APawn* Caster=Shooter.Get();auto* M=RewardModel.Get();if(!M||!Caster)return;
     const float Radius=bExplosion?CastSnapshot.Radius:CastSnapshot.AuraRadius;
     if((bExplosion?CastSnapshot.Damage:CastSnapshot.AuraDamage)>0)
         UWardBreakableGlass::BreakInRadius(GetWorld(),Destination+Normal*5.f,Radius,Caster);
@@ -108,7 +145,9 @@ void AFPSMeteorStrike::DamageArea(bool bExplosion)
     int32 Hits=0;
     for(AActor* Target:FireMagic::GroundTargets(Caster,Destination,Normal,Radius))
     {
-        const FVector Offset=Target->GetActorLocation()-Destination;
+        // Use the same ground contact as inclusion/preview. Tall creatures on
+        // a slope must not receive extra falloff merely because their torso is high.
+        const FVector Offset=FireMagic::GroundPoint(Target)-Destination;
         const float Ratio=FMath::Clamp(FVector::VectorPlaneProject(Offset,Normal).Size()/FMath::Max(1.f,Radius),0.f,1.f);
         const float Amount=bExplosion?FMath::FloorToFloat(CastSnapshot.Damage*(1-.5f*Ratio)):CastSnapshot.AuraDamage;
         const int32 Before=Rewards.Hits;
@@ -130,14 +169,41 @@ void AFPSMeteorStrike::DamageArea(bool bExplosion)
 }
 void AFPSMeteorStrike::Impact()
 {
-    bImpacted=true;BreakRock();Rock->SetVisibility(false);Mantle->Deactivate();Trail->Deactivate();
-    DamageArea(true);UGameplayStatics::PlaySoundAtLocation(this,LandSound,Destination);
-    if(Shooter.IsValid())if(auto* FireMagic=Shooter->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->NotifyMeteorImpact(Destination);
-    if(auto* Heat=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave")))
-        if(auto* Wave=GetWorld()->SpawnActor<AFireballShockwave>(Destination+Normal*3,FRotationMatrix::MakeFromZ(Normal).Rotator()))Wave->Setup(Heat,CastSnapshot.Radius,true);
-    const float Scale=CastSnapshot.Radius/210.375f;
-    if(auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,ImpactSystem,Destination+Normal*6,FRotationMatrix::MakeFromZ(Normal).Rotator(),FVector(Scale*1.5f),true,false,ENCPoolMethod::AutoRelease))
-    {FX->SetVariableFloat(TEXT("User.SurfaceHit"),1);FX->SetVariableVec3(TEXT("User.LocalUp"),FX->GetComponentTransform().InverseTransformVectorNoScale(FVector::UpVector));FX->SetVariableFloat(TEXT("User.ImpactGrowth"),Scale-1);if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,12,bWaterContact);FX->Activate(true);}
+    if(bImpacted)return;
+    bImpacted=true;DamageArea(true);
+    if(bVisualsReady)PresentImpact(Age-CastSnapshot.FallSeconds<.25f);
+}
+void AFPSMeteorStrike::PresentImpact(bool Transient)
+{
+    // Brief contact hold precedes fracture; damage stays on the exact
+    // impact frame. The server clock also skips this hold on late presentation.
+    bImpactBreakPending=Transient;
+    Rock->SetVisibility(Transient);Mantle->Deactivate();Trail->Deactivate();
+    PrepareScorch();
+    // Late joining/loading restores only the remaining field, never an old hit cue.
+    if(Transient)
+    {
+    UGameplayStatics::PlaySoundAtLocation(this,LandSound,Destination);
+    // Each replica notifies only its local viewers, including when another
+    // player cast the meteor. No camera RPC or duplicate owner notification.
+    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+        if(auto* PC=It->Get();PC&&PC->IsLocalController())
+            if(APawn* LocalPawn=PC->GetPawn())
+                if(auto* FireMagic=LocalPawn->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->NotifyMeteorImpact(Destination);
+    if(HeatMaterial)
+        if(auto* Wave=GetWorld()->SpawnActor<AFireballShockwave>(Destination+Normal*3,FRotationMatrix::MakeFromZ(Normal).Rotator()))Wave->Setup(HeatMaterial,CastSnapshot.Radius,true);
+    // V4 owns its horizontal radius in centimetres. Keep component scale at one
+    // so larger damage areas do not also stretch blast height and smoke speed.
+    if(auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,ImpactSystem,Destination+Normal*6,FRotationMatrix::MakeFromZ(Normal).Rotator(),FVector::OneVector,true,false,ENCPoolMethod::AutoRelease))
+    {
+        FX->SetVariableFloat(TEXT("User.ImpactRadius"),CastSnapshot.Radius);
+        FX->SetVariableFloat(TEXT("User.SurfaceHit"),1);
+        FX->SetVariableVec3(TEXT("User.LocalUp"),FX->GetComponentTransform().InverseTransformVectorNoScale(FVector::UpVector));
+        if(auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())Budget->ConfigureSmoke(FX,18,bWaterContact);
+        FX->Activate(true);
+    }
+    }
+    UpdateGroundFire(FMath::Max(0.f,Age-CastSnapshot.FallSeconds),0.f);
     GroundFlames->Activate(true);Burning->Play();Glow->SetWorldLocation(Destination+Normal*60);Glow->SetAttenuationRadius(CastSnapshot.Radius*2);
 }
 void AFPSMeteorStrike::Tick(float Delta)
@@ -145,12 +211,14 @@ void AFPSMeteorStrike::Tick(float Delta)
     Super::Tick(Delta);
     if(!HasAuthority()){NetInit();if(!bNetInit)return;}
     APawn* Caster=Shooter.Get();const auto* Health=Caster?Caster->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    if(!Caster||(Health&&Health->IsDead())){Destroy();return;}
-    const float PreviousAge=Age;Age+=Delta;
+    if(!Caster||(Health&&Health->IsDead())){Finish();return;}
+    const float PreviousAge=Age;Age=FMath::Max(Age,float(ServerClock()-NetStartedAt));
+    if(!HasAuthority()&&Age>=CastSnapshot.FallSeconds+CastSnapshot.Duration){Destroy();return;}
+    UpdateGroundFire(FMath::Max(0.f,Age-CastSnapshot.FallSeconds),Delta);
     if(!bImpacted)
     {
         const float T=FMath::Clamp(Age/FMath::Max(.05f,CastSnapshot.FallSeconds),0.f,1.f);
-        const FVector Previous=Rock->GetComponentLocation(),Position=FMath::Lerp(Start,Destination+Normal*30,.28f*T+.72f*T*T);
+        const FVector Previous=Rock->GetComponentLocation(),Position=FMath::Lerp(Start,Destination+Normal*(30*MeteorBodyScale(CastSnapshot)),.28f*T+.72f*T*T);
         if(!bWaterContact)
             if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
                 bWaterContact=Water->TryFireCrossing(Previous,T>=1?Destination:Position,CastSnapshot.Radius,true);
@@ -166,59 +234,103 @@ void AFPSMeteorStrike::Tick(float Delta)
     }
     // Include the fractional time after impact, without counting falling time.
     LavaAge+=FMath::Max(0.f,Age-FMath::Max(PreviousAge,CastSnapshot.FallSeconds));
+    UpdateImpactPresentation();
     AnimateFragments(FMath::Min(Delta,FMath::Max(0.f,Age-FMath::Max(PreviousAge,CastSnapshot.FallSeconds))));
     while(NextLavaTick<=FMath::Min(LavaAge,CastSnapshot.Duration)+UE_KINDA_SMALL_NUMBER)
     {DamageArea(false);NextLavaTick+=CastSnapshot.TickSeconds;}
     const float Fade=FMath::Clamp((CastSnapshot.Duration-LavaAge)/.45f,0.f,1.f);
-    const float Spread=FMath::Clamp(LavaAge/.22f,0.f,1.f);
-    GroundFlames->SetVariableFloat(TEXT("User.Spread"),FMath::Lerp(.22f,1.f,Spread*Spread*(3-2*Spread)));
-    GroundFlames->SetVariableFloat(TEXT("User.Fade"),Fade);Glow->SetIntensity((800+4500*FMath::Exp(-LavaAge*9))*Fade);
+    // Reuse the existing unshadowed light: one short impact flash, then a dim
+    // residual fire. No additional light or repeated impact pulse.
+    Glow->SetIntensity((500+18000*FMath::Exp(-LavaAge*18)+2600*FMath::Exp(-LavaAge*4))*Fade);
+    Glow->SetLightColor(FMath::Lerp(FLinearColor(1,.18f,.025f),FLinearColor(1,.58f,.22f),FMath::Exp(-LavaAge*12)));
     Burning->SetVolumeMultiplier(Fade);
     if(LavaAge>=CastSnapshot.Duration)Finish();
 }
-void AFPSMeteorStrike::Finish()
+void AFPSMeteorStrike::SettleRewards()
 {
     if(bSettled)return;bSettled=true;
-    if(HasAuthority())
-        if(auto* M=NetCast::AuthorityModel(Shooter.Get(),GetGameInstance()))M->FinishFireMagicCast(TEXT("meteor"),Rewards);
-    Destroy();
+    auto* M=RewardModel.Get();RewardModel=nullptr;
+    const auto Completed=Rewards;Rewards={};
+    if(HasAuthority()&&M)M->FinishFireMagicCast(TEXT("meteor"),Completed);
 }
+void AFPSMeteorStrike::Finish(){SettleRewards();Destroy();}
+void AFPSMeteorStrike::FinishForRemoval(){if(HasAuthority())Finish();}
 void AFPSMeteorStrike::EndPlay(EEndPlayReason::Type Reason)
-{Burning->Stop();Super::EndPlay(Reason);}
+{
+    // Death/cleanup can destroy the actor before its normal duration expires.
+    // Preserve already-earned training, with the same authority/once guard.
+    SettleRewards();
+    if(VisualLoad)VisualLoad->CancelHandle();VisualLoad.Reset();Burning->Stop();Super::EndPlay(Reason);
+}
 
 void AFPSMeteorStrike::BreakRock()
 {
     FragmentMaterial=UMaterialInstanceDynamic::Create(Rock->GetMaterial(0),this);
     const float Diameter=FMath::Max(1.f,Rock->GetStaticMesh()->GetBounds().BoxExtent.GetMax()*2);
+    const float SizeScale=FMath::Clamp(FMath::Sqrt(MeteorBodyScale(CastSnapshot)/3.f),.9f,1.25f);
+    FRandomStream Random(GetTypeHash(NetStartedAt)); // Cosmetic stream, shared replicated seed.
     FVector Tangent,Bitangent;Normal.FindBestAxisVectors(Tangent,Bitangent);
     for(int32 I=0;I<12;++I)
     {
-        const float Angle=I*UE_TWO_PI/12.f+FMath::FRandRange(-.16f,.16f);
+        const bool Heavy=I<2,Medium=I>=2&&I<6;
+        const float Angle=I*2.39996323f+Random.FRandRange(-.45f,.45f);
         const FVector Side=Tangent*FMath::Cos(Angle)+Bitangent*FMath::Sin(Angle);
         auto* Piece=NewObject<UStaticMeshComponent>(this);Piece->SetupAttachment(Root);
         Piece->SetStaticMesh(Rock->GetStaticMesh());Piece->SetMaterial(0,FragmentMaterial);
         Piece->SetCollisionEnabled(ECollisionEnabled::NoCollision);Piece->SetCastShadow(false);Piece->RegisterComponent();
-        Piece->SetWorldLocation(Destination+Normal*24+Side*FMath::FRandRange(6.f,19.f));
-        Piece->SetWorldRotation(FRotator(FMath::FRandRange(-180.f,180.f),Angle*180/PI,FMath::FRandRange(-180.f,180.f)));
-        const float Size=FMath::FRandRange(7.f,15.f)/Diameter;
-        const FVector Shape(Size*FMath::FRandRange(.5f,.9f),Size,Size*FMath::FRandRange(.55f,1.15f));
-        Piece->SetWorldScale3D(Shape);Fragments.Add(Piece);FragmentScales.Add(Shape);
-        FragmentVelocities.Add(Side*FMath::FRandRange(150.f,300.f)+Normal*FMath::FRandRange(130.f,255.f));
-        FragmentSpins.Add(FRotator(FMath::FRandRange(-240.f,240.f),FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-210.f,210.f)));
+        const float Cm=(Heavy?Random.FRandRange(28.f,40.f):Medium?Random.FRandRange(13.f,23.f):Random.FRandRange(5.f,10.f))*SizeScale;
+        FFragmentMotion Motion;
+        Motion.Radius=Cm*.48f;
+        Motion.TraceFrom=Destination+Normal*(Motion.Radius+18.f)+Side*Random.FRandRange(12.f,48.f);
+        Motion.Scale=FVector(Random.FRandRange(.55f,.9f),1.f,Random.FRandRange(.55f,.9f))*(Cm/Diameter);
+        const float Speed=Heavy?Random.FRandRange(160.f,250.f):Medium?Random.FRandRange(260.f,430.f):Random.FRandRange(400.f,640.f);
+        const float Lift=Heavy?Random.FRandRange(65.f,110.f):Medium?Random.FRandRange(130.f,210.f):Random.FRandRange(180.f,300.f);
+        Motion.Velocity=Side*Speed+Normal*Lift;
+        const float Spin=Heavy?90.f:Medium?220.f:420.f;
+        Motion.Spin=FRotator(Random.FRandRange(-Spin,Spin),Random.FRandRange(-Spin,Spin),Random.FRandRange(-Spin,Spin));
+        Motion.Lifetime=(Heavy?2.4f:Medium?1.8f:1.1f)+Random.FRandRange(0.f,.4f);
+        Motion.Bounce=Heavy?.08f:Medium?.14f:.22f;Motion.Retain=Heavy?.32f:Medium?.48f:.60f;
+        Piece->SetWorldLocation(Motion.TraceFrom);
+        Piece->SetWorldRotation(FRotator(Random.FRandRange(-180.f,180.f),Angle*180/PI,Random.FRandRange(-180.f,180.f)));
+        Piece->SetWorldScale3D(Motion.Scale);Fragments.Add(Piece);FragmentMotion.Add(Motion);
     }
 }
 void AFPSMeteorStrike::AnimateFragments(float Delta)
 {
+    if(Fragments.IsEmpty())return;
     if(FragmentMaterial)FragmentMaterial->SetScalarParameterValue(TEXT("Heat"),FMath::Exp(-LavaAge*1.5f));
-    const float Shrink=1-FMath::Clamp((LavaAge-1.15f)/.55f,0.f,1.f);
+    auto* Budget=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>();
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(MeteorDebris),false,this);Query.AddIgnoredActor(Shooter.Get());
+    const FCollisionObjectQueryParams StaticGeometry(FCollisionObjectQueryParams::AllStaticObjects);
     for(int32 I=0;I<Fragments.Num();++I)
     {
         auto* Piece=Fragments[I].Get();if(!Piece)continue;
+        FFragmentMotion& Motion=FragmentMotion[I];Motion.Age+=Delta;
+        const float Shrink=FMath::Clamp((Motion.Lifetime-Motion.Age)/.35f,0.f,1.f);
         if(Shrink<=0){Piece->DestroyComponent();Fragments[I]=nullptr;continue;}
-        FVector& Velocity=FragmentVelocities[I];Velocity.Z-=680*Delta;
-        FVector Position=Piece->GetComponentLocation()+Velocity*Delta;
-        const float Height=FVector::DotProduct(Position-Destination,Normal);
-        if(Height<4){Position+=Normal*(4-Height);Velocity=FVector::VectorPlaneProject(Velocity,Normal)*.48f+Normal*FMath::Abs(FVector::DotProduct(Velocity,Normal))*.20f;FragmentSpins[I]*=.65f;}
-        Piece->SetWorldLocation(Position);Piece->AddLocalRotation(FragmentSpins[I]*Delta);Piece->SetWorldScale3D(FragmentScales[I]*Shrink);
+        if(!Motion.bSettled)
+        {
+            FVector Position=Piece->GetComponentLocation()+Motion.Velocity*Delta+FVector(0,0,-490.f*Delta*Delta);
+            Motion.Velocity.Z-=980.f*Delta;Motion.TraceAge+=Delta;
+            // Smooth visual integration every frame; bounded static-geometry
+            // contact sweeps at about 20 Hz, using the shared decoration budget.
+            if(Motion.TraceAge>=.05f&&(!Budget||Budget->ReserveGeometryQueries(1,false)))
+            {
+                FHitResult Hit;
+                if(GetWorld()->SweepSingleByObjectType(Hit,Motion.TraceFrom,Position,FQuat::Identity,StaticGeometry,
+                    FCollisionShape::MakeSphere(Motion.Radius),Query))
+                {
+                    const FVector HitNormal=Hit.ImpactNormal.GetSafeNormal();
+                    Position=Hit.Location+HitNormal*(Hit.bStartPenetrating?Hit.PenetrationDepth+1.f:1.f);
+                    Motion.Velocity=FVector::VectorPlaneProject(Motion.Velocity,HitNormal)*Motion.Retain
+                        +HitNormal*FMath::Abs(FVector::DotProduct(Motion.Velocity,HitNormal))*Motion.Bounce;
+                    Motion.Spin*=.4f;
+                    Motion.bSettled=HitNormal.Z>.45f&&Motion.Velocity.SizeSquared()<FMath::Square(60.f);
+                }
+                Motion.TraceFrom=Position;Motion.TraceAge=0.f;
+            }
+            Piece->SetWorldLocation(Position);Piece->AddLocalRotation(Motion.Spin*Delta);
+        }
+        Piece->SetWorldScale3D(Motion.Scale*Shrink);
     }
 }

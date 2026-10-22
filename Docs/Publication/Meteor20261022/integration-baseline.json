@@ -1,0 +1,90 @@
+{
+  "git_base": "8bf75c9e91be9d08b1f1309357482790b7b07ad0",
+  "note": "Named baselines require existing local preparation, identified cast and audit frameworks. Do not apply to the integrated workspace or blindly to public HEAD.",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "baseline_kind": "named-local-prerequisite:MeteorReadyPreview20261022",
+      "baseline_sha256": "0a46e20fbfcf756464909bc2db5d4fa73f59926afb8c6e9266ded401cd7da0e0",
+      "result_sha256": "7111e53d0e7756d0763344f0ebb3e1d1ca5326cd2ec54df9d692701aaab74f98",
+      "working_sha256": "7111e53d0e7756d0763344f0ebb3e1d1ca5326cd2ec54df9d692701aaab74f98"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "baseline_kind": "named-local-prerequisite:MeteorReadyPreview20261022",
+      "baseline_sha256": "30f493fe7b07e147d6bf137f4c01c927dbc4905c27ba885fed32d1a2753e01ee",
+      "result_sha256": "8c1704bc082e4a3a156f603bb8538890264cf08ae3b8aeeb581b9acf8689e89e",
+      "working_sha256": "8c1704bc082e4a3a156f603bb8538890264cf08ae3b8aeeb581b9acf8689e89e"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline_kind": "named-local-prerequisite:MeteorFormulaNetAudit20261022",
+      "baseline_sha256": "ef6a94acccb3d436382195fac037154c71fad346b387284c1f9311d3753bf187",
+      "result_sha256": "9c08e71576a6f327cf00b715743a721ddf3e3796e395cbd9187d62fc4456abcc",
+      "working_sha256": "9c08e71576a6f327cf00b715743a721ddf3e3796e395cbd9187d62fc4456abcc"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline_kind": "named-local-prerequisite:MeteorFormulaNetAudit20261022",
+      "baseline_sha256": "263d0321bc31f782028d6b336b0236c0bcdb3681d1519961686342b202fff7b5",
+      "result_sha256": "057c04aab9dc51fb4b7db72455559b30ceed1bb80c251f54133f7989b4c70946",
+      "working_sha256": "057c04aab9dc51fb4b7db72455559b30ceed1bb80c251f54133f7989b4c70946"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "baseline_kind": "named-local-prerequisite:MeteorReadyPreview20261022",
+      "baseline_sha256": "31da9a3892d70703aacff4c5955f2ea9710c328c2cec6a0e10c5d3ef9bb2a6af",
+      "result_sha256": "05cec36ae436c5dc10c37d4fdcb6db4387e3831c4ec431d50388f11e77863ecf",
+      "working_sha256": "05cec36ae436c5dc10c37d4fdcb6db4387e3831c4ec431d50388f11e77863ecf"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "baseline_kind": "named-local-prerequisite:MeteorReadyPreview20261022",
+      "baseline_sha256": "8d7324c84e46692ccf6dd834973c4802d6cbc105baadddc06c5b0d0be8c0d9b1",
+      "result_sha256": "02496341a51ac1234628fc98655b7e1df134386076ec5ba17a7ed150ec6f9704",
+      "working_sha256": "02496341a51ac1234628fc98655b7e1df134386076ec5ba17a7ed150ec6f9704"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "baseline_kind": "named-local-prerequisite:MeteorFormulaNetAudit20261022",
+      "baseline_sha256": "8a43f344208fd96bc88ed2932a658ac05a52a104b33c072702c1f044806a176a",
+      "result_sha256": "1031c325a0e0ca7b7fcb6df0d5338e5c923ff5561e6ad4fd4469b00cf5efc575",
+      "working_sha256": "1031c325a0e0ca7b7fcb6df0d5338e5c923ff5561e6ad4fd4469b00cf5efc575"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "baseline_kind": "named-local-prerequisite:MeteorFormulaNetAudit20261022",
+      "baseline_sha256": "2b343412b6910a2d1fd752bbeb82289b0d54791599145fe2a7673283de283e61",
+      "result_sha256": "c86f7c6c4a2c56ee9b177754af72767420c3fe9c9f5371fc85686ffe97992284",
+      "working_sha256": "c86f7c6c4a2c56ee9b177754af72767420c3fe9c9f5371fc85686ffe97992284"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "baseline_kind": "named-local-prerequisite:MeteorReadyPreview20261022",
+      "baseline_sha256": "ffd9c93a36afd08aa0307cb9f613b96d0ad2837940e4e4a90dfe853cbb2cb2e2",
+      "result_sha256": "4d91596b5ca2a95027fe033fe1cfc3d259d3d7e7a8a5f82622638cc779b3d2a0",
+      "working_sha256": "90296ec64d2a15799d0d36bd46a62c246be66065679f0e402cef49ebe68b737b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MeteorFormulaNetAudit.cpp",
+      "baseline_kind": "new-file-requires-local-audit-framework",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "90f2b8020c4f676414f680fde49682c431665d734b23b0af85ecd22fc10f059d",
+      "working_sha256": "90f2b8020c4f676414f680fde49682c431665d734b23b0af85ecd22fc10f059d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MeteorReadyPreviewAudit.cpp",
+      "baseline_kind": "new-file-requires-local-audit-framework",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "eac4aa533488f4da90c74bd3c7863ab782798d18b95478ffbd16e4920869d2d6",
+      "working_sha256": "eac4aa533488f4da90c74bd3c7863ab782798d18b95478ffbd16e4920869d2d6"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/MeteorWireAudit.cpp",
+      "baseline_kind": "new-file-requires-local-audit-framework",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result_sha256": "b6cf629fbf5849db23dcaf45beb34e973a4232aba5da92d871a0b1d9f32c3154",
+      "working_sha256": "b6cf629fbf5849db23dcaf45beb34e973a4232aba5da92d871a0b1d9f32c3154"
+    }
+  ]
+}

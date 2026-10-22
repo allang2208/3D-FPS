@@ -1,0 +1,855 @@
+diff --git a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp
+@@ -1,6 +1,8 @@
+ #include "FPSFireMagicComponent.h"
+ #include "BlizzardEnvironment.h"
++#include "MeteorGround.h"
+ #include "FlameArmorAssets.h"
++#include "MeteorAssets.h"
+ #include "PlayerSkillPreparation.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "MagicOcclusion.h"
+@@ -66,22 +68,24 @@
+         // Remote armor may already be active when its presentation arrives.
+         RefreshArmorVisuals();
+     }));
+-    PlayerSkillAssets::Defer(GetOwner(),TEXT("meteor"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+-    {
+-        CastSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast"));
+-        bMeteorAssetsReady=true;MeteorAssets.Reset();
+-        const TCHAR* Assets[]={TEXT("/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/SM_MeteorClosedRock.SM_MeteorClosedRock"),TEXT("/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/MI_MeteorClosedRock.MI_MeteorClosedRock"),
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalMantle.NS_MeteorNaturalMantle"),TEXT("/Game/Skills/FireMagic20260921/MeteorFilledVolumeV2/NS_MeteorGroundVolume.NS_MeteorGroundVolume"),
+-            TEXT("/Game/Skills/FireMagic20260921/S_MeteorLand.S_MeteorLand"),TEXT("/Game/Skills/FireMagic20260921/S_MeteorBurn.S_MeteorBurn"),
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalWake.NS_MeteorNaturalWake"),TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.NS_MeteorNaturalImpact")};
+-        for(const TCHAR* Path:Assets){UObject* Asset=PlayerSkillAssets::Resolve<UObject>(Path);bMeteorAssetsReady&=Asset!=nullptr;MeteorAssets.Add(Asset);}
+-        MeteorAimMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/FireMagic20260921/Preview20261019/M_MeteorAimPreview.M_MeteorAimPreview"));
+-    }));
++    PlayerSkillAssets::Defer(GetOwner(),TEXT("meteor"),FSimpleDelegate::CreateUObject(this,&ThisClass::ResolveMeteorAssets));
+     PlayerSkillAssets::Defer(GetOwner(),TEXT("dragonBreath"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+     {
+         CastSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast"));
+         LoadDragonBreath();
+     }));
++}
++void UFPSFireMagicComponent::ResolveMeteorAssets()
++{
++    CastSound=PlayerSkillAssets::Resolve<USoundBase>(MeteorSpellAssets::CastSound);
++    bMeteorAssetsReady=true;MeteorAssets.Reset();
++    for(const TCHAR* Path:MeteorSpellAssets::Visuals)
++    {
++        UObject* Asset=PlayerSkillAssets::Resolve<UObject>(Path);
++        bMeteorAssetsReady&=Asset!=nullptr;MeteorAssets.Add(Asset);
++        if(!Asset)UE_LOG(LogTemp,Warning,TEXT("Meteor preparation missing asset: %s"),Path);
++    }
++    MeteorAimMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(MeteorSpellAssets::Preview);
+ }
+ UColdSteelStatusModel* UFPSFireMagicComponent::Model() const
+ {return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+@@ -198,7 +202,7 @@
+     // Hold remains active while background spell assets arrive; release still
+     // requires the complete cast assets before it can spend mana.
+     if(!PrepareCastRequest(TEXT("meteor"),MeteorPreviewSnapshot,false)||!MeteorPreviewInputAvailable())return;
+-    QueuedSkill=NAME_None;bMeteorAimPreview=true;MessageUntil=0;MeteorPreviewAge=0;
++    QueuedSkill=NAME_None;bMeteorAimPreview=true;MessageUntil=0;
+     RefreshMeteorPreview();
+ }
+ void UFPSFireMagicComponent::RefreshMeteorPreview()
+@@ -212,28 +216,45 @@
+         if(MeteorAimDecal)MeteorAimDecal->SetHiddenInGame(true);
+         return;
+     }
+-    if(!MeteorAimDecal)
++    const bool bCreateDecal=!MeteorAimDecal;
++    if(bCreateDecal)
+     {
+         MeteorAimDecal=NewObject<UDecalComponent>(GetOwner(),TEXT("MeteorAimDecal"));
+         GetOwner()->AddInstanceComponent(MeteorAimDecal);
+-        MeteorAimDecal->SetDecalMaterial(MeteorAimMaterial);MeteorAimDecal->RegisterComponent();
++        MeteorAimDecal->SetDecalMaterial(MeteorAimMaterial);
++        MeteorAimDecal->SetWorldRotation(FRotationMatrix::MakeFromX(-LockedNormal).Rotator());
++        MeteorAimDecal->RegisterComponent();
+         MeteorAimDecal->SetFadeScreenSize(0.f);
+         MeteorAimMID=MeteorAimDecal->CreateDynamicMaterialInstance();
+     }
+-    // Damage uses horizontal distance and a 100 cm ground band. Keep both
+-    // rings in those world units, including on slopes, without UV compensation.
+-    MeteorAimDecal->SetWorldLocation(LockedPoint+FVector(0,0,4));
+-    MeteorAimDecal->SetWorldRotation(FRotator(-90,0,0));
+-    const float Radius=MeteorPreviewSnapshot.Radius;
+-    const FVector Size(104,Radius+16,Radius+16);
+-    if(MeteorAimDecal->DecalSize!=Size){MeteorAimDecal->DecalSize=Size;MeteorAimDecal->MarkRenderStateDirty();}
+-    if(MeteorAimMID)
+-    {
+-        MeteorAimMID->SetVectorParameterValue(TEXT("Center"),FLinearColor(LockedPoint));
+-        MeteorAimMID->SetScalarParameterValue(TEXT("ImpactRadius"),Radius);
+-        MeteorAimMID->SetScalarParameterValue(TEXT("FieldRadius"),MeteorPreviewSnapshot.AuraRadius);
+-    }
+-    MeteorAimDecal->SetHiddenInGame(false);
++    // Damage and fuel patches use the landing plane, including its 100 cm band.
++    const FVector Location=LockedPoint+LockedNormal*4.f;
++    const FRotator Rotation=FRotationMatrix::MakeFromX(-LockedNormal).Rotator();
++    if(bCreateDecal||!MeteorAimDecal->GetComponentLocation().Equals(Location,.001f)
++        ||!MeteorAimDecal->GetComponentRotation().Equals(Rotation,.001f))
++    {
++        MeteorAimDecal->SetWorldLocationAndRotation(Location,Rotation);
++        if(MeteorAimMID)
++        {
++            MeteorAimMID->SetVectorParameterValue(TEXT("Center"),FLinearColor(LockedPoint));
++            MeteorAimMID->SetVectorParameterValue(TEXT("SurfaceNormal"),FLinearColor(LockedNormal));
++        }
++    }
++    // Radius is fixed for one hold. Do not rebuild decal bounds or resubmit
++    // constant material parameters on every camera frame.
++    const FVector2D Radii(MeteorPreviewSnapshot.Radius,MeteorPreviewSnapshot.AuraRadius);
++    if(bCreateDecal||MeteorPreviewRadii!=Radii)
++    {
++        const FVector Size(104,Radii.X+16,Radii.X+16);
++        if(MeteorAimDecal->DecalSize!=Size){MeteorAimDecal->DecalSize=Size;MeteorAimDecal->MarkRenderStateDirty();}
++        if(MeteorAimMID)
++        {
++            MeteorAimMID->SetScalarParameterValue(TEXT("ImpactRadius"),Radii.X);
++            MeteorAimMID->SetScalarParameterValue(TEXT("FieldRadius"),Radii.Y);
++        }
++        MeteorPreviewRadii=Radii;
++    }
++    if(MeteorAimDecal->bHiddenInGame)MeteorAimDecal->SetHiddenInGame(false);
+ }
+ void UFPSFireMagicComponent::ReleaseMeteorAimPreview()
+ {
+@@ -260,6 +281,8 @@
+     {Feedback(QueuedSkill,TEXT("超出施法距离"));QueuedSkill=NAME_None;return;}
+     if(!Allowed(Spell,Failure))
+     {Feedback(QueuedSkill,Failure);QueuedSkill=NAME_None;return;}
++    if(QueuedSkill==TEXT("meteor")&&!MeteorGround::Validate(Player,Spell.Range,LockedPoint,LockedNormal,true,Failure))
++    {Feedback(QueuedSkill,Failure);QueuedSkill=NAME_None;return;}
+     if(QueuedSkill==TEXT("dragonBreath"))
+     {
+         if(PC->bShowMouseCursor){QueuedSkill=NAME_None;return;}
+@@ -276,7 +299,8 @@
+     // 联机客人：凝聚扣账上报；陨星落点/焰甲激活由服务端在释放相位结算。
+     if(GetWorld()->GetNetMode()==NM_Client)
+     {
+-        bNetPaid=true;const uint32 Sequence=NetCast::Send(Player,Spell.Skill,0);
++        bNetPaid=true;const uint32 Sequence=Spell.Skill==TEXT("meteor")
++            ?NetCast::Send(Player,Spell.Skill,0,LockedPoint,LockedNormal):NetCast::Send(Player,Spell.Skill,0);
+         if(Spell.Skill==TEXT("meteor"))
+         {
+             MeteorLocalCastId=Sequence;MeteorPendingRefund=0.f;
+@@ -333,8 +357,9 @@
+     }
+     else if(Skill==TEXT("meteor"))
+     {
+-        if(FVector::Dist2D(Player->GetActorLocation(),LockedPoint)>CastSnapshot.Range)
+-        {CommittedSkill=Skill;CancelPending();Feedback(Skill,TEXT("超出施法距离"));return;}
++        FString Failure;
++        if(!MeteorGround::Validate(Player,CastSnapshot.Range,LockedPoint,LockedNormal,false,Failure))
++        {CommittedSkill=Skill;CancelPending();Feedback(Skill,Failure);return;}
+         // 联机客人：落点/法线上报服务端，权威陨星复制回来；本地收尾预扣账。
+         if(GetWorld()->GetNetMode()==NM_Client)
+         {
+@@ -511,7 +536,7 @@
+     DOREPLIFETIME(UFPSFireMagicComponent,DragonState);
+ }
+ // ── 联机服务端入口：陨星定点生成（复制各端）/焰甲服务端权威激活 ──
+-bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell)
++bool UFPSFireMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell,bool bMeteorTargetLocked)
+ {
+     if(!Caster||!Caster->HasAuthority()||!Shadow||
+         (Shadow->FireMagicDefinition(Req.SkillId).FireMagic.bRequiresStaff&&!Shadow->HasEquippedStaff()))return false;
+@@ -528,10 +553,10 @@
+     if(Req.SkillId==TEXT("meteor"))
+     {
+         if(!Req.CastId||Spell.Skill!=Req.SkillId||Req.AimPoint.ContainsNaN()||Req.AimNormal.ContainsNaN()||Req.AimNormal.Z<.45f)return false;
+-        // Reuse the ground-spell contract: the server resolves a real visible
+-        // surface, rather than accepting a client-provided hovering/through-wall point.
+-        FVector Point=Req.AimPoint,Normal=Req.AimNormal,Axis=FVector::ForwardVector;FString Failure;
+-        if(!BlizzardEnvironment::Validate(Caster,Spell.Range*1.15f,Point,Normal,Axis,Failure))return false;
++        // A production release uses the point accepted by this server at prepare.
++        // Direct callers still need initial sight validation.
++        FVector Point=Req.AimPoint,Normal=Req.AimNormal;FString Failure;
++        if(!MeteorGround::Validate(Caster,Spell.Range,Point,Normal,!bMeteorTargetLocked,Failure))return false;
+         FActorSpawnParameters P;P.Owner=Caster;P.Instigator=Caster;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+         auto* Strike=GetWorld()->SpawnActor<AFPSMeteorStrike>(Point,FRotator::ZeroRotator,P);
+         if(!Strike||!Strike->InitializeStrike(Caster,Spell,Point,Normal))
+@@ -630,16 +655,19 @@
+ void UFPSFireMagicComponent::NotifyMeteorImpact(const FVector& Point)
+ {
+     ImpactTime=GetWorld()->GetTimeSeconds();
+-    ImpactStrength=FMath::Clamp(1.f-FVector::Distance(GetOwner()->GetActorLocation(),Point)/1600.f,.15f,1.f);
++    const float Distance=float(FVector::Distance(GetOwner()->GetActorLocation(),Point));
++    ImpactStrength=FMath::SmoothStep(0.f,1.f,FMath::Clamp(1.f-Distance/1800.f,0.f,1.f));
+ }
+ void UFPSFireMagicComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) const
+ {
+     if(ImpactTime<0||!GetWorld())return;
+     const float Age=GetWorld()->GetTimeSeconds()-ImpactTime;
+-    if(Age<0||Age>=.38f)return;
+-    const float Weight=ImpactStrength*FMath::Square(1-Age/.38f);
+-    Location+=FVector(0,FMath::Sin(Age*85)*.65f,-FMath::Cos(Age*67)*1.5f)*Weight;
+-    Rotation+=FRotator(FMath::Cos(Age*67)*.7f,FMath::Sin(Age*79)*.24f,FMath::Sin(Age*61)*.3f)*Weight;
++    if(Age<0||Age>=.28f)return;
++    const float Kick=Age<.08f?FMath::Sin(UE_PI*Age/.08f):0.f;
++    const float Rebound=Age>=.06f&&Age<.26f?FMath::Sin(UE_PI*(Age-.06f)/.20f):0.f;
++    const float Rattle=FMath::Sin(Age*76.f)*FMath::Exp(-Age*24.f);
++    Location+=FVector(0,Rattle*.10f,-1.4f*Kick+.42f*Rebound)*ImpactStrength;
++    Rotation+=FRotator(.85f*Kick-.24f*Rebound,Rattle*.06f,Rattle*.08f)*ImpactStrength;
+ }
+ void UFPSFireMagicComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+ {
+@@ -670,7 +698,9 @@
+     if(bMeteorAimPreview)
+     {
+         if(!MeteorPreviewInputAvailable()||(Hands()&&Hands()->HasOtherPreparedSpell(this)))SetMeteorAimPreview(false);
+-        else {MeteorPreviewAge+=Delta;if(MeteorPreviewAge>=.1f){MeteorPreviewAge=0;RefreshMeteorPreview();}}
++        // PostUpdateWork runs after the camera. A 100 ms timer here made the
++        // target jump at 10 Hz regardless of the game's actual frame rate.
++        else RefreshMeteorPreview();
+     }
+     Strikes.RemoveAll([](const auto& A){return !A.IsValid();});TickArmor(Delta);TickDragonBreath(Delta);ServiceQueue();
+ }
+diff --git a/Source/FPSGAME/Skills/FPSFireMagicComponent.h b/Source/FPSGAME/Skills/FPSFireMagicComponent.h
+--- a/Source/FPSGAME/Skills/FPSFireMagicComponent.h
++++ b/Source/FPSGAME/Skills/FPSFireMagicComponent.h
+@@ -43,7 +43,7 @@
+     void NotifyMeteorImpact(const FVector& Point);
+     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;
+     // ── 联机 ──
+-    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell);
++    bool NetRelease(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FFireMagicCast& Spell,bool bMeteorTargetLocked=false);
+     void NetCastRejected(uint8 Phase,uint8 Code);
+     void NetCastCancelled(uint8 Phase);
+     void NetDragonCastResult(uint8 Phase,uint8 Code,uint32 CastId);
+@@ -110,7 +110,7 @@
+     TSharedPtr<FStreamableHandle> MeteorAimLoad;
+     FFireMagicCast MeteorPreviewSnapshot;
+     FString MeteorPreviewFailure;
+-    float MeteorPreviewAge=0;
++    FVector2D MeteorPreviewRadii=FVector2D::ZeroVector;
+     bool bMeteorAimPreview=false,bMeteorPreviewValid=false;
+     uint32 MeteorLocalCastId=0,MeteorResolvedCastId=0;
+     float MeteorPendingRefund=0.f;
+@@ -139,6 +139,7 @@
+     bool PrepareCastRequest(FName Skill,FFireMagicCast& Spell,bool bRequireCastAssets=true);
+     void QueueCast(FName Skill,bool bUsePreviewTarget);
+     bool MeteorPreviewInputAvailable() const;
++    void ResolveMeteorAssets();
+     void RefreshMeteorPreview();
+     void ServiceQueue();
+     void ReleaseAtContact();
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -44,6 +44,7 @@
+ #include "../Skills/FPSLightningHasteComponent.h"
+ #include "../Skills/FPSLightningComponent.h"
+ #include "../Skills/FPSFireMagicComponent.h"
++#include "../Skills/MeteorGround.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "../Skills/IceSpikeTypes.h"
+ #include "../Skills/IceWallTypes.h"
+@@ -1937,7 +1938,10 @@
+         {
+             if (PendingCastSkill != Request.SkillId) { Reject(3); return; }
+             auto* F = Pawn->FindComponentByClass<UFPSFireMagicComponent>();
+-            if (!F || !F->NetRelease(Pawn, Request, ShadowModel, PendingFireMagicStats)) { Reject(7); return; }
++            auto Release=Request;
++            const bool Meteor=Request.SkillId==TEXT("meteor");
++            if(Meteor){Release.AimPoint=PendingMeteorPoint;Release.AimNormal=PendingMeteorNormal;}
++            if (!F || !F->NetRelease(Pawn, Release, ShadowModel, PendingFireMagicStats,Meteor)) { Reject(7); return; }
+             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;PendingIdentifiedCastId=0;
+             Accept(); return;
+         }
+@@ -2018,9 +2022,14 @@
+     else if (FireMagic::IsSkill(Request.SkillId))
+     {
+         const FFireMagicCast Stats = ShadowModel->FireMagicStats(Request.SkillId);
++        FVector Point=Request.AimPoint,Normal=Request.AimNormal;FString Failure;
++        if(Request.SkillId==TEXT("meteor")&&!MeteorGround::Validate(Pawn,Stats.Range,Point,Normal,true,Failure))
++        {Reject(7);return;}
++        const float BeforeMana=ShadowModel->Snapshot().Mana;
+         if (!ShadowModel->BeginFireMagicCast(Stats)) { Reject(6); return; }
+-        PendingCastPaidMana = Stats.ManaCost;
++        PendingCastPaidMana = FMath::Max(0.f,BeforeMana-ShadowModel->Snapshot().Mana);
+         PendingFireMagicStats = Stats;
++        if(Request.SkillId==TEXT("meteor")){PendingMeteorPoint=Point;PendingMeteorNormal=Normal;}
+     }
+     else if (ElectricMagic::IsSkill(Request.SkillId))
+     {
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -528,6 +528,7 @@
+     FLightningHasteCast PendingLightningHasteStats;
+     FLightningCast PendingLightningStats;
+     FFireMagicCast PendingFireMagicStats;
++    FVector PendingMeteorPoint=FVector::ZeroVector,PendingMeteorNormal=FVector::UpVector;
+     FElectricMagicCast PendingElectricMagicStats;
+     double LastCastRequestAt = -100.0;
+ 
+diff --git a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp
+@@ -28,6 +28,8 @@
+ 
+ int32 USkillNetworkAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("MeteorFormulaNetOnly")))return RunMeteorFormulaNetAudit(Params);
++    if(FParse::Param(*Params,TEXT("MeteorReadyPreviewOnly")))return RunMeteorReadyPreviewAudit(Params);
+     if(FParse::Param(*Params,TEXT("SkillBatch20261020")))return RunSkillBatchReview(Params);
+     if(FParse::Param(*Params,TEXT("ZhufengOnly")))return RunZhufengAudit(Params);
+     if(FParse::Param(*Params,TEXT("IceArmorOnly")))return RunIceArmorAudit(Params);
+diff --git a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
+--- a/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h
+@@ -22,4 +22,6 @@
+     int32 RunIceArmorAudit(const FString& Params);
+     int32 RunZhufengAudit(const FString& Params);
+     int32 RunSkillBatchReview(const FString& Params);
++    int32 RunMeteorReadyPreviewAudit(const FString& Params);
++    int32 RunMeteorFormulaNetAudit(const FString& Params);
+ };
+diff --git a/Source/FPSGAME/Skills/SkillWireAudit.cpp b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+--- a/Source/FPSGAME/Skills/SkillWireAudit.cpp
++++ b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+@@ -61,6 +61,7 @@
+ }
+ void ASkillWireAuditController::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("MeteorWireAudit"))){Super::Tick(Delta);TickMeteor();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("FlameArmorWireAudit"))){Super::Tick(Delta);TickFlameArmor();return;}
+     Super::Tick(Delta);if(!SkillWire::Enabled()||HasAuthority()||!IsLocalController())return;
+     const double Now=GetWorld()->GetRealTimeSeconds();
+@@ -129,6 +130,7 @@
+ {if(SkillWire::Enabled()&&Damage>0.f)++Contacts;}
+ void ASkillWireAuditGameMode::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("MeteorWireAudit"))){Super::Tick(Delta);TickMeteor();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("FlameArmorWireAudit"))){Super::Tick(Delta);TickFlameArmor();return;}
+     Super::Tick(Delta);if(!SkillWire::Enabled())return;
+     const double Now=GetWorld()->GetRealTimeSeconds();
+diff --git a/Source/FPSGAME/Skills/SkillWireAudit.h b/Source/FPSGAME/Skills/SkillWireAudit.h
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -29,6 +29,9 @@
+     UFUNCTION(Server,Reliable) void ServerResult(bool Paid,bool Cooldown,bool Locked,bool Unlocked,bool Meteor);
+     UFUNCTION(Client,Reliable) void ClientSetupArmor(class AFPSGAMECharacter* ExistingArmor);
+     void TickFlameArmor();
++    UFUNCTION(Client,Reliable) void ClientSetupMeteor(float Mana,float Cost);
++    UFUNCTION(Server,Reliable) void ServerMeteorResult(bool PaidOnce,bool Replica,bool Late,bool Receipt);
++    void TickMeteor();
+     bool bReported=false,bPassed=false;
+ private:
+     UPROPERTY() TObjectPtr<ANurseZombie> Subject;
+@@ -39,6 +42,9 @@
+     UPROPERTY() TObjectPtr<class AFPSGAMECharacter> OtherArmor;
+     uint32 ArmorCastId=0;
+     bool bArmorOwn=false,bArmorOther=false,bArmorOwnEnded=false,bArmorOtherEnded=false;
++    uint32 MeteorCastId=0;
++    bool bMeteorReplica=false,bMeteorLate=false,bMeteorReceipt=false;
++    float MeteorInitialMana=0.f,MeteorCost=0.f;
+ };
+ 
+ /** Opt-in empty-map fixture. Uses production PlayerState RPCs and actor replicas. */
+@@ -53,6 +59,7 @@
+     virtual void Tick(float Delta) override;
+     UFUNCTION() void CountContact(AActor* Actor,float Damage,const class UDamageType* Type,class AController* DamageController,AActor* Causer);
+     void TickFlameArmor();
++    void TickMeteor();
+ private:
+     UPROPERTY() TObjectPtr<ASkillWireAuditController> Guest;
+     UPROPERTY() TObjectPtr<UColdSteelStatusModel> GuestModel;
+diff --git a/Source/FPSGAME/Skills/PlayerSkillAssets.cpp b/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
+--- a/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
++++ b/Source/FPSGAME/Skills/PlayerSkillAssets.cpp
+@@ -1,4 +1,5 @@
+ #include "PlayerSkillPreparation.h"
++#include "MeteorAssets.h"
+ #include "FlameArmorAssets.h"
+ #include "DragonBreathAudioAssets.h"
+ #include "IceArmorTypes.h"
+@@ -75,18 +76,11 @@
+             TEXT("/Game/Skills/IceWall/FabIceV3/SM_IceBlock_03.SM_IceBlock_03"),
+             TEXT("/Game/Skills/IceWall/FabIceV3/SM_IceBlock_04.SM_IceBlock_04")}) AddSkillAsset(Out, Path);
+     if (Skill == TEXT("meteor"))
+-        for (const TCHAR* Path : {
+-            TEXT("/Game/Skills/FireMagic20260921/Preview20261019/M_MeteorAimPreview.M_MeteorAimPreview"),
+-            TEXT("/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/SM_MeteorClosedRock.SM_MeteorClosedRock"),
+-            TEXT("/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/MI_MeteorClosedRock.MI_MeteorClosedRock"),
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalMantle.NS_MeteorNaturalMantle"),
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalWake.NS_MeteorNaturalWake"),
+-            TEXT("/Game/Skills/FireMagic20260921/MeteorGroundFireV3/NS_MeteorGroundVolume.NS_MeteorGroundVolume"),
+-            TEXT("/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalImpact.NS_MeteorNaturalImpact"),
+-            TEXT("/Game/Skills/FireMagic20260921/S_MeteorLand.S_MeteorLand"),
+-            TEXT("/Game/Skills/FireMagic20260921/S_MeteorBurn.S_MeteorBurn"),
+-            TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave"),
+-            TEXT("/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast")}) AddSkillAsset(Out, Path);
++    {
++        for (const TCHAR* Path : MeteorSpellAssets::Visuals) AddSkillAsset(Out, Path);
++        AddSkillAsset(Out, MeteorSpellAssets::Preview);
++        AddSkillAsset(Out, MeteorSpellAssets::CastSound);
++    }) AddSkillAsset(Out, Path);
+     if (Skill == TEXT("iceArmor"))
+     {
+         for(const TCHAR* Path:IceArmorAssets::Shells)AddSkillAsset(Out,Path);
+diff --git a/Source/FPSGAME/Skills/MeteorFormulaNetAudit.cpp b/Source/FPSGAME/Skills/MeteorFormulaNetAudit.cpp
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MeteorFormulaNetAudit.cpp
+@@ -0,0 +1,190 @@
++#include "SkillNetworkAuditCommandlet.h"
++#include "FPSFireMagicComponent.h"
++#include "FPSFireballComponent.h"
++#include "FPSMeteorStrike.h"
++#include "MeteorAssets.h"
++#include "MeteorGround.h"
++#include "FireMagicArea.h"
++#include "PlayerSkillPreparation.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Camera/CameraComponent.h"
++#include "Components/BoxComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/DecalComponent.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++
++int32 USkillNetworkAuditCommandlet::RunMeteorFormulaNetAudit(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    const FString Slot=TEXT("SkillNetworkAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("SkillNetworkAudit -ColdSteelProfile=")+Slot));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("MeteorFormulaNetAudit"));
++    auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!World||!Host||!Host->IsAudit()||Host->ProfileSlot()!=TEXT("ColdSteel_")+Slot)return 2;
++    int32 Failures=0;TArray<TSharedPtr<FJsonValue>> Rows,Levels;
++    const auto Check=[&](bool OK,const FString& Name,const FString& Detail=FString())
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);Row->SetBoolField(TEXT("passed"),OK);Row->SetStringField(TEXT("detail"),Detail);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failures+=!OK;
++        UE_LOG(LogTemp,Display,TEXT("METEOR_FORMULA_NET %s %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name,*Detail);
++    };
++    auto Seed=Host->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();
++    Seed.DungeonRun={};Seed.MeteorCooldown=0;Seed.Mana=10000;Seed.NetworkProfileId=FGuid::NewGuid();
++    for(auto& Skill:Seed.Skills){Skill.Value.Level=1;Skill.Value.Experience=0;}
++    auto Staff=Host->CreateItem(TEXT("ue_apprentice_staff"));Staff.Place=1;Staff.Cell=6;Seed.Items={Staff};Host->Current=Seed;
++    auto* Model=Host->CreateShadowModel(Seed);
++    auto* PC=World->SpawnActor<ASkillAuditRemoteController>();auto* PS=World->SpawnActor<AColdSteelPlayerState>();
++    auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,100),FRotator::ZeroRotator);
++    PS->SetOwner(PC);PC->SetPlayerState(PS);PC->Possess(Pawn);Pawn->SetPlayerState(PS);PS->ShadowModel=Model;
++    Pawn->NetShadowProfile=Model;Model->CurrentPawn=Pawn;
++    Model->Current.Mana=Model->Derived(TEXT("maxMp"));
++    auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();
++    Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    auto* HP=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();HP->Health=HP->MaxHealth;
++    for(int32 L=1;L<=20;++L)
++    {
++        const auto S=Model->FireMagicStats(TEXT("meteor"),L);const float K=L-1;
++        const float Multiplier=Model->MagicImplementMultiplier();
++        const float Direct=FMath::FloorToFloat(FMath::FloorToFloat(80.f+10.f*K+S.MagicAttack*(20.f+1.2f*K))*Multiplier);
++        const float Field=FMath::FloorToFloat(FMath::FloorToFloat(10.f+K+S.MagicAttack*(1.3f+.09f*K))*Multiplier);
++        Check(FMath::IsNearlyEqual(S.Damage,Direct,.01f)&&FMath::IsNearlyEqual(S.AuraDamage,Field,.01f),FString::Printf(TEXT("level %d damage contract"),L));
++        Check(FMath::IsNearlyEqual(S.Radius,630.f+22.5f*L)&&FMath::IsNearlyEqual(S.AuraRadius,540.f+18.f*L),FString::Printf(TEXT("level %d radius contract"),L));
++        auto R=MakeShared<FJsonObject>();R->SetNumberField(TEXT("level"),L);R->SetNumberField(TEXT("magic_attack"),S.MagicAttack);
++        R->SetNumberField(TEXT("impact"),S.Damage);R->SetNumberField(TEXT("field_tick"),S.AuraDamage);
++        R->SetNumberField(TEXT("radius_cm"),S.Radius);R->SetNumberField(TEXT("field_radius_cm"),S.AuraRadius);
++        R->SetNumberField(TEXT("duration"),S.Duration);R->SetNumberField(TEXT("ticks"),FMath::FloorToInt(S.Duration/S.TickSeconds));Levels.Add(MakeShared<FJsonValueObject>(R));
++    }
++    TArray<FSoftObjectPath> Paths;PlayerSkillAssets::Gather(TEXT("meteor"),Seed,Paths);
++    const auto Load=UAssetManager::GetStreamableManager().RequestSyncLoad(Paths);
++    for(const auto& Path:Paths)Check(Path.ResolveObject()!=nullptr,TEXT("runtime asset resolves"),Path.ToString());
++    Fire->ResolveMeteorAssets();Check(Fire->bMeteorAssetsReady&&Fire->MeteorAimMaterial,TEXT("current manifest passes cast readiness"));
++    const auto Box=[&](FVector At,FVector Extent,FRotator Rotation=FRotator::ZeroRotator)
++    {
++        auto* Actor=World->SpawnActor<AActor>();auto* B=NewObject<UBoxComponent>(Actor);Actor->AddInstanceComponent(B);Actor->SetRootComponent(B);
++        B->SetBoxExtent(Extent);B->SetCollisionEnabled(ECollisionEnabled::QueryOnly);B->SetCollisionResponseToAllChannels(ECR_Block);
++        B->RegisterComponent();Actor->SetActorLocationAndRotation(At,Rotation);return Actor;
++    };
++    auto* Floor=Box(FVector(0,0,-20),FVector(6000,6000,20));
++    const auto Spell=Model->FireMagicStats(TEXT("meteor"));
++    FVector Point(Spell.Range+15.f,0,0),Normal=FVector::UpVector;FString Failure;
++    Check(!MeteorGround::Validate(Pawn,Spell.Range,Point,Normal,true,Failure),TEXT("server rejects former extra 15 percent range"));
++    Point=FVector(400,0,160);Check(!MeteorGround::Validate(Pawn,Spell.Range,Point,Normal,false,Failure),TEXT("hovering locked target rejected"));
++    Point=FVector(400,0,0);Normal=FVector::UpVector;
++    Check(MeteorGround::Validate(Pawn,Spell.Range,Point,Normal,true,Failure),TEXT("visible real ground accepted for lock"));
++    FColdSteelNetCastRequest Request;Request.SourcePawn=Pawn;Request.SkillId=TEXT("meteor");Request.Sequence=Request.CastId=100;
++    Request.AimPoint=Point;Request.AimNormal=Normal;
++    const float ManaBefore=Model->Snapshot().Mana;PS->ExecuteCastRequest(Request);
++    Check(PS->PendingCastSkill==TEXT("meteor")&&FMath::IsNearlyEqual(Model->Snapshot().Mana,ManaBefore-Spell.ManaCost),TEXT("authority prepare charges once and stores target"));
++    auto* Wall=Box(FVector(180,0,130),FVector(15,350,130));
++    auto Locked=Point;auto LockedNormal=Normal;
++    Check(!MeteorGround::Validate(Pawn,Spell.Range,Locked,LockedNormal,true,Failure)
++        &&MeteorGround::Validate(Pawn,Spell.Range,Locked,LockedNormal,false,Failure),TEXT("new obstruction blocks a new lock but not a confirmed lock"));
++    Request.Phase=1;Request.Sequence=101;Request.AimPoint=FVector(900,500,0);PS->ExecuteCastRequest(Request);PS->ExecuteCastRequest(Request);
++    TArray<AFPSMeteorStrike*> Strikes;for(TActorIterator<AFPSMeteorStrike> It(World);It;++It)if(!It->IsActorBeingDestroyed())Strikes.Add(*It);
++    Check(Strikes.Num()==1&&Strikes[0]->Destination.Equals(Point,1.f)&&PS->PendingCastSkill.IsNone(),TEXT("release uses server locked point; duplicate creates no second meteor"));
++    Check(FMath::IsNearlyEqual(Model->Snapshot().Mana,ManaBefore-Spell.ManaCost),TEXT("duplicate release cannot refund accepted cast"));
++    for(auto* Strike:Strikes)Strike->FinishForRemoval();Wall->Destroy();
++    Model->Current.MeteorCooldown=0;Model->Current.Mana=ManaBefore;Request.Phase=0;Request.Sequence=Request.CastId=200;Request.AimPoint=Point;
++    PS->ExecuteCastRequest(Request);const float Paid=Model->Snapshot().Mana;
++    Request.Phase=2;Request.CastId=199;PS->ExecuteCastRequest(Request);
++    Check(PS->PendingCastSkill==TEXT("meteor")&&Model->Snapshot().Mana==Paid,TEXT("stale cancel cannot touch next reservation"));
++    Request.CastId=200;PS->ExecuteCastRequest(Request);PS->ExecuteCastRequest(Request);
++    Check(FMath::IsNearlyEqual(Model->Snapshot().Mana,ManaBefore)&&Model->FireMagicCooldown(TEXT("meteor"))==0,TEXT("matching cancellation refunds only actual payment once"));
++    Request.Phase=0;Request.Sequence=Request.CastId=300;Request.AimPoint=FVector(Spell.Range+100,0,0);
++    const float BeforeInvalid=Model->Snapshot().Mana;PS->ExecuteCastRequest(Request);
++    Check(PS->PendingCastSkill.IsNone()&&Model->Snapshot().Mana==BeforeInvalid,TEXT("invalid prepare spends no authority mana"));
++
++    // Actual target inclusion and foot-based falloff inputs on a 45 degree plane.
++    auto* Enemy=World->SpawnActor<ANurseZombie>(FVector(0,0,100),FRotator::ZeroRotator);Enemy->Health=Enemy->MaxHealth=100000;
++    Enemy->Knockdown=nullptr;Enemy->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    const FVector SlopeNormal(0,-.70710678,.70710678),Tangent(0,.70710678,.70710678),Center(0,2500,200);
++    auto PlaceFeet=[&](const FVector& Feet,float HalfHeight){Enemy->GetCapsuleComponent()->SetCapsuleHalfHeight(HalfHeight);Enemy->SetActorLocation(Feet+FVector(0,0,HalfHeight));};
++    const FVector Mid=Center+Tangent*Spell.Radius*.5;
++    PlaceFeet(Mid,95);const FVector ShortFoot=FireMagic::GroundPoint(Enemy);PlaceFeet(Mid,180);const FVector TallFoot=FireMagic::GroundPoint(Enemy);
++    Check(ShortFoot.Equals(TallFoot,.01f)&&FMath::IsNearlyEqual(float(FVector::VectorPlaneProject(TallFoot-Center,SlopeNormal).Size()/Spell.Radius),.5f,.001f),TEXT("slope falloff uses same foot position for different heights"));
++    Check(FireMagic::GroundTargets(Pawn,Center,SlopeNormal,Spell.Radius).Contains(Enemy),TEXT("slope midpoint within footprint is hittable"));
++    PlaceFeet(Center+Tangent*(Spell.Radius+100),95);
++    Check(!FireMagic::GroundTargets(Pawn,Center,SlopeNormal,Spell.Radius).Contains(Enemy),TEXT("beyond slope radius and body margin excluded"));
++    PlaceFeet(Center+SlopeNormal*110,95);
++    Check(!FireMagic::GroundTargets(Pawn,Center,SlopeNormal,Spell.Radius).Contains(Enemy),TEXT("other ground layer outside 100 cm band excluded"));
++    PlaceFeet(FVector(400,0,0),95);
++    Enemy->Tags.Add(TEXT("Friendly"));
++    Check(!FireMagic::GroundTargets(Pawn,FVector::ZeroVector,FVector::UpVector,Spell.Radius).Contains(Enemy),TEXT("friendly unit inside footprint takes no area hit"));
++    Enemy->Tags.Remove(TEXT("Friendly"));
++    auto* Cover=Box(FVector(180,0,180),FVector(20,400,180));
++    Check(!FireMagic::GroundTargets(Pawn,FVector::ZeroVector,FVector::UpVector,Spell.Radius).Contains(Enemy),TEXT("solid wall blocks impact and field exposure"));
++    Cover->Destroy();
++    Check(FireMagic::GroundTargets(Pawn,FVector::ZeroVector,FVector::UpVector,Spell.Radius).Contains(Enemy),TEXT("removing cover restores target exposure"));
++    Enemy->Destroy();
++
++    const int32 HitXP=Model->FireMagicDefinition(TEXT("meteor")).FireMagic.HitExperience;
++    for(bool Death:{false,true})
++    {
++        const int32 BeforeXP=Model->FireMagicProgress(TEXT("meteor")).Experience;
++        const int32 HostXP=Host->FireMagicProgress(TEXT("meteor")).Experience;
++        auto* Removed=World->SpawnActor<AFPSMeteorStrike>();Removed->InitializeStrike(Pawn,Spell,Point,Normal);Removed->Rewards.Hits=1;
++        if(Death){HP->Health=0;Removed->Tick(0.f);HP->Health=HP->MaxHealth;}
++        else Removed->EndPlay(EEndPlayReason::Destroyed); // Isolated world does not dispatch BeginPlay.
++        Removed->FinishForRemoval();Removed->SettleRewards();
++        Check(Model->FireMagicProgress(TEXT("meteor")).Experience==BeforeXP+HitXP
++            &&Host->FireMagicProgress(TEXT("meteor")).Experience==HostXP,
++            Death?TEXT("caster death settles guest training exactly once"):TEXT("direct removal settles guest training exactly once"));
++    }
++
++    // Real decal/MID alignment; presentation follows the selected surface each frame.
++    auto* LocalPC=World->SpawnActor<APlayerController>();LocalPC->SetAsLocalPlayerController();LocalPC->Possess(Pawn);
++    Host->Current=Seed;Host->CurrentPawn=Pawn;Pawn->SetActorLocation(FVector(4500,0,400));
++    auto* Slope=Box(FVector(4500,0,220),FVector(600,600,20),FRotator(0,0,45));
++    auto* Camera=Pawn->FindComponentByClass<UCameraComponent>();Camera->SetWorldLocation(FVector(4500,0,700));Camera->SetWorldRotation(FRotator(-90,0,0));
++    Fire->SetMeteorAimPreview(true);
++    Check(Fire->bMeteorPreviewValid&&Fire->MeteorAimDecal&&Fire->MeteorAimMID,TEXT("slope preview resolves real surface"));
++    if(Fire->MeteorAimDecal&&Fire->MeteorAimMID)
++    {
++        Check(Fire->MeteorAimMID->K2_GetVectorParameterValue(TEXT("SurfaceNormal")).Equals(FLinearColor(Fire->LockedNormal),.001f)
++            &&Fire->MeteorAimDecal->GetForwardVector().Equals(-Fire->LockedNormal,.001f),TEXT("preview shader and projector use damage surface normal"));
++        Check(Fire->MeteorAimMID->K2_GetScalarParameterValue(TEXT("ImpactRadius"))==Spell.Radius
++            &&Fire->MeteorAimMID->K2_GetScalarParameterValue(TEXT("FieldRadius"))==Spell.AuraRadius,TEXT("both preview radii equal authority snapshot"));
++        int32 Updates=0;for(int32 I=0;I<20;++I){const FVector Before=Fire->LockedPoint;Camera->SetWorldLocation(FVector(4500+I*2,0,700));Fire->TickComponent(1.f/144,LEVELTICK_All,&Fire->PrimaryComponentTick);Updates+=!Before.Equals(Fire->LockedPoint,.01f);}
++        Check(Updates>=19,TEXT("surface fix retains per-frame dragging"),FString::FromInt(Updates));
++    }
++    Fire->SetMeteorAimPreview(false);Slope->Destroy();Floor->Destroy();
++    const auto SetPaidMeteor=[&](uint32 Id)
++    {
++        Host->Current=Seed;Host->Current.Mana=20.f;
++        Host->Current.MeteorCooldown=Host->Current.MeteorCooldownDuration=30.f;
++        Fire->MeteorLocalCastId=Id;Fire->MeteorResolvedCastId=0;Fire->MeteorPendingRefund=10.f;
++        Fire->bMeteorAwaitingResult=true;Fire->CommittedSkill=NAME_None;
++    };
++    SetPaidMeteor(501);Fire->NetMeteorCastResult(1,7,501);Fire->NetMeteorCastResult(1,7,501);
++    Check(Host->Snapshot().Mana==30.f&&Host->FireMagicCooldown(TEXT("meteor"))==0.f&&!Fire->bMeteorAwaitingResult,
++        TEXT("duplicate reject receipts refund exact local payment once"));
++    SetPaidMeteor(502);Fire->NetMeteorCastResult(1,7,501);
++    Check(Host->Snapshot().Mana==20.f&&Fire->bMeteorAwaitingResult,TEXT("old receipt cannot alter a newer local cast"));
++    Fire->NetMeteorCastResult(1,0,502);Fire->NetMeteorCastResult(1,7,502);
++    Check(Host->Snapshot().Mana==20.f&&!Fire->bMeteorAwaitingResult,TEXT("accepted receipt cannot later become a refund"));
++    SetPaidMeteor(503);Fire->CommittedSkill=TEXT("meteor");
++    Pawn->FindComponentByClass<UFPSFireballComponent>()->RecordGesturePayment(30.f,20.f,true);
++    Fire->CancelPending();Fire->NetMeteorCastResult(0,6,503);
++    Check(Host->Snapshot().Mana==30.f&&Host->FireMagicCooldown(TEXT("meteor"))==0.f,TEXT("gesture cancel plus delayed rejection refunds once"));
++    auto Root=MakeShared<FJsonObject>();Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failures"),Failures);
++    Root->SetBoolField(TEXT("real_network_transport"),false);Root->SetBoolField(TEXT("rendered"),false);Root->SetArrayField(TEXT("results"),Rows);Root->SetArrayField(TEXT("levels"),Levels);
++    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));
++    FFileHelper::SaveStringToFile(Json,*(FPaths::ProjectDir()/TEXT("SourceAssets/MeteorFormulaNetAudit20261022/native-result.json")));
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return Failures?1:0;
++}
+diff --git a/Source/FPSGAME/Skills/MeteorReadyPreviewAudit.cpp b/Source/FPSGAME/Skills/MeteorReadyPreviewAudit.cpp
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MeteorReadyPreviewAudit.cpp
+@@ -0,0 +1,113 @@
++#include "SkillNetworkAuditCommandlet.h"
++#include "FPSFireMagicComponent.h"
++#include "MeteorAssets.h"
++#include "PlayerSkillPreparation.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Monsters/FPSCombatHealthComponent.h"
++#include "Camera/CameraComponent.h"
++#include "Components/BoxComponent.h"
++#include "Components/CapsuleComponent.h"
++#include "Components/DecalComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/Engine.h"
++#include "Engine/GameInstance.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/World.h"
++#include "Materials/MaterialInstanceDynamic.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Serialization/JsonSerializer.h"
++
++// Explicit, isolated commandlet: real resource loading and collision queries,
++// without map BeginPlay, gameplay rendering, audio or the user's save slot.
++int32 USkillNetworkAuditCommandlet::RunMeteorReadyPreviewAudit(const FString& Params)
++{
++    const FString Original=FCommandLine::Get();
++    const FString Slot=TEXT("SkillNetworkAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
++    FCommandLine::Set(*(TEXT("SkillNetworkAudit -ColdSteelProfile=")+Slot));
++    auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("MeteorReadyPreviewAudit"));
++    auto* World=GI->GetWorld();auto* Model=GI->GetSubsystem<UColdSteelStatusModel>();
++    if(!World||!Model||!Model->IsAudit()||Model->ProfileSlot()!=TEXT("ColdSteel_")+Slot)return 2;
++    int32 Failures=0;TArray<TSharedPtr<FJsonValue>> Rows;
++    const auto Check=[&](bool OK,const FString& Name,const FString& Detail=FString())
++    {
++        auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),Name);
++        Row->SetBoolField(TEXT("passed"),OK);Row->SetStringField(TEXT("detail"),Detail);
++        Rows.Add(MakeShared<FJsonValueObject>(Row));Failures+=!OK;
++        UE_LOG(LogTemp,Display,TEXT("METEOR_READY_PREVIEW %s %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),*Name,*Detail);
++    };
++    auto Seed=Model->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();
++    Seed.Hotbar.Init(TEXT(""),4);Seed.HotbarDefinitions.Init(TEXT(""),4);for(auto& B:Seed.QuickBindings)B={};
++    Seed.DungeonRun={};Seed.MeteorCooldown=0;Seed.Mana=10000;
++    for(auto& Skill:Seed.Skills){Skill.Value.Level=1;Skill.Value.Experience=0;}
++    auto Staff=Model->CreateItem(TEXT("ue_apprentice_staff"));Staff.Place=1;Staff.Cell=6;Seed.Items={Staff};
++    Model->Current=Seed;
++    auto* PC=World->SpawnActor<APlayerController>();
++    auto* Pawn=World->SpawnActor<AFPSGAMECharacter>(FVector(0,0,400),FRotator::ZeroRotator);
++    PC->SetAsLocalPlayerController();PC->Possess(Pawn);Model->CurrentPawn=Pawn;
++    Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health->Health=Health->MaxHealth;
++    auto* Fire=Pawn->FindComponentByClass<UFPSFireMagicComponent>();
++    auto* Camera=Pawn->FindComponentByClass<UCameraComponent>();
++    Camera->SetWorldLocation(FVector(0,0,400));Camera->SetWorldRotation(FRotator(-45,0,0));
++    Check(Pawn->IsLocallyControlled()&&Model->HasEquippedStaff(),TEXT("local staff fixture"),
++        FString::Printf(TEXT("local=%d staff=%d"),Pawn->IsLocallyControlled(),Model->HasEquippedStaff()));
++
++    TArray<FSoftObjectPath> Paths;PlayerSkillAssets::Gather(TEXT("meteor"),Seed,Paths);
++    Check(Paths.Contains(FSoftObjectPath(MeteorSpellAssets::GroundFire))
++        &&!Paths.ContainsByPredicate([](const auto& P){return P.ToString().Contains(TEXT("MeteorFilledVolumeV2"));}),
++        TEXT("meteor preparation selects V3 without V2 system"));
++    // Blocking load belongs only to this offline fixture, never to preview Tick.
++    const auto Loaded=UAssetManager::GetStreamableManager().RequestSyncLoad(Paths);
++    for(const auto& Path:Paths)Check(Path.ResolveObject()!=nullptr,TEXT("prepared asset resolves"),Path.ToString());
++    Fire->ResolveMeteorAssets();
++    Check(Fire->bMeteorAssetsReady&&Fire->CastSound&&Fire->MeteorAimMaterial,TEXT("actual readiness callback becomes ready"));
++    FFireMagicCast Spell;
++    Check(Fire->PrepareCastRequest(TEXT("meteor"),Spell),TEXT("meteor passes actual local cast gate"),Fire->Message);
++
++    auto* Floor=World->SpawnActor<AActor>();auto* Box=NewObject<UBoxComponent>(Floor);
++    Floor->AddInstanceComponent(Box);Floor->SetRootComponent(Box);Box->SetBoxExtent(FVector(3000,3000,20));
++    Box->SetCollisionEnabled(ECollisionEnabled::QueryOnly);Box->SetCollisionResponseToAllChannels(ECR_Block);
++    Box->RegisterComponent();Floor->SetActorLocation(FVector(0,0,-20));
++    Fire->SetMeteorAimPreview(true);
++    Check(Fire->bMeteorAimPreview&&Fire->bMeteorPreviewValid&&Fire->MeteorAimDecal,
++        TEXT("hold resolves real floor and creates preview"),Fire->MeteorPreviewFailure);
++    auto* OriginalDecal=Fire->MeteorAimDecal.Get();auto* OriginalMID=Fire->MeteorAimMID.Get();
++    const float ManaBefore=Model->Snapshot().Mana;
++    for(int32 Hz:{30,60,144})
++    {
++        int32 MovedFrames=0,AlignedFrames=0;
++        for(int32 Frame=0;Frame<30;++Frame)
++        {
++            const FVector Before=Fire->LockedPoint;
++            Camera->SetWorldRotation(FRotator(-45,Frame*.5f+Hz,0));
++            Fire->TickComponent(1.f/Hz,LEVELTICK_All,&Fire->PrimaryComponentTick);
++            MovedFrames+=Fire->bMeteorPreviewValid&&!Fire->LockedPoint.Equals(Before,.01f);
++            AlignedFrames+=Fire->MeteorAimDecal
++                &&Fire->MeteorAimDecal->GetComponentLocation().Equals(Fire->LockedPoint+FVector(0,0,4),.01f)
++                &&Fire->MeteorAimMID->K2_GetVectorParameterValue(TEXT("Center")).Equals(FLinearColor(Fire->LockedPoint),.01f);
++        }
++        Check(MovedFrames==30&&AlignedFrames==30,FString::Printf(TEXT("every-frame tracking at %d Hz input"),Hz),
++            FString::Printf(TEXT("moved=%d/30 aligned=%d/30"),MovedFrames,AlignedFrames));
++    }
++    Check(OriginalDecal&&OriginalMID&&Fire->MeteorAimDecal==OriginalDecal&&Fire->MeteorAimMID==OriginalMID,
++        TEXT("drag reuses decal and material instance"));
++    Check(Model->Snapshot().Mana==ManaBefore&&Model->FireMagicCooldown(TEXT("meteor"))==0,
++        TEXT("preview does not spend mana or start cooldown"));
++    Camera->SetWorldRotation(FRotator(40,0,0));Fire->TickComponent(1.f/144,LEVELTICK_All,&Fire->PrimaryComponentTick);
++    Check(!Fire->bMeteorPreviewValid&&Fire->MeteorAimDecal&&Fire->MeteorAimDecal->bHiddenInGame,
++        TEXT("invalid sky target hides preview immediately"));
++    Camera->SetWorldRotation(FRotator(-45,0,0));Fire->TickComponent(1.f/144,LEVELTICK_All,&Fire->PrimaryComponentTick);
++    Check(Fire->bMeteorPreviewValid&&Fire->MeteorAimDecal&&!Fire->MeteorAimDecal->bHiddenInGame,
++        TEXT("return to floor restores preview next frame"));
++    Fire->SetMeteorAimPreview(false);
++
++    auto Root=MakeShared<FJsonObject>();Root->SetNumberField(TEXT("checks"),Rows.Num());Root->SetNumberField(TEXT("failures"),Failures);
++    Root->SetBoolField(TEXT("rendered_gameplay"),false);Root->SetBoolField(TEXT("real_network_transport"),false);
++    Root->SetArrayField(TEXT("results"),Rows);FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));
++    FFileHelper::SaveStringToFile(Json,*(FPaths::ProjectDir()/TEXT("SourceAssets/MeteorReadyPreview20261022/native-result.json")));
++    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);
++    return Failures?1:0;
++}
+diff --git a/Source/FPSGAME/Skills/MeteorWireAudit.cpp b/Source/FPSGAME/Skills/MeteorWireAudit.cpp
+--- /dev/null
++++ b/Source/FPSGAME/Skills/MeteorWireAudit.cpp
+@@ -0,0 +1,146 @@
++#include "SkillWireAudit.h"
++#include "FPSFireMagicComponent.h"
++#include "FPSMeteorStrike.h"
++#include "PlayerSkillPreparation.h"
++#include "../FPSGAMECharacter.h"
++#include "../UI/ColdSteelStatusModel.h"
++#include "../Monsters/NurseZombie.h"
++#include "../Monsters/MonsterCombatComponent.h"
++#include "../Monsters/MonsterAIController.h"
++#include "GameFramework/CharacterMovementComponent.h"
++#include "Engine/AssetManager.h"
++#include "Engine/StreamableManager.h"
++#include "Engine/GameInstance.h"
++#include "Engine/World.h"
++#include "EngineUtils.h"
++#include "Misc/CommandLine.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Misc/Parse.h"
++#include "HAL/PlatformMisc.h"
++#include "Serialization/JsonSerializer.h"
++
++namespace MeteorWire
++{
++const FVector TargetPoint(400,0,0),LatePoint(2500,0,0);
++FColdSteelProfile Seed(UColdSteelStatusModel* M)
++{
++    auto P=M->Snapshot();P.Items.Reset();P.ActiveWeaponSlot=6;P.ActiveProductionTool.Reset();P.DungeonRun={};
++    P.MeteorCooldown=P.MeteorCooldownDuration=0;P.NetworkProfileId=FGuid::NewGuid();
++    for(auto& S:P.Skills){S.Value.Level=1;S.Value.Experience=0;}
++    auto Staff=M->CreateItem(TEXT("ue_apprentice_staff"));Staff.Place=1;Staff.Cell=6;P.Items={Staff};return P;
++}
++void Save(const TSharedRef<FJsonObject>& Data)
++{
++    FString Json;FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&Json));
++    FString Path;if(FParse::Value(FCommandLine::Get(),TEXT("SkillWireOutput="),Path))FFileHelper::SaveStringToFile(Json,*Path);
++    UE_LOG(LogTemp,Display,TEXT("METEOR_WIRE_RESULT %s"),*Json);
++}
++}
++
++void ASkillWireAuditController::ClientSetupMeteor_Implementation(float Mana,float Cost)
++{
++    if(!FParse::Param(FCommandLine::Get(),TEXT("MeteorWireAudit"))||HasAuthority()||bSetup)return;
++    auto* Controlled=Cast<AFPSGAMECharacter>(GetPawn());auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* PS=GetPlayerState<AColdSteelPlayerState>();if(!Controlled||!M||!PS||PS->GetPawn()!=Controlled||!M->IsAudit())return;
++    M->Current=MeteorWire::Seed(M);M->Current.Mana=Mana;M->CurrentPawn=Controlled;
++    Controlled->SetActorTickEnabled(false);Controlled->GetCharacterMovement()->SetComponentTickEnabled(false);PS->SetActorTickEnabled(false);
++    TArray<FSoftObjectPath> Paths;PlayerSkillAssets::Gather(TEXT("meteor"),M->Snapshot(),Paths);
++    const auto Loaded=UAssetManager::GetStreamableManager().RequestSyncLoad(Paths); // Fixture warmup only.
++    auto* Fire=Controlled->FindComponentByClass<UFPSFireMagicComponent>();Fire->ResolveMeteorAssets();
++    const auto Spell=M->FireMagicStats(TEXT("meteor"));const float Before=M->Snapshot().Mana;
++    if(!M->BeginFireMagicCast(Spell))return;
++    FColdSteelNetCastRequest Request;Request.SkillId=TEXT("meteor");Request.AimPoint=MeteorWire::TargetPoint;Request.AimNormal=FVector::UpVector;
++    MeteorCastId=PS->RequestCastSpell(Request);Fire->MeteorLocalCastId=MeteorCastId;
++    Fire->MeteorPendingRefund=Before-M->Snapshot().Mana;Fire->MeteorReleasedCast=Spell;Fire->bMeteorAwaitingResult=true;
++    Request.Phase=1;Request.CastId=MeteorCastId;PS->RequestCastSpell(Request);PS->RequestCastSpell(Request);
++    MeteorInitialMana=Before;MeteorCost=Cost;bSetup=true;Started=GetWorld()->GetRealTimeSeconds();
++}
++
++void ASkillWireAuditController::TickMeteor()
++{
++    if(HasAuthority()||!IsLocalController())return;
++    const double Now=GetWorld()->GetRealTimeSeconds();
++    if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
++    if(!bSetup||bDone)return;
++    auto* Controlled=Cast<AFPSGAMECharacter>(GetPawn());auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Controlled||!M)return;
++    auto* Fire=Controlled->FindComponentByClass<UFPSFireMagicComponent>();
++    bMeteorReceipt|=Fire->MeteorResolvedCastId==MeteorCastId&&!Fire->bMeteorAwaitingResult;
++    const auto Expected=M->FireMagicStats(TEXT("meteor"));
++    int32 LiveOriginal=0;
++    for(TActorIterator<AFPSMeteorStrike> It(GetWorld());It;++It)
++    {
++        auto* Strike=*It;if(Strike->HasAuthority()||!Strike->bNetInit)continue;
++        if(Strike->Destination.Equals(MeteorWire::TargetPoint,2.f))
++        {
++            ++LiveOriginal;
++            bMeteorReplica|=Strike->NetCaster==Controlled&&Strike->bImpacted
++                &&FMath::IsNearlyEqual(Strike->CastSnapshot.Radius,Expected.Radius)
++                &&FMath::IsNearlyEqual(Strike->CastSnapshot.AuraRadius,Expected.AuraRadius);
++        }
++        if(Strike->Destination.Equals(MeteorWire::LatePoint,2.f))
++            bMeteorLate|=Strike->bImpacted&&Strike->LavaAge>1.f&&Strike->Fragments.IsEmpty()&&!Strike->bImpactBreakPending;
++    }
++    bHit|=LiveOriginal>1;
++    if((bMeteorReplica&&bMeteorLate&&bMeteorReceipt&&Now-Started>5.)||Now-Started>35.)
++    {
++        bDone=true;const bool Paid=FMath::IsNearlyEqual(M->Snapshot().Mana,MeteorInitialMana-MeteorCost,.01f)&&!bHit;
++        auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("role"),TEXT("client"));R->SetBoolField(TEXT("paid_once"),Paid);
++        R->SetBoolField(TEXT("replicated_ranges_and_impact"),bMeteorReplica);R->SetBoolField(TEXT("late_no_replayed_burst"),bMeteorLate);
++        R->SetBoolField(TEXT("identified_receipt"),bMeteorReceipt);R->SetBoolField(TEXT("duplicate_actor"),bHit);
++        R->SetBoolField(TEXT("passed"),Paid&&bMeteorReplica&&bMeteorLate&&bMeteorReceipt);MeteorWire::Save(R);
++        ServerMeteorResult(Paid,bMeteorReplica,bMeteorLate,bMeteorReceipt);ExitAt=Now+2.;
++    }
++}
++void ASkillWireAuditController::ServerMeteorResult_Implementation(bool PaidOnce,bool Replica,bool Late,bool Receipt)
++{if(FParse::Param(FCommandLine::Get(),TEXT("MeteorWireAudit"))){bReported=true;bPassed=PaidOnce&&Replica&&Late&&Receipt;}}
++
++void ASkillWireAuditGameMode::TickMeteor()
++{
++    const double Now=GetWorld()->GetRealTimeSeconds();
++    if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
++    if(!Guest)return;
++    auto* Pawn=Cast<AFPSGAMECharacter>(Guest->GetPawn());auto* PS=Guest->GetPlayerState<AColdSteelPlayerState>();if(!Pawn||!PS)return;
++    auto* Host=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Host||!Host->IsAudit())return;
++    if(!GuestModel)
++    {
++        GuestModel=Host->CreateShadowModel(MeteorWire::Seed(Host));GuestModel->Current.Mana=GuestModel->Derived(TEXT("maxMp"));
++        GuestModel->CurrentPawn=Pawn;PS->ShadowModel=GuestModel;Pawn->NetShadowProfile=GuestModel;
++        Pawn->SetActorTickEnabled(false);Pawn->GetCharacterMovement()->SetComponentTickEnabled(false);PS->SetActorTickEnabled(false);
++        Pawn->SetActorLocation(FVector(0,0,100));Pawn->ForceNetUpdate();
++        Target=GetWorld()->SpawnActor<ANurseZombie>(FVector(400,0,100),FRotator::ZeroRotator);
++        Target->Health=Target->MaxHealth=100000;Target->Knockdown=nullptr;
++        Target->Combat->ConfigureToughnessBar(FMonsterToughnessBarTuning());
++        if(auto* AI=Cast<AMonsterAIController>(Target->GetController()))AI->SetDecisionEnabled(false);
++        Target->SetActorTickEnabled(false);Target->GetCharacterMovement()->SetComponentTickEnabled(false);
++        Target->OnTakeAnyDamage.AddDynamic(this,&ThisClass::CountContact);
++        ArmorInitialMana=GuestModel->Snapshot().Mana;ArmorManaCost=GuestModel->FireMagicStats(TEXT("meteor")).ManaCost;
++        ArmorHostXP=Host->FireMagicProgress(TEXT("meteor")).Experience;
++    }
++    if(Stage==0&&Now-LastSetup>2.){LastSetup=Now;Guest->ClientSetupMeteor(ArmorInitialMana,ArmorManaCost);}
++    int32 OriginalCount=0;for(TActorIterator<AFPSMeteorStrike> It(GetWorld());It;++It)
++        if(It->GetActorLocation().Equals(MeteorWire::TargetPoint,2.f)&&!It->IsActorBeingDestroyed())++OriginalCount;
++    if(OriginalCount>1)Stage=99;
++    if(Stage==0&&OriginalCount==1)
++    {
++        Stage=1;auto Spell=GuestModel->FireMagicStats(TEXT("meteor"));Spell.Duration=8.f;
++        Meteor=GetWorld()->SpawnActor<AFPSMeteorStrike>();Meteor->SetReplicates(false);
++        Meteor->InitializeStrike(Pawn,Spell,MeteorWire::LatePoint,FVector::UpVector);MeteorAt=Now;
++    }
++    if(Stage==1&&Meteor&&Now-MeteorAt>2.2){Meteor->SetReplicates(true);Meteor->ForceNetUpdate();Stage=2;}
++    // Client presentation can finish its assertions before the authority field
++    // ends (especially during initial asset loading). Training settles at expiry.
++    if((Guest->bReported&&Stage==2&&OriginalCount==0)||Now-Joined>55.)
++    {
++        const bool Paid=FMath::IsNearlyEqual(GuestModel->Snapshot().Mana,ArmorInitialMana-ArmorManaCost,.01f);
++        const bool Training=GuestModel->FireMagicProgress(TEXT("meteor")).Experience>0&&Host->FireMagicProgress(TEXT("meteor")).Experience==ArmorHostXP;
++        auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("role"),TEXT("listen_host"));R->SetBoolField(TEXT("authority_paid_once"),Paid);
++        R->SetNumberField(TEXT("authority_damage_contacts"),Contacts);R->SetBoolField(TEXT("guest_training_only"),Training);
++        R->SetNumberField(TEXT("guest_meteor_experience"),GuestModel->FireMagicProgress(TEXT("meteor")).Experience);
++        R->SetNumberField(TEXT("host_meteor_experience_before"),ArmorHostXP);
++        R->SetNumberField(TEXT("host_meteor_experience_after"),Host->FireMagicProgress(TEXT("meteor")).Experience);
++        R->SetNumberField(TEXT("active_original_meteors"),OriginalCount);
++        R->SetBoolField(TEXT("client_reported"),Guest->bReported);R->SetBoolField(TEXT("client_passed"),Guest->bPassed);
++        R->SetBoolField(TEXT("passed"),Paid&&Contacts>0&&Training&&Stage==2&&Guest->bReported&&Guest->bPassed);MeteorWire::Save(R);ExitAt=Now+2.;
++    }
++}

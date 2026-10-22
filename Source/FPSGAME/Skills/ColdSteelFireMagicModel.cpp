@@ -27,9 +27,10 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
     const float Growth=float(L-1)/FMath::Max(1,D.MaxLevel-1);
     FFireMagicCast C;C.Skill=Id;C.MagicAttack=Derived(TEXT("matk"));
     const float Intelligence=Attribute(TEXT("int"));
-    const int32 DamageLevel=Id==TEXT("dragonBreath")?L-1:L;
+    // Advanced damage starts at level one; flame armor retains its existing curve.
+    const int32 DamageLevel=Id==TEXT("flameArmor")?L:L-1;
     C.Damage=FMath::FloorToFloat(T.DamageBase+DamageLevel*T.DamagePerLevel+C.MagicAttack*(T.MagicBase+DamageLevel*T.MagicPerLevel)+Intelligence*(T.IntelligenceBase+DamageLevel*T.IntelligencePerLevel));
-    C.AuraDamage=FMath::FloorToFloat(T.AuraDamageBase+L*T.AuraDamagePerLevel+C.MagicAttack*(T.AuraMagicBase+L*T.AuraMagicPerLevel)+Intelligence*(T.AuraIntelligenceBase+L*T.AuraIntelligencePerLevel));
+    C.AuraDamage=FMath::FloorToFloat(T.AuraDamageBase+DamageLevel*T.AuraDamagePerLevel+C.MagicAttack*(T.AuraMagicBase+DamageLevel*T.AuraMagicPerLevel)+Intelligence*(T.AuraIntelligenceBase+DamageLevel*T.AuraIntelligencePerLevel));
     C.Radius=(T.RadiusBase+L*T.RadiusPerLevel)*T.UnitsToCM;
     if(Id==TEXT("dragonBreath"))C.Radius=FMath::Lerp(T.RadiusBase,T.RadiusMaximum,Growth);
     C.ArcDegrees=T.ArcDegrees;

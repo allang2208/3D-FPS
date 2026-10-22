@@ -1,0 +1,26 @@
+{
+  "runtime_assets": [
+    "/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/SM_MeteorClosedRock.SM_MeteorClosedRock",
+    "/Game/Skills/FireMagic20260921/MeteorClosedVolumeV1/MI_MeteorClosedRock.MI_MeteorClosedRock",
+    "/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalMantle.NS_MeteorNaturalMantle",
+    "/Game/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalWake.NS_MeteorNaturalWake",
+    "/Game/Skills/FireMagic20260921/MeteorImpactLowFireV4/NS_MeteorGroundVolume.NS_MeteorGroundVolume",
+    "/Game/Skills/FireMagic20260921/MeteorImpactWeightV5/NS_MeteorImpact.NS_MeteorImpact",
+    "/Game/Skills/FireMagic20260921/MeteorImpactWeightV5/M_MeteorScorch.M_MeteorScorch",
+    "/Game/Skills/FireMagic20260921/MeteorImpactWeightV5/S_MeteorImpact.S_MeteorImpact",
+    "/Game/Skills/FireMagic20260921/S_MeteorBurn.S_MeteorBurn",
+    "/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave",
+    "/Game/Skills/FireMagic20260921/S_FireMagicCast.S_FireMagicCast",
+    "/Game/Skills/FireMagic20260921/PreviewSurface20261022/M_MeteorAimPreview.M_MeteorAimPreview"
+  ],
+  "asset_binary_publication": false,
+  "required_local_sources": [
+    "RuralAustralia scanned rock + material",
+    "Realistic and MilitaryTrench fire/explosion source materials",
+    "DragonBreath VolumeV8 R2 materials and V2/V3 meteor fluid donor packages",
+    "DragonBreathAuthor and ModelingService author APIs",
+    "SourceAssets/FireMagic20260921/S_MeteorLand.wav"
+  ],
+  "source_audio_sha256": "de6b8154efc8e56eb36eb63903ad76d7c3c364b33e424c3ebceeef75e8fa7657",
+  "copyright": "Authoring code only. Reacquire licensed packages or restore the complete local backup; do not redistribute source assets from this manifest."
+}

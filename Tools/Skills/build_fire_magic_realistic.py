@@ -124,10 +124,15 @@ def weapon():
 
 def ground(aura=False):
     s=system('NS_ArmorNaturalAura' if aura else 'NS_MeteorNaturalAfterfire','NS_ArmorSplineAura' if aura else 'NS_MeteorSplineAfterfire',[('Fade',FLOAT),('Radius',FLOAT),('Spread',FLOAT)])
+    if not aura:
+        user_parameter(s,'VisualScale',FLOAT)
+        s.set_editor_property('fixed_bounds',u.Box(min=u.Vector(-1500,-1500,-650),max=u.Vector(1500,1500,650)))
     r=f'User.Radius*(.86+.10*{SEED})' if aura else f'User.Radius*User.Spread*sqrt({SEED})*.9'
     for name,kind,rate,size,alpha in [('LowFlame','Blade',16 if aura else 38,'float2(13,25)' if aura else 'float2(29,48)',.8),('GroundRoll','Fire',9 if aura else 26,'float2(18,31)' if aura else 'float2(38,62)',.9)]:
         p=f'float3(cos({THETA})*{r},sin({THETA})*{r},3+{AGE}*9)'
+        if not aura:p=p.replace('3+'+AGE+'*9','(3+'+AGE+'*9)*max(User.VisualScale,1.0)')
         a=appearance(kind,f'{size}*(.8+.35*{VAR})',f'{alpha}*User.Fade')
+        if not aura:a['Particles.SpriteSize']=(VEC2,'('+a['Particles.SpriteSize'][1]+')*max(User.VisualScale,1.0)')
         a.update({'Particles.Position':(POSITION,p),'Particles.Velocity':(VEC3,'float3(0,0,0)')})
         layer(s,name,kind,rate,True,{'Particles.Lifetime':(FLOAT,f'.85+.35*{VAR}'),**a},a)
     save(s)
@@ -141,12 +146,13 @@ def mantle():
     save(s)
 
 def trail():
-    s=system('NS_MeteorNaturalWake','NS_MeteorSplineWake',[('PreviousPosition',POSITION),('CurrentPosition',POSITION),('FlightDirection',VEC3),('FlightSpeed',FLOAT),('Fade',FLOAT)],1800)
+    s=system('NS_MeteorNaturalWake','NS_MeteorSplineWake',[('PreviousPosition',POSITION),('CurrentPosition',POSITION),('FlightDirection',VEC3),('FlightSpeed',FLOAT),('Fade',FLOAT),('VisualScale',FLOAT)],1800)
     for name,kind,rate,size,alpha,life in [('RealisticJet','Fire',38,'float2(41,68)',.9,f'.43+.22*{SEED}'),('TrenchBreakup','Meteor',12,'float2(50,74)',.65,f'.48+.22*{SEED}'),('LightSmoke','Smoke',8,'float2(62,66)',.22,f'.70+.30*{SEED}')]:
         a=appearance(kind,f'{size}*(.8+.3*{VAR})*(1+{N}*.4)',f'{alpha}*User.Fade','-User.FlightDirection')
+        a['Particles.SpriteSize']=(VEC2,'('+a['Particles.SpriteSize'][1]+')*max(User.VisualScale,1.0)')
         offset=f'float3(cos({THETA}),sin({THETA}),0)*(6+10*{SEED})'
         vel=f'-User.FlightDirection*(20+min(User.FlightSpeed*.012,55))+{offset}*.6'
-        layer(s,name,kind,rate,False,{'Particles.Lifetime':(FLOAT,life),'Particles.Position':(POSITION,f'lerp(User.PreviousPosition,User.CurrentPosition,{SEED})+{offset}'),'Particles.Velocity':(VEC3,vel),**a},
+        layer(s,name,kind,rate,False,{'Particles.Lifetime':(FLOAT,life),'Particles.Position':(POSITION,f'lerp(User.PreviousPosition,User.CurrentPosition,{SEED})+({offset})*max(User.VisualScale,1.0)'),'Particles.Velocity':(VEC3,vel),**a},
               {'Particles.Position':(POSITION,'Particles.Position+Particles.Velocity*Engine.DeltaTime'),
                'Particles.Velocity':(VEC3,f'(Particles.Velocity+({curl("Particles.Position",28)}+float3(0,0,18))*Engine.DeltaTime)*exp(-1.2*Engine.DeltaTime)'),**a})
     save(s)

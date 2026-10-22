@@ -1,0 +1,58 @@
+{
+  "evidence_date": "2026-10-22",
+  "origin": "Complete integrated local project before publication",
+  "rerun_during_publication": false,
+  "native": {
+    "checks": 80,
+    "failures": 0,
+    "rendered": false
+  },
+  "network": {
+    "transport": "UDP listen host + client",
+    "lag_ms_each_peer": 60,
+    "loss_percent_each_peer": 3,
+    "host": {
+      "role": "listen_host",
+      "authority_paid_once": true,
+      "authority_damage_contacts": 13,
+      "guest_training_only": true,
+      "guest_meteor_experience": 14,
+      "host_meteor_experience_before": 0,
+      "host_meteor_experience_after": 0,
+      "active_original_meteors": 0,
+      "client_reported": true,
+      "client_passed": true,
+      "passed": true
+    },
+    "client": {
+      "role": "client",
+      "paid_once": true,
+      "replicated_ranges_and_impact": true,
+      "late_no_replayed_burst": true,
+      "identified_receipt": true,
+      "duplicate_actor": false,
+      "passed": true
+    },
+    "full_profile_reconnect": false,
+    "rendered": false,
+    "body_presentation_suppressed": true
+  },
+  "builds": {
+    "FPSGAME": {
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "started_at": "2026-10-22T14:45:59.7410866+08:00",
+      "finished_at": "2026-10-22T14:46:28.8395449+08:00",
+      "log": "SourceAssets/MeteorFormulaNetAudit20261022/FPSGAME-build-4.log",
+      "runtime_tested": false
+    },
+    "FPSGAMEEditor": {
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "started_at": "2026-10-22T14:46:28.9998635+08:00",
+      "finished_at": "2026-10-22T14:47:01.9751890+08:00",
+      "log": "SourceAssets/MeteorFormulaNetAudit20261022/FPSGAMEEditor-build-3.log",
+      "runtime_tested": false
+    }
+  }
+}

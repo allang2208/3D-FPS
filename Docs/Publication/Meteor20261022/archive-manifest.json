@@ -1,0 +1,433 @@
+{
+  "task": "Meteor 2026-10-19 through 2026-10-22",
+  "file_count": 47,
+  "total_bytes": 2683547,
+  "permanent_deletion": false,
+  "current_v2_v3_donors_retained": true,
+  "failure_evidence_retained": true,
+  "files": [
+    {
+      "original": "SourceAssets/MeteorRange3x20261019/Before/Content/ColdSteelData/skills.json",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorRange3x20261019/Before/Content/ColdSteelData/skills.json",
+      "bytes": 29061,
+      "sha256": "27a60ebc227f58a22a09d525f327548211b34c92d044fc46ec9398ce15f8116a",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorRange3x20261019/Before/Content/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalAfterfire.uasset",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorRange3x20261019/Before/Content/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalAfterfire.uasset",
+      "bytes": 784470,
+      "sha256": "39c4d3a36550122ba2e1986d68f62478e438144c416b04db4844ed1ec5bed01f",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorRange3x20261019/Before/Content/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalWake.uasset",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorRange3x20261019/Before/Content/Skills/FireMagic20260921/RealisticV5/NS_MeteorNaturalWake.uasset",
+      "bytes": 1159688,
+      "sha256": "96bd7f4a2081a21ea3957194abbf18f2c889d76407122c072269a634cf454020",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorRange3x20261019/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorRange3x20261019/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "bytes": 18708,
+      "sha256": "65e25060c2a623f87cc0574d62d84f0c328f316e7a6ece093d1137c1ce1df3fd",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorRange3x20261019/Before/Tools/Skills/build_fire_magic_realistic.py",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorRange3x20261019/Before/Tools/Skills/build_fire_magic_realistic.py",
+      "bytes": 12348,
+      "sha256": "3c65f7278d8c0e788b4bcbd44ae2a388d76e5c9f504631387b9997421b16e291",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorGroundFireV3_20261020/Before/Config/DefaultGame.ini",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorGroundFireV3_20261020/Before/Config/DefaultGame.ini",
+      "bytes": 28133,
+      "sha256": "5d7f48ee8e6a314e4689a487ee1a949434dcbdf17d46f295ff2c57f05eee05e6",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Characters/FPSPreloadAssetRegistry.gen.h",
+      "bytes": 30337,
+      "sha256": "646c8754155cd549b0ab99ce193a2b28e3216622aa605e1b8f601b42b5f195d4",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "bytes": 21395,
+      "sha256": "d16e066c924357e8591f0ebe74e307a234c9ae2e1ca27a6a8e9b5011fd7e81ea",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "bytes": 3046,
+      "sha256": "97e93140aaf0a921673a5048e9a36958097b3f20a9c2a9c2a356ce84cf19cf23",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorGroundFireV3_20261020/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "bytes": 18785,
+      "sha256": "9ffc9a8638248dce540c4d6344d6d3a65056d5d5916805c67bbec061e2265aa5",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorGroundFireV3_20261020/Before/Tools/Skills/build_meteor_ground_volume.py",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorGroundFireV3_20261020/Before/Tools/Skills/build_meteor_ground_volume.py",
+      "bytes": 5518,
+      "sha256": "09e93dceca0ae6ad29deb8d8f2a398a7bb2b8dd7bdaa1cd60e219b4f0fb27c4a",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "bytes": 40558,
+      "sha256": "10720c2d707f0aa1b814c23fe053ace915dbc8146091e04794f1becf6ac586fe",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "bytes": 7820,
+      "sha256": "30f493fe7b07e147d6bf137f4c01c927dbc4905c27ba885fed32d1a2753e01ee",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "bytes": 19469,
+      "sha256": "339f4f7506a6364f794e1bad8e765c5510776400175f7da776cc5313b4ace954",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/PlayerSkillAssets.cpp",
+      "bytes": 18783,
+      "sha256": "7beab99f832742c0888284eb8e9c283cddc7e6853e5a8789b53a32d7c3fb38de",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "bytes": 16183,
+      "sha256": "31da9a3892d70703aacff4c5955f2ea9710c328c2cec6a0e10c5d3ef9bb2a6af",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorReadyPreview20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "bytes": 739,
+      "sha256": "8d7324c84e46692ccf6dd834973c4802d6cbc105baadddc06c5b0d0be8c0d9b1",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactLowFireV4_20261022/Before/Config/DefaultGame.ini",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactLowFireV4_20261022/Before/Config/DefaultGame.ini",
+      "bytes": 28917,
+      "sha256": "5bf583420b8ad975209584526189e8f394bdaf39c18174dc4f7d8c87eb18c073",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactLowFireV4_20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactLowFireV4_20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "bytes": 18657,
+      "sha256": "c55ac5bad76f5a83a58e8fc57c4db2d22a55fee6ef1fbd41544358cd2c137ccd",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactLowFireV4_20261022/Before/Source/FPSGAME/Skills/MeteorAssets.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactLowFireV4_20261022/Before/Source/FPSGAME/Skills/MeteorAssets.h",
+      "bytes": 1876,
+      "sha256": "707f6204f64dd8234131fbd8bbe6e71f934454676e1eddc327612be97a71bc8a",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactLowFireV4_20261022/Before/Source/FPSGAME/Skills/MeteorGroundFire.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactLowFireV4_20261022/Before/Source/FPSGAME/Skills/MeteorGroundFire.cpp",
+      "bytes": 6689,
+      "sha256": "365d27e49fc8ec4e45285d418f801d2a7c3a397ebd27d5095b914be30d49e975",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactLowFireV4_20261022/Before/Tools/Skills/build_meteor_ground_volume.py",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactLowFireV4_20261022/Before/Tools/Skills/build_meteor_ground_volume.py",
+      "bytes": 258,
+      "sha256": "4ed74aa8079d033d599014998379f23bea61150affaadc9fe51b920f1d572092",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactWeightV5_20261022/Before/Config/DefaultGame.ini",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactWeightV5_20261022/Before/Config/DefaultGame.ini",
+      "bytes": 29110,
+      "sha256": "254f92414572272e3ace65a5e80009b9846a56f8d5ee7d2cd53c0e361c07d905",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "bytes": 40466,
+      "sha256": "9aa8798c3bd6f7e98729b10e9f6f13f675fd8ca63be2364a70ea63cfb670e075",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "bytes": 18925,
+      "sha256": "e383fc1defc6863d75074b87d1860af1aec314a42992620148b44021b81b2a28",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "bytes": 3296,
+      "sha256": "16b72339f260499f871d5d33997b538970ae92e73cef0f4e3d5a97789501817c",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/MeteorAssets.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorImpactWeightV5_20261022/Before/Source/FPSGAME/Skills/MeteorAssets.h",
+      "bytes": 1875,
+      "sha256": "0a03241eeb01bb14ec108a05a12cf16536d8ab2b03f3dd4baab3b1ef67035794",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Config/DefaultGame.ini",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Config/DefaultGame.ini",
+      "bytes": 29356,
+      "sha256": "6bd2ab9b7ea75402257c94e348cec3b631166c7e67d813f610c6dac86539c0ae",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "bytes": 123260,
+      "sha256": "18d04118950e9c8618a17fe12a3c0d457b4fd566d84c8bf69ee9879c8a68ec7d",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "bytes": 33454,
+      "sha256": "8ee7b11b2a5f1f8c96d32b6b6f35fd202a61a63dbc4fbc8e37b766c398a364c9",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FireMagicArea.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FireMagicArea.cpp",
+      "bytes": 2353,
+      "sha256": "1cd6c5bfb75615ae82dac7f360e984f341b35dcde8460c57d041adfa01d8ce9e",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FireMagicArea.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FireMagicArea.h",
+      "bytes": 383,
+      "sha256": "ae17028dee8638e18e02ba0e26154daa40310387db1f3aa594d854eb5d35b6fc",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.cpp",
+      "bytes": 40664,
+      "sha256": "40cbae289a453e20fc042398a0adf4e8244dc3411a02c85598d45f0606c74dea",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSFireMagicComponent.h",
+      "bytes": 7878,
+      "sha256": "017e41a047182b48328b835b3729a9caf48e74a923387669b504b8331a93d634",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.cpp",
+      "bytes": 21728,
+      "sha256": "41cdd686c265f274621fcc765a4864e3353b6b7538cba0d636553ecceeb42853",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/FPSMeteorStrike.h",
+      "bytes": 3886,
+      "sha256": "2c598210278772b78e7d54e6d01f8cc73f63a1acdfad784afe529df3a239d284",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/MeteorAssets.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/MeteorAssets.h",
+      "bytes": 2041,
+      "sha256": "6685782f43782039e4a33571a002c8abf9a7e24b7f95fec48baf29a8f73c03b8",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.cpp",
+      "bytes": 16287,
+      "sha256": "9424ed86ff9c4866ff08d350c974acaf722734efd8ffd3f7866ae2c370b3d45e",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillNetworkAuditCommandlet.h",
+      "bytes": 800,
+      "sha256": "86056878302ea36e3d7dd3d1c25e2297a3aa13d7b0a9f562c56b5dfa1d8eb86a",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "bytes": 10420,
+      "sha256": "8a43f344208fd96bc88ed2932a658ac05a52a104b33c072702c1f044806a176a",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillWireAudit.h",
+      "target": "trash/meteor-retired-20261022/SourceAssets/MeteorFormulaNetAudit20261022/Before/Source/FPSGAME/Skills/SkillWireAudit.h",
+      "bytes": 2740,
+      "sha256": "2b343412b6910a2d1fd752bbeb82289b0d54791599145fe2a7673283de283e61",
+      "reason": "Superseded pre-change backups; current source and successful receipts retained.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "Tools/Skills/build_meteor_aim_preview.py",
+      "target": "trash/meteor-retired-20261022/Tools/Skills/build_meteor_aim_preview.py",
+      "bytes": 5091,
+      "sha256": "681babdc6a0589b20093231f9e0e4239986f52b05280b3b27c5e28bd6fb0cec4",
+      "reason": "World-horizontal preview replaced by surface-normal preview; compatibility entry will call current author.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "Tools/Skills/build_meteor_impact_v4.py",
+      "target": "trash/meteor-retired-20261022/Tools/Skills/build_meteor_impact_v4.py",
+      "bytes": 11460,
+      "sha256": "ce0347b6f293bde96d7045edeac3c2f396e2cdec1db6f1a19fdab25d6fc55390",
+      "reason": "V4 impact replaced by V5 impact; V4 ground-fire author remains active.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "Tools/Skills/build_meteor_ground_fire_v3.ps1",
+      "target": "trash/meteor-retired-20261022/Tools/Skills/build_meteor_ground_fire_v3.ps1",
+      "bytes": 1658,
+      "sha256": "13df169a8aa1d81ec241134df8109dd4cbdeec7d51c64b00bd7198e9184bae7d",
+      "reason": "Duplicate phase build wrapper; current build_meteor_formula_net_audit.ps1 replaces it.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "Tools/Skills/build_meteor_ready_preview.ps1",
+      "target": "trash/meteor-retired-20261022/Tools/Skills/build_meteor_ready_preview.ps1",
+      "bytes": 1657,
+      "sha256": "ef3b7db381fd865c8b544ebff6949ee7a952995a3efc70cace0b16f6ee670425",
+      "reason": "Duplicate phase build wrapper; current build_meteor_formula_net_audit.ps1 replaces it.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "Tools/Skills/build_meteor_impact_low_fire_v4.ps1",
+      "target": "trash/meteor-retired-20261022/Tools/Skills/build_meteor_impact_low_fire_v4.ps1",
+      "bytes": 1661,
+      "sha256": "4aef39c7716119640f756ffa6a0e4144353015a1df5fa82cd7b78b4ee16ba05d",
+      "reason": "Duplicate phase build wrapper; current build_meteor_formula_net_audit.ps1 replaces it.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    },
+    {
+      "original": "Tools/Skills/build_meteor_impact_weight_v5.ps1",
+      "target": "trash/meteor-retired-20261022/Tools/Skills/build_meteor_impact_weight_v5.ps1",
+      "bytes": 1660,
+      "sha256": "f143c153558addad247aa7af0db68140aa6c7b6cdbad6a472f141c448d97cf31",
+      "reason": "Duplicate phase build wrapper; current build_meteor_formula_net_audit.ps1 replaces it.",
+      "replacement": "Docs/Publication/Meteor20261022/README.md",
+      "verified": true
+    }
+  ]
+}

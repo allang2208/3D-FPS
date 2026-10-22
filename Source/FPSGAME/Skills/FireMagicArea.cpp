@@ -22,6 +22,16 @@ bool FireMagic::TraceSurface(APawn* Shooter,const FVector& Start,const FVector& 
     return false;
 }
 
+FVector FireMagic::GroundPoint(const AActor* Target,float* BodyRadius)
+{
+    FVector Origin,Extent;Target->GetActorBounds(true,Origin,Extent);
+    FVector Feet=Origin-FVector(0,0,Extent.Z);float Radius=FMath::Min(Extent.X,Extent.Y);
+    if(const auto* Capsule=Target->FindComponentByClass<UCapsuleComponent>())
+    {Feet=Capsule->GetComponentLocation()-FVector(0,0,Capsule->GetScaledCapsuleHalfHeight());Radius=Capsule->GetScaledCapsuleRadius();}
+    if(BodyRadius)*BodyRadius=Radius;
+    return Feet;
+}
+
 TArray<AActor*> FireMagic::GroundTargets(APawn* Shooter,const FVector& Center,const FVector& Normal,float Radius)
 {
     TArray<AActor*> Targets;if(!Shooter||!Shooter->GetWorld())return Targets;
@@ -29,12 +39,9 @@ TArray<AActor*> FireMagic::GroundTargets(APawn* Shooter,const FVector& Center,co
     {
         AActor* Target=*It;auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
         if(Target==Shooter||!Combat||Combat->IsDead()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))continue;
-        FVector Origin,Extent;Target->GetActorBounds(true,Origin,Extent);
-        FVector Feet=Origin-FVector(0,0,Extent.Z);float BodyRadius=FMath::Min(Extent.X,Extent.Y);
-        if(const auto* Capsule=Target->FindComponentByClass<UCapsuleComponent>())
-        {Feet=Capsule->GetComponentLocation()-FVector(0,0,Capsule->GetScaledCapsuleHalfHeight());BodyRadius=Capsule->GetScaledCapsuleRadius();}
+        float BodyRadius=0.f;const FVector Feet=GroundPoint(Target,&BodyRadius);
         const FVector Offset=Feet-Center;const float Height=FVector::DotProduct(Offset,Normal);
-        if(FMath::Abs(Height)>100.f||(Offset-Normal*Height).SizeSquared()>FMath::Square(Radius+BodyRadius))continue;
+        if(FMath::Abs(Height)>GroundBand||(Offset-Normal*Height).SizeSquared()>FMath::Square(Radius+BodyRadius))continue;
         FCollisionQueryParams Query(SCENE_QUERY_STAT(FireMagicAreaSight),false,Shooter);Query.AddIgnoredActor(Target);
         if(!MagicOcclusion::HasExposure(Shooter->GetWorld(),Target,Center+Normal*35,Query,Shooter))continue;
         Targets.Add(Target);
