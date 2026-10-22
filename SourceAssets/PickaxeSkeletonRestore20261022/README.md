@@ -90,17 +90,70 @@
 
 完整散列见各回执与 `restore.log`。C++、`.ini`、`production_tools.json` 与所有其它内容零改动。
 
-## 尚未验证
+## Cook 复验（2026-10-22，用户关闭 UE 后执行）
 
-- **没有重跑 Cook。** 断言是否真的消失，需要在编译通过后执行一次 `Tools/Build/Build-Package.ps1`。本轮按项目规则不自动构建、不自动打包。
+编译：`Tools/Build/Build-Editor.ps1` → `Result: Succeeded`（7.64 s，`Target is up to date`）。
+
+Cook：`Tools/Build/Build-Package.ps1 -Configuration Development -Profile core-measurement`，
+四次地图全量。**本次 Cook 未跑完** —— 在 5420/16635 处内存耗尽退出：
+
+```
+LogWindows: Error: appError called: Fatal error: Ran out of memory allocating
+4194306 (4.0 MiB) bytes ... Last error msg: 页面文件太小，无法完成操作。
+```
+
+本机 31.7 GB 物理内存、提交上限 63.5 GB，执行时 Apex 占 8.8 GB、并行会话另有编译器占用约 3 GB，
+Cook 峰值约 8.24 GB 时触发。**这是运行环境的内存限制，不是本次资产改动引起的**，也没有证据显示与矿镐有关。
+
+### 修复前后逐项对照（同一份 Cook 日志口径）
+
+| 失败信号 | 9/23 基线 | 10/22 修复后 |
+| --- | --- | --- |
+| `has a dependency on package`（ProductionTools） | **6** | **0** |
+| `Animation Compression request for A_Harvest_Pickaxe` | **9** | **0** |
+| `Skeleton == nullptr` | **9** | **0** |
+| `Zero key hash compressed animation data` | **5** | **0** |
+| `Assertion failed: !Hash.IsZero`（`AnimSequence.cpp:2172`） | **2** | **0** |
+
+四类失败信号合计 **25 条全部归零**。
+
+### Cook 产物直接证据
+
+修复后的 Cook 在磁盘上真正产出了骨架包：
+
+```
+Saved/Cooked/Windows/FPSGAME/Content/Items/ProductionTools/GripMotion20260913/
+    SK_Harvest_Pickaxe_Skeleton.uasset     3132 bytes
+    SK_Harvest_Pickaxe_Skeleton.uexp      10871 bytes
+    SK_Harvest_Axe_Skeleton.uexp          10871 bytes   ← 对照
+```
+
+两个骨架的 Cook 载荷**长度完全相同**；逐字节比对仅有末尾 **16 字节**不同，
+位置在包尾的 GUID／随机盐区，属 UE 每包独立生成的正常差异。骨骼数据本体一致。
+
+这比"日志里没有报错"更强：它证明这个包真的被 Cook 处理并写入了产物。
+
+### 仍未完成
+
+- **整次 Cook 没有跑完。** 上述对照只覆盖到内存耗尽为止的进度，**不能声称"Cook 通过"**。
+  要拿到完整的 `ExitCode=0`，需要在空闲机器上重跑，或提高页面文件上限（当前自动管理，改它需重启系统，本轮未动）。
+- 未曾出现的 8 条 `Wolf/Textures` 缺失与本修复无关：9/23 基线里就有同样的 8 条，是既有问题。
 - 没有进游戏看镐的挥动观感。
-- 没有验证打包产物里镐的动作是否齐全。
 
-## 建议的确认步骤
+### 补充：这批旧矿镐资产当前不在运行路径上
 
-1. 编译：`Tools/Build/Build-Editor.ps1`（需要先关闭已打开的 UE 编辑器）。
-2. 重跑 Cook，确认 `has a dependency on package ... which does not exist` 的 6 条日志消失、不再出现 `AnimSequence.cpp:2172` 断言。
-3. 进游戏装备矿镐，确认 Idle / Walk / Equip / Swing / HitRecover 五个动作表现与之前一致。
+`Content/ColdSteelData/production_tools.json` 里 `tool_pickaxe` 实际使用
+`RusticPickaxe20260919` 的视模与动作前缀（`A_RusticPickaxe_`），
+`GripMotion20260913` 的 `SK_Harvest_Pickaxe` 与五条 `A_Harvest_Pickaxe_*` 目前不是运行时取材对象。
+
+但该目录仍在 `+DirectoriesToAlwaysCook` 内，缺失依赖照样会让整次 Cook 断言失败，
+所以这次修复对打包仍然必要；它修的是打包阻塞，不是游戏内表现。
+
+## 建议的后续确认
+
+1. 在内存空闲时重跑完整 Cook，确认 `ExitCode=0`。
+2. 若仍内存不足，可临时提高页面文件上限（需重启）或关闭占用大户后重试。
+3. 进游戏装备矿镐，确认当前实际使用的 `RusticPickaxe` 动作表现不受影响（本修复未触碰它）。
 
 ## 复跑与回退
 

@@ -284,11 +284,21 @@ R9/R10/R11、R13 曾被否定；保留历史输入，恢复应从已认可的 [R
 - [x] **只新增了这一个包**：目录内原有 16 个包 SHA-256 与修复前逐字节一致；C++、`.ini`、
       `production_tools.json` 与其它内容零改动。做法与回退见
       [矿镐视模骨架恢复](../SourceAssets/PickaxeSkeletonRestore20261022/README.md)。
-- [ ] **尚未重跑 Cook**：需先编译（`Tools/Build/Build-Editor.ps1`，编辑器须先关闭），再执行一次
-      `Tools/Build/Build-Package.ps1`，确认 6 条
-      `has a dependency on package ... which does not exist` 日志消失、不再出现
-      `AnimSequence.cpp:2172` 断言。断言是否真的消失只有重跑 Cook 能证明，本轮没做。
-- [ ] 进游戏装备矿镐，确认五个动作表现与之前一致；本轮未启动 UE、未运行游戏或测试。
+- [x] **2026-10-22 已重跑 Cook 复验**（用户关闭 UE 后）。四类失败信号在修复后全部归零：
+      `has a dependency on package`（ProductionTools）6 → **0**、
+      `Animation Compression request for A_Harvest_Pickaxe` 9 → **0**、
+      `Skeleton == nullptr` 9 → **0**、`Zero key hash compressed animation data` 5 → **0**、
+      `Assertion failed: !Hash.IsZero` 2 → **0**。合计 25 条失败信号全部消失。
+- [x] **Cook 产物直接证据**：`Saved/Cooked/.../GripMotion20260913/SK_Harvest_Pickaxe_Skeleton.uexp`
+      已实际写出（10,871 字节），与斧头骨架载荷长度相同、逐字节只差末尾 16 字节的包 GUID／盐。
+      这比"日志无报错"更强，证明该包真的被 Cook 处理并落盘。
+- [ ] **整次 Cook 未跑完**：在 5420/16635 处内存耗尽退出
+      （`Ran out of memory ... 页面文件太小`，Cook 峰值约 8.24 GB，本机提交上限 63.5 GB 且被
+      Apex 与并行编译占用）。**这是环境内存限制，与本次资产改动无关，不能据此声称 Cook 通过。**
+      需在内存空闲时重跑以取得 `ExitCode=0`。
+- [ ] 另外 8 条 `Wolf/Textures` 缺失依赖与本修复无关：9/23 基线已有同样的 8 条。
+- [ ] 进游戏看矿镐动作；注意当前 `tool_pickaxe` 实际使用 `RusticPickaxe20260919`，
+      本批 `GripMotion20260913` 旧矿镐资产不在运行路径上，本次修的是打包阻塞而非游戏内表现。
 
 历史：该包自 2026-09-13 首次导入起从未落盘（同一批 15 个包都没有 Skeleton），
 2026-09-19 修斧头时只补了斧头那半边，见
