@@ -272,19 +272,29 @@ R9/R10/R11、R13 曾被否定；保留历史输入，恢复应从已认可的 [R
       体素语言）；P3 档位识别参数表（T4 鎏金微发光、T5 宝石自发光）；P4 离线重编译读回 + 交付。
 - [ ] 前置 P0：用户重开 PIE 确认第七轮骨骼 usage 标志修复生效后的截图作基线。
 
-## 打包阻塞：矿镐骨架缺失导致 Cook 断言（2026-09-23 首次真 Cook 暴露）
+## 打包阻塞：矿镐骨架缺失导致 Cook 断言（2026-09-23 首次真 Cook 暴露；2026-10-22 已补骨架，待重跑 Cook）
 
-- [ ] **`/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Pickaxe_Skeleton` 整个 D 盘不存在**，
-      6 个包引用它（`SK_Harvest_Pickaxe` 与 5 条 `A_Harvest_Pickaxe_*`）。Cook 不用清晰报错，
-      而是在 `AnimSequence.cpp:2172` 断言 `!Hash.IsZero()` 崩掉整次 Cook（`Error_UnknownCookFailure`，退出码 25）。
-      编译阶段是成功的，只有 Cook 失败。
-- [ ] 这是 **2026-09-19 只修了一半**的既有缺陷：当时保存了斧头骨架（101 骨）并写明
-      「未改动的矿镐同样如此」，矿镐那半没修。编辑器里缺骨架不会立刻报错，所以直到第一次真 Cook 才暴露。
-- [ ] 修法（与斧头 9/19 同一套）：按动画已引用的路径补出骨架并**显式保存**，名字一致即可自动恢复绑定；
-      作者源齐全 —— `SourceAssets/ProductionToolGrip20260913/Export/SK_Harvest_Pickaxe.fbx` + 5 条动画 FBX
-      + `Pickaxe_SingleHand_Editable.blend`。修完在新进程读回骨架非空，再重跑一次 Cook 确认断言消失。
-      证据、复现入口与「不要用摘 AlwaysCook 的方式绕过」的理由见
-      [PIE 与打包版的性能差距](Performance/pie-vs-packaged-gap-20260923.md) 第 6 节。
+- [x] **2026-10-22 已补出 `SK_Harvest_Pickaxe_Skeleton`**（22,813 字节，101 骨，SHA-256
+      `D984F33722251A190689153F32B3CAF14E23F62D8033791EEE23CA7F0E0FEE7D`）。新进程读回确认：
+      骨骼数与斧头骨架同为 101、骨骼名集合完全一致，`SK_Harvest_Pickaxe` 与五条 `A_Harvest_Pickaxe_*`
+      全部解析到新包（修复前网格的骨架引用为 `None`），五条时长 1.6 / 0.8 / 0.32 / 0.68 / 0.44 s
+      与 `authoring.json` 逐项吻合。
+- [x] 确认可无损复用斧头骨架：Blender 离线比对两个视模 FBX 的**全部骨骼静置变换**，
+      100 根共有骨骼、0 根单边、0 处变换或父级差异。所以只复制骨架，未重导网格或动画。
+- [x] **只新增了这一个包**：目录内原有 16 个包 SHA-256 与修复前逐字节一致；C++、`.ini`、
+      `production_tools.json` 与其它内容零改动。做法与回退见
+      [矿镐视模骨架恢复](../SourceAssets/PickaxeSkeletonRestore20261022/README.md)。
+- [ ] **尚未重跑 Cook**：需先编译（`Tools/Build/Build-Editor.ps1`，编辑器须先关闭），再执行一次
+      `Tools/Build/Build-Package.ps1`，确认 6 条
+      `has a dependency on package ... which does not exist` 日志消失、不再出现
+      `AnimSequence.cpp:2172` 断言。断言是否真的消失只有重跑 Cook 能证明，本轮没做。
+- [ ] 进游戏装备矿镐，确认五个动作表现与之前一致；本轮未启动 UE、未运行游戏或测试。
+
+历史：该包自 2026-09-13 首次导入起从未落盘（同一批 15 个包都没有 Skeleton），
+2026-09-19 修斧头时只补了斧头那半边，见
+[战锤/斧头替换记录](Weapons/battle-axe-replacement-20260919.md)。证据、复现入口与
+「不要用摘 AlwaysCook 的方式绕过」的理由见
+[PIE 与打包版的性能差距](Performance/pie-vs-packaged-gap-20260923.md) 第 6 节。
 
 ## DayNight 近期更新后卡顿（2026-09-21，已定位根因，修复待测量）
 
