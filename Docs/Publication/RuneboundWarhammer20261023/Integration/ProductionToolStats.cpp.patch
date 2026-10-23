@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Production/ProductionToolStats.cpp
++++ b/Source/FPSGAME/Production/ProductionToolStats.cpp
+@@ -73,6 +73,7 @@
+             (Profile?Profile->MeleeMasteryIntervalMultiplier(Item):1.f);
+         R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.16)/R.RateScale;
+         R.ContactSeconds=ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.6)/R.RateScale;
++        R.HeavyDamageMultiplier=BluntModifiers.HeavyDamage;
+         R.HeavyChargeSpeedBonus=BluntModifiers.HeavyChargeSpeedBonus+
+             (Enhance?Enhance->Effect(Item,TEXT("heavyChargeSpeedBonus")):0.)+
+             ColdSteelInventory::Number(Item,TEXT("heavy_charge_speed_bonus"),0.);

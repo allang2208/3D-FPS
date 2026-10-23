@@ -26,6 +26,7 @@ inline FName Clip(const FFPSBodyState& S)
         if(S.ActionVariant==TEXT("WarhammerSlash1"))return TEXT("Warhammer.FullBody.Slash1");
         if(S.ActionVariant==TEXT("WarhammerSlash2"))return TEXT("Warhammer.FullBody.Slash2");
         if(S.ActionVariant==TEXT("WarhammerSlash3"))return TEXT("Warhammer.FullBody.Slash3");
+        if(S.ActionVariant==TEXT("WarhammerFinalToll"))return TEXT("Warhammer.FullBody.FinalTollHeavy");
         if(S.ActionVariant==TEXT("WarhammerSlam"))return TEXT("Warhammer.FullBody.Slam");
         if(S.ActionVariant==TEXT("WarhammerSprintSlam"))return TEXT("Warhammer.FullBody.SprintSlam");
         if(S.ActionVariant==TEXT("WarhammerUppercut"))return TEXT("Warhammer.FullBody.Uppercut");

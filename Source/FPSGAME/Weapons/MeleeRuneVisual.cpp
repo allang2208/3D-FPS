@@ -67,7 +67,10 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
 {
     if(!Mesh)return;
     const bool bFrost=Definition==ColdSteelFrostRunes::Definition;
-    const bool bWarhammer=Definition==ColdSteelFrostRunes::Warhammer;
+    const bool bWarhammer=ColdSteelFrostRunes::IsWarhammer(Definition);
+    // This shaft uses the established translucent rune overlay on its full fallback mesh.
+    if(Definition==ColdSteelFrostRunes::RuneboundWarhammer&&Mesh->ComponentHasTag(TEXT("SwordSlot=shaft")))
+        if(auto* Shaft=Cast<UStaticMeshComponent>(Mesh))Shaft->SetForceDisableNanite(true);
     const FString EquippedRune=ColdSteelFrostRunes::Upgrade(Definition,Rune);
     const bool bInnate=bFrost&&(EquippedRune.IsEmpty()||EquippedRune==TEXT("false"));
     const FString VisualRune=bInnate?TEXT("erosion_rune"):EquippedRune;
@@ -149,15 +152,19 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             continue;
         }
         const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||Name==TEXT("M_HighlandClaymoreSurface")||Name==TEXT("M_TangDaoSurface")||
-            (bWarhammer&&Mesh->ComponentHasTag(TEXT("SwordSlot=shaft"))&&Name==TEXT("M_SteelWarhammerSurface"));
+            (bWarhammer&&Mesh->ComponentHasTag(TEXT("SwordSlot=shaft"))&&
+                (Name==TEXT("M_SteelWarhammerSurface")||Name==TEXT("M_RuneboundWarhammerSurface")||
+                 Name==TEXT("M_RuneboundAwakeSurface")||Name==TEXT("M_RuneboundSwiftRuneSurface")||
+                 Name==TEXT("M_RuneboundDestructionRuneSurface")));
         if(Mode<0||!Blade){if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);continue;}
         auto* MID=IsOurs(Current)?Cast<UMaterialInstanceDynamic>(Current):nullptr;
-        const FString DesiredBase=bWarhammer?TEXT("M_SilverRuneSurface_WarhammerShaftV2"):bWild?TEXT("M_SilverRuneSurface_HighlandWild"):bSpirit?TEXT("M_SilverRuneSurface_FrostSpirit"):TEXT("M_SilverRuneSurfaceV2");
+        const FString DesiredBase=bWarhammer?(Definition==ColdSteelFrostRunes::RuneboundWarhammer?
+            TEXT("M_SilverRuneSurface_RuneboundWarhammerShaftV1"):TEXT("M_SilverRuneSurface_WarhammerShaftV2")):bWild?TEXT("M_SilverRuneSurface_HighlandWild"):bSpirit?TEXT("M_SilverRuneSurface_FrostSpirit"):TEXT("M_SilverRuneSurfaceV2");
         if(MID&&MID->GetBaseMaterial()->GetName()!=DesiredBase)MID=nullptr;
         if(!MID)
         {
             auto* Material=LoadObject<UMaterialInterface>(nullptr,bWarhammer?
-                TEXT("/Game/Weapons/SteelWarhammer20261014/Runes/ShaftWrapV2/M_SilverRuneSurface_WarhammerShaftV2"):bWild?
+                ColdSteelFrostRunes::WarhammerRuneMaterial(Definition):bWild?
                 TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/M_SilverRuneSurface_HighlandWild"):bSpirit?
                 TEXT("/Game/Weapons/FrostSpiritBurst20260922/M_SilverRuneSurface_FrostSpirit"):
                 TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/M_SilverRuneSurfaceV2"));
@@ -193,6 +200,15 @@ bool ColdSteelMeleeRune::UpdatePose(UMeshComponent* Mesh,double PreviewTime)
     bool Active=false;
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
+        if(auto* Surface=Mesh->GetMaterial(Slot);Surface&&
+            (Surface->GetBaseMaterial()->GetName()==TEXT("M_RuneboundSwiftRuneSurface")||
+             Surface->GetBaseMaterial()->GetName()==TEXT("M_RuneboundDestructionRuneSurface")))
+        {
+            auto* NativeMID=Cast<UMaterialInstanceDynamic>(Surface);
+            if(!NativeMID){NativeMID=UMaterialInstanceDynamic::Create(Surface,Mesh);Mesh->SetMaterial(Slot,NativeMID);}
+            NativeMID->SetScalarParameterValue(TEXT("PreviewTime"),PreviewTime);
+            Active=true;continue;
+        }
         if(auto* Native=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(Slot));Native&&IsNativeGold(Native))
         {
             Native->SetScalarParameterValue(TEXT("PreviewTime"),PreviewTime);

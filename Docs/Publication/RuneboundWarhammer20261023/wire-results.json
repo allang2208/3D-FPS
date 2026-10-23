@@ -1,0 +1,14 @@
+{
+  "directory": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneboundWarhammer20261022\\NetworkReview20261023\\Wire\\20261023-214522",
+  "port": 19923,
+  "packet_loss_percent": 2,
+  "passed": true,
+  "pids": [
+    108468,
+    111940
+  ],
+  "world_body_suppressed": true,
+  "transport": "real local UDP listen host + client",
+  "packet_lag_ms": 80,
+  "rendered": false
+}

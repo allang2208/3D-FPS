@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Production/ProductionToolStats.h
++++ b/Source/FPSGAME/Production/ProductionToolStats.h
+@@ -25,6 +25,7 @@
+     double SwingSeconds=1.1, ContactSeconds=.48, RateScale=1;
+     double StaminaCost=10;
+     double HeavyReleaseStaminaCost=10;
++    double HeavyDamageMultiplier=1.;
+     /** Warhammer charge clock is independent of its ordinary attack-rate clock. */
+     double HeavyChargeSpeedBonus=0, HeavyChargeSeconds=2;
+     double HarvestReachCM=320, HarvestRadiusCM=0, CombatReachCM=180, CombatRadiusCM=0;

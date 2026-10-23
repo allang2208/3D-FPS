@@ -1,0 +1,157 @@
+{
+	"role": "isolated authority, no sockets",
+	"passed": true,
+	"checks": [
+		{
+			"case": "remote authority uses guest profile",
+			"passed": true
+		},
+		{
+			"case": "native charge counts one per attack across targets",
+			"passed": true
+		},
+		{
+			"case": "native awakening on tenth hit",
+			"passed": true
+		},
+		{
+			"case": "swift awakening on fifth hit",
+			"passed": true
+		},
+		{
+			"case": "swift ordinary attack speed applied",
+			"passed": true
+		},
+		{
+			"case": "persistent seal published once ",
+			"passed": true
+		},
+		{
+			"case": "completion doubles toughness on marked target only ",
+			"passed": true
+		},
+		{
+			"case": "stale instance has no toughness bonus",
+			"passed": true
+		},
+		{
+			"case": "completion magic once, exact scale, single target, replay safe ",
+			"passed": true
+		},
+		{
+			"case": "expiry removes replicated seal",
+			"passed": true
+		},
+		{
+			"case": "death removes replicated seal",
+			"passed": true
+		},
+		{
+			"case": "persistent seal published once destruction_mana_rune",
+			"passed": true
+		},
+		{
+			"case": "completion doubles toughness on marked target only destruction_mana_rune",
+			"passed": true
+		},
+		{
+			"case": "stale instance has no toughness bonus",
+			"passed": true
+		},
+		{
+			"case": "completion magic once, exact scale, single target, replay safe destruction_mana_rune",
+			"passed": true
+		},
+		{
+			"case": "expiry removes replicated seal",
+			"passed": true
+		},
+		{
+			"case": "death removes replicated seal",
+			"passed": true
+		},
+		{
+			"case": "seal reconstructs after awake property arrives later",
+			"passed": true
+		},
+		{
+			"case": "same-instance head removal clears replicated seals",
+			"passed": true
+		},
+		{
+			"case": "double heavy pays release once despite replay",
+			"passed": true
+		},
+		{
+			"case": "first committed heavy contact",
+			"passed": true
+		},
+		{
+			"case": "two authority contacts and one independent finisher",
+			"passed": true
+		},
+		{
+			"case": "double heavy pays release once despite replay",
+			"passed": true
+		},
+		{
+			"case": "same-instance head swap aborts both committed contacts",
+			"passed": true
+		},
+		{
+			"case": "double heavy pays release once despite replay",
+			"passed": true
+		},
+		{
+			"case": "cancel aborts both timers",
+			"passed": true
+		},
+		{
+			"case": "guest transactions leave host stamina unchanged",
+			"passed": true
+		},
+		{
+			"case": "star oath adds ten percent active physical and magic attack",
+			"passed": true
+		},
+		{
+			"case": "star oath no explosion before third distinct attack ",
+			"passed": true
+		},
+		{
+			"case": "star oath third hit exact magic scale, nearby only, once per actor ",
+			"passed": true
+		},
+		{
+			"case": "star oath no explosion before third distinct attack destruction_mana_rune",
+			"passed": true
+		},
+		{
+			"case": "star oath third hit exact magic scale, nearby only, once per actor destruction_mana_rune",
+			"passed": true
+		},
+		{
+			"case": "seal snapshot registered for network replication",
+			"passed": true
+		},
+		{
+			"case": "saved first-person double heavy duration",
+			"passed": true
+		},
+		{
+			"case": "saved fullbody double heavy duration Default",
+			"passed": true
+		},
+		{
+			"case": "saved fullbody double heavy duration kaitlin",
+			"passed": true
+		},
+		{
+			"case": "current symmetric HUD material saved and loadable",
+			"passed": true
+		}
+	],
+	"user_profile_modified": false,
+	"rendered": false,
+	"enemy_fixture_records_raw_damage": true
+}

@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Production/ProductionToolMotion.cpp
++++ b/Source/FPSGAME/Production/ProductionToolMotion.cpp
+@@ -193,7 +193,7 @@
+         SprintBlend=FMath::Lerp(SprintBlend,SprintTarget,1.f-FMath::Exp(-14.f*Delta));
+         Viewmodel->SetRelativeLocation(FVector(-3,0,-6)*SprintBlend);
+     }
+-    if(bBluntHeavy&&Elapsed>=0.f)
++    if(bBluntHeavy&&!UsesFinalTollHeavy()&&Elapsed>=0.f)
+     {
+         // The strike remains in its stable forward frame as the camera follows
+         // the head down. Camera feedback must not rotate the grounded hammer.
+@@ -203,7 +203,7 @@
+             Rotation*FRotator(0,90,0).Quaternion());
+     }
+     if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))
+-        Arms->SetFloorContact(BluntFloorPoint,bBluntHeavy&&bBluntFloorTarget?WarhammerHeavy::FloorWeight(AuthoredElapsed()):0.f);
++        Arms->SetFloorContact(BluntFloorPoint,bBluntHeavy&&!UsesFinalTollHeavy()&&bBluntFloorTarget?WarhammerHeavy::FloorWeight(AuthoredElapsed()):0.f);
+     if(bBluntCharging||bBluntReturningCharge)
+         SampleMotion(TEXT("HeavyCharge"),BluntChargePoseSeconds());
+     else if(Elapsed>=0)
+@@ -295,6 +295,15 @@
+         Location=FVector(-13.f,6.f,3.f)*W;Rotation=FRotator(7.8f,6.f,5.f)*W;return;
+     }
+     if(Elapsed<0.f||!IsEquipped()||!CanUse())return;
++    if(UsesFinalTollHeavy())
++    {
++        const float T=Elapsed;
++        const float Down=FMath::Exp(-10.f*FMath::Max(0.f,T-FinalTollHeavy::FirstContact))*FMath::SmoothStep(0.f,FinalTollHeavy::FirstContact,T);
++        const float Up=FMath::Exp(-9.f*FMath::Max(0.f,T-FinalTollHeavy::SecondContact))*FMath::SmoothStep(FinalTollHeavy::SecondStart,FinalTollHeavy::SecondContact,T);
++        Location=FVector(2.f*Down+1.5f*Up,1.4f*Up,-3.2f*Down+1.4f*Up);
++        Rotation=FRotator(-4.5f*Down+2.4f*Up,1.5f*Up,-2.2f*Down+2.f*Up);
++        return;
++    }
+     if(bBluntHeavy)
+     {
+         if(bBluntSprintAttack&&AuthoredElapsed()<0.f)

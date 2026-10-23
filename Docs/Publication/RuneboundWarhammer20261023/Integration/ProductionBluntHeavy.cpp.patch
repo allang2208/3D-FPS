@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
++++ b/Source/FPSGAME/Production/ProductionBluntHeavy.cpp
+@@ -108,13 +108,13 @@
+ 
+ bool UProductionToolComponent::IsGroundSlamActive() const
+ {
+-    return (bBluntHeavy&&Elapsed>=0.f)||(Character.IsValid()&&Character->HasAuthority()&&
++    return (bBluntHeavy&&!UsesFinalTollHeavy()&&Elapsed>=0.f)||(Character.IsValid()&&Character->HasAuthority()&&
+         GetWorld()&&GetWorld()->GetTimeSeconds()<BluntServerGroundSlamUntil);
+ }
+ 
+ bool UProductionToolComponent::GetGroundSlamCameraLocation(FVector& Point) const
+ {
+-    if(!bBluntHeavy||Elapsed<0.f||!CanUse())return false;
++    if(!bBluntHeavy||UsesFinalTollHeavy()||Elapsed<0.f||!CanUse())return false;
+     const float Time=AuthoredElapsed();
+     // A posture displacement, not recoil: do not scale it by camera shake or
+     // feed the posed chest clearance back into this committed eye anchor.

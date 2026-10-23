@@ -1,0 +1,9 @@
+#include "RuneboundHammerTuning.h"
+    SetIsReplicatedByDefault(true);
+    bFinalTollHead=Item&&RuneboundHammer::HasFinalToll(*Item);
+    FinalTollCommitUntil=RuneboundClock()+FinalTollHeavy::Duration/FinalTollActionRate+.1;
+    InitializeLocalTool();TickRunebound(Delta);TickAuthorityBluntCharge();
+    if(!Pivot){UpdateRuneboundPresentation(Delta,!RuneboundInstance.IsEmpty());return;}
+    {UpdateRuneboundPresentation(Delta,!RuneboundInstance.IsEmpty());return;}
+    UpdateRuneboundPresentation(Delta,!RuneboundInstance.IsEmpty());
+    ClearRuneboundPresentation();

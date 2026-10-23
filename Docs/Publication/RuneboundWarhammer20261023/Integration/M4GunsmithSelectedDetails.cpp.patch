@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -240,6 +240,7 @@
+             AddValue(TEXT("重击出手体力消耗"),Was.HeavyReleaseStaminaCost,Now.HeavyReleaseStaminaCost,2,TEXT(""),true,(M.HeavyReleaseStamina-1.)*100.);
+         AddValue(TEXT("韧性伤害倍率"),Was.ToughnessDamage,Now.ToughnessDamage,2,TEXT("×"),false,(M.ToughnessDamage-1.)*100.);
+         AddValue(TEXT("改造物理防御穿透"),Before.Melee.PhysicalArmorPenetration*100.,After.Melee.PhysicalArmorPenetration*100.,0,TEXT("%"),false,M.PhysicalArmorPenetration*100.);
++        AddValue(TEXT("重击伤害倍率"),Was.HeavyDamageMultiplier,Now.HeavyDamageMultiplier,2,TEXT("×"),false,(M.HeavyDamage-1.)*100.);
+         AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
+         AddValue(TEXT("所有技能冷却倍率"),Before.Melee.SkillCooldown,After.Melee.SkillCooldown,2,TEXT("×"),true,(M.SkillCooldown-1.)*100.);
+         AddValue(TEXT("武技冷却倍率"),Before.Melee.MartialCooldown,After.Melee.MartialCooldown,2,TEXT("×"),true,(M.MartialCooldown-1.)*100.);

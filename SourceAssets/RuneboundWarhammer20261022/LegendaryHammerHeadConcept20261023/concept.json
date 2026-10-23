@@ -1,0 +1,17 @@
+{
+  "title": "星誓·封界之砧",
+  "tier": "legendary",
+  "status": "concept only; no mesh, gameplay entry or runtime integration",
+  "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a163b2-7c06-73f2-874a-e8a974d05288\\exec-f1000d81-3e61-46a2-9f15-212b518d0eca.png",
+  "output": "star_oath_sealing_anvil_concept.png",
+  "generator": "built-in image_gen",
+  "prompt": "为幻想游戏制作一张静物部件设计稿：符文战锤的传说专属双侧锤头，名称“星誓·封界之砧”。图1是现有的成对原装锤头，图2是保留不改的中央锤座，作为造型和接口参考。只设计左右两个新锤头，中央锤座保持图2原样。双侧安装内平面之间留约70毫米空隙，安装轴线保持一致。\n新部件采用沉稳写实的古代铁匠工艺：暗色锻铁主体、旧银色宽倒角、多层厚实八边形外端面；侧面嵌一枚圆形蓝色魔法石，外圈雕刻圆形封印纹和细小古符。蓝色细槽沿拱形肋骨延伸，少量旧黄铜嵌线，尺寸比原件丰满约15%。古朴、厚重、细腻，所有实体均有可靠连接。\n一张横向专业设计板：上方左边为装在原中央锤座上的三分之四静物主图，只展示锤首和一小段原长柄；上方右边展示同一部件符文苏醒的发光状态，蓝色刻纹亮起，周围漂浮细小蓝色光尘。下方为同一双侧部件的正视、俯视、端视正交图，统一比例，正视与俯视展示成对部件和中央空隙。炭灰色底，精致棚拍光照，清楚体现真实材料和接口。标题“星誓·封界之砧”，副标题“符文战锤 · 传说专属锤头”，小标签“装配示意”“符文苏醒”“正视”“俯视”“端视”“保留原中央锤座”。只画这一款设计。",
+  "mounting_interface": {
+    "author_units": "meters",
+    "left_x": -0.0354452141,
+    "right_x": 0.0345547859,
+    "head_origin_z": 0.916
+  },
+  "design_notes": "Replace paired outer heads only. Preserve gothic central mount and original shaft/grip/pommel. Dark forged iron, worn silver bevels, restrained brass inlay, blue circular seals. Blue drifting particles when awakened. Generated views are appearance references; precise manufacturing views follow the approved model.",
+  "stats": "not specified or implemented"
+}

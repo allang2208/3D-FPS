@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
++++ b/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
+@@ -67,6 +67,8 @@
+         if(!FMath::IsNearlyEqual(Factory.HeavyReleaseStaminaCost,Factory.StaminaCost)||!FMath::IsNearlyEqual(Draft.HeavyReleaseStaminaCost,Draft.StaminaCost))
+             Row(TEXT("重击出手体力消耗"),Factory.HeavyReleaseStaminaCost,Draft.HeavyReleaseStaminaCost,2,TEXT(""),true);
+         Row(TEXT("韧性伤害倍率"),Factory.ToughnessDamage,Draft.ToughnessDamage,2,TEXT("×"));
++        if(!FMath::IsNearlyEqual(Factory.HeavyDamageMultiplier,1.)||!FMath::IsNearlyEqual(Draft.HeavyDamageMultiplier,1.))
++            Row(TEXT("重击伤害倍率"),Factory.HeavyDamageMultiplier,Draft.HeavyDamageMultiplier,2,TEXT("×"));
+         Row(TEXT("重击蓄力速度加成"),Factory.HeavyChargeSpeedBonus*100.,Draft.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
+         const auto BeforeRunes=Model()->Calculate(Item.Definition,Parts).Melee;
+         const auto AfterRunes=Model()->Calculate(Item.Definition,Model()->Draft()).Melee;

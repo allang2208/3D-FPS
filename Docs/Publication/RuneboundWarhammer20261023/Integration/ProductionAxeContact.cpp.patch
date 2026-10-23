@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Production/ProductionAxeContact.cpp
++++ b/Source/FPSGAME/Production/ProductionAxeContact.cpp
+@@ -148,8 +148,9 @@
+     if(!Pawn || !IsAxeEnemy(Target,Pawn))return false;
+     auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+     FWeaponDamageResult Result;
+-    const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,AxeStrike.DamagePanel.Total(),
+-        (Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(),AxeStrike,&Result);
++    auto ContactShot=AxeStrike;ContactShot.ToughnessDamageMultiplier*=FinalTollToughnessMultiplier(ContactShot,Target);
++    const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,ContactShot.DamagePanel.Total(),
++        (Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(),ContactShot,&Result);
+     const bool bConfirmed=Applied>0.f || Combat->IsDead();
+     if(bConfirmed)
+     {

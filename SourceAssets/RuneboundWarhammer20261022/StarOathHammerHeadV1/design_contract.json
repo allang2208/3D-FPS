@@ -1,0 +1,27 @@
+{
+  "name": "星誓·封界之砧",
+  "id": "star_oath_sealing_anvil",
+  "stage": "precision modeling and material production",
+  "reference": "../LegendaryHammerHeadConcept20261023/star_oath_sealing_anvil_concept.png",
+  "author_units": "metres",
+  "pivot_m": [0.0, 0.0, 0.916],
+  "left_mount_x_m": -0.0354452141,
+  "right_mount_x_m": 0.0345547859,
+  "overall_width_m": 0.336,
+  "head_height_m": 0.145,
+  "head_depth_m": 0.090,
+  "construction": [
+    "Original host cross-section collars and corresponding UV surface",
+    "Two continuous tapered load-bearing forged cores",
+    "Stacked octagonal impact armor and beveled perimeter lips",
+    "Circular gemstone settings on four side panels and both outer faces",
+    "Recessed rune annuli with individual engraved symbols and inlays",
+    "Solid retaining claws, counterbored fasteners and fine bead borders",
+    "Gothic branching conduit ribs and narrow brass binding strips",
+    "Faceted optical crystal shells with internal star-seal cores"
+  ],
+  "surface_delivery": "4K baked BaseColor, tangent-space Normal, packed AO/Roughness/Metallic; separate crystal and energy materials",
+  "emission_contract": "Blue default; EnergyTint and AwakeIntensity are independent so destruction-rune red can be connected later",
+  "scope": "Editable model, PBR textures and static model exports. No new gameplay implementation or catalog publication in this modeling step.",
+  "runtime_tested": false
+}

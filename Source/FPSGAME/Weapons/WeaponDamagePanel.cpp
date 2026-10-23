@@ -1,5 +1,8 @@
 #include "WeaponDamagePanel.h"
 #include "GunsmithSystem.h"
+#include "../Production/ProductionToolComponent.h"
+#include "../Production/RuneboundHammerTuning.h"
+#include "../FPSGAMECharacter.h"
 #include "../Building/WoodworkingQuality.h"
 #include "Bow/BowDamageTuning.h"
 #include "../Combat/CombatItemFormula.h"
@@ -42,6 +45,12 @@ FWeaponDamageParts ColdSteelWeaponDamage::Evaluate(const FColdSteelItem& Item,co
     const double Innate=Attribute(Profile,TEXT("intt"))*ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))
         +Attribute(Profile,TEXT("wis"))*ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"));
     R.AddedMagic+=Innate*CoefficientScale*(Melee?Melee->InnateErosionMultiplier:1.);
+    if(Item.Definition==RuneboundHammer::Definition)
+        if(const auto* Pawn=Profile?Profile->RuntimePawn():nullptr)
+            if(const auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsRuneboundAwakened(Item))
+                R.AddedMagic+=(Attribute(Profile,TEXT("intt"))*RuneboundHammer::Intelligence+
+                    Attribute(Profile,TEXT("wis"))*RuneboundHammer::Wisdom)*
+                    (RuneboundHammer::HasDestructionRune(Item)?RuneboundHammer::DestructionAwakeningMultiplier:1.);
     if(Melee)R.AddedMagic+=Attribute(Profile,TEXT("intt"))*Melee->RuneIntelligence+Attribute(Profile,TEXT("wis"))*Melee->RuneWisdom;
     // Attacker-side magic bonuses are already included in the panel, before any
     // attack multiplier or target defense. Do not apply them again on contact.

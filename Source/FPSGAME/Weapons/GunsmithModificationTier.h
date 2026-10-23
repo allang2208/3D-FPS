@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "FrostSwordRunes.h"
 #include "RSH12OpticAssets.h"
 #include "TacticalDeviceVariants.h"
 #include "LegendaryTacticalStock.h"
@@ -13,6 +14,11 @@ inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotK
 {
     if(SlotKey==TEXT("muzzle")&&Id==SniperSuppressorAssets::Part&&SniperSuppressorAssets::Supports(Weapon))
         return EGunsmithModificationTier::Special;
+    if(Weapon==ColdSteelFrostRunes::RuneboundWarhammer&&SlotKey==TEXT("rune")&&
+        (Id==ColdSteelFrostRunes::SwiftMana||Id==ColdSteelFrostRunes::DestructionMana))
+        return EGunsmithModificationTier::Special;
+    if(Weapon==ColdSteelFrostRunes::RuneboundWarhammer&&SlotKey==TEXT("hammer_heads")&&(Id==TEXT("star_oath_sealing_anvil")||Id==TEXT("final_toll_soul_bell")))
+        return EGunsmithModificationTier::Legendary;
     if(Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("hammer_heads")&&Id==TEXT("meteor_core"))
         return EGunsmithModificationTier::Legendary;
     if(SlotKey==TEXT("optic")&&Id==TEXT("thermal_scope"))return EGunsmithModificationTier::Legendary;

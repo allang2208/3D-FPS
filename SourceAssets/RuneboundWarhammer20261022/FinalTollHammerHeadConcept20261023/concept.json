@@ -1,0 +1,75 @@
+{
+  "title": "终律·镇魂钟",
+  "id": "final_toll_soul_bell",
+  "tier": "legendary",
+  "weapon_id": "ue_runebound_warhammer",
+  "slot": "hammer_heads",
+  "status": "user-approved design; modeled, saved and locally integrated; gameplay not tested",
+  "implementation_record": "../FinalTollIntegrationV1/delivery_receipt.json",
+  "image": "final_toll_soul_bell_concept.png",
+  "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a163b2-7c06-73f2-874a-e8a974d05288\\exec-0c8e6f22-f5c6-435e-9264-ee2d5ce69f9f.png",
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept\n为幻想游戏制作第二款传说专属锤头的高精细静物设计板，标题“终律·镇魂钟”，副标题“符文战锤 · 第二款传说专属锤头”。输入图1只作中央锤座的结构参考：提取中间细长的哥特式锤座，保留它的双拱筋、上方阶梯顶盖和原来的短柄连接，忽略图中所有图标边框。输入图2是已完成的第一款，只用于识别必须拉开差异的旧设计，不在新图里复制旧锤头。\n第二款核心造型是成对的纵向“钟笼锤头”：左右各一座高而厚的矩形钟室，顶部收束、下缘略外张，外侧是厚实平整的钝锤面，锤面的矩形轮廓有宽倒角；面向观者的宽侧面有三道深深的竖向拱窗与四根拱肋，窗口真实镂空，内部可看见一块由上下金属轴稳固悬置的长条符文音板，音板只在中间有一道细长的竖直发光裂隙。用可制作的实体结构呈现，厚重有力，仍是双面锤头。左右钟室通过短粗金属连接颈安装在原中央锤座两边，轴线一致，中央安装面间距约70毫米。新锤头高度约170毫米，整个锤首横宽约320毫米。中央锤座原样，原长柄只露一小段。\n材质：深黑锻铁钟笼、风化的暗青铜拱肋、少量象牙银色包边，精细凹刻短符文、铆钉、内层音板、真实磨损和金属粗糙度。魔法光是克制的苍白金色，暗部仍能读清结构。不要第一款的八边形层叠甲块、圆形宝石、圆形符文盘、蓝色核心；不要把第二款做成旧款换色。不要人物、骷髅、锁链、刀刃或场景战斗。\n横向专业设计稿，炭灰背景，写实PBR产品概念图。上半部左侧是同一新锤头装在原锤座的3/4主视图（约占全板45%，结构清楚）；右侧是同一设计的苏醒状态近景，钟室内部竖向符文音板发亮，苍金色细光尘缓慢上浮，三道竖直光印与细薄声纹可视化，清楚区分金属实体和光效，不用爆炸球。下半部是同一个部件一致比例的正交正视、俯视、外端视，保留真实镂空，正视/俯视画成对锤头与中央连接。装配视图和正交图的钟笼、拱窗数量及轮廓一致。标题和小标签用清晰中文：‘装配示意’‘符文苏醒’‘正视’‘俯视’‘端视’‘保留原中央锤座’‘苍金声纹 · 重击镇魂’。不要写玩法数字。模型设计为主，留白充分，精工实体细节丰富，避免繁杂说明字。",
+  "reference_images": [
+    {
+      "path": "D:/FPS3D/FPSGAME/Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_head_mount_false.png",
+      "role": "preserved central mount only; icon frame excluded"
+    },
+    {
+      "path": "D:/FPS3D/FPSGAME/SourceAssets/RuneboundWarhammer20261022/LegendaryHammerHeadConcept20261023/star_oath_sealing_anvil_concept.png",
+      "role": "first legendary reference for contrast; do not copy its heads"
+    }
+  ],
+  "visual_direction": {
+    "silhouette": "paired tall bell chambers with flared bases, vertical gothic ribs, open arched windows and broad blunt impact plates",
+    "inner_structure": "rigidly retained vertical rune resonance columns, with visible inner walls and axial retainers",
+    "materials": [
+      "black forged iron",
+      "weathered dark bronze ribs",
+      "restrained ivory-silver impact edges"
+    ],
+    "awakened_vfx": "pale gold vertical sound traces, resonance column light and fine upward drifting luminous dust",
+    "destruction_vfx": "same physical model and material identity; magical emission and sound traces turn red",
+    "difference_from_star_oath": "vertical open resonance chambers instead of layered octagonal armor and round crystal cores; pale gold resonance and focused heavy strikes rather than blue area detonations"
+  },
+  "proposed_effects": {
+    "name": "镇魂刻印",
+    "status": "suggested numbers; no runtime data changed",
+    "constant": {
+      "heavy_attack_damage_multiplier": 1.15
+    },
+    "while_awake": {
+      "trigger": "each valid heavy attack hit applies one Soul Seal to that individual enemy; a two-stack completion consumes its seals and triggers one Final Toll",
+      "required_stacks": 2,
+      "duration_seconds": 6,
+      "refresh_on_valid_hit": true,
+      "target_scope": "the sealed enemy only",
+      "mark_scope": "per equipped weapon instance and per target; one heavy attack may add at most one seal to a given enemy",
+      "added_magic_damage_scale": 3.5,
+      "triggering_heavy_attack_toughness_damage_multiplier": 2,
+      "resets": "unequip, head swap, awake expiration or target death",
+      "visual": "two narrow vertical rune traces complete on the target; resonance columns brighten, a concentrated sound trace snaps toward the impact point, gold dust lifts away; no repeating spherical area explosion"
+    },
+    "destruction_mana_rune": {
+      "added_magic_damage_scale": 7,
+      "color": "red",
+      "preserves": "existing +10% INT, +10% WIS and native awakened extra-magic damage multiplier"
+    },
+    "swift_mana_rune": {
+      "preserves": "five valid attacks to awaken and existing +10% normal attack speed; heavy attacks still provide the seals"
+    },
+    "mutual_exclusion": "same hammer_heads slot as star_oath_sealing_anvil; effects are not stacked"
+  },
+  "mounting_interface": {
+    "author_units": "meters",
+    "original_head_local_axis": "X",
+    "left_x": -0.0354452141,
+    "right_x": 0.0345547859,
+    "head_origin_z": 0.916,
+    "target_overall_width_m": 0.32,
+    "target_chamber_height_m": 0.17,
+    "preservation": "replace paired outer hammer heads only; preserve original central mount, neck, shaft, grip and pommel; retain existing warhammer animation routing",
+    "dimensions_status": "concept targets only; exact contact surfaces must be copied from the host during modeling",
+    "view_status": "generated orthographic panels describe appearance; exact consistent geometry and engineering dimensions follow the approved model"
+  }
+}

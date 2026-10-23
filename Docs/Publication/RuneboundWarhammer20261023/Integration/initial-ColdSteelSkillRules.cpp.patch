@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -6,6 +6,9 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Production/ProductionToolStats.h"
++#include "../Production/ProductionToolComponent.h"
++#include "../Production/RuneboundHammerTuning.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Weapons/FPSBallisticsComponent.h"
+ #include "../Weapons/FPSMeleeLightningComponent.h"
+@@ -628,7 +631,12 @@
+             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+         const bool bBerserk=Shot.bMelee&&Shot.BerserkMaxStacks>0&&Damage>0.f
+             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
++        const bool bRunebound=Shot.bMelee&&Shot.AttackForm==EMonsterAttackForm::Blunt&&
++            Shot.ItemDefinition==RuneboundHammer::Definition&&Shooter->HasAuthority()&&
++            UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+         const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt);
++        if(bRunebound&&(Applied>0.f||(Result?Result->bKilled:Receipt.bKilled)))
++            if(auto* Tool=Shooter->FindComponentByClass<UProductionToolComponent>())Tool->RecordRuneboundHit(Shot,Hit);
+         if(bBerserk)GrantBerserkOnWeaponHit(Shooter,Shot);
+         if(bElectrified&&Damage>0.f)
+             if(auto* Lightning=Shooter->FindComponentByClass<UFPSMeleeLightningComponent>())

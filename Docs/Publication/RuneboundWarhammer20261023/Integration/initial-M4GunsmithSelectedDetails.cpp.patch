@@ -1,0 +1,63 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -12,6 +12,7 @@
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/ModularSwordVisual.h"
+ #include "../Production/ProductionToolStats.h"
++#include "../Production/RuneboundHammerTuning.h"
+ #include "../Production/ProductionResource.h"
+ #include "../Production/ProductionToolEnhance.h"
+ #include "../Production/ProductionTreeHealth.h"
+@@ -204,6 +205,52 @@
+         AddValue(ColdSteelWeaponText::ADS,Was.ADS*1000,Now.ADS*1000,0,TEXT(" ms"),true,Percent(B.ADS));
+         ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)[Paragraph(ColdSteelWeaponText::BowScope,12,GunsmithUI::Muted)];
+     }
++    else if(Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item))
++    {
++        const auto Was=ColdSteelTool::Evaluate(*Item,Profile,&WithoutPart);
++        const auto Now=ColdSteelTool::Evaluate(*Item,Profile,&Gunsmith->Draft());
++        const auto& M=Option->Melee;
++        const bool StarOathPart=Item->Definition==RuneboundHammer::Definition&&SelectedCategory==TEXT("hammer_heads")&&Id==RuneboundHammer::StarOathHead;
++        if(!StarOathPart)AddValue(TEXT("物理伤害"),Was.Damage.BasePhysical+Was.Damage.AddedPhysical,Now.Damage.BasePhysical+Now.Damage.AddedPhysical,2,TEXT(""),false,(M.PhysicalDamage-1.)*100.);
++        if(Item->Definition==RuneboundHammer::Definition&&Profile)
++        {
++            const auto Mult=[](const FGunsmithParts& Parts)
++                {return Parts.FindRef(TEXT("rune"))==TEXT("destruction_mana_rune")?RuneboundHammer::DestructionAttributeMultiplier:1.;};
++            const auto* Held=Profile->Equipped();
++            const auto Power=[](const FGunsmithParts& Parts)
++                {return Parts.FindRef(TEXT("hammer_heads"))==RuneboundHammer::StarOathHead?RuneboundHammer::StarOathAttackMultiplier:1.;};
++            const auto* Active=Profile->ActiveProductionTool();
++            const double InstalledPower=Active?RuneboundHammer::AttackMultiplier(*Active):1.;
++            for(FName Stat:{FName(TEXT("atk")),FName(TEXT("matk"))})
++                AddValue(Stat==TEXT("atk")?TEXT("物理攻击力"):TEXT("魔法攻击力"),
++                    Profile->Derived(Stat)/InstalledPower*Power(WithoutPart),
++                    Profile->Derived(Stat)/InstalledPower*Power(Gunsmith->Draft()),2,TEXT(""),false,
++                    (Power(Gunsmith->Draft())/Power(WithoutPart)-1.)*100.);
++            const double InstalledAttributeMult=Held?RuneboundHammer::AttributeMultiplier(*Held):1.;
++            const double From=Mult(WithoutPart),To=Mult(Gunsmith->Draft());
++            if(!FMath::IsNearlyEqual(From,To))for(FName Attribute:{FName(TEXT("wis")),FName(TEXT("intt"))})
++            {
++                const double Base=Profile->Attribute(Attribute)/InstalledAttributeMult;
++                AddValue(Attribute==TEXT("wis")?TEXT("精神"):TEXT("智力"),Base*From,Base*To,2,TEXT(""),false,(To/From-1.)*100.);
++            }
++        }
++        AddValue(TEXT("攻击速度倍率"),Was.RateScale,Now.RateScale,2,TEXT("×"),false,(M.AttackSpeed-1.)*100.);
++        AddValue(ColdSteelWeaponText::StaminaCost,Was.StaminaCost,Now.StaminaCost,2,TEXT(""),true,(M.Stamina-1.)*100.);
++        if(!FMath::IsNearlyEqual(M.HeavyReleaseStamina,1.))
++            AddValue(TEXT("重击出手体力消耗"),Was.HeavyReleaseStaminaCost,Now.HeavyReleaseStaminaCost,2,TEXT(""),true,(M.HeavyReleaseStamina-1.)*100.);
++        AddValue(TEXT("韧性伤害倍率"),Was.ToughnessDamage,Now.ToughnessDamage,2,TEXT("×"),false,(M.ToughnessDamage-1.)*100.);
++        AddValue(TEXT("改造物理防御穿透"),Before.Melee.PhysicalArmorPenetration*100.,After.Melee.PhysicalArmorPenetration*100.,0,TEXT("%"),false,M.PhysicalArmorPenetration*100.);
++        AddValue(TEXT("重击伤害倍率"),Was.HeavyDamageMultiplier,Now.HeavyDamageMultiplier,2,TEXT("×"),false,(M.HeavyDamage-1.)*100.);
++        AddValue(TEXT("重击蓄力速度加成"),Was.HeavyChargeSpeedBonus*100.,Now.HeavyChargeSpeedBonus*100.,0,TEXT("%"));
++        AddValue(TEXT("所有技能冷却倍率"),Before.Melee.SkillCooldown,After.Melee.SkillCooldown,2,TEXT("×"),true,(M.SkillCooldown-1.)*100.);
++        AddValue(TEXT("武技冷却倍率"),Before.Melee.MartialCooldown,After.Melee.MartialCooldown,2,TEXT("×"),true,(M.MartialCooldown-1.)*100.);
++        AddValue(TEXT("魔法技能冷却倍率"),Before.Melee.MagicCooldown,After.Melee.MagicCooldown,2,TEXT("×"),true,(M.MagicCooldown-1.)*100.);
++        AddValue(TEXT("魔法伤害倍率"),Before.Melee.MagicDamage,After.Melee.MagicDamage,2,TEXT("×"),false,(M.MagicDamage-1.)*100.);
++        if(M.RuneIntelligence>0.||M.RuneWisdom>0.)
++            AddEffect(FString::Printf(TEXT("侵蚀附伤｜战锤攻击附加智力×%.0f%%＋精神×%.0f%%的魔法伤害，随本次攻击倍率结算。"),M.RuneIntelligence*100.,M.RuneWisdom*100.));
++        if(M.RuneVulnerabilitySeconds>0.)
++            AddEffect(FString::Printf(TEXT("导魔易伤｜战锤攻击命中后，目标受到的魔法伤害提高%.0f%%，持续%.0f秒；重复命中刷新，不叠加。"),M.RuneVulnerability*100.,M.RuneVulnerabilitySeconds));
++    }
+     else if(IsToolWorkbench()&&Item)
+     {
+         // 工具四栏：采集与自卫两条链路读同一份评估，行名与目录 effects 措辞一致。

@@ -1,0 +1,135 @@
+{
+  "git_base": "d1ca12a486288e9c6923ddb67d3a583c385bf3c6",
+  "entries": [
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/FPSPlayerBodyActions.cpp.patch",
+      "base_sha256": "c206993281ab9b46c328c2b3c90951cbc3ab1791747fdc03ec4f37c73b3e91b9",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 11
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionAxeContact.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionAxeContact.cpp.patch",
+      "base_sha256": "b29b5762b237be506af46c51df13e83789edbe4780fd4e6fab902bab9854f5d3",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 5
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionBluntAuthority.cpp.patch",
+      "base_sha256": "7731a118673fbc4f78620e4116cb9983773c6d54cdda38b19fe5e80b39a31e7c",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 45
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionBluntHeavy.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionBluntHeavy.cpp.patch",
+      "base_sha256": "9c8646e9d9b14ff18e9a9f9f19f20bb534b46803a7e8a6f81e3b42a4d03ae0fc",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 4
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolComponent.cpp.patch",
+      "base_sha256": "bbbd7b480e7eab71a035cb92bedace883eab945b0b77d01b1523eab9ed464ff8",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 21
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolComponent.h.patch",
+      "base_sha256": "4e2a13d4fd7535b2e6f7902b6c7c140e56dfa14459b87835e210034ba897952b",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 37
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolMotion.cpp.patch",
+      "base_sha256": "67ef8cbd15b2e21b7306dcaea15ab51532a60ac7b768f18b094e7ec03af28107",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 13
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolStats.cpp.patch",
+      "base_sha256": "57f1f42b9101c6236a3786df7c8e267736d402e04e48e3e12af9cb65716ef944",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 1
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolStats.h",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolStats.h.patch",
+      "base_sha256": "af54f1a5e03023e0b8944ff8368cdb83a1dcec92626f588c442d6bc8ae9e0396",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 1
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/M4GunsmithSelectedDetails.cpp.patch",
+      "base_sha256": "dbfc6440d0fc2de297f5f260a95ffa6370fbd4e548817a864c004249f33ac1a5",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 1
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/M4MeleeGunsmith.cpp.patch",
+      "base_sha256": "4400d5cc0344f0ac9d7ce99902f6f29ffdfdaac9a8727a9da3a99347766315bd",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 2
+    },
+    {
+      "target": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/GunsmithModificationTier.h.patch",
+      "base_sha256": "345023832bd9b9d0b0c6233813eefead18f040bc47c7bb4aeab0cbc8be4a9e5a",
+      "basis": "local pre-FinalToll snapshot; requires existing warhammer/passive framework",
+      "changes": 2
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/initial-ColdSteelStatusModel.cpp.patch",
+      "base_git_blob": "573eb36ad82a0d6512e98a1194febbe9c5a87371",
+      "basis": "selected task-only HEAD hunks; review before applying; other local framework prerequisites excluded"
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/initial-ColdSteelSkillRules.cpp.patch",
+      "base_git_blob": "eb24dc6306bc82838bb3f98f34f690a321b5b3e7",
+      "basis": "selected task-only HEAD hunks; review before applying; other local framework prerequisites excluded"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/initial-ColdSteelItemTooltipData.cpp.patch",
+      "base_git_blob": "bacf61d99b332daeb14b08c76fbf791719cb0760",
+      "basis": "selected task-only HEAD hunks; review before applying; other local framework prerequisites excluded"
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/initial-M4GunsmithSelectedDetails.cpp.patch",
+      "base_git_blob": "966db6b9ca2f18bb53576758c155513652815a80",
+      "basis": "selected task-only HEAD hunks; review before applying; other local framework prerequisites excluded"
+    },
+    {
+      "target": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/initial-M4MeleeGunsmith.cpp.patch",
+      "base_git_blob": "5ee5cd2fbd76edcc9b28d23521ac7294a751dba2",
+      "basis": "selected task-only HEAD hunks; review before applying; other local framework prerequisites excluded"
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "patch": "Docs/Publication/RuneboundWarhammer20261023/Integration/initial-ProductionToolStats.cpp.patch",
+      "base_git_blob": "0615728c0e5c1b730d33063f37da4be77e6f8f23",
+      "basis": "selected task-only HEAD hunks; review before applying; other local framework prerequisites excluded"
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "fragment": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolComponent.h.owned-fragment.txt",
+      "basis": "initial passive declarations/wiring within mixed unpublished framework; merge with final-toll patch, not a standalone replacement"
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "fragment": "Docs/Publication/RuneboundWarhammer20261023/Integration/ProductionToolComponent.cpp.owned-fragment.txt",
+      "basis": "initial passive declarations/wiring within mixed unpublished framework; merge with final-toll patch, not a standalone replacement"
+    }
+  ]
+}

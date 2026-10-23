@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "weapon": "ue_runebound_warhammer",
+  "traits": [
+    {
+      "icon": "special",
+      "text": "点按左键施展前方群体三连击，以双向斜挥衔接过顶下砸。"
+    },
+    {
+      "icon": "special",
+      "text": "按住左键蓄力，蓄满后松开砸向地面并释放圆形冲击波。"
+    },
+    {
+      "icon": "neutral",
+      "text": "改造栏包含双侧锤头、中央锤座、符文、握持包覆与柄尾配重。"
+    },
+    {
+      "icon": "special",
+      "text": "符文苏醒：攻击伤及敌人积累能量，蓄满后自动激活20秒；基础需10次有效攻击，迅捷魔力符文改为5次。同次群攻仅积累一次。"
+    },
+    {
+      "icon": "special",
+      "text": "苏醒期间符文亮起，攻击附加随智力与精神提升的魔法伤害；期间不再蓄能，结束后重新积累，切换武器或死亡清空。"
+    }
+  ],
+  "columns": [
+    {
+      "key": "hammer_heads",
+      "name": "双侧锤头",
+      "default": "原装双侧锤头",
+      "description": "两端对称的锻钢击打头与收颈连臂成对装配，保留原有倒角和锤面。",
+      "options": [
+        {
+          "id": "star_oath_sealing_anvil",
+          "name": "星誓·封界之砧",
+          "tier": "legendary",
+          "weapons": [
+            "ue_runebound_warhammer"
+          ],
+          "description": "符文战锤专属。层叠暗铁包覆成对锤首，旧银护边环抱封印核心，细密符印沿圆环与拱肋流转。",
+          "appearance": "层叠暗铁锤甲 · 切面封印核心 · 嵌金符印与导能槽",
+          "stats": {
+            "physical_attack_mult": 1.1,
+            "magic_attack_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "物理攻击力 +10%",
+              "benefit": 1
+            },
+            {
+              "text": "魔法攻击力 +10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "封界震荡｜符文苏醒期间，每3次有效攻击命中触发一次爆震，对命中目标及半径2.5米内的敌人造成200%魔法攻击力的魔法伤害。同次群攻只计一次；切换武器、苏醒结束或卸下锤头清空计数。",
+            "符文共鸣｜搭配破坏魔力符文，爆震转为赤红且爆震魔法伤害翻倍；搭配迅捷魔力符文，保留5次命中苏醒与攻击速度+10%。",
+            "封印绽放｜爆震时锤头核心闪亮，魔力粒子与光屑猛烈炸开，随后减速上浮并缓慢消散。"
+          ]
+        },
+        {
+          "id": "final_toll_soul_bell",
+          "name": "终律·镇魂钟",
+          "tier": "legendary",
+          "weapons": [
+            "ue_runebound_warhammer"
+          ],
+          "description": "符文战锤专属。古老钟室以暗青铜拱肋锁住符文音柱，黑铁平砧承接落锤的重量，让镇魂回响沿长柄传递。",
+          "appearance": "镂空钟室 · 苍金音柱 · 黑铁平砧与风化青铜拱肋",
+          "stats": {
+            "heavy_damage_mult": 1.15,
+            "heavy_release_stamina_mult": 2.0
+          },
+          "effects": [
+            {
+              "text": "重击伤害 +15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击出手体力消耗 +100%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": [
+            "双重重击｜蓄满后的重击改为先下砸、再从落点向右上回击，两段分别造成完整重击伤害并独立命中；释放动作不受普通攻击速度影响。出手体力消耗翻倍，蓄力期间消耗不变。",
+            "镇魂刻印｜符文苏醒期间，重击有效命中为该目标叠加一层刻印，持续6秒；同一目标达到两层时消耗刻印，附加350%魔法攻击力的单体魔法伤害，且触发重击的削韧效果翻倍。每段对同一目标只叠一层，双重重击两段均命中即可触发。",
+            "符文共鸣｜搭配破坏魔力符文，终律附加魔法伤害提高至700%魔法攻击力，声纹与光尘转红；迅捷魔力符文保留5次命中苏醒与普通攻击速度+10%。",
+            "终律回响｜内部符文音柱闪亮，目标上的竖向刻印合拢，细长声纹与苍金光尘上浮消散。苏醒结束、切换武器、卸下锤头或目标死亡时清除刻印。"
+          ]
+        }
+      ],
+      "options_library": "common-hammer-heads.json"
+    },
+    {
+      "key": "head_mount",
+      "name": "中央锤座",
+      "default": "原装中央锤座",
+      "description": "保留原装符文锤座；通用锤座按本锤真实侧接面与锤颈接口装配。",
+      "options": [],
+      "options_library": "common-hammer-seats.json"
+    },
+    {
+      "key": "rune",
+      "name": "符文",
+      "default": "无附加符文",
+      "description": "在原生刻纹上装配特殊魔力符文，或在长柄附加通用符文。",
+      "options": [
+        {
+          "id": "swift_mana_rune",
+          "name": "迅捷魔力符文",
+          "tier": "special",
+          "weapons": [
+            "ue_runebound_warhammer"
+          ],
+          "description": "符文战锤专属。原生刻纹间贯通迅捷的蓝色魔力，细密流光沿锤身涌动。",
+          "appearance": "原生刻纹强化 · 蓝色流光 · 密集魔力微粒",
+          "stats": {
+            "attack_speed_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "攻击速度 +10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "迅捷苏醒｜符文苏醒所需的有效攻击由10次降为5次；同次群攻仅计一次。",
+            "魔力流光｜强化原生符文的蓝色流光，苏醒时漂浮微粒与锤头命中粒子更密集。"
+          ]
+        },
+        {
+          "id": "destruction_mana_rune",
+          "name": "破坏魔力符文",
+          "tier": "special",
+          "weapons": [
+            "ue_runebound_warhammer"
+          ],
+          "description": "符文战锤专属。赤红魔力沿原生刻纹汇聚，苏醒时裂光迸发，命中后魔力碎片炸开飘散。",
+          "appearance": "原生刻纹强化 · 赤红聚能 · 爆裂余烬",
+          "stats": {
+            "intelligence_mult": 1.1,
+            "wisdom_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "精神 +10%",
+              "benefit": 1
+            },
+            {
+              "text": "智力 +10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "破坏苏醒｜符文苏醒期间，该被动提供的附加魔法伤害翻倍；苏醒仍需10次有效攻击，持续20秒。",
+            "聚能崩解｜赤红魔力沿原生刻纹涌动；苏醒命中时从锤头炸开光屑与碎片，减速飘散并上浮消失。"
+          ]
+        }
+      ],
+      "options_library": "melee-gunsmith.json",
+      "options_column": "blade_2"
+    },
+    {
+      "key": "grip",
+      "name": "握持包覆",
+      "default": "原装握持包覆",
+      "description": "沿用现有双手接触位置，替换下段包覆并保留两端安装截面。",
+      "options": [],
+      "options_library": "common-hammer-grips.json"
+    },
+    {
+      "key": "pommel",
+      "name": "柄尾配重",
+      "default": "原装柄尾配重",
+      "description": "柄尾的金属收束与圆钝配重，连接原装握持段下端。",
+      "options": [],
+      "options_library": "common-hammer-pommels.json"
+    }
+  ]
+}

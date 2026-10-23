@@ -1,0 +1,413 @@
+{
+  "version": 2,
+  "weapon": "ue_runebound_warhammer",
+  "interface": "runebound_warhammer_modular_v1",
+  "arms_mesh": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+  "root_slot": "head_mount",
+  "module_slots": [
+    "head_mount",
+    "hammer_heads",
+    "neck",
+    "shaft",
+    "grip",
+    "pommel"
+  ],
+  "drive_bone": "WPN_root",
+  "bone_mount": {
+    "location_cm": [
+      2.340870872418089e-08,
+      2.9104042001995044e-08,
+      -4.4859800020166056e-08
+    ],
+    "scale": [
+      0.009999999526628238,
+      0.010000003102907606,
+      0.010000000718721076
+    ],
+    "rotation_xyzw": [
+      -1.0325357424885687e-07,
+      1.4323398885712768e-07,
+      6.75819938650594e-08,
+      0.999999999999982
+    ]
+  },
+  "slots": {
+    "head_mount": {
+      "factory": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_factory.SM_RuneboundWarhammer_head_mount_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "appearance": "原装中央锤座",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "reinforced_block": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_reinforced_block.SM_RuneboundWarhammer_head_mount_reinforced_block",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "厚壁方芯 · 阶梯盖板 · 嵌入铆钉",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerSeat_reinforced_block_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "ribbed_light": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_ribbed_light.SM_RuneboundWarhammer_head_mount_ribbed_light",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "三角减重窗 · 交叉支撑肋 · 连续内芯",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerSeat_ribbed_light_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "laminated_damper": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_laminated_damper.SM_RuneboundWarhammer_head_mount_laminated_damper",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "appearance": "叠片盖板 · 深色垫片 · 四角拉杆",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerSeat_laminated_damper_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      }
+    },
+    "hammer_heads": {
+      "factory": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_factory.SM_RuneboundWarhammer_hammer_heads_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000085830688
+        ],
+        "appearance": "原装双侧锤头",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "heavy_forged": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_heavy_forged.SM_RuneboundWarhammer_hammer_heads_heavy_forged",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "宽方锤面 · 阶梯锤肩 · 成对锻钢头",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_heavy_forged_DesignV2",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "flanged_breaker": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_flanged_breaker.SM_RuneboundWarhammer_hammer_heads_flanged_breaker",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "八道纵向棱翼 · 收边端面 · 成对棱锤",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_flanged_breaker_DesignV2",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "light_drum": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_light_drum.SM_RuneboundWarhammer_hammer_heads_light_drum",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "紧凑鼓形 · 环槽束腰 · 内凹端面",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_light_drum_DesignV2",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "pointed_hammer": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_pointed_hammer.SM_RuneboundWarhammer_hammer_heads_pointed_hammer",
+        "location_cm": [
+          0.0,
+          -0.0,
+          91.60000000000001
+        ],
+        "appearance": "双侧直尖 · 纵向棱槽 · 锻钢收肩",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-heads.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerHeads_pointed_hammer_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "star_oath_sealing_anvil": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/StarOathV1/SM_RuneboundWarhammer_StarOathHammerHeads_V1.SM_RuneboundWarhammer_StarOathHammerHeads_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          91.6
+        ],
+        "appearance": "层叠暗铁锤甲 · 切面封印核心 · 嵌金符印与导能槽",
+        "interface": "runebound_warhammer_modular_v1",
+        "model_revision": "StarOathHammerHeadV1",
+        "exclusive_to": "ue_runebound_warhammer",
+        "materials": {
+          "M_StarOath_PBR_Surface": "/Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_PBR_Surface.M_StarOath_PBR_Surface",
+          "M_StarOath_FineInlay_Brass": "/Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_FineInlay_Brass.M_StarOath_FineInlay_Brass",
+          "M_StarOath_Optical_Crystal": "/Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_Optical_Crystal.M_StarOath_Optical_Crystal",
+          "M_StarOath_Rune_Energy": "/Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_Rune_Energy.M_StarOath_Rune_Energy"
+        }
+      },
+      "final_toll_soul_bell": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/SM_RuneboundWarhammer_FinalTollHammerHeads_V1.SM_RuneboundWarhammer_FinalTollHammerHeads_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          91.6
+        ],
+        "appearance": "镂空钟室 · 苍金音柱 · 黑铁平砧与风化青铜拱肋",
+        "interface": "runebound_warhammer_modular_v1",
+        "model_revision": "FinalTollHammerHeadV1",
+        "exclusive_to": "ue_runebound_warhammer",
+        "heavy_attack": "final_toll_double_heavy",
+        "materials": {
+          "M_FinalToll_PBR_Surface": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_PBR_Surface.M_FinalToll_PBR_Surface",
+          "M_FinalToll_FineInlay_Brass": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_FineInlay_Brass.M_FinalToll_FineInlay_Brass",
+          "M_FinalToll_Rune_Energy": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_Rune_Energy.M_FinalToll_Rune_Energy"
+        }
+      }
+    },
+    "neck": {
+      "factory": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_neck_factory.SM_RuneboundWarhammer_neck_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          84.20000076293945
+        ],
+        "appearance": "原装锤颈套箍",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      }
+    },
+    "shaft": {
+      "factory": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_shaft_factory.SM_RuneboundWarhammer_shaft_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          77.99999713897705
+        ],
+        "appearance": "原装金属长柄",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_factory.SM_RuneboundWarhammer_grip_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.50000011920929
+        ],
+        "appearance": "原装握持包覆",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "bias_speed_wrap": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_bias_speed_wrap.SM_RuneboundWarhammer_grip_bias_speed_wrap",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.5
+        ],
+        "appearance": "灰褐织带 · 连续螺旋搭接 · 窄边收口",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerGrip_bias_speed_wrap_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "layered_cushion_wrap": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_layered_cushion_wrap.SM_RuneboundWarhammer_grip_layered_cushion_wrap",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.5
+        ],
+        "appearance": "棕色皮革 · 分节软垫 · 侧面缝线",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerGrip_layered_cushion_wrap_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "diamond_power_wrap": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_diamond_power_wrap.SM_RuneboundWarhammer_grip_diamond_power_wrap",
+        "location_cm": [
+          0.0,
+          -0.0,
+          40.5
+        ],
+        "appearance": "黑褐编革 · 菱纹交叠 · 金属收口",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-grips.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerGrip_diamond_power_wrap_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_factory.SM_RuneboundWarhammer_pommel_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.500000089406967
+        ],
+        "appearance": "原装柄尾配重",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "octagonal_impact": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_octagonal_impact.SM_RuneboundWarhammer_pommel_octagonal_impact",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "八棱锻钢 · 宽倒角 · 齐平锁盖",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_octagonal_impact_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "caged_agility": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_caged_agility.SM_RuneboundWarhammer_pommel_caged_agility",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "六肋镂笼 · 贯通窗口 · 内凹紧固件",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_caged_agility_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "twin_disc_balance": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_twin_disc_balance.SM_RuneboundWarhammer_pommel_twin_disc_balance",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "双盘配重 · 刚性短芯 · 同心车纹",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_twin_disc_balance_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      },
+      "no_pommel": {
+        "mesh": "/Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_no_pommel.SM_RuneboundWarhammer_pommel_no_pommel",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -8.5
+        ],
+        "appearance": "无配重坠体 · 轻薄平整收口",
+        "interface": "runebound_warhammer_modular_v1",
+        "shared_option_library": "common-hammer-pommels.json",
+        "model_revision": "HostSectionFitV1",
+        "source_mesh": "SM_CommonHammerPommel_NoWeightCap_V1",
+        "materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface.M_RuneboundAwakeSurface"
+        }
+      }
+    },
+    "rune": {
+      "factory": {
+        "appearance": "保留原生刻纹 · 不附加符文"
+      },
+      "haste_rune": {
+        "appearance": "疾风折纹 · 黄色流光"
+      },
+      "resonance_rune": {
+        "appearance": "共鸣环印 · 青绿呼吸微光"
+      },
+      "erosion_rune": {
+        "appearance": "侵蚀裂纹 · 紫色渐隐"
+      },
+      "conduction_rune": {
+        "appearance": "导魔回路 · 蓝色流光"
+      },
+      "strength_rune": {
+        "appearance": "中轴重印 · 赤红微光"
+      },
+      "swift_mana_rune": {
+        "appearance": "原生刻纹强化 · 蓝色流光 · 密集魔力微粒",
+        "surface_materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/SwiftManaRuneV1/M_RuneboundSwiftRuneSurface.M_RuneboundSwiftRuneSurface"
+        }
+      },
+      "destruction_mana_rune": {
+        "appearance": "原生刻纹强化 · 赤红聚能 · 爆裂余烬",
+        "surface_materials": {
+          "M_RuneboundWarhammerSurface": "/Game/Weapons/RuneboundWarhammer20261022/DestructionRedImpactV2/M_RuneboundDestructionRuneSurface.M_RuneboundDestructionRuneSurface"
+        }
+      }
+    }
+  },
+  "native_passive": "RuneboundAwakeningV1"
+}

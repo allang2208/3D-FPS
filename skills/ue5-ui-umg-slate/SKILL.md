@@ -23,3 +23,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 装备缩略浮窗的套装进度段（件数 `（4/5）`、凑齐后属性、未凑齐降色）及其三个实现坑（分组分支提前 return、行不要进 RowViews、耗时类要显示负号），读取 [装备浮窗套装进度](references/equipment-set-progress.md)。
 
 暴击类词条的三个口径（倍率 `1.80x`／伤害加成 `+25%`／点数 `+10%`）与浮窗映射写法，读取 [暴击相关术语](references/critical-damage-wording.md)。
+
+- 玻璃容器式能量条顶部补全、上下端帽对称及魔法漂浮光粒，读取 [浮动能量条端帽](references/energy-vessel-caps.md)，使用实际布局反射并保留版本间制作输入。

@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -321,15 +321,22 @@
+             else if(Tool->bBluntHeavy)State.ActionVariant=Tool->bBluntSprintAttack?TEXT("WarhammerSprintSlam"):TEXT("WarhammerSlam");
+             const float ToolTime=Tool->AuthoredElapsed();
+             const bool SprintLift=Tool->bBluntSprintAttack&&ToolTime<0.f;
+-            const bool GroundHold=Tool->bBluntHeavy&&ToolTime>=WarhammerHeavy::Contact&&ToolTime<=WarhammerHeavy::HoldEnd;
++            if(Tool->UsesFinalTollHeavy())State.ActionVariant=TEXT("WarhammerFinalToll");
++            const bool GroundHold=Tool->bBluntHeavy&&!Tool->UsesFinalTollHeavy()&&ToolTime>=WarhammerHeavy::Contact&&ToolTime<=WarhammerHeavy::HoldEnd;
+             Timed(Diagonal?EFPSBodyAction::Strike:EFPSBodyAction::HeavyStrike,ToolTime,Tool->SwingSeconds,GroundHold?1.f:Tool->BluntMotionRate());
++            if(Tool->UsesFinalTollHeavy())
++            {
++                Timed(EFPSBodyAction::HeavyStrike,Tool->Elapsed,FinalTollHeavy::Duration,Tool->FinalTollActionRate);
++                State.ContactFraction=FinalTollHeavy::FirstContact/FinalTollHeavy::Duration;
++                State.ReleaseFraction=FinalTollHeavy::FollowEnd/FinalTollHeavy::Duration;
++            }
+             if(SprintLift)
+             {
+                 State.ActionVariant=TEXT("WarhammerSprintLift");
+                 Timed(EFPSBodyAction::Charge,Tool->Elapsed,WarhammerSprint::LiftSeconds);
+             }
+             State.ContactFraction=Tool->ContactSeconds/FMath::Max(.01f,Tool->SwingSeconds);
+-            if(Tool->Kind==TEXT("warhammer")&&Tool->bBluntHeavy)
++            if(Tool->Kind==TEXT("warhammer")&&Tool->bBluntHeavy&&!Tool->UsesFinalTollHeavy())
+                 State.ReleaseFraction=(Tool->ContactSeconds+.12f)/FMath::Max(.01f,Tool->SwingSeconds);
+             if(Tool->Kind==TEXT("warhammer")&&!Tool->bBluntHeavy)
+             {

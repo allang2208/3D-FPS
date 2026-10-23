@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -14,6 +14,7 @@
+ #include "../Weapons/GunsmithSystem.h"
+ #include "../Weapons/FullAutoTrigger.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Production/RuneboundHammerTuning.h"
+ #include "../Weapons/ModularSwordVisual.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Weapons/Bow/BowStats.h"
+@@ -341,6 +342,9 @@
+                 Delta(C,ColdSteelWeaponText::RuneVulnerability,S.Melee.RuneVulnerability*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::CooldownReducePerHit,S.Melee.CooldownReduceSecondsPerHit,TEXT(" s"));
+                 Delta(C,ColdSteelWeaponText::AttackSpeed,(S.Melee.AttackSpeed-1)*100,TEXT("%"));
++                const double RuneAttribute=RuneboundHammer::AttributeMultiplier(I);
++                Delta(C,TEXT("精神"),(RuneAttribute-1.)*100,TEXT("%"));
++                Delta(C,TEXT("智力"),(RuneAttribute-1.)*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::AttackDistance,(S.Melee.Range-1)*100,TEXT("%"));
+                 Delta(C,ColdSteelWeaponText::StaminaCost,(S.Melee.Stamina-1)*100,TEXT("%"),true);
+                 Delta(C,TEXT("造成硬直时间"),(S.Melee.HitReaction-1)*100,TEXT("%"));

@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "created": "2026-10-23",
+  "generator": "built-in image_gen",
+  "weapon": "ue_runebound_warhammer",
+  "scope": "Four physical factory parts plus their category icons. No whole-weapon inventory icon, no common accessories, no fixed neck/shaft, no no-rune icon change.",
+  "approved_frame_reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_rune_false.png",
+  "standard": "C:/Users/allan/.codex/skills/ue5-weapon-workflow/references/attachment-icons.md",
+  "source_geometry": "SourceAssets/RuneboundWarhammer20261022/ModulesV1/RuneboundWarhammer_Modular_Editable.blend",
+  "runtime_consumer": "Source/FPSGAME/UI/M4GunsmithLayout.cpp; FImageUtils::ImportFileAsTexture2D",
+  "assets": [
+    {
+      "slot": "hammer_heads",
+      "name": "原装双侧锤头",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a163b2-7c06-73f2-874a-e8a974d05288\\exec-de85581c-2323-42ca-9554-069147a45fc5.png",
+      "master": "Masters/hammer_heads.png",
+      "source_part_reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_hammer_heads_false.png",
+      "source_object": "SM_RuneboundWarhammer_hammer_heads_factory",
+      "orientation": "front, installed horizontal paired heads, central mounting gap",
+      "prompt": "Edit a static fantasy-game warhammer crafting icon. Image 1 provides the approved decorative silver-and-dark-iron square frame: thick layered chamfers, four large beveled riveted corner plates, bright worn silver inner circular rim, recessed dark graphite plate. Retain that frame exactly. Remove only the central minus symbol and its smaller circle. Image 2 is the ACTUAL ORIGINAL component; replace its old simplified smooth frame with the approved frame from image 1. Preserve the component's exact silhouette, orientation, proportions, carvings, original material divisions, real holes and authentic worn surfaces. Realistic grayscale catalog lighting, wholly neutral gray. Center the complete component inside the LARGE circle with clear margin. Frame interior dark plate opaque; very narrow outer margin truly transparent. One 1024x1024 RGBA icon. No text, labels, watermark, badges, colored glow or invented component details. Subject: the TWO opposed original side hammerhead halves, which together form ONE detachable factory component. Preserve the empty central mounting gap shown in image 2. Horizontally aligned in the same frontal orientation. Each half retains the broad outer beveled cap, inward tapering/concave panel, original angular carved rune, collar bands, inner rivets. Enlarge the entire pair uniformly to approximately 75 percent of inner circle width. Preserve actual carving design. No central mount, shaft, joining block, extra halves or rearrangement.",
+      "targets": [
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_hammer_heads_false.png",
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_category_hammer_heads.png",
+        "SourceAssets/RuneboundWarhammer20261022/ModulesV1/Icons/hammer_heads.png"
+      ]
+    },
+    {
+      "slot": "head_mount",
+      "name": "原装中央锤座",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a163b2-7c06-73f2-874a-e8a974d05288\\exec-9e138c4a-f3b0-44d1-b45b-3b51771eed42.png",
+      "master": "Masters/head_mount.png",
+      "source_part_reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_head_mount_false.png",
+      "source_object": "SM_RuneboundWarhammer_head_mount_factory",
+      "orientation": "front, installed upright",
+      "prompt": "Edit a static fantasy-game warhammer crafting icon. Image 1 provides the approved decorative silver-and-dark-iron square frame: thick layered chamfers, four large beveled riveted corner plates, bright worn silver inner circular rim, recessed dark graphite plate. Retain that frame exactly. Remove only the central minus symbol and its smaller circle. Image 2 is the ACTUAL ORIGINAL component; replace its old simplified smooth frame with the approved frame from image 1. Preserve the component's exact silhouette, orientation, proportions, carvings, original material divisions, real holes and authentic worn surfaces. Realistic grayscale catalog lighting, wholly neutral gray. Center the complete component inside the LARGE circle with clear margin. Frame interior dark plate opaque; very narrow outer margin truly transparent. One 1024x1024 RGBA icon. No text, labels, watermark, badges, colored glow or invented component details. Subject: exactly the central vertical original housing from image 2, squat faceted cylindrical shape with stepped top cap, two horizontal grooves, tall gothic arched/trident relief and small three-hole/teardrop detail. Preserve top and lower connection stubs. Same front-facing upright view and exact original proportions, fully visible at approximately 67 percent of circle height. No extra decoration or side blocks.",
+      "targets": [
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_head_mount_false.png",
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_category_head_mount.png",
+        "SourceAssets/RuneboundWarhammer20261022/ModulesV1/Icons/head_mount.png"
+      ]
+    },
+    {
+      "slot": "grip",
+      "name": "原装握持包覆",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a163b2-7c06-73f2-874a-e8a974d05288\\exec-dc4547e6-ee20-4a51-bc90-2a9c9bc9129c.png",
+      "master": "Masters/grip.png",
+      "source_part_reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_grip_false.png",
+      "source_object": "SM_RuneboundWarhammer_grip_factory",
+      "orientation": "front, installed upright",
+      "prompt": "Edit a static fantasy-game warhammer crafting icon. Image 1 provides the approved decorative silver-and-dark-iron square frame: thick layered chamfers, four large beveled riveted corner plates, bright worn silver inner circular rim, recessed dark graphite plate. Retain that frame exactly. Remove only the central minus symbol and its smaller circle. Image 2 is the ACTUAL ORIGINAL component; replace its old simplified smooth frame with the approved frame from image 1. Preserve the component's exact silhouette, orientation, proportions, carvings, original material divisions, real holes and authentic worn surfaces. Realistic grayscale catalog lighting, wholly neutral gray. Center the complete component inside the LARGE circle with clear margin. Frame interior dark plate opaque; very narrow outer margin truly transparent. One 1024x1024 RGBA icon. No text, labels, watermark, badges, colored glow or invented component details. Subject: exactly the very LONG SLENDER original grip module in image 2. Preserve its narrow width and upright installed orientation. Short exposed top stub, upper riveted steel ferrule, long dark crisscross-wrapped leather section, lower riveted steel ferrule and little flared lower connector. Retain authentic matte leather texture distinct from steel. Enlarge uniformly to 76 percent of circle height, maintaining true slim aspect ratio. No horizontal rotation, thickening, full hammer or new pommel.",
+      "targets": [
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_grip_false.png",
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_category_grip.png",
+        "SourceAssets/RuneboundWarhammer20261022/ModulesV1/Icons/grip.png"
+      ]
+    },
+    {
+      "slot": "pommel",
+      "name": "原装柄尾配重",
+      "generated_file": "C:\\Users\\allan\\.codex\\generated_images\\01a163b2-7c06-73f2-874a-e8a974d05288\\exec-529d6c3f-3658-4a63-ae54-7952c41b53f3.png",
+      "master": "Masters/pommel.png",
+      "source_part_reference": "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_pommel_false.png",
+      "source_object": "SM_RuneboundWarhammer_pommel_factory",
+      "orientation": "front, installed upright",
+      "prompt": "Edit a static fantasy-game crafting icon. Image 1 provides the exact approved decorative silver-and-dark-iron square frame with four rivets and large inner circle. Keep that frame, dark opaque plate and narrow transparent outer edge. Remove only the center minus symbol and its small circular surround. Image 2 provides the actual original warhammer pommel: keep this exact compact faceted counterweight's shape, stepped collars, tapered lower body and worn iron texture. Put that original pommel upright in the center of the large inner circle, with a clear margin. Match the frame in image 1, realistic grayscale catalog rendering, fully neutral gray, 1024x1024 RGBA. No new decoration, no labels. This is one unattached original component icon, not a scene.",
+      "targets": [
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_pommel_false.png",
+        "Content/ColdSteelData/AttachmentIcons20260913/ue_runebound_warhammer_category_pommel.png",
+        "SourceAssets/RuneboundWarhammer20261022/ModulesV1/Icons/pommel.png"
+      ]
+    }
+  ]
+}

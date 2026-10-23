@@ -457,5 +457,22 @@
         "perEnhance": 0.69
       }
     ]
+  },
+  "ue_runebound_warhammer": {
+    "source": "RUNEBOUND_WARHAMMER_STR_CON_20261022",
+    "base": 40.5,
+    "enhanceFlat": 5.04,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 4.59,
+        "perEnhance": 0.909
+      },
+      {
+        "key": "con",
+        "base": 3.6,
+        "perEnhance": 0.621
+      }
+    ]
   }
 }

@@ -5305,3 +5305,26 @@ __pycache__/
 !/SourceAssets/PortableBackpackAlice20261019/*.py
 !/SourceAssets/PortableBackpackAlice20261019/README.md
 !/SourceAssets/ExpeditionBackpack20261022/design.md
+
+# Runebound weapon: original authoring sources only; models/content remain local.
+/SourceAssets/RuneboundWarhammer20261022/**
+!/SourceAssets/RuneboundWarhammer20261022/**/
+!/SourceAssets/RuneboundWarhammer20261022/**/*.py
+!/SourceAssets/RuneboundWarhammer20261022/**/*.ps1
+!/SourceAssets/RuneboundWarhammer20261022/**/*.md
+!/SourceAssets/RuneboundWarhammer20261022/**/*.hlsl
+!/SourceAssets/RuneboundWarhammer20261022/**/*.ush
+!/SourceAssets/RuneboundWarhammer20261022/item_definition.json
+!/SourceAssets/RuneboundWarhammer20261022/animation_manifest.json
+!/SourceAssets/RuneboundWarhammer20261022/ModulesV1/catalog_base.json
+!/SourceAssets/RuneboundWarhammer20261022/ModulesV1/workbench.json
+!/SourceAssets/RuneboundWarhammer20261022/FactoryFramedIconsV2/manifest.json
+!/SourceAssets/RuneboundWarhammer20261022/FinalTollIntegrationV1/body_roles.json
+!/SourceAssets/RuneboundWarhammer20261022/HudSymmetricCapsV3/cap_layout.json
+!/SourceAssets/RuneboundWarhammer20261022/StarOathHammerHeadV1/design_contract.json
+!/SourceAssets/RuneboundWarhammer20261022/LegendaryHammerHeadConcept20261023/concept.json
+!/SourceAssets/RuneboundWarhammer20261022/FinalTollHammerHeadConcept20261023/concept.json
+/SourceAssets/RuneboundWarhammer20261022/**/Before/
+/SourceAssets/RuneboundWarhammer20261022/**/AuthorHost/
+/SourceAssets/RuneboundWarhammer20261022/**/Wire/
+/SourceAssets/RuneboundWarhammer20261022/**/__pycache__/

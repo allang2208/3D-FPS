@@ -1,0 +1,26 @@
+{
+  "source_shader": "SourceAssets\\RuneboundWarhammer20261022\\PassiveV1\\RuneboundEnergyHud.hlsl",
+  "source_sha256": "9861e7d892c4668822ba162b80872115deb210631f4eb861ceacdfad75e3d1c3",
+  "top_boundary_px": 422.5229080932785,
+  "bottom_boundary_px": 1641.2093278463649,
+  "reflection_sum_y_px": 2063.7322359396435,
+  "body_midpoint_px": 1031.8661179698217,
+  "bottom_tip_px": 1991.8134430727025,
+  "top_tip_px": 71.91879286694098,
+  "cap_height_px": 350.6041152263376,
+  "cap_source": "existing lower cap, vertically mirrored with original masks and glass textures",
+  "retained": [
+    "32 analytic floating motes",
+    "blue energy and rune ribbon",
+    "original nine fill levels",
+    "one UI material quad",
+    "viewport size and placement",
+    "Reveal/Fill/Age/Pulse/Burst/BodyOpacity parameters"
+  ],
+  "removed": [
+    "independent upper circular seal",
+    "rigid upper neck line"
+  ],
+  "new_texture_files": 0,
+  "tests_run": false
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "variant": "Default",
+    "scope": [
+      "clips"
+    ],
+    "heavy": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash3.J_Hammer_Refined_Slash3",
+    "upper": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1"
+  },
+  {
+    "variant": "kaitlin",
+    "scope": [
+      "body_variants",
+      "kaitlin",
+      "clips"
+    ],
+    "heavy": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_92d3e0b83b_J_Hammer_Refined_Slash3.K_92d3e0b83b_J_Hammer_Refined_Slash3",
+    "upper": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e5871be1dc_J_Hammer_Refined_Slash1.K_e5871be1dc_J_Hammer_Refined_Slash1"
+  }
+]

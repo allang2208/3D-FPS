@@ -1,0 +1,481 @@
+{
+  "passed": true,
+  "count": 73,
+  "checks": [
+    {
+      "case": "workbench author base matches published data",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "module author base matches published data",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "double-heavy fullbody role default",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "double-heavy fullbody role kaitlin",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "published receipt FinalTollIntegrationV1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "actual installed legendary icon FinalTollIntegrationV1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "published receipt StarOathIntegrationV1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "actual installed legendary icon StarOathIntegrationV1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "published receipt HudSymmetricCapsV3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/DestructionRedImpactV2/M_RuneboundDestructionRuneSurface",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_Default",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_kaitlin",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_DoubleHeavy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_FineInlay_Brass",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_Mote",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_PBR_Surface",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_Rune_Energy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/SM_RuneboundWarhammer_FinalTollHammerHeads_V1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/T_FinalToll_BaseColor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/T_FinalToll_Normal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/T_FinalToll_ORM",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/HudSymmetricCapsV3/M_RuneboundEnergyHud",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_bias_speed_wrap",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_diamond_power_wrap",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_factory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_grip_layered_cushion_wrap",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_factory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_flanged_breaker",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_heavy_forged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_light_drum",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_hammer_heads_pointed_hammer",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_factory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_laminated_damper",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_reinforced_block",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_head_mount_ribbed_light",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_neck_factory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_caged_agility",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_factory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_no_pommel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_octagonal_impact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_pommel_twin_disc_balance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/ModulesV1/SM_RuneboundWarhammer_shaft_factory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_FineInlay_Brass",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_Optical_Crystal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_PBR_Surface",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/M_StarOath_Rune_Energy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/SM_RuneboundWarhammer_StarOathHammerHeads_V1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/T_StarOath_BaseColor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/T_StarOath_Normal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/StarOathV1/T_StarOath_ORM",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/RuneboundWarhammer20261022/SwiftManaRuneV1/M_RuneboundSwiftRuneSurface",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "saved package /Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "runtime HUD selects V3",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "weapon content cook root",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_blade_2_destruction_mana_rune.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1024,
+          1024
+        ],
+        "sha256": "0e5943de63bb0dfa2cd9c667c8294ea0eec1a6dc1bf4459589848554d7aad33b"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_blade_2_swift_mana_rune.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1024,
+          1024
+        ],
+        "sha256": "47dd392dedd3f370fd4b5bd6bb4bb06ce62fc0b555240674ac50e77868ebfdd2"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_grip.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "f558af77d1027806f15882d7f5a22e96b6d11bb814802c5819c40b9b5c35a70c"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_hammer_heads.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "b3155fa51c71911b47e516302e740257ce1a8ef25c8fefd68c8d123febd48c7d"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_head_mount.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "f9ad7e10f80cf65665a9c374f57cb18976a1cef39133f15295c93587ca9ec210"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_neck.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1024,
+          1024
+        ],
+        "sha256": "51a7de810e2059245efe2014176ccd6b9ecc7b7af3c7fad440587a5ee16c8693"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_pommel.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "dbc537c44900c822a599d73b4e5db13d9bed5c0cc73bc4276ab46ec6994904c6"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_rune.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "da930b4c40ea3a996c5a775dc11a3db929d7459194d7f44f841581c67b19c417"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_category_shaft.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1024,
+          1024
+        ],
+        "sha256": "ac00ad6f86909587423cb1137c161b5cf55d4405b819caec7a761c8a1b1b14f5"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_grip_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "f558af77d1027806f15882d7f5a22e96b6d11bb814802c5819c40b9b5c35a70c"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_hammer_heads_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "b3155fa51c71911b47e516302e740257ce1a8ef25c8fefd68c8d123febd48c7d"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_hammer_heads_final_toll_soul_bell.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "87e56b9da32fad8ee46099d0afad76f5b63d5a5c2410f7fe4dd7175220334012"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_hammer_heads_star_oath_sealing_anvil.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "8227c426ef2874b70bb978570cbf23884c8da4039d614391d733fb272bb60bb5"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_head_mount_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "f9ad7e10f80cf65665a9c374f57cb18976a1cef39133f15295c93587ca9ec210"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_neck_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1024,
+          1024
+        ],
+        "sha256": "51a7de810e2059245efe2014176ccd6b9ecc7b7af3c7fad440587a5ee16c8693"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_pommel_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "dbc537c44900c822a599d73b4e5db13d9bed5c0cc73bc4276ab46ec6994904c6"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_rune_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1254,
+          1254
+        ],
+        "sha256": "f28bfb5664c57b691c7d4940144b925d5b294524f25921a562c634f66a624a64"
+      }
+    },
+    {
+      "case": "runtime PNG ue_runebound_warhammer_shaft_false.png",
+      "passed": true,
+      "detail": {
+        "pixels": [
+          1024,
+          1024
+        ],
+        "sha256": "ac00ad6f86909587423cb1137c161b5cf55d4405b819caec7a761c8a1b1b14f5"
+      }
+    }
+  ],
+  "rendered": false,
+  "engine_assets_modified": false
+}

@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Production/ProductionToolStats.cpp
++++ b/Source/FPSGAME/Production/ProductionToolStats.cpp
+@@ -1,5 +1,7 @@
+ #include "ProductionToolStats.h"
+ #include "ProductionResource.h"
++#include "WarhammerHeavyMotion.h"
++#include "RuneboundHammerTuning.h"
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+ #include "../Weapons/WeaponDamagePanel.h"
+@@ -24,7 +26,15 @@
+     // 自卫伤害：工具自己的基础数值 × 改造倍率，再走与剑类相同的附魔／加工后处理。
+     // 不借用剑类 Evaluate，避免把连击、格挡与精通口径带进采集工具。
+     const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),12);
+-    const double Attack=Profile?Profile->Derived(TEXT("atk")):0;
++    double Attack=Profile?Profile->Derived(TEXT("atk")):0;
++    if(Profile&&Preview&&Item.Definition==RuneboundHammer::Definition)
++    {
++        const auto* Active=Profile->ActiveProductionTool();
++        const double Installed=Active?RuneboundHammer::AttackMultiplier(*Active):1.;
++        const double Draft=Preview->FindRef(TEXT("hammer_heads"))==RuneboundHammer::StarOathHead?
++            RuneboundHammer::StarOathAttackMultiplier:1.;
++        Attack=Attack/Installed*Draft;
++    }
+     const double Processed=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
+     R.Damage=ColdSteelWeaponDamage::Evaluate(Item,Profile,Processed);
+ 

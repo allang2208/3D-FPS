@@ -37,3 +37,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 枪械数值审计、优势条件化调参、改一个字段的连带检查（`mag_delta`、旧档硬编码基数、静态 `stats`）以及目录调校字段的实例快照与联机影子问题，读取 [枪械审计与联机／存档连带检查](references/firearm-balance-audit.md)。
 
 - 共享 SVD 动作后换枪体、准星/枪口/弹匣接口与 KV 镜、狙击消音器：读取 [SVCH 换模与实际接口](references/svch-replacement-interfaces.md)。区分目录、数值和真实外观适配。
+
+- 符文战锤、专属锤头、命中苏醒与双重重击，读取 [模块战锤与持续触发](references/runebound-modular-procs.md)；按攻击与目标分别去重，持续刻印通过复制状态恢复。

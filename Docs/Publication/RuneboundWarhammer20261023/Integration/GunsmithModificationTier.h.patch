@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -25,7 +25,7 @@
+         return EGunsmithModificationTier::Legendary;
+     if(Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("hammer_heads")&&Id==TEXT("meteor_core"))
+         return EGunsmithModificationTier::Legendary;
+-    if(Weapon==ColdSteelFrostRunes::RuneboundWarhammer&&SlotKey==TEXT("hammer_heads")&&Id==TEXT("star_oath_sealing_anvil"))
++    if(Weapon==ColdSteelFrostRunes::RuneboundWarhammer&&SlotKey==TEXT("hammer_heads")&&(Id==TEXT("star_oath_sealing_anvil")||Id==TEXT("final_toll_soul_bell")))
+         return EGunsmithModificationTier::Legendary;
+     if(SlotKey==TEXT("optic")&&Id==TEXT("thermal_scope"))return EGunsmithModificationTier::Legendary;
+     if(SlotKey==TEXT("trigger")&&Id==FullAutoTrigger::Part&&FullAutoTrigger::Supports(Weapon))

@@ -232,7 +232,8 @@
     "Warhammer.Jog.Fwd_Left": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd_Left.J_Hammer_Gait_Fwd_Left",
     "Warhammer.FullBody.QuickMelee": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee",
     "Warhammer.FullBody.GuardExit": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter",
-    "Warhammer.FullBody.GuardBreak": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit"
+    "Warhammer.FullBody.GuardBreak": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit",
+    "Warhammer.FullBody.FinalTollHeavy": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_Default.A_Runebound_FinalToll_Body_Default"
   },
   "outfits": {
     "ue_mountain_backpack": {
@@ -5689,5 +5690,12 @@
     1.7976117506468363,
     10.382977287936123,
     0.5845123614372896
-  ]
+  ],
+  "body_variants": {
+    "kaitlin": {
+      "clips": {
+        "Warhammer.FullBody.FinalTollHeavy": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_kaitlin.A_Runebound_FinalToll_Body_kaitlin"
+      }
+    }
+  }
 }
