@@ -35,8 +35,7 @@ cloth_pants.append(tree(read('SourceAssets/BrownLeatherSet20261004/Jason_Leather
 mail_pants=tree(read('SourceAssets/ChainmailPants20261004/ArmorRefineV2/Jason_ChainmailPants.json'))
 cloth_boots=[tree(read('SourceAssets/BootsEquipment20261004/boots_fitted.json')),tree(read('SourceAssets/BrownLeatherSet20261004/Jason_LeatherBoots.json'))]
 steel_boots=tree(read('SourceAssets/ArmoredBoots20261004/Jason_ArmoredBoots.json'))
-pack_data=read('SourceAssets/JasonEquipmentRepair20261003/backpack_fitted.json')
-pack_data['triangles']=read('SourceAssets/JasonEquipmentRepair20261003/backpack.json')['triangles']
+pack_data=read('SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json')
 backpack=tree(pack_data)
 
 def weights(p,allowed=None):

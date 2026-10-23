@@ -214,12 +214,18 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     }
     int32 Cells=0,Count=0;for(const auto& I:Model->Items())if(I.Place==Container&&(!bWarehouse||I.Container==Model->ActiveContainer)&&I.Cell>=Start&&I.Cell<Start+Rows*18){Cells+=I.Width*I.Height;++Count;}
     Box(4,L.BagY-36,L.Width-8,Rows*L.Cell+42,GunsmithUI::Gray(120,8),GunsmithUI::Gray(220,22),10);
-    Label(bWarehouse?(Model->ActiveContainer.IsEmpty()?TEXT("仓储空间"):*Model->ActiveStorageCaption):TEXT("空间背包"),12,L.BagY-28,16,GunsmithUI::Text,150);
+    const FString BagCaption=Rows>4?FString::Printf(TEXT("空间背包 · %d 行（+%d）"),Rows,Rows-4):TEXT("空间背包 · 4 行");
+    Label(bWarehouse?(Model->ActiveContainer.IsEmpty()?TEXT("仓储空间"):*Model->ActiveStorageCaption):BagCaption,12,L.BagY-28,16,GunsmithUI::Text,FMath::Max(150.f,L.Width-276));
     Label(FString::Printf(TEXT("%d / %d 格 · %d 件"),Cells,Rows*18,Count),L.Width-246,L.BagY-25,12,Cells>=Rows*18?ColdSteelUI::Warning:GunsmithUI::Secondary,180,true);
     Box(L.Width-60,L.BagY-30,48,24,bSortHovered?GunsmithUI::Gray(75,200):GunsmithUI::Gray(43,160),bSortHovered?GunsmithUI::Silver:GunsmithUI::Edge,4);Label(TEXT("整理"),L.Width-50,L.BagY-25,12,GunsmithUI::Text,38);
     // 容量横线走设计系统 2.22 暗金身份层：轨道 ItemTooltipGoldRule、填充 HUDGold（与经验条同源），满仓保留 Warning 语义色。
     Box(12,L.BagY-5,L.Width-24,2,ColdSteelUI::ItemTooltipGoldRule);Box(12,L.BagY-5,(L.Width-24)*FMath::Clamp(Cells/float(Rows*18),0.f,1.f),2,Cells>=Rows*18?ColdSteelUI::Warning:ColdSteelUI::HUDGold);
     Box(12,L.BagY,L.Width-24,L.Cell*Rows,GunsmithUI::Gray(15,95),GunsmithUI::Edge,0);
+    if(!bWarehouse&&Rows>4)
+    {
+        Box(12,L.BagY+4*L.Cell,L.Width-24,(Rows-4)*L.Cell,Fade(ColdSteelUI::HUDGold,.035f),FLinearColor::Transparent,0);
+        Box(12,L.BagY+4*L.Cell,L.Width-24,1,Fade(ColdSteelUI::HUDGold,.45f),FLinearColor::Transparent,0);
+    }
     for(int32 N=1;N<18;++N)Box(12+N*L.Cell,L.BagY,1,Rows*L.Cell,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
     for(int32 N=1;N<Rows;++N)Box(12,L.BagY+N*L.Cell,L.Width-24,1,GunsmithUI::Gray(220,22),FLinearColor::Transparent,0);
     for(const auto& I:Model->Items())if(I.Place==Container&&(!bWarehouse||I.Container==Model->ActiveContainer)&&I.Cell>=Start&&I.Cell<Start+Rows*18)Item(I,12+I.Cell%18*L.Cell,L.BagY+(I.Cell-Start)/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);

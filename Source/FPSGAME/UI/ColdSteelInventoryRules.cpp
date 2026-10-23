@@ -117,12 +117,50 @@ int32 EquippedBag(const TArray<FColdSteelItem>& Items)
     for(int32 N=0;N<Items.Num();++N)if(Items[N].Place==1&&Items[N].Cell==14)return N;
     return INDEX_NONE;
 }
+struct FBackpackCapacity
+{
+    int32 ExtraRows=0;
+    FIntPoint Compartment=FIntPoint::ZeroValue;
+};
+static FBackpackCapacity ReadBackpackCapacity(const FColdSteelItem& Item)
+{
+    FBackpackCapacity Result;
+    Result.ExtraRows=FMath::Max(0,int32(Number(Item,TEXT("bagExtraCells"))))/18;
+    if(Number(Item,TEXT("bagCompartmentCells"))>0)
+        Result.Compartment=FIntPoint(
+            FMath::Clamp(int32(Number(Item,TEXT("bagCompartmentColumns"),6)),1,ColdSteelCompartment::MaxColumns),
+            FMath::Clamp(int32(Number(Item,TEXT("bagCompartmentRows"),6)),1,ColdSteelCompartment::MaxRows));
+    return Result;
+}
+static FBackpackCapacity BackpackCapacity(const FColdSteelItem& Item)
+{
+    // Capacity belongs to the authored definition. Saved item snapshots may
+    // predate it, and network mirrors/shadow profiles bypass local load migration.
+    // Cache only backpack definitions once, like the other immutable catalogs;
+    // never parse the catalog from paint, placement or validation loops.
+    static const TMap<FString,FBackpackCapacity> Catalog=[]{
+        TMap<FString,FBackpackCapacity> Result;
+        FString Json;TSharedPtr<FJsonObject> Root;
+        if(!FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))
+            ||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root)||!Root)return Result;
+        for(const auto& Pair:Root->Values)
+        {
+            const auto Entry=Pair.Value.IsValid()?Pair.Value->AsObject():nullptr;
+            FString Slot;if(!Entry||!Entry->TryGetStringField(TEXT("equipSlot"),Slot)||Slot!=TEXT("backpack"))continue;
+            FColdSteelItem Definition;Definition.Definition=Pair.Key;
+            FJsonSerializer::Serialize(Entry.ToSharedRef(),TJsonWriterFactory<>::Create(&Definition.Data));
+            Result.Add(FString(*Pair.Key),ReadBackpackCapacity(Definition));
+        }
+        return Result;
+    }();
+    if(const auto* Defined=Catalog.Find(Item.Definition))return *Defined;
+    return ReadBackpackCapacity(Item);
+}
 int32 BagRows(const TArray<FColdSteelItem>& Items)
 {
     const int32 Bag=EquippedBag(Items);
-    // 背包装备按 bagExtraCells 每 18 格撑出一行；字段缺失或非正时保持基础 4 行。
     if(Bag<0)return 4;
-    return 4+FMath::Max(0,int32(Number(Items[Bag],TEXT("bagExtraCells"))))/18;
+    return 4+BackpackCapacity(Items[Bag]).ExtraRows;
 }
 int32 CompartmentCells(const TArray<FColdSteelItem>& Items)
 {
@@ -133,10 +171,7 @@ FIntPoint CompartmentGridOf(const FColdSteelItem& BagItem)
     // 夹层尺寸约定＝长×宽（列×行）：bagCompartmentColumns/bagCompartmentRows，
     // 缺省 6×6（便携背包口径）；bagCompartmentCells 只作"是否定义夹层"的开关，
     // 容量一律＝列×行，两套数字不再各自维护。
-    if(Number(BagItem,TEXT("bagCompartmentCells"))<=0)return FIntPoint::ZeroValue;
-    const int32 Cols=FMath::Clamp(int32(Number(BagItem,TEXT("bagCompartmentColumns"),6)),1,ColdSteelCompartment::MaxColumns);
-    const int32 RowsN=FMath::Clamp(int32(Number(BagItem,TEXT("bagCompartmentRows"),6)),1,ColdSteelCompartment::MaxRows);
-    return FIntPoint(Cols,RowsN);
+    return BackpackCapacity(BagItem).Compartment;
 }
 FIntPoint CompartmentGrid(const TArray<FColdSteelItem>& Items)
 {
@@ -331,7 +366,7 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
             int32 RowsAfter=BagRows(R.Items);
             if(OldPlace==1&&OldCell==14)
                 if(const int32 N=Owner(R.Items,0,Cell);N>=0&&CanEquip(R.Items[N],14))
-                    RowsAfter=4+FMath::Max(0,int32(Number(R.Items[N],TEXT("bagExtraCells"))))/18;
+                    RowsAfter=4+BackpackCapacity(R.Items[N]).ExtraRows;
             const int32 BagCells=RowsAfter*18;
             if(Cell<0||Cell>=BagCells||Cell%18+Moving.Width>18||Cell/18+Moving.Height>RowsAfter){R.Reason=TEXT("物品超出背包边界，请向内移动");return R;}
             TSet<int32> Blockers;
@@ -384,7 +419,7 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
     if(!(Place==1&&OldPlace==0)&&!ReconcileBagCapacity(Items,R.Items,R.Reason)){R.Items=Items;return R;}
     R.bValid=true; R.Reason.Empty();return R;
 }
-static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool AllowLegacyWood)
+static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool AllowLegacyWood,bool UseSavedBackpackLayout=false)
 {
     if(!FMath::IsFinite(P.SpellbookFocusManaLoss)||P.SpellbookFocusManaLoss<0.0)
     {Reason=TEXT("专注打断扣魔记录无效");return false;}
@@ -462,7 +497,10 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
     TSet<FString> Ids;TSet<int32> LegacyWarehouseCells;TArray<FColdSteelItem> Placed;
     // 背包扩格与夹层容量都由装备的背包物品撑出；档案里装备栏条目可能排在后面，
     // 所以容量先按整表算好，再逐件校验（Fits 的动态行数会受"已放入集合"顺序影响）。
-    const int32 ProfileBagRows=BagRows(P.Items);const FIntPoint ProfileCompGrid=CompartmentGrid(P.Items);
+    const int32 ProfileBag=EquippedBag(P.Items);
+    const FBackpackCapacity Capacity=ProfileBag>=0?
+        (UseSavedBackpackLayout?ReadBackpackCapacity(P.Items[ProfileBag]):BackpackCapacity(P.Items[ProfileBag])):FBackpackCapacity();
+    const int32 ProfileBagRows=4+Capacity.ExtraRows;const FIntPoint ProfileCompGrid=Capacity.Compartment;
     for(const auto& I:P.Items) {
         if(I.VirtualMagazineAmmo<0||I.VirtualMagazineAmmo>I.Magazine){Reason=TEXT("训练弹数量无效");return false;}
         // Rows are bounded per container by Fits below; a rotated instance may exceed the backpack's four.
@@ -474,7 +512,8 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
             !(AllowLegacyWood&&I.Definition==TEXT("wood")&&I.Width==1&&I.Height==1))
         {Reason=FString::Printf(TEXT("物品占格与当前定义不一致：%s (%d×%d)"),*I.Definition,I.Width,I.Height);return false;}
         if(I.Place==0&&!FitsRows(Placed,I,I.Cell,ProfileBagRows))return false;
-        if(I.Place==ColdSteelCompartment::Place&&(ProfileCompGrid.X<1||!ColdSteelCompartment::Fits(Placed,I,I.Cell,ProfileCompGrid)))return false;
+        if(I.Place==ColdSteelCompartment::Place&&(ProfileCompGrid.X<1||!ColdSteelCompartment::Fits(Placed,I,I.Cell,ProfileCompGrid)))
+        {Reason=FString::Printf(TEXT("背包夹层布局冲突：%s，格位 %d，夹层 %d×%d"),*I.Definition,I.Cell,ProfileCompGrid.X,ProfileCompGrid.Y);return false;}
         if(I.Place==1&&(!CanEquip(I,I.Cell)||Owner(Placed,1,I.Cell)>=0))return false;
         if(I.Place==2&&(I.Map.IsEmpty()||I.Position.ContainsNaN()||I.WorldRotation.ContainsNaN()))return false;
         if(I.Place==4){
@@ -492,13 +531,79 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
 {
     return ValidateProfile(P,Reason,false);
 }
+static bool MigrateBackpackLayout(FColdSteelProfile& Profile,bool& Changed,FString& Reason,bool AllowLegacyWood)
+{
+    Changed=false;
+    const int32 Bag=EquippedBag(Profile.Items);if(Bag<0)return true;
+    const auto Saved=ReadBackpackCapacity(Profile.Items[Bag]);
+    const auto Authored=BackpackCapacity(Profile.Items[Bag]);
+    if(Saved.Compartment==Authored.Compartment)return true;
+    // Cell is a row-major index. A catalog column change must not reinterpret
+    // old indexes before their saved layout has been validated and migrated.
+    if(!ValidateProfile(Profile,Reason,AllowLegacyWood,true))return false;
+    auto Next=Profile;
+    auto Data=Object(Next.Items[Bag]);if(!Data)return false;
+    Data->SetNumberField(TEXT("bagExtraCells"),Authored.ExtraRows*18);
+    Data->SetNumberField(TEXT("bagCompartmentCells"),Authored.Compartment.X*Authored.Compartment.Y);
+    Data->SetNumberField(TEXT("bagCompartmentColumns"),Authored.Compartment.X);
+    Data->SetNumberField(TEXT("bagCompartmentRows"),Authored.Compartment.Y);
+    Next.Items[Bag].Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Next.Items[Bag].Data));
+    TArray<FColdSteelItem> Pending,Unplaced;
+    for(const auto& Item:Next.Items)if(Item.Place==ColdSteelCompartment::Place)Pending.Add(Item);
+    Next.Items.RemoveAll([](const auto& Item){return Item.Place==ColdSteelCompartment::Place;});
+    // Retain every fitting old (column,row) before placing overflow into holes.
+    for(auto Item:Pending)
+    {
+        const int32 X=Saved.Compartment.X>0?Item.Cell%Saved.Compartment.X:0;
+        const int32 Y=Saved.Compartment.X>0?Item.Cell/Saved.Compartment.X:0;
+        const int32 Cell=Y*Authored.Compartment.X+X;
+        if(X+Item.Width<=Authored.Compartment.X&&Y+Item.Height<=Authored.Compartment.Y
+            &&ColdSteelCompartment::Fits(Next.Items,Item,Cell,Authored.Compartment))
+        {Item.Cell=Cell;Next.Items.Add(MoveTemp(Item));}
+        else Unplaced.Add(MoveTemp(Item));
+    }
+    for(auto Item:Unplaced)
+    {
+        int32 Cell=INDEX_NONE;
+        for(int32 C=0;C<Authored.Compartment.X*Authored.Compartment.Y;++C)
+            if(ColdSteelCompartment::Fits(Next.Items,Item,C,Authored.Compartment)){Cell=C;break;}
+        if(Cell==INDEX_NONE)
+        {
+            Item.Place=0;Item.Container.Reset();Item.BackpackCell=-1;
+            for(int32 C=0;C<(4+Authored.ExtraRows)*18;++C)
+                if(FitsRows(Next.Items,Item,C,4+Authored.ExtraRows)){Cell=C;break;}
+        }
+        if(Cell==INDEX_NONE)
+        {
+            // Preserve the complete item and its identity if the new shape has
+            // no space. Use the existing warehouse migration overflow policy.
+            if(Next.WarehouseLayoutVersion!=1)
+            {Reason=TEXT("背包夹层迁移空间不足，原存档保留");return false;}
+            Item.Place=4;
+            while(Cell==INDEX_NONE)
+            {
+                const int32 WarehouseCapacity=Next.WarehousePages*ColdSteelWarehouse::CellsPerPage;
+                for(int32 C=0;C<WarehouseCapacity;++C)
+                    if(ColdSteelWarehouse::Fits(Next.Items,Item,C,WarehouseCapacity)){Cell=C;break;}
+                if(Cell!=INDEX_NONE)break;
+                if(Next.WarehousePages>=ColdSteelWarehouse::MaxPages)
+                {Reason=TEXT("背包夹层迁移空间不足，原存档保留");return false;}
+                ++Next.WarehousePages;
+            }
+        }
+        Item.Cell=Cell;Next.Items.Add(MoveTemp(Item));
+    }
+    if(!ValidateProfile(Next,Reason,AllowLegacyWood))return false;
+    Profile=MoveTemp(Next);Changed=true;return true;
+}
 bool MigrateLegacyWoodFootprints(FColdSteelProfile& Profile,bool& Changed,FString& Reason)
 {
     Changed=false;
+    auto Next=Profile;
+    if(!MigrateBackpackLayout(Next,Changed,Reason,true))return false;
     // Validate the saved layout before changing it. Only the known 1x1 wood
     // footprint is accepted here; malformed items and overlaps remain errors.
-    if(!ValidateProfile(Profile,Reason,true))return false;
-    auto Next=Profile;
+    if(!ValidateProfile(Next,Reason,true))return false;
     for(int32 N=0;N<Next.Items.Num();++N)
     {
         auto& Item=Next.Items[N];
@@ -579,8 +684,9 @@ bool MigrateAuthoredItemFootprint(FColdSteelItem& Item,bool& Changed,FString& Re
 bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile,bool& Changed,FString& Reason)
 {
     Changed=false;
-    if(!ValidateProfile(Profile,Reason,false))return false;
     auto Next=Profile;
+    if(!MigrateBackpackLayout(Next,Changed,Reason,false))return false;
+    if(!ValidateProfile(Next,Reason,false))return false;
     const FIntPoint CompGrid=CompartmentGrid(Next.Items);
     for(int32 N=0;N<Next.Items.Num();++N)
     {

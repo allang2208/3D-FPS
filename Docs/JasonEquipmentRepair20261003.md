@@ -1,5 +1,7 @@
 # Jason 背包与服装贴合修复
 
+背包部分已于 2026-10-20 被用户否定并退役，不能按本文旧入口恢复；当前制作与审核见[背带全面重做](Characters/backpack-harness-rebuild-20261020.md)。本文保留服装修复及历史事件，不作为背带合格证明。共享 `fit_jason_equipment.py` / `save_jason_equipment.py` 已移除旧背包作者／覆盖分支。
+
 用户反馈：第三人称背包包体不可见、背带外翻悬空，锁子甲与身体穿插。截图与当前装备记录对应 `ue_mountain_backpack`、`ue_chainmail_shirt` 和 `ue_steel_gauntlets`。
 
 ## 原因

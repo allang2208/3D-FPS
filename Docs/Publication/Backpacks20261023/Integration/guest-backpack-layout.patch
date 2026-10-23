@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -598,7 +598,12 @@
+     // Uploaded Health/Mana must not start a first-join shadow above its maximum.
+     Profile.Health=FMath::Clamp(Profile.Health,0.f,float(Host->ResourceMaximum(Profile,false)));
+     Profile.Mana=FMath::Clamp(Profile.Mana,0.f,float(Host->ResourceMaximum(Profile,true)));
+-    return ColdSteelInventory::Validate(Profile,OutReason);
++    // Preserve the saved row stride until layout migration. Validating an old
++    // 6x8 expedition compartment as 8x6 first can reject a legitimate guest
++    // before CreateShadowProfile gets a chance to migrate it. Items above are
++    // already sanitized; the shared migration validates both layouts atomically.
++    bool LayoutChanged=false;
++    return ColdSteelInventory::MigrateAuthoredGridFootprints(Profile,LayoutChanged,OutReason);
+ }
+ 
+ void AColdSteelPlayerState::GrantSessionDoorKey(FName Key)

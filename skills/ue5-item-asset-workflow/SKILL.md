@@ -1,6 +1,6 @@
 ---
 name: ue5-item-asset-workflow
-description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流的模型制作、PBR 材质、稀有度掉落光效与接入验收。用于药水、材料、弹药包装和卷轴；枪体、配件和手臂走专用技能。
+description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流的模型制作、PBR 材质、稀有度掉落光效与接入验收。用于药水、材料、弹药包装、卷轴，以及背包的容量、贴身适配、背带动态和联机接入；枪体、配件和手臂走专用技能。
 ---
 
 # 本机维护源入口
@@ -16,3 +16,5 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 护甲/手套/鞋靴/裤装的 `bonusStats`、套装、百分比语义与联机目标取值，读取 [装备属性词条、套装与联机取值](references/equipment-stat-effects.md)。
 
 - 头部装备、第一人称视野层与背包图标完整接入：[头部装备、第一人称视野层与背包图标完整接入](references/head-equipment-and-inventory-icons.md)。按问题读取，历史证据不授权自动重测。
+
+- 背包新增、容量、重力与背带动态及联机，读取[背包工作流](references/backpack-equipment.md)；该引用随仓库发布，可在维护源不可用时使用。

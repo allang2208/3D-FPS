@@ -1,0 +1,1231 @@
+{
+  "archive": "trash/backpack-retired-20261023",
+  "files": [
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/design_r2.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/design_r2.json",
+      "bytes": 1563,
+      "sha256": "5d5c4b4af837a222275d39d97ad7bf977a92652189114bb68c2dfd879ab58bcd",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/design_r3.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/design_r3.json",
+      "bytes": 1887,
+      "sha256": "cc15d7b1bffd51bd77387e27246faa31893db60c427fc5016685682fefb72e6e",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_triview_r2.png",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_triview_r2.png",
+      "bytes": 2183717,
+      "sha256": "534cc16484c969607f9f3026d2b8b17a2b85b3731949bbcc355fe0e0fc63665d",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_triview_r3.png",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_triview_r3.png",
+      "bytes": 2128807,
+      "sha256": "4af4ca5d23649255123dbb0a8d44d8ab7e797b781fb3afb8d2a2fd4dfa2bece2",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/prompt_porter_r2.txt",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/prompt_porter_r2.txt",
+      "bytes": 6234,
+      "sha256": "b72b2180acf9efd695d4471fe4743a6d881614b5071aff7e9163c4524b52f12c",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/prompt_porter_r3.txt",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/prompt_porter_r3.txt",
+      "bytes": 5655,
+      "sha256": "ab9a38572fb5a532337b8d8039adb1dbf675382adb7ef20b32a645f131ebd44e",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/Concept/prompt_r1.txt",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/prompt_r1.txt",
+      "bytes": 4904,
+      "sha256": "b1cf1c290a0180c31e96cfe54c16661156501b209b78798552bb6617795fc1e1",
+      "reason": "Superseded pre-technology concept; user chose a later direction",
+      "replacement": "SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_tech_triview_r4.png"
+    },
+    {
+      "source": "Tools/BackpackMotion/publish.py",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackMotion/publish.py",
+      "bytes": 1936,
+      "sha256": "ff3efb3c6647e2cd378cf556a378c57d08df5b2bb0155248f39c2b97479a3999",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Tools/BackpackMotion/publish_response_r2.py"
+    },
+    {
+      "source": "Tools/BackpackMotion/publish_sling_response.py",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackMotion/publish_sling_response.py",
+      "bytes": 2103,
+      "sha256": "ece5f328eea74813e48c0e8796dbd65432f4705a43ea93f8740c25c072bd0e84",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Tools/SimpleSlingBag/publish_gravity.py"
+    },
+    {
+      "source": "Tools/SimpleSlingBag/publish.py",
+      "destination": "trash/backpack-retired-20261023/Tools/SimpleSlingBag/publish.py",
+      "bytes": 4754,
+      "sha256": "21e988920757596001a27dadb56d3a41839024671cc1d6e4ef6a93169a805779",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Tools/SimpleSlingBag/publish_gravity.py and current items.json"
+    },
+    {
+      "source": "Tools/SimpleSlingBag/finish_queued.py",
+      "destination": "trash/backpack-retired-20261023/Tools/SimpleSlingBag/finish_queued.py",
+      "bytes": 1942,
+      "sha256": "53a477b6a4b5d31ec51068472450965a05e35cc911dbe0cd2c587c2927ebc5d5",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Completed old queued import; current explicit author/save/publish pipeline"
+    },
+    {
+      "source": "Tools/SimpleSlingBag/read_profile_incident.py",
+      "destination": "trash/backpack-retired-20261023/Tools/SimpleSlingBag/read_profile_incident.py",
+      "bytes": 1605,
+      "sha256": "bf2b15288665916364d1ae53b6a0e8000e89927de77c11047b7ac18dd5320ae2",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Historical incident evidence stays in Saved/ProfileLoadIncident20261022"
+    },
+    {
+      "source": "Tools/BackpackHarness/end_alice_play_session.py",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackHarness/end_alice_play_session.py",
+      "bytes": 609,
+      "sha256": "511309d3c9afca33fbdc544befad62d119871f57b84fc33389fb85461cb60513",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Completed one-off prior editor session operation"
+    },
+    {
+      "source": "Tools/BackpackHarness/retire_rejected.py",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackHarness/retire_rejected.py",
+      "bytes": 10401,
+      "sha256": "cfe245303de03cb5addc6206818fac5250535a6c8cccfe393491f3a4433a1157",
+      "reason": "Superseded publisher or completed one-off operation; not imported by retained production tools",
+      "replacement": "Completed archive manifest: trash/backpack-rejected-20261020-full-audit/manifest.json"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_buckle_boolean.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_buckle_boolean.py",
+      "bytes": 2336,
+      "sha256": "9d938ece2c540300f8fb5e2694c01b47314c9922144f2279d5696eecdd4a91b8",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_front_main_cut.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_front_main_cut.py",
+      "bytes": 2427,
+      "sha256": "4cd28f8df60b6bb4a46f8075f81968bc62e81cd25d3debb18438f463330bf102",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_isolated_buckle_cuts.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_isolated_buckle_cuts.py",
+      "bytes": 2960,
+      "sha256": "d3e0003d6e9bff613633acb47d56c7e2ba9bbca4fea297189f72b48006b81be5",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_metal_bevel.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_metal_bevel.py",
+      "bytes": 1540,
+      "sha256": "cfaf2deeaeb7ab564455d9355cbea2030c94e8bb0f73c819cd7c8b5e8f774491",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_metal_bevel_repair.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_metal_bevel_repair.py",
+      "bytes": 3171,
+      "sha256": "ff9eb9f04f431e21adf184f90e15caa0e9aab6dbdf119071c3562e9412cea836",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_metal_bevel_uv.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_metal_bevel_uv.py",
+      "bytes": 2520,
+      "sha256": "49c1be2fb6fd249478bbeb9bfb6eefa663ab7cf45661b7f9657076f33f3dd57b",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_metal_bevel_weight.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_metal_bevel_weight.py",
+      "bytes": 1998,
+      "sha256": "6e220881169f4d5ba0c6adc9804fbf394923ec27dc1a2f02952bb0cef6ac00c3",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_side_both_sizes.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_side_both_sizes.py",
+      "bytes": 2766,
+      "sha256": "b6c83368154cde18570395a8030aa82a763bf294558e4596f9ade2e2ec1d5c57",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_side_buckle_bool.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_side_buckle_bool.py",
+      "bytes": 2544,
+      "sha256": "f9f3302d0509bde519f2e226dd58a111bae198569f2959825e1d7e8311f32f1a",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_side_main_cuts.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_side_main_cuts.py",
+      "bytes": 3053,
+      "sha256": "5f937ae95ae1c158c693b94ea7195e9c648943fec89f21927fd63ac65d338e60",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/test_side_wide_open.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/test_side_wide_open.py",
+      "bytes": 2550,
+      "sha256": "2528d5fca9d70a606631a8884287f191e0447d74d1ea42a0ddea421aa702cf7d",
+      "reason": "Discarded geometry experiment, no production callers",
+      "replacement": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py and build_beveled_final.py"
+    },
+    {
+      "source": "SourceAssets/PathfinderBackpack20261023/PathfinderBackpack_source.blend1",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/PathfinderBackpack_source.blend1",
+      "bytes": 30820769,
+      "sha256": "3d4615b5559f0277770d11cb30666f0f75fca2835f7e163eeff1ee76b36f3860",
+      "reason": "Previous automatic Blender backup; active .blend retained",
+      "replacement": "SourceAssets\\PathfinderBackpack20261023\\PathfinderBackpack_source.blend"
+    },
+    {
+      "source": "SourceAssets/SimpleSlingBag20261022/SimpleSlingBag_pouch.blend1",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/SimpleSlingBag20261022/SimpleSlingBag_pouch.blend1",
+      "bytes": 28062040,
+      "sha256": "17423e37d03dc3348437b99c7e6a4bc4dbcb40dc04d44c5ce6688007f75574ce",
+      "reason": "Previous automatic Blender backup; active .blend retained",
+      "replacement": "SourceAssets\\SimpleSlingBag20261022\\SimpleSlingBag_pouch.blend"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/AliceBackpack_baked.blend1",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/AliceBackpack_baked.blend1",
+      "bytes": 957617,
+      "sha256": "edeed121377fbcdb02d5b990ea3b2f5fe965faacb165afda521d5d4b232a9238",
+      "reason": "Previous automatic Blender backup; active .blend retained",
+      "replacement": "SourceAssets\\PortableBackpackAlice20261019\\AliceBackpack_baked.blend"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/AliceBackpack_uv_bevel.blend1",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/AliceBackpack_uv_bevel.blend1",
+      "bytes": 990140,
+      "sha256": "01aa6ff118b46ce7ea1ef2498b381ceefe28b547f7d762ae8bb9b435e691eec0",
+      "reason": "Previous automatic Blender backup; active .blend retained",
+      "replacement": "SourceAssets\\PortableBackpackAlice20261019\\AliceBackpack_uv_bevel.blend"
+    },
+    {
+      "source": "SourceAssets/ExpeditionBackpack20261022/Before/items.before-compartment-8x6.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/ExpeditionBackpack20261022/Before/items.before-compartment-8x6.json",
+      "bytes": 193956,
+      "sha256": "641f18bdf302f5a5d82916fd71ffff07ba90d6665096bf8b02dd6e5ca62f7a8c",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/ExpeditionBackpack20261022"
+    },
+    {
+      "source": "SourceAssets/ExpeditionBackpack20261022/Before/items.before-publication.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/ExpeditionBackpack20261022/Before/items.before-publication.json",
+      "bytes": 192529,
+      "sha256": "523a87f5873cc0053848f4fb8737a5ed1c11756bc267b2afd3ad5baa7c39f514",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/ExpeditionBackpack20261022"
+    },
+    {
+      "source": "SourceAssets/SimpleSlingBag20261022/Before/items.before-publication.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/SimpleSlingBag20261022/Before/items.before-publication.json",
+      "bytes": 193956,
+      "sha256": "826fa2de729d5fc7574ccc2fcf27d6971d5f61cf4a0d00245f9c23b15e4582b3",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/SimpleSlingBag20261022"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "bytes": 9103471,
+      "sha256": "b4224b4768f3f8335d12a1fa789dd5bcdd29320ec0848abeb970e2816a8ba10c",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "bytes": 9080873,
+      "sha256": "05df16bef5e6aab5d43ad5d164a651b846ec1025075763af863569d1c7245f5c",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "bytes": 9099706,
+      "sha256": "b2caa1b0193e6a42b54418da188931e3833a6a52978bbf6afa3e711f73287604",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "bytes": 8641581,
+      "sha256": "16fe28778c8bdabf028edc69bbbf3dd97193e00d06625724725369d530f9e61e",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "bytes": 9084744,
+      "sha256": "736109ac23b9761979cbf538bfe0e8a7ae269eda414a9ca5301ab8f868940b90",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "bytes": 9081650,
+      "sha256": "540a5b86e6c00a41ae8651b860e6cae39710ecfbc9c6cc95fa16ddd48f2de3e0",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "bytes": 9417536,
+      "sha256": "1a1ddf01beeb50ad9dd3b28bd94fdc9ea26abaa87f873aa982a5baf4a74e5bfa",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "bytes": 9438123,
+      "sha256": "db0e465b03b28c0e657e3faa01877b1c99fedc2d7560eed0b5591b7126b2b8d5",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "bytes": 9621686,
+      "sha256": "f7e60b408cec4612e085333bdf31d1afbb02b4543f390ce505f8bcd41dfeca3b",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "bytes": 9454131,
+      "sha256": "6ed738f2779b8d28b22eb6865f139f1b4dc9d951061d88481f56a50de34a6ea4",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "bytes": 9470874,
+      "sha256": "6a510dfffe7c8cb1ef45318cc69faeaf6480ff737fab51c3761cf6deb4005968",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "bytes": 9467142,
+      "sha256": "092f450bbfce96f999114436b36a9942d2aa1994d16f709fd02a6462b07f28fb",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "bytes": 13354,
+      "sha256": "f913867445c71039141517845b337772d83e1036a7431c8dc91a127a7340056b",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/manifest.json",
+      "bytes": 9293,
+      "sha256": "671446c669201c1baf5c9836a81d46d72bc8494978b4db0cb5a939d8e3ef50cf",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json",
+      "bytes": 14865718,
+      "sha256": "65c0b52afe5efba3c7f05d503f8eaf5e7e970c56d1cec069f6617bd7f1a424ae",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/chainmail.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/chainmail.json",
+      "bytes": 14989950,
+      "sha256": "7ba08bbbfb0101ceae9e908a32d708096e7939c9525ee4f442bd0d0aed8c8648",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/knit_sweater.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/knit_sweater.json",
+      "bytes": 15047834,
+      "sha256": "7f02eae6d3a804f879498877882860f3fadd400624073fc7d493116972391ef5",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/mage_robe.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/mage_robe.json",
+      "bytes": 15182081,
+      "sha256": "5fc3f419132e1415b33966bbb546c58dbfc1281dd66713edaa2426b6403d8270",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/st6.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/st6.json",
+      "bytes": 14892863,
+      "sha256": "629facb48bb360b6f4a9afa7f8fe9fcd0fe45aed426871648945ccf4c27c86e0",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/thin_cotton.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/thin_cotton.json",
+      "bytes": 15042141,
+      "sha256": "9931311ba7c705dbb3f5cd57279a67e71dde7337cb4ea56eaf2d0406eb58fb43",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/delivery.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/delivery.json",
+      "bytes": 4475,
+      "sha256": "b7987b9db45872d60f3dbbb6007d32994fc70504cf13795edf0835572fa4f53f",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/manifest.json",
+      "bytes": 5791,
+      "sha256": "838c2aa69ebfe5d059a93b8f88d1b64d68e78d5b26c81d8a3931b98981c7ab75",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/PreparedBag.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/PreparedBag.json",
+      "bytes": 11734801,
+      "sha256": "35e52d6876fdd182a3335036bae206417e76a02e40ad66aa69dc0b22f1459ebe",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/saved_assets.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/saved_assets.json",
+      "bytes": 4021,
+      "sha256": "0202f806595e4007528bad9ac040920114489ba6c271b51b09be4ff4bc415706",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/bag_shell.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/bag_shell.py",
+      "bytes": 6792,
+      "sha256": "0b613a96117d5157620cfea7a01bfd4c00a81708aa032f9609e90f384619b2d0",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/check_readback.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/check_readback.py",
+      "bytes": 3516,
+      "sha256": "8d860a0b166a5cfa5a711938138e97e6781c6de343e6b9cfa285533a70b52e68",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/check_side_shell.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/check_side_shell.py",
+      "bytes": 2123,
+      "sha256": "370dbd046d5f91872c2e827c9ffbf67c03669c31ee5c6009b0000f716cea218d",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/README.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/README.md",
+      "bytes": 2733,
+      "sha256": "a0a457998712514f2dddf8d38df0b5ec298be0ccb4c13a3ee834a442c70c8dd5",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/repair_shell_sources.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/repair_shell_sources.py",
+      "bytes": 2351,
+      "sha256": "bbf0dd18e3f07bf8224e395a919d0273808f66fb9b97ba7d33b9638b82ab4e00",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/save.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/save.py",
+      "bytes": 9913,
+      "sha256": "6c9b7d60fe6575842e8c4f6d3b5a6c4514a99f6b986fe4eb9232cbd27f0255ca",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/validate.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FacingRepair20261022/Before/Tools/BackpackHarness/validate.py",
+      "bytes": 6936,
+      "sha256": "f77254784ba55d86ba1b73608984dc97682b6981d3c3b65aa75dbb6b36d662da",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/author.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/author.py",
+      "bytes": 28978,
+      "sha256": "77ff2f545f8d6bb7928871ec5da27f910c9f492938c1c67743ca86ce89b621d7",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/manifest.json",
+      "bytes": 5273,
+      "sha256": "a5cc52111d5b9e8f1764a27f13cb91c8d086c35bcf5727c43dcfe9bde6aa7777",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/posed_contacts.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/posed_contacts.json",
+      "bytes": 2665,
+      "sha256": "9d643f1fcaae271b748f9fed5835113ea6b64ed618ba057b7a5c99da234e1ed1",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/poses.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/poses.json",
+      "bytes": 1924085,
+      "sha256": "59792633e77be0add151bf44cd3f8b2a41f0528126e4e0ea836f7f74cb008810",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/saved_assets.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/saved_assets.json",
+      "bytes": 3607,
+      "sha256": "5d46c46d222f0fa8ce02e99c86ee11fcebe297b2cf1d5be1b712144b5dd4b1e0",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/ue_field_sweater_input.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/FrontRefine20261021/Before/ue_field_sweater_input.json",
+      "bytes": 4684148,
+      "sha256": "1bbbd373171a453b51003e85924dcc18a157c85974153a9e22e2f0016db32470",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "bytes": 8911121,
+      "sha256": "3cc2aad141e96b653759774d2cbeb734aeed7c4a9ca8471685b1fe39c6f46d58",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "bytes": 8950256,
+      "sha256": "ee7b9d0ec55326549173c48f49a648272ecc8dc26b2fbc1337ddd53b62d65c7f",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "bytes": 9101571,
+      "sha256": "b0584c6b467b831207c4ba6be354691618c4a76262469f6372920311bc0dfbaf",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "bytes": 8896824,
+      "sha256": "d2065e78bb1a792cdc34ae0e84936c9598ef2c09d2967ff9de2c1ac9c1291a06",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "bytes": 8930447,
+      "sha256": "6f257207c1a06466a4d5a314b5bde2f1babb030fa7219cfa8f6a307a5212519c",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "bytes": 8937103,
+      "sha256": "4491472b5f4a8deb3e0e3a9bb4b0e221fd59ced64ed550d4394d163204b53c92",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "bytes": 8959,
+      "sha256": "08835ac5bbfd77f9f2767e51a47adaaec54b81d70a06ca4f25916a56ceffb4bb",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/manifest.json",
+      "bytes": 9073,
+      "sha256": "71e3843229001197ce3a8aea96cbdfd93ba41c2c8eed612582e797cc4119b914",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json",
+      "bytes": 14357427,
+      "sha256": "aa3a87f526a82c5a49c23429dd76d8d0084676e75a667f4749a2e43ba13a6911",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/chainmail.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/chainmail.json",
+      "bytes": 14481662,
+      "sha256": "192eb88f1170e8bd15ddb8b5d34f1be0f20d972308ed294abdf4c730b99f56cf",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/knit_sweater.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/knit_sweater.json",
+      "bytes": 14539500,
+      "sha256": "f4d28d72ad4bfa3c2e7efd38b3f82e1bf7143775db04d79de7444e01bc2db011",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/mage_robe.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/mage_robe.json",
+      "bytes": 14673913,
+      "sha256": "fe959e43f4f74599bd0a848cab37268d674eadb16391d9062c17c1df7884dcc7",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/st6.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/st6.json",
+      "bytes": 14384633,
+      "sha256": "21c24d81bcb3d663f8b8b6434b3fe6ccb3a61aab35c91459c8bb55bbd6e0f5f6",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/thin_cotton.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/Authored/thin_cotton.json",
+      "bytes": 14533803,
+      "sha256": "e55b276553d271354eb0b8422fca989516ae4cb98623f33c50098cef0575dd5e",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/checks.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/checks.json",
+      "bytes": 24248,
+      "sha256": "a479b777328bce02dfcdbe20e921301f48df8aca03a691f6bef95fe327bc12fd",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/delivery.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/delivery.json",
+      "bytes": 4325,
+      "sha256": "213d424b06465ce4b5ec37a49f68a467f4ca7191ca49b9892fc359a5ee984421",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/manifest.json",
+      "bytes": 5272,
+      "sha256": "e71ba4dd9224277826c38b888833401ea8db6756b619c43fadeffe34fe295f3f",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/posed_contacts.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/posed_contacts.json",
+      "bytes": 3370,
+      "sha256": "8228d5815ceaee650162112115e5e695520fd2a2d9e77d66e8363b1f25f1bbb3",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/PreparedBag.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/PreparedBag.json",
+      "bytes": 11225452,
+      "sha256": "34a14ee28f94a99194c53433b6dc034f29d9f6bcf4ba72b2ba15f4e2cbd80b68",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/saved_assets.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/saved_assets.json",
+      "bytes": 3619,
+      "sha256": "811383294f42131dd0c0bbf846c4ee746489d88132b6931945102584f5f8e303",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/saved_readback_checks.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/SourceAssets/BackpackHarnessRebuild20261020/saved_readback_checks.json",
+      "bytes": 4522,
+      "sha256": "0d1026fc9cf6c447abf1766f304e3ca20117bd3bca4a081fcebcde56cd84c172",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Tools/BackpackHarness/author.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Tools/BackpackHarness/author.py",
+      "bytes": 30264,
+      "sha256": "73a5ad62867754e00dbd21d04f052eddb70d3ed79c8201636580995292854e58",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Tools/BackpackHarness/README.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Tools/BackpackHarness/README.md",
+      "bytes": 1570,
+      "sha256": "604ae7b8ff270792e1edf6477c42195d17dcf6484c6f6919998a8bafdfb1eb92",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Tools/BackpackHarness/save.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/ShellRepair20261022/Before/Tools/BackpackHarness/save.py",
+      "bytes": 9112,
+      "sha256": "155a5548731e8b7afc72dd4ddcdfffcf2bfbce62d21cd336c914e626a928c0c2",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/bare_render_lod0.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/bare_render_lod0.json",
+      "bytes": 14158050,
+      "sha256": "5c4f59e8483da4c8425ecfe6c3686a1a92b68664ddb967b80cd8008d3e63a006",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/bare_render_lod1.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/bare_render_lod1.json",
+      "bytes": 7557924,
+      "sha256": "1ce3e00b028eed556c7deea0e3846688be91558edc711a4cc5ba8fe521dda37a",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/chainmail_render_lod0.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/chainmail_render_lod0.json",
+      "bytes": 14277077,
+      "sha256": "2ec720355c4cad8a802bcc616d8b3730d1fd0d1aa1952e92f11d5c19f1475758",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/chainmail_render_lod1.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/chainmail_render_lod1.json",
+      "bytes": 7666563,
+      "sha256": "707bdda8d0ebdb4cb7be85cb2d2ed46b24bf81a4dab85226effc81a1445f17c2",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack.uasset",
+      "bytes": 9173832,
+      "sha256": "0b077115b9b25cea78ebc5019f8e2ee2320ae7b176b40f2cae8e17261181950f",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Chainmail.uasset",
+      "bytes": 9274251,
+      "sha256": "923a74890b636bf478e73fae7518d1b4870bbfe3af5189346ff8426d7d772b3a",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Robe.uasset",
+      "bytes": 9410486,
+      "sha256": "7835322b411359e572e6bc302fc247b0b83a5774fcfd71d26930c95d617d3bb8",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ST6.uasset",
+      "bytes": 9223711,
+      "sha256": "6b718bf2ea61ed00ad47ac418032dbeed83eb8934bb3f18b72e4e988bb17c70e",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_Sweater.uasset",
+      "bytes": 9322911,
+      "sha256": "9c578e240ef3c812b019cc8bbf8afd680b46c2576698c74df3d81c5823b3454d",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Content/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SK_Jason_Backpack_ThinCotton.uasset",
+      "bytes": 9300332,
+      "sha256": "50a8e2328036d565e9e9e3527ce72261ec370768dba9e8944d3f25e175ef33e7",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "bytes": 11274,
+      "sha256": "01ed0f3eb040419ea7616ea62a7c6474950446fdf720a8b00951b3b73b854637",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/manifest.json",
+      "bytes": 8419,
+      "sha256": "fa2d5a79c2eb810198236c999b8f8c47e9fe9d07592d511e4001af7fd2153b49",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/bare.json",
+      "bytes": 14865716,
+      "sha256": "18ccad35bbc4a5e8bec81817a7514631f05d4f104bcf7fe089293c3d89006c7e",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/chainmail.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/chainmail.json",
+      "bytes": 14989948,
+      "sha256": "ce6ca030c17fe614757b39c9a885dea97fdc658a24664a1b8394ca3bc66cfb01",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/knit_sweater.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/knit_sweater.json",
+      "bytes": 15047832,
+      "sha256": "39edb779f418ae1d16bb9a88b30eb9dd3a0b2fa9c41c4fcbc02490cad52a7006",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/mage_robe.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/mage_robe.json",
+      "bytes": 15182079,
+      "sha256": "7958f79953ab7f9f794381dcda66bce054bded1659a00833f9dc00907d3c3323",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/st6.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/st6.json",
+      "bytes": 14892861,
+      "sha256": "b083264414215da63c0d1a2df1f281ec41cf5382f38cf743b3939e1bf574bfa5",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/thin_cotton.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/Authored/thin_cotton.json",
+      "bytes": 15042139,
+      "sha256": "16afb95981d03a37fd62f64ee9b33eb4ee46cfaaae5fe50b92ee5804b0ae7f4a",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/delivery.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/delivery.json",
+      "bytes": 4603,
+      "sha256": "c2e6ba930fc6f71bc90b3153b133707551f1123ac9bf2b6bf98653a85dd6149d",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/manifest.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/manifest.json",
+      "bytes": 5792,
+      "sha256": "95093a47fa9ab046c8ecec383a2db1c88bea923d8b28225771eea402c4c7519e",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/PreparedBag.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/PreparedBag.json",
+      "bytes": 11734800,
+      "sha256": "75451040a76af3fd399f6bc9b08931169bbddf4dde8c3c269afc72a267d1c58f",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/saved_assets.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/SourceAssets/BackpackHarnessRebuild20261020/saved_assets.json",
+      "bytes": 3817,
+      "sha256": "45813983d801d2dae7d18c1ee85ef67f443edcb58e67927b7ea85976eed5efc6",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/bag_shell.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/bag_shell.py",
+      "bytes": 6204,
+      "sha256": "69fbc552f84d448e35afbe0f3afb07ff6c53fa1ee52c06121a38e26dae93eeb6",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/README.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/README.md",
+      "bytes": 2144,
+      "sha256": "cb51b7dd09b79db379bdce00861ab4ab1d5a295a2ee9b3cd3eb77e5b9f2f92eb",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/repair_shell_sources.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/repair_shell_sources.py",
+      "bytes": 2352,
+      "sha256": "dd6e20620a10d3a670126b3b9d937c29cc084e89267ce1bc31bb31475a437835",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/save.py",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/Files/Tools/BackpackHarness/save.py",
+      "bytes": 9679,
+      "sha256": "570dd93749b3f5bf73ffb0b96d8b945a97e55a11b1b6747820307f2ed53ba21a",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/knit_sweater_render_lod0.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/knit_sweater_render_lod0.json",
+      "bytes": 14325113,
+      "sha256": "82933ccdebbc2a02752941b462b15cab82c6850bbe88df55f6d909b761247f79",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/knit_sweater_render_lod1.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/knit_sweater_render_lod1.json",
+      "bytes": 7707315,
+      "sha256": "b029d0ca7afe92de2e3e61547dc84cd307ab137a4577096ca2e04275af53195b",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/mage_robe_render_lod0.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/mage_robe_render_lod0.json",
+      "bytes": 14425281,
+      "sha256": "ed1c19f328f98a8a9f3cf04af68a4b8a567f6619ba6394257ebe2c80ad5422b0",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/mage_robe_render_lod1.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/mage_robe_render_lod1.json",
+      "bytes": 7797241,
+      "sha256": "a528038f805a2a59d47cf4f60a74e8b4878bab088187189a30d61924db526ba3",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/st6_render_lod0.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/st6_render_lod0.json",
+      "bytes": 14184588,
+      "sha256": "0d83da169b03215e30b3f1988326f17d7b20d3811b1535414f13c889ae11155f",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/st6_render_lod1.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/st6_render_lod1.json",
+      "bytes": 7581489,
+      "sha256": "275e8eb4a172f233a3e1995111946bcf99a3b9cd92fde463ee89c3605c46630e",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/thin_cotton_render_lod0.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/thin_cotton_render_lod0.json",
+      "bytes": 14313093,
+      "sha256": "a49c83b4460decbc3d414905cf87016e15a39a546ede79c9384fcc4bd582b21d",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/thin_cotton_render_lod1.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessRebuild20261020/SideRepair20261022/Before/thin_cotton_render_lod1.json",
+      "bytes": 7699247,
+      "sha256": "21bbe2f0e76ce887fd4aa53a67830f17ed5ce5fac993f653094193b408defdf9",
+      "reason": "Previous input/source/asset rollback snapshot; recoverable archive, not active input",
+      "replacement": "Current authored assets, inputs and manifests in SourceAssets/BackpackHarnessRebuild20261020"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/ue_portable_backpack_before_20261019.png",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/ue_portable_backpack_before_20261019.png",
+      "bytes": 86517,
+      "sha256": "26a4f68758c8390fc04b0dce9531124b85fbe31c70e501bd3159cd081662bf9c",
+      "reason": "Superseded inventory icon",
+      "replacement": "Content/ColdSteelData/Icons/ue_portable_backpack.png"
+    },
+    {
+      "source": "Tools/BackpackHarness/__pycache__/author.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackHarness/__pycache__/author.cpython-311.pyc",
+      "bytes": 55066,
+      "sha256": "1d8f6524d8187481deba0f360ad3edd4bd00dac72f2bd1dca979c975e65323eb",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackHarness/__pycache__/bag_shell.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackHarness/__pycache__/bag_shell.cpython-311.pyc",
+      "bytes": 12185,
+      "sha256": "dd6b4b38108f032dedf8b0b4f71b5e7844975ada9df9eb4006d8074bd4f331be",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackHarness/__pycache__/validate.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackHarness/__pycache__/validate.cpython-311.pyc",
+      "bytes": 18082,
+      "sha256": "f66d5f3767327c590215bc336f82e75289c501822db33d534d1e812f47ac9fa4",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackHarness/__pycache__/winding.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackHarness/__pycache__/winding.cpython-311.pyc",
+      "bytes": 1361,
+      "sha256": "124ca3f92d7dbf216905c4fe512f25ba9b41c48e1817bf26659fe9f202a69481",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackMotion/__pycache__/author_alice.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackMotion/__pycache__/author_alice.cpython-311.pyc",
+      "bytes": 32751,
+      "sha256": "f788fbec75466e3bdee99ba509a90b0b96ce3613acff96c50ef623dddd8ee0d3",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackMotion/__pycache__/diagnose_pack_response.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackMotion/__pycache__/diagnose_pack_response.cpython-311.pyc",
+      "bytes": 13247,
+      "sha256": "8d138fd9c7fb3d27e1f7ac482aaf02b924077580067b52935ae3617a3599d458",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackMotion/__pycache__/response_profiles.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackMotion/__pycache__/response_profiles.cpython-311.pyc",
+      "bytes": 1250,
+      "sha256": "60638caf718790e3a4cd8cdb586ff2b041f8045324f3b8f75f64b65f3be2c68f",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/BackpackMotion/__pycache__/save_assets.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/BackpackMotion/__pycache__/save_assets.cpython-311.pyc",
+      "bytes": 28373,
+      "sha256": "52b4c58a4003ccddcf4464290af4d05d95890c8f641411d1767d2a1f4fa22128",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/SimpleSlingBag/__pycache__/author.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/SimpleSlingBag/__pycache__/author.cpython-311.pyc",
+      "bytes": 19318,
+      "sha256": "fe297b06a8b9d5093f35db068ba5cdd9d8ce790a21158b823dd543b2ad45468a",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/ExpeditionBackpack/__pycache__/author.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/ExpeditionBackpack/__pycache__/author.cpython-311.pyc",
+      "bytes": 36293,
+      "sha256": "90e73174640386be957630365348269ad2a12136acd825765020fed4e0ff47cc",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "Tools/PathfinderBackpack/__pycache__/author.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/Tools/PathfinderBackpack/__pycache__/author.cpython-311.pyc",
+      "bytes": 40276,
+      "sha256": "32af4f6b6ee24c85fe50600517d8017bddbffc3ca0f2c398f32da3f8eebaf2a8",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "SourceAssets/PortableBackpackAlice20261019/__pycache__/bake_alice.cpython-311.pyc",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/PortableBackpackAlice20261019/__pycache__/bake_alice.cpython-311.pyc",
+      "bytes": 39336,
+      "sha256": "b8c9e485f6152ad16c4c3fb5d8381d3bf5feb4a4dd2ac3764d94b8e6ef3e2d69",
+      "reason": "Regenerable Python cache",
+      "replacement": "Retained Python sources"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/bag_mountain_spec.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/bag_mountain_spec.json",
+      "bytes": 1857,
+      "sha256": "bb316d3d4db3c2e02cdfe9f09d27212dca06d0ebdb7b6b0efa5df60f41b18524",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/bag_mountain.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/bag_mountain.json",
+      "bytes": 12441026,
+      "sha256": "2882d265e4398c0e088c596758b373c238d3bff284f491570e878b897595a13c",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/build_receipt.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/build_receipt.json",
+      "bytes": 643,
+      "sha256": "61902d5f7fdbb27d532c658a39b160b1863973b8a8b8b3333d1055857b5743be",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/built_mountain_chainmail.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/built_mountain_chainmail.json",
+      "bytes": 16271245,
+      "sha256": "fa90fe8cb793b10369d8fc609526a470ad6d1aed29d3fb58ceb9192e31330dcc",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/built_mountain_knit_sweater.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/built_mountain_knit_sweater.json",
+      "bytes": 16271384,
+      "sha256": "c2605ecef4339761db5434c2f05ecee6e90eae5dc97d6b3cabaf7fd114499749",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/built_mountain_mage_robe.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/built_mountain_mage_robe.json",
+      "bytes": 16271592,
+      "sha256": "4b0ad455936e3cb754a95e2e1c55da7b33062cf0fba8fb80b51e81ad420d8dcf",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/built_mountain_thin_cotton.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/built_mountain_thin_cotton.json",
+      "bytes": 16271086,
+      "sha256": "058d4fa07adf151b279906cc4d910bc070502dcae6076c98b6dbe417f4079e16",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/built_mountain.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/built_mountain.json",
+      "bytes": 16271074,
+      "sha256": "218028b279ef6e185e867ac9540f89d7425a03894a821131654a7d2a21c2d634",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/garment_profiles.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/garment_profiles.json",
+      "bytes": 1574,
+      "sha256": "72620dc26e989989cbc3296443508da12a7bcde3f95103d3bd5cba5185535777",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/harness_template.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/harness_template.json",
+      "bytes": 3789690,
+      "sha256": "6010270265c42ea73181a4d421762a645c7dd79392191fd16964043fa87a8241",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/README.md",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/README.md",
+      "bytes": 3653,
+      "sha256": "bb590a2a2e4a9190779f32ee559fd0fda59885862548df68b386bac2579e9f4d",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    },
+    {
+      "source": "SourceAssets/BackpackHarnessMountain20261020/split_receipt.json",
+      "destination": "trash/backpack-retired-20261023/SourceAssets/BackpackHarnessMountain20261020/split_receipt.json",
+      "bytes": 586,
+      "sha256": "ecd2e6b671e449694fcfd8e4487ef8ea35a59781f5d0bd865fb6dfbfe95456b8",
+      "reason": "Rejected template pilot still points to retired nearest-surface builders; no active production references",
+      "replacement": "Tools/BackpackHarness and current BackpackMotion variants"
+    }
+  ],
+  "file_count": 152,
+  "bytes": 824447622,
+  "readback_verified": true,
+  "physically_deleted": false,
+  "prior_archive": {
+    "path": "trash/backpack-rejected-20261020-full-audit",
+    "file_count": 295,
+    "manifest_sha256": "927612ccb7babf9b14295b3fc3dc461ad09c7fe05c01f83ef052296ef8d39b15",
+    "unchanged": true
+  }
+}

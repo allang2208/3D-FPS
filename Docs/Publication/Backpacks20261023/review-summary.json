@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-23T18:35:40+08:00",
+  "scope": "Fifth backpack integration plus shared five-backpack capacity and component lifecycle regression",
+  "item": "ue_pathfinder_backpack",
+  "outcome": "No new production gameplay defect found in the reviewed scope; missing fifth-pack audit coverage completed.",
+  "findings": [
+    {
+      "id": "fifth_pack_missing_from_audits",
+      "kind": "coverage_omission",
+      "status": "fixed",
+      "change": "Add Pathfinder to capacity and lifecycle tables; add seventh-row/twelfth-column shrink and full-inventory atomic refusal cases; add real UDP host/client fixture."
+    }
+  ],
+  "production_gameplay_changed": false,
+  "audit_cpp_changed": true,
+  "configuration_and_saved_assets": {
+    "report": "SourceAssets/PathfinderBackpack20261023/Audit/config_assets.json",
+    "capacity": {
+      "main": [
+        18,
+        7
+      ],
+      "compartment": [
+        12,
+        6
+      ]
+    },
+    "source_profiles": 6,
+    "missing_assets": [],
+    "uncooked_roots": []
+  },
+  "reviewed_routing": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "scope": "Remote authority equipment from shadow profile; shirt selection shared by harness and rigid mount; Clear before rebuilding; configured rigid body and motion"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "scope": "ReplicatedOutfit registration, OnRep reconstruction, dedicated-server presentation exclusion"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionComponent.cpp",
+      "scope": "Visible-body correction/teleport reset, CPD current/previous fields, rigid and strap transform coherence, component clearing"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "scope": "SanitizeGuestProfile keeps old layout stride until shared migration; remote shadow application and persistence"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "scope": "Explicit cook inclusion of JSON-referenced backpack assets; source/config audit only, no packaged build"
+    }
+  ],
+  "build": {
+    "editor": "Succeeded",
+    "game": "Succeeded",
+    "logs": [
+      "SourceAssets/SimpleSlingBag20261022/build-pathfinder-audit-r1-FPSGAMEEditor.txt",
+      "SourceAssets/SimpleSlingBag20261022/build-pathfinder-audit-r1-FPSGAME.txt"
+    ]
+  },
+  "capacity": {
+    "passed": 81,
+    "failed": 0,
+    "synthetic_only": true,
+    "real_saves_opened": false,
+    "report": "SourceAssets/PathfinderBackpack20261023/Audit/Wire/20261023-182010/Native/capacity_checks.txt"
+  },
+  "component_lifecycle": {
+    "passed": true,
+    "cases": 30,
+    "packs": 5,
+    "shirt_profiles_per_pack": 6,
+    "report": "SourceAssets/PathfinderBackpack20261023/Audit/Wire/20261023-182010/Native/native_lifecycle.json",
+    "scope": "Real-asset component fixtures; simulated CMC capsule/mesh correction, visible teleport, clear/rebind; no sockets, GameInstance, profile or rendered/gameplay acceptance"
+  },
+  "network": {
+    "passed": true,
+    "cases": 14,
+    "failed": 0,
+    "transport": "Real localhost UDP listen host and one client; reconnect repeats seven phases",
+    "lag_ms_each_peer": 60,
+    "loss_percent_each_peer": 3,
+    "emulation_confirmed_in_all_three_peer_logs": true,
+    "rendered": false,
+    "report": "SourceAssets/PathfinderBackpack20261023/Audit/Wire/20261023-183011/host.json",
+    "receipt": "SourceAssets/PathfinderBackpack20261023/Audit/wire-receipt.json",
+    "input_hashes": "SourceAssets/PathfinderBackpack20261023/Audit/Wire/20261023-183011/input-hashes.json",
+    "scope": [
+      "Client local and observed host presentation",
+      "Host observed client presentation",
+      "Server shadow capacity and replicated equipment slots",
+      "Different backpack and shirt per peer",
+      "Equip, unequip and rapid rebuild",
+      "Pawn recreation retaining PlayerState",
+      "Same-profile reconnect",
+      "Skinned harness/rigid attachment and shared motion field"
+    ]
+  },
+  "phase_matrix": [
+    {
+      "phase": 0,
+      "client": "pathfinder+sweater",
+      "host": "expedition+robe"
+    },
+    {
+      "phase": 1,
+      "client": "expedition+robe",
+      "host": "pathfinder+sweater"
+    },
+    {
+      "phase": 2,
+      "client": "no_pack+sweater",
+      "host": "pathfinder+robe"
+    },
+    {
+      "phase": 3,
+      "client": "pathfinder+robe",
+      "host": "expedition+sweater",
+      "transition": "client pawn recreation"
+    },
+    {
+      "phase": 4,
+      "client": "expedition+sweater",
+      "host": "no_pack",
+      "transition": "rapid unequip and equip"
+    },
+    {
+      "phase": 5,
+      "client": "no_pack+no_shirt",
+      "host": "expedition+robe"
+    },
+    {
+      "phase": 6,
+      "client": "pathfinder+robe",
+      "host": "pathfinder+sweater"
+    }
+  ],
+  "limitations": [
+    "NullRHI peers are frozen; running/aiming rendered clipping and material appearance not tested",
+    "Pawn recreation is not the complete damage/death/ragdoll sequence",
+    "No dedicated-server, second remote client, cross-machine or packaged-game execution",
+    "Packet emulation is one 60ms/3-percent scenario, not broad network coverage",
+    "Other three packs have capacity/component coverage; real wire matrix is Pathfinder and Expedition"
+  ],
+  "player_real_saves_modified": false,
+  "audit_sources_sha256": {
+    "Source/FPSGAME/UI/BackpackCapacityAuditCommandlet.cpp": "49e0a3c67c87882dd685b464f8fec841df4b9192e593bd8eda1fa42e089e664b",
+    "Source/FPSGAME/Characters/FPSBackpackLifecycleDiagnostic.cpp": "32bbf9d48d1fac2c59827f10cbba55483fa031a12cdc05caabceb7364f79e1ee",
+    "Source/FPSGAME/Development/BackpackWireAudit.h": "8f49e234c0c6c06f0a95a5aff8d2612ba66006d5d2b2ee5a0e484b90ea4040ee",
+    "Source/FPSGAME/Development/BackpackWireAudit.cpp": "8ef067ec29f4bdfbc31ae5f401f98b1ac205629b56d25a100a22ec8b08461bf6",
+    "Tools/PathfinderBackpack/run_wire.ps1": "a20fb925da998341893c182f46ce4afcff879c480303e34ff986527a32b7de92"
+  },
+  "evidence_status": "Historical local review performed before this repository cleanup; raw reports and synthetic profiles remain local."
+}

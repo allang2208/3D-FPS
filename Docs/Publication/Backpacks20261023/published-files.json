@@ -1,0 +1,802 @@
+{
+  "scope": "Exact source/configuration/documentation changes; this inventory excludes its own recursive checksum",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "kind": "scoped",
+      "sha256": "3d5e5536c449dd1282e2cfac9d265bbb3810e39d67de03db9345da935d4efb4f"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+      "kind": "scoped",
+      "sha256": "ec3f2a64f39537b53e40d3a9a49321f8cfa9de95844d01eb5ad06d055289cbfa"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "kind": "scoped",
+      "sha256": "d7a577a4f175e64c5257f9600a15b30d81e430408811a3e246f5acaf78a8ffe6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "kind": "scoped",
+      "sha256": "bd9a975fc6575c2255e366f1c4aa81a79a698f80ae0251ea595f4256a1b5a914"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "kind": "scoped",
+      "sha256": "f96c735ae027bdcad039c0841d71c326b01837a13f21ea7214aeaf8a71b04a4c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+      "kind": "scoped",
+      "sha256": "f4e2ad0899334f9abbd5fae8427be5cbb3ac2656176e22f0d9edda968b99d25d"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "kind": "scoped_json_keys",
+      "sha256": "cc0bb9f5ea362703c1e0e2c6332dd3de8643f1390c49f20475ef938ce149bbfd"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "kind": "scoped_json_keys",
+      "sha256": "ecbee860fca025525c250293f5250853f743cfbe970013cf23af304278fff1fa"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "kind": "scoped",
+      "sha256": "a5629366e323290a447aa1dd99be9fad57c69f940360872869842f726adfa8ad"
+    },
+    {
+      "path": ".gitignore",
+      "kind": "scoped",
+      "sha256": "abc9a71aa1aa890586b473735266610d71e815c904d9e7d8166bd2d95501a7be"
+    },
+    {
+      "path": ".gitattributes",
+      "kind": "scoped",
+      "sha256": "416635218faaf3a05eed6589ebedd7ff6985ee988193523f5a1307bb10abde8f"
+    },
+    {
+      "path": "Tools/BackpackHarness/author.py",
+      "kind": "owned_full_file",
+      "sha256": "19ac22807d7c4ccbde8033c9f4130cabf31dda2ee46a3410f0c10330b655c296"
+    },
+    {
+      "path": "Tools/BackpackHarness/bag_shell.py",
+      "kind": "owned_full_file",
+      "sha256": "ef4d8755683b3544cde4ea3d8b9ba0a8bf2d7efdc87933a5e8af222c99195a4f"
+    },
+    {
+      "path": "Tools/BackpackHarness/check_alice_render.py",
+      "kind": "owned_full_file",
+      "sha256": "c1fe22918996516c965221bcd753c028b8c006ec1e75f5558c066a46cfba01ac"
+    },
+    {
+      "path": "Tools/BackpackHarness/check_alice_sides.py",
+      "kind": "owned_full_file",
+      "sha256": "cf6cd44330707d9c41cc0b3dcf02ccb2a0f0322f644210937616af4facbc7b98"
+    },
+    {
+      "path": "Tools/BackpackHarness/check_front_faces.py",
+      "kind": "owned_full_file",
+      "sha256": "74e790f9287e84041b0c8d2136a2b443a2b5218af0cafde45d798de76a7f2955"
+    },
+    {
+      "path": "Tools/BackpackHarness/check_readback.py",
+      "kind": "owned_full_file",
+      "sha256": "5055b4b8809cf33e3dbd4fa92e61adb4dac95b134045cd8337f583b1f397ee9c"
+    },
+    {
+      "path": "Tools/BackpackHarness/check_side_shell.py",
+      "kind": "owned_full_file",
+      "sha256": "ef8f2a55d67eb1fb20cd2365466850a9a2cda6a02293ac276f38df8703e1713c"
+    },
+    {
+      "path": "Tools/BackpackHarness/export_alice_sides.py",
+      "kind": "owned_full_file",
+      "sha256": "b27b8e441a21c13fb77d1a0fb40eb6668663d7d51f3cc96be833623a976eabb4"
+    },
+    {
+      "path": "Tools/BackpackHarness/inspect_alice_sides.py",
+      "kind": "owned_full_file",
+      "sha256": "c24909ab4f3c2308ae45d0267763a05f438ae81212da0efc9cf71a41fca5bdf2"
+    },
+    {
+      "path": "Tools/BackpackHarness/inspect_render_mesh.py",
+      "kind": "owned_full_file",
+      "sha256": "13a789cf7f2111fc748c92b461cc578aea5a27a3fecbddc089a492b0fa866bd1"
+    },
+    {
+      "path": "Tools/BackpackHarness/inspect_ue.py",
+      "kind": "owned_full_file",
+      "sha256": "b045731b5a9a4b462211badd4a90ab012fde5baab09cc48249ef2bbbbc7ceccb"
+    },
+    {
+      "path": "Tools/BackpackHarness/pose_checks.py",
+      "kind": "owned_full_file",
+      "sha256": "45066d3f9c8cab4a3ca50a42a552c9141b28b3e5805f9d1683f7469122ea03a3"
+    },
+    {
+      "path": "Tools/BackpackHarness/publish.py",
+      "kind": "owned_full_file",
+      "sha256": "9185452204b51a7da029ffa62d1c7f4fc9c9be245c2c5dee2e9f12d7a42ffb29"
+    },
+    {
+      "path": "Tools/BackpackHarness/read_alice_asset.py",
+      "kind": "owned_full_file",
+      "sha256": "8baa4689f1c9e0353a5d5ddd650d0a50db1df6866e5436f6cf6efb57bd8aa1d6"
+    },
+    {
+      "path": "Tools/BackpackHarness/read_alice_render.py",
+      "kind": "owned_full_file",
+      "sha256": "c3f69fd38bd631e21121f903d9a6e54aa72db06772bfcbafa84316423f592719"
+    },
+    {
+      "path": "Tools/BackpackHarness/read_facing_reference.py",
+      "kind": "owned_full_file",
+      "sha256": "19efd84fe967f33ad598f9fe267aa92f8481e9553790f35ce38de692eed20598"
+    },
+    {
+      "path": "Tools/BackpackHarness/read_poses.py",
+      "kind": "owned_full_file",
+      "sha256": "7649f6305ae154456c4dcbd7cb91a23ae98617cdc4751400487ab65f20567170"
+    },
+    {
+      "path": "Tools/BackpackHarness/read_shell_material.py",
+      "kind": "owned_full_file",
+      "sha256": "26b837ab55eeeae29964b4146eb3dd165aadb99ea9fff57440066e62b466ddb0"
+    },
+    {
+      "path": "Tools/BackpackHarness/README.md",
+      "kind": "owned_full_file",
+      "sha256": "0b48178fee5e8770b055e39f7975d6f7bc24a453115239a7340f81f7018d31bf"
+    },
+    {
+      "path": "Tools/BackpackHarness/refine_alice_sides.py",
+      "kind": "owned_full_file",
+      "sha256": "59c0e1ec3349814ce6c634eafdee37322b100359b115347f7d6ca3461e5dc06a"
+    },
+    {
+      "path": "Tools/BackpackHarness/render.py",
+      "kind": "owned_full_file",
+      "sha256": "f7d291befa63adde93930541d0ad04f91ad0e10f4a01aae739e841e9e44e2c10"
+    },
+    {
+      "path": "Tools/BackpackHarness/render_alice_sides.py",
+      "kind": "owned_full_file",
+      "sha256": "741b4b71b271bd215022de60e34a11c33005fcb96f72d0e6c5c182e8c1696afd"
+    },
+    {
+      "path": "Tools/BackpackHarness/repair_shell_sources.py",
+      "kind": "owned_full_file",
+      "sha256": "ec953b453674a7b712c4d091d958623e64fe37e8b0e1094ab9db29937dcf121b"
+    },
+    {
+      "path": "Tools/BackpackHarness/save.py",
+      "kind": "owned_full_file",
+      "sha256": "d62ac849cc85dade0a43635d9f5b9e321566cfa142d790dc163b38db14bb8821"
+    },
+    {
+      "path": "Tools/BackpackHarness/save_alice_sides.py",
+      "kind": "owned_full_file",
+      "sha256": "7be9532899ee42aa5d1ab09c9b687e11fb5d89e0fd0bcfad98aeb9d8bb185abb"
+    },
+    {
+      "path": "Tools/BackpackHarness/textures.py",
+      "kind": "owned_full_file",
+      "sha256": "357a6ef57e3d505d7ddf4616550ee8052d680509e1484acb01b6115bee17341a"
+    },
+    {
+      "path": "Tools/BackpackHarness/validate.py",
+      "kind": "owned_full_file",
+      "sha256": "92eb986f6faacd78a0c32df53741c28ce32cc7bf7fcb5b5d3eb6f404fa6553c4"
+    },
+    {
+      "path": "Tools/BackpackHarness/winding.py",
+      "kind": "owned_full_file",
+      "sha256": "0659abf525544f61e0d46d7146687932fe8047e14da0e2c97c79b8b76461ba7a"
+    },
+    {
+      "path": "Tools/BackpackMotion/analyze_motion_inputs.py",
+      "kind": "owned_full_file",
+      "sha256": "46f7ffc13e6f79be044801ae3d57316d326993d70988fb07d478dc271a2313b8"
+    },
+    {
+      "path": "Tools/BackpackMotion/author_alice.py",
+      "kind": "owned_full_file",
+      "sha256": "335c0a0dd2ace2edfa7894a4b54e901f899660c44c9c5a88db0d8d4bb189e0a1"
+    },
+    {
+      "path": "Tools/BackpackMotion/diagnose_alice.py",
+      "kind": "owned_full_file",
+      "sha256": "71735c138ea8dd8bc36fee02bf7b0eb65f8cbbaf314fc405fb542e16e66622c4"
+    },
+    {
+      "path": "Tools/BackpackMotion/diagnose_pack_response.py",
+      "kind": "owned_full_file",
+      "sha256": "daeda0e2cad1ac0584eac1fa7550d821f35698109f7f926ae32895e3395a685f"
+    },
+    {
+      "path": "Tools/BackpackMotion/fit_mountain_sweater_r2.py",
+      "kind": "owned_full_file",
+      "sha256": "a8bec034735c1967f6fee605f71020c5678ef1e358f202362241f8917c4e52aa"
+    },
+    {
+      "path": "Tools/BackpackMotion/prepare.py",
+      "kind": "owned_full_file",
+      "sha256": "f83c039c9b27d34d730671198351cba28d062fff70fc38c387a9e43a661ee59d"
+    },
+    {
+      "path": "Tools/BackpackMotion/publish_response_r2.py",
+      "kind": "owned_full_file",
+      "sha256": "372b5dcfc47045134f7492b49f1f95c71370c71abd613d9159f7e32dc42f7e3a"
+    },
+    {
+      "path": "Tools/BackpackMotion/read_alice_mount.py",
+      "kind": "owned_full_file",
+      "sha256": "a49b346e784c812718e03364e28b43f0a985f8deb872b87e6fa90b1812e401fc"
+    },
+    {
+      "path": "Tools/BackpackMotion/read_fabric_material.py",
+      "kind": "owned_full_file",
+      "sha256": "739440bbea8950f6b72e35b18352d4082e0d2db092067566d8d5ae3fc1756caf"
+    },
+    {
+      "path": "Tools/BackpackMotion/register_response_refit.py",
+      "kind": "owned_full_file",
+      "sha256": "593148cb0e11416833951d5fd3b7a098184cc752ac0ff7f93fcc8827efc1eb17"
+    },
+    {
+      "path": "Tools/BackpackMotion/repair_fabric_material.py",
+      "kind": "owned_full_file",
+      "sha256": "9d4e5faabafda9180d8887dc753259f51ae70d3d20aaca356ab36afc929e200d"
+    },
+    {
+      "path": "Tools/BackpackMotion/response_profiles.py",
+      "kind": "owned_full_file",
+      "sha256": "dcdd9b7bb5a7c4c0f83d01a2a3bc83f031924d72c491296eb4cd5d7d391ce856"
+    },
+    {
+      "path": "Tools/BackpackMotion/run_build.ps1",
+      "kind": "owned_full_file",
+      "sha256": "727a5a238e2a1b8a14ec42973feb989bc1ef37bb43116ca1e9b0da4166368c84"
+    },
+    {
+      "path": "Tools/BackpackMotion/run_diagnostic.ps1",
+      "kind": "owned_full_file",
+      "sha256": "340177425ea73dd110643e3754832ee773a738716a4e528f08592cbe676bc121"
+    },
+    {
+      "path": "Tools/BackpackMotion/run_material_repair.ps1",
+      "kind": "owned_full_file",
+      "sha256": "7984e3a95be6ae289939fa6be11a008025493813395590884874ff65e8763528"
+    },
+    {
+      "path": "Tools/BackpackMotion/run_refit_authoring.ps1",
+      "kind": "owned_full_file",
+      "sha256": "383f59a1e308fb97d2616e4730f8d639d4a425d9d415dc6675979ae2250a4663"
+    },
+    {
+      "path": "Tools/BackpackMotion/sample_motion_inputs.py",
+      "kind": "owned_full_file",
+      "sha256": "7736570227c11cdd3aebce3483be7420583690f0b6ebecf9ce6c083084077633"
+    },
+    {
+      "path": "Tools/BackpackMotion/save_assets.py",
+      "kind": "owned_full_file",
+      "sha256": "27d24e9d7dd33b1e761a2416735cebe44a6d842b16c7ee9f98e9949fa4effee6"
+    },
+    {
+      "path": "Tools/BackpackMotion/save_refit_r2.py",
+      "kind": "owned_full_file",
+      "sha256": "daf60b11daef5e5ae2402a81db363e443b7646a6ed9b477e5b52a179a925a187"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/author.py",
+      "kind": "owned_full_file",
+      "sha256": "99ff0ddfe95c3156cc7f700f2d5ca1052cb453190646ff656757d69bb893efc8"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/author_gravity.py",
+      "kind": "owned_full_file",
+      "sha256": "f309ca9832a1da6f5add0cd4b9f2f8ce111e8c8b63ad44e722729dda48deca23"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/prepare_source.py",
+      "kind": "owned_full_file",
+      "sha256": "07383db2997ff4fcfd2181b6879e2453042ae2c063593c95591e1dcc9118f5e2"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/publish_gravity.py",
+      "kind": "owned_full_file",
+      "sha256": "fd096cd66a3ca5cc43d6284a0aa840e23d09094b233d99e347c91a7f5b57b375"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/read_gravity_body.py",
+      "kind": "owned_full_file",
+      "sha256": "bdee4eee090f793ec1089e5d344af5a881767b51d84f72ed84d766da3be328d2"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/run_build.ps1",
+      "kind": "owned_full_file",
+      "sha256": "963fdade935d9f241e361989069f333790547bcb10f4e600ce78919a117e7ce4"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/save_assets.py",
+      "kind": "owned_full_file",
+      "sha256": "0904564422c732d05214e9fbb461d7e66a11dbe6d96900ecff45b3da96907bc3"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/save_gravity_assets.py",
+      "kind": "owned_full_file",
+      "sha256": "21cb22f3ce887d9ca3c316563a9e91de3cd0d9a2cc72e639b2a13d5a0a5c0e83"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/save_pouch_uv.py",
+      "kind": "owned_full_file",
+      "sha256": "6ef2d8d33be7e2006fb993a59b19ec927a30d47312049ba103eaf976db661524"
+    },
+    {
+      "path": "Tools/SimpleSlingBag/split_pouch.py",
+      "kind": "owned_full_file",
+      "sha256": "83eb398605c3b4e4183dbba11baee01451db77ca664f541a0053d0e4d682bf27"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/author.py",
+      "kind": "owned_full_file",
+      "sha256": "24169d24536776a753e456220cbe55f9efa5628caa8248e90206b6c05e6d8c13"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/prepare_fit_inputs.py",
+      "kind": "owned_full_file",
+      "sha256": "3c530246e3e6fafdc1d28bae0e03bd6824ca9658d3fdf0e814b1cb8e7a900edf"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/prepare_source.py",
+      "kind": "owned_full_file",
+      "sha256": "3c9adb032725b597c31312ae5c6476065a31b10a14fd03165f1ca39e6ddb859f"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/publish.py",
+      "kind": "owned_full_file",
+      "sha256": "19d04d945c228d6a8cb29fbcdf5a5675b9c9d7bf5cc87b6ac5b129cbf73b10f6"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/read_body_inputs.py",
+      "kind": "owned_full_file",
+      "sha256": "2930ef52ccb5fa316682858282ad154fc05f151e6d175465b4bec1883cc07c14"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/save_assets.py",
+      "kind": "owned_full_file",
+      "sha256": "80f150c406c4589591362f9695fa475567cf50671272ba12a697baecff22adc6"
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/source_back_view.py",
+      "kind": "owned_full_file",
+      "sha256": "e8d7f0f710afa1908e62899d71c1a05e60d6e8e593947ffbfaff5a6bd3b121ab"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/author.py",
+      "kind": "owned_full_file",
+      "sha256": "d7d4c073c4b7ea1aea1f706d7efcee57c4baa455a292e4278a04d9d8244d2b99"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/prepare_buffers.py",
+      "kind": "owned_full_file",
+      "sha256": "43dffa04323731b81d285612ad714accf00fb43ca648446693befd05bcce6836"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/prepare_source.py",
+      "kind": "owned_full_file",
+      "sha256": "b990f57c5c182f8dbf60703f4e8eb9824c392380e0f23fe16da5ac69f27246f8"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/publish.py",
+      "kind": "owned_full_file",
+      "sha256": "a5368df46ce575757e834a8d8fbf2965d1ae2d8e496a0605d0ae35a0926f36cf"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/read_body_inputs.py",
+      "kind": "owned_full_file",
+      "sha256": "81a15988317bf65dcabe22d2c8c91b9f64c600ee17fb4031c40fd17095d433d0"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/run_wire.ps1",
+      "kind": "owned_full_file",
+      "sha256": "10dcd362f8f06c0ae5f91654d8b6ed3e305041f7db6aface3b53cba25fa12615"
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_assets.py",
+      "kind": "owned_full_file",
+      "sha256": "ded1261edc9bcc6842b783c2d0f7bc9a31f6ffed3015c8c2c01b9fc739bd7117"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/apply_4k_surface.py",
+      "kind": "owned_full_file",
+      "sha256": "607d5f714ed4994e3703d293c34834938195b6e3d245ccefe2c1e2db96b9b036"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/ascii_buckle.py",
+      "kind": "owned_full_file",
+      "sha256": "72005c125b5cc8d373e4bdf584ded5cb4ea38e0c3ecfcd7128579c65585ee56c"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/ascii_front_buckle.py",
+      "kind": "owned_full_file",
+      "sha256": "8a59006050caeb37b7095a2681d75cbf5d6edaa87b8936d3ef9d3ba6e3f12fe0"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/bake_alice.py",
+      "kind": "owned_full_file",
+      "sha256": "e5e6be6f26b3280a1a9b441bb822fab6cc5267c31cd9dd071e6d7a55b05c8fac"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/bake_geo_normal.py",
+      "kind": "owned_full_file",
+      "sha256": "a92b7602d2300580cdd686cff26108b07245a6019ca0dd5c38e1646f2c3a9b39"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/build_alice_ue.py",
+      "kind": "owned_full_file",
+      "sha256": "75caf804996bbf46f9311e8774c969cd5537146074569dab501fbf69a7f92967"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/build_beveled_final.py",
+      "kind": "owned_full_file",
+      "sha256": "539dbc7a16133ad7948e07e19c2d446b16e2400d31489e8f58663df0d43db5af"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/build_buckle_openings.py",
+      "kind": "owned_full_file",
+      "sha256": "0a52f4fe6d22117b55c791405087b7bee2a5cc2a15a6335a8ebd43cf575e18ee"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/build_highpoly_stitch.py",
+      "kind": "owned_full_file",
+      "sha256": "ec0069ec016e9dca6b6d0755b9b6860972c5c1ba6a5d86f704b11a9ff059d559"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/clean_uv_layers.py",
+      "kind": "owned_full_file",
+      "sha256": "07c4b2c5d56719ff81706838c839ef5e4426cbf49f828fb4515576714d0e4e22"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/export_ue_obj.py",
+      "kind": "owned_full_file",
+      "sha256": "7348b3ec1b36400dc5274b84de3210fda7b8a80f5cb3bc9714de596b5e1ee848"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/extract_stitch_3d.py",
+      "kind": "owned_full_file",
+      "sha256": "36892fc2ba8da81e255fd014cdd6bb7871a928b90aa6985d892d349198647c86"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/inspect_alice.py",
+      "kind": "owned_full_file",
+      "sha256": "4a237aa4431c850b802b1fb43d4d67be11951df6c97cdb4cc7d3287606cb2747"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/inspect_buckles.py",
+      "kind": "owned_full_file",
+      "sha256": "cb9c284629f2ccda42915b5d44ec19d858c18b356a964ab1b7710e871372b612"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/make_detail_textures.py",
+      "kind": "owned_full_file",
+      "sha256": "8a8f0310b8706157b7aab2a29509f3b58660c353c4fc30923646c41d30004287"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/make_stitch_masks.py",
+      "kind": "owned_full_file",
+      "sha256": "f4142ffb666464d9845c8039d199bfa20593c64ee4981b7c4c2dd1cfcb64c696"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/prepare_alice.py",
+      "kind": "owned_full_file",
+      "sha256": "7808133bd642af5206ef4d558bf6d6440372def217afa9aa1735f42af1c09b0d"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/probe_uv.py",
+      "kind": "owned_full_file",
+      "sha256": "d88998de9ab384d32e894e6c2b54769cb00e8c91f502ce9ba9c8aa56b733b9b9"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/publish_alice.py",
+      "kind": "owned_full_file",
+      "sha256": "d2b4d3e97c5794a7b9fe07e3b274c0d904da39a765f3633ecd74a53c01719aef"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/render_buckle.py",
+      "kind": "owned_full_file",
+      "sha256": "e7be8df637cc9eca7812fc3d16d001bbf3b4fd641dc23c37ea82a3e093435ea0"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/render_icon.py",
+      "kind": "owned_full_file",
+      "sha256": "9db8bf77c884bcadc3f86b89c9947714686e0decf3e352bb42104eb24931c933"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/render_preview.py",
+      "kind": "owned_full_file",
+      "sha256": "f79601a9dd65431745c523c5fe49a9d07bfb0c8a108171943b09b3e118973fb0"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/uv_atlas.py",
+      "kind": "owned_full_file",
+      "sha256": "e806bcc6e2c5a007aa57417b949736d9d92ac1ef4a064e1045f85addeaa4fa16"
+    },
+    {
+      "path": "SourceAssets/PortableBackpackAlice20261019/README.md",
+      "kind": "owned_full_file",
+      "sha256": "a9ade1cdff0178f427359348702aedde6e337446461283827ea9b6557e044d53"
+    },
+    {
+      "path": "SourceAssets/ExpeditionBackpack20261022/design.md",
+      "kind": "owned_full_file",
+      "sha256": "efd4ca6ab1655daae86e85d276ac6ccde24e65bf3d683f318dc8df1e92ea742c"
+    },
+    {
+      "path": "Tools/PlayerBody/fit_jason_equipment.py",
+      "kind": "owned_full_file",
+      "sha256": "73b7ee2b2fea86489df737119e49845005ce29e3d0660bea76d2f0143df8fbc4"
+    },
+    {
+      "path": "Tools/PlayerBody/save_jason_equipment.py",
+      "kind": "owned_full_file",
+      "sha256": "61f13975a694a0f5aec4754876affd2fde6ebb162574b68b1fe25f2258653442"
+    },
+    {
+      "path": "Tools/PlayerBody/publish_jason_equipment.py",
+      "kind": "owned_full_file",
+      "sha256": "1a0810d91db6d9f4d884b5d78534706d45a8233fe28b502d089c0ba68e175dff"
+    },
+    {
+      "path": "Tools/PlayerBody/save_jason_backpack_straps.py",
+      "kind": "owned_full_file",
+      "sha256": "4580408df40b0daeecbeef9d289b06d75e74518dd06443b866bf98d89321619f"
+    },
+    {
+      "path": "Tools/Skills/author_ice_armor_v6.py",
+      "kind": "owned_full_file",
+      "sha256": "f79e6012dfe43b39378543a7ea47fae2d2d011c7e7eb60e6a52724a63fc14603"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackHangingMotion.cpp",
+      "kind": "owned_full_file",
+      "sha256": "767f08473e175b75b0e9235c8eab4f013b2f65744a7bcfc61b04abcaa7c2b273"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackHangingMotion.h",
+      "kind": "owned_full_file",
+      "sha256": "54e5f2ea2df9afc389c3bd23fb3f7c74e6f1cfd64abfecf842ab64d7a306edf9"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionComponent.cpp",
+      "kind": "owned_full_file",
+      "sha256": "bf919ffd5d5a174b4607425684b7fb915cf1ad3f064f5f7f59a00db7b77d4e27"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionComponent.h",
+      "kind": "owned_full_file",
+      "sha256": "0a24b36db43fb97d1e353f854459e0353a87001aa010b1a41080ad057872aee5"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackLifecycleDiagnostic.cpp",
+      "kind": "owned_full_file",
+      "sha256": "32bbf9d48d1fac2c59827f10cbba55483fa031a12cdc05caabceb7364f79e1ee"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionDiagnostic.cpp",
+      "kind": "owned_full_file",
+      "sha256": "3652f608643c87368652395385de37db9846f50a3cfe4b4f50346ef3c02eb6a1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/BackpackCapacityAuditCommandlet.cpp",
+      "kind": "owned_full_file",
+      "sha256": "49e0a3c67c87882dd685b464f8fec841df4b9192e593bd8eda1fa42e089e664b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/BackpackCapacityAuditCommandlet.h",
+      "kind": "owned_full_file",
+      "sha256": "206c3d8ef50d9824605a80b2d1d8b071d16d5b014736e8d5fba9c890c068afae"
+    },
+    {
+      "path": "Source/FPSGAME/Development/BackpackWireAudit.cpp",
+      "kind": "owned_full_file",
+      "sha256": "69dc1831ea0039707af399a7a29997c11eee7c683401425873f024bef9a1155b"
+    },
+    {
+      "path": "Source/FPSGAME/Development/BackpackWireAudit.h",
+      "kind": "owned_full_file",
+      "sha256": "f717276f254b5876895063430e8e395addbfe6eec03f3f35a46c9f23e29726e0"
+    },
+    {
+      "path": "Docs/Characters/backpack-harness-rebuild-20261020.md",
+      "kind": "owned_full_file",
+      "sha256": "027277b5958c3d448cb31f03ddd0b26130eabee76e6134fecdf3809e05f1938c"
+    },
+    {
+      "path": "Docs/Characters/backpacks-review-20261021.md",
+      "kind": "owned_full_file",
+      "sha256": "70822c7b5eefcb06abbc689016a700b82059169b59634bcf9674dd2fde99d7be"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/backpack-equipment.md",
+      "kind": "owned_full_file",
+      "sha256": "cc0584b034ba89941f247b76597b4f35ddb8f0cdee4b82538920b63eb7117ff3"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/shared-owner-body-and-lower-equipment.md",
+      "kind": "owned_full_file",
+      "sha256": "26df1b6590985b80525c2898d02a30ad22d4e85f7137d1979c999941208b2710"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/README.md",
+      "kind": "owned_full_file",
+      "sha256": "0f94aed49f3aeabef02586d70d7df869a685819cf858cc1610d8b4708805faf2"
+    },
+    {
+      "path": "Docs/JasonEquipmentRepair20261003.md",
+      "kind": "owned_full_file",
+      "sha256": "4ee2d6b1b91bda0808b0cf24dacc83e607522477abb979ee97f75f7fec413a0b"
+    },
+    {
+      "path": "Docs/Publication/PlayerPresentation20261012/README.md",
+      "kind": "owned_full_file",
+      "sha256": "bf3d4ace11fd5af36728e136c024f484e72ad7b01942c833c08e18c610e32877"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/SKILL.md",
+      "kind": "scoped",
+      "sha256": "edbc51a8c81aa0a56495932fee5bfed2f5fd97dd690873f0c262c5c2a8cd630b"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "kind": "scoped",
+      "sha256": "dadebcc05ba4314d3aa8a019f5b992c1f933d7de74bd5451c414ba5d74d4ed5a"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "kind": "scoped",
+      "sha256": "4542e8d7b5ae61d535cb25715e7b93f90be45bd405a965d09675db07593fc73f"
+    },
+    {
+      "path": "Tools/PlayerBody/author_backpack_straps20261012.py",
+      "kind": "retired_delete",
+      "sha256": "72e0d9e3fc338548829ed1913937e290ab62064a075bd8ae94f1e87394a1c272"
+    },
+    {
+      "path": "Tools/PlayerBody/read_backpack_sources20261012.py",
+      "kind": "retired_delete",
+      "sha256": "e2a401ee05bb690b2c8d6c16dc3752fd96a4bbd65de73d0db06c10c9e19d9a37"
+    },
+    {
+      "path": "Tools/PlayerBody/refit_jason_backpack_straps.py",
+      "kind": "retired_delete",
+      "sha256": "23c44fbd797da417cd8a43cab87a7a0902a03ab158147a97b0b7c9453fb44c8d"
+    },
+    {
+      "path": "Tools/PlayerBody/save_backpack_straps20261012.ps1",
+      "kind": "retired_delete",
+      "sha256": "9c679a46244c3a4876508e9abe55d5e84b4b250cb2a3b4801a6813213600bd09"
+    },
+    {
+      "path": "Tools/PlayerBody/save_backpack_straps20261012.py",
+      "kind": "retired_delete",
+      "sha256": "80bd8ca46c629b90bfdc0ec31f9b6f975b62a6f834091339d670f6cc38edc234"
+    },
+    {
+      "path": "Docs/Characters/backpack-straps-repair-20261012.md",
+      "kind": "retired_delete",
+      "sha256": "9454e11a55bbbfd863dcfd44ccd93619711eba54c619d7d2b8d661785702e3f3"
+    },
+    {
+      "path": "Docs/JasonBackpackShoulderFit20261003.md",
+      "kind": "retired_delete",
+      "sha256": "f057292df4f947c6509005345c440cee11ed69505c6e9c9bb9a3eb31230111e1"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/backpack_before.json",
+      "kind": "retired_delete",
+      "sha256": "70b5adf2fce71a6d7286f03106a6d109462a47d976502a06892072be12335cb3"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/recipe.json",
+      "kind": "retired_delete",
+      "sha256": "41124ff7363156e5f3fdacbf58647fd2b4ff6ceb591b424be46088d972f1699b"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/save-bridge-01.txt",
+      "kind": "retired_delete",
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/save-bridge-02.txt",
+      "kind": "retired_delete",
+      "sha256": "3ab743f6f3117ed60c62c3d471c1387982f95b60f9dfacc366ae1099e87ca8ca"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/save-bridge-03.txt",
+      "kind": "retired_delete",
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/save-commandlet.txt",
+      "kind": "retired_delete",
+      "sha256": "6a4e0a6518c0c3539216a51ce8838636fbec6b114e60bccb084714620ecddc60"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/ShoulderStraps/saved.json",
+      "kind": "retired_delete",
+      "sha256": "ef75d65591591204df85dd64673ea983278c51dececa432a73884506f5bca40d"
+    },
+    {
+      "path": "SourceAssets/JasonEquipmentRepair20261003/backpack_fitted.json",
+      "kind": "retired_delete",
+      "sha256": "4c746c294a5b79b87d0464ce4a8cb8f6eefa88ff9ba46d7d5dc38f902bfc8e9b"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/build_backpack.py",
+      "kind": "retired_delete",
+      "sha256": "bda1ec1c40b51ade2eed56faa4baadcc4739b425f41f5fd56571d6006d2db28d"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/extract_glb.py",
+      "kind": "retired_delete",
+      "sha256": "04ab82599c6f3fa035b6bc2cb936877a44ec792782402c433c703ed3cdae8c02"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/probe_assets.py",
+      "kind": "retired_delete",
+      "sha256": "9e729ee2a2f63b0974398d90549a69a133bbb2e09880ec97be611a52f830c093"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/probe_glb.py",
+      "kind": "retired_delete",
+      "sha256": "3b0586ec70ba166a7490b9a51a7d020465d07079a89734d98629eab3207cfc4e"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/probe_solve3.py",
+      "kind": "retired_delete",
+      "sha256": "6517888f3c439ef74fe58d28d30572a83fc69c382892302de8a3b6055eabf305"
+    },
+    {
+      "path": "SourceAssets/BackpackMount20261002/probe_spine.py",
+      "kind": "retired_delete",
+      "sha256": "f6e24bf8fa2a68baff4bef61e38396d437fc0c0f4930aef7fcd26cda90d37bfc"
+    },
+    {
+      "path": "Docs/Publication/Backpacks20261023/Integration/guest-backpack-layout.patch",
+      "kind": "owned_full_file",
+      "sha256": "84acaaac21af5b27b204d6fd82dcabe7531028c6253b0420b3c7cf13d2e567e8"
+    },
+    {
+      "path": "Docs/Publication/Backpacks20261023/Integration/prerequisites.json",
+      "kind": "owned_full_file",
+      "sha256": "db2ebb2855411ea12e9a1834bb2eaa196f862fbebf0d517eb1557633625d7aa7"
+    },
+    {
+      "path": "Docs/Publication/Backpacks20261023/integration-manifest.json",
+      "kind": "owned_full_file",
+      "sha256": "06fbcb5585b107802bdea58cd0dce4a7957c27b4ddf447e679c21b6b1fab64bc"
+    },
+    {
+      "path": "Docs/Publication/Backpacks20261023/README.md",
+      "kind": "owned_full_file",
+      "sha256": "991ba6c149a55429e7b7d24436888e8a5541d4e324ea3b181a3788cc4ae89a4a"
+    },
+    {
+      "path": "Docs/Publication/Backpacks20261023/retirement.json",
+      "kind": "owned_full_file",
+      "sha256": "f1cedd5fabf2d1ebf2cc55b8edf00d7710387b660b958b9cb1fb47234e3a818c"
+    },
+    {
+      "path": "Docs/Publication/Backpacks20261023/review-summary.json",
+      "kind": "owned_full_file",
+      "sha256": "94b0c09eb821669ddb54b075dd872963c4212cc0ae0a500b3010fed597b1e84f"
+    }
+  ],
+  "new_archive_files": 152,
+  "asset_binaries_published": false
+}

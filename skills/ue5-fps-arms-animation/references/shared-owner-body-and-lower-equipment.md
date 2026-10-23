@@ -50,7 +50,7 @@ UI 的存档装备槽与屏幕位置分开。当前裤子逻辑槽 15、鞋靴�
 - 七分裤本轮补入 1,096 个腰部面、保留三档 LOD；参考空间 Z>90 cm 和槽 5 仅是该网格的参数，换网格需重新取实际遮挡／材质关系。
 - 背包从衣物最近表面转移权重时，腋下和低位背带可能误绑上臂／大腿，动作会拉走带片。将包体、肩垫、窄回带按功能分区：包体随躯干，肩带沿脊柱／少量锁骨平滑过渡，连接点与包体绑定一致；不能沿用最近衣物点的整组骨权重。
 - 先理清包体上固定点 → 肩垫 → 胸侧 → 窄回带 → 包体下固定点，移除已被新带路替代的旧悬带。保留原有壳体、UV 和材质，不靠扩大透明遮罩隐藏错误片段。背带路径与蒙皮需同时处理。
-- 当前 BackpackStraps20261012 包体仅 spine_03，肩带 spine_03/04 和最多 12% 锁骨；这是本次骨架／网格的配方，不是通用权重规定。可编辑 backpack_input.json、native_islands.npz、backpack_repaired.json 及旧源／衣物包络仍是生产输入。
+- BackpackStraps20261012 及 10 月 20 日早期肩罩／侧带版本已被用户否定；旧输入和写入入口均已退役。当前各款制作与动态路线见[背包工作流](../../ue5-item-asset-workflow/references/backpack-equipment.md)。按真实保存衣物和结构骨标定，不复制皮肤肌肉矫正骨伸缩，也不把最近面距离当作穿模或造型验收。
 - 读取保存的 SkeletalMesh，不对活动 Leader Pose 组件做 DynamicMesh 转换。UE 5.8 Python 的 LOD 数量经 SkeletalMeshEditorSubsystem.get_lod_count 读取；不要假定 C++ GetLODNum 暴露为 get_lod_num。
 
-上述腰部和背带资产已保存，尚未进行游戏视觉验收。恢复入口与归档映射见工程 Docs/Publication/PlayerPresentation20261012/README.md。
+腰部历史资产的恢复入口见工程 Docs/Publication/PlayerPresentation20261012/README.md。背带状态以当前全面重做记录为准，旧保存回执不代表用户认可。

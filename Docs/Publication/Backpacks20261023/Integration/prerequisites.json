@@ -1,0 +1,12 @@
+{
+  "scope": "Only the backpack migration tail of the existing SanitizeGuestProfile; do not replace the entire shared player state.",
+  "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+  "public_base_has_definition": false,
+  "required_before_sha256": "a5d86a8621f981e0b7f03a58ea21f641e13cb0683f248d9a5e74a90dd4d54be7",
+  "local_after_sha256": "3e5eaf2b0cc137d123a317cb55d6f3745d414f7a0014181abfe3e6b99def7020",
+  "required_symbols": [
+    "AColdSteelPlayerState::SanitizeGuestProfile",
+    "ColdSteelInventory::MigrateAuthoredGridFootprints"
+  ],
+  "dependency": "Existing server sanitization, stable-profile/reconnect and inventory-upload framework; unrelated host code remains outside this publication."
+}

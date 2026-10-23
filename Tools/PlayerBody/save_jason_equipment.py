@@ -1,4 +1,4 @@
-"""Save the corrected Jason garments, covered hip section, and bound backpack.
+"""Save the corrected Jason garments and covered hip section.
 
 Run in the existing editor with PIE stopped, or in a background commandlet
 after the editor is closed. No scene changes or runtime tests.
@@ -12,6 +12,8 @@ ROOT=PROJECT/'SourceAssets/JasonEquipmentRepair20261003'
 DEST='/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003'
 BACKPACK_ONLY=globals().get('BACKPACK_ONLY',False) or '-JasonBackpackOnly' in u.SystemLibrary.get_command_line()
 STRAPS_ONLY=globals().get('STRAPS_ONLY',False)
+if BACKPACK_ONLY or STRAPS_ONLY:
+    raise RuntimeError('The old backpack writer is retired; use Tools/BackpackHarness/save.py')
 if '-run=' not in u.SystemLibrary.get_command_line().lower() and u.EditorLevelLibrary.get_pie_worlds(False):
     raise RuntimeError('Stop PIE before saving the fitted equipment assets.')
 G=u.GeometryScript_AssetUtils;B=u.GeometryScript_BoneWeights
@@ -69,43 +71,4 @@ for key in ([] if BACKPACK_ONLY else read(INPUT/'fitted_assets.json')):
     if remove:u.GeometryScript_MeshEdits.delete_triangles_from_mesh(dm,u.GeometryScript_List.convert_array_to_index_list(remove),True)
     save_skeletal(key,dm,data['materials'],DEST+'/SK_Jason_'+('Base' if key=='base' else key),recompute=key!='base')
 
-data=read(ROOT/'backpack_fitted.json')
-dm,status=G.copy_mesh_from_static_mesh(u.load_asset(data['source']),u.DynamicMesh(),u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD())
-if status!=u.GeometryScriptOutcomePins.SUCCESS:raise RuntimeError('Backpack extraction failed')
-if data['flip_winding']:u.GeometryScript_Normals.flip_normals(dm)
-# An opaque native PBR copy serves both the corrected icon source and skeletal pack.
-mat_path=DEST+'/M_SovietBackpack_Fitted'
-mat=u.load_asset(mat_path) or u.EditorAssetLibrary.duplicate_asset(data['materials'][0]['asset'],mat_path)
-if not mat:raise RuntimeError('Cannot author backpack material')
-if not STRAPS_ONLY:
-    u.MaterialEditingLibrary.set_material_usage(mat,u.MaterialUsage.MATUSAGE_SKELETAL_MESH)
-    u.MaterialEditingLibrary.recompile_material(mat)
-    if not u.EditorAssetLibrary.save_loaded_asset(mat,False):raise RuntimeError('Backpack material save failed')
-data['materials'][0]['asset']=mat.get_path_name()
-if not STRAPS_ONLY:
-    static_path=DEST+'/SM_SovietBackpack_Corrected'
-    static=u.load_asset(static_path) or u.EditorAssetLibrary.duplicate_asset(data['source'],static_path)
-    if not static:raise RuntimeError('Cannot create static icon source')
-    write=u.GeometryScriptCopyMeshToAssetOptions(enable_recompute_normals=True,enable_recompute_tangents=True)
-    _,status=G.copy_mesh_to_static_mesh(dm,static,write,u.GeometryScriptMeshWriteLOD())
-    if status!=u.GeometryScriptOutcomePins.SUCCESS:raise RuntimeError('Backpack winding save failed')
-    static.set_material(0,mat)
-    if not u.EditorAssetLibrary.save_loaded_asset(static,False):raise RuntimeError('Static backpack save failed')
-    saved['backpack_static']=static.get_path_name()
-B.copy_bones_from_mesh(target_dm,dm,u.GeometryScriptCopyBonesFromMeshOptions(reindex_weights=False))
-B.mesh_create_bone_weights(dm)
-u.GeometryScript_MeshEdits.set_all_mesh_vertex_positions(dm,u.GeometryScript_List.convert_array_to_vector_list([u.Vector(*p) for p in data['positions']]))
-for vi,weights in enumerate(data['weights']):
-    B.set_vertex_bone_weights(dm,vi,[u.GeometryScriptBoneWeight(bone_index=b,weight=w) for b,w in weights])
-save_skeletal('backpack',dm,data['materials'],DEST+'/SK_Jason_Backpack',lods=False)
-bone=target.skeleton.get_reference_pose().get_bone_pose('spine_03',u.AnimPoseSpaces.WORLD)
-desired=u.Transform();desired.translation=u.Vector(0,-10.5,120)
-desired.rotation=u.Rotator(0,180,0).quaternion();desired.scale3d=u.Vector(.9,.9,.9)
-rel=desired.make_relative(bone);r=rel.rotation.rotator();p=rel.translation;s=rel.scale3d
-saved['static_fallback_transform']={'attach_bone':'spine_03','attach_location':[p.x,p.y,p.z],
-    'attach_rotation':[r.pitch,r.yaw,r.roll],'attach_scale':[s.x,s.y,s.z]}
-receipt.write_text(json.dumps(saved,indent=2))
-if STRAPS_ONLY:
-    (ROOT/'ShoulderStraps'/'saved.json').write_text(json.dumps({'asset':saved['backpack'],
-        'fit':data.get('shoulder_fit'),'saved':True,'runtime_tested':False},indent=2))
-print('JASON_EQUIPMENT_ASSETS_COMPLETE',flush=True)
+print("JASON_GARMENT_ASSETS_COMPLETE; backpack owned by Tools/BackpackHarness/save.py", flush=True)

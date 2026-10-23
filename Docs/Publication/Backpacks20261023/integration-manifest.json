@@ -1,0 +1,74 @@
+{
+  "scope": "Five backpacks: selected catalog/outfit subtrees and their consumer code; local binaries excluded",
+  "items": {
+    "ue_simple_sling_bag": {
+      "catalog_sha256": "1eadba9819b3772ac03e6355237045979c383f99218dd55cca7a635adb768ffc",
+      "outfit_sha256": "a9cd274313fecbdba53f5816e77ddbf8c3e419efec7873d9e36528a5fbdd7cf9",
+      "extra_cells": 18,
+      "compartment_columns": 3,
+      "compartment_rows": 4
+    },
+    "ue_portable_backpack": {
+      "catalog_sha256": "962a21c403e7897d01e43050f59f11fe8950fe14e1f223c4ae62f9ac50d99d21",
+      "outfit_sha256": "ac947f13a346f75a3715b91e58cb103a77b77178d862b310ffc182963aa2df6f",
+      "extra_cells": 18,
+      "compartment_columns": null,
+      "compartment_rows": null
+    },
+    "ue_mountain_backpack": {
+      "catalog_sha256": "2a43af5e37ca0852352b742f3274bb81d5217dacc2e24da51b9ee79dae02e055",
+      "outfit_sha256": "061bf0ad10e9828478e9ba331d91d386c349475c101e21e6d47f8f6e2b6e4566",
+      "extra_cells": 18,
+      "compartment_columns": 5,
+      "compartment_rows": 6
+    },
+    "ue_expedition_backpack": {
+      "catalog_sha256": "2dcd5e26973464f853adef5678b2cf8f089bb6179eaa5c2a24e073ca5da470af",
+      "outfit_sha256": "c7913673952918602bfa3dd74ef74bfbb53310b9674e35c2e389ef87779bf018",
+      "extra_cells": 36,
+      "compartment_columns": 8,
+      "compartment_rows": 6
+    },
+    "ue_pathfinder_backpack": {
+      "catalog_sha256": "1e8ff34b35cd1daa923e2ac1ee0be38e31cecc6427b3236c996edd791b704b70",
+      "outfit_sha256": "0098fa6b86727ddad35058a56ef0e0f02ff92b56120556ba3885a65f59cee327",
+      "extra_cells": 54,
+      "compartment_columns": 12,
+      "compartment_rows": 6
+    }
+  },
+  "required_source_files": [
+    "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+    "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+    "Source/FPSGAME/Characters/FPSBackpackHangingMotion.cpp",
+    "Source/FPSGAME/Characters/FPSBackpackHangingMotion.h",
+    "Source/FPSGAME/Characters/FPSBackpackMotionComponent.cpp",
+    "Source/FPSGAME/Characters/FPSBackpackMotionComponent.h",
+    "Source/FPSGAME/Characters/FPSBackpackLifecycleDiagnostic.cpp",
+    "Source/FPSGAME/Characters/FPSBackpackMotionDiagnostic.cpp",
+    "Source/FPSGAME/UI/BackpackCapacityAuditCommandlet.cpp",
+    "Source/FPSGAME/UI/BackpackCapacityAuditCommandlet.h",
+    "Source/FPSGAME/Development/BackpackWireAudit.cpp",
+    "Source/FPSGAME/Development/BackpackWireAudit.h"
+  ],
+  "required_cook_directories": [
+    "/Game/Characters/BackpackMotion20261022",
+    "/Game/Characters/PortableBackpackAlice20261019",
+    "/Game/Characters/ExpeditionBackpack20261022",
+    "/Game/Characters/SimpleSlingBag20261022",
+    "/Game/Characters/PathfinderBackpack20261023"
+  ],
+  "shared_helpers": [
+    "Tools/ChainmailPants/save_assets.py",
+    "Tools/PlayerBody/config_transaction.py",
+    "Tools/Build/Build-Editor.ps1",
+    "SourceAssets/WeaponSurface20260930/run_ue.ps1"
+  ],
+  "server_migration_patch": "Integration/guest-backpack-layout.patch",
+  "binary_assets_published": false,
+  "clean_checkout_build_verified": false
+}

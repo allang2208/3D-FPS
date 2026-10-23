@@ -350,6 +350,10 @@ namespace FPSBodyPreloadPrivate
                 {
                     AddPath(Out, WorldStaticMesh);
                 }
+                const TSharedPtr<FJsonObject>* RigidPack=nullptr;
+                FString RigidMesh;
+                if((*Settings)->TryGetObjectField(TEXT("rigid_pack"),RigidPack)&&(*RigidPack)->TryGetStringField(TEXT("mesh"),RigidMesh))
+                    AddPath(Out,RigidMesh);
                 const TSharedPtr<FJsonObject>* Overrides = nullptr;
                 if ((*Settings)->TryGetObjectField(TEXT("body_materials"), Overrides) ||
                     (*Settings)->TryGetObjectField(TEXT("first_person_materials"), Overrides))

@@ -5290,3 +5290,18 @@ __pycache__/
 # Leather boots: authoring recipes are published; licensed assets, dense geometry,
 # textures, poses, local receipts and test profiles remain on the workstation.
 /SourceAssets/LeatherBootsUpgrade20261022/**
+
+# Backpacks: publish recipes/configuration; Meshy/Fab/Epic payloads, dense
+# geometry, private profiles, receipts and generated state remain local.
+/SourceAssets/BackpackHarnessMountain20261020/**
+/SourceAssets/BackpackHarnessRebuild20261020/**
+/SourceAssets/BackpackMotion20261022/**
+/SourceAssets/BackpackMount20261002/**
+/SourceAssets/BackpacksReview20261021/**
+/SourceAssets/ExpeditionBackpack20261022/**
+/SourceAssets/PathfinderBackpack20261023/**
+/SourceAssets/PortableBackpackAlice20261019/**
+/SourceAssets/SimpleSlingBag20261022/**
+!/SourceAssets/PortableBackpackAlice20261019/*.py
+!/SourceAssets/PortableBackpackAlice20261019/README.md
+!/SourceAssets/ExpeditionBackpack20261022/design.md

@@ -327,8 +327,10 @@ bool UColdSteelStatusModel::ReloadProfile()
         {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
         // 2026-10-01 作者占格回填：卷轴 1x1→1x2 竖直、金属锭 1x1→2x1 横放；
         // 迁移把当前 grid_w/grid_h 写回每个旧实例的 Data 快照。
+        const bool InitialLayoutMigrated=FootprintMigrated;
         if(!MigrateAuthoredGridFootprints(Save->Profile,FootprintMigrated,Reason))
         {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
+        FootprintMigrated|=InitialLayoutMigrated;
         if(!Best||Save->Profile.Generation>Best->Profile.Generation)
         {Best=Save;BestFootprintMigrated=FootprintMigrated;}
     }

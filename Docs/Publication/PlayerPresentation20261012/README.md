@@ -13,7 +13,7 @@
 | 唐刀旋风 | `TangDaoWhirlwind20261010` 三段，独立刃面转角；最终子步后同步角色朝向 | 最后用户要求的 `turnDegrees=-720` 已在主线配置，保持不变；未游戏验收 |
 | 法杖尾饰 | 世界武器复用既有 `TailDynamics` / `USwordTasselMeshComponent` | 不新建物理方案；保留原生视模尾饰实现 |
 | 七分裤腰口 | 普通与高筒靴版各补 1,096 个原生皮肤面，保留三档 LOD，生成配方同步 | 两种资产均已保存，未视觉验收 |
-| 背包 | 肩垫／窄回带重排，去掉手臂／腿部误权重与多余悬带，保留包体 UV/PBR | 当前骨骼包已保存，25,218 顶点／39,328 三角形／1 档 LOD；未视觉验收 |
+| 背包（已退役） | 10 月 12 日肩垫／窄回带版本，用户于 10 月 20 日明确否定 | 旧几何与完成结论失效；当前状态见 [全面重做](../../Characters/backpack-harness-rebuild-20261020.md) |
 
 共享代码按具体修改段发布。步枪姿态、死亡镜头、滑铲／蹲姿、热成像、属性面板等并行修改留在原工作树，未夹带；本轮没有覆写或回退它们。`WeaponAnimationAuthoring` 的压缩收尾、剑术原生图和 `SwordGripRoll/SwordGripSlide` 消费定义已随前序提交进入主线，本轮补齐必要的采样／挂接和实际配置引用。
 
@@ -25,7 +25,7 @@
 2. 上述链还需要本机 Kwang `retargeted-poses.json`、`ThirdPersonSwordActions20261006/authoring-input.json`、Jason 网格及 `ThirdPersonDashArm20261010/graph-after.json`。`ThirdPersonSwordGrip20261007/refine_kwang_grip.py` 的函数初始化段被后续脚本引用，故保留；其完整 V3 优化器已经被否定，不应运行它覆盖当前动作。
 3. 通用恢复段由 `save_melee_recovery20261010.py` 保存；唐刀在此基础上用 `author_edge_roll.py` 生成稀疏曲线，再用 `save_tang_dao_whirlwind20261010.py` 保存。`edge-roll.json` 中 +720 是最初刃面适配的描述，运行转向以当前 `skills.json` 的 -720 为准。原本的 `publish_*` 是有旧路径／散列前置条件的阶段切换器，不应无条件重新执行整串发布器覆盖当前引用。
 4. 七分裤保留 `SourceAssets/SmokeGreyCapri20261004/native_waist.json` 和两个最终穿戴源。`prepare_runtime.py` 自动附加腰部补片；`save_waist_repair.ps1/.py` 从当前身体的被遮挡区域生成并保存两种变体。最终回执为 `PlayerWaistSeam20261012/saved.json` 与 `save-bridge-02.txt`，失败的早期 API 尝试不代表最终状态。
-5. 背包保留 `BackpackStraps20261012/backpack_input.json`、`native_islands.npz`、`backpack_repaired.json`，以及 `JasonEquipmentRepair20261003/backpack.json`、`backpack_fitted.json`、Jason 和三件上衣的包络数据。`native_islands.npz` 是本次保留的离线岛标签输入，不在公开包内。`author_backpack_straps20261012.py` 使用既有 `refit_jason_backpack_straps.py` 的 `make_envelope`，不能归档该工具或它的输入。`save_backpack_straps20261012.ps1/.py` 保存到现有 `SK_Jason_Backpack`；旧保存入口优先选择新修复源。
+5. 背包段是 10 月 12 日的历史发布记录，已于 2026-10-20 被用户否定。旧工具与输入退役到 `trash/backpack-rejected-20261020-full-audit/`，不得再按此记录写回正式资产；之前“不能归档该工具”的约束撤销。当前唯一作者／保存入口在 `Tools/BackpackHarness/`，见[全面重做](../../Characters/backpack-harness-rebuild-20261020.md)。
 
 `read_*`、`capture_*`、比较和渲染工具作为用户明确要求排查时的入口保留，不自动运行。保存操作需停止 PIE；已有编辑器沿当前桥互斥，关闭编辑器时可后台 commandlet，不为整理发布启动应用。
 

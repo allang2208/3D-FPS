@@ -4072,7 +4072,7 @@
   },
   "ue_portable_backpack": {
     "id": "ue_portable_backpack",
-    "name": "便携背包",
+    "name": "行军背包",
     "category": "equipment",
     "type": "背包装备",
     "equipSlot": "backpack",
@@ -4083,8 +4083,9 @@
     "grid_h": 3,
     "bagExtraCells": 18,
     "bagCompartmentCells": 36,
-    "desc": "折叠合金支架把主背包撑出一排余量，底部独立夹层再容纳 6×6=36 格小件；只能装入装备栏的背包装备槽。",
-    "icon_fallback": "包"
+    "desc": "折叠合金支架把主背包撑出一排余量，正面与两侧搭扣留出真实开口，底部独立夹层再容纳 6×6=36 格小件；只能装入装备栏的背包装备槽。",
+    "icon_fallback": "包",
+    "ue_icon": "Icons/ue_portable_backpack.png"
   },
   "ue_mountain_backpack": {
     "id": "ue_mountain_backpack",
@@ -5551,5 +5552,62 @@
     "world_mesh": "",
     "world_material": "",
     "ue_equipment_icon_mesh": ""
+  },
+  "ue_simple_sling_bag": {
+    "id": "ue_simple_sling_bag",
+    "name": "简易斜挎包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 35,
+    "grid_w": 2,
+    "grid_h": 3,
+    "bagExtraCells": 18,
+    "bagCompartmentCells": 12,
+    "bagCompartmentColumns": 3,
+    "bagCompartmentRows": 4,
+    "desc": "轻便的帆布单肩斜挎包，皮革加固与可调肩带适合短途探索。装备后主背包增加一整行（+18格，共90格），独立夹层为3×4共12格。",
+    "ue_icon": "Icons/ue_simple_sling_bag.png",
+    "icon_fallback": "包"
+  },
+  "ue_expedition_backpack": {
+    "id": "ue_expedition_backpack",
+    "name": "重装远征背包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 180,
+    "grid_w": 3,
+    "grid_h": 4,
+    "bagExtraCells": 36,
+    "bagCompartmentCells": 48,
+    "bagCompartmentColumns": 8,
+    "bagCompartmentRows": 6,
+    "desc": "大容量远征背包，承重框架与加厚肩带、胸带、腰封分担负重。装备后主背包增加两整行（+36格，共108格），独立底仓为8×6共48格。适合多日探索、补给和采集搬运。",
+    "ue_icon": "Icons/ue_expedition_backpack.png",
+    "icon_fallback": "包"
+  },
+  "ue_pathfinder_backpack": {
+    "id": "ue_pathfinder_backpack",
+    "name": "开拓者战术背包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 260,
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 54,
+    "bagCompartmentCells": 72,
+    "bagCompartmentColumns": 12,
+    "bagCompartmentRows": 6,
+    "desc": "野外勘探队使用的模块化战术背包。金属复合承重架与宽腰封分担负重，密封卷装顶仓、工具侧仓和独立夹层适合长途探索与补给搬运。",
+    "ue_icon": "Icons/ue_pathfinder_backpack.png",
+    "icon_fallback": "包"
   }
 }

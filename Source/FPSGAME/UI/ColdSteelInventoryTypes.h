@@ -378,7 +378,7 @@ namespace ColdSteelInventory
     FPSGAME_API bool MigrateAuthoredItemFootprint(FColdSteelItem& Item, bool& Changed, FString& Reason);
     FPSGAME_API bool MigrateAuthoredGridFootprints(FColdSteelProfile& Profile, bool& Changed, FString& Reason);
     FPSGAME_API const TArray<FString>& SlotNames();
-    /** 背包装备槽(14)撑出的主背包行数：基础 4 行，装备的背包物品按 bagExtraCells 每 18 格加一行。 */
+    /** 槽14撑出的主背包行数：基础4行，目录 bagExtraCells 每18格加一行；旧实例／网络镜像统一读当前目录。 */
     FPSGAME_API int32 BagRows(const TArray<FColdSteelItem>& Items);
     /** 背包装备槽(14)的占有者；空槽返回 INDEX_NONE。 */
     FPSGAME_API int32 EquippedBag(const TArray<FColdSteelItem>& Items);
@@ -389,6 +389,8 @@ namespace ColdSteelInventory
     FPSGAME_API FIntPoint CompartmentGrid(const TArray<FColdSteelItem>& Items);
     /** 背包装备槽(14)撑出的夹层容量（格）＝列×行；未装备背包或物品未定义夹层时为 0。 */
     FPSGAME_API int32 CompartmentCells(const TArray<FColdSteelItem>& Items);
+    /** Reflow retained contents after slot 14 changes. Failure leaves After unchanged. */
+    FPSGAME_API bool ReconcileBagCapacity(const TArray<FColdSteelItem>& Before, TArray<FColdSteelItem>& After, FString& Reason);
     /** 夹层(Place 5)：由背包装备撑出的独立格空间，网格尺寸（长×宽）与容量都由装备的背包定义。 */
     namespace ColdSteelCompartment
     {
