@@ -70,8 +70,17 @@ void UFPSModularOutfitComponent::BeginPlay()
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/modular_outfits.json"))))
         FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Configuration);
     if(!Configuration){SetComponentTickEnabled(false);return;}
+    BaseConfiguration=Configuration;
+    BodyConfigurations.Add(TEXT("jason"),BaseConfiguration);
+    if(const auto Variants=FPSModularOutfit::Object(BaseConfiguration,TEXT("body_variants")))
+        for(const auto& Entry:Variants->Values)
+        {
+            const TSharedPtr<FJsonObject>* Value=nullptr;
+            if(Entry.Value->TryGetObject(Value))BodyConfigurations.Add(FName(*Entry.Key),*Value);
+        }
     AddTickPrerequisiteActor(GetOwner());
-    if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())AddTickPrerequisiteComponent(Body);
+    if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())
+    {AddTickPrerequisiteComponent(Body);SetBodyType(Body->GetBodyType());}
     RefreshInventory();
 }
 void UFPSModularOutfitComponent::RefreshInventory()
@@ -171,6 +180,104 @@ void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActo
         if(P.SecondaryMotion)P.SecondaryMotion->Tick(Delta);
     }
 }
+void UFPSModularOutfitComponent::ResetBodyPresentation()
+{
+    for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
+    PendingLoads.Reset();FailedLoads.Reset();
+    for(auto& Presentation:Presentations)ReleasePresentation(Presentation);
+    Presentations.Reset();bDirty=true;DiscoverCountdown=0.f;
+}
+
+void UFPSModularOutfitComponent::SetBodyType(FName BodyId)
+{
+    const auto* Next=BodyConfigurations.Find(BodyId);
+    if(!Next||Configuration==*Next)return;
+    ResetBodyPresentation();Configuration=*Next;
+}
+
+void UFPSModularOutfitComponent::CollectBodyAssets(FName BodyId,const FString& BodyMesh,TArray<FSoftObjectPath>& Out) const
+{
+    using namespace FPSModularOutfit;
+    const auto* Target=BodyConfigurations.Find(BodyId);if(!Target)return;
+    const auto Profiles=Object(*Target,TEXT("profiles"));if(!Profiles)return;
+    const auto Items=Object(*Target,TEXT("items"));
+    const auto Shirt=Object(Items,Equipped.FindRef(7).ToString());
+    const auto Pants=Object(Items,Equipped.FindRef(15).ToString());
+    const auto Shoes=Object(Items,Equipped.FindRef(13).ToString());
+    const auto Gloves=Object(Items,Equipped.FindRef(3).ToString());
+    TSet<FString> Rigs,SelectedPants,SelectedInnerSources;
+    bool bHasExactShirtFit=false;
+    TFunction<void(const TSharedPtr<FJsonValue>&)> Collect;
+    Collect=[&](const TSharedPtr<FJsonValue>& Value)
+    {
+        if(!Value)return;
+        if(Value->Type==EJson::String)
+        {const FString Path=Value->AsString();if(Path.StartsWith(TEXT("/Game/")))Out.AddUnique(FSoftObjectPath(Path));}
+        else if(Value->Type==EJson::Array)for(const auto& Child:Value->AsArray())Collect(Child);
+        else if(Value->Type==EJson::Object)for(const auto& Child:Value->AsObject()->Values)
+        {
+            // Rig maps carry dozens of native viewmodels. Stream only the rigs
+            // owned by this pawn plus its new body, not every weapon in the game.
+            if(Child.Key==TEXT("rig_meshes")||Child.Key==TEXT("owner_body_meshes")||Child.Key==TEXT("skin_meshes")||Child.Key==TEXT("base_material_overrides"))
+            {
+                const auto Map=Child.Value->AsObject();
+                if(Map)for(const FString& Rig:Rigs)Collect(Map->TryGetField(Rig));
+            }
+            else if(Child.Key==TEXT("shoe_fit_meshes"))
+            {
+                const auto Fit=Object(Child.Value->AsObject(),Equipped.FindRef(13).ToString());
+                if(Fit)for(const FString& Rig:Rigs)Collect(Fit->TryGetField(Rig));
+            }
+            else if(Child.Key==TEXT("pants_mesh_fit_meshes"))
+            {
+                const auto Map=Child.Value->AsObject();
+                if(Map)for(const FString& Path:SelectedPants)Collect(Map->TryGetField(Path));
+            }
+            else if(Child.Key==TEXT("pants_fit_meshes"))
+            {
+                if(!bHasExactShirtFit&&!SelectedPants.IsEmpty())
+                    Collect(Child.Value->AsObject()->TryGetField(Equipped.FindRef(15).ToString()));
+            }
+            else if(Child.Key==TEXT("pants_fit_default"))
+            {if(!bHasExactShirtFit&&!SelectedPants.IsEmpty())Collect(Child.Value);}
+            else if(Child.Key==TEXT("underlayer_meshes"))
+            {
+                const auto Map=Child.Value->AsObject();
+                if(Map)for(const FString& Path:SelectedInnerSources)Collect(Map->TryGetField(Path));
+            }
+            else Collect(Child.Value);
+        }
+    };
+    TArray<USkeletalMeshComponent*> Sources;GetOwner()->GetComponents(Sources);
+    TSet<FString> SourcePaths;SourcePaths.Add(BodyMesh);
+    for(auto* Source:Sources)if(Source&&Source->bOnlyOwnerSee&&Source->GetSkeletalMeshAsset()
+        &&!Source->ComponentHasTag(TEXT("ModularOutfit"))&&((Source->IsVisible()&&!Source->bHiddenInGame)
+            ||Source->ComponentHasTag(TEXT("PreloadModularOutfit"))))SourcePaths.Add(Source->GetSkeletalMeshAsset()->GetPathName());
+    for(const FString& Path:SourcePaths)if(const auto Profile=Object(Profiles,Path))
+    {
+        Rigs.Add(String(Profile,TEXT("rig_profile")));
+        const FString Base=String(Profile,TEXT("native_bare_skin")).IsEmpty()?String(Profile,TEXT("base")):String(Profile,TEXT("native_bare_skin"));
+        if(!Base.IsEmpty()){Out.AddUnique(FSoftObjectPath(Base));SelectedInnerSources.Add(Base);}
+        if(String(Gloves,TEXT("first_person_mode"))==TEXT("source_arms"))Collect(Profile->TryGetField(TEXT("original_gloved_arms")));
+        if(CVarBareArmsCandidate.GetValueOnGameThread()==1)Collect(Profile->TryGetField(TEXT("bare_arms_candidate")));
+    }
+    const auto ShoeFit=Object(Object(Pants,TEXT("shoe_fit_meshes")),Equipped.FindRef(13).ToString());
+    for(const FString& Rig:Rigs)
+    {
+        FString Trouser=String(ShoeFit,*Rig);
+        if(Trouser.IsEmpty())Trouser=String(Object(Pants,TEXT("rig_meshes")),*Rig);
+        if(!Trouser.IsEmpty())
+        {
+            SelectedPants.Add(Trouser);SelectedInnerSources.Add(Trouser);
+            bHasExactShirtFit|=Object(Object(Shirt,TEXT("pants_mesh_fit_meshes")),Trouser).IsValid();
+        }
+        for(const FString& Part:{String(Object(Shoes,TEXT("rig_meshes")),*Rig),String(Object(Gloves,TEXT("skin_meshes")),*Rig)})
+            if(!Part.IsEmpty())SelectedInnerSources.Add(Part);
+    }
+    if(Items)for(const auto& Entry:Equipped)
+        Collect(Items->TryGetField(Entry.Value.ToString()));
+}
+
 void UFPSModularOutfitComponent::DiscoverSources()
 {
     using namespace FPSModularOutfit;

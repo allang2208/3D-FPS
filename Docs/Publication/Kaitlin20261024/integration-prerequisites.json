@@ -1,0 +1,44 @@
+{
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+    "preimage_sha256_lf_utf8": "60e36c8e794dd0dc48a1474de4aabaf16cb6006144866b598da2f7135fa3335f",
+    "result_sha256_lf_utf8": "332e6fd074a877a3f0219afd4723643479a124c76e5426525d94edc47bb6a94e",
+    "runtime_tree_applied": false
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+    "preimage_sha256_lf_utf8": "f6016964856bab279b20ea8ca3d3e85bdafac0965363583f3f9002a0291a99fd",
+    "result_sha256_lf_utf8": "8f7977780f6fc7d054f3dae2138d6dcb084f8f44e19038df85d8a505e245fdff",
+    "runtime_tree_applied": false
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelInventoryRequests.cpp.patch",
+    "preimage_sha256_lf_utf8": "f4de22a4ebfccb9517ba3259b53b05442d90839752df881a9be2108e3ca31b5f",
+    "result_sha256_lf_utf8": "ce2ef6482ec49916685638cc2c41262040983ac6355b1be03cf717589fe64726",
+    "runtime_tree_applied": false
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelCampfireRequests.cpp.patch",
+    "preimage_sha256_lf_utf8": "404bba21b02818efa65a8b9b85884e1478258dc601d478ae5014c2d116fa3f1c",
+    "result_sha256_lf_utf8": "c66bf02372e63073c45cc116b720d0791e4728b9a2f51e2fd14e558f96fcaef5",
+    "runtime_tree_applied": false
+  },
+  "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp": {
+    "patch": "Integration/Source__FPSGAME__Movement__FPSFurnitureRestComponent.cpp.patch",
+    "preimage_sha256_lf_utf8": "8fbbe419a3d092dcd6ea0c6d98958ef2df84f4e3aa788b7161dd2a8cdb637a11",
+    "result_sha256_lf_utf8": "5633633a0a3d22ea08da029a0c2d6570d27bed2898c3e9b53f9811e2770e5f64",
+    "runtime_tree_applied": false
+  },
+  "Source/FPSGAME/Movement/FurnitureBodyDiagnosisCommandlet.h": {
+    "patch": "Integration/Source__FPSGAME__Movement__FurnitureBodyDiagnosisCommandlet.h.patch",
+    "requires": "FPSFurnitureRestComponent.h and cpp from retained local furniture subsystem",
+    "result_sha256_lf_utf8": "e0504810d8b73d319675b928e92b1c399ab0e40dd746066635cc9d1a03838f13",
+    "runtime_tree_applied": false
+  },
+  "Source/FPSGAME/Movement/FurnitureBodyDiagnosisCommandlet.cpp": {
+    "patch": "Integration/Source__FPSGAME__Movement__FurnitureBodyDiagnosisCommandlet.cpp.patch",
+    "requires": "FPSFurnitureRestComponent.h and cpp from retained local furniture subsystem",
+    "result_sha256_lf_utf8": "c952ad27d4fcc1c72c1ac2e41ca086df58534ba7865a7143635afddc8f5f0a30",
+    "runtime_tree_applied": false
+  }
+}

@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
+@@ -377,9 +377,10 @@
+     const auto* Data=FurnitureRest::Library().Clips.Find(Clip);if(!Data||Data->Eyes.IsEmpty())return;
+     const float Sample=FMath::Clamp(Seconds/Data->Duration,0.f,1.f)*(Data->Eyes.Num()-1);
+     const int32 A=FMath::FloorToInt(Sample),B=FMath::Min(A+1,Data->Eyes.Num()-1);
+-    const FVector Eye=FMath::Lerp(Data->Eyes[A],Data->Eyes[B],Sample-A);
++    FVector Eye=FMath::Lerp(Data->Eyes[A],Data->Eyes[B],Sample-A);
+     const auto* Body=Character->FindComponentByClass<UFPSPlayerBodyComponent>();
+     if(!Body||!Body->GetBodyMesh())return;
++    Body->SampleFurnitureEye(Clip,Seconds,Eye);
+     View.Location=FMath::Lerp(View.Location,Body->GetBodyMesh()->GetComponentTransform().TransformPosition(Eye),Weight);
+     // The authored head track controls eye position only. Adding its pitch/yaw
+     // to mouse input clamps lying views at the zenith and appears to lock them.

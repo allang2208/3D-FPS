@@ -151,3 +151,4 @@ FPSGAME first/third person animation, world equipment and outfits: [player world
 - [升级奖励与公开镜像](references/profile-progress-publication.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。
 
 - [装备套装效果的三层数据](references/equipment-set-effect-layers.md)：`items.json`／`source-combat-items` 覆盖层／`SetEffect()` 各拥有什么；覆盖层只补缺失字段、套装识别只认三槽、单件属性与五件套效果的分界、新增比例词条的加减乘口径。
+- 原生身体/性别变体、MetaHuman 头发装配、换装与家具相机：[身体变体工作流](references/native-body-variants.md)。

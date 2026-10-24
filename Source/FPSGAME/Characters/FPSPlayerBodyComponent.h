@@ -75,7 +75,17 @@ public:
     /** Only catalog IDs are accepted. Persists the owning player's choice. */
     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetHeadAndHair(FName HeadId,FName HairId);
 
+    /** Switch the complete authored body through the existing appearance save transaction. */
+    UFUNCTION(BlueprintCallable, Category="Player Body") bool SetBodyType(FName BodyId);
+    UFUNCTION(BlueprintPure, Category="Player Body") FName GetBodyType() const;
+    bool CanUseBodyType(FName BodyId) const;
+    bool IsAppearanceLoading() const { return AppearanceLoad.IsValid(); }
+    bool SampleFurnitureEye(FName Clip,float Seconds,FVector& Eye) const;
+
 private:
+    struct FFurnitureEyeTrack { float Duration=0.f; TArray<FVector> Eyes; };
+    TMap<FName,FFurnitureEyeTrack> FurnitureEyeTracks;
+    void InitializeFurnitureCamera();
     friend class UBowSkillTrainingAuditCommandlet;
     friend class AShotgunWireAuditController;
     friend class AShotgunWireAuditGameMode;
@@ -123,6 +133,10 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> OutfitStaticMeshes;
     UPROPERTY(Transient) TMap<TObjectPtr<class UMeshComponent>, FFPSBodyOriginalMaterials> OriginalMaterials;
     TSharedPtr<class FJsonObject> Configuration;
+    TSharedPtr<class FJsonObject> BaseBodyConfiguration;
+    TMap<FName,TSharedPtr<class FJsonObject>> BodyConfigurations;
+    void InitializeBodyConfigurations();
+    TSharedPtr<class FJsonObject> ConfigurationForHead(FName HeadId) const;
     FFPSBodyState DisplayState;
     TArray<FFPSBodyWeapon> LocalWeapons;
     TArray<FFPSBodyOutfitSlot> LocalOutfit;
@@ -139,7 +153,7 @@ private:
     EFPSBodyAction PreviousAction = EFPSBodyAction::None;
     float UnclockedActionStartedAt = 0.f;
     float ServerClock() const;
-    void InitializeBody();
+    void InitializeBody(bool bRefreshAppearance=true);
     FFPSBodyState SampleLocalState() const;
     /** 服务端：为非本机控制的远端 pawn 组装权威身体态——服务端可信事实
      *  （CMC 意图位/装备/瞄准俯仰）+ 客户端汇报的离散动作。 */

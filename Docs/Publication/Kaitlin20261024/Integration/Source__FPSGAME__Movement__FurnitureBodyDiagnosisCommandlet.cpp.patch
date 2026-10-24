@@ -1,0 +1,76 @@
+--- /dev/null
++++ b/Source/FPSGAME/Movement/FurnitureBodyDiagnosisCommandlet.cpp
+@@ -0,0 +1,73 @@
++#include "FurnitureBodyDiagnosisCommandlet.h"
++#include "FPSFurnitureRestComponent.h"
++#include "../Characters/FPSPlayerBodyAnimInstance.h"
++#include "Animation/AnimSequence.h"
++#include "Components/SkeletalMeshComponent.h"
++#include "Dom/JsonObject.h"
++#include "Engine/SkeletalMesh.h"
++#include "Engine/World.h"
++#include "GameFramework/Character.h"
++#include "Misc/FileHelper.h"
++#include "Misc/Paths.h"
++#include "Misc/Parse.h"
++#include "Serialization/JsonSerializer.h"
++#include "UObject/UnrealType.h"
++
++int32 UFurnitureBodyDiagnosisCommandlet::Main(const FString& Params)
++{
++    FString Text;TSharedPtr<FJsonObject> Root;
++    if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/player_body.json")))||
++       !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root))return 2;
++    const auto Init=UWorld::InitializationValues().AllowAudioPlayback(false).CreatePhysicsScene(true)
++        .RequiresHitProxies(false).CreateNavigation(false).CreateAISystem(false).ShouldSimulatePhysics(false).SetTransactional(false);
++    auto* World=UWorld::CreateWorld(EWorldType::Game,false,TEXT("FurnitureBodyDiagnosis"),nullptr,true,ERHIFeatureLevel::Num,&Init);
++    if(!World)return 2;
++    auto* Pawn=World->SpawnActor<ACharacter>();auto* Body=Pawn->GetMesh();
++    Body->SetRelativeTransform(FTransform::Identity);
++    Body->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
++    auto* Rest=NewObject<UFPSFurnitureRestComponent>(Pawn);Pawn->AddInstanceComponent(Rest);Rest->RegisterComponent();
++    auto* StateField=FindFProperty<FStructProperty>(Rest->GetClass(),TEXT("State"));
++    if(!StateField){World->DestroyWorld(false);return 2;}
++    auto* State=StateField->ContainerPtrToValuePtr<FFurnitureRestState>(Rest);
++    TArray<TSharedPtr<FJsonValue>> Rows;
++    // Keep one pawn/component across changes, exercising the same mesh swap
++    // and native animation class used by the appearance switch.
++    for(const TCHAR* BodyId:{TEXT("jason"),TEXT("kaitlin"),TEXT("jason")})
++    {
++        const auto Config=FString(BodyId)==TEXT("jason")?Root:Root->GetObjectField(TEXT("body_variants"))->GetObjectField(BodyId);
++        auto* Asset=LoadObject<USkeletalMesh>(nullptr,*Config->GetStringField(TEXT("body_mesh")));
++        if(!Asset){World->DestroyWorld(false);return 2;}
++        Body->SetSkeletalMeshAsset(Asset);Body->SetAnimationMode(EAnimationMode::AnimationBlueprint);
++        Body->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
++        auto* Anim=Cast<UFPSPlayerBodyAnimInstance>(Body->GetAnimInstance());
++        if(!Anim){World->DestroyWorld(false);return 2;}
++        Anim->Clips.Reset();Anim->BodyState.Family=TEXT("Unarmed");
++        for(const auto& Pair:Config->GetObjectField(TEXT("clips"))->Values)
++            if(FString(Pair.Key).StartsWith(TEXT("Rest."))||Pair.Key==TEXT("Unarmed.Idle"))
++                if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))Anim->Clips.Add(FName(*Pair.Key),Clip);
++        for(bool DisablePost:{false,true})for(const TCHAR* Kind:{TEXT("Chair"),TEXT("Sofa"),TEXT("Bed")})
++        {
++            Body->SetDisablePostProcessBlueprint(DisablePost);State->Phase=3;State->Kind=FName(Kind);State->Started=0.f;
++            for(int32 Frame=0;Frame<4;++Frame){Body->TickAnimation(1.f/60.f,false);Body->RefreshBoneTransforms();}
++            auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("body"),BodyId);Row->SetStringField(TEXT("kind"),Kind);
++            Row->SetBoolField(TEXT("post_process_disabled"),DisablePost);
++            Row->SetStringField(TEXT("sample_key"),Anim->FurnitureClip.ToString());Row->SetNumberField(TEXT("sample_weight"),Anim->FurnitureWeight);
++            auto* Selected=Anim->Clips.FindRef(Anim->FurnitureClip).Get();Row->SetStringField(TEXT("sequence"),Selected?Selected->GetPathName():TEXT(""));
++            auto Poses=MakeShared<FJsonObject>();
++            for(const TCHAR* Bone:{TEXT("pelvis"),TEXT("head"),TEXT("hand_l"),TEXT("hand_r"),TEXT("foot_l"),TEXT("foot_r")})
++            {
++                const FVector V=Body->GetSocketTransform(FName(Bone),RTS_Component).GetLocation();
++                Poses->SetArrayField(Bone,{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)});
++            }
++            Row->SetObjectField(TEXT("bones"),Poses);Rows.Add(MakeShared<FJsonValueObject>(Row));
++        }
++    }
++    FString Out=FPaths::ProjectDir()/TEXT("SourceAssets/KaitlinFurniture20261024/pipeline-before.json");FParse::Value(*Params,TEXT("Out="),Out);
++    auto Report=MakeShared<FJsonObject>();Report->SetArrayField(TEXT("samples"),Rows);
++    Text.Reset();
++    FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Text));
++    const bool Saved=FFileHelper::SaveStringToFile(Text,*Out);
++    State->Phase=0;World->DestroyWorld(false);
++    UE_LOG(LogTemp,Display,TEXT("FURNITURE_BODY_DIAGNOSIS samples=%d saved=%d"),Rows.Num(),Saved);
++    return Saved?0:2;
++}

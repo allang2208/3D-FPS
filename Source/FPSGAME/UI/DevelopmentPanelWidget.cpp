@@ -324,6 +324,7 @@ void UDevelopmentPanelWidget::RefreshStatus()
     Super::RefreshStatus();
     // 面板打开期间每 0.2 s 走一次：快进后的世界时间要立刻反映在卡片说明里。
     RefreshTimeHelp();
+    RefreshBodyTypeButton();
     const auto* Tuning = UDevelopmentTuningSubsystem::Find(this);
     if (bTuningAvailable != (Tuning && Tuning->CanEdit(GetOwningPlayer()))) RefreshTuning();
     if (!SpawnCount) return;

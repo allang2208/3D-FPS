@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -64,7 +64,8 @@
+         bInventoryRequestPending=false;InventoryRequestPawn.Reset();bHasLastSent=false;HeartbeatTimer=0.f;
+         Model->PostNotice(TEXT("种植库存正在同步"),TEXT("请等待服务端确认当前库存后重试"));return false;
+     }
+-    if(TradeReady&&!Baseline.IsEmpty()&&Baseline==AcknowledgedInventoryBaseline)
++    const bool AppearanceUploaded=bHasUploadedAppearance&&Currency.PlayerHeadId==UploadedHeadId&&Currency.PlayerHairId==UploadedHairId;
++    if(TradeReady&&AppearanceUploaded&&!Baseline.IsEmpty()&&Baseline==AcknowledgedInventoryBaseline)
+     {
+         PendingUpload.Reset();PendingNormBlob.Reset();
+         Model->SetCampfireInventoryPending(true);PendingInventoryRequest=Request;
+@@ -80,6 +81,7 @@
+     PendingUpload.Reset();PendingNormBlob.Reset();
+     if(!ColdSteelProfileTransfer::SaveToBlob(ScratchSave,PendingUpload))
+     {bInventoryRequestPending=false;InventoryRequestPawn.Reset();return false;}
++    PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+     PendingNormBlob=PendingUpload;PendingUploadId=++UploadCounter;NextChunkIndex=0;
+     PendingSuper90Revision=Super90AppliedRevision;PendingUploadPawn=PC->GetPawn();
+     PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;

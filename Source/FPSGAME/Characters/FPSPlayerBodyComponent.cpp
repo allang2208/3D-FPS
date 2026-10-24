@@ -188,6 +188,7 @@ void UFPSPlayerBodyComponent::BeginPlay()
         FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Configuration);
     if(!Configuration.IsValid())
     {UE_LOG(LogTemp,Error,TEXT("PlayerBody: missing Content/ColdSteelData/player_body.json"));SetComponentTickEnabled(false);return;}
+    InitializeBodyConfigurations();
     if(GetNetMode()!=NM_DedicatedServer){InitializeDeathPresentation();InitializeBody();}
     if(Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         ProfileChanged=Profile->OnChanged.AddWeakLambda(this,[this]()
@@ -214,7 +215,7 @@ void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
         Profile->OnChanged.Remove(ProfileChanged);
     Super::EndPlay(Reason);
 }
-void UFPSPlayerBodyComponent::InitializeBody()
+void UFPSPlayerBodyComponent::InitializeBody(bool bRefreshAppearance)
 {
     auto* Body=GetBodyMesh();if(!Body)return;
     if(FPSPlayerBodyWorldBodySuppressed())
@@ -256,8 +257,10 @@ void UFPSPlayerBodyComponent::InitializeBody()
     Body->SetAnimationMode(EAnimationMode::AnimationBlueprint);
     Body->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
     BodyAnimation=Cast<UFPSPlayerBodyAnimInstance>(Body->GetAnimInstance());
+    InitializeFurnitureCamera();
     if(BodyAnimation)
     {
+        BodyAnimation->Clips.Reset();
         const TArray<TSharedPtr<FJsonValue>>* Scale=nullptr;
         if(Configuration->TryGetArrayField(TEXT("pose_scale"),Scale)&&Scale->Num()==3)
             BodyAnimation->PoseScale=FVector((*Scale)[0]->AsNumber(),(*Scale)[1]->AsNumber(),(*Scale)[2]->AsNumber());
@@ -270,9 +273,9 @@ void UFPSPlayerBodyComponent::InitializeBody()
     }
     Body->AddTickPrerequisiteComponent(this);
     BodyPoseFinalizedHandle=Body->RegisterOnBoneTransformsFinalizedDelegate(FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::OnBodyPoseFinalized));
-    if(!Character->IsLocallyControlled()&&GetNetMode()!=NM_Standalone)
+    if(bRefreshAppearance&&!Character->IsLocallyControlled()&&GetNetMode()!=NM_Standalone)
     {RebuildWeapons(ReplicatedWeapons);ApplyOutfit(ReplicatedOutfit);}
-    ApplyAppearance(ReplicatedAppearance);
+    if(bRefreshAppearance)ApplyAppearance(ReplicatedAppearance);
     InitializeFirstPersonLowerBody();
     ApplyWorldBodyVisibility();
     UpdateOwnerVisibility();

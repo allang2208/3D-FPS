@@ -11,12 +11,17 @@
 #include "Rendering/SkeletalMeshLODModel.h"
 #include "Materials/MaterialExpressionGetMaterialAttributes.h"
 #include "Materials/MaterialExpressionSetMaterialAttributes.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+#include "Misc/FileHelper.h"
 #endif
 
 int32 UFPSModularOutfitComponent::AddRobeHemOffsetPin(UObject* Expression)
 {
 #if WITH_EDITOR
-    if(!Expression||!Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Materials/")))return INDEX_NONE;
+    if(!Expression||!(Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Materials/"))||
+        Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Materials/Hem/"))))return INDEX_NONE;
     if(auto* Get=Cast<UMaterialExpressionGetMaterialAttributes>(Expression))
         return Get->CreateOrGetOutputAttribute(MP_WorldPositionOffset);
     if(auto* Set=Cast<UMaterialExpressionSetMaterialAttributes>(Expression))
@@ -28,7 +33,8 @@ int32 UFPSModularOutfitComponent::AddRobeHemOffsetPin(UObject* Expression)
 int32 UFPSModularOutfitComponent::AddRobeHemMaskPin(UObject* Expression)
 {
 #if WITH_EDITOR
-    if(!Expression||!Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Materials/")))return INDEX_NONE;
+    if(!Expression||!(Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019/Materials/"))||
+        Expression->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Materials/Hem/"))))return INDEX_NONE;
     if(auto* Get=Cast<UMaterialExpressionGetMaterialAttributes>(Expression))
         return Get->CreateOrGetOutputAttribute(MP_OpacityMask);
     if(auto* Set=Cast<UMaterialExpressionSetMaterialAttributes>(Expression))
@@ -39,8 +45,23 @@ int32 UFPSModularOutfitComponent::AddRobeHemMaskPin(UObject* Expression)
 
 bool UFPSModularOutfitComponent::BuildMageRobeDrape(USkeletalMesh* Mesh)
 {
+    return BuildMageRobeDrapeForBody(Mesh,FString());
+}
+
+bool UFPSModularOutfitComponent::BuildMageRobeDrapeForBody(USkeletalMesh* Mesh,const FString& CollisionRecipe)
+{
 #if WITH_EDITOR
-    if(!Mesh||!Mesh->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/")))return false;
+    if(!Mesh)return false;
+    const bool bNativeRobe=Mesh->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/"));
+    const bool bKaitlinRobe=Mesh->GetPathName().StartsWith(TEXT("/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/World/"));
+    if(!bNativeRobe&&!(bKaitlinRobe&&!CollisionRecipe.IsEmpty()))return false;
+    TSharedPtr<FJsonObject> FittedCollision;
+    if(!CollisionRecipe.IsEmpty())
+    {
+        FString Text;
+        if(!FFileHelper::LoadFileToString(Text,*CollisionRecipe)||
+            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),FittedCollision)||!FittedCollision)return false;
+    }
     if(!Mesh->GetImportedModel()||Mesh->GetImportedModel()->LODModels.IsEmpty())return false;
     // ImportedMaterialSlotName is read-only in Python. Keep the isolated robe
     // import names aligned with the authored section names before extraction.
@@ -77,6 +98,8 @@ bool UFPSModularOutfitComponent::BuildMageRobeDrape(USkeletalMesh* Mesh)
         Shape.Length=FMath::Max(0.f,static_cast<float>((End-A).Size())-(CoverJoints?0.f:2.f*Radius*BodyScale))/BoneScale;
         Body->AggGeom.SphylElems.Add(Shape);Collision->SkeletalBodySetups.Add(Body);
     };
+    if(!FittedCollision)
+    {
     Capsule(TEXT("pelvis"),TEXT("spine_02"),9.5f);Capsule(TEXT("spine_02"),TEXT("spine_04"),10.f);
     // A thigh's largest front/back radius is not its lateral hip radius.
     // The old 12.8 cm sphere reached six centimetres outside Jason's hip and
@@ -114,6 +137,34 @@ bool UFPSModularOutfitComponent::BuildMageRobeDrape(USkeletalMesh* Mesh)
         Capsule(*(TEXT("foot_")+S),*(TEXT("ball_")+S),4.f);
         Capsule(*(TEXT("lowerarm_")+S),*(TEXT("hand_")+S),3.7f);
         Capsule(*(TEXT("hand_")+S),*(TEXT("middle_01_")+S),3.f);
+    }
+    }
+    else
+    {
+        const TArray<TSharedPtr<FJsonValue>>* Capsules=nullptr;
+        if(!FittedCollision->TryGetArrayField(TEXT("capsules"),Capsules)||Capsules->IsEmpty())return false;
+        const auto ReadPoint=[](const TSharedPtr<FJsonObject>& Object,const TCHAR* Key,FVector& Point)
+        {
+            const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+            if(!Object->TryGetArrayField(Key,Values)||Values->Num()!=3)return false;
+            Point=FVector((*Values)[0]->AsNumber(),(*Values)[1]->AsNumber(),(*Values)[2]->AsNumber());
+            return !Point.ContainsNaN();
+        };
+        TMap<FName,USkeletalBodySetup*> FittedBodies;
+        for(const auto& Value:*Capsules)
+        {
+            const auto Object=Value->AsObject();FString Bone;double Radius=0.;FVector Start,End;
+            if(!Object||!Object->TryGetStringField(TEXT("bone"),Bone)||Ref.FindBoneIndex(FName(*Bone))==INDEX_NONE||
+                !Object->TryGetNumberField(TEXT("radius"),Radius)||Radius<=0.||
+                !ReadPoint(Object,TEXT("start"),Start)||!ReadPoint(Object,TEXT("end"),End))return false;
+            const FName BoneName(*Bone);auto* Body=FittedBodies.FindRef(BoneName);
+            if(!Body)
+            {Body=NewObject<USkeletalBodySetup>(Collision);Body->BoneName=BoneName;FittedBodies.Add(BoneName,Body);Collision->SkeletalBodySetups.Add(Body);}
+            FKSphylElem Shape;Shape.Center=(Start+End)*.5;Shape.Radius=Radius;
+            Shape.Rotation=FRotationMatrix::MakeFromZ((End-Start).GetSafeNormal(SMALL_NUMBER,FVector::UpVector)).Rotator();
+            Shape.Length=FVector::Dist(Start,End);
+            Body->AggGeom.SphylElems.Add(Shape);
+        }
     }
     Collision->UpdateBodySetupIndexMap();Collision->SetPreviewMesh(Mesh,false);
     FSkeletalMeshClothBuildParams Params;Params.AssetName=TEXT("MageRobeProxyExtract");Params.LodIndex=0;

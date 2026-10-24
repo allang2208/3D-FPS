@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+@@ -42,6 +42,7 @@
+     if(!ScratchSave)ScratchSave=NewObject<UColdSteelProfileSave>();
+     ScratchSave->Profile=M->Snapshot();PendingUpload.Reset();
+     const bool Encoded=ColdSteelProfileTransfer::SaveToBlob(ScratchSave,PendingUpload);
++    PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+     PendingNormBlob=PendingUpload;PendingUploadId=++UploadCounter;NextChunkIndex=0;
+     PendingSuper90Revision=Super90AppliedRevision;PendingUploadPawn=PC->GetPawn();
+     PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;

@@ -1,0 +1,586 @@
+{
+  "description": "Exact public slice; integration patches require retained local prerequisites. Licensed binaries and dense inputs excluded.",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 1923,
+      "sha256_lf": "0118c65c9e35c57324bec0b22e165938b27ed4ae3cc05937084c75a95bab0a77",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 288589,
+      "sha256_lf": "14f5f405a92008675a1e6dba880366b5265616ded783f9794a7ac2a037bbfdfd",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 27423,
+      "sha256_lf": "778c26576b3d1b0d81f810181d23df06a2635aa2da585d8299b9e26d40369c22",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "bytes": 453970,
+      "sha256_lf": "f0f1737c9b8d348670ee03048ae3343a3fe38fe130a58e47ebbb6fbbebe48ed9",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "bytes": 1175834,
+      "sha256_lf": "b59f85cdfa27932b3118f791134ce1581acd5f36c78d8c04cb5a1e5dd34242bf",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 130218,
+      "sha256_lf": "d7979b1865701a87c3f5d1ac487e4edf675ac29355b62832b640a96bca505005",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Docs/Characters/female-player-candidates-20261023.md",
+      "bytes": 3192,
+      "sha256_lf": "8a2f81de5bc3591c2d4b4840ee757f1b8cf3ef907e054bb68f2d82398d7461d9",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Characters/female-player-source-and-fit-plan-20261022.md",
+      "bytes": 7514,
+      "sha256_lf": "1edc7d537c2b92b601c511e5a984f454eb7e0e791337d12a44b00d6b90f4ef81",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Characters/kaitlin-hair-lod-20261024.md",
+      "bytes": 2435,
+      "sha256_lf": "6264760b9d545ca65fcb690fc9abdaf1cb5e5cf804102c1eac2cad3031fb086e",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Characters/kaitlin-player-audit-20261023.md",
+      "bytes": 3679,
+      "sha256_lf": "bcbe535b4bf8122b009e030e75cbc7d48d9de03b00e9a72207df16181503f5b3",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Characters/kaitlin-player-integration-20261023.md",
+      "bytes": 15802,
+      "sha256_lf": "8fdc443008774c009a98cd497be067615181fbf3335764204b2d2eb362f1a3c9",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Movement__FPSFurnitureRestComponent.cpp.patch",
+      "bytes": 1020,
+      "sha256_lf": "6d822d6412c1c339ee70dd427b9bec250584ddbb4e674ad6e4ce211bbe1dba96",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Movement__FurnitureBodyDiagnosisCommandlet.cpp.patch",
+      "bytes": 5168,
+      "sha256_lf": "99e7d6aa8520a0d673e10a1b557953f6f7125dd26819573d895e2f24b1ad55cb",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Movement__FurnitureBodyDiagnosisCommandlet.h.patch",
+      "bytes": 457,
+      "sha256_lf": "513993b9626ddc37f87e0ff5daa83b80cbf7a8f41c867246bc9ccef27c4af737",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Multiplayer__ColdSteelCampfireRequests.cpp.patch",
+      "bytes": 748,
+      "sha256_lf": "65adda77e7be46196cf23ccc91e9df76356b319c44dbf508d17a8350f2827e63",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Multiplayer__ColdSteelInventoryRequests.cpp.patch",
+      "bytes": 1465,
+      "sha256_lf": "386f6c501596644209a21910bec5fe2398b5d54ea9a510f3675b77ccd75e9879",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+      "bytes": 2663,
+      "sha256_lf": "ed71357f19c159be13471ad6782afc393f8627cf042183014d9781b22027a36d",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+      "bytes": 745,
+      "sha256_lf": "3a068042686b1e7a97c2f6fd39f94e2b9fe32c56c424ac3dd784a6819590083d",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/Integration/deferred-config-fields.json",
+      "bytes": 7282,
+      "sha256_lf": "30a102505f006509549ff089c3c6cac255fda2743aa4834f3bbdca73173d5cd2",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/README.md",
+      "bytes": 4793,
+      "sha256_lf": "57c2e586df0e7cb4209af2614fb4b83bb5f495f71213eb73e426df9471a8e859",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/archive-manifest.json",
+      "bytes": 50987,
+      "sha256_lf": "ba245f5545734404300ff3e18ae8ed7a0b7fd1c3f26820e4e4b76f02d1c0900c",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Docs/Publication/Kaitlin20261024/integration-prerequisites.json",
+      "bytes": 2729,
+      "sha256_lf": "3456fd1494b04d6e32bdc5c7f2b9071662fe998534de5d9ad0a14e732ae64f9d",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyAssetPreloader.cpp",
+      "bytes": 20733,
+      "sha256_lf": "92073ec64ad23c1eeb2834af26e3e20fe78f5ba0ded266fa61c386803ee8e969",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSMageRobeAuthoring.cpp",
+      "bytes": 14127,
+      "sha256_lf": "6bce0009f824c93d23ae8b64427d5a80300da22450db321f3626bb30260262a5",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "bytes": 40288,
+      "sha256_lf": "6f818757c4ea722ea625212145b0f6aa6b228baada20cf9083fa5df6aaf5236b",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "bytes": 4857,
+      "sha256_lf": "864e3ab1a85d494b9df2c1e77573eb731344521e345184be0e1e3a9d04ade864",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+      "bytes": 17264,
+      "sha256_lf": "8e3a9b2c9bc7aa6097ad6c6290ca7bd262d4326f28433e79eb9e027a96539077",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "bytes": 23616,
+      "sha256_lf": "4451c19cce2fa397a5be9cd9b3083cf00ef52b92613f4ae58e3a41f5ad423fcb",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "bytes": 19525,
+      "sha256_lf": "7f32e84addd242a5dec3c65535f18db50f2638f63400bd03794a17c51652248f",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyVariants.cpp",
+      "bytes": 4079,
+      "sha256_lf": "b42a68890ad38666324014b03251fc1e1f69627fabc6e2c842de14059815646d",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.cpp",
+      "bytes": 31632,
+      "sha256_lf": "db908be73faaf8ae0e2a9910a5e64cf95a442120a9ed5aff9dd4cad952c5823c",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.h",
+      "bytes": 10701,
+      "sha256_lf": "8dc4aacf8565e50d309e1ef2876a9fa8b6a09a2d7c0ab47765a554fe59c7a129",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentTuningPanel.cpp",
+      "bytes": 13916,
+      "sha256_lf": "d4ac45411cc627de4c3448a8e59d255e13c533dc051d6da6be90a7862158654b",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/assemble.py",
+      "bytes": 6158,
+      "sha256_lf": "d70590fdd1573149479daf5a9ce1733016eb6053c1723c96ba4282c2f59da514",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/audit_assets.py",
+      "bytes": 12109,
+      "sha256_lf": "6f09ab743f38b9e8de324ffdc0aa84c58f70388747b5f69b857d8174919fa478",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/audit_config.py",
+      "bytes": 9760,
+      "sha256_lf": "1fec78aef22e71d9f1d6129e85ccbf43abbbe532ccb0f2cc6a6e8a3413e309ac",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/author_body.py",
+      "bytes": 1502,
+      "sha256_lf": "ab525d6554ba6e5248183a780817f888f40fd2046408ea2ea263bc26edc5c71c",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/author_calibration.py",
+      "bytes": 3547,
+      "sha256_lf": "4a5804ccef5a20231c6fa1e5dafa9c1504d672c77f54ef422e13b6473ae33bf7",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/author_jacket_packs.py",
+      "bytes": 9618,
+      "sha256_lf": "e845063486da9b83037fb927b853e13ee2380869cf6650cd318b20b14f578c1a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/author_robe_collision.py",
+      "bytes": 2885,
+      "sha256_lf": "54189a755be3d192f56784bbf54398db8facfd424e4d9fb4e83db863ecb0cf63",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/author_view_skin.py",
+      "bytes": 2020,
+      "sha256_lf": "ea3e00d1fdf569e087b70b5aa8744dcede54b4fcd9032f9fac2e19b974fa17e4",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/body_correspondence.py",
+      "bytes": 3728,
+      "sha256_lf": "7941a561e28687b35eb9a7c700d31637946d7b1b6d6858b80d418b779325b404",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/body_surface_fit.py",
+      "bytes": 6054,
+      "sha256_lf": "f76c50fa2fcd6ae4c2432f678e8a049f49d41775680dfa018f19511fcca761ad",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/capture_body_uv.py",
+      "bytes": 1882,
+      "sha256_lf": "8f669e11e7ab8d2e008bd9cad0401693352d43212560a3e0c6fa16f54f91f648",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/capture_death_tracks.py",
+      "bytes": 1558,
+      "sha256_lf": "fc82bd1ab6ea4d8212345bad3f96c3cf948e598f592cc3d3d1383655067b85e2",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/capture_groom_materials.py",
+      "bytes": 2378,
+      "sha256_lf": "d276db0c779a4adae26a62738a985ebc040bcab42d8c6fa623164a4a86098ce0",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/capture_pack_masks.py",
+      "bytes": 2982,
+      "sha256_lf": "83a9a8253c72c753def373681e547c6c94387462917bd84e232f0410e03e46d7",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/capture_skin_materials.py",
+      "bytes": 1808,
+      "sha256_lf": "18ad80364ff79c1a1816418cf0ccc2b2528b552ce6231eb029e23f1157dbdfb6",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/complete_delivery.py",
+      "bytes": 3524,
+      "sha256_lf": "fc240f85658ff30125567c52ac0dbab186665caacc06c37d1e1ed1985467350c",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/complete_furniture_assets.py",
+      "bytes": 360,
+      "sha256_lf": "110b2e6ae612c55ef3c2ae18a8cb908891c6c3e623fae8b60c6eac57273c109f",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/complete_furniture_cameras.py",
+      "bytes": 2223,
+      "sha256_lf": "c83db830f557249ee166f58fdd16697f09de314556b4ea25a381eaf5f54e3c3a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/complete_pack_assets.py",
+      "bytes": 2957,
+      "sha256_lf": "edb7eaceb159fd4643e74e7fb6c4fa872bddb7750d35b57f4f56562f489c2070",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/complete_pack_inputs.py",
+      "bytes": 5132,
+      "sha256_lf": "0ac4e016350d23dd9f7e5968113172fe5544310131aedac0102320e623b78968",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/complete_pack_topology.py",
+      "bytes": 1174,
+      "sha256_lf": "75d39a1b5fd07cfe7842be2cece66a022035ea64671dd0db858647b151df1c14",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/export_full_body.py",
+      "bytes": 3139,
+      "sha256_lf": "c3a2c77e3cc00b8717a1b37dd6a0ba277784d66a78abd943597a7fac74f2f270",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/extract_fit_inputs.py",
+      "bytes": 4768,
+      "sha256_lf": "3a474927f11bea8c636855f34a018651d98ff644f4839c2e11a19a0f85e0dcd5",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/extract_native.py",
+      "bytes": 6615,
+      "sha256_lf": "0b7cd57edf9a7fed570c64556f903af3938c9cd3335467a0786bd3b4934b43d2",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/finalize_audit.py",
+      "bytes": 5739,
+      "sha256_lf": "e82373ccb1d023fa3ffc167b2e9ff87443ebbc59ae061b4006796ee6ebbeda6a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/fit_backpacks.py",
+      "bytes": 10647,
+      "sha256_lf": "5b5e580a9404363e54c8853ab13db0ca7fa5b89a88f0cefeb59775ea37098335",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/fit_headwear.py",
+      "bytes": 3395,
+      "sha256_lf": "157ceaf02c0ecc6607af1354428b6ad67c51d2e1b2e85ecaa672314ef852fedc",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/fit_world_garments.py",
+      "bytes": 2757,
+      "sha256_lf": "33974b9bc89e7c8084c6c46410948a37209b53d20c3b72893e5436e8fb37efe6",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/inspect_furniture.py",
+      "bytes": 3102,
+      "sha256_lf": "e7bb416883f97f0e0d162a8f5d2c0c50ab7c21f5e8b03153ec4c691023f943d4",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/inspect_hair_component_defaults.py",
+      "bytes": 1164,
+      "sha256_lf": "6a75dc5b6c7b874e358e1c3c82fb40c0e89fa808a9b55f2fe280efec67910e23",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/inspect_hair_lods.py",
+      "bytes": 2615,
+      "sha256_lf": "3121b7e05019a260ad1c5b96aeb0741ebc85152f8a3358a72f3e8ce3d21a5e86",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/migrate_native.py",
+      "bytes": 1795,
+      "sha256_lf": "3dee217faa2457598f498692ee4421765b4726b34265c224fb8e86f78ef11b7c",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/prepare_completion.py",
+      "bytes": 1599,
+      "sha256_lf": "c4daa758eb7dfe92a5b7776900216980bea206f21a17d3e948934ca1969d883f",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/prepare_fit_inputs.py",
+      "bytes": 2994,
+      "sha256_lf": "00d04d8b177eec37be40d88a17e6aa5c1e7eb6328e2a331d0fa573fb599a6f30",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/prepare_source.py",
+      "bytes": 2252,
+      "sha256_lf": "ea015a9b9d3d2e26d9be832565e90c4f28f058f798c97072f2f88d7c45863ac8",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/publish.py",
+      "bytes": 8950,
+      "sha256_lf": "01aa028c853c623c700e98c1723becfa59309f89143643699db4d7fa09235e65",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/publish_completion.py",
+      "bytes": 4203,
+      "sha256_lf": "cfa832586498e9141cdfcf17d74616e9f8b117123713b59b6da22c53aa007445",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/publish_hair_lod_fix.py",
+      "bytes": 1349,
+      "sha256_lf": "5026027969e976f3fb688e5496f11c9de31d4366e203d1b28f32f3c883054ee5",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/read_retirement_dependencies.py",
+      "bytes": 1054,
+      "sha256_lf": "90f6033347a5ad6383a838655782f28e39a2e04cddf5a3f4804844a9c5ace0ad",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/retarget.py",
+      "bytes": 5987,
+      "sha256_lf": "d021294de6b68c80d2f83fe5359e017625fa3a5ea7a82785f5739da57f5d4919",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/run_authoring.ps1",
+      "bytes": 2856,
+      "sha256_lf": "aab49dd991fb210ae8c102352c3beeeaa8d94839a11af9914956a88f9b01d986",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/run_build.ps1",
+      "bytes": 1993,
+      "sha256_lf": "d22326d0a30e080881962c72309e3359277d936b9e72f58902e2afb5107e0575",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/run_capture.ps1",
+      "bytes": 2489,
+      "sha256_lf": "2f1ff5064f0bb6c026abc871564cce2f29ea6fbf51fdea353e01a2cb2cfa4fd9",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/run_furniture_diagnosis.ps1",
+      "bytes": 1027,
+      "sha256_lf": "3a4287c0514befa4e0e8fcb6ed9bfa93be971e1e04a4a42068b2748ae80bdd66",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/run_production.ps1",
+      "bytes": 2239,
+      "sha256_lf": "3c6d8d6fffb94b983bf054d97143a824daa3405d522e2d23f054c8fc7a17f7ae",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/save_backpacks.py",
+      "bytes": 199,
+      "sha256_lf": "32e3afb1823d87653f2527ed8170fb6b3d7439932c52f21d0308979835357828",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/save_body.py",
+      "bytes": 2413,
+      "sha256_lf": "67c65d5bfb8832244c9db7125bfe8656a15e1f8f3fc1b95e45808beeae248641",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/save_robe_cloth.py",
+      "bytes": 1262,
+      "sha256_lf": "b69a81b74b47229faeeec6d6306e5fd5ae9e290026284373ec4b9878959f896a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/save_skin_patches.py",
+      "bytes": 2173,
+      "sha256_lf": "c4725d3e581dac252e94c085dd3172023742317e1d360c0e62dd9b71a638b13b",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/save_view_skin.py",
+      "bytes": 3264,
+      "sha256_lf": "07ac1abdd97baa491f03c1eeb88b62148904ef491bbe243f94f016a5a5c8812a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/save_world_garments.py",
+      "bytes": 5102,
+      "sha256_lf": "82aac03b1171713c109acc34321c9b1d269ece0f7b01a893ec87a28500b2e541",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/sync_added_equipment.py",
+      "bytes": 2029,
+      "sha256_lf": "2e805244fc90e394bbc7d6690c23af53a852330d38853695fb27f94d0f753a23",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Tools/KaitlinPlayer/sync_furniture_assets.py",
+      "bytes": 3877,
+      "sha256_lf": "0a9c5b57eb53894bfc2e040e832a794fac5a7aa31b82c3ba6cdc9c9353dfa3f9",
+      "mode": "owned_file"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/SKILL.md",
+      "bytes": 11030,
+      "sha256_lf": "542a0304462e271aeafc2278bc9b7684554aacb00e3d8163baac821a491896bd",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "skills/ue5-cpp-gameplay/references/native-body-variants.md",
+      "bytes": 3867,
+      "sha256_lf": "1186c910402b32b34cb19f97c62ae49a0ed07e295dfa78708e159db27b8844ce",
+      "mode": "owned_file"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/SKILL.md",
+      "bytes": 1841,
+      "sha256_lf": "525a16b9443ede55948187a0710e8b218ce516e3bbbc3968b1d502a87cea3d00",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/jacket-harness-fitting.md",
+      "bytes": 2851,
+      "sha256_lf": "551736b606306e5861c92cf9b6decf17165cd24c183dddec9e4bc78f9f7656e2",
+      "mode": "owned_file"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "bytes": 4101,
+      "sha256_lf": "a266cdd58d8e1fdce0384c12f2b0d834d97cd69d8fd990c3cca5609f79b262b6",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/appearance-profile-sync.md",
+      "bytes": 2578,
+      "sha256_lf": "808e02ff17747e5202a8a8d8f287f64c04e44696f639f99dcd7dd0dce6b8524c",
+      "mode": "owned_file"
+    }
+  ],
+  "config_objects": [
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin"
+      ],
+      "sha256_canonical": "0ee7bfcdac319544a518b1b8aa513e659d9b2f66b69acad9d99b09f576305af6"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "keys": [
+        "body_variants",
+        "kaitlin"
+      ],
+      "sha256_canonical": "d5677d3ea19a23ffd890313966f2ad22f4f16530de8a7336508eeca39618865b"
+    }
+  ],
+  "female_role_count": 240,
+  "required_cook_directories": [
+    "/Game/Characters/KaitlinPlayer20261023",
+    "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023"
+  ],
+  "integration_patch_count": 7,
+  "deferred_config_fields": 9,
+  "runtime_tree_complete": false,
+  "public_slice_built": false,
+  "historical_full_host_builds_succeeded": true,
+  "actual_network_tested": false
+}

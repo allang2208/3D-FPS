@@ -44,6 +44,10 @@ public:
     /** Existing server-authoritative world-body equipment replication supplies remote appearances. */
     void SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit);
     void RefreshInventory();
+    /** Release only this body's followers before changing its source skeleton. */
+    void ResetBodyPresentation();
+    void SetBodyType(FName BodyId);
+    void CollectBodyAssets(FName BodyId,const FString& BodyMesh,TArray<FSoftObjectPath>& Out) const;
     /** Local visual pose layers use the current equipment, never inventory copies. */
     bool IsSteelGauntletEquipped() const;
     bool IsChainmailEquipped() const;
@@ -61,6 +65,9 @@ public:
     /** Builds the blue robe's continuous skirt proxy and stable Witch capture. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="build_mage_robe_drape"))
     static bool BuildMageRobeDrape(USkeletalMesh* Mesh);
+
+    UFUNCTION(BlueprintCallable, Category="Modular Outfit|Authoring")
+    static bool BuildMageRobeDrapeForBody(USkeletalMesh* Mesh, const FString& CollisionRecipe);
     /** Commandlet authoring: add the WPO pin without an editor GraphNode. */
     UFUNCTION(BlueprintCallable, Category="Outfit|Authoring", meta=(ScriptName="add_robe_hem_offset_pin"))
     static int32 AddRobeHemOffsetPin(UObject* Expression);
@@ -71,6 +78,8 @@ public:
 private:
     UPROPERTY(Transient) TArray<FFPSOutfitPresentation> Presentations;
     TSharedPtr<FJsonObject> Configuration;
+    TSharedPtr<FJsonObject> BaseConfiguration;
+    TMap<FName,TSharedPtr<FJsonObject>> BodyConfigurations;
     TMap<FString,TSharedPtr<FStreamableHandle>> PendingLoads;
     TSet<FString> FailedLoads;
     TMap<int32,FName> Equipped;

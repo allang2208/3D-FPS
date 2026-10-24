@@ -1,0 +1,746 @@
+[
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_2fe4e516_A_Rest_Bed_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_2fe4e516_A_Rest_Bed_Enter.uasset",
+    "bytes": 1265337,
+    "sha256": "bc55e3aa41ac4960a06978359bc37b0debbfd8f2dda849df117f5d80653ba8c2",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_87a7f26b_A_Rest_Bed_Enter.KF_87a7f26b_A_Rest_Bed_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_219bf2c3_A_Rest_Bed_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_219bf2c3_A_Rest_Bed_Exit.uasset",
+    "bytes": 1310261,
+    "sha256": "e2e3129c25049283adfcdb5516c17c3f6c9ea13d1440a05f894a671e66b35e3e",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_1c94d54d_A_Rest_Bed_Exit.KF_1c94d54d_A_Rest_Bed_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_b6c74eed_A_Rest_Bunk_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_b6c74eed_A_Rest_Bunk_Enter.uasset",
+    "bytes": 1293341,
+    "sha256": "7ed78767a610fde76042aa75bf2f9126954fdf1d85e599cdc89453c0c9b0a785",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_96f2de28_A_Rest_Bunk_Enter.KF_96f2de28_A_Rest_Bunk_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_594598c4_A_Rest_Bunk_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_594598c4_A_Rest_Bunk_Exit.uasset",
+    "bytes": 1339705,
+    "sha256": "7661e8ef13ba8ddd799aeaa429a05e2655b9eaa0035f3ca4a7d71351ad6dd40f",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_71b611ad_A_Rest_Bunk_Exit.KF_71b611ad_A_Rest_Bunk_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_b47012a8_A_Rest_BedKing_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_b47012a8_A_Rest_BedKing_Enter.uasset",
+    "bytes": 1265353,
+    "sha256": "bec1d38eeba58b742e53b3a82cf5b1f3eb18083e66df65cde65846153b6504c6",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_439763e0_A_Rest_BedKing_Enter.KF_439763e0_A_Rest_BedKing_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_65e55d4c_A_Rest_BedKing_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_65e55d4c_A_Rest_BedKing_Exit.uasset",
+    "bytes": 1310277,
+    "sha256": "14e135d3acf59f6a49d02b93e15f276f72ae48baf7b6f9a7ab0592065492c61b",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_5470c6ac_A_Rest_BedKing_Exit.KF_5470c6ac_A_Rest_BedKing_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_a683d573_A_Rest_Hospital_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_a683d573_A_Rest_Hospital_Enter.uasset",
+    "bytes": 1270957,
+    "sha256": "bd60973a30bd0fdd00fc9b82f7d9a34c16795fea95ebb7cb062794fd1c934441",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_49142149_A_Rest_Hospital_Enter.KF_49142149_A_Rest_Hospital_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_a9a9a13b_A_Rest_Hospital_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_a9a9a13b_A_Rest_Hospital_Exit.uasset",
+    "bytes": 1316169,
+    "sha256": "33bebcc96878154c88eca2fd5d44787c4e4c41e8bddc38ee1c53f0b8a4196fca",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_c40daf9c_A_Rest_Hospital_Exit.KF_c40daf9c_A_Rest_Hospital_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_9fa23cb6_A_Rest_Ward_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_9fa23cb6_A_Rest_Ward_Enter.uasset",
+    "bytes": 1259741,
+    "sha256": "68c38c11782e5309247ae71637291ea5138c0ef85c5381a6baa4bc660d44c848",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_43369a29_A_Rest_Ward_Enter.KF_43369a29_A_Rest_Ward_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_e11d53b0_A_Rest_Ward_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_e11d53b0_A_Rest_Ward_Exit.uasset",
+    "bytes": 1304377,
+    "sha256": "d7cf1580ba96e6ec621ad9873a426305bc0239b581cbcb7bbb7e04f8511fa929",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_fcb2d2fd_A_Rest_Ward_Exit.KF_fcb2d2fd_A_Rest_Ward_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_e3f576b6_A_Rest_ApartmentBed_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_e3f576b6_A_Rest_ApartmentBed_Enter.uasset",
+    "bytes": 1265373,
+    "sha256": "e14165f836c68f8d0aea5b943d3cbed954450a9a6b57ac3854a4a30941642703",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_0316cd07_A_Rest_ApartmentBed_Enter.KF_0316cd07_A_Rest_ApartmentBed_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_e3aff70d_A_Rest_ApartmentBed_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_e3aff70d_A_Rest_ApartmentBed_Exit.uasset",
+    "bytes": 1310297,
+    "sha256": "ad4732bc47cc5fbb30cf61d7af7f20bfeee9cc197fd19d46426dd1a5bcafeb9d",
+    "reason": "Superseded unpublished V9 furniture retarget",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_5f5303ce_A_Rest_ApartmentBed_Exit.KF_5f5303ce_A_Rest_ApartmentBed_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_e4f0c732c2_A_Rest_Bed_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_e4f0c732c2_A_Rest_Bed_Enter.uasset",
+    "bytes": 685334,
+    "sha256": "ba08870dbf63680755223c7659aa87c2499bba2d7deef41be8204650483dc2ea",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_87a7f26b_A_Rest_Bed_Enter.KF_87a7f26b_A_Rest_Bed_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_6fc78ae0b6_A_Rest_Bed_Idle.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_6fc78ae0b6_A_Rest_Bed_Idle.uasset",
+    "bytes": 589233,
+    "sha256": "0b0624eeaba329c73c9c448cefb46215483e00f81dda4bb7c39de49ffcc3ddd4",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_ee545ef0_A_Rest_Bed_Idle.KF_ee545ef0_A_Rest_Bed_Idle"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_104bad67a6_A_Rest_Bed_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_104bad67a6_A_Rest_Bed_Exit.uasset",
+    "bytes": 704338,
+    "sha256": "65429db295865e2a945b29aa64837c1c5a8154874fea3f9d133a838132b415d9",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_1c94d54d_A_Rest_Bed_Exit.KF_1c94d54d_A_Rest_Bed_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_6eb7a0e4fb_A_Rest_Bunk_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_6eb7a0e4fb_A_Rest_Bunk_Enter.uasset",
+    "bytes": 680890,
+    "sha256": "fe2ac4d5370627ed2ec18b529da84864975a64114f4d99d7954764c35752ecc4",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_96f2de28_A_Rest_Bunk_Enter.KF_96f2de28_A_Rest_Bunk_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_7f394f2aaf_A_Rest_Bunk_Idle.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_7f394f2aaf_A_Rest_Bunk_Idle.uasset",
+    "bytes": 573749,
+    "sha256": "7c2db07f45a771052061b74c6cd3c1671e916f1edc20be79efda5b7d5f0bc4e4",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_b8a4bacb_A_Rest_Bunk_Idle.KF_b8a4bacb_A_Rest_Bunk_Idle"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_d83bf79326_A_Rest_Bunk_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_d83bf79326_A_Rest_Bunk_Exit.uasset",
+    "bytes": 699606,
+    "sha256": "d27b5f2d829f361d3f7e408020e349b5cc4909e117a667f5bff9c0c12f824691",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_71b611ad_A_Rest_Bunk_Exit.KF_71b611ad_A_Rest_Bunk_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_9efb8ea9a7_A_Rest_BedKing_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_9efb8ea9a7_A_Rest_BedKing_Enter.uasset",
+    "bytes": 685350,
+    "sha256": "26863b4c1fe286e36b8d88ec79b674028d251d32e3b8aeac748eb8332f8a0722",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_439763e0_A_Rest_BedKing_Enter.KF_439763e0_A_Rest_BedKing_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_cad40e929e_A_Rest_BedKing_Idle.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_cad40e929e_A_Rest_BedKing_Idle.uasset",
+    "bytes": 589249,
+    "sha256": "a00a4320ea8230e5adb94bc575b731243c748cd01349145be10b6391eee18478",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_7802dfda_A_Rest_BedKing_Idle.KF_7802dfda_A_Rest_BedKing_Idle"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_c79c65d468_A_Rest_BedKing_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_c79c65d468_A_Rest_BedKing_Exit.uasset",
+    "bytes": 704354,
+    "sha256": "2188a14c90cf4b8e22fd611291b7872b61d69e2ee21664720384680bc4fcbb9c",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_5470c6ac_A_Rest_BedKing_Exit.KF_5470c6ac_A_Rest_BedKing_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_7c7c1ea039_A_Rest_Hospital_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_7c7c1ea039_A_Rest_Hospital_Enter.uasset",
+    "bytes": 685354,
+    "sha256": "7706cbad0be1de3e250e122143517043e320c9c23c240062eb6b6ca7f5350eb8",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_49142149_A_Rest_Hospital_Enter.KF_49142149_A_Rest_Hospital_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_5f41a2246a_A_Rest_Hospital_Idle.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_5f41a2246a_A_Rest_Hospital_Idle.uasset",
+    "bytes": 573765,
+    "sha256": "893dc85dadaea05286495d562e1a450bca43da22652cd0f289ff949d63832e66",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_b130defe_A_Rest_Hospital_Idle.KF_b130defe_A_Rest_Hospital_Idle"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_fc0b26d922_A_Rest_Hospital_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_fc0b26d922_A_Rest_Hospital_Exit.uasset",
+    "bytes": 704358,
+    "sha256": "e766089df852e8cef90a029e43841a586d362e06426c37b6ed97a22c885694e6",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_c40daf9c_A_Rest_Hospital_Exit.KF_c40daf9c_A_Rest_Hospital_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_ca8d5377f3_A_Rest_Ward_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_ca8d5377f3_A_Rest_Ward_Enter.uasset",
+    "bytes": 685338,
+    "sha256": "ed7b6810047534e8ebb39ed7236c963fb906096f5d60fcae10a152b14f706bff",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_43369a29_A_Rest_Ward_Enter.KF_43369a29_A_Rest_Ward_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_3326daa7c4_A_Rest_Ward_Idle.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_3326daa7c4_A_Rest_Ward_Idle.uasset",
+    "bytes": 569877,
+    "sha256": "d5f2bf6866981cc74fe604a88adeca4c502d4f4f059d31fe9e270685cafb7c7c",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_2279f768_A_Rest_Ward_Idle.KF_2279f768_A_Rest_Ward_Idle"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_8c10b4084e_A_Rest_Ward_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_8c10b4084e_A_Rest_Ward_Exit.uasset",
+    "bytes": 704342,
+    "sha256": "d8877c40579d817027f838b0053456a9680d340ddcaeed84ffd7c9cdf60cf5e8",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_fcb2d2fd_A_Rest_Ward_Exit.KF_fcb2d2fd_A_Rest_Ward_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_9276b86c8e_A_Rest_ApartmentBed_Enter.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_9276b86c8e_A_Rest_ApartmentBed_Enter.uasset",
+    "bytes": 726682,
+    "sha256": "217024b1a14f306ad6c7891a0cc88287a609fa81a9c8677d5c9894a472b9525a",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_0316cd07_A_Rest_ApartmentBed_Enter.KF_0316cd07_A_Rest_ApartmentBed_Enter"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_34fd5dede6_A_Rest_ApartmentBed_Idle.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_34fd5dede6_A_Rest_ApartmentBed_Idle.uasset",
+    "bytes": 577653,
+    "sha256": "d40d0653e0060047a628a8499f1c9653781223d9de315315596959886e794a6b",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureSync20261024/KF_419e9c95_A_Rest_ApartmentBed_Idle.KF_419e9c95_A_Rest_ApartmentBed_Idle"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_22ef345ebf_A_Rest_ApartmentBed_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_22ef345ebf_A_Rest_ApartmentBed_Exit.uasset",
+    "bytes": 755062,
+    "sha256": "b8c2e9eea10af714d75f1ccf8f2812c506d45e5c74644778e4600bad228baa6c",
+    "reason": "Initial female furniture clip superseded by synchronized revision",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/FurnitureCompletion20261024/KF_5f5303ce_A_Rest_ApartmentBed_Exit.KF_5f5303ce_A_Rest_ApartmentBed_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_71c4dc10da_A_Rest_Sofa_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_71c4dc10da_A_Rest_Sofa_Exit.uasset",
+    "bytes": 839955,
+    "sha256": "de069684b1bef81e39401744109259586f9a23e38c8e8eb8851c34f66e13579a",
+    "reason": "Superseded female sofa exit",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_5d71ef1d33_A_Rest_Sofa_Exit.K_5d71ef1d33_A_Rest_Sofa_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_7b12a4a244_A_Rest_ApartmentSofa_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_7b12a4a244_A_Rest_ApartmentSofa_Exit.uasset",
+    "bytes": 839991,
+    "sha256": "17250267b8d7b2f911889b8a40ab1ed6181a6fdf16cb7e676009d4949284c6e1",
+    "reason": "Superseded female sofa exit",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f6aaa91810_A_Rest_ApartmentSofa_Exit.K_f6aaa91810_A_Rest_ApartmentSofa_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_887559621d_A_Rest_SofaLeft_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_887559621d_A_Rest_SofaLeft_Exit.uasset",
+    "bytes": 858019,
+    "sha256": "27f2957f9d8d8228d3512b0c5e7c16fd01921d1b1aeb566777934528b30cd286",
+    "reason": "Superseded female sofa exit",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_f2f42747b9_A_Rest_SofaLeft_Exit.K_f2f42747b9_A_Rest_SofaLeft_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_82b562a652_A_Rest_SofaRight_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_82b562a652_A_Rest_SofaRight_Exit.uasset",
+    "bytes": 858023,
+    "sha256": "217c9def1eb717029cdf50b8c304f52d30da249257c1267e00c0dd9dd1db9d2f",
+    "reason": "Superseded female sofa exit",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_69478871d5_A_Rest_SofaRight_Exit.K_69478871d5_A_Rest_SofaRight_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_a22e23321a_A_Rest_ApartmentSofaLeft_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_a22e23321a_A_Rest_ApartmentSofaLeft_Exit.uasset",
+    "bytes": 858055,
+    "sha256": "753cfcf1c3d04de5b1161f1a056313b4e68d6b45c41e6525b8585884221ea904",
+    "reason": "Superseded female sofa exit",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e143515526_A_Rest_ApartmentSofaLeft_Exit.K_e143515526_A_Rest_ApartmentSofaLeft_Exit"
+  },
+  {
+    "source": "Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_4316564146_A_Rest_ApartmentSofaRight_Exit.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/KaitlinPlayer20261023/Motion/Animations/K_4316564146_A_Rest_ApartmentSofaRight_Exit.uasset",
+    "bytes": 861067,
+    "sha256": "3a068d1cc17ee51476d4e57ceadd185eac708d49e750fcabfcb89e37e2a6ea11",
+    "reason": "Superseded female sofa exit",
+    "replacement": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_43ecf19059_A_Rest_ApartmentSofaRight_Exit.K_43ecf19059_A_Rest_ApartmentSofaRight_Exit"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_mountain_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_mountain_backpack_WorkJacket.uasset",
+    "bytes": 9105246,
+    "sha256": "b193568561372b568a304e03dcf77e9797df6be7376f43bd90d4a16b0df16b59",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_mountain_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_mountain_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_mountain_backpack_WorkJacket.json",
+    "bytes": 1457128,
+    "sha256": "4226493bb653fd5c17c30c23be9be981cea3463a171d3c4df001577e891ac730",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Jason_ue_mountain_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_portable_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_portable_backpack_WorkJacket.uasset",
+    "bytes": 12599416,
+    "sha256": "0ca3798da9e6cec998358d9035b342be5b47db1fdb5a74132b52a2e2e9c8f4c2",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_portable_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_portable_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_portable_backpack_WorkJacket.json",
+    "bytes": 2323883,
+    "sha256": "2bdfc2417866904f0185c86d2e096ca1fc90811a8fbaf60fd14e5a83d7e3fb55",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Jason_ue_portable_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_expedition_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_expedition_backpack_WorkJacket.uasset",
+    "bytes": 55505091,
+    "sha256": "137268f0f7f7a64eb5e4253e55b064be16c18661717699075613f17089b02851",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_expedition_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_expedition_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_expedition_backpack_WorkJacket.json",
+    "bytes": 8739913,
+    "sha256": "59d6192387936851acabe8b3392c0337a33d7b1aaf13f30ed06df518f8959d5d",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Jason_ue_expedition_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_simple_sling_bag_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_simple_sling_bag_WorkJacket.uasset",
+    "bytes": 774237,
+    "sha256": "0e50b65f6a2de62c5a78e91ac9630f964c50b12eca7fe5fcb90d9438f6320cd2",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_simple_sling_bag_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_simple_sling_bag_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_simple_sling_bag_WorkJacket.json",
+    "bytes": 117099,
+    "sha256": "dc45dcc2ffb8f187ccf2acfa3bf34f9b99ecd0ce0daa262fb341aaf509d3bccc",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Jason_ue_simple_sling_bag_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_pathfinder_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_pathfinder_backpack_WorkJacket.uasset",
+    "bytes": 2108727,
+    "sha256": "682cef0272cca242c0368bfca9c663abdaf7b05beeef205ed600c8302bdbdb50",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_pathfinder_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_pathfinder_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_pathfinder_backpack_WorkJacket.json",
+    "bytes": 357865,
+    "sha256": "b62147dbc2ae04cedf81a957776ab81ece1c78d26c8750ded88c1bf9a9842e3e",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Jason_ue_pathfinder_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_farreach_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_farreach_backpack_WorkJacket.uasset",
+    "bytes": 2043568,
+    "sha256": "3b24f9b4bed062ee4f6fc90b6c3c82a77da07ece27d0dad158392c1108db24fd",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_farreach_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_farreach_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Jason_ue_farreach_backpack_WorkJacket.json",
+    "bytes": 352071,
+    "sha256": "2c40569ef986a84f01a88c970a2fd2d275e0ad5a99bddf29af01ab90e61ce571",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Jason_ue_farreach_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_mountain_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_mountain_backpack_WorkJacket.uasset",
+    "bytes": 9093297,
+    "sha256": "d6c1384cf70cb6e5c520914e79a3f7c0da80f8c63b1d426a921ba04c4ab96e48",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_mountain_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_mountain_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_mountain_backpack_WorkJacket.json",
+    "bytes": 1455865,
+    "sha256": "7d1da941a6dbbc7e0834e751d72b3483c39f1f7d377c44aca7f7fde238a69001",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Kaitlin_ue_mountain_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_portable_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_portable_backpack_WorkJacket.uasset",
+    "bytes": 12566209,
+    "sha256": "eec2eb77b3de838dc70066b2100ec0c34c133e7768a2abd3f9b90a3e08d669c3",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_portable_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_portable_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_portable_backpack_WorkJacket.json",
+    "bytes": 2326716,
+    "sha256": "5e12706128ea439397e6592de706e7699d128a910e7141f42b5b6b498ea7600e",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Kaitlin_ue_portable_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_expedition_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_expedition_backpack_WorkJacket.uasset",
+    "bytes": 55444778,
+    "sha256": "6823c0a276c3bdf37b0f553e75482271cd7754ae0538fd0c0bbcf40f4536e1b2",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_expedition_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_expedition_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_expedition_backpack_WorkJacket.json",
+    "bytes": 8735141,
+    "sha256": "24a65467b3204cf939367f0dde6f251042ee7cb493e0cb91b7b966884fd58f46",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Kaitlin_ue_expedition_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_simple_sling_bag_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_simple_sling_bag_WorkJacket.uasset",
+    "bytes": 771580,
+    "sha256": "c1ba8daec53af0385d7c466ec41e0943244d2e86ca2490d3b7ce35520f69598a",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_simple_sling_bag_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_simple_sling_bag_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_simple_sling_bag_WorkJacket.json",
+    "bytes": 117184,
+    "sha256": "02d6752e637d79126741a5a9c9db01f216fbb211dfe3266b7e7cc05f96785767",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Kaitlin_ue_simple_sling_bag_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_pathfinder_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_pathfinder_backpack_WorkJacket.uasset",
+    "bytes": 2039262,
+    "sha256": "56aefdf55f25e2cbdce432ac0c1594014ec91f4774caf41027e2eeab24cbf464",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_pathfinder_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_pathfinder_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_pathfinder_backpack_WorkJacket.json",
+    "bytes": 344340,
+    "sha256": "be33aee8b4598d35287a80952f0d7dc62fc31e10e3a3ea7372215f5552a02be0",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Kaitlin_ue_pathfinder_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_farreach_backpack_WorkJacket.uasset",
+    "target": "trash/kaitlin-retired-20261024/Content/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_farreach_backpack_WorkJacket.uasset",
+    "bytes": 2024285,
+    "sha256": "d64d093fc60a7f2a723de28051f669aac3f75427ed051d1a57de12297bd02c04",
+    "reason": "Rejected projection fit flattened strap faces",
+    "replacement": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_farreach_backpack_WorkJacketR2"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_farreach_backpack_WorkJacket.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/SK_Kaitlin_ue_farreach_backpack_WorkJacket.json",
+    "bytes": 341210,
+    "sha256": "0260bc8b651ef9a0cbc5a4420146279e6acefd8fad483a3f3ef7e8018fe8abb8",
+    "reason": "Rejected projection-fit source geometry",
+    "replacement": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KaitlinCompletion20261024\\Packs\\SK_Kaitlin_ue_farreach_backpack_WorkJacketR2.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/first_fit_topology.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/first_fit_topology.json",
+    "bytes": 2405,
+    "sha256": "98a0b20b10fb505f55b1a4b4ae7dc311726b7aef562f6951aa9d74105597ee26",
+    "reason": "First projection-fit diagnosis and manifest",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/Packs/manifest.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinCompletion20261024/Packs/manifest.first-fit.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinCompletion20261024/Packs/manifest.first-fit.json",
+    "bytes": 53403,
+    "sha256": "68045106bb082bb1df68c5c0c0c9d790983497bd0fa94d32f6274924204dfe64",
+    "reason": "First projection-fit diagnosis and manifest",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/Packs/manifest.json"
+  },
+  {
+    "source": "Tools/KaitlinPlayer/publish_furniture_sync.py",
+    "target": "trash/kaitlin-retired-20261024/Tools/KaitlinPlayer/publish_furniture_sync.py",
+    "bytes": 1836,
+    "sha256": "59113ee01279052571cfb5605a5db7f55524df847da5b3255aced3ec8b2446dc",
+    "reason": "Completed or superseded one-shot updater",
+    "replacement": "Tools/KaitlinPlayer/publish_completion.py and current saved recipes"
+  },
+  {
+    "source": "Tools/KaitlinPlayer/retarget_audit_fix.py",
+    "target": "trash/kaitlin-retired-20261024/Tools/KaitlinPlayer/retarget_audit_fix.py",
+    "bytes": 448,
+    "sha256": "58b41eac31a653a182cfeda4ea3d1d7153cbfe39b9732a5547eda7169f1613da",
+    "reason": "Completed or superseded one-shot updater",
+    "replacement": "Tools/KaitlinPlayer/publish_completion.py and current saved recipes"
+  },
+  {
+    "source": "Tools/KaitlinPlayer/publish_audit_fix.py",
+    "target": "trash/kaitlin-retired-20261024/Tools/KaitlinPlayer/publish_audit_fix.py",
+    "bytes": 1236,
+    "sha256": "9337773e2331ce424b96c7feb1c682920446f003bc88d989c233d88b16a6b67c",
+    "reason": "Completed or superseded one-shot updater",
+    "replacement": "Tools/KaitlinPlayer/publish_completion.py and current saved recipes"
+  },
+  {
+    "source": "Tools/KaitlinPlayer/prepare_audit_retry.py",
+    "target": "trash/kaitlin-retired-20261024/Tools/KaitlinPlayer/prepare_audit_retry.py",
+    "bytes": 1183,
+    "sha256": "ea6c35fa93ea2a06e0e64aa151a57a71ad0ee991a3db40a325e9038c97d4141c",
+    "reason": "Completed or superseded one-shot updater",
+    "replacement": "Tools/KaitlinPlayer/publish_completion.py and current saved recipes"
+  },
+  {
+    "source": "Tools/KaitlinPlayer/__pycache__/body_surface_fit.cpython-311.pyc",
+    "target": "trash/kaitlin-retired-20261024/Tools/KaitlinPlayer/__pycache__/body_surface_fit.cpython-311.pyc",
+    "bytes": 10560,
+    "sha256": "57e7a3684cefee458dfa7c44e1527e8d6d57b9e06942c151b0f6ebe1fb823c4b",
+    "reason": "Generated Python bytecode",
+    "replacement": "Tools/KaitlinPlayer source"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-001450-374.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-001450-374.log",
+    "bytes": 327411,
+    "sha256": "a3c8135fa76096a5e18b3bfcd1bcdfe93d183ef92d7a6dbe5e703b47500dd13e",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-001450-374.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-001450-374.stdout.txt",
+    "bytes": 78441,
+    "sha256": "f40cca1c120daaa5bfbd6da85c60df97bcbcbfd8c10c5b6e1e54bfda96284b02",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-093401-555.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-093401-555.log",
+    "bytes": 389352,
+    "sha256": "da535348b2e798a687b0eacb1e362747b1ced003a285c157296c1d98feba2767",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-093401-555.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-093401-555.stdout.txt",
+    "bytes": 135158,
+    "sha256": "79fff6267c70178d41329022d759fe79089e6814e2c3e4bf9c0e6dfc1c2b5cb8",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-134906-068.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-134906-068.log",
+    "bytes": 314183,
+    "sha256": "40c68492251c25af5b496921bb57c9178e2e54db34c1c9070d41151e4bde6dd0",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-134906-068.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-134906-068.stdout.txt",
+    "bytes": 63577,
+    "sha256": "43616642ecad15e8f79f04037c27deb640d96bd1d8f5f616d1aa07f1b6a17865",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-135253-955.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-135253-955.log",
+    "bytes": 347593,
+    "sha256": "08d4f6c9145b071374e9844b93af987931b0d7fe89fa6f63fce4f67468d7ba26",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-135253-955.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-135253-955.stdout.txt",
+    "bytes": 95073,
+    "sha256": "9f910c394360efa9264d02b958b7b1da27fab1b9ccc6988994f40320d4d1d54c",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-140646-745.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-140646-745.log",
+    "bytes": 497679,
+    "sha256": "4f4916cb004f83cc1bcd6266ec4293de9a82d6aa751e428eb4ed9797ee4483fd",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/assemble-20261023-140646-745.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/assemble-20261023-140646-745.stdout.txt",
+    "bytes": 169401,
+    "sha256": "1a5c5bd8237642868ee79f8606a156b20e370c0aa06aae6a0ca5b401b080f819",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/build-furniture-diagnosis-20261024-FPSGAMEEditor.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/build-furniture-diagnosis-20261024-FPSGAMEEditor.json",
+    "bytes": 222200,
+    "sha256": "7ea0d558b6e671c5cb990af756065567dd5a4fa2bca386657deb84220b932a32",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/build-furniture-diagnosis-20261024-FPSGAMEEditor.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/build-furniture-diagnosis-20261024-FPSGAMEEditor.log",
+    "bytes": 74378,
+    "sha256": "77ee296be61339ff3bf145c40d1605b526809470ee510c2aa719002a5b61c34b",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/build-furniture-diagnosis-20261024-FPSGAMEEditor.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/build-furniture-diagnosis-20261024-FPSGAMEEditor.txt",
+    "bytes": 57810,
+    "sha256": "7ba4473ded1a723d52d0f4d3fbba031c158670e68df2bf59348506fa431af22c",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-165746-479-4.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-165746-479-4.log",
+    "bytes": 281055,
+    "sha256": "95ab7881c2d1d199c1b8329f4c09d51abfcd3573d0a3ab82d66544d0d873a42a",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-165746-479-4.log.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-165746-479-4.log.stdout.txt",
+    "bytes": 34950,
+    "sha256": "5bca4b91b7127ab7dc85bba06103b7a2fd3a0ea26cd79c8058c968a39b030963",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-170229-034-2.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-170229-034-2.log",
+    "bytes": 280238,
+    "sha256": "b174e655d1bb2060d7077767d50f3d1d3d1892c0d402092f8730d524b0cbce14",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-170229-034-2.log.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_inputs-20261024-170229-034-2.log.stdout.txt",
+    "bytes": 34364,
+    "sha256": "a19b699f6738ec88ed153b29d80fadb87159231cc942d9e49c4833d07b7a30e8",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-0.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-0.log",
+    "bytes": 296535,
+    "sha256": "b023115d3ad646850d8b0a4806a2e85538caa48c30933580d1749a00a42533b4",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-0.log.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-0.log.stdout.txt",
+    "bytes": 35870,
+    "sha256": "bb990f936c24c0e29ca1b58913c79125b37e67c53394f872a39f4fa46a44b610",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-1.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-1.log",
+    "bytes": 295234,
+    "sha256": "ba6f95b7f232db66060a5544d996c714c9c305ff91434a9c539707a9e720489d",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-1.log.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-1.log.stdout.txt",
+    "bytes": 35496,
+    "sha256": "08c3995dd18a37d14d9cd4358338c44b7c0b54a0b66341667c4a56a9139a9709",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-2.log",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-2.log",
+    "bytes": 294486,
+    "sha256": "455cfd45657e14d67be735be9e344ba24dcdb4a63a66ffd101b5d478e9052a46",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-2.log.stdout.txt",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/complete_pack_assets-20261024-171042-915-2.log.stdout.txt",
+    "bytes": 35966,
+    "sha256": "086a38df93c4146137ee0f0cdfae9006453e8c66326cac592dfc05a4264fb3ce",
+    "reason": "Failed or superseded production/build batch output",
+    "replacement": "SourceAssets/KaitlinCompletion20261024/delivery.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/Audit/assets_first_pass.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/Audit/assets_first_pass.json",
+    "bytes": 677407,
+    "sha256": "35efb91d824d213dc2eaf11aa73d2d75604072031c712f7615d5f020ad17b349",
+    "reason": "Superseded intermediate asset readback",
+    "replacement": "SourceAssets/KaitlinPlayer20261023/Audit/assets.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/Audit/assets_notify_retry.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/Audit/assets_notify_retry.json",
+    "bytes": 691194,
+    "sha256": "98ea151ef187514907bdf00ae1b7445148180fe2cfcf2aae7a7f09696c5b715d",
+    "reason": "Superseded intermediate asset readback",
+    "replacement": "SourceAssets/KaitlinPlayer20261023/Audit/assets.json"
+  },
+  {
+    "source": "SourceAssets/KaitlinPlayer20261023/Audit/assets_cloth_api_attempt.json",
+    "target": "trash/kaitlin-retired-20261024/SourceAssets/KaitlinPlayer20261023/Audit/assets_cloth_api_attempt.json",
+    "bytes": 690942,
+    "sha256": "1e6df5f54d494df5743a48587a0b2019c683d567f782e980920f643a8f73908b",
+    "reason": "Superseded intermediate asset readback",
+    "replacement": "SourceAssets/KaitlinPlayer20261023/Audit/assets.json"
+  }
+]

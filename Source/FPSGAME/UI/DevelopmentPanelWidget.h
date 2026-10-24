@@ -74,6 +74,7 @@ private:
         TWeakObjectPtr<UTextBlock> Share;
     };
     void RefreshTuning();
+    void RefreshBodyTypeButton();
     void RefreshFeatures();
     void RefreshTimeHelp();
     void SetFeatureMessage(const FString& Text, const FLinearColor& Color);
@@ -102,6 +103,7 @@ private:
     UFUNCTION() void FreeBuildingClicked();
     UFUNCTION() void ThirdPersonViewClicked();
     UFUNCTION() void FixedThirdPersonViewClicked();
+    UFUNCTION() void BodyTypeClicked();
     UFUNCTION() void DisableTuningClicked();
     UFUNCTION() void GenerateItemClicked();
     UFUNCTION() void GrantLevelClicked();
@@ -175,6 +177,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UButton> DisableTuningButton;
     UPROPERTY(Transient) TObjectPtr<UWidget> TuningActions;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TuningStatus;
+    UPROPERTY(Transient) TObjectPtr<UButton> BodyTypeButton;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> BodyTypeStatus;
     UPROPERTY(Transient) TObjectPtr<UButton> SpawnButton;
     UPROPERTY(Transient) TObjectPtr<UButton> ClearButton;
     UPROPERTY(Transient) TObjectPtr<UWidget> SpawnActions;

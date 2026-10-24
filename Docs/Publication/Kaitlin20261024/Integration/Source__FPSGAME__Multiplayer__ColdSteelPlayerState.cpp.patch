@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -797,6 +797,8 @@
+     if(!SaveToBlob(ScratchSave,LastSentBlob))return;
+     NormalizeProfileForCompare(ScratchSave->Profile);if(!SaveToBlob(ScratchSave,LastSentNormBlob))return;
+     bHasLastSent=true;LastUploadAt=GetWorld()->GetRealTimeSeconds();HeartbeatTimer=2.f;
++    if(!bHasUploadedAppearance||M->PlayerHeadId()!=UploadedHeadId||M->PlayerHairId()!=UploadedHairId)
++    {bHasLastSent=false;HeartbeatTimer=0.f;}
+ }
+ void AColdSteelPlayerState::TickUpload(float DeltaSeconds)
+ {
+@@ -846,6 +848,8 @@
+             if ((bStructural || bVitalFlush) && PendingUpload.Num() == 0)
+             {
+                 PendingUpload = MoveTemp(Blob);
++                PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;
++                PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+                 PendingUploadPawn=PC->GetPawn();
+                 PendingSuper90Revision=Super90AppliedRevision;
+                 PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
+@@ -881,6 +885,7 @@
+         {
+             LastSentBlob = MoveTemp(PendingUpload);
+             LastSentNormBlob = MoveTemp(PendingNormBlob);
++            UploadedHeadId=PendingUploadHeadId;UploadedHairId=PendingUploadHairId;bHasUploadedAppearance=true;
+             bHasLastSent = true;
+             LastUploadAt = Now;
+             PendingUpload.Reset();
+@@ -895,7 +900,7 @@
+     // The client keeps its local inventory intent and captures it again on the new pawn.
+     // Do not cancel a newer upload that already superseded the rejected one.
+     if(UploadId!=PendingUploadId)return;
+-    PendingUpload.Reset();PendingNormBlob.Reset();bHasLastSent=false;HeartbeatTimer=0.f;
++    PendingUpload.Reset();PendingNormBlob.Reset();bHasLastSent=false;bHasUploadedAppearance=false;HeartbeatTimer=0.f;
+ }
+ 
+ void AColdSteelPlayerState::OnRep_MirrorBlob()
+@@ -918,6 +923,10 @@
+     Model->SyncRuntime();
+     const auto CurrentInventory=Model->Snapshot();
+     const double MirrorUppercutSpent=Save->Profile.UppercutStaminaSpent;
++    // The owner chooses these cosmetics. A paced mirror may have been captured
++    // before the latest switch, even after its upload has finished sending.
++    Save->Profile.PlayerHeadId=CurrentInventory.PlayerHeadId;
++    Save->Profile.PlayerHairId=CurrentInventory.PlayerHairId;
+     // Bindings belong to the local profile, including deliberate clearing/reordering.
+     Save->Profile.QuickBarVersion=CurrentInventory.QuickBarVersion;
+     Save->Profile.QuickBindings=CurrentInventory.QuickBindings;

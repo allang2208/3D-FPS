@@ -316,20 +316,10 @@ namespace FPSBodyPreloadPrivate
             }
         }
 
-        // Head/hair are ID-addressed in JSON, so the compiler cannot discover them.
-        const TSharedPtr<FJsonObject>* Heads = nullptr;
-        if (Root->TryGetObjectField(TEXT("heads"), Heads))
-        {
-            TFunction<void(const TSharedPtr<FJsonValue>&)> Collect;
-            Collect = [&](const TSharedPtr<FJsonValue>& Value)
-            {
-                if (!Value) return;
-                if (Value->Type == EJson::String) AddPath(Out,Value->AsString());
-                else if (Value->Type == EJson::Object) for (const auto& Pair:Value->AsObject()->Values) Collect(Pair.Value);
-                else if (Value->Type == EJson::Array) for (const auto& Child:Value->AsArray()) Collect(Child);
-            };
-            for (const auto& Pair:(*Heads)->Values) Collect(Pair.Value);
-        }
+        // ApplyAppearance already asynchronously loads the selected head, its
+        // shared facial grooms and selected hairstyle, retaining the request
+        // until the real components own them. Do not pin every catalogue variant
+        // in this GameInstance-wide bootstrap batch after the player changes hair.
         const TSharedPtr<FJsonObject>* Outfits = nullptr;
         if (Root->TryGetObjectField(TEXT("outfits"), Outfits))
         {

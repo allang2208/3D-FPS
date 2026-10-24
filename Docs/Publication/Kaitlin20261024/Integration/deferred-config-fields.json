@@ -1,0 +1,239 @@
+[
+  {
+    "path": [
+      "body_variants",
+      "kaitlin",
+      "clips",
+      "Warhammer.FullBody.FinalTollHeavy"
+    ],
+    "value": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_kaitlin.A_FinalToll_DirectReuseBodyV5_kaitlin",
+    "published_predecessor": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_kaitlin.A_Runebound_FinalToll_Body_kaitlin",
+    "reason": "parallel warhammer action revision"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_pathfinder_backpack",
+      "world_mesh_by_shirt",
+      "ue_work_jacket"
+    ],
+    "value": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_pathfinder_backpack_WorkJacketR2.SK_Jason_ue_pathfinder_backpack_WorkJacketR2",
+    "required_base_world_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Jason_PathfinderBackpack.SK_Jason_PathfinderBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderWornBody.SM_PathfinderWornBody",
+      "rotation_quat": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "location": [
+        -3.968558967539887e-16,
+        -18.124524457775216,
+        122.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_pathfinder_backpack",
+      "rigid_pack",
+      "location_by_shirt",
+      "ue_work_jacket"
+    ],
+    "value": [
+      -3.968558967539887e-16,
+      -18.688314994455816,
+      122.00000000000006
+    ],
+    "required_base_world_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Jason_PathfinderBackpack.SK_Jason_PathfinderBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderWornBody.SM_PathfinderWornBody",
+      "rotation_quat": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "location": [
+        -3.968558967539887e-16,
+        -18.124524457775216,
+        122.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_pathfinder_backpack",
+      "backpack_motion",
+      "bounds_min"
+    ],
+    "value": [
+      -26.00000190734864,
+      -46.76441523627191,
+      88.00000000000004
+    ],
+    "required_base_world_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Jason_PathfinderBackpack.SK_Jason_PathfinderBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderWornBody.SM_PathfinderWornBody",
+      "rotation_quat": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "location": [
+        -3.968558967539887e-16,
+        -18.124524457775216,
+        122.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_pathfinder_backpack",
+      "backpack_motion",
+      "bounds_max"
+    ],
+    "value": [
+      26.00000190734864,
+      17.232680004289303,
+      156.00000000000006
+    ],
+    "required_base_world_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Jason_PathfinderBackpack.SK_Jason_PathfinderBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderWornBody.SM_PathfinderWornBody",
+      "rotation_quat": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "location": [
+        -3.968558967539887e-16,
+        -18.124524457775216,
+        122.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_farreach_backpack",
+      "world_mesh_by_shirt",
+      "ue_work_jacket"
+    ],
+    "value": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_farreach_backpack_WorkJacketR2.SK_Jason_ue_farreach_backpack_WorkJacketR2",
+    "required_base_world_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Jason_FarreachBackpack.SK_Jason_FarreachBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachWornBody.SM_FarreachWornBody",
+      "rotation_quat": [
+        -0.021814885034561124,
+        -2.0702120281103226e-20,
+        -6.31016596185812e-19,
+        0.9997620270799091
+      ],
+      "location": [
+        -5.182542987364761e-16,
+        -16.278135339514105,
+        124.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_farreach_backpack",
+      "rigid_pack",
+      "location_by_shirt",
+      "ue_work_jacket"
+    ],
+    "value": [
+      -5.182542987364761e-16,
+      -18.5881943528034,
+      124.00000000000006
+    ],
+    "required_base_world_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Jason_FarreachBackpack.SK_Jason_FarreachBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachWornBody.SM_FarreachWornBody",
+      "rotation_quat": [
+        -0.021814885034561124,
+        -2.0702120281103226e-20,
+        -6.31016596185812e-19,
+        0.9997620270799091
+      ],
+      "location": [
+        -5.182542987364761e-16,
+        -16.278135339514105,
+        124.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_farreach_backpack",
+      "backpack_motion",
+      "bounds_min"
+    ],
+    "value": [
+      -26.000000000000007,
+      -46.36943816334162,
+      89.03476414752696
+    ],
+    "required_base_world_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Jason_FarreachBackpack.SK_Jason_FarreachBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachWornBody.SM_FarreachWornBody",
+      "rotation_quat": [
+        -0.021814885034561124,
+        -2.0702120281103226e-20,
+        -6.31016596185812e-19,
+        0.9997620270799091
+      ],
+      "location": [
+        -5.182542987364761e-16,
+        -16.278135339514105,
+        124.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  },
+  {
+    "path": [
+      "outfits",
+      "ue_farreach_backpack",
+      "backpack_motion",
+      "bounds_max"
+    ],
+    "value": [
+      26.000000000000007,
+      17.1955934208209,
+      159.1084189517047
+    ],
+    "required_base_world_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Jason_FarreachBackpack.SK_Jason_FarreachBackpack",
+    "required_base_rigid_pack": {
+      "mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachWornBody.SM_FarreachWornBody",
+      "rotation_quat": [
+        -0.021814885034561124,
+        -2.0702120281103226e-20,
+        -6.31016596185812e-19,
+        0.9997620270799091
+      ],
+      "location": [
+        -5.182542987364761e-16,
+        -16.278135339514105,
+        124.00000000000006
+      ]
+    },
+    "reason": "current pack base not published"
+  }
+]

@@ -1,0 +1,15 @@
+--- /dev/null
++++ b/Source/FPSGAME/Movement/FurnitureBodyDiagnosisCommandlet.h
+@@ -0,0 +1,12 @@
++#pragma once
++#include "Commandlets/Commandlet.h"
++#include "FurnitureBodyDiagnosisCommandlet.generated.h"
++
++/** Explicit, headless furniture pose diagnosis. No player profile or map game. */
++UCLASS()
++class UFurnitureBodyDiagnosisCommandlet : public UCommandlet
++{
++    GENERATED_BODY()
++public:
++    virtual int32 Main(const FString& Params) override;
++};

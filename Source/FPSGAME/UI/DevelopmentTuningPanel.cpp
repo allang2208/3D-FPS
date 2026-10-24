@@ -101,6 +101,44 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         TuningRows.Add(Row);
     }
     BuildFeatureRows(Page);
+    Page->AddChildToVerticalBox(CreatePanelText(TEXT("角色外观"),16,ColdSteelUI::TextPrimary))
+        ->SetPadding(FMargin(0,12.f/Scale,0,8.f/Scale));
+    BodyTypeButton=AddButton(Page,TEXT("切换女性角色"),TEXT("DevelopmentBodyType"));
+    BodyTypeButton->OnClicked.AddDynamic(this,&ThisClass::BodyTypeClicked);
+    if(auto* Label=Cast<UTextBlock>(BodyTypeButton->GetContent()))Label->SetAutoWrapText(false);
+    BodyTypeStatus=CreatePanelText(TEXT("角色外观选择随当前档案保存。"),12,ColdSteelUI::TextSecondary);
+    Page->AddChildToVerticalBox(BodyTypeStatus)->SetPadding(FMargin(0,6.f/Scale,0,0));
+    RefreshBodyTypeButton();
+}
+
+void UDevelopmentPanelWidget::RefreshBodyTypeButton()
+{
+    if(!BodyTypeButton)return;
+    const auto* Player=GetOwningPlayer();
+    const auto* Body=Player&&Player->GetPawn()?Player->GetPawn()->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+    const bool Female=Body&&Body->GetBodyType()==TEXT("kaitlin");
+    const FName Target=Female?TEXT("jason"):TEXT("kaitlin");
+    const bool Loading=Body&&Body->IsAppearanceLoading();
+    BodyTypeButton->SetIsEnabled(Body&&Body->CanUseBodyType(Target));
+    if(auto* Label=Cast<UTextBlock>(BodyTypeButton->GetContent()))
+        Label->SetText(FText::FromString(Loading?TEXT("正在切换角色…"):Female?TEXT("切换男性角色"):TEXT("切换女性角色")));
+    if(BodyTypeStatus)BodyTypeStatus->SetText(FText::FromString(!Body?TEXT("控制角色后可切换外观。"):
+        Loading?TEXT("正在加载身体与装备。"):
+        !Body->CanUseBodyType(Target)?TEXT("角色暂不可切换，或对应外观资源尚未接入。"):
+        Female?TEXT("当前：女性 Kaitlin · 选择随档案保存"):
+        TEXT("当前：男性 Jason · 选择随档案保存")));
+}
+
+void UDevelopmentPanelWidget::BodyTypeClicked()
+{
+    auto* Player=GetOwningPlayer();
+    auto* Body=Player&&Player->GetPawn()?Player->GetPawn()->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+    if(Body&&!Body->SetBodyType(Body->GetBodyType()==TEXT("kaitlin")?FName(TEXT("jason")):FName(TEXT("kaitlin"))))
+    {
+        if(BodyTypeStatus)BodyTypeStatus->SetText(FText::FromString(TEXT("角色切换未完成，请稍后重试。")));
+        return;
+    }
+    RefreshBodyTypeButton();
 }
 
 void UDevelopmentPanelWidget::UpdateTuningLayout(float ContentWidth, float Scale)

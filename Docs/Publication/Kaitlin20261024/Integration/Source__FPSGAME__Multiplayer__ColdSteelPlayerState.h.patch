@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -599,6 +599,10 @@
+     TArray<uint8> LastSentNormBlob;
+     /** 在途上传对应的归一 blob，完成时迁入 LastSentNormBlob。 */
+     TArray<uint8> PendingNormBlob;
++    // Inventory-only receipts do not acknowledge cosmetics. Keep the selection
++    // from the last complete upload separate from the rebased inventory blobs.
++    FName UploadedHeadId,UploadedHairId,PendingUploadHeadId,PendingUploadHairId;
++    bool bHasUploadedAppearance=false;
+     bool bHasLastSent = false;
+     /** 最近分片发送的真实时间；整块完成后也作为 30s 生命体征补传的基准。 */
+     double LastUploadAt = 0.0;
