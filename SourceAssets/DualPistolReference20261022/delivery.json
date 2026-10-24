@@ -1,0 +1,73 @@
+{
+  "source": "Epic Games Paragon: Twinblast",
+  "source_url": "https://www.fab.com/listings/9fa88852-5711-42e1-94fa-2491498a64da",
+  "builds": {
+    "Editor": {
+      "log": "build-editor-02.log",
+      "result": "Succeeded",
+      "seconds": 36.62
+    },
+    "Game": {
+      "log": "build-game-01.log",
+      "result": "Succeeded",
+      "seconds": 59.98
+    }
+  },
+  "clips": {
+    "DualPistol.Source.Idle": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Idle.J_Twinblast_Idle",
+    "DualPistol.Source.Walk": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Walk_Fwd.J_Twinblast_Walk_Fwd",
+    "DualPistol.Source.Jog": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Jog_Fwd.J_Twinblast_Jog_Fwd",
+    "DualPistol.Source.Sprint": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Sprint_Fwd.J_Twinblast_Sprint_Fwd",
+    "DualPistol.Source.FireRight": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Rt.J_Twinblast_DoubleShot_Fire_Rt",
+    "DualPistol.Source.FireLeft": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Lft.J_Twinblast_DoubleShot_Fire_Lft"
+  },
+  "files": {
+    "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp": {
+      "bytes": 150590,
+      "sha256": "4ef47115ed7bfe8aede07858c8b0c43a7874b05a264ff9838424af779bff8a08"
+    },
+    "Source/FPSGAME/Characters/FPSBodyDualPistolSource.inl": {
+      "bytes": 4649,
+      "sha256": "63dbf9dd93f77966cb05554f7424ea1412ce34451b8dc33be62b969789238629"
+    },
+    "Config/DefaultGame.ini": {
+      "bytes": 29110,
+      "sha256": "254f92414572272e3ace65a5e80009b9846a56f8d5ee7d2cd53c0e361c07d905"
+    },
+    "Content/ColdSteelData/player_body.json": {
+      "bytes": 43274,
+      "sha256": "c80c8f65078bb2123cd1bf3fe03c65b88c62d465c7589af1c7ca77f9e4add149"
+    },
+    "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Idle.uasset": {
+      "bytes": 1353870,
+      "sha256": "4e4eab1d2e2db93c2e5c1cb859ee74892df99c2897b38b20035e8bd694e8de65"
+    },
+    "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Walk_Fwd.uasset": {
+      "bytes": 611648,
+      "sha256": "7bf40e621d86b3bf0641e866836a421255957b2cb074d1804085b8b4543d1edc"
+    },
+    "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Jog_Fwd.uasset": {
+      "bytes": 576973,
+      "sha256": "39cce6ddaac55a5a7205c895997e0b549c668e5c07a61fe9192a60be5796bcb7"
+    },
+    "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Sprint_Fwd.uasset": {
+      "bytes": 497565,
+      "sha256": "fedecd754d744d7572441bf77f91c2e7e30e06eefcb46e3a7bc3e4445129d7cd"
+    },
+    "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Rt.uasset": {
+      "bytes": 511023,
+      "sha256": "685ed7e672ec852ef67b442cfaf9548edf6855fe32ee00e7c3b78df28ca5226c"
+    },
+    "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Lft.uasset": {
+      "bytes": 467401,
+      "sha256": "4ca5d3d06703c97bc63894e4aae1f4d836107a455162cfa7c8fb90c327ee4352"
+    }
+  },
+  "assets_saved": true,
+  "config_saved": true,
+  "runtime_tested": false,
+  "visual_accepted": false,
+  "git_commit": null,
+  "git_push": null,
+  "scope": "Original full-chain carry, walk/jog/sprint and per-hand source recoil. Existing per-gun reload/equip/weapon mechanisms remain with whole-arm handover."
+}

@@ -1,0 +1,152 @@
+{
+  "status": "pending consumers; not written to public runtime config by this publication",
+  "clips": {
+    "DualPistol.Upper.Idle": "/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Idle.A_Jason_DualPistol_Idle",
+    "DualPistol.Upper.Walk": "/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Walk.A_Jason_DualPistol_Walk",
+    "DualPistol.Upper.Sprint": "/Game/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Sprint.A_Jason_DualPistol_Sprint",
+    "DualPistol.Source.Idle": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Idle.J_Twinblast_Idle",
+    "DualPistol.Source.Walk": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Walk_Fwd.J_Twinblast_Walk_Fwd",
+    "DualPistol.Source.Jog": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Jog_Fwd.J_Twinblast_Jog_Fwd",
+    "DualPistol.Source.Sprint": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Sprint_Fwd.J_Twinblast_Sprint_Fwd",
+    "DualPistol.Source.FireRight": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Rt.J_Twinblast_DoubleShot_Fire_Rt",
+    "DualPistol.Source.FireLeft": "/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Lft.J_Twinblast_DoubleShot_Fire_Lft",
+    "SinglePistol.Source.Idle": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimIdle.J_GitHub_A_RevolverAimIdle",
+    "SinglePistol.Source.Walk": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimWalk.J_GitHub_A_RevolverAimWalk",
+    "SinglePistol.Source.Fire": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimShoot.J_GitHub_A_RevolverAimShoot",
+    "SinglePistol.Source.Crouch.Idle": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverCrouchAimIdle.J_GitHub_A_RevolverCrouchAimIdle",
+    "SinglePistol.Source.Crouch.Walk": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverCrouchAimWalk.J_GitHub_A_RevolverCrouchAimWalk",
+    "SinglePistol.Source.Reload.Init": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_Init.J_Pistol_Reload_Init",
+    "SinglePistol.Source.Reload.Loop": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_Loop.J_Pistol_Reload_Loop",
+    "SinglePistol.Source.Reload.End": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_End.J_Pistol_Reload_End",
+    "SinglePistol.Source.Crouch.Reload.Init": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_Init.J_Pistol_Crouch_Reload_Init",
+    "SinglePistol.Source.Crouch.Reload.Loop": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_Loop.J_Pistol_Crouch_Reload_Loop",
+    "SinglePistol.Source.Crouch.Reload.End": "/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_End.J_Pistol_Crouch_Reload_End"
+  },
+  "assets": [
+    {
+      "path": "Content/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Idle.uasset",
+      "exists_locally": true,
+      "sha256": "192993561af09b75d569f41c6c7d9eebc7cfc62957f234067f39cbb0fd69a0ed",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Sprint.uasset",
+      "exists_locally": true,
+      "sha256": "f6d1dcf5deed8a7442e3e3685c9cfde0e838a1ba10c2a6583229616aead11006",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/DualPistolStandards20261020/A_Jason_DualPistol_Walk.uasset",
+      "exists_locally": true,
+      "sha256": "7f83190fcdb84550e6f3225d6eb740aefc12bd69d8432e40172e91bc41a2818c",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimIdle.uasset",
+      "exists_locally": true,
+      "sha256": "5469c7ac17c8c1393ca30867d758404cb0ddbf1ec0d84399294da864b2f24649",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimShoot.uasset",
+      "exists_locally": true,
+      "sha256": "722358509dfa91da519c4c54ef38f255b0beb15c314276fccca27f5857739a3f",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverAimWalk.uasset",
+      "exists_locally": true,
+      "sha256": "f8f1d1e4a64b966df96cd23ea0fec20a9bc2916f2669ae285a465cb19ee9218f",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverCrouchAimIdle.uasset",
+      "exists_locally": true,
+      "sha256": "bca45aa1772e351c1a271d556ab4a5373e109e5f94acc69558fa57e9d1ad74ea",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/J_GitHub_A_RevolverCrouchAimWalk.uasset",
+      "exists_locally": true,
+      "sha256": "74ba9af8912a02467863bbba62f1f777befa2ecf87b5b89a8c82424a1e76b7a0",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_End.uasset",
+      "exists_locally": true,
+      "sha256": "970d923ee2c0efea1d0569aae5ae400baa5357bbd4260853944ceafa8947119a",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_Init.uasset",
+      "exists_locally": true,
+      "sha256": "df7730e827e875b8119bb1c36a79dcdd044dac682c87d14517f03dd56eb8ea0b",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Crouch_Reload_Loop.uasset",
+      "exists_locally": true,
+      "sha256": "051141e564c281027e148ba2ced538b15a63811ed6e9f190785cc08c53373c38",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_End.uasset",
+      "exists_locally": true,
+      "sha256": "b4bd724d448973c6fbc6a174f921154dd192281dc3573d585ef421d88bc4669f",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_Init.uasset",
+      "exists_locally": true,
+      "sha256": "d37b58f1f79f7b0fa88bc6d89561764986963eebf3ffc7c482233c9f133a1b27",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted/Refined20261023/J_Pistol_Reload_Loop.uasset",
+      "exists_locally": true,
+      "sha256": "71f90e98d203d7f88907208fd92bfac964a6b5b1a1b554179a7b02f800aa91a0",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Lft.uasset",
+      "exists_locally": true,
+      "sha256": "4ca5d3d06703c97bc63894e4aae1f4d836107a455162cfa7c8fb90c327ee4352",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_DoubleShot_Fire_Rt.uasset",
+      "exists_locally": true,
+      "sha256": "685ed7e672ec852ef67b442cfaf9548edf6855fe32ee00e7c3b78df28ca5226c",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Idle.uasset",
+      "exists_locally": true,
+      "sha256": "92954a5fbf0ed06fad29598a8f18bcd24fce501c6eb2157a7c5b53709c30daf7",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Jog_Fwd.uasset",
+      "exists_locally": true,
+      "sha256": "39cce6ddaac55a5a7205c895997e0b549c668e5c07a61fe9192a60be5796bcb7",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Sprint_Fwd.uasset",
+      "exists_locally": true,
+      "sha256": "fedecd754d744d7572441bf77f91c2e7e30e06eefcb46e3a7bc3e4445129d7cd",
+      "redistributed": false
+    },
+    {
+      "path": "Content/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted/J_Twinblast_Walk_Fwd.uasset",
+      "exists_locally": true,
+      "sha256": "7bf40e621d86b3bf0641e866836a421255957b2cb074d1804085b8b4543d1edc",
+      "redistributed": false
+    }
+  ],
+  "cook_directories": [
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Characters/JasonPlayer20261003/TwinblastDual20261022/Retargeted\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Characters/JasonPlayer20261003/GitHubSinglePistol20261022/Retargeted\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Weapons/PistolLeftTwoHand20261020\")"
+  ]
+}

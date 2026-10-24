@@ -1,0 +1,8 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp
+@@ -43,0 +44 @@
++    PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
+@@ -109,0 +111,2 @@
++    TickPistolAuthority();
++    StopPistolAuthority();

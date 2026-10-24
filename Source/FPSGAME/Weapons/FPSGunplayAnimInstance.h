@@ -33,6 +33,21 @@ public:
     int32 DualPistolSide=0;
     float DualPistolAimAlpha=0.f;
     FVector DualPistolAimTargetWorld=FVector::ZeroVector;
+    // Align the evaluated neutral left-hand pose; apply the same rigid delta
+    // to the action pose so firing keeps its authored recoil and contacts.
+    float LonePistolADSAlpha=0.f;
+    float LonePistolEyeDistance=30.f;
+    FName LonePistolSightBone;
+    FTransform LonePistolOpticMount=FTransform::Identity;
+    FVector LonePistolSightRear=FVector::ZeroVector;
+    FVector LonePistolSightFront=FVector::ForwardVector;
+    FVector LonePistolSightUp=FVector::UpVector;
+    // 副手手枪单持：整段姿态绕相机竖直面反射成左手，组件保持正缩放，枪身贴图不翻面。
+    bool bMirrorLeftHand=false;
+    // 镜面法线在网格物体空间的方向（单位向量）；角色每帧按当前机位/开镜旋转换算。
+    FVector LeftHandMirrorPlane=FVector::RightVector;
+    // 骨架是否具备镜像条件（有 WPN_root）；否则由角色退回镜像场景节点。
+    bool bLeftHandMirrorReady=false;
     // GripLayer56 (GripPoseLayer.h): per-channel grip layer and its reference pairs.
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripIdleBase;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> GripIdleFamily;
@@ -41,6 +56,8 @@ public:
     bool bGripIdle=false,bGripAim=false,bGripSprint=false,bGripAction=false,bGripActionAim=false;
     // Compact authored corrections; one attachment family shared by all source channels.
     UPROPERTY(Transient) TObjectPtr<UWeaponGripProfile> GripProfile;
+    // Action-specific registration can retain its contact while idle/ADS use another grip.
+    UPROPERTY(Transient) TObjectPtr<UWeaponGripProfile> ActionGripProfile;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

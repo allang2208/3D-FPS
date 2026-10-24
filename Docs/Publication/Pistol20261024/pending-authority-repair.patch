@@ -1,0 +1,217 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1368,0 +1369,2 @@
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(ActiveInventoryWeapon)||PS->IsPistolReloadPending(ActiveInventoryWeapon))return;
+@@ -2807,0 +2810,2 @@
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(ActiveInventoryWeapon)||PS->IsPistolReloadPending(ActiveInventoryWeapon))return;
+@@ -2950 +2954 @@
+-            PS->ServerRememberPistolShot(uint32(ShotsFired),ShotItem->InstanceId,ShotProfile->Snapshot().ActiveWeaponSlot,ConvergenceRounds,this);
++            PS->RequestPistolShot(uint32(ShotsFired),ShotItem->InstanceId,ShotProfile->Snapshot().ActiveWeaponSlot,ConvergenceRounds);
+diff --git a/Source/FPSGAME/FPSGAMECharacterReload.cpp b/Source/FPSGAME/FPSGAMECharacterReload.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterReload.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterReload.cpp
+@@ -35,0 +36,3 @@
++    if(GetNetMode()==NM_Client)return;
++    if(HasAuthority()&&!IsLocallyControlled())
++    {if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->PistolCowboyReload();return;}
+@@ -56,0 +60,3 @@
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(auto* PS=GetPlayerState<AColdSteelPlayerState>();!PS||!PS->RequestPistolReload(ActiveInventoryWeapon,PendingAmmoType))
++        {InterruptReload();return;}
+@@ -91,0 +98,9 @@
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++    {
++        if(bUseDanWesson715&&bRevolverSingleReload)
++            while(RevolverReloadCommitted<RevolverReloadCount&&Source+1.e-6f>=DanWesson715WeaponAssets::SingleSeatTime(RevolverReloadCommitted,bPendingEmptyReload))
++            {++RevolverReloadCommitted;bReloadAmmoCommitted=true;PendingAmmoType.Reset();PendingAmmoWeapon.Reset();}
++        else if(Source+1.e-6f>=ReloadStages.Insert)
++        {bReloadAmmoCommitted=true;PendingAmmoType.Reset();PendingAmmoWeapon.Reset();}
++        BeginOffhandReloadReturnIfReady(Source);return true;
++    }
+@@ -139,0 +155,2 @@
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->CancelPistolReload(ActiveInventoryWeapon);
+@@ -155,0 +173,2 @@
++    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
++        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsPistolReloadPending(ActiveInventoryWeapon))return;
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -84,0 +85 @@
++    PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
+@@ -202 +203 @@
+-        Pawn->ForceNetUpdate();SendSuper90Ammo();
++        Pawn->ForceNetUpdate();SendSuper90Ammo();SendPistolAmmo();
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -121,0 +122 @@
++    TickPistolRecovery();
+@@ -140,0 +142 @@
++        TickPistolAuthority();
+@@ -452,0 +455,2 @@
++        EnsurePistolAmmoIds();
++        if(!RebasePistolUpload(Adopted,Prev,KeepServerPouch)){SendPistolAmmo();return false;}
+@@ -490,0 +495 @@
++            StopPistolAuthority();
+@@ -502,0 +508,2 @@
++            RecordPistolPouchChange(Prev.AmmoPouch);
++            for(auto& Pair:PistolReloads)Pair.Value.Active=false;
+@@ -513,0 +521 @@
++    SendPistolAmmo();
+@@ -630,0 +639 @@
++        StopPistolAuthority();
+@@ -840,0 +850 @@
++                PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
+@@ -865 +875 @@
+-            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision,PendingUploadPawn.Get());
++            ServerSubmitProfileChunk(PendingUploadId, NextChunkIndex, PendingTotalChunks, Chunk,PendingSuper90Revision,PendingUploadPawn.Get(),PendingPistolAmmoRevision,PendingPistolIntent);
+@@ -986,0 +997 @@
++        PreservePistolClientAmmo(Save->Profile);
+@@ -1019,0 +1031 @@
++        PreservePistolClientAmmo(Merged);
+@@ -1036 +1048 @@
+-void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn)
++void AColdSteelPlayerState::ServerSubmitProfileChunk_Implementation(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence)
+@@ -1050,0 +1063 @@
++        IncomingPistolAmmoRevision=UploadPistolRevision;IncomingPistolIntent=PistolIntentSequence;
+@@ -1053 +1066,2 @@
+-    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision||IncomingUploadPawn.Get()!=SourcePawn)
++    if (ChunkIndex * ProfileChunkSize != IncomingBlob.Num()||IncomingTotal!=TotalChunks||IncomingSuper90Revision!=AmmoRevision||IncomingUploadPawn.Get()!=SourcePawn
++        ||IncomingPistolAmmoRevision!=UploadPistolRevision||IncomingPistolIntent!=PistolIntentSequence)
+@@ -1084,0 +1099,5 @@
++    if(PistolProcessedShot&&static_cast<int32>(Sequence-PistolProcessedShot)<=0)return;
++    PistolProcessedShot=Sequence;TickPistolAuthority();
++    // Reliable owner receipts remove accepted AND rejected predictions. A
++    // rejected round must not leave the owner's display permanently debited.
++    struct FReceiptOnExit {AColdSteelPlayerState* Owner;~FReceiptOnExit(){Owner->SendPistolAmmo();}} Receipt{this};
+@@ -1095 +1114,2 @@
+-    FString Reason;if(!ConsumeServerAmmo(Gun,Rounds,Now,Reason))return;
++    const FColdSteelItem FiredGun=*Gun;
++    FString Reason;if(!ConsumeServerAmmo(&FiredGun,Rounds,Now,Reason))return;
+@@ -1101 +1121 @@
+-    FRegisteredPistolShot Shot;Shot.Item=*Gun;Shot.Pawn=SourcePawn;Shot.At=Now;Shot.Rounds=Rounds;
++    FRegisteredPistolShot Shot;Shot.Item=FiredGun;Shot.Pawn=SourcePawn;Shot.At=Now;Shot.Rounds=Rounds;
+@@ -1107,0 +1128 @@
++    if(ColdSteelInventory::IsDualPistol(*Item))return ConsumePistolAmmo(*Item,Rounds,OutReason);
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -15,0 +16 @@
++#include "PistolNetworkTypes.h"
+@@ -189 +190 @@
+-    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn);
++    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence);
+@@ -192,0 +194,9 @@
++    void RequestPistolShot(uint32 Sequence,const FString& Instance,int32 ActiveSlot,int32 Rounds);
++    bool RequestPistolReload(const FString& Instance,const FString& Ammo);
++    void CancelPistolReload(const FString& Instance);
++    bool IsPistolReloadPending(const FString& Instance) const {return PistolPendingReloads.Contains(Instance);}
++    bool IsPistolServerReady(const FString& Instance) const {return PistolServerWeapons.Contains(Instance);}
++    UFUNCTION(Server,Reliable) void ServerPistolReload(uint32 Serial,const FString& Instance,const FString& Ammo,int32 ActiveSlot,APawn* SourcePawn);
++    UFUNCTION(Server,Reliable) void ServerPistolCancel(uint32 Serial,const FString& Instance,uint32 ReloadSerial,APawn* SourcePawn);
++    UFUNCTION(Client,Reliable) void ClientPistolAmmo(const FPistolNetAmmoState& Receipt);
++    void PistolCowboyReload();
+@@ -468,0 +479,26 @@
++    uint32 PistolControlSequence=0,PistolProcessedControl=0,PistolProcessedShot=0;
++    uint32 PistolReceiptRevision=0,PistolAppliedReceipt=0,PistolAmmoRevision=0,PistolAppliedAmmoRevision=0;
++    int64 PistolAppliedInventoryRevision=-1;
++    uint32 PendingPistolAmmoRevision=0,IncomingPistolAmmoRevision=0,PendingPistolIntent=0,IncomingPistolIntent=0;
++    TArray<FString> PistolAmmoIds;
++    TMap<FString,int64> PistolPouchDelta,PistolAppliedPouchDelta;
++    TMap<uint32,TMap<FString,int64>> PistolPouchHistory;
++    TMap<FString,FPistolServerReload> PistolReloads;
++    TMap<FString,uint32> PistolPendingReloads;
++    TSet<FString> PistolCancelPending;
++    TArray<FPistolPredictedShot> PistolPredictedShots;
++    TSet<FString> PistolServerWeapons;
++    TWeakObjectPtr<APawn> PistolClientPawn;
++    UPROPERTY() FPistolNetAmmoState PendingPistolState;
++    bool bPendingPistolState=false,bPistolAmmoInitialized=false,bApplyingPistolReceipt=false;
++    void TickPistolAuthority();
++    void TickPistolRecovery();
++    void SendPistolAmmo(bool Cowboy=false);
++    void EnsurePistolAmmoIds();
++    bool ConsumePistolAmmo(const FColdSteelItem& Item,int32 Rounds,FString& Reason);
++    void FinishPistolReload(FPistolServerReload& Reload,bool Rejected=false);
++    void RecordPistolPouchChange(const TMap<FString,int64>& Before);
++    bool RebasePistolUpload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous,bool KeepServerPouch) const;
++    void PreservePistolClientAmmo(FColdSteelProfile& Incoming) const;
++    void RefreshPistolAmmoCounters(class AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Model,bool AmmoChanged=false);
++    void StopPistolAuthority();
+diff --git a/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp b/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
+--- a/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
++++ b/Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp
+@@ -48,0 +49,2 @@
++    if(GetNetMode()==NM_Client)
++        if(const auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(H.Item.InstanceId)||PS->IsPistolReloadPending(H.Item.InstanceId))return;
+@@ -90 +92 @@
+-        PS->ServerRememberPistolShot(uint32(Player->ShotsFired),H.Item.InstanceId,Profile->Snapshot().ActiveWeaponSlot,1,Player);
++        PS->RequestPistolShot(uint32(Player->ShotsFired),H.Item.InstanceId,Profile->Snapshot().ActiveWeaponSlot,1);
+@@ -171,0 +174,2 @@
++    if(GetNetMode()==NM_Client)
++        if(const auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(H.Item.InstanceId)||PS->IsPistolReloadPending(H.Item.InstanceId))return;
+@@ -215,0 +220,2 @@
++    if(H.Reloading&&GetNetMode()==NM_Client)
++        if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();!PS||!PS->RequestPistolReload(H.Item.InstanceId,H.PendingAmmoType))StopAction(Index,false);
+@@ -220,0 +227,3 @@
++    // The owner keeps the authored contact clock. Inventory changes arrive
++    // through the authority receipt, never a second local pouch transaction.
++    if(GetNetMode()==NM_Client){H.PendingAmmoType.Reset();H.CasesCleared=true;return true;}
+@@ -230,0 +240 @@
++    if(GetNetMode()==NM_Client)return true;
+@@ -287 +297 @@
+-        if(!Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader)){StopAction(Index);return;}
++        if(GetNetMode()!=NM_Client&&!Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader)){StopAction(Index);return;}
+@@ -359 +369 @@
+-    if(!H.CasesCleared && !Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader))
++    if(!H.CasesCleared && GetNetMode()!=NM_Client && !Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader))
+diff --git a/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp b/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+--- a/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
++++ b/Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp
+@@ -14,0 +15 @@
++#include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -499 +500 @@
+-void UPistolDualWieldComponent::StopAction(int32 Index)
++void UPistolDualWieldComponent::StopAction(int32 Index,bool NetworkCancel)
+@@ -501,0 +503,2 @@
++    if(NetworkCancel&&H.Reloading&&GetNetMode()==NM_Client)
++        if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>())PS->CancelPistolReload(H.Item.InstanceId);
+@@ -801 +804 @@
+-                const bool Queued=H.ReloadQueued;StopAction(Side);H.ReloadQueued=Queued;
++                const bool Queued=H.ReloadQueued;StopAction(Side,false);H.ReloadQueued=Queued;
+@@ -829,0 +833,22 @@
++}
++
++void UPistolDualWieldComponent::RefreshNetworkAmmo(UColdSteelStatusModel* Model)
++{
++    if(!bActive||!Player||!Model)return;
++    for(int32 Side=FirstHand();Side<Hands.Num();++Side)
++    {
++        auto& H=Hands[Side];const auto* Gun=Model->FindItem(H.Item.InstanceId);if(!Gun)continue;
++        H.Item=*Gun;H.Rounds=Gun->Magazine;
++        H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(*Gun,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,H.Stats.Capacity):H.Rounds;
++    }
++    if(!bOffhandOnly||Player->IsLoneLeftHandRig())
++    {
++        const int32 Side=bOffhandOnly?1:0;Player->MagazineAmmo=Hands[Side].Rounds;
++        Player->RevolverCaseCount=Hands[Side].Cases;Player->ReserveAmmo=Reserve(Side);
++    }
++}
++
++void UPistolDualWieldComponent::FinishNetworkReload(const FString& Instance)
++{
++    for(int32 Side=FirstHand();Side<Hands.Num();++Side)
++        if(Hands[Side].Item.InstanceId==Instance&&Hands[Side].Reloading)StopAction(Side,false);
+diff --git a/Source/FPSGAME/Weapons/PistolDualWieldComponent.h b/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
+--- a/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
++++ b/Source/FPSGAME/Weapons/PistolDualWieldComponent.h
+@@ -121,0 +122,2 @@
++    void RefreshNetworkAmmo(UColdSteelStatusModel* Model);
++    void FinishNetworkReload(const FString& Instance);
+@@ -167 +169 @@
+-    void StopAction(int32 Index);
++    void StopAction(int32 Index,bool NetworkCancel=true);

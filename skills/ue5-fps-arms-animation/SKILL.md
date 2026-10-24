@@ -48,3 +48,7 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 第三人称动作恢复、共用身体配置修改及动画发布，另读 [共享配置写入与发布](../../Docs/Workflow/player-body-config-publication.md)，保留其他动作入口并区分本地接入、Git 推送与用户认可。
 
 - 衣物接缝、长靴及距离档位的原生蒙皮读回，参考[连续长靴与渲染 LOD](../asset-model-workflow/references/continuous-boots-and-render-lods.md)；动画在无界面启动触发曲线迁移时，转[骨架曲线迁移](../ue5-debug-validation/references/uncooked-animation-curve-migration.md)。
+
+## 手枪第三人称源动作
+
+左右单持镜像、双枪肩肘扭曲、长前握把撤手或插弹匣接触问题，读 [手枪第三人称源与接触](references/pistol-third-person-source.md)。先复用完整原生链，再按枪型适配。

@@ -40,3 +40,7 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 - SVCH 改造历史引起远端部件编号差异，或核对近战/换弹的联机检查范围：读取 [SVCH 配件身份与联机覆盖](references/svch-presentation-coverage.md)。区分隔离权威、实际 UDP 和完整实战流程。
 
 - 装备穿戴已更新但旧物品／共享掉落物仍显示旧版，读取[旧装备实例与外观路径](../asset-model-workflow/references/continuous-boots-and-render-lods.md#装备接入与旧实例)，保留实例属性并区分监听主机、重连及未覆盖的网络模式。
+
+## 手枪装填与弹药对账
+
+补弹后射击被拒、切弹种首发不一致、左轮中断或双枪共享弹池时，读 [手枪装填权威](references/pistol-ammo-authority.md)。表现复制与实际弹药结算分开核对。

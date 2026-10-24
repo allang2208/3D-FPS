@@ -30,4 +30,11 @@ namespace PitViper2011WeaponAssets
         return DualRoot(Side) + TEXT("/Animations/A_") + DualStem(Side) + TEXT("_") + Clip;
     }
     inline FString SoundPath(const FString& Cue) { return FString(Root) + TEXT("/Audio/S_PitViper2011_") + Cue; }
+    inline FString LeftTwoHandAnimationPath(FString Kind)
+    {
+        if(Kind==TEXT("equip"))Kind=TEXT("equip_charge");
+        if(Kind==TEXT("equip_empty"))Kind=TEXT("equip_charge_empty");
+        if(Kind.StartsWith(TEXT("quickcombat")))Kind=Kind.EndsWith(TEXT("_empty"))?TEXT("quickcombat_empty"):TEXT("quickcombat");
+        return TEXT("/Game/Weapons/PitViper2011/LeftTwoHand20261020/A_PitViper_LeftTwoHand_")+Kind;
+    }
 }

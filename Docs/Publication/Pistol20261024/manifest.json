@@ -1,0 +1,589 @@
+{
+  "base_commit": "0b7aa07821123310ffa5e684f5f127d34178c9e9",
+  "publication_status": "partial: independent graph helpers, authoring recipes, historical reports and guarded handoff patches",
+  "runtime_complete": false,
+  "patches_auto_applied": false,
+  "direct_source": [
+    "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.cpp",
+    "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.h",
+    "Source/FPSGAME/Weapons/PistolDualAimNode.h",
+    "Source/FPSGAME/Weapons/PitViper2011WeaponAssets.h",
+    "Source/FPSGAME/Weapons/LonePistolTwoHandAssets.h"
+  ],
+  "new_files_in_patch": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyDualPistolSource.inl",
+      "sha256": "d1fb3579f552dacf2a877ddef049bf6b92e9ec5aa2f1bad7c39de30b2031987f",
+      "text_sha256": "d1fb3579f552dacf2a877ddef049bf6b92e9ec5aa2f1bad7c39de30b2031987f",
+      "bytes": 6161
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPistolMagazineTiming.h",
+      "sha256": "f83602e590c254877d80d4f8d2ed45263372a750f60f7ef0a15bceac88777756",
+      "text_sha256": "f83602e590c254877d80d4f8d2ed45263372a750f60f7ef0a15bceac88777756",
+      "bytes": 500
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPistolMotion.h",
+      "sha256": "9da35d0eecfe23b4125f6e14f5fbc8a722ae27d907907e0c932d360b3b97a5ac",
+      "text_sha256": "9da35d0eecfe23b4125f6e14f5fbc8a722ae27d907907e0c932d360b3b97a5ac",
+      "bytes": 4903
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyPistolPose.inl",
+      "sha256": "92bdde8eb22f730237bfbac2699b37e8ca9865d04a7049e936fa841e22971a83",
+      "text_sha256": "4fa5425726288fa96d339db1834a4ff2ff3c8ce1b39359d9eb24be2652531fb0",
+      "bytes": 36662
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyRevolverReload.h",
+      "sha256": "b86ad8425dd46c828cbb04269284ff73295412f64b679a84931ff143eefdb1dd",
+      "text_sha256": "b86ad8425dd46c828cbb04269284ff73295412f64b679a84931ff143eefdb1dd",
+      "bytes": 915
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolContact.h",
+      "sha256": "3786dc3d82e0ebec39ce04a4c465ecc58b09fb2720461eb31dcd236a88dd4d45",
+      "text_sha256": "3786dc3d82e0ebec39ce04a4c465ecc58b09fb2720461eb31dcd236a88dd4d45",
+      "bytes": 408
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolMirror.inl",
+      "sha256": "e9d1dfaadf6151e97d0fb52d6a4483b72af89ed7c6f64e999e849f8eeda116ae",
+      "text_sha256": "e9d1dfaadf6151e97d0fb52d6a4483b72af89ed7c6f64e999e849f8eeda116ae",
+      "bytes": 3603
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolSource.h",
+      "sha256": "ec0c3ddefc85d5d5809a3a212655bdacd76211be1bc6e74da805f7f1ed5bf7bb",
+      "text_sha256": "ec0c3ddefc85d5d5809a3a212655bdacd76211be1bc6e74da805f7f1ed5bf7bb",
+      "bytes": 2710
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolSourceLayer.inl",
+      "sha256": "ced18f03586c974602426056d64d7192c8099ae5c74b32ac0783204bfa098314",
+      "text_sha256": "ced18f03586c974602426056d64d7192c8099ae5c74b32ac0783204bfa098314",
+      "bytes": 3367
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySinglePistolSupport.inl",
+      "sha256": "2b3ce17ef32dd12a291f3eadc2d6c07cbe89877fdfc236dc37668a412a913a34",
+      "text_sha256": "2b3ce17ef32dd12a291f3eadc2d6c07cbe89877fdfc236dc37668a412a913a34",
+      "bytes": 11384
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyPistolMagazine.cpp",
+      "sha256": "89e443bc22774fd6f3054d67b576f0d93f2a8419dab79b23c554ce938c7f43e2",
+      "text_sha256": "89e443bc22774fd6f3054d67b576f0d93f2a8419dab79b23c554ce938c7f43e2",
+      "bytes": 12032
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyRevolverReload.cpp",
+      "sha256": "88455bef46bc6568473233073d5307341624f6c43367bbe018e6f6c1b5147031",
+      "text_sha256": "88455bef46bc6568473233073d5307341624f6c43367bbe018e6f6c1b5147031",
+      "bytes": 14015
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp",
+      "sha256": "2f7fbcf55248e8fbe69a5ef90c62484f02edc49226724ff0adcdf20bfc128026",
+      "text_sha256": "2f7fbcf55248e8fbe69a5ef90c62484f02edc49226724ff0adcdf20bfc128026",
+      "bytes": 13221
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPistolRecovery.cpp",
+      "sha256": "ba073b2b080844bf6be821d95cfd05be3a9427af1205a016493392b100cd5e0f",
+      "text_sha256": "ba073b2b080844bf6be821d95cfd05be3a9427af1205a016493392b100cd5e0f",
+      "bytes": 11910
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/PistolAmmoHelpers.h",
+      "sha256": "6669df1487bf22062be48c90272ee1412ca9b1a3f79fb00c88a3ca1fe9a9d0f5",
+      "text_sha256": "6669df1487bf22062be48c90272ee1412ca9b1a3f79fb00c88a3ca1fe9a9d0f5",
+      "bytes": 1522
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/PistolNetworkTypes.h",
+      "sha256": "b26741643e72e24b09af40f9bac22854c20d8a6ea38cfc0e384e0d4c08ffbc76",
+      "text_sha256": "b26741643e72e24b09af40f9bac22854c20d8a6ea38cfc0e384e0d4c08ffbc76",
+      "bytes": 1825
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/DualPistolStandardsReview.inl",
+      "sha256": "af0df33d1f93c6e2e5132087c2341e59babd8d7183c45688a8224334f0034da0",
+      "text_sha256": "af0df33d1f93c6e2e5132087c2341e59babd8d7183c45688a8224334f0034da0",
+      "bytes": 30240
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolAmmoAudit.cpp",
+      "sha256": "9669dc9fd98169f0ab2323d4d5feb9e5dc4d3e2777a7b84bd4620548f1808e1a",
+      "text_sha256": "9669dc9fd98169f0ab2323d4d5feb9e5dc4d3e2777a7b84bd4620548f1808e1a",
+      "bytes": 12144
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolAmmoWireAudit.cpp",
+      "sha256": "8f596583dab5700a0c75d8b75b6d7dcd04523b98307a27f248865154d0784f1f",
+      "text_sha256": "8f596583dab5700a0c75d8b75b6d7dcd04523b98307a27f248865154d0784f1f",
+      "bytes": 14104
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolCompletionReview.inl",
+      "sha256": "8452a69d5a4ef545eca1d73b629b0d9e638c7a32218c7dd28fef4c5e1eb3d109",
+      "text_sha256": "8452a69d5a4ef545eca1d73b629b0d9e638c7a32218c7dd28fef4c5e1eb3d109",
+      "bytes": 17586
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolNetworkIdentityReview.inl",
+      "sha256": "8412a0e4e8e8f88bb1d974881939e272ac14121d751697622d93446af2b2499f",
+      "text_sha256": "106836ffa933a4d9b959a0265ac89686e4b190c18fbf5a33b39c74a4e2cce39e",
+      "bytes": 4439
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolPresentationWireAudit.cpp",
+      "sha256": "28ee649bb4eecc140998e86823f061e2e96482e8fed7b033259c090c0943fff2",
+      "text_sha256": "a32f359fe8ce32d3226ae803db38260c292f15533b8b5339f7e464a100dffcf5",
+      "bytes": 23562
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolReloadClearanceReview.inl",
+      "sha256": "d75cc2f11ec992bdcfd8006b1f33ea3aef15c95e8d6faf9589e75a319fd7b438",
+      "text_sha256": "d75cc2f11ec992bdcfd8006b1f33ea3aef15c95e8d6faf9589e75a319fd7b438",
+      "bytes": 11196
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolReloadSkinProbe.h",
+      "sha256": "48f3d8d42470c1df2746194fe4b328fce3d62bff2bdb50507921d2e2b990b8c1",
+      "text_sha256": "48f3d8d42470c1df2746194fe4b328fce3d62bff2bdb50507921d2e2b990b8c1",
+      "bytes": 7512
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolReviewGeometry.h",
+      "sha256": "b2f9a48f3bf995cf558873fe0da227a9406439c9c823ac475e4c66f1c946cf8c",
+      "text_sha256": "b2f9a48f3bf995cf558873fe0da227a9406439c9c823ac475e4c66f1c946cf8c",
+      "bytes": 2502
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolThirdPersonReview.cpp",
+      "sha256": "3ab7c2f64d15203823aafd0a10c06b533f0afba078b2f7ace20c13095a447423",
+      "text_sha256": "2bc98c63772df62a1b9b9f625bcb32484de4b079913d8d42663c6f9381374292",
+      "bytes": 24665
+    }
+  ],
+  "authority_patch_baselines": [
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "baseline": "local Before/FPSGAMECharacter.cpp",
+      "baseline_raw_sha256": "f7769c2355694fbaf4fc67240cb6f86f927259aeeae9602c3de1952ac4b608b9",
+      "baseline_text_sha256": "3dbb5604d90bd48daeb8ca24941a05a317e4a2381a99ffe172b6dab54bcfd3e2",
+      "result_text_sha256": "6bd869371481d9bc9624cd7ab3a3af04a4c324c65d6399095c3fca07091daecb",
+      "hunks": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterReload.cpp",
+      "baseline": "local Before/FPSGAMECharacterReload.cpp",
+      "baseline_raw_sha256": "70ff14ce4c8e285903c6821b09f7f3b15e25e62d61897e5b1fa1224d05abbaa5",
+      "baseline_text_sha256": "70ff14ce4c8e285903c6821b09f7f3b15e25e62d61897e5b1fa1224d05abbaa5",
+      "result_text_sha256": "e7c37f7c34def09d8e017e4f343b428add54e0bed1d2a580eb7fe35a62773784",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "baseline": "local Before/Multiplayer_ColdSteelInventoryRequests.cpp",
+      "baseline_raw_sha256": "3c70cae24ec9ab2ce934afa11e6c859f478675f33773651312ec341bf5285f97",
+      "baseline_text_sha256": "3c70cae24ec9ab2ce934afa11e6c859f478675f33773651312ec341bf5285f97",
+      "result_text_sha256": "f4de22a4ebfccb9517ba3259b53b05442d90839752df881a9be2108e3ca31b5f",
+      "hunks": [
+        0,
+        1
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "baseline": "local Before/Multiplayer_ColdSteelPlayerState.cpp",
+      "baseline_raw_sha256": "3dd3b6e1b0621257bf72c1276d6399f7f88535b0f179c6763b029193eeb108db",
+      "baseline_text_sha256": "3e5eaf2b0cc137d123a317cb55d6f3745d414f7a0014181abfe3e6b99def7020",
+      "result_text_sha256": "2e4942a0b1cf3dfcd3ba126c3f4736025fa4dd336d90f62612f08422d9fb1be9",
+      "hunks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "baseline": "local Before/Multiplayer_ColdSteelPlayerState.h",
+      "baseline_raw_sha256": "c2410defc7daad3061998696d7aa9bac8b4a74c32a1afe8f46e37e18297fa8fb",
+      "baseline_text_sha256": "e0eeff62184bba91acb4f7ff70b010051f88025fc4be2f3240262b799f19cde0",
+      "result_text_sha256": "60e36c8e794dd0dc48a1474de4aabaf16cb6006144866b598da2f7135fa3335f",
+      "hunks": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "baseline": "local Before/Weapons_PistolDualWieldCombat.cpp",
+      "baseline_raw_sha256": "be923fcfac166d396ec1f293de7ec44ce305dace2379b6d3121b2e353709d8a8",
+      "baseline_text_sha256": "f561c126af19542ddcc6089cbdf58e6f01ea5e5a6944b28fef73bd355483e81d",
+      "result_text_sha256": "c11990620452e56de7c25bd0af30ab47201e0b951a475cbd85c82686f37b3e13",
+      "hunks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "baseline": "local Before/Weapons_PistolDualWieldComponent.cpp",
+      "baseline_raw_sha256": "c97bf722623f0037e2d5d2cd0a0f7006f220790d861c3b936aa18e1d165f3e0f",
+      "baseline_text_sha256": "754f5cad65dd4fd499bd963db2583c48dda88d79100fffa5856d9a801f6d873d",
+      "result_text_sha256": "44235ce8993e095784bb33d856fbf717e6fce636766263c4e9b221a713bc61e1",
+      "hunks": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "baseline": "local Before/Weapons_PistolDualWieldComponent.h",
+      "baseline_raw_sha256": "7fab8c34afef409c138162dd69ced3f371ad46b9d5a4bc97cef7b3425b45c83c",
+      "baseline_text_sha256": "78e377dcd03354e6d7a8665b3d6960d775e17be3cd246c7c477f03b069d41b2a",
+      "result_text_sha256": "6157c51fcdc13d1aaa7ad48aca711ab2a4b46ddd45f6c10f581f23516de37572",
+      "hunks": [
+        0,
+        1
+      ]
+    }
+  ],
+  "shared_files_retained_local": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "local_sha256": "ed869308e3d767d13c5a9037e383c0123af4a12173f1044f5ecdbede0f8a2c59",
+      "bytes": 39165,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "1d0f07b85ee6c12a44348f8ae3428c3686725816"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "local_sha256": "d7b101282123daa4581cd9826fb33798713d41aadc7988d417eae76054bd3b74",
+      "bytes": 169517,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "98a34b34a426412ea01e29a3ae3fba061f03cc46"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+      "local_sha256": "9da3ca43105221560654466fa437af91fb9d4e0f6d0f4165062a98cc7a896250",
+      "bytes": 2795,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "ad19c721ed36d8f6e08f9174033315d7f15d8a10"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+      "local_sha256": "8e3a9b2c9bc7aa6097ad6c6290ca7bd262d4326f28433e79eb9e027a96539077",
+      "bytes": 17264,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "ee334d0b41ae13e61bbff4681c90289c97640d43"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "local_sha256": "87530692996e7197b08d338be7ea065ba14df488c20b21882b11903390442f61",
+      "bytes": 7158,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "a2c2ef6286106ccb74976f3111b42238f62e569d"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "local_sha256": "edfa22ec3b86ce8a7cd0d71ca38ba7449d3b122568e2721af934ddd8c7c9006a",
+      "bytes": 25875,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "93cddd24a7eab89f7c49b5352eeab625ce902e58"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "local_sha256": "f30692f741f469b50fa0c3916d486ce07bca013e41b8d3efe344ad3c07183a00",
+      "bytes": 21473,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "c3205c65ecbe8cd1f95d3b06b496c92f511436e7"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "local_sha256": "83766374b7f94904cdf97292d1ba4e27b34561614fc920a0d776dbeadd3b84e3",
+      "bytes": 59241,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "35b9356d5aae09b98a135ea7f0aa2d6e88d615de"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyGunEffects.cpp",
+      "local_sha256": "90f881ef3d7ee8a4c2aed506da0b6df51840693d1338440121d653fdbca60e88",
+      "bytes": 18194,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "cfda2dd7e323ec2a00dcf7edde797c39066ceb92"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "local_sha256": "274d6453705d6f5577147561a3b65009999d0a71e1a0943b414d375709c4f99a",
+      "bytes": 51233,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "ca4f7ca3b574494e27dc0a3938b1c0de83869b82"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "local_sha256": "d8779f21b3b2eaeaf744c9a659b4bdf86f7349fa7b032a9a2c70aad4aa797ee1",
+      "bytes": 17843,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "1f24cb452fadb45c0e4e44dc6ba785ff9b2023b9"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyPoses.h",
+      "local_sha256": "2790f2ae8e445c2f707c5d8f5917dc6721d1240f99556240e8c04e1efcf0a227",
+      "bytes": 8997,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "35dcf6c099e81044ccad1cf460b72ab9f523b4af"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodySpellbook.cpp",
+      "local_sha256": "989a006d3bafaa0cdd4272237c5fd33588c5bb5e405632bcd8718fe616a11dde",
+      "bytes": 5559,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "e3231270b3b6670347a3aa1be144183763a7015d"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyTypes.h",
+      "local_sha256": "beff3e9f59f85e1983565dade173095834e8fa3287af41b6778fa605c1665970",
+      "bytes": 13512,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "99cbcae066f35b5034c368a67ad3339b27fe7a0c"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "local_sha256": "ddb960edb5c0ad3bcea2dd4698111a4362967bb5af6e09290f130b2eda0d621a",
+      "bytes": 285657,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "a0079f95d904e03c885dc8ae9e1955e5673c266c"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "local_sha256": "32d1440d42a8ac7b4ce1cb22a5ba3dc7e1aac4bb1ec26960b065e65d289333c2",
+      "bytes": 59144,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "5a17adf8ffc7f5c9992c078e462ab7bcb8367f5c"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "local_sha256": "6b4f68e75f888aa691a0fd886ac7b7e92036b82a8a3ab4d94ff1dfcde0766e7e",
+      "bytes": 6314,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "3259ee67c9075d39f8bbd3e6039b89f6e2951795"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterAmmo.cpp",
+      "local_sha256": "a3b221ca1560a9f8daf46de41c002953d7e712df8dbc3323af0b52bd6d1c038a",
+      "bytes": 9225,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "f32f3f3f6bd5819cf61476ac3a0558ce85c6f140"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp",
+      "local_sha256": "08fb48fac6baa55db5862f7c3e3864b1a083fa8283a6c06f148f38e74bc173d7",
+      "bytes": 5141,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "b6d69e3375022f656e598c70bed49984f910f5df"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "local_sha256": "55ab7fc47a00f10dc461826365739764d30ebafce3b47eda4bee4fa4535ac385",
+      "bytes": 20668,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "2bb1099b0dcae5678fff1662b5818ac5c2b44781"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterReload.cpp",
+      "local_sha256": "e7c37f7c34def09d8e017e4f343b428add54e0bed1d2a580eb7fe35a62773784",
+      "bytes": 9504,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "1bded40d458b2cb1564fa5db3d898ebb79d99f40"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "local_sha256": "e6f8d3f1df372811b75eaa5fc9be2cdb7e7a22b12407f2f6be5f03cfc7f902fa",
+      "bytes": 9925,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "646f662a84638e94553cd547081ab391e1f94864"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "local_sha256": "f4de22a4ebfccb9517ba3259b53b05442d90839752df881a9be2108e3ca31b5f",
+      "bytes": 21377,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "d0beaf4af495fac311b76fddf9881f938a1bdc6d"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "local_sha256": "75d56a4c364319be27401ab496d7f4ce3b45b9c72b38d3f9463a785815627422",
+      "bytes": 131887,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "5cb05188093c3552233a7942858752f57a0d1d87"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "local_sha256": "026fd46194427660ac2e5662cd5e7f64123d9eb32127925d10638485873757ad",
+      "bytes": 36903,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "a96980221ab918b052aa9aae2d2355b2b0030e36"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "local_sha256": "41ee2ea46c07276fac023b6f8c888c8c1c151bd24e5a9e644b699f0d22c9ad09",
+      "bytes": 45181,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "df8f47619dfff786726f8cd45a3e4a06d8b2a35d"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp",
+      "local_sha256": "bf536e997e8803a199bd7106c08944172f0aecc9f3d125902b1a626b229bbc0b",
+      "bytes": 8613,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "8e4755bc7554d2886196e69048b1895b7f6939cb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.h",
+      "local_sha256": "3ca0f78ae61d799053c04abdcfd6df51bcb96c11bdf1f99af26b58f3201a143a",
+      "bytes": 2884,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "f468d5406ad648f5c07c1e2be11176324053efd1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldAim.cpp",
+      "local_sha256": "8051aee2b0cb816272fc05dd32c7bf960ebf5495079b672d3c4d6c93764d2c14",
+      "bytes": 3614,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "f58c4bdb1c3e9b245e55ad1b2f1aa6015a9e1a90"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "local_sha256": "3f23e92646c368ab303c3a1a8d0d5182061fb11e580d58301d850927d212bf68",
+      "bytes": 22181,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "9140f909bd24d891ab904576ec8b02742124cec6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "local_sha256": "89fb89153f3955919306b31aa440e534c332beaa1bf6eec32a502335e3ce4738",
+      "bytes": 56207,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "3695311ad30f7149170e8d985c93794cc403ff4e"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "local_sha256": "2f282b8e79cc6ab4951e418ab608f7266133289c46e9a8669e71613cd9f60e41",
+      "bytes": 8774,
+      "status": "retained local; shared pending integration, not complete in patch bundle",
+      "public_blob": "c87339a8042b939671892c9054361a67351b3afc"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.cpp",
+      "local_sha256": "67807dda45320690e8df363597edc80a75c0ccd5cafc0200519c6987ee14ed81",
+      "bytes": 26474,
+      "status": "retained local; shared pending integration, not complete in patch bundle"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunAttachmentAuditCommandlet.h",
+      "local_sha256": "bf19408c80edf46a4b4dad19bc67902f2bf44abb5ac10d5d0da9f154d07100e3",
+      "bytes": 660,
+      "status": "retained local; shared pending integration, not complete in patch bundle"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.cpp",
+      "local_sha256": "73e048ce07ba7d4e5ceffdf05253721b80a9a3b9f79b05c9f01f61e59efffb06",
+      "bytes": 19249,
+      "status": "retained local; shared pending integration, not complete in patch bundle"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ShotgunWireAudit.h",
+      "local_sha256": "55461e09d8f207f57ff21e9e040c1adf075c54d4a1ff3ef38f1201f2224f66b6",
+      "bytes": 3946,
+      "status": "retained local; shared pending integration, not complete in patch bundle"
+    }
+  ],
+  "archive": {
+    "created": "2026-10-24T13:26:24.3891716+08:00",
+    "archive": "trash/PistolPublication20261024",
+    "top_level_items": 50,
+    "files": 216,
+    "links": 4,
+    "bytes": 91783171.0,
+    "verified": true,
+    "manifest_sha256": "2B4696355B2E0ED1B17448708442F1A223F0139812C7E356594005CB6E114873"
+  },
+  "historical_evidence": {
+    "finished": "2026-10-24T13:05:26.2165910+08:00",
+    "editor_build": {
+      "finished": "2026-10-24T12:58:11.5662098+08:00",
+      "target": "FPSGAMEEditor",
+      "exit": 0
+    },
+    "game_build": {
+      "finished": "2026-10-24T13:00:04.7208282+08:00",
+      "target": "FPSGAME",
+      "exit": 0
+    },
+    "authority_checks": 92,
+    "authority_passed": true,
+    "catalog_not_applicable": [
+      "ue_g18/right/catalog has only one enabled ammo type",
+      "ue_g18/left/catalog has only one enabled ammo type",
+      "ue_pit_viper2011/right/catalog has only one enabled ammo type",
+      "ue_pit_viper2011/left/catalog has only one enabled ammo type",
+      "ue_rsh12/right/catalog has only one enabled ammo type",
+      "ue_rsh12/left/catalog has only one enabled ammo type"
+    ],
+    "udp_cases": 36,
+    "udp_passed": true,
+    "udp_failed": [],
+    "cancel_cases": 6,
+    "editor_dll_sha256": "2DEBE1CE4C3EB4C6B758535DCBF366279CD2D293E1859D46696DCA153753B058",
+    "snapshot_dll_sha256": "2DEBE1CE4C3EB4C6B758535DCBF366279CD2D293E1859D46696DCA153753B058",
+    "formal_dll_matches_checked_snapshot": true,
+    "source_differences_since_snapshot": [],
+    "scope": "Pistol reload/ammo authority and actual owner executors over local UDP; 60ms lag and 5% loss per peer; no rendered acceptance",
+    "not_covered": [
+      "same-profile reconnect persistence",
+      "full death/respawn or map travel end-to-end",
+      "periodic whole-profile upload transport",
+      "dedicated server, packaged build, public WAN",
+      "clothing/contact visuals and dropped-prop ground collision"
+    ]
+  },
+  "new_gameplay_tests": false
+}
