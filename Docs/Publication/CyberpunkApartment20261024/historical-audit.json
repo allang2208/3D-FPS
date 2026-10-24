@@ -1,0 +1,71 @@
+{
+  "completed": "2026-10-24T12:49:42.0717113+08:00",
+  "map": "/Game/GameMaps/L_CyberpunkApartment",
+  "map_saved_at": "2026-10-24T12:38:26.600668+08:00",
+  "structural_audit_pass": true,
+  "network_audit_pass": true,
+  "network_cases": 6,
+  "device_power_epoch_spread_seconds": 3.0957162380218506e-06,
+  "counts": {
+    "light_bindings": 27,
+    "side_guardrail_convex_hulls": 2,
+    "clock_material_slots": 88,
+    "doors": 7,
+    "containers": 45,
+    "repaired_fixture_bindings": 7,
+    "clock_masters": 15,
+    "controls": 6
+  },
+  "fixes": [
+    "Replicated reusable cabinet door transitions, with shared viewer close/range/disconnect lifecycle.",
+    "Reapply initial furniture rest state after component BeginPlay; restore a valid movement mode after late replication.",
+    "Sliding-door anti-pinch overlap uses transformed mesh bounds including actual scale.",
+    "Replicated device power epoch and shared material clock for apartment exterior animation; absolute rotor phase.",
+    "Seven missing existing-fixture references connected; no extra lights.",
+    "V20 reconstruction chain restores scoped V21 material bindings."
+  ],
+  "coverage": [
+    {
+      "limit": "Inventory transfer transactions, concurrent item withdrawals and save/reconnect not executed in this fixture.",
+      "evidence": "45 saved identities/configurations; real UDP open, second viewer, close, reopen, late join, viewer disconnect",
+      "area": "cabinets"
+    },
+    {
+      "limit": "Scaled anti-pinch correction built; closing-door collision not exercised with rendered players.",
+      "evidence": "All 7 saved doors replicate and AutoCloseSeconds=0; UDP door stays open through all six stages",
+      "area": "doors"
+    },
+    {
+      "limit": "Fixture injects Phase 3/0. It does not exercise full E-key approach, occupancy, leg poses, mouse orbit or enter/exit animation.",
+      "evidence": "Saved bed/sofa mesh and scale match profiles; 12 rest clip references resolve; UDP initial active state and exit cleanup pass",
+      "area": "furniture"
+    },
+    {
+      "limit": "No rendered multi-view comparison or frame-time measurement.",
+      "evidence": "6 saved replicated controls; server rejects remote use; late-join epoch agrees across all cases; 15 material masters compiled and 88 slots saved",
+      "area": "devices and exterior"
+    },
+    {
+      "limit": "No rendered appearance or traversal animation acceptance.",
+      "evidence": "27 valid light/fixture bindings; old opaque balcony actor absent; side glass and two simple collision hulls saved",
+      "area": "lighting and balcony"
+    },
+    {
+      "limit": "No end-to-end travel, persistence, cross-machine or packaged-build run. Apartment remains a development scene outside MapsToCook.",
+      "evidence": "Read existing server-authoritative weather state, inventory journal/revision checks and team ServerTravel routing",
+      "area": "weather, inventory, team travel"
+    }
+  ],
+  "test_transport": "Listen host, first client and late client in three headless local UDP processes",
+  "packet_settings": {
+    "actual_loss_rate_measured": false,
+    "lag_ms": 60,
+    "loss_percent": 5
+  },
+  "interactive_editor_started": false,
+  "rendered_acceptance": false,
+  "evidence_phase": "Prior authorized audit; no UE/test run during this publication",
+  "public_slice_built": false,
+  "full_local_receipts": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21",
+  "first_incomplete_run": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01"
+}

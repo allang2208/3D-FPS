@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
+@@ -40,6 +40,7 @@
+     FLibrary()
+     {
+         Load(TEXT("furniture_rest.json"));
++        Load(TEXT("apartment_furniture_rest.json"));
+     }
+     void Load(const TCHAR* File)
+     {
+@@ -89,6 +90,8 @@
+     Super::BeginPlay();Character=Cast<AFPSGAMECharacter>(GetOwner());
+     (void)FurnitureRest::Library();
+     if(Character.IsValid())Character->GetCharacterMovement()->AddTickPrerequisiteComponent(this);
++    // Initial replicated state can arrive before this component's BeginPlay.
++    if(IsResting())ApplyState();
+     if(Character.IsValid()&&Character->IsLocallyControlled())
+         OutlineLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(
+             FSoftObjectPath(TEXT("/Game/Dungeons/StaffLiving20261002/ScenePolishV4/Materials/M_Staff_ContainerOutline_V4.M_Staff_ContainerOutline_V4")),
+@@ -270,7 +273,8 @@
+     if(IsResting()&&!bApplied)
+     {
+         bApplied=true;SavedCollision=Pawn->GetCapsuleComponent()->GetCollisionEnabled();
+-        SavedMovement=uint8(Move->MovementMode);bSavedControllerYaw=Pawn->bUseControllerRotationYaw;
++        // Rest begins on ground. A late replica may already have received MOVE_None.
++        SavedMovement=Move->MovementMode==MOVE_None?uint8(MOVE_Walking):uint8(Move->MovementMode);bSavedControllerYaw=Pawn->bUseControllerRotationYaw;
+         if(Pawn->IsLocallyControlled())Pawn->InterruptActionsForPriority(false);
+         if(auto* PC=Cast<APlayerController>(Pawn->GetController()))
+         {SavedControlRotation=PC->GetControlRotation();PC->SetIgnoreMoveInput(true);LockedController=PC;}

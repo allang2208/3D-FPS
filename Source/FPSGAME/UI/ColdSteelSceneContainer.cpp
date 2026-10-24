@@ -4,6 +4,7 @@
 #include "ColdSteelWorldInteraction.h"
 #include "ColdSteelSceneLoot.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelContainerSearchSubsystem.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 #include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
 #include "Engine/GameInstance.h"
@@ -12,6 +13,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
+#include "GameFramework/GameStateBase.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "Net/UnrealNetwork.h"
 
@@ -50,6 +52,7 @@ void AColdSteelSceneContainer::BeginPlay()
     RuntimeStorageKey=TEXT("SceneSearch.")+MapName+TEXT(".")
         +(ContainerId.IsEmpty()?GetName():ContainerId);
     const float InitialFraction=FMath::Clamp(InitialOpenFraction,0.f,1.f);
+    ReusableDoorFraction=InitialFraction;
     FRandomStream InitialPose(GetTypeHash(RuntimeStorageKey));
     if(InitialFraction>0.f)
     {
@@ -71,6 +74,7 @@ void AColdSteelSceneContainer::BeginPlay()
     }
     SetViewHighlighted(false);
     bVisualInitialized=true;if(bSearched)OnRep_Searched();
+    if(UsesReusableDoor()&&DoorState.bValid)OnRep_DoorState();
     if(ColdSteelSceneLoot::IsBound(this)&&GetNetMode()!=NM_Client)
     {
         if(GetNetMode()==NM_Standalone)
@@ -112,7 +116,7 @@ void AColdSteelSceneContainer::SetViewHighlighted(bool bHighlighted)
 
 FString AColdSteelSceneContainer::GetPromptLabel() const
 {
-    return Caption+(bOpening?TEXT(" · 开启中"):bSearched?TEXT(" · 再次查看"):TEXT(" · 搜寻"));
+    return Caption+(bOpening?(bClosingReusableDoor?TEXT(" · 关闭中"):TEXT(" · 开启中")):bSearched?TEXT(" · 再次查看"):TEXT(" · 搜寻"));
 }
 
 bool AColdSteelSceneContainer::IsWithinPanelReach(const APlayerController* Controller) const
@@ -151,11 +155,88 @@ bool AColdSteelSceneContainer::TrySearch(APlayerController* Controller)
             {Model->PostNotice(TEXT("搜索失败"),Reason.IsEmpty()?Model->ResultMessage():Reason);return false;}
         }
     }
-    if(bSearched){OpenLootPanel(Controller);return true;}
+    if(bSearched)
+    {
+        if(UsesReusableDoor())
+        {OpeningController=Controller;StartReusableDoor(false);}
+        else OpenLootPanel(Controller);
+        return true;
+    }
     OpeningController=Controller;OpenSharedVisual();return true;
 }
+
+bool AColdSteelSceneContainer::UsesReusableDoor() const
+{
+    return ActorHasTag(TEXT("ColdSteel.SceneContainer.Reclosable"))||DoorState.bValid;
+}
+
+float AColdSteelSceneContainer::DoorClock() const
+{const auto* GS=GetWorld()->GetGameState();return GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();}
+
+float AColdSteelSceneContainer::GetDoorOpenFraction() const
+{
+    if(!DoorState.bValid)return ReusableDoorFraction;
+    const float T=FMath::Clamp((DoorClock()-DoorState.Started)/FMath::Max(.1f,DoorState.Duration),0.f,1.f);
+    return FMath::Lerp(DoorState.From,DoorState.To,T*T*(3.f-2.f*T));
+}
+
+void AColdSteelSceneContainer::ApplyReusableDoor()
+{
+    ReusableDoorFraction=GetDoorOpenFraction();
+    if(OpeningMotion==EColdSteelContainerMotion::Drawer||OpeningMotion==EColdSteelContainerMotion::OpenShelf)
+        DoorHinge->SetRelativeLocation(ClosedMovingPartLocation+DrawerTravel*ReusableDoorFraction);
+    else
+    {
+        FRotator Rotation=ClosedDoorRotation;
+        if(OpeningMotion==EColdSteelContainerMotion::Lid)Rotation.Roll+=OpenedRoll*ReusableDoorFraction;
+        else Rotation.Yaw+=OpenedYaw*ReusableDoorFraction;
+        DoorHinge->SetRelativeRotation(Rotation);
+    }
+}
+
+void AColdSteelSceneContainer::OnRep_DoorState()
+{
+    if(!bVisualInitialized||!UsesReusableDoor()||!DoorState.bValid)return;
+    bClosingReusableDoor=DoorState.To<.5f;
+    ApplyReusableDoor();
+    bOpening=DoorClock()<DoorState.Started+DoorState.Duration;
+    SetActorTickEnabled(bOpening);
+}
+
+void AColdSteelSceneContainer::StartReusableDoor(bool bClose)
+{
+    if(!HasAuthority()||GetNetMode()==NM_Client)return;
+    const float Current=GetDoorOpenFraction(),Target=bClose?0.f:1.f;
+    if(DoorState.bValid&&DoorState.To==Target&&(bOpening||FMath::IsNearlyEqual(Current,Target)))
+    {
+        if(!bClose&&!bOpening){OpenLootPanel(OpeningController.Get());OpeningController.Reset();}
+        return;
+    }
+    bClosingReusableDoor=bClose;
+    ReusableDoorStart=Current;
+    OpeningElapsed=0.f;
+    DoorState.bValid=true;DoorState.From=Current;DoorState.To=Target;DoorState.Started=DoorClock();
+    DoorState.Duration=FMath::Max(.1f,OpeningDuration*FMath::Abs(Target-Current));
+    OnRep_DoorState();ForceNetUpdate();
+}
+
+void AColdSteelSceneContainer::CloseLootVisual()
+{
+    if(!UsesReusableDoor()||!bVisualInitialized||!HasAuthority()||GetNetMode()==NM_Client)return;
+    if(const auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>();Search&&Search->HasViewers(this))return;
+    OpeningController.Reset();
+    StartReusableDoor(true);
+}
+
 void AColdSteelSceneContainer::OpenSharedVisual(bool bInstant)
 {
+    if(UsesReusableDoor())
+    {
+        if(!HasAuthority()||GetNetMode()==NM_Client)return;
+        bSearched=true;ApplyOutline();StartReusableDoor(false);
+        if(bInstant){DoorState.Started=DoorClock()-DoorState.Duration;OnRep_DoorState();}
+        ForceNetUpdate();return;
+    }
     if(bSearched)return;
     bSearched=true;OnRep_Searched();ForceNetUpdate();
     if(bInstant&&bOpening)Tick(OpeningDuration);
@@ -166,8 +247,10 @@ void AColdSteelSceneContainer::OpenSharedVisual(bool bInstant)
 }
 void AColdSteelSceneContainer::OnRep_Searched()
 {
-    if(!bSearched||bOpening||!bVisualInitialized)return;
+    if(!bSearched||!bVisualInitialized)return;
     ApplyOutline();
+    if(UsesReusableDoor()){OnRep_DoorState();return;}
+    if(bOpening)return;
     // An initially ajar cabinet is still unsearched. Continue from its current
     // pose to the original final opening angle, without snapping closed first.
     if(OpeningMotion==EColdSteelContainerMotion::Swing)
@@ -195,11 +278,23 @@ void AColdSteelSceneContainer::OnRep_Searched()
 void AColdSteelSceneContainer::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AColdSteelSceneContainer,bSearched);
+    DOREPLIFETIME(AColdSteelSceneContainer,DoorState);
 }
 
 void AColdSteelSceneContainer::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    if(UsesReusableDoor())
+    {
+        ApplyReusableDoor();
+        if(DoorClock()>=DoorState.Started+DoorState.Duration)
+        {
+            bOpening=false;SetActorTickEnabled(false);
+            if(!bClosingReusableDoor)OpenLootPanel(OpeningController.Get());
+            OpeningController.Reset();
+        }
+        return;
+    }
     OpeningElapsed+=DeltaSeconds;
     const float T=FMath::Clamp(OpeningElapsed/FMath::Max(.1f,OpeningDuration),0.f,1.f);
     const float Ease=T*T*(3.f-2.f*T);

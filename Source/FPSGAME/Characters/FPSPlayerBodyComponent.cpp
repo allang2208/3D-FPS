@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../Movement/FPSFurnitureRestComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
@@ -336,7 +337,7 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
         // changed: this runs again on every camera update and every 0.2 s.
         // The scope owns its recorded hide request until it releases it. Clearing
         // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
-        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||Character->ScopeHiddenParts.Contains(Primitive);
+        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||Character->ScopeHiddenParts.Contains(Primitive);
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
     };

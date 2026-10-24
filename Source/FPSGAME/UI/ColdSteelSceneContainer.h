@@ -17,8 +17,19 @@ enum class EColdSteelContainerMotion : uint8
     Lid
 };
 
-/** Searchable scenery. Door and searched state last for this level visit;
- *  the existing chest loot drawer owns the independent item storage session. */
+USTRUCT()
+struct FColdSteelContainerDoorState
+{
+    GENERATED_BODY()
+    UPROPERTY() bool bValid=false;
+    UPROPERTY() float From=0.f;
+    UPROPERTY() float To=0.f;
+    UPROPERTY() float Started=0.f;
+    UPROPERTY() float Duration=.55f;
+};
+
+/** Searchable scenery. The searched state lasts for this level visit; tagged
+ * apartment doors can close independently of the existing storage session. */
 UCLASS(Blueprintable)
 class FPSGAME_API AColdSteelSceneContainer : public AActor
 {
@@ -37,6 +48,9 @@ public:
     const FString& LegacyStorageKey() const {return RuntimeStorageKey;}
     bool IsWithinPanelReach(const APlayerController* Controller) const;
     void OpenSharedVisual(bool bInstant=false);
+    // Apartment fixtures close when their existing storage panel is dismissed.
+    void CloseLootVisual();
+    float GetDoorOpenFraction() const;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Container") TObjectPtr<UStaticMeshComponent> Body;
@@ -53,6 +67,8 @@ public:
 private:
     void ApplyOutline();
     void OpenLootPanel(APlayerController* Controller);
+    bool UsesReusableDoor() const;
+    void StartReusableDoor(bool bClose);
     UFUNCTION() void OnRep_Searched();
     bool bVisualInitialized=false;
     bool bOpening=false;
@@ -69,4 +85,13 @@ public:
     UPROPERTY(EditAnywhere, Category="Container") float OpenedRoll=105.f;
     /** Authored seeded ajar pose; the container remains unsearched. */
     UPROPERTY(EditAnywhere, Category="Container", meta=(ClampMin="0",ClampMax="1")) float InitialOpenFraction=0.f;
+
+private:
+    bool bClosingReusableDoor=false;
+    float ReusableDoorFraction=0.f;
+    float ReusableDoorStart=0.f;
+    UPROPERTY(ReplicatedUsing=OnRep_DoorState) FColdSteelContainerDoorState DoorState;
+    UFUNCTION() void OnRep_DoorState();
+    float DoorClock() const;
+    void ApplyReusableDoor();
 };

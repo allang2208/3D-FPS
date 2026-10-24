@@ -51,6 +51,8 @@ public:
     FVector ConsumeMouthInHead=FVector::ZeroVector;
     FVector ConsumePropContact=FVector::ZeroVector;
     bool bHasConsumeProp=false;
+    FName FurnitureClip;
+    float FurnitureSeconds=0.f,FurnitureWeight=0.f,FurnitureFootDrop=0.f;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

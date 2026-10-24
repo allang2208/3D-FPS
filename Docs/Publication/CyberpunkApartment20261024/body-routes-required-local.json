@@ -1,0 +1,31 @@
+{
+  "scope": "Dependency inventory of later independent rest refinement. These current routes/configuration are NOT published by this batch; older V14 routes are not restored.",
+  "config": "Content/ColdSteelData/player_body.json",
+  "roles": {
+    "Rest.ApartmentBed.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/BedHandDriveV10/A_Rest_ApartmentBed_Enter.A_Rest_ApartmentBed_Enter",
+    "Rest.ApartmentBed.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/BedSupportedV9/A_Rest_ApartmentBed_Idle.A_Rest_ApartmentBed_Idle",
+    "Rest.ApartmentBed.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/BedHandDriveV10/A_Rest_ApartmentBed_Exit.A_Rest_ApartmentBed_Exit",
+    "Rest.ApartmentSofa.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/HangingEntryV6/A_Rest_ApartmentSofa_Enter.A_Rest_ApartmentSofa_Enter",
+    "Rest.ApartmentSofa.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/RelaxedSeatV5/A_Rest_ApartmentSofa_Idle.A_Rest_ApartmentSofa_Idle",
+    "Rest.ApartmentSofa.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/ReversedExitV7/A_Rest_ApartmentSofa_Exit.A_Rest_ApartmentSofa_Exit",
+    "Rest.ApartmentSofaLeft.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/HangingEntryV6/A_Rest_ApartmentSofaLeft_Enter.A_Rest_ApartmentSofaLeft_Enter",
+    "Rest.ApartmentSofaLeft.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/RelaxedSeatV5/A_Rest_ApartmentSofaLeft_Idle.A_Rest_ApartmentSofaLeft_Idle",
+    "Rest.ApartmentSofaLeft.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/ReversedExitV7/A_Rest_ApartmentSofaLeft_Exit.A_Rest_ApartmentSofaLeft_Exit",
+    "Rest.ApartmentSofaRight.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/HangingEntryV6/A_Rest_ApartmentSofaRight_Enter.A_Rest_ApartmentSofaRight_Enter",
+    "Rest.ApartmentSofaRight.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/RelaxedSeatV5/A_Rest_ApartmentSofaRight_Idle.A_Rest_ApartmentSofaRight_Idle",
+    "Rest.ApartmentSofaRight.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/ReversedExitV7/A_Rest_ApartmentSofaRight_Exit.A_Rest_ApartmentSofaRight_Exit"
+  },
+  "published_runtime_configuration": false,
+  "additional_local_sources": [
+    "Source/FPSGAME/Movement/FPSFurnitureRestComponent.h",
+    "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp",
+    "Source/FPSGAME/Characters/FPSBodyFurnitureLayer.inl",
+    "Content/ColdSteelData/apartment_furniture_rest.json"
+  ],
+  "runtime_config_sha256": "40c9f9ad927fce153a01b478831e1d44297fbddf6960e94ecbbed96d959a87ae",
+  "native_source_hashes": {
+    "Source/FPSGAME/Movement/FPSFurnitureRestComponent.h": "1c812042d63fd50e1a9850ef31732cc97cd3f2d919a1dae6802120356a2fef5a",
+    "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp": "8fbbe419a3d092dcd6ea0c6d98958ef2df84f4e3aa788b7161dd2a8cdb637a11",
+    "Source/FPSGAME/Characters/FPSBodyFurnitureLayer.inl": "8e26567326032dced419e43f302195fa5f3da53dd3aa721a2fcd76b584600916"
+  }
+}

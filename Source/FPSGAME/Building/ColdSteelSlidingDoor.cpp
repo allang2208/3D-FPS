@@ -12,6 +12,7 @@
 #include "Materials/MaterialInterface.h"
 #include "Sound/SoundBase.h"
 #include "Net/UnrealNetwork.h"
+#include "TimerManager.h"
 #include "UObject/ConstructorHelpers.h"
 
 namespace
@@ -27,6 +28,7 @@ namespace
 AColdSteelSlidingDoor::AColdSteelSlidingDoor()
 {
     PrimaryActorTick.bCanEverTick=true;
+    PrimaryActorTick.bStartWithTickEnabled=false;
     bReplicates=true;SetReplicateMovement(true);
     DoorRoot=CreateDefaultSubobject<USceneComponent>(TEXT("DoorRoot"));
     SetRootComponent(DoorRoot);
@@ -67,6 +69,45 @@ void AColdSteelSlidingDoor::BeginPlay()
     else OnRep_Setup();
     AlignGeometry();
     if(!HasAuthority())OnRep_Swing();
+    else FinishMotion();
+}
+
+void AColdSteelSlidingDoor::EndPlay(const EEndPlayReason::Type Reason)
+{
+    GetWorldTimerManager().ClearTimer(AutoCloseTimer);
+    GetWorldTimerManager().ClearTimer(ClosedCollisionTimer);
+    Super::EndPlay(Reason);
+}
+
+float AColdSteelSlidingDoor::GetOpenFraction() const
+{
+    return SlideDistanceCm>UE_SMALL_NUMBER?FMath::Clamp(CurrentOffset/SlideDistanceCm,0.f,1.f):0.f;
+}
+
+void AColdSteelSlidingDoor::WakeMotion()
+{
+    GetWorldTimerManager().ClearTimer(AutoCloseTimer);
+    GetWorldTimerManager().ClearTimer(ClosedCollisionTimer);
+    SetActorTickEnabled(true);
+}
+
+void AColdSteelSlidingDoor::RetryClosedCollision()
+{
+    if(bOpen){GetWorldTimerManager().ClearTimer(ClosedCollisionTimer);return;}
+    UpdateLeafPawnCollision();
+    const bool bPending=(LeafLeft&&LeafLeft->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block)
+        ||(LeafRight&&LeafRight->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block);
+    if(!bPending)GetWorldTimerManager().ClearTimer(ClosedCollisionTimer);
+    else if(!GetWorldTimerManager().IsTimerActive(ClosedCollisionTimer))
+        GetWorldTimerManager().SetTimer(ClosedCollisionTimer,this,&ThisClass::RetryClosedCollision,.1f,true);
+}
+
+void AColdSteelSlidingDoor::FinishMotion()
+{
+    CurrentOffset=NetSwing.To;ApplyOffset();UpdateLeafPawnCollision();SetActorTickEnabled(false);
+    if(!bOpen)RetryClosedCollision();
+    else if(HasAuthority()&&AutoCloseSeconds>0.f)
+        GetWorldTimerManager().SetTimer(AutoCloseTimer,this,&ThisClass::CloseDoor,AutoCloseSeconds,false);
 }
 
 void AColdSteelSlidingDoor::AlignGeometry()
@@ -106,8 +147,9 @@ bool AColdSteelSlidingDoor::IsSlideBlocked() const
     Params.AddIgnoredActor(this);
     if(const AActor* Parent=GetAttachParentActor())Params.AddIgnoredActor(Parent);
     // 略缩检测盒（2/4cm），避免与门框贴合面产生假阻塞。
-    const FVector Extent=FVector(FMath::Max(1.f,LeafHalfCm.X-2.f),FMath::Max(1.f,LeafHalfCm.Y-2.f),
-        FMath::Max(1.f,LeafHalfCm.Z-4.f));
+    const FVector DoorScale=GetActorScale3D().GetAbs();
+    const FVector Extent=FVector(FMath::Max(1.f,LeafHalfCm.X*DoorScale.X-2.f),FMath::Max(1.f,LeafHalfCm.Y*DoorScale.Y-2.f),
+        FMath::Max(1.f,LeafHalfCm.Z*DoorScale.Z-4.f));
     const FCollisionShape Shape=FCollisionShape::MakeBox(Extent);
     // 两扇全开位置的包围盒中心：闭位中心 ± SlideDistance。
     const float HalfSpan=LeafHalfCm.Y;
@@ -146,7 +188,7 @@ bool AColdSteelSlidingDoor::OpenDoorFrom(const APawn* InstigatorPawn)
     NetSwing.To=SlideDistanceCm;
     NetSwing.Speed=SlideSpeedCm;
     NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
-    AutoCloseRemaining=AutoCloseSeconds;
+    WakeMotion();
     ForceNetUpdate();
     MulticastDoorSound(true);
     UE_LOG(LogTemp,Display,TEXT("ColdSteelSlidingDoor %s 开门"),*GetName());
@@ -162,7 +204,7 @@ void AColdSteelSlidingDoor::CloseDoor()
     NetSwing.To=0.f;
     NetSwing.Speed=SlideSpeedCm;
     NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
-    AutoCloseRemaining=0.f;
+    WakeMotion();
     ForceNetUpdate();
     MulticastDoorSound(false);
 }
@@ -184,13 +226,8 @@ void AColdSteelSlidingDoor::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
     if(!HasAuthority())CurrentOffset=NetSwing.Angle(GetWorld());
     else CurrentOffset=FMath::FInterpConstantTo(CurrentOffset,NetSwing.To,DeltaSeconds,SlideSpeedCm);
-    ApplyOffset();
-    UpdateLeafPawnCollision();
-    if(HasAuthority()&&bOpen&&FMath::IsNearlyEqual(CurrentOffset,NetSwing.To,.5f))
-    {
-        AutoCloseRemaining-=DeltaSeconds;
-        if(AutoCloseRemaining<=0.f)CloseDoor();
-    }
+    if(FMath::IsNearlyEqual(CurrentOffset,NetSwing.To,.01f)){FinishMotion();return;}
+    ApplyOffset();UpdateLeafPawnCollision();
 }
 
 void AColdSteelSlidingDoor::ApplyOffset()
@@ -208,14 +245,15 @@ bool AColdSteelSlidingDoor::LeavesOverlapPawn() const
     ObjectParams.AddObjectTypesToQuery(ECC_Pawn);
     FCollisionQueryParams Params(SCENE_QUERY_STAT(ColdSteelSlideDoorPawn),false,this);
     Params.AddIgnoredActor(this);
-    const FVector Extent=FVector(FMath::Max(1.f,LeafHalfCm.X-2.f),FMath::Max(1.f,LeafHalfCm.Y-2.f),
-        FMath::Max(1.f,LeafHalfCm.Z-4.f));
-    const FCollisionShape Shape=FCollisionShape::MakeBox(Extent);
     for(const UStaticMeshComponent* Leaf:{LeafLeft.Get(),LeafRight.Get()})
     {
-        if(!Leaf)continue;
+        if(!Leaf||!Leaf->GetStaticMesh())continue;
         const FTransform Transform=Leaf->GetComponentTransform();
-        if(World->OverlapAnyTestByObjectType(Transform.TransformPosition(LeafOriginCm),Transform.GetRotation(),
+        const FBoxSphereBounds Bounds=Leaf->GetStaticMesh()->GetBounds();
+        const FVector WorldExtent=Bounds.BoxExtent*Transform.GetScale3D().GetAbs();
+        const FVector Extent(FMath::Max(1.f,WorldExtent.X-2.f),FMath::Max(1.f,WorldExtent.Y-2.f),FMath::Max(1.f,WorldExtent.Z-4.f));
+        const FCollisionShape Shape=FCollisionShape::MakeBox(Extent);
+        if(World->OverlapAnyTestByObjectType(Transform.TransformPosition(Bounds.Origin),Transform.GetRotation(),
             ObjectParams,Shape,Params))return true;
     }
     return false;
@@ -247,6 +285,7 @@ void AColdSteelSlidingDoor::Configure(UMaterialInterface* Surface)
 void AColdSteelSlidingDoor::OnRep_Swing()
 {
     bOpen=NetSwing.bOpen;
+    WakeMotion();
 }
 
 void AColdSteelSlidingDoor::OnRep_Setup()

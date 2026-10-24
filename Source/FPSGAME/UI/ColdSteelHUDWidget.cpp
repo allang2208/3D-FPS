@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "../Movement/FPSFurnitureRestComponent.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../Building/ColdSteelCampfire.h"
 #include "ColdSteelSceneContainer.h"
@@ -454,14 +455,19 @@ void UColdSteelHUDWidget::UpdateInteractHint()
     // 与旧准星提示同一出现条件：任一面板打开／光标显示／弹药轮／命中反馈 期间都不出浮窗。
     FString Text;bool bAction=true;
     const bool bWorldInteraction=Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen();
-    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bWorldInteraction);
+    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bWorldInteraction&&!UFPSFurnitureRestComponent::IsResting(Character));
+    if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
+        Text=Rest->UpdateFocus(bWorldInteraction&&!ContainerFocus);
     if(bWorldInteraction)
     {
         FMonsterHitFeedback Feedback;
         if(!Character->GetMonsterHitFeedback(Feedback))
         {
-            const auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(ContainerFocus?ContainerFocus:ColdSteelWorldInteraction::TraceTarget(PC));
-            if(!Hint.Text.IsEmpty()){Text=Hint.Text;bAction=Hint.bAction;}
+            if(Text.IsEmpty())
+            {
+                const auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(ContainerFocus?ContainerFocus:ColdSteelWorldInteraction::TraceTarget(PC));
+                if(!Hint.Text.IsEmpty()){Text=Hint.Text;bAction=Hint.bAction;}
+            }
         }
     }
     if(Text.IsEmpty()){InteractHintBlur->SetVisibility(ESlateVisibility::Collapsed);LastInteractHintText.Reset();return;}

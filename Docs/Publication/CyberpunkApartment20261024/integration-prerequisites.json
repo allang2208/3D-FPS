@@ -1,0 +1,38 @@
+{
+  "base_commit": "0b7aa07821123310ffa5e684f5f127d34178c9e9",
+  "patch_bases": [
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp",
+      "base_normalized_sha256": "637772ec4f2dc20270572f3cf0c45b86623ec7a1150d34da7d60aff4004c201c",
+      "final_normalized_sha256": "b25e726219d2e3ebf36fedf00aaa50957fcd8f2344752a9b2f6173d39e012412",
+      "scope": "Shared personal-search foundation remains local; apply only the supplied apartment viewer lifecycle delta."
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.h",
+      "base_normalized_sha256": "482d87bc1f11b138e34b16415fb615bcdae00d725ba051283dc628af64aaee69",
+      "final_normalized_sha256": "4b0ded59480236ac4e40278128bd8e59babed17ae8ed22aa30e53f62cb41ca4c",
+      "scope": "Shared personal-search foundation remains local; apply only the supplied apartment viewer lifecycle delta."
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "base_normalized_sha256": "f09c76e2c9b5953a68508e6cc5f8f344e02ad033789f6754711246b69ecaebde",
+      "final_normalized_sha256": "e57e6fc80ba750429e9e36fd553028e7dcfb8f90ff8b580f5cf0b247c15cc891",
+      "scope": "Requires the independently maintained shared-search CloseLocal RPC consumer."
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp",
+      "base_normalized_sha256": "8cc089f6bc920f6dcd111953c50bd1f4402d56625547288179b1d47691124dd5",
+      "final_normalized_sha256": "8fbbe419a3d092dcd6ea0c6d98958ef2df84f4e3aa788b7161dd2a8cdb637a11",
+      "scope": "Later shared furniture/animation implementation remains local; apartment overlay and late-join delta only."
+    }
+  ],
+  "required_unpublished_contracts": [
+    "ColdSteelPlayerState.ServerCloseContainerSearch and ContainerSearch discovery reply fields",
+    "ColdSteelSharedContainers search-session and revision/transaction integration",
+    "ColdSteelWarehouseHUD search UI lifecycle",
+    "Content/ColdSteelData/furniture_rest.json for non-apartment furniture (optional when only apartment profiles are installed)",
+    "FPSFurnitureRestComponent.h/.cpp and FPSBodyFurnitureLayer.inl from the current shared furniture implementation",
+    "Current Rest.Apartment clip routes and apartment_furniture_rest.json camera profiles; see body-routes-required-local.json"
+  ],
+  "clean_checkout_build_claimed": false
+}

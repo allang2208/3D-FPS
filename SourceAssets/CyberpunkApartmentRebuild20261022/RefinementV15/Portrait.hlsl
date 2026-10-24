@@ -1,0 +1,24 @@
+float2 Foot=max(abs(ddx(UV))+abs(ddy(UV)),.0001);float Lod=clamp(log2(max(max(Foot.x*512,Foot.y*1024),1)),0,6);float Brightness=lerp(.55,2.6,Night);float3 Color=0;
+float k=fmod(floor(T/12)+Slot,4), k1=fmod(k+1,4), f=frac(T/12);
+float zoom=1+.035*sin(f*3.14159265);
+float2 q=(UV-.5)/zoom+.5+float2(.003*sin(T*.31),.003*cos(T*.27));
+// Keep the complete footprint inside its atlas cell, including distant mips.
+float2 inset=max(float2(.018,.018),exp2(Lod)*float2(2.0/512,2.0/1024));
+q=clamp(q,inset,1-inset);
+float2 qa=(q+float2(fmod(k,2),floor(k/2)))*.5;
+float2 qb=(q+float2(fmod(k1,2),floor(k1/2)))*.5;
+float3 ca=Texture2DSampleLevel(Atlas,AtlasSampler,qa,Lod).rgb;
+float3 cb=Texture2DSampleLevel(Atlas,AtlasSampler,qb,Lod).rgb;
+float wipe=smoothstep(.88,.98,f+(UV.x-.5)*.10);
+float2 p=(UV-.5)*float2(.6667,1);float rad=length(p),ang=atan2(p.y,p.x);
+float3 accent=k<.5?float3(.15,.65,1):k<1.5?float3(1,.38,.055):k<2.5?float3(.35,.22,1):float3(1,.06,.5);
+float scan=exp(-pow((UV.y-frac(T*.09))/.055,2));
+float ringWidth=max(.009,Foot.y);
+float ring=exp(-pow((rad-(.22+.035*sin(ang*2-T*.7)))/ringWidth,2))*.009/ringWidth;
+float orbit=.5+.5*sin(ang*3-T*1.2);
+float bars=smoothstep(.84,.90,UV.y)*(1-smoothstep(.92,.97,UV.y))*smoothstep(-Foot.y,Foot.y,.87+.06*sin(floor(UV.x*18)*1.7+T*2)-UV.y);
+bars*=1-smoothstep(.025,.08,Foot.x);
+float fx=k<.5?scan*.07:k<1.5?ring*orbit*.085:k<2.5?scan*.045:bars*.085;
+float dropout=smoothstep(.70,.73,f)*(1-smoothstep(.74,.77,f))*exp(-pow((UV.y-.61)/.06,2));
+Color=min((lerp(ca,cb,wipe)*(1-dropout*.06)+accent*fx)*Brightness,3.0);
+return Color;

@@ -21,6 +21,7 @@ public:
     bool IsGameMenuOpen() const;
     bool CanOpenGameMenu() const;
     void SetHubMusicUserVolume(float Volume);
+    UFUNCTION(Server,Reliable) void ServerUseApartmentControl(class AApartmentDeviceControl* Control);
     void ToggleWeatherPanel();
     void ToggleDevelopmentPanel();
     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }

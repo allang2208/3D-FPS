@@ -1,0 +1,62 @@
+--- a/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp
++++ b/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp
+@@ -93,12 +93,19 @@
+     if(!Player||!Player->HasAuthority()||!CanAccess(Player->GetPawn(),Target)||!Resolve(Target,Key,Pages,Caption))return;
+     auto& Viewer=Viewers.FindOrAdd(Player);
+     if(Viewer.Anchor==Target&&Viewer.Key==Key)return;
++    auto* Previous=Cast<AColdSteelSceneContainer>(Viewer.Anchor.Get());
+     Viewer.Anchor=Target;Viewer.Key=Key;Viewer.UpdatedAt=GetWorld()->GetTimeSeconds();
++    if(Previous)Previous->CloseLootVisual();
+     auto& Record=Viewer.Records.FindOrAdd(Key);
+     if(const auto* Items=Contents(Player,Key))Reconcile(Record,Key,*Items);
+ }
+ bool UColdSteelContainerSearchSubsystem::IsActive(const APlayerController* Player,const AActor* Target) const
+ {const auto* Viewer=Find(Player);return Viewer&&Viewer->Anchor.IsValid()&&(!Target||Viewer->Anchor.Get()==Target);}
++bool UColdSteelContainerSearchSubsystem::HasViewers(const AActor* Target) const
++{
++    for(const auto& Pair:Viewers)if(Pair.Key.IsValid()&&Pair.Value.Anchor.Get()==Target)return true;
++    return false;
++}
+ bool UColdSteelContainerSearchSubsystem::IsSearching(const APlayerController* Player,const FString& Key) const
+ {
+     const auto* Viewer=Find(Player);if(!Viewer||!Viewer->Anchor.IsValid()||Canonical(Key)!=Viewer->Key)return false;
+@@ -108,7 +115,10 @@
+ {
+     auto* Viewer=Viewers.Find(Player);
+     if(Viewer&&Viewer->Anchor==Target)
+-    {Viewer->Anchor.Reset();Viewer->Key.Empty();}
++    {
++        Viewer->Anchor.Reset();Viewer->Key.Empty();
++        if(GetWorld()->GetNetMode()!=NM_Client)if(auto* Scene=Cast<AColdSteelSceneContainer>(Target))Scene->CloseLootVisual();
++    }
+ }
+ void UColdSteelContainerSearchSubsystem::CloseLocal(APlayerController* Player,AActor* Target)
+ {
+@@ -216,11 +226,15 @@
+     const double Now=GetWorld()->GetTimeSeconds();
+     for(auto It=Viewers.CreateIterator();It;++It)
+     {
+-        auto* Player=It.Key().Get();if(!Player){It.RemoveCurrent();continue;}
++        auto* Player=It.Key().Get();if(!Player)
++        {
++            auto* Scene=Cast<AColdSteelSceneContainer>(It.Value().Anchor.Get());It.RemoveCurrent();
++            if(Scene)Scene->CloseLootVisual();continue;
++        }
+         auto& Viewer=It.Value();auto* Target=Viewer.Anchor.Get();if(!Target)continue;
+         FString Key,Caption;int32 Pages;
+         if(!CanAccess(Player->GetPawn(),Target)||!Resolve(Target,Key,Pages,Caption)||Key!=Viewer.Key)
+-        {Viewer.Anchor.Reset();Viewer.Key.Empty();continue;}
++        {Viewer.Anchor.Reset();Viewer.Key.Empty();if(auto* Scene=Cast<AColdSteelSceneContainer>(Target))Scene->CloseLootVisual();continue;}
+         const auto* Items=Contents(Player,Viewer.Key);if(!Items)continue;
+         auto& Record=Viewer.Records.FindChecked(Viewer.Key);
+         bool Changed=Reconcile(Record,Viewer.Key,*Items);
+--- a/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.h
++++ b/Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.h
+@@ -23,6 +23,7 @@
+     void Close(APlayerController* Player,AActor* Target);
+     void CloseLocal(APlayerController* Player,AActor* Target);
+     bool IsActive(const APlayerController* Player,const AActor* Target=nullptr) const;
++    bool HasViewers(const AActor* Target) const;
+     bool IsSearching(const APlayerController* Player,const FString& Key) const;
+     void FillView(APlayerController* Player,UColdSteelInventoryReply& Reply);
+     void ApplyView(APlayerController* Player,AActor* Target,const UColdSteelInventoryReply& Reply);

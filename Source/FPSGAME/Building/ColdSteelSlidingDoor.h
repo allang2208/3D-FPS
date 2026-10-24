@@ -32,13 +32,21 @@ public:
     UFUNCTION(BlueprintCallable, Category="Door") void OpenDoor() { OpenDoorFrom(nullptr); }
     UFUNCTION(BlueprintCallable, Category="Door") void CloseDoor();
     UFUNCTION(BlueprintPure, Category="Door") bool IsDoorOpen() const { return bOpen; }
+    /** Actual leaf travel, used by aperture lighting and acoustic attenuation. */
+    UFUNCTION(BlueprintPure, Category="Door") float GetOpenFraction() const;
     /** 放置时由建造系统写入材质（门框与两扇一起换）。 */
     void Configure(UMaterialInterface* Surface);
     void PrepareBuildPreview() { AlignGeometry(); }
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
+    void WakeMotion();
+    void FinishMotion();
+    void RetryClosedCollision();
+    FTimerHandle AutoCloseTimer;
+    FTimerHandle ClosedCollisionTimer;
     void ApplyOffset();
     /** 按包围盒摆放门框与两扇：门扇各缩为洞口半宽，底面贴地、居中于各自半侧。 */
     void AlignGeometry();
@@ -64,7 +72,6 @@ private:
 
     bool bOpen=false;
     float CurrentOffset=0.f;
-    float AutoCloseRemaining=0.f;
     /** 开/关门音效（服务器组播）。 */
     UPROPERTY(EditAnywhere, Category="Door|Audio") TObjectPtr<class USoundBase> OpenSound;
     UPROPERTY(EditAnywhere, Category="Door|Audio") TObjectPtr<class USoundBase> CloseSound;

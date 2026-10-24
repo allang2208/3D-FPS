@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../Movement/FPSFurnitureRestComponent.h"
 #include "../UI/FPSPerformanceMetrics.h"
 #include "../FPSGAMECharacter.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
@@ -12,6 +13,7 @@
 void AFPSGAMECharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
 {
     Super::CalcCamera(DeltaTime, OutResult);
+    if (const auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
     {Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);}
 }
@@ -81,7 +83,7 @@ void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
         // ordinary updates and newly attached parts use the existing refresh.
         if(Character->AKMViewmodel&&Character->AKMViewmodel->FirstPersonPrimitiveType!=ViewmodelType)
             UpdateOwnerVisibility();
-        if(bPistol&&!IsThirdPersonViewEnabled())
+        if(bPistol&&!IsThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get()))
         {
             // Uniform render-space scaling about the eye preserves screen size,
             // ADS and finger/gun contact while putting the viewmodel ahead of
@@ -97,7 +99,7 @@ void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
         return;
     }
 
-    const bool bFixedView=IsFixedThirdPersonViewEnabled();
+    const bool bFixedView=IsFixedThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get());
     if (!bFixedView) bFixedThirdPersonCameraCaptured=false;
     View.bUseFirstPersonParameters=false;
     if (bFixedView && bFixedThirdPersonCameraCaptured)

@@ -1,4 +1,5 @@
 #include "ColdSteelWorldInteraction.h"
+#include "../Building/ApartmentDeviceControl.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/PlayerController.h"
@@ -71,7 +72,7 @@ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float
             return PC->GetNetMode()!=NM_Client||UFPSDoorPushComponent::IsNativeDoor(Target)
                 ||Cast<AColdSteelCampfire>(Target)||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
                 ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
-                ||Cast<AVoxelBuildPrefabActor>(Target)
+                ||Cast<AVoxelBuildPrefabActor>(Target)||Cast<AApartmentDeviceControl>(Target)
                 ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
         }
     }
@@ -356,6 +357,7 @@ ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveIn
     // 分派顺序与 PlayerController 的 E 键处理一致：先特异后泛化；空文本＝不显示浮窗。
     FInteractionHint Hint;
     if(!IsValid(Target))return Hint;
+    if(const auto* Control=Cast<AApartmentDeviceControl>(Target)){Hint.Text=Control->GetPrompt();return Hint;}
     if(IsExpeditionAltar(Target)){Hint.Text=TEXT("祭坛 · 打开出征面板");return Hint;}
     if(IsBlessingFountain(Target)){Hint.Text=TEXT("喷泉 · 补满水分并获得 12 分钟赐福");return Hint;}
     if(const auto* Run=UDungeonRunSubsystem::Get(Target->GetWorld());Run&&Run->IsShrine(Target))

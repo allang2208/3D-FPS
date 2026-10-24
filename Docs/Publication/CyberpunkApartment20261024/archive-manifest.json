@@ -1,0 +1,1119 @@
+{
+  "stage": "archived_and_hash_readback_complete",
+  "archive_root": "trash/cyberpunk-apartment-20261024",
+  "files": [
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/CyberpunkApartment_Rebuild.blend1",
+      "bytes": 6874244,
+      "sha256": "387c2f73f464f3d9713ca7f8873999abaa8ebfcf9dd2aef1be217a2f31545feb",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/CyberpunkApartment_Rebuild.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-083920/L_CyberpunkApartment.umap",
+      "bytes": 239662,
+      "sha256": "a82d70340d6a7722a6aad63c5a009062a603c179a4241a4bf8f4e6287b9bae5a",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-083920/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-084417/L_CyberpunkApartment.umap",
+      "bytes": 369462,
+      "sha256": "5eba5efcc24c5ed99cdf512773089788e013a853fe27e28f5bc4b147ffca5b8c",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-084417/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-084741/L_CyberpunkApartment.umap",
+      "bytes": 373727,
+      "sha256": "e86bf5c1dd2ea5e9e05b13dee86609c3829cd4b11bbb7c03e4475f363abc2f62",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-084741/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-085320/L_CyberpunkApartment.umap",
+      "bytes": 373822,
+      "sha256": "78ae8bbee4321b89d3086ff83401de1f74eb6a0f071b15bf368cb346040eeb98",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-085320/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-085828/L_CyberpunkApartment.umap",
+      "bytes": 373727,
+      "sha256": "13bed3824acfd233aa504e73d931bb28e316817b59cac06bc17a74ab53600331",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-085828/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-090128/L_CyberpunkApartment.umap",
+      "bytes": 373822,
+      "sha256": "1803f7cc95fc56b89fbde09201709f7ae3708ac4db5900cd140361a424430d78",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-090128/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-090640/L_CyberpunkApartment.umap",
+      "bytes": 373727,
+      "sha256": "5ce9bae98c7c0d7493670204b2a8646edb717dc29adbcd95f802e74be89fca45",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/Backups/20261022-090640/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV10/Backups/20261022-230223/L_CyberpunkApartment.umap",
+      "bytes": 926282,
+      "sha256": "42d88fdeab7764619547daa368697bd14016cf28883a624747b463c47a696060",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV10/Backups/20261022-230223/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV11/ResidentialTower_Source.blend1",
+      "bytes": 3059858,
+      "sha256": "0a7d96b8db8689116790544585eeca23afc93529f6712d45dd928b8a3b349e04",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV11/ResidentialTower_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV11/Backups/20261023-001845/L_CyberpunkApartment.umap",
+      "bytes": 926943,
+      "sha256": "cd6d1bfaabdc474006621aecc1776900664cfa836effecb04acc2fb0dfb125ef",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV11/Backups/20261023-001845/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV12/Backups/20261023-004212/L_CyberpunkApartment.umap",
+      "bytes": 938202,
+      "sha256": "312f99194a77066612a6f16d4c101d364801ec3654208e3ed0cb3226ae97c051",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV12/Backups/20261023-004212/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV13/ApartmentExperience_Source.blend1",
+      "bytes": 1495095,
+      "sha256": "dcbb32260a5b7efb59dd6a6f387abd7e0713a43d70a9c2e9e0cd7f13e94f375b",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV13/ApartmentExperience_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV13/Backups/20261023-150807/L_CyberpunkApartment.umap",
+      "bytes": 981537,
+      "sha256": "3fdda542cb24020a6df9a488564c9b61064f317e8ae4fec312305a89d4b1bcf7",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV13/Backups/20261023-150807/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV14/Backups/20261023-154250/L_CyberpunkApartment.umap",
+      "bytes": 1020386,
+      "sha256": "75c8f89a02f7e08fe341fdb5df16e219661be40f9c8a1b97cb4a085f7fb9ad54",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV14/Backups/20261023-154250/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV14/__pycache__/motion_math.cpython-311.pyc",
+      "bytes": 23009,
+      "sha256": "303dfa1d63bc0d46e65cf4e62989c0cc68a41a8f8df6b20d0daa1558b572297a",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV14/__pycache__/motion_math.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV15/Backups/20261023-155827/L_CyberpunkApartment.umap",
+      "bytes": 1020756,
+      "sha256": "97c5b76e4e7d1a34b5f21d1d8864dd8470f963530981dd3de8108862c6127d4a",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV15/Backups/20261023-155827/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV15/__pycache__/design.cpython-313.pyc",
+      "bytes": 1523,
+      "sha256": "6d40555fb83fc78b4f92e26f370cdbc7cb9fda384a7af82d0771d5a131651990",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV15/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV16/HarborStreets_Source.blend1",
+      "bytes": 551555,
+      "sha256": "3378eee948cd3815b025fd2cb469b6d2cf4838f1f5b6a20be201abecdaca4e07",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV16/HarborStreets_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV16/Backups/20261023-163236/L_CyberpunkApartment.umap",
+      "bytes": 1033766,
+      "sha256": "df85b0c7aa28cb708c28988eea87bbbfdf9bddf7b5bacd135ac23e12029c320b",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV16/Backups/20261023-163236/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV16/__pycache__/design.cpython-313.pyc",
+      "bytes": 1300,
+      "sha256": "6c0b0dc480429320a22f42bee9d41b6fbfe8c299500a08c4d8710ca4c56333ad",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV16/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/ArchitecturalNight_Source.blend1",
+      "bytes": 19912685,
+      "sha256": "add4d1191b738fb85d3ba14f8ae2a7ce12674ad0b1a4e11d0ad4e1c6531927af",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/ArchitecturalNight_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/Backups/20261023-181535/L_CyberpunkApartment.umap",
+      "bytes": 1050638,
+      "sha256": "dea0269ff6f89272a220023c6e629fe81e59b8b3a0ecd6060bd81e1cfc8fcc9a",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/Backups/20261023-181535/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/__pycache__/design.cpython-311.pyc",
+      "bytes": 1339,
+      "sha256": "db0f12554e6671611410c093ce1f3fd880f9bf6a6793ccb1245a653d9a1b18c0",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/__pycache__/design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/__pycache__/design.cpython-313.pyc",
+      "bytes": 1232,
+      "sha256": "18b21520f44251c03b0d3e4559c57651772e18dfee69fdbb75b456c04d366141",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV17/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/WaterfrontLife_Source.blend1",
+      "bytes": 21259917,
+      "sha256": "24d4f088cc19baa478e971e4a665f5070a62f6e8323017f19d5fcb10504a0df5",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/WaterfrontLife_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/Backups/20261023-212151/L_CyberpunkApartment.umap",
+      "bytes": 1048608,
+      "sha256": "447095ae4750a8d3b6c7d89d5335c8f6aaad4d40070c559f6c9d2a0dea9d6b9d",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/Backups/20261023-212151/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/__pycache__/design.cpython-313.pyc",
+      "bytes": 1514,
+      "sha256": "b352d54a812179ec2082b2b858c1ef0af8f7187d93a115636db7ff3fbb90c2d9",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV18/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/LuminousSkyline_Source.blend1",
+      "bytes": 21055531,
+      "sha256": "55cfee58650c57b3ddc416a0ec9a4088906b7d3b3fba5cd2fae4e1f5a4b80a74",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/LuminousSkyline_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/Backups/20261024-113211/L_CyberpunkApartment.umap",
+      "bytes": 1068714,
+      "sha256": "0be623edd8f6af66dd75503869e0b6962f352e20c1c2b4484675bcc63c115fca",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/Backups/20261024-113211/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/__pycache__/design.cpython-311.pyc",
+      "bytes": 3383,
+      "sha256": "53c6ec8d790120277d4c20ad475c44329e358b03c3d413b0baa786d5f3a104e7",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/__pycache__/design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/__pycache__/design.cpython-313.pyc",
+      "bytes": 3165,
+      "sha256": "b2b6ebed2d5f8f1a71d0acec55342599d77d3367bbc4e973ff664e0d7ec3af34",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV19/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/CyberpunkApartment_Rebuild.blend1",
+      "bytes": 8995582,
+      "sha256": "95021d92ee652cfbeb78313c524928f5cafc72747c91d0f9157563afdeb26ff9",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/CyberpunkApartment_Rebuild.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-114508/L_CyberpunkApartment.umap",
+      "bytes": 376079,
+      "sha256": "b5c6c816f16f4fb82a21175d34c337bfaa8f25de552dcaa84e13772e4d410299",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-114508/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-114908/L_CyberpunkApartment.umap",
+      "bytes": 376079,
+      "sha256": "b5c6c816f16f4fb82a21175d34c337bfaa8f25de552dcaa84e13772e4d410299",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-114908/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-115218/L_CyberpunkApartment.umap",
+      "bytes": 376079,
+      "sha256": "b5c6c816f16f4fb82a21175d34c337bfaa8f25de552dcaa84e13772e4d410299",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-115218/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-115619/L_CyberpunkApartment.umap",
+      "bytes": 473425,
+      "sha256": "f818a6087a7a2e382e1d8bee39e334ebc61fe5bc422ec210eb54472ea3008d65",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-115619/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-115935/L_CyberpunkApartment.umap",
+      "bytes": 474734,
+      "sha256": "0cf4cb8aa0db0c5f139ac361abadfb841d1ec26ae304cbcc65998463262940e4",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/Backups/20261022-115935/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/__pycache__/refinement_design.cpython-311.pyc",
+      "bytes": 6913,
+      "sha256": "019926b6e4e4499b616d32f15716b99172f0ecfe863d9e3adeaf099f621c4cdd",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/__pycache__/refinement_design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/__pycache__/refinement_design.cpython-313.pyc",
+      "bytes": 6366,
+      "sha256": "70ba35a46e4ef277775a9191cae009e8345dff74d5237dae0be3082912f0e679",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/__pycache__/refinement_design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/__pycache__/refinement_parts.cpython-313.pyc",
+      "bytes": 30337,
+      "sha256": "96088d96bd8c912d69c73c449fa7a2bd8c8f3767f4a4faa66f1e0f41c8a56f7d",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV2/__pycache__/refinement_parts.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV20/Backups/20261024-114308/L_CyberpunkApartment.umap",
+      "bytes": 1087094,
+      "sha256": "3c804cdf77184ad3249c5c81cf4d752b178d81f4660a62b0f4823d8845fa0bdd",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV20/Backups/20261024-114308/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/build-01-FPSGAMEEditor-console.log",
+      "bytes": 38564,
+      "sha256": "eafcb155a9df77b33c1f44870b12f02d854f343e095a94959620fef51a66b71d",
+      "reason": "Failed first build; superseded by successful build-03, retained for diagnosis.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/build-01-FPSGAMEEditor-console.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/build-01-FPSGAMEEditor.json",
+      "bytes": 107,
+      "sha256": "b9c67086f367e389cb5535ea5fdd738245d6007dab67f89631e1d0d5854781e1",
+      "reason": "Failed first build; superseded by successful build-03, retained for diagnosis.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/build-01-FPSGAMEEditor.json"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/build-01-FPSGAMEEditor.log",
+      "bytes": 50203,
+      "sha256": "56c119d064b0098c00e1300a53463d216cf3cd85ab250ff6abadae707137b015",
+      "reason": "Failed first build; superseded by successful build-03, retained for diagnosis.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/build-01-FPSGAMEEditor.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/Backups/20261024-122448/L_CyberpunkApartment.umap",
+      "bytes": 1091704,
+      "sha256": "e140ea11bb14af77e3e027d02330972ac2ee1ab9a432c6c62541768737e22d60",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/Backups/20261024-122448/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/Backups/20261024-123816/L_CyberpunkApartment.umap",
+      "bytes": 1098525,
+      "sha256": "eaec2be8dc739ea92f2f88f34f89580bef156e6a713229107e60ddb81788afc8",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/Backups/20261024-123816/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest.log",
+      "bytes": 254116,
+      "sha256": "a80c6d3c029ad235ad93a5b62b39efb09c868900d1bb9c0143ff666d661d4063",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host.log",
+      "bytes": 246034,
+      "sha256": "5cc3be8ffc39307944118a338c10627ff4e7907da62b8ec50c09d3304db31228",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host.log"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/incomplete.json",
+      "bytes": 254,
+      "sha256": "ce8da8a520e79c986bd877f9e5cf46b55cb039a1a5590d95db626f6ddfc3c8eb",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/incomplete.json"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Config/CrashReportClient/UECC-Windows-FE9D2F9B4C3F4B21E61103B0813D40CB/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Config/CrashReportClient/UECC-Windows-FE9D2F9B4C3F4B21E61103B0813D40CB/CrashReportClient.ini"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Config/WindowsEditor/Engine.ini",
+      "bytes": 111,
+      "sha256": "60a10d753dcfbd25b4d5612cd5a95994dd82143df8e48436f4dd4d02c3a60a2a",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Config/WindowsEditor/Engine.ini"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "d79410274be82be0843872254056ff8ede0936b21a293669c88b11f1354e5ed9",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Logs/AutoSDKInfo.json"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "0b076de8fb45f7341c981a00cc700de02806b317cf256dd1b61135627ab5d05a",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/Logs/AutoSDKInfo.txt"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_A.sav",
+      "bytes": 16556,
+      "sha256": "5e9498739daa192e88d7a9c7b53b9c5de980e29785061974c1147b378bbd94cd",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_A.sav"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_A.sha1",
+      "bytes": 40,
+      "sha256": "cd29bb6f538aba08cebd8a4c9b90d5f4d5fcd28910597f662067b897a7d86020",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_A.sha1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_B.sav",
+      "bytes": 104906,
+      "sha256": "c51563ff59c23fc93ef08bda23ff7c3bc43f6e8e9080dcec094eabedb7d94a9e",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_B.sav"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_B.sha1",
+      "bytes": 40,
+      "sha256": "07ce134027c3d68554627a56e06ab9ac020ff5aa5559fd586a885711802f8594",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/guest/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_guest_B.sha1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/extra_urls.txt"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/merged_requirements.in"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/pyreqs_plugins.list"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 17202,
+      "sha256": "f939af64f4598a85195ebc03f855d50ac332f15bddae8acefe9d0eb973a859ce",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Config/CrashReportClient/UECC-Windows-381FAB104EF7FF4DB06F40AE4021B733/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Config/CrashReportClient/UECC-Windows-381FAB104EF7FF4DB06F40AE4021B733/CrashReportClient.ini"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 4464,
+      "sha256": "76c075b648eb99025c43048e24483f3e78fa0fd47a43042a1460656d61f5f365",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "42172bf19fc297384f2dd826fed52d6bcba8a6f101bfe7548c6e66d6e6f9cbb0",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Logs/AutoSDKInfo.json"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "61f8d115104cfa11a2466e82f70ccc7159f918de38febb221536fb451b0fab08",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/Logs/AutoSDKInfo.txt"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_A.sav",
+      "bytes": 16556,
+      "sha256": "c3e630131ea9c2824c627b672cb5489442a5a1e8f6532e49a3c8e0ab35d8e9dc",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_A.sav"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_A.sha1",
+      "bytes": 40,
+      "sha256": "f3ed6bf8b6f42327ee87af8d1807f80448b3cd7e63cb1fcb52c91d2e1b32f06c",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_A.sha1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_B.sav",
+      "bytes": 104906,
+      "sha256": "7ab5a7f3c64bc655107230d8726195b5f356d4de80825685766051a4612c34ed",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_B.sav"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_B.sha1",
+      "bytes": 40,
+      "sha256": "9e55fc4bd2830b7dec648657a11952ee691eabb436c8306a1798d78cfe6aacaf",
+      "reason": "Incomplete initial apartment wire fixture run, superseded by passing wire-02; retained as historical failure evidence.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV21/wire-01/host/Saved/SaveGames/ColdSteel_ApartmentAudit_20261024122221_host_B.sha1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/Backups/20261022-125731/L_CyberpunkApartment.umap",
+      "bytes": 502882,
+      "sha256": "ced1bdeb1d04c250c5c56390cb8cfde065d5de1f5dea7fb83fd019188ab56316",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/Backups/20261022-125731/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/import_screens.cpython-311.pyc",
+      "bytes": 4592,
+      "sha256": "f5407aace7917f6d6dd70d6242d7e6789246ba7f8395e264c45944bd9880114c",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/import_screens.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/install_v3_details.cpython-311.pyc",
+      "bytes": 3225,
+      "sha256": "6a9c2d85e11e34569b9acafcad7b54c7b293f49c7cf53083869c20c89d2427ca",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/install_v3_details.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_design.cpython-311.pyc",
+      "bytes": 6937,
+      "sha256": "4c763f13f0a30f5b072b739573764e14167ff40b151fe84f965075dda0ceaa43",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_design.cpython-313.pyc",
+      "bytes": 6390,
+      "sha256": "cee059d0600eff1b6275ca45516acd6e1474b68fef13dccb15fc76cd05e8caed",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_parts.cpython-313.pyc",
+      "bytes": 30439,
+      "sha256": "819ee5961d74b1fb7cf9af75d29617b48b433b2dd0b6e36f9846325448551d17",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_parts.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_v3_parts.cpython-313.pyc",
+      "bytes": 28020,
+      "sha256": "b4d1ca6a38d5aa28721064e899778d7fa7abbaedc6c88cfa4a007f80f5c2c348",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV3/__pycache__/refinement_v3_parts.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/Backups/20261022-131706/L_CyberpunkApartment.umap",
+      "bytes": 567515,
+      "sha256": "9853476e9280bcda519b7ecf6d74495097239fa05db90e5837f01f5181d7c0db",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/Backups/20261022-131706/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/Backups/20261022-131855/L_CyberpunkApartment.umap",
+      "bytes": 567515,
+      "sha256": "9853476e9280bcda519b7ecf6d74495097239fa05db90e5837f01f5181d7c0db",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/Backups/20261022-131855/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/__pycache__/cabinet_upgrade.cpython-313.pyc",
+      "bytes": 10061,
+      "sha256": "0866b262147680d3e19a7c9dac2e1ac2095cf49ac3e91bda8f5a6ddd3a8e8518",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/__pycache__/cabinet_upgrade.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/__pycache__/refinement_design.cpython-313.pyc",
+      "bytes": 6390,
+      "sha256": "1847ae2d30541a44763ef3114b1866a45871862171f0a6d4941fd029c8d9a968",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/__pycache__/refinement_design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/__pycache__/surface_specs.cpython-311.pyc",
+      "bytes": 7435,
+      "sha256": "c710c4fad3d104218f5293c423acd9a16ade4bb573a9dc3187a1805804c0422f",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV4/__pycache__/surface_specs.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/ApartmentV5_Source.blend1",
+      "bytes": 1083965,
+      "sha256": "1bb3bc773f20954cf77a949f29480f40bb80183d720f75a3318f6bbcf78835b9",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/ApartmentV5_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/Backups/20261022-142131/L_CyberpunkApartment.umap",
+      "bytes": 595734,
+      "sha256": "e5b02cd394574b9c18ce383e5930a1040fe5f65e07e8ce06999650f2e91c4170",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/Backups/20261022-142131/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/Backups/20261022-144423/L_CyberpunkApartment.umap",
+      "bytes": 611750,
+      "sha256": "067bff2e90c9bbf0319d1d250f81feb22520cbb7c7af59c48f1a7862f6bf25c4",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/Backups/20261022-144423/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/Backups/WindowTransmission-20261022-160043/M_AP5_WindowGlass.uasset",
+      "bytes": 11896,
+      "sha256": "7713c917d965e6506377ce7fc9f112ea718532bcdbddbb2838c5aa551a04fe95",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/Backups/WindowTransmission-20261022-160043/M_AP5_WindowGlass.uasset"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/__pycache__/design.cpython-313.pyc",
+      "bytes": 1494,
+      "sha256": "24cc8a3f3c13b1d75be23fcca7b946fce2402d5f10b98c0217465e1cd6bec313",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV5/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-164004/L_CyberpunkApartment.umap",
+      "bytes": 611669,
+      "sha256": "1bdad45e090c95e102af592bc394e186c7dca609d0263fc2364878bfcd666606",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-164004/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-164836/L_CyberpunkApartment.umap",
+      "bytes": 611669,
+      "sha256": "1bdad45e090c95e102af592bc394e186c7dca609d0263fc2364878bfcd666606",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-164836/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-165736/L_CyberpunkApartment.umap",
+      "bytes": 611669,
+      "sha256": "1bdad45e090c95e102af592bc394e186c7dca609d0263fc2364878bfcd666606",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-165736/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-170624/L_CyberpunkApartment.umap",
+      "bytes": 611669,
+      "sha256": "1bdad45e090c95e102af592bc394e186c7dca609d0263fc2364878bfcd666606",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-170624/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-170801/L_CyberpunkApartment.umap",
+      "bytes": 611669,
+      "sha256": "1bdad45e090c95e102af592bc394e186c7dca609d0263fc2364878bfcd666606",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-170801/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-170955/L_CyberpunkApartment.umap",
+      "bytes": 611669,
+      "sha256": "1bdad45e090c95e102af592bc394e186c7dca609d0263fc2364878bfcd666606",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/Backups/20261022-170955/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/__pycache__/design.cpython-313.pyc",
+      "bytes": 715,
+      "sha256": "192c6e82da0885f64fcb83c0e3d060fe7f5d0790ad965c40639f33f19e234d0e",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV6/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/ApartmentDetails_Source.blend1",
+      "bytes": 2485378,
+      "sha256": "696a519ba641585c8c150734b89dc441c8f871f8a483da7fcc760d54cefeb5e9",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/ApartmentDetails_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/BalconyRail_Source.blend1",
+      "bytes": 182599,
+      "sha256": "0a2bd6c6183b9a484c42cdfd80d399bed26a7b10bb01b48e4fe6bac573d905f3",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/BalconyRail_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/BayLandmarks_Source.blend1",
+      "bytes": 32099944,
+      "sha256": "546123853aca1dcdc0a7824a1d38620c824148645580927f120dea0e1f807399",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/BayLandmarks_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/ColdSteelItemTooltipSummary-before-link-fix.cpp",
+      "bytes": 38439,
+      "sha256": "220a3163184aeb49494d37719bb4859de18cd481658e96b408ca2b064f4a9979",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/ColdSteelItemTooltipSummary-before-link-fix.cpp"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/20261022-201240/L_CyberpunkApartment.umap",
+      "bytes": 749276,
+      "sha256": "724296e729baf77b42b46685a62ed78db456d6a042a54402ec670db1c52219a2",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/20261022-201240/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/20261022-201514/L_CyberpunkApartment.umap",
+      "bytes": 818688,
+      "sha256": "9440eb0d0381c402afd395292a29261d81a52262fd4bafb9f9a8b0f6370d5238",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/20261022-201514/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/20261022-202422/L_CyberpunkApartment.umap",
+      "bytes": 818688,
+      "sha256": "58d17dfcfb4e8efde8429681a649e1058ddc2f2a25e2d7e5ec67efa74d304200",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/Backups/20261022-202422/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/__pycache__/design.cpython-313.pyc",
+      "bytes": 615,
+      "sha256": "66b556ab364f16f90c89a41acb1134ae805f22fc30e006071291246283c6ae46",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV7/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/Billboards_Source.blend1",
+      "bytes": 586102,
+      "sha256": "2ab096232abda35893f97733a2d1a7785e6ada87ccd1da9b705a9010f197602b",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/Billboards_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/Backups/20261022-210439/L_CyberpunkApartment.umap",
+      "bytes": 818688,
+      "sha256": "30b8f56280cd9fec6ea6d254769c44ad98f6412c0b92986a81c66e904e1a60c2",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/Backups/20261022-210439/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/Backups/20261022-210942/L_CyberpunkApartment.umap",
+      "bytes": 835873,
+      "sha256": "e68442f61b2b128f9285e724eebcca705ebd8d26aca32bea127134fe560fde58",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/Backups/20261022-210942/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/__pycache__/design.cpython-313.pyc",
+      "bytes": 1212,
+      "sha256": "b593133efdc6c9998ab9170ff0db985e1d90f16585fc8e12da2747b267039645",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV8/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV9/Backups/20261022-222552/L_CyberpunkApartment.umap",
+      "bytes": 835873,
+      "sha256": "00405e5b5ec7e9f9957fb21ad5b885f3a3e76568595b84ffe954336b3df3b06f",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/RefinementV9/Backups/20261022-222552/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/__pycache__/design.cpython-311.pyc",
+      "bytes": 6690,
+      "sha256": "5356631cb1e88efe60bd6a432600049f66a13567f744e403d435b33a3f7758b3",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/__pycache__/design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentRebuild20261022/__pycache__/design.cpython-313.pyc",
+      "bytes": 6157,
+      "sha256": "6a75ac710982354030312c9c6ab3fb4fb30be2fc0f977bf1c2185b4d9cb6473a",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentRebuild20261022/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayLayered20261022/CyberpunkBay_Source.blend1",
+      "bytes": 1548047,
+      "sha256": "b737f72f7862b8390a1a31655687c98090d4ac44659f85ecfc46e331d584a6de",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayLayered20261022/CyberpunkBay_Source.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayLayered20261022/Backups/20261022-122752/L_CyberpunkApartment.umap",
+      "bytes": 474164,
+      "sha256": "2033a6642ce0a75ccdf0e38367aff34220109a6bac12faac03fe4134a0aca4c0",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayLayered20261022/Backups/20261022-122752/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayLayered20261022/__pycache__/design.cpython-311.pyc",
+      "bytes": 1359,
+      "sha256": "fea127d2bde2d80c7506898e140b1498eed02220498ff2706df1892191eff2bd",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayLayered20261022/__pycache__/design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayLayered20261022/__pycache__/design.cpython-313.pyc",
+      "bytes": 1320,
+      "sha256": "6562a3a988919631347019ebc482020dd38c97ebcb59688363750776714d48a8",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayLayered20261022/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayBuildings20261022/Backups/20261022-135803/L_CyberpunkApartment.umap",
+      "bytes": 594229,
+      "sha256": "295f22640b8524368cb85a812f2ce15486abf0e4234e9063a3d5adf9acf4793e",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayBuildings20261022/Backups/20261022-135803/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayBuildings20261022/__pycache__/design.cpython-311.pyc",
+      "bytes": 1032,
+      "sha256": "28bd0ae29a4d9454695f095d63be28faf35dd5c82bfee7c54cc3712320659ddf",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayBuildings20261022/__pycache__/design.cpython-311.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayBuildings20261022/__pycache__/design.cpython-313.pyc",
+      "bytes": 1003,
+      "sha256": "e5bb890409c709bcadd010c3085165b8d36170f8eb2aa710b81c724c92a59fb7",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayBuildings20261022/__pycache__/design.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkBayBackdrop20261021/Backups/20261022-000412/L_CyberpunkApartment.umap",
+      "bytes": 236627,
+      "sha256": "8e1693b10356326913e9d0feb2e56106e73b53cb30966db3f7a6056ba3fcae51",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkBayBackdrop20261021/Backups/20261022-000412/L_CyberpunkApartment.umap"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/CyberpunkApartmentPlayable.blend1",
+      "bytes": 67431302,
+      "sha256": "3ccde1f3ea4db59f67afdf20117cfd099fac770db9f55ba072fbcfde8260edbc",
+      "reason": "Blender automatic previous-save copy; editable .blend source retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/CyberpunkApartmentPlayable.blend1"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/cy_lib.cpython-313.pyc",
+      "bytes": 33999,
+      "sha256": "97e05b44c5e0f6a95dc7e29c90acbf62e2462a88d61856225ee39d731f5347cd",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/cy_lib.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/furn.cpython-313.pyc",
+      "bytes": 85683,
+      "sha256": "8ec548ebbdab1052777432db2190b9f33b6dd5d48cfdbd3f14de20397b985420",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/furn.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/furn2.cpython-313.pyc",
+      "bytes": 28226,
+      "sha256": "f9c23715229638b4e8618ffb47675f68ff6b50c4dd466a08549037c503ea4054",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/furn2.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s12_joinery.cpython-313.pyc",
+      "bytes": 10433,
+      "sha256": "9b14ef872858c2e7778e8da609f50cbbfa929192377ee374d0d6049006ba0193",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s12_joinery.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s13_finish.cpython-313.pyc",
+      "bytes": 8887,
+      "sha256": "3ccca88e991d40472f7da5773df992e2137e673d7050ca675d270c98ee3c888f",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s13_finish.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s1_arch.cpython-313.pyc",
+      "bytes": 15009,
+      "sha256": "dd515e84dba621431fb0e3994da308d7112339f8e133be5d69e8b5e60a10ff7f",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s1_arch.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s2_living.cpython-313.pyc",
+      "bytes": 15537,
+      "sha256": "7f37290a1fc09b1e23f5952b39bfdb7556b14501f97061f434ed0934e49d44d9",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s2_living.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s3_kitchen.cpython-313.pyc",
+      "bytes": 9049,
+      "sha256": "35158174db3ba7fd534368664375ea5c113dddc538cea9f5c461d32dc492019e",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s3_kitchen.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s4_bedrooms.cpython-313.pyc",
+      "bytes": 22977,
+      "sha256": "58a39d588ca72dec946b42cc680df5f0f687667f1dc89013c95ce44374a72cdd",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s4_bedrooms.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s5_bath_foyer.cpython-313.pyc",
+      "bytes": 18351,
+      "sha256": "589bbbc40552b774308c872e9788413c78f8872c60db9024a0eb2f8a6259f5b9",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s5_bath_foyer.cpython-313.pyc"
+    },
+    {
+      "source": "SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s6_details.cpython-313.pyc",
+      "bytes": 21242,
+      "sha256": "a4ba9b222910158b43a1c2f666ac1312c8297a4e4242de96ba7378ff191bcf4e",
+      "reason": "Retired rollback snapshot or regenerable interpreter cache; active authoring sources retained.",
+      "replacement": "Current saved apartment, final editable sources, V21/build-03 and V21/wire-02.",
+      "destination": "trash/cyberpunk-apartment-20261024/SourceAssets/CyberpunkApartmentPlayable20261021/build/__pycache__/s6_details.cpython-313.pyc"
+    },
+    {
+      "source": "Docs/Publication/CyberpunkApartment20261024/body-routes.json",
+      "bytes": 3653,
+      "sha256": "5c3e236216bc09bb194284fec00071e4d3887a38f51884029a02a937a80f424b",
+      "reason": "Superseded publication draft; current independent rest routes are inventoried, not published by this batch.",
+      "replacement": "Docs/Publication/CyberpunkApartment20261024/body-routes-required-local.json",
+      "destination": "trash/cyberpunk-apartment-20261024/Docs/Publication/CyberpunkApartment20261024/body-routes.json"
+    }
+  ],
+  "completed": "2026-10-24T13:35:45.5188953+08:00"
+}

@@ -1,0 +1,20 @@
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent
+PROJECT=ROOT.parents[2]
+BASE='/Game/Props/CyberpunkApartmentRebuild20261022/RefinementV5'
+MAP='/Game/GameMaps/L_CyberpunkApartment'
+OWNER='CyberpunkApartment.RefinementV5'
+HEIGHT=3.6875
+SCALE=1.20
+BATH=(3.55,10.25,5.85,15.275)
+DOORS=[
+ dict(name='Entry',p=[12.4,13.75,0],yaw=90,width=1.20,height=2.65),
+ dict(name='Master',p=[2.4625,6.825,0],yaw=90,width=1.025,height=2.525),
+ dict(name='Bed2',p=[14.175,5.6875,0],yaw=0,width=1.025,height=2.525),
+ dict(name='Bed3',p=[14.175,10.0375,0],yaw=0,width=1.025,height=2.525),
+ dict(name='Bath1',p=[4.70,10.175,0],yaw=90,width=1.05,height=2.50),
+ dict(name='Bath2',p=[2.025,10.175,0],yaw=90,width=1.10,height=2.50),
+ dict(name='Balcony',p=[9.4375,0,0],yaw=90,width=1.2625,height=2.90),
+]
+RETIRE=['Gym_OuterEast','Ceiling_Bath1','CeilingTrim_Bath1','Floor_Bath1','WetCladding_Bath1',
+ 'ShowerScreen_Bath1','ShowerTrim_Bath1','Bath1_Tray','Bath1_ClearGlass','Lighting_Bath1']

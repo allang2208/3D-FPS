@@ -1,0 +1,21 @@
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent
+PROJECT=ROOT.parents[2]
+BASE='/Game/Props/CyberpunkApartmentRebuild20261022/RefinementV9'
+MAP='/Game/GameMaps/L_CyberpunkApartment'
+SEARCH=[
+ dict(key='NexusA',p=(-713,1412,359.2),color=(.08,.55,1),length=360,tilt=20,tilt_sweep=7,yaw=-20,yaw_sweep=32,period=32,phase=0),
+ dict(key='NexusB',p=(-698,1412,359.2),color=(.34,.14,.8),length=420,tilt=18,tilt_sweep=8,yaw=155,yaw_sweep=38,period=39,phase=2.0),
+ dict(key='EstuaryA',p=(-1498,1435,252.2),color=(.08,.48,.7),length=340,tilt=19,tilt_sweep=6,yaw=15,yaw_sweep=27,period=35,phase=1.3),
+ dict(key='EstuaryB',p=(-1469,1435,252.2),color=(.6,.055,.32),length=380,tilt=22,tilt_sweep=7,yaw=160,yaw_sweep=33,period=43,phase=3.4),
+ dict(key='PortA',p=(1088,2420,172),color=(.12,.48,.75),length=480,tilt=20,tilt_sweep=6,yaw=0,yaw_sweep=24,period=41,phase=.8),
+ dict(key='PortB',p=(1152,2420,172),color=(.28,.17,.75),length=440,tilt=22,tilt_sweep=8,yaw=180,yaw_sweep=27,period=37,phase=4.1),
+]
+FIXED=[
+ dict(key='NexusWest',p=(-720,1385,17.2),target=(-708,1397,84),color=(.24,.68,1),candela=100000),
+ dict(key='NexusEast',p=(-640,1385,17.2),target=(-655,1397,84),color=(.55,.40,1),candela=100000),
+ dict(key='EstuaryWest',p=(-1518,1413,17.2),target=(-1506,1419,76),color=(.18,.58,1),candela=120000),
+ dict(key='EstuaryEast',p=(-1442,1413,17.2),target=(-1454,1419,76),color=(.75,.19,.4),candela=100000),
+ dict(key='TidelineWest',p=(375,1633,17.2),target=(383,1636.5,82),color=(1,.69,.38),candela=75000),
+ dict(key='TidelineEast',p=(410,1633,17.2),target=(405,1636.5,82),color=(.26,.53,1),candela=85000),
+]

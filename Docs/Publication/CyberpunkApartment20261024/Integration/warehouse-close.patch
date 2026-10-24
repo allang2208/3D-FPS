@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp
+@@ -83,6 +83,7 @@
+     WarehouseWidget->CancelInteraction();
+     FSlateApplication::Get().CancelDragDrop();bWarehouseOpen=false;
+     if(WarehouseAnchor.IsValid())if(auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>())Search->CloseLocal(GetOwningPlayer(),WarehouseAnchor.Get());
++    if(auto* Container=Cast<AColdSteelSceneContainer>(WarehouseAnchor.Get()))Container->CloseLootVisual();
+     WarehouseAnchor.Reset();
+     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->bWarehouseOpen=false;M->EndStorageSession(); // 关闭即回到主仓库口径
+     WarehouseStart=WarehouseMotion;WarehouseElapsed=0;WarehouseWidget->SetVisibility(ESlateVisibility::HitTestInvisible);

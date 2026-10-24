@@ -1,4 +1,6 @@
 #include "FPSGAMEPlayerController.h"
+#include "Building/ApartmentDeviceControl.h"
+#include "Movement/FPSFurnitureRestComponent.h"
 #include "UI/ColdSteelWoodworkingWidget.h"
 #include "UI/ColdSteelAlchemyWidget.h"
 #include "UI/ColdSteelQuickBarTypes.h"
@@ -388,6 +390,18 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     }
     // Action handlers own inspection interruption. Raw keys and look/move axes
     // also describe ordinary locomotion, empty shortcuts and UI-only input.
+    if(auto* Rest=GetPawn()?GetPawn()->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr;
+        Rest&&Rest->IsResting()&&!bShowMouseCursor)
+    {
+        if(Params.Event==IE_Pressed&&(Params.Key==EKeys::E||Params.Key==EKeys::SpaceBar||
+            Params.Key==EKeys::W||Params.Key==EKeys::A||Params.Key==EKeys::S||Params.Key==EKeys::D))
+        {Rest->RequestLeave();return true;}
+        // UE marks MouseX/MouseY/Mouse2D as MouseButton too. Let look axes reach
+        // Turn/LookUp while still consuming clicks, wheel input and quick slots.
+        const bool bLookAxis=Params.Key==EKeys::MouseX||Params.Key==EKeys::MouseY||Params.Key==EKeys::Mouse2D;
+        if((Params.Key.IsMouseButton()&&!bLookAxis)||Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown||
+            ColdSteelQuickBar::KeyIndex(Params.Key)>=0)return true;
+    }
     if(AlchemyPanel)
     {
         if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::Tab))AlchemyPanel->RequestClose();
@@ -485,7 +499,10 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         {Profile->CycleWeapon();return true;}
         if(Params.Key==EKeys::E&&GetPawn())
         {
+            if(auto* Rest=GetPawn()->FindComponentByClass<UFPSFurnitureRestComponent>();Rest&&Rest->Interact())return true;
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
+            if(auto* Control=Cast<AApartmentDeviceControl>(Target))
+            {InterruptInspection();ServerUseApartmentControl(Control);return true;}
             if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}
             if(ColdSteelWorldInteraction::IsBlessingFountain(Target)){InterruptInspection();ColdSteelWorldInteraction::DrinkFromFountain(this,Target);return true;}
             if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsShrine(Target)){InterruptInspection();Run->ClaimShrine(this,Target);return true;}
@@ -604,6 +621,7 @@ bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Player)
 {
     if(!Player || Player->IsMoveInputIgnored() || Player->IsLookInputIgnored())return true;
+    if(UFPSFurnitureRestComponent::IsResting(Player->GetPawn()))return true;
     const auto* FPSPlayer=Cast<AFPSGAMEPlayerController>(Player);
     return Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction());
 }
@@ -663,4 +681,9 @@ void AFPSGAMEPlayerController::CaptureInventoryAudit(const FString& Filename, in
     const FString Directory = FPaths::ProjectSavedDir() / TEXT("UIAudit/2026-09-09");
     IFileManager::Get().MakeDirectory(*Directory, true);
     FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
+}
+
+void AFPSGAMEPlayerController::ServerUseApartmentControl_Implementation(AApartmentDeviceControl* Control)
+{
+    if(IsValid(Control))Control->ToggleFrom(this);
 }

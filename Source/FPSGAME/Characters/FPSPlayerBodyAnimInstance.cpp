@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyAnimInstance.h"
+#include "../Movement/FPSFurnitureRestComponent.h"
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodyGrounding.h"
 #include "FPSBodyMeleePose.h"
@@ -930,9 +931,13 @@ struct FControls : FAnimNode_Base
 #include "FPSBodyStaffArmPose.inl"
 #include "FPSBodyConsumePose.inl"
 #include "FPSBodyTraversalLayer.inl"
+#include "FPSBodyFurnitureLayer.inl"
 
 struct FProxy : FAnimInstanceProxy
 {
+    FAnimNode_SequenceEvaluator_Standalone Furniture;
+    FAnimNode_TwoWayBlend FurnitureBlend;
+    FFurnitureFloorLayer FurnitureFloor;
     FAnimNode_SequenceEvaluator_Standalone Idle,Neutral,WalkA,WalkB,JogA,JogB,Air,Action,Death,Grip,Sword,StaffCast,StaffCarry,BookCarry,BookPush,Consume,BowNative;
     FAnimNode_SequenceEvaluator_Standalone Traversal;
     UAnimSequence* NativeBowAsset=nullptr;
@@ -974,11 +979,13 @@ struct FProxy : FAnimInstanceProxy
         Controls.Consume.SetLinkNode(&Consume);
         Controls.BowNative.SetLinkNode(&BowNative);
         TraversalLayer.Base.SetLinkNode(&Controls);TraversalLayer.Authored.SetLinkNode(&Traversal);
-        DeathBlend.A.SetLinkNode(&TraversalLayer);DeathBlend.B.SetLinkNode(&Death);
+        FurnitureBlend.A.SetLinkNode(&TraversalLayer);FurnitureBlend.B.SetLinkNode(&Furniture);
+        FurnitureFloor.Source.SetLinkNode(&FurnitureBlend);
+        DeathBlend.A.SetLinkNode(&FurnitureFloor);DeathBlend.B.SetLinkNode(&Death);
     }
     virtual FAnimNode_Base* GetCustomRootNode() override {return &DeathBlend;}
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
-    {Nodes.Append({&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
+    {Nodes.Append({&Furniture,&FurnitureBlend,&FurnitureFloor,&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
         &Air,&AirBlend,&AirHold,&Action,&Upper,&Grip,&Sword,&StaffCast,&StaffCarry,&BookCarry,&BookPush,&Consume,&BowNative,&Controls,&Traversal,&TraversalLayer,&Death,&DeathBlend});}
     virtual void PreUpdate(UAnimInstance* Instance,float Delta) override
     {
@@ -993,6 +1000,10 @@ struct FProxy : FAnimInstanceProxy
             Node.SetExplicitTime(Loop&&Length>0.f?FMath::Fmod(FMath::Max(Time,0.f),Length):FMath::Clamp(Time,0.f,Length));
         };
         UAnimSequence* IdleClip=Clip(Family+TEXT(".Idle"));Set(Idle,IdleClip,D->Clock,true);
+        auto* RestClip=D->Clips.FindRef(D->FurnitureClip).Get();
+        Set(Furniture,RestClip?RestClip:IdleClip,D->FurnitureSeconds,false);
+        FurnitureBlend.Alpha=RestClip?D->FurnitureWeight:0.f;
+        FurnitureFloor.Weight=FurnitureBlend.Alpha;FurnitureFloor.Drop=D->FurnitureFootDrop;
         UAnimSequence* SwordGrip=Clip(TEXT("Melee.Grip"));
         Set(Grip,SwordGrip,0.f,false);
         Controls.bSwordGrip=SwordGrip&&IdleClip&&SwordGrip->GetSkeleton()==IdleClip->GetSkeleton()
@@ -1297,6 +1308,10 @@ struct FProxy : FAnimInstanceProxy
 void UFPSPlayerBodyAnimInstance::NativeUpdateAnimation(float Delta)
 {
     Super::NativeUpdateAnimation(Delta);
+    FurnitureClip=NAME_None;FurnitureSeconds=FurnitureWeight=FurnitureFootDrop=0.f;
+    if(const auto* Pawn=TryGetPawnOwner())
+        if(const auto* Rest=Pawn->FindComponentByClass<UFPSFurnitureRestComponent>())
+        {Rest->AnimationSample(FurnitureClip,FurnitureSeconds,FurnitureWeight);FurnitureFootDrop=Rest->FootDrop();}
     const float Dt=FMath::Max(Delta,0.f);
     CrouchAlpha=FMath::FInterpTo(CrouchAlpha,BodyState.bCrouched||BodyState.bSliding?1.f:0.f,Dt,10.f);
     const bool SpecialMove=BodyState.Motion!=EFPSBodyMotion::Ground;

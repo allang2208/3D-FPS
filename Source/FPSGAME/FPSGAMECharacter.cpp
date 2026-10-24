@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Movement/FPSFurnitureRestComponent.h"
 #include "Weapons/Super90WeaponAssets.h"
 #include "Weapons/TubeShotgunAssets.h"
 #include "Weapons/ShotgunSuppressorAssets.h"
@@ -231,6 +232,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
 {
     PrimaryActorTick.bCanEverTick = true;
     CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));
+    CreateDefaultSubobject<UFPSFurnitureRestComponent>(TEXT("FurnitureRest"));
     CreateDefaultSubobject<UFPSModularOutfitComponent>(TEXT("ModularOutfit"));
     CreateDefaultSubobject<UFPSArmJointCorrectiveComponent>(TEXT("ArmJointCorrective"));
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
