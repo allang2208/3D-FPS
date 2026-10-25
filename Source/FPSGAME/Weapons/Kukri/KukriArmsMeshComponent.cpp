@@ -11,6 +11,10 @@ namespace KukriGrip
         return FTransform(FQuat(-0.05378413,-0.02831518,0.98366476,-0.16943777).GetNormalized(),
             FVector(-0.07248964,0.02259467,-0.00225821),FVector::OneVector);
     }
+    // Authored deviation from the grip (cm, 1 deg counts as 0.25 cm) below which the lock holds, and above which the
+    // clip's own WPN_root plays: the toss-and-catch draw flies the knife out of the fist between release and catch.
+    // Resampling drift between the two bone chains stays in the millimetres.
+    inline constexpr float HoldBand=.6f, ReleaseBand=2.5f, DegreeToCm=.25f;
 }
 
 void UKukriArmsMeshComponent::CacheBones()
@@ -95,10 +99,17 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             // Re-impose it after sampling so resampling/compression of the two separate bone
             // chains (clavicle..hand_r vs root..ik_hand_gun..WPN_root) can never let the blade
             // swim against the fist.  The WPN subtree is carried rigidly.
+            // Where the clip itself takes the knife out of the fist (the draw's toss), the lock fades out with the
+            // authored deviation and the flight plays as authored; it fades back in as the catch closes on the grip.
             const FTransform Old=Pose[Weapon];
             const FTransform Locked=KukriGrip::HandToWeapon()*Pose[HandR];
-            for(const int32 I:WeaponChain)Pose[I]=Pose[I].GetRelativeTransform(Old)*Locked;
-            Pose[Weapon]=Locked;
+            const float Deviation=FVector::Dist(Old.GetLocation(),Locked.GetLocation())
+                +FMath::RadiansToDegrees(Old.GetRotation().AngularDistance(Locked.GetRotation()))*KukriGrip::DegreeToCm;
+            const float Free=FMath::SmoothStep(KukriGrip::HoldBand,KukriGrip::ReleaseBand,Deviation);
+            FTransform Final=Locked;
+            if(Free>0.f)Final.Blend(Locked,Old,Free);
+            for(const int32 I:WeaponChain)Pose[I]=Pose[I].GetRelativeTransform(Old)*Final;
+            Pose[Weapon]=Final;
         }
         if(OffhandLeft&&!LeftChain.IsEmpty())
         {

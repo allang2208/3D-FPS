@@ -25,6 +25,7 @@
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "Engine/GameInstance.h"
@@ -174,6 +175,8 @@ bool UColdSteelStatusModel::TriggerQuickCombat()
     if(auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow && Bow->IsEquipped())return Bow->BeginQuickCombat();
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>())
         if(Sword->IsEquipped())return Sword->BeginQuickCombatStrike();
+    // 尼泊尔弯刀 → 刀把砸击（KukriQuickCombat.cpp）。
+    if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginQuickCombat();
     if(Player->QuickCombatPistol)
         return Player->IsPistolWeapon()?Player->TriggerPistolQuickCombat():Player->TriggerRifleStockMelee();
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 角色没有快速进战动作组件，无法触发"));

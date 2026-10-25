@@ -19,7 +19,7 @@ namespace KukriRhythm
 
     /** 第一段 clip 作者长度（38/30 s）；物品 attack_seconds = 1.5625 倍（V9、V10 各慢 25%），攻速只缩放这一条时钟。 */
     inline constexpr float AttackSeconds=38.f/30.f;
-    inline constexpr float EquipSeconds=.70f;
+    // The draw (Equip) clock lives in KukriDrawRhythm.h (toss and catch, 0.80 s).
     /** 进入／切换 clip 的局部空间交叉淡化（保持右手相对刀柄）。 */
     inline constexpr float EntryBlendSeconds=.11f;
     inline constexpr float SprintBlendSeconds=.18f;

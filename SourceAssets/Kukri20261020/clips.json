@@ -2,29 +2,33 @@
   "fps": 120,
   "clips": {
     "Equip": {
-      "length": 0.7,
+      "length": 0.8,
       "loop": false,
-      "frames": 85,
+      "frames": 97,
       "contact": null,
+      "release": 0.08333333333333333,
+      "catch": 0.43333333333333335,
+      "source": "author_kukri_equip.py",
       "ranges": {
-        "max_reach": 0.698,
+        "max_reach": 0.74,
         "rho": [
-          -29.3,
-          71.9
+          4.2,
+          96.9
         ],
         "twist": [
-          -26.6,
-          63.7
+          -54.1,
+          37.4
         ],
-        "twist_rate": 612.0000000000002,
+        "twist_rate": 1524.0,
         "ext": [
-          -14.9,
-          37.7
+          -6.5,
+          19.7
         ],
         "uln": [
-          6.8,
-          39.6
-        ]
+          -0.1,
+          27.1
+        ],
+        "knife_min_depth": 4.2
       }
     },
     "Slash1": {
@@ -288,6 +292,66 @@
         ]
       }
     },
+    "SprintAttack": {
+      "length": 1.3333333333333333,
+      "loop": false,
+      "frames": 161,
+      "contact": [
+        0.367,
+        0.467
+      ],
+      "source": "author_kukri_sprint.py V2",
+      "ranges": {
+        "max_reach": 0.995,
+        "twist": [
+          -145.5,
+          42.4
+        ],
+        "twist_rate": 2568.0,
+        "ext": [
+          4.3,
+          28.9
+        ],
+        "uln": [
+          -28.8,
+          47.1
+        ]
+      }
+    },
+    "QuickPommel": {
+      "length": 1.0,
+      "loop": false,
+      "frames": 121,
+      "contact": [
+        0.36666666666666664,
+        0.39999999999999997
+      ],
+      "ranges": {
+        "max_reach": 0.983,
+        "rho": [
+          -3.3,
+          47.3
+        ],
+        "twist": [
+          -4.8,
+          47.1
+        ],
+        "twist_rate": 491.99999999999994,
+        "ext": [
+          -0.2,
+          20.6
+        ],
+        "uln": [
+          4.0,
+          32.6
+        ],
+        "contact_edge_lead": [
+          -0.29,
+          0.19
+        ]
+      },
+      "source": "author_kukri_quick.py V2"
+    },
     "Uppercut": {
       "length": 1.2666666666666666,
       "loop": false,
@@ -382,6 +446,40 @@
         ]
       },
       "source": "author_kukri_heavy.py"
+    },
+    "Whirlwind": {
+      "length": 2.1,
+      "loop": false,
+      "frames": 253,
+      "contact": [
+        0.5,
+        1.5666666666666667
+      ],
+      "ranges": {
+        "max_reach": 0.628,
+        "rho": [
+          4.2,
+          53.6
+        ],
+        "twist": [
+          -11.0,
+          37.4
+        ],
+        "twist_rate": 227.99999999999983,
+        "ext": [
+          10.7,
+          23.5
+        ],
+        "uln": [
+          9.0,
+          27.1
+        ],
+        "contact_edge_lead": [
+          0.77,
+          0.79
+        ]
+      },
+      "source": "author_kukri_whirlwind.py"
     }
   },
   "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton",

@@ -1,6 +1,7 @@
 #include "KukriWeaponComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
+#include "KukriDrawRhythm.h"
 #include "KukriHeavyRhythm.h"
 #include "../MeleeWeaponStats.h"
 #include "../MeleeSmallTargetQuery.h"
@@ -19,6 +20,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/DynamicMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StaticMesh.h"
@@ -33,6 +35,7 @@ namespace
     const TCHAR* KukriPommelHitPath=TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick");
     const TCHAR* KukriWallPath=TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02.S_MeleeBlock_02");
     const FName KukriIdle(TEXT("Idle")),KukriWalk(TEXT("Walk")),KukriRun(TEXT("Run")),KukriEquip(TEXT("Equip"));
+    const FName KukriWeaponSocket(TEXT("WPN_root"));
     constexpr float KukriWalkReferenceSpeed=360.f;
 }
 
@@ -70,10 +73,14 @@ void UKukriWeaponComponent::BeginPlay()
 
 void UKukriWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    // The destroy path also releases a quick-melee reservation.
+    if(bQuickCombat){bQuickCombat=false;FinishQuickCombat();}
     if(bUppercut){bUppercut=false;FinishUppercut(true);}
     if(bHeavyAttack){bHeavyAttack=false;FinishHeavy(true);}
+    FinishWhirlwind();
     if(Blade)Blade->DestroyComponent();
     if(RiftVisual)RiftVisual->DestroyComponent();
+    if(SkillRiftVisual)SkillRiftVisual->DestroyComponent();
     if(Viewmodel)Viewmodel->DestroyComponent();
     if(JumpRoot)JumpRoot->DestroyComponent();
     Super::EndPlay(Reason);
@@ -98,7 +105,9 @@ void UKukriWeaponComponent::InitializePresentation()
     // One clock: this component samples the clip; the mesh never ticks by itself.
     Viewmodel->SetComponentTickEnabled(false);
     Blade=NewObject<UStaticMeshComponent>(P,TEXT("KukriBlade"));
-    P->AddInstanceComponent(Blade);Blade->SetupAttachment(Viewmodel,TEXT("WPN_root"));
+    // The socket attach waits for the arms mesh (RefreshEquipment): before the first draw the viewmodel has no
+    // skeletal mesh, and a socket parent would log a GetSocketInfoByName warning on every transform update.
+    P->AddInstanceComponent(Blade);Blade->SetupAttachment(Viewmodel);
     Blade->SetMobility(EComponentMobility::Movable);Blade->SetOnlyOwnerSee(true);
     Blade->SetCollisionEnabled(ECollisionEnabled::NoCollision);Blade->SetCanEverAffectNavigation(false);
     Blade->SetCastShadow(false);Blade->bReceivesDecals=false;
@@ -137,6 +146,9 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         UE_LOG(LogTemp,Error,TEXT("Kukri: viewmodel, blade or clips missing under %s; the kukri stays hidden."),KukriRhythm::Folder);
         InstanceId.Reset();return;
     }
+    // Optional: without the sprint-attack clip the dash readiness never builds (ordinary swings stay available).
+    Animations.Add(TEXT("SprintAttack"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_SprintAttack.A_Kukri_SprintAttack"))));
+    // Optional: without the pommel-strike clip F is refused for the kukri.
     // Optional: the uppercut skill (swordUppercut) reports "动作未就绪" without its clip.
     Animations.Add(TEXT("Uppercut"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_Uppercut.A_Kukri_Uppercut"))));
     // Optional: without both heavy clips the left button keeps its plain click (no charge).
@@ -145,19 +157,26 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         const FString Name=FString(TEXT("A_Kukri_"))+Clip.ToString();
         Animations.Add(Clip,LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+Name+TEXT(".")+Name)));
     }
+    Animations.Add(TEXT("QuickPommel"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_QuickPommel.A_Kukri_QuickPommel"))));
+    // Optional: the whirlwind skill reports "动作未就绪" without its clip (checked before any cost).
+    Animations.Add(TEXT("Whirlwind"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_Whirlwind.A_Kukri_Whirlwind"))));
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
     HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("hit_sound")));
     PommelHitSound=LoadObject<USoundBase>(nullptr,KukriPommelHitPath);
     WallSound=LoadObject<USoundBase>(nullptr,KukriWallPath);
+    TossSound=LoadObject<USoundBase>(nullptr,KukriDrawRhythm::TossSound);
+    CatchSound=LoadObject<USoundBase>(nullptr,KukriDrawRhythm::CatchSound);
     StabWhooshSound=LoadObject<USoundBase>(nullptr,KukriRhythm::StabWhoosh);
     StabThudSounds.Reset();
     for(const TCHAR* Path:KukriRhythm::StabThud)if(auto* Thud=LoadObject<USoundBase>(nullptr,Path))StabThudSounds.Add(Thud);
     if(Viewmodel->GetSkeletalMeshAsset()!=Mesh)Viewmodel->SetSkeletalMesh(Mesh);
+    if(Blade->GetAttachSocketName()!=KukriWeaponSocket)
+        Blade->AttachToComponent(Viewmodel,FAttachmentTransformRules::KeepRelativeTransform,KukriWeaponSocket);
     Blade->SetStaticMesh(BladeMesh);
     // Equipped sleeves/gloves follow this owner-only rig (modular outfit profile by mesh path).
     Viewmodel->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
     CurrentClip=NAME_None;
-    bEquipping=true;SetClip(KukriEquip,false,0.f);
+    bEquipping=true;bTossPlayed=false;bCatchPlayed=false;SetClip(KukriEquip,false,0.f);
     Viewmodel->SetVisibility(CanPresent(),true);
 }
 
@@ -211,12 +230,15 @@ FTransform UKukriWeaponComponent::BladeFrame() const
 {
     // The bone frame without its import scale: the grip frame of SM_Kukri in world space.
     if(!Viewmodel)return FTransform::Identity;
-    const FTransform Bone=Viewmodel->GetSocketTransform(TEXT("WPN_root"),RTS_World);
+    const FTransform Bone=Viewmodel->GetSocketTransform(KukriWeaponSocket,RTS_World);
     return FTransform(Bone.GetRotation(),Bone.GetLocation());
 }
 
 FRotator UKukriWeaponComponent::ViewmodelKick() const
 {
+    if(bDashAttack)return DashViewmodelKick();
+    if(bQuickCombat)return QuickViewmodelKick();
+    if(bWhirlwind)return FRotator::ZeroRotator;   // the whirlwind's contact resistance is in its camera (WhirlwindFeel)
     if(bHeavyCharging&&bHeavyFull&&GetWorld())
     {
         // Full heavy charge: a fine tension tremble of the loaded arm until the release.
@@ -237,6 +259,11 @@ void UKukriWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation
 {
     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;FovDelta=0.f;
     if(!IsEquipped())return;
+    if(bDashAttack){GetDashCameraMotion(Location,Rotation,FovDelta);return;}
+    if(bQuickCombat){GetQuickCameraMotion(Location,Rotation,FovDelta);return;}
+    if(bWhirlwind){GetWhirlwindCameraMotion(Location,Rotation,FovDelta);return;}
+    // Toss-and-catch draw: the reference camera on the draw clip's own clock (KukriDrawRhythm).
+    if(bEquipping)KukriDrawRhythm::Camera(Elapsed,Rotation,FovDelta);
     // Heavy charge: the raise and the slow load on the charge clip's clock (KukriHeavyRhythm).
     if(bHeavyCharging)KukriHeavyRhythm::ChargeCamera(Elapsed,Rotation,FovDelta);
     if(bAttacking||bUppercut||bHeavyAttack)
@@ -275,7 +302,8 @@ void UKukriWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation
 void UKukriWeaponComponent::BeginPrimaryAttack()
 {
     auto* P=Pawn();
-    if(!IsEquipped()||!P||!Viewmodel||!CanUse()||bEquipping||bUppercut||bHeavyCharging||bHeavyAttack||P->IsSpellGestureBlocking())return;
+    if(!IsEquipped()||!P||!Viewmodel||!CanUse()||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind||
+        P->IsSpellGestureBlocking())return;
     if(const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bAttacking)
     {
@@ -341,17 +369,23 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
 
 void UKukriWeaponComponent::CancelAction()
 {
-    const bool WasActive=bAttacking||bEquipping||bUppercut||bHeavyCharging||bHeavyAttack;
+    const bool WasActive=bAttacking||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind;
+    // A cancelled whirlwind keeps its paid stamina and cooldown; hits that already landed still train (one exit path).
+    FinishWhirlwind();
     // A cancelled charge bills nothing more (its camera eases out); a cancelled release keeps its paid stamina and trains once.
     const bool bWasCharging=bHeavyCharging;
     if(bWasCharging)KukriHeavyRhythm::ChargeCamera(Elapsed,CameraCarry,CameraCarryFov);
     SetHeavyCharging(false,false);bHeavyAuto=bHeavyFull=false;
     if(bHeavyAttack){bHeavyAttack=false;FinishHeavy(true);}
+    // A cancelled sprint attack keeps its paid stamina; hits that already landed still train the skill.
+    bDashAttack=false;FinishDashAttack();DashSprintSeconds=0.f;
+    // A cancelled quick melee keeps its paid stamina and releases F (only this component's own cast).
+    if(bQuickCombat){bQuickCombat=false;FinishQuickCombat();}
     // A cancelled uppercut keeps its paid release and still trains once (the sword's rule).
     if(bUppercut){bUppercut=false;FinishUppercut(true);}
     bAttacking=false;bEquipping=false;bQueued=false;Stage=0;NextStage=0;LastAttackEnd=-1.;CameraCarryAge=bWasCharging?0.f:-1.f;
     HitStop=0.f;HitActors.Reset();bHavePreviousBlade=false;
-    ResetStrike();StrikeAge=-1.f;StopRift();
+    ResetStrike();StrikeAge=-1.f;StopRift();StopSkillRift();
     if(WasActive&&IsEquipped()&&Viewmodel&&Animations.Num())
         SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);
 }
@@ -506,7 +540,7 @@ void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     if(!P||!Viewmodel||!IsEquipped()||!P->IsLocallyControlled())return;
     if(ImpactAge>=0.f){ImpactAge+=Delta;if(ImpactAge>.6f)ImpactAge=-1.f;}
     if(StrikeAge>=0.f){StrikeAge+=Delta;if(StrikeAge>.4f)StrikeAge=-1.f;}
-    TickRift(Delta);
+    TickRift(Delta);TickSkillRift(Delta);
     if(CameraCarryAge>=0.f){CameraCarryAge+=Delta*PlayRate;if(CameraCarryAge>KukriRhythm::CameraCarrySeconds)CameraCarryAge=-1.f;}
     if(JumpRoot)
     {
@@ -518,7 +552,11 @@ void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     Viewmodel->SetVisibility(Present&&Viewmodel->GetSkeletalMeshAsset(),true);
     if(!Present){if(IsBusy())CancelAction();return;}
     Viewmodel->AdvanceEntry(Delta);
-    if((bAttacking||bUppercut||bHeavyCharging||bHeavyAttack)&&!CanUse())CancelAction();
+    if((bAttacking||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind)&&!CanUse())CancelAction();
+    TickDashReadiness(Delta);
+    if(bDashAttack){AdvanceDashAttack(Delta);return;}
+    if(bQuickCombat){AdvanceQuickCombat(Delta);return;}
+    if(bWhirlwind){TickWhirlwind(Delta);return;}
     if(bUppercut){AdvanceUppercut(Delta);return;}
     if(bHeavyCharging){AdvanceHeavyCharge(Delta);return;}
     if(bHeavyAttack){AdvanceHeavy(Delta);return;}
@@ -526,7 +564,18 @@ void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     if(bEquipping)
     {
         Elapsed+=Delta*Speed;
-        const float Length=CurrentAnimation?CurrentAnimation->GetPlayLength():KukriRhythm::EquipSeconds;
+        // Flick whoosh as the knife leaves the hand, a short grip slap as the handle lands in the palm.
+        if(!bTossPlayed&&Elapsed>=KukriDrawRhythm::TossAt)
+        {
+            bTossPlayed=true;
+            if(TossSound)UGameplayStatics::PlaySound2D(this,TossSound,KukriDrawRhythm::TossVolume,KukriDrawRhythm::TossPitch);
+        }
+        if(!bCatchPlayed&&Elapsed>=KukriDrawRhythm::CatchAt)
+        {
+            bCatchPlayed=true;
+            if(CatchSound)UGameplayStatics::PlaySound2D(this,CatchSound,KukriDrawRhythm::CatchVolume,KukriDrawRhythm::CatchPitch);
+        }
+        const float Length=CurrentAnimation?CurrentAnimation->GetPlayLength():KukriDrawRhythm::Seconds;
         if(Elapsed>=Length){bEquipping=false;SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);}
         else SamplePose(Elapsed);
         return;

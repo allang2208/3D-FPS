@@ -11,6 +11,7 @@
 #include "../Skills/FPSFireMagicComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -156,7 +157,12 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
     if(B.Skill!=TEXT("quickCombat")&&UBoundCongregateCaptureComponent::IsCaptured(Player))return false;
     if(B.Skill==TEXT("swordUppercut"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginUppercut();
     if(B.Skill==TEXT("heavyStrike"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->TriggerHeavySkill();
-    if(B.Skill==TEXT("whirlwind"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginWhirlwind();
+    if(B.Skill==TEXT("whirlwind"))
+    {
+        // 尼泊尔弯刀 → 单手旋风（KukriWhirlwind.cpp）；剑组件总在，所以弯刀排在剑之前。
+        if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginWhirlwind();
+        if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginWhirlwind();
+    }
     if(B.Skill==TEXT("dodge"))return Player->TryDodge();
     if(B.Skill==TEXT("quickCombat"))return TriggerQuickCombat();
     if(B.Skill==TEXT("fireball"))if(auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>()){Ability->Trigger();return true;}

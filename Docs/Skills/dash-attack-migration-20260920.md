@@ -35,6 +35,8 @@
 
 ## 已有动画接入
 
+尼泊尔弯刀（2026-10-22）接入同一被动技能与同一套准备、体力、伤害、扇区、击退与修炼规则，动作是自己的双手跳劈 clip（`Weapons/Kukri/KukriDashAttack.cpp`、`KukriDashRhythm.h`），出手时带着奔跑速度滑行制动，不做固定一米前冲；详见 `Docs/Weapons/kukri-20261020.md` “冲刺攻击”。以下为剑的接入。
+
 直接复用 `SourceAssets/RuneSwordPickaxeOverhead20260920/ImpactV2` 对应的已完成动画：
 
 - 标准握姿 `/Game/Weapons/AzureRunesword20260913/A_RuneSword_Overhead`

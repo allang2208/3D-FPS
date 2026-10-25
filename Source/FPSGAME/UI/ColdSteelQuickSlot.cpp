@@ -1,6 +1,7 @@
 #include "ColdSteelQuickSlot.h"
 #include "../Skills/FPSFireMagicComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "ColdSteelHUDWidget.h"
@@ -303,13 +304,16 @@ void UColdSteelQuickSlot::Refresh()
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
         Remaining=Model->WhirlwindCooldown();
         Fraction=Model->WhirlwindCooldownDuration()>0?Remaining/Model->WhirlwindCooldownDuration():0.f;
-        const bool Melee=Ability&&Ability->IsEquipped();
+        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
+        const bool KukriHeld=Kukri&&Kukri->IsEquipped();
+        const bool Melee=KukriHeld||(Ability&&Ability->IsEquipped());
+        const bool Busy=KukriHeld?Kukri->IsBusy():Ability&&Ability->IsBusy();
         const bool Enough=Model->CanSpendStamina(Model->WhirlwindStats().StaminaCost);
-        Dim=!Melee||!Enough||Remaining>0||Ability->IsBusy();
+        Dim=!Melee||!Enough||Remaining>0||Busy;
         if(!Melee)Message=TEXT("需近战");
-        else if(Ability->IsWhirlwindActive())Message=TEXT("旋风");
+        else if(KukriHeld?Kukri->IsWhirlwindActive():Ability&&Ability->IsWhirlwindActive())Message=TEXT("旋风");
         else if(!Enough)Message=TEXT("体力不足");
-        else if(Ability->IsBusy())Message=TEXT("动作中");
+        else if(Busy)Message=TEXT("动作中");
     }
     else if(Binding.Skill==TEXT("dodge"))
     {

@@ -9,6 +9,7 @@
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "Engine/World.h"
 
 void UFPSCharacterMovementComponent::BeginMeleeLungeRequest(EFPSMeleeMove Kind,const FVector& Direction)
@@ -28,8 +29,9 @@ bool UFPSCharacterMovementComponent::AuthorizeMeleeMove(const FFPSMeleeMoveReque
     const auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);
     const auto* Profile=Player?Player->GetNetShadowProfile():nullptr;
     const auto* Item=Profile?Profile->Equipped():nullptr;
-    if(!Player||!Item||!ColdSteelInventory::IsTwoHandedSword(*Item)||Profile->ActiveProductionTool()
-        ||Player->IsTraversing()||Player->IsSliding()||IsDodging()||IsBipodMovementLocked())return false;
+    // The sprint attack's momentum carry (KukriDashAttack.cpp / FirePressed: BeginMeleeDashMomentum), the dash budget.
+    const bool KukriDash=Item&&(R.Kind==EFPSMeleeMove::Dash||R.Kind==EFPSMeleeMove::AirMomentum)&&ColdSteelInventory::IsOneHandedMelee(*Item);
+    if(!Player||!Item||Profile->ActiveProductionTool()||(!KukriDash&&!ColdSteelInventory::IsTwoHandedSword(*Item))||Player->IsTraversing()||Player->IsSliding()||IsDodging()||IsBipodMovementLocked())return false;
     if(R.Direction.ContainsNaN()||R.Direction.GetSafeNormal2D().IsNearlyZero()||!FMath::IsFinite(R.Distance)
         ||R.Distance<0.f||R.Momentum.ContainsNaN())return false;
     const float Rate=FMath::Max(.01f,float(ColdSteelMelee::Evaluate(*Item,Profile).AttackRate));
@@ -57,6 +59,16 @@ bool UFPSCharacterMovementComponent::AuthorizeMeleeMove(const FFPSMeleeMoveReque
     }
     return R.Distance<=Budget+1.f;
 }
+
+bool UFPSCharacterMovementComponent::IsNetworkDashWindowOpen() const
+{
+    // A sprint attack that carries its momentum (BeginMeleeDashMomentum) commits with an AirMomentum request instead of the
+    // fixed Dash stride: the kukri always does, the sword after a slide jump.  AuthorizeMeleeMove gates both on dashAttack.
+    return GetOwner()&&GetOwner()->HasAuthority()&&GetWorld()
+        &&(ServerMeleeKind==EFPSMeleeMove::Dash||ServerMeleeKind==EFPSMeleeMove::AirMomentum)
+        &&GetWorld()->GetTimeSeconds()<=ServerMeleeWindowUntil;
+}
+
 void UFPSCharacterMovementComponent::ProcessMeleeNetworkMove(const FFPSNetworkMoveData& Data,bool Authority)
 {
     const auto& R=Data.MeleeRequest;if(!R.Sequence||!CharacterOwner)return;
@@ -71,11 +83,12 @@ void UFPSCharacterMovementComponent::ProcessMeleeNetworkMove(const FFPSNetworkMo
         const bool New=static_cast<int32>(R.Sequence-LastServerMeleeSequence)>0;
         if(New)
         {
-            LastServerMeleeSequence=R.Sequence;ServerMeleeDistance=0.f;
+            LastServerMeleeSequence=R.Sequence;ServerMeleeDistance=0.f;ServerMeleeKind=R.Kind;
             float Recovery=0.f;
             bServerMeleeBlocked=GetWorld()->GetTimeSeconds()+.05<ServerMeleeRecoveryUntil||!AuthorizeMeleeMove(R,ServerMeleeBudget,Recovery);
             if(bServerMeleeBlocked){ClientRejectMeleeMove(R.Sequence);return;}
             ServerMeleeRecoveryUntil=GetWorld()->GetTimeSeconds()+Recovery;
+            ServerMeleeWindowUntil=GetWorld()->GetTimeSeconds()+.75;
         }
         if(R.Sequence!=LastServerMeleeSequence||bServerMeleeBlocked||!FMath::IsFinite(R.Distance))return;
         // Cumulative displacement recovers a dropped move without applying an
@@ -92,7 +105,14 @@ void UFPSCharacterMovementComponent::ProcessMeleeNetworkMove(const FFPSNetworkMo
             // Retain only speed that the server's preceding locomotion earned.
             Carry=Carry.GetClampedToMaxSize(Velocity.Size2D()+1.f);
         }
-        if(IsFalling()||PendingLaunchVelocity.Z>0.f)BeginMeleeDashMomentum(Carry);
+        // The sword only carries momentum from the air or a queued slide jump (its grounded dash is the fixed Dash stride);
+        // the kukri's sprint attack carries it from the ground too, so the server brakes the same carry as the client.
+        // Server: the shadow profile's held item; owning client replaying a correction: its own kukri component.
+        const auto* Shadow=Player->GetNetShadowProfile();
+        const auto* Held=Shadow&&!Shadow->ActiveProductionTool()?Shadow->Equipped():nullptr;
+        const auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();
+        const bool bKukri=(Held&&ColdSteelInventory::IsOneHandedMelee(*Held))||(Kukri&&Kukri->IsEquipped());
+        if(IsFalling()||PendingLaunchVelocity.Z>0.f||bKukri)BeginMeleeDashMomentum(Carry);
     }
     if(Distance<=0.f||Player->IsTraversing()||IsDodging())return;
     const FVector Before=UpdatedComponent->GetComponentLocation();

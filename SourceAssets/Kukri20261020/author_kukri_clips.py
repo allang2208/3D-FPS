@@ -151,15 +151,9 @@ def clip_run(D):
     return dict(length=80 / FPS, loop=True, kind='arm', sample=lambda t: periodic(base, t, 80 / FPS, terms))
 
 
-def clip_equip(D):
-    """0.70 s draw (reference 切刀 #2 甩起): rise from the bottom-right with a wrist flip into the stance."""
-    k = [D.akey(0.00, True, W=(14.0, 30.0, -58.0), E=(0.0, 45.0, -70.0), psi=40.0, du=-8.0, de=-30.0),
-         D.akey(0.16, W=(20.0, 29.0, -44.0), E=(4.0, 50.0, -65.0), psi=70.0, du=0.0, de=-22.0),
-         D.akey(0.34, W=(28.0, 23.0, -24.0), E=(18.0, 58.0, -45.0), psi=128.0, du=20.0, de=18.0),
-         D.akey(0.47, W=(31.0, 20.0, -18.5), psi=96.0, du=16.0, de=6.0),
-         D.akey(0.585, W=(30.2, 20.0, -21.6), psi=101.5, du=11.0, de=-1.5),
-         D.akey(0.70, True)]
-    return dict(length=0.70, loop=False, kind='blade', keys=k, contact=None)
+# The draw ("Equip") is authored by author_kukri_equip.py since V2 (2026-10-22, toss and catch: the knife leaves the
+# fist, which this generic loop cannot express).  The V1 0.70 s wrist-flip draw is archived under
+# trash/kukri-equip-v1-20261022/.
 
 
 def clip_slash1(D):
@@ -316,7 +310,7 @@ def clip_attack3(D):
                 contact=(0.26, 0.38) if two_handed else (0.34, 0.47), preview_step=1 / 30)
 
 
-CLIPS = {'Idle': clip_idle, 'Walk': clip_walk, 'Run': clip_run, 'Equip': clip_equip,
+CLIPS = {'Idle': clip_idle, 'Walk': clip_walk, 'Run': clip_run,
          'Slash1': clip_slash1, 'Slash2': clip_slash2, 'Pommel': clip_pommel, 'Attack': clip_attack,
          'Attack2': clip_attack2, 'Attack3': clip_attack3}
 

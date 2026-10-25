@@ -4,6 +4,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/RuneSwordOverheadRhythm.h"
@@ -22,7 +23,8 @@ bool AColdSteelPlayerState::RequestSwordWhirlwind(bool Zhufeng,const FVector& Di
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
     const auto* Item=Model?Model->Equipped():nullptr;
-    if(!Pawn||!Item||!ColdSteelInventory::IsTwoHandedSword(*Item)||Model->ActiveProductionTool()||
+    // The kukri (one-handed melee) whirlwind uses the sword's receipts; it never asks for the Zhufeng dash variant.
+    if(!Pawn||!Item||!(ColdSteelInventory::IsTwoHandedSword(*Item)||(!Zhufeng&&ColdSteelInventory::IsOneHandedMelee(*Item)))||Model->ActiveProductionTool()||
         WhirlwindSequence!=WhirlwindReceiptSequence||Model->WhirlwindCooldown()>0.f||
         !Model->CanSpendStamina(Model->WhirlwindStats().StaminaCost)||
         (Zhufeng?(!ColdSteelModularSword::UsesZhufengWhirlwind(*Item)||Model->MasteryProgress(TEXT("dashAttack")).Level<1):
@@ -68,7 +70,7 @@ void AColdSteelPlayerState::ServerSwordWhirlwind_Implementation(uint32 Sequence,
             State.WhirlwindCooldown,State.WhirlwindCooldownDuration,State.MartialCooldownRevision,Clock);
     };
     if(WhirlwindActiveSequence||UppercutActiveSequence||!Pawn||Pawn!=ActionPawn||!ShadowModel||!HP||HP->IsDead()||
-        !Item||Item->InstanceId!=Weapon||!ColdSteelInventory::IsTwoHandedSword(*Item)||ShadowModel->ActiveProductionTool()||
+        !Item||Item->InstanceId!=Weapon||!(ColdSteelInventory::IsTwoHandedSword(*Item)||(!Zhufeng&&ColdSteelInventory::IsOneHandedMelee(*Item)))||ShadowModel->ActiveProductionTool()||
         Pawn->IsTraversing()||Pawn->IsDodging()||(!Zhufeng&&Pawn->IsSliding())||Pawn->IsCastBlockingLeftHandAction()||
         IsQuickCombatExecuting(Pawn)||!PendingCastSkill.IsNone()||(Sword&&Sword->IsGuarding())||
         UBoundCongregateCaptureComponent::IsCaptured(Pawn)||(Status&&Status->BlocksMovement()))
@@ -206,6 +208,7 @@ void AColdSteelPlayerState::ClientSwordWhirlwindResult_Implementation(uint32 Seq
     if(!Accepted&&Sequence==WhirlwindSequence)
     {
         if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsWhirlwindActive())Sword->CancelAction();
+        if(auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsWhirlwindActive())Kukri->CancelAction();
         Model->PostNotice(TEXT("旋风未执行"),TEXT("服务器体力、冷却或冲刺准备不满足条件"));
     }
 }

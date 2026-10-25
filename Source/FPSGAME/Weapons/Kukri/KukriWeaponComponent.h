@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "../../Skills/ColdSteelSkillTypes.h"
+#include "../../Skills/WhirlwindTypes.h"
 #include "KukriWeaponComponent.generated.h"
 
 class AFPSGAMECharacter;
@@ -16,6 +17,9 @@ class UColdSteelStatusModel;
 class UDynamicMeshComponent;
 class UMaterialInstanceDynamic;
 class UPrimitiveComponent;
+
+/** Which skill rift (KukriSkillRift.cpp) is showing / built in the skill rift mesh. */
+enum class EKukriSkillRift : uint8 { None, Dash, Whirlwind };
 
 /**
  * 尼泊尔弯刀：单手近战（主手，副手可空或持枪／魔法书）。
@@ -36,7 +40,7 @@ public:
     static bool IsKukri(const struct FColdSteelItem& Item);
     void RefreshEquipment(UColdSteelStatusModel* Profile);
     UFUNCTION(BlueprintPure, Category="Kukri") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
-    UFUNCTION(BlueprintPure, Category="Kukri") bool IsBusy() const { return bAttacking||bEquipping||bUppercut||bHeavyCharging||bHeavyAttack; }
+    UFUNCTION(BlueprintPure, Category="Kukri") bool IsBusy() const { return bAttacking||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind; }
     bool IsEquipping() const { return bEquipping; }
     bool IsAttacking() const { return bAttacking; }
     void BeginPrimaryAttack();
@@ -44,6 +48,14 @@ public:
     UKukriArmsMeshComponent* ArmsMesh() const { return Viewmodel; }
     /** 挥刀镜头曲线 + 命中抖动（相对相机）；FovDelta 为垂直视场增量（度）。供角色相机更新读取。 */
     void GetCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
+    /** 冲刺攻击（被动技能 dashAttack，KukriDashAttack.cpp）：地面连续奔跑就绪后左键双手跳劈。 */
+    float DashReadyFraction() const;
+    bool TryBeginDashAttack();
+    bool IsDashAttackActive() const { return bDashAttack; }
+    void ResetDashReadiness() { DashSprintSeconds=0.f; }
+    /** 快速近战（F，KukriQuickCombat.cpp）：刀把砸击，由 UColdSteelStatusModel::TriggerQuickCombat 分派。 */
+    bool BeginQuickCombat();
+    bool IsQuickCombatActive() const { return bQuickCombat; }
     /** 上挑（主动技能 swordUppercut，KukriUppercut.cpp）：参考滑铲上撩，快捷栏释放；空字符串 = 可释放。 */
     FString UppercutStatusText() const;
     bool BeginUppercut();
@@ -58,7 +70,25 @@ public:
     /** Server receipt for heavy hit reports (ColdSteelPlayerState hit validation), as URuneSwordComponent's. */
     bool IsNetworkHeavyReleaseWindowOpen(const FString& Weapon) const;
     bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon);
+    /** 大旋风（主动技能 whirlwind，KukriWhirlwind.cpp）：单手持刀两圈旋转横扫，快捷栏释放；空字符串 = 可释放。 */
+    FString WhirlwindStatusText() const;
+    bool BeginWhirlwind();
+    bool IsWhirlwindActive() const { return bWhirlwind; }
 private:
+    void TickWhirlwind(float Delta);
+    void SweepWhirlwind(float FromDegrees,float ToDegrees);
+    void FinishWhirlwind();
+    void FinishWhirlwindTraining();
+    void GetWhirlwindCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
+    void BeginWhirlwindFocus();
+    void UpdateWhirlwindFocus(float Strength);
+    void EndWhirlwindFocus();
+    /** Skill rifts (KukriSkillRift.cpp): the combo's space distortion on the sprint attack's chop and the whirlwind's ring. */
+    bool PrepareSkillRift();
+    void StartDashRift();
+    void StartWhirlwindRift();
+    void TickSkillRift(float Delta);
+    void StopSkillRift();
     bool CanBeginHeavyCharge() const;
     void BeginHeavyCharge();
     void SetHeavyCharging(bool bCharging,bool bRelease);
@@ -76,6 +106,19 @@ private:
     void AdvanceUppercut(float Delta);
     void AdvanceUppercutLunge(float From,float To);
     void FinishUppercut(bool bTrain);
+    void AdvanceQuickCombat(float Delta);
+    void QuickContact();
+    void ConfirmQuickImpact(const FHitResult& Hit,bool bWorld);
+    void FinishQuickCombat();
+    void GetQuickCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
+    FRotator QuickViewmodelKick() const;
+    void TickDashReadiness(float Delta);
+    void AdvanceDashAttack(float Delta);
+    void DashContact();
+    void ConfirmDashImpact(const FHitResult& Hit);
+    void FinishDashAttack();
+    void GetDashCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
+    FRotator DashViewmodelKick() const;
     /** 视模呈现父节点的命中冲击（不改相机）。 */
     FRotator ViewmodelKick() const;
     AFPSGAMECharacter* Pawn() const;
@@ -111,16 +154,22 @@ private:
     UPROPERTY(Transient) TObjectPtr<USoundBase> HitSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> PommelHitSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> WallSound;
+    UPROPERTY(Transient) TObjectPtr<USoundBase> TossSound;    // draw: knife leaves the hand
+    UPROPERTY(Transient) TObjectPtr<USoundBase> CatchSound;   // draw: handle lands in the palm
     UPROPERTY(Transient) TObjectPtr<USoundBase> StabWhooshSound;            // V12c stab drive
     UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> StabThudSounds;     // V12c flesh thud under the hit sound
     UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> RiftVisual;      // swing rift ribbon (owner only)
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> RiftMID;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WhirlwindFocus;   // background-only whirlwind blur
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> SkillRiftVisual;     // sprint-attack / whirlwind rift (owner only)
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> SkillRiftMID;
 
     FString InstanceId;
     FName CurrentClip;
     float Elapsed=0.f;          // author seconds on the current clip
     bool bAttacking=false, bEquipping=false, bQueued=false;
     bool bSwingPlayed=false, bImpactConfirmed=false, bWallHit=false;
+    bool bTossPlayed=false, bCatchPlayed=false;
     float PlayRate=1.f;         // frozen per swing
     int32 Stage=0;              // 0 = right->left sweep, 1 = upper-left->lower-right diagonal, 2 = one-handed stab
     int32 NextStage=0;          // stage a click continues with shortly after a swing (KukriRhythm::ComboResetSeconds)
@@ -157,4 +206,28 @@ private:
     FString ServerHeavyWeapon;
     double ServerHeavyStartedAt=-1., ServerHeavyRequired=2., NetworkHeavyReleaseUntil=-1.;
     bool bRiftActive=false, bRiftStarted=false;
+    // Sprint attack: frozen at release (damage/range/arc/knockback from DashAttackStats), training counted per cast.
+    bool bDashAttack=false, bDashTrainingPending=false;
+    float DashSprintSeconds=0.f, DashRangeCM=0.f, DashArcDegrees=60.f, DashKnockbackCM=0.f;
+    int32 DashHits=0, DashKills=0;
+    FVector DashDirection=FVector::ZeroVector;
+    // Quick melee: skill stats frozen at the cast (QuickCombatStats); one contact query; kill experience at the end.
+    bool bQuickCombat=false, bQuickContactDone=false, bQuickKillPending=false;
+    FQuickCombatCast QuickCast;
+    // Whirlwind: stats and tuning frozen at the cast; one hit per target; the hit-stop pauses turn, sweep, pose and camera.
+    bool bWhirlwind=false, bWhirlwindTrainingPending=false, bWhirlwindSwingPlayed=false, bWhirlwindFocusActive=false;
+    FWhirlwindCast WhirlwindCast;
+    FWhirlwindTuning WhirlwindTuning;
+    float WhirlwindYaw=0.f, WhirlwindPause=0.f, WhirlwindPauseSpent=0.f, WhirlwindReaction=1.f;
+    float WhirlwindImpactAge=1.f, WhirlwindImpactStrength=1.f;
+    int32 WhirlwindHits=0, WhirlwindKills=0;
+    float WhirlwindSavedBlur=0.f;
+    bool bWhirlwindSavedBlurOverride=false;
+    struct FKukriWhirlwindDepth{TWeakObjectPtr<UPrimitiveComponent> Part;bool bEnabled=false;int32 Stencil=0;uint8 WriteMask=0;};
+    TArray<FKukriWhirlwindDepth> WhirlwindDepth;
+    // Skill rift: frozen in world space at its start (the dash crescent rides with the dash while it unfolds).
+    EKukriSkillRift SkillRift=EKukriSkillRift::None, SkillRiftMesh=EKukriSkillRift::None;
+    FTransform SkillRiftOrigin;
+    FVector SkillRiftDirection=FVector::ZeroVector, SkillRiftPawnLocation=FVector::ZeroVector;
+    float SkillRiftAge=0.f, SkillRiftFadeAge=-1.f;
 };

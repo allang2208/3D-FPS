@@ -135,6 +135,8 @@ public:
     float StairSpeedToWalkSpeed = .75f;
 
     float GetStairVisualOffset() const { return StairVisualOffset; }
+    /** Server-only window opened by an authorized dash melee move. */
+    bool IsNetworkDashWindowOpen() const;
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     virtual bool StepUp(const FVector& GravDir, const FVector& Delta, const FHitResult& Hit, FStepDownResult* OutStepDownResult = nullptr) override;
     virtual void AdjustFloorHeight() override;
@@ -162,7 +164,7 @@ private:
     EFPSMeleeMove ServerMeleeKind=EFPSMeleeMove::None;
     friend class USkillNetworkAuditCommandlet;
     float ServerMeleeDistance=0.f,ServerMeleeBudget=0.f;
-    double ServerMeleeRecoveryUntil=0.;
+    double ServerMeleeRecoveryUntil=0.,ServerMeleeWindowUntil=0.;
     bool bServerMeleeBlocked=false;
     void UpdateDodgeState();
     /** 服务端侧最后一次处理远端 move 的真实时刻（UpdateFromCompressedFlags 打点）。 */

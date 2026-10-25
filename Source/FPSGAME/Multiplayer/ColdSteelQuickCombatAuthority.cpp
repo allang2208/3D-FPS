@@ -3,6 +3,7 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/FPSQuickCombatComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Engine/GameInstance.h"
@@ -66,6 +67,7 @@ void AColdSteelPlayerState::ClientQuickCombatRejected_Implementation(uint32 Sequ
     if(auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
         Quick&&Quick->IsOccupyingLeftHand()&&Quick->GetStyle()!=EQuickCombatStyle::UnarmedPunch)Quick->Cancel();
     if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsQuickCombatActive())Sword->CancelAction();
+    if(auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsQuickCombatActive())Kukri->CancelAction();
     Model->FinishQuickCombatCast();
     Model->PostNotice(TEXT("快速近战未执行"),TEXT("服务器角色状态或体力尚未同步"));
 }

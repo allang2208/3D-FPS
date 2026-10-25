@@ -304,10 +304,43 @@ class KukriRig:
         p = palm_target - qrot(q, palm_local)
         return T(p, q, self.base['hand_l'].s)
 
+    def left_hand_explicit(self, world, wrist_cam, pole_cam, twist=0.0, flex=0.0, dev=0.0):
+        """Left hand for an authored left-arm move (quick-melee jab, 2026-10-23): the elbow is pinned on the reach circle
+        towards pole_cam, the hand takes the BIND forearm/hand relation of that forearm (zero skin twist) and then the
+        given forearm twist about elbow->wrist and wrist bend in the hand frame (deg; left hand +X fingers, -Y palm,
+        -Z thumb: flex + bends the fingers towards the palm, dev + towards the little finger).  Returns (hand T, pole)."""
+        b = self.base
+        S = world['upperarm_l'].p
+        W = cam_to_mesh(wrist_cam)
+        Lu, Ll = self.lengths['l']
+        D = float(np.linalg.norm(W - S))
+        Dc = min(D, (Lu + Ll) * 0.999)
+        n = (W - S) / D
+        a = (Lu * Lu - Ll * Ll + Dc * Dc) / (2 * Dc)
+        r = math.sqrt(max(Lu * Lu - a * a, 1e-6))
+        C = S + n * a
+        pole = cam_to_mesh(pole_cam)
+        u = pole - C
+        u = u - n * np.dot(u, n)
+        u = u / np.linalg.norm(u)
+        E = C + u * r
+        if D > Dc:
+            W = S + n * Dc
+        S0, E0, W0 = b['upperarm_l'].p, b['lowerarm_l'].p, b['hand_l'].p
+        Rl = frame_mat(W - E, np.cross(E - S, W - E)) @ frame_mat(W0 - E0, np.cross(E0 - S0, W0 - E0)).T
+        ql = qmul(qfrommat(Rl), b['lowerarm_l'].q)
+        rel_ref = qmul(qconj(self.ref_world['lowerarm_l'].q), self.ref_world['hand_l'].q)
+        f = (W - E) / np.linalg.norm(W - E)
+        q = qmul(qaxis(f, math.radians(twist)), qmul(ql, rel_ref))
+        q = qmul(q, qmul(qaxis([0, 0, 1], math.radians(-flex)), qaxis([0, 1, 0], math.radians(-dev))))
+        return T(W, q, b['hand_l'].s), pole
+
     def pose(self, K, left_target_cam=(18.0, -24.0, -62.0), clav_r=(0, 0, 0), clav_l=(0, 0, 0),
-             pole_r=None, pole_r_weight=0.0, body_local=None, left_press=0.0):
+             pole_r=None, pole_r_weight=0.0, body_local=None, left_press=0.0, left_arm=None):
         """K: kukri grip frame in mesh space (T, unit scale). Returns (world, diagnostics).
-        left_press 0..1 blends the left hand from its lowered rest onto the pommel (two-handed thrust)."""
+        left_press 0..1 blends the left hand from its lowered rest onto the pommel (two-handed thrust).
+        left_arm (optional dict pole, twist, flex, dev, open): authored left arm, see left_hand_explicit; open 0..1 opens
+        the fingers towards the flat bind hand."""
         local = {n: t.copy() for n, t in (body_local or self.base_local).items()}
         world = self.rig.world(local)
         # Clavicle adjustments (degrees about camera axes: fwd, right, up) around each clavicle head.
@@ -333,6 +366,11 @@ class KukriRig:
         provisional = T(tgt, qmul(Rl, b['hand_l'].q), b['hand_l'].s)
         pole_l = E_guess
         pole_w = 0.7
+        if left_arm is not None:
+            # Authored left arm: elbow pinned towards its pole, hand twist/bend explicit (no hanging-arm heuristic).
+            provisional, pole_l = self.left_hand_explicit(world, left_target_cam, left_arm['pole'], left_arm.get('twist', 0.0),
+                                                          left_arm.get('flex', 0.0), left_arm.get('dev', 0.0))
+            pole_w = 1.0
         if left_press > 1e-4:
             w = min(1.0, float(left_press))
             w = w * w * (3 - 2 * w)
@@ -353,9 +391,10 @@ class KukriRig:
         self.twist_memory.pop('l', None)
         dl = self.solve_arm(world, 'l', provisional, pole_bias=pole_l, pole_weight=pole_w)
         self.finish_children(world, local, 'l', dl)
-        if left_press > 1e-4:
+        opening = 0.8 * w if left_press > 1e-4 else float(left_arm.get('open', 0.0)) if left_arm is not None else 0.0
+        if opening > 1e-4:
             # Open the left fingers towards the flat bind hand so the PALM, not a fist, meets the pommel.
-            a = 0.8 * w
+            a = opening
             hand_desc = self.rig.descendants('hand_l')
             for n, par in zip(self.rig.names, self.rig.parents):
                 if n == 'hand_l' or n not in hand_desc or par is None or n.startswith('ik_'):

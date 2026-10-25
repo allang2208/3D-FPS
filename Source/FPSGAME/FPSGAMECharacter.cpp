@@ -980,8 +980,10 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
 bool AFPSGAMECharacter::IsMeleeSkillMovementLocked() const
 {
     const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();
+    const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();
     return UBoundCongregateCaptureComponent::IsCaptured(this)||(Electric&&Electric->IsCharging())||
-        (RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()));
+        (RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()))||
+        (Kukri && (Kukri->IsDashAttackActive() || Kukri->IsWhirlwindActive()));
 }
 
 void AFPSGAMECharacter::StopMovementForMeleeSkill()
@@ -1037,6 +1039,7 @@ void AFPSGAMECharacter::Turn(float Value)
 {
     if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(Value,0));return;}
     if(RuneSword&&(RuneSword->IsWhirlwindActive()||RuneSword->IsDashAttackActive()))return;
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsWhirlwindActive())return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale());
 }
@@ -1044,6 +1047,7 @@ void AFPSGAMECharacter::LookUp(float Value)
 {
     if(IsAmmoWheelOpen()){MoveAmmoPointer(FVector2D(0,Value));return;}
     if(RuneSword&&(RuneSword->IsWhirlwindActive()||RuneSword->IsDashAttackActive()))return;
+    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsWhirlwindActive())return;
     if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
     LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale());
 }
@@ -1065,6 +1069,7 @@ void AFPSGAMECharacter::SprintReleased()
         GetWorld()->GetTimeSeconds()-SprintPressedAt<=DodgeTapMaximumHold;
     bSprintHeld=false;
     if(RuneSword)RuneSword->ResetDashReadiness();
+    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>())Kukri->ResetDashReadiness();
     SprintPressedAt=-1.0;
     if (bTap && !IsDoorPushActive()) TryDodge();
 }
@@ -1124,6 +1129,27 @@ void AFPSGAMECharacter::FirePressed()
     // 尼泊尔弯刀：左键三连击（水平横劈 → 左上向右下斜劈 → 双手前刺），连段输入由组件缓冲。
     if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())
     {
+        // 冲刺攻击：连续奔跑就绪后左键双手跳劈（被动 dashAttack，与剑同一准备、体力、伤害与扇区规则）。
+        // 就绪检测须在退出奔跑前完成；未就绪沿用普通三连击。
+        if(Kukri->DashReadyFraction()>=1.f-UE_SMALL_NUMBER)
+        {
+            // Capture the real horizontal speed (or a slide jump still queued in LaunchCharacter) before the cast
+            // stops locomotion; the player then slides on into the chop and brakes natively (~1 m from a sprint).
+            auto* Move=Cast<UFPSCharacterMovementComponent>(GetCharacterMovement());
+            const bool bPendingJump=Move&&!Move->PendingLaunchVelocity.IsZero();
+            const FVector Carry=Move?(bPendingJump?Move->PendingLaunchVelocity:Move->Velocity):FVector::ZeroVector;
+            if(Kukri->TryBeginDashAttack())
+            {
+                if(IsSliding())StopSlide(true);
+                StopMovementForMeleeSkill();
+                if(Move&&!Move->BeginMeleeDashMomentum(Carry))
+                {
+                    Move->PendingLaunchVelocity.X=0.;
+                    Move->PendingLaunchVelocity.Y=0.;
+                }
+            }
+            return;
+        }
         ExitSprintForWeapon();
         Kukri->BeginPrimaryAttack();
         return;
@@ -2151,7 +2177,8 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     // Whirlwind publishes its final action sample in PostPhysics, including
     // contact holds. Do not smooth its camera position against the previous
     // action frame while rotation and attached arms use the current frame.
-    FirstPersonCamera->SetRelativeLocation((IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && RuneSword->IsWhirlwindActive()))?TargetLocation:
+    const auto* WhirlKukri = FindComponentByClass<UKukriWeaponComponent>();
+    FirstPersonCamera->SetRelativeLocation((IsTraversing() || Traversal->IsCameraRecovering() || (RuneSword && RuneSword->IsWhirlwindActive()) || (WhirlKukri && WhirlKukri->IsWhirlwindActive()))?TargetLocation:
         FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
     const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;

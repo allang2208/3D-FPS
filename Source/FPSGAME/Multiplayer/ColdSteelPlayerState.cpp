@@ -5,6 +5,7 @@
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/TubeShotgunAssets.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -626,6 +627,13 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
     if (!OutDeclaredItem && !bUnarmed && !((Report.AttackMeta & 0x80) && Report.ItemDefinition.IsEmpty()))
     { OutReason = TEXT("weapon mismatch"); return false; }
 
+    if(Report.AttackMeta==0x16)
+    {
+        const auto* Move=Cast<UFPSCharacterMovementComponent>(Shooter->GetCharacterMovement());
+        if(!Move||!Move->IsNetworkDashWindowOpen())
+        {OutReason=TEXT("dash attack not committed");return false;}
+    }
+
     // 射速限流：令牌桶按服务端 EffectiveFireInterval 充能，上限容纳一次性补射连发。
     const double Now = GetWorld()->GetTimeSeconds();
     const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length):FMath::Max(0.05, Shooter->EffectiveFireInterval());
@@ -661,6 +669,11 @@ bool AColdSteelPlayerState::ValidateHitReport(const FColdSteelNetHitReport& Repo
     }
     float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
     if(Report.AttackMeta&0x80)MaxRange=ShadowModel->QuickCombatStats().RangeCM+120.f;
+    // Kukri whirlwind and sprint attack: the same skill range bounds as the sword's.
+    if((Report.AttackMeta&0x20)&&OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
+        MaxRange=ServerWhirlwindCast.RadiusCM*1.25f+120.f;
+    if(Report.AttackMeta==0x16&&OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
+        MaxRange=ShadowModel->DashAttackStats().RangeCM*1.25f+120.f;
     if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
     {
         MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f;
@@ -753,6 +766,7 @@ float AColdSteelPlayerState::ComputeServerDamage(AFPSGAMECharacter* Shooter,
     {
         // 剑挥砍：面板 × 轻重击/连段倍率——倍率函数与客户端同一套（MeleeModifiers 服务端可算）。
         const auto Melee = ColdSteelMelee::Evaluate(*Item, ShadowModel);
+        if(Report.AttackMeta==0x16)return ShadowModel->DashAttackStats().Damage;
         // Uppercut uses its own level while retaining the complete heavy formula.
         if(Report.AttackMeta==0x14)
             return Melee.Damage*ColdSteelMelee::UppercutMultiplier(ShadowModel,Melee.Modifiers);
