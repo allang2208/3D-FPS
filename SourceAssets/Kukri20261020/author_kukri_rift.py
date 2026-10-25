@@ -1,0 +1,129 @@
+"""Kukri swing rift ribbons (空间扰动 / 剑气, 2026-10-23) -> Source/FPSGAME/Weapons/Kukri/KukriRiftRibbons.h.
+
+Same idea as the rune sword's WristRiftV3 crescents (SourceAssets/RuneSword20260913/CompactNaturalV4/build_sword.py and
+StrideThrustV16/author_thrust.py): the blade's authored path through the strike, baked into a ribbon whose U runs along
+time (the material reveals it with SweepProgress) and V across it (the material feathers the edges).  Here the ribbon is
+written as a C++ table in the viewmodel's mesh component space (cm) -- the frame of every pose in author_kukri_clips --
+and built at runtime as a dynamic mesh, so there is no FBX axis conversion and no new asset.
+
+  Attack  (horizontal sweep) / Attack2 (diagonal cut): one crescent between INNER and OUTER along the blade line,
+    swept over the strike window.
+  Uppercut (swordUppercut, stage 3): one crescent like the slashes, from the lower right up through the centre.
+  HeavyRelease (heavyStrike, stage 4): one crescent from the top right through the crosshair to the bottom left; V2 (the
+  back-chop from behind the shoulder) starts as the blade comes into the top of the frame (0.04 s, 31 cm from the lens).
+  Attack3 (stab): two crossed narrow ribbons (edge plane and flat plane) along the path of a point ahead of the tip,
+    over the drive, the arrival and the rebound (as StrideThrustV16 did for the sword thrust).
+
+Stations closer to the lens than LENS_CM are pulled back along their ray so the refraction never fills the screen.
+Run:  python author_kukri_rift.py   (reads attack_keys / attack2_keys / attack3_keys through author_kukri_clips)
+"""
+import math
+from pathlib import Path
+
+import numpy as np
+
+from author_kukri_clips import CLIPS, Designer, solve_arm_sample
+from kmath import mesh_to_cam, cam_to_mesh
+from kukri_rig import KukriRig, TIP
+
+P = Path(__file__).resolve().parent
+OUT = P.parents[1] / 'Source' / 'FPSGAME' / 'Weapons' / 'Kukri' / 'KukriRiftRibbons.h'
+STATIONS = 40
+INNER, OUTER = 0.40, 1.35          # along the grip->tip vector (the tip is 27 cm from the grip centre)
+STAB_POINT = 1.25                  # the stab ribbons follow a point ahead of the tip
+STAB_WIDTH = (2.5, 6.5)            # half-width at the ends / in the middle (cm)
+LENS_CM = 12.0
+# Author-second windows (KukriRhythm::Rifts uses the same values).
+WINDOWS = {'Attack': (0.290, 0.450), 'Attack2': (0.358, 0.470), 'Attack3': (0.333, 0.395), 'Uppercut': (0.290, 0.395),
+           'HeavyRelease': (0.040, 0.133)}  # the uppercut ends before the forearm crosses the lens (0.40+)  # Attack2 starts past the cock: the raised blade is 4 cm from the lens at 0.333
+
+
+def clamp_lens(p):
+    c = mesh_to_cam(p)
+    if c[0] >= LENS_CM:
+        return p
+    d = np.linalg.norm(c)
+    return cam_to_mesh(c * (LENS_CM / max(c[0], 1e-3))) if c[0] > 1 else cam_to_mesh(np.array([LENS_CM, c[1], c[2]]))
+
+
+def frames(R, D, name):
+    spec = CLIPS[name](D)
+    t0, t1 = WINDOWS[name]
+    R.reset_twist_memory()
+    out = []
+    for i in range(STATIONS):
+        t = t0 + (t1 - t0) * i / (STATIONS - 1)
+        _, K, _ = solve_arm_sample(R, spec['sample'](t))
+        out.append(K)
+    return out
+
+
+def crescent(Ks):
+    rows = []
+    for K in Ks:
+        rows.append([clamp_lens(K.point(np.asarray(TIP) * INNER)), clamp_lens(K.point(np.asarray(TIP) * OUTER))])
+    return rows
+
+
+def stab(Ks):
+    ribbons = [[], []]
+    for i, K in enumerate(Ks):
+        u = i / (len(Ks) - 1)
+        c = clamp_lens(K.point(np.asarray(TIP) * STAB_POINT))
+        w = STAB_WIDTH[0] + (STAB_WIDTH[1] - STAB_WIDTH[0]) * math.sin(math.pi * u)
+        for r, axis in enumerate((K.axis(0), K.axis(1))):
+            a = np.asarray(axis, float) / np.linalg.norm(axis)
+            ribbons[r].append([c - a * w, c + a * w])
+    return ribbons
+
+
+def fmt(rows):
+    return ',\n        '.join('{%s}' % ','.join('{%.2ff,%.2ff,%.2ff}' % tuple(float(v) for v in p) for p in row) for row in rows)
+
+
+def main():
+    import author_kukri_upper                      # registers the uppercut clip (skill swordUppercut, stage 3)
+    CLIPS['Uppercut'] = author_kukri_upper.clip_upper
+    import author_kukri_heavy                      # registers the heavy release (skill heavyStrike, stage 4)
+    CLIPS['HeavyRelease'] = author_kukri_heavy.clip_release
+    R = KukriRig()
+    D = Designer(R)
+    sweep = crescent(frames(R, D, 'Attack'))
+    diag = crescent(frames(R, D, 'Attack2'))
+    a, b = stab(frames(R, D, 'Attack3'))
+    upper = crescent(frames(R, D, 'Uppercut'))
+    heavy = crescent(frames(R, D, 'HeavyRelease'))
+    for label, rows in (('sweep', sweep), ('diag', diag), ('stab A', a), ('stab B', b), ('upper', upper), ('heavy', heavy)):
+        depth = [float(mesh_to_cam(p)[0]) for row in rows for p in row]
+        span = np.linalg.norm(np.asarray(rows[-1][1]) - np.asarray(rows[0][1]))
+        print('%-7s depth %.1f-%.1f cm, outer edge travels %.1f cm' % (label, min(depth), max(depth), span))
+    text = f"""#pragma once
+
+// GENERATED by SourceAssets/Kukri20261020/author_kukri_rift.py -- do not edit by hand.
+// Kukri swing rift ribbons in the viewmodel's mesh component space (cm): [station][inner, outer][xyz].
+// U = station / (KukriRiftStations - 1) is the reveal along the strike (M_RuneRift SweepProgress); V = 0 / 1 across.
+// Windows (author s): sweep {WINDOWS['Attack']}, diagonal {WINDOWS['Attack2']}, stab {WINDOWS['Attack3']},
+// uppercut {WINDOWS['Uppercut']}, heavy release {WINDOWS['HeavyRelease']}.
+namespace KukriRiftRibbons
+{{
+    inline constexpr int32 Stations={STATIONS};
+    inline constexpr float Sweep[Stations][2][3]={{
+        {fmt(sweep)}}};
+    inline constexpr float Diag[Stations][2][3]={{
+        {fmt(diag)}}};
+    inline constexpr float StabEdge[Stations][2][3]={{
+        {fmt(a)}}};
+    inline constexpr float StabFlat[Stations][2][3]={{
+        {fmt(b)}}};
+    inline constexpr float Upper[Stations][2][3]={{
+        {fmt(upper)}}};
+    inline constexpr float Heavy[Stations][2][3]={{
+        {fmt(heavy)}}};
+}}
+"""
+    OUT.write_text(text, encoding='utf-8')
+    print('wrote', OUT)
+
+
+if __name__ == '__main__':
+    main()

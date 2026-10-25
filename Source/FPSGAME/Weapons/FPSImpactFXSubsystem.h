@@ -22,7 +22,8 @@ class FPSGAME_API UFPSImpactFXSubsystem : public UTickableWorldSubsystem
     GENERATED_BODY()
 public:
     UFPSImpactFXSubsystem();
-    void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera);
+    /** bPlaySound/bDecal: melee contacts (kukri stab) bring their own hit cue and leave no bullet-hole decal. */
+    void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera, bool bPlaySound = true, bool bDecal = true);
     void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source, bool bPlaySound = true);
     void SpawnSlagSlam(const FHitResult& Ground, const FVector& Forward, float Radius, UCameraComponent* ViewCamera, const AActor* Source);

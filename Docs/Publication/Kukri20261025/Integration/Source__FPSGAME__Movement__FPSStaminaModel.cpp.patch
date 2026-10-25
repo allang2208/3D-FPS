@@ -1,0 +1,60 @@
+diff --git a/Source/FPSGAME/Movement/FPSStaminaModel.cpp b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -2,6 +2,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+ #include "../Weapons/TangDaoGuardComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -13,13 +14,15 @@
+ 
+ namespace
+ {
+-enum class EStaminaActivity { Recovering, Guarding, Sprinting, Inactive };
++enum class EStaminaActivity { Recovering, Charging, Guarding, Sprinting, Inactive };
+ EStaminaActivity StaminaActivity(const AFPSGAMECharacter* Pawn,const FColdSteelStaminaTuning& Tuning)
+ {
+     if(!Pawn)return EStaminaActivity::Inactive;
+     const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
+     if(Health&&Health->IsDead())return EStaminaActivity::Inactive;
+     const auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();
++    const auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();
++    if((Sword&&Sword->IsHeavyCharging())||(Kukri&&Kukri->IsHeavyCharging()))return EStaminaActivity::Charging;
+     if(Sword&&Sword->IsGuarding())return EStaminaActivity::Guarding;
+     const auto* PC=Cast<APlayerController>(Pawn->GetController());
+     if(Tuning.SprintPerSecond>0&&Pawn->IsSprinting()&&Pawn->GetVelocity().SizeSquared2D()>2500&&!AFPSGAMEPlayerController::BlocksOngoingActions(PC))
+@@ -53,6 +56,8 @@
+ AFPSGAMECharacter* UColdSteelStatusModel::RuntimePawn() const {return CurrentPawn.Get();}
+ float UColdSteelStatusModel::ActionStaminaMultiplier() const
+ { return float(SetEffect(TEXT("actionStaminaCost"))); }
++float UColdSteelStatusModel::HeavyChargeStaminaPerSecond() const
++{ return MasteryDefinition(TEXT("heavyStrike")).HeavyChargeStaminaPerSecond*ActionStaminaMultiplier(); }
+ float UColdSteelStatusModel::SprintStaminaPerSecond() const
+ {
+     const auto* Guard=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
+@@ -126,7 +131,21 @@
+     if(Activity==EStaminaActivity::Inactive)return;
+     const float Before=Current.Stamina,BeforeWait=Current.StaminaRecoveryDelay;
+     const bool BeforeExhausted=Current.bSprintExhausted;
+-    if(Activity==EStaminaActivity::Guarding)
++    // Expiration clamps even while guarding, charging or sprinting; activation
++    // and refresh never add current stamina or rescale its percentage.
++    Current.Stamina=FMath::Clamp(Current.Stamina,0.f,MaxStamina());
++    if(Activity==EStaminaActivity::Charging)
++    {
++        // Use real gameplay seconds, including an indefinitely held full charge.
++        Current.Stamina=FMath::Max(0.f,Current.Stamina-HeavyChargeStaminaPerSecond()*Delta);
++        Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
++        if(Current.Stamina<=0.f)
++        {
++            Current.bSprintExhausted=true;
++            if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>())Sword->CancelHeavyCharge();
++        }
++    }
++    else if(Activity==EStaminaActivity::Guarding)
+     {
+         Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
+     }

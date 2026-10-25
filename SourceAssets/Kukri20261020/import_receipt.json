@@ -1,98 +1,30 @@
 {
-  "revision": "Kukri_V8_ThreeHits_20261021",
+  "revision": "Kukri_V12_Stab_20261022",
   "assets": [
-    "/Game/Weapons/Kukri20261020/Textures/T_Kukri_BaseColor.T_Kukri_BaseColor",
-    "/Game/Weapons/Kukri20261020/Textures/T_Kukri_Normal.T_Kukri_Normal",
-    "/Game/Weapons/Kukri20261020/Textures/T_Kukri_ORM.T_Kukri_ORM",
-    "/Game/Weapons/Kukri20261020/Materials/M_Kukri.M_Kukri",
-    "/Game/Weapons/Kukri20261020/SM_Kukri.SM_Kukri",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Idle.A_Kukri_Idle",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Walk.A_Kukri_Walk",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Run.A_Kukri_Run",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Equip.A_Kukri_Equip",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Attack.A_Kukri_Attack",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Attack2.A_Kukri_Attack2",
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Attack3.A_Kukri_Attack3"
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_HeavyCharge.A_Kukri_HeavyCharge",
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_HeavyRelease.A_Kukri_HeavyRelease"
   ],
   "animations": {
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Idle": {
-      "frames": 361,
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_HeavyCharge": {
+      "frames": 241,
       "fps": 120,
-      "seconds": 3.0,
-      "play_length": 3.0,
-      "contact": null,
-      "loop": true
-    },
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Walk": {
-      "frames": 109,
-      "fps": 120,
-      "seconds": 0.9,
-      "play_length": 0.8999999761581421,
-      "contact": null,
-      "loop": true
-    },
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Run": {
-      "frames": 81,
-      "fps": 120,
-      "seconds": 0.6666666666666666,
-      "play_length": 0.6666666865348816,
-      "contact": null,
-      "loop": true
-    },
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Equip": {
-      "frames": 85,
-      "fps": 120,
-      "seconds": 0.7,
-      "play_length": 0.699999988079071,
+      "seconds": 2.0,
+      "play_length": 2.0,
       "contact": null,
       "loop": false
     },
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Attack": {
-      "frames": 153,
+    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_HeavyRelease": {
+      "frames": 141,
       "fps": 120,
-      "seconds": 1.2666666666666666,
-      "play_length": 1.2666666507720947,
+      "seconds": 1.1666666666666667,
+      "play_length": 1.1666666269302368,
       "contact": [
-        0.32,
-        0.45
-      ],
-      "loop": false
-    },
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Attack2": {
-      "frames": 121,
-      "fps": 120,
-      "seconds": 1.0,
-      "play_length": 1.0,
-      "contact": [
-        0.19,
-        0.31
-      ],
-      "loop": false
-    },
-    "/Game/Weapons/Kukri20261020/Animations/A_Kukri_Attack3": {
-      "frames": 133,
-      "fps": 120,
-      "seconds": 1.1,
-      "play_length": 1.100000023841858,
-      "contact": [
-        0.26,
-        0.38
+        0.033,
+        0.133
       ],
       "loop": false
     }
   },
   "runtime_tested": false,
-  "complete": true,
-  "mesh_bounds_cm": {
-    "min": [
-      -2.448692560195923,
-      -1.2555618286132812,
-      -15.645670890808105
-    ],
-    "max": [
-      7.237281799316406,
-      1.1320708990097046,
-      26.290576934814453
-    ]
-  }
+  "complete": true
 }

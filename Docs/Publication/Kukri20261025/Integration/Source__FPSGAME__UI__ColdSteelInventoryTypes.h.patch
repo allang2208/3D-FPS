@@ -1,0 +1,32 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -247,10 +247,14 @@
+     UPROPERTY() float LightningCooldownDuration = 0;
+     UPROPERTY() float HolyLightCooldown = 0;
+     UPROPERTY() float HolyLightCooldownDuration = 0;
++    // Owner martial commits survive an older profile upload or reconnect mirror.
++    UPROPERTY() int64 MartialCooldownRevision = 0;
+     UPROPERTY() float WhirlwindCooldown = 0;
+     UPROPERTY() float WhirlwindCooldownDuration = 0;
+     UPROPERTY() float SwordUppercutCooldown = 0;
+     UPROPERTY() float SwordUppercutCooldownDuration = 0;
++    // Confirmed network uppercut costs travel with stamina snapshots.
++    UPROPERTY() double UppercutStaminaSpent = 0.;
+     // Legacy serialized names retained; these now mirror only the live action
+     // remaining/duration and are cleared when loading an interrupted session.
+     UPROPERTY() float QuickCombatCooldown = 0;
+@@ -347,6 +351,13 @@
+         return Item.Definition==TEXT("ue_rune_sword") ||
+             (IsMeleeWeapon(Item) && Text(Item,TEXT("weaponType"))==TEXT("sword") && Flag(Item,TEXT("isTwoHanded")));
+     }
++    // 单手近战（目前只有尼泊尔弯刀）：有自己的组件与动作时钟，不进剑类连击／
++    // 格挡口径，也不在改造目录里；浮窗需要单独给它的直接属性一行。
++    inline bool IsOneHandedMelee(const FColdSteelItem& Item)
++    {
++        return Text(Item,TEXT("category"))==TEXT("weapon_melee") && !Flag(Item,TEXT("isTwoHanded")) &&
++            Text(Item,TEXT("weaponType"))!=TEXT("sword") && Text(Item,TEXT("weaponType"))!=TEXT("blunt");
++    }
+     // 弓是独立类别：不进近战判定，也不进枪械的 definition 白名单，
+     // 由 `UProductionToolComponent` 之外的 `UBowWeaponComponent` 接管手上表现。
+     inline bool IsBow(const FColdSteelItem& Item)

@@ -15,11 +15,15 @@ SRC = Path(r"D:\FPS3D\VaultCache\FabLibrary\Kukri-0a08e297\fbx\kukri_extracted\T
 DEST = '/Game/Weapons/Kukri20261020'
 ARMS = '/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms'
 SKELETON = '/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton'
-REVISION = 'Kukri_V8_ThreeHits_20261021'
+REVISION = 'Kukri_V12_Stab_20261022'
 # V8: three-hit chain -- first sweep ("Attack", right -> left), diagonal cut ("Attack2", upper-left -> lower-right)
-# and the two-handed thrust ("Attack3", left palm on the pommel) plus stance/locomotion/draw.
+# and the third hit ("Attack3") plus stance/locomotion/draw.
+# V11: Attack2 re-fitted to reference melee #1 and Attack2/Attack3 start on the stance (combo recovers between hits).
+# V12: Attack3 replaced by the one-handed crouch stab (reference melee #5 戳, 38/30 s; the V8-V11 two-handed thrust
+# with the left palm on the pommel is archived under trash/kukri-20261022-v12/).
 # The V1 Slash1/Slash2/Pommel assets stay unused.
-CLIPS = [c for c in ('Idle', 'Walk', 'Run', 'Equip', 'Attack', 'Attack2', 'Attack3')]
+# import_kukri_attacks.py sets KUKRI_CLIPS to re-import only the changed clips.
+CLIPS = list(globals().get('KUKRI_CLIPS') or ('Idle', 'Walk', 'Run', 'Equip', 'Attack', 'Attack2', 'Attack3'))
 A = u.AssetToolsHelpers.get_asset_tools()
 L = u.EditorAssetLibrary
 E = u.MaterialEditingLibrary
@@ -51,135 +55,145 @@ def output(a, pin, prop):
         raise RuntimeError('Kukri material output failed: ' + str(prop))
 
 
-# ---------------------------------------------------------------- textures
-textures = {}
-# V2 surface (make_kukri_textures.py): steel blade re-authored over the Fab layout; reimported in place
-# whenever the texture revision tag differs.  Viewmodel close-up: weapon LOD groups, never streamed, so
-# the blade never shows a low mip.
-TEX_REVISION = 'KukriSteelV5_20261020'
-STEEL = P / 'Textures'
-for key, file, srgb, comp, group in [
-        ('BaseColor', 'T_Kukri_BaseColor.png', True, u.TextureCompressionSettings.TC_BC7, u.TextureGroup.TEXTUREGROUP_WEAPON),
-        ('Normal', 'T_Kukri_Normal.png', False, u.TextureCompressionSettings.TC_NORMALMAP, u.TextureGroup.TEXTUREGROUP_WEAPON_NORMAL_MAP),
-        ('ORM', 'T_Kukri_ORM.png', False, u.TextureCompressionSettings.TC_MASKS, u.TextureGroup.TEXTUREGROUP_WEAPON_SPECULAR)]:
-    name = 'T_Kukri_' + key
-    tex = u.load_asset(DEST + '/Textures/' + name)
-    if not tex or L.get_metadata_tag(tex, 'Kukri.TextureRevision') != TEX_REVISION:
+def build_surface():
+    """Textures, material and SM_Kukri (revision-gated).  Clip-only wrappers (KUKRI_CLIPS) skip this: re-saving the
+    surface packages on every clip import changed nothing and raced other commandlets for SM_Kukri (2026-10-22)."""
+    # ---------------------------------------------------------------- textures
+    textures = {}
+    # V2 surface (make_kukri_textures.py): steel blade re-authored over the Fab layout; reimported in place
+    # whenever the texture revision tag differs.  Viewmodel close-up: weapon LOD groups, never streamed, so
+    # the blade never shows a low mip.
+    TEX_REVISION = 'KukriSteelV5_20261020'
+    STEEL = P / 'Textures'
+    for key, file, srgb, comp, group in [
+            ('BaseColor', 'T_Kukri_BaseColor.png', True, u.TextureCompressionSettings.TC_BC7, u.TextureGroup.TEXTUREGROUP_WEAPON),
+            ('Normal', 'T_Kukri_Normal.png', False, u.TextureCompressionSettings.TC_NORMALMAP, u.TextureGroup.TEXTUREGROUP_WEAPON_NORMAL_MAP),
+            ('ORM', 'T_Kukri_ORM.png', False, u.TextureCompressionSettings.TC_MASKS, u.TextureGroup.TEXTUREGROUP_WEAPON_SPECULAR)]:
+        name = 'T_Kukri_' + key
+        tex = u.load_asset(DEST + '/Textures/' + name)
+        if not tex or L.get_metadata_tag(tex, 'Kukri.TextureRevision') != TEX_REVISION:
+            task = u.AssetImportTask()
+            task.filename = str(STEEL / file)
+            task.destination_path = DEST + '/Textures'
+            task.destination_name = name
+            task.automated = True
+            task.replace_existing = True
+            task.save = False
+            A.import_asset_tasks([task])
+            tex = u.load_asset(DEST + '/Textures/' + name)
+            if not tex:
+                raise RuntimeError('Kukri texture import failed: ' + key)
+        tex.set_editor_property('srgb', srgb)
+        tex.set_editor_property('compression_settings', comp)
+        tex.set_editor_property('lod_group', group)
+        tex.set_editor_property('never_stream', True)
+        tex.set_editor_property('max_texture_size', 2048)
+        L.set_metadata_tag(tex, 'Kukri.TextureRevision', TEX_REVISION)
+        textures[key] = save(tex)
+
+    # ---------------------------------------------------------------- material (Substrate front material)
+    MAT_REVISION = 'KukriSteelV2_20261020'
+    mat = u.load_asset(DEST + '/Materials/M_Kukri')
+    if not mat:
+        mat = A.create_asset('M_Kukri', DEST + '/Materials', u.Material, u.MaterialFactoryNew())
+    if L.get_metadata_tag(mat, 'Kukri.MaterialRevision') != MAT_REVISION:
+        mat.modify()
+        for old in list(E.get_material_expressions(mat)) if hasattr(E, 'get_material_expressions') else []:
+            E.delete_material_expression(mat, old)
+        mat.set_editor_property('blend_mode', u.BlendMode.BLEND_OPAQUE)
+        mat.set_editor_property('two_sided', False)
+        mat.set_editor_property('use_material_attributes', False)
+        mat.set_editor_property('used_with_nanite', True)
+        base = node(mat, u.MaterialExpressionTextureSample, texture=textures['BaseColor'], sampler_type=u.MaterialSamplerType.SAMPLERTYPE_COLOR)
+        orm = node(mat, u.MaterialExpressionTextureSample, texture=textures['ORM'], sampler_type=u.MaterialSamplerType.SAMPLERTYPE_MASKS)
+        nrm = node(mat, u.MaterialExpressionTextureSample, texture=textures['Normal'], sampler_type=u.MaterialSamplerType.SAMPLERTYPE_NORMAL)
+        slab = node(mat, u.MaterialExpressionSubstrateShadingModels, shading_model_override=u.MaterialShadingModel.MSM_DEFAULT_LIT)
+        for n, pin, prop, target in [(base, 'RGB', u.MaterialProperty.MP_BASE_COLOR, 'BaseColor'),
+                                     (nrm, 'RGB', u.MaterialProperty.MP_NORMAL, 'Normal'),
+                                     (orm, 'R', u.MaterialProperty.MP_AMBIENT_OCCLUSION, 'AmbientOcclusion'),
+                                     (orm, 'G', u.MaterialProperty.MP_ROUGHNESS, 'Roughness'),
+                                     (orm, 'B', u.MaterialProperty.MP_METALLIC, 'Metallic')]:
+            if target != 'AmbientOcclusion':
+                link(n, pin, slab, target)
+            output(n, pin, prop)
+        output(slab, '', u.MaterialProperty.MP_FRONT_MATERIAL)
+        E.layout_material_expressions(mat)
+        E.recompile_material(mat)
+        L.set_metadata_tag(mat, 'Kukri.Revision', REVISION)
+        L.set_metadata_tag(mat, 'Kukri.MaterialRevision', MAT_REVISION)
+        u.log('KUKRI_MATERIAL_REBUILT expressions=%d' % E.get_num_material_expressions(mat))
+    save(mat)
+
+    # ---------------------------------------------------------------- static mesh (viewmodel attachment + world pickup)
+    MESH_REVISION = 'KukriBladeNormalsV5_20261020'
+    mesh = u.load_asset(DEST + '/SM_Kukri')
+    if not mesh or L.get_metadata_tag(mesh, 'Kukri.MeshRevision') != MESH_REVISION:
         task = u.AssetImportTask()
-        task.filename = str(STEEL / file)
-        task.destination_path = DEST + '/Textures'
-        task.destination_name = name
+        task.filename = str(P / 'Export' / 'SM_Kukri.fbx')
+        task.destination_path = DEST
+        task.destination_name = 'SM_Kukri'
         task.automated = True
         task.replace_existing = True
         task.save = False
+        ui = u.FbxImportUI()
+        ui.set_editor_property('import_mesh', True)
+        ui.set_editor_property('import_as_skeletal', False)
+        ui.set_editor_property('import_materials', False)
+        ui.set_editor_property('import_textures', False)
+        ui.set_editor_property('import_animations', False)
+        sm = ui.get_editor_property('static_mesh_import_data')
+        try:
+            sm.set_editor_property('normal_import_method', u.FBXNormalImportMethod.FBXNIM_IMPORT_NORMALS)
+        except Exception as exc:  # enum naming differs between versions; build settings below still apply
+            u.log_warning('Kukri normal import method not set: %s' % exc)
+        sm.set_editor_property('combine_meshes', True)
+        sm.set_editor_property('auto_generate_collision', True)
+        sm.set_editor_property('generate_lightmap_u_vs', True)
+        task.options = ui
         A.import_asset_tasks([task])
-        tex = u.load_asset(DEST + '/Textures/' + name)
-        if not tex:
-            raise RuntimeError('Kukri texture import failed: ' + key)
-    tex.set_editor_property('srgb', srgb)
-    tex.set_editor_property('compression_settings', comp)
-    tex.set_editor_property('lod_group', group)
-    tex.set_editor_property('never_stream', True)
-    tex.set_editor_property('max_texture_size', 2048)
-    L.set_metadata_tag(tex, 'Kukri.TextureRevision', TEX_REVISION)
-    textures[key] = save(tex)
-
-# ---------------------------------------------------------------- material (Substrate front material)
-MAT_REVISION = 'KukriSteelV2_20261020'
-mat = u.load_asset(DEST + '/Materials/M_Kukri')
-if not mat:
-    mat = A.create_asset('M_Kukri', DEST + '/Materials', u.Material, u.MaterialFactoryNew())
-if L.get_metadata_tag(mat, 'Kukri.MaterialRevision') != MAT_REVISION:
-    mat.modify()
-    for old in list(E.get_material_expressions(mat)) if hasattr(E, 'get_material_expressions') else []:
-        E.delete_material_expression(mat, old)
-    mat.set_editor_property('blend_mode', u.BlendMode.BLEND_OPAQUE)
-    mat.set_editor_property('two_sided', False)
-    mat.set_editor_property('use_material_attributes', False)
-    mat.set_editor_property('used_with_nanite', True)
-    base = node(mat, u.MaterialExpressionTextureSample, texture=textures['BaseColor'], sampler_type=u.MaterialSamplerType.SAMPLERTYPE_COLOR)
-    orm = node(mat, u.MaterialExpressionTextureSample, texture=textures['ORM'], sampler_type=u.MaterialSamplerType.SAMPLERTYPE_MASKS)
-    nrm = node(mat, u.MaterialExpressionTextureSample, texture=textures['Normal'], sampler_type=u.MaterialSamplerType.SAMPLERTYPE_NORMAL)
-    slab = node(mat, u.MaterialExpressionSubstrateShadingModels, shading_model_override=u.MaterialShadingModel.MSM_DEFAULT_LIT)
-    for n, pin, prop, target in [(base, 'RGB', u.MaterialProperty.MP_BASE_COLOR, 'BaseColor'),
-                                 (nrm, 'RGB', u.MaterialProperty.MP_NORMAL, 'Normal'),
-                                 (orm, 'R', u.MaterialProperty.MP_AMBIENT_OCCLUSION, 'AmbientOcclusion'),
-                                 (orm, 'G', u.MaterialProperty.MP_ROUGHNESS, 'Roughness'),
-                                 (orm, 'B', u.MaterialProperty.MP_METALLIC, 'Metallic')]:
-        if target != 'AmbientOcclusion':
-            link(n, pin, slab, target)
-        output(n, pin, prop)
-    output(slab, '', u.MaterialProperty.MP_FRONT_MATERIAL)
-    E.layout_material_expressions(mat)
-    E.recompile_material(mat)
-    L.set_metadata_tag(mat, 'Kukri.Revision', REVISION)
-    L.set_metadata_tag(mat, 'Kukri.MaterialRevision', MAT_REVISION)
-    u.log('KUKRI_MATERIAL_REBUILT expressions=%d' % E.get_num_material_expressions(mat))
-save(mat)
-
-# ---------------------------------------------------------------- static mesh (viewmodel attachment + world pickup)
-MESH_REVISION = 'KukriBladeNormalsV5_20261020'
-mesh = u.load_asset(DEST + '/SM_Kukri')
-if not mesh or L.get_metadata_tag(mesh, 'Kukri.MeshRevision') != MESH_REVISION:
-    task = u.AssetImportTask()
-    task.filename = str(P / 'Export' / 'SM_Kukri.fbx')
-    task.destination_path = DEST
-    task.destination_name = 'SM_Kukri'
-    task.automated = True
-    task.replace_existing = True
-    task.save = False
-    ui = u.FbxImportUI()
-    ui.set_editor_property('import_mesh', True)
-    ui.set_editor_property('import_as_skeletal', False)
-    ui.set_editor_property('import_materials', False)
-    ui.set_editor_property('import_textures', False)
-    ui.set_editor_property('import_animations', False)
-    sm = ui.get_editor_property('static_mesh_import_data')
+        mesh = u.load_asset(DEST + '/SM_Kukri')
+        if not mesh:
+            raise RuntimeError('Kukri mesh import failed')
+    # V5 build: keep the authored corner normals (blade flats rebuilt in Blender), MikkTSpace tangents in high
+    # precision (8-bit tangents band on a smooth reflective blade), full-precision UVs, no Nanite (a 3.4k-triangle
+    # viewmodel attachment gains nothing and Nanite's default normal precision facets polished metal).
     try:
-        sm.set_editor_property('normal_import_method', u.FBXNormalImportMethod.FBXNIM_IMPORT_NORMALS)
-    except Exception as exc:  # enum naming differs between versions; build settings below still apply
-        u.log_warning('Kukri normal import method not set: %s' % exc)
-    sm.set_editor_property('combine_meshes', True)
-    sm.set_editor_property('auto_generate_collision', True)
-    sm.set_editor_property('generate_lightmap_u_vs', True)
-    task.options = ui
-    A.import_asset_tasks([task])
-    mesh = u.load_asset(DEST + '/SM_Kukri')
-    if not mesh:
-        raise RuntimeError('Kukri mesh import failed')
-# V5 build: keep the authored corner normals (blade flats rebuilt in Blender), MikkTSpace tangents in high
-# precision (8-bit tangents band on a smooth reflective blade), full-precision UVs, no Nanite (a 3.4k-triangle
-# viewmodel attachment gains nothing and Nanite's default normal precision facets polished metal).
-try:
-    ses = u.get_editor_subsystem(u.StaticMeshEditorSubsystem)
-    bs = ses.get_lod_build_settings(mesh, 0)
-    bs.set_editor_property('recompute_normals', False)
-    bs.set_editor_property('recompute_tangents', True)
-    bs.set_editor_property('use_mikk_t_space', True)
-    bs.set_editor_property('use_high_precision_tangent_basis', True)
-    bs.set_editor_property('use_full_precision_u_vs', True)
-    ses.set_lod_build_settings(mesh, 0, bs)
-    u.log('KUKRI_MESH_BUILD normals=imported tangents=mikk/high uv=full')
-except Exception as exc:
-    u.log_warning('Kukri build settings not applied: %s' % exc)
-try:
-    ns = mesh.get_editor_property('nanite_settings')
-    u.log('KUKRI_MESH_NANITE was %s' % ns.get_editor_property('enabled'))
-    ns.set_editor_property('enabled', False)
-    mesh.set_editor_property('nanite_settings', ns)
-except Exception as exc:
-    u.log_warning('Kukri nanite settings not applied: %s' % exc)
-L.set_metadata_tag(mesh, 'Kukri.MeshRevision', MESH_REVISION)
-mats = mesh.get_editor_property('static_materials')
-for m in mats:
-    m.set_editor_property('material_interface', mat)
-    m.set_editor_property('material_slot_name', 'M_Kukri')
-mesh.set_editor_property('static_materials', mats)
-L.set_metadata_tag(mesh, 'Kukri.Frame', 'grip centre origin; +Z blade; +X edge; attaches to WPN_root at identity (scale 0.01 vs bone 100)')
-L.set_metadata_tag(mesh, 'Kukri.Source', 'Fab: Kukri by powers28 (0a08e297-e2d0-472b-b572-53077a548196)')
-save(mesh)
-bounds = mesh.get_bounding_box()
-receipt['mesh_bounds_cm'] = dict(min=[bounds.min.x, bounds.min.y, bounds.min.z], max=[bounds.max.x, bounds.max.y, bounds.max.z])
+        ses = u.get_editor_subsystem(u.StaticMeshEditorSubsystem)
+        bs = ses.get_lod_build_settings(mesh, 0)
+        bs.set_editor_property('recompute_normals', False)
+        bs.set_editor_property('recompute_tangents', True)
+        bs.set_editor_property('use_mikk_t_space', True)
+        bs.set_editor_property('use_high_precision_tangent_basis', True)
+        bs.set_editor_property('use_full_precision_u_vs', True)
+        ses.set_lod_build_settings(mesh, 0, bs)
+        u.log('KUKRI_MESH_BUILD normals=imported tangents=mikk/high uv=full')
+    except Exception as exc:
+        u.log_warning('Kukri build settings not applied: %s' % exc)
+    try:
+        ns = mesh.get_editor_property('nanite_settings')
+        u.log('KUKRI_MESH_NANITE was %s' % ns.get_editor_property('enabled'))
+        ns.set_editor_property('enabled', False)
+        mesh.set_editor_property('nanite_settings', ns)
+    except Exception as exc:
+        u.log_warning('Kukri nanite settings not applied: %s' % exc)
+    L.set_metadata_tag(mesh, 'Kukri.MeshRevision', MESH_REVISION)
+    # 2026-10-22: editing the elements of get_editor_property('static_materials') in Python edits copies, so the old loop
+    # here never assigned anything and the slot stayed on WorldGridMaterial (the "white mosaic" blade).  Assign through
+    # UStaticMesh::SetMaterial and read it back.
+    for i in range(len(mesh.get_editor_property('static_materials'))):
+        mesh.set_material(i, mat)
+        if mesh.get_material(i) != mat:
+            raise RuntimeError('Kukri material slot %d not assigned' % i)
+    L.set_metadata_tag(mesh, 'Kukri.Frame', 'grip centre origin; +Z blade; +X edge; attaches to WPN_root at identity (scale 0.01 vs bone 100)')
+    L.set_metadata_tag(mesh, 'Kukri.Source', 'Fab: Kukri by powers28 (0a08e297-e2d0-472b-b572-53077a548196)')
+    save(mesh)
+    bounds = mesh.get_bounding_box()
+    receipt['mesh_bounds_cm'] = dict(min=[bounds.min.x, bounds.min.y, bounds.min.z], max=[bounds.max.x, bounds.max.y, bounds.max.z])
+
+
+if not globals().get('KUKRI_CLIPS') or globals().get('KUKRI_SURFACE'):
+    build_surface()
+
 
 # ---------------------------------------------------------------- animations
 arms = u.load_asset(ARMS)

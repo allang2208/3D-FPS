@@ -1,0 +1,16 @@
+diff --git a/Source/FPSGAME/Weapons/MeleeWeaponStats.h b/Source/FPSGAME/Weapons/MeleeWeaponStats.h
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.h
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.h
+@@ -22,6 +22,12 @@
+ 
+ namespace ColdSteelMelee
+ {
++    /**
++     * 单手近战（尼泊尔弯刀）相对双手武器的体力消耗比例。
++     * 用户 2026-10-22 指定：单手刀按双手武器的一半结算。
++     * 只作用于 IsOneHandedMelee()，不影响双手剑／双手钝器／采集工具／法杖。
++     */
++    inline constexpr double OneHandedStaminaRatio=.5;
+     double UppercutMultiplier(const UColdSteelStatusModel* Profile,const FMeleeModifiers& Modifiers,int32 Level=-1);
+     double UppercutReachCM(const UColdSteelStatusModel* Profile,int32 Level=-1);
+     FMeleeModifiers EquippedModifiers(const UColdSteelStatusModel* Profile);

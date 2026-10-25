@@ -1,0 +1,39 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -57,6 +57,7 @@
+     /** Groups targets from one blade swing; carries no client-provided buff values. */
+     UPROPERTY() uint32 GuardAttackSerial = 0;
+     UPROPERTY() uint32 QuickCombatSerial = 0;
++    UPROPERTY() uint32 UppercutSerial = 0;
+ };
+ 
+ /**
+@@ -314,6 +315,12 @@
+     bool InventoryRequestPending() const {return bInventoryRequestPending;}
+     void RequestQuickCombat(float Duration,float PredictedCost);
+     void FinishQuickCombat();
++    bool RequestSwordUppercutRelease();
++    void FinishSwordUppercut();
++    void SettleSwordUppercut();
++    bool IsSwordWhirlwindExecuting(const APawn* Pawn) const;
++    UFUNCTION(Server,Reliable) void ServerSwordUppercut(uint32 Sequence,APawn* Pawn,const FString& Weapon,bool Finish);
++    UFUNCTION(Client,Reliable) void ClientSwordUppercutResult(uint32 Sequence,APawn* Pawn,bool Accepted,double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+     UFUNCTION(Server,Reliable) void ServerQuickCombat(uint32 Sequence,APawn* Pawn,float Duration,bool Finish);
+     UFUNCTION(Client,Reliable) void ClientQuickCombatRejected(uint32 Sequence);
+     UFUNCTION(Server,Reliable) void ServerInventoryAction(const FColdSteelInventoryRequest& Request);
+@@ -326,6 +333,14 @@
+ private:
+     bool bContainerNeedsRefresh=false;
+     friend class UColdSteelAcquisitionAuditCommandlet;
++    void TickSwordUppercut();
++    uint32 UppercutSequence=0,UppercutReceivedSequence=0,UppercutActiveSequence=0,UppercutReceiptSequence=0;
++    TWeakObjectPtr<APawn> UppercutPawn;
++    UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> UppercutRewardModel;
++    FString UppercutWeapon;
++    double UppercutUntil=0.;
++    bool bUppercutContact=false;
++    int32 UppercutHits=0,UppercutKills=0;
+     void TickContainerRefresh();
+     uint32 QuickCombatSequence=0,QuickCombatServerSequence=0,QuickCombatRequestSequence=0;
+     double QuickCombatUntil=0.;

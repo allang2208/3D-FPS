@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -72,6 +72,7 @@
+     float CriticalDamageBase = .50f, CriticalDamagePerLevel = .05f;
+     int32 LuckPerLevel = 1, CriticalHitExperience = 1, CriticalKillExperience = 10;
+     float HeavyMultiplierBase=2.5f,HeavyMultiplierPerLevel=.1f,HeavyChargeBase=2.f,HeavyChargeReductionPerLevel=.05f;
++    float HeavyChargeStaminaPerSecond=2.f;
+     float UppercutStaminaCost=25.f,UppercutCooldownSeconds=8.f;
+     float UppercutRangeMultiplier=1.25f,UppercutReachGrowthPerLevel=.01f;
+     int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;

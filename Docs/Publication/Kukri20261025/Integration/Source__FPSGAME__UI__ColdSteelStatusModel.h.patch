@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelStatusModel.h b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -98,6 +98,7 @@
+     bool SpendStamina(float Amount);
+     // Cost producers apply this once; SpendStamina and network receipts take final costs.
+     float ActionStaminaMultiplier() const;
++    float HeavyChargeStaminaPerSecond() const;
+     void DelayStaminaRecovery();
+     // Called on an attributed death, independently of experience/gold eligibility.
+     void ApplyKillStaminaRecovery(AActor* Victim);

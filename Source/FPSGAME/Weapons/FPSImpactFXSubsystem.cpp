@@ -262,7 +262,7 @@ EFPSImpactSurface UFPSImpactFXSubsystem::ResolveSurface(const FHitResult& Hit)
     return EFPSImpactSurface::Stone;
 }
 
-void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera)
+void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera, bool bPlaySound, bool bDecal)
 {
     if (!bReady || !Hit.bBlockingHit || !IsValid(ViewCamera)) return;
     // Whole-pane break owns its burst/audio. Do not leave a floating bullet decal
@@ -303,7 +303,7 @@ void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent*
             const FVector Incoming=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(SMALL_NUMBER,-Normal);
             AddBloodWall(Hit,(Normal*.72f-Incoming*.28f).GetSafeNormal(),ViewCamera,Now);
         }
-        PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
+        if (bPlaySound) PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
         return;
     }
     const FVector Position=Hit.ImpactPoint+Normal*1.2f;
@@ -312,8 +312,8 @@ void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent*
     for(int32 I=0;I<SparkCount;++I)AddParticle(0,Position,Normal,Surface,1.f);
     AddParticle(1,Position,Normal,Surface,Far?1.25f:1.f);
     for(int32 I=0;I<ChipCount;++I)AddParticle(2,Position,Normal,Surface,1.f);
-    if (ApparentDistance<3000.f) AddDecal(Hit,Surface,Now);
-    PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
+    if (bDecal && ApparentDistance<3000.f) AddDecal(Hit,Surface,Now);
+    if (bPlaySound) PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
 }
 
 void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale)

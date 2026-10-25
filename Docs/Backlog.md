@@ -9,6 +9,45 @@
 
 详见[发布与恢复边界](Publication/Backpacks20261023/README.md)。以下旧背包段落按历史阶段阅读。
 
+## 尼泊尔弯刀重击（2026-10-24）
+
+- [x] 按 BV1CeYUeSE7b 115.60–117.00 s（近战（跳跃）#12 ↙）逐帧拟合：蓄力 `A_Kukri_HeavyCharge`（右上抬刀、左手平衡，2.0 s，蓄力段拉伸到实际蓄力秒数）、出手 `A_Kukri_HeavyRelease`（右上→准星→下方正中，35/30 s）；镜头远景配准写成 `KukriHeavyRhythm::Charge*` 与 `KukriRhythm::Heavy*`，节奏 `HeavyTempo`，打击时刻 0.142 s，剑气 `KukriRiftRibbons::Heavy`。见 [弯刀重击](Weapons/kukri-20261020.md)。
+- [x] 接入技能 `heavyStrike`（与双手剑同一规则：左键按住蓄力，轻点/未蓄满 = 普通连击；快捷栏蓄满自动出手），服务端蓄力计时、体力账与重击回执；资产后台 commandlet 导入成功。
+- [x] Game、Editor 两个目标构建成功（编辑器关闭后构建）。
+- [x] V2（用户：蓄力刀身朝后、刀把朝前，回砍更快更有冲击力）：蓄力改为抡锤式后扳（刀压在右肩后、只露刀把），出手从肩后直接回砍（松手到准星约 0.056 s），顿帧 ×3.0、到点冲击加大、剑气改窗；重导、Game/Editor 构建成功。见 [弯刀重击 V2](Weapons/kukri-20261020.md)。
+- [ ] 用户实机测试（蓄力手感、轻点是否仍跟手、镜头幅度、顿帧、剑气；联机未测）。可调：`KukriHeavyRhythm`（TapSeconds、Tremble、Charge*）、`HeavyTempo`、`Strikes[4]`、`Swings[4]`、`Rifts[4]`。
+
+## 尼泊尔弯刀上挑（2026-10-23）
+
+- [x] 按 BV1CeYUeSE7b 106.20–107.30 s（近战（滑铲）#9 上撩）逐帧拟合右臂、关键帧左手平衡，`A_Kukri_Uppercut` 38/30 s；镜头远景配准写成 `KukriRhythm::Upper*`，节奏 `UpperTempo`（约 1.42 s），打击时刻 0.350 s、剑气、120 cm 突进。见 [弯刀上挑](Weapons/kukri-20261020.md)。
+- [x] 接入技能 `swordUppercut`：快捷栏持弯刀时释放，出手扣费与冷却、服务端出手/命中/突进授权放宽到单手近战；commandlet 导入成功，Game/Editor 构建成功。
+- [ ] 用户实机测试（手感、镜头幅度、顿帧、剑气、突进距离；联机未测）。可调：`UpperTempo`、`Strikes[3]`、`Swings[3]`、`Rifts[3]`、`KukriUppercut.cpp` 的 `LungeCM/LungeStart/LungeEnd`。
+- [ ] 待用户决定：上挑沿用技能共用的强制击飞（`AttackMeta` 0x14）；锤握下上撩时刀身偏水平（参考是竖刀）。
+
+## 尼泊尔弯刀第三段 V12：单手低位戳刺（2026-10-22）
+
+- [x] 评估后新做替换：按 BV1CeYUeSE7b 1:34.77–1:35.97（近战(蹲) #5 戳）逐帧拟合单手戳刺，38/30 s；V8–V11 双手前刺归档 `trash/kukri-20261022-v12/`。
+- [x] 镜头按参考远景逐帧配准写成 `KukriRhythm::Stab*`，前推 9 cm 代替冲刺位移；确认命中滚转 `HitRoll` 2.2；删除 `PhaseRate`／`ThrustCamera`。见 [弯刀 V12](Weapons/kukri-20261020.md)。
+- [x] V12b：第三段太快，按真实秒量速度后加平滑分相时钟 `KukriRhythm::StabTempo`（翻刀、刺出、停顿、收回放慢，画外加快），整段 1.98 → 2.59 s；动作键未改，Game/Editor 构建成功。
+- [x] V12c：第三段改成快慢对比（拉回定格 0.1 s → 0.074 s 加速刺出到点硬停 → 2 cm 过冲回弹）；到点那一刻挥空也硬停 0.035 s 并给镜头冲击；命中顿帧 0.15 s、视模前压、血雾/碎屑、破风声与闷响；不加击退。见 [弯刀 V12c](Weapons/kukri-20261020.md)。
+- [x] V12d：快慢对比、打击时刻（刀扫过画面中心）、挥空停顿 0.025 s、延后命中提示、血雾与闷响推广到第一、二段；顿帧加重；Game/Editor 构建成功。
+- [x] V12d 用户认可。
+- [x] 挥砍剑气（空间扰动）：复用双手剑 `M_RuneRift` 折射材质，三段各一条作者轨迹弧形带（`author_kukri_rift.py` → `KukriRiftRibbons.h`），运行时动态网格，跟作者时钟展开、真实时间溶解漂出；Game/Editor 构建成功。
+- [ ] 用户实机测试剑气的位置、强度与持续时间（参数 `KukriRhythm::Rifts`、`author_kukri_rift.py`）。
+- [ ] 待用户决定：是否加参考里的真实冲刺位移（约 2 m；可复用双手剑突刺的 `ApplyMeleeLungeStep`，但联机授权 `AuthorizeMeleeMove` 目前只认双手剑，需要新增一种近战位移）。
+- [ ] `D:\FPS3D\VaultCache\FabLibrary\` 已清空：重跑 `author_kukri_model.py` 或要预览带贴图时需重新下载 Fab「Kukri」原件。
+- [x] 刀面白色马赛克：`SM_Kukri` 材质槽落回 `WorldGridMaterial`，已用 `repair_kukri_material.py` 赋回 `M_Kukri` 并保存；导入脚本的赋值改为 `set_material` + 读回。视模插槽警告刷屏已修，Game/Editor 构建成功。未实机确认。
+- [ ] 未提交 Git。
+
+## 尼泊尔弯刀三段连击 V11（2026-10-22，用户："先这样，基本可以"，暂停）
+
+- [x] 三段之间加双手剑式攻击间隔：命中窗结束后才缓冲点击，回到架势再接下一段，0.85 s 内再点续段，超时从第一段重来。
+- [x] 第二段按 BV1CeYUeSE7b 1:24.33–1:25.60（近战 #1）逐帧重做左上→右下斜劈，38/30 s，与第一段同长；专属镜头曲线 `Diag*`（×1.3），命中顿帧 ×1.2、冲击 ×1.15。
+- [x] 第三段改为架势起手，保留 V10 前刺主体；`A_Kukri_Attack2/Attack3` 已导入，Game/Editor 构建成功。见 [弯刀 V11](Weapons/kukri-20261020.md)。
+- [ ] 用户实机确认后再微调（均为参数，不需重做动画）：攻击间隔长短（`ComboResetSeconds`、`BufferOpen`、`attack_seconds`）；第二段蓄势时竖在左上方的刀身是否读成反手收刀；第二段镜头幅度 `CameraGain` 1.3 与俯仰 0.7。
+- [ ] 未提交 Git；发布时按 [弯刀文档](Weapons/kukri-20261020.md) 收尾节的范围，只暂存本武器相关文件与行。
+
+
 ## 裸手 V9 推广（2026-10-17 起，分批交付）
 
 用户认可 M4 样板后要求推广，并逐把排查扭曲和错误。详见 [V9 推广记录](Characters/bare-skin-v9-rollout-20261017.md)。

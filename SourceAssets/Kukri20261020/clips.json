@@ -223,70 +223,165 @@
       }
     },
     "Attack2": {
-      "length": 1.0,
+      "length": 1.2666666666666666,
       "loop": false,
-      "frames": 121,
+      "frames": 153,
       "contact": [
-        0.19,
-        0.31
+        0.34,
+        0.47
+      ],
+      "ranges": {
+        "max_reach": 0.872,
+        "rho": [
+          1.8,
+          51.4
+        ],
+        "twist": [
+          -8.8,
+          40.6
+        ],
+        "twist_rate": 695.9999999999997,
+        "ext": [
+          3.8,
+          19.0
+        ],
+        "uln": [
+          16.4,
+          42.8
+        ],
+        "contact_edge_lead": [
+          0.06,
+          0.74
+        ]
+      }
+    },
+    "Attack3": {
+      "length": 1.2666666666666666,
+      "loop": false,
+      "frames": 153,
+      "contact": [
+        0.34,
+        0.47
+      ],
+      "ranges": {
+        "max_reach": 0.885,
+        "rho": [
+          -0.6,
+          92.3
+        ],
+        "twist": [
+          -45.0,
+          43.4
+        ],
+        "twist_rate": 947.9999999999998,
+        "ext": [
+          -8.3,
+          28.6
+        ],
+        "uln": [
+          12.6,
+          40.7
+        ],
+        "contact_edge_lead": [
+          -0.37,
+          0.4
+        ]
+      }
+    },
+    "Uppercut": {
+      "length": 1.2666666666666666,
+      "loop": false,
+      "frames": 153,
+      "contact": [
+        0.3,
+        0.433
+      ],
+      "ranges": {
+        "max_reach": 0.995,
+        "rho": [
+          -12.9,
+          27.7
+        ],
+        "twist": [
+          17.8,
+          58.2
+        ],
+        "twist_rate": 647.9999999999998,
+        "ext": [
+          -16.7,
+          22.7
+        ],
+        "uln": [
+          3.6,
+          43.6
+        ],
+        "contact_edge_lead": [
+          -0.07,
+          0.97
+        ]
+      },
+      "source": "author_kukri_upper.py"
+    },
+    "HeavyCharge": {
+      "length": 2.0,
+      "loop": false,
+      "frames": 241,
+      "contact": null,
+      "ranges": {
+        "max_reach": 0.995,
+        "rho": [
+          -5.3,
+          40.9
+        ],
+        "twist": [
+          1.6,
+          47.6
+        ],
+        "twist_rate": 552.0000000000002,
+        "ext": [
+          8.2,
+          21.4
+        ],
+        "uln": [
+          19.3,
+          31.8
+        ]
+      },
+      "source": "author_kukri_heavy.py"
+    },
+    "HeavyRelease": {
+      "length": 1.1666666666666667,
+      "loop": false,
+      "frames": 141,
+      "contact": [
+        0.033,
+        0.133
       ],
       "ranges": {
         "max_reach": 0.995,
         "rho": [
           4.2,
-          114.0
+          127.1
         ],
         "twist": [
-          -75.1,
+          -87.1,
           37.4
         ],
-        "twist_rate": 492.000000000001,
+        "twist_rate": 1524.0000000000002,
         "ext": [
-          15.8,
-          31.3
+          0.0,
+          19.4
         ],
         "uln": [
-          0.9,
-          27.1
+          24.7,
+          42.2
         ],
         "contact_edge_lead": [
-          -0.5,
-          0.33
+          0.78,
+          0.96
         ]
-      }
-    },
-    "Attack3": {
-      "length": 1.1,
-      "loop": false,
-      "frames": 133,
-      "contact": [
-        0.26,
-        0.38
-      ],
-      "ranges": {
-        "max_reach": 0.82,
-        "rho": [
-          4.2,
-          125.2
-        ],
-        "twist": [
-          -86.4,
-          37.4
-        ],
-        "twist_rate": 575.9999999999997,
-        "ext": [
-          15.8,
-          25.3
-        ],
-        "uln": [
-          18.2,
-          40.7
-        ],
-        "contact_edge_lead": [
-          0.41,
-          0.49
-        ]
-      }
+      },
+      "source": "author_kukri_heavy.py"
     }
   },
   "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton",

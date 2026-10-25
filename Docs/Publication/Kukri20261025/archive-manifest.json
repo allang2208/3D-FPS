@@ -1,0 +1,1133 @@
+{
+  "archived": "2026-10-25",
+  "files": [
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/QuickPommel_v1.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/QuickPommel_v1.json",
+      "bytes": 3486533,
+      "sha256": "329af680716ad193863eb1d0bb3e5a5215540233aac14ef45942e3354ed63086",
+      "reason": "快速近战 V1 烘焙 clip（已被 V2 取代）",
+      "replacement": "Clips/QuickPommel.json (V2: author_kukri_quick.py)"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/quick_keys_v1.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/quick_keys_v1.json",
+      "bytes": 17495,
+      "sha256": "86dd064d05e1183dcb393e7b894a9adb2134f42834a65058e0c741d5466b8bdf",
+      "reason": "快速近战 V1 拟合键",
+      "replacement": "quick_keys.json (V2)"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/fit_pommel_v1.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/fit_pommel_v1.json",
+      "bytes": 17495,
+      "sha256": "86dd064d05e1183dcb393e7b894a9adb2134f42834a65058e0c741d5466b8bdf",
+      "reason": "快速近战 V1 拟合输出",
+      "replacement": "Work/quick/fit_pommel.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_0.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_0.jpg",
+      "bytes": 254626,
+      "sha256": "96ce845cddd8c0e9f16973dfa6e01542ec06eb7b9cdecc54ccf4743e8657f4b4",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_1.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_1.jpg",
+      "bytes": 240289,
+      "sha256": "5e3f58cc1acca0e8c587da8f8e34d7e3110ccdd2a8a2d0eb2922b8fae2c36b9e",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_2.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_2.jpg",
+      "bytes": 244281,
+      "sha256": "1845b314845bdfcc7c4c9fe139642a37d80b760fe2139bdee58987ffb0482d23",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_3.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_3.jpg",
+      "bytes": 249043,
+      "sha256": "451006fa70b98419e94dd30105c19ea126ce6c97c5f3dbfc69d5b6e27f2df3ee",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_4.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_4.jpg",
+      "bytes": 237172,
+      "sha256": "9230983b29eb2e813a2c0bc9420590d133771101267d261436fa552195dd3678",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_5.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_5.jpg",
+      "bytes": 242872,
+      "sha256": "227e7351a2a0d03e56e0e9bae797979297207ab98b315491a4778e9fcf06582b",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_6.jpg",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v1_cmp/cmp_quick_6.jpg",
+      "bytes": 127214,
+      "sha256": "a639be4e903fb637699eb059edc4e587e4aada344fd883023fe5644a505a7672",
+      "reason": "快速近战 V1 参考对照图（V2 对照图取代）",
+      "replacement": "Work/quick/cmp_quick_*.jpg"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/_old_clip_quick.txt",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/_old_clip_quick.txt",
+      "bytes": 3050,
+      "sha256": "0d128f01652e02438a3310d0e66b6a7a85fc66bf40f77162b1f7c830557b2b00",
+      "reason": "V2 重写前的旧 clip 文本快照",
+      "replacement": "Clips/QuickPommel.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/diag_left.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/diag_left.py",
+      "bytes": 958,
+      "sha256": "348b6cc3eca67820087b67627a28d6b1668523b5838af3367e312e3d7d7fbee9",
+      "reason": "快速近战 V2 调参期一次性诊断/探针脚本",
+      "replacement": "最终诊断归并到 fit_pommel.py --left / author_kukri_quick.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/probe_flat.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/probe_flat.py",
+      "bytes": 1032,
+      "sha256": "8a1dbb3c54e995b3eae11f4590240edcbec8f95e08c3a43234109064c702fdd1",
+      "reason": "快速近战 V2 调参期一次性诊断/探针脚本",
+      "replacement": "最终诊断归并到 fit_pommel.py --left / author_kukri_quick.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/probe_left.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/probe_left.py",
+      "bytes": 1988,
+      "sha256": "e4cabaeba3206f6f80cc32170ef7206678c47af23c675f23431c7f3502ff3fe1",
+      "reason": "快速近战 V2 调参期一次性诊断/探针脚本",
+      "replacement": "最终诊断归并到 fit_pommel.py --left / author_kukri_quick.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/probe_left2.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/probe_left2.py",
+      "bytes": 1632,
+      "sha256": "a4706ccbd20903102522944c7ade604c7d01625fa1b97dc2727947919488272c",
+      "reason": "快速近战 V2 调参期一次性诊断/探针脚本",
+      "replacement": "最终诊断归并到 fit_pommel.py --left / author_kukri_quick.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/probe_strike.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/probe_strike.py",
+      "bytes": 1274,
+      "sha256": "46cd31416aa7d3531afa96348cecd42b49900df52a1f3f857afb0e3a896819c5",
+      "reason": "快速近战 V2 调参期一次性诊断/探针脚本",
+      "replacement": "最终诊断归并到 fit_pommel.py --left / author_kukri_quick.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/quick/v2/sheet.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/quick/v2/sheet.py",
+      "bytes": 778,
+      "sha256": "beea7168150368784a4f781af88deca1b39a14e9369937409521b80320a8a959",
+      "reason": "快速近战 V2 调参期一次性诊断/探针脚本",
+      "replacement": "最终诊断归并到 fit_pommel.py --left / author_kukri_quick.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/sprint/SprintAttack_v1.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/sprint/SprintAttack_v1.json",
+      "bytes": 3669492,
+      "sha256": "2267bdb7f69171c17b3acd61a93de00ce471468340808522d763e8e7a3014cc7",
+      "reason": "冲刺攻击 V1 烘焙 clip（双手拟合右臂版，构图偏右被否）",
+      "replacement": "Clips/SprintAttack.json (V2: author_kukri_sprint.py 剑下劈骨骼重排)"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/sprint/sprint_keys_v1.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/sprint/sprint_keys_v1.json",
+      "bytes": 14209,
+      "sha256": "c8cdaab41f5bef74c9c42716b00b2d6c5d2089ac2b932eedb45737e89ef249f9",
+      "reason": "冲刺攻击 V1 拟合键",
+      "replacement": "sprint_keys.json (V2 画外段沿用)"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/whirl/probe_dash_rift.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/whirl/probe_dash_rift.py",
+      "bytes": 668,
+      "sha256": "379bd915a6009c69bbefb6434308ec1d24648b813b34f11e4605c178e754ce48",
+      "reason": "大旋风期一次性探针（剑气挂点观察）",
+      "replacement": "KukriSkillRift.cpp"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/whirl/probe_hold.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/whirl/probe_hold.py",
+      "bytes": 1435,
+      "sha256": "70424fe85cef6d596f4592404bb976978227f9d9b3324cd571f6a19328becd63",
+      "reason": "大旋风期一次性探针（横持姿态观察）",
+      "replacement": "fit_whirl.py 关键帧"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/whirl/view_sword.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/whirl/view_sword.py",
+      "bytes": 1816,
+      "sha256": "a23b869ddc2d06ce98d665846d66d6c3c1b5d7c832bf85a004260a9c0c6b63c1",
+      "reason": "大旋风期一次性查看脚本（剑旋风 dump 渲染）",
+      "replacement": "Work/whirl/sword_sheet.jpg 已产出"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/equip/backup_v2/A_Kukri_Equip.uasset",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/equip/backup_v2/A_Kukri_Equip.uasset",
+      "bytes": 320606,
+      "sha256": "5bd6de84d8bf5ba05120978e9fa32d782c7335f1c5e1b03574d0097b72e4d61a",
+      "reason": "拔刀 V2.1 前的资产备份（V2.1 已验收导入）",
+      "replacement": "Content/Weapons/Kukri20261020/A_Kukri_Equip.uasset"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/equip/backup_v2/Equip.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/equip/backup_v2/Equip.json",
+      "bytes": 2215307,
+      "sha256": "4cac0b396810610aba993d49ba94c9206b3bc462983ea1f3e212714f6f3e4522",
+      "reason": "拔刀 V2 烘焙 clip 备份（V2.1 接刀衔接修正后取代）",
+      "replacement": "Clips/Equip.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/equip/backup_v2/author_kukri_equip_v21.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/equip/backup_v2/author_kukri_equip_v21.py",
+      "bytes": 18695,
+      "sha256": "57840b7fd19fe47c1c53b4a55a4e7b44319e058e2b82fc701d2fbf7bee0d604a",
+      "reason": "与当前 author_kukri_equip.py 逐字节相同的冗余备份",
+      "replacement": "author_kukri_equip.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/SM_Kukri_before_material_repair.uasset",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/SM_Kukri_before_material_repair.uasset",
+      "bytes": 253158,
+      "sha256": "a860750dbb435e2c4624383abfcaa0aa582cd37c08dde4919647f196c82f12a7",
+      "reason": "材质修复前的 SM_Kukri 备份（repair_kukri_material.py 已修复并验收）",
+      "replacement": "Content/Weapons/Kukri20261020/SM_Kukri.uasset"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run1.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run1.json",
+      "bytes": 22346,
+      "sha256": "66f9625be8877ca1bb93d870e69bea947c5209d3b1d10aa26ac5fd9aeea9a960",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run2.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run2.json",
+      "bytes": 22452,
+      "sha256": "1afc1c612789493ab6120ff04d67996371700d5c81c78d0704982379cb1fc29d",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run3.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run3.json",
+      "bytes": 23032,
+      "sha256": "675166b25852751d946ea9d52c37f7a3224e8544f658a9dbdd6192fe37224905",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run4.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run4.json",
+      "bytes": 22657,
+      "sha256": "26c5678299dd94d6b183987b62d4da72dd261971dee13a76395aae6ba9a195e0",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run5.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run5.json",
+      "bytes": 23382,
+      "sha256": "b58e13f86c8166657d209de5adf1b52bd970b9e437c9610ace563eca73ad5e3e",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run7.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run7.json",
+      "bytes": 23415,
+      "sha256": "eca017518b745f880388bd5fb5e479779f11ae320bebf970981cbd3477f81f78",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run8.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run8.json",
+      "bytes": 23433,
+      "sha256": "db48ca9de20499d58d8127e0d05bf7807424898b4f8e6b72661ca522559e8214",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/fit_keys_attack3_run9.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/fit_keys_attack3_run9.json",
+      "bytes": 23377,
+      "sha256": "422be2f83c5199c40fe5c3206c4ee7def9717990a45adad93cb1f0f4e2e66c2c",
+      "reason": "V12 戳刺拟合淘汰轮次的键输出（第 8 轮采用）",
+      "replacement": "attack3_keys.json + fit_keys_attack3_v12c.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_000.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_000.png",
+      "bytes": 127023,
+      "sha256": "c48f20405fc9da90155368d0a3ec18c5276f1c64ba17b82619fe2326faa6ac89",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_033.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_033.png",
+      "bytes": 127288,
+      "sha256": "cd10443389c78f2cb7571a548b67421b8d51ee01242d6cfb9de37f9fd4822c5f",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_067.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_067.png",
+      "bytes": 126889,
+      "sha256": "2a9affc4127e6f4ad92219115520b5ce1462a0c1e69760220ca434bb1f07b99c",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_100.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_100.png",
+      "bytes": 126924,
+      "sha256": "55f714c5a5e31d161ffdee35a96690d1c8522c4d4d2061dcf02b5f3877af3427",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1000.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1000.png",
+      "bytes": 121232,
+      "sha256": "1eaa535920ee777936fc5789b2f441d28b6b4717670b0b52d28d36a1d09f412a",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1033.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1033.png",
+      "bytes": 124218,
+      "sha256": "57746aa4102e065ef63a5c95719bcc522dc94bef8b12483672f7241e3583653f",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1067.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1067.png",
+      "bytes": 127257,
+      "sha256": "91314e8ed82358ac00895b9c0403747d60563defcec2a49d97d2980862ea2582",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1100.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1100.png",
+      "bytes": 129742,
+      "sha256": "9b3cd2d21b5ddc47f3563941ee0cd435af97ddfc65a1d4f3ab203fd9a1227182",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1133.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1133.png",
+      "bytes": 130805,
+      "sha256": "b048bd023b1c6329600b92a7d635c289cc8919bcf0621a2cf1d90a175c9a6f44",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1167.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1167.png",
+      "bytes": 129253,
+      "sha256": "2b64f3fe207da830d94b8f199616dcbc247cd3df0fff638eca334075e2791682",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1200.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1200.png",
+      "bytes": 128691,
+      "sha256": "325a0ff6903cb76096aca852470a759aeb368894bbb8256988ab776877e81b8c",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1233.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1233.png",
+      "bytes": 128027,
+      "sha256": "9650ca8dcc8feab968bb52fa263ca05b289141f0a29117a1aa5b1bd4e3c3ccca",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1267.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_1267.png",
+      "bytes": 127023,
+      "sha256": "5f1ffb10e67eea22ab4ebdb03f5e8c68e2c4d5f5dae6536ed21d10ca76b01abc",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_133.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_133.png",
+      "bytes": 131453,
+      "sha256": "4f5386ee62d81176d9b69f360d6d6c776a733a754d45a8a1926ac1d17f658008",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_167.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_167.png",
+      "bytes": 134806,
+      "sha256": "fa97fe1cbfbe565cbd4bd1da486ec688297be59792418ba5f8a2354e7712c526",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_200.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_200.png",
+      "bytes": 134919,
+      "sha256": "d299d95f9a13f8386a4568f857d4a90b3492b17a6712bfea93b00d5d19178162",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_233.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_233.png",
+      "bytes": 135612,
+      "sha256": "fb8366fff6e1eedb38c1694f0b4a80e6f75465440b0c8bed25b75d0164234193",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_267.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_267.png",
+      "bytes": 136756,
+      "sha256": "2f8aa4346fad9b66afe0192e6375d82a478cef9f9419a599571c9414df9ff94d",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_300.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_300.png",
+      "bytes": 136513,
+      "sha256": "3660d5a8907c5cb60ae959c01aea2e90a2487a1c84c3eacbfe2fd4277606bde3",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_333.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_333.png",
+      "bytes": 136401,
+      "sha256": "fd33d33c58a28fb88a527f1fc2cf93d121e0aa43f40c83be10df4613cbc9f2d4",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_367.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_367.png",
+      "bytes": 133287,
+      "sha256": "ce00a739ba030e892cbf79c2bcf7ef6fe3c8e0c5b500e44a0fd8fe6d9f96cefa",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_400.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_400.png",
+      "bytes": 127298,
+      "sha256": "4a7d59ff20116b6a7bea4d5dbdde1cada5dbf3fec3627161b56fe0050611bdb5",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_433.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_433.png",
+      "bytes": 125090,
+      "sha256": "6931870953fc4ef15f0016bbbc75dfa5ae4b88e24eb151a04e31f6d6c0514418",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_467.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_467.png",
+      "bytes": 121545,
+      "sha256": "e27b48ae1466fb2037a2e6286285ee43a4118c57351aa18b921c7c9bfc9399c0",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_500.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_500.png",
+      "bytes": 120516,
+      "sha256": "b264fb35cd1ad664f81f202244d2649c1232a20e3fc841e7e4377c4696963042",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_533.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_533.png",
+      "bytes": 119165,
+      "sha256": "5d45e5e8306fb33d5e79744e0c9b9b6328578a8f233cb58d110c6fbe4e158a28",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_567.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_567.png",
+      "bytes": 119153,
+      "sha256": "5e48fc98bd4aa4684655b669c7f16ebea0872e727e8c52f418365262be4a7f32",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_600.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_600.png",
+      "bytes": 119146,
+      "sha256": "a6d3db7b0322b49ee69b00a6b07a5570cf5a57824b7aaa57250e953f7ee7c089",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_633.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_633.png",
+      "bytes": 119129,
+      "sha256": "a11b5d559058b568ca32f177cc4ebfc61604d110529bb9ca8e96b161aa50254e",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_667.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_667.png",
+      "bytes": 119161,
+      "sha256": "ffadc80e3143f8ed6dd84664e887fac86e7b4f71a449192d59781caa7b859ee8",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_700.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_700.png",
+      "bytes": 119252,
+      "sha256": "7cba6b027399b1eca0d8899ffcd9b1c945d548e3aa8c076675316c665cc86b9f",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_733.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_733.png",
+      "bytes": 119498,
+      "sha256": "2b60ab6c492ff704d67b6dce09a8d5c0f670b26f409f1c91ab8cfd7253cd095e",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_767.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_767.png",
+      "bytes": 119686,
+      "sha256": "df14b5b5377ee3d0247c26ea488d74328730986177e7ddde23726ec32d801c2e",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_800.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_800.png",
+      "bytes": 119290,
+      "sha256": "ac5902f8abaae5121f129c069c94beda41358819c9c69e9c02467cf3343d8331",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_833.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_833.png",
+      "bytes": 119005,
+      "sha256": "477d96e5ab406f35b96686fc00306bd91b192b9cb36846a8fbf619814dd2ccf9",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_867.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_867.png",
+      "bytes": 119005,
+      "sha256": "25adb844900dc4d6e3cbd56713f1f7f9b1d74596acd314809c5235a578cdc666",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_900.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_900.png",
+      "bytes": 119005,
+      "sha256": "477d96e5ab406f35b96686fc00306bd91b192b9cb36846a8fbf619814dd2ccf9",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_933.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_933.png",
+      "bytes": 119241,
+      "sha256": "5122a3945da09808f08cd713ef3061f2b5bf17d69bb0aaf2529ba2b59f738418",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack2_967.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack2_967.png",
+      "bytes": 120315,
+      "sha256": "1ec64ddca0c21e71bf2e8c1ff2dfe010bca3b26c57851791239fc8f6258a47d5",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_000.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_000.png",
+      "bytes": 126069,
+      "sha256": "d324884b41986ab1531d739332b817ae746e1f62a7ee8eafaf4bb2b26b6386bb",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_033.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_033.png",
+      "bytes": 124905,
+      "sha256": "a2464e6d063ab176a28de9e006831e3c34d54f2c4ba9d3fb0acf54672e791edc",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_067.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_067.png",
+      "bytes": 123185,
+      "sha256": "fc9f0524d7b38725d56d2e4a60ed8847175bee50f6a86fec4a4690aa816aab16",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_100.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_100.png",
+      "bytes": 123240,
+      "sha256": "f2e68ce9f961691043b6523a0d70f36dfca162d9915777a40325bf7b73612fc5",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1000.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1000.png",
+      "bytes": 122062,
+      "sha256": "686eaa4303c8888c7741dea180b77dc696bed56c50d60b12b4a356ca86faf2fa",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1033.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1033.png",
+      "bytes": 123359,
+      "sha256": "76513e20d48c2ce91aad79645d7c97a5422fdb8963ffefdd97fdbb63d293a758",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1067.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1067.png",
+      "bytes": 125487,
+      "sha256": "131655e100b0efdd1992bc9bac3ee754327641620794530cdb0764ea68374322",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1100.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1100.png",
+      "bytes": 129418,
+      "sha256": "c7593470c7f47616d2a153ea52d5128e2a330f9619fa9c0cc9ec6cf549516a6d",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1133.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1133.png",
+      "bytes": 130811,
+      "sha256": "6749b1e99b40a241e2cebb066f753c0bdd604163b715ebd975713b8b9473cd35",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1167.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1167.png",
+      "bytes": 129630,
+      "sha256": "2195504d100b0c74ffa43f7bde1a2fdf52a23b4950dc91c667d03f0a137619b1",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1200.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1200.png",
+      "bytes": 128603,
+      "sha256": "deccafe214ab3ab7238d4980b907a22b49e50180548124caf07ae4506b3d0e83",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1233.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1233.png",
+      "bytes": 127076,
+      "sha256": "267994fc1e0b6b7c0240151d3ab4b965f3052ddfdd43147bb422208fcd18b54e",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1267.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_1267.png",
+      "bytes": 126069,
+      "sha256": "75cde205c03b05d4e6613cb11fb3679c87e6120cce39a2bd6e953449426dfc0f",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_133.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_133.png",
+      "bytes": 126626,
+      "sha256": "1d34a031a96c9d1e8f5831b88faac23d6e3782abaaa7e29196afb16121833fb2",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_167.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_167.png",
+      "bytes": 127215,
+      "sha256": "b3630f773759716ea0cf0bb0d5944df3bd64b9a168638fc68f0cfb0c15b48edc",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_200.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_200.png",
+      "bytes": 127141,
+      "sha256": "cc835c339ecfa287d6a18287d4243d60e5e6d8576cb78885c701ea68d6557dd6",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_233.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_233.png",
+      "bytes": 127525,
+      "sha256": "9bddbf2aece7fbfc8cb3546241b12ca7436e9adecd304be7d8d971f826b5df62",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_267.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_267.png",
+      "bytes": 126909,
+      "sha256": "732f6be44274e1a7d3a53322737e29fa2ed981dcfa5bfd354bf007717dba0f03",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_300.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_300.png",
+      "bytes": 126431,
+      "sha256": "11eba1822990b1129c07959640d658a944b50f8ef0aac2f6e308ca73a1ead826",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_333.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_333.png",
+      "bytes": 126276,
+      "sha256": "aee5b5b1e3662dc931fd987b010b3e21542d6a3c84da00c1bea49f82f3b3158f",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_367.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_367.png",
+      "bytes": 126101,
+      "sha256": "45e3f932814ccbf697d7d36aa7e5bbd1815770048513b6f8bf17e36f03c8935f",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_400.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_400.png",
+      "bytes": 125543,
+      "sha256": "a05021964f0272f27fe8ade726f0c3d91975215eb0ea71cd5d429785cc7b60f4",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_433.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_433.png",
+      "bytes": 125875,
+      "sha256": "893714994b0b9a4bfcf1e62d414c45c2aded733b93b6323165510dd4f5054f8d",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_467.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_467.png",
+      "bytes": 125853,
+      "sha256": "a8aa8fcd3d899f3e6e04ca0f485d89cbea573ebd85faed40dbe21828222b2514",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_500.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_500.png",
+      "bytes": 125629,
+      "sha256": "3d5b6ea95b080e88c84eb30fa6ceecc9db3031c389bf170fc6dc4cffa5c9f5ad",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_533.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_533.png",
+      "bytes": 125578,
+      "sha256": "3cf62866dd4077707c00bae1694dbd0e9570232d86096635c89f922baf81ade1",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_567.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_567.png",
+      "bytes": 126388,
+      "sha256": "3afdcaeda64ae8abb50f38bef71c64cbc30855e7facb93cf0a65d96f364a8cb4",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_600.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_600.png",
+      "bytes": 126410,
+      "sha256": "bf731853c7854955f0cac9c5b3482e403b5b09f57c666a7401550b4c757d6745",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_633.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_633.png",
+      "bytes": 130371,
+      "sha256": "7bff2e218a7fae96e8db67e470d4d99f6b63e2faca4b733ac4f8f59ed630442a",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_667.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_667.png",
+      "bytes": 124128,
+      "sha256": "c99896276b40a291ea07252a057fe02eac8b071ffa1fe7050df64e97153e1120",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_700.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_700.png",
+      "bytes": 122899,
+      "sha256": "477ea76422e74e1dc41e900f728426f4f544e80fa2b16a07362db36134811545",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_733.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_733.png",
+      "bytes": 122036,
+      "sha256": "b36e6c6fb55284b478e9736789b656fda1060f32341e04d446914575d106d85a",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_767.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_767.png",
+      "bytes": 120123,
+      "sha256": "bdb68232f08584abe4294804c613bd02698e14128c922ac6eab02fe25ebc1e9c",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_800.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_800.png",
+      "bytes": 119005,
+      "sha256": "3b72d7e8b30081d370bb885b31e885a14a595e6232f88af478cf5500c10437b0",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_833.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_833.png",
+      "bytes": 119005,
+      "sha256": "3b72d7e8b30081d370bb885b31e885a14a595e6232f88af478cf5500c10437b0",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_867.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_867.png",
+      "bytes": 119005,
+      "sha256": "1c03dc20e2f84b0cc8b9f9e63db6c8748801ef41004a8b8291099699c0617d56",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_900.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_900.png",
+      "bytes": 119344,
+      "sha256": "88471e9cd5d9d5a8dc79b75ae09ee5b6e977b7626dd1e3a95144fa825f21b608",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_933.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_933.png",
+      "bytes": 119634,
+      "sha256": "77ce955dd44674d448814d7be5a6b2ffd57e2e1351b11ba7b24da3a42a8c71b1",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews/Attack3_967.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews/Attack3_967.png",
+      "bytes": 120537,
+      "sha256": "1a83706497c2f25657c0bb13268aef77c05574e5f786cda6940637517ba33b4a",
+      "reason": "clip 预览渲染中间件（author_kukri_clips.py --preview 可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/clip_previews.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/clip_previews.json",
+      "bytes": 880102,
+      "sha256": "d00505696eb401476a2cd1e15b044147dcd6867ff989ba0ba76dc412e8bc0525",
+      "reason": "clip 预览姿态中间件（可再生）",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_233.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_233.png",
+      "bytes": 127576,
+      "sha256": "eb37bc33fccc6f94efd71309731c329d2bf57441a88bf889cedb4b78d469809b",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_267.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_267.png",
+      "bytes": 126922,
+      "sha256": "80cedb442885d998750a8b867b8ca43c81069c224e88964711d44a6b99a36660",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_300.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_300.png",
+      "bytes": 126705,
+      "sha256": "c6233dc889c664b4d5e5d64d6bc18fc142dabc39d328159e7a66780fa5f732aa",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_333.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_333.png",
+      "bytes": 126535,
+      "sha256": "55191cb912716c36c173e084e66635079f2f5a1c6c4f13eff4f5b5fb37690b48",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_342.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_342.png",
+      "bytes": 126924,
+      "sha256": "5febeaed11db298c31efdfe6b432c2d53d3147dbc200c9736cb5d909acda0726",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_350.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_350.png",
+      "bytes": 128443,
+      "sha256": "c4a0da2fdd4a7a5f0dda74e09d8f43cf1d0582bdefbbb3adef220ce6fd2d6a26",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_358.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_358.png",
+      "bytes": 128526,
+      "sha256": "a70af50d4c508da7d518f5ab1e40ec8c8745d45a740016dd77411ab18aee5608",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_367.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_367.png",
+      "bytes": 125301,
+      "sha256": "8c1eb4cf386919c6079dd375bed1fc7464f34cbe5bd9ddcbe6e02598212e4272",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_375.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_375.png",
+      "bytes": 125155,
+      "sha256": "a32aabf23b93b5f7986fdc96b8b860554cd0f5fcf4926eff615dc386cabdf838",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_383.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_383.png",
+      "bytes": 124866,
+      "sha256": "c2d9b2023c554d01ddaec66dd85da34af5d0092514db6c7579956988d5533379",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_400.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_400.png",
+      "bytes": 125199,
+      "sha256": "1e7ae046dc35e3697657fd39fddb6f888ead67a4bd66d180c5510fe8dbb242c3",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_467.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_467.png",
+      "bytes": 125046,
+      "sha256": "57161cbbfbf801983e5c9cd9ff949315f19fe53525bebc698bee37f869842933",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_533.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_533.png",
+      "bytes": 124980,
+      "sha256": "fcaace36b62303c5c10b96c515c527092fec481cb4186d4589225382355cd5fd",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_567.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_567.png",
+      "bytes": 125918,
+      "sha256": "f98ce1000ac23cacae886146cac68b19eeeec099ed8d4b05f1e20114257a3e7f",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews/Drive_600.png",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews/Drive_600.png",
+      "bytes": 125746,
+      "sha256": "349be31bd5a81974b413ff31dd2be03d35040b2a5abc23fb29b00db4252c9ee6",
+      "reason": "V12c 驱动段一次性预览渲染",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/drive_previews.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/drive_previews.json",
+      "bytes": 338540,
+      "sha256": "39fc0b18918da515bc23c04a58ba58e0675bfdb4acbb6e2b3ae96e73a91720d8",
+      "reason": "V12c 驱动段一次性预览姿态",
+      "replacement": "无（调参期中间件）"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/preview_drive.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/preview_drive.py",
+      "bytes": 1168,
+      "sha256": "c221a472787e451201d20cfa7a2d990c2456b2f282da2066b4e542417c2626bd",
+      "reason": "V12c 驱动段一次性预览脚本",
+      "replacement": "author_kukri_clips.py 预览管线"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface.py",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface.py",
+      "bytes": 4153,
+      "sha256": "1500f51b33f98e5c28a1761152d3272f4f141e2df705a02ca6c6e574cfdc13fd",
+      "reason": "材质修复期一次性只读诊断脚本",
+      "replacement": "repair_kukri_material.py"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface.json",
+      "bytes": 3917,
+      "sha256": "c23ca08d53035120232cfaab89e5671c1e224c2a6d4c9d19dab682b38d4d9041",
+      "reason": "diag_surface.py 输出快照",
+      "replacement": "repair_kukri_material.py 修复结果"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface.log",
+      "bytes": 278391,
+      "sha256": "743d4d1671e7460d7e9410adc7b605c7de3aee903c6147b9aeacd54e5b7e755a",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface2.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface2.log",
+      "bytes": 278581,
+      "sha256": "b66511f3cf976ebd85f5d07d3fd97beddd54d5cccde313c349948e54a4c85e25",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface_after.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface_after.log",
+      "bytes": 281671,
+      "sha256": "aa903d00415605258783918500937aa97a48ae17ffb26f02d2bca3440f240a59",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface_after2.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface_after2.log",
+      "bytes": 278812,
+      "sha256": "d6c3326204f9bb23e316e91988f734bb9b4f53fbdc429fe8abef6cc08568e284",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_surface-backup-2026.10.22-12.44.49.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_surface-backup-2026.10.22-12.44.49.log",
+      "bytes": 282800,
+      "sha256": "e05edf5e39d58421c96c97008471b2fb8d13632df0d61a5d4fd7da3d237bef3e",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_rift.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_rift.log",
+      "bytes": 278905,
+      "sha256": "5c893c92a3b97237c896aaeaf1f3bdafd496b832a16d3b724e29091a2a861ec8",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/diag_sounds.log",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/diag_sounds.log",
+      "bytes": 280564,
+      "sha256": "6e7067d8a3f2351d389644a5833a6b2baf8375d950da882a4c1efa47b7e8e8aa",
+      "reason": "一次性诊断日志（材质/剑气挂点/音效排查，结论已固化进代码与文档）",
+      "replacement": "repair_kukri_material.py / KukriRift.cpp / 相关提交"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/import_receipt_before_v12.json",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/import_receipt_before_v12.json",
+      "bytes": 1014,
+      "sha256": "1a008da3a8ecf111db8e593890f1a50bce6f73376bf79e01558fcb640c895103",
+      "reason": "V12 重导入前的回执快照（被新回执取代）",
+      "replacement": "import_receipt.json"
+    },
+    {
+      "original": "SourceAssets/Kukri20261020/Work/__pycache__/tempo_audit.cpython-311.pyc",
+      "destination": "trash/kukri-20261025-closeout/SourceAssets/Kukri20261020/Work/__pycache__/tempo_audit.cpython-311.pyc",
+      "bytes": 9837,
+      "sha256": "c4f9d3fc868354fdcaef88e2bd049dbe93482fed0ef60fbbd6e7a60ad781b70f",
+      "reason": "Python 字节码缓存（可再生）",
+      "replacement": "无"
+    }
+  ]
+}

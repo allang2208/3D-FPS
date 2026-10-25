@@ -108,8 +108,9 @@ class Designer:
 
 def solve_arm_sample(R, prm):
     K, E = R.arm_to_kukri(tuple(prm['W']), tuple(prm['E']), prm['psi'], prm['de'], prm['du'], tuple(prm['C']))
+    # 'LA' (optional): explicit left arm (kukri_rig.left_hand_explicit), e.g. the uppercut's open balance hand.
     world, diag = R.pose(K, left_target_cam=tuple(prm['L']), clav_r=tuple(prm['C']), pole_r=E, pole_r_weight=1.0,
-                         left_press=float(prm.get('Lp', 0.0)))
+                         left_press=float(prm.get('Lp', 0.0)), left_arm=prm.get('LA'))
     return world, K, diag
 
 
@@ -228,14 +229,16 @@ def clip_attack(D):
 
 
 def clip_attack2(D):
-    """Second hit (left -> right backhand), fitted by fit_reference.py --attack2 (attack2_keys.json).
-    Starts on attack 1's pose at its chain time (17/30 s: forearm across the lower left), cocks up-left,
-    whips across the centre with the knuckles and edge leading right (contact 0.19-0.31 s), follows
-    through off the right edge and settles into the stance at 1.0 s."""
+    """Second hit, V11 (2026-10-22): reference melee #1 ↘ (BV1CeYUeSE7b 1:24.33-1:25.60) fitted frame by frame by
+    fit_reference.py --attack2 (attack2_keys.json, REF_DIAG).  Starts and ends on the stance (38/30 s): the blade
+    dips left and the fist drops (0.03-0.10), backhand cock up-left across the frame close to the lens (0.13-0.33),
+    one diagonal cut through the centre to the lower-right corner with the blade trailing up-left (contact
+    0.34-0.47 s), below the frame (0.50-0.95), re-raise and blade flip into the stance (1.03-1.27)."""
     from fit_reference import Fitter
     F = Fitter(D.R)
     data = json.loads((P / 'attack2_keys.json').read_text('utf-8'))
-    keys = [dict(t=k['t'], hold=False, x=np.array(k['x'], float)) for k in data['keys']]
+    stance = data.get('start') == 'stance'
+    keys = [dict(t=k['t'], hold=(stance and i == 0), x=np.array(k['x'], float)) for i, k in enumerate(data['keys'])]
     keys.append(dict(t=data['length'], hold=True, x=np.array(json.loads((P / 'attack_keys.json').read_text('utf-8'))['keys'][0]['x'], float)))
 
     def sample(t):
@@ -243,22 +246,60 @@ def clip_attack2(D):
         W, phi, psi, du, de, C = F.unpack(x)
         return dict(W=np.array(W, float), E=np.array(F.hint(W, phi, C), float), psi=float(psi), du=float(du),
                     de=float(de), C=np.array(C, float), L=np.array(IDLE['L'], float))
-    return dict(length=data['length'], loop=False, kind='arm', sample=sample, contact=(0.19, 0.31), preview_step=1 / 30)
+    return dict(length=data['length'], loop=False, kind='arm', sample=sample,
+                contact=(0.34, 0.47) if stance else (0.19, 0.31), preview_step=1 / 30)
+
+
+# V12c stab drive (author seconds): the frozen cock at 0.333 -> the crosshair at 0.367, eased in (u ** EASE: speed
+# peaks on arrival), then the fist runs STAB_OVERSHOOT cm past the extension along the stab and rebounds within
+# STAB_REBOUND (peak at STAB_PEAK of it).  KukriRhythm::Swings[2].StrikeAt is the arrival.
+STAB_DRIVE = (0.333, 0.367)
+STAB_DRIVE_EASE = 2.2
+STAB_OVERSHOOT = 2.0
+STAB_REBOUND = 0.033
+STAB_PEAK = 0.35
 
 
 def clip_attack3(D):
-    """Third hit: two-handed forward thrust, fitted by fit_reference.py --attack3 (attack3_keys.json).
-    Starts on attack 2's pose at 0.40 s (fist just out of the lower right).  The left palm arrives on the
-    pommel 0.07-0.17 s (left_press 0 -> 1), stays through the cock (0.17-0.20), the drive (0.20-0.30) and the
-    held extension (contact 0.26-0.38), and lets go 0.45-0.58 while the right arm settles into the stance (1.1 s)."""
+    """Third hit, fitted by fit_reference.py --attack3 (attack3_keys.json).
+    V12 (2026-10-22): one-handed crouch stab, reference melee #5 戳 (BV1CeYUeSE7b 1:34.77-1:35.97), from the stance
+    (36/30 s): blade flips upright and the fist drops (0.03-0.10), slides to the lower left with the blade turned to
+    point forward (0.13-0.17), cocked low at the left hip (0.17-0.33), one-frame drive to the crosshair with the blade
+    into the screen (contact 0.34-0.47), held (0.43-0.57), withdrawn down-left and out through the bottom (0.60-0.77),
+    re-raise into the stance.  The left hand stays lowered (left_press false).
+    V8-V11 (archived, trash/kukri-20261022-v12/): two-handed thrust, left palm on the pommel 0.07-0.58 s."""
     from fit_reference import Fitter
     F = Fitter(D.R)
     data = json.loads((P / 'attack3_keys.json').read_text('utf-8'))
-    keys = [dict(t=k['t'], hold=False, x=np.array(k['x'], float)) for k in data['keys']]
+    stance = data.get('start') == 'stance'
+    two_handed = data.get('left_press', True)
+    # V12c: keys fitted with target 'hold' (the frozen cock, the arrival on the crosshair) get zero spline tangents.
+    keys = [dict(t=k['t'], hold=(stance and i == 0) or bool(k.get('target', {}).get('hold')), x=np.array(k['x'], float))
+            for i, k in enumerate(data['keys'])]
     keys.append(dict(t=data['length'], hold=True, x=np.array(json.loads((P / 'attack_keys.json').read_text('utf-8'))['keys'][0]['x'], float)))
+    drive = STAB_DRIVE if data.get('variant', '').startswith('V12c') else None
+    if drive:
+        k0 = next(k for k in keys if abs(k['t'] - drive[0]) < 1e-3)
+        k1 = next(k for k in keys if abs(k['t'] - drive[1]) < 1e-3)
+        W0, W1 = k0['x'][:3], k1['x'][:3]
+        push = (W1 - W0) / np.linalg.norm(W1 - W0)   # camera-space stab direction of the wrist
+
+    def arm_x(t):
+        """V12c drive: cock -> crosshair eased in (speed peaks on arrival, no settling into the target), then the fist
+        overshoots STAB_OVERSHOOT cm along the stab and rebounds onto the held extension (the impact stop)."""
+        if drive and drive[0] <= t < drive[1]:
+            u = (t - drive[0]) / (drive[1] - drive[0])
+            return k0['x'] + (k1['x'] - k0['x']) * u ** STAB_DRIVE_EASE
+        x = np.array(spline(keys, t, ('x',))['x'], float)
+        if drive and drive[1] <= t < drive[1] + STAB_REBOUND:
+            s = (t - drive[1]) / STAB_REBOUND
+            peak = STAB_PEAK
+            bump = math.sin(0.5 * math.pi * s / peak) if s < peak else 0.5 * (1 + math.cos(math.pi * (s - peak) / (1 - peak)))
+            x[:3] = x[:3] + push * STAB_OVERSHOOT * bump
+        return x
 
     def press(t):
-        if t <= 0.07 or t >= 0.58:
+        if not two_handed or t <= 0.07 or t >= 0.58:
             return 0.0
         if t < 0.17:
             return (t - 0.07) / 0.10
@@ -267,11 +308,12 @@ def clip_attack3(D):
         return 1.0 - (t - 0.45) / 0.13
 
     def sample(t):
-        x = spline(keys, t, ('x',))['x']
+        x = arm_x(t)
         W, phi, psi, du, de, C = F.unpack(x)
         return dict(W=np.array(W, float), E=np.array(F.hint(W, phi, C), float), psi=float(psi), du=float(du),
                     de=float(de), C=np.array(C, float), L=np.array(IDLE['L'], float), Lp=press(t))
-    return dict(length=data['length'], loop=False, kind='arm', sample=sample, contact=(0.26, 0.38), preview_step=1 / 30)
+    return dict(length=data['length'], loop=False, kind='arm', sample=sample,
+                contact=(0.26, 0.38) if two_handed else (0.34, 0.47), preview_step=1 / 30)
 
 
 CLIPS = {'Idle': clip_idle, 'Walk': clip_walk, 'Run': clip_run, 'Equip': clip_equip,

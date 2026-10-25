@@ -1,0 +1,56 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp
+@@ -37,6 +37,7 @@
+ #include "../Weapons/ColdSteelEnchantmentCombat.h"
+ #include "../Weapons/AzureDragonReach.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Weapons/GunsmithSystem.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+@@ -126,6 +127,7 @@
+         if (ShadowModel && Pawn && ShadowPawn.Get() == Pawn)
+             ShadowModel->TickRuntime(DeltaSeconds, Pawn);
+         TickSuper90Authority(DeltaSeconds);
++        TickSwordUppercut();
+         if(!PendingCastSkill.IsNone())
+         {
+             const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+@@ -626,6 +628,16 @@
+     if (!OutDeclaredItem && !bUnarmed && !((Report.AttackMeta & 0x80) && Report.ItemDefinition.IsEmpty()))
+     { OutReason = TEXT("weapon mismatch"); return false; }
+ 
++    // The one-handed kukri's heavy release has its own charge receipt (KukriHeavy.cpp).
++    if((Report.AttackMeta&0x10)&&Report.AttackMeta!=0x15&&Report.AttackMeta!=0x16
++        &&Report.AttackMeta!=SwordUppercut::AttackMeta&&OutDeclaredItem
++        &&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
++    {
++        auto* Kukri=Shooter->FindComponentByClass<UKukriWeaponComponent>();
++        if(!Kukri||(!Kukri->IsNetworkHeavyReleaseWindowOpen(OutDeclaredItem->InstanceId)
++            &&!Kukri->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId)))
++        {OutReason=TEXT("heavy release not committed");return false;}
++    }
+     // 射速限流：令牌桶按服务端 EffectiveFireInterval 充能，上限容纳一次性补射连发。
+     const double Now = GetWorld()->GetTimeSeconds();
+     const double Interval = bUnarmed?double(StaffQuickCombatMotion::Length):FMath::Max(0.05, Shooter->EffectiveFireInterval());
+@@ -661,7 +673,10 @@
+     }
+     float MaxRange = bUnarmed?UnarmedPunch::ReachCM+120.f:Shooter->TraceDistance*1.25f;
+     if(Report.AttackMeta&0x80)MaxRange=ShadowModel->QuickCombatStats().RangeCM+120.f;
+-    if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
++    // Kukri uppercut: short blade reach plus the 120 cm stride slack.
++    if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsOneHandedMelee(*OutDeclaredItem))
++        MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f+120.f;
++    else if(Report.AttackMeta==SwordUppercut::AttackMeta&&OutDeclaredItem&&ColdSteelInventory::IsTwoHandedSword(*OutDeclaredItem))
+     {
+         MaxRange=static_cast<float>(ColdSteelMelee::UppercutReachCM(ShadowModel))*1.25f;
+         // 苍龙激活期间上挑延伸到龙爪爪尖最远处；激活窗口在客户端，按所持剑带苍龙附魔放宽。
+@@ -1272,6 +1287,7 @@
+     Report.AttackMeta = Shot.AttackMeta;
+     Report.GuardAttackSerial=Shot.GuardAttackSerial;
+     if(Shot.AttackMeta&0x80)Report.QuickCombatSerial=PS->QuickCombatSequence;
++    if(Shot.AttackMeta==SwordUppercut::AttackMeta)Report.UppercutSerial=PS->UppercutSequence;
+     Report.DamageContext = Shot.DamageContext;
+     Report.AttackForm = static_cast<uint8>(Shot.AttackForm);
+     if (const AFPSGAMECharacter* Char = Cast<AFPSGAMECharacter>(Shooter))

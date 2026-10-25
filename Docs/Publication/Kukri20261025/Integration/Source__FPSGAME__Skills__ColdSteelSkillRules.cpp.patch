@@ -1,0 +1,11 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.cpp
+@@ -69,6 +69,7 @@
+     }
+     D.HeavyMultiplierBase=Num(TEXT("heavyMultiplierBase"),2.5);D.HeavyMultiplierPerLevel=Num(TEXT("heavyMultiplierPerLevel"),.1);
+     D.HeavyChargeBase=Num(TEXT("heavyChargeBase"),2);D.HeavyChargeReductionPerLevel=Num(TEXT("heavyChargeReductionPerLevel"),.05);
++    D.HeavyChargeStaminaPerSecond=FMath::Max(0.f,float(Num(TEXT("heavyChargeStaminaPerSecond"),2)));
+     D.HeavyHit2Experience=Num(TEXT("heavyHit2Experience"),5);D.HeavyKill2Experience=Num(TEXT("heavyKill2Experience"),12);
+     D.HeavyHit5Experience=Num(TEXT("heavyHit5Experience"),25);D.HeavyKill5Experience=Num(TEXT("heavyKill5Experience"),60);
+     D.StrengthPerLevel=Num(TEXT("strengthPerLevel"),0);D.ConstitutionPerLevel=Num(TEXT("constitutionPerLevel"),0);

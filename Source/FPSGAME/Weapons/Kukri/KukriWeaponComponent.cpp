@@ -1,6 +1,7 @@
 #include "KukriWeaponComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
+#include "KukriHeavyRhythm.h"
 #include "../MeleeWeaponStats.h"
 #include "../MeleeSmallTargetQuery.h"
 #include "../RuneSwordRhythm.h"
@@ -16,6 +17,7 @@
 #include "../../Building/VoxelBuildComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Camera/CameraComponent.h"
+#include "Components/DynamicMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
@@ -39,6 +41,8 @@ UKukriWeaponComponent::UKukriWeaponComponent()
     PrimaryComponentTick.bCanEverTick=true;
     // Character movement and camera have settled; the attached rig is sampled once.
     PrimaryComponentTick.TickGroup=TG_PostPhysics;
+    // The heavy strike's charge / release receipt RPCs (KukriHeavy.cpp); no replicated properties.
+    SetIsReplicatedByDefault(true);
 }
 
 bool UKukriWeaponComponent::IsKukri(const FColdSteelItem& Item)
@@ -66,7 +70,10 @@ void UKukriWeaponComponent::BeginPlay()
 
 void UKukriWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(bUppercut){bUppercut=false;FinishUppercut(true);}
+    if(bHeavyAttack){bHeavyAttack=false;FinishHeavy(true);}
     if(Blade)Blade->DestroyComponent();
+    if(RiftVisual)RiftVisual->DestroyComponent();
     if(Viewmodel)Viewmodel->DestroyComponent();
     if(JumpRoot)JumpRoot->DestroyComponent();
     Super::EndPlay(Reason);
@@ -130,10 +137,21 @@ void UKukriWeaponComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
         UE_LOG(LogTemp,Error,TEXT("Kukri: viewmodel, blade or clips missing under %s; the kukri stays hidden."),KukriRhythm::Folder);
         InstanceId.Reset();return;
     }
+    // Optional: the uppercut skill (swordUppercut) reports "动作未就绪" without its clip.
+    Animations.Add(TEXT("Uppercut"),LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+TEXT("A_Kukri_Uppercut.A_Kukri_Uppercut"))));
+    // Optional: without both heavy clips the left button keeps its plain click (no charge).
+    for(const FName Clip:{KukriHeavyRhythm::ChargeClip,KukriHeavyRhythm::ReleaseClip})
+    {
+        const FString Name=FString(TEXT("A_Kukri_"))+Clip.ToString();
+        Animations.Add(Clip,LoadObject<UAnimSequence>(nullptr,*(FString(KukriRhythm::Folder)+Name+TEXT(".")+Name)));
+    }
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
     HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("hit_sound")));
     PommelHitSound=LoadObject<USoundBase>(nullptr,KukriPommelHitPath);
     WallSound=LoadObject<USoundBase>(nullptr,KukriWallPath);
+    StabWhooshSound=LoadObject<USoundBase>(nullptr,KukriRhythm::StabWhoosh);
+    StabThudSounds.Reset();
+    for(const TCHAR* Path:KukriRhythm::StabThud)if(auto* Thud=LoadObject<USoundBase>(nullptr,Path))StabThudSounds.Add(Thud);
     if(Viewmodel->GetSkeletalMeshAsset()!=Mesh)Viewmodel->SetSkeletalMesh(Mesh);
     Blade->SetStaticMesh(BladeMesh);
     // Equipped sleeves/gloves follow this owner-only rig (modular outfit profile by mesh path).
@@ -199,24 +217,32 @@ FTransform UKukriWeaponComponent::BladeFrame() const
 
 FRotator UKukriWeaponComponent::ViewmodelKick() const
 {
+    if(bHeavyCharging&&bHeavyFull&&GetWorld())
+    {
+        // Full heavy charge: a fine tension tremble of the loaded arm until the release.
+        const float T=float(GetWorld()->GetTimeSeconds())*2.f*PI*KukriHeavyRhythm::TrembleHz;
+        const float A=KukriHeavyRhythm::TrembleDegrees;
+        return FRotator(FMath::Sin(T)*A,FMath::Sin(T*1.37f+1.f)*A*.6f,FMath::Sin(T*.71f+2.f)*A*.5f);
+    }
     if(ImpactAge<0.f)return FRotator::ZeroRotator;
     const float E=KukriRhythm::ImpactEnvelope(ImpactAge)*ImpactKick;
-    // The contact pushes the arm back against its travel (right for the first sweep, left for the backhand) and up.
-    const float Side=KukriRhythm::Swings[Stage].Mirror;
-    // The diagonal (downward) second cut is pushed back up instead of down.
-    const float Lift=KukriRhythm::Swings[Stage].CameraPitchScale<0.f?-1.f:1.f;
+    // The contact pushes the arm back against its travel: right/down for the first sweep, left/up for the
+    // down-right diagonal, left/down for the stab from the lower left (KukriRhythm::FSwing::KickYaw/KickPitch).
+    const auto& S=KukriRhythm::Swings[Stage];
     const float Shake=KukriRhythm::HitShake(ImpactAge)*ImpactKick;
-    return FRotator(-E*.6f*Lift+Shake*.5f,E*.8f*Side,(-E*.5f+Shake*.8f)*Side);
+    return FRotator(E*.6f*S.KickPitch+Shake*.5f,E*.8f*S.KickYaw,(-E*.5f+Shake*.8f)*S.KickYaw);
 }
 
 void UKukriWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const
 {
     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;FovDelta=0.f;
     if(!IsEquipped())return;
-    if(bAttacking)
+    // Heavy charge: the raise and the slow load on the charge clip's clock (KukriHeavyRhythm).
+    if(bHeavyCharging)KukriHeavyRhythm::ChargeCamera(Elapsed,Rotation,FovDelta);
+    if(bAttacking||bUppercut||bHeavyAttack)
     {
-        // Same author clock as the clip: contact holds freeze the camera curve with the arm.
-        // The thrust (stage 3) also lunges the camera forward along the aim.
+        // Same author clock as the clip: contact holds freeze the camera curve with the arm (the uppercut too).
+        // The stab (stage 3) also pushes the camera forward along the view.
         KukriRhythm::SwingCamera(Stage,Elapsed,Rotation,FovDelta,&Location);
     }
     if(CameraCarryAge>=0.f)
@@ -227,28 +253,47 @@ void UKukriWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation
     }
     if(ImpactAge>=0.f)
     {
-        // Confirmed hit: short damped shake on top of the swing curve (real time).
+        // Confirmed hit: short damped shake on top of the swing curve (real time).  The stab rattles its roll
+        // harder, like the reference's contact frames (FSwing::HitRoll).
         const float Shake=KukriRhythm::HitShake(ImpactAge)*ImpactKick;
-        Rotation+=FRotator(Shake*.9f,Shake*.35f,Shake*1.4f);
+        Rotation+=FRotator(Shake*.9f,Shake*.35f,Shake*1.4f*KukriRhythm::Swings[Stage].HitRoll);
         Location+=FVector(0.f,Shake*.25f,Shake*.15f);
         // Contact punch: the view widens for a beat with the hit-stop (V4).
         FovDelta+=KukriRhythm::ImpactEnvelope(ImpactAge)*ImpactKick*1.4f;
+    }
+    if(StrikeAge>=0.f)
+    {
+        // Impact-moment accent (hit or miss, real time): the view is carried along the strike for a beat
+        // (stab: forward and wider; slashes: with the blade) -- KukriRhythm::Strikes.
+        const auto& K=KukriRhythm::Strikes[Stage];
+        const float E=KukriRhythm::StrikeEnvelope(StrikeAge);
+        FovDelta+=K.AccentFov*E;Location.X+=K.AccentPushCM*E;
+        Rotation.Pitch+=K.AccentPitch*E;Rotation.Yaw+=K.AccentYaw*E;
     }
 }
 
 void UKukriWeaponComponent::BeginPrimaryAttack()
 {
     auto* P=Pawn();
-    if(!IsEquipped()||!P||!Viewmodel||!CanUse()||bEquipping||P->IsSpellGestureBlocking())return;
+    if(!IsEquipped()||!P||!Viewmodel||!CanUse()||bEquipping||bUppercut||bHeavyCharging||bHeavyAttack||P->IsSpellGestureBlocking())return;
     if(const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(bAttacking)
     {
-        // One buffered follow-up: the backhand at the first sweep's chain point, or the first sweep
-        // again once the backhand has returned to the stance.
+        // Two-handed cadence (V11): one click buffered after this stage's contact; the next stage starts when
+        // this one is back on the stance, so every stage keeps its full recovery as the attack interval.
         if(Elapsed>=KukriRhythm::Swings[Stage].BufferOpen)bQueued=true;
         return;
     }
-    StartAttack(0);
+    // Heavy strike learned: the press starts the charge and the release decides (KukriHeavy.cpp ReleasePrimaryAttack).
+    if(CanBeginHeavyCharge()){BeginHeavyCharge();return;}
+    StartComboClick();
+}
+
+void UKukriWeaponComponent::StartComboClick()
+{
+    // Shortly after a swing the combo continues; after a pause it starts over (RuneSword NextSlash rule).
+    const bool bContinue=LastAttackEnd>=0.&&GetWorld()&&GetWorld()->GetTimeSeconds()-LastAttackEnd<=KukriRhythm::ComboResetSeconds;
+    StartAttack(bContinue?NextStage:0);
 }
 
 void UKukriWeaponComponent::StartAttack(int32 NewStage)
@@ -259,7 +304,8 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
     bQueued=false;
     if(!P||!Item||Item->InstanceId!=InstanceId)return;
     NewStage=FMath::Clamp(NewStage,0,KukriRhythm::SwingCount-1);
-    // Camera continuity on a chain: carry the outgoing stage's offset and blend it out.
+    // Camera continuity if a stage is ever entered mid-swing: carry the outgoing offset and blend it out.
+    // (V11 stages hand over on the stance, where every swing curve is back at zero.)
     FRotator OldCamera=FRotator::ZeroRotator;float OldFov=0.f;
     const bool bChain=bAttacking;
     if(bChain)KukriRhythm::SwingCamera(Stage,Elapsed,OldCamera,OldFov);
@@ -278,7 +324,7 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
     SwingDamage=Stats.Damage;
     // AttackRate is normalised to the sword's 1.775 s clip.  The item's attack_seconds is 1.5625x this clip's
     // authored length (V9 -25 %, V10 another -25 %: "still too fast"), so the base product is 0.64 and
-    // aspd/mastery/haste scale from there; the thrust adds its own phase warp on top (KukriRhythm::PhaseRate).
+    // aspd/mastery/haste scale from there.
     PlayRate=FMath::Clamp(float(Stats.AttackRate)*KukriRhythm::AttackSeconds/RuneSwordRhythm::AttackEnd,.3f,3.f);
     Reach=Stats.BaseReach>0.?float(Stats.BaseReach):KukriRhythm::DefaultReachCM;
     Shot=ColdSteelSkills::Snapshot(P,Item);
@@ -286,24 +332,41 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
     Shot.AttackForm=KukriRhythm::Form;Shot.bMeleeStrike=true;
     bAttacking=true;bSwingPlayed=false;bImpactConfirmed=false;bWallHit=false;
     HitActors.Reset();HitStop=0.f;
-    // The first sweep starts and ends on the stance; the backhand starts on the first sweep's chain pose.
-    // The short local-space entry blend absorbs any sub-frame mismatch at the hand-over.
-    const FName Clip(KukriRhythm::Swings[Stage].Clip);
-    SetClip(Clip,false,(CurrentClip==Clip&&Stage==0)?0.f:KukriRhythm::EntryBlendSeconds);
+    // V11: every stage starts and ends on the stance; the short local-space entry blend absorbs the idle/walk
+    // offset when a swing starts from locomotion (a stage-to-stage hand-over is stance to stance).
+    SetClip(FName(KukriRhythm::Swings[Stage].Clip),false,KukriRhythm::EntryBlendSeconds);
     PreviousBlade=BladeFrame();bHavePreviousBlade=true;
+    ResetStrike();
 }
 
 void UKukriWeaponComponent::CancelAction()
 {
-    const bool WasActive=bAttacking||bEquipping;
-    bAttacking=false;bEquipping=false;bQueued=false;Stage=0;CameraCarryAge=-1.f;
+    const bool WasActive=bAttacking||bEquipping||bUppercut||bHeavyCharging||bHeavyAttack;
+    // A cancelled charge bills nothing more (its camera eases out); a cancelled release keeps its paid stamina and trains once.
+    const bool bWasCharging=bHeavyCharging;
+    if(bWasCharging)KukriHeavyRhythm::ChargeCamera(Elapsed,CameraCarry,CameraCarryFov);
+    SetHeavyCharging(false,false);bHeavyAuto=bHeavyFull=false;
+    if(bHeavyAttack){bHeavyAttack=false;FinishHeavy(true);}
+    // A cancelled uppercut keeps its paid release and still trains once (the sword's rule).
+    if(bUppercut){bUppercut=false;FinishUppercut(true);}
+    bAttacking=false;bEquipping=false;bQueued=false;Stage=0;NextStage=0;LastAttackEnd=-1.;CameraCarryAge=bWasCharging?0.f:-1.f;
     HitStop=0.f;HitActors.Reset();bHavePreviousBlade=false;
+    ResetStrike();StrikeAge=-1.f;StopRift();
     if(WasActive&&IsEquipped()&&Viewmodel&&Animations.Num())
         SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);
 }
 
 void UKukriWeaponComponent::ConfirmImpact(const FHitResult& Hit,bool bWorld)
 {
+    const auto& K=KukriRhythm::Strikes[Stage];
+    if(K.At>0.f&&!bStrikeDone)
+    {
+        // Found before the impact moment (stab: during the drive; slashes: before the blade crosses the centre) --
+        // the cue waits for it (ArriveStrike); damage has already been applied.
+        if(bWorld){if(!bPendingWall){bPendingWall=true;PendingWallHit=Hit;}}
+        else if(!bPendingFlesh){bPendingFlesh=true;PendingFleshHit=Hit;}
+        return;
+    }
     if(bWorld)
     {
         if(bWallHit||bImpactConfirmed)return;
@@ -316,6 +379,10 @@ void UKukriWeaponComponent::ConfirmImpact(const FHitResult& Hit,bool bWorld)
     bImpactConfirmed=true;HitStop=KukriRhythm::FleshStopSeconds*KukriRhythm::Swings[Stage].HitStopScale;ImpactAge=0.f;
     ImpactKick=KukriRhythm::ImpactKick*KukriRhythm::Swings[Stage].ImpactScale;
     if(HitSound)UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,.95f,1.04f);
+    if(StabThudSounds.Num())
+        UGameplayStatics::PlaySoundAtLocation(this,StabThudSounds[FMath::RandRange(0,StabThudSounds.Num()-1)],Hit.ImpactPoint,
+            KukriRhythm::StabThudVolume,KukriRhythm::StabThudPitch);
+    bPressIn=K.PressX!=0.f||K.PressY!=0.f||K.PressZ!=0.f;PressStop=HitStop;
 }
 
 void UKukriWeaponComponent::TraceBlade(const FTransform& From,const FTransform& To)
@@ -351,18 +418,26 @@ void UKukriWeaponComponent::TraceBlade(const FTransform& From,const FTransform& 
         if(!Combat)
         {
             UWardBreakableGlass::BreakHit(Hit,Direction);
+            // Scenery comes back on every substep while the blade rests against it: one cue and one burst per swing.
+            const bool bFirstWall=!bWallHit&&!bImpactConfirmed&&!bPendingWall;
             ConfirmImpact(Hit,true);
+            if(bFirstWall)QueueContactFX(Hit,true);
             continue;
         }
+        // The uppercut is single-target, like the sword and hammer uppercuts.
+        if(bUppercut&&!HitActors.IsEmpty())break;
         HitActors.Add(Actor);
         if(Combat->IsDead())continue;
+        const bool bHeavyVictim=bHeavyAttack&&bHeavyTrainingPending&&ColdSteelSkills::IsMasteryTrainingTarget(P,Actor);
         FWeaponDamageResult Receipt;
         const float Applied=ColdSteelSkills::ApplyHit(GetOwner(),Hit,SwingDamage,Direction,Shot,&Receipt);
         // Hit cue: damage was dealt, or this hit killed the target.
         if(Applied>0.f||Combat->IsDead())
         {
             ConfirmImpact(Hit,false);
+            QueueContactFX(Hit,false);
             P->NotifyConfirmedWeaponHit(Actor,Applied,&Receipt,false);
+            if(bHeavyVictim){++HeavyHits;if(Combat->IsDead())++HeavyKills;}
         }
     }
 }
@@ -382,11 +457,12 @@ void UKukriWeaponComponent::AdvanceAttack(float Delta)
         const float Length=CurrentAnimation?CurrentAnimation->GetPlayLength():KukriRhythm::AttackSeconds;
         // Author-time substeps (<= 1/120 s) that land exactly on every phase boundary.
         const KukriRhythm::FSwing& S=KukriRhythm::Swings[Stage];
-        // Stage-local phase warp (the thrust holds its cock and its full extension, snaps the drive).
-        float PhaseEnd=Length;
-        const float Rate=PlayRate*KukriRhythm::PhaseRate(Stage,Elapsed,PhaseEnd);
+        // V12b: the stab slows its visible phases on a smooth tempo curve (KukriRhythm::StageTempo); substeps are
+        // <= 1/120 author s, so the rate is sampled finely enough for the SmoothStep blends between knots.
+        const float Rate=PlayRate*KukriRhythm::StageTempo(Stage,Elapsed);
         float Step=FMath::Min(Remaining*Rate,1.f/120.f);
-        for(const float Boundary:{S.SwingSound,S.ContactStart,S.ContactEnd,S.ChainAt,PhaseEnd,Length})
+        const float StrikeAt=KukriRhythm::Strikes[Stage].At, RiftAt=KukriRhythm::Rifts[Stage].Start;
+        for(const float Boundary:{S.SwingSound,S.ContactStart,S.ContactEnd,StrikeAt,RiftAt,Length})
             if(Elapsed<Boundary-UE_KINDA_SMALL_NUMBER)Step=FMath::Min(Step,Boundary-Elapsed);
         Step=FMath::Max(Step,1e-4f);
         const float Before=Elapsed;
@@ -397,25 +473,25 @@ void UKukriWeaponComponent::AdvanceAttack(float Delta)
         if(!bSwingPlayed&&Elapsed>=S.SwingSound-UE_KINDA_SMALL_NUMBER)
         {
             bSwingPlayed=true;
-            if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.55f,S.SwingPitch*FMath::Clamp(PlayRate,.85f,1.3f));
+            // The stab plays a short sharp whoosh on its drive instead of the item swing sound.
+            const bool bWhoosh=KukriRhythm::Strikes[Stage].bWhoosh&&StabWhooshSound;
+            USoundBase* Cue=bWhoosh?StabWhooshSound.Get():SwingSound.Get();
+            if(Cue)UGameplayStatics::PlaySound2D(this,Cue,bWhoosh?KukriRhythm::StabWhooshVolume:.55f,
+                S.SwingPitch*FMath::Clamp(PlayRate,.85f,1.3f));
         }
         if(bHavePreviousBlade&&Before>=S.ContactStart-UE_KINDA_SMALL_NUMBER&&Before<S.ContactEnd)TraceBlade(PreviousBlade,Now);
+        if(StrikeAt>0.f&&!bStrikeDone&&Elapsed>=StrikeAt-UE_KINDA_SMALL_NUMBER)ArriveStrike();
+        if(!bRiftStarted&&Elapsed>=RiftAt-UE_KINDA_SMALL_NUMBER){bRiftStarted=true;StartRift();}
         PreviousBlade=Now;bHavePreviousBlade=true;
-        // First sweep -> backhand: hand over at the chain point while the forearm is still across the left.
-        if(bQueued&&Stage+1<KukriRhythm::SwingCount&&S.ChainAt<Length&&Elapsed>=S.ChainAt-UE_KINDA_SMALL_NUMBER)
-        {
-            const int32 From=Stage;
-            StartAttack(Stage+1);
-            if(Stage!=From){HitActors.Reset();continue;}
-            bQueued=false;   // not enough stamina: the first sweep plays out
-        }
         if(Elapsed>=Length-UE_KINDA_SMALL_NUMBER)
         {
+            // Back on the stance: the full recovery was this stage's attack interval.  A buffered click starts
+            // the next stage now (3 -> 1); otherwise the next click within ComboResetSeconds still continues.
             const bool bNext=bQueued;
             bAttacking=false;HitActors.Reset();
-            // After the backhand (or a first sweep that ran to the end) a buffered click restarts the first sweep.
-            if(bNext){StartAttack(0);if(bAttacking)continue;}
-            Stage=0;
+            NextStage=(Stage+1)%KukriRhythm::SwingCount;
+            LastAttackEnd=GetWorld()?GetWorld()->GetTimeSeconds():0.;
+            if(bNext){StartAttack(NextStage);if(bAttacking)continue;}
             SetClip(LocomotionClip(),true,KukriRhythm::EntryBlendSeconds);
         }
     }
@@ -424,21 +500,28 @@ void UKukriWeaponComponent::AdvanceAttack(float Delta)
 void UKukriWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    // Authority of a remote owner: keep its heavy charge honest (the stamina bill stops with the charge).
+    if(bServerHeavyCharging&&GetOwner()&&GetOwner()->HasAuthority())TickServerHeavyCharge();
     auto* P=Pawn();
     if(!P||!Viewmodel||!IsEquipped()||!P->IsLocallyControlled())return;
     if(ImpactAge>=0.f){ImpactAge+=Delta;if(ImpactAge>.6f)ImpactAge=-1.f;}
+    if(StrikeAge>=0.f){StrikeAge+=Delta;if(StrikeAge>.4f)StrikeAge=-1.f;}
+    TickRift(Delta);
     if(CameraCarryAge>=0.f){CameraCarryAge+=Delta*PlayRate;if(CameraCarryAge>KukriRhythm::CameraCarrySeconds)CameraCarryAge=-1.f;}
     if(JumpRoot)
     {
         // Impact kick is a camera-aligned rotation of the presentation parent only.
-        const FTransform Kick(ViewmodelKick());
+        const FTransform Kick(ViewmodelKick(),StrikeViewmodelOffset());
         JumpRoot->SetRelativeTransform(Kick*P->GetWeaponJumpTransform(EFirstPersonJumpRig::Sword));
     }
     const bool Present=CanPresent();
     Viewmodel->SetVisibility(Present&&Viewmodel->GetSkeletalMeshAsset(),true);
     if(!Present){if(IsBusy())CancelAction();return;}
     Viewmodel->AdvanceEntry(Delta);
-    if(bAttacking&&!CanUse())CancelAction();
+    if((bAttacking||bUppercut||bHeavyCharging||bHeavyAttack)&&!CanUse())CancelAction();
+    if(bUppercut){AdvanceUppercut(Delta);return;}
+    if(bHeavyCharging){AdvanceHeavyCharge(Delta);return;}
+    if(bHeavyAttack){AdvanceHeavy(Delta);return;}
     const float Speed=1.f;// TODO(lightning-haste): restore LightningHaste::ActionSpeed(P) when Skills/LightningHasteSpeed.h lands
     if(bEquipping)
     {

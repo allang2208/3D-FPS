@@ -209,11 +209,31 @@ class Fitter:
                 if not np.all(np.isfinite(e)):
                     c += 60.0
                     continue
-                c += w * 40.0 * min(float(np.dot(e, e)), 4.0) * (1.0 if key != 'g' else 1.4)
+                c += w * 40.0 * min(float(np.dot(e, e)), 4.0) * (1.0 if key != 'g' else 1.4 * target.get('gw', 1.0))
         if 'edge' in target:
             c += 6.0 * (1.0 - float(np.dot(o['edge'], target['edge']) / np.linalg.norm(target['edge'])))
+        if target.get('elbowoff'):
+            # V11: while the hand is below the frame the raised elbow must not poke into the lower-right corner.
+            # The value is the NDC margin of the elbow point; the arm's own thickness needs ~0.25 beyond the edge.
+            m = 1.15 if target['elbowoff'] is True else float(target['elbowoff'])
+            ex, ey = o['elbow_ndc']
+            if o['elbow'][0] > 4:
+                c += 30.0 * max(0.0, m - max(ey, abs(ex) - 0.1)) ** 2
+            # Run 7: the elbow point was out but the raised upper arm still filled the corner -- sample the arm too.
+            S = self.shoulder_cam(self.unpack(x)[5])
+            E, Wc = o['elbow'], o['wrist']
+            for p in (S + (E - S) * 0.5, S + (E - S) * 0.75, E + (Wc - E) * 0.3):
+                if p[0] > 4:
+                    px, py = ndc(p)
+                    c += 30.0 * max(0.0, 1.2 - max(py, abs(px) - 0.1)) ** 2
+        if 'edgeout' in target:
+            # V11: the edge may face sideways or away, never back at the player (V3 "swinging inwards").
+            c += 20.0 * max(0.0, target['edgeout'] - float(o['edge'][0])) ** 2
         if 'fd' in target:
             c += 0.02 * (o['fd'] - target['fd']) ** 2
+        if 'phi' in target:
+            # V12: guide the elbow swivel (deg, see Fitter.hint) while the arm is below the frame.
+            c += 0.002 * (float(x[3]) - target['phi']) ** 2
         if 'right' in target and np.all(np.isfinite(o['tip'])):
             c += 30.0 * max(0.0, (o['g'][0] + target['right']) - o['tip'][0]) ** 2
         if 'up' in target:
@@ -249,7 +269,8 @@ class Fitter:
             view = view / np.linalg.norm(view)
             c += 8.0 * max(0.0, target['flat'] - abs(float(np.dot(mesh_to_cam(o['K'].axis(1)), view))))
         if target.get('hide'):
-            for frac in (0.35, 0.7, 1.0):
+            # hide=2 (V12): dense samples -- three points let the blade segment cut a frame corner between them.
+            for frac in ((0.35, 0.7, 1.0) if target['hide'] is True else np.linspace(0.2, 1.0, 9)):
                 pc = mesh_to_cam(o['K'].point(np.asarray(TIP) * frac))
                 if pc[0] > 4.0:
                     tx, ty = ndc(pc)
@@ -361,6 +382,58 @@ REF_ATTACK2 = [
 ]
 
 
+# V11 (user, 2026-10-22): "the second swing is not acceptable -- follow the reference 1:24-1:26 (melee #1 ↘) and
+# match its playing time".  The combo now recovers to the stance between hits (two-handed sword cadence), so the
+# second hit starts on the stance like the reference does.  Frame targets read from
+# Saved/Reference/KukriBV1CeYUeSE7b20261020/sheets/grid_atk1_*.jpg / big_atk1_*.jpg (t = 0 at frame 2530, 84.333 s;
+# back on the stance at 1.267 s = 38/30, the same length as the first hit):
+#   0.03-0.07 the blade dips left; 0.10 the fist drops to the bottom centre with the blade laid flat to the left;
+#   0.13-0.33 backhand cock: the fist rises up-left across the frame close to the lens (forearm from the lower
+#   right across the screen) and stops at the left edge near the horizon with the blade out to the upper left;
+#   0.33-0.47 the cut: one diagonal whip through the centre to the lower-right corner, the blade trailing up-left
+#   behind the fist (contact 0.34-0.47); 0.50-0.95 below the frame; 1.03-1.27 re-raise and blade flip (same move
+#   as the first hit's tail).  Our blade is shorter (tip offsets x0.72); the cock keeps the fist >= 20 cm out and
+#   the blade off the lens, the edge never faces the player (V3 "swinging inwards").
+EDGE_DR = (0.45, 0.55, -0.70)     # edge forward and down-right: never towards the camera during the cut
+REF_DIAG = [
+    (0.033, dict(g=(0.28, 0.75), tip=(-0.16, 0.22), w=0.6, cw=10, mind=26.0, th=(15.0, 60.0))),
+    (0.067, dict(g=(0.22, 0.78), tip=(-0.30, 0.34), w=0.6, cw=8, mind=25.0, th=(0.0, 60.0))),
+    (0.100, dict(g=(0.04, 0.90), tip=(-0.68, 0.80), horiz=0.40, w=0.6, cw=6, mind=22.0, lens=True, th=(-30.0, 60.0))),
+    # Cock: the reference fist is big (close) -- reaching the left edge across the body at 22+ cm is past the arm's
+    # reach (fit run 1: reach 1.0, fist stuck at -0.47).  Bring it in to 16-24 cm like the reference.  The hammer
+    # grip cannot lay the blade out to the left of a fist that crosses to the left (fit run 2: wrist at its ulnar
+    # wall, clavicle maxed, elbow swivel flipping 70 deg); like the reference the blade stays out of frame during
+    # the cock -- raised up out of the top-left, clear of the lens -- and swings into view only for the cut.
+    # The raised tip sits ~15 cm left, ~23 cm above and 9 cm in front of the eye (lens limit), leaning back ~14 cm
+    # over the blade, against ~10 cm in the stance itself.  Run 5 capped the lean (fwd >= -6): the cut then landed in
+    # a basin with the edge trailing (lead < 0) and the re-raise tip 4 cm from the lens, so the cap is not used.
+    (0.133, dict(g=(-0.02, 0.80), w=0.6, cw=5, mind=19.0, maxd=27.0, lens=True, th=(-60.0, 60.0))),
+    (0.167, dict(g=(-0.20, 0.62), w=0.6, cw=5, mind=17.0, maxd=25.0, lens=True, th=(-80.0, 60.0))),
+    (0.200, dict(g=(-0.40, 0.45), w=0.6, cw=5, mind=16.0, maxd=24.0, lens=True, th=(-90.0, 60.0))),
+    (0.233, dict(g=(-0.53, 0.32), w=0.6, cw=5, mind=16.0, maxd=23.0, lens=True, th=(-90.0, 60.0))),
+    (0.267, dict(g=(-0.62, 0.20), w=0.6, cw=5, mind=16.0, maxd=23.0, lens=True, th=(-90.0, 60.0))),
+    # The apex stays inside the arm's reach (fit run 3: a tip target here jumped the wrist 10 cm in one frame).
+    (0.300, dict(g=(-0.64, 0.07), w=0.6, cw=4, mind=17.0, maxd=23.0, lens=True, th=(-90.0, 60.0))),
+    (0.333, dict(g=(-0.62, -0.02), w=0.6, cw=4, mind=18.0, maxd=24.0, lens=True, th=(-90.0, 60.0))),
+    # Cut: keep the fist close enough to read big (V3: an extended far arm lost the impact) -- maxd.  The blade trails
+    # up-left (reference); a hammer grip then moves it nearly along its own axis, so the edge is only kept from facing
+    # the player (edgeout) instead of forced to lead (run 3: forcing EDGE_DR pinned the wrist at its ulnar wall).
+    (0.367, dict(g=(-0.15, 0.12), tip=(-0.47, -0.22), w=0.7, mind=22.0, maxd=32.0, fwd=-2.0, edgeout=-0.15, lens=True, cw=2, th=(-90.0, 70.0))),
+    (0.400, dict(g=(0.35, 0.45), tip=(0.10, 0.04), w=0.7, mind=24.0, maxd=34.0, fwd=-2.0, edgeout=-0.15, lens=True, cw=2, th=(-90.0, 70.0))),
+    (0.433, dict(g=(0.78, 0.70), tip=(0.47, 0.34), w=0.7, mind=24.0, maxd=34.0, fwd=-2.0, edgeout=-0.15, lens=True, cw=2, th=(-90.0, 70.0))),
+    (0.467, dict(g=(1.05, 1.00), tip=(0.71, 0.73), off=True, mind=24.0, maxd=33.0, w=0.6, fwd=-2.0, lens=True, cw=3, th=(-90.0, 70.0))),
+    # Below the frame (run 4: the raised elbow showed as a skin arc in the lower-right corner 0.73-1.0, elbow point
+    # at NDC (1.22, 0.81) / (0.91, 1.10)): elbowoff keeps the elbow point >= 0.25 beyond the frame edge.
+    (0.533, dict(g=(1.20, 1.25), off=True, hide=True, elbowoff=1.4, w=0.5, lens=True, cw=3, th=(-80.0, 70.0))),
+    (0.633, dict(g=(1.05, 1.45), off=True, hide=True, elbowoff=1.4, w=0.5, cw=3, th=(-30.0, 70.0))),
+    (0.700, dict(g=(0.85, 1.50), off=True, hide=True, elbowoff=1.4, w=0.5, cw=3, th=(-15.0, 65.0))),
+    (0.767, dict(g=(0.60, 1.50), off=True, hide=True, elbowoff=1.4, w=0.5, cw=3, th=(0.0, 60.0))),
+    (0.833, dict(g=(0.42, 1.52), off=True, hide=True, elbowoff=1.4, w=0.5, cw=3, th=(10.0, 55.0))),
+] + [(t, dict(k, th=(15.0, 50.0), lens=True, **({'elbowoff': 1.4} if t < 1.0 else {}))) for t, k in REF[-5:]]
+ATTACK2_V11_SECONDS = 38.0 / 30.0
+RESUME_T = 0.467   # --resume: keep the accepted cock and cut up to here
+
+
 def attack1_x(t):
     """Arm parameters of the accepted attack 1 at time t (same spline as author_kukri_clips.clip_attack)."""
     from author_kukri_clips import spline
@@ -371,6 +444,36 @@ def attack1_x(t):
 
 
 def main_attack2():
+    """V11: the second hit starts on the stance and follows reference melee #1 frame by frame (REF_DIAG)."""
+    F = Fitter()
+    x0 = idle_x(F)
+    o = F.evaluate(x0)
+    keys = [dict(t=0.0, x=list(map(float, x0)), theta=math.degrees(o['r']['theta']), note='stance')]
+    print('attack2 V11 start g %s tip %s theta %.1f' % (np.round(o['g'], 2), np.round(o['tip'], 2), math.degrees(o['r']['theta'])))
+    ref = REF_DIAG
+    if '--resume' in sys.argv:
+        # Keep the accepted keys up to RESUME_T (attack2_keys.json) and refit only what follows.  Used for run 6:
+        # run 4's cock and cut (edge leading 0.06-0.74, twist -9..+41) with the below-frame part refitted (elbowoff).
+        old = json.loads((P / 'attack2_keys.json').read_text('utf-8'))['keys']
+        keep = [k for k in old if 0.0 < k['t'] <= RESUME_T + 1e-6]
+        theta = o['r']['theta']
+        for k in keep:
+            theta = F.evaluate(np.array(k['x'], float), theta)['r']['theta']
+        keys += keep
+        x0 = np.array(keep[-1]['x'], float)
+        o = dict(r=dict(theta=theta))
+        ref = [(t, k) for t, k in REF_DIAG if t > RESUME_T + 1e-6]
+        print('resume after %.3f s with %d kept keys' % (RESUME_T, len(keep)))
+    fit_keys(F, x0, o['r']['theta'], ref, keys)
+    (P / 'Work' / 'fit_keys_attack2.json').write_text(json.dumps(dict(keys=keys), indent=1), encoding='utf-8')
+    if '--accept' in sys.argv:
+        (P / 'attack2_keys.json').write_text(json.dumps(dict(source='fit_reference.py --attack2', variant='V11 diag',
+                                                              reference='BV1CeYUeSE7b 1:24.33-1:25.60 (melee #1)', start='stance',
+                                                              length=ATTACK2_V11_SECONDS, keys=keys), indent=1), encoding='utf-8')
+
+
+def main_attack2_v7():
+    """V7 (retired 2026-10-22): diagonal from attack 1's chain pose at CHAIN_T."""
     F = Fitter()
     x0 = attack1_x(CHAIN_T)
     # theta continuity: walk attack 1 up to the chain point so the unwrap matches its clip
@@ -428,7 +531,139 @@ def attack2_x(t):
     return np.array(spline(keys, t, ('x',))['x'], float)
 
 
+# V12 (user, 2026-10-22): "the third hit is not acceptable -- follow the stab at 1:35-1:37 (crouch melee #5 戳), as close
+# to 100 % as possible, screen shake included".  One-handed (the V8-V11 left palm on the pommel is dropped).  Frame
+# targets read from Saved/Reference/KukriBV1CeYUeSE7b20261020/sheets/grid_atk3_*.jpg / big_atk3_*.jpg (t = 0 at frame
+# 2843, 94.767 s, the last still stance frame; back on the stance at 1.167-1.2 s):
+#   0.03-0.10 the blade flips upright and the fist drops to the bottom centre; 0.13-0.17 the fist slides to the lower
+#   left and the blade turns to point FORWARD, so it reads as a line from the fist towards the screen centre;
+#   0.17-0.33 cocked low at the left hip, fist big and close, the tip hovering below the crosshair (a slight pull-back
+#   on 0.27-0.33); 0.33-0.37 one-frame drive: the fist shoots from the lower left to the crosshair with the forearm
+#   coming up from the lower left and the blade pointing into the screen (hidden behind the fist and the hit flash);
+#   0.43-0.57 held at the crosshair, the blade peeking out up-right of the knuckles; 0.60-0.67 the fist drops down-left,
+#   blade upright; 0.70-0.73 only the tip shows at the bottom centre; 0.77-0.97 below the frame; re-raise into the stance.
+# Our blade is shorter (tip offsets x0.72 via _tip); the cock keeps the fist close (18-27 cm) like the reference; at the
+# hold the fist stays 27-36 cm out so it still reads big (V3: an extended far arm lost the impact).
+AIM_STAB = (140.0, 4.0, 3.0)      # camera-space aim of the drive (cm): just right of and above the crosshair
+ATTACK3_V12_SECONDS = 38.0 / 30.0  # the first hit's re-raise unchanged: back on the stance at 1.267 s (reference 1.17-1.2 s)
+RESUME3_T = 0.333                 # --resume: keep the previous run's keys up to here (the cock)
+
+
+def _stab_cock(g, tip, **k):
+    return dict(dict(g=g, tip=_tip(g, tip), w=0.7, fwd=12.0, mind=18.0, maxd=27.0, lens=True), **k)
+
+
+# Fit runs (2026-10-22, logs Work/fit_attack3_v12_run*.log):
+#   run 1-2: with only tip targets the flip at 0.07-0.10 went the short way -- the blade swung through pointing at the
+#     lens -- and snapped ~150 deg in one frame (twist 1040 deg/s); the reference flips the blade UP and over
+#     (2844-2847), so bdir keys carry it upright and then forward.  Run 2 also showed a big blade in the lower-right
+#     corner at 0.90-0.93 (the first hit's off-frame key at 0.833 is not 'hide').
+#   run 3: tip targets on the flip conflict with the upright blade (the fist was pushed out to 44 cm for one frame),
+#     and an upright blade on the withdraw / a blade hanging down below the frame drove the arm to full reach with the
+#     wrist on its walls (cost 6-8).  The withdraw keeps run 2's free blade (it is upright anyway, like 2862-2865) and
+#     the frames below the screen only hide the blade.
+BLADE_UP = (0.05, -0.15, 0.99)
+REF_STAB = [
+    (0.033, dict(g=(0.24, 0.82), bdir=(-0.30, -0.45, 0.84), w=0.5, cw=8, mind=24.0, lens=True, th=(0.0, 70.0))),
+    (0.067, dict(g=(0.10, 0.93), bdir=BLADE_UP, w=0.5, cw=6, mind=22.0, lens=True, th=(-30.0, 80.0))),
+    (0.100, dict(g=(-0.18, 0.97), bdir=(0.45, 0.10, 0.89), w=0.5, cw=5, fwd=0.0, mind=20.0, maxd=31.0, lens=True, th=(-60.0, 90.0))),
+    (0.133, dict(g=(-0.52, 0.95), bdir=(0.72, 0.40, 0.57), w=0.5, cw=4, fwd=6.0, mind=19.0, maxd=28.0, lens=True, th=(-80.0, 100.0))),
+    (0.167, _stab_cock((-0.76, 0.86), (-0.12, 0.42), cw=4, th=(-90.0, 110.0))),
+    (0.200, _stab_cock((-0.64, 0.85), (0.00, 0.46), cw=5, th=(-90.0, 110.0))),
+    (0.233, _stab_cock((-0.60, 0.85), (-0.02, 0.40), cw=6, th=(-90.0, 110.0))),
+    # V12c (user: "still too fast, no 顿挫, no weight"): contrast instead of a uniform slow-down.  The cock pulls back
+    # further -- lower left and closer to the body (16-22 cm, V12 ~27) -- and freezes (0.30-0.333, both keys 'hold' in
+    # the clip spline) before one eased-in drive (author_kukri_clips STAB_DRIVE: speed peaks on arrival) that lands on
+    # the crosshair at 0.367 and stops dead; the clip adds a 2 cm overshoot and rebound (STAB_OVERSHOOT) and the hold
+    # runs to 0.533.  The V12 path keys at 0.367/0.400 (fist coming up through (-0.30, 0.36)) are gone: the eased drive
+    # is a straight line in arm-parameter space.  The tip keeps the V12 cock offset from the fist.
+    # Run 1 pulled the fist down to y 0.95: mostly below the frame, it read as the hand dropping out, not cocking.  The
+    # pull-back now goes left and in towards the body at the cock height (y 0.88-0.90), so the fist grows instead.
+    (0.267, _stab_cock((-0.70, 0.87), (-0.12, 0.59), cw=6, mind=17.5, maxd=24.0, th=(-90.0, 110.0))),
+    (0.300, dict(_stab_cock((-0.78, 0.89), (-0.20, 0.61), cw=6, th=(-90.0, 110.0)), mind=16.0, maxd=21.5, hold=True)),
+    (0.333, dict(_stab_cock((-0.79, 0.90), (-0.21, 0.62), cw=10, th=(-90.0, 110.0)), mind=15.5, maxd=21.0, hold=True)),
+    # Extension and hold: fist on the crosshair, forearm up from the lower left (fm), blade into the screen (aim).
+    # Run 1: with the reference forearm (fm -0.36..-0.48) the fist stopped 0.12 short of the crosshair, ulnar deviation on
+    # its 40 deg wall -- the hammer grip needs the forearm a little more upright to point the blade into the screen.
+    # The fist on the crosshair is the read of the stab (gw), the forearm keeps coming up from the lower left; the tip
+    # stays level with or above the fist (up), hidden behind it like the reference.  The hold sits 34-38 cm out (run 8, accepted);
+    # capping it at 31 cm (run 9) only brought the fist to 34 cm, stood the forearm up (fm y 0.83) and pressed the wrist
+    # to ulnar 42 / flexion -8, so the run 8 depths stay.
+    (0.367, dict(g=(-0.06, 0.03), fm=(-0.28, 0.68), aim=AIM_STAB, up=0.0, w=0.8, gw=2.5, mind=27.0, maxd=38.0, cw=0.5, hold=True, th=(-90.0, 110.0))),
+    (0.400, dict(g=(-0.08, 0.05), fm=(-0.28, 0.68), aim=AIM_STAB, up=0.0, w=0.8, gw=2.5, mind=27.0, maxd=38.0, cw=6, th=(-90.0, 110.0))),
+    (0.467, dict(g=(-0.05, 0.05), fm=(-0.28, 0.68), aim=AIM_STAB, up=0.0, w=0.8, gw=2.5, mind=27.0, maxd=38.0, cw=8, th=(-90.0, 110.0))),
+    (0.533, dict(g=(-0.05, 0.08), fm=(-0.28, 0.70), aim=AIM_STAB, up=0.0, w=0.8, gw=2.5, mind=27.0, maxd=38.0, cw=8, th=(-90.0, 110.0))),
+    (0.567, dict(g=(-0.10, 0.12), tip=_tip((-0.10, 0.12), (0.15, -0.05)), w=0.7, mind=26.0, maxd=35.0, cw=6, th=(-90.0, 110.0))),
+    # Withdraw: down-left, out through the bottom centre (the blade comes up on its own, like 2862-2865).
+    (0.600, dict(g=(-0.20, 0.36), w=0.7, mind=24.0, maxd=34.0, cw=4, lens=True, th=(-90.0, 110.0))),
+    (0.633, dict(g=(-0.25, 0.64), tip=_tip((-0.25, 0.64), (0.00, 0.20)), w=0.6, mind=22.0, maxd=32.0, cw=4, lens=True, th=(-90.0, 110.0))),
+    (0.667, dict(g=(-0.12, 0.94), tip=_tip((-0.12, 0.94), (0.03, 0.10)), w=0.6, mind=22.0, maxd=30.0, cw=4, lens=True, th=(-80.0, 100.0))),
+    (0.700, dict(g=(0.08, 1.10), tip=(0.05, 0.62), off=True, w=0.5, cw=4, maxd=30.0, lens=True, th=(-60.0, 90.0))),
+    (0.733, dict(g=(0.18, 1.18), tip=(0.12, 0.75), off=True, w=0.5, cw=4, maxd=30.0, lens=True, th=(-40.0, 80.0))),
+    # Below the frame, the forearm rolls back towards the stance with the blade kept out of view (hide + elbowoff).
+    # Runs 4-7 (re-raise two frames earlier, 36/30 s): the elbow stayed swung in across the body (swivel ~-62 deg) until
+    # the first re-raise key (+60 deg), so the swing-out and forearm roll landed in 0.87-0.97 s close to the lens and the
+    # blade flashed up through the lower right (tip NDC (1.0, 0.3) -> (1.05, -0.7)); forcing the blade direction there
+    # flipped the swivel 200 deg in one key (run 6), denser hide samples did not stop it between keys (run 7).  The first
+    # hit's re-raise timing is kept as is (0.90 below the frame, 1.033 back in), which leaves 0.27 s below the frame for
+    # the roll; the swivel opens gradually there (phi), every blade sample hidden (hide=2).
+    (0.800, dict(g=(0.22, 1.42), phi=-35.0, off=True, hide=2, elbowoff=1.4, w=0.5, cw=3, th=(-20.0, 70.0))),
+    (0.850, dict(g=(0.22, 1.55), phi=0.0, off=True, hide=2, elbowoff=1.4, w=0.5, cw=3, th=(-5.0, 60.0))),
+] + [(t, dict(k, th=(15.0, 50.0), lens=True, **(dict(elbowoff=1.4, hide=2, phi=40.0) if t < 1.0 else {}))) for t, k in REF[-5:]]
+
+
 def main_attack3():
+    """V12: one-handed crouch stab (reference melee #5 戳, 1:34.77-1:35.97) fitted frame by frame from the stance
+    (REF_STAB).  Replaces the V8-V11 two-handed thrust (main_attack3_v11 / main_attack3_v10)."""
+    F = Fitter()
+    x0 = idle_x(F)
+    o = F.evaluate(x0)
+    keys = [dict(t=0.0, x=list(map(float, x0)), theta=math.degrees(o['r']['theta']), note='stance')]
+    print('attack3 V12 start g %s tip %s theta %.1f' % (np.round(o['g'], 2), np.round(o['tip'], 2), math.degrees(o['r']['theta'])))
+    ref = REF_STAB
+    resume = next((a for a in sys.argv if a.startswith('--resume')), None)
+    if resume:
+        # Keep the previous run's keys up to RESUME3_T or --resume=<t> (Work/fit_keys_attack3.json), refit what follows.
+        t_keep = float(resume.split('=')[1]) if '=' in resume else RESUME3_T
+        old = json.loads((P / 'Work' / 'fit_keys_attack3.json').read_text('utf-8'))['keys']
+        keep = [k for k in old if 0.0 < k['t'] <= t_keep + 1e-6]
+        theta = o['r']['theta']
+        for k in keep:
+            theta = F.evaluate(np.array(k['x'], float), theta)['r']['theta']
+        keys += keep
+        x0 = np.array(keep[-1]['x'], float)
+        o = dict(r=dict(theta=theta))
+        ref = [(t, k) for t, k in REF_STAB if t > t_keep + 1e-6]
+        print('resume after %.3f s with %d kept keys' % (t_keep, len(keep)))
+    fit_keys(F, x0, o['r']['theta'], ref, keys)
+    (P / 'Work' / 'fit_keys_attack3.json').write_text(json.dumps(dict(keys=keys), indent=1), encoding='utf-8')
+    if '--accept' in sys.argv:
+        (P / 'attack3_keys.json').write_text(json.dumps(dict(source='fit_reference.py --attack3', variant='V12c stab',
+                                                              reference='BV1CeYUeSE7b 1:34.77-1:35.97 (crouch melee #5 戳)', start='stance',
+                                                              left_press=False, length=ATTACK3_V12_SECONDS, keys=keys), indent=1), encoding='utf-8')
+
+
+def main_attack3_v11():
+    """V11 (retired 2026-10-22, V12): the thrust starts on the stance (the combo recovers between hits).  The accepted V10 thrust keys from
+    the cock on (t >= 0.167 s) are kept verbatim; the V10 0.1 s transition key (coming from attack 2 at 0.40 s) is
+    replaced by the stance, so the right fist rolls from the stance into the V10 cock.  A full refit from the stance
+    (tried 2026-10-22) lands in another basin -- the forearm still rolling through the drive -- so it is not used.
+    Source of the V10 keys: the current attack3_keys.json (idempotent) or the archived V10 copy."""
+    F = Fitter()
+    x0 = idle_x(F)
+    o = F.evaluate(x0)
+    src = P / 'attack3_keys.json'
+    old = json.loads(src.read_text('utf-8'))
+    kept = [k for k in old['keys'] if k['t'] >= 0.16]
+    keys = [dict(t=0.0, x=list(map(float, x0)), theta=math.degrees(o['r']['theta']), note='stance (V11)')] + kept
+    print('attack3 V11 stance start + %d V10 keys from %.3f s' % (len(kept), kept[0]['t']))
+    if '--accept' in sys.argv:
+        src.write_text(json.dumps(dict(source='fit_reference.py --attack3 (V10 keys from 0.167 s) + stance start', start='stance',
+                                       length=ATTACK3_SECONDS, keys=keys), indent=1), encoding='utf-8')
+
+
+def main_attack3_v10():
+    """V10 (retired 2026-10-22): thrust from attack 2's chain pose at CHAIN2_T."""
     F = Fitter()
     theta = None
     for k in range(0, 18):

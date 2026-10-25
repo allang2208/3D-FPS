@@ -1,0 +1,23 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -1121,7 +1121,7 @@
+         RuneSword->BeginPrimaryAttack();
+         return;
+     }
+-    // 尼泊尔弯刀：左键三连击（水平横劈 → 左上向右下斜劈 → 双手前刺），连段输入由组件缓冲。
++    // 尼泊尔弯刀：左键三连击（水平横劈 → 左上向右下斜劈 → 单手低位戳刺），连段输入由组件缓冲。
+     if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())
+     {
+         ExitSprintForWeapon();
+@@ -1160,8 +1160,8 @@
+     // Releasing a tap completes its punch; only priority interruption cancels it.
+     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
+     if(Staff&&Staff->IsEquipped())return;
+-    // 弯刀挥砍不受松键影响：真实松手不能落到 FireReleased 的取消路径。
+-    if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return;
++    // 弯刀挥砍不受松键影响：真实松手不能落到 FireReleased 的取消路径；只有重击蓄力由真实松手决定（轻点／未蓄满 = 普通连击）。
++    if(auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){Kukri->ReleasePrimaryAttack();return;}
+     // Only the physical input release may commit a charged sword attack.
+     // Menu/traversal/equipment callers still use FireReleased to stop actions.
+     if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}

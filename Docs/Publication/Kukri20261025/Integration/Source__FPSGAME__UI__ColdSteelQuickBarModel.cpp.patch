@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -11,6 +11,7 @@
+ #include "../Skills/FPSFireMagicComponent.h"
+ #include "GameFramework/PlayerController.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "Engine/World.h"
+ #include "Kismet/GameplayStatics.h"
+ 
+@@ -154,7 +155,9 @@
+     auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+     if(!Player||!CanBindQuickSkill(B.Skill))return false;
+     if(B.Skill!=TEXT("quickCombat")&&UBoundCongregateCaptureComponent::IsCaptured(Player))return false;
++    if(B.Skill==TEXT("swordUppercut"))if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginUppercut();
+     if(B.Skill==TEXT("swordUppercut"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginUppercut();
++    if(B.Skill==TEXT("heavyStrike"))if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->TriggerHeavySkill();
+     if(B.Skill==TEXT("heavyStrike"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->TriggerHeavySkill();
+     if(B.Skill==TEXT("whirlwind"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginWhirlwind();
+     if(B.Skill==TEXT("dodge"))return Player->TryDodge();

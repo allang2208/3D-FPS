@@ -1,0 +1,39 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -1,6 +1,7 @@
+ #include "ColdSteelQuickSlot.h"
+ #include "../Skills/FPSFireMagicComponent.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Weapons/RuneOrbBladesComponent.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+ #include "ColdSteelHUDWidget.h"
+@@ -287,16 +288,22 @@
+         const float Duration=Model->SwordUppercutCooldownDuration();
+         Fraction=Duration>0.f?Remaining/Duration:0.f;
+         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+-        Message=Ability?Ability->UppercutStatusText():TEXT("需要持剑");
++        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
++        Message=Kukri&&Kukri->IsEquipped()?Kukri->UppercutStatusText():Ability?Ability->UppercutStatusText():TEXT("需近战");
+         Dim=!Message.IsEmpty();
+     }
+     else if(Binding.Skill==TEXT("heavyStrike"))
+     {
+         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+-        Dim=!Ability||!Ability->IsEquipped()||!Model->CanSpendStamina(Model->StaminaSettings().MeleeCost);
+-        if(!Ability||!Ability->IsEquipped())Message=TEXT("需近战");
+-        else if(Ability->HeavyChargeFraction()>0)Message=FString::Printf(TEXT("%.0f%%"),Ability->HeavyChargeFraction()*100);
+-        else if(Ability->IsBusy())Message=TEXT("动作中");
++        // The kukri's heavy strike (KukriHeavy.cpp): same stamina gate and charge readout as the sword's.
++        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
++        const float Charge=Kukri&&Kukri->IsEquipped()?Kukri->HeavyChargeFraction():Ability?Ability->HeavyChargeFraction():0.f;
++        const bool bBusy=Kukri&&Kukri->IsEquipped()?Kukri->IsBusy():Ability&&Ability->IsBusy();
++        const bool bMelee=(Kukri&&Kukri->IsEquipped())||(Ability&&Ability->IsEquipped());
++        Dim=!bMelee||!Model->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Model->Equipped(),Model));
++        if(!bMelee)Message=TEXT("需近战");
++        else if(Charge>0)Message=FString::Printf(TEXT("%.0f%%"),Charge*100);
++        else if(bBusy)Message=TEXT("动作中");
+     }
+     else if(Binding.Skill==TEXT("whirlwind"))
+     {

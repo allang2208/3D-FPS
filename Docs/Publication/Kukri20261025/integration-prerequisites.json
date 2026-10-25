@@ -1,0 +1,121 @@
+{
+  "Source/FPSGAME/FPSGAMECharacter.cpp": {
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+    "preimage_sha256_lf_utf8": "1ac730388f6938f4f69121b3dd95bb8d8821b47b89bc1005fbf17a1e261c69f6",
+    "result_sha256_lf_utf8": "c39e6d3cacc7ca1579a4d2ea3cc4aed2d466985ea5fb707435c9d89327f71a64",
+    "runtime_tree_applied": false,
+    "requires": "ReleasePrimaryAttack routing calls UKukriWeaponComponent::ReleasePrimaryAttack (this batch); IsSwordWhirlwindExecuting is declared by the ColdSteelPlayerState.h patch."
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+    "preimage_sha256_lf_utf8": "cc68d37e523591c1bd8db1a8490bc60b98189906c0f754321c4ebdcfac64cdea",
+    "result_sha256_lf_utf8": "d9b41cee2d61cca7394d0813e3b08ab6108e31b522e7b151f59690187cb461f5",
+    "runtime_tree_applied": false,
+    "requires": "Uppercut authority members are implemented in the new ColdSteelUppercutAuthority.cpp (this batch); IsSwordWhirlwindExecuting is implemented by the already-public ColdSteelWhirlwindAuthority.cpp."
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+    "preimage_sha256_lf_utf8": "b95d300fd3339facf14594fea8ffb7e53d835170399f53fdeedb4cee1bedec92",
+    "result_sha256_lf_utf8": "9478e8481870941992c8b9de809eb079ca5ed53fa8996bccc4ca8d5a1e10664d",
+    "runtime_tree_applied": false,
+    "requires": "Includes UKukriWeaponComponent.h and uses UppercutStaminaReceipt.h (new files, this batch), ColdSteelInventory::IsOneHandedMelee (ColdSteelInventoryTypes.h patch, this batch) and SwordUppercutTuning.h (public). The heavy-release receipt hunk sits inside the rune-sword uppercut validation block: keep `IsOneHandedMelee` on the kukri branch and `IsTwoHandedBlunt||IsOneHandedMelee` on the bleed clause."
+  },
+  "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp": {
+    "patch": "Integration/Source__FPSGAME__Movement__FPSMeleeMovementNetwork.cpp.patch",
+    "preimage_sha256_lf_utf8": "d2779ca26ea0a9d5c7674bead2dd73c5152e408512d35446320c6b27ee776f7d",
+    "result_sha256_lf_utf8": "4cb163d8a3e9c9b446fde6708c43080e75eccad89673d66375c129d67d61f708",
+    "runtime_tree_applied": false,
+    "requires": "Kukri uppercut/heavy move records route through UKukriWeaponComponent (this batch)."
+  },
+  "Source/FPSGAME/Movement/FPSStaminaModel.cpp": {
+    "patch": "Integration/Source__FPSGAME__Movement__FPSStaminaModel.cpp.patch",
+    "preimage_sha256_lf_utf8": "05011345c977cfdd1fbf4863fd1ca86083a6b4c8cac62e97009d474d4fe7b3f2",
+    "result_sha256_lf_utf8": "5e9064ae858cc3b3d514b23eb384a74856b75c9b0583b2999f1078683db60a98",
+    "runtime_tree_applied": false,
+    "requires": "Charge-stamina billing for the kukri heavy uses ColdSteelInventory::IsOneHandedMelee (ColdSteelInventoryTypes.h patch) and the cold-steel charge activity enum."
+  },
+  "Source/FPSGAME/UI/ColdSteelStatusModel.h": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+    "preimage_sha256_lf_utf8": "9af79dcb621edeba91f7b1f88f0f78218e395b381a841ed424a7d122fcf6dd4a",
+    "result_sha256_lf_utf8": "3e87682d9ead2d1d43481aafb4a838150b6c9feb78b486b2a527331e78fd90c8",
+    "runtime_tree_applied": false,
+    "requires": "Martial cooldown mirror fields are consumed by ColdSteelUppercutAuthority.cpp and the ColdSteelPlayerState patches (this batch)."
+  },
+  "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelQuickBarModel.cpp.patch",
+    "preimage_sha256_lf_utf8": "5362bb32c5b2aa7c2a91c823de1e017ab5e183e8b3b77923bd24bf40933dd155",
+    "result_sha256_lf_utf8": "36fe914d972a489204181fe5c63fbd954e6665a1441a98ab2b5496e48c487abe",
+    "runtime_tree_applied": false,
+    "requires": "swordUppercut/heavyStrike quick-bar routing calls UKukriWeaponComponent::BeginUppercut/TriggerHeavySkill (this batch); URuneSwordComponent remains a patch-layer host."
+  },
+  "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelQuickSlot.cpp.patch",
+    "preimage_sha256_lf_utf8": "c573f770e3016a55593301e26fd746fb34b0f1efa04b75ec11e312e1e0c9a54f",
+    "result_sha256_lf_utf8": "ce1999c11505e6df86fd0c76cbbf0cff0b2ee5334e07f5fdf4b868c9ea5962e2",
+    "runtime_tree_applied": false,
+    "requires": "Status text falls back to UKukriWeaponComponent::UppercutStatusText (this batch)."
+  },
+  "Source/FPSGAME/UI/ColdSteelSkillPage.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelSkillPage.cpp.patch",
+    "preimage_sha256_lf_utf8": "e42e43a156b340a5013878509235f6ece30263a7b430b6031bd827a4734b9ec2",
+    "result_sha256_lf_utf8": "6c787284bb576252153640c94c028225499557e4de98f913433b2078449f9d86",
+    "runtime_tree_applied": false,
+    "requires": "Skill descriptions mention the one-handed kukri; display code only."
+  },
+  "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelStaminaHUD.cpp.patch",
+    "preimage_sha256_lf_utf8": "0afa7d5899d368bfa9a16338e2451c5adbd5abe46be5b5dddc9bd403e6fc9dc5",
+    "result_sha256_lf_utf8": "b50c370022bfd472eba26365df1e5a939ea6593504bc7a8e30ad72406623fb99",
+    "runtime_tree_applied": false,
+    "requires": "Charge bar reads IsHeavyCharging() across rune sword and kukri components (this batch)."
+  },
+  "Source/FPSGAME/UI/ColdSteelInventoryTypes.h": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelInventoryTypes.h.patch",
+    "preimage_sha256_lf_utf8": "bd9a975fc6575c2255e366f1c4aa81a79a698f80ae0251ea595f4256a1b5a914",
+    "result_sha256_lf_utf8": "233e634ee95fa86f4348f678601aab4bedfd4b9d1535db41ecf1e4faa4e79ba1",
+    "runtime_tree_applied": false,
+    "requires": "IsOneHandedMelee plus MartialCooldownRevision/UppercutStaminaSpent feed the martial patch layers of this batch."
+  },
+  "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp": {
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelSkillRules.cpp.patch",
+    "preimage_sha256_lf_utf8": "f03cd49eb3c81e0d05a787d8b6c29b098662807d0ea9fbb295114b93667058a7",
+    "result_sha256_lf_utf8": "906dd5acf8d89ac56cc4b7d897e0f90249e40da887050e201f83f41a1a37a025",
+    "runtime_tree_applied": false,
+    "requires": "swordMastery/heavyStrike routing for one-handed melee (IsOneHandedMelee patch)."
+  },
+  "Source/FPSGAME/Skills/ColdSteelSkillTypes.h": {
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelSkillTypes.h.patch",
+    "preimage_sha256_lf_utf8": "8c159b922a508d12605044e264f40bd96fbd30592a27d3317deacc28a896050b",
+    "result_sha256_lf_utf8": "1c661e0fac813b722027e6609760ec1aa7df2a01176c232c7a882f0035dbeca6",
+    "runtime_tree_applied": false,
+    "requires": "Skill types consumed by the uppercut/heavy patch layers."
+  },
+  "Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp": {
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelAdditionalMasteries.cpp.patch",
+    "preimage_sha256_lf_utf8": "d2f3b34c947deac59b484cd8b5a42b13353763b1191fab75e96cc415da437268",
+    "result_sha256_lf_utf8": "b08ee9277c5179f8c649d2ef45a7bf802a4c20b9b3dfdd844ee78948131db916",
+    "runtime_tree_applied": false,
+    "requires": "Mastery additions consumed by the kukri uppercut/heavy training hooks."
+  },
+  "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp": {
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelHeavyStrikeModel.cpp.patch",
+    "preimage_sha256_lf_utf8": "f96d05c08c3d6778be2b38f313a1b54535f290ff5c21b9d9b2db9e022f198c37",
+    "result_sha256_lf_utf8": "bc441cd6127add7172c7edfdf695fd297beb06388c931dfd789047ae85e11ea9",
+    "runtime_tree_applied": false,
+    "requires": "heavyStrike model wiring used by UKukriWeaponComponent::TriggerHeavySkill (this batch)."
+  },
+  "Source/FPSGAME/Weapons/MeleeWeaponStats.h": {
+    "patch": "Integration/Source__FPSGAME__Weapons__MeleeWeaponStats.h.patch",
+    "preimage_sha256_lf_utf8": "3cbc78313a1c8b04c86b91c49ca4971ef6e2ad5a4fbf925c3efff6e59553688a",
+    "result_sha256_lf_utf8": "f2d445b2875cf6b7f5fbc4ee0ecc8c261fdd7ab39867b8731809d1901c8a9a07",
+    "runtime_tree_applied": false,
+    "requires": "OneHandedStaminaRatio + HeavyReleaseStamina decl used by KukriHeavy.cpp (this batch) and the stamina patch layers."
+  },
+  "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp": {
+    "patch": "Integration/Source__FPSGAME__Weapons__MeleeWeaponStats.cpp.patch",
+    "preimage_sha256_lf_utf8": "f3da15f188c4983bf8c5c7c38d377af295b4b89bb5d787d0077ccc774d59cbb9",
+    "result_sha256_lf_utf8": "e4f392dd418cb0f8a156832bba8e776ede939a58aab5e31e10dabaa2c437cbd2",
+    "runtime_tree_applied": false,
+    "requires": "HeavyReleaseStamina impl backs KukriHeavy.cpp (this batch); the one-handed branch uses IsOneHandedMelee (ColdSteelInventoryTypes.h patch)."
+  }
+}

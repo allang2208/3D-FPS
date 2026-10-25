@@ -1,0 +1,38 @@
+diff --git a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -69,10 +69,14 @@
+ double ColdSteelMelee::UppercutReachCM(const UColdSteelStatusModel* Profile,int32 Level)
+ {
+     const auto* Item=Profile&&!Profile->ActiveProductionTool()?Profile->Equipped():nullptr;
+-    if(!Item||!ColdSteelInventory::IsTwoHandedSword(*Item))return 0.;
++    if(!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsOneHandedMelee(*Item)))return 0.;
+     const double BaseReach=ColdSteelInventory::Number(*Item,TEXT("melee_reach_cm"),180);
+-    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*EquippedModifiers(Profile).Range;
+-    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier;
++    const auto Modifiers=EquippedModifiers(Profile);
++    // The kukri's uppercut reaches from its plain blade reach (KukriUppercut.cpp BeginUppercut).
++    if(ColdSteelInventory::IsOneHandedMelee(*Item))
++        return BaseReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier*Modifiers.MartialRange;
++    const double ThrustReach=RuneSwordCombatTuning::ScaledReach(BaseReach,RuneSwordThrustRhythm::ReachBonus)*Modifiers.Range;
++    return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier*Modifiers.MartialRange;
+ }
+ 
+ double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers,const UColdSteelStatusModel* Profile)
+@@ -115,7 +119,15 @@
+     const double Base=Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost;
+     const auto* Gunsmith=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+     const double Cost=Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
+-    return Cost*(Profile?Profile->ActionStaminaMultiplier():1.f);
++    // 单手近战（尼泊尔弯刀）按双手武器的一半结算：刀更轻、单手发力，不占双手引拍空间。
++    // 倍率放在最后，与装备/临时修正相乘而不是与其叠加覆盖。
++    return (Item&&ColdSteelInventory::IsOneHandedMelee(*Item)?Cost*OneHandedStaminaRatio:Cost)*(Profile?Profile->ActionStaminaMultiplier():1.f);
++}
++
++double ColdSteelMelee::HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
++{
++    // Pay for both Chixiao cuts once on release, after all ordinary cost modifiers.
++    return AttackStamina(Item,Profile)*(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item)?2.:1.);
+ }
+ 
+ double ColdSteelMelee::UnarmedAttackStamina(const UColdSteelStatusModel* Profile)

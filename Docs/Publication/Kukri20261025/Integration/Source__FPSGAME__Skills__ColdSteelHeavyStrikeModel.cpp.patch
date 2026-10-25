@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+@@ -16,7 +16,8 @@
+ bool UColdSteelStatusModel::CommitSwordUppercutRelease()
+ {
+     const auto* Item=Equipped();
+-    if(!Item||ActiveProductionTool()||!ColdSteelInventory::IsTwoHandedSword(*Item)||SwordUppercutCooldown()>0.f)return false;
++    // The one-handed kukri also uppercuts (KukriUppercut.cpp, 2026-10-23).
++    if(!Item||ActiveProductionTool()||!(ColdSteelInventory::IsTwoHandedSword(*Item)||ColdSteelInventory::IsOneHandedMelee(*Item))||SwordUppercutCooldown()>0.f)return false;
+     const auto& D=MasteryDefinition(TEXT("swordUppercut"));
+     const float StaminaCost=SwordUppercutStaminaCost();
+     if(!CanSpendStamina(StaminaCost)){Message=TEXT("体力不足");OnStaminaChanged.Broadcast();return false;}

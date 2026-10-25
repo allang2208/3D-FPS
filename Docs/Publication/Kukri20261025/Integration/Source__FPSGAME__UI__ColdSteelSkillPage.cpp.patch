@@ -1,0 +1,32 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+--- a/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelSkillPage.cpp
+@@ -443,6 +443,7 @@
+         const auto E=Model->MasteryEffect(SelectedSkill,Progress(SelectedSkill).Level+(bNext?1:0));
+         if(Index==0)return FString::Printf(TEXT("×%.1f"),E.HeavyMultiplier);
+         if(Index==1)return FString::Printf(TEXT("%.2f s"),E.HeavyChargeSeconds);
++        if(Index==3)return FString::Printf(TEXT("%.1f / 秒"),Model->HeavyChargeStaminaPerSecond());
+         return FString::Printf(TEXT("+%d"),E.Strength);
+     }
+     if(Additional(SelectedSkill))
+@@ -824,7 +825,7 @@
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("判定距离上限"),5)];
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("距离倍率（相对突刺）"),6)];
+             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
+-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("持剑时按绑定快捷键使用，动作结束且冷却完成后可再次发动。上挑按自身等级套用重击倍率，武器重击改造结算后再乘70%。强化突刺型前方判定，每次命中一个目标；力量常驻。实际出手时一次扣除体力并开始冷却；蓄势取消不扣费、不进入冷却，出手时体力不足则取消。体力消耗和基础冷却不随等级变化。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("持双手剑、双手锤或尼泊尔弯刀时按绑定快捷键使用，动作结束且冷却完成后可再次发动。上挑按自身等级套用重击倍率，武器重击改造结算后再乘70%。强化突刺型前方判定，每次命中一个目标；力量常驻。实际出手时一次扣除体力并开始冷却；蓄势取消不扣费、不进入冷却，出手时体力不足则取消。体力消耗和基础冷却不随等级变化。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+             const auto& UppercutDefinition=Definition(SelectedSkill);
+             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(
+                 TEXT("判定距离＝当前兵器突刺距离×%.2f×［1＋%.2f×（等级−1）］。探针与判定宽度提高%.0f%%，升级只继续延长前向距离。距离数值为上限，仍须剑刃扫掠接触且无遮挡；前踏位移另计。"),
+@@ -834,9 +835,10 @@
+         {
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("重击伤害倍率"),0)];
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("所需蓄力时间"),1)];
++            Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("蓄力体力消耗"),3)];
+             Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("力量加成"),2)];
+             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
+-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("仅近战武器可施放。持符文剑按住左键蓄满后松开；也可拖入快捷栏，按一次自动蓄满释放。1 级倍率 2.5、蓄力 2 秒、力量 +1；每升一级倍率 +0.1、蓄力 −0.05 秒、力量 +1。释放时消耗一次近战体力，无额外冷却，收招结束才能再次使用。力量常驻并参与剑的属性伤害；中途换装、死亡或动作冲突取消蓄力，不保存进行中的动作。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
++            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("仅近战武器可施放。持双手剑、战锤或尼泊尔弯刀按住左键蓄满后松开；双手剑与弯刀也可拖入快捷栏，按一次自动蓄满释放。1 级倍率 2.5、蓄力 2 秒、力量 +1；每升一级倍率 +0.1、蓄力 −0.05 秒、力量 +1。蓄力期间持续消耗体力并暂停自然恢复，蓄满后继续按住仍会扣除；松手或取消后停止，已消耗体力不返还。体力耗尽自动取消蓄力，双手与武器平滑收回至待机，不触发攻击。释放时另消耗当前重击的出手体力，体力不足则取消出手；无额外冷却，收招结束才能再次使用。力量常驻并参与武器属性伤害；中途换装、死亡或动作冲突取消蓄力，不保存进行中的动作。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+         }
+         else if(Additional(SelectedSkill))
+         {

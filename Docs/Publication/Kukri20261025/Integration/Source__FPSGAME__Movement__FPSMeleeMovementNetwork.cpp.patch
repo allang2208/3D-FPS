@@ -1,0 +1,22 @@
+diff --git a/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp b/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+--- a/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
++++ b/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+@@ -9,6 +9,7 @@
+ #include "../Combat/CombatStatusFormula.h"
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "Engine/World.h"
+ 
+ void UFPSCharacterMovementComponent::BeginMeleeLungeRequest(EFPSMeleeMove Kind,const FVector& Direction)
+@@ -28,7 +29,9 @@
+     const auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);
+     const auto* Profile=Player?Player->GetNetShadowProfile():nullptr;
+     const auto* Item=Profile?Profile->Equipped():nullptr;
+-    if(!Player||!Item||!ColdSteelInventory::IsTwoHandedSword(*Item)||Profile->ActiveProductionTool()
++    // The one-handed kukri only has the uppercut stride (KukriUppercut.cpp); its budget/recovery are the sword uppercut's.
++    const bool KukriUppercut=Item&&R.Kind==EFPSMeleeMove::Uppercut&&ColdSteelInventory::IsOneHandedMelee(*Item);
++    if(!Player||!Item||(!KukriUppercut&&(!ColdSteelInventory::IsTwoHandedSword(*Item)||Profile->ActiveProductionTool()))
+         ||Player->IsTraversing()||Player->IsSliding()||IsDodging()||IsBipodMovementLocked())return false;
+     if(R.Direction.ContainsNaN()||R.Direction.GetSafeNormal2D().IsNearlyZero()||!FMath::IsFinite(R.Distance)
+         ||R.Distance<0.f||R.Momentum.ContainsNaN())return false;

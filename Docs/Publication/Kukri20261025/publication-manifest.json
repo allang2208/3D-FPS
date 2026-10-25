@@ -1,0 +1,310 @@
+{
+  "description": "Kukri V11/V12 three-hit combo, uppercut, charge heavy and swing rift: new files committed whole, scoped host deltas committed, deeply-shared gameplay/netcode hosts ship as HEAD-relative integration patches.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 289274,
+      "sha256_lf": "21bcaefeab3251a6caf398beb8e9c62e825a5258c130905b410ef338d2b73651",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 192120,
+      "sha256_lf": "d7d021038e187a31c6b70c0091803cd4424b55bf82f1234eb6f2f504044fe976",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Docs/Backlog.md",
+      "bytes": 80716,
+      "sha256_lf": "a672e4c8924a01199a8b18bf1e7b23437ffccb2dbf2c1cb07ea897f0351c1d28",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Docs/Weapons/kukri-20261020.md",
+      "bytes": 76929,
+      "sha256_lf": "453e24e2b4d8f9e39b2e2db9dde7965a4ecfa2fb2e81dd51d7a6a213da225408",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+      "bytes": 6405,
+      "sha256_lf": "7190c91eb60fe462e4be9e830dbbe9a3fa8b47cded47dbee2c7635f73887d69e",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/UppercutStaminaReceipt.h",
+      "bytes": 594,
+      "sha256_lf": "95a569b64add35bb8b872b11b4bf781715d3d5cbf3d9fdc9dd19b13d982f1322",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/LightningHasteSpeed.h",
+      "bytes": 191,
+      "sha256_lf": "5abc0bd4e2b3b462b12fa73f9011d081ec3ec439150e4d9991be5372b61b4401",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "bytes": 37319,
+      "sha256_lf": "11c9f1299909e33ec36ba936d253a4ce3cbe7ba09838fed39dd19182bacb8486",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "bytes": 6523,
+      "sha256_lf": "93f5dba0db3d470f78bf9141a008a2204d600c7f22554fb0a74fdabd55e7e0c6",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+      "bytes": 15827,
+      "sha256_lf": "d5756585153a797ee7603e21809fdca716952eb9e9b9f4e9dac3a6ace3100cd4",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavyRhythm.h",
+      "bytes": 5270,
+      "sha256_lf": "c11b906722e3c590201a50e5980a01500df9d60057429a2756f51dcf1c9db995",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriRhythm.h",
+      "bytes": 30937,
+      "sha256_lf": "9bc79dddaf2aff362ac5780319954c5aafd891ac0935a8815dc36d774d359865",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriRift.cpp",
+      "bytes": 5751,
+      "sha256_lf": "09ed60e4236b8d0e3e3410b26105e908ae41f00e52518012e0001e1969097e8a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriRiftRibbons.h",
+      "bytes": 15223,
+      "sha256_lf": "9965dd55983bc4192e383542c9331c804608ae94890db266220503e38c87d054",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp",
+      "bytes": 3091,
+      "sha256_lf": "999459e02ef6ee1f33526efe7e39f73e7309c0fff24be30901161acb820b4f90",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriUppercut.cpp",
+      "bytes": 10305,
+      "sha256_lf": "07ba1128f137ca19687fd6a2245d378138ac67b56844d425daf595a084550cc3",
+      "mode": "owned_file"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+      "bytes": 28308,
+      "sha256_lf": "572cdd65f5879aa7a6a72cbb5f66348168a45925efd3cdd5ef584cb43a654110",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.h",
+      "bytes": 8908,
+      "sha256_lf": "cc87478dda65339ec9b6fc285bbefef197bdd5a1d78093bfbd73a0e69c11a599",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/README.md",
+      "bytes": 11410,
+      "sha256_lf": "670509b2878dccf327fa29d0c2ef5d9b304d010bc72addcd7d33023183854301",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/atk1_camera.json",
+      "bytes": 9659,
+      "sha256_lf": "86843f9fe8a9167dee8b2d5c75260c7010a25e80dc4fd2111695304830c2eef5",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/camera_atk1.py",
+      "bytes": 2950,
+      "sha256_lf": "aacb3360defa15bbbf5373edf6de393baa121799b29dc72f136676d6171f6ccb",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/camera_heavy.py",
+      "bytes": 4255,
+      "sha256_lf": "41d458fcaf484a375f130b676527cdfc288c00517e485119fa6a4180a23468d2",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/camera_upper.py",
+      "bytes": 3649,
+      "sha256_lf": "df7ef2a161ee571e99f50f3082fcb936709456b7d12df8e7ffe904958e5e698a",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/contact_atk3.py",
+      "bytes": 2867,
+      "sha256_lf": "9a8f5e40113389d44c43cb6cd9c76dcede908ef3158e2736612d4c48a360978f",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/curve_atk1.py",
+      "bytes": 1396,
+      "sha256_lf": "ab3053d24b9a1b26bfbe9bd35ad0a199c36a29613b934faad860acb70313f054",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/curve_atk3.py",
+      "bytes": 2669,
+      "sha256_lf": "c39bde0882e2ec26bde6a361d01522a58fe40d883a48412d7d0f4e49b1993993",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/curve_heavy.py",
+      "bytes": 3593,
+      "sha256_lf": "34a71574b4eb065d16c0712df5c749e5ecf19c24cafeac6e919b2b726bb75890",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/curve_upper.py",
+      "bytes": 2412,
+      "sha256_lf": "93e7ab92510c5777c2303b569153b55f8aa48d786021d7fbccbdefad736b8395",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/extract_atk1.py",
+      "bytes": 2249,
+      "sha256_lf": "e2100777cd263c9901db2a51104e57e8884c7fff3daecef3058951aa1d75ba7b",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/extract_atk3.py",
+      "bytes": 2947,
+      "sha256_lf": "b9b7ee78dc9cc434855a2a455471e6c9e65f484a5a1512f3d90036fe0fbe45f9",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/extract_heavy.py",
+      "bytes": 3282,
+      "sha256_lf": "076f878f79a1d643d46cdcbd64fffbc5d05f3d7ed354b9592f7335ff5c99de73",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/Reference/track_atk3.py",
+      "bytes": 7797,
+      "sha256_lf": "499dea1c4a2dd1783f23a456504927136916f1451f7f13daf62377e5e9e3a897",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/attack2_keys.json",
+      "bytes": 17494,
+      "sha256_lf": "f0c0fc73abd4f8ccbdd907739ce2d7a15356cb8b3944ae3071af28ce182d20b5",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/attack3_keys.json",
+      "bytes": 20649,
+      "sha256_lf": "855118fba4328cc78aca0fa6b0ed397e8de167bf63b7a6266850903451eb4b5e",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/author_kukri_clips.py",
+      "bytes": 21856,
+      "sha256_lf": "2d3f76fcc8fb137edfbb4bba2c8c6f0b5d22218496c8b181f80f28279d93a601",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/author_kukri_heavy.py",
+      "bytes": 11258,
+      "sha256_lf": "d981c25db40dee2926670a0e96f646d2d53523a1eb1178f277252d643b1a496d",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/author_kukri_rift.py",
+      "bytes": 6099,
+      "sha256_lf": "938d54b2030df520d6eefb9feb6d14e6384048e9c7f590a626f0cfca279deaac",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/author_kukri_upper.py",
+      "bytes": 8384,
+      "sha256_lf": "5a0436047966069703d24a8e8ead56211be99830e090bf989ffee93beba87c22",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/clips.json",
+      "bytes": 6777,
+      "sha256_lf": "bbe4e03544a18111d70cc162d9db13f78c488ac2947e79e51ee980b371270443",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/fit_heavy.py",
+      "bytes": 12933,
+      "sha256_lf": "b26dd77fc46a4466ecfbe8f8f3f2a7c37fdc2967d2091f42ba1d30574dd090ca",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/fit_reference.py",
+      "bytes": 50408,
+      "sha256_lf": "ac81361bc5e0b140a4bd77b7461f0a524a1e217609fc98d78d88f5acf1d82ff9",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/fit_upper.py",
+      "bytes": 7177,
+      "sha256_lf": "e5b157da44f24237a32f49963d904eae5a1e940794aaaf7d04676f86135302a8",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/heavy_keys.json",
+      "bytes": 16680,
+      "sha256_lf": "7cd0ac19c8714b091e5ca99aa1d78fceb8d173edc65cf81980affb1305af528c",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/import_kukri.py",
+      "bytes": 14211,
+      "sha256_lf": "dc7b2916b539a42e33bf8e095e0fede532eea373519dfbc609b44adb68d0d909",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/import_kukri_heavy.py",
+      "bytes": 598,
+      "sha256_lf": "7eec5b6315273c28449eb87eae8e5c4e4f9dcd1452054f3469d76ce1f90fc3fc",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/import_kukri_uppercut.py",
+      "bytes": 557,
+      "sha256_lf": "b4773c1923ce3f1566ee0c5b478bc312f85cb8101039379daf64c7550a583db5",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/import_receipt.json",
+      "bytes": 779,
+      "sha256_lf": "6886c753f65e5a38ab311a797cb9ccbde26772e140cb433ff61d0440c294b33e",
+      "mode": "scoped_index_delta"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/repair_kukri_material.py",
+      "bytes": 1658,
+      "sha256_lf": "71a5d5d668ba622eb9d11329da799fddcd37178a6a7ebc35a7abaa7d0d2e56d5",
+      "mode": "owned_file"
+    },
+    {
+      "path": "SourceAssets/Kukri20261020/upper_keys.json",
+      "bytes": 19549,
+      "sha256_lf": "28b8569614bc4749641eef3b248c8610dfe0eb12a9015d3d8d7108831985c12b",
+      "mode": "owned_file"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/melee.md",
+      "bytes": 24849,
+      "sha256_lf": "d3cdad0cb58d7c4644929aaea0b7bca3dd1c6f9d011a45326ba909e5eb87e21e",
+      "mode": "scoped_index_delta"
+    }
+  ],
+  "integration_patch_count": 17,
+  "runtime_tree_complete": false,
+  "public_slice_built": false,
+  "historical_full_host_builds_succeeded": true,
+  "actual_network_tested": false
+}

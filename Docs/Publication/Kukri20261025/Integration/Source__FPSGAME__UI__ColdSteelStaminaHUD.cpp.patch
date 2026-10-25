@@ -1,0 +1,22 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp b/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
+--- a/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
+@@ -14,6 +14,7 @@
+ #include "Engine/GameInstance.h"
+ #include "GameFramework/Pawn.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/WeaponBipodDeploymentComponent.h"
+@@ -87,7 +88,9 @@
+         {
+             const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
+             const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+-            const float Charge=FMath::Clamp(Tool&&Tool->IsEquipped()?Tool->HeavyChargeFraction():Sword?Sword->HeavyChargeFraction():0.f,0.f,1.f);
++            const auto* HeavyKukri=Pawn?Pawn->FindComponentByClass<UKukriWeaponComponent>():nullptr;
++            const float Charge=FMath::Clamp(Tool&&Tool->IsEquipped()?Tool->HeavyChargeFraction():
++                HeavyKukri&&HeavyKukri->IsEquipped()?HeavyKukri->HeavyChargeFraction():Sword?Sword->HeavyChargeFraction():0.f,0.f,1.f);
+             if(Charge>0.f)
+             {
+                 Complete=Charge>=1.f;PreparationProgress=Charge;
