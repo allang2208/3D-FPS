@@ -53,6 +53,7 @@ public:
     bool bHasConsumeProp=false;
     FName FurnitureClip;
     float FurnitureSeconds=0.f,FurnitureWeight=0.f,FurnitureFootDrop=0.f;
+    bool bFurnitureMirrored=false;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

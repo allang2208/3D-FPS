@@ -36,6 +36,20 @@ MCP 调用遵循 [效率与 token 约定](skills/ue5-auto-assistant/references/e
 
 正式 C++ 放 `Source/`，工具放 `Tools/`，作者脚本/参数放 `SourceAssets/`，说明和结果放 `Docs/`。确认退役的文件移到 `trash/<task>/`，记录原路径、目标、大小、SHA-256、原因和保留替代物。移动前验证所有绝对路径属于本次授权范围，移动后读回校验。不要凭旧日期或候选名判断废案。
 
+### 4.1 存储分配与文件操作边界（用户要求，2026-10-25）
+
+F 盘本项目的数据统一在 `F:/FPSGAMEData/`。本次整理由用户明确要求，已保留切换前完整 Content 副本及配置原件；不授权随后清理资产或恢复资料。后续先确认真实路径、目录联接及用途，再操作文件。
+
+- **唯一工程入口**：继续使用 `D:/FPS3D/FPSGAME/FPSGAME.uproject`。`Source/`、`Config/`、`Tools/`、`Docs/`、项目 `Plugins/`、`Intermediate/`、`Binaries/`、`Saved/` 仍使用 D 盘现有位置；本次没有把整个工程迁移到 F 盘。
+- **正式游戏资产**：通过工程 `Content/` 或 UE `/Game/` 路径接入。`D:/FPS3D/FPSGAME/Content` 联接到 `F:/FPSGAMEData/Content`，在 D 盘入口保存会实际写入 F 盘。玩法加载继续使用 `/Game/...`，不要写入物理磁盘路径。F 盘 Content 是活动生产数据，不能按缓存或恢复副本清理。
+- **DDC**：`D:/FPS3D/DerivedDataCache` 联接到 `F:/FPSGAMEData/Caches/DerivedDataCache`。文件缓存、Zen、虚拟纹理块缓存在其下生成；需隔离的制作缓存使用其 `Authoring/<task>/` 子目录。家具动作四个后台脚本使用稳定的 D 盘缓存入口；不要再新增旧 F 盘位置或 C 盘临时 DDC 覆盖。独立 UE 工程仍需核对自身配置。保持 F 盘盘符及联接；入口失效先排查，不以普通空目录替代。
+- **美术制作源文件**：新模型、贴图、动画的可编辑源文件、导出文件、制作参数及许可记录放 `D:/FPS3D/FPSGAME/SourceAssets/<task>/`。这不表示每个子目录都实际在 D 盘：已知 `SourceAssets/BackpackFit20261024` 联接到 `E:/CodexAssetCache/FPSGAME/BackpackFit20261024`，本次未迁移。下载目录也可能留有原件，不能用 Content 备份代替源素材备份。
+- **打包输出**：今后将需要保留的打包成品显式输出到 `F:/FPSGAMEData/Builds/<version>/`。当前只建立输出目录，未修改既有打包脚本的默认参数，也未执行打包。
+- **保留资料**：用户明确要求避免 Recovery 名称歧义并使用英文路径，统一使用 `F:/FPSGAMEData/Preserved_NoAutoDelete/`。其中 `MigrationIncident_20261025` 保存原 `F:/UEBuild` 中除活动 DDC 外的数据；`RestoreRecords_20261025` 保存原 `F:/FPSGAMERecovery20261025` 中除活动 Content 外的存档、证据与旧记录；`BeforeReorg_20261025/ContentBefore` 是本次切换前的独立 Content 副本。这些目录不作为新制作的保存位置，不自动删除。旧证据中的原路径作为历史记录保留，当前映射见 `F:/FPSGAMEData/storage-layout.json`。
+- **存档和制作宿主**：游戏进度仍在 D 盘 `Saved/SaveGames`。`Saved/` 还含自动保存和指向正式资产的制作宿主联接，不能整目录按缓存清理或迁移。项目插件资源及 E 盘现有制作资料也未随 Content 移动。
+- **NAS 备份**：用户安排定期备份。正式资产明确备份 `F:/FPSGAMEData/Content` 的真实文件；另备份 D 盘源文件、`.uproject`、版本历史 `.git`、项目插件、`Saved/SaveGames`、`Saved/Autosaves`（如存在）、E 盘制作资料及尚未归档的独有原件。保存可回溯版本，不只保存联接对象。DDC 可重建，不替代原始资产备份；F 盘本地恢复副本也不替代 NAS。
+- **迁移与清理边界**：先确认源、目标、联接和硬链接关系及使用者，列出精确范围并保留可恢复副本。迁移先复制并核对清单／散列，保留原数据后再切换入口；不要对包含未知联接的树执行 `robocopy /MOVE`、`/MIR`、`/PURGE` 或递归删除。用途、归属或链接目标不明时保留现场，只向当前用户说明，不凭目录名、旧日期或磁盘占用决定删除。
+
 ## 5. 内容依赖
 
 按 [资源恢复](Docs/AssetSetup.md) 管理 Content。商用授权和原始资产再分发许可分开检查。默认不提交未核准二进制、引擎、插件、字体、缓存、日志和 `trash`；需要新增合法资产时，核准来源后精确更新忽略规则。完整本机工程的备份不等于公开 Git 源码发布。

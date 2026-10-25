@@ -26,6 +26,7 @@ protected:
 private:
     UPROPERTY(ReplicatedUsing=OnRep_State) FFPSSurvivalState State;
     float HungerPerSecond=.05f,HydrationPerSecond=.075f,DungeonSanityPerSecond=.02f;
+    float BedRestSanityPerSecond=5.f;
     float MonsterSanityMultiplier=1.f;
     TMap<FName,float> MonsterSanityLossByTag,MonsterSanityLossByClass;
     void LoadTuning();

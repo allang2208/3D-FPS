@@ -16,3 +16,5 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 - FPSGAME 炼药台的器具命中、金色悬停提示、捕获搅拌、旋钮、温度计和装瓶液体，读取 [炼药台交互](references/alchemy-tabletop-interaction.md)。
 
 - [生活区收集品与排水工具箱](references/staff-living-collectibles.md)：2026-10-18 本轮实现经验与恢复边界，按问题读取；不授权自动测试。
+
+- 椅子、沙发、床铺的占位、范围内上床与 SAN 恢复，读取 [家具坐卧交互](references/furniture-rest.md)。

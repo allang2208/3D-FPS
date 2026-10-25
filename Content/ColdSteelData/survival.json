@@ -4,5 +4,6 @@
   "dungeonSanityPerSecond": 0.02,
   "monsterSanityMultiplier": 1.0,
   "monsterSanityLossByTag": {},
-  "monsterSanityLossByClass": {}
+  "monsterSanityLossByClass": {},
+  "bedRestSanityPerSecond": 5.0
 }

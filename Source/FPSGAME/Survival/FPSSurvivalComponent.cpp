@@ -1,4 +1,5 @@
 #include "FPSSurvivalComponent.h"
+#include "../Movement/FPSFurnitureRestComponent.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Building/ColdSteelCampfire.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -45,6 +46,7 @@ void UFPSSurvivalComponent::LoadTuning()
     auto Read=[&](const TCHAR* Key,float& Value){double N;if(Config->TryGetNumberField(Key,N)&&FMath::IsFinite(N)&&N>=0.)Value=static_cast<float>(N);};
     Read(TEXT("hungerPerSecond"),HungerPerSecond);Read(TEXT("hydrationPerSecond"),HydrationPerSecond);
     Read(TEXT("dungeonSanityPerSecond"),DungeonSanityPerSecond);Read(TEXT("monsterSanityMultiplier"),MonsterSanityMultiplier);
+    Read(TEXT("bedRestSanityPerSecond"),BedRestSanityPerSecond);
     auto Table=[&](const TCHAR* Key,TMap<FName,float>& Out){
         const TSharedPtr<FJsonObject>* Values=nullptr;
         if(Config->TryGetObjectField(Key,Values)&&Values&&Values->IsValid())
@@ -143,8 +145,13 @@ void UFPSSurvivalComponent::TickComponent(float DeltaTime,ELevelTick TickType,FA
     if(!Pawn||!Pawn->HasAuthority()||!Pawn->IsPlayerControlled()||!Health||Health->IsDead()||!FMath::IsFinite(DeltaTime)||DeltaTime<=0.f||GetWorld()->IsPaused())return;
     const bool WasDepleted=State.IsSanityDepleted();
     const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
-    const float SanityRate=Run&&Run->IsRunActive()?DungeonSanityPerSecond:0.f;
-    const float DepletedAt=WasDepleted?0.f:SanityRate>0.f?State.Sanity/SanityRate:TNumericLimits<float>::Max();
+    const auto* Rest=Pawn->FindComponentByClass<UFPSFurnitureRestComponent>();
+    const float RecoveryRate=Rest&&Rest->IsRestingInBed()?BedRestSanityPerSecond:0.f;
+    const float SanityRate=(Run&&Run->IsRunActive()?DungeonSanityPerSecond:0.f)-RecoveryRate;
+    // Positive recovery lifts SAN off zero, so the depletion multiplier no
+    // longer applies during this interval. Existing dungeon drain still stacks.
+    const float DepletedAt=SanityRate<0.f?TNumericLimits<float>::Max():
+        WasDepleted?0.f:SanityRate>0.f?State.Sanity/SanityRate:TNumericLimits<float>::Max();
     // Split at blessing expiry and SAN depletion so both multipliers compose
     // during a hitch, without advancing the starvation clock before depletion.
     const float BlessedTime=FMath::Min(DeltaTime,State.FountainBlessingSeconds);
@@ -179,7 +186,7 @@ void UFPSSurvivalComponent::TickComponent(float DeltaTime,ELevelTick TickType,FA
     State.Hydration=FMath::Max(0.f,State.Hydration-HydrationPerSecond*ConsumptionTime);
     State.FountainBlessingSeconds=FMath::Max(0.f,State.FountainBlessingSeconds-DeltaTime);
     if(BlessedTime>0.f&&State.FountainBlessingSeconds<=0.f)UStatusEffectsComponent::Notify(GetOwner());
-    State.Sanity=FMath::Max(0.f,State.Sanity-SanityRate*DeltaTime);
+    State.Sanity=FMath::Clamp(State.Sanity-SanityRate*DeltaTime,0.f,State.MaxSanity);
     NotifySanityChange(WasDepleted);
     if(State.IsDeprived())
     {

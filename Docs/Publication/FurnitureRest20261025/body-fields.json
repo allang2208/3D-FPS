@@ -1,0 +1,1481 @@
+{
+  "config": "Content/ColdSteelData/player_body.json",
+  "fields": [
+    {
+      "path": [
+        "clips",
+        "Rest.Chair.Enter"
+      ],
+      "value_sha256": "3dfe32f3302261a7728eab71f99dc0e9762631e1f25ab71535e3169876fa85f9"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair.Idle"
+      ],
+      "value_sha256": "d41dd40cab008f600fdda742c386ca84e0f5312ddf2f966051fe05fa9ecc412f"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair.Exit"
+      ],
+      "value_sha256": "847a9e6721240dd9c5d182ebf7735ad5f9d700fbf983712d9f631fc449dd7f34"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Sofa.Enter"
+      ],
+      "value_sha256": "51b94fa00218d2a5fe3deda7cef7420e841368e1d1bacb70eea5035b6c869c72"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Sofa.Idle"
+      ],
+      "value_sha256": "c83b66a9a469e2b5d94c6abf2c242ca2d47a826321965e40d3640bd65224780d"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Sofa.Exit"
+      ],
+      "value_sha256": "d48864bccb3035e9f6fdde46c67e24827480071b520ac075360bb4bbf555b496"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bed.Enter"
+      ],
+      "value_sha256": "bfff16c88b010b3148a608db5f05681f82f12ecd27488e593d5a4ce1d753efbe"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bed.Idle"
+      ],
+      "value_sha256": "5a832f90b23fa9222e4f8874e9e38ce0cbe7f348bbcd285052ddacbaaf0fc835"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bed.Exit"
+      ],
+      "value_sha256": "28abde3affa745bf33e193b2480badb4788901af2d5b54be298bde40e8234ee8"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bunk.Enter"
+      ],
+      "value_sha256": "31064842b9ca700169f19a3cb32ef09d85245b8db3864d10e8cd54c35515f323"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bunk.Idle"
+      ],
+      "value_sha256": "4870c1baee39af54dd5da044d29c6f87aa1da74e109566db5a19d99194a462ed"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bunk.Exit"
+      ],
+      "value_sha256": "1ebeab79f8750ec4a91f791ecf05bbcb3707789a0e373623bd53d2a1861612f4"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair50.Enter"
+      ],
+      "value_sha256": "ced2a82438a9691d867d92a2a5b7e9d9d9dc1ac944b8b623ceaa8e84d317cd4e"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair50.Idle"
+      ],
+      "value_sha256": "2cb4a39a47219d1d6fe7d5a02cc184b95271da5b9945696545c0ee175b270d87"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair50.Exit"
+      ],
+      "value_sha256": "0223e3fc2ab65c209b7e10569d40c61e0cc0b56eb9fc52a7a31bfa02c0d3665a"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair52.Enter"
+      ],
+      "value_sha256": "73082c3cc083bcb2df5d12c29067266493b08b78df29da7d87913126d5c21be2"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair52.Idle"
+      ],
+      "value_sha256": "6a1d2c6fb3ca93a9eec07f3d0b817d4f715e1a773bac9c281ac3e530c61b51f3"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair52.Exit"
+      ],
+      "value_sha256": "8024800e706c0520a077515c7945c6f85ab71b9e9d11a34d474041a4c976064f"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair53.Enter"
+      ],
+      "value_sha256": "3a1ca724854fe1ca722523416f91052f89403c9b7c99151a674f4c65f47cb9c6"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair53.Idle"
+      ],
+      "value_sha256": "bb24d6539e1c983d41ae1a1a79a410f9c5373935a1736fd8183f499be74c16da"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair53.Exit"
+      ],
+      "value_sha256": "d7699e96ae2725e3d5fc883105c862119eccc81658930e69d455546db5867fa8"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair55.Enter"
+      ],
+      "value_sha256": "b0a61ab5c1a9e091c848f828884ef80a97751d3aaea51d72a9d6b742957b4068"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair55.Idle"
+      ],
+      "value_sha256": "91880728972aaf0627ff24d261936c486e0151c5eaf6dec93a69282d614154dd"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Chair55.Exit"
+      ],
+      "value_sha256": "b97ff702bcb912e18a4befa8bb05420871f818bcb607c019f1660e19921ca3e1"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bench.Enter"
+      ],
+      "value_sha256": "9ba6a8756a16cc3daa7e9d59686684a55cd2261fd94fb5ceba9c2784dfe60a35"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bench.Idle"
+      ],
+      "value_sha256": "3ca816d43e7ee4b139856e97867f42ada6ab194c8228b3b71726753700fc60d5"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Bench.Exit"
+      ],
+      "value_sha256": "bc63e870719095d6a86ca8092761913260ac78a3fdf50b2311734ad86b474d94"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.BedKing.Enter"
+      ],
+      "value_sha256": "3c27574cfb63c6072a531dbe89263cc775e446cc450d7054135fda0546df78a0"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.BedKing.Idle"
+      ],
+      "value_sha256": "7215b1134d51905f3bbbbd0084ab7b1a7450351a4a944afbd440c957cad2fea4"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.BedKing.Exit"
+      ],
+      "value_sha256": "b3296dcb0e0d3b653456c11200fbf807315acbc58d88db57d367e8d396e4ecff"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Hospital.Enter"
+      ],
+      "value_sha256": "abc6d81d7363324d2fde0b74499e9528ad7351927639054293315fe8c94fb49e"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Hospital.Idle"
+      ],
+      "value_sha256": "e4f962f41ce7ce21e0032eeadb098a20eddd2857299172a5c84163466a002136"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Hospital.Exit"
+      ],
+      "value_sha256": "3497d6d68d5fc689428d871dcb1ecf1b152adc3fd3b4e8aaeade3fea8e11cb95"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Ward.Enter"
+      ],
+      "value_sha256": "9ee1364ac84c962f4884a163eeec7a8c2fe900d5fe205b529f4a8cedb447d372"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Ward.Idle"
+      ],
+      "value_sha256": "67c7b27fcc2424f879c43e083430e40208923aab8c8bb6bc0f3465a190fe5b43"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.Ward.Exit"
+      ],
+      "value_sha256": "f3a80501c527a27770d8b1a91002e84878958f4a8a11b409c1a1f0c7324db852"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentBed.Enter"
+      ],
+      "value_sha256": "f61e89f8c961891858a42b680524b1f76903c3f5be7f4dce9f612afd2763a0c1"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentBed.Idle"
+      ],
+      "value_sha256": "6daae69c9150e3a6a5b6566f4316ebf5f881e1146715fc67d4b29bfcf25d41ba"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentBed.Exit"
+      ],
+      "value_sha256": "ec5d2bc8c161969cfcccffd3e3b9bea7813132954f2b1e4fb05b715d4beee1c8"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofa.Enter"
+      ],
+      "value_sha256": "609ec3060a1b772fcb89894261fe363c80989745a5e09bb27d75d37c8af4d852"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofa.Idle"
+      ],
+      "value_sha256": "77ea43a0ef7648a906b94f388a51a71c33fdb925156d3007020334f6999f627c"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofa.Exit"
+      ],
+      "value_sha256": "edbaf8e88c4c75ebe1ea75c24ef66b1586cc3404870b00edc44d73dda7d1eac7"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.SofaLeft.Enter"
+      ],
+      "value_sha256": "5ae8a0c127a5133279874ede626e2e1081cbf8338b9faf004d863032c672d55c"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.SofaLeft.Idle"
+      ],
+      "value_sha256": "b68df139250bc8419b4dacd775b8ad7f98f77595fa0c05d0d1c64713716200d1"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.SofaLeft.Exit"
+      ],
+      "value_sha256": "522449c94ab8b3218b5658e430a606ecd9a9e41035edc43c74a7fd0737e166ee"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.SofaRight.Enter"
+      ],
+      "value_sha256": "911696d9d43c36acddef55238c3b9e0b63671e94b0edbe2e974df404fa973efe"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.SofaRight.Idle"
+      ],
+      "value_sha256": "81823c780aa0f7b30e7bc63fa3891e984fbeb1a0dfb95327c41e98271b0bc044"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.SofaRight.Exit"
+      ],
+      "value_sha256": "8b320ca34630a6eaacdd8621b640160357345143d98ce61344e490dcc1a1ba3b"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofaLeft.Enter"
+      ],
+      "value_sha256": "fa94d5cdd86a5025206b9476165efb7d771189df4c929c4cd06839c29cf23ab0"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofaLeft.Idle"
+      ],
+      "value_sha256": "4c2abeb59f7cf06d78dc339ee7e5a5c6ad2178323a256e1e89e35d0323174e52"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofaLeft.Exit"
+      ],
+      "value_sha256": "c7ecda5e3c8c78a715fe5e56b05df8a8fcf181c713048d0b0cf5e1c3b6432bdf"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofaRight.Enter"
+      ],
+      "value_sha256": "5df8926d9ca63a8d74ee2f85922f789e7f7288bd22c60fde3bea21b1e1fb5004"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofaRight.Idle"
+      ],
+      "value_sha256": "8d710148693acc087a607283636c232a132a30f8b40fbc34f885b86c1ed90811"
+    },
+    {
+      "path": [
+        "clips",
+        "Rest.ApartmentSofaRight.Exit"
+      ],
+      "value_sha256": "08f5bbd69965d7756d799d567766dbb91fada784fc0653687dfd01070197530b"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Bed.Enter"
+      ],
+      "value_sha256": "2c78e51407a06d79b61ade7a24597035b5b2358515c7dc083d243341c7da42e8"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Bed.Idle"
+      ],
+      "value_sha256": "4287e4c75b77a89afd516649ddcb058240dbb1cfa5c168aa131796cf7db1c04d"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Bed.Exit"
+      ],
+      "value_sha256": "68a349c42a882eadec0c76b8151a4a2a23987797ecb2865c592ac3e80938e6bc"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.ApartmentBed.Enter"
+      ],
+      "value_sha256": "b447de72c758cc1d229930ce272459db8f216320b801325529470232a8ce63db"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.ApartmentBed.Idle"
+      ],
+      "value_sha256": "5b6ca412e5f098a89ab845519339ef58506f2f7ae69f94eb11460e7d0cd209f4"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.ApartmentBed.Exit"
+      ],
+      "value_sha256": "cb88e5fd82172606524a03b1b3231affc2755c431e7bf9d580da889a5d40b0b7"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.BedKing.Enter"
+      ],
+      "value_sha256": "3d756a9fccd097561aec5fdba07acefc96ffa0a382756dbd7389a4f6d772204b"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.BedKing.Idle"
+      ],
+      "value_sha256": "95a5202d696ffeaa353d6ca0a22a82ebf0a48dae44bd6925149bdf841f7b7d70"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.BedKing.Exit"
+      ],
+      "value_sha256": "951cb42cb3e5958d51954b46ed922b66cfd7dc0d11f7c871cc760e73b8c3cf1e"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Hospital.Enter"
+      ],
+      "value_sha256": "0780f5967caefa487545727a41856d166cb9d38b3bf30fc5dc62351d241a76b5"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Hospital.Idle"
+      ],
+      "value_sha256": "7596faf69c9f15e72fbbc62d1eb83bc59422bf23336eb9b6c5d4bcb3d58e3247"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Hospital.Exit"
+      ],
+      "value_sha256": "1b5fdb97f6480d506057ed2f5773e979b9956dff2071840137eaee8dab2a0570"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Ward.Enter"
+      ],
+      "value_sha256": "942ec4696a5160ae10f03db5445bb42915272aa5f8a1e904202e1566a0e0e8a1"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Ward.Idle"
+      ],
+      "value_sha256": "26f994f701acd7ba817751ad0d6f46a91f47ed973832c9f4271997f6e76e8e67"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Ward.Exit"
+      ],
+      "value_sha256": "f803b9a8927439b26fdd4a1f57df22d3df199d147efb8ae1f4f6c123eaf41f7a"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Bunk.Enter"
+      ],
+      "value_sha256": "b164fec747728cc1ce6a02753de19a25b1dd96f183350136ea956f0e0116fa91"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Bunk.Idle"
+      ],
+      "value_sha256": "3b5967429e97547e702b92f54f420ac3a8182ba2410a8f0643e7e093b8c0255c"
+    },
+    {
+      "path": [
+        "furniture_camera_tracks",
+        "Rest.Bunk.Exit"
+      ],
+      "value_sha256": "2e997a5cdc2a34cb5e25cf142ee0b109ee846532c79138084b3c18add5558309"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair.Enter"
+      ],
+      "value_sha256": "21f06a8554013101ac8ee0923539a3a4a14dea87719f82f57c76a13118525ab9"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair.Idle"
+      ],
+      "value_sha256": "8c1fe8761732e6117302fb92c7bfc3aa37a3d7df4684083301d54bf9332a9114"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair.Exit"
+      ],
+      "value_sha256": "6b6759f825d3a1aa12afaca3ab78218a9930e7cc498a93192c2f1ccdcc620a0d"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Sofa.Enter"
+      ],
+      "value_sha256": "a98be1b49a71eef82cfc991236108bda3b656fede4aa05320d1e020d405dca84"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Sofa.Idle"
+      ],
+      "value_sha256": "da83bb0b844e47e984deb15ff2f4fc152819ede7908d956c69629193c34390b2"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Sofa.Exit"
+      ],
+      "value_sha256": "b145c17ae388ee409216acd31b9f1692c883b6fdc0498f1fc02fc7968f5f794e"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bed.Enter"
+      ],
+      "value_sha256": "03bafbb5a23bd223993a3fea264d20aea9f64efe3236c6309e4047885d92cf4f"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bed.Idle"
+      ],
+      "value_sha256": "02918ce9d8f412d87a7abe7555e90d3342d5ed52aa339a5bb05f9ca185403294"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bed.Exit"
+      ],
+      "value_sha256": "0d0e339a68ecf9477ed4572afad92b1d7ead158ec1be9eea352b5fef837ad5c5"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bunk.Enter"
+      ],
+      "value_sha256": "ff40cb04cec64e92512fdd2c0a7a2a75c14b2d816934badb8d3059f1f5e10202"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bunk.Idle"
+      ],
+      "value_sha256": "1515c8f6389cd09cb5e8128ba35fb62d89ddd725f04526037116b73f382b53cf"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bunk.Exit"
+      ],
+      "value_sha256": "dc88a55a92ddca6292ec6acf0d63c6ed126220a651c937d5673d2cdfa76fd454"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair50.Enter"
+      ],
+      "value_sha256": "3a6c474f374d8ed9b7182919add514687dd672a2e2a110e72a9d31c5577d33d6"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair50.Idle"
+      ],
+      "value_sha256": "4f5962a3fb8aa3fda4f4696200bb50ca36a6f848c46bad87d1420c1a21748ed4"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair50.Exit"
+      ],
+      "value_sha256": "37def74932a3d8481d6c662e7f3454c88a7da72863f12629c601605a7bac29ac"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair52.Enter"
+      ],
+      "value_sha256": "f53c9a4056629367ebe92a03ce1f5dcec4fb35560e5e2a3856634ce36a11c76a"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair52.Idle"
+      ],
+      "value_sha256": "750d5ed8b08a40c615ed37501d6bdf5e7810db5ae30c4aa3b409ff16313bde10"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair52.Exit"
+      ],
+      "value_sha256": "433dba7e2fb6f2cc23086b4045a9288d32f96090487a820b95114dec79d9e379"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair53.Enter"
+      ],
+      "value_sha256": "9ecc5b5d53af72823298f943b0b4e3cd8aee4c312e273f12713264edaab1dc12"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair53.Idle"
+      ],
+      "value_sha256": "3673d8eb7e81daadaf6458d141fa76b2493bb43a11507beabb57c5d689fca598"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair53.Exit"
+      ],
+      "value_sha256": "a5d34537748e0579a9fb7311d237ac659794c4f79fba86ee116b3618efbb0ca6"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair55.Enter"
+      ],
+      "value_sha256": "6888fd9ff41de3fda1ff5aaf4528d8da4eb4a350b06d0f9d16b69e005f0b9f27"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair55.Idle"
+      ],
+      "value_sha256": "f7e917e85b655865ca60978b5fd527eec9b4c466d489a18d15ae26e028323e8e"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Chair55.Exit"
+      ],
+      "value_sha256": "6c6df556368724f03359b6bc8d4c5d6345f297305f7b95d02fe0d6965ba4cd80"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bench.Enter"
+      ],
+      "value_sha256": "dcebffbbcaf14a83aaea4c0673b6067da029472c792418c9ab2465e9d9d94d59"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bench.Idle"
+      ],
+      "value_sha256": "16b27c5cc4364bfc50289886afe297a9de19ee5850a8ca63556db86cf7d089b5"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Bench.Exit"
+      ],
+      "value_sha256": "505703dc1d64a64f9f97bbe34de9e89cadefd11263e5f365949167ea62ad4412"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.BedKing.Enter"
+      ],
+      "value_sha256": "e9e34556fcb06d027428b8e63f6bce8f9eb382c542d0b162441374e7361a69ef"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.BedKing.Idle"
+      ],
+      "value_sha256": "cf7cd1968daea2a8bcae69d57eea0de186970624d394fb8a60e17d2402548cc5"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.BedKing.Exit"
+      ],
+      "value_sha256": "c224d046aa2dd5b3b66f3aa73fdb75a09a4bb40341658ac76f3c2604c3bd93b1"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Hospital.Enter"
+      ],
+      "value_sha256": "e7f9b6e6e1e7644bc0c097c01e6cf56e315721d5fceb93099f07a5edf0f5da1b"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Hospital.Idle"
+      ],
+      "value_sha256": "2c49cf7dc7bc3f91b4efb23359470895e4291fd37871261ba72db00bcff305cf"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Hospital.Exit"
+      ],
+      "value_sha256": "97535784fa778e2f8d60fabf6711d040ed4b80d74d3b314bf5d2f321102e3f70"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Ward.Enter"
+      ],
+      "value_sha256": "4d10cfdff95bac20840127ad8b11b9cccd1b3cb58a24b610cb4c1dbecf6ff8e0"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Ward.Idle"
+      ],
+      "value_sha256": "c583557865174533f5a51f5bbade644f2064a9dae6c672995b3d9487e2ba7682"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.Ward.Exit"
+      ],
+      "value_sha256": "fe62ca90bd1fd579979d335a8d516b25e1942147c1fb120fde370286f297c85d"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentBed.Enter"
+      ],
+      "value_sha256": "b06763b7ca415ca72f435b6e58b8c33869152dbe0231da6980ecb167b48aade0"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentBed.Idle"
+      ],
+      "value_sha256": "7b22bcd1b82a8fae45aa00cf80555887bc750dde51c87bbfa072d566207240df"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentBed.Exit"
+      ],
+      "value_sha256": "88961c7718baa40c7e7c0f4d45de5ed0c1ac38cfc7585555ce24abd2a90c4e67"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofa.Enter"
+      ],
+      "value_sha256": "9f3abc87f6c0f3aed89bea91dfbe3c61ea3f5dcb3806d01065a0e3e305a4d3de"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofa.Idle"
+      ],
+      "value_sha256": "39e15b1c5d4b7f7e6082b6d1bff9c4d25d8b549ae4f82f3e0fe917d149cc392a"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofa.Exit"
+      ],
+      "value_sha256": "9ce1f576523e7cd654da3a0342dbbf7852c06da250d26d1d91df986342ec68b7"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.SofaLeft.Enter"
+      ],
+      "value_sha256": "11c11cff25313b50a33ee2d98e62f6ecfb996becc3d768946c0e5bd84dcd2a9d"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.SofaLeft.Idle"
+      ],
+      "value_sha256": "eebe60ffda358e88d6db3e5575791b70b274a89c49fcd2cae058364845414e41"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.SofaLeft.Exit"
+      ],
+      "value_sha256": "0c005cc2ac213997d40f65ea08bbfd4b2c1a1a1b2b2b25a135fc187a83bd49a9"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.SofaRight.Enter"
+      ],
+      "value_sha256": "21dda89f6b09fd1ac86d2c7fe6837e2062961dd9217026c10d91490bdc3c37c0"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.SofaRight.Idle"
+      ],
+      "value_sha256": "826e7cc3e5532affbed8f4140a52a3d575860ecbed20dd2afc2da07ceb7b0777"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.SofaRight.Exit"
+      ],
+      "value_sha256": "8edc70562bf16e936ab6ecaf93ba31e16f543ff8e60034b5f945b96eb5b7a9eb"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofaLeft.Enter"
+      ],
+      "value_sha256": "0241d8b9f822e43ee4dd2615703ba8bb799e0fdb091653fa5d3c15f3713655d6"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofaLeft.Idle"
+      ],
+      "value_sha256": "1d0600a471048b98c3c456126e2c8adfa11d6d50cac23d8618eef7c07ffb555f"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofaLeft.Exit"
+      ],
+      "value_sha256": "af24e063e702c96b625641406a317506ba33724df0c301490d24e3dce4d69a34"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofaRight.Enter"
+      ],
+      "value_sha256": "4e3fcc335b29eb6e7ddca5b884b92d2c823f08f81435e0aa692959599c269321"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofaRight.Idle"
+      ],
+      "value_sha256": "724595ab681992ba208cbd49b81995d514364a498f4bfc4f4eea5f58d1d5e98f"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Rest.ApartmentSofaRight.Exit"
+      ],
+      "value_sha256": "524291a63b302d657a764e5f73928b30f9334635e0f055dccd776cb78d44c556"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair.Enter"
+      ],
+      "value_sha256": "a131543aada8fa1f656737fd48265ce6d0637bf0be59ae0a40c5990c4341a4df"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair.Idle"
+      ],
+      "value_sha256": "1642bee25c66bfdd3b8cd5d8bf48e9c8b5489ffd164dbf1ff98ad41b34be0712"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair.Exit"
+      ],
+      "value_sha256": "ea61239949f722c8d0599797dabfed3e517b9c6df52bfe47347d3e856e09e516"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Sofa.Enter"
+      ],
+      "value_sha256": "78dfcf0cd31825a9c4a737caa6cdd57f06a884bc2d4a0b3b383289c41d844918"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Sofa.Idle"
+      ],
+      "value_sha256": "2b051cc34985e7284512663ab89ee563f6e47bbf814ea70b26e277f7fc654994"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Sofa.Exit"
+      ],
+      "value_sha256": "f6c260ec09ff0786954cbc1dc81cd5d5561abe4cdd8977e6d959342570f7ccdf"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bed.Enter"
+      ],
+      "value_sha256": "d62a0450e1eb403ec415e01944f9c3e7a6a68a135dfad42731aae45833019c3f"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bed.Idle"
+      ],
+      "value_sha256": "6342f44b812ef4c83ac98a8f8fa47ae29f525f163a14949c779e5947cd73e5dc"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bed.Exit"
+      ],
+      "value_sha256": "64f54a1cbc37e71bdb9cda23bf56582ddd9dc6bc66ec31d0d2e74066331adf86"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bunk.Enter"
+      ],
+      "value_sha256": "e30c8fe4aff32081b35d27d4bb274160e1d5f80eeb2cbcf86f81f1546d5e9e7a"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bunk.Idle"
+      ],
+      "value_sha256": "ebc0b11013f1232c85a7066c57d61f67b01b795b3c62e44b3c8158a4883617e5"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bunk.Exit"
+      ],
+      "value_sha256": "5ffdb41e4cd7433a5ca80ea3a1342924b33b1cf684656e338b5bea54910c8b2e"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair50.Enter"
+      ],
+      "value_sha256": "7aed19c56288e162b8cc957a4bd9e8a500df80b001a29a3ddaabfa074d8ab893"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair50.Idle"
+      ],
+      "value_sha256": "a4b25e35ce0ec649c3f8d10587817fb464745cf5bf1b94c6a09f7045cff3fc5c"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair50.Exit"
+      ],
+      "value_sha256": "880e12361efce712d7a3635bc14a64134cd65a4359667515b8faf3af35a8462c"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair52.Enter"
+      ],
+      "value_sha256": "165a16b980857382282368199ffd38df1fcc6237fe19c685b092c4dd7d1ba862"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair52.Idle"
+      ],
+      "value_sha256": "666acab0bcd29165883e410b802f2a8ebf2ca86a43ff6ef1f1f51ea4c006ae99"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair52.Exit"
+      ],
+      "value_sha256": "0c5c1c782a77de603335c73e4c5e4cfb47a885807448ddf295304195f6ad5730"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair53.Enter"
+      ],
+      "value_sha256": "32f90d67d3a2263a411b60e7e5cdd516a2594b2ee16760fb299fd28fcb128672"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair53.Idle"
+      ],
+      "value_sha256": "c9bca203db6d4933dab26da0169c4e61acd7b35baee2d6b433f9a4d668f8886a"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair53.Exit"
+      ],
+      "value_sha256": "c88efff69e406bd1ce888e8c2c8155ddc52e38bbc7bb9a2c62b1eb4a911971e2"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair55.Enter"
+      ],
+      "value_sha256": "aebcc3b9d5e4c5a66197a25d3d83c690b8befbf3a3b98ef727dc9e83e5245efb"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair55.Idle"
+      ],
+      "value_sha256": "1d8697851bea3467e6a58b1f72a6dac48a031b39b9fef7a14f1a6f2b56f986b4"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Chair55.Exit"
+      ],
+      "value_sha256": "302a36eb49c085a170fad99ccda9e887b58324e66725b993b7d240d80c4a29e0"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bench.Enter"
+      ],
+      "value_sha256": "28b0a25f3deec51d4ae97a8f50c822d43c47de2255ca1aa34794b21c6eed39b7"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bench.Idle"
+      ],
+      "value_sha256": "100cb9fd8680b9ab0186317b1b00d3c33f16ef017465df790937e341e4f0e54b"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Bench.Exit"
+      ],
+      "value_sha256": "d86a70622aed801b5a9650346d47df9f536abe0ff983976db16aea255a782c8e"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.BedKing.Enter"
+      ],
+      "value_sha256": "dd9fe837119302576fe22bcad632e37e8c47651520c826eb14896ea10f2f7d64"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.BedKing.Idle"
+      ],
+      "value_sha256": "8cdd975eac1ad9847a2fc097b7b6893d5fce9ef2fbe837cc87b54a0858229836"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.BedKing.Exit"
+      ],
+      "value_sha256": "20975f4d0f4b913c0d3a5594c0045a650724bc3f9b2a65daeef969a32ca5130d"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Hospital.Enter"
+      ],
+      "value_sha256": "db32e1f3b050e9c454f111b4e0e08ee35f334f6c1b1d4f32c25d22666221472c"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Hospital.Idle"
+      ],
+      "value_sha256": "9c22d496eca07d4b13a86e2fa7578303c3b9a4edc392e931832395ac81f1951f"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Hospital.Exit"
+      ],
+      "value_sha256": "4598e27b06e056956c9ee962c7ac1a84b72835ea40b436c04bde57b9c33f87d9"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Ward.Enter"
+      ],
+      "value_sha256": "57b21d56e45119631e13fcff3104346268fc305c6764099a24085ea2da07e9a4"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Ward.Idle"
+      ],
+      "value_sha256": "f19469f15ffacfe8bab7cee850b4eda7a76aed95df2a65d8ceff700f99238a45"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.Ward.Exit"
+      ],
+      "value_sha256": "21fbf74f7ec82b181649f95fbc1f711bf771d0c7b574cc238cc543b2cb6d6e88"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentBed.Enter"
+      ],
+      "value_sha256": "2230120b4a04fa887dcb8a27c345d7fe1938872b54619239e0dc82ec987c9c14"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentBed.Idle"
+      ],
+      "value_sha256": "efdfe0c3291b4a7d77519b302401b1121f21a486707d04180fcc3e015f3324ee"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentBed.Exit"
+      ],
+      "value_sha256": "9758028dd8ca9c8e2bcffec9b3459fa753c3a4c06b0e99be7b5b152d79f52507"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofa.Enter"
+      ],
+      "value_sha256": "a175454ec6fe3eb6a28280f4744302503f671cc2d1fc73a0098b91bfcc664537"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofa.Idle"
+      ],
+      "value_sha256": "6b9271856531af0735049c430b7ea22d7014b51b563d4e0cf37a47e1661b87a4"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofa.Exit"
+      ],
+      "value_sha256": "32fd7aa0c90a676bbfedfe5a0b5b20a734407f12b7f1d60ac0b024c72bd00f4c"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.SofaLeft.Enter"
+      ],
+      "value_sha256": "11b0d1a167faa48967df8e2211c84356adc0eb5393cfda3a0086a6939202d2a9"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.SofaLeft.Idle"
+      ],
+      "value_sha256": "9134e2e5f432673200d574b2be9679ab229c42d1a651d78b5c549f8665f5127c"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.SofaLeft.Exit"
+      ],
+      "value_sha256": "2046d8b7a6b14b0b6eda6e711eae2641c90f09964c9d03e84dabc37bcff3cd93"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.SofaRight.Enter"
+      ],
+      "value_sha256": "ec9234e7f3800c9977bec3da1bb0e5e2122108eecd658bb74efe106d31f17c88"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.SofaRight.Idle"
+      ],
+      "value_sha256": "edd2a47f6834a4efbf37229fc7d4debd811a443791d1b17ac2c3aeea68bf7471"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.SofaRight.Exit"
+      ],
+      "value_sha256": "10608c2d9972362d1eab854246b053f7459fcd57c0c122d9838165335bad664f"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofaLeft.Enter"
+      ],
+      "value_sha256": "04dae608193e15df97183d2868f1d069892587fca35d87852cf99df615a09c59"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofaLeft.Idle"
+      ],
+      "value_sha256": "d83041b82e8f0f6559778e3e090f61dd7c32d2d09846ca59a962b2a66e6799a1"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofaLeft.Exit"
+      ],
+      "value_sha256": "0c53bdf511fd055ee197ef187814b183c35bf1b49a6e2d69920ed53c37eb00cd"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofaRight.Enter"
+      ],
+      "value_sha256": "e320d41cf27f340447335c44288f0c053e14c0501bb2cf604fd9fab8c4e335f3"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofaRight.Idle"
+      ],
+      "value_sha256": "270af555e052f4a17b23154ec741fc5adc3ee3893085165083bb93378a4ebb8a"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "furniture_camera_tracks",
+        "Rest.ApartmentSofaRight.Exit"
+      ],
+      "value_sha256": "1b1299df717a2ef52a14f404301064042e1e1b1f023a2d297f61ff480f935d2e"
+    }
+  ]
+}

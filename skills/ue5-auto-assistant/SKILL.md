@@ -12,3 +12,5 @@ description: UE5.6-UE5.8 automatic assistant entry for beginners. Use when users
 此入口依赖本机个人目录；跨机器交付需另行导出所需维护源和引用。
 
 涉及 `player_body.json` 的修改、恢复或发布，读取工程的 [共享配置写入与发布](../../Docs/Workflow/player-body-config-publication.md)；旧配置与暂存副本不能覆盖工作文件。
+
+- FPSGAME 的 SSD、DDC、Content 联接与恢复留存整理，读取 [项目存储与目录联接](references/project-storage-junctions.md)。

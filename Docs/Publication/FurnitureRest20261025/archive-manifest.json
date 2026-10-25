@@ -1,0 +1,128 @@
+[
+  {
+    "source": "Tools/FurnitureRest/publish_bed_natural.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/publish_bed_natural.py",
+    "bytes": 2084,
+    "sha256": "459498a74a9310b83e13aad610a94353f9070211f55f01161b53f7811dfdfda9",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/publish_bed_supported_v9.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/publish_bed_supported_v9.py",
+    "bytes": 2086,
+    "sha256": "396838c577388c1cbb740b0247272eeaa3cab7f457db870c81fbc089f0ca54c7",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/publish_bed_hand_drive_v10.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/publish_bed_hand_drive_v10.py",
+    "bytes": 2087,
+    "sha256": "4de9cc39d10fd9ef294c3b260f5dbc81f427c4f6b05f371d5789132b08b0b7ff",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/publish_sofa_config.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/publish_sofa_config.py",
+    "bytes": 2214,
+    "sha256": "aa6c6d44d5e6bb44b21c779245e6df73dee1e58fc057432d1594704bdea55065",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/publish_sofa_natural_config.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/publish_sofa_natural_config.py",
+    "bytes": 2214,
+    "sha256": "3179f872e42f7913eaef63742a0fef185fb22f4719d8a6a25ad759eccb6e0ad0",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_bed_natural.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_bed_natural.py",
+    "bytes": 3370,
+    "sha256": "19fc8c73055a01bcbacb2cc0c8cb2d30ac7d31b0077ab9d66359a2b333346bca",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_bed_supported_v9.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_bed_supported_v9.py",
+    "bytes": 3305,
+    "sha256": "83f804017ee5790a279ec01038e3e265950d6e077879163c80c432c0c59d320a",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_bed_supported_v9_clearance.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_bed_supported_v9_clearance.py",
+    "bytes": 3324,
+    "sha256": "80522e64dc366b665a5b37f3a4f3a252d11d2aafd9347827da99ea50afa58d74",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_bed_supported_v9_ward_clearance.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_bed_supported_v9_ward_clearance.py",
+    "bytes": 3324,
+    "sha256": "ce3e2c60048abf1f8034eb3ceb3ce0b2a47cb8fa93f984762d0f5aaabba06045",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_bed_hand_drive_v10.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_bed_hand_drive_v10.py",
+    "bytes": 3522,
+    "sha256": "f92662bec29f470a753f0010e43c55ae51b2f2a3f7e98bef1392e504b844160a",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_sofa_natural.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_sofa_natural.py",
+    "bytes": 2732,
+    "sha256": "ff8fc4bbe3a9069e22dfbef64331796a80ff235aed9b9517533a3022e05ca775",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_sofa_support.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_sofa_support.py",
+    "bytes": 2724,
+    "sha256": "ee90ee00ed50437e4c616d5cee05376bb693145f6e2a248ca7dd3c941caef132",
+    "reason": "Superseded save/publish entry; current authoring inputs retained",
+    "replacement": "ChairReuse/ArmrestExit or MeshyApartment/FastRest/ReverseExit/BedFamily pipeline",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/end_play_for_fast_rest_save.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/end_play_for_fast_rest_save.py",
+    "bytes": 235,
+    "sha256": "0d2d8c8453c8c9d251894deef6f4b652cfc2e655dfdcdc825e1469b1989f20c8",
+    "reason": "Retired one-off editor Play stop helper",
+    "replacement": "Current backend save wrappers",
+    "sha256_verified_after_move": true
+  },
+  {
+    "source": "Tools/FurnitureRest/save_assets.py",
+    "destination": "trash/furniture-rest-retired-20261025/Tools/FurnitureRest/save_assets.py",
+    "bytes": 2762,
+    "sha256": "fa64e903fd97b6976ae3b31b98cf5527110bfaa2fa252416cd00de17e3840a1b",
+    "reason": "Retired initial publisher overwrites complete furniture configuration",
+    "replacement": "Field-scoped current save/publish wrappers",
+    "sha256_verified_after_move": true
+  }
+]

@@ -1,0 +1,881 @@
+{
+  "base": "2390b06129051cdddf82d80364cfd804e4ffd2ef",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 289572,
+      "sha256": "c9cd441c86dd72747917a1e30347e8b056a96a07b0c9545dd46bd049a6e176f4"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 28389,
+      "sha256": "bb0aa2637e0fce641b232efa8f4332bdf2cdfbf616842a17670b27b40e7f273a"
+    },
+    {
+      "path": "Content/ColdSteelData/apartment_furniture_rest.json",
+      "bytes": 177336,
+      "sha256": "e8085b3e6100a65811a729a8d139c50433aeee378d30126c9355998f5dbb490c"
+    },
+    {
+      "path": "Content/ColdSteelData/furniture_rest.json",
+      "bytes": 621767,
+      "sha256": "ef7cc7faa8101850f0b93e4b811dab9cb632108d4237a2208108d8cbb7fbe10e"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "bytes": 1321332,
+      "sha256": "5dda516c1a0f5558a3fc95895132714673f145b969b9535f3dc6d3570803cb96"
+    },
+    {
+      "path": "Content/ColdSteelData/survival.json",
+      "bytes": 228,
+      "sha256": "790e91af324b768c1e7d3486616cb2edbf0b4c69ffa4f510d47b8bc6f6ddac19"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 131306,
+      "sha256": "0dbb1631137b37df8fe7df398c07b54958da41d5f2aac4480c83f75469ef3f34"
+    },
+    {
+      "path": "Docs/Gameplay/furniture-rest-20261022.md",
+      "bytes": 57057,
+      "sha256": "b4275096aa44fb6de7e2a8af5e6af66d68a962e09e8710d7e864e6bc041b4270"
+    },
+    {
+      "path": "Docs/Publication/FurnitureRest20261025/README.md",
+      "bytes": 7511,
+      "sha256": "d856a45f14f2ef5202a9f09ece236bdfe881472923a332ebe110ff15a5d3741b"
+    },
+    {
+      "path": "Docs/Publication/FurnitureRest20261025/archive-manifest.json",
+      "bytes": 6947,
+      "sha256": "76a69d6eb84cbbf80b4615170845175ced5d57054e0c6942a3f9a2b08138ccaa"
+    },
+    {
+      "path": "Docs/Publication/FurnitureRest20261025/body-fields.json",
+      "bytes": 37302,
+      "sha256": "e76cc3a4500af8d7a2e685750c3ac3c95fc1e8fa7e65117ea929f45edadad73e"
+    },
+    {
+      "path": "Docs/Publication/FurnitureRest20261025/body-publication-manifest.json",
+      "bytes": 9927,
+      "sha256": "5644bf5f93efa559e2a8555ee554fdc4158183c5a6f6efcbbf1bcf48c2fb0712"
+    },
+    {
+      "path": "Docs/Publication/FurnitureRest20261025/local-assets.json",
+      "bytes": 13718,
+      "sha256": "a006afd6b8623436aabda5630b95c039ceecc16f376df3b80eab0876569098e1"
+    },
+    {
+      "path": "Docs/Publication/FurnitureRest20261025/review-summary.json",
+      "bytes": 1358,
+      "sha256": "992626d39242f9cb437c13ee97e64a8d277854fd2cfcba16c34d17cb687ef172"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyFurnitureLayer.inl",
+      "bytes": 3812,
+      "sha256": "0a4ac3b201c0609a29f00a3eff3681677e0f1efa3fc224f8ecca4414d750e9c8"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "bytes": 89880,
+      "sha256": "fc7205cfe800d77e1dbd0a4d27a1729e06851dd4318cb9296a2d24824ef88d83"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.h",
+      "bytes": 2139,
+      "sha256": "2a7ff1ee0c90679a9f449cf57ab0a5ad6a90ae51064042328495ef343cbed206"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyVariants.cpp",
+      "bytes": 4396,
+      "sha256": "1e7467e3809b11e3a6b2d1a5ca0b021766b791a8822c5c55d9c48d11e03e8b15"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp",
+      "bytes": 27996,
+      "sha256": "8df84dbe9a01669e84cf7c6a652ec5ff15624a2ce13e682d660a3f17580700fe"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.h",
+      "bytes": 3688,
+      "sha256": "0cca961a0ca13c0c81f6e5d83c80894d4cbef7403732b506e5ae51f5921aa78d"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FurnitureRestAuditCommandlet.cpp",
+      "bytes": 13349,
+      "sha256": "7d1f4acbc93c5b51ebda9e1dee9e7af463471290be322a2e9a6292551416bd57"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FurnitureRestAuditCommandlet.h",
+      "bytes": 1106,
+      "sha256": "c4697e9555beb33791a75a51662f5c3323ea295a3539effd63e1ec45ad9dcc38"
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.cpp",
+      "bytes": 10140,
+      "sha256": "ff5f140ef746cde60f22122d3bdfb7b00ef9c8520d130e276fc82d6205ece8cc"
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.h",
+      "bytes": 2007,
+      "sha256": "09ff8e64cb8e8fdc606e382883762e7f7575693f556c9c877a3c488d278d3ec1"
+    },
+    {
+      "path": "Tools/FurnitureRest/armrest_exit.py",
+      "bytes": 8749,
+      "sha256": "ee28258145cfa985593c95b2cc3cfd68acbc150c5c6e0a1953318264bb69f5da"
+    },
+    {
+      "path": "Tools/FurnitureRest/audit_geometry.py",
+      "bytes": 4823,
+      "sha256": "94a1f237aaf4b50c7f18c80ddfa5c0c54a6d86086c05f01f9cc0943d199183f7"
+    },
+    {
+      "path": "Tools/FurnitureRest/author.py",
+      "bytes": 8960,
+      "sha256": "da9858c9deac72881bc2b540142c3e2e4a3b96a4a9e99d4a5375b99e122409db"
+    },
+    {
+      "path": "Tools/FurnitureRest/author_apartment_fast_rest.py",
+      "bytes": 4418,
+      "sha256": "e809a1cd5138fd257e0829971019f9d092a28c547449bc3c44879ea1d0bccced"
+    },
+    {
+      "path": "Tools/FurnitureRest/author_apartment_leg_transfer.py",
+      "bytes": 6928,
+      "sha256": "5ad3b89f89c539529417f08deaa826849b23068e1c30f8fe7fa74edc191c4f41"
+    },
+    {
+      "path": "Tools/FurnitureRest/author_apartment_meshy_bed.py",
+      "bytes": 5195,
+      "sha256": "9d8a14d91206b1d7127b1fc5c485ff0acddaeaad76fa1ed46e574954eea92ef6"
+    },
+    {
+      "path": "Tools/FurnitureRest/author_apartment_reverse_exit.py",
+      "bytes": 3243,
+      "sha256": "d71e5949009343361602449268c3f62928bb667333997de48b0d51fa6b8e581f"
+    },
+    {
+      "path": "Tools/FurnitureRest/author_bed_family_reuse.py",
+      "bytes": 14779,
+      "sha256": "354647dcc230f9c6440d628e2c4415a133fa38a3d828e5a78c325158abe9ee38"
+    },
+    {
+      "path": "Tools/FurnitureRest/bed_hand_drive_v10.py",
+      "bytes": 14578,
+      "sha256": "7395b46fc3a08f8b3979aec1e290bcfa9c5a36169015fb5a8d7fa55bd1618b39"
+    },
+    {
+      "path": "Tools/FurnitureRest/bed_natural.py",
+      "bytes": 12508,
+      "sha256": "6e4560cbea55ef0e0c0e0a86af312142b4a4faab995164726a57f7e56852391f"
+    },
+    {
+      "path": "Tools/FurnitureRest/bed_supported_thumb_clearance.py",
+      "bytes": 1761,
+      "sha256": "2783be6c2f5a270e3b1c0fd248a6611a63cc7ec9acd28f084a6b800fb9bc275f"
+    },
+    {
+      "path": "Tools/FurnitureRest/bed_supported_v9.py",
+      "bytes": 11504,
+      "sha256": "640713f1da92254cb4fed81447217e03c50aecf8dc62ee15cc3f1a99c6be2da0"
+    },
+    {
+      "path": "Tools/FurnitureRest/build_double_occupancy.ps1",
+      "bytes": 1984,
+      "sha256": "96f0e7d619e70e34bf802b2f4a4028fa2525bff78aed7cc23f38bef3bedb645d"
+    },
+    {
+      "path": "Tools/FurnitureRest/build_interaction.ps1",
+      "bytes": 1914,
+      "sha256": "26eeae0f916c910edb09ee3ebba0cc14c75718baebce89fa0d6f3842af78acf1"
+    },
+    {
+      "path": "Tools/FurnitureRest/calibrate_bed_hand.py",
+      "bytes": 1785,
+      "sha256": "826f55d5d0b46838d106b499cfffbf4ca76eddc20e77a32bdd1664f1c2282718"
+    },
+    {
+      "path": "Tools/FurnitureRest/chair_reuse.py",
+      "bytes": 10565,
+      "sha256": "d9a61daf0e220e92f886abb6445c80a8658732eef317f83e88e8b85611965ff2"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_armrest_exit.py",
+      "bytes": 2959,
+      "sha256": "356737aaf9e378630410369e77fa17a0924f7584f024a5d91e0259e67a484a5e"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_body_contact.py",
+      "bytes": 3089,
+      "sha256": "731d651c19ddb8c521e7b0cd624ccf52410309ebdbdabff09758f1d5b2e513a6"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_hand_drive_saved_v10.py",
+      "bytes": 5352,
+      "sha256": "3415123bfcddd59fc30c23f2ec3b6b6b75abc5e2644e53b24a89791c0091ed5a"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_hand_drive_v10.py",
+      "bytes": 2221,
+      "sha256": "767c897c600bb46b2ec26b0a79620858e8f355bcccddebee5317242d1015a255"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_leg_hinges.py",
+      "bytes": 2538,
+      "sha256": "24de4a56fd900615551b7da4acc3f37468860d36bd3d2bb64c36bd0149cf7b7f"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_natural.py",
+      "bytes": 4596,
+      "sha256": "4257598d129faa4d8b1112da070f6bf19e3694f9a416e46e8792bf11c4d12aaf"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_seat_support.py",
+      "bytes": 2447,
+      "sha256": "994e059cf3a797a22d88157783d871a22750aa86d795fd83b6834fb61cc61a7e"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_bed_supported_v9.py",
+      "bytes": 5010,
+      "sha256": "9b9ad6e015d2618aa2e101d0c87d063354eb302fa4b12f812f5ff14defaba33b"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_hanging_body_contact.py",
+      "bytes": 2546,
+      "sha256": "35e4fb72699f52da9100d8cce74a10cb846475f7d8bf2f13edeccd6bc60f652a"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_hanging_entry.py",
+      "bytes": 3577,
+      "sha256": "701c97fc2aa73fc3cab142ddec52e11d2da36b56fd43e8443607512e76e2430b"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_meshy_bed_motion.py",
+      "bytes": 1219,
+      "sha256": "df41213c3300b3918c7c3fbd066da69f6c25a30e9cd4f617c9158de7b5c6770b"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_refinement.py",
+      "bytes": 3256,
+      "sha256": "97b0b2664ac96488d61b13c154381c9bb49887c7943ca6039bd818f9d33e10a9"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_relaxed_seat.py",
+      "bytes": 2917,
+      "sha256": "ed8164e81743ce64ace509482190bebe28572bed5306fe7fd194baf404d02a02"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_reverse_exit.py",
+      "bytes": 3614,
+      "sha256": "c68c2df8349ee2fbe846b24855bb2e32bbb1877e5df9b0113629656d6d2c0c63"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_review_data.py",
+      "bytes": 2020,
+      "sha256": "830544729c51cf74a1067bc8c995c94fe9a5a2f8db06c8b79b604807a817399e"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_sofa_natural.py",
+      "bytes": 3509,
+      "sha256": "f2f1476c04b49cf584b635820e2aa052b7fef0429d69f5c449cdcc2f1daff8c5"
+    },
+    {
+      "path": "Tools/FurnitureRest/check_sofa_support.py",
+      "bytes": 2590,
+      "sha256": "408926421e5973a42e1d59e7d6e402a1477ed1ba84dfd1d77e7949636154e15d"
+    },
+    {
+      "path": "Tools/FurnitureRest/completion_inventory.py",
+      "bytes": 2502,
+      "sha256": "20d0e418600844a08924c2c3752eedeaee09b38aec08c6ee1d19456cc445598f"
+    },
+    {
+      "path": "Tools/FurnitureRest/deliver_bed_hand_drive_v10.py",
+      "bytes": 1684,
+      "sha256": "ddbd82e7c124db9655eff97fd3f7c200b9cbb1f01670dc6b06b70949c36fd002"
+    },
+    {
+      "path": "Tools/FurnitureRest/deliver_bed_natural.py",
+      "bytes": 1499,
+      "sha256": "ec9a7a395b0e37e80df2d557d26521e57272a4e52b8cb8eb9b758b47cbc62cbe"
+    },
+    {
+      "path": "Tools/FurnitureRest/deliver_bed_supported_v9.py",
+      "bytes": 1463,
+      "sha256": "34010c22109c0297dbaca3cc7302f507e2ac1601ca75e9355e62278f5ce2032c"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_apartment_reverse_exit.py",
+      "bytes": 1321,
+      "sha256": "84e349df414e5532d6d42c7e1fa69a72c77cc93aecce02fa43612f563186864c"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_armrest_exit.py",
+      "bytes": 2222,
+      "sha256": "87d1a5fb4fe153bb212c10e1969264b085ecd3e81d9b760c6c21a74675534f6e"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_bed_family_reuse.py",
+      "bytes": 2004,
+      "sha256": "fbbce1e47a43017bb249ae6de227ceb551ac067f479a7b2368d5557ed71691f5"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_bed_hand_drive_v10_review.py",
+      "bytes": 5336,
+      "sha256": "e105eca0e135907f63e3d6d24e1c7e58f822f59e4702169893708faccf76ef41"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_bed_review.py",
+      "bytes": 2934,
+      "sha256": "3ba9314e306413f1fc87f24efdaf1a48fbf15db7d34f699d99f8873c1d22d28d"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_bed_supported_v9_review.py",
+      "bytes": 4068,
+      "sha256": "9279afb0f4c835fe92eee0da27bfa6a7dcdacf866d01bd547658082a62df9f47"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_chair_reuse.py",
+      "bytes": 1928,
+      "sha256": "300b5147b062e710e13f6073da602c8da92e965562bc235d68e6ead56bdeafee"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_exit_review.py",
+      "bytes": 2047,
+      "sha256": "6d13edb978448bc53d512b31a216b41f71501fc622b709a8570b7c4e2d8ca5a7"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_hanging_review.py",
+      "bytes": 3463,
+      "sha256": "8e807f5b93140eda456c9c245ce2c8613446d9c244a5669b1dacb63e6c99050e"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_meshy_bed.py",
+      "bytes": 2324,
+      "sha256": "64ba737b8b2411881648f92b57be15f4ed890c835191a9ab41dde343e9b77257"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_relaxed_review.py",
+      "bytes": 2397,
+      "sha256": "fe8b43e1f9ed1185073656ef0cf19e9ea0323fa4490fc123e84ae99118c227f6"
+    },
+    {
+      "path": "Tools/FurnitureRest/encode_review.py",
+      "bytes": 2280,
+      "sha256": "e586bb6e45201f322b3e4ade9049319a442e8f7d57761d316bb54a8fb3950033"
+    },
+    {
+      "path": "Tools/FurnitureRest/export_meshy_bed_fbx.py",
+      "bytes": 2438,
+      "sha256": "0c7072171141be15672d4d664a2749f37a98f6360ea4df873e6577a0b663e756"
+    },
+    {
+      "path": "Tools/FurnitureRest/extract_meshy_bed_source.py",
+      "bytes": 4012,
+      "sha256": "b1d7ecea9c3cccf0f7033056f0065d128fb69c50caa6aafce619f4adde2fbb44"
+    },
+    {
+      "path": "Tools/FurnitureRest/finish_apartment_fast_rest.py",
+      "bytes": 2218,
+      "sha256": "432be8a52e6d155c553886300196f3ae8969ac2fbbc486204577c10aa7f4bb31"
+    },
+    {
+      "path": "Tools/FurnitureRest/finish_apartment_reverse_exit.py",
+      "bytes": 2388,
+      "sha256": "1be756316efd8038b6c6d2367ee3812fd5d7dc0494df6b5dca75147c1f6fb56c"
+    },
+    {
+      "path": "Tools/FurnitureRest/finish_bed_family_reuse.py",
+      "bytes": 2685,
+      "sha256": "96c6e61b3a6db9aea1c94603c37c2e4ed0422d7a18e5a322379166c1507df990"
+    },
+    {
+      "path": "Tools/FurnitureRest/finish_bed_family_support.py",
+      "bytes": 175,
+      "sha256": "7cef59371540a187e20a122a99988ac714d45252a0c66471b34fbc5bd3547e19"
+    },
+    {
+      "path": "Tools/FurnitureRest/fit_bed_head_support.py",
+      "bytes": 3725,
+      "sha256": "ed8fdb25b6479c97f4ad6a21298c8294d7542dba7d7c018eb19174e154b20084"
+    },
+    {
+      "path": "Tools/FurnitureRest/fit_kaitlin_bed_support.py",
+      "bytes": 5332,
+      "sha256": "4d4b0273d2ecc164bd43e2d957e04fca9c47305f93fcdf90ebab89d99d751bd6"
+    },
+    {
+      "path": "Tools/FurnitureRest/fit_meshy_bed_seated_support.py",
+      "bytes": 1887,
+      "sha256": "a6709d4964a472557847f45061d589b46c61db9e115215d59e3b48f5206e602c"
+    },
+    {
+      "path": "Tools/FurnitureRest/fit_meshy_bed_support.py",
+      "bytes": 3319,
+      "sha256": "1ff9548fa78980ba71c3e59446da8a32d3feb6ad3e5d4d32a1d3e83d6687a3a4"
+    },
+    {
+      "path": "Tools/FurnitureRest/fit_ward.py",
+      "bytes": 1010,
+      "sha256": "df6335c3343407438b1c62e2f433fef7525e0c900919c5046b7e092ef54cc369"
+    },
+    {
+      "path": "Tools/FurnitureRest/hanging_entry.py",
+      "bytes": 5053,
+      "sha256": "09b6f1c0fe1353187ead0f5a4582cf28e28fe046a07d67abdef9e9cbc9febe3c"
+    },
+    {
+      "path": "Tools/FurnitureRest/import_meshy_bed_source.py",
+      "bytes": 5598,
+      "sha256": "77e1152b9cf1b819b51b3da00132f95d8fc771328457098b780e3f176fe66dd9"
+    },
+    {
+      "path": "Tools/FurnitureRest/inspect_meshy_bed_ergonomics.py",
+      "bytes": 2750,
+      "sha256": "b45138c26732432d85f84035d596ae91d346f96658340f56f2369a9db8dcafef"
+    },
+    {
+      "path": "Tools/FurnitureRest/inspect_meshy_bed_source.py",
+      "bytes": 3278,
+      "sha256": "940f080ea20047d3670203c866d207dc6b5b1c8528771ee6f76492e9bea96a19"
+    },
+    {
+      "path": "Tools/FurnitureRest/meshy_bed.py",
+      "bytes": 13734,
+      "sha256": "2afeed00f79d4e3af66bbc1d26bc3cc7ba2a143176c5f1447d11461d1e6e8fb0"
+    },
+    {
+      "path": "Tools/FurnitureRest/meshy_bed_side_hands.py",
+      "bytes": 6801,
+      "sha256": "a03d6b4bfff61d9e19cadf7e6d8e26d9916ad0721a23ce538f416037d5eb1ba1"
+    },
+    {
+      "path": "Tools/FurnitureRest/meshy_bed_supported_hands.py",
+      "bytes": 12088,
+      "sha256": "010988fce3f002407c642199a10d5a4ef2d76486b04bf299935e1b5207d390ff"
+    },
+    {
+      "path": "Tools/FurnitureRest/probe_bed_head_support.py",
+      "bytes": 2036,
+      "sha256": "c2dc5b56046018485f948676d84f46977dbbd48cb75a0bcb3e7e85dfa47f6590"
+    },
+    {
+      "path": "Tools/FurnitureRest/probe_bed_heel_support.py",
+      "bytes": 2064,
+      "sha256": "f2cb30926c1945690ac85dd9e8b1d9fd1dc29061d43f38135b11395ddf7bb325"
+    },
+    {
+      "path": "Tools/FurnitureRest/probe_hospital_pillow.py",
+      "bytes": 1662,
+      "sha256": "ac12f5fddedd6a65885b5fb6f0515686a2398299e9d56800dabe424861aaba8c"
+    },
+    {
+      "path": "Tools/FurnitureRest/probe_support_drape.py",
+      "bytes": 1944,
+      "sha256": "8fa4520be139c1f7f0164a2b7602030135325bf350b04c484d0f0dd5f4fe959e"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_apartment_fast_rest.py",
+      "bytes": 217,
+      "sha256": "b6377ed209f90656c91ee61938f39a8eccf416ca8235954a79c0888a69c1d6af"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_apartment_leg_transfer.py",
+      "bytes": 302,
+      "sha256": "900e90b4537c24b407e8bd86719b45534142298331725a77099f9a19026cf5d1"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_apartment_meshy_bed.py",
+      "bytes": 6257,
+      "sha256": "393f5f464e7f5e0d99b3ec973f79171b77bce3ece711c0f0aeaf7e6ce9a05258"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_armrest_exit.py",
+      "bytes": 266,
+      "sha256": "33e7508348c6ee2ad0195ab54203f5a68eb2682ef9bf6c348f1c85f9e80dcd7d"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_bed_family_reuse.py",
+      "bytes": 2739,
+      "sha256": "e02b2c328c902b1807d135c95958dab2aa62af7f7fd573c6e9646e173acfef7c"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_chair_reuse.py",
+      "bytes": 5988,
+      "sha256": "9e58f8f85ae888e42633d4d4662b6d119ff314e44e9e53511756fe58f5e11412"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_double_occupancy.py",
+      "bytes": 3749,
+      "sha256": "fa4af36f19bb726f7a8f2b9cd26fc4dca794a7e8d7d12516ac16d0cba1105c68"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_meshy_bed.py",
+      "bytes": 258,
+      "sha256": "a85bdc2375add53e3e8b44aed45f2227fedae57b383e2910552d79e248088688"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_meshy_bed_side_hands.py",
+      "bytes": 265,
+      "sha256": "ec3d40c1ef3879a90d894799d47d9ad4572ce7477053f3ee0a21e835c3439db2"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_meshy_bed_supported_hands.py",
+      "bytes": 255,
+      "sha256": "46a8429938b7d08eba1fc44f0f00e6374d85ad144c0abbb217d622bb8b43e3e0"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_relaxed_seat.py",
+      "bytes": 2837,
+      "sha256": "c1c031ce44cb8e306848c7190668814232cd1303954b0554199bd107f2dfa43e"
+    },
+    {
+      "path": "Tools/FurnitureRest/publish_reverse_exit.py",
+      "bytes": 2139,
+      "sha256": "e5b348834c7ec9bc6be76776bd987150142139d12bc6a9dd56bcfe2207d2ba0d"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_all_geometry.py",
+      "bytes": 1713,
+      "sha256": "f9b0c4db0d660e96a332db187a3a660a37b8f167fa5cec0c8fd1bbc7c1b017ed"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_apartment_bed_geometry.py",
+      "bytes": 1423,
+      "sha256": "f6ac2a3ce759317d0c65b342244a5f801068b5f732d46526acdb2bdc17d56191"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_apartment_fast_rest_saved.py",
+      "bytes": 255,
+      "sha256": "87d9404039835aebe170861bf1951120bb7f192b4ea5c85c6f0e274df07b28c5"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_armrest_exit_saved.py",
+      "bytes": 2983,
+      "sha256": "4d0529f06512e9a13b23cf3d4c267bb50edcaf499c02e98380dbdf0b4f537281"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_bed_baseline.py",
+      "bytes": 4913,
+      "sha256": "ba887ac397fc40ef603e0f466a620829428b5b20810fb43fc37c14257f593744"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_bed_hand_drive_v10_saved.py",
+      "bytes": 3034,
+      "sha256": "676cd92dd12abb72078b30463066354ffdcdbf96cbbd89cd65af9a368b2a125e"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_bed_natural_saved.py",
+      "bytes": 2052,
+      "sha256": "274e016a8b538c9070cc398396ee7b1b81142f534993bf7c0b14b0938c2ac3e2"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_bed_supported_v9_saved.py",
+      "bytes": 2058,
+      "sha256": "9466160f540aedeeede69bcf500dbb4dce5a96f1f25ade7dd525a9fac0f3753c"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_fast_rest_background.ps1",
+      "bytes": 1111,
+      "sha256": "e49776cd0a5bc7032c22497f0efca38257c715b9910f0b89ae27f0d221fd9a3d"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_fast_rest_target_ownership.py",
+      "bytes": 836,
+      "sha256": "c8054f5b17dd7d23096b923efe58be7976475f00cf69a57d3392cf50e435af26"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_hanging_saved.py",
+      "bytes": 2056,
+      "sha256": "153ecd0f08d91405e21dbf171b253307ce0ba61315ccaeba0b11e257af83ca6d"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_kaitlin_bed_arms.py",
+      "bytes": 1385,
+      "sha256": "f9eb4ab960b0fdde82f83b8242837964f6cf523ee7910f88ccca04fc4a04c3d4"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_meshy_bed_saved.py",
+      "bytes": 2798,
+      "sha256": "84d90bf9250bff317401e75ccdc58449ae5ece28df3c2ebcadb67cce488ab631"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_relaxed_saved.py",
+      "bytes": 1953,
+      "sha256": "1baf471e88dd13e9d000e0d21d845b9990a11e460219b9795a966ccb4f7c4da1"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_rest_head_geometry.py",
+      "bytes": 1669,
+      "sha256": "4270170c507f7dfbcb16b53e980275429ab52aa51b2ff2466222232f95720454"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_reverse_exit_saved.py",
+      "bytes": 2056,
+      "sha256": "c70e75066dcab86a763709f6c9d8655ca10ded03de5d1da317461db57fd942ae"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_saved_preview.py",
+      "bytes": 4134,
+      "sha256": "30b175cec894bb9e273272f759f146142482d9f583e7c013a9e31ecc9121dba1"
+    },
+    {
+      "path": "Tools/FurnitureRest/read_support_geometry.py",
+      "bytes": 1613,
+      "sha256": "aa7a74c5e9a39b3f2e821f217dbe54fe78e71c1cb0e60df47979efce6487f264"
+    },
+    {
+      "path": "Tools/FurnitureRest/record_apartment_integration.py",
+      "bytes": 3039,
+      "sha256": "f70a38de96cb5b7efb9d35216da02dc943e275169f6c2117b59abd607dfdc785"
+    },
+    {
+      "path": "Tools/FurnitureRest/record_apartment_leg_transfer_delivery.py",
+      "bytes": 1651,
+      "sha256": "7e8d3f560c8aa5fc66a6fd13d3933148b601b34cd86cebf583ce41d333aae6f5"
+    },
+    {
+      "path": "Tools/FurnitureRest/record_meshy_bed_delivery.py",
+      "bytes": 2862,
+      "sha256": "50f32b7f98370707957ce4edc246f9b0c60fed621f0123dc581dbfab07399570"
+    },
+    {
+      "path": "Tools/FurnitureRest/record_meshy_bed_side_hands.py",
+      "bytes": 2409,
+      "sha256": "3a7b2381f439e076ec9ab004417645f6756e9aebd519f83915ce63b1811dc003"
+    },
+    {
+      "path": "Tools/FurnitureRest/record_meshy_bed_supported_delivery.py",
+      "bytes": 2243,
+      "sha256": "4aed6b9826752020adeaa29dcf5118728a813d7424d7e55cf911be5cf2455ab9"
+    },
+    {
+      "path": "Tools/FurnitureRest/refine.py",
+      "bytes": 10960,
+      "sha256": "355d9e883b98e78886c97ab1fc106818ed4208595b1253b87f686e925db331ed"
+    },
+    {
+      "path": "Tools/FurnitureRest/refine_bed_family_support.py",
+      "bytes": 3316,
+      "sha256": "f7e73de2a9cfe7619f3d193d9e9b7f8a90e246b25e67f1eae11a6788188f973e"
+    },
+    {
+      "path": "Tools/FurnitureRest/relaxed_seat.py",
+      "bytes": 8561,
+      "sha256": "9c044e41ebf1e03bedb310fe7e0ab82a5beb7c478f46001cf18823ffd01f98fb"
+    },
+    {
+      "path": "Tools/FurnitureRest/render_review.py",
+      "bytes": 10675,
+      "sha256": "35ffb0896b81efaf894c45ef98860ef3c92d56a5a5755a00f304aa766dad1f18"
+    },
+    {
+      "path": "Tools/FurnitureRest/reverse_exit.py",
+      "bytes": 2792,
+      "sha256": "2c5715229785dfef04ac2413588e458d3490ae3dccc78fca98d063fc49216195"
+    },
+    {
+      "path": "Tools/FurnitureRest/review_apartment_leg_transfer.py",
+      "bytes": 1397,
+      "sha256": "795418e74043aa4491727b3401aa6cea5312a73049c3c970650c2af2351d7eab"
+    },
+    {
+      "path": "Tools/FurnitureRest/review_armrest_exit_saved.py",
+      "bytes": 2473,
+      "sha256": "626479fd605114e7d319a2505b728783b884287593d88facafc5911059816af1"
+    },
+    {
+      "path": "Tools/FurnitureRest/review_meshy_bed_saved.py",
+      "bytes": 1447,
+      "sha256": "c315dd671898ef17643d6396a12d17437af88fbef1f632941131bf9ceb5b0715"
+    },
+    {
+      "path": "Tools/FurnitureRest/review_meshy_bed_support_contacts.py",
+      "bytes": 2093,
+      "sha256": "a8a2bf64921ad1e66a9bf5086da82c9982e2571285366908557b8d5bcc1e9aae"
+    },
+    {
+      "path": "Tools/FurnitureRest/review_meshy_bed_supported_native.py",
+      "bytes": 1821,
+      "sha256": "f07be3c186279a1beda57d65f5b7c8e20b6c340978e789a921b540e2539db0e7"
+    },
+    {
+      "path": "Tools/FurnitureRest/run_completion_audit.ps1",
+      "bytes": 2426,
+      "sha256": "51e3ff24c80c6a7686f37034d58155598a039bbf477beb377369fd79ffdf3f9b"
+    },
+    {
+      "path": "Tools/FurnitureRest/run_completion_wire.ps1",
+      "bytes": 3771,
+      "sha256": "e49493bd130f6d3a4618ca795a4706111f82a53ed75941332329dad5d06e1752"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_apartment_fast_rest.py",
+      "bytes": 4622,
+      "sha256": "5828b05f5221ae6b95bbb2be68c7255998af5d559bd6012f79eea1bbfbe2ae2a"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_apartment_leg_transfer.py",
+      "bytes": 350,
+      "sha256": "2fcc4ba28b6fe6f036f98452324b75f723a92f48f581669d38f4020d7931ce3a"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_apartment_meshy_bed.py",
+      "bytes": 331,
+      "sha256": "92c0cee054286abb0f935cb4affac0a3e66ccd3552fdd2c93303a7b085eff402"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_apartment_native_support.py",
+      "bytes": 179,
+      "sha256": "38027bef350ecee6e098c271f756cbc5a4d0aaf90f3ef0dab56a560ec18be565"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_apartment_reverse_exit.py",
+      "bytes": 182,
+      "sha256": "7bab021cd5d27dd4c2334a0015bfd5196898ab7f676c9f3f79c521d887ec3d8f"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_armrest_exit.py",
+      "bytes": 331,
+      "sha256": "f29a88a599033cab700bd814448dfcca858aff4c5dfe518b56324a2ea7ecaecd"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_bed_family_background.ps1",
+      "bytes": 1641,
+      "sha256": "11f245a79d3d56cba1bcd67c690d878d47e703b949d029f6a128d4dd5a507097"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_bed_family_reuse.py",
+      "bytes": 405,
+      "sha256": "c04ae42599e33982b16e84f7c2548455e20d91bd9d520739eb7ea9925ff3d626"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_bed_family_support.py",
+      "bytes": 173,
+      "sha256": "67f56efe4b3f29f2c18c867c152a4db6c215b2f7d2f500e9e7b01891a5de5bbc"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_bed_family_support_background.ps1",
+      "bytes": 1643,
+      "sha256": "fca453cc751b8da6b6c7a3f9bb2fabe6a8502fc455b6ce5d3801e0653ed623d5"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_chair_reuse.py",
+      "bytes": 7185,
+      "sha256": "326bf3bd2e506fd2812621f589c96ba8530adf78e7a085ca4c0133745171aefb"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_fast_rest_background.ps1",
+      "bytes": 1971,
+      "sha256": "ca68057f2dacba3239e1a5122c3977921a26240911f8079d38622766c4383b46"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_hanging_entry.py",
+      "bytes": 2729,
+      "sha256": "89114040b9c56bb3c6fb62e4ca05dd25d6f9ce913aadaa9786c3a6e462ce366e"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_kaitlin_bed_support.py",
+      "bytes": 1819,
+      "sha256": "430e02cbeeb58f1757d08a80b4a8e89649203b942e3e129ea0e436e53efcd506"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_leg_transfer_background.ps1",
+      "bytes": 1545,
+      "sha256": "49655944be37adf2bc11a3fd991cbdc5c898b17a89b74ed20d84a563cf5d62ca"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_leg_transfer_native_support.py",
+      "bytes": 184,
+      "sha256": "0c2454fdff092018bfd10ca3e8a66e02aa16c3f2b0b9eb2448f3f3b04ef8c99b"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_meshy_bed.py",
+      "bytes": 324,
+      "sha256": "dd9de2818eca33fcfcf3ed634b2c539c0d831a2e5ff1656375a0ff5aff3f777a"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_meshy_bed_side_hands.py",
+      "bytes": 308,
+      "sha256": "c806077f467dd04f06e38217f23890da336f3a6bf192868d6b9d9b67571575c9"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_meshy_bed_supported_hands.py",
+      "bytes": 304,
+      "sha256": "66ab8fc40021ec26bb367b92c946cc68c9d34179cad8d74c8f7d6d09f3770e72"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_relaxed_seat.py",
+      "bytes": 2686,
+      "sha256": "5725418011e3dd04a96e5ff86cca76a15bb876a070651cd246dad6223234da85"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_reverse_exit.py",
+      "bytes": 2735,
+      "sha256": "e2e770db2f869af4f2667bb65ebcdb00c2eba26ffccf630c4dedaea74044fc4b"
+    },
+    {
+      "path": "Tools/FurnitureRest/save_reverse_exit_background.ps1",
+      "bytes": 1343,
+      "sha256": "a66d03c8658180a64ad4efc17ef3fa55e2c8eba19a882c8a4f945f350c8adc7a"
+    },
+    {
+      "path": "Tools/FurnitureRest/sofa_contact_probe.py",
+      "bytes": 868,
+      "sha256": "d18a794aee29aaed1e48c34d97c619da09c0bf091d62cfa23fca74baf79c93e5"
+    },
+    {
+      "path": "Tools/FurnitureRest/sofa_natural.py",
+      "bytes": 4725,
+      "sha256": "304e38d59c8050fc3506a3f34c8d1074470bb76c10a26b8d0975004f44026acb"
+    },
+    {
+      "path": "Tools/FurnitureRest/sofa_support.py",
+      "bytes": 4321,
+      "sha256": "c2a5eac9b1bc1afb59b433930773e9f3f8862e7f99ab0645513768a2106548b4"
+    },
+    {
+      "path": "WORKFLOW.md",
+      "bytes": 21805,
+      "sha256": "023f69b078fd13a09abec96fa4140b01e72765379f97699453272d6f91e5bc64"
+    },
+    {
+      "path": "skills/ue5-auto-assistant/SKILL.md",
+      "bytes": 1136,
+      "sha256": "994271c45a38c82b44ddc970f3973d29d93cf44194aeb1afc4363e1ca64bcf32"
+    },
+    {
+      "path": "skills/ue5-auto-assistant/references/project-storage-junctions.md",
+      "bytes": 2048,
+      "sha256": "241c5371f6c236d73d2e47daa51ece9e95a80fbef3c8dab864a064695baf14f8"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 5326,
+      "sha256": "f393e55e6d44c05f3bc9619a9a82db18dda449073896327c489e28adbeb31b2e"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/furniture-rest-motion.md",
+      "bytes": 3068,
+      "sha256": "871657063becf952e0e9a9a79bee5f0b4ce11707d355db6952b829d8ab158b90"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/scene-motion-and-viewers.md",
+      "bytes": 5747,
+      "sha256": "2396afdf3392f53c6001ed46c326c73799abaa142c713b1f20cd9320a05281b4"
+    },
+    {
+      "path": "skills/ue5-world-interaction/SKILL.md",
+      "bytes": 1540,
+      "sha256": "ad2d0ca0388bbe5cc85bcab5f733a1f19ef82dd7140dd85ae47a51964b16dead"
+    },
+    {
+      "path": "skills/ue5-world-interaction/references/furniture-rest.md",
+      "bytes": 2166,
+      "sha256": "543653c1b2f6e4a1874bfc93e5e5b779703dd83a8e222d7b4e14a556772b2db7"
+    }
+  ],
+  "note": "Exact text publication payload; this manifest is excluded from its own hash list. No binary assets."
+}

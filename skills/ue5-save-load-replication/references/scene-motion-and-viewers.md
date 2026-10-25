@@ -29,3 +29,14 @@
 2026-10-24 公寓案例完成六阶段本机 UDP 检查：打开、保留另一查看者、最后关闭、重开、晚加入、退出后清理。该夹具注入坐卧 Phase 3/0，仅证明初始状态和退出恢复，不证明实际 E 键上下床、腿部蒙皮、库存并发交易、同档重连、跨机器或打包版本。
 
 工程入口：`ColdSteelSceneContainer`、`ColdSteelContainerSearchSubsystem`、`FPSFurnitureRestComponent`、`ApartmentDeviceControl`、`ApartmentAtmosphere`；制作接入见 `RefinementV21/publish.py`。需要检查时再按 [多进程证据](../../ue5-debug-validation/references/multi-process-runtime-evidence.md) 执行；整理或技能更新不自动恢复测试。
+
+## 双人床与单座占位（2026-10-25）
+
+- 服务器以实际家具组件、ISM 实例和 SlotIndex 组合识别座位；同一双人床两个槽可分别预约。不能用角色 Root 距离代替座位身份，两个相邻锚点可能很近，独立椅子也可能相邻。
+- 对齐、进入、Idle、退出（Phase 1..4）都保持预约，完成退出才释放。服务器处理 E 请求时重新检查距离、视线和槽位，不信任客户端挑选；占用侧可按配置选择另一空侧。客户端位置/SlotIndex 只用于提示，不能决定权威资格。
+- 同步 SlotIndex、SlotLocation、bMirror 与当前阶段、服务端起始时间。动作、眼位、进出偏移均读取这份镜像标志。休息是临时动作状态，不作为跨会话持久床位保存；死亡、失去控制器、销毁和结束场景走释放与输入恢复。
+- 服务器上的远端 PlayerController 相机缓存可能未更新。权威交互用角色权威瞄准原点与 ControlRotation，本地玩家才取本地 ReachViewPoint；不要把远端相机零点当成“距离不够”。
+- Tick 中受伤等事件可能从 Idle 切换到 Leave；阶段变更后重新计算 age，再执行完成条件。沿用变更前的长 Idle age 会导致退出动画在同一帧被跳过。
+- 入床恢复 SAN 仅在服务器上已躺稳时执行，按配置速率积分到上限。属性恢复、动画显示和占位资格分别核对；客户端显示正确不证明权威数值改变。
+
+该批双人占位及原生镜像完成 Editor/Game 构建，未执行双玩家同时抢位、退出交接、断线、晚加入或视觉验收。之前 437 项组件检查对应单占位版本；注入 Phase 3/0 的六阶段 UDP 夹具只证明表现状态同步，不能复用为最新双人占位通过的证据。完整原记录与恢复入口见工程 `Docs/Publication/FurnitureRest20261025/README.md`。

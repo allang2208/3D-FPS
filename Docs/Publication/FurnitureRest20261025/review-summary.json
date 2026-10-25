@@ -1,0 +1,40 @@
+{
+  "single_occupancy_authority": {
+    "file": "SourceAssets/FurnitureRest20261022/CompletionAudit20261025/audit-07-authority.json",
+    "sha256": "b0c9a80dac69702cc2fc9e5cfc9140aea55e8f5a446a91511af859b5106bd861",
+    "checks": 437,
+    "failures": 0,
+    "current_double_occupancy_tested": false
+  },
+  "historical_udp": {
+    "stages": 6,
+    "packet_lag_ms": 60,
+    "packet_loss_percent": 5,
+    "server_state_injection_only": true,
+    "actual_E_interaction": false,
+    "double_occupancy": false
+  },
+  "current_local_builds": [
+    {
+      "receipt": "SourceAssets/FurnitureRest20261022/DoubleOccupancy20261025/build-01-FPSGAMEEditor-receipt.json",
+      "sha256": "da154f442c1c5e824676b6aee264d79bdbdf022384758ad89ba6bf88243dfc41",
+      "target": "FPSGAMEEditor",
+      "completed": "2026-10-25T14:12:13.3756418+08:00",
+      "runtime_tested": false,
+      "exit_code": 0
+    },
+    {
+      "receipt": "SourceAssets/FurnitureRest20261022/DoubleOccupancy20261025/build-01-FPSGAME-receipt.json",
+      "sha256": "cb57112951befe57e7b1e642047d2cae59df20e7b8b0323a1809e944e4f690b0",
+      "target": "FPSGAME",
+      "completed": "2026-10-25T14:13:28.4475763+08:00",
+      "runtime_tested": false,
+      "exit_code": 0
+    }
+  ],
+  "publication_run": {
+    "started_editor": false,
+    "game_tested": false,
+    "public_trimmed_tree_built": false
+  }
+}

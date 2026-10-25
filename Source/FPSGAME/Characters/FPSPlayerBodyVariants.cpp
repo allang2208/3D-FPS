@@ -69,9 +69,13 @@ void UFPSPlayerBodyComponent::InitializeFurnitureCamera()
 {
     FurnitureEyeTracks.Reset();
     const auto Tracks=BodyObject(Configuration,TEXT("furniture_camera_tracks"));if(!Tracks)return;
+    const auto Clips=BodyObject(Configuration,TEXT("clips"));if(!Clips)return;
     for(const auto& Pair:Tracks->Values)
     {
         const auto Track=Pair.Value->AsObject();if(!Track)continue;
+        FString AuthoredAnimation,ActiveAnimation;
+        if(Track->TryGetStringField(TEXT("animation"),AuthoredAnimation)&&
+            (!Clips->TryGetStringField(Pair.Key,ActiveAnimation)||AuthoredAnimation!=ActiveAnimation))continue;
         double Duration=0.;const TArray<TSharedPtr<FJsonValue>>* Samples=nullptr;
         if(!Track->TryGetNumberField(TEXT("duration"),Duration)||Duration<=0.||
            !Track->TryGetArrayField(TEXT("eyes"),Samples)||Samples->Num()<2)continue;
