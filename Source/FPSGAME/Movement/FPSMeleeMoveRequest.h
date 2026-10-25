@@ -2,10 +2,13 @@
 #include "CoreMinimal.h"
 #include "Engine/NetSerialization.h"
 
-enum class EFPSMeleeMove : uint8 {None,Thrust,Pommel,OverheadFinisher,Uppercut,RisingDragon,Dash,AirMomentum,Zhufeng};
+enum class EFPSMeleeMove : uint8 {None,Thrust,Pommel,OverheadFinisher,Uppercut,RisingDragon,Dash,AirMomentum,Zhufeng,HammerDash,HammerAirMomentum};
+inline bool IsHammerSprintMove(EFPSMeleeMove Kind){return Kind==EFPSMeleeMove::HammerDash||Kind==EFPSMeleeMove::HammerAirMomentum;}
+inline bool IsMeleeMomentumMove(EFPSMeleeMove Kind){return Kind==EFPSMeleeMove::AirMomentum||Kind==EFPSMeleeMove::HammerAirMomentum;}
 struct FFPSMeleeMoveRequest
 {
     uint32 Sequence=0;
+    uint32 HammerAttackId=0;
     EFPSMeleeMove Kind=EFPSMeleeMove::None;
     FVector_NetQuantizeNormal Direction=FVector::ZeroVector;
     float Distance=0.f; // cumulative accepted local sweep, replayed once on authority

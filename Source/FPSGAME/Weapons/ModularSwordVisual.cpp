@@ -158,9 +158,9 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
     {
         if(!Path.IsEmpty())Out.AddUnique(FSoftObjectPath(Path.Contains(TEXT("."))?Path:Path+TEXT(".")+FPaths::GetCleanFilename(Path)));
     };
-    if(Item.Definition==ColdSteelFrostRunes::Warhammer&&ColdSteelFrostRunes::IsCommon(Parts.FindRef(TEXT("rune"))))
+    if(ColdSteelFrostRunes::IsWarhammer(Item.Definition)&&ColdSteelFrostRunes::IsWarhammerRune(Item.Definition,Parts.FindRef(TEXT("rune"))))
     {
-        Add(TEXT("/Game/Weapons/SteelWarhammer20261014/Runes/ShaftWrapV2/M_SilverRuneSurface_WarhammerShaftV2"));
+        Add(ColdSteelFrostRunes::WarhammerRuneMaterial(Item.Definition));
         Add(TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+Parts.FindRef(TEXT("rune")));
     }
     if(ColdSteelFrostRunes::SupportsEasternRunes(Item.Definition)&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::AuspiciousCloud)
@@ -215,7 +215,7 @@ FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithPar
             Result+=FString(TEXT("|"))+Slot+TEXT("=")+Parts.FindRef(Slot)+FString::Printf(TEXT(":%08x"),FCrc::StrCrc32(*Settings));
         }
     if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
-    if(Item.Definition==ColdSteelFrostRunes::Warhammer)Result+=TEXT("|runePlacement=shaft-wrap-v2");
+    if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))Result+=TEXT("|runePlacement=shaft-wrap-v2");
     if(Item.Definition==ColdSteelFrostRunes::Definition)Result+=TEXT("|innateErosion=spirit20260922");
     if(IncludeRune&&Item.Definition==TEXT("ue_rune_sword")&&Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune"))
         Result+=TEXT("|nativeInk=20260922-root2");
@@ -320,7 +320,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
         if(auto* Tassel=Cast<USwordTasselMeshComponent>(Mesh))Tassel->Configure(Entry.Spec);
     }
     const FString SelectedRune=IncludeRune?Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition)):FString();
-    if(Item.Definition==ColdSteelFrostRunes::Warhammer)
+    if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))
     {
         // Clear the old center-seat overlay, then place ink only on the bare shaft.
         ColdSteelMeleeRune::Apply(Blade,FString(),Item.Definition);

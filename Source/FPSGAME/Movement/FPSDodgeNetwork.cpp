@@ -26,8 +26,10 @@ bool FFPSNetworkMoveData::Serialize(UCharacterMovementComponent& Movement,FArchi
         uint8 Kind=uint8(MeleeRequest.Kind);Ar<<Kind;MeleeRequest.Kind=EFPSMeleeMove(Kind);
         bool DirectionOK=true,MomentumOK=true;
         MeleeRequest.Direction.NetSerialize(Ar,Map,DirectionOK);Ar<<MeleeRequest.Distance;
-        if(MeleeRequest.Kind==EFPSMeleeMove::AirMomentum)MeleeRequest.Momentum.NetSerialize(Ar,Map,MomentumOK);
-        OK=OK&&DirectionOK&&MomentumOK&&Kind<=uint8(EFPSMeleeMove::Zhufeng);
+        if(IsMeleeMomentumMove(MeleeRequest.Kind))MeleeRequest.Momentum.NetSerialize(Ar,Map,MomentumOK);
+        if(IsHammerSprintMove(MeleeRequest.Kind))Ar.SerializeIntPacked(MeleeRequest.HammerAttackId);
+        else if(Ar.IsLoading())MeleeRequest.HammerAttackId=0;
+        OK=OK&&DirectionOK&&MomentumOK&&Kind<=uint8(EFPSMeleeMove::HammerAirMomentum);
     }
     return Base&&OK&&!Ar.IsError();
 }
@@ -61,7 +63,12 @@ void UFPSCharacterMovementComponent::MoveAutonomous(float ClientTimeStamp,float 
         }
     }
     if(Player)if(const auto* Data=static_cast<const FFPSNetworkMoveData*>(GetCurrentNetworkMoveData()))
+    {
+        // Process a queued slide jump above while the previous slide is still
+        // active, then apply the same packet's released slide/sprint flags.
+        if(IsHammerSprintMove(Data->MeleeRequest.Kind))UpdateFromCompressedFlags(Flags);
         ProcessMeleeNetworkMove(*Data,Player->HasAuthority());
+    }
     if(Player&&Player->HasAuthority())
     {
         const auto* Data=static_cast<const FFPSNetworkMoveData*>(GetCurrentNetworkMoveData());

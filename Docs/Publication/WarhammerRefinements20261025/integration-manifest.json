@@ -1,0 +1,179 @@
+{
+  "base_commit": "02cbe45c0775064f420b2766ceb7deb2dd5b3ec4",
+  "entries": [
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.h.sprint-api.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "994afbdf8658999cf6e4663f7780ec58754445843299a1daf551037055287903",
+      "instruction": "Merge public APIs after TryBeginSprintAttack; requires existing blunt authority declarations."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.h.lightning-state.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "994afbdf8658999cf6e4663f7780ec58754445843299a1daf551037055287903",
+      "instruction": "Merge private VFX declarations beside Runebound presentation state."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.h.rift-state.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "994afbdf8658999cf6e4663f7780ec58754445843299a1daf551037055287903",
+      "instruction": "Include WarhammerRiftState.h and merge private pooled trail fields."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.h.sprint-state.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "994afbdf8658999cf6e4663f7780ec58754445843299a1daf551037055287903",
+      "instruction": "Merge beside existing sprint readiness; add uint32 BluntLastServerRequestId=0."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.h.awakening-duration.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "994afbdf8658999cf6e4663f7780ec58754445843299a1daf551037055287903",
+      "instruction": "Duration is private replicated state; RecordStormDriveHit belongs in public hit API."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.cpp.sprint-cancel.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d95a89f75538f2c8af31fcb81158d20981c5152171ed1d3b33b1cf75d8c7af8e",
+      "instruction": "Place first in CancelUse; preserve the remaining guard, timer and charge cleanup."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.cpp.authority-tick.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d95a89f75538f2c8af31fcb81158d20981c5152171ed1d3b33b1cf75d8c7af8e",
+      "instruction": "Replace the initial presentation-only TickComponent early returns; preserve subsequent local presentation."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.cpp.presentation-hooks.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d95a89f75538f2c8af31fcb81158d20981c5152171ed1d3b33b1cf75d8c7af8e",
+      "instruction": "Separated insertion sites, not one contiguous function body. See current compiled source and sprint authority consumer."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolMotion.cpp.sample-rift.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "46b2d119445c5ed38776e914a7034b06c79b55ef030c3e03393157e340c23e8e",
+      "instruction": "After SampleMotion sets position, ticks animation and refreshes bones; before returning."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolMotion.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolMotion.cpp.final-toll-charge.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "46b2d119445c5ed38776e914a7034b06c79b55ef030c3e03393157e340c23e8e",
+      "instruction": "Select complete Slash1 windup for Final Toll; preserve other motion and floor-contact consumers."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolStats.cpp.heavy-release-stamina.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "543fa88dcb7762cdf9943378b1aca4b2c7a47a554e80317456d10e0cef84dc86",
+      "instruction": "After final clamped stamina calculation; reuse existing independent HeavyChargeSpeedBonus/HeavyChargeSeconds pipeline."
+    },
+    {
+      "target": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ColdSteelSkillRules.cpp.seat-snapshot.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "1fe61c117e4e4ad49ab12970d608b35c08ecb986f31c62624aec881078db2237",
+      "instruction": "Include ../Weapons/AncientSealSeat.h; put in existing IsTwoHandedBlunt snapshot branch, before damage settlement."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSPlayerBodyActions.cpp.charge-role.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "de1fb93f301f9fc4d413758ddd6afb16a022f0015c35d297e217d57b2fc399d4",
+      "instruction": "In existing blunt charge branch; retain body-variant clip resolution."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSPlayerBodyActions.cpp.sprint-clock.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "de1fb93f301f9fc4d413758ddd6afb16a022f0015c35d297e217d57b2fc399d4",
+      "instruction": "Replace existing sprint lift branch inside the committed tool action, preserving other action consumers."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSPlayerBodyAnimInstance.cpp.gait-speed.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "c94940820126ed53df6091eee86ad45ea6d16ed3def99468182f9b24fa781bd1",
+      "instruction": "Replace SmoothedSpeed assignment in FProxy; preserve existing heading, stride and other weapons."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSPlayerBodyAnimInstance.cpp.gait-pace.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "c94940820126ed53df6091eee86ad45ea6d16ed3def99468182f9b24fa781bd1",
+      "instruction": "Replace respective assignment first lines only, retaining following JogTarget ternary line."
+    },
+    {
+      "target": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSPlayerBodyAnimInstance.cpp.leg-envelope.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "c94940820126ed53df6091eee86ad45ea6d16ed3def99468182f9b24fa781bd1",
+      "instruction": "Requires existing hammer donor/leg ownership layer. Replace old sprint lift-only leg suppression, after HammerCarry suppression."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSMeleeMovementNetwork.cpp.begin-request.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d2aca6ec0135f4aa3086e4e8699c697bde74870aac0f243d4ccc28222efa3b14",
+      "instruction": "Replace existing method; preserve generic sword/kukri movement kinds when AttackId is zero."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSMeleeMovementNetwork.cpp.hammer-authorization.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d2aca6ec0135f4aa3086e4e8699c697bde74870aac0f243d4ccc28222efa3b14",
+      "instruction": "Inside AuthorizeMeleeMove after existing Tool/ToolAction resolution. Add !HammerSprint to generic weapon rejection guard; preserve offhand kukri and other budgets."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSMeleeMovementNetwork.cpp.hammer-pending.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d2aca6ec0135f4aa3086e4e8699c697bde74870aac0f243d4ccc28222efa3b14",
+      "instruction": "Inside authority ProcessMeleeNetworkMove before accepting a new movement sequence. Requires float HammerLimit alongside existing movement budget."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSMeleeMovementNetwork.cpp.hammer-budget.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d2aca6ec0135f4aa3086e4e8699c697bde74870aac0f243d4ccc28222efa3b14",
+      "instruction": "Within ProcessMeleeNetworkMove; includes existing neutral momentum context, retains authority phase budget and server incoming velocity."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSMeleeMovementNetwork.cpp.cancel.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d2aca6ec0135f4aa3086e4e8699c697bde74870aac0f243d4ccc28222efa3b14",
+      "instruction": "Replace rejection and add cancellation; preserve movement sequence and attack identity separately."
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/FPSMeleeMovementNetwork.cpp.replay-and-falling.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d2aca6ec0135f4aa3086e4e8699c697bde74870aac0f243d4ccc28222efa3b14",
+      "instruction": "Separate edits in existing shared movement implementation; retain surrounding scopes and body."
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionBluntAuthority.cpp",
+      "source": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionBluntAuthority.cpp",
+      "kind": "complete-owned-unit-with-prerequisites",
+      "local_sha256": "b154da39e850d5acaf186fb9557acf47ecf468b8c56688380b0d533a715c94c2"
+    },
+    {
+      "target": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "fragment": "Docs/Publication/WarhammerRefinements20261025/Integration/ProductionToolComponent.cpp.attack-cost.inc",
+      "kind": "manual-owned-fragment",
+      "local_sha256": "d95a89f75538f2c8af31fcb81158d20981c5152171ed1d3b33b1cf75d8c7af8e",
+      "instruction": "Standalone heavy release cost consumer; authority uses the complete blunt authority unit."
+    }
+  ]
+}

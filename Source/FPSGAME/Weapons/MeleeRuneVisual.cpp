@@ -32,7 +32,7 @@ void ApplyCommonRunePalette(UMaterialInstanceDynamic* Material,const FString& Ru
     // Shared traveling ink has separate yellow and red palettes. Restore the
     // parent's colors when changing back to conduction on an existing MID.
     const bool bHaste=Rune==TEXT("haste_rune");
-    const bool bStrength=Rune==TEXT("strength_rune");
+    const bool bStrength=Rune==TEXT("strength_rune")||Rune==ColdSteelFrostRunes::DestructionMana;
     const auto SetColor=[Material,bHaste,bStrength](FName Name,const FLinearColor& Yellow,const FLinearColor& Red)
     {
         FLinearColor Color=bStrength?Red:Yellow;
@@ -82,7 +82,9 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bZhenmo=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Zhenmo;
     const bool bJingang=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Jingang;
     const bool bBeiwei=Definition==ColdSteelFrostRunes::Zhanmadao&&VisualRune==ColdSteelFrostRunes::Beiwei;
-    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
+    const bool bMana=Definition==ColdSteelFrostRunes::RuneboundWarhammer&&
+        (VisualRune==ColdSteelFrostRunes::SwiftMana||VisualRune==ColdSteelFrostRunes::DestructionMana);
+    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
@@ -173,8 +175,8 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
         }
         MID->SetScalarParameterValue(TEXT("GoldenTint"),bGolden?1.f:0.f);
         ApplyCommonRunePalette(MID,VisualRune);
-        MID->SetScalarParameterValue(TEXT("BaseBrightness"),bInnate?.65f:.85f);
-        MID->SetScalarParameterValue(TEXT("GlowStrength"),bInnate?.75f:1.25f);
+        MID->SetScalarParameterValue(TEXT("BaseBrightness"),bMana?1.05f:bInnate?.65f:.85f);
+        MID->SetScalarParameterValue(TEXT("GlowStrength"),bMana?1.65f:bInnate?.75f:1.25f);
         // Refresh the selected mask even when the previous rune used this palette.
         {
             // Other swords retain their existing projected rune appearance.
@@ -207,7 +209,8 @@ bool ColdSteelMeleeRune::UpdatePose(UMeshComponent* Mesh,double PreviewTime)
             auto* NativeMID=Cast<UMaterialInstanceDynamic>(Surface);
             if(!NativeMID){NativeMID=UMaterialInstanceDynamic::Create(Surface,Mesh);Mesh->SetMaterial(Slot,NativeMID);}
             NativeMID->SetScalarParameterValue(TEXT("PreviewTime"),PreviewTime);
-            Active=true;continue;
+            // The special native surface and the shaft overlay both animate.
+            Active=true;
         }
         if(auto* Native=Cast<UMaterialInstanceDynamic>(Mesh->GetMaterial(Slot));Native&&IsNativeGold(Native))
         {

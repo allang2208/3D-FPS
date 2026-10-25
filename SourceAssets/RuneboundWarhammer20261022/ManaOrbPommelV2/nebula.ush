@@ -1,0 +1,36 @@
+// Local coordinates in centimeters, confined inside the crystal shell.
+float3 center=float3(0,0,-8.7);
+float radius=3.90;
+float3 ray=normalize(LocalPos-CameraLocal);
+float3 eye=CameraLocal-center;
+float b=dot(eye,ray);
+float disc=b*b-dot(eye,eye)+radius*radius;
+if(disc<=0) return float4(0,0,0,0);
+float entry=max(0.,-b-sqrt(disc));
+float exitT=-b+sqrt(disc);
+float stepLength=(exitT-entry)/24.;
+float3 accumulated=0.;
+float alpha=0.;
+float angle=Age*.19;
+float ca=cos(angle),sa=sin(angle);
+[unroll] for(int i=0;i<24;i++)
+{
+    float3 q=(eye+ray*(entry+(i+.5)*stepLength))/radius;
+    q.xy=float2(ca*q.x-sa*q.y,sa*q.x+ca*q.y);
+    float r=length(q);
+    float edge=saturate((.98-r)*7.);
+    float curl=sin(q.z*7.+Age*.24)+sin(q.x*6.-q.y*4.-Age*.18)*.48;
+    float twist=atan2(q.y,q.x)+r*7.+curl*.8-Age*.23;
+    float stream=pow(saturate(.5+.5*sin(twist*3.+q.z*4.)),8.);
+    float cloud=.5+.5*sin(q.x*12.+sin(q.y*9.+Age*.16)*2.+cos(q.z*11.-Age*.14)*2.);
+    float wisps=pow(cloud,3.)*(.3+.7*stream);
+    float heart=exp(-dot(q,q)*32.);
+    float density=(wisps*.64+heart*.75)*edge;
+    float opacity=1.-exp(-density*stepLength*.95);
+    float3 tint=lerp(float3(.10,.003,.34),float3(.54,.055,1.1),stream);
+    tint+=float3(.7,.32,1.)*heart*1.8;
+    accumulated+=(1.-alpha)*opacity*tint*(1.5+Awake*.9);
+    alpha+=(1.-alpha)*opacity;
+}
+// UE translucent blending performs the final premultiplication.
+return float4(accumulated/max(alpha,.001),saturate(alpha*.75));

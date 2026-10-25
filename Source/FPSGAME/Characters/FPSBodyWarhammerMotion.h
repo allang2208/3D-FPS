@@ -32,6 +32,7 @@ inline FName Clip(const FFPSBodyState& S)
         if(S.ActionVariant==TEXT("WarhammerUppercut"))return TEXT("Warhammer.FullBody.Uppercut");
     }
     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerCharge"))return TEXT("Warhammer.FullBody.Charge");
+    if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerFinalTollCharge"))return TEXT("Warhammer.FullBody.FinalTollCharge");
     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerSprintLift"))return TEXT("Warhammer.FullBody.SprintLift");
     if(S.Action==EFPSBodyAction::Whirlwind)
     {
@@ -104,7 +105,7 @@ struct FDonorPlayback
             if(!bActive||Variant!=S.ActionVariant)WindupElapsed=0.f;
             WindupElapsed+=FMath::Max(0.f,Delta);
             const bool Sprint=S.ActionVariant==TEXT("WarhammerSprintLift");
-            const float Lift=Ease(WindupElapsed/(Sprint?.20f:.28f));
+            const float Lift=Sprint?Ease(P):Ease(WindupElapsed/.28f);
             // Continue tightening the existing full-body take during charge,
             // then breathe within a tiny loaded-pose range instead of freezing.
             // Stable neck/head handling still runs after the body pose is sampled.

@@ -72,7 +72,7 @@ void FSavedMove_FPSCharacter::PrepMoveFor(ACharacter* InCharacter)
         Move->bWantsToAim = bSavedWantsToAim;
         Move->bWantsToSlide = bSavedWantsToSlide;
         Move->bWantsToMount = bSavedWantsToMount;
-        Move->RestoreMeleeDashMomentum(bSavedMeleeMomentum);
+        Move->RestoreMeleeDashMomentum(bSavedMeleeMomentum&&!Move->IsMeleeMoveRejected(MeleeRequest.Sequence));
         // 滑铲态在回放里只还原状态位与摩擦（该帧速度由 move 重算，不能再注入入铲初速）。
         if (auto* Player = Cast<AFPSGAMECharacter>(InCharacter))
         {

@@ -1,0 +1,28 @@
+{
+  "status": "approved_design_modeled_and_integrated",
+  "proposed_name": "星潮之核",
+  "name": "星潮之核",
+  "approval": "User approved modeling and renamed the part to 星潮之核",
+  "weapon": "ue_runebound_warhammer",
+  "slot": "pommel",
+  "tier": "special",
+  "exclusive": true,
+  "primary_color": "sapphire blue and cyan",
+  "shape": "Exposed blue crystal sphere, two offset diagonal crescent supports, inset navy panels, compact hexagonal socket and rounded six-spoke keel",
+  "internal_magic": "Blue double-helix current, blue-white core and contained orbiting motes; returning pulses express repeated renewal",
+  "effect": {
+    "condition": "while runebound awakening is active",
+    "trigger": "each hit on a target",
+    "duration_added_per_hit_seconds": 0.5,
+    "duration_cap_seconds": null,
+    "no_duration_cap": true,
+    "description": "符文唤醒期间，每次命中目标使持续时间增加0.5秒，持续时间无上限。"
+  },
+  "interface_reference": "Original warhammer pommel mount; shaft socket about 3.5 cm diameter; local pivot and installation offset preserved during later approved modeling",
+  "image": "everflow_blue_orb_design_01.png",
+  "model_authored": true,
+  "runtime_integrated": true,
+  "request_scope": "Approved detailed modeling, materials, internal VFX and integration; source design image retains its original draft heading",
+  "model_revision": "StarTideCoreV1",
+  "user_runtime_acceptance": false
+}

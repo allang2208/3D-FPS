@@ -54,3 +54,5 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 左右单持镜像、双枪肩肘扭曲、长前握把撤手或插弹匣接触问题，读 [手枪第三人称源与接触](references/pistol-third-person-source.md)。先复用完整原生链，再按枪型适配。
 
 - 坐椅扶手、上床移腿、倒放下床和双人床镜像，读取 [坐卧动作、支撑与左右侧复用](references/furniture-rest-motion.md)。
+
+- 镇魂钟首击／上挑方向、双臂扭曲及冲刺抬锤下半身衔接，读取 [战锤成熟动作复用与冲刺步态](references/warhammer-native-reuse-and-sprint-gait.md)。保留完整原生轨道、真实位移与统一阶段时钟。

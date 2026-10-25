@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
 
-bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& IncomingVelocity)
+bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& IncomingVelocity,uint32 HammerAttackId)
 {
     if(UBoundCongregateCaptureComponent::IsCaptured(CharacterOwner))return false;
     if(!CharacterOwner || !UpdatedComponent || (!CharacterOwner->HasAuthority()&&!CharacterOwner->IsLocallyControlled()) ||
@@ -17,7 +17,7 @@ bool UFPSCharacterMovementComponent::BeginMeleeDashMomentum(const FVector& Incom
     bMeleeDashMomentum=true;
     if(CharacterOwner->GetLocalRole()==ROLE_AutonomousProxy&&!CharacterOwner->bClientUpdating)
     {
-        BeginMeleeLungeRequest(EFPSMeleeMove::AirMomentum,IncomingVelocity.GetSafeNormal2D());
+        BeginMeleeLungeRequest(EFPSMeleeMove::AirMomentum,IncomingVelocity.GetSafeNormal2D(),HammerAttackId);
         MeleeRequest.Momentum=FVector(IncomingVelocity.X,IncomingVelocity.Y,0.f);bPendingMeleeMomentum=true;
     }
     UpdateComponentVelocity();

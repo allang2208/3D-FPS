@@ -59,6 +59,40 @@
         "interface": "warhammer_factory_v1",
         "shared_option_library": "common-hammer-seats.json",
         "model_revision": "BuildV1"
+      },
+      "ancient_breaking_seal_seat": {
+        "mesh": "/Game/Weapons/CommonHammerSeats20261024/AncientSealV1/SM_SteelWarhammer_AncientSeal_V1.SM_SteelWarhammer_AncientSeal_V1",
+        "materials": {
+          "M_AncientSeal_Steel_Surface": "/Game/Weapons/CommonHammerSeats20261024/AncientSealV1/M_AncientSeal_Steel_Surface.M_AncientSeal_Steel_Surface",
+          "M_AncientSeal_Inlay": "/Game/Weapons/CommonHammerSeats20261024/AncientSealV1/M_AncientSeal_Inlay.M_AncientSeal_Inlay"
+        },
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "古铜锻铁 · 凹刻古印 · 细银回纹",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "AncientSealBuildV1"
+      },
+      "storm_drive_seat": {
+        "mesh": "/Game/Weapons/CommonHammerSeats20261025/StormDriveV3/SM_SteelWarhammer_StormDrive_V3.SM_SteelWarhammer_StormDrive_V3",
+        "materials": {
+          "M_StormDrive_Steel_Surface": "/Game/Weapons/CommonHammerSeats20261025/StormDriveV1/M_StormDrive_Steel_Surface.M_StormDrive_Steel_Surface",
+          "M_StormDrive_GoldInlay": "/Game/Weapons/CommonHammerSeats20261025/StormDriveV1/M_StormDrive_GoldInlay.M_StormDrive_GoldInlay",
+          "M_StormDrive_ClosedSilverTrim": "/Game/Weapons/CommonHammerSeats20261025/StormDriveV2/M_StormDrive_ClosedSilverTrim.M_StormDrive_ClosedSilverTrim",
+          "M_StormDrive_RunePlate_V3": "/Game/Weapons/CommonHammerSeats20261025/StormDriveV3/M_StormDrive_RunePlate_V3.M_StormDrive_RunePlate_V3"
+        },
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "appearance": "黑铁拱肋 · 青铜导雷 · 金色电弧",
+        "interface": "warhammer_factory_v1",
+        "shared_option_library": "common-hammer-seats.json",
+        "model_revision": "StormDriveRuneV3"
       }
     },
     "hammer_heads": {

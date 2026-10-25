@@ -51,3 +51,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 - 性别/头型切换被旧档案回传撤销，或物品操作吞掉外观上传：[外观选择与档案回执](references/appearance-profile-sync.md)。
 
 - 装备数值改版、旧腰带强化迁移及远端动作加速，读取 [装备目录迁移与远端动作时钟](references/equipment-tuning-and-clocks.md)。
+
+- 近战冲刺前踏、空中惯性、攻击 RPC 与 CMC 移动包乱序，读取 [战锤冲刺移动身份](references/hammer-sprint-movement.md)。区分隔离权威检查、实际 UDP 与最终画面覆盖。

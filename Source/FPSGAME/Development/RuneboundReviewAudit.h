@@ -41,6 +41,9 @@ public:
     UFUNCTION(Client,Reliable) void ClientSetup(const FString& Instance,ARuneboundReviewTarget* Target,AFPSGAMECharacter* Host);
     UFUNCTION(Server,Reliable) void ServerPhase(int32 Phase,bool Passed);
     UFUNCTION(Client,Reliable) void ClientFinish(bool Passed);
+    void SetupSprint(const FString& Instance);
+    void TickSprint(float Delta);
+    UFUNCTION(Client,Reliable) void ClientSprintResult(float ServerX,bool Passed);
     int32 Reported=0;
     bool AllPassed=true;
 private:
@@ -50,6 +53,8 @@ private:
     double Started=-1.,ExitAt=-1.;
     int32 Stage=0;
     bool Sent=false;
+    FVector SprintOrigin=FVector::ZeroVector;
+    float SprintAge=0.f;
 };
 
 /** Explicit RuneboundReviewWire flag + isolated profile required. */
@@ -63,6 +68,7 @@ public:
     virtual void PostLogin(APlayerController* Player) override;
     virtual void Tick(float Delta) override;
 private:
+    void TickSprint(float Delta);
     UPROPERTY() TObjectPtr<ARuneboundReviewController> Guest;
     UPROPERTY() TObjectPtr<AFPSGAMECharacter> HostPawn;
     UPROPERTY() TObjectPtr<ARuneboundReviewTarget> Target;

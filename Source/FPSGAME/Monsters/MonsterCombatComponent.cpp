@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "../Weapons/AncientSealSeat.h"
 #include "MonsterNetworkHitHistory.h"
 #include "NightWardenMonster.h"
 #include "HeQueMonster.h"
@@ -340,15 +341,16 @@ float UMonsterCombatComponent::ToughnessDamageFor(float Damage,EMonsterAttackFor
 {
  const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
  const bool Roaring=Status&&Status->TigerRoarRemaining()>0.f;
+ const float SealMultiplier=Status&&Status->BreakingSealRemaining()>0.f?1.f+AncientSealSeat::ToughnessBonus:1.f;
  const float Bonus=IncomingToughnessBonusBaseDamage*(1.f-(Roaring?0.f:FMath::Clamp(ToughnessResistance(Form),0.f,.9f)))*(Roaring?Status->TigerRoarToughnessMultiplier():1.f);
  if(IncomingToughnessBaseDamage>=0.f)
  {
   // Already expressed in poise units: never apply HP damage, crit or form power again.
   const float Resistance=Roaring?0.f:FMath::Clamp(ToughnessResistance(Form),0.f,.9f);
-  return IncomingToughnessBaseDamage*(1.f-Resistance)*(Roaring?Status->TigerRoarToughnessMultiplier():1.f)+Bonus;
+  return (IncomingToughnessBaseDamage*(1.f-Resistance)*(Roaring?Status->TigerRoarToughnessMultiplier():1.f)+Bonus)*SealMultiplier;
  }
- if(Roaring)return MonsterToughness::ToughnessDamage(Damage,Form,0.f)*Status->TigerRoarToughnessMultiplier()+Bonus;
- return MonsterToughness::ToughnessDamage(Damage,Form,ToughnessResistance(Form))+Bonus;
+ if(Roaring)return (MonsterToughness::ToughnessDamage(Damage,Form,0.f)*Status->TigerRoarToughnessMultiplier()+Bonus)*SealMultiplier;
+ return (MonsterToughness::ToughnessDamage(Damage,Form,ToughnessResistance(Form))+Bonus)*SealMultiplier;
 }
 float UMonsterCombatComponent::ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage)
 {

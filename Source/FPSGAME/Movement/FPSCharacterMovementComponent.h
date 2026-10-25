@@ -109,7 +109,9 @@ public:
 
     // One grounded capsule sweep, with no residual velocity. Returns actual displacement.
     FVector ApplyMeleeLungeStep(const FVector& Direction, float DistanceCM);
-    void BeginMeleeLungeRequest(EFPSMeleeMove Kind,const FVector& Direction);
+    void BeginMeleeLungeRequest(EFPSMeleeMove Kind,const FVector& Direction,uint32 HammerAttackId=0);
+    void CancelHammerSprintMove(uint32 AttackId);
+    bool IsMeleeMoveRejected(uint32 Sequence) const {return RejectedMeleeSequence!=0&&RejectedMeleeSequence==Sequence;}
     void RecordMeleeLungeStep(float Distance);
     bool IsMeleeLungeRejected() const {return RejectedMeleeSequence!=0&&RejectedMeleeSequence==MeleeRequest.Sequence;}
     FFPSMeleeMoveRequest MeleeRequest;
@@ -123,7 +125,7 @@ public:
 
     // Carry a released airborne dash through native collision and landing.
     // Local single-player action; horizontal speed decays until rest or new input.
-    bool BeginMeleeDashMomentum(const FVector& IncomingVelocity);
+    bool BeginMeleeDashMomentum(const FVector& IncomingVelocity,uint32 HammerAttackId=0);
     virtual void CalcVelocity(float DeltaTime, float Friction, bool bFluid, float BrakingDeceleration) override;
     virtual void StopMovementImmediately() override;
 
@@ -161,8 +163,11 @@ private:
     bool AuthorizeMeleeMove(const FFPSMeleeMoveRequest& Request,float& Budget,float& Recovery) const;
     UFUNCTION(Client,Reliable) void ClientRejectMeleeMove(uint32 Sequence);
     uint32 LastServerMeleeSequence=0,RejectedMeleeSequence=0;
+    uint32 ServerHammerAttackId=0;
     EFPSMeleeMove ServerMeleeKind=EFPSMeleeMove::None;
     friend class USkillNetworkAuditCommandlet;
+    friend class UWarhammerNetworkAuditCommandlet;
+    friend class ARuneboundReviewGameMode;
     float ServerMeleeDistance=0.f,ServerMeleeBudget=0.f;
     double ServerMeleeRecoveryUntil=0.,ServerMeleeWindowUntil=0.;
     bool bServerMeleeBlocked=false;

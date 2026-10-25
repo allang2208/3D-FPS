@@ -1,0 +1,30 @@
+{
+  "id": "storm_drive_seat",
+  "name": "鸣雷疾驱座",
+  "tier": "special",
+  "description": "黑铁尖拱包覆竖向导雷音板，暗青铜肋骨和嵌银刻纹收束金色电弧。",
+  "appearance": "黑铁拱肋 · 青铜导雷 · 金色电弧",
+  "stats": {
+    "heavy_charge_speed_bonus": 0.35,
+    "attack_speed_mult": 1.2,
+    "stamina_mult": 1.3
+  },
+  "effects": [
+    {
+      "text": "重击蓄力速度 +35%",
+      "benefit": 1
+    },
+    {
+      "text": "攻击速度 +20%",
+      "benefit": 1
+    },
+    {
+      "text": "体力消耗 +30%",
+      "benefit": -1
+    }
+  ],
+  "special_effects": [
+    "导雷共鸣｜锤座周围持续跳动金色电弧。",
+    "镇魂合鸣｜与终律·镇魂钟同时装备时，每次有效命中敌人都会在命中处迸发额外的金色分叉电弧。"
+  ]
+}

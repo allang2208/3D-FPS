@@ -17,7 +17,7 @@ FIcon ResolveIcon(const FStatusEffectView& V)
     // Explicit identities: related effects share an engraved motif with different secondary marks.
     static const TMap<FName,FIcon> Icons={
         {TEXT("tangDragonMight"),{EGlyph::Dragon,0}}, {TEXT("tangPhoenixDance"),{EGlyph::Phoenix,0}},
-        {TEXT("physicalVulnerability"),{EGlyph::Armor,1}}, {TEXT("tigerRoar"),{EGlyph::Fang,1}},
+        {TEXT("physicalVulnerability"),{EGlyph::Armor,1}}, {TEXT("breakingSeal"),{EGlyph::Armor,2}}, {TEXT("tigerRoar"),{EGlyph::Fang,1}},
         {TEXT("fountainBlessing"),{EGlyph::Drop,0}}, {TEXT("sanityCollapse"),{EGlyph::Eye,1}},
         {TEXT("composure"),{EGlyph::Reticle,0}}, {TEXT("wager"),{EGlyph::Diamond,0}},
         {TEXT("berserk"),{EGlyph::Fang,0}}, {TEXT("blind"),{EGlyph::Eye,2}},

@@ -16,6 +16,7 @@ namespace RuneboundHammer
     inline constexpr float DetonationRadiusCM=250.f;
     inline constexpr const TCHAR* FinalTollHead=TEXT("final_toll_soul_bell");
     inline constexpr const TCHAR* FinalTollMotes=TEXT("/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/M_FinalToll_Mote.M_FinalToll_Mote");
+    inline constexpr const TCHAR* FinalTollLightning=TEXT("/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_FinalToll_YellowLightning.M_FinalToll_YellowLightning");
     FPSGAME_API bool HasFinalToll(const FColdSteelItem& Item);
     FPSGAME_API bool HasStarOath(const FColdSteelItem& Item);
     FPSGAME_API double AttackMultiplier(const FColdSteelItem& Item);
@@ -25,6 +26,12 @@ namespace RuneboundHammer
     FPSGAME_API double AttributeMultiplier(const FColdSteelProfile& State,FName Key);
     FPSGAME_API int32 RequiredHits(const FColdSteelItem& Item);
     inline constexpr float ActiveSeconds=20.f;
+    inline constexpr const TCHAR* EmpoweredManaPommel=TEXT("empowered_mana_orb");
+    inline constexpr float ManaPommelBonusSeconds=10.f;
+    inline constexpr const TCHAR* StarTideCorePommel=TEXT("star_tide_core");
+    inline constexpr double StarTideSecondsPerHit=.5;
+    FPSGAME_API bool HasStarTideCore(const FColdSteelItem& Item);
+    FPSGAME_API float AwakeningSeconds(const FColdSteelItem& Item);
     // The crystal sword uses 0.10 INT + 0.10 WIS. This temporary awakening uses 1.5x.
     inline constexpr double Intelligence=.15,Wisdom=.15;
     inline constexpr const TCHAR* Hud=TEXT("/Game/Weapons/RuneboundWarhammer20261022/HudSymmetricCapsV3/M_RuneboundEnergyHud.M_RuneboundEnergyHud");

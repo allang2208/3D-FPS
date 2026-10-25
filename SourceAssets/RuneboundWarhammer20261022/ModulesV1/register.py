@@ -52,6 +52,10 @@ def publish():
     if (passive/'import_receipt.json').exists() and read(passive/'import_receipt.json').get('complete'):
         import runpy
         runpy.run_path(str(passive/'publish_recipe.py'))['apply'](catalog,bench)
+    refinement=P.parent/'RuneAndBellRefinement20261024'
+    if (refinement/'publication_receipt.json').exists():
+        import runpy
+        runpy.run_path(str(refinement/'publish.py'))['apply'](catalog,bench)
     write(DATA/'runebound-warhammer-modules.json',catalog)
     write(DATA/'runebound-warhammer-gunsmith.json',bench)
     (P/'catalog_base.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2),encoding='utf-8')

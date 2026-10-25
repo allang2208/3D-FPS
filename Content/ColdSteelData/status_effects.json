@@ -1205,6 +1205,15 @@
       "description": "冰甲提高物理与魔法防御。近战受伤向攻击者施加寒冷，每2秒对附近敌人施加寒冷。",
       "kind": "buff",
       "group": "combat"
+    },
+    {
+      "type": "breakingSeal",
+      "icon": "印",
+      "name": "破势印",
+      "color": "#bc8c62",
+      "description": "被装有破势古印座的双手锤快速近战命中后，受到的物理伤害提高15%，受到的韧性伤害提高25%，持续8秒。重复命中刷新时间，效果不叠加。",
+      "kind": "debuff",
+      "group": "combat"
     }
   ]
 }

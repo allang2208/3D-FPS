@@ -132,6 +132,11 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         {
             Add(Visual==ColdSteelFrostRunes::Mountain?ColdSteelFrostRunes::MountainMask:ColdSteelFrostRunes::CloudMask,true);
         }
+        else if(ColdSteelFrostRunes::IsWarhammer(D)&&ColdSteelFrostRunes::IsWarhammerRune(D,Visual))
+        {
+            Add(ColdSteelFrostRunes::WarhammerRuneMaterial(D));
+            Add(TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+Visual);
+        }
         else if(!Visual.IsEmpty()&&Visual!=TEXT("false"))
         {
             const bool Wild=D==TEXT("ue_highland_claymore")&&Visual==TEXT("wild_rune");

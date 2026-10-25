@@ -1,4 +1,6 @@
 #include "ColdSteelSkillRules.h"
+#include "../Weapons/AncientSealSeat.h"
+#include "../Combat/AncientBreakingSealComponent.h"
 #include "../Monsters/RootCrownRigPreview.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
 #include "../Weapons/DealerEnchantmentComponent.h"
@@ -383,6 +385,14 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         &&(Shot.AttackMeta&0x80)&&Shot.QuickCombatPhysicalVulnerabilitySeconds>0.f
         &&Shot.QuickCombatPhysicalVulnerabilityBonus>0.f&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
         UCombatStatusFormula::GetOrAdd(Victim)->AddPhysicalVulnerability(Shot.QuickCombatPhysicalVulnerabilityBonus,Shot.QuickCombatPhysicalVulnerabilitySeconds);
+    // Apply the target seal after this contact's damage and poise settlement.
+    // The server's weapon snapshot fixes the seat identity for remote quick hits.
+    if(bAliveBefore&&Applied>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()
+        &&Victim->HasAuthority()&&!Combat->IsDead()&&Shot.bMelee&&!Shot.bRicochet
+        &&(Shot.AttackMeta&0x80)&&Shot.bQuickCombatBreakingSeal
+        &&AncientSealSeat::Supports(Shot.ItemDefinition)&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
+        if(auto* Status=UCombatStatusFormula::GetOrAdd(Victim);Status&&!Status->IsImmune())
+            UAncientBreakingSealComponent::Apply(Victim,Shooter,Hit.ImpactPoint,AncientSealSeat::Seconds);
     // Armor can absorb damage and still leave a visible contact. Lethal hits
     // yield entirely to the existing death/ragdoll presentation.
     if(bFirearmContact&&bAliveBefore&&Amount>0.f&&IsValid(Victim)&&!Victim->IsActorBeingDestroyed()

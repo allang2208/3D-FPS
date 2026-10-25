@@ -70,30 +70,95 @@
       "description": "多层钢板夹持薄层垫片，由四角拉杆收束固定。",
       "appearance": "叠片盖板 · 深色垫片 · 四角拉杆",
       "stats": {
-        "physical_damage_mult": 1.05,
-        "attack_speed_mult": 1.05,
-        "stamina_mult": 0.85,
-        "toughness_damage_mult": 0.85
+        "heavy_charge_speed_bonus": 0.2,
+        "heavy_release_stamina_mult": 0.75,
+        "attack_speed_mult": 0.95,
+        "toughness_damage_mult": 0.9
       },
       "effects": [
         {
-          "text": "物理伤害 +5%",
+          "text": "重击蓄力速度 +20%",
           "benefit": 1
         },
         {
-          "text": "攻击速度 +5%",
+          "text": "重击出手体力消耗 -25%",
           "benefit": 1
         },
         {
-          "text": "体力消耗 -15%",
-          "benefit": 1
+          "text": "攻击速度 -5%",
+          "benefit": -1
         },
         {
-          "text": "韧性伤害 -15%",
+          "text": "韧性伤害 -10%",
           "benefit": -1
         }
       ],
       "special_effects": []
+    },
+    {
+      "id": "ancient_breaking_seal_seat",
+      "name": "破势古印座",
+      "tier": "special",
+      "description": "古铜包覆锻铁的八棱锤座，凹刻古印以暗朱砂嵌底，细银回纹沿铜壳收边。",
+      "appearance": "古铜锻铁 · 凹刻古印 · 细银回纹",
+      "stats": {
+        "stamina_mult": 1.1,
+        "attack_speed_mult": 0.95,
+        "toughness_damage_mult": 1.05,
+        "physical_damage_mult": 1.05
+      },
+      "effects": [
+        {
+          "text": "体力消耗 +10%",
+          "benefit": -1
+        },
+        {
+          "text": "攻击速度 -5%",
+          "benefit": -1
+        },
+        {
+          "text": "韧性伤害 +5%",
+          "benefit": 1
+        },
+        {
+          "text": "物理伤害 +5%",
+          "benefit": 1
+        }
+      ],
+      "special_effects": [
+        "破势印｜快速近战有效命中目标后施加破势印，持续8秒。目标受到的物理伤害提高15%，受到的韧性伤害提高25%。重复命中刷新时间，效果不叠加。",
+        "共击破势｜印记期间，后续攻击与队友的相应伤害均可受益；原有群体快速近战会分别给实际命中的目标施印。"
+      ]
+    },
+    {
+      "id": "storm_drive_seat",
+      "name": "鸣雷疾驱座",
+      "tier": "special",
+      "description": "黑铁尖拱包覆竖向导雷音板，暗青铜肋骨和嵌银刻纹收束金色电弧。",
+      "appearance": "黑铁拱肋 · 青铜导雷 · 金色电弧",
+      "stats": {
+        "heavy_charge_speed_bonus": 0.35,
+        "attack_speed_mult": 1.2,
+        "stamina_mult": 1.3
+      },
+      "effects": [
+        {
+          "text": "重击蓄力速度 +35%",
+          "benefit": 1
+        },
+        {
+          "text": "攻击速度 +20%",
+          "benefit": 1
+        },
+        {
+          "text": "体力消耗 +30%",
+          "benefit": -1
+        }
+      ],
+      "special_effects": [
+        "导雷共鸣｜锤座周围持续跳动金色电弧。",
+        "镇魂合鸣｜与终律·镇魂钟同时装备时，每次有效命中敌人都会在命中处迸发额外的金色分叉电弧。"
+      ]
     }
   ]
 }

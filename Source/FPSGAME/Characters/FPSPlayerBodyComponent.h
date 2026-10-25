@@ -146,6 +146,8 @@ private:
     float RefreshCountdown = 0.f;
     float RemoteEquipCountdown = 0.f;
     float VisibilityCountdown = 0.f;
+    FVector PreviousSprintBodyLocation=FVector::ZeroVector;
+    bool bHasSprintBodyLocation=false;
     float WorldWeaponsHiddenUntil = 0.f;
     float OffhandWeaponHiddenUntil = 0.f;
     bool bExternalAuthorityState = false;

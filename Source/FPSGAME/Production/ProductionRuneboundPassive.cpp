@@ -80,12 +80,32 @@ double RuneboundHammer::AttributeMultiplier(const FColdSteelProfile& State,FName
 int32 RuneboundHammer::RequiredHits(const FColdSteelItem& Item)
 {return HasSwiftRune(Item)?SwiftHitsToAwaken:HitsToAwaken;}
 
+bool RuneboundHammer::HasStarTideCore(const FColdSteelItem& Item)
+{
+    if(Item.Definition!=Definition)return false;
+    const auto Data=ColdSteelItemData::Read(Item.Data);
+    const TSharedPtr<FJsonObject>* Parts=nullptr;FString Pommel;
+    return Data&&Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&
+        (*Parts)->TryGetStringField(TEXT("pommel"),Pommel)&&Pommel==StarTideCorePommel;
+}
+
+float RuneboundHammer::AwakeningSeconds(const FColdSteelItem& Item)
+{
+    if(Item.Definition!=Definition)return ActiveSeconds;
+    const auto Data=ColdSteelItemData::Read(Item.Data);
+    const TSharedPtr<FJsonObject>* Parts=nullptr;FString Pommel;
+    const bool Empowered=Data&&Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&
+        (*Parts)->TryGetStringField(TEXT("pommel"),Pommel)&&Pommel==EmpoweredManaPommel;
+    return ActiveSeconds+(Empowered?ManaPommelBonusSeconds:0.f);
+}
+
 void UProductionToolComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(UProductionToolComponent,RuneboundInstance);
     DOREPLIFETIME(UProductionToolComponent,RuneboundCharge);
     DOREPLIFETIME(UProductionToolComponent,RuneboundActiveUntil);
+    DOREPLIFETIME(UProductionToolComponent,RuneboundActivationSeconds);
     DOREPLIFETIME(UProductionToolComponent,FinalTollSealState);
 }
 
@@ -119,6 +139,7 @@ void UProductionToolComponent::TickRunebound(float Delta)
     if(Instance!=RuneboundInstance)
     {
         RuneboundInstance=Instance;RuneboundCharge=0;RuneboundActiveUntil=0.;RuneboundRecentAttacks.Reset();RuneboundDetonationHits=0;
+        RuneboundActivationSeconds=RuneboundHammer::ActiveSeconds;
         FinalTollMarks.Reset();FinalTollRecentHits.Reset();PublishFinalTollSeals();
         Pawn->ForceNetUpdate();
     }
@@ -142,16 +163,25 @@ void UProductionToolComponent::RecordRuneboundHit(const FColdSteelSkillShot& Sho
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(!Pawn||!Pawn->HasAuthority()||Shot.ItemDefinition!=RuneboundHammer::Definition||
         !Shot.bMelee||Shot.AttackForm!=EMonsterAttackForm::Blunt||!Shot.MasteryAttackSerial)return;
+    RecordStormDriveHit(Shot,Hit);
     TickRunebound(0.f);
     RecordFinalTollHit(Shot,Hit);
-    if(RuneboundInstance.IsEmpty()||Shot.ItemInstance!=RuneboundInstance||
-        RuneboundRecentAttacks.Contains(Shot.MasteryAttackSerial))return;
+    if(RuneboundInstance.IsEmpty()||Shot.ItemInstance!=RuneboundInstance)return;
+    const auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
+    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+    // ApplyHit calls this after each actual damaging enemy contact. Keep this
+    // before the charge/Star Oath attack dedupe: separate targets and successive
+    // whirlwind contacts each extend the active state, with no duration cap.
+    if(Item&&RuneboundHammer::HasStarTideCore(*Item)&&RuneboundActiveUntil>RuneboundClock())
+    {
+        RuneboundActiveUntil+=RuneboundHammer::StarTideSecondsPerHit;
+        Pawn->ForceNetUpdate();
+    }
+    if(RuneboundRecentAttacks.Contains(Shot.MasteryAttackSerial))return;
     // Every contact of a sweep/shockwave/whirlwind shares one serial, including contacts
     // after awakening expires. Active attacks cannot become a later charge retroactively.
     if(RuneboundRecentAttacks.Num()>=32)RuneboundRecentAttacks.RemoveAt(0);
     RuneboundRecentAttacks.Add(Shot.MasteryAttackSerial);
-    const auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
-    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
     if(RuneboundActiveUntil>RuneboundClock())
     {
         const bool Detonate=Item&&RuneboundHammer::HasStarOath(*Item)&&
@@ -163,7 +193,10 @@ void UProductionToolComponent::RecordRuneboundHit(const FColdSteelSkillShot& Sho
     const int32 Required=Item?RuneboundHammer::RequiredHits(*Item):RuneboundHammer::HitsToAwaken;
     RuneboundCharge=FMath::Min(int32(RuneboundCharge)+1,Required);
     if(RuneboundCharge==Required)
-        RuneboundActiveUntil=RuneboundClock()+RuneboundHammer::ActiveSeconds;
+    {
+        RuneboundActivationSeconds=Item?RuneboundHammer::AwakeningSeconds(*Item):RuneboundHammer::ActiveSeconds;
+        RuneboundActiveUntil=RuneboundClock()+RuneboundActivationSeconds;
+    }
     Pawn->ForceNetUpdate();
 }
 
@@ -221,10 +254,11 @@ void UProductionToolComponent::UpdateRuneboundPresentation(float Delta,bool Equi
     if(RuneboundHud)
     {
         RuneboundHud->Configure(Equipped);
-        const bool Activated=Active&&RuneboundShownActivation!=RuneboundActiveUntil;
-        const float Fill=Active?float((RuneboundActiveUntil-RuneboundClock())/RuneboundHammer::ActiveSeconds)
+        const bool Activated=Active&&RuneboundShownActivation<=RuneboundClock();
+        const bool Extended=Active&&RuneboundShownActivation>0.&&RuneboundActiveUntil>RuneboundShownActivation;
+        const float Fill=Active?float((RuneboundActiveUntil-RuneboundClock())/FMath::Max(1.f,RuneboundActivationSeconds))
             :float(RuneboundCharge)/(LocalSwift?RuneboundHammer::SwiftHitsToAwaken:RuneboundHammer::HitsToAwaken);
-        RuneboundHud->SetEnergy(Equipped?Fill:0.f,Activated,Equipped&&RuneboundShownCharge!=RuneboundCharge);
+        RuneboundHud->SetEnergy(Equipped?Fill:0.f,Activated,Equipped&&(RuneboundShownCharge!=RuneboundCharge||Extended));
         RuneboundShownCharge=Equipped?RuneboundCharge:-1;RuneboundShownActivation=Equipped?RuneboundActiveUntil:0.;
     }
     RuneboundVisual=FMath::FInterpTo(RuneboundVisual,Active?1.f:0.f,Delta,Active?7.f:4.f);
@@ -236,6 +270,8 @@ void UProductionToolComponent::UpdateRuneboundPresentation(float Delta,bool Equi
         RuneboundHitBursts.Reset();
         bRuneboundSwiftVisual=false;
         if(RuneboundMotes)RuneboundMotes->SetVisibility(false);
+        if(FinalTollLightningMesh)FinalTollLightningMesh->SetVisibility(false);
+        FinalTollLightningHead.Reset();
         return;
     }
     RuneboundMaterialRefresh-=Delta;
@@ -243,7 +279,7 @@ void UProductionToolComponent::UpdateRuneboundPresentation(float Delta,bool Equi
     {
         RuneboundMaterialRefresh=.25f;
         RuneboundRuneMIDs.Reset();RuneboundMoteAnchor.Reset();
-        bRuneboundSwiftVisual=false;bFinalTollVisual=false;
+        bRuneboundSwiftVisual=false;bFinalTollVisual=false;FinalTollLightningHead.Reset();
         TInlineComponentArray<UStaticMeshComponent*> Parts(Pawn);
         for(auto* Part:Parts)
             if(Part->GetStaticMesh()&&Part->GetStaticMesh()->GetPathName().StartsWith(MeshPrefix))
@@ -251,10 +287,13 @@ void UProductionToolComponent::UpdateRuneboundPresentation(float Delta,bool Equi
                 if(Part->ComponentHasTag(TEXT("SwordSlot=head_mount"))&&
                     !(Pawn->IsLocallyControlled()?Part->bOwnerNoSee:Part->bOnlyOwnerSee))RuneboundMoteAnchor=Part;
                 if(Part->GetStaticMesh()->GetName().Contains(TEXT("FinalToll"))&&Part->IsVisible()&&!Part->bHiddenInGame&&
-                    !(Pawn->IsLocallyControlled()?Part->bOwnerNoSee:Part->bOnlyOwnerSee))bFinalTollVisual=true;
+                    !(Pawn->IsLocallyControlled()?Part->bOwnerNoSee:Part->bOnlyOwnerSee))
+                {bFinalTollVisual=true;FinalTollLightningHead=Part;}
                 for(int32 Slot=0;Slot<Part->GetNumMaterials();++Slot)
                     if(auto* Material=Part->GetMaterial(Slot);Material&&
-                        (Material->GetMaterial()->GetName()==TEXT("M_RuneboundAwakeSurface")||
+                        (Material->GetMaterial()->GetName().StartsWith(TEXT("M_RuneboundHeadSurface_"))||
+                         Material->GetMaterial()->GetName().StartsWith(TEXT("M_RuneboundManaOrb_"))||
+                         Material->GetMaterial()->GetName()==TEXT("M_RuneboundAwakeSurface")||
                          Material->GetMaterial()->GetName()==TEXT("M_RuneboundSwiftRuneSurface")||
                          Material->GetMaterial()->GetName()==TEXT("M_RuneboundDestructionRuneSurface")||
                          Material->GetMaterial()->GetName()==TEXT("M_FinalToll_Rune_Energy")||
@@ -290,12 +329,13 @@ void UProductionToolComponent::UpdateRuneboundPresentation(float Delta,bool Equi
         const FSoftObjectPath Path(RuneboundHammer::Motes);
         const FSoftObjectPath DestructionPath(RuneboundHammer::DestructionMotes);
         TWeakObjectPtr<UProductionToolComponent> Weak(this);
-        RuneboundAssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(TArray<FSoftObjectPath>{Path,DestructionPath,FSoftObjectPath(RuneboundHammer::FinalTollMotes)},FStreamableDelegate::CreateLambda([Weak,Path,DestructionPath]()
+        RuneboundAssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(TArray<FSoftObjectPath>{Path,DestructionPath,FSoftObjectPath(RuneboundHammer::FinalTollMotes),FSoftObjectPath(RuneboundHammer::FinalTollLightning)},FStreamableDelegate::CreateLambda([Weak,Path,DestructionPath]()
         {if(Weak.IsValid())
         {
             Weak->RuneboundMoteMaterial=Cast<UMaterialInterface>(Path.ResolveObject());
         }}));
     }
+    UpdateFinalTollLightning(Delta,Equipped);
     if(Active&&RuneboundMoteMaterial&&!RuneboundMotes)
     {
         RuneboundMotes=NewObject<UDynamicMeshComponent>(Pawn);
@@ -457,5 +497,7 @@ void UProductionToolComponent::ClearRuneboundPresentation()
     if(RuneboundAssetLoad)RuneboundAssetLoad->CancelHandle();RuneboundAssetLoad.Reset();
     if(RuneboundHud)RuneboundHud->DestroyComponent();RuneboundHud=nullptr;
     if(RuneboundMotes)RuneboundMotes->DestroyComponent();RuneboundMotes=nullptr;
+    if(FinalTollLightningMesh)FinalTollLightningMesh->DestroyComponent();FinalTollLightningMesh=nullptr;
+    FinalTollLightningMID=nullptr;FinalTollLightningHead.Reset();FinalTollLightningRefresh=0.f;
     RuneboundMoteMID=nullptr;RuneboundMoteMaterial=nullptr;
 }

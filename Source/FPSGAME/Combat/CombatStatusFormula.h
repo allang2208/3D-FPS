@@ -36,7 +36,8 @@ public:
     /** 物理易伤：目标物理承伤提高，重复命中只刷新时长。 */
     void AddPhysicalVulnerability(float Bonus,float Seconds);
     float PhysicalVulnerabilityRemaining() const;
-    float PhysicalVulnerabilityMultiplier() const{return PhysicalVulnerabilityRemaining()>0.f?1.f+PhysicalVulnerabilityBonus:1.f;}
+    float PhysicalVulnerabilityMultiplier() const;
+    float BreakingSealRemaining() const;
     void GrantRiposteGuard(float Seconds,float AttackSpeed,float Stamina);
     float RiposteAttackSpeed()const{return RiposteTime>0?RiposteSpeed:1;}
     float RiposteStaminaMultiplier()const{return RiposteTime>0?RiposteStamina:1;}

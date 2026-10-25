@@ -1,0 +1,48 @@
+{
+  "note": "Historical local integration evidence; no gameplay/build/test rerun during publication. Not evidence of an independently buildable public tree.",
+  "result": {
+    "udp_passed": true,
+    "gameplay_visual_acceptance": false,
+    "pose_preview": "../ThirdPersonReview/lower-body-review.png",
+    "packet_lag_ms": 80,
+    "observed_final_position_error_cm": 0.029,
+    "native_graph_cases": 8,
+    "game_build": "Succeeded",
+    "report": "review.md",
+    "editor_build": "Succeeded",
+    "user_profile_modified": false,
+    "authority_failures": 0,
+    "authority_checks": 28,
+    "packet_loss_percent": 2
+  },
+  "local_evidence": {
+    "SourceAssets/WarhammerSprintLunge20261025/CompletionReview/completion.json": {
+      "sha256": "15e66a18014d01953701977956a737eb9e8fc8c365f5dcdedffc50c15a889a19",
+      "bytes": 438
+    },
+    "SourceAssets/WarhammerSprintLunge20261025/CompletionReview/authority.json": {
+      "sha256": "c317914cb1ec9167cb42204474d73b97063152171ce1af6c23e21eb7004a0000",
+      "bytes": 2979
+    },
+    "SourceAssets/WarhammerSprintLunge20261025/CompletionReview/authority-receipt.json": {
+      "sha256": "953e87d23e0778e908207d826a213df35f36dda33c8eb5a64ea7c65a5c7bba6a",
+      "bytes": 62
+    },
+    "SourceAssets/WarhammerSprintLunge20261025/CompletionReview/wire-receipt.json": {
+      "sha256": "2e482223a06c673addd771cd233fbc56b1a4326c314705ba35ac23fc0fc23aa1",
+      "bytes": 373
+    },
+    "SourceAssets/WarhammerSprintLunge20261025/CompletionReview/fixed-FPSGAMEEditor-receipt.json": {
+      "sha256": "3b739f2c76420b00b9ac54ec05c90b70fd95e33f42ab0971bac1393d71f50a48",
+      "bytes": 413
+    },
+    "SourceAssets/WarhammerSprintLunge20261025/CompletionReview/fixed-FPSGAME-receipt.json": {
+      "sha256": "23abd19e48e1fceb0795d5fd7c68d2d87dedacdcee98c181229ecf1b99e6a2d1",
+      "bytes": 394
+    },
+    "SourceAssets/WarhammerSprintLunge20261025/ThirdPersonReview/measurements.json": {
+      "sha256": "f172332911c76e76b5f54cd1f4c77ac189581aebcce83b3315d8a5661bb0385b",
+      "bytes": 8513
+    }
+  }
+}

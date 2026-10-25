@@ -27,3 +27,7 @@
 2026-10-23 符文战锤：原装10次命中苏醒，迅捷5次并增加10%普通攻速；破坏增加10%智力/精神，原生附加魔伤翻倍并转红。星誓锤头提供双攻各10%，苏醒每3次攻击触发2.5米、200%魔攻爆震；镇魂钟为1.25秒双重击，接触0.10/0.42秒，苏醒两次重击触发350%魔攻单体伤害。破坏分别提高为400%/700%。这些是案例数值，不推广为通用平衡公式。
 
 当前源码 `ProductionRuneboundPassive.cpp`、`ProductionRuneboundStarOath.cpp`、`ProductionRuneboundFinalToll.cpp`。作者脚本位于 `SourceAssets/RuneboundWarhammer20261022`；复查报告 `Docs/Weapons/runebound-network-review-20261023.md`，发布恢复边界 `Docs/Publication/RuneboundWarhammer20261023/README.md`。历史73项资源、37项隔离权威及一次真实本机 UDP 测试通过；无画面测试不代表粒子、握持与能量条视觉认可。
+
+## 后续改造精修
+
+替换锤头原装刻纹、球内材质棋盘格、紫蓝配重、破势古印、鸣雷锤座与全攻击扰动，读取 [战锤改造的实体细节、魔力球与效果合同](warhammer-refinement-and-materials.md)。镇魂钟二连重击当前使用 V5 原生普攻首击与上挑供体，动作制作见 [成熟动作复用](../../ue5-fps-arms-animation/references/warhammer-native-reuse-and-sprint-gait.md)。

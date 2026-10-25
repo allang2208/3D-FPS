@@ -155,6 +155,7 @@ struct FColdSteelSkillShot
     bool bRisingDragonFinisher=false;
     float QuickCombatTigerRoarToughnessBonus=0.f, QuickCombatTigerRoarSeconds=0.f;
     float QuickCombatPhysicalVulnerabilityBonus=0.f, QuickCombatPhysicalVulnerabilitySeconds=0.f;
+    bool bQuickCombatBreakingSeal=false;
     TWeakObjectPtr<UFPSBallisticsComponent> BulletSource;
     TWeakObjectPtr<UFPSWeaponFXComponent> BulletFX;
     /** Only the actual melee item's prefix can start an enchantment discharge. */

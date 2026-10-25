@@ -1,0 +1,16 @@
+{
+  "fps_normal": "/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_Slash1",
+  "fps_upper": "/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut",
+  "bodies": [
+    {
+      "variant": "Default",
+      "normal": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1.J_Hammer_Natural_Slash1",
+      "upper": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_Slash1.J_Hammer_Refined_Slash1"
+    },
+    {
+      "variant": "kaitlin",
+      "normal": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_be88bd8e47_J_Hammer_Natural_Slash1.K_be88bd8e47_J_Hammer_Natural_Slash1",
+      "upper": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_e5871be1dc_J_Hammer_Refined_Slash1.K_e5871be1dc_J_Hammer_Refined_Slash1"
+    }
+  ]
+}

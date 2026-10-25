@@ -12,6 +12,12 @@ namespace ColdSteelModification
 {
 inline EGunsmithModificationTier Tier(const FString& Weapon,const FString& SlotKey,const FString& Id)
 {
+    if((Weapon==TEXT("ue_steel_warhammer")||Weapon==TEXT("ue_runebound_warhammer"))&&
+        SlotKey==TEXT("head_mount")&&(Id==TEXT("ancient_breaking_seal_seat")||Id==TEXT("storm_drive_seat")))
+        return EGunsmithModificationTier::Special;
+    if(Weapon==ColdSteelFrostRunes::RuneboundWarhammer&&SlotKey==TEXT("pommel")&&
+        (Id==TEXT("empowered_mana_orb")||Id==TEXT("star_tide_core")))
+        return EGunsmithModificationTier::Special;
     if(SlotKey==TEXT("muzzle")&&Id==SniperSuppressorAssets::Part&&SniperSuppressorAssets::Supports(Weapon))
         return EGunsmithModificationTier::Special;
     if(Weapon==ColdSteelFrostRunes::RuneboundWarhammer&&SlotKey==TEXT("rune")&&

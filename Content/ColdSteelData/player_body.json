@@ -313,7 +313,7 @@
     "Warhammer.FullBody.QuickMelee": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/RefinementV8/Animations/J_Hammer_Refined_QuickMelee.J_Hammer_Refined_QuickMelee",
     "Warhammer.FullBody.GuardExit": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardEnter.J_Hammer_Anatomical_GuardEnter",
     "Warhammer.FullBody.GuardBreak": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/AnatomicalGripV7/Animations/J_Hammer_Anatomical_GuardHit.J_Hammer_Anatomical_GuardHit",
-    "Warhammer.FullBody.FinalTollHeavy": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_Default.A_Runebound_FinalToll_Body_Default",
+    "Warhammer.FullBody.FinalTollHeavy": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_Default.A_FinalToll_DirectReuseBodyV5_Default",
     "Rest.Chair.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/ChairReuse20261024/A_Rest_Chair_Enter.A_Rest_Chair_Enter",
     "Rest.Chair.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/ChairReuse20261024/A_Rest_Chair_Idle.A_Rest_Chair_Idle",
     "Rest.Chair.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/ChairReuse20261024/A_Rest_Chair_Exit.A_Rest_Chair_Exit",
@@ -367,7 +367,8 @@
     "Rest.ApartmentSofaLeft.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/ReversedExitV7/A_Rest_ApartmentSofaLeft_Exit.A_Rest_ApartmentSofaLeft_Exit",
     "Rest.ApartmentSofaRight.Enter": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/HangingEntryV6/A_Rest_ApartmentSofaRight_Enter.A_Rest_ApartmentSofaRight_Enter",
     "Rest.ApartmentSofaRight.Idle": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/RelaxedSeatV5/A_Rest_ApartmentSofaRight_Idle.A_Rest_ApartmentSofaRight_Idle",
-    "Rest.ApartmentSofaRight.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/ReversedExitV7/A_Rest_ApartmentSofaRight_Exit.A_Rest_ApartmentSofaRight_Exit"
+    "Rest.ApartmentSofaRight.Exit": "/Game/Characters/JasonPlayer20261003/FurnitureRest20261022/RefineV2/ReversedExitV7/A_Rest_ApartmentSofaRight_Exit.A_Rest_ApartmentSofaRight_Exit",
+    "Warhammer.FullBody.FinalTollCharge": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_Default.A_FinalToll_ChargeBodyV5_Default"
   },
   "outfits": {
     "ue_mountain_backpack": {
@@ -7001,8 +7002,8 @@
         "Rest.ApartmentSofaRight.Enter": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_fc8cb1b39b_A_Rest_ApartmentSofaRight_Enter.K_fc8cb1b39b_A_Rest_ApartmentSofaRight_Enter",
         "Rest.ApartmentSofaRight.Idle": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_fc297a9722_A_Rest_ApartmentSofaRight_Idle.K_fc297a9722_A_Rest_ApartmentSofaRight_Idle",
         "Rest.ApartmentSofaRight.Exit": "/Game/Characters/KaitlinPlayer20261023/Motion/Animations/K_43ecf19059_A_Rest_ApartmentSofaRight_Exit.K_43ecf19059_A_Rest_ApartmentSofaRight_Exit",
-        "Warhammer.FullBody.FinalTollHeavy": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollV1/A_Runebound_FinalToll_Body_kaitlin.A_Runebound_FinalToll_Body_kaitlin",
-        "Warhammer.FullBody.FinalTollCharge": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_kaitlin.A_FinalToll_ChargeBodyV5_kaitlin"
+        "Warhammer.FullBody.FinalTollHeavy": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_d90dea6ca0277666_Warhammer_FullBody_FinalTollHeavy.KGrip_d90dea6ca0277666_Warhammer_FullBody_FinalTollHeavy",
+        "Warhammer.FullBody.FinalTollCharge": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_a9d4d1e3cb2f3d6f_Warhammer_FullBody_FinalTollCharge.KGrip_a9d4d1e3cb2f3d6f_Warhammer_FullBody_FinalTollCharge"
       },
       "outfits": {
         "ue_mountain_backpack": {

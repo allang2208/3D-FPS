@@ -178,7 +178,7 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
             if(Input.Contains(TEXT("bipod")))continue;
             Slot=TEXT("bipod");
         }
-        FString Id=(Slot==TEXT("blade_2")||(D==ColdSteelFrostRunes::Warhammer&&Slot==TEXT("rune")))?
+        FString Id=(Slot==TEXT("blade_2")||(ColdSteelFrostRunes::IsWarhammer(D)&&Slot==TEXT("rune")))?
             ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
         if(D==RSH12WeaponAssets::Definition && Slot==TEXT("optic"))Id=RSH12OpticAssets::Upgrade(Id);
         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");

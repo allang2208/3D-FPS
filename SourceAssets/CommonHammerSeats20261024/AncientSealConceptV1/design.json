@@ -1,0 +1,46 @@
+{
+  "status": "approved_design_modeled_and_integrated",
+  "approval": "用户：按你这版方案设计，进行建模",
+  "proposed_name": "破势古印座",
+  "proposed_id": "ancient_breaking_seal_seat",
+  "slot": "head_mount",
+  "tier": "special",
+  "scope": "shared_two_handed_warhammer_modification",
+  "current_hosts": [
+    "ue_steel_warhammer",
+    "ue_runebound_warhammer"
+  ],
+  "host_interfaces": [
+    "warhammer_factory_v1",
+    "runebound_warhammer_modular_v1"
+  ],
+  "user_direction": "古朴但精致，以改善快速近战给目标施加减益为主",
+  "passive_stats": {
+    "stamina_mult": 1.1,
+    "attack_speed_mult": 0.95,
+    "toughness_damage_mult": 1.05,
+    "physical_damage_mult": 1.05
+  },
+  "art_direction": "Aged bronze over dark forged iron, recessed archaic seal, fine silver inlay, restrained cloud-and-thunder engraving, cinnabar enamel in grooves; solid softly bevelled eight-faceted housing",
+  "suggested_effect": {
+    "name": "破势印",
+    "trigger": "successful two-handed-hammer quick-melee hit on a surviving enemy",
+    "duration_seconds": 8,
+    "physical_damage_taken_bonus": 0.15,
+    "toughness_damage_taken_bonus": 0.25,
+    "stacking": "refresh duration; do not stack magnitude",
+    "apply_after_triggering_hit": true,
+    "consumed_by_followup_hit": false,
+    "affects_followup_damage_from_all_sources": true,
+    "area_quick_melee": "apply separately to each successfully hit target within the original attack range",
+    "values_are_proposed": false
+  },
+  "image": "ancient_seal_hammer_seat_design_01.png",
+  "proposal": "design_proposal.txt",
+  "generation_prompt": "prompt.txt",
+  "supersedes_direction": "../RatchetConceptV1/design.json",
+  "model_authored": true,
+  "runtime_integrated": true,
+  "model_revision": "AncientSealBuildV1",
+  "user_visual_acceptance": false
+}

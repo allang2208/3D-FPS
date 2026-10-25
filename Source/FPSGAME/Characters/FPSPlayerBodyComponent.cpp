@@ -436,5 +436,18 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         BodyAnimation->Speed=LocalVelocity.Size2D();
         if(BodyAnimation->Speed>3.f)BodyAnimation->Direction=FMath::RadiansToDegrees(FMath::Atan2(LocalVelocity.Y,LocalVelocity.X));
         BodyAnimation->VerticalSpeed=LocalVelocity.Z;BodyAnimation->bFalling=Character->GetCharacterMovement()->IsFalling();
+        const FVector Location=!Character->IsLocallyControlled()&&Character->GetMesh()?
+            Character->GetMesh()->GetComponentLocation():Character->GetActorLocation();
+        const bool HammerSprint=DisplayState.Family==TEXT("Tool")&&DisplayState.Weapon==TEXT("warhammer")&&
+            (DisplayState.ActionVariant==TEXT("WarhammerSprintLift")||DisplayState.ActionVariant==TEXT("WarhammerSprintSlam"));
+        if(HammerSprint&&!BodyAnimation->bFalling&&bHasSprintBodyLocation&&Delta>SMALL_NUMBER)
+        {
+            // Capsule sweeps and observer network smoothing do not populate
+            // locomotion Velocity. Drive both owner and observer feet by travel.
+            const FVector Travel=Character->GetActorQuat().UnrotateVector(Location-PreviousSprintBodyLocation);
+            BodyAnimation->Speed=Travel.Size2D()<400.f?FMath::Min(float(Travel.Size2D()/Delta),1800.f):0.f;
+            if(BodyAnimation->Speed>3.f)BodyAnimation->Direction=FMath::RadiansToDegrees(FMath::Atan2(Travel.Y,Travel.X));
+        }
+        PreviousSprintBodyLocation=Location;bHasSprintBodyLocation=true;
     }
 }

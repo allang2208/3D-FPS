@@ -9,4 +9,5 @@ class UWarhammerNetworkAuditCommandlet : public UCommandlet
     GENERATED_BODY()
 public:
     virtual int32 Main(const FString& Params) override;
+    int32 AuditSprint(const FString& Params);
 };

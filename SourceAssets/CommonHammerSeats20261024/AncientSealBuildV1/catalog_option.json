@@ -1,0 +1,35 @@
+{
+  "id": "ancient_breaking_seal_seat",
+  "name": "破势古印座",
+  "tier": "special",
+  "description": "古铜包覆锻铁的八棱锤座，凹刻古印以暗朱砂嵌底，细银回纹沿铜壳收边。",
+  "appearance": "古铜锻铁 · 凹刻古印 · 细银回纹",
+  "stats": {
+    "stamina_mult": 1.1,
+    "attack_speed_mult": 0.95,
+    "toughness_damage_mult": 1.05,
+    "physical_damage_mult": 1.05
+  },
+  "effects": [
+    {
+      "text": "体力消耗 +10%",
+      "benefit": -1
+    },
+    {
+      "text": "攻击速度 -5%",
+      "benefit": -1
+    },
+    {
+      "text": "韧性伤害 +5%",
+      "benefit": 1
+    },
+    {
+      "text": "物理伤害 +5%",
+      "benefit": 1
+    }
+  ],
+  "special_effects": [
+    "破势印｜快速近战有效命中目标后施加破势印，持续8秒。目标受到的物理伤害提高15%，受到的韧性伤害提高25%。重复命中刷新时间，效果不叠加。",
+    "共击破势｜印记期间，后续攻击与队友的相应伤害均可受益；原有群体快速近战会分别给实际命中的目标施印。"
+  ]
+}

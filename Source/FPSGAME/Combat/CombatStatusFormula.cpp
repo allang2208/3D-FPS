@@ -1,4 +1,6 @@
 #include "CombatStatusFormula.h"
+#include "AncientBreakingSealComponent.h"
+#include "../Weapons/AncientSealSeat.h"
 #include "../Monsters/M66IncineratorMonster.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
@@ -78,6 +80,16 @@ void UCombatStatusFormula::AddPhysicalVulnerability(float Bonus,float Seconds)
 float UCombatStatusFormula::PhysicalVulnerabilityRemaining() const
 {
     return GetWorld()?float(FMath::Max(0.,PhysicalVulnerabilityEndsAt-GetWorld()->GetTimeSeconds())):0.f;
+}
+float UCombatStatusFormula::BreakingSealRemaining() const
+{
+    const auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>();
+    return Seal?Seal->Remaining():0.f;
+}
+float UCombatStatusFormula::PhysicalVulnerabilityMultiplier() const
+{
+    const float Other=PhysicalVulnerabilityRemaining()>0.f?1.f+PhysicalVulnerabilityBonus:1.f;
+    return Other*(BreakingSealRemaining()>0.f?1.f+AncientSealSeat::PhysicalBonus:1.f);
 }
 void UCombatStatusFormula::AddBleeding(AActor* Source,int32 Stacks)
 {if(!IsImmune()&&Stacks>0){BleedStacks+=Stacks;BleedTime=10;if(BleedTick<=0)BleedTick=1;BleedSource=Source;
@@ -549,6 +561,7 @@ void UCombatStatusFormula::PurgeTransient()
     ComposureStacks=0;ComposureEndsAt=0.;
     TigerRoarBonus=0.f;TigerRoarEndsAt=0.;
     PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;
+    if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();
     ChillTime=HasteTime=ChainTime=ElectrifiedTime=CorrosionTime=VulnerabilityTime=BleedTime=BurnTick=0;
     FrozenTime=StunTime=BindTime=SlowTime=WaxTime=WeaponHasteTime=PetrifyTime=MarkedTime=InspireTime=0;
     CamelTime=ImmuneTime=MineTime=MineTick=RuneVulnerabilityTime=RiposteTime=ShredTime=WardTime=0;
@@ -588,5 +601,6 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     { Mist->ClearBlindness(); ++Cleansed; }
     if(Take()&&TigerRoarRemaining()>0.f){TigerRoarBonus=0.f;TigerRoarEndsAt=0.;Clear(TEXT("tigerRoar"));++Cleansed;}
     if(Take()&&PhysicalVulnerabilityRemaining()>0.f){PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;Clear(TEXT("physicalVulnerability"));++Cleansed;}
+    if(Take()&&BreakingSealRemaining()>0.f){if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();++Cleansed;}
     return Cleansed;
 }

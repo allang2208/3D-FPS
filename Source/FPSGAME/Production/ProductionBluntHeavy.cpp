@@ -30,6 +30,10 @@ void UProductionToolComponent::BeginPrimaryAttack()
 
 float UProductionToolComponent::BluntChargeResume(float Held) const
 {
+    if(bFinalTollHead)
+        return ProductionBluntCombo::RealForWindupClip(
+            FinalTollHeavy::ChargeSource(Held/FMath::Max(.01f,BluntChargeSeconds)),
+            RealContactSeconds(),ContactSeconds,RateScale,0);
     if(Held<=.20f)return 0.f;
     const float Source=WarhammerHeavy::ChargeSource(Held*WarhammerHeavy::ChargeSeconds/BluntChargeSeconds);
     float Low=0.f,High=ContactSeconds;
@@ -108,13 +112,13 @@ bool UProductionToolComponent::GetGroundSlamCameraPitch(float& Pitch,float& Weig
 
 bool UProductionToolComponent::IsGroundSlamActive() const
 {
-    return (bBluntHeavy&&Elapsed>=0.f)||(Character.IsValid()&&Character->HasAuthority()&&
+    return (bBluntHeavy&&!UsesFinalTollHeavy()&&Elapsed>=0.f)||(Character.IsValid()&&Character->HasAuthority()&&
         GetWorld()&&GetWorld()->GetTimeSeconds()<BluntServerGroundSlamUntil);
 }
 
 bool UProductionToolComponent::GetGroundSlamCameraLocation(FVector& Point) const
 {
-    if(!bBluntHeavy||Elapsed<0.f||!CanUse())return false;
+    if(!bBluntHeavy||UsesFinalTollHeavy()||Elapsed<0.f||!CanUse())return false;
     const float Time=AuthoredElapsed();
     // A posture displacement, not recoil: do not scale it by camera shake or
     // feed the posed chest clearance back into this committed eye anchor.

@@ -1,0 +1,38 @@
+{
+  "path": "Content/ColdSteelData/player_body.json",
+  "fields": [
+    {
+      "path": [
+        "clips",
+        "Warhammer.FullBody.FinalTollHeavy"
+      ],
+      "value": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_DirectReuseBodyV5_Default.A_FinalToll_DirectReuseBodyV5_Default"
+    },
+    {
+      "path": [
+        "clips",
+        "Warhammer.FullBody.FinalTollCharge"
+      ],
+      "value": "/Game/Weapons/RuneboundWarhammer20261022/FinalTollDirectReuseV5/A_FinalToll_ChargeBodyV5_Default.A_FinalToll_ChargeBodyV5_Default"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Warhammer.FullBody.FinalTollHeavy"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_d90dea6ca0277666_Warhammer_FullBody_FinalTollHeavy.KGrip_d90dea6ca0277666_Warhammer_FullBody_FinalTollHeavy"
+    },
+    {
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "clips",
+        "Warhammer.FullBody.FinalTollCharge"
+      ],
+      "value": "/Game/Characters/KaitlinPlayer20261023/WeaponContacts20261024/Animations/KGrip_a9d4d1e3cb2f3d6f_Warhammer_FullBody_FinalTollCharge.KGrip_a9d4d1e3cb2f3d6f_Warhammer_FullBody_FinalTollCharge"
+    }
+  ],
+  "note": "Current Kaitlin contact derivatives are retained; V5 production inputs are separate."
+}

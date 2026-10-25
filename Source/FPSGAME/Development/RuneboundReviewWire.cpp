@@ -8,6 +8,7 @@
 
 void ARuneboundReviewController::ClientSetup_Implementation(const FString& Instance,ARuneboundReviewTarget* Target,AFPSGAMECharacter* Host)
 {
+    if(FParse::Param(FCommandLine::Get(),TEXT("HammerSprintWire"))){SetupSprint(Instance);return;}
     if(!RuneboundReview::WireEnabled()||HasAuthority()||Started>=0||!Target||!Host)return;
     auto* AuditPawn=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!AuditPawn||!Model||!Model->IsAudit())return;
@@ -31,6 +32,7 @@ void ARuneboundReviewController::ClientFinish_Implementation(bool Passed)
 }
 void ARuneboundReviewController::Tick(float Delta)
 {
+    if(FParse::Param(FCommandLine::Get(),TEXT("HammerSprintWire"))){Super::Tick(Delta);TickSprint(Delta);return;}
     Super::Tick(Delta);if(!RuneboundReview::WireEnabled()||HasAuthority())return;
     const double Now=GetWorld()->GetRealTimeSeconds();if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
     if(Started<0||!HostSubject||!Subject)return;
@@ -79,6 +81,7 @@ void ARuneboundReviewGameMode::PostLogin(APlayerController* Player)
 }
 void ARuneboundReviewGameMode::Tick(float Delta)
 {
+    if(FParse::Param(FCommandLine::Get(),TEXT("HammerSprintWire"))){Super::Tick(Delta);TickSprint(Delta);return;}
     Super::Tick(Delta);if(!RuneboundReview::WireEnabled())return;
     const double Now=GetWorld()->GetRealTimeSeconds();
     if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}

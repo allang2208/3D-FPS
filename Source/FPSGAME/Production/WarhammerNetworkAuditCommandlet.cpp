@@ -30,6 +30,7 @@
 
 int32 UWarhammerNetworkAuditCommandlet::Main(const FString& Params)
 {
+    if(FParse::Param(*Params,TEXT("SprintOnly")))return AuditSprint(Params);
     const FString Original=FCommandLine::Get(),Slot=TEXT("SkillNetworkAudit_Hammer_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
     FCommandLine::Set(*(TEXT("WarhammerNetworkAudit -ColdSteelProfile=")+Slot));
     auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("WarhammerNetworkAuditWorld"));

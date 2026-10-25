@@ -24,6 +24,10 @@ struct FProductionToolStats
     /** 作者节奏 ÷ 挥砍速度倍率；组件按 RateScale 在作者时间与真实时间之间换算。 */
     double SwingSeconds=1.1, ContactSeconds=.48, RateScale=1;
     double StaminaCost=10;
+    double HeavyReleaseStaminaCost=10;
+    double HeavyDamageMultiplier=1.;
+    /** Warhammer charge clock is independent of its ordinary attack-rate clock. */
+    double HeavyChargeSpeedBonus=0, HeavyChargeSeconds=2;
     double HarvestReachCM=320, HarvestRadiusCM=0, CombatReachCM=180, CombatRadiusCM=0;
     double HarvestYield=1, BonusHarvestChance=0, ToughnessDamage=1, CriticalChanceAdd=0;
     int32 HarvestHitsAdd=0;

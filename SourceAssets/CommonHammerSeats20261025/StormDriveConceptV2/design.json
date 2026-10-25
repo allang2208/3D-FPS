@@ -1,0 +1,44 @@
+{
+  "status": "approved_design_modeled_and_integrated",
+  "generated_source": "C:/Users/allan/.codex/generated_images/01a16bef-e3a7-7721-af44-9bbd1d1917b7/exec-3c49214e-79d9-4bba-986e-dc770a5a185d.png",
+  "modeling_interface_note": "Replace the original head_mount only. Copy each host's native lateral contact planes; the concept assembly does not define extra spacer modules or permission to widen the head assembly.",
+  "proposed_name": "鸣雷疾驱座",
+  "proposed_id": "storm_drive_seat",
+  "slot": "head_mount",
+  "tier": "special",
+  "scope": "shared_two_handed_warhammer_modification",
+  "hosts": [
+    "ue_steel_warhammer",
+    "ue_runebound_warhammer"
+  ],
+  "user_direction": "以闪电为主题，匹配镇魂钟的风格",
+  "suggested_stats": {
+    "heavy_charge_speed_bonus": 0.35,
+    "attack_speed_mult": 1.2,
+    "stamina_mult": 1.3
+  },
+  "values_approved": true,
+  "art_direction": "black forged iron, aged dark bronze pointed gothic ribs, ivory-silver bevels, inset vertical lightning-rune plate, yellow-gold branching electrical arcs",
+  "reference_images": [
+    {
+      "path": "../WindPivotConceptV1/wind_pivot_seat_design_01.png",
+      "role": "previous concept layout and scope; replace the wind design"
+    },
+    {
+      "path": "../../RuneboundWarhammer20261022/FinalTollHammerHeadConcept20261023/final_toll_soul_bell_concept.png",
+      "role": "primary material and gothic form language; paired bell heads in assembly view"
+    }
+  ],
+  "host_interfaces": [
+    "warhammer_factory_v1",
+    "runebound_warhammer_modular_v1"
+  ],
+  "prompt": "prompt.txt",
+  "image": "storm_drive_seat_design_01.png",
+  "generation_tool": "built-in imagegen",
+  "supersedes_direction": "../WindPivotConceptV1/design.json",
+  "model_authored": true,
+  "runtime_integrated": true,
+  "model_revision": "StormDriveBuildV1",
+  "user_visual_acceptance": false
+}
