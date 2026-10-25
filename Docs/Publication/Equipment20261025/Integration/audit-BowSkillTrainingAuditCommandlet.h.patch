@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h
++++ b/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h
+@@ -19,4 +19,5 @@
+ public:
+     virtual int32 Main(const FString& Params) override;
+     int32 RunSparrowPresentation(const FString& Params);
++    int32 RunQuiverBelt(const FString& Params);
+ };

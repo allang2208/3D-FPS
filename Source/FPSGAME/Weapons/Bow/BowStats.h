@@ -19,6 +19,8 @@ inline bool IsPerfectRelease(float Elapsed,float FullDrawSeconds)
 }
 // Below half draw no arrow can launch. Half draw deals 50%, full draw 150%.
 float DrawDamageMultiplier(float DrawFraction);
+// Equipment speed divides the nocking clock; 50% faster means time / 1.5.
+double NockSpeedMultiplier(const UColdSteelStatusModel* Profile);
 struct FStats
 {
     // Full-draw panel; the shot snapshot remains the uncharged weapon baseline.

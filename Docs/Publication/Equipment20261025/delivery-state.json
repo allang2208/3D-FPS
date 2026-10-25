@@ -1,0 +1,124 @@
+{
+  "receipts": [
+    {
+      "path": "SourceAssets/GarmentWaist20261023/published.json",
+      "sha256": "4cde758db92147a0914e2bc202c887b650c8e88d1299cdc0c138b27787dd3821",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/ST6LowerDetail20261024/published.json",
+      "sha256": "72e6b1b41fec9906adabc68383aa7c76d35d277f8623c7427f99c2184eae5a93",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/WorkwearSet20261024/published.json",
+      "sha256": "22e0f36a96df0ae1f49c4b4b1865b9e82247e9607503593aafc24d8b659c2771",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/SportsCap20261024/published.json",
+      "sha256": "aec398c80f224e81482934a14b8cc6d05fb381ff8b9d1c9add35daa18eeda9eb",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/TacticalMagazineBelt20261024/published.json",
+      "sha256": "d085b89da0bbc141e36fb798ccd94457bca4de14c2d8337fcc08ac7a3783b920",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/LeatherQuiverBelt20261025/published.json",
+      "sha256": "751769d3aaf433e35494c1ffa002efd511d043cb8a33874442d7cdab0e2814b9",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/OutdoorWorkSet20261024/published.json",
+      "sha256": "526ff0dba9c6aec95eb7b80378582d8b8219e0857d660304b89813666895091e",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/ST6Beret20261023/SurfaceV2/published.json",
+      "sha256": "373c04b35d3097f11970775dd1f97a8740fca6e92995a7a5452fe0d09f8a2360",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/LeatherQuiverBelt20261025/Audit20261025/summary.json",
+      "sha256": "15f290c308bdd6c9a979b819b6d895aa461e800cfbd3d218d232146b0d934a7e",
+      "completed": true,
+      "historical": true
+    },
+    {
+      "path": "SourceAssets/TacticalMagazineBelt20261024/Review20261024/review_summary.json",
+      "sha256": "e85592bad5a97fc307abcfff30c3337fb57e8d3141cb8c98a952a824602a0b58",
+      "completed": null,
+      "historical": true
+    }
+  ],
+  "quiver_audit": {
+    "completed": true,
+    "catalog_checks": 43,
+    "isolated_checks": 64,
+    "commandlet_exit_code": 0,
+    "build": {
+      "results": [
+        {
+          "target": "FPSGAMEEditor",
+          "exit_code": 0,
+          "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeatherQuiverBelt20261025\\Audit20261025\\Logs\\quiver-audit-network-migration-FPSGAMEEditor.log"
+        },
+        {
+          "target": "FPSGAME",
+          "exit_code": 0,
+          "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LeatherQuiverBelt20261025\\Audit20261025\\Logs\\quiver-audit-network-migration-FPSGAME.log"
+        }
+      ],
+      "completed": true,
+      "runtime_tested": false
+    },
+    "issues_fixed": [
+      {
+        "issue": "Remote bow clip rate omitted the stage action multiplier",
+        "source": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp"
+      },
+      {
+        "issue": "Old belt bonus and enhancement metadata were only refreshed by local reload, not guest shadow or mirror adoption",
+        "source": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp"
+      }
+    ],
+    "earlier_failure_receipt": "after-fix/result.json",
+    "final_runtime_receipt": "network-migration-fixed/result.json",
+    "source_sha256": {
+      "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp": "66e2d3941c13e7aa9658f93a592f48fdf1aeef6d8dd6ac0a4891535f480c7411",
+      "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": "8ca4be419dc260a8674cf28f1e58c63b9deda17464d621795b9951846b1f0e14",
+      "Source/FPSGAME/Skills/QuiverBeltAudit.cpp": "d8a61cbc1ca3b567fc366cf8fe93b09e27dcc2e0b4033c3b76498cb7e3c01134"
+    },
+    "coverage": [
+      "catalog paths and saved source LOD hashes",
+      "levels 0/1/14/15 and over-cap clamping",
+      "manual/quick/chain nock clocks",
+      "equip/unequip and in-progress action clocks",
+      "actual enhancement charge and isolated save reload",
+      "guest and owner old-item migration",
+      "catalog replacement of incorrect serialized bonus",
+      "tactical belt growth migration",
+      "guest authoritative draw and ammunition spend",
+      "duplicate release rejection",
+      "Jason/Kaitlin decorative arrow visibility and component teardown"
+    ],
+    "not_run": [
+      "UDP host/client transport",
+      "cross-machine join/rejoin",
+      "packet delay or loss",
+      "rendered outfit clipping and motion",
+      "packaged game"
+    ]
+  },
+  "new_gameplay_tests_this_publication": false
+}

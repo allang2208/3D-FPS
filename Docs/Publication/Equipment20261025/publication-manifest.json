@@ -1,0 +1,707 @@
+{
+  "base_head": "3e5bdf33062650ba4d83c9989e2353a594091f20",
+  "origin": "https://github.com/allang2208/3D-FPS.git",
+  "branch": "main",
+  "scoped_index_candidates": true,
+  "shared_working_sources_overwritten": false,
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "blob": "b89dc56c07a4f400bd260193d60855fd9de4a3a3"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "blob": "ae0280d32653f5cb988e4b5d2747971724bc0d6f"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "blob": "709260aacb00bf15fb718228b4f316598233b39e"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.cpp",
+      "blob": "6acccd25fc0e03744fec4816dc119437e838943a"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.h",
+      "blob": "35a5863adcdb22cf66a7806728ec7aedbb8e48b7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "blob": "3a1f47189a06e409e7bf693d610a076594815660"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "blob": "38ca88eae1a9cab00072c954b697dd0a44982e54"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "blob": "e95bdccef2467a233be8d95d259ece1193374cd8"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "blob": "0fe9bda4b6724efca1b54240a68e58caf2d3e1c6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "blob": "219285436c709ed939fabdbc7d70cb09a9654576"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "blob": "be0e11dc426319907f9772497070712dffd97055"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "blob": "866deafca45f0f36d16189d141ae62fcccdb90b0"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "blob": "2bd53831eeb92e46b12129bd3c8de5e9915cd746"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+      "blob": "628e422613ef224df1a9adb4997b2751f624c250"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "blob": "2f8ae2fdb3261fe7765914233b2cd937d75b2030"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "blob": "c2f492436bffa0256a3ed9852e3385a6dc611fff"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "blob": "398002d484a777ad50349975ce2e3137349a9a28"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+      "blob": "35418f470064fdd2a552424509a551cdc4240844"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "blob": "016a489990f0dcb490936bbd18a3e09fa60200cb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "blob": "922fe0491c667ecdc2dd2408119e02471dcd7c6f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "blob": "8349bb4099117d833b05fea60a6ed1a7a3714b52"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PanChiGuardComponent.cpp",
+      "blob": "b1d4e159f9b81267165d90f0ceaf9fac419c93fb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "blob": "e83b50e804ab2048e72b7b7be8cc9e0ba0c95ce6"
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.cpp",
+      "blob": "2d11817dd712ca3108e68060dc54399f3cd9ed3e"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.h",
+      "blob": "712319af82fa81ae68643421cfa3a2168d455596"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "blob": "8e23ec9c7b1f58066b286d6409793cdbe18814e9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "blob": "ae9e6cde322747d19b7bac4ef7f069f9aa5340e4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "blob": "3dffbd31a20c337386dc9261f79d26e77c6e6dbb"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "blob": "2c383b2f24fe8bb175bfb605f5d83ad865b9ac26"
+    },
+    {
+      "path": "Content/ColdSteelData/source-combat-items.json",
+      "blob": "a4a99364ecbc5744a03ae4ffc80fcdcf42bb7aa3"
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "blob": "508dce0b361e7a212b759e26c052b9fe52188b45"
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "blob": "23600f128af478b16f935b128b106565702d3aff"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/SKILL.md",
+      "blob": "7ced3ae2ab994a1c912d7db01961089a810bbb56"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/SKILL.md",
+      "blob": "e34c2d81095ccd89cd198ab9e24be16af2372647"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "blob": "2e7654b4960493044dfe5a7b26bcabe65b920e38"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/head-equipment-and-inventory-icons.md",
+      "blob": "772d366fb16827683a49e3008809fb30b4e1e319"
+    },
+    {
+      "path": ".gitignore",
+      "blob": "f2813d2e25c9da9e9fee6f38a60287c2d82193cb"
+    },
+    {
+      "path": ".gitattributes",
+      "blob": "b8eb60524b4d2f36f94378c8ce1bd26e394f3a36"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "blob": "495ec78a3c72357ca3ec711ed4b72de6ba92a9fa"
+    },
+    {
+      "path": "Tools/GarmentWaist/run.ps1",
+      "blob": "725ac5045a27e3fc1c2a81a8e190d9196a41c4fa"
+    },
+    {
+      "path": "Tools/WorkwearSet/run.ps1",
+      "blob": "8b4babaaf68a0635c89a4585734a60a3ff42c8b5"
+    },
+    {
+      "path": "Docs/Characters/charcoal-sports-cap-20261024.md",
+      "blob": "0cbd02b0f5dff95c09e2249617bb51544ddcfe9b"
+    },
+    {
+      "path": "Docs/Characters/garment-waist-workflow.md",
+      "blob": "502b0e58b20ca90782a18fd305faa0dacd7fc1ba"
+    },
+    {
+      "path": "Docs/Characters/headwear-hair-workflow.md",
+      "blob": "9bf8d82a1743f41b378f90ae9ca3c84cde5d0f36"
+    },
+    {
+      "path": "Docs/Characters/outdoor-work-set-effects-20261024.md",
+      "blob": "0e5e644160b70dc020f45085ab29a5887e87a685"
+    },
+    {
+      "path": "Docs/Characters/st6-beret-model-20261023.md",
+      "blob": "7b9918f82acdd929a1eb593f7e462b713998b549"
+    },
+    {
+      "path": "Docs/Characters/st6-lower-detail-and-icons-20261024.md",
+      "blob": "b18f65d30117357e31ef59218e752f1e0aacb10b"
+    },
+    {
+      "path": "Docs/Characters/workwear-set-20261024.md",
+      "blob": "4a1d47fe93b664a2c14d6f26f8a9acdbb8c9faa0"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/01-FPSStaminaModel-workwear-action-cost.patch",
+      "blob": "34907639ba4f5bf722680bd335ffb6f53abf12a2"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/02-ColdSteelHeavyStrikeModel-workwear-action-cost.patch",
+      "blob": "97a4ae3d768e099e3fd349231b74b274b1d89d64"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/03-MeleeWeaponStats-workwear-action-cost.patch",
+      "blob": "e6a14b457473f9dbd3ca85df2def4b68a0b89106"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/04-FPSPlayerBodyBow-remote-stage-clock-with-lightning-haste.patch",
+      "blob": "54e6292daee28ab6b60d3789d379ff9e9f649662"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/05-ColdSteelItemTooltipSummary-workwear-tooltip-table.patch",
+      "blob": "a7ff73db06ce35b15309bdcb3dbf4e18d2f42ad4"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/06-ColdSteelItemTooltipSummary-workwear-tooltip-routing.patch",
+      "blob": "c1abf08aa4be2d82bf3b0635e7a747b1f3748286"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/07-ColdSteelItemTooltipSummary-workwear-tooltip-routing.patch",
+      "blob": "23e38fcb4696e0087bb39be44157db09bddfd22e"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/QuiverBeltAudit.cpp",
+      "blob": "792f4b02cf3d1f69fa4041e0de6a6f55c5afbb12"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/audit-BowSkillTrainingAuditCommandlet.cpp.patch",
+      "blob": "cea300a14c7fa2c379947e22e845ab04da660710"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/Integration/audit-BowSkillTrainingAuditCommandlet.h.patch",
+      "blob": "77b573ec45da305b47ea090f2aac61e67c2abf33"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/README.md",
+      "blob": "0e30e86e6c4296874189a07d08b6727523249ade"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/archive-manifest.json",
+      "blob": "a55af2c7fc7f18ec1e588be0af8f9b7a59537bf2"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/delivery-state.json",
+      "blob": "0c3443e7e09f574fd6a52c4eff9997a870a45258"
+    },
+    {
+      "path": "Docs/Publication/Equipment20261025/source-scope.json",
+      "blob": "b1dd0a58475b4009226198addf1b49c71883b290"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSQuiverMotion.cpp",
+      "blob": "28e90943cac94767e0763e7162af1a93ac3d4bef"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSQuiverMotion.h",
+      "blob": "d32f5de3f0c5f380b682593fb1bea5d8bf01d0bb"
+    },
+    {
+      "path": "SourceAssets/LeatherQuiverBelt20261025/README.md",
+      "blob": "121653a0ee63c28a8f82f12b946b4c42ffd30419"
+    },
+    {
+      "path": "SourceAssets/TacticalMagazineBelt20261024/README.md",
+      "blob": "0eba9d41e0b8a1394868828fa6ae399f463216ef"
+    },
+    {
+      "path": "Tools/FieldHat/author_boonie.py",
+      "blob": "68e6b77f9809f1342fb507999c92d8a92e780a8f"
+    },
+    {
+      "path": "Tools/FieldHat/inspect_icon.py",
+      "blob": "ae0b4b815fcf2ffba1b63f8478d3257e7c975638"
+    },
+    {
+      "path": "Tools/FieldHat/make_textures.py",
+      "blob": "6f44b27315a5e5157343b4b7e47dec7245aacd22"
+    },
+    {
+      "path": "Tools/FieldHat/publish.py",
+      "blob": "516899dd6d2a9036c47c6ac6e20f4812ed93d9fb"
+    },
+    {
+      "path": "Tools/FieldHat/render_icon.py",
+      "blob": "c6eee8b1de5dba4df71c1169227c9dcd0dcb8d40"
+    },
+    {
+      "path": "Tools/FieldHat/render_worn.py",
+      "blob": "054f08a31d9771130ad4cd0843be2cfb449acd31"
+    },
+    {
+      "path": "Tools/FieldHat/run_asset.ps1",
+      "blob": "db901cee5a3b052a3d8ede7e4599b610d96fa908"
+    },
+    {
+      "path": "Tools/FieldHat/save_assets.py",
+      "blob": "aa20b2beb0ae1b2069743ac52d20e2168b02ed29"
+    },
+    {
+      "path": "Tools/FieldHat/save_icon.py",
+      "blob": "c74cc10db4a8c3415e50f241e65ce2405dee45a1"
+    },
+    {
+      "path": "Tools/FieldHat/verify_assets.py",
+      "blob": "17482cd8c523726a01d73590fd5eeba850487c18"
+    },
+    {
+      "path": "Tools/GarmentWaist/audit_geometry.py",
+      "blob": "afa1226f012b3bff3d90e73554311be234dd5390"
+    },
+    {
+      "path": "Tools/GarmentWaist/audit_routes.py",
+      "blob": "dbab7d6c7fe07b1325ceb7393911df94114cf549"
+    },
+    {
+      "path": "Tools/GarmentWaist/author.py",
+      "blob": "e2270228e2f5b7263a7cb1ff5fd4b7f1de5b9c15"
+    },
+    {
+      "path": "Tools/GarmentWaist/capture.py",
+      "blob": "79bd05460f661e5eeb0fa595977715eb1faebf2f"
+    },
+    {
+      "path": "Tools/GarmentWaist/policies.json",
+      "blob": "36ddd272c44d1c599fc8456536e0834fbeb2a147"
+    },
+    {
+      "path": "Tools/GarmentWaist/publish.py",
+      "blob": "0566fde18682f638940f114fa2c2558ee0644f31"
+    },
+    {
+      "path": "Tools/GarmentWaist/run_asset.ps1",
+      "blob": "190f3a6d0265a5ebc87c5a364903badc1bf046f6"
+    },
+    {
+      "path": "Tools/GarmentWaist/save.py",
+      "blob": "441f5605839d133306f453c4014632943ce8c937"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/audit_catalog.py",
+      "blob": "c89dd857fa0df6ad3dcd6bf77a5162ac7c8879d6"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/author.py",
+      "blob": "cbf74b067afd50df58c0be56236e261b6c414f1b"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/build.ps1",
+      "blob": "368b92d0a72a8a00928d4c42d0365e57224b9272"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/build_audit.ps1",
+      "blob": "79d8778746d0c321b83874485e9544192e8cadf4"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/build_bow_bonus.ps1",
+      "blob": "7a82f00357d2f4f921e211768e82b01e79774ce5"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/build_bow_bonus_game.ps1",
+      "blob": "e41bd8a224f1f532a098a8236bff11197c130c92"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/finalize.py",
+      "blob": "b18e9427600485c254e85c64f55e0d23960b6973"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/make_textures.py",
+      "blob": "dac489fdbfbc0daa9895d13b9bd01b67c01f8d58"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/motion_material.py",
+      "blob": "f6e910238b7bd631cebe2161f892cc401647ebe9"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/native_fit.py",
+      "blob": "9fb4a2fe4232fb6e9be73055e94c6bb9956e0974"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/prepare_delivery.py",
+      "blob": "0809fcf476884c3815ec8933c3b351c8cc357175"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/publish.py",
+      "blob": "d845b6c089581ee477cd03eb1867216847a16f0b"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/render_preview.py",
+      "blob": "3fc95646afb54a7f3252f1c513d1fe845990b700"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/run.ps1",
+      "blob": "9384f0bc214eaded6dc94c05654dd6d4adf837f4"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/run_asset.ps1",
+      "blob": "0dfbc4423c77d6d55672b0fa93e508c1df5ca1f0"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/run_audit.ps1",
+      "blob": "1f8eff518615716140e33ec4de68b040cfc3031f"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/save_assets.py",
+      "blob": "a6a6508e18a48c3953dc86b71db01c9ade6228b2"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/save_static_assets.py",
+      "blob": "c5b7294228b08eed8266db3b11d27ff699dcabab"
+    },
+    {
+      "path": "Tools/LeatherQuiverBelt/set_bow_bonus.py",
+      "blob": "731c19a42903d4683f0be17e1047f4f3542f30e8"
+    },
+    {
+      "path": "Tools/PlayerBody/repair_open_hat_hair.py",
+      "blob": "8e2646cdebfe114ab2d2c516bc4023293903ea2c"
+    },
+    {
+      "path": "Tools/ST6Beret/author.py",
+      "blob": "783d145f31f6699dad65ec27f982049de56dd0b9"
+    },
+    {
+      "path": "Tools/ST6Beret/build.ps1",
+      "blob": "6878313bf2ad0125cada4ae7af910a6f39324839"
+    },
+    {
+      "path": "Tools/ST6Beret/make_textures.py",
+      "blob": "4c83c8b24875fefa1ce1ee627b071cdeb879e0db"
+    },
+    {
+      "path": "Tools/ST6Beret/prepare_delivery.py",
+      "blob": "7f55a796a6f7b588aa47156f926b855666563652"
+    },
+    {
+      "path": "Tools/ST6Beret/publish.py",
+      "blob": "db66892e0556b232f735d2e0dbdb554854035b5e"
+    },
+    {
+      "path": "Tools/ST6Beret/run_asset.ps1",
+      "blob": "44c259e80ebcf7368cdbda453c71266aae4bba70"
+    },
+    {
+      "path": "Tools/ST6Beret/save_assets.py",
+      "blob": "ee963a2765ef98bf9b2f7e01969c54530be8ab91"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/author_detail.py",
+      "blob": "b89d54f234fa060624514b6b0781f1a31684d444"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/build.ps1",
+      "blob": "9c00cd88db11f57f1c61685814de097e5559a44f"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/fit_kaitlin.py",
+      "blob": "c3cae69434294abce83a31583db4e3f811f910af"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/make_textures.py",
+      "blob": "094ee4253e7c108b192f1386476ced8e4d2a8b0b"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/prepare.py",
+      "blob": "c504dfa280997f29088dc63616a62df867a903a9"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/publish.py",
+      "blob": "1f37c705e2dd1b6e67262fc4a6b0fc0171854828"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/run_all_assets.ps1",
+      "blob": "9c6a197c3b0e6c1bdb37b1a5e167d6fec8d4d0ff"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/run_asset.ps1",
+      "blob": "34b5cbeee0247b3be32a7c4ac448301230736f41"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/save_assets.py",
+      "blob": "37ec482732f78330270ee8c7c420c44f8c5b1333"
+    },
+    {
+      "path": "Tools/ST6LowerDetail/save_editable_icons.py",
+      "blob": "69b5313f3f76f1d1019ec1cc3ea2074a6a01a92d"
+    },
+    {
+      "path": "Tools/SportsCap/author.py",
+      "blob": "923ea30576b49839f5810836281faa2d4e100dca"
+    },
+    {
+      "path": "Tools/SportsCap/integrate.ps1",
+      "blob": "63f80f093750733a13718a8d73feb4bf0b4492a6"
+    },
+    {
+      "path": "Tools/SportsCap/make_textures.py",
+      "blob": "9ebb8328447bc88c65d051b67afceb62a5d27443"
+    },
+    {
+      "path": "Tools/SportsCap/prepare_delivery.py",
+      "blob": "60501bdfd5280869f6bda44bf9fe1a82cacb0946"
+    },
+    {
+      "path": "Tools/SportsCap/publish.py",
+      "blob": "e8f505a2796eccbb22a8a4534f652e305816fb9b"
+    },
+    {
+      "path": "Tools/SportsCap/run.ps1",
+      "blob": "c219689f63c8c120c14b44a25d38f3e40741097d"
+    },
+    {
+      "path": "Tools/SportsCap/run_asset.ps1",
+      "blob": "7ed4426b8608938bbb9aaf0993d07ddee62eec2f"
+    },
+    {
+      "path": "Tools/SportsCap/save_assets.py",
+      "blob": "2434a942a9ebd9757b4ed3c41a30e5d49495576f"
+    },
+    {
+      "path": "Tools/SportsCap/save_in_namespace.py",
+      "blob": "406fe800482cf1e404530f4e6b898ca7f1bdc2f7"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/ReviewPlugin/Source/TacticalBeltReview/Private/TacticalBeltReview.cpp",
+      "blob": "aba614ae0570374276c618b1995065fd03f67e4d"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/ReviewPlugin/Source/TacticalBeltReview/TacticalBeltReview.Build.cs",
+      "blob": "b868685342971e696f07bb91eea6c1ab16274911"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/ReviewPlugin/TacticalBeltReview.uplugin",
+      "blob": "630159f4cd8674b4457f68e3c2f19af1938cf1ea"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/author.py",
+      "blob": "3c6cf6ef3e782259cc2063fe2008f6bbed54749e"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/build.ps1",
+      "blob": "6999458cd4db41ba2f5fad4a1fb2ca433da5e454"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/integrate.ps1",
+      "blob": "8173b08a90d429a443c9a4b7af4d603ee4e59315"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/make_textures.py",
+      "blob": "e1d171b5dc80335e8308a773f490d14ddce8f2f8"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/prepare.py",
+      "blob": "5626fb0621c95b22a8cca618ab2b5b2f233ef228"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/prepare_delivery.py",
+      "blob": "1ba4c45f0f128548b7382dbee1c6d8efe0f6cf24"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/primitives.py",
+      "blob": "365c8f17316c62813a096a5d617666754a416349"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/publish.py",
+      "blob": "aca9f660ada0916447b07917320a445443dfb8fc"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/repair_build_entry.py",
+      "blob": "ff74590030290df7524fef0885c5d97b9526dfe6"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/repair_saved_build.py",
+      "blob": "89c7c09e0659452737aedc269a1071d98d219176"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/review_assets.py",
+      "blob": "9f835d08d186602a523c38f025eaeea7995fac50"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/review_assets_entry.py",
+      "blob": "e2ec2c2a2f3b6c530556e4fd70330767b9a5b62c"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/review_curve_entry.py",
+      "blob": "0b5c9dae61d6beb9816d4ccdfd19cbd97e94e864"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/review_curve_metadata.py",
+      "blob": "6798974d11bbbfc32413c947288087d5aff4c82b"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/run.ps1",
+      "blob": "fbee772a63c6255ced0bae4f962a691dc1933a1c"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/run_asset.ps1",
+      "blob": "1ab1180a96278219234bd3093b81c5b3f8eb3bd3"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/run_review_network.ps1",
+      "blob": "1f051b66c60b85c812a45cc43a0344c60dc7c2ac"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/save_assets.py",
+      "blob": "24593221d4c279760ddf5e62f0e9fffe80eec5b6"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/save_in_namespace.py",
+      "blob": "6829a3424215fc809f068f4b913ad79a984364b2"
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/set_reload_bonus.py",
+      "blob": "11df5804412670fd7cb285025b1a324d2a20f2bf"
+    },
+    {
+      "path": "Tools/WorkwearSet/author_hat.py",
+      "blob": "04ab039f12d9877e8794da95ad664af61ddc4ae1"
+    },
+    {
+      "path": "Tools/WorkwearSet/author_jacket.py",
+      "blob": "f06d0d0106dd6f2740fb4dbe8e5cd57be51cb445"
+    },
+    {
+      "path": "Tools/WorkwearSet/build.ps1",
+      "blob": "17b7d03c0853ade7f77018603fdc58d942f11e8c"
+    },
+    {
+      "path": "Tools/WorkwearSet/end_play.py",
+      "blob": "13dd552db6b5fb44a4d8d07a6ecf39b56eba2aa9"
+    },
+    {
+      "path": "Tools/WorkwearSet/export_jacket.py",
+      "blob": "1ce91bc86e2cba3aaa3f6b16d563fc5bb8246151"
+    },
+    {
+      "path": "Tools/WorkwearSet/finish_assets.ps1",
+      "blob": "18f1d0fac2769057d1975c38b7c846f691083a5a"
+    },
+    {
+      "path": "Tools/WorkwearSet/fit_kaitlin.py",
+      "blob": "ebc077fd0cbb652228028e7815279e4aeecfbb62"
+    },
+    {
+      "path": "Tools/WorkwearSet/make_textures.py",
+      "blob": "9fc426197dc34a7e50d572304211d3204c650b1e"
+    },
+    {
+      "path": "Tools/WorkwearSet/prepare.py",
+      "blob": "0c7f40b2c41c0535c569249d95d66009aa91a82b"
+    },
+    {
+      "path": "Tools/WorkwearSet/publish.py",
+      "blob": "195eab85e0add5711b81f9e6427c46252ea6bae3"
+    },
+    {
+      "path": "Tools/WorkwearSet/publish_outdoor_effects.py",
+      "blob": "957a786695bf9b96e8af906517a1279cba94ffc6"
+    },
+    {
+      "path": "Tools/WorkwearSet/run_asset.ps1",
+      "blob": "da869199f2d990aa3b8ce91c868a262f916a6fa9"
+    },
+    {
+      "path": "Tools/WorkwearSet/save_assets.py",
+      "blob": "461fa73bc61fe2d0c6a400bfe21345860c4b922c"
+    },
+    {
+      "path": "Tools/WorkwearSet/save_display.py",
+      "blob": "c99e8d68e862e0f109dbe2f0a8ae77255e49d6ee"
+    },
+    {
+      "path": "Tools/WorkwearSet/save_hat.py",
+      "blob": "b83f9b0ac2cd78f39dac41a00cf62ee5bb7d202c"
+    },
+    {
+      "path": "Tools/WorkwearSet/workwear_common.py",
+      "blob": "9b1bc0615be40f6aca0b45900f446a724bab9caa"
+    },
+    {
+      "path": "Tools/WorkwearSet/workwear_inventory.py",
+      "blob": "d2b029d96c817b528ea72a3e2f85bef0ffc45025"
+    },
+    {
+      "path": "Tools/WorkwearSet/workwear_materials.py",
+      "blob": "e71fbf44a946c3d3873b874f70e3f67fe95133f2"
+    },
+    {
+      "path": "skills/ue5-clothing-workflow/SKILL.md",
+      "blob": "5fb7d9d96ed391f0d04f3ce80b3fd46f472d381f"
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/belts-and-quivers.md",
+      "blob": "83d21e6d00176e2ae7a76b1440e1df203eac97d6"
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/equipment-tuning-and-clocks.md",
+      "blob": "7ea7c51e2fa4f7a40a099515fa4466a8b5df7d74"
+    }
+  ],
+  "local_binary_assets_published": false,
+  "gameplay_tests_run": false
+}

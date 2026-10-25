@@ -24,3 +24,9 @@
 运行时代码为 Characters/FPSPlayerHeadEquipment.cpp、FPSHeadEquipmentMeshComponent 和 UI/FPSHelmetVisorWidget；数据为 player_body.json 的 head_equipment。钢盔当前使用 Tools/SteelArmet/*reference* 与 ReferenceMatchV5，初版和 Refined 已退出制作入口。图标共用 Tools/BlueMageSetIcons。配套恢复说明见 Docs/Publication/Outfits20261020/README.md。
 
 公开 Git 只交付原创制作脚本、配方和源码；依赖原生身体的 Blender、FBX、密集几何 JSON、贴图与 UE 包保留本机并列出恢复依赖。历史截图、构建成功与早期联机记录均不能替代当前视觉验收。
+
+## 开放式帽子保留头发（2026-10-25）
+
+`covers_scalp_hair` 在当前运行时隐藏整个 HeadScalpHair groom，不是仅裁掉帽内头发。贝雷帽、奔尼帽、羽饰帽、法师帽和运动帽使用 false；闭面钢盔的覆盖策略单独保留。穿开放帽后女性长发变短，先核对该开关，不要直接删 groom 或更换发型。
+
+根配置与 `body_variants.kaitlin.head_equipment` 都要处理，目录中实际头饰与身体配方交叉列出；未分类头饰保留原设置并报告。更新通过 `Tools/PlayerBody/config_transaction.py` 精确提交所属键，复用工具 `repair_open_hat_hair.py`。当前配置在角色 BeginPlay 读取；写盘不证明已生成角色实时刷新，保留头发也不证明帽口动态无穿模。

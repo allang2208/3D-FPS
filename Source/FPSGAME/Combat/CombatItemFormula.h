@@ -6,4 +6,6 @@ namespace CombatItemFormula
     TSharedPtr<FJsonObject> Read(const FColdSteelItem& Item);
     // Same catalog defaults; immutable result reused until definition or payload changes.
     TSharedPtr<const FJsonObject> ReadOnly(const FColdSteelItem& Item);
+    // Equipment bonus growth and its preview use the same item-specific limit.
+    double EquipmentEnhancementLevel(const TSharedPtr<const FJsonObject>& Data);
 }

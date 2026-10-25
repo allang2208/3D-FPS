@@ -1,6 +1,8 @@
 #include "FPSModularOutfitComponent.h"
 #include "FPSPlayerBodyComponent.h"
 #include "FPSOutfitSecondaryMotion.h"
+#include "FPSQuiverMotion.h"
+#include "Engine/StaticMesh.h"
 #include "FPSOutfitRobeCloth.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -25,10 +27,10 @@ namespace FPSModularOutfit
 TAutoConsoleVariable<int32> CVarBareArmsCandidate(
     TEXT("fps.Outfit.BareArmsCandidate"),0,
     TEXT("1: registered realistic bare arms with modular shirt/gloves unequipped. 0: original source arms."),ECVF_Default);
-FString PresentationKey(USkeletalMeshComponent* Source,FName Shirt,FName Gloves,bool bCandidate,FName Pants=NAME_None,FName Shoes=NAME_None)
+FString PresentationKey(USkeletalMeshComponent* Source,FName Shirt,FName Gloves,bool bCandidate,FName Pants=NAME_None,FName Shoes=NAME_None,FName Belt=NAME_None)
 {
     return Source->GetSkeletalMeshAsset()->GetPathName()+TEXT("|")+Shirt.ToString()+TEXT("|")+Gloves.ToString()
-        +(bCandidate?TEXT("|BareArms"):TEXT("|Default"))+TEXT("|")+Pants.ToString()+TEXT("|")+Shoes.ToString()
+        +(bCandidate?TEXT("|BareArms"):TEXT("|Default"))+TEXT("|")+Pants.ToString()+TEXT("|")+Shoes.ToString()+TEXT("|")+Belt.ToString()
         +(Source->ComponentHasTag(TEXT("SharedOwnerBody"))?TEXT("|SharedOwnerBody"):TEXT(""));
 }
 TSharedPtr<FJsonObject> Object(const TSharedPtr<FJsonObject>& Parent,const FString& Key)
@@ -91,7 +93,7 @@ void UFPSModularOutfitComponent::RefreshInventory()
     if(!InventoryChanged.IsValid())
         InventoryChanged=Model->OnChanged.AddUObject(this,&UFPSModularOutfitComponent::RefreshInventory);
     TMap<int32,FName> Next;
-    for(const auto& Item:Model->Items())if(Item.Place==1&&(Item.Cell==3||Item.Cell==7||Item.Cell==13||Item.Cell==15))Next.Add(Item.Cell,FName(*Item.Definition));
+    for(const auto& Item:Model->Items())if(Item.Place==1&&(Item.Cell==3||Item.Cell==7||Item.Cell==10||Item.Cell==13||Item.Cell==15))Next.Add(Item.Cell,FName(*Item.Definition));
     if(Next.OrderIndependentCompareEqual(Equipped))return;
     Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;
 }
@@ -110,7 +112,7 @@ void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>
     const auto* Pawn=Cast<APawn>(GetOwner());
     if(Pawn&&Pawn->IsLocallyControlled()){RefreshInventory();return;}
     TMap<int32,FName> Next;
-    for(const auto& Item:Outfit)if(Item.Slot==3||Item.Slot==7||Item.Slot==13||Item.Slot==15)Next.Add(Item.Slot,Item.Definition);
+    for(const auto& Item:Outfit)if(Item.Slot==3||Item.Slot==7||Item.Slot==10||Item.Slot==13||Item.Slot==15)Next.Add(Item.Slot,Item.Definition);
     if(!Next.OrderIndependentCompareEqual(Equipped)){Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;}
 }
 void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
@@ -129,6 +131,7 @@ void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
     if(auto* Source=P.Source.Get();Source&&Source->GetSkeletalMeshAsset()==P.SourceAsset)
         for(int32 L=0;L<P.PreviouslyVisible.Num();++L)
             for(const int32 Material:P.PreviouslyVisible[L])FPSModularOutfit::Section(Source,Material,L,true);
+    P.QuiverMotion.Reset();
     for(auto Part:P.Parts)if(IsValid(Part))Part->DestroyComponent();
     P.StairSections.Reset();
     P.RobeHem.Reset();
@@ -170,6 +173,7 @@ void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActo
     for(auto& P:Presentations)
     {
         FollowVisibility(P);
+        if(P.QuiverMotion)P.QuiverMotion->Tick(Delta);
         for(auto Part:P.Parts)FPSOutfitRobeCloth::Update(Part,Delta);
         if(P.RobeHem)P.RobeHem->Update(bHideRobeCalves,Delta);
         for(auto& Sections:P.StairSections)
@@ -289,7 +293,8 @@ void UFPSModularOutfitComponent::DiscoverSources()
     const bool bWearingModularOutfit=Object(Recipes,Equipped.FindRef(7).ToString()).IsValid()
         ||(GloveRecipe.IsValid()&&!bRestoreSourceArms);
     const bool bWearingLowerBody=Object(Recipes,Equipped.FindRef(15).ToString()).IsValid()
-        ||Object(Recipes,Equipped.FindRef(13).ToString()).IsValid();
+        ||Object(Recipes,Equipped.FindRef(13).ToString()).IsValid()
+        ||Object(Recipes,Equipped.FindRef(10).ToString()).IsValid();
     bool bNativeBareHandsDefault=false;
     Configuration->TryGetBoolField(TEXT("native_bare_hands_default"),bNativeBareHandsDefault);
     const auto* Pawn=Cast<APawn>(GetOwner());
@@ -328,7 +333,7 @@ void UFPSModularOutfitComponent::DiscoverSources()
         }
         const bool bHasLegs=Source==Body||Source==LowerBody;
         CurrentKeys.Add(PresentationKey(Source,Equipped.FindRef(7),Source==LowerBody?NAME_None:Equipped.FindRef(3),WantsCandidate(Source,Profile),
-            bHasLegs?Equipped.FindRef(15):NAME_None,bHasLegs?Equipped.FindRef(13):NAME_None));
+            bHasLegs?Equipped.FindRef(15):NAME_None,bHasLegs?Equipped.FindRef(13):NAME_None,bHasLegs?Equipped.FindRef(10):NAME_None));
     }
     for(auto It=PendingLoads.CreateIterator();It;++It)
         if(!CurrentKeys.Contains(It.Key())||FailedLoads.Contains(It.Key()))
@@ -407,9 +412,10 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         ?nullptr:GloveRecipe;
     const auto Pants=bHasLegs?Object(Recipes,Equipped.FindRef(15).ToString()):nullptr;
     const auto Shoes=bHasLegs?Object(Recipes,Equipped.FindRef(13).ToString()):nullptr;
+    const auto Belt=bHasLegs?Object(Recipes,Equipped.FindRef(10).ToString()):nullptr;
     bool bCandidate=false;Profile->TryGetBoolField(TEXT("candidate_active"),bCandidate);
     FString Key=PresentationKey(Source,Equipped.FindRef(7),bLowerBody?NAME_None:Equipped.FindRef(3),bCandidate,
-        bHasLegs?Equipped.FindRef(15):NAME_None,bHasLegs?Equipped.FindRef(13):NAME_None);
+        bHasLegs?Equipped.FindRef(15):NAME_None,bHasLegs?Equipped.FindRef(13):NAME_None,bHasLegs?Equipped.FindRef(10):NAME_None);
     auto* Existing=Presentations.FindByPredicate([Source](const auto& P){return P.Source==Source;});
     if(Existing&&Existing->Key==Key)
     {
@@ -501,8 +507,21 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         if(ShoesPath.IsEmpty()&&!(Underlayers&&Underlayers->HasField(SelectedShoes)))return;
         if(!ShoesPath.IsEmpty()){MeshPaths.Add(ShoesPath);MaterialPaths.Add(String(Shoes,TEXT("material")));}
     }
+    const int32 BeltIndex=Belt?MeshPaths.Num():INDEX_NONE;
+    const auto QuiverSettings=Object(Belt,TEXT("quiver_motion"));
+    const FString QuiverArrowPath=String(QuiverSettings,TEXT("arrow_mesh"));
+    if(Belt)
+    {
+        // Waist accessories follow the native world/owner body pose and share
+        // the existing equipment transaction; weapon viewmodels never own them.
+        const FString OwnerBelt=String(Object(Belt,TEXT("owner_body_meshes")),*OutfitRig);
+        MeshPaths.Add(bLowerBody&&!OwnerBelt.IsEmpty()?OwnerBelt:PartMesh(Belt,TEXT("belt")));
+        MaterialPaths.Add(String(Belt,TEXT("material")));
+    }
     TArray<FSoftObjectPath> Paths;
     bool bLoaded=true;
+    if(!QuiverArrowPath.IsEmpty())
+    {Paths.AddUnique(FSoftObjectPath(QuiverArrowPath));bLoaded&=Cast<UStaticMesh>(FSoftObjectPath(QuiverArrowPath).ResolveObject())!=nullptr;}
     for(const FString& Path:MeshPaths)
     {if(Path.IsEmpty())return;Paths.AddUnique(FSoftObjectPath(Path));bLoaded&=Cast<USkeletalMesh>(FSoftObjectPath(Path).ResolveObject())!=nullptr;}
     for(const FString& Path:MaterialPaths)if(!Path.IsEmpty())
@@ -614,6 +633,13 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     else Existing=&Presentations.AddDefaulted_GetRef();
     Existing->Source=Source;Existing->SourceAsset=Source->GetSkeletalMeshAsset();Existing->Key=Key;Existing->bWorld=bWorld;
     Existing->Parts=MoveTemp(NewParts);Existing->HiddenMaterials=Numbers(Profile,TEXT("hide_source_materials"));
+    if(QuiverSettings&&Existing->Parts.IsValidIndex(BeltIndex))
+    {
+        Existing->QuiverMotion=MakeShared<FFPSQuiverMotion>();
+        auto* Leader=bLowerBody&&Source->LeaderPoseComponent.IsValid()?Cast<USkeletalMeshComponent>(Source->LeaderPoseComponent.Get()):Source;
+        Existing->QuiverMotion->Initialize(Leader,Existing->Parts[BeltIndex],QuiverSettings,
+            Cast<UStaticMesh>(FSoftObjectPath(QuiverArrowPath).ResolveObject()),bLowerBody);
+    }
     if(bHasLegs&&WantsRobeStairSupport())
     {
         const TArray<int32> None;

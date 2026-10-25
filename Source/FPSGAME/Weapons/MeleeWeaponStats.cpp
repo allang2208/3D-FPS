@@ -54,8 +54,8 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.BaseReach=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180);
     R.SlashReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach)*R.Modifiers.Range;
     R.ThrustReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach,RuneSwordThrustRhythm::ReachBonus)*R.Modifiers.Range;
-    R.AttackStamina=(Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost)*R.Modifiers.Stamina*Temporary.Stamina;
-    R.BlockStamina=BlockStamina(R.Modifiers);
+    R.AttackStamina=(Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost)*R.Modifiers.Stamina*Temporary.Stamina*(Profile?Profile->ActionStaminaMultiplier():1.f);
+    R.BlockStamina=BlockStamina(R.Modifiers,Profile);
     R.BlockReduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*R.Modifiers.BlockReduction,0.,1.);
     return R;
 }
@@ -75,9 +75,9 @@ double ColdSteelMelee::UppercutReachCM(const UColdSteelStatusModel* Profile,int3
     return ThrustReach*Profile->MasteryEffect(TEXT("swordUppercut"),Level).UppercutReachMultiplier;
 }
 
-double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers)
+double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers,const UColdSteelStatusModel* Profile)
 {
-    return RuneSwordGuardTuning::BlockStamina*Modifiers.BlockStamina;
+    return RuneSwordGuardTuning::BlockStamina*Modifiers.BlockStamina*(Profile?Profile->ActionStaminaMultiplier():1.f);
 }
 
 FMeleeModifiers ColdSteelMelee::EquippedModifiers(const UColdSteelStatusModel* Profile)
@@ -110,17 +110,18 @@ double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteel
     {
         const double Harvest=Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost;
         const auto* Tools=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
-        return Harvest*(Tools?Tools->Calculate(Item->Definition,Tools->Installed(*Item)).Tool.Stamina:1.)*MeleeStaminaScale(Profile);
+        return Harvest*(Tools?Tools->Calculate(Item->Definition,Tools->Installed(*Item)).Tool.Stamina:1.)*MeleeStaminaScale(Profile)*(Profile?Profile->ActionStaminaMultiplier():1.f);
     }
     const double Base=Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost;
     const auto* Gunsmith=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
-    return Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
+    const double Cost=Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
+    return Cost*(Profile?Profile->ActionStaminaMultiplier():1.f);
 }
 
 double ColdSteelMelee::UnarmedAttackStamina(const UColdSteelStatusModel* Profile)
 {
     const double Base=Profile?Profile->StaminaSettings().PunchCost:FColdSteelStaminaTuning{}.PunchCost;
-    return Base*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile);
+    return Base*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile)*(Profile?Profile->ActionStaminaMultiplier():1.f);
 }
 
 FMeleeModifiers ColdSteelMelee::TemporaryModifiers(const UColdSteelStatusModel* Profile)

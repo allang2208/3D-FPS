@@ -17,6 +17,7 @@ class FPSGAME_API UFPSPlayerBodyComponent : public UActorComponent
 {
     GENERATED_BODY()
 public:
+    bool HasBowForPresentation() const { return DisplayState.Family == TEXT("Bow"); }
     UFPSPlayerBodyComponent();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

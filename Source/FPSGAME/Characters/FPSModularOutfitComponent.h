@@ -11,6 +11,7 @@ class USkeletalMesh;
 struct FStreamableHandle;
 class FJsonObject;
 struct FFPSOutfitSecondaryMotion;
+struct FFPSQuiverMotion;
 struct FHitResult;
 
 /** One complete presentation transaction for a weapon rig or the world body. */
@@ -27,6 +28,7 @@ struct FFPSOutfitPresentation
     FString Key;
     bool bWorld = false;
     TSharedPtr<FFPSOutfitSecondaryMotion> SecondaryMotion;
+    TSharedPtr<FFPSQuiverMotion> QuiverMotion;
     TArray<FFPSRobeStairSections> StairSections;
     TSharedPtr<FFPSRobeHemEnvelope> RobeHem;
 };

@@ -31,5 +31,5 @@ namespace ColdSteelMelee
     double HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile);
     double UnarmedAttackStamina(const UColdSteelStatusModel* Profile);
     // 防御受击耐力只吃 BlockStamina 独立乘区，不再跟随全局 Stamina。
-    double BlockStamina(const FMeleeModifiers& Modifiers);
+    double BlockStamina(const FMeleeModifiers& Modifiers,const UColdSteelStatusModel* Profile=nullptr);
 }

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -70,6 +70,7 @@
+     if(Set==TEXT("steel_chainmail"))return TEXT("锁子甲套装");
+     if(Set==TEXT("blue_mage"))return TEXT("法师套装");
+     if(Set==TEXT("st6_tactical"))return TEXT("ST6 战术套装");
++    if(Set==TEXT("workwear"))return TEXT("户外工作套装");
+     return Set;
+ }
+ 

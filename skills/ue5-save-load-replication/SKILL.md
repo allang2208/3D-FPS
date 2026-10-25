@@ -49,3 +49,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 
 补弹后射击被拒、切弹种首发不一致、左轮中断或双枪共享弹池时，读 [手枪装填权威](references/pistol-ammo-authority.md)。表现复制与实际弹药结算分开核对。
 - 性别/头型切换被旧档案回传撤销，或物品操作吞掉外观上传：[外观选择与档案回执](references/appearance-profile-sync.md)。
+
+- 装备数值改版、旧腰带强化迁移及远端动作加速，读取 [装备目录迁移与远端动作时钟](references/equipment-tuning-and-clocks.md)。

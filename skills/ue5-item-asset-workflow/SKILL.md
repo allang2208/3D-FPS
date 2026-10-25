@@ -19,3 +19,5 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 
 - 背包新增、容量、重力与背带动态及联机，读取[背包工作流](references/backpack-equipment.md)；该引用随仓库发布，可在维护源不可用时使用。
 - 新上衣/身体的背包配对，以及贴合投影压薄背带：[厚衣物背带制作](references/jacket-harness-fitting.md)。
+
+- 腰带插槽、男女腰围、右侧箭袋小幅摆动及装饰箭接入，读取 [腰带与箭袋](references/belts-and-quivers.md)。

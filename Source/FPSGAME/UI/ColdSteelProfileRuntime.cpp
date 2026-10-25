@@ -66,6 +66,38 @@ void RefreshSniperTuning(FColdSteelProfile& State,const TMap<FString,FString>& D
         if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
     }
 }
+// Catalog metadata is refreshed without replacing instance state.
+void RefreshBeltTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)
+{
+    for(auto& Item:State.Items)
+    {
+        // Limit parsing to the two authored belts; profile mirrors also contain
+        // large material inventories that do not need equipment migration.
+        if(Item.Definition!=TEXT("ue_leather_quiver_belt")&&Item.Definition!=TEXT("ue_tactical_magazine_belt"))continue;
+        const auto* Definition=Definitions.Find(Item.Definition);if(!Definition)continue;
+        TSharedPtr<FJsonObject> Catalog,Data;FString Slot;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Catalog)||!Catalog
+            ||!Catalog->TryGetStringField(TEXT("equipSlot"),Slot)||Slot!=TEXT("belt"))continue;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)continue;
+        bool Changed=false;
+        for(const TCHAR* Field:{TEXT("bonusStats"),TEXT("bonusPerEnhance"),TEXT("enhancement")})
+        {
+            const TSharedPtr<FJsonObject>* Current=nullptr;const TSharedPtr<FJsonObject>* Authored=nullptr;
+            if(!Catalog->TryGetObjectField(Field,Authored)||!*Authored)continue;
+            FString Expected,Previous;
+            FJsonSerializer::Serialize((*Authored).ToSharedRef(),TJsonWriterFactory<>::Create(&Expected));
+            if(Data->TryGetObjectField(Field,Current)&&*Current)
+                FJsonSerializer::Serialize((*Current).ToSharedRef(),TJsonWriterFactory<>::Create(&Previous));
+            if(Previous!=Expected)
+            {
+                // Catalog was parsed for this item, so no shared definition JSON
+                // is exposed to subsequent instance processing.
+                Data->SetObjectField(Field,*Authored);Changed=true;
+            }
+        }
+        if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
+    }
+}
 void StoreRevolverCaseCount(FColdSteelItem& Item, int32 Count)
 {
     TSharedPtr<FJsonObject> Data;
@@ -197,6 +229,7 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     Shadow->StaffLightSkill=StaffLightSkill;
     auto Migrated=GuestProfile;
     RefreshSniperTuning(Migrated,Definitions);
+    RefreshBeltTuning(Migrated,Definitions);
     ColdSteelItemRarity::Normalize(Migrated.Items);
     ColdSteelProfileRecovery::InterruptedSpells(Migrated,float(ResourceMaximum(Migrated,true)));
     bool FootprintChanged=false;FString FootprintReason;
@@ -211,6 +244,7 @@ void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
 {
     auto Migrated=External;
     RefreshSniperTuning(Migrated,Definitions);
+    RefreshBeltTuning(Migrated,Definitions);
     ColdSteelItemRarity::Normalize(Migrated.Items);
     Publish(Migrated);
 }
@@ -238,6 +272,7 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     else if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_DedicatedServer)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
     RefreshSniperTuning(State,Definitions);
+    RefreshBeltTuning(State,Definitions);
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);
@@ -354,7 +389,11 @@ bool UColdSteelStatusModel::ReloadProfile()
         // The hardknuckle gloves and ST6 sleeves switched from an icon display
         // mesh to catalog PNGs; without the refresh their stored instances keep
         // routing through the mesh path and render blank.
-        if(I.Definition==TEXT("ue_alchemy_spellbook")||I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves"))
+        if(I.Definition==TEXT("ue_alchemy_spellbook")||I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves")||
+            I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
+            I.Definition==TEXT("ue_st6_tactical_boots")||I.Definition==TEXT("ue_field_hat")||
+            I.Definition==TEXT("ue_work_jacket")||I.Definition==TEXT("ue_cargo_pants")||
+            I.Definition==TEXT("ue_boots")||I.Definition==TEXT("ue_original_gloves"))
         {
             // Refresh definition-owned presentation and balance fields; retain instance enhancement.
             const FString* Catalog=Definitions.Find(I.Definition);
@@ -363,7 +402,7 @@ bool UColdSteelStatusModel::ReloadProfile()
                 FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
             {
                 bool Updated=false;
-                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("ue_equipment_icon_mesh")})
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("ue_equipment_icon_mesh"),TEXT("armorSet"),TEXT("setName"),TEXT("setBonusDesc")})
                 {
                     FString Value,Old;Data->TryGetStringField(Key,Old);
                     if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
@@ -375,6 +414,17 @@ bool UColdSteelStatusModel::ReloadProfile()
                     if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Value!=Old))
                     {Data->SetNumberField(Key,Value);Updated=true;}
                 }
+                // Existing ST6 instances follow the upgraded catalog appearance,
+                // including equipment kept in storage or on the ground.
+                if(I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
+                    I.Definition==TEXT("ue_st6_tactical_boots")||I.Definition==TEXT("ue_field_hat")||
+                    I.Definition==TEXT("ue_work_jacket"))
+                    for(const TCHAR* Key:{TEXT("world_mesh"),TEXT("world_material")})
+                    {
+                        FString Value,Old;Data->TryGetStringField(Key,Old);
+                        if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
+                        {Data->SetStringField(Key,Value);Updated=true;}
+                    }
                 double Revision=0,OldRevision=0;
                 Data->TryGetNumberField(TEXT("spellbookStatsRevision"),OldRevision);
                 if(Defaults->TryGetNumberField(TEXT("spellbookStatsRevision"),Revision)&&OldRevision<Revision)
@@ -536,7 +586,7 @@ bool UColdSteelStatusModel::ReloadProfile()
             // defense/bonusStats 与 weaponTypeTag 同类：目录权威数值，实例自身
             // 从不演化（强化走实例的 enhanceLevel，两者只存基础值），所以老存档
             // 里先于数值上表的装备实例也照目录补齐。
-            for(const TCHAR* NumericKey:{TEXT("defense"),TEXT("bonusStats")})
+            for(const TCHAR* NumericKey:{TEXT("defense"),TEXT("bonusStats"),TEXT("bonusPerEnhance"),TEXT("enhancement")})
             {
                 const TSharedPtr<FJsonObject>* CatalogNumeric=nullptr;
                 if(!CatalogData->TryGetObjectField(NumericKey,CatalogNumeric)||!*CatalogNumeric)continue;

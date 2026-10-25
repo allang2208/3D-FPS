@@ -1,5 +1,154 @@
 {
+  "ue_leather_quiver_belt": {
+    "id": "ue_leather_quiver_belt",
+    "name": "皮革箭袋腰带",
+    "category": "equipment",
+    "type": "腰带",
+    "equipSlot": "belt",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 0,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "desc": "野外工坊制作的栗棕皮革腰带，双道挂环将内衬绒面的箭袋悬在右髋，便于右手取箭。袋口包边、分隔衬片与底部加固保留了耐用的手工结构，行走时沉稳地随身摆动。",
+    "ue_icon": "Icons/LeatherQuiverBelt20261025/ue_leather_quiver_belt.png",
+    "icon_fallback": "带",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/LeatherQuiverBelt20261025/Pickups/SM_LeatherQuiverBelt.SM_LeatherQuiverBelt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0,
+    "bonusStats": {
+      "bowNockSpeed": 0.5,
+      "bowDrawSpeed": 0.05
+    },
+    "bonusPerEnhance": {
+      "bowNockSpeed": 0.02,
+      "bowDrawSpeed": 0.01
+    },
+    "enhancement": {
+      "maxLevel": 15
+    }
+  },
+  "ue_tactical_magazine_belt": {
+    "id": "ue_tactical_magazine_belt",
+    "name": "战术弹匣腰带",
+    "category": "equipment",
+    "type": "腰带",
+    "equipSlot": "belt",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 0,
+    "grid_w": 2,
+    "grid_h": 1,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "desc": "采用双层炭黑织带与分段网眼衬垫的勤务腰带，灰色分体扣具连接两侧弹匣套。四个插槽配有加固织带、内衬及底托，贴合腰线的安装带保留了清晰的装备层次。",
+    "ue_icon": "Icons/TacticalMagazineBelt20261024/ue_tactical_magazine_belt.png",
+    "icon_fallback": "带",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/TacticalMagazineBelt20261024/Pickups/SM_TacticalBelt.SM_TacticalBelt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0,
+    "bonusStats": {
+      "reloadSpeed": 0.025
+    },
+    "bonusPerEnhance": {
+      "reloadSpeed": 0.005
+    },
+    "enhancement": {
+      "maxLevel": 15
+    }
+  },
+  "ue_charcoal_sports_cap": {
+    "id": "ue_charcoal_sports_cap",
+    "name": "炭灰运动帽",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 25,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 2,
+      "perEnhance": 0.4
+    },
+    "desc": "以炭灰尼龙裁片缝制的轻便运动帽，短弧檐遮挡日光，侧面透气孔、内汗带与后部调节织带适合日常奔走。细蓝包边和银色反光片增强辨识，柔软帽体仅提供有限防护。",
+    "ue_icon": "Icons/SportsCap20261024/ue_charcoal_sports_cap.png",
+    "icon_fallback": "帽",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/SportsCap20261024/Pickups/SM_SportsCap_Pickup.SM_SportsCap_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90,
+    "ue_icon_roll": 0
+  },
+  "ue_work_jacket": {
+    "id": "ue_work_jacket",
+    "name": "工装夹克",
+    "category": "equipment",
+    "type": "上衣",
+    "equipSlot": "armor",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 55,
+    "grid_w": 3,
+    "grid_h": 3,
+    "defense": {
+      "base": 8,
+      "perEnhance": 1.2
+    },
+    "desc": "灰卡其油蜡帆布夹克，棕皮肩肘补强，蓝色加固缝线与黄铜扣。立体胸袋、斜插手袋和后背活动褶方便野外作业；收腰下摆与内延片衔接裤腰。",
+    "ue_icon": "Icons/WorkwearSet20261024/ue_work_jacket.png",
+    "icon_fallback": "衣",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/WorkwearSet20261024/Pickups/SM_WorkJacket.SM_WorkJacket",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_field_hat": {
+    "id": "ue_field_hat",
+    "name": "野行奔尼帽",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 28,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 6
+    },
+    "desc": "软冠油蜡帆布奔尼帽，帽冠有自然压褶，窄软檐以多圈压线和包边收束；棕皮帽带、黄铜气眼和后收帽绳与工装夹克搭配。",
+    "ue_icon": "Icons/WorkwearSet20261024/ue_field_hat.png",
+    "icon_fallback": "帽",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/WorkwearSet20261024/Hat/Pickups/SM_FieldHat_Pickup.SM_FieldHat_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
   "ue_st6_tactical_boots": {
+    "ue_icon_roll": 0,
     "id": "ue_st6_tactical_boots",
     "name": "ST6 战术靴",
     "category": "equipment",
@@ -14,16 +163,17 @@
       "base": 8,
       "perEnhance": 1.2
     },
-    "desc": "卡其皮革与深灰织物拼接战术靴，黑色护趾、后跟和踝部支撑，系带鞋面与防滑齿纹鞋底。",
-    "ue_icon": "Icons/ST6LowerSet20261018/ue_st6_tactical_boots.png",
+    "desc": "卡其皮革与深灰织物拼接战术靴，带弧形针脚、加固鞋舌、金属鞋眼及绳端套，分层橡胶沿条与防滑齿纹鞋底。",
+    "ue_icon": "Icons/ST6LowerDetail20261024/ue_st6_tactical_boots.png",
     "icon_fallback": "靴",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Pickups/SM_ST6Boots.SM_ST6Boots",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerDetail20261024/Pickups/SM_ST6_boots.SM_ST6_boots",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Icons/SM_ST6Boots_Display.SM_ST6Boots_Display",
+    "ue_equipment_icon_mesh": "",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": 0
   },
   "ue_st6_tactical_pants": {
+    "ue_icon_roll": 0,
     "id": "ue_st6_tactical_pants",
     "name": "ST6 战术长裤",
     "category": "equipment",
@@ -38,14 +188,14 @@
       "base": 10,
       "perEnhance": 1.2
     },
-    "desc": "深灰防撕裂长裤，贴合腰围与收束裤腿，黑色嵌入式护膝配卡其包边。与硬壳手套、ST6 上衣及战术靴配套。",
-    "ue_icon": "Icons/ST6LowerSet20261018/ue_st6_tactical_pants.png",
+    "desc": "深灰防撕裂战术长裤，配立体腿袋、翻盖扣件、加固套结线和分区护膝。黑色弹力裁片与卡其包边延续 ST6 套装风格。",
+    "ue_icon": "Icons/ST6LowerDetail20261024/ue_st6_tactical_pants.png",
     "icon_fallback": "裤",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Pickups/SM_ST6Trousers.SM_ST6Trousers",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerDetail20261024/Pickups/SM_ST6_pants.SM_ST6_pants",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerSet20261018/Icons/SM_ST6Trousers_Display.SM_ST6Trousers_Display",
+    "ue_equipment_icon_mesh": "",
     "ue_icon_pitch": 0,
-    "ue_icon_yaw": -90
+    "ue_icon_yaw": 0
   },
   "ue_steel_armet": {
     "id": "ue_steel_armet",
@@ -317,6 +467,9 @@
     "ue_icon_yaw": -90
   },
   "ue_boots": {
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
+    "setName": "户外工作套装",
+    "armorSet": "workwear",
     "id": "ue_boots",
     "name": "系带皮靴",
     "category": "equipment",
@@ -361,6 +514,9 @@
     "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Jeans_Display.SM_Jeans_Display"
   },
   "ue_cargo_pants": {
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
+    "setName": "户外工作套装",
+    "armorSet": "workwear",
     "id": "ue_cargo_pants",
     "name": "工装裤",
     "category": "equipment",
@@ -3924,6 +4080,9 @@
     "world_material": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Materials/M4/M_BlackLeatherReliefCuff_M4.M_BlackLeatherReliefCuff_M4"
   },
   "ue_original_gloves": {
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
+    "setName": "户外工作套装",
+    "armorSet": "workwear",
     "id": "ue_original_gloves",
     "name": "厚皮革手套",
     "category": "equipment",
@@ -5532,8 +5691,11 @@
     }
   },
   "ue_st6_tactical_helmet": {
+    "ue_icon_roll": 0,
+    "ue_icon_yaw": -90,
+    "ue_icon_pitch": 0,
     "id": "ue_st6_tactical_helmet",
-    "name": "ST6 战术头盔",
+    "name": "ST6 酒红贝雷帽",
     "category": "equipment",
     "type": "头部装备",
     "equipSlot": "helmet",
@@ -5546,12 +5708,12 @@
       "base": 10,
       "perEnhance": 1.5
     },
-    "desc": "ST6 系列战术头盔，深灰织物护颈搭配卡其硬质盔壳，侧面导轨与耳部护片贴合头型。为近距离交火设计，以轻量化换取长时间持枪与快速出枪。",
-    "icon_fallback": "盔",
-    "ue_icon": "",
-    "world_mesh": "",
+    "desc": "ST6 系列酒红羊毛毡贝雷帽，帽冠自然偏垂，黑色皮革帽箍配双道缝线与后部调节绳；暗银 ST6 盾形帽徽带翼纹浮雕，内侧缝制柔软衬里。",
+    "icon_fallback": "帽",
+    "ue_icon": "Icons/ST6Beret20261023/ue_st6_tactical_helmet.png",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6Beret20261023/SurfaceV2/Pickups/SM_ST6_Beret_Pickup.SM_ST6_Beret_Pickup",
     "world_material": "",
-    "ue_equipment_icon_mesh": ""
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6Beret20261023/SurfaceV2/Icons/SM_ST6_Beret_Icon.SM_ST6_Beret_Icon"
   },
   "ue_simple_sling_bag": {
     "id": "ue_simple_sling_bag",

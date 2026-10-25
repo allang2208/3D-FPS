@@ -80,7 +80,7 @@ FColdSteelSkillEffect UColdSteelStatusModel::DodgeEffect(int32 AtLevel) const
 float UColdSteelStatusModel::DodgeStaminaCost(int32 AtLevel) const
 {
     const auto* Guard=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
-    return StaminaTuning.DodgeCost*(1.f-DodgeEffect(AtLevel).DodgeCostReduction)*(Guard?Guard->DodgeStaminaMultiplier():1.f);
+    return StaminaTuning.DodgeCost*(1.f-DodgeEffect(AtLevel).DodgeCostReduction)*(Guard?Guard->DodgeStaminaMultiplier():1.f)*ActionStaminaMultiplier();
 }
 bool UColdSteelStatusModel::TrainDodge(int32 Amount)
 {
@@ -119,7 +119,7 @@ float UColdSteelStatusModel::QuickCombatStaminaCost(int32 AtLevel,const FMeleeMo
     const int32 L=FMath::Clamp(AtLevel<0?QuickCombatProgress().Level:AtLevel,1,QuickCombatSkill.MaxLevel);
     const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::EquippedModifiers(this);
     const float Reduction=FMath::Clamp(T.StaminaReductionPerLevel*(L-1),0.f,1.f);
-    return T.StaminaCost*(1.f-Reduction)*float(Mods.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina);
+    return T.StaminaCost*(1.f-Reduction)*float(Mods.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina)*ActionStaminaMultiplier();
 }
 bool UColdSteelStatusModel::TrainQuickCombat(int32 Amount)
 {

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -127,7 +127,7 @@
+     const double Cost=Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
+     // 单手近战（尼泊尔弯刀）按双手武器的一半结算：刀更轻、单手发力，不占双手引拍空间。
+     // 倍率放在最后，与装备/临时修正相乘而不是与其叠加覆盖。
+-    return (Item&&ColdSteelInventory::IsOneHandedMelee(*Item)?Cost*OneHandedStaminaRatio:Cost);
++    return (Item&&ColdSteelInventory::IsOneHandedMelee(*Item)?Cost*OneHandedStaminaRatio:Cost)*(Profile?Profile->ActionStaminaMultiplier():1.f);
+ }
+ 
+ double ColdSteelMelee::HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)

@@ -20,6 +20,15 @@ FFormulaBonusJson Read(const FColdSteelItem* I){return I?CombatItemFormula::Read
 FFormulaBonusJson Obj(FFormulaBonusJson O,const TCHAR* K){const TSharedPtr<FJsonObject>* V=nullptr;return O&&O->TryGetObjectField(K,V)?*V:nullptr;}
 double Num(FFormulaBonusJson O,const TCHAR* K,double Default=0){double V=Default;if(O)O->TryGetNumberField(K,V);return V;}
 double Now(){return FDateTime::UtcNow().ToUnixTimestamp();}
+bool WorkwearComplete(const UColdSteelStatusModel& Model)
+{
+    for(const int32 Slot:{1,3,7,13,15})
+    {
+        const auto Data=Read(Model.Equipped(Slot));FString Set;
+        if(!Data||!Data->TryGetStringField(TEXT("armorSet"),Set)||Set!=TEXT("workwear"))return false;
+    }
+    return true;
+}
 }
 FString UColdSteelStatusModel::ArmorSet()const
 {
@@ -43,6 +52,9 @@ bool UColdSteelStatusModel::RangerFieldSetComplete()const
 double UColdSteelStatusModel::SetEffect(FName Key)const
 {
     const FString S=ArmorSet();
+    if(Key==TEXT("actionStaminaCost"))return S==TEXT("workwear")&&WorkwearComplete(*this)?.85:1.;
+    if(Key==TEXT("survivalConsumption"))return S==TEXT("workwear")&&WorkwearComplete(*this)?.75:1.;
+    if(Key==TEXT("speed")&&S==TEXT("workwear"))return WorkwearComplete(*this)?1.10:1.;
     if(Key==TEXT("speed"))
     {if(S==TEXT("light")||S==TEXT("holy"))return 1.10;if(S==TEXT("flowing"))return 1.15;if(S==TEXT("heavy"))return .85;if(S==TEXT("zhenyue")||S==TEXT("oracle"))return .88;if(S==TEXT("stellar"))return 1.08;if(S==TEXT("tiangang"))return .90;return 1;}
     if(Key==TEXT("cooldown")){if(S==TEXT("robe"))return .12;if(S==TEXT("eclipse"))return .18;if(S==TEXT("lunar"))return .22;if(S==TEXT("oracle_robe"))return .28;}

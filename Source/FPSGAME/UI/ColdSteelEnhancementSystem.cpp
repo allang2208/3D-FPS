@@ -38,7 +38,9 @@ bool UColdSteelEnhancementSystem::Supports(const FColdSteelItem& I)const
 {
     if(!Ready||I.Count!=1||(I.Place!=0&&I.Place!=1))return false;
     if(ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||I.Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))return true;
-    return Num(ReadObj(CombatItemFormula::ReadOnly(I),TEXT("defense")),TEXT("perEnhance"))>0;
+    const auto Data=CombatItemFormula::ReadOnly(I);
+    return Num(ReadObj(Data,TEXT("enhancement")),TEXT("maxLevel"))>0
+        ||Num(ReadObj(Data,TEXT("defense")),TEXT("perEnhance"))>0;
 }
 bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FColdSteelEnchantOption& O)const
 {
@@ -61,7 +63,12 @@ bool UColdSteelEnhancementSystem::CanEnchant(const FColdSteelItem& I,const FCold
     return O.Restriction==TEXT("weapon");
 }
 const FColdSteelEnchantOption* UColdSteelEnhancementSystem::Scroll(const FString& Id)const{return Options.FindByPredicate([&](const auto& O){return O.Id==Id;});}
-int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const{return (ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||I.Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;}
+int32 UColdSteelEnhancementSystem::MaxLevel(const FColdSteelItem& I)const
+{
+    const int32 ItemMax=int32(Num(ReadObj(CombatItemFormula::ReadOnly(I),TEXT("enhancement")),TEXT("maxLevel")));
+    if(ItemMax>0)return FMath::Clamp(ItemMax,1,100);
+    return (ColdSteelInventory::IsMeleeWeapon(I)||ColdSteelInventory::Text(I,TEXT("weaponType"))==TEXT("staff")||I.Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::IsBow(I)||GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Weapon(I.Definition))?WeaponMax:ArmorMax;
+}
 double UColdSteelEnhancementSystem::Effect(const FColdSteelItem& I,const TCHAR* Key,double Default)const
 {
     const auto Data=ColdSteelItemData::Read(I.Data);

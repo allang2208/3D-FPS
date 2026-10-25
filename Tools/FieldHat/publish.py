@@ -27,7 +27,7 @@ item = dict(id=key, name="野行奔尼帽", category="equipment", type="头部�
             ue_icon_pitch=0, ue_icon_yaw=-90)
 recipe = dict(skeletal_mesh=saved["mesh"], attach_bone="head", fits=saved["fit"],
               tip_bones=saved["tip_bones"], tip_limit_degrees=10.0, tip_frequency_hz=2.5,
-              tip_damping=0.6, covers_scalp_hair=True)
+              tip_damping=0.6, covers_scalp_hair=False)
 out = [entries.replace(texts[0], [key], item) if key in catalog else entries.insert(texts[0], [], key, item)]
 if "head_equipment" not in config:
     out.append(entries.insert(texts[1], [], "head_equipment", {key: recipe}))

@@ -249,7 +249,7 @@ void UProductionToolComponent::BeginUse()
                 AxeStrike.CriticalChance=float(FMath::Clamp(double(AxeStrike.CriticalChance)+ToolStats.CriticalChanceAdd,0.,100.));
             }
         }
-        else if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost))
+        else if(GetNetMode()==NM_Standalone&&!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost*Profile->ActionStaminaMultiplier()))
         {Feedback=TEXT("体力不足，稍作休息再采集");FeedbackSeconds=1.5f;return;}
     }
     Elapsed=0; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;

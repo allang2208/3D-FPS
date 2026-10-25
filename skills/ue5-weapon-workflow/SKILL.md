@@ -39,3 +39,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 共享 SVD 动作后换枪体、准星/枪口/弹匣接口与 KV 镜、狙击消音器：读取 [SVCH 换模与实际接口](references/svch-replacement-interfaces.md)。区分目录、数值和真实外观适配。
 
 - 符文战锤、专属锤头、命中苏醒与双重重击，读取 [模块战锤与持续触发](references/runebound-modular-procs.md)；按攻击与目标分别去重，持续刻印通过复制状态恢复。
+
+- 弓的装备加速、手动／快速／连续搭箭快照与远端阶段时钟，读取 [装备目录迁移与远端动作时钟](../ue5-save-load-replication/references/equipment-tuning-and-clocks.md)。

@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -79,7 +79,9 @@
+     State.bBowClipLooping=Bow.bCurrentClipLoops;State.BowClipRate=State.bBowClipLooping?1.f:0.f;
+     // Send the executor's clock on the first packet too. A frame-difference
+     // estimate is zero on clip changes and can retain a forward rate on cancel.
+-    const auto Rate=[&](float Seconds){return State.BowClipLength/FMath::Max(.001f,Seconds);};
++    // Equipment already shortened Seconds; stage haste advances Elapsed again.
++    // Remote extrapolation must include both, just like the owner's phase clock.
++    const auto Rate=[&](float Seconds){return State.BowClipLength/FMath::Max(.001f,Seconds)*Bow.StageActionRate;};
+     switch(Bow.Stage)
+     {
+     case EBowStage::Drawing:State.BowClipRate=Rate(Bow.DrawSeconds);break;

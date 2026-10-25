@@ -31,6 +31,7 @@ FDashAttackCast UColdSteelStatusModel::DashAttackStats(int32 AtLevel) const
         const double CostDelta=Enhance?Enhance->CraftEffect(*Item,TEXT("skillStaminaCostDelta")):0.;
         C.StaminaCost=FMath::Max(0.f,float((T.StaminaCost+CostDelta)*Stats.Modifiers.Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina));
     }
+    C.StaminaCost*=ActionStaminaMultiplier();
     return C;
 }
 

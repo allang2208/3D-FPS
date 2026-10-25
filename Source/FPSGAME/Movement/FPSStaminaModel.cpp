@@ -51,13 +51,14 @@ float UColdSteelStatusModel::MaxStamina() const
 float UColdSteelStatusModel::StaminaRecoveryRate() const
 { return StaminaTuning.RecoveryPerSecond*Derived(TEXT("staminaRegen")); }
 AFPSGAMECharacter* UColdSteelStatusModel::RuntimePawn() const {return CurrentPawn.Get();}
+float UColdSteelStatusModel::ActionStaminaMultiplier() const
+{ return float(SetEffect(TEXT("actionStaminaCost"))); }
 float UColdSteelStatusModel::SprintStaminaPerSecond() const
 {
     const auto* Guard=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr;
-    return StaminaTuning.SprintPerSecond*(Guard?Guard->SprintStaminaMultiplier():1.f);
     // 装备的 sprintStaminaCost 为负时降低奔跑消耗；下限 0，避免出现负消耗。
     const float Equipment=FMath::Max(0.f,1.f+float(EquipmentBonus(TEXT("sprintStaminaCost"))));
-    return StaminaTuning.SprintPerSecond*(Guard?Guard->SprintStaminaMultiplier():1.f)*Equipment;
+    return StaminaTuning.SprintPerSecond*(Guard?Guard->SprintStaminaMultiplier():1.f)*Equipment*ActionStaminaMultiplier();
 }
 FColdSteelMeleeStaminaReadout UColdSteelStatusModel::MeleeStaminaReadout(const AFPSGAMECharacter* Pawn) const
 {

@@ -1,0 +1,282 @@
+[
+  {
+    "source": "SourceAssets/ST6Beret20261023/Exports/SK_ST6_Beret_Burgundy.fbx",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Exports/SK_ST6_Beret_Burgundy.fbx",
+    "bytes": 21919964,
+    "sha256": "9ef7f0798be4048907858939c697171d7e0d2095558e2900c5679c2b177da1e1",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Exports/ST6_Beret_Burgundy.glb",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Exports/ST6_Beret_Burgundy.glb",
+    "bytes": 28261544,
+    "sha256": "814ea2978f721538fc964cbbcfef1e5a7b3666636cbf5ed5853710c21ac0257a",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Exports/ST6_Beret_Burgundy_Editable.blend",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Exports/ST6_Beret_Burgundy_Editable.blend",
+    "bytes": 34884655,
+    "sha256": "35dac9fc9bb87a3a28f77a02801976892c57a19d5bf6ff1429d7797735ba6d20",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_BaseColor.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_BaseColor.png",
+    "bytes": 555218,
+    "sha256": "2a96cdb5e146bcc66b41d6fd8e0cef0f1c15faa3506e28ac1f30fcca16bd98ca",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_Height.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_Height.png",
+    "bytes": 1883338,
+    "sha256": "542f4b75914fff0758076fec877795556386afd50b4b0153f0b38a6653d216e5",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_Normal.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_Normal.png",
+    "bytes": 2582919,
+    "sha256": "82b6c1e6d0388c33e77dea0841c77a688881f1710b8b2e7c8c939fa5f49c5ed4",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_ORM.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BlackLeather_ORM.png",
+    "bytes": 820059,
+    "sha256": "c0e070edf624d1f3ca934520d2cad280c45ad74098afd2f75c44c3fbf6d94e2b",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_BaseColor.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_BaseColor.png",
+    "bytes": 3031398,
+    "sha256": "f1b15f02f0736a20efc5741a2d2d17b9d166990ad7e23eb05eb125ff670c7d06",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_Height.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_Height.png",
+    "bytes": 7796955,
+    "sha256": "755384efaa7850eee65f89649f8a82d2bd741aec9bbcf733347c761ee1066292",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_Normal.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_Normal.png",
+    "bytes": 10989534,
+    "sha256": "9dd00aa49c80bd69edcf09490312104f9c7a2a1a55fbfa3ff2f03696e8c04eb6",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_ORM.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_BurgundyFelt_ORM.png",
+    "bytes": 3067575,
+    "sha256": "ca485aa0a4ab15679e1e353fb1eda3afb88a490762177feb62aa7d89daf7bc36",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_BaseColor.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_BaseColor.png",
+    "bytes": 183051,
+    "sha256": "f79113e055d753f18ba2d26cc002e5a4b50f6179045dd4a4ecabb9488e0f3c3a",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_Height.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_Height.png",
+    "bytes": 1950352,
+    "sha256": "aea4ec7eac16c5df4d35dee8e6469382a9585fd59989f32918efa998dd4d4547",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_Normal.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_Normal.png",
+    "bytes": 1350027,
+    "sha256": "e3bdb4e96d6659434c08f7f78c033dfa20a724a4c3ec3bfd87d1ebba31d541b7",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_ORM.png",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/Textures/T_ST6_Lining_ORM.png",
+    "bytes": 619425,
+    "sha256": "600dae66ee3a178e8abf3e99403e70beb88cd0ec10ace062952413940152c58f",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/authored.json",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/authored.json",
+    "bytes": 2908,
+    "sha256": "7e8196c4db07e39409bb0672bd84728b2e304fd93ff1280cada8bb5023becba6",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/fit_candidate.json",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/fit_candidate.json",
+    "bytes": 872,
+    "sha256": "900003a85b9fd191ded1c51704c343ee426b06eeeed0704fc7f8984f86166372",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/textures.json",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/textures.json",
+    "bytes": 771,
+    "sha256": "3bfd44ee05b65d040401f698ba79f40476664538400a03ab455ec141e74e43c2",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/author.log",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/author.log",
+    "bytes": 1338,
+    "sha256": "38400430d6dd0341c57a7050d716ed2e6b370947175d00f1ef9d494a10fc78cb",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/ST6Beret20261023/author-02.log",
+    "destination": "trash/Equipment20261025/SourceAssets/ST6Beret20261023/author-02.log",
+    "bytes": 8188,
+    "sha256": "b1a1497bbc7ed288b4c09339a0662f611e8f9e479b472954bc8af3fbf855c2f5",
+    "reason": "Superseded first beret authoring output; final authoring and delivery use SurfaceV2",
+    "replacement": "SourceAssets/ST6Beret20261023/SurfaceV2"
+  },
+  {
+    "source": "SourceAssets/LeatherQuiverBelt20261025/Exports/LeatherQuiverBelt_Jason_Editable.blend1",
+    "destination": "trash/Equipment20261025/SourceAssets/LeatherQuiverBelt20261025/Exports/LeatherQuiverBelt_Jason_Editable.blend1",
+    "bytes": 55824857,
+    "sha256": "020db24dc0c479225aae2b90dd4b394f34edc836d7cd435949d5a3f955f88887",
+    "reason": "Blender previous-save backup; current editable master retained",
+    "replacement": "SourceAssets/LeatherQuiverBelt20261025/Exports/LeatherQuiverBelt_Jason_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/LeatherQuiverBelt20261025/Exports/LeatherQuiverBelt_Kaitlin_Editable.blend1",
+    "destination": "trash/Equipment20261025/SourceAssets/LeatherQuiverBelt20261025/Exports/LeatherQuiverBelt_Kaitlin_Editable.blend1",
+    "bytes": 56188463,
+    "sha256": "6db9164576300e6a00b76e4b8f0a74a1fbeb86340c6cb5908ad07767912f5e60",
+    "reason": "Blender previous-save backup; current editable master retained",
+    "replacement": "SourceAssets/LeatherQuiverBelt20261025/Exports/LeatherQuiverBelt_Kaitlin_Editable.blend"
+  },
+  {
+    "source": "Tools/LeatherQuiverBelt/compile_bow_bonus.py",
+    "destination": "trash/Equipment20261025/Tools/LeatherQuiverBelt/compile_bow_bonus.py",
+    "bytes": 1017,
+    "sha256": "cb8fa3e2fc2d9e7194468513f4f478056304a268a027022dbdc54e45629fadfb",
+    "reason": "Superseded Live Coding helper; completed Editor/Game builds are retained",
+    "replacement": "Tools/LeatherQuiverBelt/build_audit.ps1"
+  },
+  {
+    "source": "SourceAssets/LeatherQuiverBelt20261025/integration_pending.json",
+    "destination": "trash/Equipment20261025/SourceAssets/LeatherQuiverBelt20261025/integration_pending.json",
+    "bytes": 781,
+    "sha256": "43297be53d94c60601578bf07483418638b2e0999d3ed9077e84150253dd3af5",
+    "reason": "Resolved Content-availability blocker; completed published.json is current",
+    "replacement": "SourceAssets/LeatherQuiverBelt20261025/published.json"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/common.cpython-311.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/common.cpython-311.pyc",
+    "bytes": 1994,
+    "sha256": "a17fd0287295555cc3cf64759d4d4e9966546e48a63cfd5b2db1870ae8003b2a",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/common.cpython-313.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/common.cpython-313.pyc",
+    "bytes": 1726,
+    "sha256": "a286c663723d0f956e30081a8e1740989b0cfd869712646efa3dfbbbb2061d7b",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/inventory.cpython-313.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/inventory.cpython-313.pyc",
+    "bytes": 1767,
+    "sha256": "96d384edd94dd313fb5e3ee83983a971b16a1f48a268065cfb9bfade87d7027e",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/materials.cpython-311.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/materials.cpython-311.pyc",
+    "bytes": 9918,
+    "sha256": "24c2b6c09632a38d5361ddbf5d8d3483be03e8f4eab13ee6848eb936276bd1bc",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/workwear_common.cpython-311.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/workwear_common.cpython-311.pyc",
+    "bytes": 2003,
+    "sha256": "6e8ba40df35f20eac0a80f82ac342434c2286745e562784f057bb34b989bdb57",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/workwear_common.cpython-313.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/workwear_common.cpython-313.pyc",
+    "bytes": 1735,
+    "sha256": "a0e91e3778935df2f4cf605c9da28eb312465544b8529ca2a27a6c61d0ab9849",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/workwear_inventory.cpython-313.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/workwear_inventory.cpython-313.pyc",
+    "bytes": 1785,
+    "sha256": "97e6e7b3f7af0ff4b8cf87bdba06004fb1cfa5062bee31cb5d23a1202d555f0d",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/WorkwearSet/__pycache__/workwear_materials.cpython-311.pyc",
+    "destination": "trash/Equipment20261025/Tools/WorkwearSet/__pycache__/workwear_materials.cpython-311.pyc",
+    "bytes": 9936,
+    "sha256": "cf2c58ca187c79da1f84e1701ccf0808b13cf38b99fc0fca22ab6bbab9c61239",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/LeatherQuiverBelt/__pycache__/motion_material.cpython-311.pyc",
+    "destination": "trash/Equipment20261025/Tools/LeatherQuiverBelt/__pycache__/motion_material.cpython-311.pyc",
+    "bytes": 6794,
+    "sha256": "e0f006b6451f8836254a2cb9ebedf208030fca2255c5fb66a8e7122435625c49",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": "Tools/LeatherQuiverBelt/__pycache__/native_fit.cpython-313.pyc",
+    "destination": "trash/Equipment20261025/Tools/LeatherQuiverBelt/__pycache__/native_fit.cpython-313.pyc",
+    "bytes": 54711,
+    "sha256": "0e8bacd4b379fee9c3156201755a12218dc2f7b746276f7ccad56a5ddb20ed5b",
+    "reason": "Rebuildable Python cache",
+    "replacement": "Python regenerates cache from retained tools"
+  },
+  {
+    "source": ".git/index.lock",
+    "destination": "trash/Equipment20261025/GitMetadata/index.lock-20261024221117",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Unowned zero-byte index lock unchanged for over 15 hours; exclusive read/write open succeeded and remained held during archival",
+    "replacement": "Git creates a fresh transaction lock when needed"
+  }
+]

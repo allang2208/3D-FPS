@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -81,7 +81,7 @@
+ float UColdSteelStatusModel::ActionStaminaMultiplier() const
+ { return float(SetEffect(TEXT("actionStaminaCost"))); }
+ float UColdSteelStatusModel::HeavyChargeStaminaPerSecond() const
+-{ return MasteryDefinition(TEXT("heavyStrike")).HeavyChargeStaminaPerSecond; }
++{ return MasteryDefinition(TEXT("heavyStrike")).HeavyChargeStaminaPerSecond*ActionStaminaMultiplier(); }
+ float UColdSteelStatusModel::SprintStaminaPerSecond() const
+ {
+     const auto* Guard=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UTangDaoGuardComponent>():nullptr;

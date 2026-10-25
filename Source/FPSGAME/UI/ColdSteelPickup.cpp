@@ -53,6 +53,16 @@ void AColdSteelPickup::InitializeSharedItem(const FColdSteelItem& Item)
 void AColdSteelPickup::OnRep_SharedItem()
 {
     InitializeItem(SharedItem);
+    // Definition and movement notifications can arrive in either order.
+    // InitializeItem rebuilds the collision body and disables local simulation;
+    // restore physics already received from authority and its latest target.
+    // Otherwise an unchanged bRepPhysics bit never enables the body again,
+    // leaving the client pickup suspended at its original spawn transform.
+    if(IsReplicatingMovement()&&GetReplicatedMovement().bRepPhysics)
+    {
+        SyncReplicatedPhysicsSimulation();
+        PostNetReceivePhysicState();
+    }
 }
 void AColdSteelPickup::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {

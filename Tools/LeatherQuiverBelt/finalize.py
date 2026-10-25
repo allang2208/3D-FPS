@@ -1,0 +1,76 @@
+"""Record finished production stages without asserting runtime acceptance."""
+import json
+from pathlib import Path
+P=Path(__file__).resolve().parents[2];R=P/'SourceAssets/LeatherQuiverBelt20261025'
+def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
+def write(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+published=read(R/'published.json');saved=read(R/'saved_assets.json');build=read(R/'build_receipt.json')
+if not all(d.get('completed') for d in (published,saved,build)):raise RuntimeError('Production still incomplete')
+design=read(R/'Design/design.json')
+design.update(stage='game_integrated_pending_user_test',integrated=True,mount='角色右髋略偏后，双皮环和黄铜环固定；挂带渐变弯曲，箭袋小幅惯性摆动',future_fitting='已按 Jason 与 Kaitlin 的实际 ST6 裤腰、髋部独立适配',gameplay_capacity='No added ammunition capacity; five decorative existing wooden arrows when Bow is active',runtime_tested=False,multiplayer_tested=False)
+write(R/'Design/design.json',design)
+records=[read(R/'Authored'/f'{body}_production.json') for body in ('Jason','Kaitlin')]
+write(R/'authored.json',dict(completed=True,name='皮革箭袋腰带',side='right',records=records,textures=24,game_integrated=True,runtime_tested=False))
+pending=R/'integration_pending.json'
+if pending.exists():
+    status=read(pending)
+    status.update(status='resolved_content_restored_and_integrated',catalog_published=True,wear_saved=True,
+        previous_missing_inputs=status.get('missing_inputs',[]),missing_inputs=[],question=None,continue_commands=[])
+    write(pending,status)
+old=R/'Before/README-model-stage.md'
+if not old.exists():old.write_bytes((R/'README.md').read_bytes())
+(R/'README.md').write_text('''# 皮革箭袋腰带：右髋悬挂版本
+
+物品 `ue_leather_quiver_belt`，名称“皮革箭袋腰带”，装备腰带槽，背包占格 2×3。
+已完成男女原生模型、三档 LOD、材质、背包图标、掉落模型、运行时摆动源码和 UE 资产保存，已登记物品与换装配方。F6：基本调参 → 生成物品 → 装备 → 腰带 → 皮革箭袋腰带。下次启动游戏实例载入当前目录。
+
+## 装备效果与强化
+
+基础搭箭速度 +50%、拉弓速度 +5%；每强化一级分别增加 2、1 个百分点。沿用腰带 +15 的强化上限，满级合计搭箭速度 +80%、拉弓速度 +20%。不改其他装备数值。
+
+速度加成按“原时长 ÷ (1 + 速度加成)”计算。手动 R 搭箭、快速射击取箭与连续射击取箭共用装备搭箭加成；已搭好箭后的单纯握弦过渡不额外缩短。动作开始时读取当前装备，已开始的搭箭动作保留原时长。第一／第三人称动作相位沿用同一动作时钟；服务端弓箭时序使用同一套属性公式。拉弓速度沿用已有装备拉弓加成公式。
+
+物品简要提示和详细提示均显示基础与强化后的数值。下次启动游戏实例时，现有物品由原目录迁移流程更新加成与强化上限，保留强化等级。配置保存见 `BowBonus20261025/catalog_receipt.json`，本轮编译记录见该目录的 `build_receipt.json` 与 `game_build_receipt.json`；后续授权检查及其范围见文末。
+
+## 结构与表面
+
+4.5 cm 宽皮带，真实厚度、绒面内衬、烧边、鞍缝线、贯穿调节孔、单针黄铜扣、独立束环。右髋双挂座分别沿实际腰线定位，保留穿带皮环、金属环和折返挂带。44 cm 箭袋包含连续外壳、深内腔、底托、双隔层、袋口包边、加固圈、背部承重条与按扣。六组 PBR 表面加蜡线材质；24 张源纹理包括 BaseColor、Normal、ORM、Height，UE 导入前三通道并翻转法线绿色通道。高度场及可编辑高模源另存。
+
+## 男女适配与摆动
+
+以已保存的 Jason、Kaitlin 原生身体和 ST6 战术裤为输入，分别采样腰线和髋部。腰带保持原生插值权重；箭袋绑定 pelvis，挂带下端过渡至同一骨骼。没有镜像整个人物或全局缩放箭袋。
+
+`FFPSQuiverMotion` 接在现有换装生命周期中，以渲染后的骨盆动作驱动阻尼弹簧。固定端顶点遮罩为 0，袋身为 1，挂带平滑过渡。默认频率 1.7 Hz、阻尼比 1.0、角度上限 2°，袋体总位移预算 2 cm，并对朝向髋部的位移作向外修正。当前位置和上一帧变形分别写入材质；瞬移、长帧间隔、隐藏及布娃娃状态会清除残留惯性。这是有重量感的外观悬挂模拟，不是带环境碰撞的 Chaos 布料。
+
+## 弓箭与联机接入
+
+装备弓（已有身体状态 Family=Bow）时显示 5 支现有 `/Game/Weapons/DarkBow20260925/ArmsV2/SM_Bow_WoodArrow`，箭头朝下、箭尾向上；每支在袋内有独立位置，并随同一个悬挂变换移动。切换武器隐藏箭矢，卸下腰带或重建身体时销毁组件。箭矢只作外观，不增加容量、发放或扣除弹药。
+
+本人与远端共用现有腰带槽、身体类型和武器状态复制；外观资源参与原有异步换装请求，各端根据呈现后的骨盆动作计算摆动，不发送逐帧摆动 RPC。组件沿用本人／他人可见性、第一人称、场景捕获及阴影标记。未做本轮联机运行验收。
+
+## 文件与回执
+
+- `Exports/LeatherQuiverBelt_{Jason,Kaitlin}_Editable.blend`：分件、原生绑定、挂点和可编辑表面源。
+- `Exports/`：两套 GLB、各三档 FBX、独立箭袋 FBX/GLB。
+- `Delivery/{Jason,Kaitlin}_LOD{0,1,2}.json`：UE 原生厘米坐标、法线、UV、权重和摆动遮罩；`delivery.json` 记录挂点和箭矢配置。
+- `ue_leather_quiver_belt.png`：实际模型生成的背包图标。
+- `Preview/model-hero.png`、`model-attachment-detail.png`、`model-buckle-detail.png`、`fit-{Jason,Kaitlin}.png`：用户所要求的 Blender 模型预览，不是 UE 游戏画面；参考裤装使用灰色展示材质。
+- `saved_assets.json`：实际 UE 保存资产；`build_receipt.json`：Editor/Game 构建回执；`published.json`：实际目录登记。
+- UE 资产目录：`/Game/Characters/ModularOutfit20260924/LeatherQuiverBelt20261025`。
+- 工具：`Tools/LeatherQuiverBelt`。`model_delivery.json` 和 `Before/README-model-stage.md` 保留之前建模阶段的状态，不能当作当前接入回执。
+
+本任务未主动启动 UE 编辑器或游戏；资产通过已有编辑器批次和后台 commandlet 保存。Content 恢复后已继续完成原生穿戴资产与目录发布，之前的缺失阻塞已解除。未执行动作穿模、性能或多人测试。适配输入限于上述身体和裤装；最终运动表现及其他衣物组合交由用户在游戏中确认。
+
+
+## 2026-10-25 授权检查与修复
+
+本轮 43 项目录、资产路径及 LOD 源文件检查通过；64 项隔离后台检查通过，commandlet 正常退出（0）。Editor 与 Game 均完成构建。记录入口为 `Audit20261025/summary.json`。
+
+修复两处遗漏：
+
+- 旧箭袋腰带／战术弹匣腰带的基础加成、逐级成长及强化上限，现在也在客机影子档案、网络回执和提交保存时按目录更新，保留实例 ID、装备位置和强化等级。此前仅本地读档更新；`Audit20261025/after-fix/result.json` 留存了修复前的 3 项失败。
+- 远端弓动画采样加入动作阶段倍率，搭箭速度与额外动作加速同时存在时，远端推算与本机动作时钟一致。
+
+检查覆盖 0／1／14／15 级与越界上限、手动／快速／连续搭箭、卸装和动作中的时长保持、实际强化扣费、旧实例与保存重读、客机权威拉弓与单次扣箭、重复释放拒绝、男女箭矢显隐与组件销毁。使用独立临时档案，未改玩家正式存档。服务端检查直接调用生产处理函数，未建立 UDP 连接；不包含双进程主客机、跨机重连、延迟／丢包、画面穿模、运动观感或打包验收。
+''',encoding='utf-8')
+print('LEATHER_QUIVER_PRODUCTION_RECORDED',flush=True)

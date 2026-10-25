@@ -1,4 +1,34 @@
 {
+  "ue_work_jacket": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
+    "name": "工装夹克",
+    "defense": {
+      "base": 8,
+      "perEnhance": 1.2
+    }
+  },
+  "ue_field_hat": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_original_gloves": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_boots": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_cargo_pants": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
   "ue_ranger_feather_hat": {
     "armorSet": "ranger_field",
     "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"

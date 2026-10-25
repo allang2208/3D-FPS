@@ -138,7 +138,7 @@ float UPanChiGuardComponent::ResolveRemoteGuard(float Damage,const UDamageType* 
             return 0.f;
         }
     }
-    const float Cost=ColdSteelMelee::BlockStamina(M);const bool Broken=Model->Stamina()<Cost;
+    const float Cost=ColdSteelMelee::BlockStamina(M,Model);const bool Broken=Model->Stamina()<Cost;
     Model->SpendStamina(FMath::Min(Model->Stamina(),Cost));
     if(Broken)
     {

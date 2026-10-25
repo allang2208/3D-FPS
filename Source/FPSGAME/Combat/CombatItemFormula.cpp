@@ -41,3 +41,13 @@ TSharedPtr<const FJsonObject> CombatItemFormula::ReadOnly(const FColdSteelItem& 
         +(Item.Definition==TEXT("ue_alchemy_spellbook")?TEXT(":spellbook-stats-v2"):TEXT(""));
     return Cache.Get(Key,[&]() -> TSharedPtr<const FJsonObject> {return Read(Item);});
 }
+
+double CombatItemFormula::EquipmentEnhancementLevel(const TSharedPtr<const FJsonObject>& Data)
+{
+    if(!Data)return 0;
+    double Level=0,Limit=0;Data->TryGetNumberField(TEXT("enhanceLevel"),Level);
+    const TSharedPtr<FJsonObject>* Settings=nullptr;
+    if(Data->TryGetObjectField(TEXT("enhancement"),Settings)&&(*Settings)->TryGetNumberField(TEXT("maxLevel"),Limit)&&Limit>0)
+        return FMath::Clamp(Level,0.,double(FMath::Clamp(int32(Limit),1,100)));
+    return Level;
+}

@@ -5,7 +5,7 @@
 float UColdSteelStatusModel::SwordUppercutStaminaCost() const
 {
     return MasteryDefinition(TEXT("swordUppercut")).UppercutStaminaCost*
-        ColdSteelMelee::EquippedModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
+        ColdSteelMelee::EquippedModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina*ActionStaminaMultiplier();
 }
 
 float UColdSteelStatusModel::SwordUppercutCooldown() const

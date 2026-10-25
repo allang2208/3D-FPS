@@ -1,5 +1,85 @@
 {
   "head_equipment": {
+    "ue_charcoal_sports_cap": {
+      "static_mesh": "/Game/Characters/ModularOutfit20260924/SportsCap20261024/Wear/SM_SportsCap_Jason.SM_SportsCap_Jason",
+      "attach_bone": "head",
+      "fits": {
+        "jason": {
+          "location": [
+            12.069766114426935,
+            -0.2428960277388632,
+            0.10510094793746926
+          ],
+          "rotation": [
+            -86.6846264672135,
+            117.0672250054694,
+            -122.62357680345929
+          ],
+          "scale": [
+            1.0000000000000038,
+            1.0000000000000004,
+            0.9999999999999976
+          ]
+        }
+      },
+      "covers_scalp_hair": false
+    },
+    "ue_st6_tactical_helmet": {
+      "static_mesh": "/Game/Characters/ModularOutfit20260924/ST6Beret20261023/SurfaceV2/SM_ST6_Beret_Wear.SM_ST6_Beret_Wear",
+      "attach_bone": "head",
+      "fits": {
+        "jason": {
+          "location": [
+            12.908690719717972,
+            -0.39498321489407834,
+            0.08079003255614217
+          ],
+          "rotation": [
+            -86.6846264672135,
+            117.0672250054694,
+            -122.62357680345929
+          ],
+          "scale": [
+            1.0000000000000038,
+            1.0000000000000004,
+            0.9999999999999976
+          ]
+        }
+      },
+      "covers_scalp_hair": false
+    },
+    "ue_field_hat": {
+      "skeletal_mesh": "/Game/Characters/ModularOutfit20260924/WorkwearSet20261024/Hat/SK_FieldHat.SK_FieldHat",
+      "attach_bone": "head",
+      "fits": {
+        "jason": {
+          "location": [
+            12.021333448898897,
+            -0.22471179330470376,
+            0.10731589617061489
+          ],
+          "rotation": [
+            -86.68462432282374,
+            117.06725246366948,
+            -122.62360512012852
+          ],
+          "scale": [
+            1.0000000080075921,
+            1.0000000080075888,
+            1.000000008007586
+          ]
+        }
+      },
+      "tip_bones": [
+        "BrimBackBase",
+        "BrimBackMid",
+        "BrimBackEnd"
+      ],
+      "tip_limit_degrees": 8.0,
+      "tip_frequency_hz": 3.0,
+      "tip_damping": 0.72,
+      "covers_scalp_hair": false
+    },
     "ue_blue_mage_hat": {
       "skeletal_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageHat20261019/SK_BlueMageHat.SK_BlueMageHat",
       "attach_bone": "head",
@@ -30,7 +110,7 @@
       "tip_limit_degrees": 10.0,
       "tip_frequency_hz": 2.5,
       "tip_damping": 0.6,
-      "covers_scalp_hair": true
+      "covers_scalp_hair": false
     },
     "ue_steel_armet": {
       "static_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/SM_SteelArmet.SM_SteelArmet",
@@ -6448,6 +6528,30 @@
   "body_variants": {
     "kaitlin": {
       "head_equipment": {
+        "ue_charcoal_sports_cap": {
+          "static_mesh": "/Game/Characters/ModularOutfit20260924/SportsCap20261024/Wear/SM_SportsCap_Kaitlin.SM_SportsCap_Kaitlin",
+          "attach_bone": "head",
+          "fits": {
+            "kaitlin": {
+              "location": [
+                10.457357078461804,
+                1.2986563468713619,
+                0.0018457824525088629
+              ],
+              "rotation": [
+                -89.98500333936283,
+                3.2210443080906463,
+                -3.2210453177308835
+              ],
+              "scale": [
+                1.0000000000000064,
+                1.0,
+                0.9999999999999987
+              ]
+            }
+          },
+          "covers_scalp_hair": false
+        },
         "ue_blue_mage_hat": {
           "skeletal_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageHat20261019/SK_BlueMageHat.SK_BlueMageHat",
           "attach_bone": "head",

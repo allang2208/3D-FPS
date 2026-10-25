@@ -21,6 +21,7 @@ FWhirlwindCast UColdSteelStatusModel::WhirlwindStats(int32 AtLevel) const
         C.RadiusCM*=Stats.Modifiers.Range;
         C.KnockbackCM*=Stats.Modifiers.AllAttackKnockback;
     }
+    C.StaminaCost*=ActionStaminaMultiplier();
     return C;
 }
 

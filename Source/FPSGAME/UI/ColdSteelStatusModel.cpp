@@ -24,7 +24,7 @@ double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,F
     {
         if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("shield")&&Item.Cell!=(State.ActiveWeaponSlot==6?8:11))continue;
         const auto O=CombatItemFormula::ReadOnly(Item);if(!O)continue;
-        double L=0;O->TryGetNumberField(TEXT("enhanceLevel"),L);
+        const double L=CombatItemFormula::EquipmentEnhancementLevel(O);
         for(const auto& Pair:TArray<TPair<FString,double>>{{TEXT("bonusStats"),1},{TEXT("bonusPerEnhance"),L},{TEXT("_enchantEffects"),1}})
         {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(Pair.Key,B)&&(*B)->TryGetNumberField(Name,V))Sum+=V*Pair.Value;}
     }

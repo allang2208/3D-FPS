@@ -1,0 +1,10 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1",
+  "FriendlyName": "Isolated Tactical Belt Review",
+  "Description": "Explicit command-line audit; never installed or enabled in the user's editor.",
+  "CanContainContent": false,
+  "Installed": false,
+  "Modules": [{"Name":"TacticalBeltReview","Type":"Runtime","LoadingPhase":"PostDefault"}]
+}

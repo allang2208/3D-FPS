@@ -145,7 +145,7 @@ float URuneSwordComponent::ResolveGuardDamage(float IncomingDamage,const UDamage
         }
     }
     if(Pawn->IsLocallyControlled())GuardFeedback(false);
-    const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(MeleeModifiers));
+    const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(MeleeModifiers,Profile));
     const bool Broken=Profile->Stamina()<BlockCost;
     const float Spent=Broken?Profile->Stamina():BlockCost;
     Profile->SpendStamina(Spent);

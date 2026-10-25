@@ -435,7 +435,6 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     const auto Mods=G?G->Calculate(Item->Definition,G->Installed(*Item)).Bow:FGunsmithStats::FBowModifiers();
     auto Number = [&](const TCHAR* Key, float Default)
     { return static_cast<float>(ColdSteelInventory::Number(*Item, Key, Default)); };
-    NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f));
     const auto* Profile = Character.IsValid()&&Character->GetNetShadowProfile()
         ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (!IsDrawing())
@@ -444,7 +443,8 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     ReleaseSeconds = FMath::Max(.08f, Number(TEXT("release_seconds"), .3f));
     RecoverSeconds = FMath::Max(.08f, Number(TEXT("recover_seconds"), .34f));
     EquipSeconds = FMath::Max(.1f, Number(TEXT("equip_seconds"), .45f));
-    DrawEntrySeconds = FMath::Max(.01f, Number(TEXT("bow_draw_entry_seconds"), .2f));
+    if (Stage != EBowStage::DrawEntry)
+        DrawEntrySeconds = FMath::Max(.01f, Number(TEXT("bow_draw_entry_seconds"), .2f));
     NockContactFraction = FMath::Clamp(Number(TEXT("nock_contact_fraction"), .82f), 0.f, 1.f);
     bNockKeepsDrawPose = Number(TEXT("bow_nock_keeps_draw_pose"), 0.f) > .5f;
     TakeArrowContactFraction = FMath::Clamp(Number(TEXT("nock_take_fraction"), .28f), 0.f, NockContactFraction);
@@ -488,7 +488,10 @@ void UBowWeaponComponent::ApplyNumbers(const FColdSteelItem* Item)
     ShotSpreadStep = FMath::Max(0.f, Number(TEXT("bow_shot_spread"), .012f));
     SpreadRecovery = FMath::Max(0.f, Number(TEXT("bow_spread_recovery"), .06f));
     CrouchSpreadScale = FMath::Clamp(Number(TEXT("bow_crouch_spread_scale"), .7f), 0.f, 1.f);
-    NockSeconds*=Mods.Nock;HoldSeconds*=Mods.Hold;FullDamage*=Mods.Damage;
+    if (Stage != EBowStage::Nocking)
+        NockSeconds = FMath::Max(.12f, Number(TEXT("nock_seconds"), .68f))*Mods.Nock
+            / float(ColdSteelBow::NockSpeedMultiplier(Profile));
+    HoldSeconds*=Mods.Hold;FullDamage*=Mods.Damage;
     FullSpeedCM*=Mods.Speed;StaminaCost*=Mods.Stamina;SwayAmplitudeCM*=Mods.Sway;
     HipSpread*=Mods.Spread;MoveSpreadMax*=Mods.Spread;AirSpreadMax*=Mods.Spread;
     ShotSpreadStep*=Mods.Spread;SpreadRecovery*=Mods.Spread;
@@ -834,6 +837,11 @@ void UBowWeaponComponent::BeginNock()
     }
     // Nocking is a visual reservation. Spend once at successful launch, so
     // switching weapons, saving or interruption cannot destroy an unfired arrow.
+    // Equipment may change while the bow's own data/signature stays unchanged.
+    // Snapshot the current clock at action start, shared with server statistics.
+    if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        if (const auto* Item = Profile->ActiveBow())
+            NockSeconds = float(ColdSteelBow::Evaluate(*Item, Profile).Nock);
     SetStage(EBowStage::Nocking, NockSeconds);
     if (bUsesArms)
     {
@@ -900,9 +908,17 @@ void UBowWeaponComponent::BeginDrawEntry()
     }
     // A second press may arrive before the release pose's first visible tick.
     if (bChainEntry) SampleArms();
+    if (const auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        if (const auto* Item = Profile->ActiveBow())
+        {
+            const auto* G = GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+            const auto Resolved = G ? G->ResolveBowVisual(*Item) : *Item;
+            DrawEntrySeconds = float(FMath::Max(.01, ColdSteelInventory::Number(Resolved, TEXT("bow_draw_entry_seconds"), .2))
+                / (bEntryNeedsArrow ? ColdSteelBow::NockSpeedMultiplier(Profile) : 1.));
+        }
     SetStage(EBowStage::DrawEntry, DrawEntrySeconds);
-    // The new take is authored inside the same 0.2 s budget. Existing nocked
-    // arrows retain the original hand-to-string entry without another pickup.
+    // Scale the authored quick/chain take only when fetching another arrow.
+    // Already nocked arrows retain the original hand-to-string entry.
     if (bUsesArms)
     {
         const TCHAR* Entry = DrawEntryClip();
@@ -1072,7 +1088,7 @@ bool UBowWeaponComponent::LooseArrow(float Ratio,bool bPerfect)
     auto* Profile = GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (!Pawn || !Camera || !Profile || !bArrowNocked) return false;
     const float Clamped = FMath::Clamp(Ratio, 0.f, 1.f);
-    const float Cost = FMath::Max(0.f, StaminaCost * FMath::Lerp(.4f, 1.f, Clamped));
+    const float Cost = FMath::Max(0.f, StaminaCost * FMath::Lerp(.4f, 1.f, Clamped))*Profile->ActionStaminaMultiplier();
     if (!Profile->CanSpendStamina(Cost)) { ShowFeedback(TEXT("体力不足，已收弓")); return false; }
     const float Speed = FullSpeedCM * FMath::Lerp(MinSpeedRatio, 1.f, Clamped);
     // 从实际箭尖发射并朝准星落点收敛；近墙时另做相机到箭尖的阻挡扫掠。

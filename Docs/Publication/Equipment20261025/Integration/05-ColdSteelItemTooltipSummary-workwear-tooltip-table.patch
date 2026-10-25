@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -53,6 +53,9 @@
+     static const FSetBonusDef St6[]={{TEXT("reloadSpeed"),TEXT("换弹速度"),15.,true,false},
+                                      {TEXT("adsPercent"),TEXT("ADS 瞄准时间"),10.,true,true},
+                                      {TEXT("sprintStaminaCost"),TEXT("奔跑体力消耗"),15.,true,true}};
++    static const FSetBonusDef Workwear[]={{TEXT("actionStaminaCost"),TEXT("所有动作体力消耗"),15.,true,true},
++                                          {TEXT("speed"),TEXT("移动速度"),10.,true,false},
++                                          {TEXT("survivalConsumption"),TEXT("饥饿／口渴下降速度"),25.,true,true}};
+     if(Set==TEXT("ranger_field")){OutCount=UE_ARRAY_COUNT(Ranger);return Ranger;}
+     if(Set==TEXT("steel_chainmail")){OutCount=UE_ARRAY_COUNT(Steel);return Steel;}
+     if(Set==TEXT("blue_mage")){OutCount=UE_ARRAY_COUNT(BlueMage);return BlueMage;}

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+@@ -20,7 +20,7 @@
+ float UColdSteelStatusModel::SwordUppercutStaminaCost() const
+ {
+     return MasteryDefinition(TEXT("swordUppercut")).UppercutStaminaCost*
+-        UppercutModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina;
++        UppercutModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina*ActionStaminaMultiplier();
+ }
+ 
+ float UColdSteelStatusModel::SwordUppercutCooldown() const

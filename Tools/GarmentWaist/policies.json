@@ -1,0 +1,11 @@
+{
+  "rig": "Jason",
+  "shirts": {
+    "ue_work_jacket": {"mode": "outer_jacket_with_inner_tuck", "producer": "Tools/WorkwearSet/run.ps1", "outer_slots": {"Jason": [0, 1], "Owner_Jason": [0, 1]}, "source_root": "SourceAssets/WorkwearSet20261024", "requires_native_waist_refresh": true},
+    "ue_field_sweater": {"mode": "existing_tuck", "producer": "Tools/PantsCompatibility/run.ps1", "outer_slots": {"Jason": [0, 1], "Owner_Jason": [0, 1]}},
+    "ue_blue_mage_robe": {"mode": "robe_underlayer", "producer": "Tools/BlueMageRobe"},
+    "ue_field_sweater_charcoal": {"mode": "tuck", "outer_slots": {"Jason": [0], "Owner_Jason": [0]}},
+    "ue_chainmail_shirt": {"mode": "tuck", "outer_slots": {"Jason": [0], "Owner_Jason": [0]}},
+    "ue_st6_sleeves": {"mode": "native_body_with_tucked_trim", "outer_slots": {"Jason": [1], "Owner_Jason": [0]}}
+  }
+}

@@ -5389,3 +5389,17 @@ __pycache__/
 /SourceAssets/ApartmentPublication20261024/
 # Kaitlin: licensed originals, dense authoring data and local receipts remain local.
 /SourceAssets/Kaitlin*/
+
+# Equipment 20261025: licensed/native derived geometry and local production evidence.
+/SourceAssets/GarmentWaist20261023/**
+/SourceAssets/ST6Beret20261023/**
+/SourceAssets/ST6LowerDetail20261024/**
+/SourceAssets/WorkwearSet20261024/**
+/SourceAssets/SportsCap20261024/**
+/SourceAssets/TacticalMagazineBelt20261024/**
+/SourceAssets/TacticalMagazineBeltDesign20261024/**
+/SourceAssets/LeatherQuiverBelt20261025/**
+/SourceAssets/HeadwearHair20261024/**
+/SourceAssets/OutdoorWorkSet20261024/**
+!/SourceAssets/TacticalMagazineBelt20261024/README.md
+!/SourceAssets/LeatherQuiverBelt20261025/README.md

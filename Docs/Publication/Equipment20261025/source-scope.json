@@ -1,0 +1,971 @@
+{
+  "index_changes": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 1",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 2",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 3",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 4",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 5",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 6",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 7",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 8",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 10",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp",
+      "change": "scoped hunk 11",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSModularOutfitComponent.h",
+      "change": "scoped hunk 1",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "change": "quiver bow presentation accessor",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.cpp",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.h",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "change": "scoped hunk 1",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "change": "scoped hunk 2",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "change": "bounded equipment bonus level",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "change": "five piece workwear completion",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "change": "workwear set multipliers",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "change": "action cost API",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "change": "action cost implementation",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "workwear action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "change": "remove obsolete early sprint return",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "workwear ordinary attack on public baseline",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "change": "workwear uppercut on public baseline",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "block cost owning profile",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "block cost preview",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "change": "block cost profile API",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PanChiGuardComponent.cpp",
+      "change": "panchi guard action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "change": "sword guard action cost",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Survival/FPSSurvivalComponent.cpp",
+      "change": "workwear hunger and thirst",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+      "change": "nock speed formula",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.h",
+      "change": "scoped hunk 0",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "change": "scoped hunk 1",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "change": "scoped hunk 2",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "change": "scoped hunk 3",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "change": "scoped hunk 5",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+      "change": "scoped hunk 6",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "belt catalog migration helper",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "belt metadata in all profile entrypoints",
+      "mode": "index",
+      "count": 2
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "belt metadata in all profile entrypoints",
+      "mode": "index",
+      "count": 1
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "disk equipment metadata migration",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "legacy garment appearance and workwear metadata",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "scoped hunk 17",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "change": "scoped hunk 18",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "change": "enhanced bonus tooltip and nock label",
+      "mode": "index"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "change": "enhanced summary bonus and nock label",
+      "mode": "index"
+    }
+  ],
+  "integration_patches": [
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "change": "workwear action cost",
+      "patch": "Integration/01-FPSStaminaModel-workwear-action-cost.patch",
+      "before_sha256": "06269c43772f518edd587e99a8c67dece33fa24f24b89b6839a383fc2fce7015",
+      "local_after_sha256": "c3bbafdcd40ae99895dbcae43f45d6d5c70a65f4567f7851811ad8afd6b09735",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "change": "workwear action cost",
+      "patch": "Integration/02-ColdSteelHeavyStrikeModel-workwear-action-cost.patch",
+      "before_sha256": "ee068e93826758f7a0e985a2887d76398750c7080290a4fa43803c10867553a1",
+      "local_after_sha256": "272180e85e04b4313895ce5a8924b5ef224c8965f540738242776377f68b60d4",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "change": "workwear action cost",
+      "patch": "Integration/03-MeleeWeaponStats-workwear-action-cost.patch",
+      "before_sha256": "77933de84bb5baed17974278e3fab80d4135d5da41c06d5bb7f63c8fba3ad3a3",
+      "local_after_sha256": "7eb142eaf226385baed69d28236e30a1e725890957440e807974e4359763fb52",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "change": "remote stage clock with lightning haste",
+      "patch": "Integration/04-FPSPlayerBodyBow-remote-stage-clock-with-lightning-haste.patch",
+      "before_sha256": "c3a8b7c65ef44c16dd038f915017270722a5a7ade88b1d9105869bdb5fda2a28",
+      "local_after_sha256": "66e2d3941c13e7aa9658f93a592f48fdf1aeef6d8dd6ac0a4891535f480c7411",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "change": "workwear tooltip table",
+      "patch": "Integration/05-ColdSteelItemTooltipSummary-workwear-tooltip-table.patch",
+      "before_sha256": "dca3027af81e73f941ceb65f1385ca947047621db8fc31ca403400b87c4a78d7",
+      "local_after_sha256": "76800f97a9ee3b21cfc446c3e008dfd3fd37c3b8aa3883736ec9a541d01e0043",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "change": "workwear tooltip routing",
+      "patch": "Integration/06-ColdSteelItemTooltipSummary-workwear-tooltip-routing.patch",
+      "before_sha256": "c10f493660201f2cd1cd8d4cf007e0a91569f0989c8498e40bb344669bd6f9e4",
+      "local_after_sha256": "76800f97a9ee3b21cfc446c3e008dfd3fd37c3b8aa3883736ec9a541d01e0043",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "change": "workwear tooltip routing",
+      "patch": "Integration/07-ColdSteelItemTooltipSummary-workwear-tooltip-routing.patch",
+      "before_sha256": "d08caeb74dad535b82543ae5cee40e125d0c9b2307f23fdf24b6fb052dfe01b9",
+      "local_after_sha256": "76800f97a9ee3b21cfc446c3e008dfd3fd37c3b8aa3883736ec9a541d01e0043",
+      "dependency": "Current local host; context may include unpublished independent features"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.h",
+      "patch": "Integration/audit-BowSkillTrainingAuditCommandlet.h.patch",
+      "before_sha256": "4ae5f4374a7744e742c38259875dcd17c1a7451fb5351e42cf5f409fee54aa92",
+      "local_after_sha256": "e5cf7a6b57995c0328544a372fc2262065de44cacdf5a5865308690b3af6d57a",
+      "dependency": "Existing local BowSkillTrainingAuditCommandlet fixtures and friend declarations"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp",
+      "patch": "Integration/audit-BowSkillTrainingAuditCommandlet.cpp.patch",
+      "before_sha256": "d9d984c075dfc3c7c78826122c82343ebc14ccc4971cbcbfac03ea9cdaf26a54",
+      "local_after_sha256": "eb499329c063ee4edf8b1acbc98b6b3d2a6557c92f96545fd52a74f5451461ce",
+      "dependency": "Existing local BowSkillTrainingAuditCommandlet fixtures and friend declarations"
+    }
+  ],
+  "config_paths": [
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "name"
+      ],
+      "value_sha256": "a6fee63ad14b03dca622b577f76f0ef3376090126511a3f15e47fc0430d4781a"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "desc"
+      ],
+      "value_sha256": "379a79fc75113ee035b20593a853ad6697c2d134a93a00c82ec3135331a55238"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "icon_fallback"
+      ],
+      "value_sha256": "a7b5ca8bdc773852060fe0a26698893fdd248f39f4161c95a25914e283a0054e"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "ue_icon"
+      ],
+      "value_sha256": "19d1bf4bf9cc77113f5154ff171aca6da0e5b51f8bfeacbdc05dd6bec1c43379"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "world_mesh"
+      ],
+      "value_sha256": "f162fe8cf9b3a962a4c2cfd5dc6d81ea2141b91589cf8be9b16c3368f8fa24cd"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "ue_equipment_icon_mesh"
+      ],
+      "value_sha256": "9e28b11bf0c83f93665956413f54201d23dc2193dfac6e7434fdce29783dab27"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "ue_icon_pitch"
+      ],
+      "value_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "ue_icon_yaw"
+      ],
+      "value_sha256": "24368442272dc5f3202b781776989fd947e98b86418d7ee95908d03091f54f57"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_helmet",
+        "ue_icon_roll"
+      ],
+      "value_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_pants",
+        "desc"
+      ],
+      "value_sha256": "0f06a201b2b26f2da98f11a350e3c510cce1167794dd2bbe26b92cb054e40c3a"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_pants",
+        "ue_icon"
+      ],
+      "value_sha256": "23b213ae129f6da852facb5166a7d9cb7576250105bb121f5e177f2e84bef231"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_pants",
+        "world_mesh"
+      ],
+      "value_sha256": "a36c9b5336897137837cfed2d9f5153e3b990d44e1eb0f4ce89f89cd1fcf85a1"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_pants",
+        "ue_equipment_icon_mesh"
+      ],
+      "value_sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_pants",
+        "ue_icon_yaw"
+      ],
+      "value_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_pants",
+        "ue_icon_roll"
+      ],
+      "value_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_boots",
+        "desc"
+      ],
+      "value_sha256": "386b79425045d6c3b0d1d0b08f44d3e66cedf13492f6356fcecfd05dd8b69aa0"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_boots",
+        "ue_icon"
+      ],
+      "value_sha256": "73494ea3beb1a3c3425798f5dd8371abd0d8b7a34173c2beddcb3d96a550b6ec"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_boots",
+        "world_mesh"
+      ],
+      "value_sha256": "7d4b11a0c7d2da3accc376957b4313bca99c620b32b4345774d63162b94f5391"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_boots",
+        "ue_equipment_icon_mesh"
+      ],
+      "value_sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_st6_tactical_boots",
+        "ue_icon_roll"
+      ],
+      "value_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_cargo_pants",
+        "armorSet"
+      ],
+      "value_sha256": "58546ec1cdbb67343599259ab2a39ecaae0b1e2685126bed91f7ea4c3383bf22"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_cargo_pants",
+        "setName"
+      ],
+      "value_sha256": "6ece291ada4e66f63b312aa50ccdd09f09941e37fc6f9aa0b7df5c6a57b65e7d"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_cargo_pants",
+        "setBonusDesc"
+      ],
+      "value_sha256": "686c76bfd98daf96d66e79cd3df809e4edcaf8bbb6712dbd6b92a6772850ce93"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_boots",
+        "armorSet"
+      ],
+      "value_sha256": "58546ec1cdbb67343599259ab2a39ecaae0b1e2685126bed91f7ea4c3383bf22"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_boots",
+        "setName"
+      ],
+      "value_sha256": "6ece291ada4e66f63b312aa50ccdd09f09941e37fc6f9aa0b7df5c6a57b65e7d"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_boots",
+        "setBonusDesc"
+      ],
+      "value_sha256": "686c76bfd98daf96d66e79cd3df809e4edcaf8bbb6712dbd6b92a6772850ce93"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_original_gloves",
+        "armorSet"
+      ],
+      "value_sha256": "58546ec1cdbb67343599259ab2a39ecaae0b1e2685126bed91f7ea4c3383bf22"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_original_gloves",
+        "setName"
+      ],
+      "value_sha256": "6ece291ada4e66f63b312aa50ccdd09f09941e37fc6f9aa0b7df5c6a57b65e7d"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_original_gloves",
+        "setBonusDesc"
+      ],
+      "value_sha256": "686c76bfd98daf96d66e79cd3df809e4edcaf8bbb6712dbd6b92a6772850ce93"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_field_hat"
+      ],
+      "value_sha256": "187cba657f42e28b8e46e71929c4e76f1a0ca6a15c6c3b3535d8b18e2d538790"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_work_jacket"
+      ],
+      "value_sha256": "471db12e2be545538eef2145f73aa8b997de08f55a837748966eb005425aa2f6"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_charcoal_sports_cap"
+      ],
+      "value_sha256": "ef56aba0d10e9b1808b3e1c32180369795b4f179409617ee1b9d0ecf531b0ccf"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_tactical_magazine_belt"
+      ],
+      "value_sha256": "81bd9e9cb8f7435793e6bdf501e625a920d5eb855fc78b36a1aef550a369b003"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "path": [
+        "ue_leather_quiver_belt"
+      ],
+      "value_sha256": "0b8d9f63c9b23163e4cc43e3e49288d179941b59dde674dabbc7f977c95df7bc"
+    },
+    {
+      "file": "Content/ColdSteelData/source-combat-items.json",
+      "path": [
+        "ue_cargo_pants"
+      ],
+      "value_sha256": "0f607d1d55c1312f2303065602e217dc3a638e786d8c14c4cb8286b9205b1258"
+    },
+    {
+      "file": "Content/ColdSteelData/source-combat-items.json",
+      "path": [
+        "ue_boots"
+      ],
+      "value_sha256": "0f607d1d55c1312f2303065602e217dc3a638e786d8c14c4cb8286b9205b1258"
+    },
+    {
+      "file": "Content/ColdSteelData/source-combat-items.json",
+      "path": [
+        "ue_original_gloves"
+      ],
+      "value_sha256": "0f607d1d55c1312f2303065602e217dc3a638e786d8c14c4cb8286b9205b1258"
+    },
+    {
+      "file": "Content/ColdSteelData/source-combat-items.json",
+      "path": [
+        "ue_field_hat"
+      ],
+      "value_sha256": "0f607d1d55c1312f2303065602e217dc3a638e786d8c14c4cb8286b9205b1258"
+    },
+    {
+      "file": "Content/ColdSteelData/source-combat-items.json",
+      "path": [
+        "ue_work_jacket"
+      ],
+      "value_sha256": "4c7966b78440248778bfa07fe64259badbacf4e7eb0a0bc2e50a7c951a1d72ba"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "path": [
+        "head_equipment",
+        "ue_field_hat"
+      ],
+      "value_sha256": "912ae82cd9c1a2e4b5c39f1fddb2dda74ae65a31742c4851e6e24cb404d8f91d"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "path": [
+        "head_equipment",
+        "ue_st6_tactical_helmet"
+      ],
+      "value_sha256": "3f60ee9e4e92955ef410c50e51654b0ecb6e6bffc11994de29c596ba50480d05"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "path": [
+        "head_equipment",
+        "ue_charcoal_sports_cap"
+      ],
+      "value_sha256": "47d0cd42e600039ccc5923979947b97c7a0c2063b3405943423fe95b52b48b05"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "path": [
+        "head_equipment",
+        "ue_blue_mage_hat",
+        "covers_scalp_hair"
+      ],
+      "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "head_equipment",
+        "ue_charcoal_sports_cap"
+      ],
+      "value_sha256": "eeb4925c99777890176878d71f76098aee4c1d7cde724851dce97860114e85f4"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_leather_quiver_belt"
+      ],
+      "value_sha256": "354dc1eebafbe4d38faf760165f6c0b46f1fe5acfc61cf7bfc2f2b41d0526295"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_tactical_magazine_belt"
+      ],
+      "value_sha256": "6dde617a919eeeffd9c6f8eb03e47febfb31bf3651721be5f7e019f45e1c1d06"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_work_jacket"
+      ],
+      "value_sha256": "5c552914408051b1b774a72eab3c8d49624d1d68cd784f61228156d6b615f555"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_tactical_pants"
+      ],
+      "value_sha256": "e66ecd2f2641b2e9e59be7e7b306401082a9247ba5bac2fbd240d67a3c8a57ae"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_tactical_boots"
+      ],
+      "value_sha256": "0da3b26a20ed140e70f8cdc33beb9c74c381801eaad5c8f98159fb33b7050bb6"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater",
+        "pants_fit_meshes"
+      ],
+      "value_sha256": "3f446cd93ab7119ff42098b8264ed49d989eed721cd0843ec2a26bc37d9e56e3"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater",
+        "pants_mesh_fit_meshes"
+      ],
+      "value_sha256": "3f28de1e8857e01a35161f25e294a65b21dd2341051ab5ab7887f0fc019c2de2"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater",
+        "pants_fit_pipeline"
+      ],
+      "value_sha256": "637751dc204e6f92faadc1c62b9f9b321f5af35b65ed5665e1e6e67621644565"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater",
+        "waist_fit_revision"
+      ],
+      "value_sha256": "7ca35ab574c91be7cbab7b29259f05cbc2fac7a12e8079936774c208476d998b"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater_charcoal",
+        "pants_fit_meshes"
+      ],
+      "value_sha256": "3fffefc1ea500b0187d7b7073dea6c93b6658fb53cc4b94afcda18a0d9dac659"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater_charcoal",
+        "pants_mesh_fit_meshes"
+      ],
+      "value_sha256": "15399345ad59de23e2864f173f7c3db63a925dbcb3ee5d2fa3a0136e05f89f61"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater_charcoal",
+        "pants_fit_default"
+      ],
+      "value_sha256": "9ceab9ad43de18f45cb567fb0e53bd024505d0be2e7bb618825869bb39c44227"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater_charcoal",
+        "pants_fit_pipeline"
+      ],
+      "value_sha256": "637751dc204e6f92faadc1c62b9f9b321f5af35b65ed5665e1e6e67621644565"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_field_sweater_charcoal",
+        "waist_fit_revision"
+      ],
+      "value_sha256": "7ca35ab574c91be7cbab7b29259f05cbc2fac7a12e8079936774c208476d998b"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_chainmail_shirt",
+        "pants_fit_meshes"
+      ],
+      "value_sha256": "aeb0a81b234ae246691094816dfd6ffbe0d45dd3f271b3714d690d69a378fefc"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_chainmail_shirt",
+        "pants_mesh_fit_meshes"
+      ],
+      "value_sha256": "228f6d4dad00c01e8693f773eabf3266df003b7aba88820cdf8bd216c2b13fd1"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_chainmail_shirt",
+        "pants_fit_default"
+      ],
+      "value_sha256": "eef74931fa0dda36baea8c525778b89703dbb551f7caf6b10104e63191be6c8a"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_chainmail_shirt",
+        "pants_fit_pipeline"
+      ],
+      "value_sha256": "637751dc204e6f92faadc1c62b9f9b321f5af35b65ed5665e1e6e67621644565"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_chainmail_shirt",
+        "waist_fit_revision"
+      ],
+      "value_sha256": "7ca35ab574c91be7cbab7b29259f05cbc2fac7a12e8079936774c208476d998b"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_sleeves",
+        "pants_fit_meshes"
+      ],
+      "value_sha256": "db6476d61b64095448b74c6ab2250682d57da79aacc7bc1d1bd9edfbc9dce7c9"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_sleeves",
+        "pants_mesh_fit_meshes"
+      ],
+      "value_sha256": "f618104a82609980355b95cd4148e3a2cb00a23df5e33c3532b2d15bfffff8b8"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_sleeves",
+        "pants_fit_default"
+      ],
+      "value_sha256": "52e4f0f02ae0d120bb954c2ff7f33f2544da3a6776deeb740efb9fcdb47c7fa0"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_sleeves",
+        "pants_fit_pipeline"
+      ],
+      "value_sha256": "637751dc204e6f92faadc1c62b9f9b321f5af35b65ed5665e1e6e67621644565"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "items",
+        "ue_st6_sleeves",
+        "waist_fit_revision"
+      ],
+      "value_sha256": "7ca35ab574c91be7cbab7b29259f05cbc2fac7a12e8079936774c208476d998b"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "items",
+        "ue_leather_quiver_belt"
+      ],
+      "value_sha256": "718fd337f0ff3ae2764dbd770dadcf4f45c6a2b68f00bcbb5d3328540e457d09"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "path": [
+        "body_variants",
+        "kaitlin",
+        "items",
+        "ue_tactical_magazine_belt"
+      ],
+      "value_sha256": "b32a8210f68c7b9752d19f30e20fde22e68c2aacc240fcc4d24968a3a94f4541"
+    }
+  ]
+}

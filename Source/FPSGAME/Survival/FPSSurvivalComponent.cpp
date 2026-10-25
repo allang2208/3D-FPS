@@ -151,8 +151,10 @@ void UFPSSurvivalComponent::TickComponent(float DeltaTime,ELevelTick TickType,FA
     const float SanityTime=FMath::Min(DeltaTime,DepletedAt);
     const float Boundaries[]={FMath::Min(BlessedTime,SanityTime),FMath::Max(BlessedTime,SanityTime),DeltaTime};
     const float CampfireRate=AColdSteelCampfire::ConsumptionMultiplierAt(Pawn);
-    const auto RateMultiplier=[BlessedTime,DepletedAt,CampfireRate](float Time)
-    {return CampfireRate*(Time<BlessedTime?.9f:1.f)*(Time>=DepletedAt?2.f:1.f);};
+    const auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
+    const float EquipmentRate=Profile?float(Profile->SetEffect(TEXT("survivalConsumption"))):1.f;
+    const auto RateMultiplier=[BlessedTime,DepletedAt,CampfireRate,EquipmentRate](float Time)
+    {return CampfireRate*EquipmentRate*(Time<BlessedTime?.9f:1.f)*(Time>=DepletedAt?2.f:1.f);};
     float ConsumptionTime=0.f,Start=0.f;
     for(const float End:Boundaries)
     {ConsumptionTime+=(End-Start)*RateMultiplier((Start+End)*.5f);Start=End;}

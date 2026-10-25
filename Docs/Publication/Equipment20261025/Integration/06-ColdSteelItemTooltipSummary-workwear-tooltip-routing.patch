@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -60,6 +60,7 @@
+     if(Set==TEXT("steel_chainmail")){OutCount=UE_ARRAY_COUNT(Steel);return Steel;}
+     if(Set==TEXT("blue_mage")){OutCount=UE_ARRAY_COUNT(BlueMage);return BlueMage;}
+     if(Set==TEXT("st6_tactical")){OutCount=UE_ARRAY_COUNT(St6);return St6;}
++    if(Set==TEXT("workwear")){OutCount=UE_ARRAY_COUNT(Workwear);return Workwear;}
+     OutCount=0;return nullptr;
+ }
+ // 套装显示名：显式列在目录里比按内码猜更可靠，未登记则回退到套装 id。

@@ -96,6 +96,8 @@ public:
     UFUNCTION(BlueprintPure, Category="Stamina") bool CanSprint() const;
     bool CanSpendStamina(float Amount) const;
     bool SpendStamina(float Amount);
+    // Cost producers apply this once; SpendStamina and network receipts take final costs.
+    float ActionStaminaMultiplier() const;
     void DelayStaminaRecovery();
     // Called on an attributed death, independently of experience/gold eligibility.
     void ApplyKillStaminaRecovery(AActor* Victim);

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp
++++ b/Source/FPSGAME/Skills/BowSkillTrainingAuditCommandlet.cpp
+@@ -25,6 +25,7 @@
+ 
+ int32 UBowSkillTrainingAuditCommandlet::Main(const FString& Params)
+ {
++    if(FParse::Param(*Params,TEXT("QuiverBelt")))return RunQuiverBelt(Params);
+     if(FParse::Param(*Params,TEXT("UpperBodyContinuity")))return RunUpperBodyContinuityDiagnosis(Params);
+     if(FParse::Param(*Params,TEXT("SparrowPresentation")))return RunSparrowPresentation(Params);
+     UE_LOG(LogTemp,Display,TEXT("BOW_SKILL_AUDIT revision=5 (explicit local controller identity)"));
