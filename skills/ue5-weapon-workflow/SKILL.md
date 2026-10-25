@@ -41,3 +41,5 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 - 符文战锤、专属锤头、命中苏醒与双重重击，读取 [模块战锤与持续触发](references/runebound-modular-procs.md)；按攻击与目标分别去重，持续刻印通过复制状态恢复。
 
 - 弓的装备加速、手动／快速／连续搭箭快照与远端阶段时钟，读取 [装备目录迁移与远端动作时钟](../ue5-save-load-replication/references/equipment-tuning-and-clocks.md)。
+
+装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](../ue5-item-asset-workflow/references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。

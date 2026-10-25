@@ -1,4 +1,7 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSBodyOutfitResources.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "FPSBackpackMotionComponent.h"
 #include "FPSModularOutfitComponent.h"
 #include "FPSPlayerBodyAnimInstance.h"
@@ -120,7 +123,9 @@ FSoftObjectPath StaticOutfitMesh(const FString& Definition)
     const TSharedPtr<FJsonObject>* Settings=nullptr;
     if(!Definitions->TryGetObjectField(Definition,Settings))return FSoftObjectPath();
     FString Path;
-    if(!(*Settings)->TryGetStringField(TEXT("world_static_mesh"),Path))return FSoftObjectPath();
+    // A normalized inventory display must not rotate the wearable/pickup source.
+    if(!(*Settings)->TryGetStringField(TEXT("inventory_static_mesh"),Path)||Path.IsEmpty())
+        if(!(*Settings)->TryGetStringField(TEXT("world_static_mesh"),Path))return FSoftObjectPath();
     return FSoftObjectPath(Path);
 }
 }
@@ -670,11 +675,65 @@ void UFPSPlayerBodyComponent::UpdateWorldWeaponPresentation()
     for(const auto& Part:WorldParts)Apply(Part.Get());
 }
 
+void UFPSPlayerBodyComponent::ClearOutfitPresentation()
+{
+    ++OutfitLoadGeneration;OutfitLoadKey.Reset();
+    if(OutfitLoad)OutfitLoad->CancelHandle();OutfitLoad.Reset();
+    if(auto* Motion=GetOwner()->FindComponentByClass<UFPSBackpackMotionComponent>())Motion->Clear();
+    for(auto Part:OutfitMeshes)if(Part)Part->DestroyComponent();OutfitMeshes.Reset();
+    for(auto Part:OutfitStaticMeshes)if(Part)Part->DestroyComponent();OutfitStaticMeshes.Reset();
+}
+
 void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit)
 {
-    if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
-    if(FPSPlayerBodyWorldBodySuppressed())return;
+    if(FPSPlayerBodyWorldBodySuppressed())
+    {
+        if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
+        return;
+    }
     auto* Body=GetBodyMesh();if(!Body||!Configuration.IsValid())return;
+    // Identical item IDs resolve to different native meshes after a body swap.
+    FString RequestKey=GetBodyType().ToString()+TEXT("|")+Configuration->GetStringField(TEXT("body_mesh"))+TEXT("|");
+    TSet<FSoftObjectPath> RecipePaths;
+    const TSharedPtr<FJsonObject>* Recipes=nullptr;
+    Configuration->TryGetObjectField(TEXT("outfits"),Recipes);
+    const auto* RequestedShirtSlot=Outfit.FindByPredicate([](const FFPSBodyOutfitSlot& Item){return Item.Slot==7;});
+    const FName RequestedShirt=RequestedShirtSlot?RequestedShirtSlot->Definition:NAME_None;
+    for(const auto& Entry:Outfit)
+    {
+        RequestKey+=FString::Printf(TEXT("%d:%s;"),Entry.Slot,*Entry.Definition.ToString());
+        if(Recipes)if(const auto Recipe=(*Recipes)->TryGetField(Entry.Definition.ToString()))
+            FPSBodyOutfitResources::GatherOutfit(Recipe,RequestedShirt,RecipePaths);
+    }
+    if(OutfitLoadKey!=RequestKey)
+    {
+        ++OutfitLoadGeneration;OutfitLoadKey=RequestKey;
+        if(OutfitLoad)OutfitLoad->CancelHandle();
+        OutfitLoad.Reset();
+    }
+    bool Missing=false;
+    for(const auto& Path:RecipePaths)if(!Path.ResolveObject()){Missing=true;break;}
+    if(Missing)
+    {
+        if(OutfitLoad&&!OutfitLoad->HasLoadCompleted())return;
+        const uint64 Generation=++OutfitLoadGeneration;
+        const auto Paths=RecipePaths.Array();
+        OutfitLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
+            FStreamableDelegate::CreateWeakLambda(this,[this,Generation,Outfit,Paths]()
+            {
+                if(Generation!=OutfitLoadGeneration||!GetOwner()||GetOwner()->IsActorBeingDestroyed())return;
+                for(const auto& Path:Paths)if(!Path.ResolveObject())
+                {
+                    UE_LOG(LogTemp,Warning,TEXT("PlayerBody: outfit resource unavailable %s; previous assembly retained"),*Path.ToString());
+                    OutfitLoad.Reset();return;
+                }
+                ApplyOutfit(Outfit);
+            }));
+        return; // Keep the complete previous assembly while the new recipe loads.
+    }
+    if(OutfitLoad)++OutfitLoadGeneration; // A direct refresh can win before the queued completion delegate.
+    const auto LoadedOutfitAssets=MoveTemp(OutfitLoad);
+    if(auto* Modular=GetOwner()->FindComponentByClass<UFPSModularOutfitComponent>())Modular->SetWorldOutfit(Outfit);
     const auto* HeadSlot=Outfit.FindByPredicate([](const FFPSBodyOutfitSlot& Entry){return Entry.Slot==1;});
     UpdateHeadEquipment(HeadSlot?HeadSlot->Definition:NAME_None);
     UFPSPerformanceMetricsSubsystem::CountOutfitRebuild(this);
@@ -690,6 +749,7 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
         for(int32 I=0;I<It.Value().Materials.Num();++I)Mesh->SetMaterial(I,It.Value().Materials[I]);
     }
     // Body sections are controlled by the outfit; restore them before applying a new combination.
+    if (auto* Driver = Cast<UFPSPlayerBodyMeshComponent>(Body)) Driver->RestoreSourceRendering();
     const auto* Render=Body->GetSkeletalMeshAsset()?Body->GetSkeletalMeshAsset()->GetResourceForRendering():nullptr;
     if(Render)for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
         Body->ShowMaterialSection(Render->LODRenderData[L].RenderSections[S].MaterialIndex,S,true,L);
@@ -707,17 +767,12 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
     {
         const TSharedPtr<FJsonObject>* Settings=nullptr;
         if(!(*Definitions)->TryGetObjectField(Entry.Definition.ToString(),Settings))continue;
-        FString Path;
+        const FName FittedShirt=FPSBodyOutfitResources::FittedShirt(*Settings,RequestedShirt);
+        FString Path=FPSBodyOutfitResources::StringForShirt(*Settings,TEXT("world_mesh"),FittedShirt);
         bool bHasSkeletalOutfit=false;
         // 背包类装备按上衣选贴合变体：肩带与不同厚度/材质的衣服有不同的
         // 静态间隙，合并成一个资产只能在某一件衣服上合身。没有对应条目时
         // 回退到 world_mesh，旧内容不受影响。
-        if(const TSharedPtr<FJsonObject>* ByShirt=nullptr;(*Settings)->TryGetObjectField(TEXT("world_mesh_by_shirt"),ByShirt))
-        {
-            const auto* ShirtSlot=Outfit.FindByPredicate([](const FFPSBodyOutfitSlot& Item){return Item.Slot==7;});
-            if(ShirtSlot)(*ByShirt)->TryGetStringField(ShirtSlot->Definition.ToString(),Path);
-        }
-        if(Path.IsEmpty())(*Settings)->TryGetStringField(TEXT("world_mesh"),Path);
         if(!Path.IsEmpty())if(auto* Asset=LoadObject<USkeletalMesh>(nullptr,*Path))
         {
             auto* Part=NewObject<USkeletalMeshComponent>(GetOwner(),NAME_None,RF_Transient);
@@ -732,20 +787,18 @@ void UFPSPlayerBodyComponent::ApplyOutfit(const TArray<FFPSBodyOutfitSlot>& Outf
                     BackpackMotion=NewObject<UFPSBackpackMotionComponent>(GetOwner());
                     GetOwner()->AddInstanceComponent(BackpackMotion);BackpackMotion->RegisterComponent();
                 }
-                const auto* MotionShirt=Outfit.FindByPredicate([](const FFPSBodyOutfitSlot& Item){return Item.Slot==7;});
-                BackpackMotion->Configure(Body,Part,*Settings,MotionShirt?MotionShirt->Definition:NAME_None);
+                BackpackMotion->Configure(Body,Part,*Settings,FittedShirt);
                 const TSharedPtr<FJsonObject>* RigidSettings=nullptr;
                 if((*Settings)->TryGetObjectField(TEXT("rigid_pack"),RigidSettings))
                 {
-                    FString RigidPath;
-                    if((*RigidSettings)->TryGetStringField(TEXT("mesh"),RigidPath))
+                    const FString RigidPath=FPSBodyOutfitResources::StringForShirt(*RigidSettings,TEXT("mesh"),FittedShirt);
+                    if(!RigidPath.IsEmpty())
                         if(auto* RigidAsset=LoadObject<UStaticMesh>(nullptr,*RigidPath))
                         {
                             FVector Location=FPSBodyEquipment::JsonVector(*RigidSettings,TEXT("location"),FVector::ZeroVector);
                             const TSharedPtr<FJsonObject>* ByShirt=nullptr;
-                            if((*RigidSettings)->TryGetObjectField(TEXT("location_by_shirt"),ByShirt))
-                                if(const auto* Shirt=Outfit.FindByPredicate([](const FFPSBodyOutfitSlot& Item){return Item.Slot==7;}))
-                                    Location=FPSBodyEquipment::JsonVector(*ByShirt,*Shirt->Definition.ToString(),Location);
+                            if(!FittedShirt.IsNone()&&(*RigidSettings)->TryGetObjectField(TEXT("location_by_shirt"),ByShirt))
+                                Location=FPSBodyEquipment::JsonVector(*ByShirt,*FittedShirt.ToString(),Location);
                             FQuat Rotation=FQuat::Identity;
                             const TArray<TSharedPtr<FJsonValue>>* Q=nullptr;
                             if((*RigidSettings)->TryGetArrayField(TEXT("rotation_quat"),Q)&&Q->Num()==4)

@@ -1,14 +1,17 @@
 """Save the full display, shared Nanite body and six fitted harnesses."""
-import json,hashlib,importlib.util,gc
+import json,hashlib,importlib.util,gc,os
 from array import array
 from pathlib import Path
 import unreal as u
-P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/PathfinderBackpack20261023';DEST='/Game/Characters/PathfinderBackpack20261023'
+P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/PathfinderBackpack20261023/OrientationFitR2_20261024';DEST='/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024'
 OLD='/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003'
 E,G,L=u.EditorAssetLibrary,u.GeometryScript_AssetUtils,u.MaterialEditingLibrary
 A=u.AssetToolsHelpers.get_asset_tools();S=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem) or u.new_object(u.SkeletalMeshEditorSubsystem)
 compiled_materials=set()
-plan=json.loads((R/'manifest.json').read_text());saved=json.loads((R/'saved_assets.json').read_text()) if (R/'saved_assets.json').exists() else {'variants':{},'materials':{}}
+NEW_ONLY=os.environ.get('PATHFINDER_NEW_ASSETS_ONLY')=='1'
+plan=json.loads((R/('manifest.json' if (R/'manifest.json').exists() else 'author_progress.json')).read_text())
+plan.setdefault('revision','PathfinderOrientationFitR2_20261024')
+saved=json.loads((R/'saved_assets.json').read_text()) if (R/'saved_assets.json').exists() else {'variants':{},'materials':{}}
 def module(name,path):
     spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
 io=module('sling_io',P/'Tools/ChainmailPants/save_assets.py');winding=module('sling_winding',P/'Tools/BackpackHarness/winding.py')
@@ -38,6 +41,8 @@ def material(name):
 def output(node,pin,prop):
     if not L.connect_material_property(node,pin,prop):raise RuntimeError('Cannot connect material property')
 def materials():
+    if NEW_ONLY and E.does_directory_exist(DEST):
+        raise RuntimeError('New-only material creation requires an unused revision directory')
     textures={};E.make_directory(DEST+'/Textures')
     for channel,name in [('BaseColor','T_Pathfinder_BaseColor'),('MR','T_Pathfinder_MetallicRoughness'),('Normal','T_Pathfinder_Normal_GL')]:
         task=u.AssetImportTask();task.filename=str(R/'Textures'/(name+'.png'));task.destination_path=DEST+'/Textures';task.destination_name=name
@@ -75,6 +80,7 @@ def static(kind,name):
     digest=hashlib.sha256(b''.join((folder/(n+'.bin')).read_bytes() for n in ['positions','normals','uv','triangles','materials'])).hexdigest()
     path=DEST+'/'+name
     if saved.get(kind,{}).get('sha256')==digest and E.does_asset_exist(path):return
+    if NEW_ONLY and E.does_asset_exist(path):raise RuntimeError('Cannot replace an existing static asset in new-only mode: '+path)
     vertices=vectors(read_array(folder,'positions','f'),3,u.Vector);normals=vectors(read_array(folder,'normals','f'),3,u.Vector)
     uv=vectors(read_array(folder,'uv','f'),2,u.Vector2D);it=iter(read_array(folder,'triangles','i'))
     triangles=[u.IntVector(a,c,b) for a,b,c in zip(it,it,it)]
@@ -94,7 +100,8 @@ def static(kind,name):
 def wearable(row):
     profile=row['profile'];src=Path(row['source']);digest=hashlib.sha256(src.read_bytes()).hexdigest();path=row['asset'].split('.')[0]
     if saved['variants'].get(profile,{}).get('sha256')==digest and E.does_asset_exist(path):return
-    data=json.loads(src.read_text());mesh=u.load_asset(path) or E.duplicate_asset(OLD+'/SK_Jason_Backpack',path)
+    if NEW_ONLY and E.does_asset_exist(path):raise RuntimeError('Cannot replace an existing harness in new-only mode: '+path)
+    data=json.loads(src.read_text());mesh=u.load_asset(path) or E.duplicate_asset(row['template'].split('.')[0],path)
     if not mesh:raise RuntimeError('Cannot create sling variant '+profile)
     native,status=G.copy_mesh_from_skeletal_mesh(mesh,u.DynamicMesh(),u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD())
     if status!=u.GeometryScriptOutcomePins.SUCCESS:raise RuntimeError('Cannot load reference bones')
@@ -115,9 +122,24 @@ def main():
     if '-run=' not in u.SystemLibrary.get_command_line().lower():
         if u.EditorLevelLibrary.get_pie_worlds(False):raise RuntimeError('Finish PIE before authoring assets')
         if any(p.get_path_name().startswith(DEST+'/') for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages()):raise RuntimeError('Sling assets have unsaved editor edits')
-    E.make_directory(DEST);materials();static('Display','SM_PathfinderBackpack');static('Worn','SM_PathfinderWornBody')
-    for row in plan['variants']:wearable(row)
-    saved['completed']=True;receipt();print('PATHFINDER_ASSETS_COMPLETE',flush=True)
+    stage=globals().get('SAVE_STAGE','all')
+    # Material stage checks that this is a new revision before making the folder.
+    if stage not in ('all','materials'):E.make_directory(DEST)
+    if stage in ('all','materials'):materials()
+    if stage in ('all','display'):static('Display','SM_PathfinderBackpack')
+    if stage in ('all','worn'):static('Worn','SM_PathfinderWornBody')
+    if stage in ('all','harness'):
+        count=0
+        for row in plan['variants']:
+            if globals().get('SAVE_RIG') and row['rig']!=globals()['SAVE_RIG']:continue
+            previous=saved['variants'].get(row['profile'],{}).get('sha256')
+            wearable(row)
+            if saved['variants'][row['profile']]['sha256']!=previous:count+=1
+            if stage=='harness' and count>=globals().get('SAVE_MAX_HARNESSES',2):break
+    saved['completed']=(R/'manifest.json').exists() and all(
+        saved['variants'].get(row['profile'],{}).get('sha256')==hashlib.sha256(Path(row['source']).read_bytes()).hexdigest()
+        for row in plan['variants']) and all(saved.get(key,{}).get('saved') for key in ['Display','Worn'])
+    receipt();print('PATHFINDER_ASSET_STAGE',stage,'complete=',saved['completed'],flush=True)
 if __name__=='__main__':
     status=R/'asset_job_status.json';status.write_text(json.dumps({'state':'running'}))
     try:

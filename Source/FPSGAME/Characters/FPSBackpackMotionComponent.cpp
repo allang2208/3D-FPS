@@ -2,6 +2,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
+#include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Dom/JsonObject.h"
@@ -69,6 +70,17 @@ void UFPSBackpackMotionComponent::Configure(USkeletalMeshComponent* InBody,USkel
     MaxBounce=FMath::Clamp(Number(*Json,TEXT("max_bounce_cm"),.35f),0.f,.6f);
     ResponseScale=FMath::Clamp(Number(*Json,TEXT("response_scale"),1.f),.25f,6.f);
     MaxDisplacement=FMath::Clamp(Number(*Json,TEXT("max_displacement_cm"),0.f),0.f,6.f);
+    GravitySag=FMath::Clamp(Number(*Json,TEXT("gravity_sag_cm"),.45f),0.f,.8f);
+    MaxSeparation=FMath::Clamp(Number(*Json,TEXT("max_separation_cm"),.8f),.1f,1.5f);
+    const TSharedPtr<FJsonObject>* Support=nullptr;const TSharedPtr<FJsonObject>* Supports=nullptr;
+    if(!Shirt.IsNone()&&(*Json)->TryGetObjectField(TEXT("support_by_shirt"),Supports))
+        (*Supports)->TryGetObjectField(Shirt.ToString(),Support);
+    if(!Support)(*Json)->TryGetObjectField(TEXT("support"),Support);
+    if(Support)
+    {
+        Pivot=Vector(*Support,TEXT("pivot"),Pivot);
+        BoundsMin=Vector(*Support,TEXT("bounds_min"),BoundsMin);BoundsMax=Vector(*Support,TEXT("bounds_max"),BoundsMax);
+    }
     ConfigureHanging(Settings,Shirt);
     AddTickPrerequisiteActor(GetOwner());AddTickPrerequisiteComponent(InBody);
     SetComponentTickEnabled(true);
@@ -157,14 +169,26 @@ void UFPSBackpackMotionComponent::TickComponent(float Delta,ELevelTick Type,FAct
     AnchorVelocity=Filtered;LastPosition=Position;LastVelocity=Velocity;LastAnchor=Anchor;LastFrame=Frame.GetRotation();
     const float Response=Gain*MaxAngle/2.4f*ResponseScale;
     const FVector AngleTarget=(FVector(-Acceleration.Y*.0012f,Acceleration.X*.0012f,0.)-FrameAngularVelocity*.02f)*Response;
-    const FVector OffsetTarget=FVector(-Acceleration.X*.00015f,0.,-Acceleration.Z*.00045f)*Response;
+    // The shoulder straps support a loaded pack. Gravity takes up their small
+    // elastic slack; its normal component is reacted by the torso/harness.
+    // Express world gravity in the evaluated torso frame, not a global bob.
+    const FVector Gravity=Frame.InverseTransformVectorNoScale(FVector(0,0,GetWorld()->GetGravityZ()))*(GravitySag/980.f);
+    const FVector GravityTarget=FVector(Gravity.X,0.,Gravity.Z)*Gain;
+    const FVector OffsetTarget=FVector(-Acceleration.X*.00015f,0.,-Acceleration.Z*.00045f)*Response+GravityTarget;
     const int32 Steps=FMath::Clamp(FMath::CeilToInt(Delta*120.f),1,42);const float Step=Delta/Steps,W=2.f*UE_PI*Frequency;
     for(int32 I=0;I<Steps;++I)
     {
         FPSBackpackMotion::Spring(Angles,AngularVelocity,AngleTarget,W,Damping,Step);
         FPSBackpackMotion::Spring(Offset,OffsetVelocity,OffsetTarget,W,Damping,Step);
         FPSBackpackMotion::Limit(Angles,AngularVelocity,FVector(MaxAngle,MaxAngle*.8f,MaxAngle*.7f)*Gain);
-        FPSBackpackMotion::Limit(Offset,OffsetVelocity,FVector(.3f,0.f,MaxBounce)*Gain);
+        const FVector ElasticLimit=FVector(.3f,0.f,MaxBounce)*Gain;
+        for(int32 AxisIndex=0;AxisIndex<3;++AxisIndex)
+        {
+            const double Low=FMath::Min(0.,GravityTarget[AxisIndex])-ElasticLimit[AxisIndex];
+            const double High=FMath::Max(0.,GravityTarget[AxisIndex])+ElasticLimit[AxisIndex];
+            if(Offset[AxisIndex]<Low||Offset[AxisIndex]>High)
+            {Offset[AxisIndex]=FMath::Clamp(Offset[AxisIndex],Low,High);OffsetVelocity[AxisIndex]=0.;}
+        }
     }
     FQuat Rotation=FQuat(FVector::UpVector,FMath::DegreesToRadians(Angles.Z))
         *FQuat(FVector::RightVector,FMath::DegreesToRadians(Angles.Y))*FQuat(FVector::ForwardVector,FMath::DegreesToRadians(Angles.X));
@@ -176,6 +200,18 @@ void UFPSBackpackMotionComponent::TickComponent(float Delta,ELevelTick Type,FAct
     {
         const FVector P((I&1)?BoundsMax.X:BoundsMin.X,(I&2)?BoundsMax.Y:BoundsMin.Y,(I&4)?BoundsMax.Z:BoundsMin.Z);
         ForwardAdvance=FMath::Max(ForwardAdvance,float((Rotation.RotateVector(P-Pivot)-(P-Pivot)).Y));
+    }
+    // A conservative support-box correction must not leave the pack hovering
+    // behind the wearer. Reduce rotation before applying an excessive retreat.
+    if(ForwardAdvance>MaxSeparation)
+    {
+        Rotation=FQuat::Slerp(FQuat::Identity,Rotation,MaxSeparation/ForwardAdvance).GetNormalized();
+        ForwardAdvance=0.f;
+        for(int32 I=0;I<8;++I)
+        {
+            const FVector P((I&1)?BoundsMax.X:BoundsMin.X,(I&2)?BoundsMax.Y:BoundsMin.Y,(I&4)?BoundsMax.Z:BoundsMin.Z);
+            ForwardAdvance=FMath::Max(ForwardAdvance,float((Rotation.RotateVector(P-Pivot)-(P-Pivot)).Y));
+        }
     }
     FVector Translation=Offset;Translation.Y=-ForwardAdvance;
     // Taut sewn straps limit the total travel, including simultaneous yaw,

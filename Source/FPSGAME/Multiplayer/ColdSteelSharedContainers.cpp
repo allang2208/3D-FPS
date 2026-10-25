@@ -17,13 +17,14 @@ using namespace ColdSteelInventory;
 
 namespace
 {
-bool MigrateStabilizerFootprints(TArray<FColdSteelItem>& Items,int32& Pages,bool& Changed,FString& Reason)
+bool MigrateChangedFootprints(TArray<FColdSteelItem>& Items,int32& Pages,bool& Changed,FString& Reason)
 {
     Changed=false;
     for(int32 N=0;N<Items.Num();++N)
     {
         auto& Item=Items[N];
-        if(Item.Definition!=TEXT("alchemy_compound_stabilizer"))continue;
+        if(Item.Definition!=TEXT("alchemy_compound_stabilizer")&&Item.Definition!=TEXT("ue_tactical_magazine_belt")
+            &&Item.Definition!=TEXT("ue_melee_combat_belt")&&Item.Definition!=TEXT("ue_arcane_conduit_belt"))continue;
         bool ItemChanged=false;
         if(!MigrateAuthoredItemFootprint(Item,ItemChanged,Reason))return false;
         if(!ItemChanged)continue;
@@ -36,7 +37,7 @@ bool MigrateStabilizerFootprints(TArray<FColdSteelItem>& Items,int32& Pages,bool
                 for(int32 C=0;C<Pages*ColdSteelWarehouse::CellsPerPage;++C)
                     if(ColdSteelWarehouse::Fits(Others,Item,C,Pages*ColdSteelWarehouse::CellsPerPage)){Cell=C;break;}
                 if(Cell!=INDEX_NONE)break;
-                if(Pages>=8){Reason=TEXT("稳定剂占格迁移空间不足，保留原内容");return false;}
+                if(Pages>=8){Reason=TEXT("物品占格迁移空间不足，保留原内容");return false;}
                 ++Pages;
             }
             Item.Cell=Cell;
@@ -107,7 +108,7 @@ bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusMode
         {Reason=TEXT("此旧存档容器需要房主先打开一次");return false;}
     if(Open&&Request.Target->ActorHasTag(TEXT("DungeonTreasure.HubTest"))&&Container.Items.IsEmpty())Container.bSeeded=false;
     bool FootprintChanged=false;
-    if(Open&&!MigrateStabilizerFootprints(Container.Items,Pages,FootprintChanged,Reason))return false;
+    if(Open&&!MigrateChangedFootprints(Container.Items,Pages,FootprintChanged,Reason))return false;
     Container.Pages=Pages;
     if(Open&&!LegacyKeyChanged&&!FootprintChanged&&Container.bSeeded&&(!SearchLoot||Container.bSceneLootResolved)&&!HasPrivate(Working))
     {

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSpellMana.cpp
+@@ -24,6 +24,8 @@
+     else if(Id==TEXT("blizzard"))Cost=D->Blizzard.ManaCost;
+     else if(Id==TEXT("lightningStrike"))Cost=D->Lightning.ManaCost;
+     else if(Id==TEXT("holyLight"))Cost=D->HolyLight.ManaCost;
++    else if(Id==TEXT("iceArmor"))Cost=D->IceArmor.ManaBase+(L-1)*D->IceArmor.ManaPerLevel;
++    else if(Id==TEXT("lightningHaste"))Cost=D->LightningHaste.ManaBase+(L-1)*D->LightningHaste.ManaPerLevel;
+     else if(FireMagic::IsSkill(Id))Cost=D->FireMagic.ManaBase+FMath::FloorToFloat(Growth*D->FireMagic.ManaGrowth);
+     else if(ElectricMagic::IsSkill(Id))Cost=D->ElectricMagic.ManaBase+FMath::FloorToFloat(Growth*D->ElectricMagic.ManaGrowth);
+     else return 0.f;

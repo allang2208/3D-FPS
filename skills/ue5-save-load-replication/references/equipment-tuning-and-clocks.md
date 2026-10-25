@@ -8,7 +8,7 @@
 
 FPSGAME 的本地 `ReloadProfile` 不是完整迁移入口。沿真实数据流逐一处理 `CreateShadowModel`、`AdoptNetMirror`、`PersistState`，再核对本地读档。只补 `CommitState` 会遗漏其他保存入口；只补读档会令新生成物品正确而旧客机物品缺失加成。
 
-本次 `RefreshBeltTuning` 只筛选两个实际改版的腰带 ID，从目录重读对应字段，避免每次镜像遍历都解析大量无关材料。保持重复执行无副作用，并避免向实例暴露可变的共享目录 JSON。数值计算和预览均使用受物品上限约束的强化等级。
+`RefreshBeltTuning` 精确筛选四款腰带 ID（战术弹匣、皮革箭袋、破阵近战、星律导能），从目录重读对应字段，避免每次镜像遍历都解析大量无关材料。保持重复执行无副作用，并避免向实例暴露可变的共享目录 JSON。数值计算和预览均使用受物品上限约束的强化等级。
 
 ## 动作开始时取值、动作期间保持
 
@@ -21,3 +21,9 @@ FPSGAME 的本地 `ReloadProfile` 不是完整迁移入口。沿真实数据流�
 若本机用 `Elapsed += Delta * StageActionRate`，远端参考片段播放率也应为 `clipLength / actionSeconds * StageActionRate`。装备已缩短 actionSeconds，阶段倍率仍是独立时间缩放，漏乘会导致远端手势慢半拍。已在阶段自身实现加速的拉弓／保持等阶段保持倍率 1，避免重复加速。
 
 检查必须区分：公式／生命周期隔离调用、真实双端传输、重连、延迟丢包、跨机与画面表现。本次箭袋记录为 43 项目录与源检查、64 项隔离检查及 Editor/Game 构建；未建立 UDP 连接。先前战术腰带的双端记录也不覆盖后来追加的强化与箭袋功能。
+
+## 占格改版与费用词条
+
+非箭袋腰带统一横 3、竖 2。`ColdSteelInventoryRules` 保留旋转；共享库存启动恢复、`Pickup`、`PickupNearby` 与共享箱子迁移共同处理旧占格。保持实例身份和已有强化，迁移失败保留原内容。只改目录会漏掉已在世界中的旧物品。
+
+减耗在当前所属玩家的属性模型内合并乘区，见 [资源费用乘区](../../ue5-item-asset-workflow/references/resource-cost-multipliers.md)。费用词条迁移不新增扣费入口，也不把监听主机的属性套给客机。

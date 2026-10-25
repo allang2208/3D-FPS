@@ -33,3 +33,5 @@ if(-not $workwearSaved.completed){throw 'Jacket asset save incomplete.'}
 if($LASTEXITCODE -ne 0){throw 'Display save stopped.'}
 & py -3.11 (Join-Path $workwearProject 'Tools/WorkwearSet/publish.py')
 if($LASTEXITCODE -ne 0){throw 'Scoped publication stopped.'}
+& (Join-Path $workwearProject 'Tools/BackpackFit/run.ps1')
+if($LASTEXITCODE -ne 0){throw 'Clothing saved; backpack pairing remains incomplete.'}

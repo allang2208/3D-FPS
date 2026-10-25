@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSBodyOutfitResources.h"
 #include "FPSPlayerHeadAnimInstance.h"
 #include "FPSHeadEquipmentMeshComponent.h"
 #include "FPSModularOutfitComponent.h"
@@ -109,14 +110,22 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
         if(const auto Clips=Object(Selected,TEXT("clips")))for(const auto& Clip:Clips->Values)AssetPaths(Clip.Value,Paths);
         const auto Outfits=Object(Selected,TEXT("outfits"));
         const auto Headwear=Object(Selected,TEXT("head_equipment"));
+        const auto GatherWornRecipe=[&](const TArray<FFPSBodyOutfitSlot>& Slots,const FFPSBodyOutfitSlot& Slot)
+        {
+            if(!Outfits)return;
+            const auto* Shirt=Slots.FindByPredicate([](const FFPSBodyOutfitSlot& Entry){return Entry.Slot==7;});
+            TSet<FSoftObjectPath> SelectedPaths;
+            FPSBodyOutfitResources::GatherOutfit(Outfits->TryGetField(Slot.Definition.ToString()),Shirt?Shirt->Definition:NAME_None,SelectedPaths);
+            for(const auto& Path:SelectedPaths)Paths.AddUnique(Path);
+        };
         for(const auto& Slot:LocalOutfit)
         {
-            if(Outfits)AssetPaths(Outfits->TryGetField(Slot.Definition.ToString()),Paths);
+            GatherWornRecipe(LocalOutfit,Slot);
             if(Headwear)AssetPaths(Headwear->TryGetField(Slot.Definition.ToString()),Paths);
         }
         for(const auto& Slot:ReplicatedOutfit)
         {
-            if(Outfits)AssetPaths(Outfits->TryGetField(Slot.Definition.ToString()),Paths);
+            GatherWornRecipe(ReplicatedOutfit,Slot);
             if(Headwear)AssetPaths(Headwear->TryGetField(Slot.Definition.ToString()),Paths);
         }
     }
@@ -142,6 +151,8 @@ void UFPSPlayerBodyComponent::ApplyAppearance(FFPSBodyAppearance Value)
                 for(int32 Index=0;Index<Original.Value.Materials.Num();++Index)
                     Original.Key->SetMaterial(Index,Original.Value.Materials[Index]);
             OriginalMaterials.Reset();
+            // Cancel the old-rig load before replacing its skeletal leader.
+            ClearOutfitPresentation();
             Parent->EmptyOverrideMaterials();
             DeathCameraTracks[0].Reset();DeathCameraTracks[1].Reset();
             Configuration=Selected;

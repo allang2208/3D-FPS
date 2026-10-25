@@ -15,13 +15,13 @@ FIceArmorCast UColdSteelStatusModel::IceArmorStats(int32 AtLevel) const
     C.MagicDefense=FMath::FloorToFloat(T.MagicBase+K*T.MagicPerLevel+M*T.MagicMagic);
     C.Duration=T.DurationBase+FMath::FloorToFloat(T.DurationGrowth*G);C.Radius=T.RadiusBase+G*T.RadiusGrowth;
     C.PulseSeconds=T.PulseSeconds;C.ChillSeconds=T.ChillSeconds+G*T.ChillGrowth;C.SlowPerStack=T.SlowPerStack;
-    C.Cooldown=T.Cooldown-FMath::FloorToFloat(T.CooldownReduction*G);C.ManaCost=SpellManaCostBeforeFocus(TEXT("iceArmor"),L);
+    C.Cooldown=T.Cooldown-FMath::FloorToFloat(T.CooldownReduction*G);C.ManaCost=SpellManaCost(TEXT("iceArmor"),L);
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);float Reduction=0;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {Reduction=E->CraftEffect(*Item,TEXT("magicCooldownPercent"));C.CastSpeed=FMath::Max(.1f,1.f+float(E->CraftEffect(*Item,TEXT("castSpeedPercent"))));}
     C.Cooldown*=FMath::Max(.2f,(1-Reduction)*(1-float(SetEffect(TEXT("cooldown")))))*Rune.SkillCooldown*Rune.MagicCooldown;
-    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
+    ApplySpellCastSpeed(C.CastSpeed);
     C.CastExperience=T.CastExperience;C.MeleeExperience=T.MeleeExperience;C.RangedExperience=T.RangedExperience;C.ExperienceCap=T.ExperienceCap;C.TrainingSourceInterval=T.TrainingSourceInterval;
     return C;
 }

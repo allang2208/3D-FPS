@@ -211,6 +211,7 @@ void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
     ClearHeadEquipment();
     ++AppearanceRequest;
     if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
+    ClearOutfitPresentation();
     if(Character.IsValid()&&Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         Profile->OnChanged.Remove(ProfileChanged);
     Super::EndPlay(Reason);

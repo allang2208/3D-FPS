@@ -22,12 +22,21 @@ struct FMeleeWeaponStats
 
 namespace ColdSteelMelee
 {
+    /**
+     * 单手近战（尼泊尔弯刀）相对双手武器的体力消耗比例。
+     * 用户 2026-10-22 指定：单手刀按双手武器的一半结算。
+     * 只作用于 IsOneHandedMelee()，不影响双手剑／双手钝器／采集工具／法杖。
+     */
+    inline constexpr double OneHandedStaminaRatio=.5;
     double UppercutMultiplier(const UColdSteelStatusModel* Profile,const FMeleeModifiers& Modifiers,int32 Level=-1);
     double UppercutReachCM(const UColdSteelStatusModel* Profile,int32 Level=-1);
     FMeleeModifiers EquippedModifiers(const UColdSteelStatusModel* Profile);
     FMeleeModifiers TemporaryModifiers(const UColdSteelStatusModel* Profile);
     FMeleeWeaponStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview=nullptr);
-    double AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile);
+    // Shared final cost for ordinary attacks/harvesting. Multipliers are applied
+    // once, with at least 20% of the action's base cost remaining.
+    double ModifiedAttackStamina(double BaseCost,double WeaponMultiplier,double TemporaryMultiplier,const UColdSteelStatusModel* Profile);
+    double AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile,const FMeleeModifiers* PreviewModifiers=nullptr);
     double HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile);
     double UnarmedAttackStamina(const UColdSteelStatusModel* Profile);
     // 防御受击耐力只吃 BlockStamina 独立乘区，不再跟随全局 Stamina。

@@ -50,9 +50,9 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
             C.PendantChillSeconds=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
         }
     C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);
-    C.ManaCost=SpellManaCostBeforeFocus(TEXT("blizzard"),L);
+    C.ManaCost=SpellManaCost(TEXT("blizzard"),L);
     C.Cooldown=FMath::Clamp(C.Cooldown*float(FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.SkillCooldown*Rune.MagicCooldown),0.f,300.f);
-    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
+    ApplySpellCastSpeed(C.CastSpeed);
     return C;
 }
 bool UColdSteelStatusModel::BeginBlizzardCast(const FBlizzardCast& Spell)

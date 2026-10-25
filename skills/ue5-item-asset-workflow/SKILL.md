@@ -21,3 +21,7 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、按形态分流�
 - 新上衣/身体的背包配对，以及贴合投影压薄背带：[厚衣物背带制作](references/jacket-harness-fitting.md)。
 
 - 腰带插槽、男女腰围、右侧箭袋小幅摆动及装饰箭接入，读取 [腰带与箭袋](references/belts-and-quivers.md)。
+
+- 背包模型正反、全款统一方向及背包栏正面展示，读取[统一朝向与正面图标标准](references/backpack-facing-standard.md)：外侧正面、规范坐标、统一机位、同源出图及旧实例回退。
+
+装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。

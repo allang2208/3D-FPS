@@ -1,3 +1,4 @@
+#include "../Combat/ResourceCostFormula.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -19,20 +20,33 @@ double UColdSteelStatusModel::EquipmentBonus(FName Key) const
 {return EquipmentBonusFor(Current,Key);}
 double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,FName Key)
 {
-    double Sum=0;const FString Name=Key==TEXT("intt")?TEXT("int"):Key.ToString();
+    double Sum=0,CostProduct=1;const FString Name=Key==TEXT("intt")?TEXT("int"):Key.ToString();
+    const bool MultiplicativeCost=Key==TEXT("meleeStaminaCost")||Key==TEXT("magicCostPercent");
     for(const auto& Item:State.Items)if(Item.Place==1)
     {
         if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("shield")&&Item.Cell!=(State.ActiveWeaponSlot==6?8:11))continue;
         const auto O=CombatItemFormula::ReadOnly(Item);if(!O)continue;
         const double L=CombatItemFormula::EquipmentEnhancementLevel(O);
+        double ItemBonus=0;
         for(const auto& Pair:TArray<TPair<FString,double>>{{TEXT("bonusStats"),1},{TEXT("bonusPerEnhance"),L},{TEXT("_enchantEffects"),1}})
-        {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(Pair.Key,B)&&(*B)->TryGetNumberField(Name,V))Sum+=V*Pair.Value;}
+        {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(Pair.Key,B)&&(*B)->TryGetNumberField(Name,V))ItemBonus+=V*Pair.Value;}
+        Sum+=ItemBonus;
+        // Base, enhancement and enchantment add within one item. Different
+        // items multiply remaining cost; each item can reduce at most 50%.
+        if(MultiplicativeCost)CostProduct*=ColdSteelResourceCost::EquipmentMultiplier(ItemBonus);
     }
-    return Sum;
+    // Preserve the signed bonus contract used by cost readers: 1 + bonus.
+    return MultiplicativeCost?CostProduct-1.:Sum;
+}
+double UColdSteelStatusModel::ADSTimeMultiplier() const
+{
+    // 开镜耗时是既有的武器属性（配件 ads_percent 同语义）：负值缩短时间。
+    // 套装效果（ST6 战术套）走同一口径叠加，浮窗与实机读这里，不另算一份。
+    return FMath::Clamp(1.+EquipmentBonus(TEXT("adsPercent"))+SetEffect(TEXT("adsPercent")),.5,1.5);
 }
 double UColdSteelStatusModel::ResourceMaximum(const FColdSteelProfile& State,bool Mana)
 {
-    auto Raw=[&](FName Key){return (State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key))*State.Infection.AttributeMultiplier()*State.Survival.AttributeMultiplier();};
+    auto Raw=[&](FName Key){return (State.Attributes.FindRef(Key)+EquipmentBonusFor(State,Key))*State.Infection.AttributeMultiplier()*State.Survival.AttributeMultiplier()*RuneboundHammer::AttributeMultiplier(State,Key);};
     const double Base=100+(State.Level-1)*10+(Mana?Raw(TEXT("wis"))*10+Raw(TEXT("intt"))*5:Raw(TEXT("con"))*10);
     const double Percent=EquipmentBonusFor(State,Mana?TEXT("maxMpPercent"):TEXT("maxHpPercent"));
     return Base*FMath::Max(0.,1.+Percent)+EquipmentBonusFor(State,Mana?TEXT("maxMp"):TEXT("maxHp"));

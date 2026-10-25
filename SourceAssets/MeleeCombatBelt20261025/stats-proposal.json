@@ -1,0 +1,85 @@
+{
+  "name_zh": "破阵近战腰带",
+  "updated_on": "2026-10-25",
+  "stage": "published_to_game_catalog",
+  "user_requested_change": {
+    "field": "bonusPerEnhance.meleeStaminaCost",
+    "value": -0.01,
+    "meaning_zh": "每强化一级，近战体力减耗增加 1 个百分点；其他数值沿用此前草案。"
+  },
+  "catalog_fields_proposal": {
+    "equipSlot": "belt",
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "enhancement": {
+      "maxLevel": 15
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.05,
+      "meleeStaminaCost": -0.1
+    },
+    "bonusPerEnhance": {
+      "meleeAttackSpeed": 0.005,
+      "meleeStaminaCost": -0.01
+    }
+  },
+  "at_enhancement_15": {
+    "meleeAttackSpeed": 0.125,
+    "meleeStaminaCost": -0.25
+  },
+  "integration_status": {
+    "item_catalog_published": true,
+    "runtime_tested": false,
+    "intended_scope_zh": "近战武器普通攻击；具体作用范围仍需在接入时落实。",
+    "current_shared_field_scope_zh": "现有 meleeStaminaCost 也用于徒手、采集工具挥击和复用普通攻击费用的重击释放；蓄力持续消耗、格挡及独立武技费用不自动继承该字段。"
+  },
+  "stamina_formula_policy": {
+    "revision": "multiplicative_equipment_20261025",
+    "item_reduction": "min(0.5, -(bonusStats + bonusPerEnhance * effectiveEnhancementLevel + _enchantEffects))",
+    "equipment_multiplier": "product(1 - item_reduction)",
+    "final_cost": "base_cost * max(0.2, equipment_multiplier * weapon_parts_multiplier * temporary_multiplier * set_multiplier)",
+    "base_costs": {
+      "two_handed_melee": 15,
+      "one_handed_melee": 7.5,
+      "unarmed": 8,
+      "harvest": 10
+    },
+    "minimum_cost_ratio": 0.2,
+    "maximum_reduction_per_equipment_item": 0.5,
+    "max_belt_plus_gloves_multiplier": 0.675,
+    "with_complete_workwear_set_multiplier": 0.57375,
+    "ordinary_two_handed_cost_with_belt_gloves_workwear": 8.60625,
+    "runtime_source_implemented": true,
+    "item_catalog_published": true,
+    "display_formula_zh": "武器浮窗、改造预览、普通攻击扣费共用 AttackStamina；工具预览与采集扣费共用 ModifiedAttackStamina。",
+    "specification": "Docs/Combat/melee-stamina-cost-20261025.md"
+  },
+  "source_audit_before_formula_change_20261025": {
+    "equipment_stacking": "sum(bonusStats + bonusPerEnhance * effectiveEnhancementLevel + _enchantEffects)",
+    "equipment_cost_multiplier": "max(0, 1 + sum(meleeStaminaCost))",
+    "other_layers": "weapon parts, temporary riposte, one-handed ratio and action set multiplier multiply the cost separately",
+    "zero_threshold": "sum(meleeStaminaCost) <= -1; SpendStamina(0) succeeds",
+    "existing_authored_equipment": {
+      "ue_original_gloves": -0.1
+    },
+    "proposed_max_belt_plus_gloves_multiplier": 0.65,
+    "with_complete_workwear_set_multiplier": 0.5525,
+    "display_issue_zh": "MeleeWeaponStats.cpp 的 Evaluate.AttackStamina 漏乘装备减耗；武器浮窗及改造面板使用此值，可能高于 AttackStamina 实际费用。本次只记录，未修改运行时代码。",
+    "evidence": [
+      "Source/FPSGAME/UI/ColdSteelStatusModel.cpp:23",
+      "Source/FPSGAME/Combat/CombatItemFormula.cpp:45",
+      "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp:60",
+      "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp:108",
+      "Source/FPSGAME/Weapons/GunsmithSystem.cpp:248",
+      "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp:97",
+      "Source/FPSGAME/Movement/FPSStaminaModel.cpp:124",
+      "Source/FPSGAME/Production/ProductionToolStats.cpp:56"
+    ]
+  },
+  "item_catalog_published": true,
+  "integration_receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CombatBeltsIntegration20261025\\melee\\published.json"
+}

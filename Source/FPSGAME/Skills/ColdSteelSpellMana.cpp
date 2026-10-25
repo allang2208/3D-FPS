@@ -1,20 +1,17 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Combat/CombatItemFormula.h"
+#include "../Combat/ResourceCostFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "Dom/JsonObject.h"
 #include "Engine/GameInstance.h"
 
-float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel) const
+float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel,bool bApplyFocus) const
 {
     TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelSpellManaCost);
-    float Cost=SpellManaCostBeforeFocus(Id,AtLevel),UnusedCastSpeed=1.f;
-    ApplySpellbookFocus(UnusedCastSpeed,Cost);
-    return Cost;
-}
-
-float UColdSteelStatusModel::SpellManaCostBeforeFocus(FName Id,int32 AtLevel) const
-{
     const auto* D=QuickSkillDefinition(Id);
     if(!D)return 0.f;
     const auto* Progress=Current.Skills.Find(Id);
@@ -33,7 +30,6 @@ float UColdSteelStatusModel::SpellManaCostBeforeFocus(FName Id,int32 AtLevel) co
 
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     double StaffCost=0.,ChainCost=0.;
-    bool bStaffCraft=false;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
@@ -42,20 +38,28 @@ float UColdSteelStatusModel::SpellManaCostBeforeFocus(FName Id,int32 AtLevel) co
             const int32 Chain=Status?Status->ChainSpellStacks():0;
             StaffCost=E->CraftEffect(*Item,TEXT("magicMpCostPercent"));
             ChainCost=Chain*E->CraftEffect(*Item,TEXT("chainSpellMpCostPercent"));
-            bStaffCraft=true;
         }
 
-    // Preserve each spell's existing rounding order. Fireball applies the rune
-    // first and rounds only with staff crafting; other spells round before it.
-    if(Id==TEXT("fireball"))
+    double FocusCost=1.;
+    if(const auto* Book=bApplyFocus?ActiveSpellbook():nullptr)
     {
-        Cost*=Rune.MagicCost;
-        if(bStaffCraft)Cost=FMath::Max(0.f,FMath::FloorToFloat(Cost*(1.+StaffCost+ChainCost)));
-        return Cost;
+        const auto* Pawn=RuntimePawn();
+        const auto* Focus=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
+        if(Focus&&Focus->IsFocusEmpowered())
+        {
+            const auto Data=CombatItemFormula::ReadOnly(*Book);
+            const TSharedPtr<FJsonObject>* Effects=nullptr;
+            if(Data&&Data->TryGetObjectField(TEXT("focusEffects"),Effects))
+                (*Effects)->TryGetNumberField(TEXT("manaCostMultiplier"),FocusCost);
+        }
     }
-    const double CostFactor=Id==TEXT("iceSpike")?(1.+StaffCost)+ChainCost:1.+(StaffCost+ChainCost);
-    // Blizzard and the fire-area spells previously multiplied in float precision.
-    const float Rounded=(Id==TEXT("blizzard")||FireMagic::IsSkill(Id))
-        ?FMath::FloorToFloat(Cost*float(CostFactor)):FMath::FloorToFloat(Cost*CostFactor);
-    return FMath::Max(0.f,Rounded*float(Rune.MagicCost));
+
+    // EquipmentBonus already multiplies item factors with a 50% per-item cap.
+    // Crafting, chain status, runes and focus are separate multiplier zones.
+    // Keep fractional mana and apply the 20% base-cost floor after focus too.
+    const double Equipment=1.+EquipmentBonus(TEXT("magicCostPercent"));
+    const double Multiplier=Equipment*FMath::Max(0.,1.+StaffCost)
+        *FMath::Max(0.,1.+ChainCost)*FMath::Max(0.,double(Rune.MagicCost))
+        *FMath::Max(0.,FocusCost);
+    return float(ColdSteelResourceCost::Apply(Cost,Multiplier));
 }

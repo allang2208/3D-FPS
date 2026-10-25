@@ -89,6 +89,7 @@ write(R/'materials.json',materials)
 ob=mesh_from(icon_data,'TacticalBelt_Inventory_Source')
 sys.path.insert(0,str(P/'Tools/WorkwearSet'));from workwear_inventory import studio
 icons=studio(R,KEY);icons.FAMILIES[KEY]='TacticalMagazineBelt20261024'
-icon=icons.render_current(KEY,ob,item=dict(grid_w=2,grid_h=1),camera_offset=(.30,-3.,1.45))
+icon_policy=read(P/'Tools/BeltIcons/policy.json')
+icon=icons.render_current(KEY,ob,item={k:icon_policy[k] for k in ('grid_w','grid_h')},camera_offset=tuple(icon_policy['camera_offset']))
 write(R/'delivery.json',dict(completed=True,records=records,magazines=prop_rows,icon=icon,default_visual='four decorative loaded magazines',gameplay_ammo_storage=False,runtime_tested=False))
 print('TACTICAL_BELT_DELIVERY_READY',[(r['body'],[v['triangles'] for v in r['lods']]) for r in records],flush=True)

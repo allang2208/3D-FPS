@@ -57,7 +57,17 @@ double UColdSteelStatusModel::SetEffect(FName Key)const
     if(Key==TEXT("speed")&&S==TEXT("workwear"))return WorkwearComplete(*this)?1.10:1.;
     if(Key==TEXT("speed"))
     {if(S==TEXT("light")||S==TEXT("holy"))return 1.10;if(S==TEXT("flowing"))return 1.15;if(S==TEXT("heavy"))return .85;if(S==TEXT("zhenyue")||S==TEXT("oracle"))return .88;if(S==TEXT("stellar"))return 1.08;if(S==TEXT("tiangang"))return .90;return 1;}
-    if(Key==TEXT("cooldown")){if(S==TEXT("robe"))return .12;if(S==TEXT("eclipse"))return .18;if(S==TEXT("lunar"))return .22;if(S==TEXT("oracle_robe"))return .28;}
+    if(Key==TEXT("cooldown"))
+    {
+        double Reduction=0.;
+        if(S==TEXT("robe"))Reduction=.12;
+        else if(S==TEXT("eclipse"))Reduction=.18;
+        else if(S==TEXT("lunar"))Reduction=.22;
+        else if(S==TEXT("oracle_robe"))Reduction=.28;
+        // magicCooldownPercent follows bonusStats sign: negative = shorter cooldown.
+        const double Equipment=FMath::Max(.1,1.+EquipmentBonus(TEXT("magicCooldownPercent")));
+        return 1.-(1.-Reduction)*Equipment;
+    }
     if(Key==TEXT("magicDamage")){if(S==TEXT("robe"))return .18;if(S==TEXT("eclipse"))return .25;if(S==TEXT("lunar"))return .30;if(S==TEXT("oracle_robe"))return .35;}
     if(Key==TEXT("atk")){if(S==TEXT("stellar"))return .10;if(S==TEXT("holy"))return .15;}
     if(Key==TEXT("crit")){if(RangerFieldSetComplete())return 10;if(S==TEXT("stellar"))return 15;if(S==TEXT("holy"))return 20;}
@@ -164,7 +174,7 @@ double UColdSteelStatusModel::EquipmentMagicAttack()const
     const auto* Main=Equipped();const auto* Book=ActiveSpellbook();
     return (Main?ItemMagicAttack(*Main):0)+(Book?ItemMagicAttack(*Book):0);
 }
-void UColdSteelStatusModel::ApplySpellbookFocus(float& CastSpeed,float& ManaCost)const
+void UColdSteelStatusModel::ApplySpellCastSpeed(float& CastSpeed)const
 {
     const auto* Book=ActiveSpellbook();if(!Book)return;
     const auto* Pawn=RuntimePawn();
@@ -172,8 +182,6 @@ void UColdSteelStatusModel::ApplySpellbookFocus(float& CastSpeed,float& ManaCost
     if(!Focus||!Focus->IsFocusEmpowered())return;
     const auto Effects=Obj(Read(Book),TEXT("focusEffects"));
     CastSpeed*=float(Num(Effects,TEXT("castSpeedMultiplier"),1));
-    // Apply after the spell's existing cost modifiers, without an extra integer rounding.
-    ManaCost*=float(Num(Effects,TEXT("manaCostMultiplier"),1));
 }
 float UColdSteelStatusModel::SpellbookFocusMovementMultiplier()const
 {

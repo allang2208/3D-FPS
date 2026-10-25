@@ -193,6 +193,17 @@ void CompleteColdSteelTooltipSummary(const FColdSteelItem& Item,UColdSteelStatus
     if(Item.Place==1&&SlotNames().IsValidIndex(Item.Cell))Out.Location+=TEXT(" · ")+SlotNames()[Item.Cell];
     if(Model&&Model->Equipped()&&Model->Equipped()->InstanceId==Item.InstanceId)Out.Location+=TEXT(" · 当前武器");
     if(Weapon)Out.Location+=TEXT(" · ")+ColdSteelWeaponStats::AmmoName(Weapon->Ammo);
+    if(ColdSteelInventory::Text(Item,TEXT("equipSlot"))==TEXT("backpack"))
+    {
+        // 背包缩略摘要只列容量；复用实际网格口径，旧存档同样读取当前目录。
+        auto PreviewBag=Item;PreviewBag.Place=1;PreviewBag.Cell=14;
+        const int32 ExtraRows=BagRows({PreviewBag})-BagRows({});
+        const FIntPoint Grid=CompartmentGridOf(Item);
+        Out.Summary.Reset();
+        Out.Summary.Add({TEXT("添加背包格子"),FString::Printf(TEXT("+%d格子（%d行）"),ExtraRows*18,ExtraRows)});
+        Out.Summary.Add({TEXT("夹层格子"),FString::Printf(TEXT("%d×%d"),Grid.X,Grid.Y)});
+        return;
+    }
     // 食物／饮料／药水的简略浮窗与详细浮窗共用同一套标准行序；不走武器指标与对比。
     const auto ConsumableData=CombatItemFormula::ReadOnly(Item);
     if(ConsumableData&&ColdSteelConsumable::IsConsumable(ConsumableData.Get()))

@@ -1,7 +1,6 @@
 """Publish only the expedition item and its saved outfit assets."""
 import json,runpy,os,tempfile,hashlib
 from pathlib import Path
-from PIL import Image
 P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/ExpeditionBackpack20261022';KEY='ue_expedition_backpack'
 current=json.loads((P/'Content/ColdSteelData/player_body.json').read_text(encoding='utf-8-sig'))
 if 'backpack_motion' in current.get('outfits',{}).get(KEY,{}):
@@ -13,10 +12,8 @@ for row in manifest['variants']:
     record=saved['variants'][row['profile']]
     if not record['saved'] or record['sha256']!=hashlib.sha256(Path(row['source']).read_bytes()).hexdigest():
         raise RuntimeError('Wearable source has not been saved: '+row['profile'])
-image=Image.open(R/'Icon/source_icon.png').convert('RGBA');image=image.crop(image.getchannel('A').getbbox())
-image.thumbnail((218,291),Image.Resampling.LANCZOS)
-canvas=Image.new('RGBA',(240,320));canvas.alpha_composite(image,((240-image.width)//2,(320-image.height)//2))
-icon=P/'Content/ColdSteelData/Icons'/f'{KEY}.png';canvas.save(icon)
+# Catalog images are authored by the shared orthographic UE studio.
+icon=P/'Content/ColdSteelData/Icons'/f'{KEY}.png'
 config=P/'Content/ColdSteelData/player_body.json';before=config.read_bytes();data=json.loads(before.decode('utf-8-sig'))
 outfit={'world_static_mesh':saved['static']['asset'],
         'world_mesh':saved['variants']['bare']['asset'],
@@ -48,6 +45,7 @@ with writer['_lock'](P/'Saved/ExpeditionBackpackPublication/items.lock'):
 result={'item':KEY,'local_config_applied':True,'player_body_receipt':body_receipt,
         'main_grid':[18,6],'main_cells':108,'compartment_grid':[8,6],'compartment_cells':48,'unequipped_grid':[3,4],
         'icon':str(icon),'saved_assets':str(R/'saved_assets.json'),'runtime_tested':False,'accepted_by_user':False,
+        'icon_export_pending':True,'icon_export_entry':'Tools/BackpackIcons/run.ps1 -Definitions ue_expedition_backpack',
         'no_additional_decimation':True,'git_commit':None,'git_push':None}
 (R/'published.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
 design=json.loads((R/'design.json').read_text(encoding='utf-8'))

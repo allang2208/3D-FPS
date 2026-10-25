@@ -11,11 +11,13 @@
 #if WITH_EDITOR
 int32 RunBackpackMotionDiagnostic(const FString& Params);
 int32 RunBackpackLifecycleDiagnostic(const FString& Params);
+int32 RunBackpackContactDiagnostic(const FString& Params);
 #endif
 
 int32 UBackpackCapacityAuditCommandlet::Main(const FString& Params)
 {
 #if WITH_EDITOR
+    if(FParse::Param(*Params,TEXT("ContactOnly")))return RunBackpackContactDiagnostic(Params);
     if(FParse::Param(*Params,TEXT("LifecycleOnly")))return RunBackpackLifecycleDiagnostic(Params);
     if(FParse::Param(*Params,TEXT("MotionOnly")))return RunBackpackMotionDiagnostic(Params);
 #endif
@@ -34,7 +36,9 @@ int32 UBackpackCapacityAuditCommandlet::Main(const FString& Params)
         {TEXT("ue_mountain_backpack"),FIntPoint(5,6),5},
         {TEXT("ue_portable_backpack"),FIntPoint(6,6),5},
         {TEXT("ue_expedition_backpack"),FIntPoint(8,6),6},
-        {TEXT("ue_pathfinder_backpack"),FIntPoint(12,6),7}};
+        {TEXT("ue_pathfinder_backpack"),FIntPoint(10,6),7},
+        {TEXT("ue_farreach_backpack"),FIntPoint(12,6),8},
+        {TEXT("ue_special_duty_backpack"),FIntPoint(14,6),9}};
     for(const auto& Case:Cases)
     {
         const TCHAR* Key=Case.Key;const FIntPoint Expected=Case.Grid;const int32 Capacity=Case.Rows*18;
@@ -71,13 +75,13 @@ int32 UBackpackCapacityAuditCommandlet::Main(const FString& Params)
     Check(!Move(Full,Large.InstanceId,0,-1).bValid&&BagRows(Full)==5&&Full.Num()==91,TEXT("full inventory refuses bag removal without losing contents"));
     auto Pathfinder=Item(TEXT("ue_pathfinder_backpack"),TEXT("pathfinder"));Pathfinder.Place=1;Pathfinder.Cell=14;
     auto OldPack=Item(TEXT("ue_expedition_backpack"),TEXT("old_pack"));OldPack.Place=0;OldPack.Cell=0;
-    auto Edge=Nested;Edge.InstanceId=TEXT("last_compartment_cell");Edge.Cell=71;
+    auto Edge=Nested;Edge.InstanceId=TEXT("last_compartment_cell");Edge.Cell=59;
     auto Bottom=Nested;Bottom.InstanceId=TEXT("seventh_row_item");Bottom.Place=0;Bottom.Cell=125;
     auto Shrink=Move({Pathfinder,OldPack,Edge,Bottom},OldPack.InstanceId,1,14);
     Check(Shrink.bValid&&Shrink.Items.Num()==4&&BagRows(Shrink.Items)==6&&CompartmentGrid(Shrink.Items)==FIntPoint(8,6)
         &&Shrink.Items.ContainsByPredicate([](const auto& I){return I.InstanceId==TEXT("last_compartment_cell")&&I.Place==0&&I.Cell<108;})
         &&Shrink.Items.ContainsByPredicate([](const auto& I){return I.InstanceId==TEXT("seventh_row_item")&&I.Place==0&&I.Cell<108;}),
-        TEXT("pathfinder shrink relocates both seventh row and twelfth compartment column without loss"));
+        TEXT("pathfinder shrink relocates both seventh row and tenth compartment column without loss"));
     TArray<FColdSteelItem> FullPathfinder{Pathfinder};for(int32 C=0;C<126;++C){auto I=Nested;I.InstanceId=FString::Printf(TEXT("pathfull%d"),C);I.Place=0;I.Cell=C;FullPathfinder.Add(I);}
     Check(!Move(FullPathfinder,Pathfinder.InstanceId,0,-1).bValid&&FullPathfinder.Num()==127&&BagRows(FullPathfinder)==7,
         TEXT("full pathfinder refuses unequip atomically"));

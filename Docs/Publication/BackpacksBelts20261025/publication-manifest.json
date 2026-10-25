@@ -1,0 +1,1376 @@
+{
+  "base_commit": "d17d2736a39feda4348fc37bfdb5d6de408fe525",
+  "scope": "Seven backpack revisions and four-belt layout; two new combat belts",
+  "config_fields": [
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_portable_backpack"
+      ],
+      "sha256": "5c493707daebd7b68f8ecc23b43ad3ce0bf997e0e1e92be3286bcf67c075bac2"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_mountain_backpack"
+      ],
+      "sha256": "d87e43cf46d13a56c98dd7c56dfbc3b4e4018cc152a5965ae4db0b5a63066638"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_expedition_backpack"
+      ],
+      "sha256": "af124b47b5c67321b3d976021aa3559f12732cfbbbafa42ff0eb1a5dad0558cf"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_simple_sling_bag"
+      ],
+      "sha256": "6076a3162157ac4717a22bb33b75e61e33bc69bdd0457c7da9ef1f5889a601e0"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_pathfinder_backpack"
+      ],
+      "sha256": "9cf840064ac1ede759f20908e01110041c92004625e57e90f649ac93f7378567"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_farreach_backpack"
+      ],
+      "sha256": "028c33604fd3ad5406e866ab3c182f3b012c79d8777bd5695b613002ae6188b4"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_special_duty_backpack"
+      ],
+      "sha256": "8862c5227535849768f77c06e1ef865b71929218ede06d89e3dcf0b1b320e58c"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_tactical_magazine_belt"
+      ],
+      "sha256": "f36fe9c3015f6a6038500f5fc6a88efa84d66164dd3297a2b3214ddc4b3ded99"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_leather_quiver_belt"
+      ],
+      "sha256": "0b8d9f63c9b23163e4cc43e3e49288d179941b59dde674dabbc7f977c95df7bc"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_melee_combat_belt"
+      ],
+      "sha256": "3edbf62846bb5376c9a49048db65850ce40d27389fc7eed4f3f52dab8ca2ad9d"
+    },
+    {
+      "file": "Content/ColdSteelData/items.json",
+      "keys": [
+        "ue_arcane_conduit_belt"
+      ],
+      "sha256": "ee3a9ed920bf5a03907b310b1ff2a1dbd59ab80154b488f2017aeb715cafd32c"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_portable_backpack"
+      ],
+      "sha256": "319a91a11f82ce749301257690be1ee1b23387308b6113f9e893269feb41b9df"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_mountain_backpack"
+      ],
+      "sha256": "8c63b3fffe439367749ad3f70a20ae80aabd98d3e6e6d511d89ba2967ecfe0c9"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_expedition_backpack"
+      ],
+      "sha256": "8102d4c7dbe6478d14d22f4f1cedfcf72b4464afa56445c29087fe22ffa14893"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_simple_sling_bag"
+      ],
+      "sha256": "0b5774bc7fcfd3b9b80b58878130c2d3f1883211466d9d1ac6cc75cd64341a3b"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_pathfinder_backpack"
+      ],
+      "sha256": "85eaf7ec209d57c05e9846ac748542caeb07a8cebc0ab08c98bf69c1015b661b"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_farreach_backpack"
+      ],
+      "sha256": "ad04bb730daf24826e06d93dce00cefcac8bdeb001767e79a9e5469d51b09132"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "outfits",
+        "ue_special_duty_backpack"
+      ],
+      "sha256": "45028bdb59a8e85358406c8fa729966f05754510d2762e05e234168181397455"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_portable_backpack"
+      ],
+      "sha256": "97e61792218d0fa986b526752eca59f07fd427b3e661e7dd6615c05f9f00a90c"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_mountain_backpack"
+      ],
+      "sha256": "ecee79260fc8f9663883fb7eb4a3fc1d9c42c452704763ad39cc64b35fd730b5"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_expedition_backpack"
+      ],
+      "sha256": "08cbcf6b118a2d1c8a060023d41eec54654505045f8a5c6f08e50dba908e9d1f"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_simple_sling_bag"
+      ],
+      "sha256": "13e016b1d67f975512ee0110c4168589e5e48b94f939ec181e4aeb3c163483e1"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_pathfinder_backpack"
+      ],
+      "sha256": "09a7273bac33b6f43bda52c731f650e169ffeacd655f8d5367fa3015324539c8"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_farreach_backpack"
+      ],
+      "sha256": "4eb84cb7461c9a98389d6569a10633afbb32b7b50dc429ae4342fcaff698a3fb"
+    },
+    {
+      "file": "Content/ColdSteelData/player_body.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "outfits",
+        "ue_special_duty_backpack"
+      ],
+      "sha256": "d19ffc190524b1c76c7e58545a72dfd16d1371f1a2d63ded89ce58caea23241b"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "keys": [
+        "items",
+        "ue_melee_combat_belt"
+      ],
+      "sha256": "f6c7db4f3d605ed70e783b97b605548a57bcdb5e6c736ae44c36d88b91022c61"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "keys": [
+        "items",
+        "ue_arcane_conduit_belt"
+      ],
+      "sha256": "dc1c45fa7876bb958727cebedf8e4050de3cefcd78a280d69d24d051596c6c15"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "items",
+        "ue_melee_combat_belt"
+      ],
+      "sha256": "29fe82061836792dabb8a4b57f7fe1de75da17ffffece1012a663207b374af3b"
+    },
+    {
+      "file": "Content/ColdSteelData/modular_outfits.json",
+      "keys": [
+        "body_variants",
+        "kaitlin",
+        "items",
+        "ue_arcane_conduit_belt"
+      ],
+      "sha256": "f8c857998140a5b609837eee901f82c80af0fab8eb6222303b6b0bb2916e074a"
+    }
+  ],
+  "cook_entries": [
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Characters/FarreachBackpack20261024\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Characters/SpecialDutyBackpack20261024\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Characters/BackpackFit20261024\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/Characters/ModularOutfit20260924\")"
+  ],
+  "integration_extensions": [
+    {
+      "patch": "Docs/Publication/BackpacksBelts20261025/Integration/IceArmor-mana-consumer.patch",
+      "requires": "Source/FPSGAME/Skills/ColdSteelIceArmorModel.cpp",
+      "prerequisite_sha256": "25b52a1a909dc0f1b4688727b57ffd71043ec72028fa7a202a674fff646dc763",
+      "integrated_local_sha256": "1acbb313a3db86b142d8f27a3f5e8f4728648b01f9d3377f1661f7b65bddeaf5",
+      "status": "consumer_already_published_in_this_batch; patch retained for earlier public/source snapshots"
+    },
+    {
+      "patch": "Docs/Publication/BackpacksBelts20261025/Integration/LightningHaste-mana-consumer.patch",
+      "requires": "Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp",
+      "prerequisite_sha256": "aea7120741333306e7179e871ec93f1f1635cbdb4de2fa6c1b3adecf85aa34ae",
+      "integrated_local_sha256": "a518c65ec9cf6386ec0341865a98dfd9c916b445da1d55c23a5ace46d17dc5aa"
+    },
+    {
+      "patch": "Docs/Publication/BackpacksBelts20261025/Integration/additional-skill-mana-bases.patch",
+      "requires": [
+        "FColdSteelSkillDefinition.IceArmor",
+        "FColdSteelSkillDefinition.LightningHaste"
+      ],
+      "prerequisite_sha256": "c6e33ceef7d92e20c5266a486436d0517995a5db893e51c1843949880d27e503",
+      "integrated_local_sha256": "9fe4b65685aa4273de3839940932638382c5137151731b2724cf220775072896"
+    }
+  ],
+  "binary_assets_published": false,
+  "runtime_tests_this_publication": false,
+  "files": [
+    {
+      "path": "Tools/BackpackFit/analyze.py",
+      "previous_blob": null,
+      "sha256": "d5f0cb4a0886db37c81d2648cf0e1eca060f0aeb49a271f307ab57d2cf9e230a",
+      "bytes": 7528
+    },
+    {
+      "path": "Tools/BackpackFit/author_contact.py",
+      "previous_blob": null,
+      "sha256": "26befdd35f81734642f27d38e78f31cd2cd3b0df249d53e938e073bae1da8234",
+      "bytes": 9299
+    },
+    {
+      "path": "Tools/BackpackFit/capture.py",
+      "previous_blob": null,
+      "sha256": "3e79d5603c9cb24153b622a5c4122a54fae2c8afb3b6b231165c11189754d260",
+      "bytes": 5201
+    },
+    {
+      "path": "Tools/BackpackFit/classify_cargo.py",
+      "previous_blob": null,
+      "sha256": "fe5afda995e3846e113f9b5c63af369a7b8430f295732169c9f14879e5b61692",
+      "bytes": 1292
+    },
+    {
+      "path": "Tools/BackpackFit/fit_geometry.py",
+      "previous_blob": null,
+      "sha256": "a6833a5f5061d8176d584f5aed3979aac48ca0a4e6b259a54b3bfee883beeb70",
+      "bytes": 1907
+    },
+    {
+      "path": "Tools/BackpackFit/fit_sling.py",
+      "previous_blob": null,
+      "sha256": "191b081de4cb319ed9a2b6961d47dbb314adba0a61fcc23f7dfdaa682136f7c0",
+      "bytes": 2363
+    },
+    {
+      "path": "Tools/BackpackFit/gravity_support.py",
+      "previous_blob": null,
+      "sha256": "c06a0e708b01f4e030c60715cc8f794ed5fcd7ec58cbdcea6f0f378a30a39aeb",
+      "bytes": 2610
+    },
+    {
+      "path": "Tools/BackpackFit/pending.py",
+      "previous_blob": null,
+      "sha256": "62bf8a0414453fbd693b1a9cf0b86c27f02c147f76eeac90f45fb2d40798e212",
+      "bytes": 2916
+    },
+    {
+      "path": "Tools/BackpackFit/prepare.py",
+      "previous_blob": null,
+      "sha256": "0a390bc06f0d7d9487d7333b9aa18eb7e62d31a5aad5a72a38c0b2c5facb49d1",
+      "bytes": 3932
+    },
+    {
+      "path": "Tools/BackpackFit/preserve_sections.py",
+      "previous_blob": null,
+      "sha256": "f0cdbdac7fbe99e1bd4faa025501204a28e1bd24b28763326dff86ea94d20b1a",
+      "bytes": 4511
+    },
+    {
+      "path": "Tools/BackpackFit/preview.py",
+      "previous_blob": null,
+      "sha256": "29c34f443e533d8e79875030500544c1f5d8bae0153119e5d1659b2682f427e2",
+      "bytes": 1890
+    },
+    {
+      "path": "Tools/BackpackFit/publish.py",
+      "previous_blob": null,
+      "sha256": "7221595430689a0c483c16b86a550bee0aaf3b9110bbe242f972deef4ad5f39f",
+      "bytes": 4287
+    },
+    {
+      "path": "Tools/BackpackFit/publish_gravity.py",
+      "previous_blob": null,
+      "sha256": "ec9f9257d8917e76fe7a498fada828d741bc6e5403bc8e7ba97c2218bcfb22c3",
+      "bytes": 2863
+    },
+    {
+      "path": "Tools/BackpackFit/README.md",
+      "previous_blob": null,
+      "sha256": "948c6e073ff68001006aed04c4715d1da3156dac0645bf7f6202800772521047",
+      "bytes": 1548
+    },
+    {
+      "path": "Tools/BackpackFit/register.py",
+      "previous_blob": null,
+      "sha256": "d9d93c433d715eb53cac20bf99eab1dec0317030bc7b715148ccf5d7536fc717",
+      "bytes": 1126
+    },
+    {
+      "path": "Tools/BackpackFit/render_contacts.py",
+      "previous_blob": null,
+      "sha256": "3ce2a4bedfa67cd296b3028ea98987c505b2d56a23386d175c3992fac058f825",
+      "bytes": 6115
+    },
+    {
+      "path": "Tools/BackpackFit/repair_animation_metadata.py",
+      "previous_blob": null,
+      "sha256": "471655be3f810e0590d80d44d238f67d0a6e52ded5e37c6b10f8f83bd69548ba",
+      "bytes": 3429
+    },
+    {
+      "path": "Tools/BackpackFit/repair_head_metadata.py",
+      "previous_blob": null,
+      "sha256": "7caa8bd2c72637d9c064cb3526cf1e757a88734fae5fc0ba4a42dec69d43b421",
+      "bytes": 3086
+    },
+    {
+      "path": "Tools/BackpackFit/run.ps1",
+      "previous_blob": null,
+      "sha256": "64c3f90509090018446ef92cde7546d73c5bf41ad54e2e560c44f71018bac485",
+      "bytes": 2823
+    },
+    {
+      "path": "Tools/BackpackFit/run_network_review.ps1",
+      "previous_blob": null,
+      "sha256": "581b35e06513b4f16fc0bd84f3da6aa6a43cfe96e74dd754f3bfbaf0bc53e1cf",
+      "bytes": 8639
+    },
+    {
+      "path": "Tools/BackpackFit/run_stage.ps1",
+      "previous_blob": null,
+      "sha256": "f140f9e429bba14c37d5ccb59a2e803d57eb837319ce21e5a8fad79cec6f964d",
+      "bytes": 3067
+    },
+    {
+      "path": "Tools/BackpackFit/sample_shells.py",
+      "previous_blob": null,
+      "sha256": "01544df36e7393bfb7295f17c18dbd9b0e4b20c150ed60c1805070c8dc9f21f6",
+      "bytes": 2492
+    },
+    {
+      "path": "Tools/BackpackFit/save_assets.py",
+      "previous_blob": null,
+      "sha256": "fe2507d182e4060d2080d6aa8ac8594a1cdf8de75d060347fad3aea4d5997bbd",
+      "bytes": 4641
+    },
+    {
+      "path": "Tools/BackpackFit/summarize.py",
+      "previous_blob": null,
+      "sha256": "df3a893a57c5b824135142b4b930d326d0466d5671dda9edf9c93cba404bc50e",
+      "bytes": 5271
+    },
+    {
+      "path": "Tools/BackpackFit/surfaces.py",
+      "previous_blob": null,
+      "sha256": "6eeb44aed755cffcbe1851bea6d639731cf35159107b374d651fe112d639eb57",
+      "bytes": 4089
+    },
+    {
+      "path": "Tools/BackpackIcons/publish.py",
+      "previous_blob": null,
+      "sha256": "230a0a8d131c02af8acde4380e879d71039fbb2cfa0618d20c27634d802da9fc",
+      "bytes": 2544
+    },
+    {
+      "path": "Tools/BackpackIcons/publish_display.py",
+      "previous_blob": null,
+      "sha256": "338208b135b406555a505999e083d980a2b1c4b23d044414ffaac8d1e5402cca",
+      "bytes": 1285
+    },
+    {
+      "path": "Tools/BackpackIcons/README.md",
+      "previous_blob": null,
+      "sha256": "900a8ce89d5b7f6330d9800daf654e1795f01ecb71d3404a435724143faca2fc",
+      "bytes": 2189
+    },
+    {
+      "path": "Tools/BackpackIcons/run.ps1",
+      "previous_blob": null,
+      "sha256": "601a71e3f25659e13cf3635177f0768c03e40cce82ac3a071c8327df8a2611e5",
+      "bytes": 3084
+    },
+    {
+      "path": "Tools/BackpackIcons/save_display.py",
+      "previous_blob": null,
+      "sha256": "6ad345b5378cd90acf29676767ff552503f72b7ab827bf4c40c2504dfbe16791",
+      "bytes": 2445
+    },
+    {
+      "path": "Tools/FarreachBackpack/author.py",
+      "previous_blob": null,
+      "sha256": "11ee787574a6ea76436b369df953d2637e04cbf792467d30642a6db40df266e8",
+      "bytes": 23044
+    },
+    {
+      "path": "Tools/FarreachBackpack/author_r2.py",
+      "previous_blob": null,
+      "sha256": "481728903845a885fefdb773606dcddfa416a461d10919811de7242611d8e2ed",
+      "bytes": 4093
+    },
+    {
+      "path": "Tools/FarreachBackpack/finish_icon.py",
+      "previous_blob": null,
+      "sha256": "0d2ca8b1a8487154fb9280d64ceb601a1aeedc3347faf2922dbcfd81010d7e17",
+      "bytes": 1718
+    },
+    {
+      "path": "Tools/FarreachBackpack/fit_mount.py",
+      "previous_blob": null,
+      "sha256": "1b964183f659504a2d3b15880493b35060835d74979398513b806a1efe224855",
+      "bytes": 2717
+    },
+    {
+      "path": "Tools/FarreachBackpack/prepare_buffers.py",
+      "previous_blob": null,
+      "sha256": "12e66707f1809e644d2a588382eb0a341b3c2bbe85dc4ff6820a85db98d93329",
+      "bytes": 1258
+    },
+    {
+      "path": "Tools/FarreachBackpack/prepare_fit_inputs.py",
+      "previous_blob": null,
+      "sha256": "68ae9aa51c536e9e1b5eb8bc2abe49ef616a3071fc98101baf76ca13557c017e",
+      "bytes": 3843
+    },
+    {
+      "path": "Tools/FarreachBackpack/prepare_source.py",
+      "previous_blob": null,
+      "sha256": "1fe2ffc5605c6c962561f37809816dd017167086c970ddf4db4ca327a22bced3",
+      "bytes": 4348
+    },
+    {
+      "path": "Tools/FarreachBackpack/publish.py",
+      "previous_blob": null,
+      "sha256": "6339ab05c3a1b743735318ae9dc3fd757eba6bf34452200a8393191e644664be",
+      "bytes": 176
+    },
+    {
+      "path": "Tools/FarreachBackpack/publish_slim.py",
+      "previous_blob": null,
+      "sha256": "ed60d1093504e5f795bfbb22aeb7a57a9e37f502897f53d5c45473868d720415",
+      "bytes": 5086
+    },
+    {
+      "path": "Tools/FarreachBackpack/read_fit_r2.py",
+      "previous_blob": null,
+      "sha256": "9af63d3d1068db9c63848d066f6f6766b7f45ddce20c72dda0ca49ab0f6a2b3a",
+      "bytes": 5842
+    },
+    {
+      "path": "Tools/FarreachBackpack/run_stage.ps1",
+      "previous_blob": null,
+      "sha256": "96003b820cd68e3267e14c8a73cb89ca2351aa523779718f4e5e62a23d4f1416",
+      "bytes": 2866
+    },
+    {
+      "path": "Tools/FarreachBackpack/save_assets.py",
+      "previous_blob": null,
+      "sha256": "34c51ade6b574c497eb0abe6af349e425b255273b5b5722a40010c305867f8a2",
+      "bytes": 12910
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/author.py",
+      "previous_blob": null,
+      "sha256": "460b8af2d41297de53e0ba115cca3fbf8646d4eace2b4f51090e9ebf22cbc04f",
+      "bytes": 23087
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/author_r2.py",
+      "previous_blob": null,
+      "sha256": "8cb1548456af3127db99bb2625cdfc812fc240953ce472e7b8a515d5c840c2e9",
+      "bytes": 4447
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/finish_icon.py",
+      "previous_blob": null,
+      "sha256": "e57297bcbec072602cc36a60f477bea806e4044f893ba0cbbf913f0b938b8940",
+      "bytes": 1731
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/fit_mount.py",
+      "previous_blob": null,
+      "sha256": "1b964183f659504a2d3b15880493b35060835d74979398513b806a1efe224855",
+      "bytes": 2717
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/prepare_buffers.py",
+      "previous_blob": null,
+      "sha256": "eb4ceacd6b9978b5fd5954afc0ea13fd7b8c6d8120421a8b7316be6d88992901",
+      "bytes": 1266
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/prepare_fit_inputs.py",
+      "previous_blob": null,
+      "sha256": "d19913080fe0a9cc97486f2d89c92a6b313bc1eaa847cbadfd68b8fb3f3f2f48",
+      "bytes": 3851
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/prepare_source.py",
+      "previous_blob": null,
+      "sha256": "344dd0ea807824e3702971cc8c956a75d54128795e93e1c3a59e1204df370d84",
+      "bytes": 4143
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/publish.py",
+      "previous_blob": null,
+      "sha256": "4cd9d3b20275d65e691aab12a7197d3a580dd7aa48e3c6859ad44ea0c04936ca",
+      "bytes": 5812
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/read_fit_r2.py",
+      "previous_blob": null,
+      "sha256": "9834372a14c6a8c2b36504f025cf80eaed207ddf74d1e4794d9c11fcd1333d62",
+      "bytes": 5846
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/run_stage.ps1",
+      "previous_blob": null,
+      "sha256": "e2ccc2348e5fc9550bcf29640028893610fbb25c465df190e82b710200720e9a",
+      "bytes": 2908
+    },
+    {
+      "path": "Tools/SpecialDutyBackpack/save_assets.py",
+      "previous_blob": null,
+      "sha256": "4489d53776dddc80bc6cfcab360384c7f67483f40b36798d14d90cd6a98a7712",
+      "bytes": 12969
+    },
+    {
+      "path": "Tools/PathfinderBackpack/author.py",
+      "previous_blob": "ebe868a1858543a72a1cb1778b8dafe7534ee6de",
+      "sha256": "d547e1a680df25c9728f6c1522caf8962e3f0b18cdb3c8b1e8e080c33d7efec0",
+      "bytes": 22916
+    },
+    {
+      "path": "Tools/PathfinderBackpack/author_r2.py",
+      "previous_blob": null,
+      "sha256": "5a3ddbb3ce407eff97139e23d5a5bed76e6e44929c28a239673a99e67cce2aca",
+      "bytes": 4047
+    },
+    {
+      "path": "Tools/PathfinderBackpack/inspect_r2.py",
+      "previous_blob": null,
+      "sha256": "3b8118c62df296c0facc1040bfbd4d813bf8a49d14da085c69be8b6729df4c82",
+      "bytes": 3250
+    },
+    {
+      "path": "Tools/PathfinderBackpack/prepare_buffers.py",
+      "previous_blob": "6c00c79f6488a0fa8d0e3f69edd73ac1dee33957",
+      "sha256": "aa1159c308fef695121957643cfe32eeb6cb722f704eba6cb82ff8ffac8e44fd",
+      "bytes": 1269
+    },
+    {
+      "path": "Tools/PathfinderBackpack/prepare_source.py",
+      "previous_blob": "0d74f31398950942b6848f826e66266453bf429e",
+      "sha256": "0046b5e51c455cd6bf6635114a456402ae43765c85bcecb1f5550433b6bc6f68",
+      "bytes": 4773
+    },
+    {
+      "path": "Tools/PathfinderBackpack/publish.py",
+      "previous_blob": "1971fd6b7f2e67e9cc701175e4eac42e75577e6a",
+      "sha256": "6e0fb5658ae505a64411888e81749c877979798257b3a91c773271ea99da6779",
+      "bytes": 3731
+    },
+    {
+      "path": "Tools/PathfinderBackpack/read_body_inputs.py",
+      "previous_blob": "0bd1658e38cefa1e847fc81946ce31a1400e95eb",
+      "sha256": "d014ad6c6e81353efec52553c96db844b968d1d487a1f22527fd0b1ed86ff193",
+      "bytes": 189
+    },
+    {
+      "path": "Tools/PathfinderBackpack/read_fit_r2.py",
+      "previous_blob": null,
+      "sha256": "a216541eb5be07393f0e003824953aec4b58048fe04523d561d6ffd39f0a64da",
+      "bytes": 5851
+    },
+    {
+      "path": "Tools/PathfinderBackpack/review_fit_r2.py",
+      "previous_blob": null,
+      "sha256": "9c05d1752403db469c58dde34b9e6ea5d00543a836abbc4c6593d9a3ad2985c2",
+      "bytes": 4887
+    },
+    {
+      "path": "Tools/PathfinderBackpack/run_stage.ps1",
+      "previous_blob": null,
+      "sha256": "bb491210474035006527519d6a7f49c7fbcf52f1ef755e4e8a2a2feb596e2820",
+      "bytes": 1973
+    },
+    {
+      "path": "Tools/PathfinderBackpack/run_wire.ps1",
+      "previous_blob": "13d2da8bf4c456024d36d8af7ed2dc934a24eafa",
+      "sha256": "051506596e19e1c17324615a9c132908fe412309da67237cf7763dac579f364e",
+      "bytes": 354
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_assets.py",
+      "previous_blob": "1b3a785379431fdbf36b65db6d2941347b3bc2e3",
+      "sha256": "88bcdb0fe934be0aec1b520d40e22600706174eee391cbe08d2657c7bea7c726",
+      "bytes": 12962
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_display_r2.py",
+      "previous_blob": null,
+      "sha256": "15120246e18fb0b44c052ba657ed9178c5dca72dff995e5c1ebb26e0b6f9e90f",
+      "bytes": 146
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_harness_r2.py",
+      "previous_blob": null,
+      "sha256": "0733749a60e5088f08b3699324358e60c6fd0259448814eaef5b1e18599841cb",
+      "bytes": 248
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_jason_r2.py",
+      "previous_blob": null,
+      "sha256": "6ed9fc8ba874deb11cfc87355ec627f8cba2d5714aed2eed5670763c8a2c6aaf",
+      "bytes": 203
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_materials_r2.py",
+      "previous_blob": null,
+      "sha256": "423b26dc888fafd1e7f1186832e8ea4670b9692336f442ded8f5daed6f971c9d",
+      "bytes": 148
+    },
+    {
+      "path": "Tools/PathfinderBackpack/save_worn_r2.py",
+      "previous_blob": null,
+      "sha256": "0ca8516eef7a2d5b5ff97651dcec8b0c56e6de052cf2aea10c4e209f4c5fcf3a",
+      "bytes": 143
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/author.py",
+      "previous_blob": null,
+      "sha256": "fe11938416f050c4a45c716fddcfe753a30d6d2af0921d4f346fe9ab7ed4f839",
+      "bytes": 18427
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/construction.py",
+      "previous_blob": null,
+      "sha256": "106054a2ab59fec59e57a3fa3bfdfe14a54f5a5b2f5999fa80ec907f4b828e20",
+      "bytes": 3653
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/keeper_fix.py",
+      "previous_blob": null,
+      "sha256": "cba1f2465b322708f72acd9dff9cdc1feca2cdc8b48288cd65d7c93c2c3bf0a4",
+      "bytes": 1750
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/make_textures.py",
+      "previous_blob": null,
+      "sha256": "7992074614828d7c2ce8ddf78221e0e22161427c354d0b82e5b5009559c3bf6f",
+      "bytes": 1395
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/native_geometry.py",
+      "previous_blob": null,
+      "sha256": "0540f5b2edfcad0320e98bd2aff85b6bc6e6c92d69aa8690ac94ee4ed91e4f20",
+      "bytes": 25292
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/prepare.py",
+      "previous_blob": null,
+      "sha256": "e1e0cda0984145f73f716aeb3b361579b4054dc64b1a7c796079f32d94182654",
+      "bytes": 2904
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/README.md",
+      "previous_blob": null,
+      "sha256": "332a8ae0dbcee98039524f23a19306f014dd407923cdfedaff3746ee6efae354",
+      "bytes": 4293
+    },
+    {
+      "path": "Tools/ArcaneConduitBelt/surface_fields.py",
+      "previous_blob": null,
+      "sha256": "84f93fb7ce45cc925bc65dd61ee9e502668cd35d9ac5826aa537777173f83ab9",
+      "bytes": 2613
+    },
+    {
+      "path": "Tools/MeleeCombatBelt/author.py",
+      "previous_blob": null,
+      "sha256": "91481cb723351b25cbef33afcee88e2df3c1abf41d451b86090ae295b82c77c5",
+      "bytes": 17663
+    },
+    {
+      "path": "Tools/MeleeCombatBelt/make_textures.py",
+      "previous_blob": null,
+      "sha256": "221d09555427485b403716d34825468419e239c401c085cb5f2185bd9849fa93",
+      "bytes": 2089
+    },
+    {
+      "path": "Tools/MeleeCombatBelt/native_geometry.py",
+      "previous_blob": null,
+      "sha256": "319b138ef4e5d01d51690a04a78c7c8930422b2a38cf9220601125d79e671dc7",
+      "bytes": 25286
+    },
+    {
+      "path": "Tools/MeleeCombatBelt/README.md",
+      "previous_blob": null,
+      "sha256": "90f6b159a707a2aecdcb67c3b4e9411ae20271d92659d3a8de355c2e13474ea0",
+      "bytes": 3023
+    },
+    {
+      "path": "Tools/MeleeCombatBelt/surface_fields.py",
+      "previous_blob": null,
+      "sha256": "84f93fb7ce45cc925bc65dd61ee9e502668cd35d9ac5826aa537777173f83ab9",
+      "bytes": 2613
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/check_arcane_keeper_fix.py",
+      "previous_blob": null,
+      "sha256": "8c5b036f65e35a3b2acc95317f85f9ad89194c0ab3ebba9e4eb4a7e543c6406d",
+      "bytes": 1292
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/combat_belts_common.py",
+      "previous_blob": null,
+      "sha256": "1f917ddbfa6bbe8b8b2bcde05214870ce61a572070159bbf6926273d10709fb3",
+      "bytes": 1604
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/finalize.py",
+      "previous_blob": null,
+      "sha256": "1833fe2f28f4f7b9153dc28cf729a3eeb185da4d816bb5985079504f4506a5ad",
+      "bytes": 6106
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/geometry_delivery.py",
+      "previous_blob": null,
+      "sha256": "b0e10cea04dfaac5ad558242a71de815c268ad3942af8c83ac99f44498f284a6",
+      "bytes": 3707
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/inspect_arcane_editor.py",
+      "previous_blob": null,
+      "sha256": "ae3d08a3ec491e28b92682b9f336f9189e3ef18f2c8f371f850571753b609669",
+      "bytes": 183
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/prepare_arcane_keeper_fix.py",
+      "previous_blob": null,
+      "sha256": "8618bb0d8c28972ad54cae8fc16a3c452b6ef6b6ec0eec660b410bc5c1826795",
+      "bytes": 419
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/prepare_delivery.py",
+      "previous_blob": null,
+      "sha256": "45c727f1d08eeca3b6893debf31ad1dc064743b1ca0141bc6c1598f4b4657bb7",
+      "bytes": 5710
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/publish.py",
+      "previous_blob": null,
+      "sha256": "6e2907f1226b9f81edd527253859cbc075e9159a133f6a6a4e6b590051e48484",
+      "bytes": 5057
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/publish_arcane_keeper_fix.py",
+      "previous_blob": null,
+      "sha256": "8136b05330ba50e2ab544b9bf5fcd256b3722b9541a9f695e03373297ac18a1a",
+      "bytes": 6755
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/README.md",
+      "previous_blob": null,
+      "sha256": "7d225f9daf6616d46ed1e1764c04b6357515ede744f0b2f6307846f7c466dfde",
+      "bytes": 2811
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/run_asset.ps1",
+      "previous_blob": null,
+      "sha256": "0e612a5836226cecb9ca866d6535c1704cb8887fb126bab1b5fe948fefc9b273",
+      "bytes": 5324
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/save_arcane_keeper_fix.py",
+      "previous_blob": null,
+      "sha256": "943ec7e852000f3bd59833d2018b5432f81d2e779208e16c8d66dbda70073d9d",
+      "bytes": 2811
+    },
+    {
+      "path": "Tools/CombatBeltsIntegration/save_assets.py",
+      "previous_blob": null,
+      "sha256": "8d4f725a85bdfa3dc9001149d6d05c741296476ac57a7281ecbf440fd4ca68c9",
+      "bytes": 10724
+    },
+    {
+      "path": "Tools/BeltIcons/policy.json",
+      "previous_blob": null,
+      "sha256": "6a670a1f7c82439af3689e9f3b883daa1cc2c1e50bc898c876e3a300b3c96f52",
+      "bytes": 1495
+    },
+    {
+      "path": "Tools/BeltIcons/publish.py",
+      "previous_blob": null,
+      "sha256": "9f49ede099fdb17bb7949c7cab731675f226bff36cf61a7db795f48010f3e449",
+      "bytes": 3196
+    },
+    {
+      "path": "Tools/BeltIcons/README.md",
+      "previous_blob": null,
+      "sha256": "d82c686a0e99e19daf58754f4b8d077918c67f312958da9e2aeb682ce346d28f",
+      "bytes": 1299
+    },
+    {
+      "path": "Tools/BeltIcons/render.py",
+      "previous_blob": null,
+      "sha256": "848f5704a9c653ddd7d026adb21b3d47b43e87feaffd41deb8f52e8ce36cf653",
+      "bytes": 1481
+    },
+    {
+      "path": "Tools/BeltIcons/run_background.ps1",
+      "previous_blob": null,
+      "sha256": "4b4c5c42ecc92315704b402e73a810690983ac9770e6e5e6319bb72096235e48",
+      "bytes": 2831
+    },
+    {
+      "path": "Tools/BeltIcons/save_icons.py",
+      "previous_blob": null,
+      "sha256": "e74ebf97536f800c6f0924a6b577d42014b26fcc8222ecaede514fc5964a7a85",
+      "bytes": 2703
+    },
+    {
+      "path": "Tools/ExpeditionBackpack/publish.py",
+      "previous_blob": "36e7a958dba269c3d252080b705f2838ea4ade25",
+      "sha256": "ab8194c006007c9e3591a98f1ef48a16e3024c37f3ebb71699c8a8dc6a6d0b87",
+      "bytes": 4635
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/prepare_delivery.py",
+      "previous_blob": "1ba4c45f0f128548b7382dbee1c6d8efe0f6cf24",
+      "sha256": "204c18f7be8eb2d808744af40f27fb0907e444f266bbbf519e3e9e5b8cd454b5",
+      "bytes": 6898
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/publish.py",
+      "previous_blob": "aca9f660ada0916447b07917320a445443dfb8fc",
+      "sha256": "7454acd57c72a5c6ae646c53006249add2abd5d8dafe914edd94ebcd314a22cc",
+      "bytes": 4353
+    },
+    {
+      "path": "Tools/TacticalMagazineBelt/review_assets.py",
+      "previous_blob": "9f835d08d186602a523c38f025eaeea7995fac50",
+      "sha256": "fbe4e41295cab194194942d4ba4e67f60899e8702984541a87f1390e12e76d1a",
+      "bytes": 3590
+    },
+    {
+      "path": "Tools/WorkwearSet/run.ps1",
+      "previous_blob": "8b4babaaf68a0635c89a4585734a60a3ff42c8b5",
+      "sha256": "077eaafb96fdbf8ede77615bf970a074955c03e5618a4e6d0fa2f80a4c62a662",
+      "bytes": 2687
+    },
+    {
+      "path": "Tools/GarmentWaist/run.ps1",
+      "previous_blob": "725ac5045a27e3fc1c2a81a8e190d9196a41c4fa",
+      "sha256": "fddecaf6c3f2035770126cc387afca24bdcfa830f5fa94b3a42c81ffb3ca08d7",
+      "bytes": 1976
+    },
+    {
+      "path": "Docs/Characters/backpack-contact-audit-20261024.md",
+      "previous_blob": null,
+      "sha256": "5b3dd9bce37fa381dcf27a95a551d7069ef54f52888b093320b466851220a935",
+      "bytes": 2577
+    },
+    {
+      "path": "Docs/Characters/backpack-contact-workflow.md",
+      "previous_blob": null,
+      "sha256": "8d05ecae5d2e1fe08da46a0cae6f725a68363b2dce6e737d164873ef8d8813a5",
+      "bytes": 5036
+    },
+    {
+      "path": "Docs/Characters/backpack-facing-standard-20261024.md",
+      "previous_blob": null,
+      "sha256": "dba52726e3d1f54a5dccd72ca8789035698b757c68a5db96b873c3117977d65a",
+      "bytes": 4431
+    },
+    {
+      "path": "Docs/Characters/backpack-icons-front-20261025.md",
+      "previous_blob": null,
+      "sha256": "a92ca8289c0c385406d22e4a7f847b2039ec3ad59dab0a1da3e44ac8543ae8bf",
+      "bytes": 2744
+    },
+    {
+      "path": "Docs/Characters/backpack-network-review-20261024.md",
+      "previous_blob": null,
+      "sha256": "0f48cf825e103573db8148050c0b0b051fa35ab81457a2d51f9065cc88b96bc5",
+      "bytes": 5341
+    },
+    {
+      "path": "Docs/Characters/farreach-backpack-integration-20261024.md",
+      "previous_blob": null,
+      "sha256": "006c4dcb86b0b7a07065dc81a30460a6e276ce04390772adaf7ad24af0cd63c8",
+      "bytes": 4487
+    },
+    {
+      "path": "Docs/Characters/farreach-backpack-slim-fit-20261024.md",
+      "previous_blob": null,
+      "sha256": "ea7c83436d1119c268945f2be11386da6eab944d9ca46aa142ad1905f79c03e9",
+      "bytes": 2951
+    },
+    {
+      "path": "Docs/Characters/pathfinder-backpack-orientation-repair-20261024.md",
+      "previous_blob": null,
+      "sha256": "89a82638d863d0c78841709f46418f34e4c8be2937961df55e10ed03a3d63511",
+      "bytes": 4018
+    },
+    {
+      "path": "Docs/Characters/special-duty-backpack-integration-20261024.md",
+      "previous_blob": null,
+      "sha256": "22df97ea9830001aa7724b6fcf06c2ef82888e6bf6acb7ff78222d2c2a8ddc69",
+      "bytes": 3269
+    },
+    {
+      "path": "Docs/Combat/melee-stamina-cost-20261025.md",
+      "previous_blob": null,
+      "sha256": "9cbac596bf736139f8e41e96b9e7c085d9866cc6b646566269bf2eae168f257c",
+      "bytes": 3870
+    },
+    {
+      "path": "Docs/Combat/spell-mana-cost-20261025.md",
+      "previous_blob": null,
+      "sha256": "69ab978998723efeeb0a0c78984333e2f67c1ea7757ab39c842a52e5465d29b9",
+      "bytes": 3347
+    },
+    {
+      "path": "Docs/Items/arcane-belt-keeper-fix-20261025.md",
+      "previous_blob": null,
+      "sha256": "38d84a1fb027254a8889b462b123aabd8b49b5ec3a7591b185b8ee334216b77c",
+      "bytes": 1814
+    },
+    {
+      "path": "Docs/Items/belt-icons-layout-20261025.md",
+      "previous_blob": null,
+      "sha256": "4472365976b5b3b88fd61c57564327c0057b5ff649e4ff1bda19c11e38f0e61e",
+      "bytes": 1212
+    },
+    {
+      "path": "Docs/Items/combat-belts-integration-20261025.md",
+      "previous_blob": null,
+      "sha256": "b1e6943a71aa10bd93ff3900ee8348f2ba5bb1729e7f92b001087c9b55f08fb3",
+      "bytes": 3301
+    },
+    {
+      "path": "SourceAssets/FarreachBackpack20261024/design.json",
+      "previous_blob": null,
+      "sha256": "29fb0432d1ff35e89650997d57d42730afac5d2f055e4059c8b792953ce8d03d",
+      "bytes": 4120
+    },
+    {
+      "path": "SourceAssets/SpecialDutyBackpack20261024/design.json",
+      "previous_blob": null,
+      "sha256": "1dc8ab65a25a49dcfe664a4e8d56ba61990be3b1082c90d84a4bd902108b229e",
+      "bytes": 4162
+    },
+    {
+      "path": "SourceAssets/PathfinderBackpack20261023/design.json",
+      "previous_blob": null,
+      "sha256": "8b77a5f9666eb875ba720839404e00066189411e2472fae465aeee06d4ab00f1",
+      "bytes": 3105
+    },
+    {
+      "path": "SourceAssets/MeleeCombatBelt20261025/stats-proposal.json",
+      "previous_blob": null,
+      "sha256": "02cfc6aeed8fd78aaff30afc85609eec9f0b1070123d77d4ef3f3d0957fcaf26",
+      "bytes": 3777
+    },
+    {
+      "path": "SourceAssets/ArcaneConduitBelt20261025/stats-proposal.json",
+      "previous_blob": null,
+      "sha256": "95694f8afbf1c59b3980718e238748bebab75d8479be0e684fff76e33a641c32",
+      "bytes": 2543
+    },
+    {
+      "path": "SourceAssets/BackpackIcons20261025/FrontR1/plan.json",
+      "previous_blob": null,
+      "sha256": "9f1158e4f48f2f8c7d5ad383869429a17ae18ecd6bdfbf14de0e48678cf770fc",
+      "bytes": 4107
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/backpack-equipment.md",
+      "previous_blob": "a4714f290f0e15ddede3e70b5a0dda0e0ded435f",
+      "sha256": "5f990f19b79c0429c6ecf36f1a2ccfa5647bdcf5b22c4ec5664918b8e4b37fc7",
+      "bytes": 20110
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/backpack-facing-standard.md",
+      "previous_blob": null,
+      "sha256": "3b9f502b4dec1cb7997c731905dcdcf87b4f06477e3f86a91250c67747d9a6cf",
+      "bytes": 7265
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/belts-and-quivers.md",
+      "previous_blob": "83d21e6d00176e2ae7a76b1440e1df203eac97d6",
+      "sha256": "15dfed8ff50b94030c48bdb81eba836f521aa05c8e8d08907b73aaeee0e087e6",
+      "bytes": 4849
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/references/resource-cost-multipliers.md",
+      "previous_blob": null,
+      "sha256": "fd2d8a4b4615f0b658847a5c34453543adf9111ff8778bfce07b7099740dd340",
+      "bytes": 2106
+    },
+    {
+      "path": "skills/ue5-save-load-replication/references/equipment-tuning-and-clocks.md",
+      "previous_blob": "7ea7c51e2fa4f7a40a099515fa4466a8b5df7d74",
+      "sha256": "9a553fe0b3c87560e900aca8885e33e1711e21b52cce98e056ace8be38f74e51",
+      "bytes": 2933
+    },
+    {
+      "path": "skills/ue5-item-asset-workflow/SKILL.md",
+      "previous_blob": "7ced3ae2ab994a1c912d7db01961089a810bbb56",
+      "sha256": "e4f12c8d022a0006e6f4d4d97bf2ceefbde96628002cbcb051a6c4eba2b54cab",
+      "bytes": 2457
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "previous_blob": "2e7654b4960493044dfe5a7b26bcabe65b920e38",
+      "sha256": "3b88bad4006602a40cd1868babef845614662d0565d5b6d34d1bc85bbf8875d8",
+      "bytes": 4117
+    },
+    {
+      "path": "skills/ue5-skill-magic-workflow/SKILL.md",
+      "previous_blob": "32bdd769d4decc208b3998d0afd7316df65d2ccf",
+      "sha256": "b2aefc5a17a80d0332b01fadc3f697938a2bf0cb9639562c17fa47d39cbbaa93",
+      "bytes": 7641
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "previous_blob": "4393c2726ecd7d1200923ad1a463aadbcd791c2a",
+      "sha256": "bfdbdc66a9ad77ce6a17252690638759bd8bd994d5975fe39a5de3b95cd58af7",
+      "bytes": 196342
+    },
+    {
+      "path": "Content/ColdSteelData/player_body.json",
+      "previous_blob": "171be1d0703bc88e807c6b5e03ffcf4a3d4f764a",
+      "sha256": "86344aa9097ee81c5789dca1c69595aad2b81939467d6e8c10b3054946499a7c",
+      "bytes": 1385534
+    },
+    {
+      "path": "Content/ColdSteelData/modular_outfits.json",
+      "previous_blob": "23600f128af478b16f935b128b106565702d3aff",
+      "sha256": "304b34fc96d0bd725516dea4d13ff309865b93dae1c0e19fb8b814f632f2ab07",
+      "bytes": 551077
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "previous_blob": "e2824d9c5172d6d5fa23e707d22abab7f0b6111c",
+      "sha256": "84463e956f6c9e47ae1f896acb079f2dc0d2450d808d5959d81addc4f0def620",
+      "bytes": 28618
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionComponent.cpp",
+      "previous_blob": "0d83a7247704a350a69360ee9e1bb6adae3ed275",
+      "sha256": "f5fdff764c4bb785ff51b33004dfe7a7d2a6696c56be3232922dd81c7c8f4b5c",
+      "bytes": 14094
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackMotionComponent.h",
+      "previous_blob": "78061c954da8a0b4fce49157931affb5bcf6b9e9",
+      "sha256": "e4420d8407c5afd388a9b1602e9540b2986bd7fbd972a3025dc54cb2a1dc7e55",
+      "bytes": 2353
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyOutfitResources.h",
+      "previous_blob": null,
+      "sha256": "7c69899c86f04c880c32ea8baacad24de1b4de163484eef928074e9c8cecc750",
+      "bytes": 2723
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackContactDiagnostic.cpp",
+      "previous_blob": null,
+      "sha256": "76a556a5298d36642cdfe3af144e3b2f87c75638bbadf3dc0c745f117a0ab479",
+      "bytes": 11582
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBackpackLifecycleDiagnostic.cpp",
+      "previous_blob": "d13682940c891a22ebff5f2a8c0756e8e666d68c",
+      "sha256": "13c0440450523420476bfd5a1775aed3f1c0f602fa404cdf820b102159049508",
+      "bytes": 8641
+    },
+    {
+      "path": "Source/FPSGAME/Development/BackpackWireAudit.cpp",
+      "previous_blob": "d9220b7535e5b4944d8bc0bb7fad832deab1b0db",
+      "sha256": "4f8b100d309ffc285da5c36a2cfb5fabc538b2f955d36722a7d832db70856e7f",
+      "bytes": 24764
+    },
+    {
+      "path": "Source/FPSGAME/Development/BackpackWireAudit.h",
+      "previous_blob": "d0c04c903c3ffb8fc4bda09153de2aca61e3d445",
+      "sha256": "2c0b21661411c75387841ca34d0c48e79954ab776c9b097fca896e3a4ee8baac",
+      "bytes": 2234
+    },
+    {
+      "path": "Source/FPSGAME/UI/BackpackCapacityAuditCommandlet.cpp",
+      "previous_blob": "820c3cc8add58e71208c515b9cd7ada103a9c293",
+      "sha256": "29ade251d26e3a85eb034990cd9fa730866041fa2bac29b25d711794eac536a2",
+      "bytes": 10154
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ResourceCostFormula.h",
+      "previous_blob": null,
+      "sha256": "5fea73d2de7d0b9c863d58f74c9f978d9853e6c4f9e79cb62da2c0810b400dec",
+      "bytes": 630
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "previous_blob": "35b9356d5aae09b98a135ea7f0aa2d6e88d615de",
+      "sha256": "c1c631780ab2ab4171426551a95d64797ab432bebacfafc282a6773c02b31f63",
+      "bytes": 55486
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+      "previous_blob": "0f149552aedb6e8b233137d9b6419cdf740beceb",
+      "sha256": "24f9a89140fdd4522af6165b13253ff99687162f70118479678d11b03b223df9",
+      "bytes": 17880
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "previous_blob": "837f4f9fea3b2571d78848233f3634e05e46548b",
+      "sha256": "a3f69c92b4ca178a1f61daeecb698bf77ed71658711bdbdc50b818ad54fe2b12",
+      "bytes": 24749
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "previous_blob": "d43b8b2ee8f16d63236c37ff28ab9e6d4933f668",
+      "sha256": "dcbb9ccd987517b0ee1c3f6c6766d1c4699ca14fb7b146b687c2ef6223e11162",
+      "bytes": 19941
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "previous_blob": "e95bdccef2467a233be8d95d259ece1193374cd8",
+      "sha256": "c803d2a5b4726aef1e7938901525545bc36c6484891ccd4dddae9d5dd48b9a0f",
+      "bytes": 9492
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSpellMana.cpp",
+      "previous_blob": "bbf23714e4ddb8f6c8c9170ba9a46bb5d7291775",
+      "sha256": "c6e33ceef7d92e20c5266a486436d0517995a5db893e51c1843949880d27e503",
+      "bytes": 3378
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "previous_blob": "219285436c709ed939fabdbc7d70cb09a9654576",
+      "sha256": "b38ab4ce682fcc6f60ce7f807a8fec7bbc9df9f2e2fe68f64329d6add7fb3edb",
+      "bytes": 37511
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelBlizzardModel.cpp",
+      "previous_blob": "25be866afc4135172483827eb341e4f5a66a812b",
+      "sha256": "c590704df517f950f6cd5d51c9d8b58647d4a699500f388a605bcf77ce12a998",
+      "bytes": 6913
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelElectricMagicModel.cpp",
+      "previous_blob": "ec66cbb5ae1fcc3acc00f9e0085f9b1bb94a76a6",
+      "sha256": "ee1b99eb48edc591bd4cd886162523fdeb3d2d88d4d93c140e78ea8033145c0f",
+      "bytes": 6693
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireMagicModel.cpp",
+      "previous_blob": "d6d1049f2737a8a6574991517bcf50da1ac6f90a",
+      "sha256": "6fbf6ab6536963bfe7f21bc15f0c13e631b423d5747fbbda0ff75079c62111ee",
+      "bytes": 9134
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "previous_blob": "9a79100dcf3480c9d6e10573effcc9181cb77550",
+      "sha256": "fdb606683b609742e2ced2ee713e493e147e4b3af4cfca922d61a6f008c27748",
+      "bytes": 13911
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHolyLightModel.cpp",
+      "previous_blob": "4bea6fb5791ac7f5ed591754b7a2fa4c493ff5a1",
+      "sha256": "a1010af8425ced4fabb58e5f912e868a94f4d43ed68ec97cb1280fa79fff29e1",
+      "bytes": 8966
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+      "previous_blob": "a497ace43e239d3dc0f7405017a046e377c1c531",
+      "sha256": "dac2785bcfd30baf35a85ce74da7356bf5ab7b5ef53e1d27a3ce1469cafdcb16",
+      "bytes": 8088
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceWallModel.cpp",
+      "previous_blob": "fa7a6f92f5bce1e345cfd7329b83d6f8b4f96692",
+      "sha256": "ebf8dde8e42c19bd56b4db9b9feeb86ecdb5da10ff2103e2b5da53e656940f1a",
+      "bytes": 8126
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+      "previous_blob": "716acdee55b196130f821f842a8e10f04b289801",
+      "sha256": "e4accd43ebb790bf102c06effb4ead59b6b5b4bc21f99f4de7562f17530d7e15",
+      "bytes": 8895
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "previous_blob": "0fe9bda4b6724efca1b54240a68e58caf2d3e1c6",
+      "sha256": "cf1cdff63df528493df84b5f2a095ff64dcb8220b29d6851fc333ea8d7342554",
+      "bytes": 16038
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "previous_blob": "922fe0491c667ecdc2dd2408119e02471dcd7c6f",
+      "sha256": "c89b318a7b8f2b6f3410ef86512381f992a35ac4fa4ce13dd897720bc1173807",
+      "bytes": 9664
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "previous_blob": "8349bb4099117d833b05fea60a6ed1a7a3714b52",
+      "sha256": "aa6b4ce119cc569d3f718fccb7d7fe3dd5a7eedd6e2832f8da3d168eb9c4db18",
+      "bytes": 2397
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolStats.cpp",
+      "previous_blob": "2bd53831eeb92e46b12129bd3c8de5e9915cd746",
+      "sha256": "a25d02dba1c687786ae0000df1bb9b33b97d2be2b9b14baa861e39275c50d723",
+      "bytes": 4499
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "previous_blob": "8e23ec9c7b1f58066b286d6409793cdbe18814e9",
+      "sha256": "e8d21dc7b7abb19d730b7657e951e85717e1aed59568507eb982524d0317c56f",
+      "bytes": 88769
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "previous_blob": "379dd252ac62aa4ba20e0812ea73848d4db0fd8b",
+      "sha256": "deca5044ad466a35213f201da2c53e41b2d833f116eabaaf60c3e0aaa0d3ac9c",
+      "bytes": 46169
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+      "previous_blob": "268296bb9b555b5fbd2b11f7e8559b30df94f418",
+      "sha256": "b7c52e638dad60590d492534625a90488e6b940b8b32f4c825ab418ef98a7376",
+      "bytes": 14283
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedContainers.cpp",
+      "previous_blob": "12b597ebb4a2d3ec71e5f5d2bc347573efeea8b4",
+      "sha256": "b1801d2c0f34e09f5da8aaa3c646331bc53d1098174648cb9aa91852c1ea7fa9",
+      "bytes": 11620
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "previous_blob": "ae9e6cde322747d19b7bac4ef7f069f9aa5340e4",
+      "sha256": "13c2778282cfc07bd50d7033b9b6fe1d969634bc02d6d7eab925e6033c037dfc",
+      "bytes": 64688
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "previous_blob": "3dffbd31a20c337386dc9261f79d26e77c6e6dbb",
+      "sha256": "988c04c4ad3155e69a76686f8fe44eb90e52939730244b105a70b7ac4e138c04",
+      "bytes": 27195
+    },
+    {
+      "path": "Docs/Publication/BackpacksBelts20261025/Integration/additional-skill-mana-bases.patch",
+      "previous_blob": null,
+      "sha256": "c26207246a595ff2ba6e5c609caebc9d399d13f730363543e498553ca1397f0e",
+      "bytes": 781
+    },
+    {
+      "path": "Docs/Publication/BackpacksBelts20261025/Integration/IceArmor-mana-consumer.patch",
+      "previous_blob": null,
+      "sha256": "d436770fdc2aef52402b718962b218993d5d24fc9e3227a4416a25e48f0ea093",
+      "bytes": 1543
+    },
+    {
+      "path": "Docs/Publication/BackpacksBelts20261025/Integration/LightningHaste-mana-consumer.patch",
+      "previous_blob": null,
+      "sha256": "93a7a52894b600dfdef840005b7b19a7ddc9fda39be9adf84b0e49f716d461ef",
+      "bytes": 1470
+    },
+    {
+      "path": "Docs/Publication/BackpacksBelts20261025/retirement-manifest.json",
+      "previous_blob": null,
+      "sha256": "4f0c8d2dcf97e6ef53872fb236d35ca22382e2ce155661a5bd2fd298802b4399",
+      "bytes": 295892
+    },
+    {
+      "path": ".gitignore",
+      "previous_blob": "0558ed3ced58cc387f40fc7cdf785fa9bd644227",
+      "sha256": "4c517d28217b2178a9b7688a744e9a12abfbf95fdf4fdf69c77508314d969bff",
+      "bytes": 294308
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "previous_blob": "3613e2d6b32c30b1b6a7c612a639e90b24e760d6",
+      "sha256": "7768e6ab32d0097005d04a2c205675385a6659213006bf0b8b8c7ed8934259bd",
+      "bytes": 132473
+    },
+    {
+      "path": "Docs/Publication/BackpacksBelts20261025/README.md",
+      "previous_blob": null,
+      "sha256": "f369c20d637722626e0a30c04e1e4a59bc3e115a3f2e77b5d8bd686fc767d025",
+      "bytes": 5445
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelIceArmorModel.cpp",
+      "previous_blob": "113513e0020780ed65f81ff5f58bcd77766bb2a3",
+      "sha256": "1acbb313a3db86b142d8f27a3f5e8f4728648b01f9d3377f1661f7b65bddeaf5",
+      "bytes": 2638
+    }
+  ],
+  "prerequisites": [
+    "Existing equipment publication 0bb339d8",
+    "Local licensed native bodies and saved backpack/belt assets",
+    "Optional IceArmor/LightningHaste definitions before Integration patches"
+  ]
+}

@@ -60,9 +60,9 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
     // Light healing never inherits damage-only, chain damage or critical modifiers.
     C.Healing=FMath::FloorToFloat(Base*HealFactor);
     C.Damage=FMath::FloorToFloat(Base*DamageFactor*MagicImplementMultiplier());
-    C.ManaCost=SpellManaCostBeforeFocus(TEXT("holyLight"),L);
+    C.ManaCost=SpellManaCost(TEXT("holyLight"),L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
-    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
+    ApplySpellCastSpeed(C.CastSpeed);
     return C;
 }
 

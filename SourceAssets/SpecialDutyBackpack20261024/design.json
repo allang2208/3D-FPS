@@ -1,0 +1,109 @@
+{
+  "revision": "HorizonCarrierConceptR1_20261024",
+  "proposed_name": "特勤重载远征背包",
+  "proposed_item_id": "ue_special_duty_backpack",
+  "status": "saved_and_integrated_awaiting_user_gameplay",
+  "generator": "built-in image_gen",
+  "concept_image": "Concept/horizon_carrier_triview_r1.png",
+  "prompt_file": "Concept/prompt_r1.txt",
+  "original_generated_image": "C:\\Users\\allan\\.codex\\generated_images\\01a16a22-8d08-7540-a8cc-4b03ac5dfcb4\\exec-c1aba658-9df9-45c8-affe-cca0c88c7e32.png",
+  "image_sha256": "710cd40bb936d608f1df91e5c96fd31eb65e675acf9e565834e0a79f6fecc392",
+  "positioning": "seventh backpack design; higher capacity successor to Farreach, with distinct modular cargo construction",
+  "identity": [
+    "three vertically stacked sealed cargo modules",
+    "continuous perimeter load frame",
+    "horizontal central locking bridge",
+    "flush inset side cartridges",
+    "close-backed padded harness and articulated hip belt"
+  ],
+  "materials": [
+    "warm stone-gray composite",
+    "dark titanium structural frame",
+    "charcoal technical textile",
+    "small oxblood-red releases",
+    "restrained amber indicators"
+  ],
+  "differences_from_farreach": [
+    {
+      "aspect": "cargo architecture",
+      "farreach": "two tall cheek shells and central vertical display",
+      "horizon_carrier": "three independent horizontal cargo modules in a perimeter frame"
+    },
+    {
+      "aspect": "modules",
+      "farreach": "matching protruding tall rectangular side pods",
+      "horizon_carrier": "inset short cartridges and flat service panel within body width"
+    },
+    {
+      "aspect": "visual identity",
+      "farreach": "graphite armored shell and cyan display",
+      "horizon_carrier": "stone-gray cases, dark carrier frame, red releases and tiny amber indicators"
+    }
+  ],
+  "target_dimensions_cm": {
+    "height": 72,
+    "overall_width": 48,
+    "cargo_shell_depth": 32
+  },
+  "dimensions_are_design_targets_not_measured_geometry": true,
+  "views": [
+    "outward_front_orthographic",
+    "physical_right_side_orthographic",
+    "wearer_back_orthographic"
+  ],
+  "orientation_standard": {
+    "outward_front": "-Y",
+    "wearer_face": "+Y",
+    "up": "+Z",
+    "inventory_view": "outward front, level, orthographic"
+  },
+  "capacity_proposal": {
+    "status": "draft_retained_on_model_handoff_applied",
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 90,
+    "bagCompartmentCells": 84,
+    "bagCompartmentColumns": 14,
+    "bagCompartmentRows": 6
+  },
+  "current_farreach_baseline": {
+    "extra_main_rows": 4,
+    "bagExtraCells": 72,
+    "bagCompartmentColumns": 12,
+    "bagCompartmentRows": 6,
+    "grid_w": 4,
+    "grid_h": 4,
+    "source": "Content/ColdSteelData/items.json; existing Farreach integration"
+  },
+  "wearable_requirements": [
+    "calibrate from actual rear contact surfaces, not whole-model bounds",
+    "separate complete display model and stowed worn model",
+    "rebuild native Jason and Kaitlin harnesses from current clothing surfaces",
+    "shared sewn anchors and bounded motion for shell and straps",
+    "do not reuse Farreach mount offsets or pitches"
+  ],
+  "technology_features_are_visual_concepts_only": true,
+  "user_accepted": false,
+  "model_created": true,
+  "imported_to_ue": true,
+  "inventory_changed": true,
+  "runtime_tested": false,
+  "name": "特勤重载远征背包",
+  "item_id": "ue_special_duty_backpack",
+  "model_source": "user_meshy_glb",
+  "source_sha256": "e7c8aa9010b223543d5a458a7a8450ab492cbcf8bc28628e85c012566bebee22",
+  "source_glb": "Input/Meshy_AI_Rugged_Expedition_Pac_1024095908_texture.glb",
+  "original_concept_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HorizonCarrierBackpack20261024",
+  "concept_name_before_user_rename": "界航重载远征背包",
+  "production_revision": "SpecialDutyMeshyFitR1_20261024",
+  "implementation_receipt": "MeshyFitR1_20261024/published.json",
+  "source_dimensions_cm": [
+    44.410015100355885,
+    37.63917670832626,
+    72.0
+  ],
+  "world_wearable_profiles": 14,
+  "user_accepted_model": false,
+  "catalog_icon": "MeshyFitR1_20261024/Icon/ue_catalog_front.png",
+  "catalog_icon_exported": true
+}

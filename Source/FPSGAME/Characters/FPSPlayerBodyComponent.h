@@ -324,6 +324,12 @@ private:
     FRotator FixedThirdPersonRotation=FRotator::ZeroRotator;
     float FixedThirdPersonFOV=90.f;
 
+    // Only the newest legacy outfit request may replace the visible assembly.
+    TSharedPtr<struct FStreamableHandle> OutfitLoad;
+    FString OutfitLoadKey;
+    uint64 OutfitLoadGeneration=0;
+    void ClearOutfitPresentation();
+
 };
 
 /** `fps.body.WorldBody` state, read at each use site rather than mirrored into a

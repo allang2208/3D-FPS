@@ -15,6 +15,15 @@
 #include "HAL/IConsoleManager.h"
 using namespace ColdSteelInventory;
 
+namespace
+{
+bool UsesChangedSharedFootprint(const FColdSteelItem& Item)
+{
+    return Item.Definition==TEXT("alchemy_compound_stabilizer")||Item.Definition==TEXT("ue_tactical_magazine_belt")
+        ||Item.Definition==TEXT("ue_melee_combat_belt")||Item.Definition==TEXT("ue_arcane_conduit_belt");
+}
+}
+
 bool UColdSteelSharedInventorySubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
     const auto* World=Cast<UWorld>(Outer);
@@ -76,7 +85,7 @@ bool UColdSteelSharedInventorySubsystem::InitializeAuthority()
     auto Migrated=Current;bool DropsChanged=false;FString MigrationReason;
     for(auto& Item:Migrated.Drops)
     {
-        if(Item.Definition!=TEXT("alchemy_compound_stabilizer"))continue;
+        if(!UsesChangedSharedFootprint(Item))continue;
         bool ItemChanged=false;
         if(!MigrateAuthoredItemFootprint(Item,ItemChanged,MigrationReason))
         {UE_LOG(LogTemp,Warning,TEXT("Shared drop migration failed: %s"),*MigrationReason);bBlocked=true;return false;}
@@ -205,7 +214,7 @@ bool UColdSteelSharedInventorySubsystem::Pickup(UColdSteelStatusModel* Model,ACo
     const int32 Index=After.Drops.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Actor->ItemId;});
     if(Index<0)return false;
     auto Item=After.Drops[Index];bool FootprintChanged=false;
-    if(Item.Definition==TEXT("alchemy_compound_stabilizer")&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,Reason))return false;
+    if(UsesChangedSharedFootprint(Item)&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,Reason))return false;
     const bool Added=Model->AmmoType(Item.Definition)?Model->AddAmmoToState(Profile,Item.Definition,Item.Count)
         :ColdSteelInventory::Insert(Profile.Items,Item);
     if(!Added){Reason=TEXT("背包已满，物品留在地面");return false;}
@@ -226,7 +235,7 @@ bool UColdSteelSharedInventorySubsystem::PickupNearby(UColdSteelStatusModel* Mod
         if(!Actor||!Actor->IsValid()||FVector::DistSquared(Pawn->GetActorLocation(),Item.Position)>FMath::Square(FMath::Max(25.f,Radius))
             ||!ColdSteelWorldInteraction::CanReachPickup(GetWorld(),Pawn,Actor->Get(),Item.Position))continue;
         bool FootprintChanged=false;FString MigrationReason;
-        if(Item.Definition==TEXT("alchemy_compound_stabilizer")&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,MigrationReason))continue;
+        if(UsesChangedSharedFootprint(Item)&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,MigrationReason))continue;
         auto Trial=Profile;
         const bool Added=Model->AmmoType(Item.Definition)?Model->AddAmmoToState(Trial,Item.Definition,Item.Count)
             :ColdSteelInventory::Insert(Trial.Items,Item);

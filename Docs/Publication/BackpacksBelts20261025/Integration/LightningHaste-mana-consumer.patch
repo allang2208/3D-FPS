@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelLightningHasteModel.cpp
+@@ -13,14 +13,14 @@
+     const int32 L=FMath::Clamp(AtLevel<0?MasteryProgress(TEXT("lightningHaste")).Level:AtLevel,1,LightningHasteSkill.MaxLevel);
+     const float K=L-1;
+     FLightningHasteCast C;C.MoveBonus=T.MoveBase+K*T.MovePerLevel;C.ActionBonus=T.ActionBase+K*T.ActionPerLevel;
+-    C.Duration=T.DurationBase+K*T.DurationPerLevel;C.Cooldown=T.Cooldown;C.ManaCost=SpellManaCostBeforeFocus(TEXT("lightningHaste"),L);
++    C.Duration=T.DurationBase+K*T.DurationPerLevel;C.Cooldown=T.Cooldown;C.ManaCost=SpellManaCost(TEXT("lightningHaste"),L);
+     float Reduction=0;
+     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
+         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
+         {Reduction=E->CraftEffect(*Item,TEXT("magicCooldownPercent"));C.CastSpeed=FMath::Max(.1f,1.f+float(E->CraftEffect(*Item,TEXT("castSpeedPercent"))));}
+     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
+     C.Cooldown*=FMath::Max(.2f,(1-Reduction)*(1-float(SetEffect(TEXT("cooldown")))))*Rune.SkillCooldown*Rune.MagicCooldown;
+-    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
++    ApplySpellCastSpeed(C.CastSpeed);
+     C.CastExperience=T.CastExperience;C.KillExperience=T.KillExperience;C.Kill6Bonus=T.Kill6Bonus;C.Kill11Bonus=T.Kill11Bonus;
+     return C;
+ }

@@ -63,9 +63,9 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
             C.PendantBurnTick=E->CraftEffect(*Item,TEXT("fireBurnTickMs"),500)/1000;
         }
     DamageFactor*=MagicImplementMultiplier();C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);C.AuraDamage=FMath::FloorToFloat(C.AuraDamage*DamageFactor);
-    C.ManaCost=SpellManaCostBeforeFocus(Id,L);
+    C.ManaCost=SpellManaCost(Id,L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
-    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
+    ApplySpellCastSpeed(C.CastSpeed);
     return C;
 }
 

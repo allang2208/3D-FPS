@@ -9,7 +9,7 @@ import numpy as np
 from scipy.interpolate import CubicSpline,PchipInterpolator
 from scipy.spatial import ConvexHull,cKDTree
 from scipy.ndimage import gaussian_filter1d
-P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/PathfinderBackpack20261023';I=R/'BodyInputs'
+P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/PathfinderBackpack20261023/OrientationFitR2_20261024';I=R/'BodyInputs'
 sys.path.insert(0,str(P/'Tools/BackpackHarness'))
 import importlib.util
 spec=importlib.util.spec_from_file_location('base_backpack_author',P/'Tools/BackpackHarness/author.py')
@@ -18,10 +18,49 @@ read,write=base.read,base.write
 Mesh,visible_mesh,envelope=base.Mesh,base.visible_mesh,base.envelope
 lift_required,contact_offset,frame=base.lift_required,base.contact_offset,base.frame
 smooth_lift,rounded_ring,unit=base.smooth_lift,base.rounded_ring,base.unit
-DEST='/Game/Characters/PathfinderBackpack20261023'
-REVISION='PathfinderMeshyHarnessR1_20261023'
+DEST='/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024'
+REVISION='PathfinderOrientationFitR2_20261024'
 PROFILES={name:(shirt,asset.replace('Backpack','PathfinderBackpack'),margin)
           for name,(shirt,asset,margin) in base.PROFILES.items()}
+RIG='Jason'
+NATIVE_ROTATION=np.eye(3)
+NATIVE_TRANSLATION=np.zeros(3)
+TEMPLATE=base.DEST+'/SK_Jason_Backpack.SK_Jason_Backpack'
+WAIST_POINTS=np.empty((0,3))
+BAG_CENTRE=np.array([0.,-18.,122.])
+BAG_ROTATION=np.eye(3)
+SHOULDER_SHIFT=0.
+
+
+def fit_height(z):
+    return z+SHOULDER_SHIFT*np.clip((np.asarray(z)-104.5)/38.,0.,1.)
+
+
+def fit_cloud(body,garment):
+    points=[]
+    for data in [body]+([garment] if garment else []):
+        geom=visible_mesh(data);ids=np.unique(geom.faces);v=geom.vertices[ids]
+        torso={b['index'] for b in data['bones'] if b['name']=='pelvis' or b['name'].startswith(('spine_','clavicle'))}
+        influence=np.asarray([sum(w for b,w in data['weights'][i] if b in torso) for i in ids])
+        keep=(abs(v[:,0])<22)&(v[:,2]>84)&(v[:,2]<151.5)&(influence>np.where(v[:,2]>132,.25,.75))
+        points.append(v[keep])
+        extra=np.asarray(data.get('extra_fit_points',[])).reshape(-1,3)
+        if len(extra):points.append(extra[(abs(extra[:,0])<22)&(extra[:,2]>84)&(extra[:,2]<110)])
+    if len(WAIST_POINTS):points.append(WAIST_POINTS[(abs(WAIST_POINTS[:,0])<22)&(WAIST_POINTS[:,2]>84)&(WAIST_POINTS[:,2]<110)])
+    return np.unique(np.round(np.vstack(points),4),axis=0)
+
+
+def envelope(body,garment):
+    cloud=fit_cloud(body,garment)
+    # Include pelvis, trouser waist and tucked shirt routes below the old 104 cm cutoff.
+    hull=ConvexHull(cloud);cells=[];bands=[]
+    for low in np.arange(84,150,2):
+        local=cloud[(cloud[:,2]>=low)&(cloud[:,2]<=min(low+4,151.5))]
+        if len(local)>=4 and np.linalg.matrix_rank(local-local.mean(0))==3:
+            cells.append(ConvexHull(local).equations)
+            bands.append([float(local[:,2].min()),float(local[:,2].max())])
+    import trimesh
+    return {'frame':hull.equations,'cells':cells,'bands':bands},trimesh.convex.convex_hull(cloud)
 
 def prepare_bag():
     src=np.load(R/'Authored/static_source.npz')
@@ -29,37 +68,37 @@ def prepare_bag():
     # Stow the input's empty shoulder/waist loops against the rear pad. A
     # positive derivative retains every face, UV, shell and material normal.
     depth=np.maximum(v[:,1]-3.,0.)/1.6
-    derivative=np.where(v[:,1]>3.,1./np.cosh(depth)**2+.025,1.)
-    v[:,1]=np.where(v[:,1]>3.,3.+1.6*np.tanh(depth)+.025*(v[:,1]-3.),v[:,1])
+    derivative=np.where(v[:,1]>3.,.975/np.cosh(depth)**2+.025,1.)
+    v[:,1]=np.where(v[:,1]>3.,3.+1.56*np.tanh(depth)+.025*(v[:,1]-3.),v[:,1])
     n[:,:,1]/=derivative[f];n=unit(n)
     np.savez_compressed(R/'Authored/worn_body.npz',positions=v.astype(np.float32),triangles=f,normals=n.astype(np.float32),uv=src['uv'])
-    centre=np.array([0.,-18.,122.]);v+=centre
+    centre=BAG_CENTRE;v+=centre
     anchors={}
     # Actual folded sewn panel points; leave no empty old anchor coordinates.
     for side,tag in [(1,'l'),(-1,'r')]:
-        for key,z,x in [('top',142.5,9.5),('bottom',109.5,12.)]:
+        for key,z,x in [('top',142.5,9.5),('bottom',109.5,12.),('hip',104.5,11.)]:
+            z+=SHOULDER_SHIFT
             near=(abs(v[:,0]-side*x)<1.5)&(abs(v[:,2]-z)<1.5)
             candidates=v[near];y=float(np.quantile(candidates[:,1],.95))
             target=np.array([side*x,y,z]);anchor=candidates[np.argmin(np.linalg.norm(candidates-target,axis=1))]
             anchors[key+'_'+tag]=anchor.tolist()
-    write(R/'PreparedBag.json',dict(positions=v.tolist(),triangles=[],normals=[],uv=[],cut_cap_faces=0,anchors=anchors,
+    v=(v-centre)@BAG_ROTATION+centre
+    anchors={key:((np.asarray(point)-centre)@BAG_ROTATION+centre).tolist() for key,point in anchors.items()}
+    write(R/('PreparedBag_'+RIG+'.json'),dict(positions=v.tolist(),triangles=[],normals=[],uv=[],cut_cap_faces=0,anchors=anchors,
           materials=[dict(slot='PathfinderFabric',asset=DEST+'/M_PathfinderBackpack.M_PathfinderBackpack')]))
-    write(R/'wearable_calibration.json',dict(centre=centre.tolist(),anchors=anchors,retained_faces=len(f),decimation_applied=False,
+    write(R/('wearable_calibration_'+RIG+'.json'),dict(centre=centre.tolist(),anchors=anchors,retained_faces=len(f),decimation_applied=False,
           stowed_rear_max_cm=float(v[:,1].max()),dimensions_cm=np.ptp(v,axis=0).tolist()))
 
 
 def add_waist(mesh,body,garment,offset,bag_bone,margin):
-    points=[]
-    for data in [body]+([garment] if garment else []):
-        geom=visible_mesh(data);ids=np.unique(geom.faces);v=geom.vertices[ids]
-        torso={b['index'] for b in data['bones'] if b['name']=='pelvis' or b['name'].startswith('spine_')}
-        influence=np.array([sum(w for b,w in data['weights'][i] if b in torso) for i in ids])
-        points.append(v[(abs(v[:,0])<22)&(v[:,2]>98)&(v[:,2]<111)&(influence>.75)])
-    cloud=np.vstack(points);hull=ConvexHull(cloud)
+    cloud=fit_cloud(body,garment);cloud=cloud[(cloud[:,2]>98)&(cloud[:,2]<111)];hull=ConvexHull(cloud)
     equations={'frame':hull.equations,'cells':[hull.equations]}
-    control=np.array([[11.,-12.8+offset[1],104.5],[16.,-7.,104.5],[17.,3.,104.5],
+    anchors=read(R/('PreparedBag_'+RIG+'.json'))['anchors']
+    left=np.asarray(anchors['hip_l'])+offset+[0.,-.25,0.]
+    right=np.asarray(anchors['hip_r'])+offset+[0.,-.25,0.]
+    control=np.array([left,[16.,-7.,104.5],[17.,3.,104.5],
                       [13.,11.,104.5],[0.,14.,104.5],[-13.,11.,104.5],
-                      [-17.,3.,104.5],[-16.,-7.,104.5],[-11.,-12.8+offset[1],104.5]])
+                      [-17.,3.,104.5],[-16.,-7.,104.5],right])
     arc=np.r_[0.,np.cumsum(np.linalg.norm(np.diff(control,axis=0),axis=1))]
     sample=np.linspace(0,arc[-1],129);path=CubicSpline(arc,control,bc_type='natural')(sample)
     widths=PchipInterpolator(arc,[6.,7.5,7.5,4.6,3.4,4.6,7.5,7.5,6.])(sample)
@@ -69,18 +108,21 @@ def add_waist(mesh,body,garment,offset,bag_bone,margin):
     contact=np.where(np.isfinite(contact),np.clip(contact,-4.,5.),0.)
     blend=np.minimum(np.minimum(sample/10.,(sample[-1]-sample)/10.),1.)
     path+=direction*(gaussian_filter1d(contact,3.)*blend)[:,None]
-    for _ in range(3):
+    for _ in range(5):
         _,across,normal=frame(path,equations)
         ring=np.stack([path+across*(widths*f)[:,None]-normal*(thick*.5)[:,None] for f in [-.5,0.,.5]],axis=1)
         required=lift_required(ring.reshape(-1,3),np.repeat(direction,3,axis=0),equations,margin).reshape(-1,3).max(1)
         required[[0,-1]]=0
-        path+=direction*gaussian_filter1d(required,1.5)[:,None]
+        lift=smooth_lift(required,pin_ends=True);lift[[0,-1]]=0
+        path+=direction*lift[:,None]
+    path[[0,-1]]=[left,right]
     by_name={b['name']:b['index'] for b in body['bones']}
     bindings=[]
     for f in blend:
         weights={bag_bone:1.-.8*f,by_name['spine_02']:.4*f,by_name['spine_01']:.4*f}
         bindings.append([[b,w] for b,w in weights.items() if w>1e-7])
-    mesh.ribbon('padded_hip_belt',path,widths,thick,bindings,equations=equations)
+    part=mesh.ribbon('padded_hip_belt',path,widths,thick,bindings,equations=equations)
+    part['sewn_bag_points']=[left.tolist(),right.tolist()]
     tangent,across,normal=frame(path,equations);mid=len(path)//2
     mesh.hardware('hip_belt_clasp',path[mid]+normal[mid]*.45,tangent[mid],across[mid],normal[mid],4.6,4.1,bindings[mid])
 
@@ -89,16 +131,27 @@ def build(profile):
     body = read(I / "body.json")
     garment = read(I / (shirt+".json")) if shirt else None
     equations, proxy = envelope(body, garment)
-    write(R / "Envelopes" / (profile+".json"),
+    write(R / "Envelopes" / (RIG+'_'+profile+".json"),
           {"positions": proxy.vertices.tolist(), "triangles": proxy.faces.tolist(),
            "frame_equations":equations["frame"].tolist(),"cells":[c.tolist() for c in equations["cells"]]})
-    bag = read(R/"PreparedBag.json")
+    bag = read(R/('PreparedBag_'+RIG+'.json'))
     bv = np.asarray(bag["positions"])
     directions = np.tile([0., -1., 0.], (len(bv), 1))
-    bag_shift = float(lift_required(bv, directions, equations, .30).max())
-    if bag_shift > 5:
+    print('PATHFINDER_FITTING',RIG,profile,flush=True)
+    # Bounded offline batches prevent the high-detail shell/plane product from
+    # exhausting memory alongside an open editor.
+    bag_shift=-np.inf
+    for cell,(low,high) in zip(equations['cells'],equations['bands']):
+        # Backward rays cannot intersect a section outside its expanded Z slab.
+        points=bv[(bv[:,2]>=low-.41)&(bv[:,2]<=high+.41)]
+        for start in range(0,len(points),2048):
+            part=points[start:start+2048]
+            contact=contact_offset(part,np.tile([0.,-1.,0.],(len(part),1)),{'cells':[cell]},.40)
+            finite=contact[np.isfinite(contact)]
+            if len(finite):bag_shift=max(bag_shift,float(finite.max()))
+    if abs(bag_shift) > 10:
         raise RuntimeError(f"Bag fit for {profile} needs an excessive {bag_shift:.2f} cm rear shift")
-    offset = np.array([0., -bag_shift-.1, 0.])
+    offset = np.array([0., -bag_shift, 0.])
     bv += offset
     bones = body["bones"]
     by_name = {b["name"]: b["index"] for b in bones}
@@ -120,6 +173,7 @@ def build(profile):
                             [side*12.2, 6.2, 141.6], [side*12.0, 11.8, 136.2],
                             [side*11.5, 13.2, 126.0], [side*13.8, 10., 122.0],
                             [side*15.0, 3.5, 117.2], [side*14.5, -5.5, 113.5], bottom])
+        control[1:-1,2]=fit_height(control[1:-1,2])
         arc = np.r_[0., np.cumsum(np.linalg.norm(np.diff(control, axis=0), axis=1))]
         sample = np.linspace(0, arc[-1], int(np.ceil(arc[-1]/.7))+1)
         base = CubicSpline(arc, control, bc_type="natural")(sample)
@@ -135,7 +189,7 @@ def build(profile):
             ring=rounded_ring(widths[j],thick[j])
             dense=np.vstack([ring*(1-f)+np.roll(ring,-1,axis=0)*f for f in (0.,.25,.5,.75)])
             samples.append(centre+dense[:,:1]*across[j]+dense[:,1:]*direction[j])
-        local_margin=margin+max(.7-margin,0)*np.clip((base[:,2]-130)/8,0,1)
+        local_margin=margin+max(.7-margin,0)*np.clip((base[:,2]-fit_height(130))/8,0,1)
         contact=contact_offset(np.vstack(samples),np.repeat(direction,48,axis=0),equations,np.repeat(local_margin,48))
         contact=contact.reshape(len(base),48).max(1)
         contact=np.where(np.isfinite(contact),np.clip(contact,-7.,4.),0.)
@@ -162,7 +216,7 @@ def build(profile):
                 samples.append(path[j]+dense[:, :1]*across[j]+dense[:, 1:]*normal[j])
                 ray_dirs.append(np.tile(direction[j], (len(dense), 1)))
             seam_blend = np.minimum(np.minimum(sample/3., (sample[-1]-sample)/3.), 1.)
-            local_margin=margin+max(.7-margin,0)*np.clip((path[:,2]-130)/8,0,1)
+            local_margin=margin+max(.7-margin,0)*np.clip((path[:,2]-fit_height(130))/8,0,1)
             row_margin = .08+(local_margin-.08)*seam_blend
             required = lift_required(np.vstack(samples), np.vstack(ray_dirs), equations,
                                      np.repeat(row_margin, 48)).reshape(len(path), -1).max(1)
@@ -192,16 +246,16 @@ def build(profile):
                     elif name.startswith("spine_"):
                         mapped=s4
                     elif name.startswith("clavicle") and name.endswith("_"+tag):
-                        mapped=clavicle if path[j,2]>132 else s4
+                        mapped=clavicle if path[j,2]>fit_height(132) else s4
                     elif name.startswith("upperarm") and name.endswith("_"+tag):
-                        mapped=upperarm if path[j,2]>136 else s4
+                        mapped=upperarm if path[j,2]>fit_height(136) else s4
                     if mapped is not None:
                         weights[mapped]=weights.get(mapped,0)+w*factor
             denom=sum(weights.values())
             weights={b:w/denom for b,w in weights.items()} if denom>1e-5 else {bag_bone:1.}
             # Body muscle correctives can scale several-fold in a cast. Map
             # them to structural joints and bound arm contribution to padding.
-            shoulder_blend=float(np.clip((path[j,2]-134.)/9.,0.,1.))
+            shoulder_blend=float(np.clip((path[j,2]-fit_height(134.))/9.,0.,1.))
             shoulder_blend=shoulder_blend*shoulder_blend*(3-2*shoulder_blend)
             excess=max(weights.get(upperarm,0)-.12*shoulder_blend,0)
             if excess:weights[upperarm]-=excess;weights[clavicle]=weights.get(clavicle,0)+excess
@@ -230,7 +284,7 @@ def build(profile):
         part["sewn_bag_points"] = [top.tolist(), bottom.tolist()]
         tangent, across, normal = frame(path,equations)
         front = np.where(path[:,1] > 9)[0]
-        buckle_index = front[np.argmin(abs(path[front,2]-126.0))]
+        buckle_index = front[np.argmin(abs(path[front,2]-fit_height(126.0)))]
         mesh.hardware("adjuster_"+tag, path[buckle_index]+normal[buckle_index]*.48,
                       across[buckle_index], tangent[buckle_index], normal[buckle_index], 3.15, 2.25, bindings[buckle_index])
         paths.append((path, bindings, widths, thick))
@@ -243,7 +297,7 @@ def build(profile):
     endpoints, weights = [], []
     for side_index,(path, bindings, widths, thick) in enumerate(paths):
         front = np.where(path[:,1] > 8)[0]
-        index = front[np.argmin(abs(path[front,2]-133.))]
+        index = front[np.argmin(abs(path[front,2]-fit_height(133.)))]
         _,across,normal=frame(path,equations)
         surface=path[index]+normal[index]*(thick[index]*.5+.10)
         # Place the crossing on the pad face, with an actual stitched tab.
@@ -253,7 +307,7 @@ def build(profile):
         weights.append(bindings[index])
     # Small chest bow accommodates pectoral corrective motion without binding
     # the tape to arm muscle helpers that can scale sharply during a cast.
-    control = np.array([endpoints[0], [0., max(p[1] for p in endpoints)+1.9, 133.], endpoints[1]])
+    control = np.array([endpoints[0], [0., max(p[1] for p in endpoints)+1.9, fit_height(133.)], endpoints[1]])
     curve = CubicSpline([0.,.5,1.], control, bc_type="natural")
     sternum = curve(np.linspace(0,1,33))
     direction = np.tile([0.,1.,0.], (len(sternum),1))
@@ -298,20 +352,28 @@ def build(profile):
             t=np.clip(np.minimum(arc[station],arc[-1]-arc[station])/12.,0.,1.)
             mask[ids]=1.-t*t*(3.-2.*t)
     mesh.data['motion_mask']=mask.tolist()
-    write(R / "Authored" / (profile+".json"), mesh.data)
-    row = {"profile":profile, "shirt":shirt, "asset":mesh.data["source"], "margin_cm":margin,
+    # Author around each actual body's surface in a shared torso frame, then
+    # return geometry and normals to that body's native reference coordinates.
+    mesh.data['positions']=(vv@NATIVE_ROTATION+NATIVE_TRANSLATION).tolist()
+    mesh.data['normals']=(np.asarray(mesh.data['normals'])@NATIVE_ROTATION).tolist()
+    for part in mesh.data['parts']:
+        for key in ('path','base_path','sewn_bag_points'):
+            if key in part:part[key]=(np.asarray(part[key])@NATIVE_ROTATION+NATIVE_TRANSLATION).tolist()
+    output=R/'Authored'/(RIG+'_'+profile+'.json')
+    write(output, mesh.data)
+    row = {"profile":RIG+'_'+profile, "fit_profile":profile,"rig":RIG,"template":TEMPLATE,"shirt":shirt, "asset":mesh.data["source"], "margin_cm":margin,
            "bag_shift_cm":offset.tolist(), "paths":measurements, "vertices":len(mesh.data["positions"]),
-           "triangles":len(mesh.data["triangles"]), "source":str(R/"Authored"/(profile+".json"))}
-    row.update(rigid_location=(np.array([0.,-18.,122.])+offset).tolist(),bounds_min=bv.min(0).tolist(),bounds_max=bv.max(0).tolist())
+           "triangles":len(mesh.data["triangles"]), "source":str(output)}
+    from scipy.spatial.transform import Rotation
+    native_bag=bv@NATIVE_ROTATION+NATIVE_TRANSLATION
+    row.update(rigid_location=((BAG_CENTRE+offset)@NATIVE_ROTATION+NATIVE_TRANSLATION).tolist(),
+               rigid_rotation_quat=Rotation.from_matrix((BAG_ROTATION@NATIVE_ROTATION).T).as_quat().tolist(),
+               body_native_rotation_quat=Rotation.from_matrix(NATIVE_ROTATION.T).as_quat().tolist(),
+               bounds_min=native_bag.min(0).tolist(),bounds_max=native_bag.max(0).tolist())
     print("HARNESS_AUTHORED", json.dumps(row), flush=True)
     return row
 
 
 if __name__ == "__main__":
-    prepare_bag()
-    rows=[build(profile) for profile in PROFILES]
-    lo=np.min([r['bounds_min'] for r in rows],axis=0);hi=np.max([r['bounds_max'] for r in rows],axis=0)
-    settings=dict(frequency_hz=2.5,damping=.98,max_angle_degrees=1.65,max_bounce_cm=.22,response_scale=1.85,max_displacement_cm=1.7,
-                  pivot=[0.,float(hi[1]-2.),134.],bounds_min=lo.tolist(),bounds_max=hi.tolist())
-    write(R/'manifest.json',dict(revision=REVISION,variants=rows,backpack_motion=settings,
-          original_source_preserved=True,decimation_applied=False,geometry='shared Nanite rigid pouch and six fitted skeletal harnesses'))
+    import runpy
+    runpy.run_path(str(P/'Tools/PathfinderBackpack/author_r2.py'),run_name='__main__')

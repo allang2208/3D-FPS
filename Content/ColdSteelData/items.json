@@ -44,8 +44,8 @@
     "stack_max": 1,
     "maxStack": 1,
     "price": 0,
-    "grid_w": 2,
-    "grid_h": 1,
+    "grid_w": 3,
+    "grid_h": 2,
     "defense": {
       "base": 0,
       "perEnhance": 0
@@ -5765,8 +5765,8 @@
     "grid_w": 4,
     "grid_h": 4,
     "bagExtraCells": 54,
-    "bagCompartmentCells": 72,
-    "bagCompartmentColumns": 12,
+    "bagCompartmentCells": 60,
+    "bagCompartmentColumns": 10,
     "bagCompartmentRows": 6,
     "desc": "野外勘探队使用的模块化战术背包。金属复合承重架与宽腰封分担负重，密封卷装顶仓、工具侧仓和独立夹层适合长途探索与补给搬运。",
     "ue_icon": "Icons/ue_pathfinder_backpack.png",
@@ -5815,5 +5815,117 @@
     "harvest_reach_cm": 0,
     "harvest_sweep_radius_cm": 0,
     "modular_melee_catalog": "runebound-warhammer-modules.json"
+  },
+  "ue_farreach_backpack": {
+    "id": "ue_farreach_backpack",
+    "name": "远界智能远征背包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 360,
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 72,
+    "bagCompartmentCells": 72,
+    "bagCompartmentColumns": 12,
+    "bagCompartmentRows": 6,
+    "desc": "远界勘探队使用的模块化远征背包。复合硬壳保护主舱，双侧快拆仓分装工具与补给，承重框架和宽腰封分散负重。适合长距离探索与集中搬运，导轨和密封锁扣需要定期清理。",
+    "ue_icon": "Icons/ue_farreach_backpack.png",
+    "icon_fallback": "包",
+    "world_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachBackpack.SM_FarreachBackpack"
+  },
+  "ue_special_duty_backpack": {
+    "id": "ue_special_duty_backpack",
+    "name": "特勤重载远征背包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 480,
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 90,
+    "bagCompartmentCells": 84,
+    "bagCompartmentColumns": 14,
+    "bagCompartmentRows": 6,
+    "desc": "特勤勘探分队使用的重载远征背包。分段密封舱收纳工具与补给，环抱框架将负重传向肩架和宽腰封，嵌入式侧仓便于分类取用。适合长距离搬运与持续探索，刚性外框在狭窄通道中需要留意转身空间，导轨和锁扣应定期清理。",
+    "ue_icon": "Icons/ue_special_duty_backpack.png",
+    "icon_fallback": "包",
+    "world_mesh": "/Game/Characters/SpecialDutyBackpack20261024/MeshyFitR1_20261024/SM_SpecialDutyBackpack.SM_SpecialDutyBackpack"
+  },
+  "ue_melee_combat_belt": {
+    "id": "ue_melee_combat_belt",
+    "name": "破阵近战腰带",
+    "category": "equipment",
+    "type": "腰带",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 0,
+    "desc": "由近战巡卫使用的分段护腰，暗红棕皮革与炭黑织带承托斜切扣具、双点刀鞘挂架和磨刀石袋。它帮助使用者保持出手节奏、节省连续挥击的体力，侧挂组件为装备结构，不提供额外收纳格。",
+    "ue_icon": "Icons/CombatBelts20261025/ue_melee_combat_belt.png",
+    "icon_fallback": "带",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Pickups/SM_MeleeCombatBelt.SM_MeleeCombatBelt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0,
+    "equipSlot": "belt",
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "enhancement": {
+      "maxLevel": 15
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.05,
+      "meleeStaminaCost": -0.1
+    },
+    "bonusPerEnhance": {
+      "meleeAttackSpeed": 0.005,
+      "meleeStaminaCost": -0.01
+    }
+  },
+  "ue_arcane_conduit_belt": {
+    "id": "ue_arcane_conduit_belt",
+    "name": "星律导能腰带",
+    "category": "equipment",
+    "type": "腰带",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 0,
+    "desc": "星律研究会为随队术士制作的导能腰带，以靛蓝皮革承托双环星盘与凹嵌紫晶，侧置符片匣和卷轴筒。符文回路缩短魔法冷却并节省施法法力，适合持续施法；侧挂容器为外观组件，不增加收纳格。",
+    "ue_icon": "Icons/CombatBelts20261025/ue_arcane_conduit_belt.png",
+    "icon_fallback": "带",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Pickups/SM_ArcaneConduitBelt.SM_ArcaneConduitBelt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0,
+    "equipSlot": "belt",
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "enhancement": {
+      "maxLevel": 15
+    },
+    "bonusStats": {
+      "magicCooldownPercent": -0.025,
+      "magicCostPercent": -0.1
+    },
+    "bonusPerEnhance": {
+      "magicCooldownPercent": -0.005,
+      "magicCostPercent": -0.01
+    }
   }
 }

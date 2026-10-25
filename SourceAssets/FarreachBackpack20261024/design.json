@@ -1,0 +1,114 @@
+{
+  "revision": "FarreachConceptR1_20261024",
+  "proposed_name": "远界智能远征背包",
+  "proposed_item_id": "ue_farreach_backpack",
+  "status": "saved_and_integrated_awaiting_user_gameplay",
+  "generator": "built-in image_gen",
+  "concept_image": "Concept/farreach_triview_r1.png",
+  "prompt_file": "Concept/prompt_r1.txt",
+  "image_sha256": "f8b7016e9e0a821764d34b48e0859e4e32eebde8ea1c25a0dda066080e06fc46",
+  "positioning": "开拓者战术背包之后的高科技探索收纳装备；强化密封、分仓和承重结构的视觉表达。",
+  "identity": [
+    "宽肩收腰的盾形硬壳轮廓与内嵌提手",
+    "双片复合护壳围合中央设备脊柱",
+    "成对导轨快拆侧仓",
+    "与框架连成一体的底部密封工具仓",
+    "双轨缓冲承重背架、分区背垫与分段腰封"
+  ],
+  "differences_from_pathfinder": [
+    {
+      "aspect": "轮廓",
+      "pathfinder": "横向顶卷筒、柔性主袋、非对称侧仓",
+      "farreach": "低梯形顶盖、宽肩收腰硬壳、成对矩形侧仓"
+    },
+    {
+      "aspect": "正面识别",
+      "pathfinder": "Y 形外露承重织带",
+      "farreach": "双片护壳与中央竖向设备通道"
+    },
+    {
+      "aspect": "材质配色",
+      "pathfinder": "鼠尾草绿织物、灰卡其、局部护壳",
+      "farreach": "石墨复合壳、冷蓝灰织物、钛灰导轨、橙色释放件及少量青色状态灯"
+    },
+    {
+      "aspect": "科技表达",
+      "pathfinder": "现代户外扣具和技术侧袋",
+      "farreach": "可见快拆导轨、密封接口、结构缓冲和中央状态面板"
+    }
+  ],
+  "proposed_dimensions_cm": {
+    "height": 68,
+    "overall_width": 50,
+    "depth": 34
+  },
+  "views": [
+    "outward_front_orthographic",
+    "right_side_orthographic",
+    "wearer_back_orthographic"
+  ],
+  "orientation_standard": {
+    "outward_front": "-Y",
+    "wearer_face": "+Y",
+    "up": "+Z",
+    "inventory_view": "outward front, orthographic, level"
+  },
+  "capacity_proposal": {
+    "status": "user_confirmed_applied",
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 72,
+    "bagCompartmentCells": 72,
+    "bagCompartmentColumns": 12,
+    "bagCompartmentRows": 6
+  },
+  "verified_pathfinder_baseline": {
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 54,
+    "bagCompartmentColumns": 12,
+    "bagCompartmentRows": 6,
+    "bagCompartmentCells": 72
+  },
+  "engineering_notes": [
+    "硬壳、模块、扣件和框架独立分件；软性背带保持真实厚度",
+    "肩胸固定区与包体活动区分开，所有缝接点与所属包体共用动态变换",
+    "后续按 Jason/Kaitlin 当前身体及上衣逐款适配；不照抄开拓者的偏移和倾角",
+    "图中缓冲器、状态面板与电源接口属于结构和功能概念，尚无游戏逻辑",
+    "规则机械外壳与接口适合 Blender 精确建模，生成图不作为可直接穿戴的网格"
+  ],
+  "user_accepted": false,
+  "model_created": true,
+  "imported_to_ue": true,
+  "inventory_changed": true,
+  "player_saves_modified": false,
+  "concept_functionality_only": true,
+  "runtime_tested": false,
+  "original_pathfinder_modified": true,
+  "model_source": "user_meshy_glb",
+  "source_sha256": "d6484784095aff65a901e269ff5dd83e86e3e9ecb6b81869070ea7eae803841b",
+  "user_model_provided": true,
+  "name": "远界智能远征背包",
+  "item_id": "ue_farreach_backpack",
+  "implementation_receipt": "SlimFitR2_20261024/published.json",
+  "world_wearable_profiles": 12,
+  "source_dimensions_cm": [
+    52.0,
+    50.487866830056596,
+    70.0
+  ],
+  "user_accepted_model": false,
+  "pathfinder_change_scope": "catalog compartment capacity only",
+  "current_pathfinder_capacity": {
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 54,
+    "bagCompartmentCells": 60,
+    "bagCompartmentColumns": 10,
+    "bagCompartmentRows": 6
+  },
+  "catalog_icon": "SlimFitR2_20261024/Icon/ue_catalog_front.png",
+  "catalog_icon_exported": true,
+  "production_revision": "FarreachSlimFitR2_20261024",
+  "proportions": "52 cm wide, 70 cm tall; all source faces and UV retained; inverse-scale normals"
+}

@@ -66,14 +66,17 @@ void RefreshSniperTuning(FColdSteelProfile& State,const TMap<FString,FString>& D
         if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
     }
 }
-// Catalog metadata is refreshed without replacing instance state.
+// Belt tuning belongs to the catalog, while enhancement level and placement
+// belong to the instance. Apply the same migration before guest evaluation and
+// owner receipts as local disk loading; never leave a guest on an old bonus.
 void RefreshBeltTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)
 {
     for(auto& Item:State.Items)
     {
-        // Limit parsing to the two authored belts; profile mirrors also contain
+        // Limit parsing to authored belts; profile mirrors also contain
         // large material inventories that do not need equipment migration.
-        if(Item.Definition!=TEXT("ue_leather_quiver_belt")&&Item.Definition!=TEXT("ue_tactical_magazine_belt"))continue;
+        if(Item.Definition!=TEXT("ue_leather_quiver_belt")&&Item.Definition!=TEXT("ue_tactical_magazine_belt")
+            &&Item.Definition!=TEXT("ue_melee_combat_belt")&&Item.Definition!=TEXT("ue_arcane_conduit_belt"))continue;
         const auto* Definition=Definitions.Find(Item.Definition);if(!Definition)continue;
         TSharedPtr<FJsonObject> Catalog,Data;FString Slot;
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Catalog)||!Catalog

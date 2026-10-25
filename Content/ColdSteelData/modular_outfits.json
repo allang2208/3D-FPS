@@ -2434,6 +2434,32 @@
       "owner_body_meshes": {
         "Jason": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/ST6Refine20261018/Jason/SK_Jason_ST6Trims.SK_Jason_ST6Trims"
       }
+    },
+    "ue_melee_combat_belt": {
+      "slot": 10,
+      "material": "",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Wear/SK_MeleeCombatBelt_Jason.SK_MeleeCombatBelt_Jason"
+      },
+      "owner_body_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Wear/SK_MeleeCombatBelt_Jason.SK_MeleeCombatBelt_Jason"
+      },
+      "world_covers": [],
+      "fit_reference": "ue_st6_tactical_pants",
+      "source_revision": "MeleeCombatBelt20261025/IntegrationR1"
+    },
+    "ue_arcane_conduit_belt": {
+      "slot": 10,
+      "material": "",
+      "rig_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Wear/SK_ArcaneConduitBelt_Jason.SK_ArcaneConduitBelt_Jason"
+      },
+      "owner_body_meshes": {
+        "Jason": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Wear/SK_ArcaneConduitBelt_Jason.SK_ArcaneConduitBelt_Jason"
+      },
+      "world_covers": [],
+      "fit_reference": "ue_st6_tactical_pants",
+      "source_revision": "ArcaneConduitBelt20261025/KeeperFixR2"
     }
   },
   "profiles": {
@@ -6224,6 +6250,32 @@
               "Kaitlin": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/World/SK_Kaitlin_SK_Owner_Jason_ue_st6_sleeves_70f830d3.SK_Kaitlin_SK_Owner_Jason_ue_st6_sleeves_70f830d3"
             }
           }
+        },
+        "ue_melee_combat_belt": {
+          "slot": 10,
+          "material": "",
+          "rig_meshes": {
+            "Kaitlin": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Wear/SK_MeleeCombatBelt_Kaitlin.SK_MeleeCombatBelt_Kaitlin"
+          },
+          "owner_body_meshes": {
+            "Kaitlin": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Wear/SK_MeleeCombatBelt_Kaitlin.SK_MeleeCombatBelt_Kaitlin"
+          },
+          "world_covers": [],
+          "fit_reference": "ue_st6_tactical_pants",
+          "source_revision": "MeleeCombatBelt20261025/IntegrationR1"
+        },
+        "ue_arcane_conduit_belt": {
+          "slot": 10,
+          "material": "",
+          "rig_meshes": {
+            "Kaitlin": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Wear/SK_ArcaneConduitBelt_Kaitlin.SK_ArcaneConduitBelt_Kaitlin"
+          },
+          "owner_body_meshes": {
+            "Kaitlin": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Wear/SK_ArcaneConduitBelt_Kaitlin.SK_ArcaneConduitBelt_Kaitlin"
+          },
+          "world_covers": [],
+          "fit_reference": "ue_st6_tactical_pants",
+          "source_revision": "ArcaneConduitBelt20261025/KeeperFixR2"
         }
       },
       "profiles": {

@@ -50,9 +50,9 @@ public:
     double EquipmentMagicAttack() const;
     double ItemMagicAttack(const FColdSteelItem& Item) const;
     const FColdSteelItem* ActiveSpellbook() const;
-    void ApplySpellbookFocus(float& CastSpeed,float& ManaCost) const;
+    void ApplySpellCastSpeed(float& CastSpeed) const;
     /** Current spell cost only; shared with cast stats, without damage/attribute evaluation. */
-    float SpellManaCost(FName Id,int32 AtLevel=-1) const;
+    float SpellManaCost(FName Id,int32 AtLevel=-1,bool bApplyFocus=true) const;
     float SpellbookFocusMovementMultiplier() const;
     bool ApplySpellbookFocusBreak();
     double SpellbookFocusManaLossTotal() const {return Current.SpellbookFocusManaLoss;}

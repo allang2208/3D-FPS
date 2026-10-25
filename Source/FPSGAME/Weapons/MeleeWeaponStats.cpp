@@ -15,6 +15,7 @@
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "Engine/GameInstance.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Combat/ResourceCostFormula.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
 
@@ -54,7 +55,7 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     R.BaseReach=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180);
     R.SlashReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach)*R.Modifiers.Range;
     R.ThrustReach=RuneSwordCombatTuning::ScaledReach(R.BaseReach,RuneSwordThrustRhythm::ReachBonus)*R.Modifiers.Range;
-    R.AttackStamina=(Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost)*R.Modifiers.Stamina*Temporary.Stamina*(Profile?Profile->ActionStaminaMultiplier():1.f);
+    R.AttackStamina=AttackStamina(&Item,Profile,&R.Modifiers);
     R.BlockStamina=BlockStamina(R.Modifiers,Profile);
     R.BlockReduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*R.Modifiers.BlockReduction,0.,1.);
     return R;
@@ -91,17 +92,18 @@ FMeleeModifiers ColdSteelMelee::EquippedModifiers(const UColdSteelStatusModel* P
         G->Calculate(Item->Definition,G->Installed(*Item)).Melee:FMeleeModifiers{};
 }
 
-namespace
+double ColdSteelMelee::ModifiedAttackStamina(double BaseCost,double WeaponMultiplier,double TemporaryMultiplier,const UColdSteelStatusModel* Profile)
 {
-// 装备给出的近战体力消耗系数（厚皮革手套 meleeStaminaCost：-0.1 = 少耗 10%），
-// 近战武器与采集工具的挥击都走它；封 0 防止叠成负体力。
-double MeleeStaminaScale(const UColdSteelStatusModel* Profile)
-{
-    return Profile?FMath::Max(0.,1.+Profile->EquipmentBonus(TEXT("meleeStaminaCost"))):1.;
-}
+    // EquipmentBonus returns the product of individual remaining-cost factors,
+    // minus one. Keep equipment, parts, temporary buffs and set effects separate.
+    const double Equipment=Profile?1.+Profile->EquipmentBonus(TEXT("meleeStaminaCost")):1.;
+    const double Set=Profile?Profile->ActionStaminaMultiplier():1.;
+    // Apply the floor after every reduction zone. Explicit zero base tuning
+    // still disables a cost; equipment can never erase a positive base cost.
+    return ColdSteelResourceCost::Apply(BaseCost,Equipment*WeaponMultiplier*TemporaryMultiplier*Set);
 }
 
-double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
+double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile,const FMeleeModifiers* PreviewModifiers)
 {
     // The HUD attack count and the staff executor share ordinary punch cost.
     if(Item&&ColdSteelStaff::IsStaff(*Item))return UnarmedAttackStamina(Profile);
@@ -110,18 +112,31 @@ double ColdSteelMelee::AttackStamina(const FColdSteelItem* Item,const UColdSteel
     {
         const double Harvest=Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost;
         const auto* Tools=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
-        return Harvest*(Tools?Tools->Calculate(Item->Definition,Tools->Installed(*Item)).Tool.Stamina:1.)*MeleeStaminaScale(Profile)*(Profile?Profile->ActionStaminaMultiplier():1.f);
+        return ModifiedAttackStamina(Harvest,Tools?Tools->Calculate(Item->Definition,Tools->Installed(*Item)).Tool.Stamina:1.,1.,Profile);
     }
-    const double Base=Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost;
+    double Base=Profile?Profile->StaminaSettings().MeleeCost:FColdSteelStaminaTuning{}.MeleeCost;
     const auto* Gunsmith=Profile?Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
-    const double Cost=Item&&Gunsmith&&ColdSteelInventory::IsMeleeWeapon(*Item)?Base*Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee.Stamina*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile):Base;
-    return Cost*(Profile?Profile->ActionStaminaMultiplier():1.f);
+    // The one-handed ratio defines the action's base, including its cost floor.
+    if(Item&&ColdSteelInventory::IsOneHandedMelee(*Item))Base*=OneHandedStaminaRatio;
+    if(Item&&ColdSteelInventory::IsMeleeWeapon(*Item))
+    {
+        const auto Modifiers=PreviewModifiers?*PreviewModifiers:Gunsmith?
+            Gunsmith->Calculate(Item->Definition,Gunsmith->Installed(*Item)).Melee:FMeleeModifiers{};
+        return ModifiedAttackStamina(Base,Modifiers.Stamina,TemporaryModifiers(Profile).Stamina,Profile);
+    }
+    return ModifiedAttackStamina(Base,1.,1.,Profile);
+}
+
+double ColdSteelMelee::HeavyReleaseStamina(const FColdSteelItem* Item,const UColdSteelStatusModel* Profile)
+{
+    // Pay for both Chixiao cuts once on release, after all ordinary cost modifiers.
+    return AttackStamina(Item,Profile)*(Item&&ColdSteelModularSword::UsesChixiaoDoubleHeavy(*Item)?2.:1.);
 }
 
 double ColdSteelMelee::UnarmedAttackStamina(const UColdSteelStatusModel* Profile)
 {
     const double Base=Profile?Profile->StaminaSettings().PunchCost:FColdSteelStaminaTuning{}.PunchCost;
-    return Base*TemporaryModifiers(Profile).Stamina*MeleeStaminaScale(Profile)*(Profile?Profile->ActionStaminaMultiplier():1.f);
+    return ModifiedAttackStamina(Base,1.,TemporaryModifiers(Profile).Stamina,Profile);
 }
 
 FMeleeModifiers ColdSteelMelee::TemporaryModifiers(const UColdSteelStatusModel* Profile)

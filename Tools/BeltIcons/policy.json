@@ -1,0 +1,30 @@
+{
+  "revision": "ArcaneFront20261025R1",
+  "grid_w": 3,
+  "grid_h": 2,
+  "camera_offset": [0.12, -3.0, 1.05],
+  "pixels_per_cell": 160,
+  "items": {
+    "ue_tactical_magazine_belt": {
+      "family": "TacticalMagazineBelt20261024",
+      "scene": "E:/FPSGAMEAssetCache/TacticalMagazineBelt20261024/ue_tactical_magazine_belt-icon.blend",
+      "object": "TacticalBelt_Inventory_Source",
+      "icon": "Icons/TacticalMagazineBelt20261024/ue_tactical_magazine_belt.png",
+      "texture": "/Game/Characters/ModularOutfit20260924/TacticalMagazineBelt20261024/Icons/T_TacticalBelt_Icon"
+    },
+    "ue_melee_combat_belt": {
+      "family": "MeleeCombatBelt20261025",
+      "scene": "D:/FPS3D/FPSGAME/SourceAssets/CombatBeltsIntegration20261025/melee/ue_melee_combat_belt-icon.blend",
+      "object": "MeleeCombatBelt_InventorySource",
+      "icon": "Icons/CombatBelts20261025/ue_melee_combat_belt.png",
+      "texture": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Icons/T_MeleeCombatBelt_Icon"
+    },
+    "ue_arcane_conduit_belt": {
+      "family": "ArcaneConduitBelt20261025",
+      "scene": "D:/FPS3D/FPSGAME/SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/ue_arcane_conduit_belt-icon.blend",
+      "object": "ArcaneConduitBelt_InventorySource",
+      "icon": "Icons/CombatBelts20261025/ue_arcane_conduit_belt.png",
+      "texture": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Icons/T_ArcaneConduitBelt_Icon"
+    }
+  }
+}

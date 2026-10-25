@@ -1,0 +1,124 @@
+{
+  "revision": "InventoryFront20261025R1",
+  "items": [
+    {
+      "id": "ue_portable_backpack",
+      "source": "/Game/Characters/PortableBackpackAlice20261019/SM_AliceBackpack.SM_AliceBackpack",
+      "grid": [
+        3,
+        3
+      ],
+      "png": "Icons/ue_portable_backpack.png",
+      "before_png_sha256": "7ff45b4ad0b1b58d5f7d7936af1df19e8de524fdd0e501ea75556162a2df9533",
+      "source_rotation": [
+        180,
+        0,
+        0
+      ],
+      "display_asset": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_AliceBackpack_InventoryFront.SM_AliceBackpack_InventoryFront",
+      "front_identity": "Outer cargo pockets at the lower end; tall sack and closure at the top."
+    },
+    {
+      "id": "ue_mountain_backpack",
+      "source": "/Game/Characters/ModularOutfit20260924/JasonPlayer20261003/EquipmentFit20261003/SM_SovietBackpack_Corrected.SM_SovietBackpack_Corrected",
+      "grid": [
+        3,
+        3
+      ],
+      "png": "Icons/ue_mountain_backpack.png",
+      "before_png_sha256": "e785a2f4ef898b16b8fd011cb071be0d40809436e661e0abf65a4e96f17439ba",
+      "source_rotation": [
+        0,
+        180,
+        0
+      ],
+      "display_asset": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_SovietBackpack_InventoryFront.SM_SovietBackpack_InventoryFront",
+      "front_identity": "Outer lid, buckle straps and cargo pouches; shoulder padding belongs behind the pack."
+    },
+    {
+      "id": "ue_expedition_backpack",
+      "source": "/Game/Characters/ExpeditionBackpack20261022/SM_ExpeditionBackpack.SM_ExpeditionBackpack",
+      "grid": [
+        3,
+        4
+      ],
+      "png": "Icons/ue_expedition_backpack.png",
+      "before_png_sha256": "fcbf46b80ffc32ef305650611a351b081fd9fd571571f194685903391f579540",
+      "source_rotation": [
+        0,
+        0,
+        0
+      ],
+      "front_identity": "Tall outer central pouch, two vertical closure straps, side pouches and bottom compartment."
+    },
+    {
+      "id": "ue_simple_sling_bag",
+      "source": "/Game/Characters/SimpleSlingBag20261022/SM_SimpleSlingBag.SM_SimpleSlingBag",
+      "grid": [
+        2,
+        3
+      ],
+      "png": "Icons/ue_simple_sling_bag.png",
+      "before_png_sha256": "ff510516ec3299776ccd5e44618abe8e6b13e06aee3cc4932cf39d21d65d12d2",
+      "source_rotation": [
+        0,
+        0,
+        0
+      ],
+      "front_identity": "Rounded outer flap, central buckle and front pouch."
+    },
+    {
+      "id": "ue_pathfinder_backpack",
+      "source": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderBackpack.SM_PathfinderBackpack",
+      "grid": [
+        4,
+        4
+      ],
+      "png": "Icons/ue_pathfinder_backpack.png",
+      "before_png_sha256": "2a20cbd54eb7777599332074a54ca03cb3a9f0b632292abafd61afbb7be6f74c",
+      "source_rotation": [
+        0,
+        0,
+        0
+      ],
+      "front_identity": "Outer Y-shaped webbing, central lower buckle and side equipment compartment."
+    },
+    {
+      "id": "ue_farreach_backpack",
+      "source": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachBackpack.SM_FarreachBackpack",
+      "grid": [
+        4,
+        4
+      ],
+      "png": "Icons/ue_farreach_backpack.png",
+      "before_png_sha256": "3fa5b7f11acb5f12288ed7c1e7ec9da5ccf68b3f875db196314e6218a257173b",
+      "source_rotation": [
+        0,
+        0,
+        0
+      ],
+      "front_identity": "Hard shell front panels, vertical illuminated center strip and lower pouch."
+    },
+    {
+      "id": "ue_special_duty_backpack",
+      "source": "/Game/Characters/SpecialDutyBackpack20261024/MeshyFitR1_20261024/SM_SpecialDutyBackpack.SM_SpecialDutyBackpack",
+      "grid": [
+        4,
+        4
+      ],
+      "png": "Icons/ue_special_duty_backpack.png",
+      "before_png_sha256": "02da797415330b138d120ebf7191dde292dd312f9c3353732fa3be6ae0d0ae06",
+      "source_rotation": [
+        0,
+        0,
+        0
+      ],
+      "front_identity": "Three outer hard panels with front latch and upper carry handle."
+    }
+  ],
+  "icon_rotation": [
+    0,
+    -90,
+    0
+  ]
+}

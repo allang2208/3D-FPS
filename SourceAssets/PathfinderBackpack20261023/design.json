@@ -1,0 +1,72 @@
+{
+  "revision": "FrontierPorterTechConceptR4_20261023",
+  "name": "开拓者战术背包",
+  "status": "saved_and_integrated_awaiting_user_gameplay",
+  "generator": "built-in imagegen edit",
+  "concept_image": "Concept/frontier_porter_tech_triview_r4.png",
+  "prompt_file": "Concept/prompt_porter_tech_r4.txt",
+  "positioning": "higher-tier long-range exploration and supply backpack above the existing expedition pack",
+  "identity": [
+    "transverse sealed top storage case",
+    "Y-shaped webbing load cradle with mechanical lock",
+    "contoured metal and composite carrier frame",
+    "asymmetric sealed tube and technical wedge module",
+    "rounded protected lower cargo compartment"
+  ],
+  "views": [
+    "outward_front",
+    "right_side",
+    "wearer_back_harness"
+  ],
+  "proposed_dimensions_cm": {
+    "height": 74,
+    "overall_width": 52,
+    "depth": 34
+  },
+  "materials": [
+    "sage olive ripstop technical textile",
+    "gray-khaki inset panels",
+    "charcoal reinforced polymer",
+    "titanium-gray metal rails and buckles",
+    "small orange safety tabs and amber indicator lights"
+  ],
+  "user_accepted": false,
+  "model_created": true,
+  "imported_to_ue": true,
+  "inventory_changed": true,
+  "previous_concept": {
+    "status": "rejected_too_similar_to_existing_expedition",
+    "prompt": "../../trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/prompt_r1.txt",
+    "generated_image": "C:/Users/allan/.codex/generated_images/01a15885-22a5-7410-8498-50e6e5e33760/exec-b0578ffb-9958-402c-bf88-c2b053765780.png",
+    "spacing_only_iteration": "C:/Users/allan/.codex/generated_images/01a15885-22a5-7410-8498-50e6e5e33760/exec-fb781ce2-07e3-404e-8939-20b230f71504.png"
+  },
+  "refined_from": "../../trash/backpack-retired-20261023/SourceAssets/PathfinderBackpack20261023/Concept/frontier_porter_triview_r3.png",
+  "refinement_focus": [
+    "replace all wood and antique leather construction",
+    "adjustable shoulder-yoke rail",
+    "mechanical quick-release connections",
+    "localized protective shells and small service-panel indicators",
+    "retain expedition silhouette and separated consistent three views"
+  ],
+  "user_direction": "R3 too archaic and simple; add technological character.",
+  "technology_features_are_concept_only": true,
+  "model_source": "user_meshy_glb",
+  "item_id": "ue_pathfinder_backpack",
+  "inventory": {
+    "bagExtraCells": 54,
+    "bagCompartmentColumns": 10,
+    "bagCompartmentRows": 6,
+    "bagCompartmentCells": 60,
+    "capacity_revision": "UserRequested10x6_20261024"
+  },
+  "source_sha256": "ba1e73b391601e359d7a873ea0063eeb712f36f79acef4f02f9260638eea932f",
+  "wearable_profiles": 6,
+  "geometry": "shared Nanite rigid pouch and six fitted skeletal harnesses",
+  "original_source_preserved": true,
+  "decimation_applied": false,
+  "runtime_tested": true,
+  "user_accepted_model": false,
+  "materials_source": "provided GLB PBR; fitted harness uses woven PBR and metal hardware",
+  "review": "Audit/review.json",
+  "runtime_test_scope": "headless component and same-machine UDP only; no rendered acceptance"
+}

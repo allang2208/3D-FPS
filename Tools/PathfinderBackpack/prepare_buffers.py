@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import numpy as np
 
-R=Path('D:/FPS3D/FPSGAME/SourceAssets/PathfinderBackpack20261023')
+R=Path('D:/FPS3D/FPSGAME/SourceAssets/PathfinderBackpack20261023/OrientationFitR2_20261024')
 for kind,source in [('Display','static_source.npz'),('Worn','worn_body.npz')]:
     data=np.load(R/'Authored'/source);faces=data['triangles']
     # Index the existing corner attributes together, retaining normal/UV seams.

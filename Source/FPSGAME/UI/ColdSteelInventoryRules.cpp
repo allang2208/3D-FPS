@@ -665,6 +665,9 @@ bool MigrateAuthoredItemFootprint(FColdSteelItem& Item,bool& Changed,FString& Re
         {nullptr,TEXT("search_graphics_card"),2,1},
         {nullptr,TEXT("alchemy_compound_stabilizer"),1,2},
         {nullptr,TEXT("ue_st6_sleeves"),3,3},
+        {nullptr,TEXT("ue_tactical_magazine_belt"),3,2},
+        {nullptr,TEXT("ue_melee_combat_belt"),3,2},
+        {nullptr,TEXT("ue_arcane_conduit_belt"),3,2},
     };
     int32 W=0,H=0;
     for(const auto& Rule:Rules)
@@ -675,9 +678,11 @@ bool MigrateAuthoredItemFootprint(FColdSteelItem& Item,bool& Changed,FString& Re
     {Reason=TEXT("旧占格物品记录无效，保留原内容");return false;}
     Data->SetNumberField(TEXT("grid_w"),W);Data->SetNumberField(TEXT("grid_h"),H);
     Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
-    // Square books stay upright; GPUs retain the player's chosen rotation.
+    // Square books stay upright; GPUs and belts retain the player's rotation.
     if(W==H)Item.bRotated=false;
-    ApplyOrientation(Item,Item.Definition==TEXT("search_graphics_card")?-1:0);
+    const bool PreserveRotation=Item.Definition==TEXT("search_graphics_card")||Item.Definition==TEXT("ue_tactical_magazine_belt")
+        ||Item.Definition==TEXT("ue_melee_combat_belt")||Item.Definition==TEXT("ue_arcane_conduit_belt");
+    ApplyOrientation(Item,PreserveRotation?-1:0);
     Changed=true;
     return true;
 }

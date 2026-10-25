@@ -639,10 +639,12 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     }
     if(String(O,TEXT("equipSlot"))==TEXT("backpack"))
     {
-        // 背包容积段：主背包扩容按 bagExtraCells 每 18 格一行（与 BagRows 同口径），
-        // 独立夹层按 列×行（bagCompartmentColumns/Rows，缺省 6×6），容量＝列×行。
-        const double Extra=Number(O,TEXT("bagExtraCells")),Compartment=Number(O,TEXT("bagCompartmentCells"));
-        const int32 Cols=int32(Number(O,TEXT("bagCompartmentColumns"),6)),Rows=int32(Number(O,TEXT("bagCompartmentRows"),6));
+        // The tooltip and the actual grids share the same catalog authority,
+        // including an old saved item being previewed outside its equipment slot.
+        auto PreviewBag=I;PreviewBag.Place=1;PreviewBag.Cell=14;
+        const double Extra=(ColdSteelInventory::BagRows({PreviewBag})-4)*18;
+        const auto Grid=ColdSteelInventory::CompartmentGridOf(I);
+        const int32 Cols=Grid.X,Rows=Grid.Y,Compartment=Cols*Rows;
         if(Extra>0||Compartment>0)
         {
             Section(Main,TEXT("背包容积"));

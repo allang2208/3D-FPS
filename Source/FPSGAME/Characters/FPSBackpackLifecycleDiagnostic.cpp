@@ -1,5 +1,6 @@
 #if WITH_EDITOR
 #include "FPSBackpackMotionComponent.h"
+#include "FPSBodyOutfitResources.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -48,7 +49,8 @@ int32 RunBackpackLifecycleDiagnostic(const FString& Params)
             const TSharedPtr<FJsonObject>* Rigid=nullptr;
             if(Outfit->TryGetObjectField(TEXT("rigid_pack"),Rigid))
             {
-                auto* Mesh=LoadObject<UStaticMesh>(nullptr,*(*Rigid)->GetStringField(TEXT("mesh")));if(!Mesh){World->DestroyWorld(false);return 2;}
+                const FString MeshPath=FPSBodyOutfitResources::StringForShirt(*Rigid,TEXT("mesh"),FPSBodyOutfitResources::FittedShirt(Outfit,FName(*Shirt)));
+                auto* Mesh=LoadObject<UStaticMesh>(nullptr,*MeshPath);if(!Mesh){World->DestroyWorld(false);return 2;}
                 const auto* L=&(*Rigid)->GetArrayField(TEXT("location"));
                 if(!Shirt.IsEmpty())L=&(*Rigid)->GetObjectField(TEXT("location_by_shirt"))->GetArrayField(Shirt);
                 const auto& Q=(*Rigid)->GetArrayField(TEXT("rotation_quat"));

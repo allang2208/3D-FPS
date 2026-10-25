@@ -14,7 +14,8 @@ if saved['icon_sha256']!=sha(R/(KEY+'.png')):raise RuntimeError('Save the curren
 paths=[v['asset'] for v in saved['wear'].values()]+[saved['pickup']['asset'],saved['icon_texture']]+saved['materials']+list(saved['textures'].values())
 for path in paths:
     if not (P/'Content'/(path.split('.')[0][6:]+'.uasset')).exists():raise RuntimeError('Asset package not saved '+path)
-item=dict(id=KEY,name='战术弹匣腰带',category='equipment',type='腰带',equipSlot='belt',stack_max=1,maxStack=1,price=0,grid_w=2,grid_h=1,defense=dict(base=0,perEnhance=0),
+icon_policy=read(P/'Tools/BeltIcons/policy.json')
+item=dict(id=KEY,name='战术弹匣腰带',category='equipment',type='腰带',equipSlot='belt',stack_max=1,maxStack=1,price=0,grid_w=icon_policy['grid_w'],grid_h=icon_policy['grid_h'],defense=dict(base=0,perEnhance=0),
     bonusStats=dict(reloadSpeed=0.025),bonusPerEnhance=dict(reloadSpeed=0.005),enhancement=dict(maxLevel=15),
     desc='采用双层炭黑织带与分段网眼衬垫的勤务腰带，灰色分体扣具连接两侧弹匣套。四个插槽配有加固织带、内衬及底托，贴合腰线的安装带保留了清晰的装备层次。',
     ue_icon='Icons/TacticalMagazineBelt20261024/'+KEY+'.png',icon_fallback='带',world_mesh=saved['pickup']['asset'],world_material='',ue_equipment_icon_mesh='',ue_icon_pitch=0,ue_icon_yaw=0,ue_icon_roll=0)

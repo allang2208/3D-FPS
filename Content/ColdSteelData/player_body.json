@@ -389,14 +389,14 @@
         0.9000000000000002,
         0.9
       ],
-      "world_mesh": "/Game/Characters/BackpackMotion20261022/Mountain/SK_Jason_Backpack.SK_Jason_Backpack",
+      "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_bare.SK_Jason_mountain_backpack_bare",
       "world_mesh_by_shirt": {
-        "ue_field_sweater": "/Game/Characters/BackpackMotion20261022/MountainR2/SK_Jason_Backpack_Sweater.SK_Jason_Backpack_Sweater",
-        "ue_field_sweater_charcoal": "/Game/Characters/BackpackMotion20261022/Mountain/SK_Jason_Backpack_ThinCotton.SK_Jason_Backpack_ThinCotton",
-        "ue_chainmail_shirt": "/Game/Characters/BackpackMotion20261022/Mountain/SK_Jason_Backpack_Chainmail.SK_Jason_Backpack_Chainmail",
-        "ue_blue_mage_robe": "/Game/Characters/BackpackMotion20261022/Mountain/SK_Jason_Backpack_Robe.SK_Jason_Backpack_Robe",
-        "ue_st6_sleeves": "/Game/Characters/BackpackMotion20261022/Mountain/SK_Jason_Backpack_ST6.SK_Jason_Backpack_ST6",
-        "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_mountain_backpack_WorkJacketR2.SK_Jason_ue_mountain_backpack_WorkJacketR2"
+        "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_field_sweater.SK_Jason_mountain_backpack_field_sweater",
+        "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_field_sweater_charcoal.SK_Jason_mountain_backpack_field_sweater_charcoal",
+        "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_chainmail_shirt.SK_Jason_mountain_backpack_chainmail_shirt",
+        "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_blue_mage_robe.SK_Jason_mountain_backpack_blue_mage_robe",
+        "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_st6_sleeves.SK_Jason_mountain_backpack_st6_sleeves",
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_work_jacket.SK_Jason_mountain_backpack_work_jacket"
       },
       "backpack_motion": {
         "frequency_hz": 3.0,
@@ -404,23 +404,147 @@
         "max_angle_degrees": 3.0,
         "max_bounce_cm": 0.45,
         "pivot": [
-          0.0,
-          -11.439561795597447,
-          134.0
+          -6.4287202045722485e-09,
+          -10.088557855107062,
+          134.0000000309971
         ],
         "bounds_min": [
           -23.98178695391809,
           -39.14139003673489,
-          94.46770477294922
+          94.46770384958971
         ],
         "bounds_max": [
           23.98927803843884,
-          16.721594265078977,
-          147.74485778808594
+          24.052775644924502,
+          149.55343637637725
         ],
         "response_scale": 2.6,
-        "max_displacement_cm": 2.5
-      }
+        "max_displacement_cm": 2.5,
+        "support": {
+          "pivot": [
+            -6.4287202045722485e-09,
+            -10.088557855107062,
+            134.0000000309971
+          ],
+          "bounds_min": [
+            -20.78873062133789,
+            -33.42517852783203,
+            94.46770477294922
+          ],
+          "bounds_max": [
+            18.83316421508789,
+            -0.14610053598880768,
+            141.8489227294922
+          ]
+        },
+        "gravity_sag_cm": 0.45,
+        "max_separation_cm": 0.75,
+        "support_by_shirt": {
+          "ue_work_jacket": {
+            "pivot": [
+              -8.862430069203679e-09,
+              -9.57711055105595,
+              134.00000004273167
+            ],
+            "bounds_min": [
+              -20.78873062133789,
+              -34.68587112426758,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.83316421508789,
+              -1.3492469787597656,
+              141.8489227294922
+            ]
+          },
+          "ue_blue_mage_robe": {
+            "pivot": [
+              -2.1917682376685474e-08,
+              -6.833532241494467,
+              134.0000001056797
+            ],
+            "bounds_min": [
+              -20.78873062133789,
+              -34.53535842895508,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.83316421508789,
+              -1.198730230331421,
+              141.8489227294922
+            ]
+          },
+          "ue_field_sweater": {
+            "pivot": [
+              -9.26217425379219e-09,
+              -9.493103788997292,
+              134.0000000446591
+            ],
+            "bounds_min": [
+              -20.78873062133789,
+              -34.6529655456543,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.83316421508789,
+              -1.3163410425186157,
+              141.8489227294922
+            ]
+          },
+          "ue_field_sweater_charcoal": {
+            "pivot": [
+              -6.704387808472758e-09,
+              -10.030625948400303,
+              134.0000000323263
+            ],
+            "bounds_min": [
+              -20.78873062133789,
+              -34.24168395996094,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.83316421508789,
+              -0.9050564169883728,
+              141.8489227294922
+            ]
+          },
+          "ue_chainmail_shirt": {
+            "pivot": [
+              -5.341287995642314e-09,
+              -10.317083152916046,
+              134.0000000257539
+            ],
+            "bounds_min": [
+              -20.78873062133789,
+              -34.103755950927734,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.83316421508789,
+              -0.7671275734901428,
+              141.8489227294922
+            ]
+          },
+          "ue_st6_sleeves": {
+            "pivot": [
+              -6.4287202045722485e-09,
+              -10.088557855107062,
+              134.0000000309971
+            ],
+            "bounds_min": [
+              -20.78873062133789,
+              -33.42517852783203,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.83316421508789,
+              -0.14610053598880768,
+              141.8489227294922
+            ]
+          }
+        }
+      },
+      "inventory_static_mesh": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_SovietBackpack_InventoryFront.SM_SovietBackpack_InventoryFront"
     },
     "ue_simple_sling_bag": {
       "world_static_mesh": "/Game/Characters/SimpleSlingBag20261022/SM_SimpleSlingBag.SM_SimpleSlingBag",
@@ -5743,9 +5867,9 @@
         "max_angle_degrees": 2.5,
         "max_bounce_cm": 0.36,
         "pivot": [
-          0.0,
-          -13.958072638511657,
-          134.0
+          -2.0136786486734402e-08,
+          -9.726300679756477,
+          134.00000009709282
         ],
         "bounds_min": [
           -24.165117740631104,
@@ -5754,32 +5878,156 @@
         ],
         "bounds_max": [
           24.165117740631104,
-          17.144527233847096,
-          147.68637084960938
+          28.989041070662353,
+          149.58645646071932
         ],
         "response_scale": 2.3,
-        "max_displacement_cm": 2.2
+        "max_displacement_cm": 2.2,
+        "support": {
+          "pivot": [
+            -2.0136786486734402e-08,
+            -9.726300679756477,
+            134.00000009709282
+          ],
+          "bounds_min": [
+            -24.165111541748047,
+            -46.5827522277832,
+            99.38407897949219
+          ],
+          "bounds_max": [
+            24.165111541748047,
+            0.23873230814933777,
+            145.0
+          ]
+        },
+        "gravity_sag_cm": 0.4,
+        "max_separation_cm": 0.75,
+        "support_by_shirt": {
+          "ue_work_jacket": {
+            "pivot": [
+              -1.9821724249526213e-08,
+              -9.792511420062961,
+              134.00000009557368
+            ],
+            "bounds_min": [
+              -24.165111541748047,
+              -47.629119873046875,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165111541748047,
+              -0.7726621627807617,
+              145.0
+            ]
+          },
+          "ue_blue_mage_robe": {
+            "pivot": [
+              -3.022109783738231e-08,
+              -7.607069489360668,
+              134.00000014571597
+            ],
+            "bounds_min": [
+              -24.165111541748047,
+              -47.46474075317383,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165111541748047,
+              -0.6082831621170044,
+              145.0
+            ]
+          },
+          "ue_field_sweater": {
+            "pivot": [
+              -1.8635874159263967e-08,
+              -10.041719364069568,
+              134.00000008985592
+            ],
+            "bounds_min": [
+              -24.165111541748047,
+              -47.57414245605469,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165111541748047,
+              -0.7176832556724548,
+              145.0
+            ]
+          },
+          "ue_field_sweater_charcoal": {
+            "pivot": [
+              -1.5638442851331394e-08,
+              -10.67163346508862,
+              134.0000000754033
+            ],
+            "bounds_min": [
+              -24.165111541748047,
+              -47.52808380126953,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165111541748047,
+              -0.6716291904449463,
+              145.0
+            ]
+          },
+          "ue_chainmail_shirt": {
+            "pivot": [
+              -1.7101618413085197e-08,
+              -10.364145211337476,
+              134.00000008245826
+            ],
+            "bounds_min": [
+              -24.165111541748047,
+              -47.22059631347656,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165111541748047,
+              -0.36414092779159546,
+              145.0
+            ]
+          },
+          "ue_st6_sleeves": {
+            "pivot": [
+              -2.0136786486734402e-08,
+              -9.726300679756477,
+              134.00000009709282
+            ],
+            "bounds_min": [
+              -24.165111541748047,
+              -46.5827522277832,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165111541748047,
+              0.23873230814933777,
+              145.0
+            ]
+          }
+        }
       },
-      "world_mesh": "/Game/Characters/BackpackMotion20261022/Alice/SK_Jason_AliceBackpack.SK_Jason_AliceBackpack",
+      "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_bare.SK_Jason_portable_backpack_bare",
       "world_mesh_by_shirt": {
-        "ue_field_sweater_charcoal": "/Game/Characters/BackpackMotion20261022/Alice/SK_Jason_AliceBackpack_ThinCotton.SK_Jason_AliceBackpack_ThinCotton",
-        "ue_field_sweater": "/Game/Characters/BackpackMotion20261022/Alice/SK_Jason_AliceBackpack_Sweater.SK_Jason_AliceBackpack_Sweater",
-        "ue_chainmail_shirt": "/Game/Characters/BackpackMotion20261022/Alice/SK_Jason_AliceBackpack_Chainmail.SK_Jason_AliceBackpack_Chainmail",
-        "ue_blue_mage_robe": "/Game/Characters/BackpackMotion20261022/Alice/SK_Jason_AliceBackpack_Robe.SK_Jason_AliceBackpack_Robe",
-        "ue_st6_sleeves": "/Game/Characters/BackpackMotion20261022/Alice/SK_Jason_AliceBackpack_ST6.SK_Jason_AliceBackpack_ST6",
-        "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_portable_backpack_WorkJacketR2.SK_Jason_ue_portable_backpack_WorkJacketR2"
-      }
+        "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_field_sweater_charcoal.SK_Jason_portable_backpack_field_sweater_charcoal",
+        "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_field_sweater.SK_Jason_portable_backpack_field_sweater",
+        "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_chainmail_shirt.SK_Jason_portable_backpack_chainmail_shirt",
+        "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_blue_mage_robe.SK_Jason_portable_backpack_blue_mage_robe",
+        "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_st6_sleeves.SK_Jason_portable_backpack_st6_sleeves",
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_work_jacket.SK_Jason_portable_backpack_work_jacket"
+      },
+      "inventory_static_mesh": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_AliceBackpack_InventoryFront.SM_AliceBackpack_InventoryFront"
     },
     "ue_expedition_backpack": {
       "world_static_mesh": "/Game/Characters/ExpeditionBackpack20261022/SM_ExpeditionBackpack.SM_ExpeditionBackpack",
-      "world_mesh": "/Game/Characters/BackpackMotion20261022/Expedition/SK_Jason_ExpeditionBackpack.SK_Jason_ExpeditionBackpack",
+      "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_bare.SK_Jason_expedition_backpack_bare",
       "world_mesh_by_shirt": {
-        "ue_field_sweater_charcoal": "/Game/Characters/BackpackMotion20261022/Expedition/SK_Jason_ExpeditionBackpack_ThinCotton.SK_Jason_ExpeditionBackpack_ThinCotton",
-        "ue_field_sweater": "/Game/Characters/BackpackMotion20261022/Expedition/SK_Jason_ExpeditionBackpack_Sweater.SK_Jason_ExpeditionBackpack_Sweater",
-        "ue_chainmail_shirt": "/Game/Characters/BackpackMotion20261022/Expedition/SK_Jason_ExpeditionBackpack_Chainmail.SK_Jason_ExpeditionBackpack_Chainmail",
-        "ue_blue_mage_robe": "/Game/Characters/BackpackMotion20261022/Expedition/SK_Jason_ExpeditionBackpack_Robe.SK_Jason_ExpeditionBackpack_Robe",
-        "ue_st6_sleeves": "/Game/Characters/BackpackMotion20261022/Expedition/SK_Jason_ExpeditionBackpack_ST6.SK_Jason_ExpeditionBackpack_ST6",
-        "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_expedition_backpack_WorkJacketR2.SK_Jason_ue_expedition_backpack_WorkJacketR2"
+        "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_field_sweater_charcoal.SK_Jason_expedition_backpack_field_sweater_charcoal",
+        "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_field_sweater.SK_Jason_expedition_backpack_field_sweater",
+        "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_chainmail_shirt.SK_Jason_expedition_backpack_chainmail_shirt",
+        "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_blue_mage_robe.SK_Jason_expedition_backpack_blue_mage_robe",
+        "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_st6_sleeves.SK_Jason_expedition_backpack_st6_sleeves",
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_work_jacket.SK_Jason_expedition_backpack_work_jacket"
       },
       "backpack_motion": {
         "frequency_hz": 2.6,
@@ -5787,40 +6035,164 @@
         "max_angle_degrees": 1.8,
         "max_bounce_cm": 0.24,
         "pivot": [
-          0.0,
-          -13.694775773944885,
-          134.0
+          -8.839089249334322e-09,
+          -11.837229633158776,
+          134.00000004261912
         ],
         "bounds_min": [
           -23.923897291285133,
           -40.62578262899959,
-          90.99999976158142
+          90.99999861854025
         ],
         "bounds_max": [
           23.93472385670576,
-          17.14402006817801,
+          25.640349375590425,
           153.00000023841858
         ],
         "response_scale": 1.9,
-        "max_displacement_cm": 1.8
+        "max_displacement_cm": 1.8,
+        "support": {
+          "pivot": [
+            -8.839089249334322e-09,
+            -11.837229633158776,
+            134.00000004261912
+          ],
+          "bounds_min": [
+            -19.703998565673828,
+            -34.41020202636719,
+            91.0
+          ],
+          "bounds_max": [
+            19.70400047302246,
+            -2.903057336807251,
+            153.0
+          ]
+        },
+        "gravity_sag_cm": 0.6,
+        "max_separation_cm": 0.65,
+        "support_by_shirt": {
+          "ue_work_jacket": {
+            "pivot": [
+              -1.2790991806735003e-08,
+              -11.0067321534761,
+              134.00000006167386
+            ],
+            "bounds_min": [
+              -19.703998565673828,
+              -35.6873893737793,
+              91.0
+            ],
+            "bounds_max": [
+              19.70400047302246,
+              -5.139797210693359,
+              153.0
+            ]
+          },
+          "ue_blue_mage_robe": {
+            "pivot": [
+              -2.3613270141132644e-08,
+              -8.732416238396112,
+              134.00000011385526
+            ],
+            "bounds_min": [
+              -19.703998565673828,
+              -35.66341781616211,
+              91.0
+            ],
+            "bounds_max": [
+              19.70400047302246,
+              -4.321287631988525,
+              153.0
+            ]
+          },
+          "ue_field_sweater": {
+            "pivot": [
+              -1.2995932271516819e-08,
+              -10.963663647354268,
+              134.00000006266202
+            ],
+            "bounds_min": [
+              -19.703998565673828,
+              -35.64434814453125,
+              91.0
+            ],
+            "bounds_max": [
+              19.70400047302246,
+              -5.059906959533691,
+              153.0
+            ]
+          },
+          "ue_field_sweater_charcoal": {
+            "pivot": [
+              -8.922306477028948e-09,
+              -11.819741424160014,
+              134.00000004302035
+            ],
+            "bounds_min": [
+              -19.703998565673828,
+              -35.22943115234375,
+              91.0
+            ],
+            "bounds_max": [
+              19.70400047302246,
+              -4.757026672363281,
+              153.0
+            ]
+          },
+          "ue_chainmail_shirt": {
+            "pivot": [
+              -7.745072442384699e-09,
+              -12.067138692834519,
+              134.00000003734414
+            ],
+            "bounds_min": [
+              -19.703998565673828,
+              -35.059349060058594,
+              91.0
+            ],
+            "bounds_max": [
+              19.70400047302246,
+              -4.586947441101074,
+              153.0
+            ]
+          },
+          "ue_st6_sleeves": {
+            "pivot": [
+              -8.831218386022062e-09,
+              -11.838883705355347,
+              134.00000004258118
+            ],
+            "bounds_min": [
+              -19.703998565673828,
+              -34.41185760498047,
+              91.0
+            ],
+            "bounds_max": [
+              19.70400047302246,
+              -2.903057336807251,
+              153.0
+            ]
+          }
+        }
       }
     },
     "ue_pathfinder_backpack": {
-      "world_static_mesh": "/Game/Characters/PathfinderBackpack20261023/SM_PathfinderBackpack.SM_PathfinderBackpack",
-      "world_mesh": "/Game/Characters/PathfinderBackpack20261023/SK_Jason_PathfinderBackpack.SK_Jason_PathfinderBackpack",
+      "world_static_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderBackpack.SM_PathfinderBackpack",
+      "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_bare.SK_Jason_pathfinder_backpack_bare",
       "world_mesh_by_shirt": {
-        "ue_field_sweater_charcoal": "/Game/Characters/PathfinderBackpack20261023/SK_Jason_PathfinderBackpack_ThinCotton.SK_Jason_PathfinderBackpack_ThinCotton",
-        "ue_field_sweater": "/Game/Characters/PathfinderBackpack20261023/SK_Jason_PathfinderBackpack_Sweater.SK_Jason_PathfinderBackpack_Sweater",
-        "ue_chainmail_shirt": "/Game/Characters/PathfinderBackpack20261023/SK_Jason_PathfinderBackpack_Chainmail.SK_Jason_PathfinderBackpack_Chainmail",
-        "ue_blue_mage_robe": "/Game/Characters/PathfinderBackpack20261023/SK_Jason_PathfinderBackpack_Robe.SK_Jason_PathfinderBackpack_Robe",
-        "ue_st6_sleeves": "/Game/Characters/PathfinderBackpack20261023/SK_Jason_PathfinderBackpack_ST6.SK_Jason_PathfinderBackpack_ST6"
+        "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_field_sweater_charcoal.SK_Jason_pathfinder_backpack_field_sweater_charcoal",
+        "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_field_sweater.SK_Jason_pathfinder_backpack_field_sweater",
+        "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_chainmail_shirt.SK_Jason_pathfinder_backpack_chainmail_shirt",
+        "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_blue_mage_robe.SK_Jason_pathfinder_backpack_blue_mage_robe",
+        "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_st6_sleeves.SK_Jason_pathfinder_backpack_st6_sleeves",
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_work_jacket.SK_Jason_pathfinder_backpack_work_jacket"
       },
       "rigid_pack": {
-        "mesh": "/Game/Characters/PathfinderBackpack20261023/SM_PathfinderWornBody.SM_PathfinderWornBody",
+        "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_bare_Contact.SM_Jason_ue_pathfinder_backpack_bare_Contact",
         "location": [
-          0.0,
-          -18.1,
-          122.0
+          -3.802201427388729e-08,
+          -10.134148622672686,
+          122.00000018332943
         ],
         "rotation_quat": [
           0,
@@ -5830,30 +6202,43 @@
         ],
         "location_by_shirt": {
           "ue_field_sweater_charcoal": [
-            0.0,
-            -18.1,
-            122.0
+            -3.423137961793498e-08,
+            -10.93075544241088,
+            122.00000016505226
           ],
           "ue_field_sweater": [
-            0.0,
-            -18.859538354788434,
-            122.0
+            -3.312717059063147e-08,
+            -11.66584688206051,
+            122.00000015972813
           ],
           "ue_chainmail_shirt": [
-            0.0,
-            -18.1,
-            122.0
+            -3.542149767643772e-08,
+            -10.680650579308825,
+            122.00000017079061
           ],
           "ue_blue_mage_robe": [
-            0.0,
-            -21.628863923148423,
-            122.0
+            -3.731664755679479e-08,
+            -12.230279422600116,
+            122.00000017992839
           ],
           "ue_st6_sleeves": [
-            0.0,
-            -18.1,
-            122.0
+            -3.802201427388729e-08,
+            -10.134148622672686,
+            122.00000018332943
+          ],
+          "ue_work_jacket": [
+            -3.3328599313640824e-08,
+            -11.684266438169956,
+            122.00000016069936
           ]
+        },
+        "mesh_by_shirt": {
+          "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_work_jacket_Contact.SM_Jason_ue_pathfinder_backpack_ue_work_jacket_Contact",
+          "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_blue_mage_robe_Contact.SM_Jason_ue_pathfinder_backpack_ue_blue_mage_robe_Contact",
+          "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_field_sweater_Contact.SM_Jason_ue_pathfinder_backpack_ue_field_sweater_Contact",
+          "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact.SM_Jason_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact",
+          "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_chainmail_shirt_Contact.SM_Jason_ue_pathfinder_backpack_ue_chainmail_shirt_Contact",
+          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_pathfinder_backpack_ue_st6_sleeves_Contact"
         }
       },
       "backpack_motion": {
@@ -5864,20 +6249,567 @@
         "response_scale": 1.85,
         "max_displacement_cm": 1.7,
         "pivot": [
-          0.0,
-          -14.907700157165968,
-          134.0
+          -3.802201497675977e-08,
+          -7.134148622672686,
+          134.00000018332943
         ],
         "bounds_min": [
-          -26.0,
-          -48.32085763652733,
-          88.0
+          -26.00000190734864,
+          -46.76441523627191,
+          87.9999989673542
         ],
         "bounds_max": [
-          26.0,
-          -12.907700157165968,
-          156.0
-        ]
+          26.00000190734864,
+          17.232680004289303,
+          156.00000000000006
+        ],
+        "support": {
+          "pivot": [
+            -3.802201497675977e-08,
+            -7.134148622672686,
+            134.00000018332943
+          ],
+          "bounds_min": [
+            -25.99999622332475,
+            -36.82613661400569,
+            88.00000018332943
+          ],
+          "bounds_max": [
+            25.99999614728072,
+            2.564005826790204,
+            156.00000018332943
+          ]
+        },
+        "gravity_sag_cm": 0.55,
+        "max_separation_cm": 0.65,
+        "support_by_shirt": {
+          "ue_work_jacket": {
+            "pivot": [
+              -3.33286000165133e-08,
+              -8.120475901489357,
+              134.00000016069936
+            ],
+            "bounds_min": [
+              -25.999996218631335,
+              -38.376254429502964,
+              88.00000016069936
+            ],
+            "bounds_max": [
+              25.999996151974134,
+              1.1911550858778952,
+              156.00000016069936
+            ]
+          },
+          "ue_blue_mage_robe": {
+            "pivot": [
+              -3.731664826582031e-08,
+              -7.282382357482327,
+              134.00000017992838
+            ],
+            "bounds_min": [
+              -25.999996222619384,
+              -38.92226741393313,
+              88.00000017992839
+            ],
+            "bounds_max": [
+              25.999996147986085,
+              0.6552863351513487,
+              156.0000001799284
+            ]
+          },
+          "ue_field_sweater": {
+            "pivot": [
+              -3.3127171295092966e-08,
+              -8.162806410160936,
+              134.00000015972813
+            ],
+            "bounds_min": [
+              -25.999996218429906,
+              -38.357834873393514,
+              88.00000015972813
+            ],
+            "bounds_max": [
+              25.999996152175562,
+              1.2095746419873414,
+              156.00000015972813
+            ]
+          },
+          "ue_field_sweater_charcoal": {
+            "pivot": [
+              -3.423138032080746e-08,
+              -7.93075544241088,
+              134.00000016505226
+            ],
+            "bounds_min": [
+              -25.999996219534115,
+              -37.62274343374389,
+              88.00000016505226
+            ],
+            "bounds_max": [
+              25.999996151071354,
+              1.8892309009729082,
+              156.00000016505226
+            ]
+          },
+          "ue_chainmail_shirt": {
+            "pivot": [
+              -3.54214983793102e-08,
+              -7.680650579308824,
+              134.0000001707906
+            ],
+            "bounds_min": [
+              -25.99999622072423,
+              -37.37263857064183,
+              88.00000017079061
+            ],
+            "bounds_max": [
+              25.999996149881238,
+              2.1285573369509407,
+              156.0000001707906
+            ]
+          },
+          "ue_st6_sleeves": {
+            "pivot": [
+              -3.802201497675977e-08,
+              -7.134148622672686,
+              134.00000018332943
+            ],
+            "bounds_min": [
+              -25.99999622332475,
+              -36.82613661400569,
+              88.00000018332943
+            ],
+            "bounds_max": [
+              25.99999614728072,
+              2.564005826790204,
+              156.00000018332943
+            ]
+          }
+        }
+      }
+    },
+    "ue_farreach_backpack": {
+      "world_static_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachBackpack.SM_FarreachBackpack",
+      "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_bare.SK_Jason_farreach_backpack_bare",
+      "world_mesh_by_shirt": {
+        "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_field_sweater_charcoal.SK_Jason_farreach_backpack_field_sweater_charcoal",
+        "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_field_sweater.SK_Jason_farreach_backpack_field_sweater",
+        "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_chainmail_shirt.SK_Jason_farreach_backpack_chainmail_shirt",
+        "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_blue_mage_robe.SK_Jason_farreach_backpack_blue_mage_robe",
+        "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_st6_sleeves.SK_Jason_farreach_backpack_st6_sleeves",
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_work_jacket.SK_Jason_farreach_backpack_work_jacket"
+      },
+      "rigid_pack": {
+        "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_bare_Contact.SM_Jason_ue_farreach_backpack_bare_Contact",
+        "location": [
+          -6.062371934845478e-09,
+          -15.00412007490423,
+          124.00000002923078
+        ],
+        "rotation_quat": [
+          -0.021814885034561124,
+          -2.0702120281103226e-20,
+          -6.31016596185812e-19,
+          0.9997620270799091
+        ],
+        "location_by_shirt": {
+          "ue_field_sweater_charcoal": [
+            -4.713115412710182e-09,
+            -15.959802424824423,
+            124.00000002272512
+          ],
+          "ue_field_sweater": [
+            -1.0823846890420442e-08,
+            -16.181448791579154,
+            124.00000005218901
+          ],
+          "ue_chainmail_shirt": [
+            -4.876919932080748e-09,
+            -15.70385739891648,
+            124.00000002351493
+          ],
+          "ue_blue_mage_robe": [
+            -2.2239482240355435e-08,
+            -16.135530285381236,
+            124.00000010723136
+          ],
+          "ue_st6_sleeves": [
+            -6.062371934845478e-09,
+            -15.00412007490423,
+            124.00000002923078
+          ],
+          "ue_work_jacket": [
+            -1.132183633359843e-08,
+            -16.20889578117847,
+            124.00000005459015
+          ]
+        },
+        "mesh_by_shirt": {
+          "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_work_jacket_Contact.SM_Jason_ue_farreach_backpack_ue_work_jacket_Contact",
+          "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_blue_mage_robe_Contact.SM_Jason_ue_farreach_backpack_ue_blue_mage_robe_Contact",
+          "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_field_sweater_Contact.SM_Jason_ue_farreach_backpack_ue_field_sweater_Contact",
+          "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_field_sweater_charcoal_Contact.SM_Jason_ue_farreach_backpack_ue_field_sweater_charcoal_Contact",
+          "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_chainmail_shirt_Contact.SM_Jason_ue_farreach_backpack_ue_chainmail_shirt_Contact",
+          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_farreach_backpack_ue_st6_sleeves_Contact"
+        }
+      },
+      "backpack_motion": {
+        "frequency_hz": 2.7,
+        "damping": 1.0,
+        "max_angle_degrees": 1.4,
+        "max_bounce_cm": 0.18,
+        "response_scale": 1.7,
+        "max_displacement_cm": 1.4,
+        "pivot": [
+          -6.062372631141027e-09,
+          -11.483542761774626,
+          135.85772052611705
+        ],
+        "bounds_min": [
+          -26.000000000000007,
+          -46.36943816334162,
+          89.03476285386239
+        ],
+        "bounds_max": [
+          26.000000000000007,
+          17.1955934208209,
+          159.1084189517047
+        ],
+        "support": {
+          "pivot": [
+            -6.062372631141027e-09,
+            -11.483542761774626,
+            135.85772052611705
+          ],
+          "bounds_min": [
+            -25.999994284016474,
+            -40.56436620996316,
+            89.03476172202568
+          ],
+          "bounds_max": [
+            25.99999427189173,
+            -1.8048769284828108,
+            159.10841927385616
+          ]
+        },
+        "gravity_sag_cm": 0.5,
+        "max_separation_cm": 0.65,
+        "support_by_shirt": {
+          "ue_work_jacket": {
+            "pivot": [
+              -1.132183702989398e-08,
+              -10.378259454759569,
+              135.85772055147643
+            ],
+            "bounds_min": [
+              -25.99999428927594,
+              -41.7691419162374,
+              89.03476221829618
+            ],
+            "bounds_max": [
+              25.999994266632264,
+              -3.0064614764171775,
+              159.1084173971902
+            ]
+          },
+          "ue_blue_mage_robe": {
+            "pivot": [
+              -2.2239482950963717e-08,
+              -8.083901916885448,
+              135.85772060411765
+            ],
+            "bounds_min": [
+              -25.999994300193585,
+              -41.69577642044017,
+              89.0347630867352
+            ],
+            "bounds_max": [
+              25.99999425571462,
+              -2.933095980619944,
+              159.10841757332753
+            ]
+          },
+          "ue_field_sweater": {
+            "pivot": [
+              -1.082384759359575e-08,
+              -10.482912584675379,
+              135.85772054907528
+            ],
+            "bounds_min": [
+              -25.99999428877795,
+              -41.74169492663808,
+              89.03476464743153
+            ],
+            "bounds_max": [
+              25.999994267130255,
+              -2.979014486817862,
+              159.1084177873767
+            ]
+          },
+          "ue_field_sweater_charcoal": {
+            "pivot": [
+              -4.713116111128876e-09,
+              -11.767090780239062,
+              135.8577205196114
+            ],
+            "bounds_min": [
+              -25.999994282667217,
+              -41.52004855988335,
+              89.03476325755675
+            ],
+            "bounds_max": [
+              25.999994273240986,
+              -2.7573681200631306,
+              159.108419113865
+            ]
+          },
+          "ue_chainmail_shirt": {
+            "pivot": [
+              -4.8769206297996985e-09,
+              -11.732667046874992,
+              135.85772052040122
+            ],
+            "bounds_min": [
+              -25.99999428283102,
+              -41.26410353397541,
+              89.03476179891521
+            ],
+            "bounds_max": [
+              25.99999427307718,
+              -2.5046142524950596,
+              159.1084194287796
+            ]
+          },
+          "ue_st6_sleeves": {
+            "pivot": [
+              -6.062372631141027e-09,
+              -11.483542761774626,
+              135.85772052611705
+            ],
+            "bounds_min": [
+              -25.999994284016474,
+              -40.56436620996316,
+              89.03476172202568
+            ],
+            "bounds_max": [
+              25.99999427189173,
+              -1.8628162883705546,
+              159.10841927385616
+            ]
+          }
+        }
+      }
+    },
+    "ue_special_duty_backpack": {
+      "world_static_mesh": "/Game/Characters/SpecialDutyBackpack20261024/MeshyFitR1_20261024/SM_SpecialDutyBackpack.SM_SpecialDutyBackpack",
+      "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_bare.SK_Jason_special_duty_backpack_bare",
+      "world_mesh_by_shirt": {
+        "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_field_sweater_charcoal.SK_Jason_special_duty_backpack_field_sweater_charcoal",
+        "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_field_sweater.SK_Jason_special_duty_backpack_field_sweater",
+        "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_chainmail_shirt.SK_Jason_special_duty_backpack_chainmail_shirt",
+        "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_blue_mage_robe.SK_Jason_special_duty_backpack_blue_mage_robe",
+        "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_st6_sleeves.SK_Jason_special_duty_backpack_st6_sleeves",
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_work_jacket.SK_Jason_special_duty_backpack_work_jacket"
+      },
+      "rigid_pack": {
+        "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_bare_Contact.SM_Jason_ue_special_duty_backpack_bare_Contact",
+        "location": [
+          -1.2186143006341921e-08,
+          -14.7824222641086,
+          124.00000005875754
+        ],
+        "rotation_quat": [
+          -0.021814885034561124,
+          -2.0702120281103226e-20,
+          -6.31016596185812e-19,
+          0.9997620270799091
+        ],
+        "location_by_shirt": {
+          "ue_field_sweater_charcoal": [
+            -1.2070757242723443e-08,
+            -15.540821801453552,
+            124.0000000582012
+          ],
+          "ue_field_sweater": [
+            -1.846799789600606e-08,
+            -15.698283339364153,
+            124.00000008904654
+          ],
+          "ue_chainmail_shirt": [
+            -1.1619835179147918e-08,
+            -15.312593950579348,
+            124.00000005602699
+          ],
+          "ue_blue_mage_robe": [
+            -2.753700203969788e-08,
+            -15.650799317969526,
+            124.00000013277422
+          ],
+          "ue_st6_sleeves": [
+            -1.2186143006341921e-08,
+            -14.7824222641086,
+            124.00000005875754
+          ],
+          "ue_work_jacket": [
+            -1.903285580403844e-08,
+            -15.752331125015353,
+            124.00000009177009
+          ]
+        },
+        "mesh_by_shirt": {
+          "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_work_jacket_Contact.SM_Jason_ue_special_duty_backpack_ue_work_jacket_Contact",
+          "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_blue_mage_robe_Contact.SM_Jason_ue_special_duty_backpack_ue_blue_mage_robe_Contact",
+          "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_field_sweater_Contact.SM_Jason_ue_special_duty_backpack_ue_field_sweater_Contact",
+          "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact.SM_Jason_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact",
+          "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_chainmail_shirt_Contact.SM_Jason_ue_special_duty_backpack_ue_chainmail_shirt_Contact",
+          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_special_duty_backpack_ue_st6_sleeves_Contact"
+        }
+      },
+      "backpack_motion": {
+        "frequency_hz": 3.0,
+        "damping": 1.05,
+        "max_angle_degrees": 1.2,
+        "max_bounce_cm": 0.15,
+        "response_scale": 1.5,
+        "max_displacement_cm": 1.3,
+        "pivot": [
+          -1.218614370263747e-08,
+          -11.261844950978995,
+          135.85772055564382
+        ],
+        "bounds_min": [
+          -22.20500755310059,
+          -40.275598883418084,
+          88.08779811327646
+        ],
+        "bounds_max": [
+          22.20500755310059,
+          16.493458646781313,
+          160.20712603996827
+        ],
+        "support": {
+          "pivot": [
+            -1.218614370263747e-08,
+            -11.261844950978995,
+            135.85772055564382
+          ],
+          "bounds_min": [
+            -22.20500184324083,
+            -33.62027936632776,
+            88.08779892592736
+          ],
+          "bounds_max": [
+            22.205001818868546,
+            -0.4038919587689822,
+            160.20712578673556
+          ]
+        },
+        "gravity_sag_cm": 0.45,
+        "max_separation_cm": 0.65,
+        "support_by_shirt": {
+          "ue_work_jacket": {
+            "pivot": [
+              -1.903285650794279e-08,
+              -9.822999319962934,
+              135.85772058865638
+            ],
+            "bounds_min": [
+              -22.205001850087545,
+              -34.59018823243434,
+              88.08779836949856
+            ],
+            "bounds_max": [
+              22.20500181202183,
+              -1.6699478456642503,
+              160.20712581974811
+            ]
+          },
+          "ue_blue_mage_robe": {
+            "pivot": [
+              -2.7537002748926803e-08,
+              -8.035841889483294,
+              135.85772062966052
+            ],
+            "bounds_min": [
+              -22.20500185859169,
+              -34.48865642798843,
+              88.08779764427929
+            ],
+            "bounds_max": [
+              22.205001803517685,
+              -1.2722690126299074,
+              160.20712586075226
+            ]
+          },
+          "ue_field_sweater": {
+            "pivot": [
+              -1.8467998599364712e-08,
+              -9.941704946591916,
+              135.8577205859328
+            ],
+            "bounds_min": [
+              -22.205001849522684,
+              -34.53614044678315,
+              88.08779879522018
+            ],
+            "bounds_max": [
+              22.20500181258669,
+              -1.6159000600130504,
+              160.20712581702458
+            ]
+          },
+          "ue_field_sweater_charcoal": {
+            "pivot": [
+              -1.2070757941338037e-08,
+              -11.286093419294843,
+              135.85772055508747
+            ],
+            "bounds_min": [
+              -22.205001843125444,
+              -34.378678906272626,
+              88.08779782992309
+            ],
+            "bounds_max": [
+              22.20500181898393,
+              -1.0362396655350832,
+              160.20712578617923
+            ]
+          },
+          "ue_chainmail_shirt": {
+            "pivot": [
+              -1.1619835876742249e-08,
+              -11.38085527962432,
+              135.8577205529133
+            ],
+            "bounds_min": [
+              -22.205001842674523,
+              -34.1504510527985,
+              88.08779836172081
+            ],
+            "bounds_max": [
+              22.20500181943485,
+              -0.9340636452397302,
+              160.20712578400503
+            ]
+          },
+          "ue_st6_sleeves": {
+            "pivot": [
+              -1.218614370263747e-08,
+              -11.261844950978995,
+              135.85772055564382
+            ],
+            "bounds_min": [
+              -22.20500184324083,
+              -33.62027936632776,
+              88.08779892592736
+            ],
+            "bounds_max": [
+              22.205001818868546,
+              -0.6278435875860833,
+              160.20712578673556
+            ]
+          }
+        }
       }
     }
   },
@@ -7024,14 +7956,14 @@
             0.9000000000000002,
             0.9
           ],
-          "world_mesh": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_mountain_backpack_6b988d0d17.SK_Kaitlin_ue_mountain_backpack_6b988d0d17",
+          "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_bare.SK_Kaitlin_mountain_backpack_bare",
           "world_mesh_by_shirt": {
-            "ue_field_sweater": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_mountain_backpack_65a81e54b0.SK_Kaitlin_ue_mountain_backpack_65a81e54b0",
-            "ue_field_sweater_charcoal": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_mountain_backpack_9367ef0227.SK_Kaitlin_ue_mountain_backpack_9367ef0227",
-            "ue_chainmail_shirt": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_mountain_backpack_9b619191e0.SK_Kaitlin_ue_mountain_backpack_9b619191e0",
-            "ue_blue_mage_robe": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_mountain_backpack_88ed2a4831.SK_Kaitlin_ue_mountain_backpack_88ed2a4831",
-            "ue_st6_sleeves": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_mountain_backpack_f4dae5c59a.SK_Kaitlin_ue_mountain_backpack_f4dae5c59a",
-            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_mountain_backpack_WorkJacketR2.SK_Kaitlin_ue_mountain_backpack_WorkJacketR2"
+            "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_field_sweater.SK_Kaitlin_mountain_backpack_field_sweater",
+            "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_field_sweater_charcoal.SK_Kaitlin_mountain_backpack_field_sweater_charcoal",
+            "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_chainmail_shirt.SK_Kaitlin_mountain_backpack_chainmail_shirt",
+            "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_blue_mage_robe.SK_Kaitlin_mountain_backpack_blue_mage_robe",
+            "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_st6_sleeves.SK_Kaitlin_mountain_backpack_st6_sleeves",
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_work_jacket.SK_Kaitlin_mountain_backpack_work_jacket"
           },
           "backpack_motion": {
             "frequency_hz": 3.0,
@@ -7039,23 +7971,147 @@
             "max_angle_degrees": 3.0,
             "max_bounce_cm": 0.45,
             "pivot": [
-              -0.029405694283141263,
-              -13.60931123682347,
-              131.98288616042794
+              -0.03027320225205139,
+              -9.753924998293192,
+              132.24940449321204
             ],
             "bounds_min": [
-              -24.133134026145953,
+              -24.13565753477226,
               -36.126437101633435,
               91.64643787726911
             ],
             "bounds_max": [
               24.069648276469277,
-              20.96803654454206,
-              139.7659454345703
+              27.579499805302,
+              142.8212817956702
             ],
             "response_scale": 2.6,
-            "max_displacement_cm": 2.5
-          }
+            "max_displacement_cm": 2.5,
+            "support": {
+              "pivot": [
+                -0.03027320225205139,
+                -9.753924998293192,
+                132.24940449321204
+              ],
+              "bounds_min": [
+                -20.81149673461914,
+                -31.407180786132812,
+                92.2139892578125
+              ],
+              "bounds_max": [
+                18.805513381958008,
+                1.679114580154419,
+                140.12452697753906
+              ]
+            },
+            "gravity_sag_cm": 0.45,
+            "max_separation_cm": 0.75,
+            "support_by_shirt": {
+              "ue_work_jacket": {
+                "pivot": [
+                  -0.03013502415543468,
+                  -10.368017261712575,
+                  132.2069530146581
+                ],
+                "bounds_min": [
+                  -20.811372756958008,
+                  -32.56166076660156,
+                  92.17153930664062
+                ],
+                "bounds_max": [
+                  18.805622100830078,
+                  0.5246371030807495,
+                  140.0820770263672
+                ]
+              },
+              "ue_blue_mage_robe": {
+                "pivot": [
+                  -0.030187044399580663,
+                  -10.13682845354821,
+                  132.22293482605082
+                ],
+                "bounds_min": [
+                  -20.810503005981445,
+                  -32.65395736694336,
+                  91.886474609375
+                ],
+                "bounds_max": [
+                  18.80657958984375,
+                  0.43233951926231384,
+                  139.6658477783203
+                ]
+              },
+              "ue_field_sweater": {
+                "pivot": [
+                  -0.030117142067743543,
+                  -10.447488986781805,
+                  132.201459227432
+                ],
+                "bounds_min": [
+                  -20.810922622680664,
+                  -32.528648376464844,
+                  92.04029846191406
+                ],
+                "bounds_max": [
+                  18.80607032775879,
+                  0.5576474070549011,
+                  139.9508514404297
+                ]
+              },
+              "ue_field_sweater_charcoal": {
+                "pivot": [
+                  -0.030146545709066642,
+                  -10.316813075801797,
+                  132.21049270002715
+                ],
+                "bounds_min": [
+                  -20.8111572265625,
+                  -32.18973922729492,
+                  92.1147689819336
+                ],
+                "bounds_max": [
+                  18.8059024810791,
+                  0.8965572118759155,
+                  140.0253143310547
+                ]
+              },
+              "ue_chainmail_shirt": {
+                "pivot": [
+                  -0.030136735052791633,
+                  -10.360413677236194,
+                  132.2074786415428
+                ],
+                "bounds_min": [
+                  -20.811246871948242,
+                  -32.013668060302734,
+                  92.14102172851562
+                ],
+                "bounds_max": [
+                  18.805858612060547,
+                  1.0726258754730225,
+                  140.0515594482422
+                ]
+              },
+              "ue_st6_sleeves": {
+                "pivot": [
+                  -0.03027320225205139,
+                  -9.753924998293192,
+                  132.24940449321204
+                ],
+                "bounds_min": [
+                  -20.81149673461914,
+                  -31.407180786132812,
+                  92.2139892578125
+                ],
+                "bounds_max": [
+                  18.80577850341797,
+                  1.679114580154419,
+                  140.1033172607422
+                ]
+              }
+            }
+          },
+          "inventory_static_mesh": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_SovietBackpack_InventoryFront.SM_SovietBackpack_InventoryFront"
         },
         "ue_portable_backpack": {
           "world_static_mesh": "/Game/Characters/PortableBackpackAlice20261019/SM_AliceBackpack.SM_AliceBackpack",
@@ -7081,43 +8137,167 @@
             "max_angle_degrees": 2.5,
             "max_bounce_cm": 0.36,
             "pivot": [
-              -0.028840344128557488,
-              -13.079650168270797,
-              131.8091989951801
+              -0.029779906139705242,
+              -8.904040746981241,
+              132.0978539813389
             ],
             "bounds_min": [
-              -24.182395935058594,
+              -24.185223110035714,
               -49.926783194129186,
               95.59751919475957
             ],
             "bounds_max": [
               24.14793079465297,
-              20.826059827015442,
-              142.3109130859375
+              28.21549824945245,
+              143.16286584542814
             ],
             "response_scale": 2.3,
-            "max_displacement_cm": 2.2
+            "max_displacement_cm": 2.2,
+            "support": {
+              "pivot": [
+                -0.029779906139705242,
+                -8.904040746981241,
+                132.0978539813389
+              ],
+              "bounds_min": [
+                -24.185129165649414,
+                -44.119014739990234,
+                96.0931396484375
+              ],
+              "bounds_max": [
+                24.144519805908203,
+                3.0998785495758057,
+                143.140380859375
+              ]
+            },
+            "gravity_sag_cm": 0.4,
+            "max_separation_cm": 0.75,
+            "support_by_shirt": {
+              "ue_work_jacket": {
+                "pivot": [
+                  -0.02950099345041181,
+                  -10.143586875190664,
+                  132.0121656100422
+                ],
+                "bounds_min": [
+                  -24.18484878540039,
+                  -45.46014404296875,
+                  96.00745391845703
+                ],
+                "bounds_max": [
+                  24.144798278808594,
+                  1.765944480895996,
+                  143.05413818359375
+                ]
+              },
+              "ue_blue_mage_robe": {
+                "pivot": [
+                  -0.029779857780767843,
+                  -8.904255664179061,
+                  132.09783912436487
+                ],
+                "bounds_min": [
+                  -24.1844539642334,
+                  -45.75139236450195,
+                  95.88614654541016
+                ],
+                "bounds_max": [
+                  24.145193099975586,
+                  1.474698781967163,
+                  142.94264221191406
+                ]
+              },
+              "ue_field_sweater": {
+                "pivot": [
+                  -0.02982241115545408,
+                  -8.715139597182638,
+                  132.11091249646304
+                ],
+                "bounds_min": [
+                  -24.18501853942871,
+                  -45.277366638183594,
+                  96.05958557128906
+                ],
+                "bounds_max": [
+                  24.144628524780273,
+                  1.9487240314483643,
+                  143.1031494140625
+                ]
+              },
+              "ue_field_sweater_charcoal": {
+                "pivot": [
+                  -0.029874355496558386,
+                  -8.48428811795684,
+                  132.12687098870157
+                ],
+                "bounds_min": [
+                  -24.185222625732422,
+                  -44.896183013916016,
+                  96.12215423583984
+                ],
+                "bounds_max": [
+                  24.144424438476562,
+                  2.329904317855835,
+                  143.16287231445312
+                ]
+              },
+              "ue_chainmail_shirt": {
+                "pivot": [
+                  -0.0298418421715832,
+                  -8.628784111273978,
+                  132.11688215000933
+                ],
+                "bounds_min": [
+                  -24.185190200805664,
+                  -44.925804138183594,
+                  96.11216735839844
+                ],
+                "bounds_max": [
+                  24.14445686340332,
+                  2.300283193588257,
+                  143.15350341796875
+                ]
+              },
+              "ue_st6_sleeves": {
+                "pivot": [
+                  -0.02968744413824661,
+                  -9.314961154385028,
+                  132.06944753510695
+                ],
+                "bounds_min": [
+                  -24.185035705566406,
+                  -44.51850891113281,
+                  96.06473541259766
+                ],
+                "bounds_max": [
+                  24.144611358642578,
+                  2.7003841400146484,
+                  143.10401916503906
+                ]
+              }
+            }
           },
-          "world_mesh": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_portable_backpack_db399c96cc.SK_Kaitlin_ue_portable_backpack_db399c96cc",
+          "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_bare.SK_Kaitlin_portable_backpack_bare",
           "world_mesh_by_shirt": {
-            "ue_field_sweater_charcoal": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_portable_backpack_c5abe8deb3.SK_Kaitlin_ue_portable_backpack_c5abe8deb3",
-            "ue_field_sweater": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_portable_backpack_9dae84537e.SK_Kaitlin_ue_portable_backpack_9dae84537e",
-            "ue_chainmail_shirt": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_portable_backpack_9ef497b3d8.SK_Kaitlin_ue_portable_backpack_9ef497b3d8",
-            "ue_blue_mage_robe": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_portable_backpack_f463c93c57.SK_Kaitlin_ue_portable_backpack_f463c93c57",
-            "ue_st6_sleeves": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_portable_backpack_1a02da0990.SK_Kaitlin_ue_portable_backpack_1a02da0990",
-            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_portable_backpack_WorkJacketR2.SK_Kaitlin_ue_portable_backpack_WorkJacketR2"
-          }
+            "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_field_sweater_charcoal.SK_Kaitlin_portable_backpack_field_sweater_charcoal",
+            "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_field_sweater.SK_Kaitlin_portable_backpack_field_sweater",
+            "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_chainmail_shirt.SK_Kaitlin_portable_backpack_chainmail_shirt",
+            "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_blue_mage_robe.SK_Kaitlin_portable_backpack_blue_mage_robe",
+            "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_st6_sleeves.SK_Kaitlin_portable_backpack_st6_sleeves",
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_work_jacket.SK_Kaitlin_portable_backpack_work_jacket"
+          },
+          "inventory_static_mesh": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_AliceBackpack_InventoryFront.SM_AliceBackpack_InventoryFront"
         },
         "ue_expedition_backpack": {
           "world_static_mesh": "/Game/Characters/ExpeditionBackpack20261022/SM_ExpeditionBackpack.SM_ExpeditionBackpack",
-          "world_mesh": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_expedition_backpack_9833696fb8.SK_Kaitlin_ue_expedition_backpack_9833696fb8",
+          "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_bare.SK_Kaitlin_expedition_backpack_bare",
           "world_mesh_by_shirt": {
-            "ue_field_sweater_charcoal": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_expedition_backpack_f417079c61.SK_Kaitlin_ue_expedition_backpack_f417079c61",
-            "ue_field_sweater": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_expedition_backpack_24326951da.SK_Kaitlin_ue_expedition_backpack_24326951da",
-            "ue_chainmail_shirt": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_expedition_backpack_70b9be6581.SK_Kaitlin_ue_expedition_backpack_70b9be6581",
-            "ue_blue_mage_robe": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_expedition_backpack_e75736a6ba.SK_Kaitlin_ue_expedition_backpack_e75736a6ba",
-            "ue_st6_sleeves": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_expedition_backpack_7257bac9f1.SK_Kaitlin_ue_expedition_backpack_7257bac9f1",
-            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_expedition_backpack_WorkJacketR2.SK_Kaitlin_ue_expedition_backpack_WorkJacketR2"
+            "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_field_sweater_charcoal.SK_Kaitlin_expedition_backpack_field_sweater_charcoal",
+            "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_field_sweater.SK_Kaitlin_expedition_backpack_field_sweater",
+            "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_chainmail_shirt.SK_Kaitlin_expedition_backpack_chainmail_shirt",
+            "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_blue_mage_robe.SK_Kaitlin_expedition_backpack_blue_mage_robe",
+            "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_st6_sleeves.SK_Kaitlin_expedition_backpack_st6_sleeves",
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_work_jacket.SK_Kaitlin_expedition_backpack_work_jacket"
           },
           "backpack_motion": {
             "frequency_hz": 2.6,
@@ -7125,22 +8305,145 @@
             "max_angle_degrees": 1.8,
             "max_bounce_cm": 0.24,
             "pivot": [
-              -0.0288994484693242,
-              -15.646990738943822,
-              131.82735706114755
+              -0.02987756233377073,
+              -11.300048845786982,
+              132.12785606031272
             ],
             "bounds_min": [
-              -24.0697842852989,
+              -24.07256951797191,
               -38.716234229097886,
               87.54572446554994
             ],
             "bounds_max": [
               24.118404993851044,
-              20.492302474156006,
-              150.19679260253906
+              29.957750639319173,
+              151.02217973983585
             ],
             "response_scale": 1.9,
-            "max_displacement_cm": 1.8
+            "max_displacement_cm": 1.8,
+            "support": {
+              "pivot": [
+                -0.02987756233377073,
+                -11.300048845786982,
+                132.12785606031272
+              ],
+              "bounds_min": [
+                -19.73105239868164,
+                -32.982505798339844,
+                88.14676666259766
+              ],
+              "bounds_max": [
+                19.677017211914062,
+                -0.3220156133174896,
+                151.02218627929688
+              ]
+            },
+            "gravity_sag_cm": 0.6,
+            "max_separation_cm": 0.65,
+            "support_by_shirt": {
+              "ue_work_jacket": {
+                "pivot": [
+                  -0.029891430539022896,
+                  -11.238415650936352,
+                  132.13211669084868
+                ],
+                "bounds_min": [
+                  -19.73106575012207,
+                  -34.30765914916992,
+                  88.1510238647461
+                ],
+                "bounds_max": [
+                  19.677001953125,
+                  -3.110422372817993,
+                  151.00570678710938
+                ]
+              },
+              "ue_blue_mage_robe": {
+                "pivot": [
+                  -0.02969335488800529,
+                  -12.118705131251566,
+                  132.07126331063057
+                ],
+                "bounds_min": [
+                  -19.729890823364258,
+                  -34.64794921875,
+                  87.78961944580078
+                ],
+                "bounds_max": [
+                  19.678178787231445,
+                  -2.1987011432647705,
+                  150.62472534179688
+                ]
+              },
+              "ue_field_sweater": {
+                "pivot": [
+                  -0.029706371612381464,
+                  -12.060856094897819,
+                  132.07526234672403
+                ],
+                "bounds_min": [
+                  -19.73040771484375,
+                  -34.17121505737305,
+                  87.94880676269531
+                ],
+                "bounds_max": [
+                  19.67765998840332,
+                  -2.722194194793701,
+                  150.73196411132812
+                ]
+              },
+              "ue_field_sweater_charcoal": {
+                "pivot": [
+                  -0.029758944953029585,
+                  -11.827209210589682,
+                  132.0914140820401
+                ],
+                "bounds_min": [
+                  -19.73074722290039,
+                  -33.729331970214844,
+                  88.0526123046875
+                ],
+                "bounds_max": [
+                  19.677324295043945,
+                  -2.2803125381469727,
+                  150.82081604003906
+                ]
+              },
+              "ue_chainmail_shirt": {
+                "pivot": [
+                  -0.029738453682563417,
+                  -11.918276687773226,
+                  132.08511869405868
+                ],
+                "bounds_min": [
+                  -19.730819702148438,
+                  -33.600730895996094,
+                  88.07511138916016
+                ],
+                "bounds_max": [
+                  19.6772518157959,
+                  -2.1517105102539062,
+                  150.8420867919922
+                ]
+              },
+              "ue_st6_sleeves": {
+                "pivot": [
+                  -0.029855731537161062,
+                  -11.39706945636513,
+                  132.12114913919584
+                ],
+                "bounds_min": [
+                  -19.73103141784668,
+                  -33.079524993896484,
+                  88.14006042480469
+                ],
+                "bounds_max": [
+                  19.677038192749023,
+                  -0.41903623938560486,
+                  151.01547241210938
+                ]
+              }
+            }
           }
         },
         "ue_simple_sling_bag": {
@@ -12442,21 +13745,21 @@
         },
         "ue_pathfinder_backpack": {
           "world_static_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderBackpack.SM_PathfinderBackpack",
-          "world_mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Kaitlin_PathfinderBackpack.SK_Kaitlin_PathfinderBackpack",
+          "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_bare.SK_Kaitlin_pathfinder_backpack_bare",
           "world_mesh_by_shirt": {
-            "ue_field_sweater_charcoal": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Kaitlin_PathfinderBackpack_ThinCotton.SK_Kaitlin_PathfinderBackpack_ThinCotton",
-            "ue_field_sweater": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Kaitlin_PathfinderBackpack_Sweater.SK_Kaitlin_PathfinderBackpack_Sweater",
-            "ue_chainmail_shirt": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Kaitlin_PathfinderBackpack_Chainmail.SK_Kaitlin_PathfinderBackpack_Chainmail",
-            "ue_blue_mage_robe": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Kaitlin_PathfinderBackpack_Robe.SK_Kaitlin_PathfinderBackpack_Robe",
-            "ue_st6_sleeves": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SK_Kaitlin_PathfinderBackpack_ST6.SK_Kaitlin_PathfinderBackpack_ST6",
-            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_pathfinder_backpack_WorkJacketR2.SK_Kaitlin_ue_pathfinder_backpack_WorkJacketR2"
+            "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_field_sweater_charcoal.SK_Kaitlin_pathfinder_backpack_field_sweater_charcoal",
+            "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_field_sweater.SK_Kaitlin_pathfinder_backpack_field_sweater",
+            "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_chainmail_shirt.SK_Kaitlin_pathfinder_backpack_chainmail_shirt",
+            "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_blue_mage_robe.SK_Kaitlin_pathfinder_backpack_blue_mage_robe",
+            "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_st6_sleeves.SK_Kaitlin_pathfinder_backpack_st6_sleeves",
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_work_jacket.SK_Kaitlin_pathfinder_backpack_work_jacket"
           },
           "rigid_pack": {
-            "mesh": "/Game/Characters/PathfinderBackpack20261023/OrientationFitR2_20261024/SM_PathfinderWornBody.SM_PathfinderWornBody",
+            "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_bare_Contact.SM_Kaitlin_ue_pathfinder_backpack_bare_Contact",
             "location": [
-              -0.023355355964713196,
-              -16.182575340213383,
-              114.36203736997143
+              -0.02484188415380139,
+              -9.57613421368614,
+              114.81873290337398
             ],
             "rotation_quat": [
               -0.035296311679042694,
@@ -12466,35 +13769,43 @@
             ],
             "location_by_shirt": {
               "ue_field_sweater_charcoal": [
-                -0.023181204161162983,
-                -16.956536282967512,
-                114.30853436331937
+                -0.024670668447899936,
+                -10.337046526484487,
+                114.7661319332199
               ],
               "ue_field_sweater": [
-                -0.022886374953210244,
-                -18.26680862633006,
-                114.217956782423
+                -0.024449975300183186,
+                -11.31784276512402,
+                114.69833064935062
               ],
               "ue_chainmail_shirt": [
-                -0.023267781911543252,
-                -16.571769683139998,
-                114.33513282431768
+                -0.02470841048318737,
+                -10.169316023921015,
+                114.77772694314534
               ],
               "ue_blue_mage_robe": [
-                -0.022574883628193914,
-                -19.651130319558238,
-                114.12226025735312
+                -0.024327670488645266,
+                -11.861380158126662,
+                114.66075655769292
               ],
               "ue_st6_sleeves": [
-                -0.023355355964713196,
-                -16.182575340213383,
-                114.36203736997143
+                -0.024827098386646918,
+                -9.641845244888637,
+                114.8141903767896
               ],
               "ue_work_jacket": [
-                -0.023355355964713196,
-                -18.35281684575212,
-                114.36203736997143
+                -0.024923999410378667,
+                -11.381438402765243,
+                114.84396059241367
               ]
+            },
+            "mesh_by_shirt": {
+              "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_work_jacket_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_work_jacket_Contact",
+              "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_blue_mage_robe_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_blue_mage_robe_Contact",
+              "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_Contact",
+              "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact",
+              "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_chainmail_shirt_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_chainmail_shirt_Contact",
+              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_st6_sleeves_Contact"
             }
           },
           "backpack_motion": {
@@ -12505,39 +13816,162 @@
             "response_scale": 1.85,
             "max_displacement_cm": 1.7,
             "pivot": [
-              -0.027718785877234125,
-              -12.343467111409726,
-              126.12049088087207
+              -0.02920531406632232,
+              -5.737025984882484,
+              126.57718641427462
             ],
             "bounds_min": [
-              -26.02363318234232,
+              -26.02612863768931,
               -46.65680466199063,
               80.59455429758569
             ],
             "bounds_max": [
               25.978498804742284,
               18.38208595572405,
-              149.09085422727463
-            ]
+              150.09924684401983
+            ],
+            "support": {
+              "pivot": [
+                -0.02920531406632232,
+                -5.737025984882484,
+                126.57718641427462
+              ],
+              "bounds_min": [
+                -26.02597487348904,
+                -36.581811333311144,
+                81.40889781628451
+              ],
+              "bounds_max": [
+                25.9748128010939,
+                2.78852617351704,
+                150.09924767560528
+              ]
+            },
+            "gravity_sag_cm": 0.55,
+            "max_separation_cm": 0.65,
+            "support_by_shirt": {
+              "ue_work_jacket": {
+                "pivot": [
+                  -0.029287429322899596,
+                  -5.372088668422849,
+                  126.6024141033143
+                ],
+                "bounds_min": [
+                  -26.026129331849084,
+                  -38.387115522390246,
+                  81.5199612934895
+                ],
+                "bounds_max": [
+                  25.97472882945531,
+                  1.4468252136273563,
+                  150.09237553856457
+                ]
+              },
+              "ue_blue_mage_robe": {
+                "pivot": [
+                  -0.029471572737685477,
+                  -4.553716949978151,
+                  126.65898718121187
+                ],
+                "bounds_min": [
+                  -26.025460660235897,
+                  -38.867057277739505,
+                  81.40889576097916
+                ],
+                "bounds_max": [
+                  25.975327015664543,
+                  0.717286388441174,
+                  149.94127136356443
+                ]
+              },
+              "ue_field_sweater": {
+                "pivot": [
+                  -0.029282386224207067,
+                  -5.394501250203685,
+                  126.60086474779969
+                ],
+                "bounds_min": [
+                  -26.02558296539452,
+                  -38.32351988474902,
+                  81.40889749191336
+                ],
+                "bounds_max": [
+                  25.975204710787928,
+                  1.5439819747592836,
+                  149.97884542158192
+                ]
+              },
+              "ue_field_sweater_charcoal": {
+                "pivot": [
+                  -0.029208250163971078,
+                  -5.723977354926701,
+                  126.5780884507726
+                ],
+                "bounds_min": [
+                  -26.02580365752282,
+                  -37.34272364610949,
+                  81.40889446061456
+                ],
+                "bounds_max": [
+                  25.974984015785846,
+                  2.457451311145091,
+                  150.04664670545117
+                ]
+              },
+              "ue_chainmail_shirt": {
+                "pivot": [
+                  -0.02915941444887824,
+                  -5.941013452190743,
+                  126.56308499969973
+                ],
+                "bounds_min": [
+                  -26.025841399905197,
+                  -37.17499314354602,
+                  81.40889799759019
+                ],
+                "bounds_max": [
+                  25.974946275247067,
+                  2.5536876036473313,
+                  150.05824171537662
+                ]
+              },
+              "ue_st6_sleeves": {
+                "pivot": [
+                  -0.029190528299167847,
+                  -5.802737016084981,
+                  126.57264388769023
+                ],
+                "bounds_min": [
+                  -26.025960087721888,
+                  -36.64752236451364,
+                  81.40889750323656
+                ],
+                "bounds_max": [
+                  25.974827586861053,
+                  2.722815142314543,
+                  150.09470514902088
+                ]
+              }
+            }
           }
         },
         "ue_farreach_backpack": {
           "world_static_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachBackpack.SM_FarreachBackpack",
-          "world_mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Kaitlin_FarreachBackpack.SK_Kaitlin_FarreachBackpack",
+          "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_bare.SK_Kaitlin_farreach_backpack_bare",
           "world_mesh_by_shirt": {
-            "ue_field_sweater_charcoal": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Kaitlin_FarreachBackpack_ThinCotton.SK_Kaitlin_FarreachBackpack_ThinCotton",
-            "ue_field_sweater": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Kaitlin_FarreachBackpack_Sweater.SK_Kaitlin_FarreachBackpack_Sweater",
-            "ue_chainmail_shirt": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Kaitlin_FarreachBackpack_Chainmail.SK_Kaitlin_FarreachBackpack_Chainmail",
-            "ue_blue_mage_robe": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Kaitlin_FarreachBackpack_Robe.SK_Kaitlin_FarreachBackpack_Robe",
-            "ue_st6_sleeves": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SK_Kaitlin_FarreachBackpack_ST6.SK_Kaitlin_FarreachBackpack_ST6",
-            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_farreach_backpack_WorkJacketR2.SK_Kaitlin_ue_farreach_backpack_WorkJacketR2"
+            "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_field_sweater_charcoal.SK_Kaitlin_farreach_backpack_field_sweater_charcoal",
+            "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_field_sweater.SK_Kaitlin_farreach_backpack_field_sweater",
+            "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_chainmail_shirt.SK_Kaitlin_farreach_backpack_chainmail_shirt",
+            "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_blue_mage_robe.SK_Kaitlin_farreach_backpack_blue_mage_robe",
+            "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_st6_sleeves.SK_Kaitlin_farreach_backpack_st6_sleeves",
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_work_jacket.SK_Kaitlin_farreach_backpack_work_jacket"
           },
           "rigid_pack": {
-            "mesh": "/Game/Characters/FarreachBackpack20261024/SlimFitR2_20261024/SM_FarreachWornBody.SM_FarreachWornBody",
+            "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_bare_Contact.SM_Kaitlin_ue_farreach_backpack_bare_Contact",
             "location": [
-              -0.024180970306464187,
-              -15.226316912955419,
-              116.43291540060656
+              -0.024442135942291575,
+              -14.065642389572183,
+              116.51315147028632
             ],
             "rotation_quat": [
               -0.035296311679042694,
@@ -12547,35 +13981,43 @@
             ],
             "location_by_shirt": {
               "ue_field_sweater_charcoal": [
-                -0.023990901796406013,
-                -16.071014471255943,
-                116.37452245519525
+                -0.024302136849988755,
+                -14.687821018821564,
+                116.47014099768433
               ],
               "ue_field_sweater": [
-                -0.023708962796727944,
-                -17.324000484272318,
-                116.28790501071438
+                -0.024163239530596223,
+                -15.305099988821432,
+                116.42746923614195
               ],
               "ue_chainmail_shirt": [
-                -0.02408638520557538,
-                -15.646669572888044,
-                116.40385691726688
+                -0.024291479797388466,
+                -14.735186456638923,
+                116.46686667698324
               ],
               "ue_blue_mage_robe": [
-                -0.02336282757838436,
-                -18.86228567252972,
-                116.18156517091933
+                -0.024061212019749475,
+                -15.758519642777355,
+                116.39612487944724
               ],
               "ue_st6_sleeves": [
-                -0.024180970306464187,
-                -15.226316912955419,
-                116.43291540060656
+                -0.024401802384292067,
+                -14.244893128510776,
+                116.5007600767562
               ],
               "ue_work_jacket": [
-                -0.024180970306464187,
-                -17.508972356309418,
-                116.43291540060656
+                -0.024674080708258207,
+                -15.317486946047142,
+                116.5844102189536
               ]
+            },
+            "mesh_by_shirt": {
+              "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_work_jacket_Contact.SM_Kaitlin_ue_farreach_backpack_ue_work_jacket_Contact",
+              "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_blue_mage_robe_Contact.SM_Kaitlin_ue_farreach_backpack_ue_blue_mage_robe_Contact",
+              "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_Contact.SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_Contact",
+              "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_charcoal_Contact.SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_charcoal_Contact",
+              "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_chainmail_shirt_Contact.SM_Kaitlin_ue_farreach_backpack_ue_chainmail_shirt_Contact",
+              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_farreach_backpack_ue_st6_sleeves_Contact"
             }
           },
           "backpack_motion": {
@@ -12586,20 +14028,355 @@
             "response_scale": 1.7,
             "max_displacement_cm": 1.4,
             "pivot": [
-              -0.028544400218985116,
-              -11.387208684151762,
-              128.1913689115072
+              -0.028805565854812504,
+              -10.226534160768527,
+              128.27160498118695
             ],
             "bounds_min": [
-              -26.026185296020753,
+              -26.026695877304252,
               -44.61914602071709,
               81.25447992663373
             ],
             "bounds_max": [
               25.97385506745416,
               18.317146830601455,
-              151.57496096999705
-            ]
+              152.27815278006767
+            ],
+            "support": {
+              "pivot": [
+                -0.028805565854812504,
+                -10.226534160768527,
+                128.27160498118695
+              ],
+              "bounds_min": [
+                -26.026463185257935,
+                -39.82250558237843,
+                81.62974698871304
+              ],
+              "bounds_max": [
+                25.971206470293613,
+                -0.31769814294934484,
+                152.0080300005446
+              ]
+            },
+            "gravity_sag_cm": 0.5,
+            "max_separation_cm": 0.65,
+            "support_by_shirt": {
+              "ue_work_jacket": {
+                "pivot": [
+                  -0.029037510620779135,
+                  -9.195723273889486,
+                  128.34286372985423
+                ],
+                "bounds_min": [
+                  -26.026696550150504,
+                  -41.07435013885339,
+                  81.78089043121308
+                ],
+                "bounds_max": [
+                  25.970974749874532,
+                  -1.5733175594380722,
+                  152.278153618888
+                ]
+              },
+              "ue_blue_mage_robe": {
+                "pivot": [
+                  -0.02924278466035023,
+                  -8.283442654399398,
+                  128.4059286200351
+                ],
+                "bounds_min": [
+                  -26.026082260598145,
+                  -41.51538283558361,
+                  81.61554687153367
+                ],
+                "bounds_max": [
+                  25.97158739391245,
+                  -2.0344707688051233,
+                  151.9414131452837
+                ]
+              },
+              "ue_field_sweater": {
+                "pivot": [
+                  -0.028998676952853394,
+                  -9.368308188700876,
+                  128.33093313693476
+                ],
+                "bounds_min": [
+                  -26.026184288846242,
+                  -41.06196318162768,
+                  81.62974822283002
+                ],
+                "bounds_max": [
+                  25.97148536596774,
+                  -1.581050163551133,
+                  151.9580703996652
+                ]
+              },
+              "ue_field_sweater_charcoal": {
+                "pivot": [
+                  -0.028855635272567855,
+                  -10.004015231717384,
+                  128.28698745399626
+                ],
+                "bounds_min": [
+                  -26.02632318599209,
+                  -40.444684211627816,
+                  81.62974544391113
+                ],
+                "bounds_max": [
+                  25.971346468084644,
+                  -0.9146002684557981,
+                  151.99251958932265
+                ]
+              },
+              "ue_chainmail_shirt": {
+                "pivot": [
+                  -0.0287494948107982,
+                  -10.475725567902641,
+                  128.25437867122358
+                ],
+                "bounds_min": [
+                  -26.02631252854933,
+                  -40.49204964944517,
+                  81.62974803995576
+                ],
+                "bounds_max": [
+                  25.971357125744337,
+                  -1.0510842544185586,
+                  151.9892454536428
+                ]
+              },
+              "ue_st6_sleeves": {
+                "pivot": [
+                  -0.028765232296812996,
+                  -10.40578489970712,
+                  128.25921358765683
+                ],
+                "bounds_min": [
+                  -26.026422851699937,
+                  -40.001756321317025,
+                  81.62974591432247
+                ],
+                "bounds_max": [
+                  25.97124680385161,
+                  -0.5787297543626462,
+                  152.0110203966191
+                ]
+              }
+            }
+          }
+        },
+        "ue_special_duty_backpack": {
+          "world_static_mesh": "/Game/Characters/SpecialDutyBackpack20261024/MeshyFitR1_20261024/SM_SpecialDutyBackpack.SM_SpecialDutyBackpack",
+          "world_mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_bare.SK_Kaitlin_special_duty_backpack_bare",
+          "world_mesh_by_shirt": {
+            "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_field_sweater_charcoal.SK_Kaitlin_special_duty_backpack_field_sweater_charcoal",
+            "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_field_sweater.SK_Kaitlin_special_duty_backpack_field_sweater",
+            "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_chainmail_shirt.SK_Kaitlin_special_duty_backpack_chainmail_shirt",
+            "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_blue_mage_robe.SK_Kaitlin_special_duty_backpack_blue_mage_robe",
+            "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_st6_sleeves.SK_Kaitlin_special_duty_backpack_st6_sleeves",
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_work_jacket.SK_Kaitlin_special_duty_backpack_work_jacket"
+          },
+          "rigid_pack": {
+            "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_bare_Contact.SM_Kaitlin_ue_special_duty_backpack_bare_Contact",
+            "location": [
+              -0.02452867216889217,
+              -13.681048183429501,
+              116.5397380268541
+            ],
+            "rotation_quat": [
+              -0.035296311679042694,
+              -0.00015575215725746142,
+              9.654483267496914e-05,
+              0.9993768742582633
+            ],
+            "location_by_shirt": {
+              "ue_field_sweater_charcoal": [
+                -0.024360748628268758,
+                -14.427328543244473,
+                116.48814854740571
+              ],
+              "ue_field_sweater": [
+                -0.0242098360826604,
+                -15.098005970814869,
+                116.44178541275913
+              ],
+              "ue_chainmail_shirt": [
+                -0.02436806733033103,
+                -14.394806467419713,
+                116.49039675638863
+              ],
+              "ue_blue_mage_robe": [
+                -0.023927866520624667,
+                -16.35112993762846,
+                116.35515842942613
+              ],
+              "ue_st6_sleeves": [
+                -0.024476402628910113,
+                -13.913344914252974,
+                116.52367962606624
+              ],
+              "ue_work_jacket": [
+                -0.024174948287492823,
+                -15.25305321622775,
+                116.43106717985329
+              ]
+            },
+            "mesh_by_shirt": {
+              "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_work_jacket_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_work_jacket_Contact",
+              "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_blue_mage_robe_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_blue_mage_robe_Contact",
+              "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_Contact",
+              "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact",
+              "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_chainmail_shirt_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_chainmail_shirt_Contact",
+              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_st6_sleeves_Contact"
+            }
+          },
+          "backpack_motion": {
+            "frequency_hz": 3.0,
+            "damping": 1.05,
+            "max_angle_degrees": 1.2,
+            "max_bounce_cm": 0.15,
+            "response_scale": 1.5,
+            "max_displacement_cm": 1.3,
+            "pivot": [
+              -0.028892102081413098,
+              -9.841939954625845,
+              128.29819153775472
+            ],
+            "bounds_min": [
+              -22.619199833063078,
+              -38.32796204898006,
+              80.27109108734588
+            ],
+            "bounds_max": [
+              23.037546356725585,
+              15.313271427401013,
+              153.41729024981953
+            ],
+            "support": {
+              "pivot": [
+                -0.028892102081413098,
+                -9.841939954625845,
+                128.29819153775472
+              ],
+              "bounds_min": [
+                -22.23217150404153,
+                -32.512026694725215,
+                80.8033694534393
+              ],
+              "bounds_max": [
+                22.185614094538124,
+                0.7726811535209333,
+                153.41729127434846
+              ]
+            },
+            "gravity_sag_cm": 0.45,
+            "max_separation_cm": 0.65,
+            "support_by_shirt": {
+              "ue_work_jacket": {
+                "pivot": [
+                  -0.029052343155810238,
+                  -9.12979521910925,
+                  128.3474212688032
+                ],
+                "bounds_min": [
+                  -22.23178052436243,
+                  -34.08403173172849,
+                  80.79002133855636
+                ],
+                "bounds_max": [
+                  22.185967820241427,
+                  -0.3181646445199817,
+                  153.30862044416776
+                ]
+              },
+              "ue_blue_mage_robe": {
+                "pivot": [
+                  -0.028984660815250116,
+                  -9.43058964836947,
+                  128.3266277023906
+                ],
+                "bounds_min": [
+                  -22.231587806625758,
+                  -35.18210845733422,
+                  80.77605604450912
+                ],
+                "bounds_max": [
+                  22.18621490075041,
+                  -1.809952835139832,
+                  153.23271170215065
+                ]
+              },
+              "ue_field_sweater": {
+                "pivot": [
+                  -0.029046748632205726,
+                  -9.154658448138788,
+                  128.34570250291605
+                ],
+                "bounds_min": [
+                  -22.23178897494013,
+                  -33.928984486315606,
+                  80.79133602612957
+                ],
+                "bounds_max": [
+                  22.18593293123176,
+                  -0.18668324258629987,
+                  153.3193386770736
+                ]
+              },
+              "ue_field_sweater_charcoal": {
+                "pivot": [
+                  -0.0289241137117417,
+                  -9.699673596892117,
+                  128.30802624435182
+                ],
+                "bounds_min": [
+                  -22.231778412920697,
+                  -33.25830705874521,
+                  80.79703137156388
+                ],
+                "bounds_max": [
+                  22.185782019380017,
+                  0.4208598865839903,
+                  153.36570180331015
+                ]
+              },
+              "ue_chainmail_shirt": {
+                "pivot": [
+                  -0.02882174986591061,
+                  -10.154599864642762,
+                  128.2765777245618
+                ],
+                "bounds_min": [
+                  -22.231815407621426,
+                  -33.225784978715424,
+                  80.79730921316174
+                ],
+                "bounds_max": [
+                  22.185774699810544,
+                  -0.5195827732295495,
+                  153.36795001229305
+                ]
+              },
+              "ue_st6_sleeves": {
+                "pivot": [
+                  -0.02883983254143104,
+                  -10.074236685449318,
+                  128.28213313696688
+                ],
+                "bounds_min": [
+                  -22.231940738556034,
+                  -32.744323425548686,
+                  80.80139815348824
+                ],
+                "bounds_max": [
+                  22.185666364078106,
+                  -0.182053046513591,
+                  153.40123287356062
+                ]
+              }
+            }
           }
         }
       },

@@ -1,0 +1,75 @@
+{
+  "name_zh": "星律导能腰带",
+  "updated_on": "2026-10-25",
+  "stage": "published_to_game_catalog",
+  "user_selected_direction": [
+    "魔法冷却时间",
+    "法力消耗效率"
+  ],
+  "catalog_fields_proposal": {
+    "equipSlot": "belt",
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "enhancement": {
+      "maxLevel": 15
+    },
+    "bonusStats": {
+      "magicCooldownPercent": -0.025,
+      "magicCostPercent": -0.1
+    },
+    "bonusPerEnhance": {
+      "magicCooldownPercent": -0.005,
+      "magicCostPercent": -0.01
+    }
+  },
+  "enhancement_examples": [
+    {
+      "level": 0,
+      "cooldown_reduction_percent": 2.5,
+      "mana_cost_reduction_percent": 10
+    },
+    {
+      "level": 5,
+      "cooldown_reduction_percent": 5,
+      "mana_cost_reduction_percent": 15
+    },
+    {
+      "level": 10,
+      "cooldown_reduction_percent": 7.5,
+      "mana_cost_reduction_percent": 20
+    },
+    {
+      "level": 15,
+      "cooldown_reduction_percent": 10,
+      "mana_cost_reduction_percent": 25
+    }
+  ],
+  "balance_basis_zh": [
+    "冷却成长参考战术弹匣腰带的基础 2.5% 与每级 0.5 个百分点；限制为魔法冷却，不缩短武技或物品冷却。",
+    "法力消耗成长参考破阵近战腰带的基础 10% 与每级 1 个百分点。",
+    "沿用腰带的独立 +15 强化上限和零防御；不同时增加施法速度、魔法攻击、法力上限或额外收纳容量。"
+  ],
+  "illustrative_effect_at_15": {
+    "assumption": "Only this belt; no other equipment, set, weapon, skill or focus modifiers",
+    "spell_cooldown_seconds_before": 10,
+    "spell_cooldown_seconds_after": 9,
+    "mana_cost_before": 40,
+    "mana_cost_after": 30
+  },
+  "formula_integration_note_zh": "腰带已注册到物品目录与男女穿戴配方。法力减耗采用单件内部相加、不同装备及其他乘区相乘，单件减耗上限 50%，最终费用下限为基础值的 20%。冷却属性沿用现有装备与套装乘区。运行与联机由用户测试。",
+  "mana_cost_policy": {
+    "maximum_item_reduction": 0.5,
+    "minimum_final_base_cost_ratio": 0.2,
+    "different_items_stack": "multiplicative",
+    "final_floor_includes_spellbook_focus": true,
+    "reduction_stage_rounding": "none",
+    "reference": "Docs/Combat/spell-mana-cost-20261025.md"
+  },
+  "item_catalog_published": true,
+  "runtime_tested": false,
+  "integration_receipt": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CombatBeltsIntegration20261025\\arcane\\published.json"
+}

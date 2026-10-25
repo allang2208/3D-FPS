@@ -23,3 +23,5 @@ for($waistBatch=0;$waistBatch -lt [Math]::Ceiling($waistManifest.records.Count/6
 if(-not $waistSaved.completed){throw 'Some waist assets are not saved; configuration retained.'}
 & python (Join-Path $waistProject 'Tools/GarmentWaist/publish.py')
 if($LASTEXITCODE -ne 0){throw 'Waist configuration was not published.'}
+& (Join-Path $waistProject 'Tools/BackpackFit/run.ps1')
+if($LASTEXITCODE -ne 0){throw 'Waist assets saved; backpack pairing remains incomplete.'}

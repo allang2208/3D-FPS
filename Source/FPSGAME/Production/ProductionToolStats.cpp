@@ -31,9 +31,9 @@ FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UC
     R.RateScale=FMath::Clamp(R.Modifiers.AttackSpeed,.25,4.)*(Profile?Profile->BerserkAttackSpeedMultiplier():1.f);
     R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.1)/R.RateScale;
     R.ContactSeconds=FMath::Min(ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.48)/R.RateScale,R.SwingSeconds*.9);
-    // 采集体力同样吃装备的近战体力消耗系数（厚皮革手套等），与 ColdSteelMelee::AttackStamina 的工具支路同源。
-    R.StaminaCost=(Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost)*R.Modifiers.Stamina
-        *(Profile?FMath::Max(0.,1.+Profile->EquipmentBonus(TEXT("meleeStaminaCost")))*Profile->ActionStaminaMultiplier():1.);
+    // The preview and server harvest executor use the same final cost floor.
+    R.StaminaCost=ColdSteelMelee::ModifiedAttackStamina(
+        Profile?Profile->StaminaSettings().HarvestCost:FColdSteelStaminaTuning{}.HarvestCost,R.Modifiers.Stamina,1.,Profile);
     R.HarvestReachCM=ColdSteelInventory::Number(Item,TEXT("harvest_reach_cm"),320)*R.Modifiers.HarvestReach;
     // 宽容半径是「倍率后再加绝对值」：矿镐出厂为 0（只认中心射线），改件的加值才给它辅助宽度。
     R.HarvestRadiusCM=ColdSteelInventory::Number(Item,TEXT("harvest_sweep_radius_cm"),0)*R.Modifiers.HarvestReach
@@ -52,7 +52,8 @@ FProductionToolStats ColdSteelTool::Evaluate(const FColdSteelItem& Item,const UC
             FMath::Max(.1,Enhancement?Enhancement->Effect(Item,TEXT("attackIntervalMul"),1):1.),.2,4.);
         R.SwingSeconds=ColdSteelInventory::Number(Item,TEXT("swing_seconds"),1.16)/R.RateScale;
         R.ContactSeconds=ColdSteelInventory::Number(Item,TEXT("contact_seconds"),.6)/R.RateScale;
-        R.StaminaCost=ColdSteelMelee::AttackStamina(&Item,Profile);
+        const auto BluntCostModifiers=Gunsmith?Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee:FMeleeModifiers{};
+        R.StaminaCost=ColdSteelMelee::AttackStamina(&Item,Profile,&BluntCostModifiers);
         R.HarvestReachCM=R.HarvestRadiusCM=0.;
         R.ToughnessDamage=ColdSteelInventory::Number(Item,TEXT("toughness_damage_mult"),1.);
     }

@@ -22,6 +22,7 @@ public:
 private:
     friend int32 RunBackpackMotionDiagnostic(const FString& Params);
     friend int32 RunBackpackLifecycleDiagnostic(const FString& Params);
+    friend int32 RunBackpackContactDiagnostic(const FString& Params);
     TWeakObjectPtr<USkeletalMeshComponent> Body,Pack;
     TWeakObjectPtr<UStaticMeshComponent> RigidBody;
     FTransform RigidReference=FTransform::Identity;
@@ -34,6 +35,7 @@ private:
     FVector Angles=FVector::ZeroVector,AngularVelocity=FVector::ZeroVector;
     FVector Offset=FVector::ZeroVector,OffsetVelocity=FVector::ZeroVector;
     float Frequency=3.5f,Damping=.85f,MaxAngle=2.5f,MaxBounce=.35f,ResponseScale=1.f,MaxDisplacement=0.f;
+    float GravitySag=.45f,MaxSeparation=.8f;
     bool bInitialized=false,bSent=false;
     float PreviousField[15]={},LastSent[30]={};
     FFPSHangingPack Hanging;

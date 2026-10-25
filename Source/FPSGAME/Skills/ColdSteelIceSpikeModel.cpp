@@ -62,10 +62,10 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     C.Count=FMath::Max(1,C.Count);
     // The wand hook multiplies every magic spell, so the two spells stay on one damage factor.
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+C.MagicContribution)*DamageFactor*MagicImplementMultiplier());
-    C.ManaCost=SpellManaCostBeforeFocus(TEXT("iceSpike"),L);
+    C.ManaCost=SpellManaCost(TEXT("iceSpike"),L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));
     C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
-    ApplySpellbookFocus(C.CastSpeed,C.ManaCost);
+    ApplySpellCastSpeed(C.CastSpeed);
     return C;
 }
 

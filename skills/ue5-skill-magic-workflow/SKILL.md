@@ -59,3 +59,5 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 ## 地面魔法的范围合同
 
 陨星准备卡住、范围预览拖动、斜坡判定、起手锁点及提前销毁结算，读取 [地面魔法的预览、范围与锁点](references/meteor-ground-contract.md)。
+
+装备近战体力／施法法力减耗、强化与聚能叠加，读取 [资源费用乘区与最低费用](../ue5-item-asset-workflow/references/resource-cost-multipliers.md)；同件加法、跨件乘法，最终保留正基础费用的 20%，执行与预览共用。

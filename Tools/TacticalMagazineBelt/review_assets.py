@@ -31,7 +31,7 @@ for kind,row in saved['magazines'].items():
     asset=u.load_asset(row['asset']);check(kind+' magazine loads',asset is not None and SS.get_lod_count(asset)==3)
 for path in saved['materials']+list(saved['textures'].values())+[saved['icon_texture']]:check(path,u.load_asset(path) is not None)
 icon=P/'Content/ColdSteelData'/catalog[key]['ue_icon'];check('inventory PNG',icon.exists() and hashlib.sha256(icon.read_bytes()).hexdigest()==saved['icon_sha256'])
-check('belt slot and grid',catalog[key]['equipSlot']=='belt' and catalog[key]['grid_w']==2 and catalog[key]['grid_h']==1)
+check('belt slot and grid',catalog[key]['equipSlot']=='belt' and catalog[key]['grid_w']==3 and catalog[key]['grid_h']==2)
 check('pickup catalog',catalog[key]['world_mesh']==saved['pickup']['asset'])
 report=dict(passed=all(x['passed'] for x in checks),checks=checks,meshes=rows,read_only=True,rendered=False)
 (O/'assets.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
