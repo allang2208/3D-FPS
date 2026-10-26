@@ -1,0 +1,20 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -30,6 +30,7 @@
+ #include "../Weapons/PistolDualWieldComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -183,6 +184,8 @@
+         if(Sword->IsEquipped())return Sword->BeginQuickCombatStrike();
+     // 尼泊尔弯刀 → 刀把砸击（KukriQuickCombat.cpp）。
+     if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginQuickCombat();
++    // 手枪＋副手弯刀 → 参考视频三连出刀（OffhandKukriStrike.cpp），命中按副手武器物理面板 200%。
++    if(auto* Offhand=Player->FindComponentByClass<UOffhandKukriComponent>();Offhand&&Offhand->CanQuickCombat())return Offhand->BeginQuickCombat();
+     if(Player->QuickCombatPistol)
+         return Player->IsPistolWeapon()?Player->TriggerPistolQuickCombat():Player->TriggerRifleStockMelee();
+     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 角色没有快速进战动作组件，无法触发"));

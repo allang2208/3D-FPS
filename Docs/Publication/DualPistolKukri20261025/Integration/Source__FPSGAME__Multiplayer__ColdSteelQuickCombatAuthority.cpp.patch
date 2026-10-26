@@ -1,0 +1,19 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -4,6 +4,7 @@
+ #include "../Skills/FPSQuickCombatComponent.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Movement/PlayerGuardBreakComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+@@ -80,6 +81,7 @@
+         Quick&&Quick->IsOccupyingLeftHand()&&Quick->GetStyle()!=EQuickCombatStyle::UnarmedPunch)Quick->Cancel();
+     if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->IsQuickCombatActive())Sword->CancelAction();
+     if(auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsQuickCombatActive())Kukri->CancelAction();
++    if(auto* Offhand=Pawn->FindComponentByClass<UOffhandKukriComponent>();Offhand&&Offhand->IsQuickCombatActive())Offhand->CancelQuickCombat();
+     Model->FinishQuickCombatCast();
+     Model->PostNotice(TEXT("快速近战未执行"),TEXT("服务器角色状态或体力尚未同步"));
+ }

@@ -1,0 +1,193 @@
+{
+ "status": "authoring candidate; not integrated",
+ "reference": "BV1hQnh6hEio file 25.83-26.17 s and 50.4-51.0 s (Krait P68 Commando full kit idle hold)",
+ "camera_axes": "X forward, Y right, Z up; centimetres; eye at origin",
+ "vertical_fov": 75,
+ "gun": {
+  "rear_sight": [
+   29.0,
+   3.857554907852439,
+   -1.0272704056372315
+  ],
+  "aim_point": [
+   1027.8630269981977,
+   -43.81479867362446,
+   -1.0272704056372315
+  ],
+  "cant_degrees": 20.35881568615434
+ },
+ "right_shoulder": [
+  -26.541357916967726,
+  25.973719120142203,
+  -4.098154044638245
+ ],
+ "right_pole": [
+  8,
+  20.603788815961533,
+  -25.51720785974333
+ ],
+ "left_shoulder": [
+  5.336916274683632,
+  -12.046319625030279,
+  -31.278370520217006
+ ],
+ "left_pole": [
+  12,
+  -35.856200212238946,
+  -44.17559288040813
+ ],
+ "kukri": {
+  "fist_centre": [
+   28.98675967045953,
+   19.994358460657224,
+   -8.41275467720901
+  ],
+  "blade_direction": [
+   0.9972158105357797,
+   -0.04940233481350798,
+   0.055857287191934925
+  ],
+  "knuckle_direction": [
+   -0.020325267600107208,
+   0.5406270594374911,
+   0.841016804886178
+  ],
+  "grip": "grip.json (grip_fit.py): reversed, edge in, contact-fitted digits"
+ },
+ "shoulder_roots": {
+  "left": [
+   5.2136,
+   -11.8599,
+   -31.537
+  ],
+  "right": [
+   -26.7522,
+   26.2038,
+   -6.0369
+  ],
+  "note": "Viewmodel arm roots of the layout the user approved on 2026-10-25 (upper arms stay below/behind the frame). Earlier fits re-added offsets each run; these are now fixed roots with small fitted offsets."
+ },
+ "fit": {
+  "x": [
+   28.9868,
+   19.9944,
+   -8.4128,
+   57.3872,
+   -2.8317,
+   3.206,
+   -35.8562,
+   -44.1756,
+   0.1233,
+   -0.1864,
+   0.2586,
+   0.2108,
+   -0.2301,
+   1.9387,
+   20.6038,
+   -25.5172,
+   3.8576,
+   -1.0273,
+   20.3588,
+   -2.7325
+  ],
+  "cost": 4.8396,
+  "order": "fist xyz, knuckle roll, blade yaw, blade pitch, left pole yz, left shoulder dxyz, right shoulder dxyz, right pole yz, rear sight yz, cant, bore yaw"
+ },
+ "ads": {
+  "status": "ADS authoring candidate; Harries-style crossed support, no reference shot",
+  "reference": "BV1hQnh6hEio file 25.83-26.17 s and 50.4-51.0 s (Krait P68 Commando full kit idle hold)",
+  "camera_axes": "X forward, Y right, Z up; centimetres; eye at origin",
+  "vertical_fov": 55,
+  "gun": {
+   "rear_sight": [
+    38.0,
+    0.0,
+    0.0
+   ],
+   "aim_point": [
+    1038.0,
+    0.0,
+    0.0
+   ],
+   "cant_degrees": 0.0,
+   "note": "M1911 ADSRearEyeDistance = 38 cm (FPSGAMECharacter.cpp, bUseM1911 branch)"
+  },
+  "right_shoulder": [
+   -28.751841052250818,
+   24.204158947749182,
+   -8.03654105225082
+  ],
+  "right_pole": [
+   8,
+   7.774020534131696,
+   -20.679443832147488
+  ],
+  "left_shoulder": [
+   5.212430865742578,
+   -11.860784876806825,
+   -31.5366355460917
+  ],
+  "left_pole": [
+   12,
+   -19.325863003068054,
+   -49.05121154001663
+  ],
+  "kukri": {
+   "fist_centre": [
+    30.767265140548716,
+    12.578840551565484,
+    -8.644004219454008
+   ],
+   "blade_direction": [
+    0.9945203825147291,
+    -5.343956602187501e-06,
+    -0.1045428559692102
+   ],
+   "knuckle_direction": [
+    0.09492704224755276,
+    0.4189721908221578,
+    0.9030233440879657
+   ],
+   "grip": "grip.json (grip_fit.py): reversed, edge in, contact-fitted digits"
+  },
+  "shoulder_roots": {
+   "left": [
+    5.2136,
+    -11.8599,
+    -31.537
+   ],
+   "right": [
+    -26.7522,
+    26.2038,
+    -6.0369
+   ],
+   "note": "Viewmodel arm roots of the layout the user approved on 2026-10-25 (upper arms stay below/behind the frame). Earlier fits re-added offsets each run; these are now fixed roots with small fitted offsets."
+  },
+  "fit": {
+   "x": [
+    30.7673,
+    12.5788,
+    -8.644,
+    65.2303,
+    -0.0003,
+    -6.0008,
+    -19.3259,
+    -49.0512,
+    -0.0012,
+    -0.0009,
+    0.0004,
+    -1.9996,
+    -1.9996,
+    -1.9996,
+    7.774,
+    -20.6794,
+    0.0006,
+    0.0006,
+    0.0006,
+    0.0006
+   ],
+   "cost": 1.0338,
+   "order": "fist xyz, knuckle roll, blade yaw, blade pitch, left pole yz, left shoulder dxyz, right shoulder dxyz, right pole yz, rear sight yz, cant, bore yaw"
+  }
+ }
+}

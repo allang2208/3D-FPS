@@ -1,0 +1,19 @@
+diff --git a/Source/FPSGAME/FPSGAMEConsumableUse.cpp b/Source/FPSGAME/FPSGAMEConsumableUse.cpp
+--- a/Source/FPSGAME/FPSGAMEConsumableUse.cpp
++++ b/Source/FPSGAME/FPSGAMEConsumableUse.cpp
+@@ -4,6 +4,7 @@
+ #include "Weapons/Bow/BowArmsMeshComponent.h"
+ #include "Weapons/Staff/StaffWeaponComponent.h"
+ #include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
+ #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "Weapons/PistolDualWieldComponent.h"
+ #include "Items/FPSPotionUseComponent.h"
+@@ -47,6 +48,7 @@
+ USkeletalMeshComponent* AFPSGAMECharacter::ConsumableHands() const
+ {
+     if(HasOffhandSpellbook())return Spellbook->ArmsMesh();
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();OffhandKukri&&OffhandKukri->IsEquipped())return OffhandKukri->ArmsMesh();
+     if(HasOffhandPistol())return DualPistols->Hand(1).Mesh.Get();
+     if(RuneSword && RuneSword->IsEquipped())return RuneSword->ArmsMesh();
+     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool && Tool->IsEquipped())return Tool->ArmsMesh();

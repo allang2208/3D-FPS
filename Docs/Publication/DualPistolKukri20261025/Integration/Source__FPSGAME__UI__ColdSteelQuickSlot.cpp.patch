@@ -1,0 +1,23 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickSlot.cpp
+@@ -4,6 +4,7 @@
+ #include "../Skills/FPSLightningHasteComponent.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Weapons/RuneOrbBladesComponent.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+@@ -320,8 +321,10 @@
+         const auto* HammerItem=Model->ActiveProductionTool();
+         const auto* Tool=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
+         const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
++        const auto* Offhand=Player?Player->FindComponentByClass<UOffhandKukriComponent>():nullptr;
+         Message=HammerItem&&ColdSteelInventory::IsTwoHandedBlunt(*HammerItem)&&Tool?
+             Tool->UppercutStatusText():Kukri&&Kukri->IsEquipped()?Kukri->UppercutStatusText():
++            Offhand&&Offhand->IsEquipped()?Offhand->UppercutStatusText():
+             Ability?Ability->UppercutStatusText():TEXT("需近战");
+         Dim=!Message.IsEmpty();
+     }
+

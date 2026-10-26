@@ -1,0 +1,21 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+--- a/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp
+@@ -15,6 +15,7 @@
+ #include "GameFramework/PlayerController.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "Engine/World.h"
+ #include "Kismet/GameplayStatics.h"
+@@ -171,6 +172,8 @@
+         if(const auto* Tool=ActiveProductionTool();Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Tool))
+             if(auto* Ability=Player->FindComponentByClass<UProductionToolComponent>())return Ability->BeginUppercut();
+         if(auto* Kukri=Player->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return Kukri->BeginUppercut();
++        // 手枪＋副手弯刀：上挑由副手刀镜像出手（OffhandKukriUppercut.cpp），排在主手弯刀之后、双手剑之前。
++        if(auto* Offhand=Player->FindComponentByClass<UOffhandKukriComponent>();Offhand&&Offhand->IsEquipped())return Offhand->BeginUppercut();
+         if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->BeginUppercut();
+     }
+     if(Skill==TEXT("heavyStrike"))
+

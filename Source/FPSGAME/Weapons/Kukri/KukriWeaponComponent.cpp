@@ -350,9 +350,8 @@ void UKukriWeaponComponent::StartAttack(int32 NewStage)
     // Snapshot at swing start: damage, speed and reach stay fixed for this swing.
     const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
     SwingDamage=Stats.Damage;
-    // AttackRate is normalised to the sword's 1.775 s clip.  The item's attack_seconds is 1.5625x this clip's
-    // authored length (V9 -25 %, V10 another -25 %: "still too fast"), so the base product is 0.64 and
-    // aspd/mastery/haste scale from there.
+    // AttackRate is normalised to the sword's 1.775 s clip; the base product is this clip's authored length over the
+    // item's attack_seconds (0.8 since 2026-10-26, user-set: ~1.58), and aspd/mastery/haste scale from there.
     PlayRate=FMath::Clamp(float(Stats.AttackRate)*KukriRhythm::AttackSeconds/RuneSwordRhythm::AttackEnd,.3f,3.f);
     Reach=Stats.BaseReach>0.?float(Stats.BaseReach):KukriRhythm::DefaultReachCM;
     Shot=ColdSteelSkills::Snapshot(P,Item);

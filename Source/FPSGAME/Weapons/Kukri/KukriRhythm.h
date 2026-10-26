@@ -17,7 +17,8 @@ namespace KukriRhythm
     inline const TCHAR* ArmsMesh=TEXT("/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms");
     inline const TCHAR* BladeMesh=TEXT("/Game/Weapons/Kukri20261020/SM_Kukri.SM_Kukri");
 
-    /** 第一段 clip 作者长度（38/30 s）；物品 attack_seconds = 1.5625 倍（V9、V10 各慢 25%），攻速只缩放这一条时钟。 */
+    /** 第一段 clip 作者长度（38/30 s），攻速只缩放这一条时钟：基础播放速率 = 本值 ÷ 物品 attack_seconds。
+     *  2026-10-26 用户定标：attack_seconds = 0.8（基础速率 ≈ 1.58；V9/V10 的 1.9792 → 0.64 已作废）。 */
     inline constexpr float AttackSeconds=38.f/30.f;
     // The draw (Equip) clock lives in KukriDrawRhythm.h (toss and catch, 0.80 s).
     /** 进入／切换 clip 的局部空间交叉淡化（保持右手相对刀柄）。 */
@@ -178,9 +179,12 @@ namespace KukriRhythm
      *  翻刀下压 ×0.75（0.18 s）→ 右下画外蓄力 ×0.70、蓄满前再慢一拍 ×0.55（0.23 s）→ 上撩 ×1.0（参考原速，拳由右下穿过画面中心，
      *  0.30-0.43 → 0.13 s；参考自身拳速约 22 NDC/s，本作前臂贴近镜头时更快）→ 前臂贴镜头的收势 ×0.70（0.37 s，看得见的上举与停顿）→
      *  画外 ×1.4 → 抬回 ×1.0。整段约 1.42 s（武技时钟：不随攻速，只受迅捷影响）。
+     * V2（2026-10-25，用户：主手、副手上挑出手都再快一些；Work/tempo_plan_upper_v2.py 核对）：翻刀下压 ×1.0（0.13 s）→
+     *  蓄力 ×0.90、蓄满前 ×0.70（0.19 s，仍留一拍顿挫）→ 上撩 ×1.70（0.13 → 0.078 s，松手到打击帧 0.05 → 0.029 s）→
+     *  收势 ×0.95（0.28 s）→ 画外 ×1.7 → 抬回 ×1.25。整段 1.43 → 1.08 s；突进 120 cm 在 0.115 s 内走完。
      */
-    inline constexpr FTempoKnot UpperTempo[]={{0.f,.75f},{.130f,.75f},{.160f,.70f},{.250f,.70f},{.270f,.55f},{.290f,.55f},
-        {.302f,1.f},{.430f,1.f},{.450f,.70f},{.690f,.70f},{.720f,1.40f},{.950f,1.40f},{.990f,1.f}};
+    inline constexpr FTempoKnot UpperTempo[]={{0.f,1.f},{.130f,1.f},{.160f,.90f},{.250f,.90f},{.270f,.70f},{.290f,.70f},
+        {.300f,1.70f},{.430f,1.70f},{.450f,.95f},{.690f,.95f},{.720f,1.70f},{.950f,1.70f},{.990f,1.25f}};
     /**
      * 重击出手（技能 heavyStrike，2026-10-24）。V2（用户：出手更快、更有冲击力）：蓄力已经把刀压在肩后，出手直接回砍，
      *  刀从头后翻过 ×1.0（0.03 s）→ 劈过画面 ×1.6（松手后约 0.056 s 刀尖到准星，0.077 s 拳到画面下方，拳峰值约 38 NDC/s，
@@ -198,6 +202,20 @@ namespace KukriRhythm
         for(int32 I=1;I<N;++I)
             if(T<K[I].T)return FMath::Lerp(K[I-1].Rate,K[I].Rate,FMath::SmoothStep(K[I-1].T,K[I].T,T));
         return K[N-1].Rate;
+    }
+    /** Uppercut stride start (author s); KukriUppercut.cpp and OffhandKukriUppercut.cpp use the same LungeStart. */
+    inline constexpr float UpperLungeStart=.24f;
+    /** Real seconds of the uppercut between author times A and B at action speed 1 (UpperTempo): the server's melee
+     *  recovery after the kukri's stride (FPSMeleeMovementNetwork.cpp), not the sword uppercut's longer clock. */
+    inline float UpperRealSeconds(float A,float B)
+    {
+        float Real=0.f;
+        for(float T=A;T<B;T+=1.f/240.f)
+        {
+            const float Step=FMath::Min(1.f/240.f,B-T);
+            Real+=Step/FMath::Max(.05f,SampleTempo(UpperTempo,T+.5f*Step));
+        }
+        return Real;
     }
     /** Stage-local tempo on top of the swing's play rate at author time T (1 = authored rhythm). */
     inline float StageTempo(int32 Stage,float T)

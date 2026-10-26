@@ -1,0 +1,14 @@
+diff --git a/Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp b/Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp
+--- a/Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp
++++ b/Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp
+@@ -196,7 +196,9 @@
+         const auto* OtherLeft=Model->Equipped(Offhand==8?11:8);
+         const bool OffhandPistol=(Left&&ColdSteelInventory::IsDualPistol(*Left))
+             ||(OtherLeft&&ColdSteelInventory::IsDualPistol(*OtherLeft));
+-        bHandsEmpty=!OffhandPistol&&!Model->Equipped(State.ActiveWeaponSlot)&&!Model->Equipped(Offhand)&&!Model->ActiveProductionTool();
++        // An off-hand kukri only presents beside a main-hand pistol; without one it stays inert.
++        const bool InertKukri=Left&&Left->Definition==TEXT("ue_kukri");
++        bHandsEmpty=!OffhandPistol&&!Model->Equipped(State.ActiveWeaponSlot)&&(!Left||InertKukri)&&!Model->ActiveProductionTool();
+         bBookOffhandOnly=!Model->Equipped(State.ActiveWeaponSlot)&&Left&&Left->Definition==TEXT("ue_alchemy_spellbook")&&!Model->ActiveProductionTool();
+         bEquipmentResolved=true;
+     }

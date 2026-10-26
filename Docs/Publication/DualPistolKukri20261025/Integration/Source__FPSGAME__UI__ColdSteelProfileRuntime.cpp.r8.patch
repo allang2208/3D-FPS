@@ -1,0 +1,50 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -638,32 +638,23 @@
+                 }
+                 if(TuningChanged){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+             }
+-            // Zhenyue's base reach is catalog tuning, not an instance upgrade.
+-            // Assign the current value so loading repeatedly never compounds it.
+-            if(I.Definition==TEXT("ue_xuanchi_zhenyue")&&CatalogData&&
++            // Melee base cadence / reach / damage / guard economy are catalog tuning, not instance upgrades: an
++            // instance keeps the catalog snapshot of the day it was created, so two of the same weapon could swing
++            // at different speeds after a rebalance (two kukris: attack_seconds 0.8 vs 1.9792, reach 150 vs 220).
++            // Same field set as SanitizeNetworkItem; forging quality, parts and enhancement stay instance state.
++            if(ColdSteelInventory::IsMeleeWeapon(I)&&CatalogData&&
+                 FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+             {
+-                double CatalogReach=0.,StoredReach=0.;
+-                if(CatalogData->TryGetNumberField(TEXT("melee_reach_cm"),CatalogReach)&&
+-                    (!ItemData->TryGetNumberField(TEXT("melee_reach_cm"),StoredReach)||StoredReach!=CatalogReach))
++                bool TuningChanged=false;
++                for(const TCHAR* Key:{TEXT("melee_damage"),TEXT("melee_reach_cm"),TEXT("attack_seconds"),TEXT("swing_seconds"),
++                    TEXT("contact_seconds"),TEXT("melee_stamina"),TEXT("block_stamina"),TEXT("block_reduction")})
+                 {
+-                    ItemData->SetNumberField(TEXT("melee_reach_cm"),CatalogReach);
+-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+-                }
+-            }
+-            // Zhanmadao balance tuning also applies to already owned weapons.
+-            // Only replace the base clock; installed parts and enhancement data
+-            // remain instance state and still contribute their speed modifiers.
+-            if(I.Definition==TEXT("ue_zhanmadao")&&CatalogData&&
+-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+-            {
+-                double CatalogSeconds=0.,StoredSeconds=0.;
+-                if(CatalogData->TryGetNumberField(TEXT("attack_seconds"),CatalogSeconds)&&
+-                    (!ItemData->TryGetNumberField(TEXT("attack_seconds"),StoredSeconds)||StoredSeconds!=CatalogSeconds))
+-                {
+-                    ItemData->SetNumberField(TEXT("attack_seconds"),CatalogSeconds);
+-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
++                    double CatalogValue=0.,StoredValue=0.;
++                    if(CatalogData->TryGetNumberField(Key,CatalogValue)&&
++                        (!ItemData->TryGetNumberField(Key,StoredValue)||StoredValue!=CatalogValue))
++                    {ItemData->SetNumberField(Key,CatalogValue);TuningChanged=true;}
+                 }
++                if(TuningChanged){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+             }
+             // 条目说明同样以目录为准。物品实例存的是创建当时的目录快照，
+             // 所以只改 items.json 时，已经持有的武器仍显示旧介绍
+

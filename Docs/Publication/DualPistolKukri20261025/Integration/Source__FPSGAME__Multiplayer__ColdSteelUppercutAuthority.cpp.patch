@@ -1,0 +1,57 @@
+diff --git a/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp b/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
+--- a/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp
+@@ -5,6 +5,7 @@
+ #include "../UI/ColdSteelStatusModel.h"
+ #include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Weapons/RuneSwordUppercutMotion.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
+@@ -17,7 +18,12 @@
+ {
+     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     const auto* Item=Model?Model->Equipped():nullptr;
+-    // The kukri's uppercut uses the same release receipt (one-handed melee, KukriUppercut.cpp).
++    // The kukri's uppercut uses the same release receipt (one-handed melee, KukriUppercut.cpp);
++    // the off-hand kukri behind a main-hand dual pistol does too (OffhandKukriUppercut.cpp).
++    if(Model&&Item&&!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsOneHandedMelee(*Item)
++        &&ColdSteelInventory::IsDualPistol(*Item))
++        if(const auto* Off=Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11);
++            Off&&ColdSteelInventory::IsOneHandedMelee(*Off))Item=Off;
+     if(!GetPawn()||!Item||!(ColdSteelInventory::IsTwoHandedSword(*Item)||ColdSteelInventory::IsOneHandedMelee(*Item)))return false;
+     ++UppercutSequence;if(!UppercutSequence)++UppercutSequence;
+     // Same actor channel as ServerReportHit: payment is ordered before contact.
+@@ -40,6 +46,11 @@
+     TickSwordUppercut();
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
+     const auto* Item=ShadowModel?ShadowModel->Equipped():nullptr;
++    // Same off-hand resolution as the client request: the declared weapon is the off-hand kukri's id.
++    if(Item&&!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsOneHandedMelee(*Item)
++        &&ColdSteelInventory::IsDualPistol(*Item))
++        if(const auto* Off=ShadowModel->Equipped(ShadowModel->Snapshot().ActiveWeaponSlot==6?8:11);
++            Off&&ColdSteelInventory::IsOneHandedMelee(*Off))Item=Off;
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* GS=GetWorld()->GetGameState();
+     const double Clock=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+@@ -78,6 +89,10 @@
+     if(!UppercutActiveSequence)return;
+     const auto* Pawn=UppercutPawn.Get();const auto* HP=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* Item=UppercutRewardModel?UppercutRewardModel->Equipped():nullptr;
++    if(Item&&!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsOneHandedMelee(*Item)
++        &&ColdSteelInventory::IsDualPistol(*Item))
++        if(const auto* Off=UppercutRewardModel->Equipped(UppercutRewardModel->Snapshot().ActiveWeaponSlot==6?8:11);
++            Off&&ColdSteelInventory::IsOneHandedMelee(*Off))Item=Off;
+     if(!Pawn||Pawn!=GetPawn()||(HP&&HP->IsDead())||!Item||Item->InstanceId!=UppercutWeapon||GetWorld()->GetTimeSeconds()>=UppercutUntil)
+         SettleSwordUppercut();
+ }
+@@ -105,6 +120,7 @@
+     {
+         if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>())Sword->CancelAction();
+         if(auto* Kukri=Pawn->FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsUppercutActive())Kukri->CancelAction();
++        if(auto* Offhand=Pawn->FindComponentByClass<UOffhandKukriComponent>();Offhand&&Offhand->IsUppercutActive())Offhand->CancelUppercut();
+         Model->PostNotice(TEXT("上挑未执行"),TEXT("服务器体力、冷却或装备状态不满足条件"));
+     }
+ }
+

@@ -4314,7 +4314,7 @@
     "ue_icon": "Icons/ue_kukri.png",
     "melee_damage": 30,
     "melee_reach_cm": 220,
-    "attack_seconds": 1.9792,
+    "attack_seconds": 0.8,
     "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
     "world_mesh": "/Game/Weapons/Kukri20261020/SM_Kukri.SM_Kukri",
     "animation_folder": "/Game/Weapons/Kukri20261020/Animations",

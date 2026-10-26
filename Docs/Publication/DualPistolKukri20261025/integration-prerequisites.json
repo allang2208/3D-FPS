@@ -1,0 +1,124 @@
+{
+  "Source/FPSGAME/FPSGAMECharacter.cpp": {
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacter.cpp.patch",
+    "preimage_sha256_lf_utf8": "a8c55404510b1357cbdeb8b62ad6cee2b559106a9ef840465e71d7d334493b32",
+    "result_sha256_lf_utf8": "c8e09cc13900f854a2ff1d38eb44a468c426d3b07217696d08cc3c53fcbfd91e",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp": {
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacterActionPriority.cpp.patch",
+    "preimage_sha256_lf_utf8": "6b4f68e75f888aa691a0fd886ac7b7e92036b82a8a3ab4d94ff1dfcde0766e7e",
+    "result_sha256_lf_utf8": "0e04bab5109f9f0b04d270e1aa8686f1dcec476250047f9f790b12d3b9cc3a6c",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/FPSGAMEConsumableUse.cpp": {
+    "patch": "Integration/Source__FPSGAME__FPSGAMEConsumableUse.cpp.patch",
+    "preimage_sha256_lf_utf8": "25f2cecdc55c7dca0d3e70ac85690a6fd01fcd3eff003254477c89e779956d27",
+    "result_sha256_lf_utf8": "9417515ab7499d2f283234350e4347c301eb98e7f57ebb1622534aff4c9987f8",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp": {
+    "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyMotion.cpp.patch",
+    "preimage_sha256_lf_utf8": "274d6453705d6f5577147561a3b65009999d0a71e1a0943b414d375709c4f99a",
+    "result_sha256_lf_utf8": "9c8c3254af443c3193927eb415ba56fe5d532779a4958ab810d1fdcfeca9a47f",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Items/FPSPotionUseComponent.cpp": {
+    "patch": "Integration/Source__FPSGAME__Items__FPSPotionUseComponent.cpp.patch",
+    "preimage_sha256_lf_utf8": "93b4aa3068c78ddeb5a318dc4bf5760cf069dfcc48082104f6966ba1199cef06",
+    "result_sha256_lf_utf8": "319ccb3d8cd2b1d04920bde6db74331004671d22e0a5d0642f513082e1f6bbc5",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp": {
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+    "preimage_sha256_lf_utf8": "f01d90806e7ff505730f72e4dcc2a1d759da7bd7583cfa5699a893e784f99772",
+    "result_sha256_lf_utf8": "6ed6279a4b3d6da1eee4cd42da30a9954e3636719a8ad0f411fca4a555a325e9",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp": {
+    "patch": "Integration/Source__FPSGAME__Skills__FPSCastingMeshComponent.cpp.patch",
+    "preimage_sha256_lf_utf8": "fc5dfa04af9bf4cf37976d9d486ef24eb6eeb2be638afa27b07300cadb9160f7",
+    "result_sha256_lf_utf8": "d96d60bb3e82638bb4d69f7d93e984769040777f4ee8dd8a1b8fc68f71d589a2",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.cpp.patch",
+    "preimage_sha256_lf_utf8": "57569f9cc9573c4756d96485a6609be13ce163953713a741ea3185fc7b8caf78",
+    "result_sha256_lf_utf8": "77ab14ec8dd726d870598e17284fa42bc1812d02eefd5e9e32dbb8f3b01b35e6",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelQuickCombatAuthority.cpp.patch",
+    "preimage_sha256_lf_utf8": "6dcf127840271603578a9724862f1739b80fa758c4a201b4d6e7a3ec5f0942b6",
+    "result_sha256_lf_utf8": "6791ac214c7b6a46be5adc42b3bff8049eebb8c1f0800f85560abe7e52015c7c",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelInventoryRules.cpp.patch",
+    "preimage_sha256_lf_utf8": "ee2e0cbae1365016aaad6067ff1feecec1b0be62170b247aec1516a407b09933",
+    "result_sha256_lf_utf8": "396abed52a00da678a36cfefcf8c1033b11139742d538ce77b3858f02e5c076a",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+    "preimage_sha256_lf_utf8": "b3be1d1a5582310f2593758f76ef47aed3790e34c2906d04f9fd7059b07946f0",
+    "result_sha256_lf_utf8": "d24f69ad80e30f3d32e001218be331aa5715508a840c949cece86be9f52bd338",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Weapons/Unarmed/FPSUnarmedIdleComponent.cpp": {
+    "patch": "Integration/Source__FPSGAME__Weapons__Unarmed__FPSUnarmedIdleComponent.cpp.patch",
+    "preimage_sha256_lf_utf8": "f0b480acc696fd11d499c037e8dccad7a1901691786b3ed8bbaa10c84f16feea",
+    "result_sha256_lf_utf8": "c22c3a95d281e2741268cc95f8abc20ebc963949a2ed080d88897edc759832b9",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp": {
+    "patch": "Integration/Source__FPSGAME__Multiplayer__ColdSteelUppercutAuthority.cpp.patch",
+    "preimage_sha256_lf_utf8": "7190c91eb60fe462e4be9e830dbbe9a3fa8b47cded47dbee2c7635f73887d69e",
+    "result_sha256_lf_utf8": "f15afd21e426417abe503d421f777eff691e54f455548db28838cd82c3303474",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelQuickBarModel.cpp.patch",
+    "preimage_sha256_lf_utf8": "dc5282dce6a3bd75b48ddaca7e95e999a25e778c150dd877bec9100e9209dd69",
+    "result_sha256_lf_utf8": "5b83c619f8bd18b7ddaf2fb86774e04c7ec21ef87e11c0725788a732e25730bd",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelQuickSlot.cpp.patch",
+    "preimage_sha256_lf_utf8": "13be59e58619d292f22c125bddd9adc74f5ceee460d0162b2a14b922debb25ae",
+    "result_sha256_lf_utf8": "67002bfb5dfd757d0214cbcff3dacc9d1e9ec0002799b6af4d6cb20fa4f8004e",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp": {
+    "patch": "Integration/Source__FPSGAME__Skills__ColdSteelHeavyStrikeModel.cpp.patch",
+    "preimage_sha256_lf_utf8": "272180e85e04b4313895ce5a8924b5ef224c8965f540738242776377f68b60d4",
+    "result_sha256_lf_utf8": "53997d1370a2c1d241cdef702f65dfad58af0448b7f717ab0b1ae91abebae415",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp": {
+    "patch": "Integration/Source__FPSGAME__Movement__FPSMeleeMovementNetwork.cpp.patch",
+    "preimage_sha256_lf_utf8": "b529f46a9e8246d84a0ec0c0715ae9cdb6d5c9560115d74dc61406d10c865f1b",
+    "result_sha256_lf_utf8": "e72cd81c95178087d52afa40664e7b4d3c2d48043467db779c2c8dc6efdad1af",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp#r8": {
+    "patch": "Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.r8.patch",
+    "preimage_sha256_lf_utf8": "c75c5a4cfb05b646278058f5653302524a5147fbbe0d334e7422bc60f48cd0a1",
+    "result_sha256_lf_utf8": "8c7f56eb2c1fb172042c8edfa437fa5e422700d49a694b8902b15d1d0b7af4a1",
+    "runtime_tree_applied": true,
+    "apply_after": "Integration/Source__FPSGAME__UI__ColdSteelProfileRuntime.cpp.patch",
+    "note": "preimage includes parallel sessions' in-flight edits made after the earlier patch; merge semantically if hashes differ"
+  },
+  "Source/FPSGAME/Weapons/OffhandReloadHandoff.h": {
+    "patch": "Integration/Source__FPSGAME__Weapons__OffhandReloadHandoff.h.patch",
+    "preimage_sha256_lf_utf8": "67b07e759c755d6ecc42ce233ce44286b3db4482077e81f56538919de34f7c9c",
+    "result_sha256_lf_utf8": "7c6724610dad03a8492c65e738398e10dfdfa552ec138a22b54bd2db97e27c0c",
+    "runtime_tree_applied": true
+  },
+  "Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp": {
+    "patch": "Integration/Source__FPSGAME__FPSGAMECharacterOffhandReload.cpp.patch",
+    "preimage_sha256_lf_utf8": "b43bc4022c182b5eea17303c32b8d613d0f78f51a80a2ff9016499462a76595a",
+    "result_sha256_lf_utf8": "d35d3c67998e841eac0bd5d87dc8e6fd118ef24d7477f938374e945ba90a641b",
+    "runtime_tree_applied": true
+  }
+}

@@ -1,0 +1,32 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -19,6 +19,7 @@
+ #include "../Weapons/Staff/StaffArmsMeshComponent.h"
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Weapons/Super90WeaponAssets.h"
+ #include "../Weapons/TubeShotgunAssets.h"
+ #include "../Weapons/G18WeaponAssets.h"
+@@ -186,6 +187,9 @@
+     for(int32 I=0;I<Sample.Rigs.Num();++I)
+     {
+         const auto& D=LocalWeapons[I];auto& Rig=Sample.Rigs[I];auto* Source=D.Source.Get();
++        // The body-native pair owns the reversed knife. Never publish an FPS
++        // camera wrist/root over its anatomically mapped static attachment.
++        if(D.PoseFamily==TEXT("OffhandKukri"))continue;
+         if(D.PoseFamily==TEXT("Bow"))
+         {
+             if(State.Family==TEXT("Bow")&&!Cast&&State.Action!=EFPSBodyAction::Consume
+@@ -349,7 +353,9 @@
+                 Sample.SupportGrip=Left->Mount.Inverse()*BodyMotionRigidTransform(Pose[Left->SourceHand]).GetRelativeTransform(Hand)*NativeMount;
+             }
+         }
+-        if(I==0&&!IndependentPistol&&!FPSBodyPistolMotion::ReturningToOffhand(State)&&(LocalWeapons.Num()==1||BookStowed||FPSBodyPistolMotion::UsesSupportReload(State))&&D.PoseFamily!=TEXT("Staff")&&D.PoseFamily!=TEXT("Spellbook"))
++        // The off-hand kukri rig hides the viewmodel's support arm; never sample that zero-scaled hand.
++        if(I==0&&!IndependentPistol&&!FPSBodyPistolMotion::ReturningToOffhand(State)&&(LocalWeapons.Num()==1||BookStowed||FPSBodyPistolMotion::UsesSupportReload(State))&&D.PoseFamily!=TEXT("Staff")&&D.PoseFamily!=TEXT("Spellbook")
++            &&!UOffhandKukriComponent::PresentsLeftHand(Pawn))
+         {
+             CaptureMotionHand(Source,TEXT("hand_l"),1,Drive,Sample,&Pose);Sample.CoupledWrists=Drive;
+             if(const auto* Left=MotionMap(Source,TEXT("hand_l"),1);Left&&Left->IsValid()&&Pose.IsValidIndex(Left->SourceHand))

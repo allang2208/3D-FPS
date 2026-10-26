@@ -1,0 +1,13 @@
+diff --git a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -197,7 +197,8 @@
+     const bool Support=Type==TEXT("shield")||Type==TEXT("spellbook")||Type==TEXT("magic_book")||Off==TEXT("shield")||Off==TEXT("spellbook")||Off==TEXT("magic_book")||Category==TEXT("magic_book");
+     const bool Weapon=!Type.IsEmpty()||Category.Contains(TEXT("weapon"))||!Text(I,TEXT("rangedType")).IsEmpty();
+     if(Slot==6||Slot==9) return Weapon&&!Support;
+-    if(Slot==8||Slot==11) return (Support||IsDualPistol(I))&&!Flag(I,TEXT("isTwoHanded"));
++    // The kukri also fits the off-hand; it only presents beside a main-hand pistol (UOffhandKukriComponent).
++    if(Slot==8||Slot==11) return (Support||IsDualPistol(I)||I.Definition==TEXT("ue_kukri"))&&!Flag(I,TEXT("isTwoHanded"));
+     static const TCHAR* Keys[]={TEXT("earring"),TEXT("helmet"),TEXT("ring1"),TEXT("gloves"),TEXT("necklace"),TEXT("cloak"),TEXT("weapon"),TEXT("armor"),TEXT("offhand"),TEXT("weapon2"),TEXT("belt"),TEXT("ring2"),TEXT("extra"),TEXT("boots"),TEXT("backpack"),TEXT("pants")};
+     return !Weapon && Text(I,TEXT("equipSlot"))==Keys[Slot];
+ }

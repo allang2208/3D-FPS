@@ -1,0 +1,29 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -11,6 +11,7 @@
+ #include "Weapons/Bow/BowWeaponComponent.h"
+ #include "Weapons/Staff/StaffWeaponComponent.h"
+ #include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
+ #include "Weapons/Spellbook/SpellbookComponent.h"
+ #include "Weapons/RuneOrbBladesComponent.h"
+ #include "Production/ProductionToolComponent.h"
+@@ -66,6 +67,8 @@
+     if(RuneSword && RuneSword->IsQuickCombatActive())return false;
+     const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();
+     if(Kukri && Kukri->IsQuickCombatActive())return false;
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return false;
+     const auto* Tool=FindComponentByClass<UProductionToolComponent>();
+     return bInventoryWeaponReady || HasOffhandSpellbook() || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->IsEquipped())
+         || (Tool && Tool->IsWarhammerEquipped()) || (Kukri && Kukri->IsEquipped());
+@@ -88,6 +91,7 @@
+         if(auto* Potion=FindComponentByClass<UFPSPotionUseComponent>())Potion->Cancel();
+         if(auto* Magic=FindComponentByClass<UFPSFireballComponent>())Magic->InterruptForPriority();
+         if(QuickCombatPistol)QuickCombatPistol->Cancel();
++        if(auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>()){OffhandKukri->CancelQuickCombat();OffhandKukri->CancelUppercut();}
+         // Cancel the draw before FireReleased: priority interrupts never loose an arrow.
+         if(Bow && Bow->IsEquipped())Bow->CancelAction();
+         if(Staff && Staff->IsEquipped())Staff->CancelAction();
+

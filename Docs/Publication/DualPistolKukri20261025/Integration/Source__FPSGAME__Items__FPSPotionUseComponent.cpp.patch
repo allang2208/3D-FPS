@@ -1,0 +1,20 @@
+diff --git a/Source/FPSGAME/Items/FPSPotionUseComponent.cpp b/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
+--- a/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
++++ b/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
+@@ -10,6 +10,7 @@
+ #include "../Movement/FPSTraversalRules.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Weapons/Bow/BowArmsMeshComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Weapons/PistolDualWieldComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -218,7 +219,7 @@
+     const auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
+     bBowSupport=!Motion.bTwoHanded&&Bow&&Bow->IsEquipped()&&UseHands==Bow->ArmsMesh();
+     bWaitingForBow=bBowSupport&&!Bow->IsCastHandoffReady();
+-    bStowOffhand=Motion.bTwoHanded||Player->HasOffhandPistol()||Player->HasOffhandSpellbook();
++    bStowOffhand=Motion.bTwoHanded||Player->HasOffhandPistol()||Player->HasOffhandSpellbook()||UOffhandKukriComponent::IsEquippedOn(Player);
+     bCommitted=bUncapped=bDiscarded=false;
+     // Keep every authored contact/audio/release time relative to actual use;
+     // the leading equipment transition must never consume the item early.

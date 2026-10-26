@@ -1,0 +1,30 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp b/Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp
+--- a/Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp
+@@ -19,7 +19,7 @@
+     // The authority's shot/reload ledger must price the same handling time as
+     // the owning client, using this pawn's shadow profile rather than the host's.
+     return Off&&!ColdSteelInventory::IsDualPistol(*Off)
+-        ?Native+FOffhandReloadHandoff::LowerSeconds+FOffhandReloadHandoff::RaiseSeconds:Native;
++        ?Native+FOffhandReloadHandoff::LowerSecondsFor(Off->Definition)+FOffhandReloadHandoff::RaiseSeconds:Native;
+ }
+ 
+ float AFPSGAMECharacter::GetOffhandReloadLowerWeight() const
+@@ -49,6 +49,7 @@
+     OffhandReload.Phase=EOffhandReloadPhase::Lower;
+     OffhandReload.Weapon=Main->InstanceId;OffhandReload.Offhand=Off->InstanceId;OffhandReload.Slot=Slot;
+     OffhandReload.StartedAt=GetWorld()->GetTimeSeconds();
++    OffhandReload.LowerDuration=FOffhandReloadHandoff::LowerSecondsFor(Off->Definition);
+     GetWorldTimerManager().ClearTimer(FireTimerHandle);SetAimingState(false);
+     bRevolverReloadAfterFire=bReloadAfterCasting=false;
+     return true;
+@@ -110,7 +111,7 @@
+         CancelOffhandReload();InterruptReload();return;
+     }
+     const double Now=GetWorld()->GetTimeSeconds();
+-    if(OffhandReload.Phase==EOffhandReloadPhase::Lower&&Now-OffhandReload.StartedAt>=FOffhandReloadHandoff::LowerSeconds)
++    if(OffhandReload.Phase==EOffhandReloadPhase::Lower&&Now-OffhandReload.StartedAt>=OffhandReload.LowerDuration)
+     {
+         OffhandReload.Phase=EOffhandReloadPhase::Reload;
+         ReloadPressed();
+

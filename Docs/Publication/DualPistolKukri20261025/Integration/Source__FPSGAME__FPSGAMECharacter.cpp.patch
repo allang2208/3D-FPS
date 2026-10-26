@@ -1,0 +1,144 @@
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -39,6 +39,8 @@
+ #include "Weapons/Bow/BowWeaponComponent.h"
+ #include "Weapons/Staff/StaffWeaponComponent.h"
+ #include "Weapons/Kukri/KukriWeaponComponent.h"
++#include "Weapons/Kukri/OffhandKukriComponent.h"
++#include "Weapons/Kukri/OffhandKukriAuthoredPose.h"
+ #include "Weapons/Spellbook/SpellbookComponent.h"
+ #include "Weapons/Spellbook/SpellbookPistolSupportTuning.h"
+ #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+@@ -280,6 +282,8 @@
+     Staff=CreateDefaultSubobject<UStaffWeaponComponent>(TEXT("Staff"));
+     // 尼泊尔弯刀（单手近战）：按组件类查找，不新增角色成员。
+     CreateDefaultSubobject<UKukriWeaponComponent>(TEXT("Kukri"));
++    // 副手尼泊尔弯刀（主手手枪双持）：同样按组件类查找。
++    CreateDefaultSubobject<UOffhandKukriComponent>(TEXT("OffhandKukri"));
+     CreateDefaultSubobject<UDealerEnchantmentComponent>(TEXT("DealerEnchantment"));
+     UnarmedIdle=CreateDefaultSubobject<UFPSUnarmedIdleComponent>(TEXT("UnarmedIdle"));
+     Spellbook=CreateDefaultSubobject<USpellbookComponent>(TEXT("OffhandSpellbook"));
+@@ -1202,6 +1206,9 @@
+     if(IsLoneLeftHandRig()){DualPistols->Trigger(1,true);return;}
+     // 手枪砸击进行中不接开火（枪已离姿态，动作结束才恢复）。
+     if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return;
++    // 副手弯刀出刀/上挑进行中同样不接开火（枪随动作走位，结束才恢复）。
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return;
+     if(IsCastBlockingLeftHandAction())
+     {
+         if(RuneSword && RuneSword->IsEquipped())return;
+@@ -2207,6 +2214,7 @@
+     if(Staff)Staff->AdvanceActionBeforeCamera(DeltaSeconds);
+     if(UnarmedIdle)UnarmedIdle->AdvanceActionBeforeCamera(DeltaSeconds);
+     if(Spellbook)Spellbook->AdvanceActionBeforeCamera(DeltaSeconds);
++    if(auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>())OffhandKukri->AdvanceActionBeforeCamera(DeltaSeconds);
+     UpdateADSProgress();
+     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
+     WeaponADSFactor = CameraADSFactor;
+@@ -2299,6 +2307,9 @@
+     // 尼泊尔弯刀：参考视频配准的挥刀镜头曲线（含出刀翻滚冲击、视场放宽）与命中抖动。
+     FVector KukriCameraLocation=FVector::ZeroVector;FRotator KukriCameraRotation=FRotator::ZeroRotator;float KukriFOV=0.f;
+     if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>())Kukri->GetCameraMotion(KukriCameraLocation,KukriCameraRotation,KukriFOV);
++    // 副手弯刀出刀：参考视频配准的镜头曲线 + 命中抖动/出刀冲量，与弯刀主武器同一叠加口径。
++    FVector OffhandKukriLocation=FVector::ZeroVector;FRotator OffhandKukriRotation=FRotator::ZeroRotator;float OffhandKukriFOV=0.f;
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>())OffhandKukri->GetCameraMotion(OffhandKukriLocation,OffhandKukriRotation,OffhandKukriFOV);
+     FVector FireMagicLocation=FVector::ZeroVector;FRotator FireMagicRotation=FRotator::ZeroRotator;
+     if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->GetCameraMotion(FireMagicLocation,FireMagicRotation);
+     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
+@@ -2308,6 +2319,7 @@
+     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BowCameraLocation))*CameraMotionScale;
+     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(StaffCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(KukriCameraLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(OffhandKukriLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(FireMagicLocation))*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+     // Whirlwind publishes its final action sample in PostPhysics, including
+     // contact holds. Do not smooth its camera position against the previous
+@@ -2328,6 +2340,7 @@
+     CameraFeedback+=BowCameraRotation*CameraMotionScale;
+     CameraFeedback+=StaffCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+     CameraFeedback+=KukriCameraRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
++    CameraFeedback+=OffhandKukriRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+     CameraFeedback+=FireMagicRotation*CameraMotionScale*CameraShakeScale.GetValueOnGameThread();
+     FQuat PresentedAim=ControlAim;
+     float SlamPitch=0.f,SlamViewWeight=0.f;
+@@ -2342,7 +2355,7 @@
+     const float AimVerticalFOV = Bow && Bow->IsEquipped()
+         ? Bow->AimVerticalFOV(BaseVerticalFieldOfView) : EffectiveADSVerticalFOV();
+     float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, AimVerticalFOV, CameraADSFactor) + FOVPunch
+-        + KukriFOV*CameraMotionScale*CameraShakeScale.GetValueOnGameThread());
++        + (KukriFOV+OffhandKukriFOV)*CameraMotionScale*CameraShakeScale.GetValueOnGameThread());
+     TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
+     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
+     if (ActionCamera)
+@@ -2729,6 +2742,23 @@
+         TargetLocation+=FMath::Lerp(SpellbookPistolSupport::HipFraming,
+             SpellbookPistolSupport::AimFraming,WeaponADSFactor)*Spellbook->PistolSupportFramingWeight();
+     }
++    if(bPistol)if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();OffhandKukri&&OffhandKukri->IsEquipped())
++    {
++        // Knife-and-gun hip hold: the whole pistol is centred and canted. The cant
++        // unwinds within the first part of ADS so the native sight line is exact.
++        // During the quick-melee flourish the authored per-key framing replaces the stance pose.
++        FTransform Strike;
++        const bool Striking=OffhandKukri->GetStrikeFraming(Strike);
++        const FTransform& FramingPose=Striking?Strike:OffhandKukriPose::HipFraming;
++        const float Framing=Striking?1.f:
++            OffhandKukri->PistolFramingWeight()*(1.f-FMath::SmoothStep(0.f,OffhandKukriPose::CantUnwindAim,WeaponADSFactor));
++        if(Framing>UE_SMALL_NUMBER)
++        {
++            const FQuat Cant=FQuat::Slerp(FQuat::Identity,FramingPose.GetRotation(),Framing);
++            TargetLocation=Cant.RotateVector(TargetLocation)+FramingPose.GetLocation()*Framing;
++            TargetRotation=Cant*TargetRotation;
++        }
++    }
+     // 左手单持的握持微调：负缩放镜像把右手握持整体翻过来，虎口/拇指与枪柄还差一点，
+     // 这里在相机空间补正（只在镜像模式生效，右手主枪不受影响）。
+     if(bViewmodelMirrored)
+@@ -3887,11 +3917,13 @@
+     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
+     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
+     const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return true;
+     return (Magic && Magic->IsOccupyingLeftHand())||(Bash&&Bash->IsOccupyingLeftHand());
+ }
+ bool AFPSGAMECharacter::HasOffhandSpellbook() const {return Spellbook&&Spellbook->IsEquipped();}
+ bool AFPSGAMECharacter::IsOffhandSpellbookPresented() const {return Spellbook&&Spellbook->OwnsLeftHand();}
+-bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook()||IsLoneOffhandPistol(); }
++bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return HasOffhandPistol()||HasOffhandSpellbook()||IsLoneOffhandPistol()||UOffhandKukriComponent::IsEquippedOn(this); }
+ void AFPSGAMECharacter::SuspendWeaponForMenu()
+ {
+     CancelOffhandReload();
+@@ -3906,6 +3938,7 @@
+     // FireReleased below already settles the sword, staff and bow without firing.
+     if(auto* Tool=FindComponentByClass<UProductionToolComponent>())Tool->CancelUse();
+     if(QuickCombatPistol)QuickCombatPistol->Cancel();
++    if(auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>()){OffhandKukri->CancelQuickCombat();OffhandKukri->CancelUppercut();}
+     FireReleased();AimReleased();
+     // A menu owns the keyboard from here on, so the preview's key release will never arrive.
+     if(auto* Fireball=FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);
+@@ -3925,6 +3958,8 @@
+     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
+     if(const auto* Potion=FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())return true;
+     if(const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();Bash&&Bash->IsOccupyingLeftHand())return true;
++    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
++        OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return true;
+     // Staff gestures and their queued requests reserve the right hand. Keep
+     // the left pistol's trigger/reload free while that staff is casting.
+     if(Staff&&Staff->IsEquipped())
+@@ -3995,9 +4030,11 @@
+     if(IsOffhandReloadTransition())return true;
+     const bool bGunBusy=HasOffhandPistol()?DualPistols->IsReloading():
+         (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
++    const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
+     return IsDoorPushActive() || IsTraversing() || Traversal->IsWeaponRecovering() || (RuneSword && RuneSword->IsBusy()) ||
+         (Staff && Staff->IsEquipped() && Staff->IsBusy()) || bGunBusy ||
+-        (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand());
++        (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()) ||
++        (OffhandKukri && (OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()));
+ }
+ float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
+ 
+

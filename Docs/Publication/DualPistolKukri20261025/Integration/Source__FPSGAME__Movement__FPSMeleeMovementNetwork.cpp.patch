@@ -1,0 +1,39 @@
+diff --git a/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp b/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+--- a/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
++++ b/Source/FPSGAME/Movement/FPSMeleeMovementNetwork.cpp
+@@ -14,6 +14,7 @@
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/Kukri/KukriRhythm.h"
+ #include "Engine/World.h"
+ 
+ void UFPSCharacterMovementComponent::BeginMeleeLungeRequest(EFPSMeleeMove Kind,const FVector& Direction,uint32 HammerAttackId)
+@@ -35,6 +36,12 @@
+     const auto* Profile=Player?Player->GetNetShadowProfile():nullptr;
+     const auto* Tool=Profile?Profile->ActiveProductionTool():nullptr;
+     const auto* Item=Tool?Tool:Profile?Profile->Equipped():nullptr;
++    // Pistol + off-hand kukri (OffhandKukriUppercut.cpp): the uppercut stride resolves the
++    // melee in the paired slot, so KukriUppercut below fires for the pair.
++    if(Item&&!Tool&&!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsOneHandedMelee(*Item)
++        &&ColdSteelInventory::IsDualPistol(*Item))
++        if(const auto* Off=Profile->Equipped(Profile->Snapshot().ActiveWeaponSlot==6?8:11);
++            Off&&ColdSteelInventory::IsOneHandedMelee(*Off))Item=Off;
+     const auto* ToolAction=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
+     const bool HammerUppercut=Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Tool)&&R.Kind==EFPSMeleeMove::Uppercut&&
+         ToolAction&&ToolAction->IsUppercutActive();
+@@ -67,8 +74,11 @@
+         if(R.Kind==EFPSMeleeMove::Uppercut&&Profile->MasteryProgress(TEXT("swordUppercut")).Level<1)return false;
+         if(R.Kind==EFPSMeleeMove::RisingDragon&&!ColdSteelModularSword::UsesRisingDragonFinisher(*Item))return false;
+         Budget=RuneSwordUppercutMotion::LungeDistance;
+-        Recovery=R.Kind==EFPSMeleeMove::Uppercut?
+-            (RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)-RuneSwordUppercutMotion::ReleaseStart)/ActionRate:
++        // The kukri (main hand or off hand) ends its faster uppercut on its own clock; holding the sword's longer
++        // recovery would refuse the next stride (e.g. a sprint attack) that the client is already allowed to start.
++        Recovery=R.Kind==EFPSMeleeMove::Uppercut?(KukriUppercut?
++            KukriRhythm::UpperRealSeconds(KukriRhythm::UpperLungeStart,KukriRhythm::Swings[KukriRhythm::UppercutStage].Length):
++            RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)-RuneSwordUppercutMotion::ReleaseStart)/ActionRate:
+             (RuneSwordUppercutMotion::End-RuneSwordUppercutMotion::ReleaseStart)/Rate;break;
+     case EFPSMeleeMove::Dash:
+     case EFPSMeleeMove::AirMomentum:
+

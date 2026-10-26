@@ -1,0 +1,39 @@
+diff --git a/Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp b/Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp
+--- a/Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp
+@@ -1,6 +1,7 @@
+ #include "FPSCastingMeshComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
++#include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Items/FPSPotionUseComponent.h"
+ #include "../Movement/FPSDoorPushComponent.h"
+ #include "FPSFireballComponent.h"
+@@ -43,7 +44,9 @@
+ {
+     auto* Book=GetOwner()?GetOwner()->FindComponentByClass<USpellbookComponent>():nullptr;
+     const auto* Consumable=GetOwner()?GetOwner()->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
+-    const bool OtherLeftRig=Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand()&&!(Consumable&&Consumable->IsTwoHanded());
++    auto* OffhandKukri=GetOwner()?GetOwner()->FindComponentByClass<UOffhandKukriComponent>():nullptr;
++    const bool OtherLeftRig=((Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand())||
++        (OffhandKukri&&OffhandKukri->ArmsMesh()!=this&&OffhandKukri->OwnsLeftHand()))&&!(Consumable&&Consumable->IsTwoHanded());
+     const bool ApplyLeft=bApplyLeftHandCast&&!OtherLeftRig;
+     auto* Magic=ApplyLeft&&GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr;
+     const bool bCastActive=Magic&&Magic->IsOccupyingLeftHand();
+@@ -57,6 +60,7 @@
+     // Compose the paired pistol arm before consumable / door overlays. Their
+     // native ownership must remain the final writer during two-handed actions.
+     if(Book)Book->ApplyPistolRightArm(*this,GetEditableComponentSpaceTransforms());
++    if(OffhandKukri)OffhandKukri->ApplyPistolRightArm(*this,GetEditableComponentSpaceTransforms());
+     if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
+         if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
+     if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
+@@ -79,7 +83,7 @@
+ void UFPSCastingMeshComponent::ApplyOffhandReloadExit()
+ {
+     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+-    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!Pawn->HasOffhandSpellbook()||!Pawn->IsOffhandReloadActive())
++    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!(Pawn->HasOffhandSpellbook()||UOffhandKukriComponent::IsEquippedOn(Pawn))||!Pawn->IsOffhandReloadActive())
+     {OffhandReloadExitCameraPose.Reset();return;}
+     const auto* Camera=Pawn->FirstPersonCamera.Get();if(!Camera)return;
+     if(PoseMesh.Get()!=GetSkeletalMeshAsset())CacheCastSkeleton();

@@ -1,0 +1,46 @@
+diff --git a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+--- a/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp
+@@ -8,12 +8,27 @@
+ 
+ namespace
+ {
++/** The item the uppercut bills and validates against: the melee weapon, or the off-hand kukri behind a dual pistol. */
++const FColdSteelItem* UppercutItem(const UColdSteelStatusModel* Profile)
++{
++    const auto* Item=Profile->Equipped();
++    if(!Item||ColdSteelInventory::IsTwoHandedSword(*Item)||ColdSteelInventory::IsOneHandedMelee(*Item))return Item;
++    if(!ColdSteelInventory::IsDualPistol(*Item))return Item;
++    // Pistol + offhand kukri (OffhandKukriUppercut.cpp): the cast swings the off-hand blade.
++    const auto State=Profile->Snapshot();
++    const auto* Off=Profile->Equipped(State.ActiveWeaponSlot==6?8:11);
++    return Off&&ColdSteelInventory::IsOneHandedMelee(*Off)?Off:Item;
++}
++
+ FMeleeModifiers UppercutModifiers(const UColdSteelStatusModel* Profile)
+ {
+     const auto* Tool=Profile->ActiveProductionTool();
+     const auto* Gunsmith=Profile->GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+-    return Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Tool)&&Gunsmith?
+-        Gunsmith->Calculate(Tool->Definition,Gunsmith->Installed(*Tool)).Melee:ColdSteelMelee::EquippedModifiers(Profile);
++    if(Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Tool)&&Gunsmith)
++        return Gunsmith->Calculate(Tool->Definition,Gunsmith->Installed(*Tool)).Melee;
++    const auto* Item=UppercutItem(Profile);
++    return Item&&(ColdSteelInventory::IsTwoHandedSword(*Item)||ColdSteelInventory::IsOneHandedMelee(*Item))?
++        ColdSteelMelee::Evaluate(*Item,Profile).Modifiers:ColdSteelMelee::EquippedModifiers(Profile);
+ }
+ }
+ 
+@@ -36,8 +51,9 @@
+ 
+ bool UColdSteelStatusModel::CommitSwordUppercutRelease()
+ {
+-    const auto* Tool=ActiveProductionTool();const auto* Item=Tool?Tool:Equipped();
+-    // Two-handed sword, two-handed blunt tool, or the one-handed kukri (KukriUppercut.cpp, 2026-10-23).
++    const auto* Tool=ActiveProductionTool();const auto* Item=Tool?Tool:UppercutItem(this);
++    // Two-handed sword, two-handed blunt tool, the one-handed kukri (KukriUppercut.cpp, 2026-10-23),
++    // or the off-hand kukri behind a dual pistol (OffhandKukriUppercut.cpp, 2026-10-25).
+     if(!Item||(Tool?!ColdSteelInventory::IsTwoHandedBlunt(*Item):
+         !(ColdSteelInventory::IsTwoHandedSword(*Item)||ColdSteelInventory::IsOneHandedMelee(*Item)))||SwordUppercutCooldown()>0.f)return false;
+     const float StaminaCost=SwordUppercutStaminaCost();
+
