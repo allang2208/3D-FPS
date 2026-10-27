@@ -24,6 +24,7 @@ bool AColdSteelPlayerState::RequestCampfire(AColdSteelCampfire* Fire,uint8 Actio
     auto* PC=Cast<APlayerController>(GetOwner());
     auto* M=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!PC||!PC->IsLocalController()||!IsValid(Fire)||!M||bCampfirePending||bInventoryRequestPending||Action>2)return false;
+    bCampfireResultSucceeded=false;
     if(TeamTravelId.IsValid()){CampfireResultText=TEXT("队伍正在保存档案，请稍候");return false;}
     if(!Fire->CanOperate(PC)){CampfireResultText=TEXT("请靠近篝火后操作");return false;}
     ++CampfireRequestId;CampfireResultRevision=-1;
@@ -34,6 +35,17 @@ bool AColdSteelPlayerState::RequestCampfire(AColdSteelCampfire* Fire,uint8 Actio
     PendingCampfirePawn=PC->GetPawn();
     PendingCampfireAction=Action;PendingCampfireRecipe=Recipe;PendingCampfireBatch=Batch;
     CampfireResultText=TEXT("正在同步篝火操作…");
+    // Reuse the inventory channel's acknowledged baseline. A matching inventory
+    // already belongs to the server; no full profile upload is needed per log/meal.
+    const auto Baseline=InventoryBaseline(M->Snapshot());
+    const auto& Profile=M->Snapshot();
+    const bool AppearanceReady=bHasUploadedAppearance&&Profile.PlayerHeadId==UploadedHeadId&&Profile.PlayerHairId==UploadedHairId;
+    if(AppearanceReady&&!Baseline.IsEmpty()&&Baseline==AcknowledgedInventoryBaseline)
+    {
+        PendingUpload.Reset();PendingNormBlob.Reset();bCampfireWaitingUpload=false;
+        ServerCampfireRequest(Fire,CampfireRequestId,Action,Recipe,Batch,Profile.CampfireInventoryRevision,PC->GetPawn());
+        return true;
+    }
     // A fresh, frozen inventory precedes the intent on this same reliable actor channel.
     // Cancel an older partially sent upload; the new upload id replaces its server assembly.
     if(!ScratchSave)ScratchSave=NewObject<UColdSteelProfileSave>();
@@ -66,7 +78,7 @@ void AColdSteelPlayerState::ServerCampfireRequest_Implementation(AColdSteelCampf
     InvalidateTeamTravelReady();
     LastCampfireRequestId=RequestId;
     auto* M=PC->IsLocalController()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():ShadowModel.Get();
-    FString Reason;AVoxelBuildWorld* W=nullptr;FIntVector Cell;
+    FString Reason;bool Success=false;AVoxelBuildWorld* W=nullptr;FIntVector Cell;
     const double Now=GetWorld()->GetTimeSeconds();
     if(!RequestPawn||RequestPawn!=PC->GetPawn())Reason=TEXT("角色已变化，请重新操作篝火");
     else if(!M)Reason=TEXT("操作者档案尚未同步");
@@ -79,18 +91,18 @@ void AColdSteelPlayerState::ServerCampfireRequest_Implementation(AColdSteelCampf
     else if(auto* System=GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>())
     {
         LastCampfireRequestAt=Now;
-        System->ExecuteCampfire(W,Cell,M,PC->IsLocalController()?nullptr:this,Action,Recipe,Batch,Reason);
+        Success=System->ExecuteCampfire(W,Cell,M,PC->IsLocalController()?nullptr:this,Action,Recipe,Batch,Reason);
         Fire->PublishSharedState(true);
     }
     if(ShadowModel){ShadowMirrorTimer=3.f;TickShadowMirror(0.f);ForceNetUpdate();}
     const int64 Revision=M?M->Snapshot().CampfireInventoryRevision:InventoryRevision;
-    if(PC->IsLocalController())CampfireResultText=Reason;
-    else ClientCampfireResult(RequestId,Revision,Reason);
+    if(PC->IsLocalController()){CampfireResultText=Reason;bCampfireResultSucceeded=Success;}
+    else ClientCampfireResult(RequestId,Revision,Success,Reason);
 }
-void AColdSteelPlayerState::ClientCampfireResult_Implementation(int32 RequestId,int64 InventoryRevision,const FString& Reason)
+void AColdSteelPlayerState::ClientCampfireResult_Implementation(int32 RequestId,int64 InventoryRevision,bool Success,const FString& Reason)
 {
     if(!bCampfirePending||RequestId!=CampfireRequestId)return;
-    CampfireResultRevision=InventoryRevision;CampfireResultText=Reason;FinishCampfireReceipt();
+    CampfireResultRevision=InventoryRevision;CampfireResultText=Reason;bCampfireResultSucceeded=Success;FinishCampfireReceipt();
 }
 void AColdSteelPlayerState::FinishCampfireReceipt()
 {
@@ -99,8 +111,14 @@ void AColdSteelPlayerState::FinishCampfireReceipt()
     if(!M||M->Snapshot().CampfireInventoryRevision<CampfireResultRevision)return;
     bCampfirePending=bCampfireWaitingUpload=false;PendingCampfire.Reset();PendingCampfirePawn.Reset();
     M->SetCampfireInventoryPending(false);
+    // This revision was returned by the server and applied before releasing the
+    // lock. Subsequent unchanged campfire operations can use the same baseline.
+    if(bCampfireResultSucceeded&&M->Snapshot().CampfireInventoryRevision==CampfireResultRevision)
+        AcknowledgedInventoryBaseline=InventoryBaseline(M->Snapshot());
     // Persist the receipt locally too; the host slot remains authoritative if this fails.
-    M->CommitState(M->Snapshot());bHasLastSent=false;HeartbeatTimer=0;
+    M->CommitState(M->Snapshot());
+    if(bCampfireResultSucceeded)AcknowledgeInventoryProfile();
+    else {bHasLastSent=false;HeartbeatTimer=0;}
 }
 void AColdSteelPlayerState::PrepareForDisconnect()
 {

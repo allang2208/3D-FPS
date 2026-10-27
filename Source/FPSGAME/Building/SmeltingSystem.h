@@ -102,6 +102,8 @@ public:
     void RecoverCampfireJournal(AVoxelBuildWorld* World);
     bool IsCampfireSaveBlocked(const AVoxelBuildWorld* World) const;
     FCampfireSharedState CampfireState(const AVoxelBuildWorld* World,FIntVector Cell) const;
+    /** Same usable inventory scope and freshness rule as authoritative cooking deduction. */
+    static int64 FreshCampfireCount(const UColdSteelStatusModel* Operator,const FString& Definition);
 private:
     TSet<TWeakObjectPtr<AVoxelBuildWorld>> CampfireBlockedWorlds;
     void LoadCampfireRecipes();

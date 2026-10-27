@@ -6,7 +6,7 @@ class UVoxelBuildSave;
 /** 建筑存档格式版本单一源（2026-09-24 修）：写侧默认值与世界层读取闸门的上界共用它。
  *  历史教训：v8/v9 加字段时只动了序列化器，VoxelBuildWorld 闸门还写死 `>7`，
  *  结果新档读回一律被误判“版本不兼容”。升版本必须只改这里＋序列化分支。 */
-inline constexpr int32 GVoxelBuildSaveVersion=11;
+inline constexpr int32 GVoxelBuildSaveVersion=14;
 
 /** Plain payload, safe to encode and write on a worker. */
 struct FVoxelDiskSnapshot
@@ -14,6 +14,8 @@ struct FVoxelDiskSnapshot
     int32 Version=GVoxelBuildSaveVersion,CellSizeCm=20;
     FString WorldKey;
     TArray<FVoxelSavedCell> Cells;
+    /** v12：楔形格切割（仅世界格子，非 0 条目）。 */
+    TMap<FIntVector,uint8> CellShapes;
     TArray<FVoxelFreeVolume> FreeVolumes;
     TMap<FVoxelBuildKey,float> Damage;
     TSet<FVoxelBrokenBond> BrokenBonds;

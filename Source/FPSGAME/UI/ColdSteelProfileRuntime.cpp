@@ -2,6 +2,8 @@
 #include "../Weapons/JingangRuneComponent.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelProfileRecovery.h"
+#include "../Items/FoodSpoilage.h"
+#include "../Items/CampfireFoodCatalog.h"
 #include "ColdSteelItemRarity.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/WeaponReloadStages.h"
@@ -182,6 +184,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
         FColdSteelItem Item;Item.Definition=Pair.Key;Item.Data=Pair.Value;
         if(ColdSteelItemRarity::Normalize(Item))Pair.Value=MoveTemp(Item.Data);
     }
+    ColdSteelFood::RegisterCatalog(Definitions);
     SaveSlot=TEXT("ColdSteelPlayer"); FString Requested;
     bAudit=FString(FCommandLine::Get()).Contains(TEXT("Audit"));
     if(FParse::Value(FCommandLine::Get(),TEXT("ColdSteelProfile="),Requested)) {
@@ -238,6 +241,7 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     bool FootprintChanged=false;FString FootprintReason;
     if(!MigrateAuthoredGridFootprints(Migrated,FootprintChanged,FootprintReason))
     {Message=FootprintReason;return nullptr;}
+    ColdSteelFood::RebaseProfile(Migrated,ColdSteelFood::Clock(this));
     Shadow->Publish(Migrated);
     Shadow->bPersistenceBlocked=true;
     Shadow->bNetShadowProfile=true;
@@ -248,6 +252,8 @@ void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
     auto Migrated=External;
     RefreshSniperTuning(Migrated,Definitions);
     RefreshBeltTuning(Migrated,Definitions);
+    if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&Migrated.FoodClockId==Current.FoodClockId)
+        Migrated.FoodClockDay=FMath::Max(Migrated.FoodClockDay,Current.FoodClockDay);
     ColdSteelItemRarity::Normalize(Migrated.Items);
     Publish(Migrated);
 }
@@ -262,8 +268,26 @@ bool UColdSteelStatusModel::SetPlayerAppearance(FName HeadId,FName HairId)
     // A cosmetic change must not re-equip weapons or interrupt an active action.
     return PersistState(MoveTemp(Next),false);
 }
+bool UColdSteelStatusModel::CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot)
+{
+    if(bNetShadowProfile&&GuestSlot.IsEmpty())return false;
+    TGuardValue<FString> SlotGuard(CampfireGuestSaveSlot,GuestSlot);
+    TGuardValue<bool> TransactionGuard(bSavingTransaction,true);
+    State.CampfireInventoryRevision=Current.CampfireInventoryRevision+1;
+    State.CampfireWorldReceipts.FindOrAdd(WorldKey)=State.CampfireInventoryRevision;
+    return PersistState(MoveTemp(State),true);
+}
+bool UColdSteelStatusModel::SetPlayerAppearance(FName HeadId,FName HairId)
+{
+    if(Current.PlayerHeadId==HeadId&&Current.PlayerHairId==HairId)return true;
+    auto Next=Snapshot();Next.PlayerHeadId=HeadId;Next.PlayerHairId=HairId;
+    // A cosmetic change must not re-equip weapons or interrupt an active action.
+    return PersistState(MoveTemp(Next),false);
+}
 bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn)
 {
+    if(bTransactionSaveUnconfirmed){Message=TEXT("交易保存结果待恢复，请保留存档并重启主机后恢复");return false;}
+    if(bCampfireInventoryPending){Message=TEXT("联机物品操作正在同步，请稍候");return false;}
     // M2 联机：放开监听服/客户端的档案写入（各自写各自磁盘副本）；专用服拒绝（无本地玩家档案语义）。
     // Shadow gameplay transactions are authoritative in memory. Only their disk
     // writes are blocked: the PlayerState owns guest persistence and mirroring.
@@ -280,6 +304,8 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
     NormalizeProductionState(State);
     NormalizeStaffState(State);
+    if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Client)
+        ColdSteelFood::RebaseProfile(State,ColdSteelFood::Clock(this));
     ColdSteelItemRarity::Normalize(State.Items);
     // Equipment has the highest action priority. Only a successfully published
     // equipment change interrupts the outgoing action in ApplyColdSteelProfile.
@@ -298,17 +324,23 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     State.Generation=Current.Generation+1;
     if(bNetShadowProfile)
     {
+        if(!CampfireGuestSaveSlot.IsEmpty())
+        {
+            auto* Saved=NewObject<UColdSteelProfileSave>();Saved->Profile=State;StripNetworkContainerView(Saved->Profile);
+            if(!UGameplayStatics::SaveGameToSlot(Saved,CampfireGuestSaveSlot,0))
+            {bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("客机交易写入未确认，已保留原存档等待恢复");return false;}
+        }
         Publish(State);
         if(bApplyPawn)ApplyToPawn();
         OnChanged.Broadcast();return true;
     }
     auto* Save=Cast<UColdSteelProfileSave>(UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));Save->Profile=State;
     const FString Slot=SaveSlot+(State.Generation%2?TEXT("_A"):TEXT("_B"));
-    if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){Message=TEXT("保存失败，操作未提交");return false;}
+    if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("保存失败，操作未提交");return false;}
     TArray<uint8> Written;
-    if(!UGameplayStatics::LoadDataFromSlot(Written,Slot,0)||!FFileHelper::SaveStringToFile(HashBytes(Written),*ChecksumPath(Slot))){Message=TEXT("完整性记录写入失败，操作未提交");return false;}
+    if(!UGameplayStatics::LoadDataFromSlot(Written,Slot,0)||!FFileHelper::SaveStringToFile(HashBytes(Written),*ChecksumPath(Slot))){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("完整性记录写入失败，操作未提交");return false;}
     auto* Verify=ReadCheckedProfile(Slot);
-    if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){Message=TEXT("存档写入校验失败，操作未提交");return false;}
+    if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("存档写入校验失败，操作未提交");return false;}
     QueueProgressNotices(Current,State);
     Publish(State);Message=TEXT("已保存");
     if(bApplyPawn)ApplyToPawn();
@@ -643,6 +675,21 @@ bool UColdSteelStatusModel::ReloadProfile()
                     I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
                 }
             }
+            // Previously acquired wildlife meat gains its completed presentation without
+            // recreating the item or resetting its natural-day freshness clock.
+            if((I.Definition==TEXT("raw_venison")||I.Definition==TEXT("raw_boar_meat")||I.Definition==TEXT("raw_fox_meat"))&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool Updated=false;
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("world_mesh"),TEXT("desc")})
+                {
+                    FString StoredValue,CatalogValue;ItemData->TryGetStringField(Key,StoredValue);
+                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
+                    {ItemData->SetStringField(Key,CatalogValue);Updated=true;}
+                }
+                if(ItemData->HasField(TEXT("artPending"))){ItemData->RemoveField(TEXT("artPending"));Updated=true;}
+                if(Updated){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
             // Reference-remodeled server props keep their inventory identity and footprint.
             if((I.Definition==TEXT("search_graphics_card")||I.Definition==TEXT("search_ram_module")||
                 I.Definition==TEXT("search_ssd"))&&CatalogData&&
@@ -851,6 +898,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
     if(Def==TEXT("reforge_ticket"))I.StackMax=9999;
     if(Text(I,TEXT("category"))==TEXT("gold"))I.StackMax=9007199254740991ll;
     const auto Size=Footprint(I);I.Width=Size.X;I.Height=Size.Y;
+    if(ColdSteelFood::LifetimeDays(I)>0.)ColdSteelFood::Stamp(I,ColdSteelFood::Clock(this));
     return I;
 }
 FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==ColdSteelCompartment::Place||(I&&I->Place==ColdSteelCompartment::Place&&Place!=ColdSteelWarehouse::Place))return ProposeCompartment(Id,Place,Cell,Orientation);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
@@ -1056,16 +1104,29 @@ bool UColdSteelStatusModel::UseItem(const FString& Id)
 }
 bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotionContact)
 {
+    SettleFoodSpoilage(true);
     SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});if(N<0||(P.Items[N].Place!=0&&P.Items[N].Place!=ColdSteelCompartment::Place))return false;
+    if(P.Items[N].Definition==TEXT("spoiled_food")||ColdSteelFood::IsExpired(P.Items[N],ColdSteelFood::Clock(this)))
+    {Message=TEXT("食物已腐败，不能食用");return false;}
     auto& I=P.Items[N];if(I.Cooldown>0){Message=TEXT("物品冷却中");return false;}
+    if(CampfireFood::Contains(I.Definition)&&!CampfireFood::Cooked(I.Definition)){Message=TEXT("生肉需要先在篝火烤熟");return false;}
     TSharedPtr<FJsonObject> O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O);const TSharedPtr<FJsonObject>* Effect=nullptr;
+    TSharedPtr<FJsonObject> CookedFood;
+    if(CampfireFood::Cooked(I.Definition))
+    {
+        // The owner submits only the instance ID. Resolve this recipe's food
+        // effect from this process's catalog, never an uploaded instance payload.
+        const FString* Definition=Definitions.Find(I.Definition);
+        if(!Definition||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),CookedFood)||!CookedFood)return false;
+        O=CookedFood;
+    }
     if(!O||!O->TryGetObjectField(TEXT("useEffect"),Effect)||!CurrentPawn.IsValid()){Message=TEXT("该物品当前无法使用");return false;}
     auto Num=[&](const TCHAR* K){double V=0;(*Effect)->TryGetNumberField(K,V);return V;};
     auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>();if(!Health||Health->IsDead())return false;
     const float HP=Num(TEXT("hp"))+Health->MaxHealth*Num(TEXT("maxHpPercent"))*.01;
     const float MP=Num(TEXT("mp"))+Derived(TEXT("maxMp"))*Num(TEXT("maxMpPercent"))*.01;
     const float Water=Num(TEXT("hydration"));
-    const float Food=Num(TEXT("hunger"));
+    const float Food=Num(TEXT("hunger"))+P.Survival.MaxHunger*Num(TEXT("maxHungerPercent"))*.01;
     const float Sanity=Num(TEXT("sanity"));
     if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||Mana()>=Derived(TEXT("maxMp")))&&
         (Water<=0||P.Survival.Hydration>=P.Survival.MaxHydration)&&
@@ -1075,6 +1136,11 @@ bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotio
     {
         auto* Potion=CurrentPawn->FindComponentByClass<UFPSPotionUseComponent>();
         return Potion&&Potion->TryBegin(Id,I.Definition);
+    }
+    if(CurrentPawn->GetNetMode()==NM_Client)
+    {
+        auto* State=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
+        return State&&State->RequestInventoryAction(EColdSteelInventoryAction::Consume,Id);
     }
     P.Health=FMath::Clamp(P.Health+FMath::Max(0.f,HP),0.f,Health->MaxHealth);P.Mana=FMath::Clamp(P.Mana+FMath::Max(0.f,MP),0.f,Derived(TEXT("maxMp")));
     // Food's hydration cost is part of the same successful use transaction.
@@ -1095,6 +1161,12 @@ bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotio
         else if(--I.Count<=0)P.Items.RemoveAt(N);
     }
     else if(--I.Count<=0)P.Items.RemoveAt(N);
+    if(CurrentPawn->GetNetMode()!=NM_Standalone)
+    {
+        const auto* State=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
+        const FString GuestSlot=bNetShadowProfile&&State?State->CampfireGuestSlot():FString();
+        return CommitCampfireState(P,TEXT("Inventory"),GuestSlot);
+    }
     return CommitState(P);
 }
 bool UColdSteelStatusModel::DefaultAction(const FString& Id)
@@ -1115,6 +1187,7 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
 }
 void UColdSteelStatusModel::SyncRuntime()
 {
+    SettleFoodSpoilage();
     if(!CurrentPawn.IsValid() || CurrentPawn->IsResolvingActionInterrupt())return;
     const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>();
     const bool DualActive=Dual && Dual->IsActive();

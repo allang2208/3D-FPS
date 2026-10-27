@@ -25,6 +25,8 @@ class UColdSteelSmeltingSystem;
 class UColdSteelSmeltingRowProxy;
 class AVoxelBuildWorld;
 class AColdSteelCampfire;
+class UWidgetSwitcher;
+class UColdSteelCampfirePanel;
 
 /**
  * 冶炼面板（Docs/UI/smelting-panel-plan-20260923.md）：只由高炉 E 交互打开的独立右侧面板，
@@ -110,6 +112,8 @@ private:
     void AnimateBars(float DeltaSeconds);
 
     UPROPERTY(Transient) TObjectPtr<UColdSteelHUDWidget> HUD;
+    UPROPERTY(Transient) TObjectPtr<UWidgetSwitcher> StationPanels;
+    UPROPERTY(Transient) TObjectPtr<UColdSteelCampfirePanel> CampfirePanel;
     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
     UPROPERTY(Transient) TObjectPtr<UColdSteelSmeltingSystem> System;
     TWeakObjectPtr<AVoxelBuildWorld> World;

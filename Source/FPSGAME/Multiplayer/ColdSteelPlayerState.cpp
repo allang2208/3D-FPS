@@ -103,6 +103,7 @@ AColdSteelPlayerState::AColdSteelPlayerState()
 void AColdSteelPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(AColdSteelPlayerState,FoodClockState,COND_OwnerOnly);
     DOREPLIFETIME(AColdSteelPlayerState, PublicInfo);
     DOREPLIFETIME_CONDITION(AColdSteelPlayerState, MirrorBlob, COND_OwnerOnly);
     DOREPLIFETIME_CONDITION(AColdSteelPlayerState,bBowPerfectSpeedBonus,COND_OwnerOnly);

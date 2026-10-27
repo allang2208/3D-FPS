@@ -1,4 +1,5 @@
 #include "ColdSteelCampfire.h"
+#include "CampfireCookingPresentation.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPrefabActor.h"
 #include "SmeltingSystem.h"
@@ -38,7 +39,11 @@ void AColdSteelCampfire::PublishSharedState(bool Force)
     auto* S=GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>();if(!S)return;
     const int32 Next=Shared.Revision+1;
     Shared=S->CampfireState(W,Cell);Shared.ServerTime=Now;Shared.Revision=Next;
-    LastSharedPublish=Now;ForceNetUpdate();
+    LastSharedPublish=Now;OnRep_Shared();ForceNetUpdate();
+}
+void AColdSteelCampfire::OnRep_Shared()
+{
+    if(CookingPresentation)CookingPresentation->Update(bPresentationRequested);
 }
 double AColdSteelCampfire::DisplayFuel() const
 {

@@ -682,7 +682,7 @@ void AVoxelBuildWorld::TickSmelting(float Delta)
     // 空闲炉也在烧料（v8 火种）——但先取格快照再逐个结算：SettleFurnace 落账会把"烧尽且零升级"的
     // 燃料记录整条移除（SetFuel(0)→RemoveAt），直接引用式遍历 Fuels 就是迭代器失效（2026-09-24 回头审查发现）。
     TArray<FIntVector> IdleCells;IdleCells.Reserve(Fuels.Num());
-    for(const FVoxelFurnaceFuel& F:Fuels)if(F.FuelSeconds>0)IdleCells.Add(F.Cell);
+    for(const FVoxelFurnaceFuel& F:Fuels)if(F.FuelSeconds>0&&!FindSmelting(F.Cell))IdleCells.Add(F.Cell);
     for(const FIntVector& Cell:IdleCells)System->SettleFurnace(this,Cell);
 }
 

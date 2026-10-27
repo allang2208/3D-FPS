@@ -13,6 +13,7 @@ class USphereComponent;
 class UStaticMeshComponent;
 class AVoxelBuildWorld;
 class APlayerController;
+class UCampfireCookingPresentation;
 
 /** Buildable campfire. Warmth is queried by the authoritative survival clock, never saved as a buff. */
 UCLASS()
@@ -43,7 +44,10 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
-    UPROPERTY(Replicated) FCampfireSharedState Shared;
+    UPROPERTY(ReplicatedUsing=OnRep_Shared) FCampfireSharedState Shared;
+    UFUNCTION() void OnRep_Shared();
+    UPROPERTY() TObjectPtr<UCampfireCookingPresentation> CookingPresentation;
+    bool bPresentationRequested=false;
     double LastSharedPublish=-100;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> Body;
     UPROPERTY() TObjectPtr<USphereComponent> WarmthQuery;

@@ -8,6 +8,7 @@ class APlayerController;
 class AController;
 class APawn;
 class AActor;
+class UColdSteelStatusModel;
 
 UENUM(BlueprintType)
 enum class EDevelopmentTuningOption : uint8
@@ -22,7 +23,9 @@ enum class EDevelopmentTuningOption : uint8
     /** Local development view; off is the existing first-person camera. */
     ThirdPersonView,
     /** Hold the third-person observation camera in world space for action viewing. */
-    FixedThirdPersonView
+    FixedThirdPersonView,
+    /** Forge, alchemy and woodworking inputs are supplied for this session. */
+    FreeCrafting
 };
 
 /** Single-player session overrides. These flags are deliberately absent from the profile/save. */
@@ -34,6 +37,7 @@ public:
     static UDevelopmentTuningSubsystem* Find(const UObject* Context);
     static bool IsPlayerOptionEnabled(const APawn* Pawn, EDevelopmentTuningOption Option);
     static bool ShouldOneHitKill(const AActor* Victim, AController* DamageInstigator, AActor* DamageCauser);
+    static bool IsFreeCrafting(const UColdSteelStatusModel* Model);
 
     UFUNCTION(BlueprintPure, Category="Development|Tuning") bool IsEnabled(EDevelopmentTuningOption Option) const;
     UFUNCTION(BlueprintPure, Category="Development|Tuning") bool CanEdit(const APlayerController* Player) const;

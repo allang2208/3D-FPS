@@ -1,4 +1,5 @@
 #include "FPSPotionUseComponent.h"
+#include "CampfireFoodCatalog.h"
 #include "PotionVisuals.h"
 #include "../FPSGAMECharacter.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -43,7 +44,7 @@ bool UFPSPotionUseComponent::IsDrink(const FString& Definition)
 }
 bool UFPSPotionUseComponent::IsFood(const FString& Definition)
 {
-    return Definition==TEXT("baguette_bread")||Definition==TEXT("bread")||Definition==TEXT("roasted_chicken_leg")||Definition==TEXT("roasted_lamb_ribs")||Definition==TEXT("roasted_sausage")||Definition==TEXT("roasted_large_lamb");
+    return Definition==TEXT("baguette_bread")||Definition==TEXT("bread")||CampfireFood::Cooked(Definition)!=nullptr;
 }
 bool UFPSPotionUseComponent::IsAnimatedConsumable(const FString& Definition)
 {
@@ -56,11 +57,13 @@ void UFPSPotionUseComponent::BeginPlay()
     HealthMotion.Load(false);ManaMotion.Load(true);WaterMotion.Load(false,TEXT("mineral_water"));
     FoodMotion.Load(false,TEXT("baguette_bread"));
     BreadMotion.Load(false,TEXT("bread"));
-    ChickenMotion.Load(false,TEXT("roasted_chicken_leg"));
-    LambRibsMotion.Load(false,TEXT("roasted_lamb_ribs"));
-    SausageMotion.Load(false,TEXT("roasted_sausage"));
-    LargeLambMotion.Load(false,TEXT("roasted_large_lamb"));
     SodaMotion.Load(false,TEXT("soda_can"));
+    for(const auto& Food:CampfireFood::Catalog())CookedFoodMotions.FindOrAdd(Food.Cooked).Load(false,*Food.MotionProfile);
+    // Retain named handles for existing authoring tools; runtime selection uses the catalog.
+    ChickenMotion=CookedFoodMotions.FindRef(TEXT("roasted_chicken_leg"));
+    LambRibsMotion=CookedFoodMotions.FindRef(TEXT("roasted_lamb_ribs"));
+    SausageMotion=CookedFoodMotions.FindRef(TEXT("roasted_sausage"));
+    LargeLambMotion=CookedFoodMotions.FindRef(TEXT("roasted_large_lamb"));
     TArray<FSoftObjectPath> Paths;
     for(const auto& Tier:PotionVisuals::Tiers())
     {
@@ -75,16 +78,14 @@ void UFPSPotionUseComponent::BeginPlay()
     Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette")));
     Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread")));
     Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/SodaCan20261003/SM_SodaCan.SM_SodaCan")));
-    Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/ChickenLeg20261014/Roasted/SM_RoastedChickenLeg.SM_RoastedChickenLeg")));
-    Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs.SM_RoastedLambRibs")));
-    Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/Sausage20261014/Roasted/SM_RoastedSausage.SM_RoastedSausage")));
-    Paths.Add(FSoftObjectPath(TEXT("/Game/Items/Consumables/LargeLamb20261014/Roasted/SM_RoastedLargeLamb.SM_RoastedLargeLamb")));
     const int32 AudioIndex=Paths.Num();
     Paths.Add(FSoftObjectPath(TEXT("/Game/Audio/Consumables20261003/S_WaterSwallow_01.S_WaterSwallow_01")));
     Paths.Add(FSoftObjectPath(TEXT("/Game/Audio/Consumables20261003/S_WaterSwallow_02.S_WaterSwallow_02")));
     Paths.Add(FSoftObjectPath(TEXT("/Game/Audio/Consumables20261003/S_WaterSwallow_03.S_WaterSwallow_03")));
     Paths.Add(FSoftObjectPath(TEXT("/Game/Audio/Consumables20261003/S_FoodSwallow.S_FoodSwallow")));
-    LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this,Paths,MeshCount,FoodIndex,AudioIndex]()
+    const int32 CatalogIndex=Paths.Num();
+    for(const auto& Food:CampfireFood::Catalog())Paths.Add(FSoftObjectPath(Food.CookedMesh));
+    LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this,Paths,MeshCount,FoodIndex,AudioIndex,CatalogIndex]()
     {
         Assets.Reset();LiquidMaterials.Reset();
         for(int32 I=0;I<MeshCount;++I)Assets.Add(Cast<UStaticMesh>(Paths[I].ResolveObject()));
@@ -92,14 +93,14 @@ void UFPSPotionUseComponent::BeginPlay()
         FoodMesh=Cast<UStaticMesh>(Paths[FoodIndex].ResolveObject());
         BreadMesh=Cast<UStaticMesh>(Paths[FoodIndex+1].ResolveObject());
         SodaMesh=Cast<UStaticMesh>(Paths[FoodIndex+2].ResolveObject());
-        ChickenMesh=Cast<UStaticMesh>(Paths[FoodIndex+3].ResolveObject());
-        LambRibsMesh=Cast<UStaticMesh>(Paths[FoodIndex+4].ResolveObject());
-        SausageMesh=Cast<UStaticMesh>(Paths[FoodIndex+5].ResolveObject());
-        LargeLambMesh=Cast<UStaticMesh>(Paths[FoodIndex+6].ResolveObject());
         WaterSwallowSounds.Reset();
         for(int32 I=AudioIndex;I<AudioIndex+3;++I)
             if(auto* Sound=Cast<USoundBase>(Paths[I].ResolveObject()))WaterSwallowSounds.Add(Sound);
         FoodSwallowSound=Cast<USoundBase>(Paths[AudioIndex+3].ResolveObject());
+        const auto& Catalog=CampfireFood::Catalog();
+        for(int32 I=0;I<Catalog.Num();++I)CookedFoodMeshes.Add(Catalog[I].Cooked,Cast<UStaticMesh>(Paths[CatalogIndex+I].ResolveObject()));
+        ChickenMesh=CookedFoodMeshes.FindRef(TEXT("roasted_chicken_leg"));LambRibsMesh=CookedFoodMeshes.FindRef(TEXT("roasted_lamb_ribs"));
+        SausageMesh=CookedFoodMeshes.FindRef(TEXT("roasted_sausage"));LargeLambMesh=CookedFoodMeshes.FindRef(TEXT("roasted_large_lamb"));
     }));
     auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     SwallowAudio=NewObject<UAudioComponent>(GetOwner(),TEXT("ConsumableSwallowAudio"));
@@ -139,7 +140,8 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     const bool Food=IsFood(Definition);
     const bool Soda=Definition==TEXT("soda_can");
     const bool Solid=Food||Soda;
-    UStaticMesh* SolidVisual=Definition==TEXT("roasted_large_lamb")?LargeLambMesh.Get():Soda?SodaMesh.Get():(Definition==TEXT("roasted_sausage")?SausageMesh.Get():(Definition==TEXT("roasted_lamb_ribs")?LambRibsMesh.Get():(Definition==TEXT("roasted_chicken_leg")?ChickenMesh.Get():(Definition==TEXT("bread")?BreadMesh.Get():FoodMesh.Get()))));
+    UStaticMesh* SolidVisual=Soda?SodaMesh.Get():Definition==TEXT("bread")?BreadMesh.Get():FoodMesh.Get();
+    if(CampfireFood::Cooked(Definition))SolidVisual=CookedFoodMeshes.FindRef(Definition).Get();
     const int32 TierIndex=Solid?INDEX_NONE:PotionVisuals::FindTier(Definition);
     if(!Solid&&TierIndex==INDEX_NONE){Model->Message=TEXT("饮用瓶型尚未配置");return false;}
     const int32 Base=Solid?0:TierIndex*3;
@@ -172,7 +174,8 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     }
     // Bottle geometry is shared by HP/MP. Keep a common grasp and the existing
     // mouth-to-hand distance; height differences move only the bottle's bottom.
-    Motion=Definition==TEXT("roasted_large_lamb")?LargeLambMotion:Food?(Definition==TEXT("roasted_sausage")?SausageMotion:(Definition==TEXT("roasted_lamb_ribs")?LambRibsMotion:(Definition==TEXT("roasted_chicken_leg")?ChickenMotion:(Definition==TEXT("bread")?BreadMotion:FoodMotion)))):(Soda?SodaMotion:(Water?WaterMotion:HealthMotion));
+    Motion=Food?(Definition==TEXT("bread")?BreadMotion:FoodMotion):(Soda?SodaMotion:(Water?WaterMotion:HealthMotion));
+    if(const auto* FoodProfile=CookedFoodMotions.Find(Definition))Motion=*FoodProfile;
     Motion.GripHeight=Visual.GripHeightCm;
     if(Motion.Keys.IsEmpty()){Model->Message=TEXT("消耗品动作尚未加载");return false;}
     // Resolve ownership, not visibility: the inventory temporarily hides native
@@ -222,7 +225,8 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
         FallbackHands->UnHideBoneByName(TEXT("clavicle_r"));BeginEquipmentStow();
     }
     if(ActiveHands.IsValid())AddTickPrerequisiteComponent(ActiveHands.Get());
-    bActive=true;SetComponentTickEnabled(true);Model->Message=Definition==TEXT("roasted_large_lamb")?TEXT("食用大份烤羊排"):bFood?(Definition==TEXT("roasted_sausage")?TEXT("食用烤香肠"):(Definition==TEXT("roasted_lamb_ribs")?TEXT("食用烤羊肋排"):(Definition==TEXT("roasted_chicken_leg")?TEXT("食用烤鸡腿"):(Definition==TEXT("bread")?TEXT("食用普通面包"):TEXT("食用法棍面包"))))):(bWater?TEXT("饮用矿泉水"):(bSoda?TEXT("饮用汽水"):TEXT("饮用药水")));return true;
+    bActive=true;SetComponentTickEnabled(true);
+    Model->Message=(bFood?TEXT("食用"):TEXT("饮用"))+ColdSteelInventory::Text(Model->CreateItem(Definition),TEXT("name"));return true;
 }
 float UFPSPotionUseComponent::Age() const
 {return !bActive?0.f:bWaitingForBow?-FBowCastHandPose::Seconds:float(GetWorld()->GetTimeSeconds()-StartTime);}

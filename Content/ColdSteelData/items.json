@@ -5927,5 +5927,407 @@
       "magicCooldownPercent": -0.005,
       "magicCostPercent": -0.01
     }
+  },
+  "raw_boar_meat": {
+    "id": "raw_boar_meat",
+    "name": "生野猪肉",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 3,
+    "desc": "狩猎取得的生野猪肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
+    "icon": "",
+    "icon_fallback": "生野猪肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawBoarMeat.SM_RawBoarMeat",
+    "ue_icon": "Icons/raw_boar_meat.png"
+  },
+  "raw_chicken_leg": {
+    "id": "raw_chicken_leg",
+    "spoilDays": 3,
+    "name": "生鸡腿",
+    "category": "material",
+    "type": "食材",
+    "desc": "尚未烹熟的带骨鸡腿，不能直接食用。投入篝火烧烤队列，有燃料时每份烤制30秒，制成1份烤鸡腿。",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "icon_fallback": "生鸡腿",
+    "ue_icon": "Icons/raw_chicken_leg.png",
+    "world_mesh": "/Game/Items/Consumables/ChickenLeg20261014/Raw/SM_RawChickenLeg.SM_RawChickenLeg"
+  },
+  "raw_fox_meat": {
+    "id": "raw_fox_meat",
+    "name": "生狐肉",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 3,
+    "desc": "狩猎取得的生狐肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
+    "icon": "",
+    "icon_fallback": "生狐肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawFoxMeat.SM_RawFoxMeat",
+    "ue_icon": "Icons/raw_fox_meat.png"
+  },
+  "raw_lamb_ribs": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "raw_lamb_ribs",
+    "spoilDays": 3,
+    "name": "生羊肋排",
+    "category": "material",
+    "type": "食材",
+    "desc": "切分的小份带骨羊肋排，保留肋骨与肉块。需投入有燃料的篝火烤熟，不能直接食用。",
+    "icon_fallback": "生羊肋排",
+    "ue_icon": "Icons/raw_lamb_ribs.png",
+    "world_mesh": "/Game/Items/Consumables/LambRibs20261014/Raw/SM_RawLambRibs.SM_RawLambRibs"
+  },
+  "raw_large_lamb": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "raw_large_lamb",
+    "spoilDays": 3,
+    "name": "生大羊排",
+    "category": "material",
+    "type": "食物",
+    "desc": "完整带骨的大块生羊排，保留肋骨与肉块形态。可投入有燃料的篝火烤熟，不能直接食用。",
+    "icon_fallback": "生大羊排",
+    "ue_icon": "Icons/raw_large_lamb.png",
+    "world_mesh": "/Game/Items/Consumables/LargeLamb20261014/Raw/SM_RawLargeLamb.SM_RawLargeLamb"
+  },
+  "raw_sausage": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "raw_sausage",
+    "spoilDays": 3,
+    "name": "生香肠",
+    "category": "material",
+    "type": "食材",
+    "desc": "将绞肉灌入肠衣制成的单根生香肠，外皮带有细密褶皱。可投入有燃料的篝火烤熟，不能直接食用。",
+    "icon_fallback": "生香肠",
+    "ue_icon": "Icons/raw_sausage.png",
+    "world_mesh": "/Game/Items/Consumables/Sausage20261014/Raw/SM_RawSausage.SM_RawSausage"
+  },
+  "raw_venison": {
+    "id": "raw_venison",
+    "name": "生鹿肉",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 3,
+    "desc": "狩猎取得的生鹿肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
+    "icon": "",
+    "icon_fallback": "生鹿肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
+    "ue_icon": "Icons/raw_venison.png"
+  },
+  "roasted_boar_meat": {
+    "id": "roasted_boar_meat",
+    "name": "烤野猪肉",
+    "category": "consumable",
+    "type": "食物",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 4,
+    "icon": "",
+    "icon_fallback": "烤野猪肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedBoarMeat.SM_RoastedBoarMeat",
+    "ue_icon": "Icons/roasted_boar_meat.png",
+    "desc": "篝火烤熟的野猪肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
+    "maxUses": 1,
+    "useEffect": {
+      "maxHungerPercent": 30
+    },
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+30%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "roasted_chicken_leg": {
+    "id": "roasted_chicken_leg",
+    "spoilDays": 4,
+    "name": "烤鸡腿",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "带骨鸡腿经篝火烤制，表皮呈金褐色。握住骨端食用，恢复饱食度上限的25%，不改变水分与SAN。",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "maxUses": 1,
+    "icon": "",
+    "icon_fallback": "烤鸡腿",
+    "ue_icon": "Icons/roasted_chicken_leg.png",
+    "world_mesh": "/Game/Items/Consumables/ChickenLeg20261014/Roasted/SM_RoastedChickenLeg.SM_RoastedChickenLeg",
+    "useEffect": {
+      "maxHungerPercent": 25
+    },
+    "useDuration": 4.8,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+25%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "roasted_fox_meat": {
+    "id": "roasted_fox_meat",
+    "name": "烤狐肉",
+    "category": "consumable",
+    "type": "食物",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 4,
+    "icon": "",
+    "icon_fallback": "烤狐肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedFoxMeat.SM_RoastedFoxMeat",
+    "ue_icon": "Icons/roasted_fox_meat.png",
+    "desc": "篝火烤熟的狐肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
+    "maxUses": 1,
+    "useEffect": {
+      "maxHungerPercent": 15
+    },
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+15%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "roasted_lamb_ribs": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "roasted_lamb_ribs",
+    "spoilDays": 4,
+    "name": "烤羊肋排",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "在篝火上烤熟的小份带骨羊肋排，肉面带有烘烤后的色泽。握住骨端食用可补充饱食度，不改变水分与SAN。",
+    "maxUses": 1,
+    "icon_fallback": "烤羊肋排",
+    "ue_icon": "Icons/roasted_lamb_ribs.png",
+    "world_mesh": "/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs.SM_RoastedLambRibs",
+    "useEffect": {
+      "maxHungerPercent": 25
+    },
+    "useDuration": 4.8,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+25%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "roasted_large_lamb": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "roasted_large_lamb",
+    "spoilDays": 4,
+    "name": "大份烤羊排",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "篝火烤熟的整块带骨羊排。握住肋骨食用可补充饱食度，并获得大份烤羊排增益。水分与SAN不变。",
+    "maxUses": 1,
+    "icon_fallback": "大份烤羊排",
+    "ue_icon": "Icons/roasted_large_lamb.png",
+    "world_mesh": "/Game/Items/Consumables/LargeLamb20261014/Roasted/SM_RoastedLargeLamb.SM_RoastedLargeLamb",
+    "useEffect": {
+      "maxHungerPercent": 50
+    },
+    "buffs": [
+      {
+        "label": "体力上限",
+        "value": 10,
+        "unit": "%",
+        "duration": 600,
+        "note": "提高上限不直接补充体力；饱腹已满也可食用；重复食用只刷新持续时间。"
+      },
+      {
+        "label": "体力恢复速度",
+        "value": 5,
+        "unit": "%",
+        "duration": 600
+      }
+    ],
+    "useDuration": 6.0,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+50%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "握持食用"
+      }
+    ]
+  },
+  "roasted_sausage": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "roasted_sausage",
+    "spoilDays": 4,
+    "name": "烤香肠",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "在篝火上烤熟的单根香肠，肠衣呈现烘烤后的褐色与自然褶皱。握住肠体食用可补充饱食度，不改变水分与SAN。",
+    "maxUses": 1,
+    "icon_fallback": "烤香肠",
+    "ue_icon": "Icons/roasted_sausage.png",
+    "world_mesh": "/Game/Items/Consumables/Sausage20261014/Roasted/SM_RoastedSausage.SM_RoastedSausage",
+    "useEffect": {
+      "maxHungerPercent": 15
+    },
+    "buffs": [
+      {
+        "label": "体力恢复速度",
+        "value": 5,
+        "unit": "%",
+        "duration": 600,
+        "note": "饱腹已满也可食用；重复食用只刷新持续时间，倍率不叠加。"
+      }
+    ],
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+15%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "roasted_venison": {
+    "id": "roasted_venison",
+    "name": "烤鹿肉",
+    "category": "consumable",
+    "type": "食物",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 4,
+    "icon": "",
+    "icon_fallback": "烤鹿肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
+    "ue_icon": "Icons/roasted_venison.png",
+    "desc": "篝火烤熟的鹿肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
+    "maxUses": 1,
+    "useEffect": {
+      "maxHungerPercent": 25
+    },
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+25%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
   }
 }

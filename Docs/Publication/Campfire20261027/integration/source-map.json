@@ -1,0 +1,103 @@
+{
+  "automatic_application": false,
+  "fragments": [
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/01-stable-guest-receipts.cpp.inc",
+      "start_line": 331,
+      "sha256": "7f2fe31bb16a9056bf47fa27afb67452d439c289bf05396d42ffb87d0e4c8d38",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/02-settle-before-upload.cpp.inc",
+      "start_line": 378,
+      "sha256": "06217c16d30668ce8dc7a9e2147f55686c0187d043f6f79a3e005708884fb859",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/03-new-guest-food-clock.cpp.inc",
+      "start_line": 390,
+      "sha256": "3d4e16c9b95d1d514c1821cd38ba5aca3fd614a5f6d04d85c16272eabb7c4a6b",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/04-uploaded-food-clock.cpp.inc",
+      "start_line": 403,
+      "sha256": "7fa11e57ae09088705939ad7213aa05d4c86ef9c93b7cc3fd875dd33b593441e",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/05-stale-inventory-barrier.cpp.inc",
+      "start_line": 410,
+      "sha256": "c57d639b5ca25be3988d0ff34f64023847c366a70090764529ba7109d903a99f",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/06-preserve-food-age.cpp.inc",
+      "start_line": 438,
+      "sha256": "24ee8750e0de2165070819634287eeea053992ca71fc7ac79e8c2a2218dbcc67",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/07-guest-durable-save.cpp.inc",
+      "start_line": 659,
+      "sha256": "25e861fcb69b326256a8837100bb9b49cdd8f494613ae7948cb2c662f978ed61",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/08-food-clock-mirror-digest.cpp.inc",
+      "start_line": 686,
+      "sha256": "9a72a5dffc967e2ea5ea6514015115ddfc5859c31bc0389f7cf38d5e0acd1d2f",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/09-acknowledge-inventory-profile.cpp.inc",
+      "start_line": 798,
+      "sha256": "a8d781657f54619e88c05fd1ded004f3e9b72f439b1bd87b8cfa9a8f17491806",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/10-frozen-campfire-upload.cpp.inc",
+      "start_line": 814,
+      "sha256": "37c7976052813b198a055322129037cf3c538cbfb284498a2ed068bb650eb63d",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/11-dispatch-after-upload.cpp.inc",
+      "start_line": 894,
+      "sha256": "d9eb104548acc77fc41f5294a5e0c149c5736f11c8da253ccef8ac25a9255864",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/12-merge-campfire-inventory.cpp.inc",
+      "start_line": 1027,
+      "sha256": "2a204b00affff9d63640743c5c8b924cd5650a39870af0c5dbe9f98e90c0ae36",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+      "file": "integration/13-finish-campfire-receipt.cpp.inc",
+      "start_line": 1070,
+      "sha256": "fdd497a2a99c214602b39d7913c74b6feb281a9f580166efdf071537ed17dc93",
+      "host_sha256": "7d6a8d27454403743aa67ccf8adb28ca7803a786ca857769e463685efd707369"
+    },
+    {
+      "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+      "file": "integration/14-natural-calendar-progress.cpp.inc",
+      "start_line": 307,
+      "sha256": "1d197fdcaf2a05deaedabf97d5ad785b84e5fe764f0c3ffcdd884c1c59b281eb",
+      "host_sha256": "2ce10869dad8029ab72e859679f5585c34376c07ce4c51c7dc9f365a1216f209"
+    }
+  ]
+}

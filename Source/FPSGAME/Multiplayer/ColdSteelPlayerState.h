@@ -21,6 +21,16 @@ class APlayerController;
 class AFPSGAMECharacter;
 struct FColdSteelSkillShot;
 struct FHitResult;
+struct FFoodClockSample;
+
+/** One small owner-only sample; natural food time does not require a full inventory mirror. */
+USTRUCT()
+struct FColdSteelFoodClockState
+{
+    GENERATED_BODY()
+    UPROPERTY() FGuid Id;
+    UPROPERTY() double Day=0.;
+};
 
 /**
  * 命中上报（客户端→服务端）的权威化口径：
@@ -147,6 +157,10 @@ public:
     UPROPERTY(ReplicatedUsing=OnRep_PublicInfo)
     FColdSteelPublicPlayerInfo PublicInfo;
     UFUNCTION() void OnRep_PublicInfo();
+    void PublishFoodClock(const FFoodClockSample& Sample);
+    UPROPERTY(ReplicatedUsing=OnRep_FoodClock) FColdSteelFoodClockState FoodClockState;
+    UFUNCTION() void OnRep_FoodClock();
+    TArray<uint8> LastMirrorWithoutFoodTime;
     void GrantSessionDoorKey(FName Key);
     bool HasSessionDoorKey(FName Key) const {return SessionDoorKeys.Contains(Key);}
 private:
@@ -245,8 +259,9 @@ public:
     bool RequestCampfire(class AColdSteelCampfire* Fire,uint8 Action,FName Recipe=NAME_None,int64 Batch=1);
     bool CampfireRequestPending() const { return bCampfirePending; }
     const FString& CampfireMessage() const { return CampfireResultText; }
+    bool CampfireResultSucceeded() const { return bCampfireResultSucceeded; }
     UFUNCTION(Server,Reliable) void ServerCampfireRequest(AColdSteelCampfire* Fire,int32 RequestId,uint8 Action,FName Recipe,int64 Batch,int64 InventoryRevision,APawn* RequestPawn);
-    UFUNCTION(Client,Reliable) void ClientCampfireResult(int32 RequestId,int64 InventoryRevision,const FString& Reason);
+    UFUNCTION(Client,Reliable) void ClientCampfireResult(int32 RequestId,int64 InventoryRevision,bool Success,const FString& Reason);
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     bool RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item=FString(),AActor* Target=nullptr);
     bool RequestInventoryAction(FColdSteelInventoryRequest Request);
@@ -382,6 +397,7 @@ private:
     class AFPSGAMECharacter* Super90AuthorityPawn(const FString& Weapon);
     void FinishSuper90AuthorityReload();
     bool bCampfirePending=false,bCampfireWaitingUpload=false;
+    bool bCampfireResultSucceeded=false;
     int32 CampfireRequestId=0,LastCampfireRequestId=0;
     int64 CampfireResultRevision=-1;
     uint8 PendingCampfireAction=0;

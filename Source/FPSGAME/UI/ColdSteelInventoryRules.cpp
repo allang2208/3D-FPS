@@ -9,6 +9,7 @@
 #include "Serialization/JsonSerializer.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "../Items/FoodSpoilage.h"
 #include "../Items/SpoiledFoodVisuals.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 
@@ -180,6 +181,7 @@ FIntPoint CompartmentGrid(const TArray<FColdSteelItem>& Items)
 }
 bool Compatible(const FColdSteelItem& A,const FColdSteelItem& B)
 {
+    if(!ColdSteelFood::Compatible(A,B))return false;
     if(Text(A,TEXT("category"))==TEXT("gold") && Text(B,TEXT("category"))==TEXT("gold")) return true;
     if(A.bIncineratorAmmo!=B.bIncineratorAmmo||A.StackMax<=1||A.StackMax!=B.StackMax||A.Definition!=B.Definition||A.Cooldown!=B.Cooldown)return false;
     auto Left=Object(A),Right=Object(B);if(!Left||!Right)return false;
@@ -495,6 +497,8 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
     if(P.ActiveWeaponSlot!=6&&P.ActiveWeaponSlot!=9)return false;
     for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")}) {auto V=P.Attributes.Find(Key);if(!V||*V<0||*V>1000000)return false;}
     TSet<FString> Ids;TSet<int32> LegacyWarehouseCells;TArray<FColdSteelItem> Placed;
+    if(P.FoodVersion<0||P.FoodVersion>1||!FMath::IsFinite(P.FoodClockDay)||P.FoodClockDay<0.)
+    {Reason=TEXT("食物时钟数据无效，保留原存档");return false;}
     // 背包扩格与夹层容量都由装备的背包物品撑出；档案里装备栏条目可能排在后面，
     // 所以容量先按整表算好，再逐件校验（Fits 的动态行数会受"已放入集合"顺序影响）。
     const int32 ProfileBag=EquippedBag(P.Items);
@@ -502,6 +506,9 @@ static bool ValidateProfile(const FColdSteelProfile& P,FString& Reason,bool Allo
         (UseSavedBackpackLayout?ReadBackpackCapacity(P.Items[ProfileBag]):BackpackCapacity(P.Items[ProfileBag])):FBackpackCapacity();
     const int32 ProfileBagRows=4+Capacity.ExtraRows;const FIntPoint ProfileCompGrid=Capacity.Compartment;
     for(const auto& I:P.Items) {
+        if(I.FoodVersion<0||I.FoodVersion>1||!FMath::IsFinite(I.FoodAgeDays)||I.FoodAgeDays<0.
+            ||!FMath::IsFinite(I.FoodSampleDay)||I.FoodSampleDay<0.)
+        {Reason=TEXT("食物寿命数据无效，保留原存档");return false;}
         if(I.VirtualMagazineAmmo<0||I.VirtualMagazineAmmo>I.Magazine){Reason=TEXT("训练弹数量无效");return false;}
         // Rows are bounded per container by Fits below; a rotated instance may exceed the backpack's four.
         if(I.bIncineratorAmmo&&(I.Place!=4||!I.Container.StartsWith(TEXT("incinerator."))||I.Magazine!=0||I.Reserve!=0||I.Width!=1||I.Height!=1))

@@ -1,0 +1,82 @@
+[
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "line": 612,
+    "source": "    FName UploadedHeadId,UploadedHairId,PendingUploadHeadId,PendingUploadHairId;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "line": 613,
+    "source": "    bool bHasUploadedAppearance=false;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 433,
+    "source": "        Adopted.CampfireWorldReceipts=Prev.CampfireWorldReceipts;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 788,
+    "source": "    P.FoodClockDay = 0.0;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 857,
+    "source": "                PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 858,
+    "source": "                PendingUploadHairId=ScratchSave->Profile.PlayerHairId;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 1017,
+    "source": "    const bool bCampfireInventoryChanged=Save->Profile.CampfireInventoryRevision!=Model->Snapshot().CampfireInventoryRevision;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 1018,
+    "source": "    if (bLocalClean&&!bInventoryRequestPending&&!bCampfireInventoryChanged&&Save->Profile.SpellbookFocusManaLoss>=Model->SpellbookFocusManaLossTotal())"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.cpp",
+    "line": 649,
+    "source": "        PendingMirrorBlob.Reset();LastMirrorBlob.Reset();LastMirrorWithoutFoodTime.Reset();ShadowMirrorTimer=3.f;"
+  },
+  {
+    "path": "Source/FPSGAME/FPSWeatherManager.h",
+    "line": 82,
+    "source": "    double GetNaturalDayProgress() const { return NaturalDayProgress; }"
+  },
+  {
+    "path": "Source/FPSGAME/FPSWeatherManager.h",
+    "line": 83,
+    "source": "    double GetNaturalDayRate() const { return NaturalDayRate; }"
+  },
+  {
+    "path": "Source/FPSGAME/FPSWeatherManager.h",
+    "line": 151,
+    "source": "    double NaturalDayProgress=0.,NaturalDayRate=1./2160.;"
+  },
+  {
+    "path": "Source/FPSGAME/FPSWeatherManager.h",
+    "line": 168,
+    "source": "    void AdvanceNaturalClock(float DeltaSeconds);"
+  },
+  {
+    "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+    "line": 84,
+    "source": "        AdvanceNaturalClock(DeltaSeconds);"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "line": 101,
+    "source": "    UPROPERTY() FGuid FoodClockId;"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "line": 102,
+    "source": "    UPROPERTY() double FoodClockDay=0.;"
+  }
+]

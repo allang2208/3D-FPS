@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "../UI/ColdSteelInventoryTypes.h"
 #include "CampfireSharedTypes.generated.h"
 
 USTRUCT()
@@ -9,6 +10,9 @@ struct FCampfireOrder
     GENERATED_BODY()
     UPROPERTY() FName Recipe;
     UPROPERTY() int64 Batch=1;
+    UPROPERTY(NotReplicated) TArray<FColdSteelItem> Ingredients;
+    UPROPERTY() bool bMaterialsWaived=false;
+    UPROPERTY() double FreshDays=-1.;
 };
 USTRUCT()
 struct FCampfireProduct
@@ -16,6 +20,8 @@ struct FCampfireProduct
     GENERATED_BODY()
     UPROPERTY() FString Item;
     UPROPERTY() int64 Count=0;
+    UPROPERTY(NotReplicated) FColdSteelItem Payload;
+    UPROPERTY() double FreshDays=-1.;
 };
 /** Small public snapshot, independent of the non-replicated building world. */
 USTRUCT()
@@ -34,6 +40,15 @@ struct FCampfireSharedState
     UPROPERTY() bool bSaveBlocked=false;
     UPROPERTY() double ServerTime=0;
     UPROPERTY() int32 Revision=0;
+    UPROPERTY() bool bMaterialsWaived=false;
+    UPROPERTY() double FreshDays=-1.;
+    // The legacy recipe/count fields remain the compact presentation contract.
+    // Escrow owns the exact paid items; claiming never recreates fresh food.
+    UPROPERTY(NotReplicated) int32 FoodEscrowVersion=0;
+    UPROPERTY(NotReplicated) TArray<FColdSteelItem> Ingredients;
+    UPROPERTY(NotReplicated) FGuid FoodClockId;
+    UPROPERTY(NotReplicated) double FoodSampleDay=0.;
+    UPROPERTY(NotReplicated) int64 FoodUtcTicks=0;
 };
 /** One write-ahead record per building world. Never contains a client-supplied profile. */
 UCLASS()

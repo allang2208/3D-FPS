@@ -39,6 +39,12 @@ struct FColdSteelItem
     UPROPERTY() FString LoadedAmmoType;
     // Virtual range rounds are never refunded into the owned ammunition pouch.
     UPROPERTY() int32 VirtualMagazineAmmo = 0;
+    // Version 0 is a legacy item: start its lifetime on first authority migration.
+    // These tagged fields travel intact through split, transfer and SaveGame replication.
+    UPROPERTY() int32 FoodVersion=0;
+    UPROPERTY() double FoodAgeDays=0.;
+    UPROPERTY() double FoodSampleDay=0.;
+    UPROPERTY() FGuid FoodClockId;
 };
 
 /** Catalog row for the F6 development panel: definition id, display name and grouped class. */
@@ -268,6 +274,9 @@ struct FColdSteelProfile
     UPROPERTY() TMap<FString,float> RockHealth;
     UPROPERTY() int32 TreeGrowthVersion = 0;
     UPROPERTY() double TreeGrowthDay = 0; // online gameplay time; pause/offline do not advance
+    UPROPERTY() int32 FoodVersion=0;
+    UPROPERTY() FGuid FoodClockId;
+    UPROPERTY() double FoodClockDay=0.;
     UPROPERTY() TMap<FString,FColdSteelTreeGrowth> TreeGrowth;
     // Skill schema v16: persistent cooldowns, transient fields/buffs are not restored.
     UPROPERTY() float MeteorCooldown = 0;
@@ -282,6 +291,9 @@ struct FColdSteelProfile
     UPROPERTY() FDungeonRunState DungeonRun;
     UPROPERTY() FInfectionState Infection;
     UPROPERTY() TArray<FColdSteelSmeltIntent> SmeltIntents;
+    // A receipt barrier: old periodic uploads cannot undo a server campfire debit/credit.
+    UPROPERTY() int64 CampfireInventoryRevision=0;
+    UPROPERTY() TMap<FString,int64> CampfireWorldReceipts;
     UPROPERTY() FColdSteelForgeJob ForgeJob;
     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
     UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;

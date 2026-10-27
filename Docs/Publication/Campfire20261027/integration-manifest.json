@@ -1,0 +1,20 @@
+{
+  "baseline_commit": "d6d11dbc243882e20bd0a4560962f0b84b0dd996",
+  "normalization": "UTF-8 without BOM; CRLF to LF",
+  "patches": [
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "patch": "patches/01-ColdSteelPickupConsumable.cpp.patch",
+      "kind": "local applied integration; public host prerequisites differ",
+      "baseline_sha256": "281df9b98c29ad8261f4b3b2acda8fd9ecc62a239e7528501dcf6f93880ab54b",
+      "result_sha256": "e7cf704a0ab84986eba67ad4c6e489db9187fe9ec65799811eb1c73c2b1d80fb"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "patch": "patches/02-FPSPlayerBodyAnimInstance.cpp.patch",
+      "kind": "local applied integration; public host prerequisites differ",
+      "baseline_sha256": "e4424b030815d9d3949134f8a1abb8404331a46b2a7ab4735fcb50733de50d36",
+      "result_sha256": "fd890e7566c028ea0b77ace883ea242d30a650164c61a3438e0b413b910a9f9f"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
++++ b/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp
+@@ -1,5 +1,6 @@
+ #include "ColdSteelPickup.h"
+ #include "../Items/PotionVisuals.h"
++#include "../Items/CampfireFoodCatalog.h"
+ #include "../Items/SpoiledFoodVisuals.h"
+ #include "../Weapons/MeleeRuneVisual.h"
+ #include "../Weapons/MeleeGuardAssets.h"
+@@ -92,7 +93,7 @@
+     const bool bLivingCollectible=Id==TEXT("search_private_perfume")||Id==TEXT("search_business_laptop")||
+         Id==TEXT("search_portable_music_player")||Id==TEXT("search_compact_camera");
+     const bool bWoodCore=Id.StartsWith(TEXT("wood_core_"));
+-    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||Id==TEXT("raw_chicken_leg")||Id==TEXT("roasted_chicken_leg")||Id==TEXT("raw_lamb_ribs")||Id==TEXT("roasted_lamb_ribs")||Id==TEXT("raw_large_lamb")||Id==TEXT("roasted_large_lamb")||Id==TEXT("raw_sausage")||Id==TEXT("roasted_sausage")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible||bLivingCollectible||bWoodCore)
++    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||CampfireFood::Contains(Id)||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible||bLivingCollectible||bWoodCore)
+     {
+         auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
+         if(!Asset)return false;

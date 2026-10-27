@@ -1,0 +1,157 @@
+{
+  "version": 2,
+  "fuelSource": "smelting-recipes.json/fuel",
+  "recipes": [
+    {
+      "id": "roast_chicken_leg",
+      "enabled": true,
+      "input": {
+        "item": "raw_chicken_leg",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_chicken_leg",
+        "count": 1
+      },
+      "seconds": 30,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/ChickenLeg20261014/Raw/SM_RawChickenLeg.SM_RawChickenLeg",
+        "cookedMesh": "/Game/Items/Consumables/ChickenLeg20261014/Roasted/SM_RoastedChickenLeg.SM_RoastedChickenLeg",
+        "motionProfile": "roasted_chicken_leg"
+      }
+    },
+    {
+      "id": "roast_lamb_ribs",
+      "enabled": true,
+      "input": {
+        "item": "raw_lamb_ribs",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_lamb_ribs",
+        "count": 1
+      },
+      "seconds": 30,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/LambRibs20261014/Raw/SM_RawLambRibs.SM_RawLambRibs",
+        "cookedMesh": "/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs.SM_RoastedLambRibs",
+        "motionProfile": "roasted_lamb_ribs",
+        "spitAnchor": [
+          0,
+          -0.6,
+          2.3
+        ]
+      }
+    },
+    {
+      "id": "roast_sausage",
+      "enabled": true,
+      "input": {
+        "item": "raw_sausage",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_sausage",
+        "count": 1
+      },
+      "seconds": 20,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/Sausage20261014/Raw/SM_RawSausage.SM_RawSausage",
+        "cookedMesh": "/Game/Items/Consumables/Sausage20261014/Roasted/SM_RoastedSausage.SM_RoastedSausage",
+        "motionProfile": "roasted_sausage"
+      }
+    },
+    {
+      "id": "roast_large_lamb",
+      "enabled": true,
+      "input": {
+        "item": "raw_large_lamb",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_large_lamb",
+        "count": 1
+      },
+      "seconds": 60,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/LargeLamb20261014/Raw/SM_RawLargeLamb.SM_RawLargeLamb",
+        "cookedMesh": "/Game/Items/Consumables/LargeLamb20261014/Roasted/SM_RoastedLargeLamb.SM_RoastedLargeLamb",
+        "motionProfile": "roasted_large_lamb",
+        "spitAnchor": [
+          0,
+          -4,
+          2.7
+        ]
+      }
+    },
+    {
+      "id": "roast_venison",
+      "enabled": true,
+      "input": {
+        "item": "raw_venison",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_venison",
+        "count": 1
+      },
+      "seconds": 30,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
+        "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
+        "motionProfile": "roasted_sausage",
+        "spitAnchor": [
+          0,
+          -0.16,
+          0.12
+        ]
+      }
+    },
+    {
+      "id": "roast_boar_meat",
+      "enabled": true,
+      "input": {
+        "item": "raw_boar_meat",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_boar_meat",
+        "count": 1
+      },
+      "seconds": 40,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawBoarMeat.SM_RawBoarMeat",
+        "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedBoarMeat.SM_RoastedBoarMeat",
+        "motionProfile": "roasted_sausage",
+        "spitAnchor": [
+          0,
+          -0.16,
+          0.12
+        ]
+      }
+    },
+    {
+      "id": "roast_fox_meat",
+      "enabled": true,
+      "input": {
+        "item": "raw_fox_meat",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_fox_meat",
+        "count": 1
+      },
+      "seconds": 25,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawFoxMeat.SM_RawFoxMeat",
+        "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedFoxMeat.SM_RoastedFoxMeat",
+        "motionProfile": "roasted_sausage",
+        "spitAnchor": [
+          0,
+          -0.16,
+          0.12
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+    FinishCampfireReceipt();
+    MirrorBlob.Reset();
+}

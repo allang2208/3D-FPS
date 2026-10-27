@@ -2,6 +2,7 @@
 #include "FPSPlayerBodyAnimInstance.h"
 #include "../FPSGAMECharacter.h"
 #include "../Items/FPSPotionUseComponent.h"
+#include "../Items/CampfireFoodCatalog.h"
 #include "../Items/PotionVisuals.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -42,10 +43,7 @@ void UFPSPlayerBodyComponent::CreateConsumable(FName Definition)
         Paths={FSoftObjectPath(Name==TEXT("bread")?TEXT("/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread")
             :TEXT("/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette"))};
     else if(Name==TEXT("soda_can"))Paths={FSoftObjectPath(TEXT("/Game/Items/Consumables/SodaCan20261003/SM_SodaCan.SM_SodaCan"))};
-    else if(Name==TEXT("roasted_chicken_leg"))Paths={FSoftObjectPath(TEXT("/Game/Items/Consumables/ChickenLeg20261014/Roasted/SM_RoastedChickenLeg.SM_RoastedChickenLeg"))};
-    else if(Name==TEXT("roasted_lamb_ribs"))Paths={FSoftObjectPath(TEXT("/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs.SM_RoastedLambRibs"))};
-    else if(Name==TEXT("roasted_sausage"))Paths={FSoftObjectPath(TEXT("/Game/Items/Consumables/Sausage20261014/Roasted/SM_RoastedSausage.SM_RoastedSausage"))};
-    else if(Name==TEXT("roasted_large_lamb"))Paths={FSoftObjectPath(TEXT("/Game/Items/Consumables/LargeLamb20261014/Roasted/SM_RoastedLargeLamb.SM_RoastedLargeLamb"))};
+    else if(const auto* Food=CampfireFood::Cooked(Name))Paths={FSoftObjectPath(Food->CookedMesh)};
     else return;
     const uint32 Request=ConsumableRequest;
     TArray<FSoftObjectPath> Wanted;for(const auto& P:Paths)if(!P.IsNull())Wanted.AddUnique(P);
@@ -63,10 +61,10 @@ void UFPSPlayerBodyComponent::CreateConsumable(FName Definition)
             {
                 const auto Bounds=Asset->GetBounds();
                 BodyAnimation->ConsumePropContact=Bounds.Origin+FVector(0,0,Bounds.BoxExtent.Z);
-                if(WorldConsumable==TEXT("roasted_chicken_leg")||WorldConsumable==TEXT("roasted_lamb_ribs")||WorldConsumable==TEXT("roasted_sausage")||WorldConsumable==TEXT("roasted_large_lamb"))
+                if(const auto* Food=CampfireFood::Cooked(WorldConsumable.ToString()))
                 {
                     // Each authored food carries its actual bite contact in the original mesh frame.
-                    FPotionUseMotion FoodMotion;FoodMotion.Load(false,*WorldConsumable.ToString());
+                    FPotionUseMotion FoodMotion;FoodMotion.Load(false,*Food->MotionProfile);
                     BodyAnimation->ConsumePropContact=FoodMotion.BiteInObject;
                 }
                 BodyAnimation->bHasConsumeProp=true;

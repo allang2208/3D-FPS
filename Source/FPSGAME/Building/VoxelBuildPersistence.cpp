@@ -48,7 +48,31 @@ static void ReadListV6(FArchive& Ar,TArray<T>& List,void(*ReadOne)(FArchive&,T&)
 
 namespace
 {
-    constexpr uint32 Magic=0x33584256; // VBX3, independent of USaveGame/UObject serialization.
+    void CampfireItemList(FArchive& Ar,TArray<FColdSteelItem>& Items)
+    {
+        int32 Count=Items.Num();Ar<<Count;
+        if(Count<0||Count>200000){Ar.SetError();return;}
+        if(Ar.IsLoading())Items.SetNum(Count);
+        for(auto& Item:Items)FColdSteelItem::StaticStruct()->SerializeItem(Ar,&Item,nullptr);
+    }
+    void CampfireEscrowExtension(FArchive& Ar,TArray<FVoxelSmeltingJob>& Jobs)
+    {
+        int32 Count=Jobs.Num();Ar<<Count;
+        if(Count!=Jobs.Num()){Ar.SetError();return;}
+        for(auto& Job:Jobs)
+        {
+            Ar<<Job.FoodEscrowVersion<<Job.FoodClockId<<Job.FoodSampleDay<<Job.FoodUtcTicks;
+            CampfireItemList(Ar,Job.Ingredients);
+            int32 Orders=Job.Queue.Num();Ar<<Orders;
+            if(Orders!=Job.Queue.Num()){Ar.SetError();return;}
+            for(auto& Order:Job.Queue)CampfireItemList(Ar,Order.Ingredients);
+            int32 Products=Job.Products.Num();Ar<<Products;
+            if(Products!=Job.Products.Num()){Ar.SetError();return;}
+            for(auto& Product:Job.Products)
+                FColdSteelItem::StaticStruct()->SerializeItem(Ar,&Product.Payload,nullptr);
+        }
+    }
+    constexpr uint32 VoxelCacheMagic=0x33584256; // VBX3, independent of USaveGame/UObject serialization.
     // Version 4 appends placed prefab pieces; version 5 appended wall-clock smelting jobs;
     // version 6 replaces that chunk with the fuel model (jobs + per-furnace fuel); version 7
     // adds batch count to jobs and upgrade level to fuel records; version 8 adds the idle-fire
@@ -78,6 +102,23 @@ namespace
             {
                 if(!Identities[N].IsValid()||Seen.Contains(Identities[N])){Ar.SetError();return;}
                 Seen.Add(Identities[N]);S.Prefabs[N].InstanceId=Identities[N];
+            }
+        }
+        // Version 12 appends wedge-cell cut shapes (VoxelCut encoding; world lattice only).
+        if(S.Version>=12)Ar<<S.CellShapes;
+        // Keep the old job/order/product byte layout readable. Only v13 owns this suffix.
+        if(S.Version>=13)CampfireEscrowExtension(Ar,S.Smelting);
+        // Append provenance separately; v13 escrow and earlier job layouts stay readable.
+        if(S.Version>=14)
+        {
+            int32 Count=S.Smelting.Num();Ar<<Count;
+            if(Count!=S.Smelting.Num()){Ar.SetError();return;}
+            for(auto& Job:S.Smelting)
+            {
+                Ar<<Job.bMaterialsWaived;
+                int32 Orders=Job.Queue.Num();Ar<<Orders;
+                if(Orders!=Job.Queue.Num()){Ar.SetError();return;}
+                for(auto& Order:Job.Queue)Ar<<Order.bMaterialsWaived;
             }
         }
     }
@@ -113,7 +154,7 @@ namespace
         OutResult=VoxelPersistence::ELoadResult::Missing;
         if(Bytes.IsEmpty())return nullptr;
         uint32 Tag=0;if(Bytes.Num()>=4)FMemory::Memcpy(&Tag,Bytes.GetData(),4);
-        if(Tag!=Magic)
+        if(Tag!=VoxelCacheMagic)
         {
             // 旧版 USaveGame 反射格式。不支持的格式单独报告，不混进"解析失败"。
             if(!bAllowLegacy){OutResult=VoxelPersistence::ELoadResult::LegacyFormat;return nullptr;}
@@ -132,6 +173,7 @@ namespace
         if(Ar.IsError()||Reader.Tell()!=Bytes.Num()){OutResult=VoxelPersistence::ELoadResult::ParseFailed;return nullptr;}
         auto* S=NewObject<UVoxelBuildSave>();S->Version=Payload.Version;S->CellSizeCm=Payload.CellSizeCm;S->WorldKey=MoveTemp(Payload.WorldKey);
         S->Cells=MoveTemp(Payload.Cells);S->FreeVolumes=MoveTemp(Payload.FreeVolumes);S->Damage=MoveTemp(Payload.Damage);
+        S->CellShapes=MoveTemp(Payload.CellShapes);
         S->BrokenBonds=MoveTemp(Payload.BrokenBonds);S->Fragments=MoveTemp(Payload.Fragments);S->LegacyProtected=MoveTemp(Payload.LegacyProtected);
         S->Prefabs=MoveTemp(Payload.Prefabs);S->Smelting=MoveTemp(Payload.Smelting);S->Fuel=MoveTemp(Payload.Fuel);
         S->LegacySmelting=MoveTemp(Payload.LegacySmelting);   // v5 读入，世界加载时迁移；v6 写侧恒空
@@ -148,6 +190,7 @@ FVoxelDiskSnapshot VoxelPersistence::Take(UVoxelBuildSave* S)
     if(!S)return D;
     D.Version=S->Version;D.CellSizeCm=S->CellSizeCm;D.WorldKey=MoveTemp(S->WorldKey);
     D.Cells=MoveTemp(S->Cells);D.FreeVolumes=MoveTemp(S->FreeVolumes);D.Damage=MoveTemp(S->Damage);
+    D.CellShapes=MoveTemp(S->CellShapes);
     D.BrokenBonds=MoveTemp(S->BrokenBonds);D.Fragments=MoveTemp(S->Fragments);D.LegacyProtected=MoveTemp(S->LegacyProtected);
     D.Prefabs=MoveTemp(S->Prefabs);D.Smelting=MoveTemp(S->Smelting);D.Fuel=MoveTemp(S->Fuel);return D;
 }
@@ -183,7 +226,7 @@ UVoxelBuildSave* VoxelPersistence::Decode(TArray<uint8> Bytes)
 {ELoadResult Result;return LoadBytes(Bytes,Result,false);}
 bool VoxelPersistence::Encode(FVoxelDiskSnapshot Snapshot,TArray<uint8>& Bytes)
 {
-    Bytes.Reset();FMemoryWriter Writer(Bytes,true);uint32 Tag=Magic,Size=0,Crc=0;
+    Bytes.Reset();FMemoryWriter Writer(Bytes,true);uint32 Tag=VoxelCacheMagic,Size=0,Crc=0;
     Writer<<Tag<<Size<<Crc;
     FNameAsStringProxyArchive Ar(Writer);Serialize(Ar,Snapshot);if(Ar.IsError())return false;
     Size=Bytes.Num()-12;Crc=FCrc::MemCrc32(Bytes.GetData()+12,Size);Writer.Seek(0);Writer<<Tag<<Size<<Crc;
@@ -211,7 +254,7 @@ bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
         if(Old&&Old->TotalSize()>=4)
         {
             *Old<<OldTag;Old.Reset();
-            if(OldTag!=Magic&&Files.Copy(*Original,*Target,false,false)!=COPY_OK){Files.Delete(*Temporary,false);return false;}
+            if(OldTag!=VoxelCacheMagic&&Files.Copy(*Original,*Target,false,false)!=COPY_OK){Files.Delete(*Temporary,false);return false;}
         }
     }
     // Preserve the immediately preceding pre-v11 building file once before its normal save upgrade.
@@ -222,7 +265,7 @@ bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)
         TUniquePtr<FArchive> Old(Files.CreateFileReader(*Target));uint32 OldTag=0;int32 OldVersion=0;
         if(!Old||Old->TotalSize()<16){Files.Delete(*Temporary,false);return false;}
         *Old<<OldTag;Old->Seek(12);*Old<<OldVersion;Old.Reset();
-        if(OldTag==Magic&&OldVersion<11&&Files.Copy(*BeforeIdentity,*Target,false,false)!=COPY_OK)
+        if(OldTag==VoxelCacheMagic&&OldVersion<11&&Files.Copy(*BeforeIdentity,*Target,false,false)!=COPY_OK)
         {Files.Delete(*Temporary,false);return false;}
     }
     // FFileManagerGeneric::Move deletes the destination before renaming

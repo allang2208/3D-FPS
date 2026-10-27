@@ -101,6 +101,7 @@ private:
     UFUNCTION() void InfiniteManaClicked();
     UFUNCTION() void NoCooldownClicked();
     UFUNCTION() void FreeBuildingClicked();
+    UFUNCTION() void FreeCraftingClicked();
     UFUNCTION() void ThirdPersonViewClicked();
     UFUNCTION() void FixedThirdPersonViewClicked();
     UFUNCTION() void BodyTypeClicked();

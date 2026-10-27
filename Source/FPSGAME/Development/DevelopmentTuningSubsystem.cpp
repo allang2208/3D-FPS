@@ -28,6 +28,14 @@ bool UDevelopmentTuningSubsystem::CanEdit(const APlayerController* Player) const
         Cast<AFPSGAMECharacter>(Player->GetPawn()) != nullptr;
 }
 
+bool UDevelopmentTuningSubsystem::IsFreeCrafting(const UColdSteelStatusModel* Model)
+{
+    const auto* Tuning=Find(Model);
+    // F6 controls the local authoritative player's session, not remote profiles.
+    return Tuning&&Tuning->IsEnabled(EDevelopmentTuningOption::FreeCrafting)&&
+        Model==Tuning->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+}
+
 bool UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(const APawn* Pawn, EDevelopmentTuningOption Option)
 {
     if (!Pawn || !Pawn->HasAuthority() || !Pawn->IsPlayerControlled()) return false;
@@ -52,7 +60,7 @@ bool UDevelopmentTuningSubsystem::ShouldOneHitKill(const AActor* Victim, AContro
 
 bool UDevelopmentTuningSubsystem::SetEnabled(EDevelopmentTuningOption Option, bool bEnabled, APlayerController* Player)
 {
-    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::FixedThirdPersonView)) return false;
+    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::FreeCrafting)) return false;
     if (Option == EDevelopmentTuningOption::InfiniteReserveAmmo) bReserveAmmoOverride = true;
     if (bEnabled) EnabledOptions.Add(Option);
     else EnabledOptions.Remove(Option);

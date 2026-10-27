@@ -1,0 +1,334 @@
+{
+  "files": [
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Config/DefaultGame.ini",
+      "destination": "trash/campfire-retired-20261027/Before/Config/DefaultGame.ini",
+      "size": 36569,
+      "sha256": "a01de2f82df297f8175ebf6bce1498565fd62f04c1eb25092b54e7dfa07d8a44",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Content/ColdSteelData/campfire-recipes.json",
+      "destination": "trash/campfire-retired-20261027/Before/Content/ColdSteelData/campfire-recipes.json",
+      "size": 1137,
+      "sha256": "b29e18401bfd7245c972d3169e919b21f2b506d52723ab73b31fab376a68826e",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Content/ColdSteelData/items.json",
+      "destination": "trash/campfire-retired-20261027/Before/Content/ColdSteelData/items.json",
+      "size": 400824,
+      "sha256": "b2f800c1a136ce5cf11c747419d9f1b4a77377814fa8e4299f16dc4708d053b3",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Content/ColdSteelData/potion_use_motion.json",
+      "destination": "trash/campfire-retired-20261027/Before/Content/ColdSteelData/potion_use_motion.json",
+      "size": 42478,
+      "sha256": "0f4ee2af65123c2525bb9b593712879f47cdecd278375b58bd9c2ccfa1f254b5",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/CampfireCooking.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/CampfireCooking.cpp",
+      "size": 16173,
+      "sha256": "cb75657397933cb7c9e092e00ab7975d4ce9c6e705fa0efd4ee8190fe3950597",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/CampfireCookingPresentation.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/CampfireCookingPresentation.cpp",
+      "size": 7207,
+      "sha256": "71f2736a7741024f000bd45fd33dc0c05a1242e685ceb515972e0f38c9d41a8f",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/CampfireCookingPresentation.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/CampfireCookingPresentation.h",
+      "size": 1134,
+      "sha256": "464c4d2d88537c323aa76e26b7d2c1a91ab5d4c529cf792a9348aa65cd4121d6",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/CampfireSharedTransactions.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/CampfireSharedTransactions.cpp",
+      "size": 13493,
+      "sha256": "427a9f1a329f56eb33b5f75f43648035b5fdac02a1b5c766ab22e7678bbaca25",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/CampfireSharedTypes.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/CampfireSharedTypes.h",
+      "size": 2002,
+      "sha256": "615b2e4e3b4f87c22a8cfe02e85d286ce64b5af8a353d0006f675642499838ab",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/SmeltingSystem.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/SmeltingSystem.h",
+      "size": 7814,
+      "sha256": "7846424f3e843eab7b45086597e7a7392336fbdf36112e58acdeb77f40e2464a",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+      "size": 18292,
+      "sha256": "0a43f4a202645e102e9d46c1b7c7f06147c140d3768ed334887e60f80936e6e6",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/VoxelBuildPersistence.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildPersistence.h",
+      "size": 3621,
+      "sha256": "d46dbcc13ed54ae20a2771831656897e430fef4616ba6b2052f59a8ede641af7",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/VoxelBuildTypes.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildTypes.h",
+      "size": 11636,
+      "sha256": "c957e3463b9449bd0d1703fb6196d9c311fc78c54809826c65373a747f07a36c",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "size": 52686,
+      "sha256": "018b6e2f67c7862eb7342c5f4b8d0b3730ccc654072a07bde33edf2371165a45",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "size": 22460,
+      "sha256": "e000f51e0d85108fae9b33ca54e74fe0c85ab40182269db1dc4cba631fd1e167",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "size": 174682,
+      "sha256": "5795b304a2955f524257633fd9c689ddbe86a03d74e7e8143a7ec68deaf7a1a4",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "size": 10407,
+      "sha256": "018f5ee51c74ffad5c144d4406bcf474132f8a5d90de05139edc65663823f85d",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+      "size": 29795,
+      "sha256": "276c7f7a22731691bd44c10f6703485a2d7a832a69f523c8ac3d49162df1dc63",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Items/FPSPotionUseComponent.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Items/FPSPotionUseComponent.h",
+      "size": 5536,
+      "sha256": "81501d84b2d284b9f82d69c35eb1ba38e4851a5d1a6cc33b99a0c133fcec61fc",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelCampfireRequests.cpp",
+      "size": 10039,
+      "sha256": "c9ab859a763aa2833fc1e24c5f6550c516c0e8d9b217199fed07afc460ae73bc",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "size": 37495,
+      "sha256": "6d44c84a7e347a98e91b6680e92c7f5217cc65854ed546b848cd6e59570b5974",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelCampfireWidget.cpp",
+      "size": 6861,
+      "sha256": "c7701dcdd6d01ffd8afacc310aef65f8a3f5c10ab8e3d3228c01dc67851147e6",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "size": 9125,
+      "sha256": "281df9b98c29ad8261f4b3b2acda8fd9ecc62a239e7528501dcf6f93880ab54b",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "size": 109024,
+      "sha256": "13636527f20a6bcf01fd42a40c9b584e4754dd7dc6cc074a48587eb3883d9e8b",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.cpp",
+      "size": 87011,
+      "sha256": "eb56fa8e1c92d5cecee943ff5a5111265923e894217b52a7afeabd5f0503b725",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.h",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/UI/ColdSteelSmeltingWidget.h",
+      "size": 17676,
+      "sha256": "c49b01b17eaba4c8519fc698c011a7855a582f208d9442a16c2ad8e741c024ed",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/Before/Source/FPSGAME/UI/DevelopmentTuningPanel.cpp",
+      "destination": "trash/campfire-retired-20261027/Before/Source/FPSGAME/UI/DevelopmentTuningPanel.cpp",
+      "size": 14494,
+      "sha256": "588f4637e92434de8f85a67ca64ca163a4c9b1fdb8a41e08965e6b1df6d4c9b2",
+      "reason": "Superseded pre-upgrade snapshot",
+      "replacement": "Current source, publication candidates and exact patch baselines"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/Build/XmlConfigCache.bin",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/Build/XmlConfigCache.bin",
+      "size": 309,
+      "sha256": "94e60afc8c4b59c36171cf5daf61f7da9514e9128cec02155c586d758a074289",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/PipInstall/extra_urls.txt",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/PipInstall/extra_urls.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "size": 108,
+      "sha256": "c7798ef0475e3e6ad104ae5a1865da98aed92615e5680a3a7e7d189202e67238",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/PipInstall/merged_requirements.in",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/PipInstall/merged_requirements.in",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/PipInstall/pyreqs_plugins.list",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/PipInstall/pyreqs_plugins.list",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "size": 18555,
+      "sha256": "fb2d41c40228977ba82276b097ecdd2e64019f2fac24467a8ab0ae0f68b72f53",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "size": 18654,
+      "sha256": "bb2be5496ae74e3993568da581baa92e33bd4538bde729859f99ce7966bab2c9",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/Config/CrashReportClient/UECC-Windows-C03741B14A6FA793F8DDA8B3E8DDFF07/CrashReportClient.ini",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/Config/CrashReportClient/UECC-Windows-C03741B14A6FA793F8DDA8B3E8DDFF07/CrashReportClient.ini",
+      "size": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/Config/WindowsEditor/Editor.ini",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/Config/WindowsEditor/Editor.ini",
+      "size": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "size": 70499,
+      "sha256": "fa110477627b0850a8e1fcc9fc539aa73a75b5e715b8533c986a10ada76cf8c7",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/Logs/AutoSDKInfo.json",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/Logs/AutoSDKInfo.json",
+      "size": 12551,
+      "sha256": "a30a4f45b37e2c378ec3c1f85b9e27485f83b437c88c592700af7e5608e057ce",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/Logs/AutoSDKInfo.txt",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/Logs/AutoSDKInfo.txt",
+      "size": 4134,
+      "sha256": "ac36e9494909561d8e334c3b95b883964950e52657343b01ca92a201062a854c",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/SourceControl/UncontrolledChangelists.json",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/SourceControl/UncontrolledChangelists.json",
+      "size": 8912,
+      "sha256": "e26b2dd7bd8f6ac779d8a9083d7480fdece6549679972d16c8226fcc7e7d6084",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    },
+    {
+      "original": "SourceAssets/CampfireUpgrade20261026/AssetHost/Saved/UnrealBuildTool/BuildConfiguration.xml",
+      "destination": "trash/campfire-retired-20261027/AssetHost/Saved/UnrealBuildTool/BuildConfiguration.xml",
+      "size": 132,
+      "sha256": "1e7cd8512dedf37d7b103c5592f5600433e7fe97da23434e69990f8a3370508a",
+      "reason": "Completed isolated import host cache/log",
+      "replacement": "Saved production packages plus ue-authoring.json and assets-published.json"
+    }
+  ],
+  "files_moved": 41,
+  "readback_verified": true
+}

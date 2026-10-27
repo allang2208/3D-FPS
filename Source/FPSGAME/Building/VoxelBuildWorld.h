@@ -26,10 +26,11 @@ public:
     // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
     // version 9 splits upgrades into three axes; version 10 adds casting queues and output racks.
     // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
-    UPROPERTY() int32 Version=11;
+    UPROPERTY() int32 Version=14;
     UPROPERTY() int32 CellSizeCm=20;
     UPROPERTY() FString WorldKey;
     UPROPERTY() TArray<FVoxelSavedCell> Cells;
+    UPROPERTY() TMap<FIntVector,uint8> CellShapes;
     UPROPERTY() TArray<FVoxelFreeVolume> FreeVolumes;
     UPROPERTY() TMap<FVoxelBuildKey,float> Damage;
     UPROPERTY() TSet<FVoxelBrokenBond> BrokenBonds;
@@ -218,6 +219,7 @@ private:
     UPROPERTY() TMap<FGuid,TObjectPtr<AVoxelCollapseFragment>> Fragments;
     UPROPERTY() TMap<FIntVector,TWeakObjectPtr<AActor>> PrefabActors;
     TMap<FIntVector,FName> Cells;
+    TMap<FIntVector,uint8> CellShapes;
     TMap<FGuid,FVoxelFreeVolume> FreeVolumes;
     TArray<FVoxelBuildPrefabInstance> Prefabs;
     /** 炉内冶炼任务（锚格→配方+积累进度+燃烧段），与 Prefabs 同档持久化（VBX v6）。 */

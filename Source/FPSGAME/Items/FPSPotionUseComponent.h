@@ -100,6 +100,8 @@ private:
     FPotionUseMotion SausageMotion;
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> LargeLambMesh;
     FPotionUseMotion LargeLambMotion;
+    UPROPERTY(Transient) TMap<FString,TObjectPtr<UStaticMesh>> CookedFoodMeshes;
+    TMap<FString,FPotionUseMotion> CookedFoodMotions;
     UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> WaterSwallowSounds;
     UPROPERTY(Transient) TObjectPtr<USoundBase> FoodSwallowSound;
     UPROPERTY(Transient) TObjectPtr<UAudioComponent> SwallowAudio;

@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../UI/ColdSteelInventoryTypes.h"
 #include "VoxelBuildTypes.generated.h"
 
 // An invalid Volume identifies the original world-aligned voxel lattice.
@@ -91,11 +92,14 @@ struct FVoxelCastingOrder
 {
     FName Recipe;
     int64 Batch=1;
+    TArray<FColdSteelItem> Ingredients;
+    bool bMaterialsWaived=false;
 };
 struct FVoxelCastingProduct
 {
     FString Item;
     int64 Count=0;
+    FColdSteelItem Payload;
 };
 
 /** 工作台构件的调色板稳定 ID（SourceAssets/WorkbenchBuildable20260924，面板规划
@@ -138,6 +142,14 @@ struct FVoxelSmeltingJob
     int64 CastSerial=0;
     FName LastCastRecipe;
     int64 LastCastTicks=0;
+    // v13 appended escrow extension; legacy v10-v12 binary records stay intact.
+    int32 FoodEscrowVersion=0;
+    TArray<FColdSteelItem> Ingredients;
+    FGuid FoodClockId;
+    double FoodSampleDay=0.;
+    int64 FoodUtcTicks=0;
+    // v14: retain campfire payment provenance across save/load and F6 toggles.
+    bool bMaterialsWaived=false;
 };
 
 // Per-furnace stored fuel (seconds), independent of the job: it survives collect and can be

@@ -5505,3 +5505,6 @@ __pycache__/
 
 # Incinerator build/import host, source audio, snapshots and receipts remain local.
 /SourceAssets/IncineratorUpgrade20261027/
+
+# Campfire authoring hosts, licensed source assets and publication receipts remain local.
+/SourceAssets/CampfireUpgrade20261026/

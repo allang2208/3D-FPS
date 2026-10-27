@@ -11,6 +11,7 @@ class APawn;
 struct FMeleeModifiers;
 struct FProductionToolStats;
 struct FSlateBrush;
+struct FFoodClockSample;
 class UTexture2D;
 
 DECLARE_MULTICAST_DELEGATE(FColdSteelStatusChanged);
@@ -433,6 +434,11 @@ public:
     FString AmmoDefinition() const;
     const FString& ResultMessage() const { return Message; }
     FColdSteelProfile Snapshot() const;
+    const TArray<FColdSteelCropPlant>& PlantingCrops() const {return Current.PlantingCrops;}
+    struct FFoodClockSample FoodClockSnapshot() const;
+    void ObserveFoodClock(const struct FFoodClockSample& Sample);
+    double FoodRemainingDays(const FColdSteelItem& Item) const;
+    bool SettleFoodSpoilage(bool Force=false);
     FName PlayerHeadId() const { return Current.PlayerHeadId; }
     FName PlayerHairId() const { return Current.PlayerHairId; }
     bool SetPlayerAppearance(FName HeadId,FName HairId);
@@ -453,6 +459,11 @@ public:
     // Hit feedback cannot run the synchronous checked-save transaction every click.
     void StageForgeHit(const FString& JobId,int32 Hits);
     bool CommitState(FColdSteelProfile State);
+    /** Narrow durable write used by campfire escrow; guest slots belong to PlayerState. */
+    bool CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot=FString());
+    bool IsCampfireInventoryPending() const {return bCampfireInventoryPending;}
+    bool HasUnconfirmedTransactionSave() const {return bTransactionSaveUnconfirmed;}
+    void SetCampfireInventoryPending(bool Pending) { bCampfireInventoryPending=Pending; }
     bool IsAudit() const { return bAudit; }
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
@@ -511,6 +522,11 @@ private:
     FString Message;
     bool bPersistenceBlocked=false;
     bool bNetShadowProfile=false;
+    bool bCampfireInventoryPending=false;
+    FString CampfireGuestSaveSlot;
+    bool bSavingTransaction=false;
+    bool bTransactionSaveUnconfirmed=false;
+    bool CreditCombatSouls(FColdSteelProfile& State,int64 Amount) const;
     bool bAudit=false;
     float SaveAccumulator=0;
     TWeakObjectPtr<class AFPSWeatherManager> TreeGrowthWeather;
@@ -522,6 +538,8 @@ private:
     // 带校验的 A/B 存档交给定时自动存档（fps.Save.AutosaveSeconds）统一写盘。
     bool StageTraining(FColdSteelProfile&& State);
     bool bTrainingDirty = false;
+    bool bSettlingFood=false;
+    double NextFoodSettlement=0.;
     // 2026-09-21 起写盘只由 fps.Save.AutosaveSeconds 驱动，这个累加器不再参与计时。
     // 暂时保留成员：本类的 Current 不是 UPROPERTY，热补丁一旦因类布局变化重实例化本子系统，
     // 内存档案会被清空；删掉它要随一次常规构建发布，不要单独热补丁。

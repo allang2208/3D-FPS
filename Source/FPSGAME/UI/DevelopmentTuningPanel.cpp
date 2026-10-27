@@ -63,7 +63,8 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         {EDevelopmentTuningOption::InfiniteReserveAmmo, TEXT("无限备弹"), TEXT("换弹不消耗背包弹药，弹匣打空后仍需换弹。"), TEXT("DevelopmentInfiniteAmmo")},
         {EDevelopmentTuningOption::InfiniteMana, TEXT("无限魔法值"), TEXT("魔法值保持可用上限，施法不扣蓝；关闭后恢复原有数值。"), TEXT("DevelopmentInfiniteMana")},
         {EDevelopmentTuningOption::NoAbilityCooldown, TEXT("魔法／技能无 CD"), TEXT("清除现有冷却，施放后不再等待 CD；保留施法动作与飞行过程。"), TEXT("DevelopmentNoCooldown")},
-        {EDevelopmentTuningOption::FreeBuilding, TEXT("建造不消耗资源"), TEXT("放置体素块不扣背包／仓库体块；拆除回收仍按原规则发放。"), TEXT("DevelopmentFreeBuilding")}
+        {EDevelopmentTuningOption::FreeBuilding, TEXT("建造不消耗资源"), TEXT("放置体素块不扣背包／仓库体块；拆除回收仍按原规则发放。"), TEXT("DevelopmentFreeBuilding")},
+        {EDevelopmentTuningOption::FreeCrafting, TEXT("制作不消耗材料"), TEXT("打铁、制药、木工、枪械／弹药制造免材料；篝火只免食材，木材照常消耗。小游戏与加工时间照常，免费工件和未加工食材不退料。"), TEXT("DevelopmentFreeCrafting")}
     };
     for (const auto& Option : Options)
     {
@@ -95,6 +96,7 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         case EDevelopmentTuningOption::InfiniteMana: Button->OnClicked.AddDynamic(this,&ThisClass::InfiniteManaClicked); break;
         case EDevelopmentTuningOption::NoAbilityCooldown: Button->OnClicked.AddDynamic(this,&ThisClass::NoCooldownClicked); break;
         case EDevelopmentTuningOption::FreeBuilding: Button->OnClicked.AddDynamic(this,&ThisClass::FreeBuildingClicked); break;
+        case EDevelopmentTuningOption::FreeCrafting: Button->OnClicked.AddDynamic(this,&ThisClass::FreeCraftingClicked); break;
         case EDevelopmentTuningOption::ThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::ThirdPersonViewClicked); break;
         case EDevelopmentTuningOption::FixedThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::FixedThirdPersonViewClicked); break;
         }
@@ -215,6 +217,7 @@ void UDevelopmentPanelWidget::InfiniteAmmoClicked() { ToggleTuning(EDevelopmentT
 void UDevelopmentPanelWidget::InfiniteManaClicked() { ToggleTuning(EDevelopmentTuningOption::InfiniteMana); }
 void UDevelopmentPanelWidget::NoCooldownClicked() { ToggleTuning(EDevelopmentTuningOption::NoAbilityCooldown); }
 void UDevelopmentPanelWidget::FreeBuildingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeBuilding); }
+void UDevelopmentPanelWidget::FreeCraftingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeCrafting); }
 void UDevelopmentPanelWidget::ThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::ThirdPersonView); }
 void UDevelopmentPanelWidget::FixedThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::FixedThirdPersonView); }
 void UDevelopmentPanelWidget::DisableTuningClicked()

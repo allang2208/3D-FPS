@@ -1,4 +1,5 @@
 #include "ColdSteelSmeltingWidget.h"
+#include "ColdSteelCampfirePanel.h"
 #include "ColdSteelSmeltingPresentation.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
@@ -25,6 +26,7 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Components/WidgetSwitcher.h"
 #include "Engine/Texture2D.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
@@ -115,7 +117,8 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     auto* Tint=WidgetTree->ConstructWidget<UBorder>();
     Tint->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius/Scale));
     Tint->SetPadding(FMargin(0));Blur->SetContent(Tint);
-    auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();Tint->SetContent(Stack);
+    StationPanels=WidgetTree->ConstructWidget<UWidgetSwitcher>();Tint->SetContent(StationPanels);
+    auto* Stack=WidgetTree->ConstructWidget<UVerticalBox>();StationPanels->AddChild(Stack);
 
     HeaderSurface=WidgetTree->ConstructWidget<UBorder>();
     HeaderSurface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::HeaderTint,ColdSteelUI::PanelRadius/Scale));
@@ -149,7 +152,7 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     JobTitle=Text(TEXT("炉内空闲"),16,ColdSteelUI::TextTertiary,false,true);
     auto* JobTitleSlot=JobHeader->AddChildToHorizontalBox(JobTitle);
     JobTitleSlot->SetPadding(FMargin(10/Scale,0,0,0));JobTitleSlot->SetVerticalAlignment(VAlign_Center);
-    JobDetail=Text(TEXT("从下方选择矿石投料"),12,ColdSteelUI::TextTertiary,false,false,true);
+    JobDetail=Text(TEXT("从下方选择原料投料"),12,ColdSteelUI::TextTertiary,false,false,true);
     JobStack->AddChildToVerticalBox(JobDetail)->SetPadding(FMargin(0,0,0,8/Scale));
     // —— 上段·冶炼进度条（通栏）：燃烧时脉冲提亮＋前沿亮头。5px 版用户反馈"太细不明显"，加粗到 12px。
     // 2026-09-23 拆分：燃料不再与它同排双列，移到面板底部的独立燃料卡（FuelCard）。
@@ -217,13 +220,13 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     CollectButton->OnClicked.AddDynamic(this,&ThisClass::HandleCollect);
     SmeltSection->SetVisibility(ESlateVisibility::Collapsed);   // 有高炉上下文时由 RefreshJob 打开
 
-    // —— 可冶炼矿石列表 ——
-    SectionTitle=Text(TEXT("可冶炼矿石"),16,ColdSteelUI::TextPrimary,false,true);
+    // —— 可冶炼原料列表 ——
+    SectionTitle=Text(TEXT("可冶炼原料"),16,ColdSteelUI::TextPrimary,false,true);
     Body->AddChildToVerticalBox(SectionTitle)->SetPadding(FMargin(0,0,0,8/Scale));
     RowsScroll=WidgetTree->ConstructWidget<UScrollBox>();RowsScroll->SetAllowOverscroll(false);
     Body->AddChildToVerticalBox(RowsScroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     RowsBox=WidgetTree->ConstructWidget<UVerticalBox>();RowsScroll->AddChild(RowsBox);
-    RowsEmpty=Text(TEXT("背包与仓库中没有可冶炼的矿石"),12,ColdSteelUI::TextTertiary,false,false,true);
+    RowsEmpty=Text(TEXT("背包与仓库中没有可冶炼的原料"),12,ColdSteelUI::TextTertiary,false,false,true);
     RowsBox->AddChildToVerticalBox(RowsEmpty);
     RowsScroll->SetVisibility(ESlateVisibility::Collapsed);   // 有炉子上下文且空闲时由 RefreshJob 打开
 
@@ -551,15 +554,20 @@ void UColdSteelSmeltingWidget::Configure(UColdSteelHUDWidget* Owner){HUD=Owner;}
 void UColdSteelSmeltingWidget::SetFurnace(AVoxelBuildWorld* InWorld,FIntVector InCell)
 {
     Campfire.Reset();
+    if(StationPanels)StationPanels->SetActiveWidgetIndex(0);
+    if(CampfirePanel)CampfirePanel->Configure(HUD,nullptr);
+    // The shared campfire panel disables collection when empty or awaiting a receipt.
+    // A different station must not inherit that button state.
+    CollectButton->SetIsEnabled(true);
     World=InWorld;Cell=InCell;SelectedRecipe=NAME_None;
     bCampfire=InWorld&&InWorld->IsCampfireAt(Cell);
     RowsSignature.Reset();
     StationTitle->SetText(FText::FromString(bCampfire?TEXT("篝火 · 烧烤"):TEXT("冶炼")));
     ProgressTitle->SetText(FText::FromString(bCampfire?TEXT("烧烤进度"):TEXT("冶炼进度")));
-    SectionTitle->SetText(FText::FromString(bCampfire?TEXT("可烧烤食材"):TEXT("可冶炼矿石")));
+    SectionTitle->SetText(FText::FromString(bCampfire?TEXT("可烧烤食材"):TEXT("可冶炼原料")));
     const bool bHasRecipes=System&&System->Catalog().ContainsByPredicate([](const auto& R){return R.bCampfire;});
     RowsEmpty->SetText(FText::FromString(bCampfire?(bHasRecipes?TEXT("背包与仓库中没有可烧烤的食材")
-        :TEXT("暂无已接入的烧烤菜谱；仍可在下方添加木材取暖。")):TEXT("背包与仓库中没有可冶炼的矿石")));
+        :TEXT("暂无已接入的烧烤菜谱；仍可在下方添加木材取暖。")):TEXT("背包与仓库中没有可冶炼的原料")));
     StationFooter->SetText(FText::FromString(bCampfire
         ?TEXT("Esc / × 关闭 · 木材持续燃烧，离线也计时 · 燃烧时 5 米内饥饿与缺水自然消耗各减缓 50%，不叠加")
         :TEXT("Esc 或 × 关闭 · 存料持续燃烧（没矿也烧）· 有燃料才推进冶炼（关闭游戏也计入）")));
@@ -658,6 +666,7 @@ void UColdSteelSmeltingWidget::NativeTick(const FGeometry& MyGeometry,float InDe
     Super::NativeTick(MyGeometry,InDeltaTime);
     if(!FMath::IsNearlyEqual(Scale,ColdSteelUI::PixelScale(this),.001f)){UpdateScale();return;}
     if(GetVisibility()==ESlateVisibility::Collapsed)return;
+    if(bCampfire&&Campfire.IsValid())return; // Dedicated child owns the campfire clock and scrolling content.
     AnimateBars(InDeltaTime);   // 每帧：脉冲与火星读缓存值，不触发数据刷新
     PaintFuelLine();            // 每帧：燃料行挂钟外推；整数秒没变即返回（零分配零写入）
     // 升级弹层动画（2026-09-24 用户"作为一个独立的页面，以冶炼栏左边线条边界为基准，弹出和收回"）：
@@ -886,7 +895,7 @@ void UColdSteelSmeltingWidget::RefreshJob()
                 R->Seconds*Batch/Mul)));
         }
         else JobDetail->SetText(FText::FromString(bCampfire?TEXT("添加木材取暖；有燃料才推进烧烤，无燃料时保留进度。")
-            :TEXT("从下方选择矿石投料")));
+            :TEXT("从下方选择原料投料")));
         JobDetail->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         AnimSmeltT=0;bBurning=false;
         JobTime->SetText(FText::FromString(bCampfire?(Fuel>0?TEXT("5 米内减耗生效"):TEXT("添柴后点燃"))
@@ -926,7 +935,7 @@ void UColdSteelSmeltingWidget::RefreshJob()
         CollectButton->SetVisibility(bDone?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
         CollectGlow->SetVisibility(bDone?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
         StartButton->SetVisibility(ESlateVisibility::Collapsed);
-        // 炉况卡图标＝在炼的矿石（C 锚点）。
+        // 炉况卡图标＝在炼的原料（C 锚点）。
         if(Recipe&&IconFor(Recipe->Input)){JobIcon->SetBrush(*IconFor(Recipe->Input));JobIcon->SetVisibility(ESlateVisibility::Visible);}
         else JobIcon->SetVisibility(ESlateVisibility::Collapsed);
         // A 视觉区：投料图标→产物图标＋状态光环＋小字（缺图只隐不塌，布局稳定）。

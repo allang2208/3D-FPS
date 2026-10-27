@@ -27,7 +27,9 @@ void UFluidPresentationSubsystem::UpdateCampfires()
     for(const auto& Entry:Campfires)
     {
         AColdSteelCampfire* Fire=Entry.Get();
-        if(!Fire||!Fire->IsProvidingWarmth())continue;
+        if(!Fire||!Fire->IsAvailable()||Fire->ActorHasTag(TEXT("VoxelDetached")))continue;
+        // Finished meals stay visible after the fuel ends, until collected.
+        if(!Fire->IsProvidingWarmth()&&Fire->SharedState().Recipe.IsNone()&&Fire->SharedState().Products.IsEmpty())continue;
         double Distance=TNumericLimits<double>::Max();
         for(const FVector& View:Views)Distance=FMath::Min(Distance,FVector::DistSquared(View,Fire->GetActorLocation()));
         // 30 m admission, 35 m retention and a small preference for active fires avoid churn.

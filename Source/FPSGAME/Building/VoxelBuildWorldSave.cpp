@@ -66,6 +66,7 @@ UVoxelBuildSave* AVoxelBuildWorld::MakeSnapshot() const
     auto* Data=NewObject<UVoxelBuildSave>();Data->WorldKey=WorldKey;Data->Cells.Reserve(Cells.Num());
     for(const auto& E:Cells){auto& C=Data->Cells.AddDefaulted_GetRef();C.Position=E.Key;C.Material=E.Value;}
     for(const auto& E:FreeVolumes)if(!E.Value.Cells.IsEmpty())Data->FreeVolumes.Add(E.Value);
+    Data->CellShapes=CellShapes;
     Data->Prefabs=Prefabs;
     Data->Smelting=SmeltingJobs;
     Data->Fuel=Fuels;

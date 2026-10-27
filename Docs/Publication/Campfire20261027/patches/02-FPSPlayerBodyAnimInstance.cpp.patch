@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSPlayerBodyAnimInstance.h"
+ #include "FPSPlayerDeathMotion.h"
++#include "../Items/CampfireFoodCatalog.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
+ #include "FPSPlayerReactionCamera.h"
+ #include "FPSPlayerBodyPoses.h"
+@@ -2374,7 +2375,7 @@
+         if(Use.Action==EFPSBodyAction::Consume&&!FPSBodyPoses::Traversing(Use.Motion))
+             ConsumeKey=Use.Contacts.Consumable==TEXT("roasted_large_lamb")?TEXT("Consume.EatLargeLamb"):
+                 Use.Contacts.Consumable==TEXT("baguette_bread")?TEXT("Consume.EatBaguette"):
+-                (Use.Contacts.Consumable==TEXT("bread")||Use.Contacts.Consumable==TEXT("roasted_chicken_leg")||Use.Contacts.Consumable==TEXT("roasted_lamb_ribs")||Use.Contacts.Consumable==TEXT("roasted_sausage")||Use.Contacts.Consumable==TEXT("roasted_large_lamb"))?TEXT("Consume.EatBread"):TEXT("Consume.Drink");
++                (Use.Contacts.Consumable==TEXT("bread")||CampfireFood::Cooked(Use.Contacts.Consumable.ToString()))?TEXT("Consume.EatBread"):TEXT("Consume.Drink");
+         auto* NextConsume=D->Clips.FindRef(ConsumeKey).Get();
+         const bool HasConsume=NextConsume&&IdleClip&&NextConsume->GetSkeleton()==IdleClip->GetSkeleton();
+         Controls.ConsumeContactWeight=0.f;
